@@ -55,7 +55,7 @@ def plan_aware_teacher(config_tmp: Path, fail_every: int = 0) -> ScriptedClient:
 
 
 def test_generate_is_resumable_and_records_failures(tmp_path: Path) -> None:
-    config = make_config(tmp_path)
+    config = make_config(tmp_path, repairAttempts=0)
     scenarios = select_scenarios(config, load_library())
     teacher = plan_aware_teacher(tmp_path, fail_every=4)
     ok, failed = run_generate(config, scenarios, teacher)

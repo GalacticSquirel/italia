@@ -7,6 +7,10 @@
 
 Every stage skips ids already present in its output, so an interrupted run picks up where it
 stopped. Jobs that failed `maxAttempts` times are not retried.
+
+`refilter` re-runs the filter stage over raw.jsonl after the filters change (no teacher calls),
+optionally recovers failed jobs whose last teacher output the current parser now accepts, and
+drops judged rows of dialogues that no longer pass.
 """
 
 from __future__ import annotations
@@ -27,9 +31,9 @@ from datagen.languagetool import GrammarChecker
 from datagen.learner import build_jobs
 from datagen.lemmas import BandChecker
 from datagen.records import DialogueRecord, FilterResult, Job
-from datagen.synthesis import SynthesisError, synthesize
-from datagen.teacher import ChatClient
-from spec.models import Scenario
+from datagen.synthesis import SynthesisError, parse_dialogue, prepare, synthesize
+from datagen.teacher import ChatClient, Usage
+from spec.models import SPEC_VERSION, Scenario
 
 log = logging.getLogger("datagen")
 
@@ -109,7 +113,10 @@ def run_generate(
                 record = future.result()
             except (SynthesisError, RuntimeError, ValueError) as err:
                 failed += 1
-                failures.append({"id": job.id, "error": str(err)[:500]})
+                row: dict[str, object] = {"id": job.id, "error": str(err)[:500]}
+                if isinstance(err, SynthesisError) and err.text is not None:
+                    row["text"] = err.text  # lets `refilter --reparse-failed` recover it later
+                failures.append(row)
                 log.warning("job %s failed: %s", job.id, err)
             else:
                 ok += 1
@@ -208,3 +215,91 @@ def accepted_records(config: DatagenConfig) -> Iterable[DialogueRecord]:
         record = DialogueRecord.model_validate(row)
         if record.judge is not None and record.judge.overall >= config.judge.min_overall:
             yield record
+
+
+def recover_failed(config: DatagenConfig, scenarios: list[Scenario]) -> int:
+    """Reparse failed jobs' last teacher output (kept in failed.jsonl) with the current parser.
+
+    A job that now parses is appended to raw.jsonl (unrevised, usage not re-counted) and so is
+    no longer pending. Returns the number recovered. Rows written before failed outputs were
+    kept have no text and are skipped.
+    """
+    paths = RunPaths(config.output_dir)
+    done = {row["id"] for row in read_jsonl(paths.raw)}
+    texts: dict[str, str] = {}
+    for row in read_jsonl(paths.failed):
+        if isinstance(row.get("text"), str) and row["id"] not in done:
+            texts[row["id"]] = row["text"]  # the latest attempt wins
+    if not texts:
+        return 0
+    by_id = {s.id: s for s in scenarios}
+    recovered = 0
+    with JsonlAppender(paths.raw) as raw:
+        for job in build_jobs(config, scenarios):
+            if job.id not in texts:
+                continue
+            scenario = by_id[job.scenario_id]
+            context, persona, plan = prepare(job, scenario, config)
+            try:
+                parsed = parse_dialogue(texts[job.id], plan, {g.id for g in scenario.goals})
+            except SynthesisError:
+                continue
+            record = DialogueRecord(
+                id=job.id,
+                spec_version=SPEC_VERSION,
+                split=job.split,
+                scenario_id=scenario.id,
+                level=job.level,
+                persona=persona,
+                context=context,
+                plan=parsed.plan,
+                turns=parsed.turns,
+                teacher=config.teacher.model,
+                usage=Usage(),
+                parse_notes=[*parsed.notes, "recovered from failed.jsonl by refilter"],
+            )
+            raw.append(record.to_wire())
+            recovered += 1
+    return recovered
+
+
+def prune_judged(config: DatagenConfig) -> int:
+    """Drop judged rows whose dialogue no longer passes the filters. Returns the number dropped."""
+    paths = RunPaths(config.output_dir)
+    if not paths.judged.exists():
+        return 0
+    passing = {
+        row["id"] for row in read_jsonl(paths.filtered) if row.get("filter", {}).get("passed")
+    }
+    rows = list(read_jsonl(paths.judged))
+    kept = [row for row in rows if row["id"] in passing]
+    if len(kept) != len(rows):
+        write_jsonl(paths.judged, kept)
+    return len(rows) - len(kept)
+
+
+def run_refilter(
+    config: DatagenConfig,
+    scenarios: list[Scenario],
+    *,
+    band_checker: BandChecker,
+    grammar: GrammarChecker,
+    dedupe_threshold: float = 0.8,
+    reparse_failed: bool = False,
+) -> dict[str, int]:
+    """Re-run the filters over raw.jsonl without generating anything.
+
+    Returns the filter counts plus `passed before` (from the previous filtered.jsonl),
+    `recovered` (failed jobs reparsed, with `reparse_failed`) and `judged dropped`. Judged rows
+    are kept for dialogues that still pass, so `judge` afterwards only scores the new passes.
+    """
+    paths = RunPaths(config.output_dir)
+    before = sum(1 for row in read_jsonl(paths.filtered) if row.get("filter", {}).get("passed"))
+    recovered = recover_failed(config, scenarios) if reparse_failed else 0
+    counts = run_filter(
+        config, band_checker=band_checker, grammar=grammar, dedupe_threshold=dedupe_threshold
+    )
+    counts["passed before"] = before
+    counts["recovered"] = recovered
+    counts["judged dropped"] = prune_judged(config)
+    return counts

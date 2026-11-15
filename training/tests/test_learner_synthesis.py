@@ -111,13 +111,14 @@ def test_parse_dialogue_validates_structure() -> None:
     plans = _plans(Level.A2, 3, n=4)
     turns = plan_following_turns(plans, scenario.opening)
     text = "Here you go:\n```json\n" + dialogue_json(turns) + "\n```"
-    assert parse_dialogue(text, 4) == turns
+    parsed = parse_dialogue(text, plans)
+    assert parsed.turns == turns and parsed.plan == plans and parsed.notes == []
     with pytest.raises(SynthesisError, match="alternating"):
-        parse_dialogue(dialogue_json(turns), 5)
+        parse_dialogue(dialogue_json(turns), _plans(Level.A2, 3, n=6))
     with pytest.raises(SynthesisError, match="no JSON"):
-        parse_dialogue("sorry", 4)
+        parse_dialogue("sorry", plans)
     with pytest.raises(SynthesisError, match="schema"):
-        parse_dialogue('{"turns": [{"role": "tutor", "output": {"reply": "x"}}]}', 0)
+        parse_dialogue('{"turns": [{"role": "tutor", "output": {"reply": "x"}}]}', [])
 
 
 def test_synthesize_with_revise_pass() -> None:

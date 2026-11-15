@@ -6,6 +6,8 @@ Commands, in pipeline order:
     bench              measure a self-hosted teacher's prefill and decode throughput
     generate           write dialogues with the teacher (prints the estimate and asks first)
     filter             automatic filters + dedupe -> filtered.jsonl
+    refilter           re-run the filters over raw.jsonl (after a filter change), optionally
+                       recovering failed jobs; drops judged rows that no longer pass
     judge              judge-model scores for dialogues that passed -> judged.jsonl
     build-sft          SFT train/val JSONL from accepted dialogues
     build-dpo-prompts  dialogue prefixes for the student to sample on (after SFT)
@@ -21,6 +23,7 @@ import argparse
 import hashlib
 import logging
 import sys
+from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
@@ -54,6 +57,7 @@ from datagen.runner import (
     run_filter,
     run_generate,
     run_judge,
+    run_refilter,
     select_scenarios,
 )
 from datagen.synthesis import make_brief, prepare
@@ -135,6 +139,21 @@ def cmd_filter(args: argparse.Namespace) -> int:
         band_checker=band_checker(config),
         grammar=grammar_checker(config, args.no_languagetool),
         dedupe_threshold=args.dedupe_threshold,
+    )
+    for key, value in counts.items():
+        print(f"{key:>40}: {value}")
+    return 0
+
+
+def cmd_refilter(args: argparse.Namespace) -> int:
+    config = _config(args)
+    counts = run_refilter(
+        config,
+        select_scenarios(config, load_library()),
+        band_checker=band_checker(config),
+        grammar=grammar_checker(config, args.no_languagetool),
+        dedupe_threshold=args.dedupe_threshold,
+        reparse_failed=args.reparse_failed,
     )
     for key, value in counts.items():
         print(f"{key:>40}: {value}")
@@ -283,6 +302,22 @@ def _bench_options(p: argparse.ArgumentParser) -> None:
     p.set_defaults(fn=cmd_bench)
 
 
+def _filter_commands(with_config: Callable[[str, str], argparse.ArgumentParser]) -> None:
+    p = with_config("filter", "automatic filters and dedupe")
+    p.add_argument("--no-languagetool", action="store_true")
+    p.add_argument("--dedupe-threshold", type=float, default=0.8)
+    p.set_defaults(fn=cmd_filter)
+    p = with_config("refilter", "re-run filters over raw.jsonl without generating")
+    p.add_argument("--no-languagetool", action="store_true")
+    p.add_argument("--dedupe-threshold", type=float, default=0.8)
+    p.add_argument(
+        "--reparse-failed",
+        action="store_true",
+        help="reparse failed jobs' last teacher output with the current parser first",
+    )
+    p.set_defaults(fn=cmd_refilter)
+
+
 def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
     parser = argparse.ArgumentParser(
@@ -304,10 +339,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--yes", action="store_true", help="do not ask for confirmation")
     p.add_argument("--dry-run", action="store_true", help="print the estimate and one brief")
     p.set_defaults(fn=cmd_generate)
-    p = with_config("filter", "automatic filters and dedupe")
-    p.add_argument("--no-languagetool", action="store_true")
-    p.add_argument("--dedupe-threshold", type=float, default=0.8)
-    p.set_defaults(fn=cmd_filter)
+    _filter_commands(with_config)
     p = with_config("judge", "judge-model scores")
     p.add_argument("--limit", type=int)
     p.set_defaults(fn=cmd_judge)

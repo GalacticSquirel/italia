@@ -101,6 +101,11 @@ class DatagenConfig(ConfigModel):
     teacher_max_tokens: int = 8000
     revise_pass: bool = Field(default=True, description="Second teacher pass: critique and fix.")
     max_attempts: int = Field(default=3, ge=1)
+    repair_attempts: int = Field(
+        default=1,
+        ge=0,
+        description="Repair turns per draft: validation errors are sent back to the teacher.",
+    )
     learner: LearnerConfig = LearnerConfig()
     filters: FilterConfig = FilterConfig()
     language_tool: LanguageToolConfig = LanguageToolConfig()

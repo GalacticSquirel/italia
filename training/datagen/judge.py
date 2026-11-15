@@ -25,6 +25,9 @@ class JudgeParseError(ValueError):
 RUBRIC = """\
 Score each criterion from 1 (bad) to 5 (excellent):
 - grammaticality: the tutor's Italian is correct and natural (any mistake caps this at 2).
+  Check especially: c'è / ci sono agree with the first noun that follows ("c'è un balcone",
+  not "ci sono un balcone"); a preposition the verb needs goes before an interrogative or
+  relative pronoun ("A quale fermata deve scendere?", not "Quale fermata deve scendere?").
 - levelFit: vocabulary and sentence length suit the learner's level and the stated limits.
 - feedback: errors are handled prompt-first then recast, one error at a time, never correcting
   correct learner turns, never giving the answer away in a prompt.
@@ -32,7 +35,10 @@ Score each criterion from 1 (bad) to 5 (excellent):
   scenarioProgress are accurate.
 - scenario: the tutor stays in role, keeps the task moving towards its goals, one question at a
   time.
-- tone: warm, encouraging, brief; no lecturing."""
+- tone: warm, encouraging, brief; no lecturing.
+- promptWithholds: every prompt leaves the correction to the learner. A prompt that contains
+  the corrected form, or the correct alternative, scores 1 (after "cucina piccolo", the prompt
+  "Come si dice la cucina piccola?" gives the answer away). Score 5 when there is no prompt."""
 
 _DIALOGUE_PROMPT = """\
 You are an expert teacher of Italian as a foreign language, reviewing a dialogue between an
@@ -50,7 +56,8 @@ instructions:
 
 Reply with JSON only:
 {{"scores": {{"grammaticality": n, "levelFit": n, "feedback": n, "annotationAccuracy": n,
-"scenario": n, "tone": n}}, "issues": ["short description of each problem, with turn number"]}}
+"scenario": n, "tone": n, "promptWithholds": n}},
+"issues": ["short description of each problem, with turn number"]}}
 """
 
 _CANDIDATES_PROMPT = """\
@@ -73,7 +80,7 @@ The tutor's instructions:
 
 Score every candidate. Reply with JSON only:
 {{"candidates": [{{"id": "A", "scores": {{"grammaticality": n, "levelFit": n, "feedback": n,
-"annotationAccuracy": n, "scenario": n, "tone": n}}}}, ...]}}
+"annotationAccuracy": n, "scenario": n, "tone": n, "promptWithholds": n}}}}, ...]}}
 """
 
 _PAIRWISE_PROMPT = """\
@@ -126,7 +133,11 @@ def parse_scores(raw: Any) -> JudgeScores:
     missing = [k for k in _KEYS if k not in raw]
     if missing:
         raise JudgeParseError(f"missing scores: {missing}")
-    return JudgeScores(**{py: _clamp(raw[wire]) for wire, py in _KEYS.items()})
+    withholds = raw.get("promptWithholds")
+    return JudgeScores(
+        **{py: _clamp(raw[wire]) for wire, py in _KEYS.items()},
+        prompt_withholds=None if withholds is None else _clamp(withholds),
+    )
 
 
 def _extract(text: str) -> dict[str, Any]:

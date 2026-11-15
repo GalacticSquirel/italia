@@ -128,6 +128,11 @@ Weight sizes are the safetensors totals of those Hugging Face repositories. Leav
 for the KV cache of the requests in flight and for macOS. Above about 75% of RAM, raise the GPU
 wired limit: `sudo sysctl iogpu.wired_limit_mb=<RAM in MB minus 8192>` (resets on reboot).
 
+**64 GB.** The 80B-A3B teacher (45 GB) leaves little room for KV caches, so serve it with
+decode concurrency 8, prompt concurrency 2 and a 2 GiB prompt cache, which
+`scripts/serve-teacher.sh` picks by default on a 64 GB Mac. Raising the wired limit is optional
+but avoids swapping under load: `sudo sysctl iogpu.wired_limit_mb=57344`.
+
 **Throughput and wall-clock time.** The 57k-job config needs about 517M prompt and 137M generated
 tokens (generate + revise + judge); without the revise pass, 277M and 76M. Prefill dominates, so
 batching helps less than for chat. The table uses planning throughputs (aggregate prompt/decode
@@ -188,9 +193,12 @@ equivalents are in "Runbook B" and "Runbook C".
 **0. Serve the teacher** (keep it running in its own tmux window during stages 1, 2 and 5):
 
 ```sh
-uv run --extra mlx mlx_lm.server --model "$LOCAL_TEACHER_MODEL" --port 8080 \
-  --decode-concurrency 8 --prompt-concurrency 4
+scripts/serve-teacher.sh "$LOCAL_TEACHER_MODEL"   # sizes the server for this Mac's memory
 ```
+
+Keep machine-specific exports (`LOCAL_TEACHER_MODEL`, `LOCAL_PROMPT_TPS`, `LOCAL_GEN_TPS`, ...)
+in an untracked `training/<name>.local.sh` (git-ignored); both scripts source every
+`training/*.local.sh`.
 
 **1. Pilot (300 jobs).** Measures the real pass rate and time per dialogue. The local config's
 job list is prefix-stable, so the pilot's dialogues count towards round 1.
@@ -208,7 +216,9 @@ Read the failure reasons that `filter` prints, and spot-check about 20 dialogues
 `work/datagen/local-v1/judged.jsonl` by hand. Then set `estimate.expectedPassRate` from the
 pilot's numbers.
 
-**2. Round-1 training data (10k jobs) and the held-out set.**
+**2. Round-1 training data (10k jobs) and the held-out set.** `scripts/run-round.sh <config>
+<n>` runs generate (without asking), refilter, judge and stats for `n` jobs and resumes after an
+interruption; set `SFT_OUT=work/sft` to also build the SFT files. By hand:
 
 ```sh
 export TARGET_DIALOGUES=10000
@@ -333,6 +343,51 @@ The report covers:
 
 If the bf16-to-Q4_0 gap is more than 2 to 3 rubric points, try the imatrix variants, or add a
 short QAT phase.
+
+## How generation and filtering handle teacher slips
+
+**Repair turn.** When a draft cannot be parsed or validated, the specific problems (with their
+JSON locations, such as `turns[4].output.annotations.recast`) go back to the teacher in the same
+conversation, which returns the corrected full JSON. `repairAttempts` (default 1) bounds the
+extra calls; only then does the attempt count as failed. The failed attempt's last output is
+kept in `failed.jsonl`, so a later parser can recover it (`refilter --reparse-failed`).
+
+**Invalid annotation items are dropped, not the dialogue.** A recast whose correctedText equals
+its learnerText, unknown error tags (a prompt or recast left with none), malformed or surplus
+newWords items and unknown goal ids are removed and noted in the record's `parseNotes`. The
+policy filter still checks the remaining moves against the plan.
+
+**Turn-count tolerance.** The plan fixes the number of learner turns. One learner exchange more
+or fewer is accepted only when the final tutor turn marks the scenario done and every turn is
+otherwise valid. With one fewer, the plan's last step is dropped; with one more, the extra
+exchange is planned as an error-free learner turn with no correction. Anything else is a problem
+for the repair turn.
+
+**Band check.** Tokens the tutor echoes from the learner (the previous learner turn, a prompt's
+or recast's learnerText) are not checked, so quoting "andarò?" back is not out of band. Elided
+forms are restored (qualcos'altro, vent'anni, qualcos' altro), -mente adverbs count as their
+adjective (correttamente -> corretto), absolute superlatives as their base (benissimo -> bene),
+and `data/cognates.txt` lists transparent cognates known from A1 (italiano, problema). Each
+scenario's key vocabulary and declared new words are always allowed.
+
+**Prompts must not reveal the correction.** The filter rejects a prompt whose reply contains the
+correction that follows it (the next recast's correctedText, or a corrected token from the
+learner's successful repair, such as "piccola" after "cucina piccolo"), and the judge scores
+`promptWithholds`. The writer instructions also carry counterexamples for c'è / ci sono
+agreement and for the preposition before an interrogative or relative pronoun ("A quale fermata
+deve scendere?").
+
+**Refilter after a filter change.** `datagen refilter -c <config>` re-runs the filters and dedupe
+over `raw.jsonl` without calling the teacher, prints the pass count before and after, and drops
+judged rows whose dialogue no longer passes; `judge` then scores only the new passes.
+`--reparse-failed` first reparses failed jobs' kept outputs with the current parser. Rows that
+failed before outputs were kept have no text and are simply retried by `generate` (up to
+`maxAttempts`).
+
+Fixtures from round 1: `tests/fixtures/band_rejections.jsonl` (16 out-of-band rejections that
+were false positives: 2 passed before these changes, 16 now) and `tests/fixtures/parse_drafts.jsonl`
+(21 first drafts: 3 parsed before, 15 now; the other 6 are off by more than the tolerance or not
+done and go to the repair turn).
 
 ## Runbook A: Mac Studio over ssh (primary)
 

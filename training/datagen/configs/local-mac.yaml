@@ -2,9 +2,14 @@
 # OpenAI-compatible server on the same machine. No API key, no per-token cost; the estimator
 # reports wall-clock hours from `teacher.throughput` (measure yours with `datagen bench`).
 #
-#   uv run --extra mlx mlx_lm.server --model mlx-community/Qwen3.5-122B-A10B-4bit \
-#       --port 8080 --decode-concurrency 8 --prompt-concurrency 4
+#   scripts/serve-teacher.sh mlx-community/Qwen3.5-122B-A10B-4bit
 #   uv run python -m datagen estimate -c datagen/configs/local-mac.yaml
+#   scripts/run-round.sh datagen/configs/local-mac.yaml 10000
+#
+# serve-teacher.sh sizes mlx_lm.server by memory. On 64 GB (Qwen3-Next-80B-A3B-Instruct-4bit) it
+# uses decode concurrency 8, prompt concurrency 2 and --prompt-cache-bytes 2 GiB; optionally
+# raise the GPU wired limit first: sudo sysctl iogpu.wired_limit_mb=57344. Keep maxConcurrency
+# (LOCAL_CONCURRENCY) equal to the decode concurrency.
 #
 # Round 1 is 10k jobs (TARGET_DIALOGUES). The job list is prefix-stable, so raising the target to
 # 57000 later resumes in the same output folder and only generates the remaining jobs.

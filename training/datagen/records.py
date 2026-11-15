@@ -54,6 +54,9 @@ class JudgeScores(WireModel):
     annotation_accuracy: float = Field(ge=1, le=5)
     scenario: float = Field(ge=1, le=5)
     tone: float = Field(ge=1, le=5)
+    prompt_withholds: float | None = Field(default=None, ge=1, le=5)
+    """Prompts leave the correction to the learner. None for judgements made before this
+    criterion existed (and for dialogues without a prompt, where it is not asked)."""
 
     @property
     def overall(self) -> float:
@@ -65,6 +68,8 @@ class JudgeScores(WireModel):
             self.scenario,
             self.tone,
         ]
+        if self.prompt_withholds is not None:
+            values.append(self.prompt_withholds)
         return sum(values) / len(values)
 
 
@@ -91,6 +96,8 @@ class DialogueRecord(WireModel):
     teacher: str
     usage: Usage = Usage()
     revised: bool = False
+    repaired: bool = False
+    parse_notes: list[str] = Field(default_factory=list)
     filter: FilterResult | None = None
     judge: JudgeResult | None = None
 

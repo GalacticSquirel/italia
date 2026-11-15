@@ -12,3 +12,8 @@ uv run python -m datagen lemmas --seed ../packages/content/seed/seed.v1.json
 
 Licence: the lemma ranks are derived from FrequencyWords (CC BY-SA 4.0) and Morph-it! (CC BY-SA
 2.0), so this file is a CC BY-SA derivative; see `packages/content/LICENSES.md`.
+
+`core_vocab.tsv` and `cognates.txt` are hand-curated for this project (no external source):
+everyday course vocabulary listed by the level it is taught at, and transparent cognates an
+English speaker reads at A1. The band checker treats both as known from the listed level (A1 for
+cognates).
