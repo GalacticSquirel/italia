@@ -10,6 +10,7 @@ import { useMemo } from 'react';
 import { DatabaseProvider } from '@/db';
 import { SettingsHydrator } from '@/features/settings/SettingsHydrator';
 import { useSettingsStore } from '@/features/settings/settingsStore';
+import { ModelsProvider } from '@/models';
 import { SyncProvider } from '@/sync';
 import { ThemeProvider, useTheme } from '@/ui';
 
@@ -35,21 +36,24 @@ function RootNavigator() {
       <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
       <DatabaseProvider>
         <SyncProvider>
-          <SettingsHydrator />
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="settings" options={{ title: 'Settings' }} />
-            <Stack.Screen
-              name="session"
-              options={{
-                headerShown: false,
-                presentation: 'fullScreenModal',
-                gestureEnabled: false,
-              }}
-            />
-            <Stack.Screen name="word/[id]" options={{ title: 'Word' }} />
-            <Stack.Screen name="auth-callback" options={{ headerShown: false }} />
-          </Stack>
+          <ModelsProvider>
+            <SettingsHydrator />
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="settings" options={{ title: 'Settings' }} />
+              <Stack.Screen name="models" options={{ title: 'On-device models' }} />
+              <Stack.Screen
+                name="session"
+                options={{
+                  headerShown: false,
+                  presentation: 'fullScreenModal',
+                  gestureEnabled: false,
+                }}
+              />
+              <Stack.Screen name="word/[id]" options={{ title: 'Word' }} />
+              <Stack.Screen name="auth-callback" options={{ headerShown: false }} />
+            </Stack>
+          </ModelsProvider>
         </SyncProvider>
       </DatabaseProvider>
     </NavigationThemeProvider>

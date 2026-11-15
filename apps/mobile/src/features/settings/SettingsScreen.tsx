@@ -1,9 +1,10 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { Switch, View } from 'react-native';
 
 import { useDatabase, useRepositories } from '@/db';
 import { AccountSection } from '@/features/account/AccountSection';
-import { Button, Card, Screen, SegmentedControl, Stepper, Text, useTheme } from '@/ui';
+import { Button, Card, ListItem, Screen, SegmentedControl, Stepper, Text, useTheme } from '@/ui';
 
 import { pickAndImportBackup, shareBackup } from './backupFiles';
 import { useSettingsStore } from './settingsStore';
@@ -116,6 +117,18 @@ export function SettingsScreen() {
             trackColor={{ true: colors.primary, false: colors.track }}
           />
         </View>
+      </Card>
+
+      <Card>
+        <Text variant="heading">Speech</Text>
+        <ListItem
+          title="On-device models"
+          subtitle="Speech recognition, pronunciation scoring and voices"
+          accessibilityHint="Opens downloads and storage for on-device models"
+          onPress={() => {
+            router.push('/models');
+          }}
+        />
       </Card>
 
       <Card>

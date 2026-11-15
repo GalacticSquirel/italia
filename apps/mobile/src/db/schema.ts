@@ -17,6 +17,7 @@ import {
   check,
   index,
   integer,
+  primaryKey,
   real,
   sqliteTable,
   text,
@@ -292,3 +293,37 @@ export const appMeta = sqliteTable('app_meta', {
   value: text('value').notNull(),
   updatedAt: timestamp('updated_at').notNull(),
 });
+
+/** Download state of one model file, see `apps/mobile/src/models`. */
+export const MODEL_FILE_STATUSES = [
+  'downloading',
+  'paused',
+  'downloaded',
+  'verifying',
+  'installed',
+  'failed',
+] as const;
+
+/**
+ * Device-local install state of on-device model files (one row per file of
+ * `models/manifest.json`). Never synced and never included in backups. A file
+ * is usable only when `status` is `installed` and `sha256` still equals the
+ * manifest's checksum (a manifest update reinstalls the file).
+ */
+export const modelFile = sqliteTable(
+  'model_file',
+  {
+    modelId: text('model_id').notNull(),
+    name: text('name').notNull(),
+    /** The checksum this row was downloaded and verified against. */
+    sha256: text('sha256').notNull(),
+    status: text('status', { enum: tuple(MODEL_FILE_STATUSES) }).notNull(),
+    bytesDone: integer('bytes_done').notNull().default(0),
+    /** Opaque resume data of a paused download, if any. */
+    resumeData: text('resume_data'),
+    /** Last error message, when `status` is `failed`. */
+    error: text('error'),
+    updatedAt: timestamp('updated_at').notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.modelId, t.name] })],
+);
