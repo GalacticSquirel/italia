@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://italia.app/schemas/tutor/tutor_context.v1.schema.json",
+  "x-spec-version": "1.0.0",
+  "$defs": {
+    "ErrorHistoryItem": {
+      "additionalProperties": false,
+      "properties": {
+        "tag": {
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "type": "string"
+        },
+        "count": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "lastExample": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "tag",
+        "count"
+      ],
+      "type": "object"
+    },
+    "LearnerProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "$ref": "#/$defs/Level"
+        },
+        "lemmaCeiling": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Known-lemma frequency ceiling; defaults to the band's."
+        },
+        "knownGrammar": {
+          "description": "Grammar points the learner has unlocked; empty means all up to the level.",
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9-]*$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "errorHistory": {
+          "items": {
+            "$ref": "#/$defs/ErrorHistoryItem"
+          },
+          "maxItems": 5,
+          "type": "array"
+        }
+      },
+      "required": [
+        "level"
+      ],
+      "type": "object"
+    },
+    "Level": {
+      "description": "CEFR levels the tutor supports (C1 is out of scope for v1).",
+      "enum": [
+        "A1",
+        "A2",
+        "B1",
+        "B2"
+      ],
+      "type": "string"
+    },
+    "Scenario": {
+      "additionalProperties": false,
+      "description": "An everyday task the learner role-plays with the tutor (see `scenarios/*.yaml`).",
+      "properties": {
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "titleEn": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "levels": {
+          "items": {
+            "$ref": "#/$defs/Level"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "setting": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "tutorRole": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "learnerRole": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "formality": {
+          "enum": [
+            "formal",
+            "informal"
+          ],
+          "type": "string"
+        },
+        "goals": {
+          "items": {
+            "$ref": "#/$defs/ScenarioGoal"
+          },
+          "maxItems": 6,
+          "minItems": 2,
+          "type": "array"
+        },
+        "keyVocab": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 5,
+          "type": "array"
+        },
+        "grammarFocus": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9-]*$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "opening": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "tags": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9-]*$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "split": {
+          "default": "train",
+          "enum": [
+            "train",
+            "eval"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "titleEn",
+        "levels",
+        "setting",
+        "tutorRole",
+        "learnerRole",
+        "formality",
+        "goals",
+        "keyVocab",
+        "opening"
+      ],
+      "type": "object"
+    },
+    "ScenarioGoal": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "description"
+      ],
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Everything the system prompt is rendered from.",
+  "properties": {
+    "specVersion": {
+      "const": "1.0.0",
+      "default": "1.0.0",
+      "type": "string"
+    },
+    "learner": {
+      "$ref": "#/$defs/LearnerProfile"
+    },
+    "scenario": {
+      "$ref": "#/$defs/Scenario"
+    }
+  },
+  "required": [
+    "learner",
+    "scenario"
+  ],
+  "type": "object"
+}
