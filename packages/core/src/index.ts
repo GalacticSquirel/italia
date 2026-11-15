@@ -175,3 +175,6 @@ export type {
   Voice,
   WordPronunciation,
 } from './providers';
+
+// The on-device tutor contract and conversation logic (see `./tutor`).
+export * from './tutor';

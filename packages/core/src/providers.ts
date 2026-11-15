@@ -11,6 +11,7 @@
  */
 
 import type { CefrLevel } from './cefr';
+import type { TutorContext, TutorOutput } from './tutor/types';
 
 /**
  * The part of the standard `AbortSignal` the providers use. A real
@@ -97,6 +98,11 @@ export interface StoryGenerator extends AiProvider {
 export interface ConversationTurn {
   role: 'learner' | 'partner';
   text: string;
+  /**
+   * A tutor model's structured output for a partner turn. It is sent back to
+   * the model as the turn's JSON, exactly as the model wrote it in training.
+   */
+  output?: TutorOutput;
 }
 
 /** Context for the partner's next turn. */
@@ -105,6 +111,12 @@ export interface ConversationRequest {
   /** Scenario instructions, for example "ordering at a bar in Rome". */
   scenario: string;
   history: readonly ConversationTurn[];
+  /**
+   * The tutor spec context (learner level band, unlocked grammar, recurring
+   * errors, scenario). Partners that run the tutor model render the spec's
+   * system prompt from it and answer in the spec's JSON format.
+   */
+  tutor?: TutorContext;
 }
 
 /** A learner error found in the last learner turn. */
@@ -126,11 +138,17 @@ export interface ConversationReplyResult {
   errors: readonly LearnerError[];
   /** Why generation stopped. */
   finishReason: 'complete' | 'length' | 'aborted';
+  /**
+   * The parsed structured turn when the partner speaks the tutor spec
+   * (`request.tutor` was set), else absent. Check it with `postValidate`
+   * before showing corrections.
+   */
+  output?: TutorOutput;
 }
 
 /** A streaming reply. */
 export interface ConversationReply {
-  /** The reply text as it is generated, in order. Iterate once. */
+  /** The reply text (never raw JSON) as it is generated, in order. Iterate once. */
   tokens: AsyncIterable<string>;
   /** Resolves when generation ends; rejects on failure. */
   result: Promise<ConversationReplyResult>;
