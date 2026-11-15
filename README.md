@@ -29,7 +29,7 @@ docs/                   Architecture plan and ADRs
 
 ## Prerequisites
 
-- Node 22 (`nvm use` reads `.nvmrc`)
+- Node 24 (`nvm use` reads `.nvmrc`)
 - pnpm 10 (`corepack enable` picks the version pinned in `package.json`)
 - For device builds: an [Expo account](https://expo.dev) and EAS CLI (`npx eas-cli@latest`), or
   Android Studio (and Xcode on macOS) for local builds
