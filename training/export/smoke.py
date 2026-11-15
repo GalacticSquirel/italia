@@ -9,7 +9,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from datagen.filters import parse_tutor_output
 from spec.levels import Level
@@ -118,7 +118,7 @@ def llama_cpp_completer(model: Path, *, threads: int | None = None, n_ctx: int =
 
     def complete(messages: list[ChatMessage]) -> str:
         result: Any = llm.create_chat_completion(
-            messages=[dict(m) for m in messages],  # type: ignore[misc]
+            messages=cast("Any", [dict(m) for m in messages]),
             temperature=0.0,
             max_tokens=400,
             response_format={"type": "json_object", "schema": schema},
