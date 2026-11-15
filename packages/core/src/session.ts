@@ -75,6 +75,13 @@ export interface SessionTuning {
   scheduler?: Scheduler;
   /** Interleaving lookahead, see `interleaveItems`. */
   lookahead?: number;
+  /**
+   * Kinds practised as one block at the end of the session (for example
+   * `spoken_prompt`, so speaking happens in one stretch with the microphone
+   * ready). Their reviews come first within the block, then their new items.
+   * Defaults to none.
+   */
+  blockKinds?: readonly CardKind[];
 }
 
 /** Input to {@link buildSession}. */
@@ -156,6 +163,9 @@ const URGENCY_PRECISION = 100;
  *    stopped when the forecast review load over the next 7 days (existing
  *    cards plus the new items) would exceed the daily budget times 7, or
  *    when today's session is out of time.
+ *
+ * 3. **Blocks**: items of `tuning.blockKinds` move, in order, to one block at
+ *    the end (the plan's speaking block).
  *
  * Use {@link startSessionQueue} to run the plan with in-session repeats.
  */
@@ -239,7 +249,7 @@ export function buildSession(input: BuildSessionInput): SessionPlan {
     fresh.push(toItem(candidate, 'new', today));
   }
 
-  const items = [...orderedReviews, ...fresh];
+  const items = endBlock([...orderedReviews, ...fresh], tuning.blockKinds ?? []);
   return {
     items,
     reviewCount: orderedReviews.length,
@@ -249,6 +259,13 @@ export function buildSession(input: BuildSessionInput): SessionPlan {
     newItems: { allowance, limitedBy: [...limitedBy] },
     forecast,
   };
+}
+
+/** Move items of `kinds` to the end, keeping the relative order of both parts. */
+function endBlock(items: SessionItem[], kinds: readonly CardKind[]): SessionItem[] {
+  if (kinds.length === 0) return items;
+  const inBlock = (item: SessionItem) => kinds.includes(item.kind);
+  return [...items.filter((i) => !inBlock(i)), ...items.filter(inBlock)];
 }
 
 function toItem(
