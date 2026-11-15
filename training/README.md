@@ -4,15 +4,19 @@ This folder builds the Italian conversation tutor that runs on the phone through
 a Python 3.12 project managed with [uv](https://docs.astral.sh/uv/). It is separate from the
 pnpm workspace, and Prettier and ESLint ignore it.
 
-The pipeline is **sequence-level distillation**. A large teacher model, reached through any
-OpenAI- or Anthropic-compatible API, writes about 40k level-controlled tutoring dialogues. They
-contain injected learner errors, prompt-then-recast feedback and structured annotations. The
-pipeline filters and judges them, then fine-tunes **Gemma 4 E4B** (primary, 12 GB+ phones) and
-**Gemma 4 E2B** (8 GB phones) on them: SFT first, then DPO on judge-ranked student samples. It
-then exports a **Q4_0 GGUF** and adds it to `models/manifest.json`. A LoRA bake-off against
-**Qwen3.5-4B** on the first 5k dialogues confirms the base model before the full run. The
-reasoning behind these choices is in the on-device models research (sections 1 and 3) and in
-`docs/architecture.md` (Phase 5, "Model programme").
+The pipeline is **sequence-level distillation**. A large open-weight or hosted teacher model
+writes level-controlled tutoring dialogues with injected learner errors, prompt-then-recast
+feedback and structured annotations. The pipeline filters and judges them, then fine-tunes
+**Gemma 4 E4B** (primary, 12 GB+ phones) and **Gemma 4 E2B** (8 GB phones): SFT first, then DPO on
+judge-ranked student samples. It exports a **Q4_0 GGUF** and adds it to `models/manifest.json`. A
+LoRA bake-off against **Qwen3.5-4B** on the first 5k dialogues confirms the base model. The
+reasoning is in the on-device models research (sections 1 and 3) and in `docs/architecture.md`
+(Phase 5, "Model programme").
+
+**The primary path runs on one Mac Studio (Apple Silicon) with no CUDA:** an open-weight teacher
+served locally by `mlx_lm.server`, training with MLX (LoRA, DoRA or full fine-tuning; DPO), and
+GGUF export with a Metal build of llama.cpp. The NVIDIA path (Unsloth/transformers + TRL) stays
+available for a rented or local GPU. Both use the same data, loss masks and export.
 
 ```
 spec/        The tutor's behaviour contract, versioned (SPEC_VERSION 1.0.0):
@@ -23,13 +27,18 @@ spec/        The tutor's behaviour contract, versioned (SPEC_VERSION 1.0.0):
              system_prompt.v1.txt + render.py (the exact prompt the model sees)
 scenarios/   66 role-play scenarios, A1 to B2 (8 marked `split: eval`, never trained on)
 data/        Seed lemma list (frequency ranks) and curated core vocabulary
-datagen/     Teacher clients, simulated learner, dialogue synthesis, filters, judge,
-             cost estimate, SFT/DPO dataset builders; configs/*.yaml
-train/       SFT (LoRA via Unsloth or full via transformers + FSDP), DPO (TRL),
-             candidate sampling; configs/*.yaml
+datagen/     Teacher clients (any OpenAI- or Anthropic-compatible endpoint, including a local
+             mlx-lm server), simulated learner, synthesis, filters, judge, cost and time
+             estimate, throughput bench, SFT/DPO dataset builders; configs/*.yaml
+train/       Backends: mlx (Apple Silicon: mlx_core.py, mlx_sft.py, mlx_dpo.py) and NVIDIA
+             (sft.py via Unsloth or transformers + FSDP, dpo.py via TRL); shared tokenisation
+             and masks (tokenize.py), schedules and checkpoints (schedule.py), MLX lineage
+             (lineage.py), memory planner (memory.py), candidate sampling (sample.py);
+             configs/*.yaml (NVIDIA) and configs/mlx/*.yaml (Mac)
 eval/        Held-out metrics, judge win rates, markdown report, phone benchmark guide
-export/      LoRA merge, llama.cpp GGUF conversion, imatrix, Q4_0, manifest, CPU smoke test
-tests/       pytest for everything that does not need a GPU
+export/      MLX fuse + Hugging Face re-layout (splice.py), PEFT merge, llama.cpp GGUF
+             conversion, imatrix, Q4_0, manifest, CPU smoke test
+tests/       pytest for everything that does not need a GPU; MLX code runs on MLX's CPU backend
 ```
 
 ## The tutor contract (spec/)
@@ -73,126 +82,237 @@ must render the prompt from `spec/system_prompt.v1.txt` exactly as `render.py` d
 
 ```sh
 cd training
-uv sync                       # CPU tooling: spec, datagen, eval, export, tests
-uv sync --extra gpu           # on the GPU machine: torch, transformers, TRL, PEFT, Unsloth
+uv sync                       # CPU tooling and tests (includes MLX: Metal on macOS, CPU on Linux)
+uv sync --extra mlx           # Mac Studio: MLX + mlx-lm for training and the local teacher
+uv sync --extra gpu           # NVIDIA machine instead: torch, transformers, TRL, PEFT, Unsloth
 uv sync --extra export        # llama-cpp-python for the CPU smoke test (compiles llama.cpp)
 uv run pytest && uv run ruff check . && uv run mypy .
 ```
 
-The GPU stack is pinned to a set Unsloth declares compatible: torch 2.14.1, transformers 5.17.0,
-TRL 1.15.0, PEFT 0.21.2, datasets 4.8.5, Unsloth 2026.11.4. `uv.lock` pins everything else.
+Pins: MLX 0.32.4 and mlx-lm 0.32.2 for the Mac path. The NVIDIA stack is pinned to a set Unsloth
+declares compatible: torch 2.14.1, transformers 5.17.0, TRL 1.15.0, PEFT 0.21.2, datasets 4.8.5,
+Unsloth 2026.11.4. `uv.lock` pins everything else.
 
 You also need these services:
 
-- **LanguageTool** (Italian grammar checks): `docker run -d -p 8010:8010 erikvl87/languagetool`,
-  or set `LANGUAGETOOL_URL`.
-- **Teacher and judge**: set the environment variables listed at the top of
-  `datagen/configs/train.yaml` (`TEACHER_PROTOCOL`, `TEACHER_BASE_URL`, `TEACHER_MODEL`,
-  `TEACHER_API_KEY`, `TEACHER_PRICE_IN`, `TEACHER_PRICE_OUT`, and optionally `JUDGE_*`). API keys
-  are read from the environment only. Never write them into a config or commit them.
-- **Hugging Face**: run `huggingface-cli login` and accept the Gemma licence on the model pages
-  before downloading.
+- **LanguageTool** (Italian grammar checks): `docker run -d -p 8010:8010 erikvl87/languagetool`
+  (Docker Desktop or colima on macOS), or point `LANGUAGETOOL_URL` at another server. Without
+  Docker, the standalone Java server works too: `brew install languagetool`, then
+  `languagetool-server --port 8010`.
+- **Teacher and judge**, either:
+  - **local (Mac default):** `datagen/configs/local-mac.yaml`, served by `mlx_lm.server` on
+    the same machine. No API key and no per-token cost. See "Local teacher" below.
+  - **hosted API:** set the environment variables listed at the top of
+    `datagen/configs/train.yaml` (`TEACHER_PROTOCOL`, `TEACHER_BASE_URL`, `TEACHER_MODEL`,
+    `TEACHER_API_KEY`, `TEACHER_PRICE_IN`, `TEACHER_PRICE_OUT`, and optionally `JUDGE_*`). API
+    keys are read from the environment only. Never write them into a config or commit them.
+- **Hugging Face**: run `uv run huggingface-cli login` and accept the Gemma licence on the
+  model pages before downloading.
 
-## Running each stage
+## Local teacher on the Mac (no API cost)
 
-All commands run from `training/`. Outputs go to `work/` (data) and `out/` (models). Both are
-git-ignored.
+`mlx_lm.server` exposes an OpenAI-compatible endpoint with continuous batching, so the existing
+`openai` client is the teacher and judge. Pick the strongest instruct model that fits beside the
+OS (training does not run at the same time as generation):
 
-**1. Pilot (about 300 dialogues).** This measures the real pass rate and cost per dialogue.
+| Unified memory | Recommended teacher (MLX 4-bit) | Weights | Alternative |
+|---|---|---|---|
+| 64 GB | `mlx-community/Qwen3-Next-80B-A3B-Instruct-4bit` | 45 GB | `Llama-3.3-70B-Instruct-4bit` (40 GB, dense: ~3x slower) |
+| 96 GB | `mlx-community/Qwen3.5-122B-A10B-4bit` (concurrency 4) | 70 GB | `GLM-4.5-Air-4bit` (60 GB) |
+| 128 GB | `mlx-community/Qwen3.5-122B-A10B-4bit` (**default**) | 70 GB | `GLM-4.5-Air-4bit` (60 GB) |
+| 192 GB | `mlx-community/Qwen3-235B-A22B-Instruct-2507-4bit` | 132 GB | Qwen3.5-122B for 2.3x the speed |
+| 256 GB | `Qwen3-235B-A22B-Instruct-2507-4bit` (room for 16 in flight) | 132 GB | `GLM-4.7-4bit` (199 GB, tight) |
+| 512 GB | `mlx-community/Qwen3.5-397B-A17B-4bit` | 224 GB | `DeepSeek-V3.2-4bit` (378 GB, ~2x slower), `Qwen3-235B-…-8bit` (250 GB) |
+
+Weight sizes are the safetensors totals of those Hugging Face repositories. Leave 15 to 25% of RAM
+for the KV cache of the requests in flight and for macOS. Above about 75% of RAM, raise the GPU
+wired limit: `sudo sysctl iogpu.wired_limit_mb=<RAM in MB minus 8192>` (resets on reboot).
+
+**Throughput and wall-clock time.** The 57k-job config needs about 517M prompt and 137M generated
+tokens (generate + revise + judge); without the revise pass, 277M and 76M. Prefill dominates, so
+batching helps less than for chat. The table uses planning throughputs (aggregate prompt/decode
+tokens per second at 8 requests in flight on an M3 Ultra), derived from single-stream
+measurements: Qwen3-235B-A22B 4-bit decodes at ~24 tok/s with MLX and prefills a 9.3k-token
+prompt at ~164 tok/s; Qwen3.5-122B-A10B 4-bit decodes at ~57 tok/s. Decode is assumed to scale
+2.5 to 3x with batching and prefill not at all.
+
+| Teacher | Planning tok/s (prompt / decode) | 10k jobs | 10k, no revise | 57k jobs | 57k, no revise |
+|---|---|---|---|---|---|
+| Qwen3-Next-80B-A3B | 800 / 250 | ~2.4 days | ~1.3 days | ~14 days | ~7.5 days |
+| Qwen3.5-122B-A10B | 400 / 150 | ~4.4 days | ~2.4 days | ~26 days | ~14 days |
+| Qwen3.5-397B-A17B | 220 / 70 | ~8.6 days | ~4.7 days | ~50 days | ~27 days |
+| Qwen3-235B-A22B | 180 / 60 | ~10 days | ~5.6 days | ~60 days | ~32 days |
+
+Measure your machine instead of trusting the table, then let the estimator do the arithmetic:
 
 ```sh
-uv run python -m datagen estimate -c datagen/configs/pilot.yaml
-uv run python -m datagen generate -c datagen/configs/pilot.yaml        # shows the cost, asks first
-uv run python -m datagen filter   -c datagen/configs/pilot.yaml
-uv run python -m datagen judge    -c datagen/configs/pilot.yaml
-uv run python -m datagen stats    -c datagen/configs/pilot.yaml
+uv run --extra mlx mlx_lm.server --model mlx-community/Qwen3.5-122B-A10B-4bit \
+  --port 8080 --decode-concurrency 8 --prompt-concurrency 4 &
+uv run python -m datagen bench -c datagen/configs/local-mac.yaml    # prints a throughput block
+export LOCAL_PROMPT_TPS=... LOCAL_GEN_TPS=...                        # or paste it into the config
+uv run python -m datagen estimate -c datagen/configs/local-mac.yaml  # $0 API, hours per stage
+```
+
+**Recommendation:** run a **10k-job first round** (keeps ~7k dialogues; the default of
+`local-mac.yaml`), train and evaluate on it, and only then decide on the full 57k. The job list is
+prefix-stable: `TARGET_DIALOGUES=57000` with the same config resumes in the same folder and only
+generates the remaining jobs. If the full round would take weeks, use a hosted API for the
+remainder (same pipeline, `train.yaml`) or turn off the revise pass (`REVISE=false`, about 45%
+faster, measured on the pilot first). Local teachers are weaker than the best hosted models in
+Italian, so the filters, judge threshold and native-speaker spot checks matter more.
+
+Sources for sizes and speeds:
+[Qwen3-235B-A22B-Instruct-2507-4bit](https://huggingface.co/mlx-community/Qwen3-235B-A22B-Instruct-2507-4bit),
+[Qwen3.5-122B-A10B-4bit](https://huggingface.co/mlx-community/Qwen3.5-122B-A10B-4bit),
+[Qwen3.5-397B-A17B-4bit](https://huggingface.co/mlx-community/Qwen3.5-397B-A17B-4bit),
+[Qwen3-Next-80B-A3B-Instruct-4bit](https://huggingface.co/mlx-community/Qwen3-Next-80B-A3B-Instruct-4bit),
+[GLM-4.5-Air-4bit](https://huggingface.co/mlx-community/GLM-4.5-Air-4bit),
+[GLM-4.7-4bit](https://huggingface.co/mlx-community/GLM-4.7-4bit),
+[DeepSeek-V3.2-4bit](https://huggingface.co/mlx-community/DeepSeek-V3.2-4bit),
+[Llama-3.3-70B-Instruct-4bit](https://huggingface.co/mlx-community/Llama-3.3-70B-Instruct-4bit);
+MacStories, [early Mac Studio benchmarks with Qwen3-235B-A22B](https://www.macstories.net/notes/notes-on-early-mac-studio-ai-benchmarks-with-qwen3-235b-a22b-and-qwen2-5-vl-72b/)
+(MLX 24 tok/s, ~124 GB); r/LocalLLaMA,
+[M3 Ultra binned vs unbinned MLX benchmarks](https://www.reddit.com/r/LocalLLaMA/comments/1kzq4fp/m3_ultra_binned_256gb_60core_vs_unbinned_512gb/)
+(Qwen3-235B-A22B 4-bit: 9,318-token prompt at 164 tok/s, generation 20 tok/s, 135 GB peak);
+[SiliconScore, Qwen3.5-122B-A10B on M3 Ultra](https://siliconscore.com/models/qwen3-5-122b-a10b/)
+(MLX 4-bit 57 tok/s); [MLX discussion #3209](https://github.com/ml-explore/mlx/discussions/3209)
+(M3 Ultra 512 GB: 32B dense 4-bit at ~31 tok/s and ~345 tok/s prefill at 1k context; all
+measurements at batch 1).
+
+## Running each stage (Mac Studio)
+
+All commands run from `training/`. Outputs go to `work/` (data) and `out/` (models), both
+git-ignored. Every stage is resumable: rerun the same command after an interruption. The NVIDIA
+equivalents are in "Runbook B" and "Runbook C".
+
+**0. Serve the teacher** (keep it running in its own tmux window during stages 1, 2 and 5):
+
+```sh
+uv run --extra mlx mlx_lm.server --model "$LOCAL_TEACHER_MODEL" --port 8080 \
+  --decode-concurrency 8 --prompt-concurrency 4
+```
+
+**1. Pilot (300 jobs).** Measures the real pass rate and time per dialogue. The local config's
+job list is prefix-stable, so the pilot's dialogues count towards round 1.
+
+```sh
+export TARGET_DIALOGUES=300
+uv run python -m datagen estimate -c datagen/configs/local-mac.yaml
+uv run python -m datagen generate -c datagen/configs/local-mac.yaml   # shows $0 + hours, asks first
+uv run python -m datagen filter   -c datagen/configs/local-mac.yaml
+uv run python -m datagen judge    -c datagen/configs/local-mac.yaml
+uv run python -m datagen stats    -c datagen/configs/local-mac.yaml
 ```
 
 Read the failure reasons that `filter` prints, and spot-check about 20 dialogues in
-`work/datagen/pilot-v1/judged.jsonl` by hand. Then set `estimate.expectedPassRate` in `train.yaml`
-from the pilot's numbers.
+`work/datagen/local-v1/judged.jsonl` by hand. Then set `estimate.expectedPassRate` from the
+pilot's numbers.
 
-**2. Training data and the held-out set.** All stages are resumable: rerun a command after an
-interruption and it skips finished work.
+**2. Round-1 training data (10k jobs) and the held-out set.**
 
 ```sh
-uv run python -m datagen generate -c datagen/configs/train.yaml
-uv run python -m datagen filter   -c datagen/configs/train.yaml
-uv run python -m datagen judge    -c datagen/configs/train.yaml
-uv run python -m datagen build-sft -c datagen/configs/train.yaml --out work/sft
-# the same generate / filter / judge for datagen/configs/eval.yaml, then:
-uv run python -m eval build-items -c datagen/configs/eval.yaml --out work/eval/items.jsonl
+export TARGET_DIALOGUES=10000
+uv run python -m datagen generate -c datagen/configs/local-mac.yaml --yes
+uv run python -m datagen filter   -c datagen/configs/local-mac.yaml
+uv run python -m datagen judge    -c datagen/configs/local-mac.yaml
+uv run python -m datagen build-sft -c datagen/configs/local-mac.yaml --out work/sft
+# the same generate / filter / judge for datagen/configs/eval-local.yaml, then:
+uv run python -m eval build-items -c datagen/configs/eval-local.yaml --out work/eval/items.jsonl
 ```
 
 Native speakers should spot-check 1 to 2% of the accepted dialogues before training. The research
-recommends 2 raters for 200 turns per release.
+recommends 2 raters for 200 turns per release. Stop the teacher server before training to free
+its memory.
 
-**3. Base-model bake-off.** This trains LoRA on the same 5k-dialogue subset for each candidate,
-then evaluates both.
-
-```sh
-uv run python -m train.sft -c train/configs/bakeoff-gemma4-e4b.yaml
-uv run python -m train.sft -c train/configs/bakeoff-qwen35-4b.yaml
-```
-
-Merge each model and serve it (step 7), then compare the two with `python -m eval report`. Keep
-Gemma 4 E4B unless Qwen3.5-4B wins clearly on the eval. Gemma also has better mobile kernels and
-no thinking-mode overhead.
-
-**4. SFT (release).**
+**3. Base-model bake-off** (LoRA on the same 5k dialogues for each candidate):
 
 ```sh
-uv run accelerate launch --config_file train/configs/accelerate-fsdp-8gpu.yaml \
-  -m train.sft -c train/configs/sft-gemma4-e4b-full.yaml
-# E2B: the same with sft-gemma4-e2b-full.yaml; LoRA alternatives: sft-*-lora.yaml
+uv run python -m train.sft -c train/configs/mlx/bakeoff-gemma4-e4b.yaml
+uv run python -m train.sft -c train/configs/mlx/bakeoff-qwen35-4b.yaml
 ```
+
+Export and serve each (steps 6 and 7), then compare them with `python -m eval report`. Keep
+Gemma 4 E4B unless Qwen3.5-4B wins clearly; Gemma also has better mobile kernels and no
+thinking-mode overhead.
+
+**4. SFT (release).** LoRA works on every tier; full fine-tuning needs 96 GB+ for E4B
+(`python -m train.memory` prints the plan for every model and RAM tier).
+
+```sh
+uv run python -m train.sft -c train/configs/mlx/sft-gemma4-e4b-lora.yaml
+uv run python -m train.sft -c train/configs/mlx/sft-gemma4-e4b-full.yaml    # 96 GB+
+# E2B: sft-gemma4-e2b-*.yaml. Tune for your RAM without editing files:
+uv run python -m train.sft -c train/configs/mlx/sft-gemma4-e4b-lora.yaml \
+  --set optim.perDeviceBatchSize=4 --set optim.gradientAccumulationSteps=4
+```
+
+The MLX trainer puts loss on every tutor turn (the same masks as the NVIDIA path), uses gradient
+checkpointing and gradient accumulation, and writes `out/mlx/<run>/final/` with only the trained
+delta (`weights.safetensors`, adapters or the trained weights) and `italia-train.json`, which
+names the base model. Nothing is merged until export.
 
 **5. Preference data and DPO.**
 
 ```sh
-uv run python -m datagen build-dpo-prompts -c datagen/configs/train.yaml \
-  --out work/dpo/prompts.jsonl --max-prompts 20000
-uv run python -m train.sample --model out/sft-gemma4-e4b-full/final --loader image-text-to-text \
+uv run python -m datagen build-dpo-prompts -c datagen/configs/local-mac.yaml \
+  --out work/dpo/prompts.jsonl --max-prompts 5000        # 20000 for the full round
+uv run python -m train.sample --backend mlx --model out/mlx/sft-gemma4-e4b-lora/final \
   --prompts work/dpo/prompts.jsonl --out work/dpo/candidates.jsonl -k 4
-uv run python -m datagen judge-candidates -c datagen/configs/train.yaml --include-reference \
+# restart the teacher server (it is also the judge), then:
+uv run python -m datagen judge-candidates -c datagen/configs/local-mac.yaml --include-reference \
   --candidates work/dpo/candidates.jsonl --out work/dpo/scored.jsonl
 uv run python -m datagen build-dpo --scored work/dpo/scored.jsonl --out work/dpo/pairs.jsonl
-uv run accelerate launch --config_file train/configs/accelerate-fsdp-8gpu.yaml \
-  -m train.dpo -c train/configs/dpo-gemma4-e4b.yaml
+# stop the server again, then:
+uv run python -m train.dpo -c train/configs/mlx/dpo-gemma4-e4b.yaml
+#   after a full SFT run: --set policyModel=out/mlx/sft-gemma4-e4b-full/final
 ```
 
-Pairs pit the best judged candidate against clearly worse ones: the margin must be at least 0.5,
-and the chosen candidate must score at least 4.0. Invalid JSON always loses. Prompts come mostly
-from turns that react to an error, plus some from correct learner turns, so DPO targets
-prompt-versus-recast choices and over-correction. If the SFT model was LoRA, merge it first
-(step 6) and point `policyModel` at the merged folder.
+DPO on MLX is implemented in `train/mlx_dpo.py` rather than with a third-party MLX trainer: our
+prompts are multi-turn (earlier tutor turns are context, not targets), an optional NLL term on the
+chosen answer guards against drift (`sftLossWeight`), and the masks must match SFT. The reference
+log-probabilities come from the SFT model once, before training, and are cached in
+`reference_logps.json`, so only one model is ever in memory. Pairs pit the best judged candidate
+against clearly worse ones (margin at least 0.5, chosen at least 4.0; invalid JSON always loses).
 
-**6. Export.**
+**6. Export: MLX -> Hugging Face safetensors -> GGUF.**
 
 ```sh
-export/build_llama_cpp.sh                     # llama.cpp at the version llama.rn bundles (b11804)
-uv run python -m export merge --model out/dpo-gemma4-e4b/final --out out/merged-e4b \
-  --loader image-text-to-text                  # no-op for full fine-tunes
+export/build_llama_cpp.sh       # Metal build of llama.cpp at the llama.rn version (b11804)
+uv run python -m export mlx-fuse --model out/mlx/dpo-gemma4-e4b/final --out out/merged/e4b
 uv run python -m export calibration --sft work/sft/sft.train.jsonl --out work/calibration.txt
-uv run python -m export gguf --model out/dpo-gemma4-e4b/final --id italia-tutor-e4b \
+uv run python -m export gguf --model out/merged/e4b --id italia-tutor-e4b \
   --quant Q4_0 --imatrix work/calibration.txt   # also try --quant Q4_K_M / IQ4_XS for iOS
 uv run python -m export smoke --gguf out/gguf/italia-tutor-e4b-q4_0-imat.gguf
+uv run python -m export manifest --gguf out/gguf/italia-tutor-e4b-q4_0-imat.gguf \
+  --id italia-tutor-e4b-q4_0 --url https://.../italia-tutor-e4b-q4_0.gguf   # prints sha256
 ```
 
-The smoke test runs 3 tutor prompts on the CPU with the output schema enforced as a grammar. It
-fails if any output is invalid, and it warns if the model's feedback move looks wrong.
+`mlx-fuse` rebuilds the model from its lineage (base, then the SFT delta, then the DPO delta,
+fusing each LoRA), then writes a Hugging Face checkpoint. It does not save MLX's own layout:
+it copies the original checkpoint (config, tokenizer, processor files, vision and audio towers)
+and swaps in the fine-tuned language-model tensors under their original names, dtypes and
+layouts (Qwen3.5's MLX loader stores RMSNorm weights as 1 + w and transposes conv1d kernels; the
+splice undoes both). llama.cpp's `convert_hf_to_gguf.py` therefore sees exactly the files it
+expects. The smoke test runs 3 tutor prompts on the CPU with the output schema enforced as a
+grammar; it fails on any invalid output and warns if the feedback move looks wrong.
 
-**7. Evaluation.** Serve each model behind an OpenAI-compatible endpoint:
+**7. Evaluation.** Serve each system behind an OpenAI-compatible endpoint. On the Mac:
 
-- the Q4_0 GGUF with `llama-server -m out/gguf/...gguf --port 8081 -c 8192`
-- the bf16 checkpoint and the untuned base with `vllm serve`
+- the Q4_0 GGUF, exactly as the phone runs it, with schema-constrained decoding:
+  `work/llama.cpp/build/bin/llama-server -m out/gguf/...gguf --port 8081 -c 8192`
+- the bf16 export and the untuned base with mlx-lm:
+  `uv run --extra mlx mlx_lm.server --model out/merged/e4b --port 8082` and
+  `... --model google/gemma-4-E4B-it --port 8083` (mlx-lm does not constrain JSON, so their
+  JSON-validity rows measure the unconstrained model)
+- the local teacher on port 8080, with `TEACHER_BASE_URL=http://127.0.0.1:8080/v1`,
+  `TEACHER_MODEL=$LOCAL_TEACHER_MODEL` and `TEACHER_API_KEY=local` (the server ignores it)
 
-Then run:
+On an NVIDIA box, serve the bf16 checkpoints with `vllm serve` instead. Then run:
 
 ```sh
 uv run python -m eval predict --items work/eval/items.jsonl --out work/eval/predictions.jsonl \
   --system student-q4 --system student-bf16 --system base --system teacher
-uv run python -m eval report -c datagen/configs/eval.yaml --items work/eval/items.jsonl \
+uv run python -m eval report -c datagen/configs/eval-local.yaml --items work/eval/items.jsonl \
   --predictions work/eval/predictions.jsonl --system student-q4 --system student-bf16 \
   --system base --system teacher \
   --pairwise student-q4:teacher-reference --pairwise student-q4:base \
@@ -214,7 +334,120 @@ The report covers:
 If the bf16-to-Q4_0 gap is more than 2 to 3 rubric points, try the imatrix variants, or add a
 short QAT phase.
 
-## Runbook A: rented GPU (RunPod, Lambda, or similar)
+## Runbook A: Mac Studio over ssh (primary)
+
+Designed for an M2/M3 Ultra-class Mac Studio with 64 to 512 GB of unified memory, reached over
+ssh. Find out what you have first: `sysctl -n machdep.cpu.brand_string hw.memsize`.
+
+**Prepare the Mac (once).**
+
+1. macOS 15 or later. Install the command line tools (`xcode-select --install`), Homebrew, and
+   `brew install tmux cmake jq macmon`. Install uv:
+   `curl -LsSf https://astral.sh/uv/install.sh | sh`. uv downloads Python 3.12 itself.
+2. Stop the Mac sleeping during multi-day runs: `sudo pmset -a sleep 0 disksleep 0`, or prefix
+   long commands with `caffeinate -dimsu`. Keep it on Ethernet and mains power.
+3. `git clone` this repository, `cd italia/training`, `uv sync --extra mlx`, and
+   `uv run huggingface-cli login`. If the internal disk is small, put the Hugging Face cache on a
+   fast external SSD: `export HF_HOME=/Volumes/<ssd>/hf` in `~/.zshrc`.
+4. Start LanguageTool (see Setup) and build llama.cpp: `export/build_llama_cpp.sh`.
+5. Check the toolchain: `uv run pytest` (runs the MLX tests on the GPU here).
+
+**Long runs.** Everything runs inside tmux so an ssh drop does not kill it:
+
+```sh
+ssh mac-studio
+tmux new -s italia                    # later: tmux attach -t italia; detach with Ctrl-b d
+cd ~/italia/training
+caffeinate -dimsu uv run python -m train.sft -c train/configs/mlx/sft-gemma4-e4b-lora.yaml \
+  2>&1 | tee -a out/logs-sft-e4b.txt
+```
+
+Use one tmux window for the teacher server and one per stage. Without tmux,
+`nohup caffeinate -dimsu uv run python -m ... > out/logs-<stage>.txt 2>&1 &` works too.
+
+**Resume.** Rerun the same command. Data generation skips finished jobs; judging skips judged
+dialogues; training reloads the newest complete checkpoint in `<outputDir>/checkpoints/`
+(weights, optimizer moments and the step) and continues with exactly the batches and learning
+rate it would have had. A checkpoint written by a different config is refused; use a new
+`outputDir` or `--no-resume`. Checkpoints are written every `saveSteps` optimizer steps and the
+newest `mlx.keepCheckpoints` are kept.
+
+**Monitoring.**
+
+- training: `tail -f out/mlx/<run>/metrics.jsonl | jq -c '{step, loss, tokens_per_s,
+  peak_memory_gb, eta_h}'`; validation rows carry `val_loss` (and DPO reward accuracy)
+- data generation: `uv run python -m datagen stats -c datagen/configs/local-mac.yaml`
+- the machine: `sudo macmon` (GPU, power, memory) or Activity Monitor's memory pressure. Swap
+  use means the micro-batch is too big: stop, lower `optim.perDeviceBatchSize`, raise
+  `optim.gradientAccumulationSteps` to keep 16 sequences per step, and resume with a new
+  `outputDir` (the config digest changes).
+
+**Memory per tier.** `uv run python -m train.memory` prints the plan; approximate peaks at
+4,096 tokens with gradient checkpointing and the default wired limit (~75% of RAM):
+
+| SFT model / method | 64 GB | 96 GB | 128 GB | 192 GB | 256 GB | 512 GB |
+|---|---|---|---|---|---|---|
+| gemma4-e4b lora | bs 2 x8 (~46 GB) | bs 2 x8 (~46 GB) | bs 4 x4 (~73 GB) | bs 8 x2 (~127 GB) | bs 8 x2 (~127 GB) | bs 8 x2 (~127 GB) |
+| gemma4-e4b full | no (~58 GB at bs 1) | bs 2 x8 (~72 GB) | bs 2 x8 (~72 GB) | bs 4 x4 (~98 GB) | bs 8 x2 (~152 GB) | bs 8 x2 (~152 GB) |
+| gemma4-e2b lora | bs 2 x8 (~38 GB) | bs 4 x4 (~64 GB) | bs 4 x4 (~64 GB) | bs 8 x2 (~114 GB) | bs 8 x2 (~114 GB) | bs 8 x2 (~114 GB) |
+| gemma4-e2b full | bs 1 x16 (~40 GB) | bs 2 x8 (~53 GB) | bs 4 x4 (~78 GB) | bs 8 x2 (~129 GB) | bs 8 x2 (~129 GB) | bs 8 x2 (~129 GB) |
+| qwen35-4b lora | bs 2 x8 (~38 GB) | bs 4 x4 (~63 GB) | bs 4 x4 (~63 GB) | bs 8 x2 (~113 GB) | bs 8 x2 (~113 GB) | bs 8 x2 (~113 GB) |
+| qwen35-4b full | no (~48 GB at bs 1) | bs 2 x8 (~61 GB) | bs 4 x4 (~86 GB) | bs 8 x2 (~136 GB) | bs 8 x2 (~136 GB) | bs 8 x2 (~136 GB) |
+
+"bs 2 x8" means `--set optim.perDeviceBatchSize=2 --set optim.gradientAccumulationSteps=8`. DPO
+scores chosen and rejected together, so it needs about one tier more for the same micro-batch
+(its configs default to 1 x16). Above 64 GB, `sudo sysctl iogpu.wired_limit_mb=...` (RAM minus
+8 GB) lets MLX use more before macOS pushes back; set `mlx.wiredLimitGb` to match.
+
+**Time (planning numbers).** Assuming ~700 trained tokens/s for E4B LoRA and ~450 for full
+fine-tuning on an M3 Ultra (E2B about 1.6x faster), and ~2k tokens per SFT dialogue. Each run
+prints its real `tokens_per_s` and `eta_h` after the first few steps; trust those.
+
+| Stage | Round 1 (10k jobs, ~7k dialogues) | Full (57k jobs, ~40k dialogues) |
+|---|---|---|
+| Teacher data (Qwen3.5-122B-A10B, revise on / off) | ~4.4 / 2.4 days | ~26 / 14 days |
+| Bake-off, 2 LoRA runs on 5k dialogues | ~8 h each | same |
+| SFT E4B LoRA / full, 2 epochs | ~11 h / ~17 h | ~2.7 / ~4 days |
+| DPO candidates (5k / 20k prompts x 4) + local judging | ~15 h | ~2.5 days |
+| DPO E4B (LoRA, ~5k / ~20k pairs, incl. reference pass) | ~10 h | ~40 h |
+| Export, smoke test, evaluation (700 dialogues) | ~6 h | same |
+
+**Disk.** About 150 GB plus the teacher: the teacher's weights (45 to 380 GB, see the table
+above); Hugging Face cache for E4B, E2B and Qwen3.5-4B (~36 GB); MLX checkpoints (LoRA: ~1 GB
+each; E4B full: ~24 GB each, 2 kept); the merged export (16 GB per model); GGUFs (bf16
+intermediate 16 GB, Q4_0 ~5 GB); data (a few GB).
+
+**Copy the GGUF back** (from your laptop):
+
+```sh
+rsync -avP mac-studio:italia/training/out/gguf/ ./training/out/gguf/
+rsync -avP mac-studio:italia/training/out/eval/ ./training/out/eval/
+```
+
+Then follow "Putting the model in the app". The manifest step can run on the Mac too; commit
+`models/manifest.json` from whichever machine runs `pnpm check`.
+
+## Runbook B: rented NVIDIA GPU (secondary)
+
+Use this when the Mac is busy or a deadline is tight. The stages are the same; the commands
+differ only in the configs and launchers:
+
+```sh
+uv sync --extra gpu && CUDA=1 export/build_llama_cpp.sh
+uv run python -m train.sft -c train/configs/bakeoff-gemma4-e4b.yaml      # bake-off, 1 GPU
+uv run accelerate launch --config_file train/configs/accelerate-fsdp-8gpu.yaml \
+  -m train.sft -c train/configs/sft-gemma4-e4b-full.yaml                  # release SFT
+uv run python -m train.sample --model out/sft-gemma4-e4b-full/final --loader image-text-to-text \
+  --prompts work/dpo/prompts.jsonl --out work/dpo/candidates.jsonl -k 4
+uv run accelerate launch --config_file train/configs/accelerate-fsdp-8gpu.yaml \
+  -m train.dpo -c train/configs/dpo-gemma4-e4b.yaml                       # TRL
+uv run python -m export merge --model out/dpo-gemma4-e4b/final --out out/merged-e4b \
+  --loader image-text-to-text                                            # no-op for full FT
+uv run python -m export gguf --model out/merged-e4b --id italia-tutor-e4b --quant Q4_0
+```
+
+If the SFT model was LoRA, merge it first and point the DPO `policyModel` at the merged folder.
+Data generation needs no GPU: run it on the Mac (local teacher) or anywhere with API access.
 
 These estimates use the research's figures at about US$2 to 4 per H100-hour. They are judgement,
 not measurements; the pilot and the first runs will replace them.
@@ -256,11 +489,11 @@ Steps for a rented GPU:
    (`curl -LsSf https://astral.sh/uv/install.sh | sh`), then run `uv sync --extra gpu`.
 3. Run `huggingface-cli login`. Copy `work/sft/`, `work/dpo/` and `work/eval/` up with `rsync`.
    Data generation needs no GPU, so run it on any machine.
-4. Run steps 3 to 6 above inside `tmux`. The Trainer saves checkpoints every `saveSteps`; resume
+4. Run the commands above inside `tmux`. The Trainer saves checkpoints every `saveSteps`; resume
    with the same command after a pre-emption.
 5. Copy `out/gguf/*.gguf` and `out/eval/` back. Stop the pod.
 
-## Runbook B: local NVIDIA GPU
+## Runbook C: local NVIDIA GPU
 
 - **24 GB (RTX 3090 or 4090):**
   - SFT: LoRA for both E4B and E2B (`sft-gemma4-e4b-lora.yaml`, `sft-gemma4-e2b-lora.yaml`).
@@ -268,13 +501,13 @@ Steps for a rented GPU:
   - DPO: `dpo-gemma4-e4b-lora.yaml`, starting from the merged SFT model.
   - Expected time is about 2 to 3 times the H100 figures: E4B LoRA on 40k dialogues takes about
     12 to 24 h, and E2B about half that.
-- **16 GB:** E2B LoRA only. Set `loadIn4bit: true` (QLoRA) in a copy of the config for E4B.
+- **16 GB:** E2B LoRA only. For E4B, add `--set loadIn4Bit=true` (QLoRA with Unsloth).
 - Steps:
   1. Install the NVIDIA driver (CUDA 12.8+ runtime).
   2. Run `uv sync --extra gpu`.
   3. Run `CUDA=1 export/build_llama_cpp.sh`.
-  4. Run steps 3 to 6 with `--config_file train/configs/accelerate-1gpu.yaml`, or with plain
-     `uv run python -m train.sft -c ...`.
+  4. Run the Runbook B commands with `--config_file train/configs/accelerate-1gpu.yaml`, or
+     with plain `uv run python -m train.sft -c ...`.
 - Electricity at about 450 W for about 20 h is roughly 9 kWh. Use LoRA r 128 for the release
   model if full fine-tuning is out of reach.
 
@@ -303,12 +536,17 @@ Steps for a rented GPU:
 
 ## Known gaps
 
-- The GPU stages (`train/`, `export merge`, `train.sample`) have not been run on a GPU yet. Their
-  pure logic is unit-tested, and their calls were checked against the pinned library sources.
-  The first bake-off run is the integration test.
+- Neither training path has run on real hardware with the real models yet. The MLX path runs
+  end to end in the test-suite (SFT, resume, DPO, fuse and re-layout to Hugging Face files) on a
+  tiny model with MLX's CPU backend, and the re-layout reproduces the fused model exactly; the
+  first Mac bake-off run is the integration test for Gemma 4 and Qwen3.5 on Metal. The NVIDIA
+  stages were checked against the pinned library sources only.
+- The memory, throughput and time tables are planning estimates from public single-stream
+  benchmarks and simple models of batching; `datagen bench`, `metrics.jsonl` and the pilot will
+  replace them.
 - The seed lemma list (`data/lemmas.seed-v1.tsv`) comes from subtitle frequencies. It ranks
   basic course vocabulary (days of the week, food, places) low and lacks some lemmas entirely
   (for example "grande"). `data/core_vocab.tsv` patches this for band checks. The content
   pipeline should fix it at the source.
 - No error-annotated Italian learner corpus exists, so the gold labels are the injected errors.
-  Native-speaker spot checks remain essential.
+  Native-speaker spot checks remain essential, more so with a local teacher.

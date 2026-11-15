@@ -32,8 +32,9 @@ docs/                   Architecture plan and ADRs
 
 `training/` holds the pipeline that builds the on-device Italian tutor model: task spec, scenarios,
 teacher data generation, SFT and DPO, evaluation and GGUF export. It is a separate Python project
-managed with uv and is not part of the pnpm workspace. See [`training/README.md`](training/README.md)
-for setup and the GPU runbooks.
+managed with uv and is not part of the pnpm workspace. The primary path runs on an Apple Silicon
+Mac Studio (MLX training and a local teacher model); NVIDIA GPUs are the fallback. See
+[`training/README.md`](training/README.md) for setup and the runbooks.
 
 ## Prerequisites
 
