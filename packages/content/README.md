@@ -1,7 +1,8 @@
 # @italia/content
 
-Build-time content pipeline and the content seed it produces. Only the seed and its schema ship to
-the phone; the pipeline runs on a development machine.
+Build-time content pipeline and the content seed it produces: lemmas, sentences, grammar points and
+the bundled graded stories. Only the seed files and their schemas ship to the phone; the pipeline
+runs on a development machine.
 
 ## What is in the seed
 
@@ -73,5 +74,94 @@ minute and needs roughly 4 GB of memory.
 5. **Grammar**: `src/grammar/points.ts` (hand-written) and `src/grammar/rules.ts` (detection).
 6. **Validation**: the seed is parsed with the zod schema before it is written, and
    `src/seed.test.ts` checks ids, the prerequisite DAG, coverage and size.
+
+## Graded stories
+
+`stories/` holds the bundled story corpus: original Italian stories written for the project, in
+series with a recurring cast (Via Verdi and its neighbours), each sentence with an English
+translation. The app picks stories at 95 to 98% known-word coverage (`docs/architecture.md`, section
+5), so every token is tagged with a seed lemma id.
+
+| Path                           | What it is                                                                                                                                         |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `stories/<series>/series.json` | Series id, title, band and blurb (hand-written)                                                                                                    |
+| `stories/<series>/<nn>.txt`    | The story source (hand-written), format below                                                                                                      |
+| `stories/<series>/<nn>.json`   | The tagged story (generated, `StorySchema`)                                                                                                        |
+| `stories/index.json`           | Every series and story with band, level and word count (generated)                                                                                 |
+| `seed/stories.v1.json`         | The bundle the app imports: all series and stories plus the sha256 of the `seed.v1.json` they were tagged against (generated, `StoriesFileSchema`) |
+| `seed/manifest.json`           | sha256 and size of `seed.v1.json` and `stories.v1.json` (generated)                                                                                |
+
+A source file has a `title:` line (`Italian | English`), an optional `names:` line listing the
+proper nouns, then one sentence per line as `Italian | English`, with blank lines between
+paragraphs. Use the ASCII apostrophe.
+
+```text
+title: Chi è? | Who is he?
+names: Luca, Sara
+
+Al lavoro, Luca parla con Sara. | At work, Luca talks to Sara.
+```
+
+### Bands
+
+A story's **band** is a lemma-rank ceiling (150, 300, 500, 750, 1000, 1500, 2000, 3000). The
+validator (`src/stories/validate.ts`) requires, per story:
+
+- at least **98%** of word tokens (names excluded) with every lemma ranked within the band, the
+  rest from the next band only (so at most 2%), and no untagged or unknown words;
+- names at most 12% of tokens;
+- no grammar point above the band's ceiling, and no subjunctive or passato remoto forms;
+- a length and a longest sentence that grow with the band;
+- 3 to 6 **target lemmas**: content words above the previous band's ceiling (and above rank 20)
+  that the story uses at least twice. The tagger picks them, preferring words earlier episodes of
+  the series have not targeted.
+
+| Band | Level | Grammar allowed up to (point order)                                   | Words   | Longest sentence |
+| ---- | ----- | --------------------------------------------------------------------- | ------- | ---------------- |
+| 150  | A1    | `piacere` (20): the present-tense A1 core                             | 80-140  | 10               |
+| 300  | A1    | `piacere` (20)                                                        | 100-170 | 12               |
+| 500  | A1    | `passato-prossimo-essere` (23): passato prossimo                      | 120-200 | 14               |
+| 750  | A2    | `indirect-object-pronouns` (28): reflexives, object pronouns          | 150-240 | 16               |
+| 1000 | A2    | `passato-prossimo-vs-imperfetto` (31): imperfetto                     | 170-270 | 18               |
+| 1500 | A2    | `comparatives` (35): future, stare + gerund, imperative, comparatives | 200-300 | 20               |
+| 2000 | B1    | `conditional` (38): all points                                        | 230-330 | 24               |
+| 3000 | B1    | `conditional` (38)                                                    | 250-350 | 28               |
+
+Grammar is detected with the same rules as the seed sentences (`src/grammar/rules.ts`). They are
+precise rather than complete, so writers also follow the ceiling by hand (for example no "Lo so"
+before band 750). Informal _tu_ is used throughout; formal _Lei_ appears from band 750.
+
+### Tagging
+
+`src/stories/tagger.ts` tokenises each sentence and tags it with the Morph-it! lexicon, so elision
+("l'acqua", "dell'", "c'è"), articulated prepositions ("nel" = in + il) and enclitics ("dimmi" =
+dire + mi, "alzarsi" = alzare + si) map to seed lemmas. A token has the head lemma in `lemmaId`
+and further lemmas in `partIds`. Tokens listed under `names:` are marked `isName` even when they
+are also words ("Rosa", "Bruno"); a capitalised word that is neither is reported.
+
+`wordTimings` is filled by the audio phase and stored in the `story.word_timings` column: one
+array per sentence in reading order, with one `[startMs, endMs]` pair per token
+(`StoryWordTimingsSchema`). Use `toStoryRow()` to map a story to a `story` table row.
+
+### Building and checking
+
+```sh
+pnpm --filter @italia/content build:stories                 # tag, validate, write everything
+pnpm --filter @italia/content build:stories --only via-verdi --verbose   # iterate on one series
+```
+
+The build needs `morph-it` and `subtlex-it` in `.cache/` (`fetch:sources`) and exits non-zero
+when a story fails; fix the story rather than the thresholds. `src/stories/corpus.test.ts` checks
+that every committed story validates, matches its source, is in the index and the bundle, and
+that the checksums in the manifest are current; with the cache present it also re-tags the sources
+and compares.
+
+### Seed gaps writers must work around
+
+Some very common words are missing from seed v1 and so cannot appear in stories: _tutto/tutta/tutte_
+(only the form _tutti_ is a lemma), _altro_, _sì_, _ecco_, _ogni_, _nessuno_, _qualche_, _alcuni_,
+_stesso_, _grande_, _gente_, _voi_, _però_, _po'_ (_un po'_), _cui_, _ed_, _ad_, _buon_, _bel_,
+_mille_, _buongiorno_, _Italia_ (as a word). The stories are written around them. When the seed
+gains them, rebuild the stories; the sources do not change.
 
 Licences for every source are in [LICENSES.md](./LICENSES.md).

@@ -151,3 +151,24 @@ export type SeedToken = z.infer<typeof SeedTokenSchema>;
 export type SeedSentence = z.infer<typeof SeedSentenceSchema>;
 export type SeedGrammarPoint = z.infer<typeof SeedGrammarPointSchema>;
 export type Seed = z.infer<typeof SeedSchema>;
+
+/** One file listed in `seed/manifest.json`. */
+export const SeedManifestFileSchema = z
+  .object({
+    /** File name inside `seed/`, e.g. `stories.v1.json`. */
+    path: z.string().regex(/^[a-z0-9.-]+\.json$/),
+    sha256: z.string().regex(/^[0-9a-f]{64}$/),
+    bytes: z.number().int().positive(),
+  })
+  .strict();
+
+/**
+ * `seed/manifest.json`: checksums of the files the app bundles, so an import can
+ * verify them and skip work when nothing changed.
+ */
+export const SeedManifestSchema = z
+  .object({ version: z.literal(1), files: z.array(SeedManifestFileSchema).min(1) })
+  .strict();
+
+export type SeedManifestFile = z.infer<typeof SeedManifestFileSchema>;
+export type SeedManifest = z.infer<typeof SeedManifestSchema>;
