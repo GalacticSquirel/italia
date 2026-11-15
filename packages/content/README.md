@@ -21,7 +21,12 @@ Row fields match the insert types of the `lemma`, `sentence` and `grammar_point`
 `apps/mobile/src/db/schema.ts`. Fields the tables do not have yet are in each row's `extra`
 object (noun gender, frequency per million, token-to-lemma alignment, sentence target and
 difficulty, Tatoeba attribution, grammar slug and CEFR band). `seed/build-report.json` holds the
-build statistics (coverage, rejected sentences, grammar tag counts).
+build statistics (coverage, merged variant spellings, rejected sentences, grammar tag counts), and
+`seed/top-forms.json` records which seed lemma each of the 300 most frequent subtitle word forms
+maps to.
+
+The 3,000 lemmas cover about 89% of subtitle tokens (83% for the top 1,000, 87% for the top
+2,000).
 
 Ids are stable across rebuilds: lemma ids are a 31-bit hash of `lemma|POS`, sentence ids are the
 Tatoeba ids, and grammar ids are fixed in `src/grammar/points.ts`. `generatedAt` only changes
@@ -59,13 +64,19 @@ minute and needs roughly 4 GB of memory.
 ## Pipeline
 
 1. **Lexicon**: Morph-it! forms, normalised (articles to `il`/`un`, articulated prepositions
-   split into preposition + `il`, clitics canonicalised, auxiliaries as VERB), plus corrections
-   in `src/pipeline/overrides.ts`.
+   split into preposition + `il`, clitics canonicalised, auxiliaries as VERB, inflected pronoun
+   lemmas such as `mia` and `altri` given their determiner lemma), plus corrections in
+   `src/pipeline/overrides.ts`. A form that is only a name in Morph-it! (`po`, `gia`) also gets
+   the common word it is usually typed for (`po'`, `già`).
 2. **Lemma frequencies**: FrequencyWords form counts shared between each form's readings, using
-   SUBTLEX-IT's tag distribution and a few rounds of re-estimation; homographs with the same
-   spelling are merged, and lemmas that only borrow another word's form are dropped.
-3. **Glosses**: the first usable Wiktionary senses for the matching part of speech; lemmas
-   without a gloss, profanity and mostly vulgar words are dropped.
+   SUBTLEX-IT's tag distribution and a few rounds of re-estimation. Noun and adjective lemmas
+   that only exist as a misreading of one frequent form (`vaio` from "vai", `malo` from "male")
+   are removed first. Homographs with the same spelling are merged, and lemmas that only borrow
+   another word's form are dropped.
+3. **Glosses**: the first usable Wiktionary senses for the matching part of speech. Variant
+   spellings (apocopic `buon`, `bel`, euphonic `ed`, `ad`) are merged into their base lemma, and
+   each merged group takes the part of speech that has a gloss. Lemmas without a gloss,
+   profanity and mostly vulgar words are dropped.
 4. **Sentences**: Tatoeba it-en pairs are tokenised and tagged with a small rule-based tagger.
    Sentences with unknown words, digits, more than two names or subjunctive / passato remoto
    forms are skipped. Each lemma gets up to 5 anchor sentences ranked by native-speaker
@@ -73,7 +84,9 @@ minute and needs roughly 4 GB of memory.
    easiest sentences containing them.
 5. **Grammar**: `src/grammar/points.ts` (hand-written) and `src/grammar/rules.ts` (detection).
 6. **Validation**: the seed is parsed with the zod schema before it is written, and
-   `src/seed.test.ts` checks ids, the prerequisite DAG, coverage and size.
+   `src/seed.test.ts` checks ids, the prerequisite DAG, coverage and size, that about 120
+   must-have words are present within a rank limit, and that every one of the top 300 word
+   forms maps to a seed lemma, is a name, or is listed in `EXCLUDED_TOP_FORMS` with a reason.
 
 ## Graded stories
 

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   countLemmas,
+  ghostLemmas,
   mergeHomographs,
   parseFrequencyWords,
   parseSubtlex,
@@ -106,5 +107,28 @@ describe('shadowedLemmas', () => {
     const shadowed = shadowedLemmas(counted, new Set(['VERB']));
     expect(shadowed.has('deviare|VERB')).toBe(true);
     expect(shadowed.has('dovere|VERB')).toBe(false);
+  });
+});
+
+describe('ghostLemmas', () => {
+  it('flags nouns and adjectives seen only through another word’s form', () => {
+    const lexicon = parseMorphIt(
+      [
+        'vai\tandare\tVER:ind+pres+2+s',
+        'vai\tvaio\tADJ:pos+m+p',
+        'vaio\tvaio\tADJ:pos+m+s',
+        'case\tcasa\tNOUN-F:p',
+        'case\tcaso\tNOUN-M:p',
+        'casa\tcasa\tNOUN-F:s',
+      ].join('\n'),
+    );
+    const forms = parseFrequencyWords('vai 1000\ncase 500\ncasa 400\nvaio 1\n');
+    const counted = countLemmas(forms, lexicon, new Map(), { iterations: 0 });
+    const ghosts = ghostLemmas(counted, forms);
+    expect(ghosts.has('vaio|ADJ')).toBe(true);
+    expect(ghosts.has('casa|NOUN')).toBe(false);
+    // "caso" never appears as itself either, so it is a ghost of "case".
+    expect(ghosts.has('caso|NOUN')).toBe(true);
+    expect(ghosts.has('andare|VERB')).toBe(false);
   });
 });

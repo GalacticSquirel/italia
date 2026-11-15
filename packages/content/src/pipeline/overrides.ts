@@ -18,6 +18,8 @@ export const GLOSS_OVERRIDES: Readonly<Record<string, string>> = {
   'per|ADP': 'for, through, in order to',
   'tra|ADP': 'between, among, in (time)',
   'fra|ADP': 'between, among, in (time)',
+  'gente|NOUN': 'people, folks',
+  'eh|INTJ': 'eh, huh',
   'che|SCONJ': 'that, than',
   'che|DET': 'what, which, who, that',
   'che|PRON': 'what, which, who, that',
@@ -167,9 +169,10 @@ export const PREFERRED_POS: Readonly<Record<string, string>> = {
 
 /**
  * Rows missing from Morph-it! 0.4.8, in its own `form<TAB>lemma<TAB>tag` format
- * (it lists only "veduto" as the participle of vedere).
+ * (it lists only "veduto" as the participle of vedere, and lacks "ehi").
  */
 export const LEXICON_SUPPLEMENT = [
+  'ehi\tehi\tINT',
   'visto\tvedere\tVER:part+past+s+m',
   'vista\tvedere\tVER:part+past+s+f',
   'visti\tvedere\tVER:part+past+p+m',
@@ -178,3 +181,14 @@ export const LEXICON_SUPPLEMENT = [
 
 /** Single letters are only kept when they are real words. */
 export const SINGLE_LETTER_WORDS: ReadonlySet<string> = new Set(['a', 'e', 'o', 'i']);
+
+/**
+ * Frequent subtitle word forms deliberately left out of the seed, with the
+ * reason. Every other form in the top of the frequency list must map to a seed
+ * lemma or be a name (checked by the seed tests).
+ */
+export const EXCLUDED_TOP_FORMS: Readonly<Record<string, string>> = {
+  ok: 'English loanword, understood without teaching',
+  okay: 'English loanword, understood without teaching',
+  cazzo: 'profanity',
+};

@@ -21,16 +21,26 @@ import { GRAMMAR_POINTS } from '../src/grammar/points';
 import { detectGrammar, usesOutOfScopeGrammar } from '../src/grammar/rules';
 import {
   countLemmas,
+  ghostLemmas,
   mergeHomographs,
   parseFrequencyWords,
   parseSubtlex,
+  properNounShare,
+  readingPriors,
   shadowedLemmas,
   tokenCoverage,
 } from '../src/pipeline/frequency';
-import { pickGloss, type WiktionaryEntry } from '../src/pipeline/glosses';
+import {
+  pickGloss,
+  variantOf,
+  WIKTIONARY_POS,
+  type WiktionaryEntry,
+} from '../src/pipeline/glosses';
 import { lemmaId } from '../src/pipeline/ids';
 import {
   applyFormReadings,
+  dropReadings,
+  lookup,
   parseUnitKey,
   parseMorphIt,
   type Reading,
@@ -38,6 +48,7 @@ import {
 } from '../src/pipeline/lexicon';
 import {
   BLOCKED_LEMMAS,
+  EXCLUDED_TOP_FORMS,
   FORM_READINGS,
   GLOSS_OVERRIDES,
   LEXICON_SUPPLEMENT,
@@ -64,6 +75,9 @@ const MAX_PROPER_NOUNS = 2;
 const SEED_DIR = join(PACKAGE_DIR, 'seed');
 const SEED_PATH = join(SEED_DIR, `seed.v${SEED_VERSION}.json`);
 const REPORT_PATH = join(SEED_DIR, 'build-report.json');
+const TOP_FORMS_PATH = join(SEED_DIR, 'top-forms.json');
+/** How many of the most frequent word forms the regression fixture records. */
+const TOP_FORMS = 300;
 
 const USED_FOR: Readonly<Record<SourceId, string>> = {
   'frequencywords-it': 'Word-form frequencies (lemma ranks after lemmatisation)',
@@ -113,6 +127,8 @@ async function readWiktionary(words: ReadonlySet<string>): Promise<Map<string, W
       senses: (entry.senses ?? []).map((s) => ({
         ...(s.glosses ? { glosses: s.glosses } : {}),
         ...(s.tags ? { tags: s.tags } : {}),
+        ...(s.alt_of ? { alt_of: s.alt_of.map((a) => ({ word: a.word })) } : {}),
+        ...(s.form_of ? { form_of: s.form_of.map((a) => ({ word: a.word })) } : {}),
       })),
     });
   }
@@ -159,6 +175,10 @@ async function readNativeSpeakers(): Promise<{ ita: Set<string>; eng: Set<string
 
 const VALID_LEMMA = /^\p{Ll}[\p{Ll}']*$/u;
 
+/** Wiktextract parts of speech, with the nominal ones (noun, adj, det, pron) as one. */
+const posClass = (pos: string): string =>
+  ['noun', 'adj', 'det', 'pron', 'num', 'article'].includes(pos) ? 'nominal' : pos;
+
 function eligibleKey(key: string): boolean {
   const [lemma = '', upos = ''] = key.split('|');
   if (upos === 'PROPN') return false;
@@ -181,23 +201,135 @@ async function main(): Promise<void> {
   const formCounts = parseFrequencyWords(await readFile(cachePath('frequencywords-it'), 'utf8'));
 
   log('lemma frequencies');
+  // Lemmas that only exist as a misreading of one frequent form (vaio from "vai")
+  // are removed from that form before counting.
+  const ghosts = ghostLemmas(countLemmas(formCounts, lexicon, subtlex), formCounts);
+  dropReadings(lexicon, ghosts);
+  log(`ghost lemmas: ${[...ghosts].sort().join(' ')}`);
   const firstPass = countLemmas(formCounts, lexicon, subtlex);
   const canonical = mergeHomographs(firstPass.counts, { preferred: PREFERRED_POS });
   const counted = countLemmas(formCounts, lexicon, subtlex, { canonical });
-  const lemmaFrequency = (key: string) => counted.counts.get(canonical(key)) ?? 0;
   const shadowed = shadowedLemmas(counted, new Set(['VERB', 'ADJ']));
-  const ranked = [...counted.counts.entries()]
+  const candidates = [...counted.counts.entries()]
     .filter(([key]) => eligibleKey(key) && !shadowed.has(key))
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
-  const candidates = ranked.slice(0, 9000);
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, 9000);
+  const candidateCount = new Map(candidates);
+
+  // Members of each merged homograph group, most frequent first.
+  const members = new Map<string, string[]>();
+  for (const key of [...firstPass.counts.keys()].sort(
+    (a, b) => (firstPass.counts.get(b) ?? 0) - (firstPass.counts.get(a) ?? 0) || a.localeCompare(b),
+  )) {
+    const root = canonical(key);
+    if (!candidateCount.has(root)) continue;
+    let list = members.get(root);
+    if (!list) members.set(root, (list = [root]));
+    if (key !== root) list.push(key);
+  }
 
   log('glosses');
-  const wiktionary = await readWiktionary(new Set(candidates.map(([k]) => k.split('|')[0] ?? '')));
-  const lemmaRows: SeedLemma[] = [];
-  const glossedKeys: string[] = [];
+  const wiktionary = await readWiktionary(new Set(candidates.map(([k]) => parseUnitKey(k).lemma)));
+  const entriesOf = (lemma: string) => wiktionary.get(lemma) ?? [];
   const dropped = { noGloss: 0, offensive: 0, shadowed: shadowed.size };
+  /** Key -> the key it was folded into (variant spelling, chosen POS, same meaning). */
   const alias = new Map<string, string>();
-  const firstGloss = new Map<string, string>();
+  const resolve = (key: string): string => {
+    let k = canonical(key);
+    for (let hops = 0; hops < 5; hops++) {
+      const next = alias.get(k);
+      if (!next || next === k) break;
+      k = next;
+    }
+    return k;
+  };
+
+  // 1. Variant spellings (buon -> buono, ed -> e, po' -> poco) join their base lemma.
+  const rootsByLemma = new Map<string, string[]>();
+  for (const [key] of candidates) {
+    const { lemma } = parseUnitKey(key);
+    let list = rootsByLemma.get(lemma);
+    if (!list) rootsByLemma.set(lemma, (list = []));
+    list.push(key);
+  }
+  const variants: string[] = [];
+  const baseOf = new Map<string, string>();
+  for (const [key] of candidates) {
+    const { lemma, upos } = parseUnitKey(key);
+    if (GLOSS_OVERRIDES[key]) continue;
+    const base = variantOf(entriesOf(lemma), WIKTIONARY_POS[upos]);
+    if (base && base !== lemma) baseOf.set(key, base);
+  }
+  // Morph-it! sometimes uses a shortened variant as the lemma (alcun for alcuni):
+  // such a lemma is shown, and glossed, under its full form.
+  const shownLemma = new Map<string, string>();
+  const missingBases = new Set([...baseOf.values()].filter((b) => !rootsByLemma.has(b)));
+  for (const [word, entries] of await readWiktionary(missingBases)) wiktionary.set(word, entries);
+  for (const [key, base] of baseOf) {
+    const roots = rootsByLemma.get(base) ?? [];
+    const target = roots.find((r) => parseUnitKey(r).upos === parseUnitKey(key).upos) ?? roots[0];
+    if (target) {
+      alias.set(key, target);
+      variants.push(`${key} -> ${target}`);
+    } else {
+      // Only a shortened form (alcun of alcuno) with the same part of speech.
+      const { lemma, upos } = parseUnitKey(key);
+      const wanted = new Set(WIKTIONARY_POS[upos].map(posClass));
+      const sameClass = entriesOf(base).some((e) => wanted.has(posClass(e.pos)));
+      if (!base.startsWith(lemma) || !sameClass) continue;
+      shownLemma.set(lemma, base);
+      variants.push(`${key} -> ${base} (shown as)`);
+    }
+  }
+  const glossEntries = (lemma: string) => entriesOf(shownLemma.get(lemma) ?? lemma);
+
+  // 2. Each remaining group takes the part of speech that has a gloss.
+  interface Glossed {
+    key: string;
+    gloss: string;
+    offensive: boolean;
+  }
+  const glossed = new Map<string, Glossed>();
+  for (const [root] of candidates) {
+    if (alias.has(root)) continue;
+    const group = members.get(root) ?? [root];
+    let found: Glossed | null = null;
+    for (const key of group) {
+      const override = GLOSS_OVERRIDES[key];
+      if (override) {
+        found = { key, gloss: override, offensive: false };
+        break;
+      }
+    }
+    for (const key of found ? [] : group) {
+      const { lemma, upos } = parseUnitKey(key);
+      const picked = pickGloss(glossEntries(lemma), upos);
+      if (picked) {
+        found = { key, ...picked };
+        break;
+      }
+    }
+    if (!found) {
+      const { lemma, upos } = parseUnitKey(root);
+      const picked = pickGloss(glossEntries(lemma), upos, { anyPos: true });
+      if (picked) found = { key: root, ...picked };
+    }
+    if (!found) {
+      dropped.noGloss++;
+      continue;
+    }
+    if (found.key !== root) alias.set(root, found.key);
+    glossed.set(found.key, found);
+  }
+
+  // 3. Rank by the summed count of everything folded into each lemma.
+  const total = new Map<string, number>();
+  for (const [key, n] of candidates) {
+    const k = resolve(key);
+    if (glossed.has(k)) total.set(k, (total.get(k) ?? 0) + n);
+  }
+  const ranked = [...total.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+
   const genderOf = new Map<string, 'm' | 'f'>();
   for (const readings of lexicon.values()) {
     for (const r of readings) {
@@ -206,16 +338,13 @@ async function main(): Promise<void> {
         genderOf.set(unitKey(u), r.gender);
     }
   }
-  for (const [key, count] of candidates) {
+  const lemmaRows: SeedLemma[] = [];
+  const glossedKeys: string[] = [];
+  const firstGloss = new Map<string, string>();
+  for (const [key, count] of ranked) {
     const { lemma, upos } = parseUnitKey(key);
-    const override = GLOSS_OVERRIDES[key];
-    const picked = override
-      ? { gloss: override, offensive: false }
-      : pickGloss(wiktionary.get(lemma) ?? [], upos);
-    if (!picked) {
-      dropped.noGloss++;
-      continue;
-    }
+    const picked = glossed.get(key);
+    if (!picked) continue;
     if (picked.offensive) {
       dropped.offensive++;
       continue;
@@ -232,9 +361,10 @@ async function main(): Promise<void> {
     glossedKeys.push(key);
     if (lemmaRows.length < LEMMA_COUNT) {
       const gender = upos === 'NOUN' ? genderOf.get(key) : undefined;
+      const shown = shownLemma.get(lemma) ?? lemma;
       lemmaRows.push({
-        id: lemmaId(lemma, upos),
-        lemma,
+        id: lemmaId(shown, upos),
+        lemma: shown,
         pos: upos,
         freqRank: lemmaRows.length + 1,
         glossEn: picked.gloss,
@@ -248,17 +378,20 @@ async function main(): Promise<void> {
   }
   const ids = new Set(lemmaRows.map((l) => l.id));
   if (ids.size !== lemmaRows.length) throw new Error('Lemma id collision; change the hash input');
+  const lemmaFrequency = (key: string) => total.get(resolve(key)) ?? 0;
 
+  // Coverage is measured on the frequency list's own (merged) keys.
   const coverage = Object.fromEntries(
-    COVERAGE_LEVELS.map((n) => [
-      `top${n}`,
-      round(tokenCoverage(counted, new Set(glossedKeys.slice(0, n)))),
-    ]),
+    COVERAGE_LEVELS.map((n) => {
+      const top = new Set(glossedKeys.slice(0, n));
+      const known = new Set([...counted.counts.keys()].filter((k) => top.has(resolve(k))));
+      return [`top${n}`, round(tokenCoverage(counted, known))];
+    }),
   );
   log(`coverage ${JSON.stringify(coverage)}`);
 
   log('tatoeba');
-  const idByKey = new Map(lemmaRows.map((l) => [`${l.lemma}|${l.pos}`, l.id]));
+  const idByKey = new Map(lemmaRows.map((l, i) => [glossedKeys[i] ?? '', l.id]));
   const rankById = new Map(lemmaRows.map((l) => [l.id, l.freqRank]));
   const links = new Map<number, number[]>();
   for await (const line of bz2Lines(cachePath('tatoeba-ita-eng-links'))) {
@@ -275,8 +408,7 @@ async function main(): Promise<void> {
   const readingIds = (r: Reading): number[] | null => {
     const out: number[] = [];
     for (const u of r.units) {
-      const key = canonical(unitKey(u));
-      const id = idByKey.get(alias.get(key) ?? key);
+      const id = idByKey.get(resolve(unitKey(u)));
       if (id === undefined) return null;
       out.push(id);
     }
@@ -482,7 +614,7 @@ async function main(): Promise<void> {
       droppedWithoutGloss: dropped.noGloss,
       droppedOffensive: dropped.offensive,
       droppedAsHomographShadows: dropped.shadowed,
-      mergedSameMeaning: [...alias.keys()],
+      variantSpellings: variants,
     },
     coverage: {
       description:
@@ -509,7 +641,38 @@ async function main(): Promise<void> {
     ),
   };
 
+  // The most frequent word forms and the seed lemmas their likeliest reading maps
+  // to, so a test can check that no frequent word is missing from the seed.
+  const seedKeys = new Set(idByKey.keys());
+  const topForms = formCounts.slice(0, TOP_FORMS).map(({ form }, i) => {
+    const rank = i + 1;
+    const readings = (lookup(lexicon, form) ?? []).filter((r) => r.units[0]?.upos !== 'PROPN');
+    const excluded = EXCLUDED_TOP_FORMS[form];
+    if (excluded) return { rank, form, status: 'excluded', reason: excluded };
+    if (properNounShare(subtlex.get(form)) > 0.5) return { rank, form, status: 'name' };
+    if (readings.length === 0) return { rank, form, status: 'unknown' };
+    const priors = readingPriors(readings, subtlex.get(form), lemmaFrequency);
+    let best = 0;
+    priors.forEach((w, j) => {
+      if (w > (priors[best] ?? 0)) best = j;
+    });
+    const keys = (readings[best]?.units ?? []).map((u) => resolve(unitKey(u)));
+    const status = keys.every((k) => seedKeys.has(k)) ? 'ok' : 'missing';
+    // As the seed shows them (lemma|pos).
+    const lemmas = keys.map((k) => {
+      const { lemma, upos } = parseUnitKey(k);
+      return `${shownLemma.get(lemma) ?? lemma}|${upos}`;
+    });
+    return { rank, form, status, lemmas };
+  });
+  const missingTop = topForms.filter((f) => f.status !== 'ok').map((f) => `${f.form}:${f.status}`);
+  log(`top ${TOP_FORMS} forms not mapped: ${missingTop.join(' ')}`);
+
   await mkdir(SEED_DIR, { recursive: true });
+  await writeFile(
+    TOP_FORMS_PATH,
+    `[\n${topForms.map((f) => `  ${JSON.stringify(f)}`).join(',\n')}\n]\n`,
+  );
   await writeFile(SEED_PATH, serialise(seed));
   await writeFile(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`);
   log(`wrote ${SEED_PATH} (${seed.lemmas.length} lemmas, ${seed.sentences.length} sentences)`);
