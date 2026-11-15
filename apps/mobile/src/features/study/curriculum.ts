@@ -191,14 +191,18 @@ export function buildCurriculum(
   const frontierItems: CurriculumCandidate[] = [];
   const practice: CurriculumCandidate[] = [];
   if (limits.practice > 0) {
+    // Frontier items and other practice are collected separately: frontier
+    // sentences are often longer than practice for points already unlocked,
+    // and must not be crowded out by them (that would stall grammar).
+    const frontierCap = frontier === null ? 0 : Math.min(FRONTIER_ITEMS, limits.practice);
     for (const s of content.sentencesByLength) {
-      if (frontierItems.length + practice.length >= limits.practice) break;
+      if (frontierItems.length >= frontierCap && practice.length >= limits.practice) break;
       if (!knows(s)) continue;
       const focus = grammarFocus(s, content);
       const grammarIds = focus === null ? [] : [focus];
       if (focus !== null && focus === frontier) {
         if (
-          frontierItems.length < FRONTIER_ITEMS &&
+          frontierItems.length < frontierCap &&
           open('grammar_cloze', s.id) &&
           grammarBlank(s, content)
         ) {
@@ -207,6 +211,7 @@ export function buildCurriculum(
         continue;
       }
       if (focus !== null && !unlocked.has(focus)) continue;
+      if (practice.length >= limits.practice) continue;
       const kind = practiceKind(s, content);
       if (open(kind, s.id) && !introduced(kind, s.id)) {
         practice.push(candidate(kind, s.id, s.lemmaIds, grammarIds));
