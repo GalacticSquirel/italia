@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://italia.app/schemas/model-manifest.json",
+  "title": "Italia model manifest",
+  "description": "On-device models the app downloads after install. Weights are never committed.",
+  "type": "object",
+  "required": ["version", "models"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": {
+      "description": "Manifest format version.",
+      "const": 1
+    },
+    "models": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/model" }
+    }
+  },
+  "$defs": {
+    "model": {
+      "type": "object",
+      "required": ["id", "url", "sha256", "sizeBytes", "licence"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Stable identifier, e.g. \"whisper-base-q5\".",
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]*$"
+        },
+        "url": {
+          "description": "HTTPS download URL of the model file.",
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "sha256": {
+          "description": "Lowercase hex SHA-256 of the file; verified before the model is loaded.",
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sizeBytes": {
+          "description": "Exact file size in bytes.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "licence": {
+          "description": "SPDX licence identifier of the weights, e.g. \"Apache-2.0\".",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
