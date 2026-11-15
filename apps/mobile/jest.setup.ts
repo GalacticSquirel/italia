@@ -39,6 +39,13 @@ jest.mock('expo-speech-recognition', () => ({
     requestPermissionsAsync: jest.fn(() => Promise.resolve({ granted: true })),
   },
 }));
+jest.mock('llama.rn', () => ({ initLlama: jest.fn(), releaseAllLlama: jest.fn() }));
+jest.mock('expo-battery', () => ({
+  BatteryState: { UNKNOWN: 0, UNPLUGGED: 1, CHARGING: 2, FULL: 3 },
+  getPowerStateAsync: jest.fn(() =>
+    Promise.resolve({ batteryLevel: 0.8, batteryState: 1, lowPowerMode: false }),
+  ),
+}));
 jest.mock('expo-network', () => ({
   getNetworkStateAsync: jest.fn(() => Promise.resolve({ isConnected: true, type: 'WIFI' })),
   NetworkStateType: { WIFI: 'WIFI', CELLULAR: 'CELLULAR', NONE: 'NONE', ETHERNET: 'ETHERNET' },
