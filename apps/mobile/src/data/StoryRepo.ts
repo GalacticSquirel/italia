@@ -25,6 +25,8 @@ export interface StoryRepo {
   listByLevel(level: CefrLevel): StoryRow[];
   /** Episodes of one series in order. */
   listSeries(seriesId: string): StoryRow[];
+  /** Bundled stories, by series then episode. */
+  listBundled(): StoryRow[];
 }
 
 /** Create a {@link StoryRepo}. */
@@ -58,6 +60,14 @@ export function createStoryRepo(db: AppDatabase, newId: IdGenerator): StoryRepo 
         .from(story)
         .where(eq(story.seriesId, seriesId))
         .orderBy(asc(story.seriesIndex))
+        .all();
+    },
+    listBundled() {
+      return db
+        .select()
+        .from(story)
+        .where(eq(story.source, 'bundled'))
+        .orderBy(asc(story.seriesId), asc(story.seriesIndex), asc(story.id))
         .all();
     },
   };

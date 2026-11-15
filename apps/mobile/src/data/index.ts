@@ -2,6 +2,7 @@
  * Local persistence layer: typed repositories over the app database, seed
  * import, and backup/restore. Screens use these instead of Drizzle directly.
  */
+export { addToReviews, type AddToReviewsResult } from './addToReviews';
 export {
   BACKUP_FORMAT,
   BACKUP_SCHEMA_VERSION,
@@ -54,6 +55,12 @@ export {
   type ModelFileRow,
   type ModelFileStatus,
 } from './ModelFileRepo';
+export {
+  createReadingRepo,
+  type ReadingRepo,
+  type ReadingTotals,
+  type StoryReading,
+} from './ReadingRepo';
 export { recordReview, type RecordReviewInput } from './recordReview';
 export { createRepositories, type Repositories, type RepositoryOptions } from './repositories';
 export {
@@ -96,6 +103,24 @@ export {
   type Settings,
   type SettingsRepo,
 } from './SettingsRepo';
+export { ensureStories, type EnsureStoriesResult } from './stories/ensureStories';
+export {
+  getImportedStories,
+  importStories,
+  storiesIdentity,
+  storyRowsFromFile,
+  type ImportStoriesResult,
+  type StoriesIdentity,
+} from './stories/importStories';
+export { bundledStoriesLoader, type StoriesLoader } from './stories/storiesLoader';
+export {
+  STORY_BODY_FORMAT,
+  storyBodyOf,
+  type StoredSeries,
+  type StoredStoryBody,
+  type StoryParagraph,
+  type StorySentence,
+} from './stories/storyBody';
 export { createStoryRepo, type CefrLevel, type SaveStoryInput, type StoryRepo } from './StoryRepo';
 export { createStreakRepo, EMPTY_STREAK, type StreakRepo, type StreakSnapshot } from './StreakRepo';
 export {

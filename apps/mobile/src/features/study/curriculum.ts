@@ -7,7 +7,9 @@
  * - **New words** in frequency order. Each word is two items: a
  *   `recognition` first exposure, then (after the next word's exposure) a
  *   `cloze_production` card, so the word is met and then recalled. Words
- *   without a usable example sentence are skipped.
+ *   without a usable example sentence are skipped. Words the learner asked
+ *   for (an unreviewed cloze card already exists, for example from "Add to
+ *   reviews" in the reader) come first, oldest request first.
  * - **Grammar** unlocks in acquisition order. A point is unlocked once one of
  *   its `grammar_cloze` items has been answered; the next point to unlock
  *   (the frontier) is the first locked one with an item available whose
@@ -30,7 +32,7 @@
  */
 import type { CardKind, NewCandidate } from '@italia/core';
 
-import { cardIdFor, type CardRow, type SentenceRow } from '@/data';
+import { cardIdFor, type CardRow, type LemmaRow, type SentenceRow } from '@/data';
 
 import { grammarFocus, type ContentIndex } from './content';
 import {
@@ -163,6 +165,24 @@ const candidate = (
   newWord,
 });
 
+/**
+ * Lemmas in the order new words are introduced: words the learner asked for
+ * (an unreviewed, unsuspended cloze card exists), oldest request first, then
+ * the rest in frequency order.
+ */
+function wordOrder(content: ContentIndex, cards: readonly CardRow[]): LemmaRow[] {
+  const requested = cards
+    .filter((c) => c.kind === 'cloze_production' && c.state === 'new' && !c.suspended)
+    .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime() || a.id.localeCompare(b.id))
+    .flatMap((c) => {
+      const lemma = content.lemmaById.get(c.targetId);
+      return lemma ? [lemma] : [];
+    });
+  if (requested.length === 0) return [...content.lemmas];
+  const first = new Set(requested.map((l) => l.id));
+  return [...requested, ...content.lemmas.filter((l) => !first.has(l.id))];
+}
+
 /** The practice kind used for a sentence whose grammar is already unlocked. */
 function practiceKind(sentence: SentenceRow, content: ContentIndex): CardKind {
   const kinds: CardKind[] = ['sentence_production', 'dictation', 'grammar_cloze'];
@@ -199,7 +219,7 @@ export function buildCurriculum(
   // New words: [recognition, cloze] per word, skipping parts already done.
   const words: CurriculumCandidate[][] = [];
   let wordsAvailable = 0;
-  for (const lemma of content.lemmas) {
+  for (const lemma of wordOrder(content, cards)) {
     const needRecognition = open('recognition', lemma.id);
     const needCloze = open('cloze_production', lemma.id);
     if (!needRecognition && !needCloze) continue;

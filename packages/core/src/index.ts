@@ -100,6 +100,26 @@ export {
   type LemmaCard,
 } from './progress';
 export {
+  DEFAULT_COVERAGE_FLOOR,
+  selectStories,
+  storyFit,
+  type EpisodeStatus,
+  type SelectableStory,
+  type SeriesStatus,
+  type StoryFit,
+  type StorySelection,
+  type StorySelectionInput,
+} from './story-selection';
+export {
+  buildComprehensionCheck,
+  type ClozeQuestion,
+  type ComprehensionOptions,
+  type ComprehensionQuestion,
+  type ComprehensionSentence,
+  type ComprehensionToken,
+  type TrueFalseQuestion,
+} from './comprehension';
+export {
   CEFR_LEMMA_THRESHOLDS,
   CEFR_LEVELS,
   estimateCefr,
