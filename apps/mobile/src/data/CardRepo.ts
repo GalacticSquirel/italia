@@ -67,11 +67,12 @@ export interface CardRepo {
    */
   upsertState(id: string, schedule: CardSchedule): void;
   /**
-   * Suspend (or unsuspend) a card; suspended cards are never due.
+   * Suspend (or unsuspend) a card at `now`; suspended cards are never due.
+   * The change is marked for sync (last writer wins by time of change).
    *
    * @throws CardNotFoundError when the card does not exist
    */
-  suspend(id: string, suspended?: boolean): void;
+  suspend(id: string, suspended?: boolean, now?: Date): void;
   /** Card counts by state. */
   countsByState(): CardCounts;
 }
@@ -116,7 +117,7 @@ function toInsert(input: NewCardInput): NewCardRow {
   };
 }
 
-const CARD_COLUMNS = 15;
+const CARD_COLUMNS = 18;
 
 /** Create a {@link CardRepo}. */
 export function createCardRepo(db: AppDatabase): CardRepo {
@@ -207,10 +208,10 @@ export function createCardRepo(db: AppDatabase): CardRepo {
         .all();
       if (updated.length === 0) throw new CardNotFoundError(id);
     },
-    suspend(id, suspended = true) {
+    suspend(id, suspended = true, now = new Date()) {
       const updated = db
         .update(card)
-        .set({ suspended })
+        .set({ suspended, flagUpdatedAt: now, flagDeviceId: null, flagSyncedAt: null })
         .where(eq(card.id, id))
         .returning({ id: card.id })
         .all();
