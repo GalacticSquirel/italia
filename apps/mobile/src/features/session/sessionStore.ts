@@ -90,6 +90,8 @@ export interface SessionActions {
   submitTyped: (answer: string) => void;
   /** "Got it" on a first exposure: record it and move on. */
   acknowledgeRecognition: () => void;
+  /** Record a spoken prompt graded by the speaking drill (rating from its first attempt). */
+  answerSpoken: (outcome: SpokenAnswer) => void;
   /** "I was right": record the answer as Good instead of the wrong grade. */
   overrideCorrect: () => void;
   /** Record the graded answer and move to the next item. */
@@ -100,6 +102,13 @@ export interface SessionActions {
   resume: () => void;
   /** Leave the session early, saving study time. */
   quit: () => void;
+}
+
+/** A spoken answer, graded from its transcript. */
+export interface SpokenAnswer {
+  rating: Rating;
+  transcript: string;
+  latencyMs: number;
 }
 
 export type SessionStore = StoreApi<SessionState & SessionActions>;
@@ -316,6 +325,21 @@ export function createSessionStore({
           // A first exposure is not a recall test: it is logged as easy so
           // the queue moves on, and recognition cards are never reviewed.
           answer('easy', null, at.getTime() - promptShownAt, at);
+        } catch (e) {
+          fail(e);
+        }
+      },
+
+      answerSpoken(outcome) {
+        const { prompt, phase } = get();
+        if (phase !== 'prompt' || prompt?.kind !== 'spoken_prompt') return;
+        try {
+          answer(
+            outcome.rating,
+            encodeAnswer({ text: outcome.transcript }),
+            outcome.latencyMs,
+            now(),
+          );
         } catch (e) {
           fail(e);
         }

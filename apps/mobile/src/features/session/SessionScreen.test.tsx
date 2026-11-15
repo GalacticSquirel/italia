@@ -2,6 +2,11 @@ import { render, screen, userEvent } from '@testing-library/react-native';
 import * as Speech from 'expo-speech';
 import { AccessibilityInfo } from 'react-native';
 
+import { createScheduler } from '@italia/core';
+
+import { getContentIndex } from '@/features/study/content';
+import { SpeechProvider } from '@/speech';
+import { createFakeSpeechServices } from '@/speech/testing';
 import { createTestApp, type TestApp } from '@/testing/testApp';
 
 import { SessionProvider } from './SessionContext';
@@ -34,9 +39,11 @@ async function renderSession(): Promise<SessionStore> {
   });
   await render(
     app.wrap(
-      <SessionProvider store={store}>
-        <SessionScreen />
-      </SessionProvider>,
+      <SpeechProvider services={createFakeSpeechServices({ mic: 'denied' })}>
+        <SessionProvider store={store}>
+          <SessionScreen />
+        </SessionProvider>
+      </SpeechProvider>,
     ),
   );
   return store;
@@ -108,6 +115,32 @@ describe('SessionScreen', () => {
     const [log] = app.repos.reviewLogs.listForCard(cardId);
     expect(log?.rating).toBe('good');
     expect(log?.answer).toContain('"override"');
+  });
+
+  it('lets the learner type a spoken prompt instead', async () => {
+    app.repos.settings.set('dailyNewLimit', 0);
+    const scheduler = createScheduler();
+    const past = new Date(clock - 30 * 86_400_000);
+    const sentence = getContentIndex(app.repos).sentencesByLength[0];
+    if (!sentence) throw new Error('fixture has no sentences');
+    app.repos.cards.createMany([
+      {
+        kind: 'spoken_prompt',
+        targetId: sentence.id,
+        promptMode: 'spoken',
+        schedule: scheduler.review(scheduler.newCard(past), 'good', past).card,
+      },
+    ]);
+    const user = userEvent.setup();
+    await renderSession();
+    const intro = screen.queryByRole('button', { name: 'Start practising' });
+    if (intro) await user.press(intro);
+    expect(await screen.findByText('Allow the microphone')).toBeOnTheScreen();
+    await user.press(screen.getByRole('button', { name: 'Type instead' }));
+    expect(screen.getByText(sentence.en)).toBeOnTheScreen();
+    await user.type(screen.getByLabelText('Italian sentence'), sentence.it);
+    await user.press(screen.getByRole('button', { name: 'Check' }));
+    expect(screen.getByText('Correct!')).toBeOnTheScreen();
   });
 
   it('shows an empty state when nothing is due', async () => {

@@ -1,24 +1,30 @@
-import type { CardKind } from '@italia/core';
+import type { CardKind, PromptMode } from '@italia/core';
 
 import type { GrammarPointRow, LemmaRow, SentenceRow } from '@/data';
 
 import { grammarFocus, type ContentIndex } from './content';
 
-/** Card kinds the app can show in Phase 1 (no speech recognition or LLM needed). */
-export const PHASE1_KINDS = [
+/** Card kinds the app can show (minimal pairs have their own adaptive drill). */
+export const SHOWN_KINDS = [
   'recognition',
   'cloze_production',
   'sentence_production',
   'dictation',
   'grammar_cloze',
+  'spoken_prompt',
 ] as const satisfies readonly CardKind[];
 
 /** A card kind the app can show. */
-export type Phase1Kind = (typeof PHASE1_KINDS)[number];
+export type ShownKind = (typeof SHOWN_KINDS)[number];
 
 /** Whether a kind is one the app can show. */
-export function isPhase1Kind(kind: CardKind): kind is Phase1Kind {
-  return (PHASE1_KINDS as readonly CardKind[]).includes(kind);
+export function isShownKind(kind: CardKind): kind is ShownKind {
+  return (SHOWN_KINDS as readonly CardKind[]).includes(kind);
+}
+
+/** How a card kind is answered: spoken prompts by speaking, the rest by typing. */
+export function promptModeFor(kind: CardKind): PromptMode {
+  return kind === 'spoken_prompt' ? 'spoken' : 'typed';
 }
 
 /** A sentence with one word form cut out. */
@@ -70,12 +76,35 @@ export interface DictationPrompt {
   accepted: string[];
 }
 
+/**
+ * Pimsleur-style spoken prompt: hear (and see) an English cue, say the
+ * Italian, then hear the model answer.
+ */
+export interface SpokenPrompt {
+  kind: 'spoken_prompt';
+  sentence: SentenceRow;
+  accepted: string[];
+}
+
 /** Everything needed to show one card. */
 export type Prompt =
-  RecognitionPrompt | ClozePrompt | GrammarClozePrompt | SentenceProductionPrompt | DictationPrompt;
+  | RecognitionPrompt
+  | ClozePrompt
+  | GrammarClozePrompt
+  | SentenceProductionPrompt
+  | DictationPrompt
+  | SpokenPrompt;
 
 /** A prompt that is answered by typing. */
-export type TypedPrompt = Exclude<Prompt, RecognitionPrompt>;
+export type TypedPrompt = Exclude<Prompt, RecognitionPrompt | SpokenPrompt>;
+
+/** Most words in a sentence used as a spoken prompt (short enough to say from memory). */
+export const SPOKEN_PROMPT_MAX_WORDS = 8;
+
+/** Words in an Italian sentence. */
+export function wordCount(text: string): number {
+  return text.split(/\s+/u).filter((w) => /\p{L}/u.test(w)).length;
+}
 
 /** What {@link resolvePrompt} needs to know about a card. */
 export interface PromptCard {
@@ -148,7 +177,8 @@ export function clozeSentences(lemma: LemmaRow, content: ContentIndex): Sentence
  * example after a seed update removed it) or its kind is not shown yet.
  *
  * Targets: `recognition` and `cloze_production` practise a lemma;
- * `grammar_cloze`, `sentence_production` and `dictation` practise a sentence.
+ * `grammar_cloze`, `sentence_production`, `dictation` and `spoken_prompt`
+ * practise a sentence.
  */
 export function resolvePrompt(card: PromptCard, content: ContentIndex): Prompt | null {
   switch (card.kind) {
@@ -181,12 +211,12 @@ export function resolvePrompt(card: PromptCard, content: ContentIndex): Prompt |
       };
     }
     case 'sentence_production':
-    case 'dictation': {
+    case 'dictation':
+    case 'spoken_prompt': {
       const sentence = content.sentenceById.get(card.targetId);
       if (!sentence) return null;
       return { kind: card.kind, sentence, accepted: [sentence.it] };
     }
-    case 'spoken_prompt':
     case 'minimal_pair':
       return null;
   }

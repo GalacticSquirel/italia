@@ -25,6 +25,8 @@ export const META_KEYS = {
   syncCursorSetting: 'sync.cursor.setting',
   syncCursorStudySession: 'sync.cursor.study_session',
   syncCursorErrorRecord: 'sync.cursor.error_record',
+  /** Ear-training (minimal pair) level and accuracy, as JSON. */
+  hvptStats: 'speak.hvptStats',
 } as const;
 
 /** A metadata key. */

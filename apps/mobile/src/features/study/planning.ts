@@ -21,10 +21,11 @@ import {
   ITEMS_PER_NEW_WORD,
   NEW_WORD_KIND,
   PRACTICE_ITEMS_PER_NEW_WORD,
+  SPOKEN_PROMPTS_PER_DAY,
   type Curriculum,
   type CurriculumCandidate,
 } from './curriculum';
-import { cardGrammarIds, cardLemmaIds, isPhase1Kind, resolvePrompt } from './prompts';
+import { cardGrammarIds, cardLemmaIds, isShownKind, promptModeFor, resolvePrompt } from './prompts';
 import { startOfLocalDay, startOfNextLocalDay } from './time';
 
 /** Reviews used to measure recent accuracy. */
@@ -91,7 +92,7 @@ export function planToday(repos: Repositories, now: Date): StudyPlan {
     (r) =>
       !r.suspended &&
       r.kind !== NEW_WORD_KIND &&
-      isPhase1Kind(r.kind) &&
+      isShownKind(r.kind) &&
       resolvePrompt(r, content) !== null,
   );
 
@@ -100,13 +101,18 @@ export function planToday(repos: Repositories, now: Date): StudyPlan {
   const wordsToday = repos.reviewLogs.countCardsFirstReviewedBetween(dayStart, dayEnd, {
     kinds: [NEW_WORD_KIND],
   });
+  const spokenToday = repos.reviewLogs.countCardsFirstReviewedBetween(dayStart, dayEnd, {
+    kinds: ['spoken_prompt'],
+  });
   const itemsToday = repos.reviewLogs.countCardsFirstReviewedBetween(dayStart, dayEnd);
-  const practiceToday = itemsToday - wordsToday * ITEMS_PER_NEW_WORD;
+  const practiceToday = itemsToday - wordsToday * ITEMS_PER_NEW_WORD - spokenToday;
   const practiceLimit = Math.ceil(settings.dailyNewLimit * PRACTICE_ITEMS_PER_NEW_WORD);
+  const speakingLimit = settings.dailyNewLimit > 0 ? SPOKEN_PROMPTS_PER_DAY : 0;
 
   const curriculum = buildCurriculum(content, rows, {
     words: Math.max(0, settings.dailyNewLimit - wordsToday),
     practice: Math.max(0, practiceLimit - Math.max(0, practiceToday)),
+    speaking: Math.max(0, speakingLimit - spokenToday),
   });
 
   const plan = buildSession({
@@ -114,13 +120,14 @@ export function planToday(repos: Repositories, now: Date): StudyPlan {
     cards: reviewable.map((r) => toSessionCard(r, content)),
     newCandidates: curriculum.candidates,
     settings: {
-      dailyNewLimit: settings.dailyNewLimit * ITEMS_PER_NEW_WORD + practiceLimit,
+      dailyNewLimit: settings.dailyNewLimit * ITEMS_PER_NEW_WORD + practiceLimit + speakingLimit,
       minutesBudget: settings.minutesBudget,
       recentAccuracy: recentAccuracy(repos),
       alreadyIntroducedToday: itemsToday,
     },
     seed: Math.floor(now.getTime() / 86_400_000),
-    tuning: { scheduler },
+    // One speaking block at the end of the session (plan section 5).
+    tuning: { scheduler, blockKinds: ['spoken_prompt'] },
   });
 
   const byId = new Map<string, CurriculumCandidate>(curriculum.candidates.map((c) => [c.id, c]));
@@ -134,7 +141,7 @@ export function planToday(repos: Repositories, now: Date): StudyPlan {
     newCards.set(c.id, {
       kind: c.kind,
       targetId: c.targetId,
-      promptMode: 'typed',
+      promptMode: promptModeFor(c.kind),
       schedule: scheduler.newCard(now),
       createdAt: now,
     });
