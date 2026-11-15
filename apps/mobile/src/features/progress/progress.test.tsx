@@ -85,6 +85,29 @@ describe('progress', () => {
     expect(data.calendar).toHaveLength(CALENDAR_DAYS);
     expect(data.calendar.at(-1)).toEqual({ date: '2026-11-16', minutes: 90 });
     expect(data.calendar.filter((d) => d.minutes > 0)).toHaveLength(1);
+    expect(data.reading).toEqual({ storiesRead: 0, wordsRead: 0, lemmasMet: 0 });
+  });
+
+  it('counts stories read and words met in them', async () => {
+    app.repos.reading.markRead(
+      'story-01',
+      {
+        wordsRead: 120,
+        exposures: new Map([
+          [1, 3],
+          [2, 1],
+        ]),
+        comprehension: null,
+      },
+      now,
+    );
+    expect(loadProgress(app.repos, now).reading).toEqual({
+      storiesRead: 1,
+      wordsRead: 120,
+      lemmasMet: 2,
+    });
+    await render(app.wrap(<ProgressScreen />));
+    expect(screen.getByLabelText('Words met in stories: 2')).toBeOnTheScreen();
   });
 
   it('gives no projection without enough study', () => {

@@ -113,6 +113,19 @@ export function ProgressScreen() {
       </Card>
 
       <Card>
+        <Text variant="heading">Reading</Text>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.lg }}>
+          <Stat label="Stories read" value={String(data.reading.storiesRead)} />
+          <Stat label="Words read" value={String(data.reading.wordsRead)} />
+          <Stat label="Words met in stories" value={String(data.reading.lemmasMet)} />
+        </View>
+        <Text variant="caption" color="textMuted">
+          Meeting a word again and again in stories helps it stick; the word sheet shows how often
+          you have met each one.
+        </Text>
+      </Card>
+
+      <Card>
         <Text variant="heading">Reviews this week</Text>
         <BarChart title="Forecast reviews for the next seven days" data={loadBars(data)} />
       </Card>

@@ -13,7 +13,7 @@ import {
   type ReplayLog,
 } from '@italia/core';
 
-import { toSchedule, type CardRow, type Repositories } from '@/data';
+import { toSchedule, type CardRow, type ReadingTotals, type Repositories } from '@/data';
 import { getContentIndex } from '@/features/study/content';
 import { unlockedGrammar } from '@/features/study/curriculum';
 import { schedulerFor } from '@/features/study/planning';
@@ -48,6 +48,8 @@ export interface ProgressData {
   load: DayLoad[];
   /** Study minutes per local day, oldest first, ending today. */
   calendar: CalendarDay[];
+  /** Stories finished, words read and distinct words met in stories. */
+  reading: ReadingTotals;
   now: Date;
 }
 
@@ -135,6 +137,7 @@ export function loadProgress(repos: Repositories, now: Date): ProgressData {
     projection,
     load: forecast.days,
     calendar,
+    reading: repos.reading.totals(),
     now,
   };
 }
