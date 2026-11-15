@@ -154,7 +154,7 @@ export interface LemmaCounts {
   /** Weighted occurrence counts per unit key (`lemma|UPOS`). */
   readonly counts: Map<string, number>;
   /** Per-form reading weights, for corpus coverage maths. */
-  readonly forms: { count: number; readings: { keys: string[]; weight: number }[] }[];
+  readonly forms: { form: string; count: number; readings: { keys: string[]; weight: number }[] }[];
   /** All tokens in the list, including forms the lexicon does not know. */
   readonly totalTokens: number;
   readonly unknownTokens: number;
@@ -193,7 +193,7 @@ function countOnce(
       continue;
     }
     const priors = readingPriors(readings, dist, lemmaFrequency);
-    const entry: LemmaCounts['forms'][number] = { count, readings: [] };
+    const entry: LemmaCounts['forms'][number] = { form, count, readings: [] };
     readings.forEach((reading, i) => {
       const weight = priors[i] ?? 0;
       if (reading.units[0]?.upos === 'PROPN') {
@@ -336,6 +336,44 @@ export function shadowedLemmas(
   for (const [key, { n, shadowed }] of best) {
     const total = lemmaCounts.counts.get(key) ?? 0;
     if (shadowed && total > 0 && n / total > maxShare) out.add(key);
+  }
+  return out;
+}
+
+/**
+ * Noun and adjective lemmas that are artefacts of one ambiguous form: more than
+ * `maxShare` of their count comes from a single form that also reads as a
+ * different word, while their own citation form is almost never used (vaio from
+ * "vai", malo from "male", nullo from "nulla"). A real noun or adjective is seen
+ * in its base form too.
+ */
+export function ghostLemmas(
+  lemmaCounts: LemmaCounts,
+  formCounts: readonly FormCount[],
+  { maxShare = 0.85, maxOwnShare = 0.02 }: { maxShare?: number; maxOwnShare?: number } = {},
+): Set<string> {
+  const countOf = new Map(formCounts.map((f) => [f.form, f.count]));
+  const top = new Map<string, { form: string; n: number; ambiguous: boolean }>();
+  for (const f of lemmaCounts.forms) {
+    for (const r of f.readings) {
+      const key = r.keys[0];
+      if (!key) continue;
+      const n = f.count * r.weight;
+      const prev = top.get(key);
+      if (prev && prev.n >= n) continue;
+      const lemma = key.split('|')[0];
+      const ambiguous = f.readings.some((o) => o.keys[0]?.split('|')[0] !== lemma);
+      top.set(key, { form: f.form, n, ambiguous });
+    }
+  }
+  const out = new Set<string>();
+  for (const [key, t] of top) {
+    const [lemma = '', upos = ''] = key.split('|');
+    if (upos !== 'NOUN' && upos !== 'ADJ') continue;
+    if (!t.ambiguous || t.form === lemma) continue;
+    const total = lemmaCounts.counts.get(key) ?? 0;
+    if (total > 0 && t.n / total > maxShare && (countOf.get(lemma) ?? 0) < maxOwnShare * t.n)
+      out.add(key);
   }
   return out;
 }
