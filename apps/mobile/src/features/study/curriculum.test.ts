@@ -97,6 +97,20 @@ describe('curriculum', () => {
     expect(fresh.candidates.some((c) => c.kind === 'spoken_prompt')).toBe(false);
   });
 
+  it('puts frontier grammar first even when shorter practice sentences fill the limit', () => {
+    const content = getContentIndex(createRepositories(t.db));
+    const cards = content.lemmas.map((l) => introduced('recognition', l.id));
+    const first = buildCurriculum(content, cards, { words: 0, practice: 10 });
+    const unlock = introduced('grammar_cloze', first.candidates[0]?.targetId ?? 0);
+    const { candidates, frontierGrammarId } = buildCurriculum(content, [...cards, unlock], {
+      words: 0,
+      practice: 1,
+    });
+    expect(candidates).toHaveLength(1);
+    expect(candidates[0]?.kind).toBe('grammar_cloze');
+    expect(candidates[0]?.grammarIds).toEqual([frontierGrammarId]);
+  });
+
   it('does not let a point with nothing to practise block later points', () => {
     const content = getContentIndex(createRepositories(t.db));
     // Fixture: 1 has no prerequisites; 2 and 3 need 1.

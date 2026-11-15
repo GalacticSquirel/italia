@@ -2,8 +2,10 @@ import { describe, expect, it } from 'vitest';
 
 import {
   applyFormReadings,
+  dropReadings,
   lookup,
   normaliseRow,
+  parseMorphIt,
   parseUnitKey,
   readingKey,
   splitClitics,
@@ -89,6 +91,29 @@ describe('parseMorphIt and lookup', () => {
     expect(keys("e'")).toEqual(['essere|VERB']);
     expect(keys('perche')).toEqual(['perché|ADV']);
     expect(lookup(testLexicon(), 'zzz')).toBeUndefined();
+  });
+
+  it('gives inflected pronoun lemmas the determiner lemma', () => {
+    const lexicon = parseMorphIt(
+      'mia\tmia\tPRO-POSS-F-S\nmia\tmio\tDET-POSS:f+s\nnulla\tnulla\tPRO-INDEF-M-S\nnulla\tnullo\tADJ:pos+f+s',
+    );
+    expect(lookup(lexicon, 'mia')?.map(readingKey).sort()).toEqual(['mio|DET', 'mio|PRON']);
+    // Without a determiner row the pronoun keeps its own lemma.
+    expect(lookup(lexicon, 'nulla')?.map(readingKey).sort()).toEqual(['nulla|PRON', 'nullo|ADJ']);
+  });
+
+  it('adds the common-word spelling when a form is only a name', () => {
+    const lexicon = parseMorphIt("po\tPo\tNPR\npo'\tpo'\tPRO-INDEF-M-S");
+    expect(lookup(lexicon, 'po')?.map(readingKey)).toEqual(["po'|PRON", 'Po|PROPN']);
+  });
+
+  it('drops readings while keeping at least one per form', () => {
+    const lexicon = parseMorphIt(
+      'vai\tandare\tVER:ind+pres+2+s\nvai\tvaio\tADJ:pos+m+p\nvaio\tvaio\tADJ:pos+m+s',
+    );
+    dropReadings(lexicon, new Set(['vaio|ADJ']));
+    expect(lookup(lexicon, 'vai')?.map(readingKey)).toEqual(['andare|VERB']);
+    expect(lookup(lexicon, 'vaio')?.map(readingKey)).toEqual(['vaio|ADJ']);
   });
 
   it('applies forced readings', () => {
