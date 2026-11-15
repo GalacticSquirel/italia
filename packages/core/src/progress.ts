@@ -78,6 +78,12 @@ export function knownLemmaCount(
 export interface CoverageToken {
   /** The token's lemma, or null for punctuation, numbers and other non-words. */
   lemmaId: number | null;
+  /**
+   * Further lemmas packed into the same word (the article of "nel", the
+   * pronouns of "dimmi"). The token counts as known only when its lemma and
+   * all of these are known.
+   */
+  partIds?: readonly number[];
   /** True for names of people, places and the like. */
   properNoun?: boolean;
 }
@@ -102,7 +108,7 @@ export interface CoverageResult {
 
 /**
  * Known-word coverage of a text: the share of counted tokens (word tokens,
- * excluding proper nouns and flagged cognates) whose lemma is known.
+ * excluding proper nouns and flagged cognates) whose lemmas are all known.
  */
 export function coverage(
   tokens: readonly CoverageToken[],
@@ -120,8 +126,14 @@ export function coverage(
     if (excludeProperNouns && token.properNoun === true) continue;
     if (cognates?.has(id) === true) continue;
     counted++;
-    if (known.has(id)) knownTokens++;
-    else unknown.add(id);
+    let tokenKnown = known.has(id);
+    if (!tokenKnown) unknown.add(id);
+    for (const part of token.partIds ?? []) {
+      if (known.has(part)) continue;
+      tokenKnown = false;
+      unknown.add(part);
+    }
+    if (tokenKnown) knownTokens++;
   }
   return {
     ratio: counted === 0 ? 1 : knownTokens / counted,
