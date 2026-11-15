@@ -114,7 +114,7 @@ def test_shipped_configs_load() -> None:
     sft = [load_sft_config(p) for p in sorted(CONFIG_DIR.glob("sft-*.yaml"))]
     bake = [load_sft_config(p) for p in sorted(CONFIG_DIR.glob("bakeoff-*.yaml"))]
     dpo = [load_dpo_config(p) for p in sorted(CONFIG_DIR.glob("dpo-*.yaml"))]
-    assert len(sft) == 4 and len(bake) == 2 and len(dpo) == 2
+    assert len(sft) == 4 and len(bake) == 2 and len(dpo) == 3
     assert {c.method for c in sft} == {"full", "lora"}
     assert all(c.wandb.enabled is False for c in [*sft, *bake])
     assert all(c.wandb.enabled is False for c in dpo)
@@ -124,6 +124,7 @@ def test_shipped_configs_load() -> None:
     assert qwen.base_model.chat_template_kwargs == {"enable_thinking": False}
     assert qwen.base_model.freeze_patterns == []
     assert all(c.output_dir.is_absolute() and c.train_file.is_absolute() for c in sft)
+    assert {c.method for c in dpo} == {"full", "lora"}
     e2b = next(c for c in dpo if "e2b" in c.name)
     assert "E2B" in e2b.base_model.id and "e2b" in str(e2b.policy_model)
 
