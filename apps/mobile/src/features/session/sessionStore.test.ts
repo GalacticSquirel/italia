@@ -1,11 +1,11 @@
-import { createRepositories, importSeed, type Repositories } from '@/data';
+import { createRepositories, importSeedContent, type Repositories } from '@/data';
 import {
   createTestDatabase,
   sequentialIds,
   type TestDatabase,
 } from '@/db/testing/createTestDatabase';
-import { DEV_FIXTURE_SEED } from '@/dev/fixtureSeed';
 import { planToday } from '@/features/study/planning';
+import { FIXTURE_SEED } from '@/testing/fixtureSeed';
 
 import { decodeAnswer } from './answerLog';
 import { createSessionStore, REVIEW_SESSION_ACTIVITY, type SessionStore } from './sessionStore';
@@ -21,7 +21,7 @@ const tick = (ms: number) => {
 beforeEach(async () => {
   t = createTestDatabase();
   repos = createRepositories(t.db, { newId: sequentialIds() });
-  await importSeed(t.db, DEV_FIXTURE_SEED, { yieldBetweenBatches: () => Promise.resolve() });
+  await importSeedContent(t.db, FIXTURE_SEED, { yieldBetweenBatches: () => Promise.resolve() });
   clock = new Date(2026, 10, 16, 9, 0, 0).getTime();
 });
 

@@ -8,7 +8,7 @@ import {
 import { createRepositories, type Repositories } from '../repositories';
 import { exportBackup, importBackup, parseBackup, UnsupportedBackupVersionError } from './backup';
 import { BACKUP_SCHEMA_VERSION, type BackupFile } from './backupSchema';
-import { importSeed } from '../seed/importSeed';
+import { importSeedContent } from '../seed/importSeed';
 import { at, makeSeed, schedule } from '../testing/fixtures';
 
 interface Device {
@@ -87,7 +87,7 @@ describe('backup', () => {
 
   it('round-trips every learner table through JSON', async () => {
     const a = device('a');
-    await importSeed(a.t.db, makeSeed(3), { yieldBetweenBatches: () => Promise.resolve() });
+    await importSeedContent(a.t.db, makeSeed(3), { yieldBetweenBatches: () => Promise.resolve() });
     populate(a, 'device-a');
     a.repos.reviewLogs.markSynced(
       a.repos.reviewLogs.listUnsynced(10).map((l) => l.id),

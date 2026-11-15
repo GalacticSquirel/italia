@@ -1,18 +1,18 @@
 import { createScheduler } from '@italia/core';
 
-import { cardIdFor, createRepositories, importSeed, type CardRow } from '@/data';
+import { cardIdFor, createRepositories, importSeedContent, type CardRow } from '@/data';
 import { createTestDatabase, type TestDatabase } from '@/db/testing/createTestDatabase';
-import { DEV_FIXTURE_SEED } from '@/dev/fixtureSeed';
+import { FIXTURE_SEED } from '@/testing/fixtureSeed';
 
 import { getContentIndex } from './content';
-import { buildCurriculum } from './curriculum';
+import { buildCurriculum, frontierGrammar } from './curriculum';
 import { resolvePrompt } from './prompts';
 
 let t: TestDatabase;
 
 beforeEach(async () => {
   t = createTestDatabase();
-  await importSeed(t.db, DEV_FIXTURE_SEED, { yieldBetweenBatches: () => Promise.resolve() });
+  await importSeedContent(t.db, FIXTURE_SEED, { yieldBetweenBatches: () => Promise.resolve() });
 });
 
 afterEach(() => {
@@ -65,6 +65,16 @@ describe('curriculum', () => {
     expect([...kinds].some((k) => k === 'sentence_production' || k === 'dictation')).toBe(true);
     for (const c of second.candidates)
       expect(resolvePrompt({ ...c, reps: 0 }, content)).not.toBeNull();
+  });
+
+  it('does not let a point with nothing to practise block later points', () => {
+    const content = getContentIndex(createRepositories(t.db));
+    // Fixture: 1 has no prerequisites; 2 and 3 need 1.
+    expect(frontierGrammar(new Set(), content)).toBe(1);
+    expect(frontierGrammar(new Set(), content, new Set([1, 2]))).toBe(1);
+    expect(frontierGrammar(new Set(), content, new Set([2, 3]))).toBe(2);
+    expect(frontierGrammar(new Set([2]), content, new Set([3]))).toBe(3);
+    expect(frontierGrammar(new Set(), content, new Set())).toBeNull();
   });
 
   it('blanks the inflected form from sentence tokens', () => {
