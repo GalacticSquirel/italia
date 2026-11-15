@@ -2,7 +2,11 @@
 # Build the llama.cpp tools the export needs (convert script, llama-quantize, llama-imatrix,
 # llama-server, llama-bench) at the version llama.rn bundles, so the GGUF we ship loads in the app.
 #
-#   LLAMA_CPP_REF=b11804 CUDA=1 export/build_llama_cpp.sh   # from training/
+#   export/build_llama_cpp.sh                               # macOS (Metal) or Linux CPU
+#   LLAMA_CPP_REF=b11804 CUDA=1 export/build_llama_cpp.sh   # NVIDIA
+#
+# macOS needs the Xcode command line tools (`xcode-select --install`) and cmake
+# (`brew install cmake`); Metal is enabled automatically on Apple Silicon.
 #
 # Update LLAMA_CPP_REF whenever the app upgrades llama.rn (its release notes name the llama.cpp
 # build it is synced to; 0.13.0-rc.8 uses b11804).
@@ -22,6 +26,8 @@ echo "llama.cpp at $(git -C "$DEST" describe --tags) ($(git -C "$DEST" rev-parse
 CMAKE_FLAGS=(-DCMAKE_BUILD_TYPE=Release -DLLAMA_CURL=OFF)
 if [ "${CUDA:-0}" = "1" ]; then
   CMAKE_FLAGS+=(-DGGML_CUDA=ON)
+elif [ "$(uname -s)" = "Darwin" ]; then
+  CMAKE_FLAGS+=(-DGGML_METAL=ON)
 fi
 cmake -S "$DEST" -B "$DEST/build" "${CMAKE_FLAGS[@]}"
 cmake --build "$DEST/build" -j "$JOBS" \

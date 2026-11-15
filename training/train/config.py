@@ -1,15 +1,22 @@
 """Training configuration (YAML, camelCase keys) and the pure helpers built on it.
 
-Nothing here imports torch; the GPU entry points (`train.sft`, `train.dpo`, `train.sample`)
-import their heavy dependencies lazily so this module and its tests run anywhere.
+Three backends train the same data with the same loss masks:
+
+- `mlx`: Apple Silicon (the primary path, a Mac Studio); SFT and DPO both run on MLX.
+- `unsloth` / `transformers`: NVIDIA GPUs (rented or local); DPO there uses TRL (`trl`).
+
+Nothing here imports torch or MLX; the entry points import their heavy dependencies lazily so this
+module and its tests run anywhere.
 """
 
 from __future__ import annotations
 
 import math
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any, Literal
 
+import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from pydantic.alias_generators import to_camel
 
@@ -28,6 +35,34 @@ class LoraConfig(TrainModel):
     alpha: int = Field(default=64, ge=1)
     dropout: float = Field(default=0.0, ge=0, lt=1)
     target_modules: list[str] | Literal["all-linear"] = "all-linear"
+    dora: bool = Field(default=False, description="Weight-decomposed LoRA (mlx, transformers).")
+    num_layers: int = Field(
+        default=-1, description="MLX: adapt only the last N transformer blocks (-1: all)."
+    )
+
+    @property
+    def scale(self) -> float:
+        """MLX parameterises LoRA by scale = alpha / r (PEFT's convention, made explicit)."""
+        return self.alpha / self.r
+
+
+class MlxSettings(TrainModel):
+    """Apple Silicon specifics. Defaults suit a Mac Studio with 64 GB or more."""
+
+    wired_limit_gb: float | None = Field(
+        default=None,
+        description="Raise MLX's wired-memory limit (GB); also needs `sudo sysctl "
+        "iogpu.wired_limit_mb=...` on macOS. None keeps MLX's recommended limit.",
+    )
+    clear_cache_every: int = Field(
+        default=50, ge=0, description="Free MLX's buffer cache every N steps (0: never)."
+    )
+    keep_checkpoints: int = Field(default=3, ge=1)
+    max_tokens_per_batch: int | None = Field(
+        default=None,
+        ge=256,
+        description="Cap padded tokens per micro-batch (long dialogues get smaller batches).",
+    )
 
 
 class BaseModelConfig(TrainModel):
@@ -78,9 +113,11 @@ class SftConfig(TrainModel):
     )
     base_model: BaseModelConfig
     method: Literal["full", "lora"]
-    backend: Literal["unsloth", "transformers"] = Field(
-        description="unsloth for LoRA iteration; transformers (+ accelerate FSDP) for full."
+    backend: Literal["mlx", "unsloth", "transformers"] = Field(
+        description="mlx on Apple Silicon; on NVIDIA, unsloth for LoRA iteration and "
+        "transformers (+ accelerate FSDP) for full fine-tuning."
     )
+    mlx: MlxSettings = MlxSettings()
     lora: LoraConfig | None = None
     load_in_4bit: bool = False
     train_file: Path
@@ -107,6 +144,10 @@ class SftConfig(TrainModel):
             raise ValueError("method full must not have a lora section")
         if self.method == "full" and self.backend == "unsloth" and self.load_in_4bit:
             raise ValueError("full fine-tuning cannot load the base in 4-bit")
+        if self.backend == "mlx" and self.load_in_4bit:
+            raise ValueError("the mlx backend trains a bf16 base; loadIn4Bit is for unsloth")
+        if self.lora is not None and self.lora.dora and self.backend == "unsloth":
+            raise ValueError("DoRA needs the mlx or transformers backend")
         return self
 
 
@@ -117,6 +158,10 @@ class DpoConfig(TrainModel):
     deterministic: bool = False
     policy_model: Path = Field(description="The SFT output (merged weights or LoRA adapter).")
     base_model: BaseModelConfig
+    backend: Literal["trl", "mlx"] = Field(
+        default="trl", description="trl on NVIDIA GPUs; mlx on Apple Silicon."
+    )
+    mlx: MlxSettings = MlxSettings()
     method: Literal["full", "lora"]
     lora: LoraConfig | None = None
     pairs_file: Path
@@ -149,8 +194,25 @@ def _resolve(path: Path) -> Path:
     return path if path.is_absolute() else TRAINING_DIR / path
 
 
-def load_sft_config(path: Path) -> SftConfig:
-    config = SftConfig.model_validate(load_raw(path))
+def apply_overrides(raw: dict[str, Any], overrides: Sequence[str]) -> dict[str, Any]:
+    """Apply `dotted.key=yaml-value` overrides (e.g. `optim.perDeviceBatchSize=4`) in place."""
+    for item in overrides:
+        key, sep, value = item.partition("=")
+        if not sep or not key:
+            raise ValueError(f"override {item!r} is not key=value")
+        *parents, leaf = key.split(".")
+        target = raw
+        for part in parents:
+            child = target.setdefault(part, {})
+            if not isinstance(child, dict):
+                raise ValueError(f"override {item!r}: {part} is not a section")
+            target = child
+        target[leaf] = yaml.safe_load(value)
+    return raw
+
+
+def load_sft_config(path: Path, overrides: Sequence[str] = ()) -> SftConfig:
+    config = SftConfig.model_validate(apply_overrides(load_raw(path), overrides))
     return config.model_copy(
         update={
             "train_file": _resolve(config.train_file),
@@ -160,8 +222,8 @@ def load_sft_config(path: Path) -> SftConfig:
     )
 
 
-def load_dpo_config(path: Path) -> DpoConfig:
-    config = DpoConfig.model_validate(load_raw(path))
+def load_dpo_config(path: Path, overrides: Sequence[str] = ()) -> DpoConfig:
+    config = DpoConfig.model_validate(apply_overrides(load_raw(path), overrides))
     return config.model_copy(
         update={
             "policy_model": _resolve(config.policy_model),

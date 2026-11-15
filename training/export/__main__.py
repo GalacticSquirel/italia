@@ -1,6 +1,7 @@
 """Export CLI. Run from `training/`: `uv run python -m export <command> ...`.
 
-merge        merge a LoRA adapter into bf16 weights (no-op for full fine-tunes)
+mlx-fuse     MLX training output -> Hugging Face checkpoint (fuse adapters, restore HF layout)
+merge        NVIDIA path: merge a PEFT LoRA adapter into bf16 weights (no-op for full)
 calibration  write imatrix calibration text from the SFT data
 gguf         convert to GGUF and quantise (Q4_0 by default; --imatrix to calibrate)
 manifest     sha256 + size -> upsert an entry in models/manifest.json
@@ -20,6 +21,21 @@ from export.gguf import QUANT_TYPES, LlamaCpp, plan_export, run_commands
 from export.manifest import MANIFEST, manifest_entry, upsert_entry
 from export.merge import merge
 from export.smoke import llama_cpp_completer, run_smoke
+
+
+def cmd_mlx_fuse(args: argparse.Namespace) -> int:
+    from export.splice import export_mlx
+
+    report = export_mlx(
+        Path(args.model),
+        Path(args.out),
+        original_dir=Path(args.original) if args.original else None,
+    )
+    print(
+        f"wrote {report.out_dir}: {report.replaced} tensors replaced "
+        f"({report.transformed} re-laid-out), {report.kept} kept from the original"
+    )
+    return 0
 
 
 def cmd_merge(args: argparse.Namespace) -> int:
@@ -86,6 +102,11 @@ def main(argv: list[str] | None = None) -> int:
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     sub = parser.add_subparsers(dest="cmd", required=True)
+    p = sub.add_parser("mlx-fuse")
+    p.add_argument("--model", required=True, help="MLX output, e.g. out/mlx/dpo-gemma4-e4b/final")
+    p.add_argument("--out", required=True, help="Hugging Face checkpoint directory to write")
+    p.add_argument("--original", help="local copy of the base checkpoint (default: HF cache)")
+    p.set_defaults(fn=cmd_mlx_fuse)
     p = sub.add_parser("merge")
     p.add_argument("--model", required=True)
     p.add_argument("--out", required=True)

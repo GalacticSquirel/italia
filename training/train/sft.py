@@ -1,5 +1,7 @@
 """Supervised fine-tuning on teacher dialogues (loss on tutor turns only).
 
+    # Apple Silicon (MLX; resumes from the newest checkpoint unless --no-resume):
+    uv run python -m train.sft -c train/configs/mlx/sft-gemma4-e4b-lora.yaml
     # LoRA on one GPU (fast iteration, bake-off):
     uv run python -m train.sft -c train/configs/sft-gemma4-e4b-lora.yaml
     # Full fine-tune on 8 GPUs with FSDP:
@@ -153,8 +155,22 @@ def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     parser = argparse.ArgumentParser(prog="python -m train.sft")
     parser.add_argument("-c", "--config", required=True)
+    parser.add_argument("--no-resume", action="store_true", help="MLX: ignore checkpoints")
+    parser.add_argument(
+        "--set",
+        action="append",
+        default=[],
+        metavar="KEY=VALUE",
+        help="override a config value, e.g. optim.perDeviceBatchSize=4 (repeatable)",
+    )
     args = parser.parse_args(argv)
-    final = run(load_sft_config(Path(args.config)))
+    config = load_sft_config(Path(args.config), args.set)
+    if config.backend == "mlx":
+        from train.mlx_sft import run as run_mlx
+
+        final = run_mlx(config, resume=not args.no_resume)
+    else:
+        final = run(config)
     print(f"saved {final}")
     return 0
 
