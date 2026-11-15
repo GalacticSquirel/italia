@@ -101,6 +101,17 @@ export const BackupErrorRecordSchema = z.object({
   createdAt: ms,
 });
 
+/** A sentence corrected in conversation, in a backup. */
+export const BackupLearnerSentenceSchema = z.object({
+  id: z.number().int().negative(),
+  it: z.string().min(1),
+  original: z.string(),
+  errorTags: z.array(z.string()),
+  grammarIds: z.array(z.number().int()),
+  source: z.enum(ERROR_SOURCES),
+  createdAt: ms,
+});
+
 /** A complete backup of the learner's data (content is not included; it comes from the seed). */
 export const BackupFileSchema = z.object({
   format: z.literal(BACKUP_FORMAT),
@@ -115,6 +126,8 @@ export const BackupFileSchema = z.object({
   streakState: BackupStreakSchema.nullable(),
   studySessions: z.array(BackupStudySessionSchema),
   errorRecords: z.array(BackupErrorRecordSchema),
+  /** Absent in backups made before conversations existed. */
+  learnerSentences: z.array(BackupLearnerSentenceSchema).optional(),
 });
 
 /** A backup file. */

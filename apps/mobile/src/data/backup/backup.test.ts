@@ -69,6 +69,14 @@ function populate({ repos }: Device, deviceId: string, offsetMin = 0): { cardId:
     cardId: c.id,
     createdAt: at(offsetMin + 4),
   });
+  repos.learnerSentences.add({
+    it: 'Ieri sono andata a Napoli.',
+    original: 'Ieri ho andato a Napoli.',
+    errorTags: ['auxiliary-choice'],
+    grammarIds: [23],
+    source: 'conversation',
+    createdAt: at(offsetMin + 5),
+  });
   return { cardId: c.id };
 }
 
@@ -103,6 +111,7 @@ describe('backup', () => {
     expect(file.cards).toHaveLength(1);
     expect(file.reviewLogs).toHaveLength(1);
     expect(file.studySessions[0]?.activities).toEqual(['reviews']);
+    expect(file.learnerSentences?.map((l) => l.it)).toEqual(['Ieri sono andata a Napoli.']);
 
     const b = device('b');
     importBackup(b.t.db, JSON.stringify(file), { strategy: 'replace' });

@@ -11,6 +11,7 @@ import {
 } from './contentRepos';
 import { createErrorRecordRepo, type ErrorRecordRepo } from './ErrorRecordRepo';
 import { newUuid, type IdGenerator } from './ids';
+import { createLearnerSentenceRepo, type LearnerSentenceRepo } from './LearnerSentenceRepo';
 import { createMetaRepo, type MetaRepo } from './MetaRepo';
 import { createModelFileRepo, type ModelFileRepo } from './ModelFileRepo';
 import { recordReview, type RecordReviewInput } from './recordReview';
@@ -30,6 +31,8 @@ export interface Repositories {
   reviewLogs: ReviewLogRepo;
   stories: StoryRepo;
   errors: ErrorRecordRepo;
+  /** Sentences corrected in conversation. */
+  learnerSentences: LearnerSentenceRepo;
   studySessions: StudySessionRepo;
   settings: SettingsRepo;
   streak: StreakRepo;
@@ -57,6 +60,7 @@ export function createRepositories(db: AppDatabase, options: RepositoryOptions =
     reviewLogs: createReviewLogRepo(db, newId),
     stories: createStoryRepo(db, newId),
     errors: createErrorRecordRepo(db, newId),
+    learnerSentences: createLearnerSentenceRepo(db),
     studySessions: createStudySessionRepo(db, newId),
     settings: createSettingsRepo(db),
     streak: createStreakRepo(db),

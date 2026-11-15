@@ -23,13 +23,18 @@ export const INSTRUCTIONS: Record<TypedPrompt['kind'], string> = {
   dictation: 'Type what you hear',
 };
 
+/** Instruction for a sentence corrected in conversation. */
+export const CORRECTION_INSTRUCTION = 'Write this sentence correctly';
+
 /** The question part of a typed card (the answer field is separate). */
 export function TypedPromptCard({ prompt, speechRate, autoPlay, answered }: TypedPromptCardProps) {
   const { spacing } = useTheme();
   return (
     <Card>
       <Text variant="caption" color="textMuted">
-        {INSTRUCTIONS[prompt.kind]}
+        {prompt.kind === 'sentence_production' && prompt.correction
+          ? CORRECTION_INSTRUCTION
+          : INSTRUCTIONS[prompt.kind]}
       </Text>
       {prompt.kind === 'cloze_production' ? (
         <>
@@ -54,7 +59,17 @@ export function TypedPromptCard({ prompt, speechRate, autoPlay, answered }: Type
           </Text>
         </>
       ) : null}
-      {prompt.kind === 'sentence_production' ? (
+      {prompt.kind === 'sentence_production' && prompt.correction ? (
+        <>
+          <Text variant="title" accessibilityLabel={`You wrote: ${prompt.correction.original}`}>
+            {prompt.correction.original}
+          </Text>
+          <Text variant="caption" color="textMuted">
+            From a conversation
+          </Text>
+        </>
+      ) : null}
+      {prompt.kind === 'sentence_production' && !prompt.correction ? (
         <Text variant="title" accessibilityLabel={`English sentence: ${prompt.sentence.en}`}>
           {prompt.sentence.en}
         </Text>

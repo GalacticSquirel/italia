@@ -7,6 +7,7 @@ import type {
   card,
   errorRecord,
   grammarPoint,
+  learnerSentence,
   lemma,
   reviewLog,
   sentence,
@@ -50,3 +51,5 @@ export type SettingsRow = typeof settings.$inferSelect;
 export type StreakStateRow = typeof streakState.$inferSelect;
 /** A device-local metadata row. */
 export type AppMetaRow = typeof appMeta.$inferSelect;
+/** A sentence the learner corrected in conversation. */
+export type LearnerSentenceRow = typeof learnerSentence.$inferSelect;

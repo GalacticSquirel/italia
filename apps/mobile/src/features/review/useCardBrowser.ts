@@ -39,10 +39,16 @@ export function describeCard(card: CardRow, repos: Repositories, now: Date): Car
   const lemmaTarget = card.kind === 'recognition' || card.kind === 'cloze_production';
   const lemma = lemmaTarget ? content.lemmaById.get(card.targetId) : undefined;
   const sentence = lemmaTarget ? undefined : content.sentenceById.get(card.targetId);
+  const corrected = lemmaTarget ? undefined : content.learnerSentenceById.get(card.targetId);
   return {
     id: card.id,
-    title: lemma?.lemma ?? sentence?.it ?? 'Missing content',
-    subtitle: [KIND_NAMES[card.kind], lemma?.glossEn ?? sentence?.en].filter(Boolean).join(' · '),
+    title: lemma?.lemma ?? sentence?.it ?? corrected?.it ?? 'Missing content',
+    subtitle: [
+      KIND_NAMES[card.kind],
+      lemma?.glossEn ?? sentence?.en ?? (corrected ? 'from a conversation' : undefined),
+    ]
+      .filter(Boolean)
+      .join(' · '),
     detail: card.suspended
       ? 'suspended'
       : card.state === 'new'

@@ -1,6 +1,14 @@
 import { asc, eq } from 'drizzle-orm';
 
-import { card, errorRecord, reviewLog, settings, streakState, studySession } from '@/db/schema';
+import {
+  card,
+  errorRecord,
+  learnerSentence,
+  reviewLog,
+  settings,
+  streakState,
+  studySession,
+} from '@/db/schema';
 import type { AppDatabase } from '@/db/types';
 
 import type { CardRow, NewCardRow, NewReviewLogRow } from '../rows';
@@ -32,6 +40,7 @@ export interface ImportBackupResult {
   streakUpdated: boolean;
   studySessions: { inserted: number; updated: number };
   errorRecords: { inserted: number; duplicates: number };
+  learnerSentences: { inserted: number; duplicates: number };
 }
 
 /** Thrown when a backup was written by a newer app version. */
@@ -106,6 +115,12 @@ export function exportBackup(db: AppDatabase, now: Date = new Date()): BackupFil
       .orderBy(asc(errorRecord.createdAt), asc(errorRecord.id))
       .all()
       .map((e) => ({ ...e, createdAt: time(e.createdAt) })),
+    learnerSentences: db
+      .select()
+      .from(learnerSentence)
+      .orderBy(asc(learnerSentence.createdAt), asc(learnerSentence.id))
+      .all()
+      .map((s) => ({ ...s, createdAt: time(s.createdAt) })),
   };
 }
 
@@ -178,11 +193,13 @@ export function importBackup(
     streakUpdated: false,
     studySessions: { inserted: 0, updated: 0 },
     errorRecords: { inserted: 0, duplicates: 0 },
+    learnerSentences: { inserted: 0, duplicates: 0 },
   };
 
   db.transaction((tx) => {
     if (strategy === 'replace') {
       tx.delete(errorRecord).run();
+      tx.delete(learnerSentence).run();
       tx.delete(reviewLog).run();
       tx.delete(card).run();
       tx.delete(settings).run();
@@ -331,6 +348,22 @@ export function importBackup(
         result.studySessions.updated += 1;
       }
     }
+
+    // Learner sentences (before error records, whose cards practise them) -----
+    const sentences = (file.learnerSentences ?? []).map((s) => ({
+      ...s,
+      createdAt: date(s.createdAt),
+    }));
+    insertChunked(sentences, 7, (part) => {
+      const inserted = tx
+        .insert(learnerSentence)
+        .values(part)
+        .onConflictDoNothing({ target: learnerSentence.id })
+        .returning({ id: learnerSentence.id })
+        .all().length;
+      result.learnerSentences.inserted += inserted;
+      result.learnerSentences.duplicates += part.length - inserted;
+    });
 
     // Error records ----------------------------------------------------------
     const errors = file.errorRecords.map((e) => ({

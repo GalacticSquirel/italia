@@ -6,6 +6,7 @@ import {
   type TestDatabase,
 } from '@/db/testing/createTestDatabase';
 
+import { learnerSentenceId } from './LearnerSentenceRepo';
 import { createRepositories, type Repositories } from './repositories';
 import { importSeedContent } from './seed/importSeed';
 import { defaultSettings, type Settings } from './SettingsRepo';
@@ -205,6 +206,28 @@ describe('ErrorRecordRepo', () => {
       { category: 'b', count: 2 },
       { category: 'a', count: 1 },
     ]);
+  });
+});
+
+describe('LearnerSentenceRepo', () => {
+  it('stores corrected sentences under stable negative ids', () => {
+    const input = {
+      it: '  Ieri sono  andata a Napoli. ',
+      original: 'Ieri ho andato a Napoli.',
+      errorTags: ['auxiliary-choice'],
+      grammarIds: [23],
+      source: 'conversation' as const,
+      createdAt: at(1),
+    };
+    const row = repos.learnerSentences.add(input);
+    expect(row.id).toBeLessThan(0);
+    expect(row.id).toBe(learnerSentenceId('Ieri sono andata a Napoli.'));
+    expect(row.it).toBe('Ieri sono andata a Napoli.');
+    expect(repos.learnerSentences.add({ ...input, createdAt: at(5) })).toEqual(row);
+    const other = repos.learnerSentences.add({ ...input, it: 'Vado a Roma.', createdAt: at(2) });
+    expect(repos.learnerSentences.listAll().map((r) => r.id)).toEqual([other.id, row.id]);
+    expect(repos.learnerSentences.getByIds([row.id, 99])).toEqual([row]);
+    expect(repos.learnerSentences.getById(-1)).toBeNull();
   });
 });
 
