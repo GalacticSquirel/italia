@@ -1,0 +1,21 @@
+# LoRA DPO for a single 24 GB card (local NVIDIA GPU). The policy is the merged SFT model.
+extends: _gemma4-e4b-base.yaml
+name: dpo-gemma4-e4b-lora
+policyModel: out/sft-gemma4-e4b-full/final
+method: lora
+lora: {r: 64, alpha: 64, dropout: 0.0, targetModules: all-linear}
+pairsFile: work/dpo/pairs.jsonl
+valFraction: 0.03
+beta: 0.1
+lossType: sigmoid
+sftLossWeight: 0.2
+maxLength: 4096
+optim:
+  learningRate: 5.0e-6
+  epochs: 1
+  perDeviceBatchSize: 1
+  gradientAccumulationSteps: 8
+  warmupRatio: 0.1
+  lrScheduler: cosine
+  optimizer: adamw_8bit
+outputDir: out/dpo-gemma4-e4b-lora

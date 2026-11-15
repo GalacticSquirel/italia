@@ -1,0 +1,18 @@
+# accelerate launch --config_file train/configs/accelerate-fsdp-8gpu.yaml -m train.sft -c ...
+compute_environment: LOCAL_MACHINE
+distributed_type: FSDP
+mixed_precision: bf16
+num_machines: 1
+num_processes: 8
+machine_rank: 0
+main_training_function: main
+rdzv_backend: static
+same_network: true
+use_cpu: false
+fsdp_config:
+  fsdp_version: 2
+  fsdp_auto_wrap_policy: TRANSFORMER_BASED_WRAP
+  fsdp_cpu_ram_efficient_loading: true
+  fsdp_offload_params: false
+  fsdp_reshard_after_forward: true
+  fsdp_state_dict_type: FULL_STATE_DICT

@@ -23,9 +23,17 @@ packages/core/          Pure TypeScript learning logic (FSRS scheduler wrapper, 
 packages/api-contract/  zod schemas for sync DTOs shared by the app and Supabase functions
 packages/content/       Build-time content pipeline (placeholder) and source licences
 supabase/               Auth, Postgres migrations, RLS and sync (Phase 2)
+training/               Python (uv) pipeline for the on-device tutor model; outside the JS workspace
 models/                 Manifest of on-device models (URLs, sizes, checksums, licences); no weights
 docs/                   Architecture plan and ADRs
 ```
+
+## Tutor model training
+
+`training/` holds the pipeline that builds the on-device Italian tutor model: task spec, scenarios,
+teacher data generation, SFT and DPO, evaluation and GGUF export. It is a separate Python project
+managed with uv and is not part of the pnpm workspace. See [`training/README.md`](training/README.md)
+for setup and the GPU runbooks.
 
 ## Prerequisites
 
