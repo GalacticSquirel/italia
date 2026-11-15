@@ -1,6 +1,7 @@
 /**
- * Validates the committed seed (`seed/seed.v1.json`) and prints its coverage
- * statistics. Rebuild the seed with `pnpm --filter @italia/content build:seed`.
+ * Validates the committed seed (`seed/seed.v1.json`), prints its coverage
+ * statistics and checks that the most frequent words are in it. Rebuild the
+ * seed with `pnpm --filter @italia/content build:seed`.
  */
 import { readFileSync, statSync } from 'node:fs';
 
@@ -10,6 +11,7 @@ import { GRAMMAR_POINTS } from './grammar/points';
 import { toRows } from './loader';
 import { loadSeedFile, SEED_FILE } from './node';
 import { lemmaId } from './pipeline/ids';
+import { EXCLUDED_TOP_FORMS } from './pipeline/overrides';
 import { type Seed } from './schema';
 
 let seed: Seed;
@@ -112,5 +114,91 @@ describe('seed.v1.json', () => {
     ]);
     expect(rows.sentences[0]).not.toHaveProperty('extra');
     expect(rows.grammarPoints[0]).not.toHaveProperty('extra');
+  });
+});
+
+/**
+ * Words every beginner meets in the first weeks, with the rank they must fall
+ * within (a seed lemma with that spelling, any part of speech).
+ */
+const MUST_HAVE: Readonly<Record<number, string>> = {
+  100: `il un di a da in con su per e o ma se che non come quando dove perché anche più molto tutto
+    altro questo quello mio tuo suo io tu lei ci si ne chi cosa sì no mai ora qui bene così essere
+    avere fare dire andare potere volere dovere sapere vedere venire stare dare parlare pensare
+    sentire grazie`,
+  250: `tra poco ogni nessuno qualche stesso nostro vostro loro lui noi voi cui ecco già ancora sempre
+    adesso poi troppo niente dopo capire grande buono bello nuovo uomo donna tempo giorno casa vita
+    anno padre madre amico lavoro due ciao`,
+  500: 'alcuno lì male però nulla prima vecchio piccolo gente mondo tre scusa',
+  1000: 'sotto sopra mille buongiorno',
+};
+
+interface TopForm {
+  rank: number;
+  form: string;
+  status: 'ok' | 'missing' | 'name' | 'unknown' | 'excluded';
+  lemmas?: string[];
+  reason?: string;
+}
+
+describe('frequent words', () => {
+  const readJson = (file: string): unknown =>
+    JSON.parse(readFileSync(new URL(`../seed/${file}`, import.meta.url), 'utf8'));
+
+  it('includes the must-have words with sensible ranks', () => {
+    const rankOf = new Map<string, number>();
+    for (const l of seed.lemmas)
+      rankOf.set(l.lemma, Math.min(rankOf.get(l.lemma) ?? Infinity, l.freqRank));
+    const words = Object.entries(MUST_HAVE).flatMap(([limit, list]) =>
+      list
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((word) => ({ word, limit: Number(limit) })),
+    );
+    expect(words.length).toBeGreaterThanOrEqual(100);
+    const failures = words
+      .filter(({ word, limit }) => !((rankOf.get(word) ?? Infinity) <= limit))
+      .map(
+        ({ word, limit }) =>
+          `${word} (rank ${String(rankOf.get(word) ?? 'missing')}, limit ${limit})`,
+      );
+    expect(failures).toEqual([]);
+  });
+
+  it('maps every top-300 subtitle word form to a seed lemma, a name or a listed exclusion', () => {
+    const forms = readJson('top-forms.json') as TopForm[];
+    expect(forms).toHaveLength(300);
+    const seedKeys = new Set(seed.lemmas.map((l) => `${l.lemma}|${l.pos}`));
+    const failures: string[] = [];
+    for (const f of forms) {
+      if (f.status === 'name') continue;
+      if (f.status === 'excluded') {
+        if (!EXCLUDED_TOP_FORMS[f.form]) failures.push(`${f.form}: excluded without a reason`);
+        continue;
+      }
+      const missing = (f.lemmas ?? []).filter((k) => !seedKeys.has(k));
+      if (f.status !== 'ok' || !f.lemmas?.length || missing.length > 0)
+        failures.push(`${f.form}: ${f.status} ${missing.join(' ')}`);
+    }
+    expect(failures).toEqual([]);
+    // Spot checks: inflected and variant forms reach their base lemma.
+    const lemmasOf = new Map(forms.map((f) => [f.form, f.lemmas]));
+    expect(lemmasOf.get('mia')).toEqual(['mio|DET']);
+    expect(lemmasOf.get('ed')).toEqual(['e|CCONJ']);
+    expect(lemmasOf.get('ad')).toEqual(['a|ADP']);
+    expect(lemmasOf.get('po')).toEqual(['poco|ADV']);
+    expect(lemmasOf.get('vai')).toEqual(['andare|VERB']);
+  });
+
+  it('merges variant spellings into their base word', () => {
+    const report = readJson('build-report.json') as {
+      lemmaPipeline: { variantSpellings: string[] };
+    };
+    const variants = report.lemmaPipeline.variantSpellings;
+    expect(variants).toContain('buon|ADJ -> buono|ADJ');
+    expect(variants).toContain('bel|ADJ -> bello|ADJ');
+    const lemmas = new Set(seed.lemmas.map((l) => l.lemma));
+    for (const variant of ['buon', 'bel', 'ed', 'ad', "po'", 'alcun'])
+      expect(lemmas.has(variant)).toBe(false);
   });
 });

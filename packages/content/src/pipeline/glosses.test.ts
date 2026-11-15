@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { glossItems, pickGloss, type WiktionaryEntry } from './glosses';
+import { glossItems, pickGloss, variantOf, type WiktionaryEntry } from './glosses';
 import { lemmaId } from './ids';
 
 describe('glossItems', () => {
@@ -33,6 +33,31 @@ describe('pickGloss', () => {
     expect(pickGloss(casa, 'VERB')).toBeNull();
   });
 
+  it('ignores a register tag that every sense carries', () => {
+    const gente: WiktionaryEntry[] = [
+      {
+        word: 'gente',
+        pos: 'noun',
+        senses: [
+          { glosses: ['gens'], tags: ['archaic', 'historical'] },
+          { glosses: ['people, folks'], tags: ['archaic', 'collective'] },
+        ],
+      },
+    ];
+    expect(pickGloss(gente, 'NOUN')?.gloss).toBe('people, folks');
+  });
+
+  it('keeps the meaning after a pointer sense colon', () => {
+    const cui: WiktionaryEntry[] = [
+      {
+        word: 'cui',
+        pos: 'pron',
+        senses: [{ glosses: ['dative of che: to whom, which'], tags: ['form-of'] }],
+      },
+    ];
+    expect(pickGloss(cui, 'PRON')?.gloss).toBe('to whom, which');
+  });
+
   it('flags mostly offensive senses', () => {
     const entries: WiktionaryEntry[] = [
       { word: 'x', pos: 'noun', senses: [{ glosses: ['bad word'], tags: ['vulgar'] }] },
@@ -48,5 +73,50 @@ describe('lemmaId', () => {
     expect(id).toBeGreaterThan(0);
     expect(id).toBeLessThanOrEqual(0x7fffffff);
     expect(lemmaId('casa', 'VERB')).not.toBe(id);
+  });
+});
+
+describe('variantOf', () => {
+  it('finds the base word of apocopic and euphonic spellings', () => {
+    const buon: WiktionaryEntry[] = [
+      {
+        word: 'buon',
+        pos: 'adj',
+        senses: [
+          {
+            glosses: ['apocopic form of buono'],
+            tags: ['form-of', 'apocopic'],
+            form_of: [{ word: 'buono' }],
+          },
+        ],
+      },
+    ];
+    expect(variantOf(buon, ['adj'])).toBe('buono');
+    const ed: WiktionaryEntry[] = [
+      {
+        word: 'ed',
+        pos: 'conj',
+        senses: [
+          {
+            glosses: ['alternative form of e for euphony; and'],
+            tags: ['alt-of', 'alternative'],
+            alt_of: [{ word: 'e for euphony' }],
+          },
+        ],
+      },
+    ];
+    expect(variantOf(ed, ['conj'])).toBe('e');
+    const bel: WiktionaryEntry[] = [
+      { word: 'bel', pos: 'adj', senses: [{ glosses: ['preconsonantal form of bello'] }] },
+    ];
+    expect(variantOf(bel, ['adj'])).toBe('bello');
+  });
+
+  it('returns null when any entry has a meaning of its own', () => {
+    const entries: WiktionaryEntry[] = [
+      { word: 'po', pos: 'noun', senses: [{ glosses: ['chamber pot'] }] },
+      { word: 'po', pos: 'adv', senses: [{ glosses: ['apocopic form of poco'] }] },
+    ];
+    expect(variantOf(entries, ['adv'])).toBeNull();
   });
 });

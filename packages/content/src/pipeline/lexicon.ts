@@ -279,6 +279,43 @@ export function normaliseRow(form: string, lemma: string, tag: string): Row | nu
   }
 }
 
+/**
+ * Morph-it! lists demonstrative, possessive and indefinite pronouns under their
+ * inflected form ("mia", "questa", "altri"), while the determiner rows of the same
+ * form carry the base lemma (mio, questo, altro). Give such a pronoun the
+ * determiner's lemma so both count towards one word.
+ */
+function normalisePronounLemmas(
+  form: string,
+  readings: Map<string, { units: Unit[]; heads: Set<string>; infl: Set<string> }>,
+): void {
+  const detLemmas = new Set<string>();
+  for (const r of readings.values()) {
+    const u = r.units[0];
+    if (r.units.length === 1 && u?.upos === 'DET' && [...r.heads].some((h) => h.startsWith('DET-')))
+      detLemmas.add(u.lemma);
+  }
+  const [base] = detLemmas;
+  if (detLemmas.size !== 1 || !base || base === form) return;
+  for (const [key, r] of [...readings]) {
+    const u = r.units[0];
+    const pronoun =
+      r.units.length === 1 &&
+      u?.upos === 'PRON' &&
+      u.lemma === form &&
+      [...r.heads].every((h) => h.startsWith('PRO-') && !h.startsWith('PRO-PERS'));
+    if (!pronoun) continue;
+    readings.delete(key);
+    const units: Unit[] = [{ lemma: base, upos: 'PRON' }];
+    const newKey = units.map(unitKey).join('+');
+    const existing = readings.get(newKey);
+    if (existing) {
+      for (const h of r.heads) existing.heads.add(h);
+      for (const i of r.infl) existing.infl.add(i);
+    } else readings.set(newKey, { ...r, units });
+  }
+}
+
 /** Parse Morph-it text (`form<TAB>lemma<TAB>tag` per line, already decoded). */
 export function parseMorphIt(text: string): Map<string, Reading[]> {
   interface Acc {
@@ -311,6 +348,7 @@ export function parseMorphIt(text: string): Map<string, Reading[]> {
       });
     }
   }
+  for (const [form, readings] of byForm) normalisePronounLemmas(form, readings);
   const out = new Map<string, Reading[]>();
   for (const [form, readings] of byForm) {
     out.set(
@@ -361,7 +399,16 @@ const ACCENTED: Readonly<Record<string, string[]>> = {
  */
 export function lookup(lexicon: Lexicon, form: string): readonly Reading[] | undefined {
   const direct = lexicon.get(form);
-  if (direct) return direct;
+  if (!direct) return lookupVariant(lexicon, form);
+  // "po", "gia", "sara" are also names; keep the common-word spelling as well.
+  if (direct.every((r) => r.units[0]?.upos === 'PROPN')) {
+    const variant = lookupVariant(lexicon, form);
+    if (variant) return [...variant, ...direct];
+  }
+  return direct;
+}
+
+function lookupVariant(lexicon: Lexicon, form: string): readonly Reading[] | undefined {
   const withApostrophe = lexicon.get(`${form}'`);
   if (withApostrophe) return withApostrophe;
   // A final apostrophe after a vowel is usually a typed accent (e' = è); otherwise
@@ -375,4 +422,15 @@ export function lookup(lexicon: Lexicon, form: string): readonly Reading[] | und
     }
   }
   return bare !== form ? lexicon.get(bare) : undefined;
+}
+
+/**
+ * Remove readings whose first unit is one of `keys` from every form that has
+ * another reading left (see `ghostLemmas`).
+ */
+export function dropReadings(lexicon: Map<string, Reading[]>, keys: ReadonlySet<string>): void {
+  for (const [form, readings] of lexicon) {
+    const kept = readings.filter((r) => !(r.units[0] && keys.has(unitKey(r.units[0]))));
+    if (kept.length > 0 && kept.length < readings.length) lexicon.set(form, kept);
+  }
 }
