@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Serve the local teacher with mlx-lm's OpenAI-compatible server, sized for this Mac's memory.
+# It runs through datagen.mlx_server, which fixes mlx-lm's Metal buffer leak in batched decode
+# (the "[metal::malloc] Resource limit (499000) exceeded" crash) before starting the server.
 #
 #   training/scripts/serve-teacher.sh [model]
 #
@@ -32,7 +34,7 @@ else
   cache_default=$(( 8 * 1024 * 1024 * 1024 ))
 fi
 
-exec uv run --extra mlx mlx_lm.server --model "$model" \
+exec uv run --extra mlx python -m datagen.mlx_server --model "$model" \
   --host "${LOCAL_TEACHER_HOST:-127.0.0.1}" --port "${LOCAL_TEACHER_PORT:-8080}" \
   --decode-concurrency "${DECODE_CONCURRENCY:-8}" \
   --prompt-concurrency "${PROMPT_CONCURRENCY:-$prompt_default}" \
