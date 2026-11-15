@@ -1,0 +1,35 @@
+# Systems under test. Every system is an OpenAI- or Anthropic-compatible endpoint:
+#   - GGUF builds: `llama-server -m model.gguf --port 8081 -c 8192` (CPU or GPU), constrained
+#     decoding on, exactly as llama.rn runs it on the phone
+#   - HF checkpoints (bf16 SFT/DPO output, the untuned base): `vllm serve <path> --port 8082`
+#   - the teacher itself: the same variables as the datagen config
+systems:
+  - name: student-q4
+    endpoint:
+      protocol: openai
+      baseUrl: ${STUDENT_URL:-http://localhost:8081/v1}
+      model: student
+      maxConcurrency: 4
+    constrained: true
+  - name: student-bf16
+    endpoint:
+      protocol: openai
+      baseUrl: ${STUDENT_BF16_URL:-http://localhost:8082/v1}
+      model: ${STUDENT_BF16_MODEL:-out/dpo-gemma4-e4b/final}
+      maxConcurrency: 16
+    constrained: true
+  - name: base
+    endpoint:
+      protocol: openai
+      baseUrl: ${BASE_URL:-http://localhost:8083/v1}
+      model: ${BASE_MODEL:-google/gemma-4-E4B-it}
+      maxConcurrency: 16
+    constrained: true
+  - name: teacher
+    endpoint:
+      protocol: ${TEACHER_PROTOCOL:-openai}
+      baseUrl: ${TEACHER_BASE_URL:-http://localhost:9}
+      model: ${TEACHER_MODEL:-teacher}
+      apiKeyEnv: TEACHER_API_KEY
+      maxConcurrency: 8
+    constrained: false
