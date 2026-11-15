@@ -1,0 +1,59 @@
+# Full training-data run: ~57k jobs, expected to keep ~40k dialogues after filters and judging.
+# The teacher and judge are configured entirely from the environment; nothing here names a
+# provider. Set, for example:
+#   TEACHER_PROTOCOL=openai|anthropic  TEACHER_BASE_URL=https://...  TEACHER_MODEL=...
+#   TEACHER_API_KEY=...  TEACHER_PRICE_IN=<USD per 1M input tokens>  TEACHER_PRICE_OUT=<...>
+# Optionally a different judge: JUDGE_PROTOCOL, JUDGE_BASE_URL, JUDGE_MODEL, JUDGE_API_KEY, ...
+name: train-v1
+seed: 20261115
+outputDir: work/datagen/train-v1
+split: train
+targetDialogues: 57000
+turns: {min: 8, max: 16}
+
+teacher:
+  protocol: ${TEACHER_PROTOCOL:-openai}
+  baseUrl: ${TEACHER_BASE_URL}
+  model: ${TEACHER_MODEL}
+  apiKeyEnv: TEACHER_API_KEY
+  pricing:
+    inputPerMtok: ${TEACHER_PRICE_IN:-0}
+    outputPerMtok: ${TEACHER_PRICE_OUT:-0}
+  maxConcurrency: ${TEACHER_CONCURRENCY:-16}
+teacherTemperature: 0.9
+teacherMaxTokens: 8000
+revisePass: true
+maxAttempts: 3
+
+learner:
+  errorRate: {A1: 0.55, A2: 0.5, B1: 0.4, B2: 0.3}
+  secondErrorRate: 0.15
+  selfCorrectRate: {A1: 0.45, A2: 0.5, B1: 0.6, B2: 0.65}
+  levelMix: {A1: 0.3, A2: 0.3, B1: 0.25, B2: 0.15}
+
+filters:
+  maxReplyChars: 400
+  bandSlack: 0.0
+  sentenceSlackWords: 3
+  maxLtErrorsPer100Words: 1.0
+  minPolicyAgreement: 0.8
+
+languageTool:
+  enabled: true
+  url: ${LANGUAGETOOL_URL:-http://localhost:8010/v2}
+
+judge:
+  endpoint:
+    protocol: ${JUDGE_PROTOCOL:-${TEACHER_PROTOCOL:-openai}}
+    baseUrl: ${JUDGE_BASE_URL:-${TEACHER_BASE_URL}}
+    model: ${JUDGE_MODEL:-${TEACHER_MODEL}}
+    apiKeyEnv: ${JUDGE_API_KEY_ENV:-TEACHER_API_KEY}
+    pricing:
+      inputPerMtok: ${JUDGE_PRICE_IN:-${TEACHER_PRICE_IN:-0}}
+      outputPerMtok: ${JUDGE_PRICE_OUT:-${TEACHER_PRICE_OUT:-0}}
+    maxConcurrency: ${JUDGE_CONCURRENCY:-16}
+  minOverall: 3.8
+
+estimate:
+  charsPerToken: 3.4
+  expectedPassRate: 0.7

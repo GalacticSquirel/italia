@@ -8,7 +8,7 @@ from pydantic import ValidationError
 
 from spec.__main__ import SCHEMA_DIR, dump, schemas
 from spec.levels import BANDS, Level, band_for
-from spec.models import START_MESSAGE, ErrorHistoryItem, LearnerProfile, TutorContext, Turn
+from spec.models import START_MESSAGE, ErrorHistoryItem, LearnerProfile, Turn, TutorContext
 from spec.policy import expected_move, pick_target_error, prompted_tags
 from spec.render import allowed_grammar_slugs, render_messages, render_system_prompt
 from spec.scenarios import load_library
