@@ -30,6 +30,19 @@ and corrections in `src/pipeline/overrides.ts`) is original to this project.
   shared under CC BY-SA with attribution if it is ever distributed.
 - The app's attributions screen should list every source above.
 
+## Ear-training clips (built locally, not bundled yet)
+
+| Source                                                       | Version used                                            | Used for                                                                  | Licence |
+| ------------------------------------------------------------ | ------------------------------------------------------- | ------------------------------------------------------------------------- | ------- |
+| Mozilla Common Voice, Italian (`validated.tsv` and `clips/`) | Any release; the pack records which (`dataset.release`) | Real speakers saying minimal-pair words, for ear training (`build:clips`) | CC0-1.0 |
+
+Common Voice is now distributed through the Mozilla Data Collective, which needs an account and
+acceptance of the dataset terms, so `scripts/build-clips.ts` reads a local copy and never
+downloads it. It has not been run for this repository yet: the app's ear training uses the
+phone's own Italian voices until a pack is built (the screen says "Limited voices"). Pack audio
+is never committed (`packages/content/build/` is ignored). CC0 needs no attribution, but the
+manifest keeps each clip's source file name.
+
 ## Not used (yet)
 
 | Source                                                 | Why not                                                                      | Licence                          |

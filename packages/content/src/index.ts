@@ -26,3 +26,20 @@ export {
 export { parseSeed, toRows, type GrammarPointRow, type LemmaRow, type SentenceRow } from './loader';
 export { UPOS, type Upos } from './pipeline/lexicon';
 export { GRAMMAR_POINTS, type GrammarCefr, type GrammarPointSource } from './grammar/points';
+export {
+  buildClipPack,
+  CLIP_PACK_VERSION,
+  ClipPackSchema,
+  ClipSchema,
+  parseCommonVoiceTsv,
+  selectClips,
+  sentenceWords,
+  type Clip,
+  type ClipPack,
+  type ClipSelection,
+  type ClipTarget,
+  type CommonVoiceRow,
+  type PackFile,
+  type SelectOptions,
+  type WordTiming,
+} from './clips/clipPack';
