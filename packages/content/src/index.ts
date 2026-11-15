@@ -52,6 +52,7 @@ export {
   type SelectOptions,
   type WordTiming,
 } from './clips/clipPack';
+export {
   BAND_RULES,
   bandRules,
   STORY_BANDS,
