@@ -32,7 +32,7 @@ export {
 } from './types';
 export { createRng, shuffle, type Rng } from './rng';
 export { normaliseAnswer } from './normalise';
-export { type DiffSegment, type DiffSegmentType } from './edit-distance';
+export { diffStrings, type DiffSegment, type DiffSegmentType } from './edit-distance';
 export {
   DEFAULT_CHARS_PER_TYPO,
   DEFAULT_EASY_LATENCY_MS,

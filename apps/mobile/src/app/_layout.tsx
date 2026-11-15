@@ -47,6 +47,7 @@ function RootNavigator() {
                 <Stack.Screen name="speak/drill" options={{ title: 'Speaking drill' }} />
                 <Stack.Screen name="speak/ear" options={{ title: 'Ear training' }} />
                 <Stack.Screen name="speak/shadow" options={{ title: 'Shadowing' }} />
+                <Stack.Screen name="speak/converse" options={{ headerShown: false }} />
                 <Stack.Screen
                   name="session"
                   options={{

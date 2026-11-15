@@ -38,6 +38,11 @@ describe('SpeakScreen', () => {
       ),
     );
     expect(screen.getByText(/Using your phone's own speech recognition/)).toBeOnTheScreen();
+    expect(
+      screen.getByText(/Role-play with an on-device tutor \(2\.\d GB download\)/),
+    ).toBeOnTheScreen();
+    await user.press(screen.getByText('Conversation'));
+    expect(router.push).toHaveBeenLastCalledWith('/speak/converse');
     await user.press(screen.getByText('Speaking drill'));
     expect(router.push).toHaveBeenLastCalledWith('/speak/drill');
     await user.press(screen.getByText('Hands-free drill'));
