@@ -7,11 +7,12 @@ import { importSeed, type SeedImportProgress } from '@/data/seed/importSeed';
 import { bundledSeedLoader, type SeedLoader } from '@/data/seed/seedLoader';
 import { Screen, Text, useTheme } from '@/ui';
 
-import { openDatabase, type Database } from './client';
+import { openDatabase } from './client';
+import type { AppDatabase } from './types';
 import migrations from '../../drizzle/migrations';
 
 interface DatabaseContextValue {
-  db: Database;
+  db: AppDatabase;
   repos: Repositories;
 }
 
@@ -96,6 +97,23 @@ export function DatabaseProvider({
   return <DatabaseContext value={value}>{children}</DatabaseContext>;
 }
 
+/** Props for {@link RepositoryProvider}. */
+export interface RepositoryProviderProps {
+  db: AppDatabase;
+  repos: Repositories;
+  children: ReactNode;
+}
+
+/**
+ * Provides an already prepared database and its repositories to
+ * {@link useDatabase} and {@link useRepositories}. The app uses
+ * {@link DatabaseProvider}; tests use this with an in-memory database.
+ */
+export function RepositoryProvider({ db, repos, children }: RepositoryProviderProps): ReactNode {
+  const value = useMemo(() => ({ db, repos }), [db, repos]);
+  return <DatabaseContext value={value}>{children}</DatabaseContext>;
+}
+
 function useDatabaseContext(): DatabaseContextValue {
   const value = useContext(DatabaseContext);
   if (!value) {
@@ -105,7 +123,7 @@ function useDatabaseContext(): DatabaseContextValue {
 }
 
 /** The migrated, seeded app database. Must be used inside {@link DatabaseProvider}. */
-export function useDatabase(): Database {
+export function useDatabase(): AppDatabase {
   return useDatabaseContext().db;
 }
 

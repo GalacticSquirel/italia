@@ -1,4 +1,4 @@
-import { and, asc, count, eq, inArray, lte, ne } from 'drizzle-orm';
+import { and, asc, count, desc, eq, inArray, lte, ne } from 'drizzle-orm';
 
 import {
   CARD_STATES,
@@ -11,6 +11,7 @@ import {
 import { card } from '@/db/schema';
 import type { AppDatabase } from '@/db/types';
 
+import type { Page } from './contentRepos';
 import { cardIdFor } from './ids';
 import type { CardRow, NewCardRow } from './rows';
 import { chunk, MAX_IDS_PER_QUERY, MAX_PARAMS_PER_STATEMENT } from './util';
@@ -74,6 +75,13 @@ export interface CardRepo {
   suspend(id: string, suspended?: boolean): void;
   /** Card counts by state. */
   countsByState(): CardCounts;
+  /** Every card (suspended ones included), ordered by id. */
+  listAll(): CardRow[];
+  /**
+   * Cards in a browse filter, most recently created first (ties by id):
+   * unsuspended cards in one FSRS state, or suspended cards.
+   */
+  listByFilter(filter: CardState | 'suspended', page: Page): CardRow[];
 }
 
 /** The FSRS fields of a card row, as `@italia/core` expects them. */
@@ -234,6 +242,23 @@ export function createCardRepo(db: AppDatabase): CardRepo {
         else counts[row.state] += row.n;
       }
       return { ...counts, suspended, total };
+    },
+    listAll() {
+      return db.select().from(card).orderBy(asc(card.id)).all();
+    },
+    listByFilter(filter, { offset = 0, limit }) {
+      return db
+        .select()
+        .from(card)
+        .where(
+          filter === 'suspended'
+            ? eq(card.suspended, true)
+            : and(eq(card.suspended, false), eq(card.state, filter)),
+        )
+        .orderBy(desc(card.createdAt), asc(card.id))
+        .limit(limit)
+        .offset(offset)
+        .all();
     },
   };
 }

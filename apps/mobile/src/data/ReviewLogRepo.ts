@@ -1,8 +1,8 @@
-import { and, asc, count, eq, inArray, isNull, sql } from 'drizzle-orm';
+import { and, asc, count, desc, eq, inArray, isNull, notInArray, sql } from 'drizzle-orm';
 
-import type { Rating } from '@italia/core';
+import type { CardKind, Rating } from '@italia/core';
 
-import { reviewLog } from '@/db/schema';
+import { card, reviewLog } from '@/db/schema';
 import type { AppDatabase } from '@/db/types';
 
 import type { IdGenerator } from './ids';
@@ -58,6 +58,20 @@ export interface ReviewLogRepo {
    * already marked). Returns the number of rows marked.
    */
   markSynced(ids: readonly string[], syncedAt: Date): number;
+  /**
+   * The most recent reviews, newest first, at most `limit`, optionally
+   * leaving out reviews of cards of some kinds.
+   */
+  listRecent(limit: number, options?: { excludeKinds?: readonly CardKind[] }): ReviewLogRow[];
+  /**
+   * Number of distinct cards whose first review falls in `[from, to)`,
+   * optionally only cards of some kinds.
+   */
+  countCardsFirstReviewedBetween(
+    from: Date,
+    to: Date,
+    options?: { kinds?: readonly CardKind[] },
+  ): number;
   /** Number of reviews. */
   count(): number;
 }
@@ -135,6 +149,36 @@ export function createReviewLogRepo(db: AppDatabase, newId: IdGenerator): Review
         }
         return marked;
       });
+    },
+    listRecent(limit, options = {}) {
+      const exclude = options.excludeKinds ?? [];
+      return db
+        .select({ log: reviewLog })
+        .from(reviewLog)
+        .innerJoin(card, eq(card.id, reviewLog.cardId))
+        .where(exclude.length === 0 ? undefined : notInArray(card.kind, [...exclude]))
+        .orderBy(desc(reviewLog.reviewedAt), desc(reviewLog.id))
+        .limit(limit)
+        .all()
+        .map((r) => r.log);
+    },
+    countCardsFirstReviewedBetween(from, to, options = {}) {
+      const kinds = options.kinds;
+      if (kinds?.length === 0) return 0;
+      const firsts = db
+        .select({ first: sql<number>`min(${reviewLog.reviewedAt})`.as('first') })
+        .from(reviewLog)
+        .innerJoin(card, eq(card.id, reviewLog.cardId))
+        .where(kinds === undefined ? undefined : inArray(card.kind, [...kinds]))
+        .groupBy(reviewLog.cardId)
+        .as('firsts');
+      return (
+        db
+          .select({ n: count() })
+          .from(firsts)
+          .where(sql`${firsts.first} >= ${from.getTime()} and ${firsts.first} < ${to.getTime()}`)
+          .get()?.n ?? 0
+      );
     },
     count() {
       return db.select({ n: count() }).from(reviewLog).get()?.n ?? 0;

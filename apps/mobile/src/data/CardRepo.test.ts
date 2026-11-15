@@ -23,6 +23,27 @@ afterEach(() => {
   t.close();
 });
 
+describe('CardRepo listing', () => {
+  it('lists all cards and browses by state or suspension', () => {
+    const mk = (targetId: number, minutes: number, state: 'new' | 'review') =>
+      repos.cards.create({
+        kind: 'cloze_production',
+        targetId,
+        promptMode: 'typed',
+        schedule: schedule({ state }),
+        createdAt: at(minutes),
+      }).id;
+    const a = mk(1, 1, 'new');
+    const b = mk(2, 2, 'review');
+    const c = mk(3, 3, 'review');
+    repos.cards.suspend(c);
+    expect(repos.cards.listAll().map((r) => r.id)).toEqual([a, b, c]);
+    expect(repos.cards.listByFilter('review', { limit: 10 }).map((r) => r.id)).toEqual([b]);
+    expect(repos.cards.listByFilter('suspended', { limit: 10 }).map((r) => r.id)).toEqual([c]);
+    expect(repos.cards.listByFilter('new', { limit: 10, offset: 1 })).toEqual([]);
+  });
+});
+
 describe('CardRepo', () => {
   it('creates cards with deterministic ids and is idempotent', () => {
     const input = {

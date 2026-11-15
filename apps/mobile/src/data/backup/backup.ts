@@ -6,6 +6,7 @@ import type { AppDatabase } from '@/db/types';
 import type { CardRow, NewCardRow, NewReviewLogRow } from '../rows';
 import { getImportedSeedVersion } from '../seed/importSeed';
 import { isSettingKey, SETTINGS_SCHEMA } from '../SettingsRepo';
+import { streakFromColumns, streakToColumns } from '../StreakRepo';
 import { chunk, MAX_PARAMS_PER_STATEMENT } from '../util';
 import {
   BACKUP_FORMAT,
@@ -91,13 +92,7 @@ export function exportBackup(db: AppDatabase, now: Date = new Date()): BackupFil
       .all()
       .map((s) => ({ ...s, updatedAt: time(s.updatedAt) })),
     streakState: streak
-      ? {
-          currentDays: streak.currentDays,
-          longestDays: streak.longestDays,
-          lastStudyDate: streak.lastStudyDate,
-          freezesAvailable: streak.freezesAvailable,
-          updatedAt: time(streak.updatedAt),
-        }
+      ? { ...streakFromColumns(streak), updatedAt: time(streak.updatedAt) }
       : null,
     studySessions: db
       .select()
@@ -292,8 +287,10 @@ export function importBackup(
       const existing = tx.select().from(streakState).get();
       if (!existing || existing.updatedAt.getTime() < incoming.updatedAt) {
         const values = {
-          ...incoming,
-          longestDays: Math.max(incoming.longestDays, existing?.longestDays ?? 0),
+          ...streakToColumns({
+            ...incoming,
+            longestDays: Math.max(incoming.longestDays, existing?.longestDays ?? 0),
+          }),
           updatedAt: date(incoming.updatedAt),
         };
         tx.insert(streakState)

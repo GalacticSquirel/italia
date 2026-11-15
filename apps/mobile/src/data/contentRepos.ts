@@ -28,6 +28,12 @@ export interface LemmaRepo {
   findByLemma(headword: string): LemmaRow[];
   /** Lemmas in frequency order (most frequent first). */
   listByFrequency(page: Page): LemmaRow[];
+  /**
+   * Lemmas whose headword starts with `query` or whose English gloss
+   * contains it (case-insensitive), most frequent first. An empty query
+   * matches nothing.
+   */
+  search(query: string, page: Page): LemmaRow[];
   /** Number of lemmas. */
   count(): number;
 }
@@ -55,6 +61,21 @@ export function createLemmaRepo(db: AppDatabase): LemmaRepo {
     listByFrequency({ offset = 0, limit }) {
       return db.select().from(lemma).orderBy(asc(lemma.freqRank)).limit(limit).offset(offset).all();
     },
+    search(query, { offset = 0, limit }) {
+      const q = query.trim().toLowerCase();
+      if (q === '') return [];
+      const escaped = q.replace(/[\\%_]/g, (c) => `\\${c}`);
+      return db
+        .select()
+        .from(lemma)
+        .where(
+          sql`lower(${lemma.lemma}) like ${`${escaped}%`} escape '\\' or lower(${lemma.glossEn}) like ${`%${escaped}%`} escape '\\'`,
+        )
+        .orderBy(asc(lemma.freqRank))
+        .limit(limit)
+        .offset(offset)
+        .all();
+    },
     count() {
       return db.select({ n: count() }).from(lemma).get()?.n ?? 0;
     },
@@ -67,6 +88,8 @@ export interface SentenceRepo {
   getById(id: number): SentenceRow | null;
   /** Sentences with these ids, ordered by id. Missing ids are skipped. */
   getByIds(ids: readonly number[]): SentenceRow[];
+  /** Every sentence, ordered by id. */
+  listAll(): SentenceRow[];
   /** Sentences that contain this lemma, ordered by length (shortest first), then id. */
   listForLemma(lemmaId: number, limit: number): SentenceRow[];
   /** Sentences that exercise this grammar point, shortest first, then id. */
@@ -86,6 +109,9 @@ export function createSentenceRepo(db: AppDatabase): SentenceRepo {
         db.select().from(sentence).where(inArray(sentence.id, part)).all(),
       );
       return rows.sort((a, b) => a.id - b.id);
+    },
+    listAll() {
+      return db.select().from(sentence).orderBy(asc(sentence.id)).all();
     },
     listForLemma(lemmaId, limit) {
       return db

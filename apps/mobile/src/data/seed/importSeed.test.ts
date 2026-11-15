@@ -154,6 +154,33 @@ describe('importSeed', () => {
     expect(getImportedSeedVersion(t.db)).toBeNull();
   });
 
+  it('stores sentence tokens given as lemma ids or as indices under extra', async () => {
+    const seed = makeSeed(1, 2);
+    const [first, second] = seed.sentences;
+    if (!first || !second) throw new Error('fixture');
+    // "Questa è la parola1." with "parola1" at 12..19.
+    first.tokens = [[12, 19, 1]];
+    Object.assign(second, {
+      lemmaIds: [7, 2],
+      extra: {
+        tokens: [
+          [0, 6, 0],
+          [12, 19, 1],
+          [30, 40, 1],
+        ],
+        anchor: true,
+      },
+    });
+    await importSeed(t.db, seed, { yieldBetweenBatches: noYield });
+    expect(repos.sentences.getById(1)?.tokens).toEqual([[12, 19, 1]]);
+    // Indices map to lemma ids; the out-of-range span is dropped.
+    expect(repos.sentences.getById(2)?.tokens).toEqual([
+      [0, 6, 7],
+      [12, 19, 2],
+    ]);
+    expect(repos.sentences.listAll().map((x) => x.id)).toEqual([1, 2]);
+  });
+
   it('accepts the bundled placeholder seed', async () => {
     const result = await importSeed(t.db, await bundledSeedLoader());
     expect(result.status).toBe('imported');
