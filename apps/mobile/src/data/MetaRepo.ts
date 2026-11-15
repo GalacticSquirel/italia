@@ -13,6 +13,10 @@ export const META_KEYS = {
   seedGeneratedAt: 'seed.generatedAt',
   /** Fingerprint (asset content hash) of the bundled seed last checked, see `ensureSeed`. */
   seedFingerprint: 'seed.fingerprint',
+  /** Identity (format version and content digest) of the bundled stories last imported, as JSON. */
+  storiesVersion: 'stories.version',
+  /** Fingerprint (asset content hash) of the bundled stories last checked, see `ensureStories`. */
+  storiesFingerprint: 'stories.fingerprint',
   /** This installation's device id, recorded on every review. */
   deviceId: 'device.id',
   /** Account whose data this device last synced; a different account resets the sync state. */

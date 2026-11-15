@@ -69,6 +69,12 @@ function populate({ repos }: Device, deviceId: string, offsetMin = 0): { cardId:
     cardId: c.id,
     createdAt: at(offsetMin + 4),
   });
+  repos.reading.open('story-01', at(offsetMin + 5));
+  repos.reading.markRead(
+    'story-01',
+    { wordsRead: 100, exposures: new Map([[1, 3]]), comprehension: { correct: 2, total: 3 } },
+    at(offsetMin + 6),
+  );
   return { cardId: c.id };
 }
 
@@ -80,9 +86,46 @@ describe('backup', () => {
     const raw = JSON.parse(JSON.stringify(file)) as { streakState: Record<string, unknown> };
     delete raw.streakState.day;
     delete raw.streakState.repair;
+    const older = raw as Record<string, unknown>;
+    delete older.storyProgress;
+    delete older.lemmaExposure;
     const b = device('b');
     importBackup(b.t.db, parseBackup(raw));
     expect(b.repos.streak.get()).toMatchObject({ currentDays: 3, day: null, repair: null });
+    expect(b.repos.reading.totals()).toEqual({ storiesRead: 0, wordsRead: 0, lemmasMet: 0 });
+  });
+
+  it('merges reading progress and keeps the larger exposure counts', () => {
+    const a = device('a');
+    populate(a, 'dev-a');
+    a.repos.reading.markRead(
+      'story-01',
+      { wordsRead: 100, exposures: new Map([[1, 3]]), comprehension: null },
+      at(50),
+    );
+    const b = device('b');
+    b.repos.reading.markRead(
+      'story-01',
+      { wordsRead: 100, exposures: new Map([[2, 1]]), comprehension: { correct: 1, total: 3 } },
+      at(1),
+    );
+    const result = importBackup(b.t.db, exportBackup(a.t.db));
+    expect(result.storyProgress).toEqual({ inserted: 0, updated: 1 });
+    expect(result.lemmaExposure).toEqual({ inserted: 1, updated: 0 });
+    expect(b.repos.reading.get('story-01')).toMatchObject({
+      startedAt: at(1),
+      completedAt: at(1),
+      timesRead: 2,
+      wordsRead: 200,
+      comprehensionCorrect: 2,
+      updatedAt: at(50),
+    });
+    expect(b.repos.reading.exposureCounts([1, 2])).toEqual(
+      new Map([
+        [1, 6],
+        [2, 1],
+      ]),
+    );
   });
 
   it('round-trips every learner table through JSON', async () => {

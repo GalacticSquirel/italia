@@ -6,6 +6,8 @@ import { createRepositories, type Repositories } from '@/data/repositories';
 import { ensureSeed } from '@/data/seed/ensureSeed';
 import type { SeedImportProgress } from '@/data/seed/importSeed';
 import { bundledSeedLoader, type SeedLoader } from '@/data/seed/seedLoader';
+import { ensureStories } from '@/data/stories/ensureStories';
+import { bundledStoriesLoader, type StoriesLoader } from '@/data/stories/storiesLoader';
 import { ProgressBar, Screen, Text, useTheme } from '@/ui';
 
 import { openDatabase } from './client';
@@ -29,17 +31,20 @@ export interface DatabaseProviderProps {
   children: ReactNode;
   /** Where the content seed comes from; defaults to the seed bundled in the app. */
   seedLoader?: SeedLoader;
+  /** Where the graded stories come from; defaults to the stories bundled in the app. */
+  storiesLoader?: StoriesLoader;
 }
 
 /**
  * Opens the local database, applies pending migrations, then imports the
- * content seed if it is new (first launch or an app update with new content),
- * before rendering its children. Shows a loading state while preparing, with
+ * content seed and the graded stories if they are new (first launch or an app
+ * update with new content), before rendering its children. Shows a loading state while preparing, with
  * a progress bar while the seed is written, and an error state on failure.
  */
 export function DatabaseProvider({
   children,
   seedLoader = bundledSeedLoader,
+  storiesLoader = bundledStoriesLoader,
 }: DatabaseProviderProps): ReactNode {
   const [{ db }] = useState(() => openDatabase());
   const repos = useMemo(() => createRepositories(db), [db]);
@@ -56,6 +61,7 @@ export function DatabaseProvider({
             if (!run.cancelled) setSeed({ kind: 'pending', progress });
           },
         });
+        await ensureStories(db, storiesLoader);
         if (!run.cancelled) setSeed({ kind: 'ready' });
       } catch (e) {
         if (!run.cancelled)
@@ -65,7 +71,7 @@ export function DatabaseProvider({
     return () => {
       run.cancelled = true;
     };
-  }, [db, success, seedLoader]);
+  }, [db, success, seedLoader, storiesLoader]);
 
   const value = useMemo(() => ({ db, repos }), [db, repos]);
   const failure = error ?? (seed.kind === 'failed' ? seed.error : null);

@@ -49,6 +49,28 @@ describe('curriculum', () => {
     ]);
   });
 
+  it('introduces words the learner asked for first, oldest request first', () => {
+    const content = getContentIndex(createRepositories(t.db));
+    const requested = (targetId: number, at: number): CardRow => ({
+      ...introduced('cloze_production', targetId),
+      state: 'new',
+      reps: 0,
+      createdAt: new Date(at),
+    });
+    const { candidates } = buildCurriculum(content, [requested(30, 2), requested(20, 1)], {
+      words: 3,
+      practice: 0,
+    });
+    expect(candidates.map((c) => c.id)).toEqual([
+      'recognition:20:typed',
+      'recognition:30:typed',
+      'cloze_production:20:typed',
+      'recognition:1:typed',
+      'cloze_production:30:typed',
+      'cloze_production:1:typed',
+    ]);
+  });
+
   it('unlocks grammar in order and adds sentence practice for introduced words', () => {
     const content = getContentIndex(createRepositories(t.db));
     const cards = content.lemmas.map((l) => introduced('recognition', l.id));
