@@ -19,6 +19,8 @@ export interface SpeakOptions {
   rate?: number;
   /** Device voice id. */
   voiceId?: string;
+  /** Called as each word starts, where the platform reports it (character offsets into `text`). */
+  onBoundary?: (event: { charIndex: number; charLength: number }) => void;
 }
 
 /** Sound output used by the speaking screens (faked in tests). */
@@ -73,7 +75,7 @@ export function createDeviceAudioOut(): AudioOut {
   };
 
   return {
-    speak(text, { language, rate = 1, voiceId }) {
+    speak(text, { language, rate = 1, voiceId, onBoundary }) {
       stopCurrent?.();
       return new Promise<void>((resolve) => {
         const done = () => {
@@ -84,6 +86,7 @@ export function createDeviceAudioOut(): AudioOut {
           language,
           rate,
           ...(voiceId === undefined ? {} : { voice: voiceId }),
+          ...(onBoundary === undefined ? {} : { onBoundary }),
           onDone: done,
           onStopped: done,
           onError: done,
