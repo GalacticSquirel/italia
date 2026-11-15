@@ -31,6 +31,9 @@ const createdAt = () =>
     .notNull()
     .$defaultFn(() => new Date());
 
+/** A word token in a sentence: `[start, end, ...lemmaIds]`, see `sentence.tokens`. */
+export type SentenceToken = [number, number, ...number[]];
+
 const tuple = <T extends string>(values: readonly T[]) => values as [T, ...T[]];
 
 /** CEFR bands used to level content. */
@@ -72,6 +75,12 @@ export const sentence = sqliteTable(
     en: text('en').notNull(),
     lemmaIds: text('lemma_ids', { mode: 'json' }).$type<number[]>().notNull(),
     grammarIds: text('grammar_ids', { mode: 'json' }).$type<number[]>().notNull(),
+    /**
+     * Word tokens of `it` as `[start, end, ...lemmaIds]` (UTF-16 offsets, end
+     * exclusive), or null when the seed has none. Used to blank a word form
+     * for cloze cards.
+     */
+    tokens: text('tokens', { mode: 'json' }).$type<SentenceToken[]>(),
     /** Corpus the sentence came from, e.g. "tatoeba:12345". */
     source: text('source').notNull(),
     /** SPDX-style licence id, e.g. "CC-BY-2.0-FR". */
@@ -252,6 +261,23 @@ export const streakState = sqliteTable(
     /** Last local calendar day with real study, as YYYY-MM-DD. */
     lastStudyDate: text('last_study_date'),
     freezesAvailable: integer('freezes_available').notNull().default(0),
+    // Progress on the most recent local day with any study (`StreakState.day`
+    // in @italia/core). All three are null before the first study; StreakRepo
+    // writes them together.
+    /** That day, as YYYY-MM-DD. */
+    dayDate: text('day_date'),
+    /** Active minutes recorded on that day. */
+    dayActiveMinutes: real('day_active_minutes'),
+    /** Sessions completed on that day. */
+    dayCompletedSessions: integer('day_completed_sessions'),
+    // A missed day that can still be repaired (`StreakState.repair`); all
+    // three are null when there is none. StreakRepo writes them together.
+    /** The missed day, as YYYY-MM-DD. */
+    repairMissedDate: text('repair_missed_date'),
+    /** The streak before it broke. */
+    repairLostDays: integer('repair_lost_days'),
+    /** Freezes the repair will spend. */
+    repairFreezesNeeded: integer('repair_freezes_needed'),
     updatedAt: timestamp('updated_at').notNull(),
   },
   (t) => [check('streak_state_singleton', sql`${t.id} = 1`)],

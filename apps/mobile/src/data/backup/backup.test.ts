@@ -6,9 +6,9 @@ import {
 } from '@/db/testing/createTestDatabase';
 
 import { createRepositories, type Repositories } from '../repositories';
-import { exportBackup, importBackup, UnsupportedBackupVersionError } from './backup';
+import { exportBackup, importBackup, parseBackup, UnsupportedBackupVersionError } from './backup';
 import { BACKUP_SCHEMA_VERSION, type BackupFile } from './backupSchema';
-import { importSeed } from '../seed/importSeed';
+import { importSeedContent } from '../seed/importSeed';
 import { at, makeSeed, schedule } from '../testing/fixtures';
 
 interface Device {
@@ -49,7 +49,14 @@ function populate({ repos }: Device, deviceId: string, offsetMin = 0): { cardId:
   });
   repos.settings.set('dailyNewLimit', 15, at(offsetMin + 2));
   repos.streak.save(
-    { currentDays: 3, longestDays: 3, lastStudyDate: '2026-11-01', freezesAvailable: 1 },
+    {
+      currentDays: 3,
+      longestDays: 3,
+      lastStudyDate: '2026-11-01',
+      freezesAvailable: 1,
+      day: { date: '2026-11-01', activeMinutes: 14, completedSessions: 1 },
+      repair: { missedDate: '2026-10-28', lostDays: 2, freezesNeeded: 0 },
+    },
     at(offsetMin + 3),
   );
   const s = repos.studySessions.start(at(offsetMin));
@@ -66,9 +73,21 @@ function populate({ repos }: Device, deviceId: string, offsetMin = 0): { cardId:
 }
 
 describe('backup', () => {
+  it('reads an older backup without the streak day and repair', () => {
+    const a = device('a');
+    populate(a, 'dev-a');
+    const file = exportBackup(a.t.db);
+    const raw = JSON.parse(JSON.stringify(file)) as { streakState: Record<string, unknown> };
+    delete raw.streakState.day;
+    delete raw.streakState.repair;
+    const b = device('b');
+    importBackup(b.t.db, parseBackup(raw));
+    expect(b.repos.streak.get()).toMatchObject({ currentDays: 3, day: null, repair: null });
+  });
+
   it('round-trips every learner table through JSON', async () => {
     const a = device('a');
-    await importSeed(a.t.db, makeSeed(3), { yieldBetweenBatches: () => Promise.resolve() });
+    await importSeedContent(a.t.db, makeSeed(3), { yieldBetweenBatches: () => Promise.resolve() });
     populate(a, 'device-a');
     a.repos.reviewLogs.markSynced(
       a.repos.reviewLogs.listUnsynced(10).map((l) => l.id),
@@ -154,7 +173,14 @@ describe('backup', () => {
     a.repos.settings.set('dailyNewLimit', 10, at(10));
     a.repos.settings.set('minutesBudget', 30, at(10));
     a.repos.streak.save(
-      { currentDays: 1, longestDays: 40, lastStudyDate: '2026-11-02', freezesAvailable: 0 },
+      {
+        currentDays: 1,
+        longestDays: 40,
+        lastStudyDate: '2026-11-02',
+        freezesAvailable: 0,
+        day: null,
+        repair: null,
+      },
       at(10),
     );
 
@@ -162,7 +188,14 @@ describe('backup', () => {
     b.repos.settings.set('dailyNewLimit', 25, at(20)); // newer: wins
     b.repos.settings.set('minutesBudget', 90, at(5)); // older: loses
     b.repos.streak.save(
-      { currentDays: 5, longestDays: 5, lastStudyDate: '2026-11-03', freezesAvailable: 2 },
+      {
+        currentDays: 5,
+        longestDays: 5,
+        lastStudyDate: '2026-11-03',
+        freezesAvailable: 2,
+        day: null,
+        repair: null,
+      },
       at(20),
     );
     const file: BackupFile = exportBackup(b.t.db);
@@ -181,6 +214,8 @@ describe('backup', () => {
       longestDays: 40,
       lastStudyDate: '2026-11-03',
       freezesAvailable: 2,
+      day: null,
+      repair: null,
     });
   });
 

@@ -1,25 +1,81 @@
 # @italia/content
 
-Placeholder. In Phase 1 this package becomes the build-time content pipeline that produces the
-SQLite seed bundled with the app. Nothing in this package ships to the phone except its output.
+Build-time content pipeline and the content seed it produces. Only the seed and its schema ship to
+the phone; the pipeline runs on a development machine.
 
-## Planned pipeline
+## What is in the seed
 
-1. **Lemmas by frequency.** Merge frequency lists (see [LICENSES.md](./LICENSES.md)) into one
-   ranked list of Italian lemmas with part of speech, then add English glosses.
-2. **Sentence pairs.** Select Italian-English sentence pairs for each lemma, preferring short,
-   natural sentences whose other words are more frequent than the target.
-3. **Grammar graph.** Grammar points in acquisition order (present, passato prossimo, imperfetto,
-   future, conditional, subjunctive; noun-phrase agreement before subject-verb agreement before
-   clitics), each with prerequisites, a short note and tagged example sentences.
-4. **HVPT item lists.** Minimal pairs for double consonants, vowels and stress.
-5. **Graded stories.** Story series at each level band with lemma-tagged tokens, validated for
-   known-word coverage and grammar ceiling.
-6. **Seed build.** Validate everything with zod schemas, then write the seed database using the
-   app's Drizzle schema (`apps/mobile/src/db/schema.ts`). Every row keeps its `source` and
-   `licence`.
+`seed/seed.v1.json` (committed, about 7 MB) has the shape
+`{ version, generatedAt, sources[], lemmas[], sentences[], grammarPoints[] }`:
 
-## Licences
+- **lemmas**: the 3,000 most frequent Italian lemmas with part of speech (Universal POS), rank and
+  a short English gloss.
+- **sentences**: about 14,000 Italian-English pairs from Tatoeba, 3 to 12 words, chosen per lemma
+  so that the target is the rarest word in the sentence (n+1), up to 5 per lemma.
+- **grammarPoints**: 38 hand-written A1-A2 (and first B1) grammar points in acquisition order,
+  with prerequisites and a short note with examples. Sentences carry the ids of the grammar
+  points simple rules detect in them.
 
-Every source is tracked in [LICENSES.md](./LICENSES.md). A source may only feed the shipped seed
-if its licence allows that use.
+Row fields match the insert types of the `lemma`, `sentence` and `grammar_point` tables in
+`apps/mobile/src/db/schema.ts`. Fields the tables do not have yet are in each row's `extra`
+object (noun gender, frequency per million, token-to-lemma alignment, sentence target and
+difficulty, Tatoeba attribution, grammar slug and CEFR band). `seed/build-report.json` holds the
+build statistics (coverage, rejected sentences, grammar tag counts).
+
+Ids are stable across rebuilds: lemma ids are a 31-bit hash of `lemma|POS`, sentence ids are the
+Tatoeba ids, and grammar ids are fixed in `src/grammar/points.ts`. `generatedAt` only changes
+when the content does.
+
+## Using it
+
+```ts
+import { parseSeed, toRows } from '@italia/content';
+import seedJson from '@italia/content/seed.v1.json';
+
+const seed = parseSeed(seedJson); // zod-validated
+const { lemmas, sentences, grammarPoints } = toRows(seed); // rows without `extra`
+```
+
+In Node, `loadSeedFile()` from `@italia/content/node` reads and validates the committed file.
+
+The mobile app does not import the JSON into its JS bundle: `apps/mobile/scripts/sync-seed-asset.js`
+copies it to a `.seed` asset that the app reads and validates on first launch (see
+`apps/mobile/src/data/seed/`).
+
+## Rebuilding
+
+Needs Node, network access, and the `tar` and `bzip2` commands.
+
+```sh
+pnpm --filter @italia/content build:seed            # fetch (if needed), verify, build
+pnpm --filter @italia/content fetch:sources         # only download and verify sources
+pnpm --filter @italia/content build:seed --refresh  # re-download and accept new versions
+pnpm --filter @italia/content test                  # validate the seed and pipeline
+```
+
+Sources (about 900 MB, mostly the Wiktionary extract) are cached in `.cache/` (git-ignored).
+Their sha256 digests are pinned in `sources.lock.json`; a rebuild fails if a cached or
+re-downloaded file differs, because Tatoeba and kaikki.org publish new versions in place. Run
+with `--refresh` to accept the new versions, then review the seed diff. A build takes about a
+minute and needs roughly 4 GB of memory.
+
+## Pipeline
+
+1. **Lexicon**: Morph-it! forms, normalised (articles to `il`/`un`, articulated prepositions
+   split into preposition + `il`, clitics canonicalised, auxiliaries as VERB), plus corrections
+   in `src/pipeline/overrides.ts`.
+2. **Lemma frequencies**: FrequencyWords form counts shared between each form's readings, using
+   SUBTLEX-IT's tag distribution and a few rounds of re-estimation; homographs with the same
+   spelling are merged, and lemmas that only borrow another word's form are dropped.
+3. **Glosses**: the first usable Wiktionary senses for the matching part of speech; lemmas
+   without a gloss, profanity and mostly vulgar words are dropped.
+4. **Sentences**: Tatoeba it-en pairs are tokenised and tagged with a small rule-based tagger.
+   Sentences with unknown words, digits, more than two names or subjunctive / passato remoto
+   forms are skipped. Each lemma gets up to 5 anchor sentences ranked by native-speaker
+   authorship, length and translation sanity; lemmas that are never the rarest word get 2 of the
+   easiest sentences containing them.
+5. **Grammar**: `src/grammar/points.ts` (hand-written) and `src/grammar/rules.ts` (detection).
+6. **Validation**: the seed is parsed with the zod schema before it is written, and
+   `src/seed.test.ts` checks ids, the prerequisite DAG, coverage and size.
+
+Licences for every source are in [LICENSES.md](./LICENSES.md).

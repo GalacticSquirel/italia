@@ -3,15 +3,17 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 import { createRepositories, type Repositories } from '@/data/repositories';
-import { importSeed, type SeedImportProgress } from '@/data/seed/importSeed';
+import { ensureSeed } from '@/data/seed/ensureSeed';
+import type { SeedImportProgress } from '@/data/seed/importSeed';
 import { bundledSeedLoader, type SeedLoader } from '@/data/seed/seedLoader';
-import { Screen, Text, useTheme } from '@/ui';
+import { ProgressBar, Screen, Text, useTheme } from '@/ui';
 
-import { openDatabase, type Database } from './client';
+import { openDatabase } from './client';
+import type { AppDatabase } from './types';
 import migrations from '../../drizzle/migrations';
 
 interface DatabaseContextValue {
-  db: Database;
+  db: AppDatabase;
   repos: Repositories;
 }
 
@@ -31,8 +33,9 @@ export interface DatabaseProviderProps {
 
 /**
  * Opens the local database, applies pending migrations, then imports the
- * content seed if it is new, before rendering its children. Shows a loading
- * state (with seed progress) while preparing and an error state on failure.
+ * content seed if it is new (first launch or an app update with new content),
+ * before rendering its children. Shows a loading state while preparing, with
+ * a progress bar while the seed is written, and an error state on failure.
  */
 export function DatabaseProvider({
   children,
@@ -42,15 +45,13 @@ export function DatabaseProvider({
   const repos = useMemo(() => createRepositories(db), [db]);
   const { success, error } = useMigrations(db, migrations);
   const [seed, setSeed] = useState<SeedStatus>({ kind: 'pending', progress: null });
-  const { colors } = useTheme();
 
   useEffect(() => {
     if (!success) return;
     const run = { cancelled: false };
     void (async () => {
       try {
-        const raw = await seedLoader();
-        await importSeed(db, raw, {
+        await ensureSeed(db, seedLoader, {
           onProgress: (progress) => {
             if (!run.cancelled) setSeed({ kind: 'pending', progress });
           },
@@ -82,17 +83,60 @@ export function DatabaseProvider({
 
   if (!success || seed.kind !== 'ready') {
     const progress = seed.kind === 'pending' ? seed.progress : null;
-    const label =
-      progress && progress.total > 0
-        ? `Preparing your data, ${String(Math.round((progress.done / progress.total) * 100))} percent`
-        : 'Preparing your data';
+    return <PreparingView progress={progress} />;
+  }
+
+  return <DatabaseContext value={value}>{children}</DatabaseContext>;
+}
+
+/** Startup loading state; shows seed import progress once batches are being written. */
+export function PreparingView({ progress }: { progress: SeedImportProgress | null }): ReactNode {
+  const { colors, spacing } = useTheme();
+  if (progress === null || progress.total === 0) {
     return (
       <View style={[styles.center, { backgroundColor: colors.background }]}>
-        <ActivityIndicator size="large" color={colors.primary} accessibilityLabel={label} />
+        <ActivityIndicator
+          size="large"
+          color={colors.primary}
+          accessibilityLabel="Preparing your data"
+        />
       </View>
     );
   }
+  const fraction = progress.done / progress.total;
+  return (
+    <View
+      style={[
+        styles.center,
+        { backgroundColor: colors.background, padding: spacing.xl, gap: spacing.md },
+      ]}
+    >
+      <Text variant="title">Setting up Italia</Text>
+      <Text color="textMuted" style={styles.centred}>
+        Adding words, sentences and grammar. This happens only once.
+      </Text>
+      <View style={styles.bar}>
+        <ProgressBar value={fraction} label="Setting up content" testID="seed-progress" />
+      </View>
+      <Text color="textMuted">{`${String(Math.round(fraction * 100))}%`}</Text>
+    </View>
+  );
+}
 
+/** Props for {@link RepositoryProvider}. */
+export interface RepositoryProviderProps {
+  db: AppDatabase;
+  repos: Repositories;
+  children: ReactNode;
+}
+
+/**
+ * Provides an already prepared database and its repositories to
+ * {@link useDatabase} and {@link useRepositories}. The app uses
+ * {@link DatabaseProvider}; tests use this with an in-memory database.
+ */
+export function RepositoryProvider({ db, repos, children }: RepositoryProviderProps): ReactNode {
+  const value = useMemo(() => ({ db, repos }), [db, repos]);
   return <DatabaseContext value={value}>{children}</DatabaseContext>;
 }
 
@@ -105,7 +149,7 @@ function useDatabaseContext(): DatabaseContextValue {
 }
 
 /** The migrated, seeded app database. Must be used inside {@link DatabaseProvider}. */
-export function useDatabase(): Database {
+export function useDatabase(): AppDatabase {
   return useDatabaseContext().db;
 }
 
@@ -116,4 +160,6 @@ export function useRepositories(): Repositories {
 
 const styles = StyleSheet.create({
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  bar: { alignSelf: 'stretch' },
+  centred: { textAlign: 'center' },
 });

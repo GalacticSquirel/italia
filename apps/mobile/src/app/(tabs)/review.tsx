@@ -1,12 +1,3 @@
-import { EmptyState, Screen } from '@/ui';
+import { ReviewScreen } from '@/features/review/ReviewScreen';
 
-export default function ReviewScreen() {
-  return (
-    <Screen title="Review">
-      <EmptyState
-        title="Nothing to review"
-        message="Cards you have learned come back here when they are due."
-      />
-    </Screen>
-  );
-}
+export default ReviewScreen;

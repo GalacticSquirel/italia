@@ -4,6 +4,7 @@ import { AppState } from 'react-native';
 
 import { useDatabase } from '@/db/DatabaseProvider';
 import type { AppDatabase } from '@/db/types';
+import { STREAK_CONFIG } from '@/features/study/time';
 
 import { createAuthService, type AccountUser, type AuthService } from './auth';
 import { readSupabaseConfig, type SupabaseConfig } from './config';
@@ -59,7 +60,12 @@ export function createSyncServices(
   if (config === null) return null;
   const client = createSupabaseClient(config);
   return {
-    engine: new SyncEngine({ db, transport: createSupabaseTransport(supabaseSyncBackend(client)) }),
+    engine: new SyncEngine({
+      db,
+      transport: createSupabaseTransport(supabaseSyncBackend(client)),
+      // Same streak rules as live study, so replays match the streak screens.
+      streakConfig: STREAK_CONFIG,
+    }),
     auth: createAuthService(client),
     session: client.auth,
     redirectUrl: Linking.createURL(AUTH_REDIRECT_PATH),

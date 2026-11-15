@@ -7,7 +7,7 @@ import {
 } from '@/db/testing/createTestDatabase';
 
 import { createRepositories, type Repositories } from './repositories';
-import { importSeed } from './seed/importSeed';
+import { importSeedContent } from './seed/importSeed';
 import { defaultSettings, type Settings } from './SettingsRepo';
 import { EMPTY_STREAK } from './StreakRepo';
 import { StudySessionNotActiveError } from './StudySessionRepo';
@@ -28,7 +28,9 @@ afterEach(() => {
 
 describe('content repos', () => {
   it('looks up lemmas and sentences by id lists of any size', async () => {
-    await importSeed(t.db, makeSeed(1, 2000), { yieldBetweenBatches: () => Promise.resolve() });
+    await importSeedContent(t.db, makeSeed(1, 2000), {
+      yieldBetweenBatches: () => Promise.resolve(),
+    });
     const ids = Array.from({ length: 1500 }, (_, i) => 1500 - i);
     const lemmas = repos.lemmas.getByIds([...ids, 1, 99999]);
     expect(lemmas).toHaveLength(1500);
@@ -40,6 +42,21 @@ describe('content repos', () => {
     ]);
     expect(repos.grammar.getById(2)?.prerequisiteIds).toEqual([1]);
     expect(repos.lemmas.getById(99999)).toBeNull();
+  });
+});
+
+describe('LemmaRepo.search', () => {
+  it('matches headword prefixes and glosses, most frequent first', async () => {
+    await importSeedContent(t.db, makeSeed(1, 12), {
+      yieldBetweenBatches: () => Promise.resolve(),
+    });
+    expect(repos.lemmas.search('parola1', { limit: 10 }).map((l) => l.id)).toEqual([1, 10, 11, 12]);
+    expect(repos.lemmas.search('WORD 7', { limit: 10 }).map((l) => l.id)).toEqual([7]);
+    expect(repos.lemmas.search('  ', { limit: 10 })).toEqual([]);
+    expect(repos.lemmas.search('%', { limit: 10 })).toEqual([]);
+    expect(repos.lemmas.search('parola', { offset: 10, limit: 5 }).map((l) => l.id)).toEqual([
+      11, 12,
+    ]);
   });
 });
 
@@ -77,10 +94,38 @@ describe('SettingsRepo', () => {
 });
 
 describe('StreakRepo', () => {
+  it('stores the day in progress and a pending repair', () => {
+    const s = {
+      currentDays: 0,
+      longestDays: 12,
+      lastStudyDate: '2026-11-14',
+      freezesAvailable: 0,
+      day: { date: '2026-11-14', activeMinutes: 12.5, completedSessions: 1 },
+      repair: { missedDate: '2026-11-13', lostDays: 12, freezesNeeded: 0 },
+    };
+    repos.streak.save(s, at(1));
+    expect(repos.streak.get()).toEqual(s);
+    repos.streak.save({ ...s, repair: null }, at(2));
+    expect(repos.streak.get().repair).toBeNull();
+    expect(() => {
+      repos.streak.save({ ...s, day: { ...s.day, activeMinutes: -1 } });
+    }).toThrow(RangeError);
+    expect(() => {
+      repos.streak.save({ ...s, repair: { ...s.repair, missedDate: 'yesterday' } });
+    }).toThrow(RangeError);
+  });
+
   it('starts empty, saves and overwrites the single row', () => {
     expect(repos.streak.get()).toEqual(EMPTY_STREAK);
     expect(repos.streak.getUpdatedAt()).toBeNull();
-    const s = { currentDays: 2, longestDays: 9, lastStudyDate: '2026-11-14', freezesAvailable: 1 };
+    const s = {
+      currentDays: 2,
+      longestDays: 9,
+      lastStudyDate: '2026-11-14',
+      freezesAvailable: 1,
+      day: null,
+      repair: null,
+    };
     repos.streak.save(s, at(1));
     repos.streak.save({ ...s, currentDays: 3 }, at(2));
     expect(repos.streak.get()).toEqual({ ...s, currentDays: 3 });

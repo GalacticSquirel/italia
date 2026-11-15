@@ -4,7 +4,9 @@ import journal from './meta/_journal.json';
 import m0000 from './0000_init.sql';
 import m0001 from './0001_data_layer_indexes_and_meta.sql';
 import m0002 from './0002_review_log_append_only.sql';
-import m0003 from './0003_sync_markers.sql';
+import m0003 from './0003_streak_progress.sql';
+import m0004 from './0004_sentence_tokens.sql';
+import m0005 from './0005_sync_markers.sql';
 
   export default {
     journal,
@@ -12,7 +14,9 @@ import m0003 from './0003_sync_markers.sql';
       m0000,
 m0001,
 m0002,
-m0003
+m0003,
+m0004,
+m0005
     }
   }
   

@@ -1,11 +1,20 @@
 import { sql } from 'drizzle-orm';
 
+import { parseSeed } from '@italia/content';
+
 import { grammarPoint, lemma, sentence } from '@/db/schema';
 import type { AppDatabase } from '@/db/types';
 
 import { createMetaRepo, META_KEYS } from '../MetaRepo';
 import { chunk } from '../util';
-import { compareSeedVersions, SeedSchema, SeedVersionSchema, type SeedVersion } from './seedSchema';
+import {
+  compareSeeds,
+  seedToContent,
+  SeedVersionSchema,
+  type SeedContent,
+  type SeedIdentity,
+  type SeedVersion,
+} from './seedContent';
 
 /** Content table being imported. */
 export type SeedTable = 'grammar_point' | 'lemma' | 'sentence';
@@ -24,7 +33,7 @@ export interface SeedImportProgress {
 export interface ImportSeedOptions {
   /** Called after each batch. */
   onProgress?: (progress: SeedImportProgress) => void;
-  /** Rows per insert statement. Defaults to 500. */
+  /** Rows written between progress reports (and UI yields). Defaults to 500. */
   batchSize?: number;
   /**
    * Awaited between batches so the UI can render progress. Defaults to a
@@ -66,11 +75,19 @@ function assertUniqueIds(name: string, rows: readonly { id: number }[]): void {
 
 /** The version of the seed currently imported, or null if none. */
 export function getImportedSeedVersion(db: AppDatabase): SeedVersion | null {
-  const raw = createMetaRepo(db, () => '').get(META_KEYS.seedVersion);
+  return getImportedSeed(db)?.version ?? null;
+}
+
+/** Version and generation time of the seed currently imported, or null if none. */
+export function getImportedSeed(db: AppDatabase): SeedIdentity | null {
+  const meta = createMetaRepo(db, () => '');
+  const raw = meta.get(META_KEYS.seedVersion);
   if (raw === null) return null;
   try {
     const parsed = SeedVersionSchema.safeParse(JSON.parse(raw));
-    return parsed.success ? parsed.data : null;
+    return parsed.success
+      ? { version: parsed.data, generatedAt: meta.get(META_KEYS.seedGeneratedAt) }
+      : null;
   } catch {
     return null;
   }
@@ -79,17 +96,11 @@ export function getImportedSeedVersion(db: AppDatabase): SeedVersion | null {
 /**
  * Import the bundled content seed (lemmas, sentences, grammar points).
  *
- * Idempotent and versioned: the imported version is stored in device-local
- * metadata. Re-running with the same version is a no-op, an older version is
- * ignored, and a newer version replaces the content tables so they match the
- * seed exactly (rows dropped from the seed are removed). Learner data (cards,
- * review logs, settings and so on) is never touched: cards refer to content by
- * the pipeline's stable ids, without foreign keys, so they survive.
+ * Validates `seed` against the canonical schema from `@italia/content`, maps it
+ * to the app's rows with {@link seedToContent} and writes it with
+ * {@link importSeedContent}.
  *
- * The whole import is one write transaction, written in batches, so a failure
- * or crash leaves the previous content and version in place.
- *
- * @param seed - the seed object; validated against the seed schema
+ * @param seed - parsed seed JSON
  * @throws ZodError when the seed does not match the schema
  * @throws Error when the seed repeats an id within a table
  */
@@ -98,18 +109,42 @@ export async function importSeed(
   seed: unknown,
   options: ImportSeedOptions = {},
 ): Promise<ImportSeedResult> {
-  const parsed = SeedSchema.parse(seed);
-  assertUniqueIds('lemma', parsed.lemmas);
-  assertUniqueIds('sentence', parsed.sentences);
-  assertUniqueIds('grammar point', parsed.grammarPoints);
+  return importSeedContent(db, seedToContent(parseSeed(seed)), options);
+}
 
-  const previousVersion = getImportedSeedVersion(db);
-  if (previousVersion !== null) {
-    const cmp = compareSeedVersions(parsed.version, previousVersion);
+/**
+ * Write mapped seed content to the content tables.
+ *
+ * Idempotent and versioned: the imported version and generation time are
+ * stored in device-local metadata. Re-running with the same seed is a no-op,
+ * an older seed is ignored, and a newer one (higher version, or the same
+ * version generated later) replaces the content tables so they match it
+ * exactly (rows dropped from the seed are removed). Learner data (cards,
+ * review logs, settings and so on) is never touched: cards refer to content
+ * by the pipeline's stable ids, without foreign keys, so they survive.
+ *
+ * The whole import is one write transaction, written in batches, so a failure
+ * or crash leaves the previous content and version in place.
+ *
+ * @throws Error when the content repeats an id within a table
+ */
+export async function importSeedContent(
+  db: AppDatabase,
+  content: SeedContent,
+  options: ImportSeedOptions = {},
+): Promise<ImportSeedResult> {
+  assertUniqueIds('lemma', content.lemmas);
+  assertUniqueIds('sentence', content.sentences);
+  assertUniqueIds('grammar point', content.grammarPoints);
+
+  const previous = getImportedSeed(db);
+  const previousVersion = previous?.version ?? null;
+  if (previous !== null) {
+    const cmp = compareSeeds(content, previous);
     if (cmp <= 0) {
       return {
         status: cmp === 0 ? 'up-to-date' : 'skipped-older',
-        version: parsed.version,
+        version: content.version,
         previousVersion,
         rowsWritten: 0,
       };
@@ -118,46 +153,82 @@ export async function importSeed(
 
   const batchSize = options.batchSize ?? DEFAULT_BATCH_SIZE;
   const pause = options.yieldBetweenBatches ?? macrotask;
-  const total = parsed.lemmas.length + parsed.sentences.length + parsed.grammarPoints.length;
+  const total = content.lemmas.length + content.sentences.length + content.grammarPoints.length;
   let done = 0;
 
   const writeAll = async <T>(
     name: SeedTable,
     rows: readonly T[],
-    insert: (part: T[]) => void,
+    insert: (row: T) => void,
   ): Promise<void> => {
     for (const part of chunk(rows, batchSize)) {
-      insert(part);
+      for (const row of part) insert(row);
       done += part.length;
       options.onProgress?.({ done, total, table: name });
       await pause();
     }
   };
 
+  // One prepared statement per table, run once per row: several times faster
+  // than building multi-row INSERTs, and the same on both SQLite drivers.
+  const p = sql.placeholder;
+  const insertGrammar = db
+    .insert(grammarPoint)
+    .values({
+      id: p('id'),
+      title: p('title'),
+      order: p('order'),
+      prerequisiteIds: p('prerequisiteIds'),
+      noteMd: p('noteMd'),
+    })
+    .prepare();
+  const insertLemma = db
+    .insert(lemma)
+    .values({
+      id: p('id'),
+      lemma: p('lemma'),
+      pos: p('pos'),
+      freqRank: p('freqRank'),
+      glossEn: p('glossEn'),
+      audioRef: p('audioRef'),
+    })
+    .prepare();
+  const insertSentence = db
+    .insert(sentence)
+    .values({
+      id: p('id'),
+      it: p('it'),
+      en: p('en'),
+      lemmaIds: p('lemmaIds'),
+      grammarIds: p('grammarIds'),
+      tokens: p('tokens'),
+      source: p('source'),
+      licence: p('licence'),
+    })
+    .prepare();
+
   db.run(sql`BEGIN IMMEDIATE`);
   try {
     db.delete(sentence).run();
     db.delete(lemma).run();
     db.delete(grammarPoint).run();
-    await writeAll('grammar_point', parsed.grammarPoints, (part) => {
-      db.insert(grammarPoint).values(part).run();
+    await writeAll('grammar_point', content.grammarPoints, (row) => {
+      insertGrammar.run(row);
     });
-    await writeAll('lemma', parsed.lemmas, (part) => {
-      db.insert(lemma)
-        .values(part.map((l) => ({ ...l, audioRef: l.audioRef ?? null })))
-        .run();
+    await writeAll('lemma', content.lemmas, (row) => {
+      insertLemma.run({ ...row, audioRef: row.audioRef ?? null });
     });
-    await writeAll('sentence', parsed.sentences, (part) => {
-      db.insert(sentence).values(part).run();
+    await writeAll('sentence', content.sentences, (row) => {
+      insertSentence.run({ ...row, tokens: row.tokens ?? null });
     });
     const meta = createMetaRepo(db, () => '');
-    meta.set(META_KEYS.seedVersion, JSON.stringify(parsed.version));
-    meta.set(META_KEYS.seedGeneratedAt, parsed.generatedAt);
+    meta.set(META_KEYS.seedVersion, JSON.stringify(content.version));
+    meta.set(META_KEYS.seedGeneratedAt, content.generatedAt);
     db.run(sql`COMMIT`);
   } catch (error) {
     db.run(sql`ROLLBACK`);
     throw error;
   }
 
-  return { status: 'imported', version: parsed.version, previousVersion, rowsWritten: total };
+  return { status: 'imported', version: content.version, previousVersion, rowsWritten: total };
 }

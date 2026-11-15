@@ -56,15 +56,16 @@ EAS environment variables. When either variable is missing or malformed, sync is
 `useSync().enabled` is false, Settings > Account says sync is not set up, and the app works as
 before.
 
-### Wiring (done by the app shell)
+### Wiring
 
-- Wrap the app in `<SyncProvider>` inside `<DatabaseProvider>`. It syncs on start, whenever the
-  app returns to the foreground, after sign-in, and with exponential backoff after failures.
-- Call `useSync().notifySessionEnded()` when a study session ends.
-- Render `<AccountSection />` in Settings.
-- Add a route for `auth-callback` (for example `src/app/auth-callback.tsx` that redirects home).
-  `SyncProvider` finishes the magic-link sign-in from the deep link itself; the route only stops
-  Expo Router from showing "not found".
+- `src/app/_layout.tsx` wraps the app in `<SyncProvider>` inside `<DatabaseProvider>`. It syncs on
+  start, whenever the app returns to the foreground, after sign-in, and with exponential backoff
+  after failures. `SettingsHydrator` reloads settings after each sync.
+- The session store calls `useSync().notifySessionEnded()` when a study session ends (finished or
+  quit), so its reviews are pushed straight away.
+- Settings shows `<AccountSection />`.
+- `src/app/auth-callback.tsx` receives sign-in links and redirects home; `SyncProvider` finishes
+  the magic-link sign-in from the deep link itself.
 
 ## Sign-in methods
 

@@ -438,12 +438,7 @@ export class SyncEngine {
     const streak = createStreakRepo(this.db);
     const stored = streak.get();
     streak.save(
-      {
-        currentDays: state.currentDays,
-        longestDays: Math.max(state.longestDays, stored.longestDays),
-        lastStudyDate: state.lastStudyDate,
-        freezesAvailable: state.freezesAvailable,
-      },
+      { ...state, longestDays: Math.max(state.longestDays, stored.longestDays) },
       this.now(),
     );
   }

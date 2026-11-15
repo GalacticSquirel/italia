@@ -11,6 +11,8 @@ export const META_KEYS = {
   seedVersion: 'seed.version',
   /** When that seed was generated (ISO 8601). */
   seedGeneratedAt: 'seed.generatedAt',
+  /** Fingerprint (asset content hash) of the bundled seed last checked, see `ensureSeed`. */
+  seedFingerprint: 'seed.fingerprint',
   /** This installation's device id, recorded on every review. */
   deviceId: 'device.id',
   /** Account whose data this device last synced; a different account resets the sync state. */

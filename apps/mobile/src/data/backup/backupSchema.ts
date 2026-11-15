@@ -61,6 +61,24 @@ export const BackupStreakSchema = z.object({
   longestDays: z.number().int().nonnegative(),
   lastStudyDate: z.string().nullable(),
   freezesAvailable: z.number().int().nonnegative(),
+  /** Progress on the most recent day with study; absent in older backups. */
+  day: z
+    .object({
+      date: z.string(),
+      activeMinutes: z.number().nonnegative(),
+      completedSessions: z.number().int().nonnegative(),
+    })
+    .nullable()
+    .default(null),
+  /** A missed day that can still be repaired; absent in older backups. */
+  repair: z
+    .object({
+      missedDate: z.string(),
+      lostDays: z.number().int().nonnegative(),
+      freezesNeeded: z.number().int().nonnegative(),
+    })
+    .nullable()
+    .default(null),
   updatedAt: ms,
 });
 

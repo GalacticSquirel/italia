@@ -4,8 +4,8 @@ export default function ReadScreen() {
   return (
     <Screen title="Read">
       <EmptyState
-        title="No stories yet"
-        message="Graded stories at your level will appear here, with audio and tap-to-translate."
+        title="Coming in a later phase"
+        message="Graded stories at your level, with audio, a synced transcript and tap-to-translate, arrive in a later phase. Your daily session already uses real example sentences."
       />
     </Screen>
   );
