@@ -169,12 +169,4 @@ that every committed story validates, matches its source, is in the index and th
 that the checksums in the manifest are current; with the cache present it also re-tags the sources
 and compares.
 
-### Seed gaps writers must work around
-
-Some very common words are missing from seed v1 and so cannot appear in stories: _tutto/tutta/tutte_
-(only the form _tutti_ is a lemma), _altro_, _sì_, _ecco_, _ogni_, _nessuno_, _qualche_, _alcuni_,
-_stesso_, _grande_, _gente_, _voi_, _però_, _po'_ (_un po'_), _cui_, _ed_, _ad_, _buon_, _bel_,
-_mille_, _buongiorno_, _Italia_ (as a word). The stories are written around them. When the seed
-gains them, rebuild the stories; the sources do not change.
-
 Licences for every source are in [LICENSES.md](./LICENSES.md).
