@@ -2,7 +2,8 @@
 
 Commands, in pipeline order:
 
-    estimate           print expected token usage and cost for the pending jobs
+    estimate           print expected token usage, cost and (self-hosted) hours for pending jobs
+    bench              measure a self-hosted teacher's prefill and decode throughput
     generate           write dialogues with the teacher (prints the estimate and asks first)
     filter             automatic filters + dedupe -> filtered.jsonl
     judge              judge-model scores for dialogues that passed -> judged.jsonl
@@ -24,6 +25,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
 
+from datagen.bench import measure, yaml_block
 from datagen.builders import (
     Candidate,
     CandidateSet,
@@ -37,6 +39,7 @@ from datagen.cost import estimate_cost
 from datagen.jsonutil import read_jsonl, write_jsonl
 from datagen.judge import JudgeParseError, judge_candidates
 from datagen.languagetool import GrammarChecker, LanguageToolClient, NullChecker
+from datagen.learner import build_jobs
 from datagen.lemmas import (
     DEFAULT_LEMMA_FILE,
     BandChecker,
@@ -55,6 +58,7 @@ from datagen.runner import (
 )
 from datagen.synthesis import make_brief, prepare
 from datagen.teacher import make_client
+from spec.render import ChatMessage
 from spec.scenarios import load_library
 
 
@@ -82,8 +86,13 @@ def cmd_estimate(args: argparse.Namespace) -> int:
     print(f"Run {config.name!r}: teacher {config.teacher.protocol}:{config.teacher.model}")
     print(estimate.table())
     pricing = config.teacher.pricing
-    if pricing.input_per_mtok == 0 and pricing.output_per_mtok == 0:
-        print("warning: teacher pricing is 0; set teacher.pricing in the config", file=sys.stderr)
+    free = pricing.input_per_mtok == 0 and pricing.output_per_mtok == 0
+    if free and config.teacher.throughput is None:
+        print(
+            "warning: teacher pricing is 0 and no throughput is set; for a paid API set "
+            "teacher.pricing, for a local server run `datagen bench` and set teacher.throughput",
+            file=sys.stderr,
+        )
     return 0
 
 
@@ -233,10 +242,45 @@ def cmd_stats(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_bench(args: argparse.Namespace) -> int:
+    config = _config(args)
+    endpoint = config.judge_endpoint if args.judge else config.teacher
+    scenarios = select_scenarios(config, load_library())
+    by_id = {s.id: s for s in scenarios}
+    concurrency = args.concurrency or endpoint.max_concurrency
+    jobs = build_jobs(config, scenarios)[: concurrency * args.rounds]
+    briefs: list[list[ChatMessage]] = []
+    for job in jobs:
+        context, persona, plan = prepare(job, by_id[job.scenario_id], config)
+        briefs.append([{"role": "user", "content": make_brief(context, persona, plan)}])
+    print(f"benchmarking {endpoint.model} at {endpoint.base_url}, {concurrency} in flight ...")
+    throughput, prefill, decode = measure(
+        make_client(endpoint),
+        briefs,
+        concurrency=concurrency,
+        decode_tokens=args.decode_tokens,
+        rounds=args.rounds,
+    )
+    print(
+        f"prefill: {prefill.usage.input_tokens:,} tokens in {prefill.seconds:.0f} s; "
+        f"decode: {decode.usage.output_tokens:,} tokens in {decode.seconds:.0f} s"
+    )
+    print(yaml_block(throughput))
+    return 0
+
+
 def cmd_lemmas(args: argparse.Namespace) -> int:
     n = extract_seed_lemmas(Path(args.seed), Path(args.out))
     print(f"wrote {n} lemmas -> {args.out}")
     return 0
+
+
+def _bench_options(p: argparse.ArgumentParser) -> None:
+    p.add_argument("--concurrency", type=int, help="requests in flight (default maxConcurrency)")
+    p.add_argument("--rounds", type=int, default=2)
+    p.add_argument("--decode-tokens", type=int, default=512)
+    p.add_argument("--judge", action="store_true", help="benchmark the judge endpoint")
+    p.set_defaults(fn=cmd_bench)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -254,6 +298,7 @@ def main(argv: list[str] | None = None) -> int:
         return p
 
     with_config("estimate", "print expected tokens and cost").set_defaults(fn=cmd_estimate)
+    _bench_options(with_config("bench", "measure a self-hosted teacher's throughput"))
     p = with_config("generate", "generate dialogues with the teacher")
     p.add_argument("--limit", type=int)
     p.add_argument("--yes", action="store_true", help="do not ask for confirmation")

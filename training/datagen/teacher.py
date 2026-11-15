@@ -73,6 +73,25 @@ class Pricing(BaseModel):
         ) / 1_000_000
 
 
+class Throughput(BaseModel):
+    """Aggregate tokens per second of a self-hosted endpoint at its `maxConcurrency`.
+
+    Measure it with `python -m datagen bench`; the estimator turns it into wall-clock hours.
+    """
+
+    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True, extra="forbid")
+
+    prompt_tokens_per_sec: float = Field(gt=0, description="Prefill, all requests together.")
+    generation_tokens_per_sec: float = Field(gt=0, description="Decode, all requests together.")
+
+    def hours(self, usage: Usage) -> float:
+        seconds = (
+            usage.input_tokens / self.prompt_tokens_per_sec
+            + usage.output_tokens / self.generation_tokens_per_sec
+        )
+        return seconds / 3600
+
+
 class ModelEndpoint(BaseModel):
     """Configuration of one model endpoint (teacher, judge, or a model under evaluation)."""
 
@@ -90,6 +109,9 @@ class ModelEndpoint(BaseModel):
     max_retries: int = Field(default=6, ge=0)
     extra_body: dict[str, object] = Field(
         default_factory=dict, description="Provider-specific request fields, passed through."
+    )
+    throughput: Throughput | None = Field(
+        default=None, description="Self-hosted only: measured speed, for time estimates."
     )
 
 

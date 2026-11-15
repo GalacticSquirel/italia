@@ -4,6 +4,9 @@ Input tokens are measured from the real prompts of a sample of jobs (the briefs 
 exactly as the run would send them) at `estimate.charsPerToken`; output tokens use per-level turn
 sizes. The estimate covers generation, the optional revise pass, and the judge pass, and grosses up
 for dialogues the filters will reject (`estimate.expectedPassRate`).
+
+For a self-hosted teacher (a local `mlx_lm.server`, priced at 0) the endpoint's measured
+`throughput` turns the same token counts into wall-clock hours.
 """
 
 from __future__ import annotations
@@ -14,7 +17,7 @@ from dataclasses import dataclass
 from datagen.config import DatagenConfig
 from datagen.records import Job
 from datagen.synthesis import make_brief, prepare
-from datagen.teacher import Pricing, Usage
+from datagen.teacher import ModelEndpoint, Usage
 from spec.models import Scenario
 
 _REVISE_OVERHEAD_TOKENS = 450  # the review instructions around the brief and dialogue
@@ -27,6 +30,7 @@ class StageEstimate:
     calls: int
     usage: Usage
     cost_usd: float
+    hours: float | None = None
 
 
 @dataclass(frozen=True)
@@ -46,22 +50,38 @@ class CostEstimate:
     def total_cost(self) -> float:
         return sum(s.cost_usd for s in self.stages)
 
+    @property
+    def total_hours(self) -> float | None:
+        """Wall-clock hours if every stage runs on a self-hosted endpoint with known speed."""
+        hours = [s.hours for s in self.stages]
+        if any(h is None for h in hours):
+            return None
+        return sum(h for h in hours if h is not None)
+
     def table(self) -> str:
+        timed = any(s.hours is not None for s in self.stages)
+        extra = f" {'hours':>8}" if timed else ""
         lines = [
             f"Jobs to run: {self.jobs:,} (expected to keep ~{self.accepted_dialogues:,} "
             "after filters)",
-            f"{'stage':<10} {'calls':>9} {'input tok':>14} {'output tok':>14} {'cost USD':>11}",
+            f"{'stage':<10} {'calls':>9} {'input tok':>14} {'output tok':>14} {'cost USD':>11}"
+            + extra,
         ]
         for s in self.stages:
+            hours = "" if not timed else f" {s.hours:>8,.1f}" if s.hours is not None else " " * 9
             lines.append(
                 f"{s.name:<10} {s.calls:>9,} {s.usage.input_tokens:>14,} "
-                f"{s.usage.output_tokens:>14,} {s.cost_usd:>11,.2f}"
+                f"{s.usage.output_tokens:>14,} {s.cost_usd:>11,.2f}" + hours
             )
         t = self.total_usage
+        total_hours = self.total_hours
+        tail = f" {total_hours:>8,.1f}" if timed and total_hours is not None else ""
         lines.append(
             f"{'total':<10} {'':>9} {t.input_tokens:>14,} {t.output_tokens:>14,} "
-            f"{self.total_cost:>11,.2f}"
+            f"{self.total_cost:>11,.2f}" + tail
         )
+        if total_hours is not None:
+            lines.append(f"wall clock: ~{total_hours:,.0f} h (~{total_hours / 24:,.1f} days)")
         return "\n".join(lines)
 
 
@@ -106,9 +126,9 @@ def estimate_cost(
         )
     factor = len(jobs) / len(sample) if sample else 0.0
     accepted = round(len(jobs) * est.expected_pass_rate)
-    stages = [_stage("generate", len(jobs), _scale(gen, factor), config.teacher.pricing)]
+    stages = [_stage("generate", len(jobs), _scale(gen, factor), config.teacher)]
     if config.revise_pass:
-        stages.append(_stage("revise", len(jobs), _scale(rev, factor), config.teacher.pricing))
+        stages.append(_stage("revise", len(jobs), _scale(rev, factor), config.teacher))
     # Only dialogues that pass the automatic filters are judged.
     judged = est.expected_pass_rate
     stages.append(
@@ -116,11 +136,14 @@ def estimate_cost(
             "judge",
             round(len(jobs) * judged),
             _scale(jud, factor * judged),
-            config.judge_endpoint.pricing,
+            config.judge_endpoint,
         )
     )
     return CostEstimate(jobs=len(jobs), accepted_dialogues=accepted, stages=stages)
 
 
-def _stage(name: str, calls: int, usage: Usage, pricing: Pricing) -> StageEstimate:
-    return StageEstimate(name=name, calls=calls, usage=usage, cost_usd=pricing.cost(usage))
+def _stage(name: str, calls: int, usage: Usage, endpoint: ModelEndpoint) -> StageEstimate:
+    hours = endpoint.throughput.hours(usage) if endpoint.throughput else None
+    return StageEstimate(
+        name=name, calls=calls, usage=usage, cost_usd=endpoint.pricing.cost(usage), hours=hours
+    )
