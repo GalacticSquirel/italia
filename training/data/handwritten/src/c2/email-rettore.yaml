@@ -1,0 +1,118 @@
+- scenario: email-rettore
+  level: C2
+  persona: en-f-professional
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Buongiorno, e grazie di avermi ricevuta. Il Consiglio di dipartimento ha revocato il mio contratto di ricerca tre mesi prima della scadenza, senza nemmeno sentirmi. Vorrei che il Rettore riesaminasse la delibera."
+    - tutor: "Capisco, e mi dispiace. Dunque non un ricorso in senso tecnico, ma un'istanza di riesame: la differenza conta, perché il ricorso apre un contenzioso, l'istanza chiede ascolto. Come pensava di cominciare la lettera?"
+      goals: [situation]
+      new: [{lemma: contenzioso, gloss: legal dispute}]
+    - learner: "Avevo scritto «Gentile Rettore, Le scrivo perché sono stata trattata in modo ingiusto». Eventualmente ho capito che era troppo diretto, e per questo sono qui."
+      errors: [false-friend]
+    - tutor: "Ha fatto bene a venire: alla fine ha capito da sola che così non andava. A un rettore ci si rivolge con «Magnifico Rettore», senza «gentile», e subito dopo si sottopone la questione «alla Sua cortese attenzione». Le suona troppo antiquato?"
+      recast: {text: "Eventualmente", fix: "alla fine", tags: [false-friend]}
+    - learner: "Antiquato no, direi solenne. Quindi: «Magnifico Rettore, mi permetto di sottoporre alla Sua cortese attenzione un'istanza di riesame della delibera del 12 marzo». Può andare?"
+    - tutor: "Non cambierei una virgola. Ora il punto delicato. Nella bozza che mi ha mandato leggo: «Il Consiglio ha sbagliato e pretendo una spiegazione». La fermezza va bene, ma qui Lei sbatte la porta. Come lo direbbe senza perdere un grammo di forza?"
+      goals: [opening-formula]
+    - learner: "Forse così: «Ritengo che la delibera non tiene conto di alcuni elementi essenziali, e sarei grata se mi venissero comunicate le ragioni della decisione»."
+      errors: [subjunctive-use]
+    - tutor: "Il tono c'è, e quel «sarei grata» è proprio la cortesia che serviva. Però riascolti l'inizio: «ritengo che la delibera non tiene conto». Dopo un verbo di opinione, in una lettera al Rettore, quel modo verbale La tradisce. Come lo sistemerebbe?"
+      prompt: {text: "Ritengo che la delibera non tiene conto", tags: [subjunctive-use]}
+    - learner: "Giusto, mi è scappato: «Ritengo che la delibera non tenga conto di alcuni elementi essenziali»."
+    - tutor: "Ecco, adesso la frase sta in piedi da sola. Pugno di ferro in guanto di velluto, come si dice. Resta il commiato: come pensa di chiudere?"
+      goals: [tone]
+      new: [{lemma: pugno di ferro in guanto di velluto, gloss: iron fist in a velvet glove}, {lemma: commiato, gloss: "leave-taking, closing of a letter"}]
+    - learner: "Scriverei «In attesa di un Suo cortese riscontro, porgo distinti saluti». Oppure è meglio «deferenti ossequi», che ho trovato in una vecchia lettera d'archivio?"
+    - tutor: "Lasci gli ossequi alle vecchie lettere, appunto: oggi suonano come un inchino con il cappello piumato. «In attesa di riscontro, porgo distinti saluti» è sobrio e inappuntabile. La spedisca pure, e mi faccia sapere com'è andata."
+      goals: [closing]
+      new: [{lemma: ossequi, gloss: "respects (old-fashioned closing)"}, {lemma: inappuntabile, gloss: impeccable}]
+
+- scenario: email-rettore
+  level: C2
+  persona: es-m-worker
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Si tratta della graduatoria per gli assegni di ricerca. Mi hanno escluso per un vizio di forma, una firma mancante su un allegato, e vorrei chiedere al Rettore di riammettermi."
+    - tutor: "Un vizio di forma, quindi rimediabile: buon punto di partenza. In questi casi si presenta un'istanza, non una protesta. Cominciamo dall'intestazione: a chi la indirizza, e con quale formula?"
+      goals: [situation]
+      new: [{lemma: vizio di forma, gloss: procedural defect}]
+    - learner: "In alto metterei «Al Rettore dell'Università» e poi comincerei con «Egregio Signor Rettore, Le scrivo in merito alla delibera del Senato accademico»."
+      errors: [register]
+    - tutor: "«Egregio Signor Rettore»? Con un notaio andrebbe benissimo. Ma chi guida un ateneo ha, per tradizione, un appellativo tutto suo, piuttosto solenne. Lo avrà visto sulle porte e sui diplomi: se lo ricorda?"
+      prompt: {text: "Egregio Signor Rettore", tags: [register]}
+      new: [{lemma: appellativo, gloss: form of address}, {lemma: ateneo, gloss: university}]
+    - learner: "Che svista, ha ragione: «Magnifico Rettore». E subito dopo scriverei «mi permetto di sottoporre alla Sua cortese attenzione la seguente istanza»."
+    - tutor: "Così è perfetto. Veniamo alla sostanza. Mi legga la frase con cui chiede di essere riammesso, quella che Le è costata più fatica."
+      goals: [opening-formula]
+    - learner: "Eccola: «L'esclusione è assurda: per una firma non si butta via un anno di lavoro, quindi esigo di essere riammesso»."
+    - tutor: "Sincera, ma il Rettore la leggerebbe come uno schiaffo. Lei ha ragione, però non basta avere ragione: bisogna farsela dare. Provi a dire la stessa cosa senza «assurda» e senza «esigo»."
+    - learner: "Vediamo: «Confido che l'esclusione possa essere riconsiderata, trattandosi di una mera irregolarità formale, e chiedo pertanto di essere riammesso alla graduatoria»."
+    - tutor: "«Confido» è la parola giusta: ferma e senza spigoli. E «mera irregolarità» toglie il dramma senza togliere la ragione. Non resta che il congedo: che cosa scrive in fondo?"
+      goals: [tone]
+      new: [{lemma: spigolo, gloss: "sharp edge, corner"}]
+    - learner: "«In attesa di riscontro, porgo distinti saluti». Avevo pensato anche a «cordiali saluti», ma mi sembrava di dare una pacca sulla spalla al Rettore."
+    - tutor: "Ha ottimo orecchio: «cordiali» va bene tra colleghi, non qui. Distinti saluti, firma per esteso e qualifica. E alleghi la pagina firmata, così tagliamo la testa al toro."
+      goals: [closing]
+      new: [{lemma: tagliare la testa al toro, gloss: to settle the matter once and for all}]
+
+- scenario: email-rettore
+  level: C2
+  persona: en-m-retired
+  history: [hypothetical]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Buongiorno. Il dipartimento ha deliberato di non rinnovare il mio incarico di ricercatore ospite per raggiunti limiti di età. Ho settantun anni, è vero, ma il progetto finisce a giugno e chiedo soltanto una proroga di sei mesi."
+    - tutor: "Una proroga, non una rivoluzione: richiesta ragionevole. E il regolamento prevede deroghe per esigenze scientifiche, quindi l'appiglio c'è. Come intende rivolgersi al Rettore, visto che, mi pare, vi conoscete di persona?"
+      goals: [situation]
+      new: [{lemma: proroga, gloss: extension}, {lemma: deroga, gloss: exemption}, {lemma: appiglio, gloss: "foothold, something to hold on to"}]
+    - learner: "Sì, ci siamo incontrati a un convegno. Per questo pensavo di scrivere «Caro Rettore», sempre che Lei non lo trovi troppo confidenziale."
+    - tutor: "In un biglietto privato, forse. Ma un'istanza finisce al protocollo e la leggono in dieci: lì la confidenza diventa un passo falso. Scriva «Magnifico Rettore», e la conoscenza personale la lasci trasparire altrove, con garbo. È d'accordo?"
+      new: [{lemma: passo falso, gloss: false step}]
+    - learner: "D'accordo, «Magnifico Rettore». E più sotto potrei aggiungere «facendo seguito al nostro cordiale incontro di Bologna»: che ne pensa?"
+    - tutor: "Ottima idea: ricorda senza vantarsi. Ora la frase che mi preoccupa. Nella Sua bozza c'è scritto: «Mandare via uno studioso per l'età è una discriminazione bella e buona». Vero o no, così il Rettore si mette sulla difensiva. Come la girerebbe?"
+      goals: [opening-formula]
+      new: [{lemma: bello e buono, gloss: "out-and-out, downright"}]
+    - learner: "Scriverei: «Se il regolamento sarebbe applicato alla lettera, il progetto resterebbe senza responsabile proprio nella fase conclusiva»."
+      errors: [hypothetical]
+    - tutor: "L'argomento è quello giusto: sposta tutto dall'età al progetto. Ma l'ipotesi zoppica: «se il regolamento sarebbe applicato»? Dopo il «se», in italiano, il condizionale non ci può stare. Ci riprovi."
+      prompt: {text: "Se il regolamento sarebbe applicato", tags: [hypothetical]}
+      new: [{lemma: zoppicare, gloss: to limp}]
+    - learner: "Mi scusi. Allora: «Se il regolamento sia applicato alla lettera, il progetto resterebbe senza responsabile»?"
+      errors: [hypothetical]
+    - tutor: "Quasi: «se il regolamento fosse applicato alla lettera, il progetto resterebbe senza responsabile». Ci vuole l'imperfetto del congiuntivo, e la frase fila. Detta così è ferma e cortese insieme. Manca solo la chiusa: che formula ha in mente?"
+      goals: [tone]
+      recast: {text: "Se il regolamento sia applicato", fix: "se il regolamento fosse applicato", tags: [hypothetical]}
+    - learner: "«Confidando nella Sua comprensione e in attesa di riscontro, Le porgo i miei più distinti saluti»."
+    - tutor: "Niente da aggiungere. «Confidando» dice che si aspetta un sì senza pretenderlo. La mandi oggi stesso: il ferro va battuto finché è caldo."
+      goals: [closing]
+      new: [{lemma: battere il ferro finché è caldo, gloss: to strike while the iron is hot}]
+
+- scenario: email-rettore
+  level: C2
+  persona: es-f-teacher
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Buongiorno, grazie del Suo tempo. Il Consiglio ha fatto una decisione che considero ingiusta: mi ha tolto la responsabilità scientifica di un progetto che ho ideato io, per affidarla a un professore ordinario."
+      errors: [word-choice]
+    - tutor: "Mi dispiace. Se il Consiglio ha preso una decisione del genere, l'avrà messa a verbale in una delibera, e contro una delibera si può presentare ricorso al Rettore. Ma mi dica: che cosa vuole ottenere, precisamente?"
+      recast: {text: "ha fatto una decisione", fix: "ha preso una decisione", tags: [word-choice]}
+    - learner: "Vorrei tornare responsabile, o almeno corresponsabile. Non cerco lo scontro: con quel professore dovrò lavorare ancora per due anni."
+    - tutor: "Saggio. Allora niente ricorso, che è una dichiarazione di guerra: meglio un'istanza motivata, e i ponti restano in piedi. Partiamo dall'inizio: quale formula di apertura ha scelto?"
+      goals: [situation]
+    - learner: "Ho scritto: «Magnifico Rettore, ho deciso scrivere a Lei personalmente perché nessun altro mi ha ascoltata»."
+      errors: [preposition]
+    - tutor: "«Magnifico Rettore» va benissimo. Subito dopo, però, inciampa: «ho deciso scrivere»? Tra quei due verbi manca un piccolo anello. E già che c'è, provi con «sottoporre», che al Rettore si addice di più."
+      prompt: {text: "ho deciso scrivere", tags: [preposition]}
+      new: [{lemma: inciampare, gloss: to stumble}, {lemma: addirsi, gloss: to suit}]
+    - learner: "Ah, sì: «Magnifico Rettore, ho deciso a sottoporre alla Sua cortese attenzione una vicenda che riguarda il progetto da me ideato»."
+      errors: [preposition]
+    - tutor: "Quasi: «ho deciso di sottoporre alla Sua cortese attenzione». Per il resto ci siamo, e quel «da me ideato» dice già tutto senza alzare la voce. Più avanti, però, leggo: «Mi hanno rubato il progetto». È un'accusa: come lo direbbe a un Rettore che deve poterLe dare ragione senza dare torto ai suoi?"
+      goals: [opening-formula]
+      recast: {text: "ho deciso a sottoporre", fix: "ho deciso di sottoporre", tags: [preposition]}
+    - learner: "Forse: «Sono stata sollevata dall'incarico senza che mi fosse data la possibilità di esporre le mie ragioni, e chiedo che la delibera venga riesaminata»."
+    - tutor: "Molto bene: forma passiva, nessun colpevole nominato, eppure il torto si vede benissimo. Questo è dire pane al pane senza tirarlo in faccia a nessuno. E per salutare?"
+      goals: [tone]
+      new: [{lemma: dire pane al pane, gloss: to call a spade a spade}]
+    - learner: "«In attesa di un cortese riscontro, porgo distinti saluti». Va bene, o risulta troppo fredda?"
+    - tutor: "Fredda il giusto: è una lettera, non un abbraccio. Distinti saluti, e sotto la Sua firma con la qualifica. In bocca al lupo, dottoressa."
+      goals: [closing]

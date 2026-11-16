@@ -33,10 +33,30 @@ datagen() {
   uv run python -m datagen "$@"
 }
 
-datagen generate -c "$config" --yes
+teacher_url="${LOCAL_TEACHER_URL:-http://127.0.0.1:8080/v1}"
+wait_for_teacher() {
+  until curl -sf -m 5 "$teacher_url/models" >/dev/null; do sleep 10; done
+}
+
+# generate stops when the teacher is unavailable (without counting it against any job), and each
+# run gives failed jobs one more attempt (up to maxAttempts), so repeat it until nothing is left.
+log="$(mktemp)"
+for (( run = 1; run <= ${GENERATE_RUNS:-200}; run++ )); do
+  wait_for_teacher
+  if datagen generate -c "$config" --yes 2>&1 | tee "$log"; then
+    grep -q "nothing to do" "$log" && break
+  else
+    echo "==> generate stopped (teacher unavailable?); resuming when it answers" >&2
+    sleep 30
+  fi
+done
+rm -f "$log"
 # shellcheck disable=SC2086
 datagen refilter -c "$config" --reparse-failed ${FILTER_ARGS:-}
-datagen judge -c "$config"
+until wait_for_teacher && datagen judge -c "$config"; do
+  echo "==> judge stopped (teacher unavailable?); resuming when it answers" >&2
+  sleep 30
+done
 if [[ -n "${SFT_OUT:-}" ]]; then
   datagen build-sft -c "$config" --out "$SFT_OUT"
 fi

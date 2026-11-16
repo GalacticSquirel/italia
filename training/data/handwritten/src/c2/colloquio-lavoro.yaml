@@ -1,0 +1,63 @@
+- scenario: colloquio-lavoro
+  level: C2
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno, e grazie dell'invito. Sono una designer di prodotto: ho studiato a Londra e da sei anni vivo a Milano, dove mi occupo soprattutto di arredo per ufficio."
+    - tutor: "Milano, la capitale del mobile: non poteva scegliere di meglio. Nel curriculum leggo che ha lavorato in uno studio grande, di quelli dove si è una rotella dell'ingranaggio. Che cosa faceva, in concreto, lì dentro?"
+      goals: [intro]
+      new: [{lemma: rotella dell'ingranaggio, gloss: cog in the machine}]
+    - learner: "All'inizio ero proprio una rotella, come dice Lei. Poi mi hanno affidato una linea di sedute per spazi condivisi, che ho seguito dal primo schizzo fino alla produzione. Ho anche atteso tre edizioni del Salone del Mobile come responsabile dello stand."
+      errors: [false-friend]
+    - tutor: "Dal primo schizzo alla produzione: non è da tutti. E chi ha partecipato a tre edizioni del Salone con uno stand sulle spalle sa che cosa vuol dire lavorare sotto pressione. Veniamo alla domanda che tutti temono: un Suo punto di forza e, senza giri di parole, un difetto."
+      goals: [experience]
+      recast: {text: "Ho anche atteso tre edizioni", fix: "ha partecipato a tre edizioni", tags: [false-friend]}
+      new: [{lemma: schizzo, gloss: sketch}, {lemma: senza giri di parole, gloss: without beating about the bush}]
+    - learner: "Il punto di forza è la testardaggine buona: non mollo un problema finché non l'ho risolto. Il difetto è l'altra faccia della medaglia: fatico a delegare, perché sono convinta che, se faccio io, faccio prima."
+    - tutor: "«Chi fa da sé fa per tre», dice il proverbio. Peccato che qui siamo in otto, e tre non bastano. Scherzi a parte, apprezzo che non mi abbia rifilato il solito «sono troppo perfezionista». Ma perché lasciare uno studio blasonato per una bottega come la nostra?"
+      goals: [strengths]
+      new: [{lemma: rifilare, gloss: to palm off (something on someone)}, {lemma: blasonato, gloss: "prestigious, with a pedigree"}, {lemma: bottega, gloss: workshop}]
+    - learner: "Proprio perché è una bottega. Vorrei un posto dove le decisioni si fanno intorno a un tavolo e non per posta elettronica, e dove chi disegna risponde di quello che esce."
+      errors: [word-choice]
+    - tutor: "Un posto dove le decisioni si prendono intorno a un tavolo: ci ha descritti bene, perfino troppo. Qui il tavolo è uno solo, e ci si mangia pure. L'avverto, però: rispondere del proprio lavoro vuol dire anche metterci la faccia con i clienti. Ha qualche domanda Lei, per me?"
+      goals: [why]
+      recast: {text: "le decisioni si fanno", fix: "le decisioni si prendono", tags: [word-choice]}
+      new: [{lemma: metterci la faccia, gloss: to take personal responsibility in public}]
+    - learner: "Sì, una. Se venissi assunta, su quale progetto comincerei, e con chi lavorerei fianco a fianco nei primi mesi?"
+    - tutor: "Bella domanda, concreta. Comincerebbe con una collezione di lampade per un albergo di Trieste, accanto a Bruno, il nostro modellista: burbero, ma d'oro. Le faremo sapere entro venerdì. Detto tra noi, oggi ha giocato bene le Sue carte."
+      goals: [questions]
+      new: [{lemma: burbero, gloss: gruff}, {lemma: modellista, gloss: model maker}]
+
+- scenario: colloquio-lavoro
+  level: C2
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno, grazie. Mi chiamo Andrés, sono di Valencia e faccio il grafico. Vivo a Torino da otto anni: sono venuto per un amore finito male, e sono rimasto per un lavoro andato bene."
+    - tutor: "Almeno una delle due è andata per il verso giusto. E l'ordine in cui me le racconta mi dice che ha il senso del ritmo, cosa che in un grafico non guasta. Mi parli di questo lavoro andato bene."
+      goals: [intro]
+      new: [{lemma: andare per il verso giusto, gloss: to turn out well}, {lemma: non guastare, gloss: to do no harm}]
+    - learner: "Lavoravo per cinque anni in una piccola casa editrice, dove curavo le copertine e l'impaginazione di tutta la narrativa. Poi l'editore ha venduto, e il nuovo proprietario ha portato tutto a Milano."
+      errors: [tense-aspect]
+    - tutor: "Le copertine, dunque: il biglietto da visita di un libro. Un dettaglio, però, prima di proseguire: «lavoravo per cinque anni»? Con una durata chiusa, dall'inizio alla fine, quel tempo verbale zoppica. Come lo direbbe?"
+      prompt: {text: "Lavoravo per cinque anni", tags: [tense-aspect]}
+      new: [{lemma: zoppicare, gloss: to limp}, {lemma: biglietto da visita, gloss: business card}, {lemma: copertina, gloss: book cover}]
+    - learner: "Ho lavorato per cinque anni, giusto. In spagnolo mi sarebbe venuto bene: è l'italiano che ogni tanto mi fa lo sgambetto."
+    - tutor: "Lo sgambetto lo fa a tutti, stia sereno. Cinque anni di copertine sono una bella palestra. Ora però mi dica dove brilla davvero, e dove invece, a essere onesti, fa acqua."
+      goals: [experience]
+      new: [{lemma: fare acqua, gloss: "to be weak, to leak"}, {lemma: sgambetto, gloss: "trip, tripping up"}, {lemma: palestra, gloss: "gym; training ground"}]
+    - learner: "Brillo nella tipografia: so far parlare una pagina con due caratteri e molto bianco. Faccio acqua, invece, nelle scadenze. Una volta, con le consegne di Natale, si è fatto un casino tale che ho dovuto chiamare l'editore a mezzanotte."
+      errors: [register]
+    - tutor: "Quanto alla tipografia, i Suoi lavori parlano da soli. Ma «un casino», in un colloquio? Tra amici al bar passa liscia, qui un po' meno. Mi trovi una parola con la cravatta."
+      prompt: {text: "un casino", tags: [register]}
+      new: [{lemma: passare liscia, gloss: to get away with it}, {lemma: tipografia, gloss: typography}]
+    - learner: "Mi perdoni, ha ragione. Si è creata una tale confusione che ho dovuto chiamare l'editore a mezzanotte. Da allora tengo un calendario che farebbe invidia a un ragioniere."
+    - tutor: "«Confusione» la cravatta ce l'ha, sì. E il calendario da ragioniere mi rassicura più di tante promesse. Resta la domanda delle domande: perché noi? Di studi grafici, a Torino, ce ne sono a bizzeffe."
+      goals: [strengths]
+      new: [{lemma: a bizzeffe, gloss: "galore, in abundance"}, {lemma: ragioniere, gloss: accountant}]
+    - learner: "Perché voi fate ancora cose che si toccano: cataloghi, manifesti, libri d'artista. E, già che ci sono, una domanda: come sono divise le responsabilità nella squadra? Il ruolo prevede anche il rapporto diretto con i clienti?"
+    - tutor: "Cose che si toccano: l'ha detto meglio del nostro sito. Quanto al ruolo, qui chi disegna va anche dal cliente, e si prende applausi e fischi di persona. Se non La spaventa, direi che ci siamo. Le telefono io entro la settimana. Arrivederci, e mi saluti Valencia."
+      goals: [why, questions]
+      new: [{lemma: fischio, gloss: "whistle, boo"}]

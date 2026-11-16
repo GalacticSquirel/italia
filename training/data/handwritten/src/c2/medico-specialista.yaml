@@ -1,0 +1,63 @@
+- scenario: medico-specialista
+  level: C2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Buongiorno, dottoressa. A essere sincero, così così. A riposo sto bene, ma appena faccio due rampe di scale mi manca il fiato e sento il cuore in gola. Non è un dolore: è più un battito disordinato, che dura un paio di minuti e poi passa."
+    - tutor: "«Il cuore in gola»: lo dice come un italiano, e me lo descrive meglio di tanti italiani. Un battito disordinato sotto sforzo, senza dolore: annoto. In famiglia c'è qualcuno che ha avuto problemi di cuore, magari da giovane?"
+      goals: [symptoms]
+      new: [{lemma: avere il cuore in gola, gloss: to have one's heart in one's mouth}]
+    - learner: "Purtroppo sì. Mio padre ha sofferto un infarto a cinquantadue anni, e suo fratello è morto di colpo più o meno alla stessa età. Mia madre, invece, ha novant'anni e una salute di ferro. Mi auguro di aver preso da lei."
+      errors: [word-choice]
+    - tutor: "Glielo auguro anch'io. Ma con un padre che ha avuto un infarto a quell'età è meglio non affidarsi alla sorte. Veniamo agli esami: la prova da sforzo mostra una fibrillazione atriale a episodi. In parole povere, ogni tanto il cuore perde il passo. Non è un fulmine a ciel sereno, e si cura bene."
+      goals: [history]
+      recast: {text: "ha sofferto un infarto", fix: "ha avuto un infarto", tags: [word-choice]}
+      new: [{lemma: fibrillazione atriale, gloss: atrial fibrillation}, {lemma: in parole povere, gloss: in plain words}, {lemma: fulmine a ciel sereno, gloss: bolt from the blue}]
+    - learner: "Perde il passo: rende l'idea. Ma che cosa significa, in pratica? È qualcosa che può peggiorare, e rischio di fare la fine di mio padre?"
+    - tutor: "Domanda sacrosanta. No, non è la malattia di Suo padre: le coronarie, dagli esami, sono pulite. Il rischio vero è un altro, cioè che nel cuore si formino dei coaguli. Per questo Le prescrivo un anticoagulante e un farmaco che tiene il ritmo a bada."
+      goals: [understand]
+      new: [{lemma: coagulo, gloss: clot}, {lemma: sacrosanto, gloss: "entirely justified, sacrosanct"}, {lemma: tenere a bada, gloss: to keep in check}]
+    - learner: "Capisco. E questi farmaci, che effetti collaterali hanno? Glielo chiedo perché viaggio molto per lavoro, e non vorrei che mi succeda qualcosa a diecimila metri."
+      errors: [subjunctive-use]
+    - tutor: "Ci arrivo subito, agli effetti. Prima però una visita rapida alla grammatica, che è gratis: «non vorrei che mi succeda»? Dopo un condizionale come «vorrei», il congiuntivo scende di un gradino nel tempo. Lo sente?"
+      prompt: {text: "non vorrei che mi succeda", tags: [subjunctive-use]}
+      new: [{lemma: gradino, gloss: step}]
+    - learner: "Lo sento: non vorrei che mi succedesse qualcosa a diecimila metri. Vede, dottoressa, ha già cominciato a curarmi."
+    - tutor: "E senza ricetta. Dunque: l'anticoagulante può dare qualche livido e sanguinamenti più lunghi, quindi attenzione al rasoio. L'altro farmaco, a volte, un po' di stanchezza. In aereo nessun problema: basta non saltare le dosi con il fuso orario. Ci rivediamo tra tre mesi per un controllo."
+      goals: [treatment]
+      new: [{lemma: livido, gloss: bruise}, {lemma: fuso orario, gloss: time zone}, {lemma: rasoio, gloss: razor}]
+
+- scenario: medico-specialista
+  level: C2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Buongiorno, dottore. Meglio di giorno che di notte. Verso le tre mi sveglio con il cuore che corre, senza motivo, e ci metto un'ora a riaddormentarmi. E a scuola, dopo quattro ore di lezione, ho la tensione alta: lo sento dal mal di testa, qui dietro la nuca."
+      errors: [false-friend]
+    - tutor: "Risvegli con il cuore che corre e mal di testa alla nuca: prendo nota. In effetti dal diario risulta che ha la pressione alta soprattutto la sera, il che, con una classe di adolescenti, non mi stupisce affatto. In famiglia qualcuno soffre di cuore o di pressione?"
+      goals: [symptoms]
+      recast: {text: "ho la tensione alta", fix: "ha la pressione alta", tags: [false-friend]}
+      new: [{lemma: nuca, gloss: nape of the neck}]
+    - learner: "Mia madre è ipertesa da quando aveva quarant'anni, e mio nonno materno è morto di ictus. Dal lato di mio padre, invece, sono tutti sani come pesci, a quanto ne so."
+    - tutor: "Sani come pesci da una parte, ma dall'altra una madre ipertesa e un nonno con l'ictus: la bilancia pende dove non vorremmo. Gli esami lo confermano: il monitoraggio delle ventiquattro ore dà valori alti di giorno che, soprattutto, di notte non scendono. Il cuore, per ora, è in ordine."
+      goals: [history]
+      new: [{lemma: iperteso, gloss: suffering from high blood pressure}, {lemma: ictus, gloss: stroke}, {lemma: monitoraggio, gloss: monitoring}]
+    - learner: "«Per ora» non mi tranquillizza molto, dottore. Che cosa vuol dire esattamente che di notte non scendono? E quei risvegli alle tre c'entrano qualcosa?"
+    - tutor: "Ha ragione, mi spiego meglio. Di notte la pressione dovrebbe calare di un buon dieci per cento: se non lo fa, cuore e arterie non riposano mai, e alla lunga si logorano. I risvegli c'entrano eccome. «Per ora» significa che siamo arrivati in tempo, non che deve stare in pensiero."
+      goals: [understand]
+      new: [{lemma: logorarsi, gloss: to wear out}, {lemma: eccome, gloss: "and how, very much so"}, {lemma: stare in pensiero, gloss: to be worried}]
+    - learner: "Va bene, mi fido. Immagino che mi darà una terapia. Ne ho pensato molto in questi giorni, e Le confesso che l'idea di prendere pastiglie per tutta la vita mi pesa."
+      errors: [ci-ne]
+    - tutor: "È un peso che capisco, e ne parliamo subito. Una cosa, intanto, da paziente a professoressa: «ne ho pensato molto»? Si pensa a qualcosa, non di qualcosa: e allora la particella giusta qual è?"
+      prompt: {text: "Ne ho pensato molto", tags: [ci-ne]}
+      new: [{lemma: particella, gloss: particle}]
+    - learner: "Ha ragione... lo ho pensato molto? No, suona peggio ancora."
+      errors: [ci-ne]
+    - tutor: "Peggio no, ma la soluzione è «ci ho pensato molto». E chi ha riflettuto tanto merita una risposta onesta: sì, la terapia è lunga, ma è una compressa sola, la sera. All'inizio può dare un po' di capogiri, quando ci si alza in fretta."
+      recast: {text: "lo ho pensato molto", fix: "ci ho pensato molto", tags: [ci-ne]}
+      new: [{lemma: capogiro, gloss: dizzy spell}, {lemma: compressa, gloss: tablet}]
+    - learner: "Una sola compressa la sera posso sopportarla. E i capogiri passano, o me li tengo? Non vorrei svenire davanti alla lavagna: i miei studenti non aspettano altro."
+    - tutor: "Passano in un paio di settimane, di solito. Nel frattempo si alzi con calma e beva abbastanza. Se invece compaiono tosse secca o caviglie gonfie, mi chiami: si cambia farmaco, ce n'è per tutti i gusti. Ci vediamo tra un mese con il diario della pressione. E ai Suoi studenti dia pure la colpa a me."
+      goals: [treatment]
+      new: [{lemma: caviglia, gloss: ankle}, {lemma: gonfio, gloss: swollen}, {lemma: per tutti i gusti, gloss: to suit every taste}]

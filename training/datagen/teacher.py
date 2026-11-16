@@ -119,6 +119,13 @@ class RetryableError(RuntimeError):
     pass
 
 
+class TeacherUnavailableError(Exception):
+    """The endpoint kept failing (down, restarting, overloaded) after every retry.
+
+    Deliberately not a RuntimeError: the pipeline counts RuntimeError against the job, while
+    this says nothing about the job and stops the stage instead (see datagen.runner)."""
+
+
 _RETRY_STATUS = frozenset({408, 409, 429, 500, 502, 503, 504, 529})
 
 
@@ -159,7 +166,9 @@ class _HttpClient:
             except (RetryableError, httpx.TransportError) as err:
                 attempt += 1
                 if attempt > self.endpoint.max_retries:
-                    raise RuntimeError(f"{self.name}: giving up after {attempt} tries") from err
+                    raise TeacherUnavailableError(
+                        f"{self.name}: giving up after {attempt} tries"
+                    ) from err
                 self._sleep(min(60.0, 2.0**attempt) * (0.5 + random.random()))
 
 

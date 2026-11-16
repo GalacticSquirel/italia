@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Serve the local teacher with mlx-lm's OpenAI-compatible server, sized for this Mac's memory.
-# It runs through datagen.mlx_server, which fixes mlx-lm's Metal buffer leak in batched decode
-# (the "[metal::malloc] Resource limit (499000) exceeded" crash) before starting the server.
+# It runs through datagen.serve_teacher, which fixes mlx-lm's Metal buffer leak in batched decode
+# (the "[metal::malloc] Resource limit (499000) exceeded" crash; datagen/mlx_compat.py) first.
 #
 #   training/scripts/serve-teacher.sh [model]
 #
@@ -34,8 +34,18 @@ else
   cache_default=$(( 8 * 1024 * 1024 * 1024 ))
 fi
 
-exec uv run --extra mlx python -m datagen.mlx_server --model "$model" \
-  --host "${LOCAL_TEACHER_HOST:-127.0.0.1}" --port "${LOCAL_TEACHER_PORT:-8080}" \
-  --decode-concurrency "${DECODE_CONCURRENCY:-8}" \
-  --prompt-concurrency "${PROMPT_CONCURRENCY:-$prompt_default}" \
-  --prompt-cache-bytes "${PROMPT_CACHE_BYTES:-$cache_default}"
+# datagen.serve_teacher exits with 75 when mlx-lm's generation thread dies (e.g. a rare Metal
+# out-of-memory during prefill); start it again. Any other exit ends the script.
+while true; do
+  status=0
+  uv run --extra mlx python -m datagen.serve_teacher --model "$model" \
+    --host "${LOCAL_TEACHER_HOST:-127.0.0.1}" --port "${LOCAL_TEACHER_PORT:-8080}" \
+    --decode-concurrency "${DECODE_CONCURRENCY:-8}" \
+    --prompt-concurrency "${PROMPT_CONCURRENCY:-$prompt_default}" \
+    --prompt-cache-bytes "${PROMPT_CACHE_BYTES:-$cache_default}" || status=$?
+  if (( status != 75 )); then
+    exit "$status"
+  fi
+  echo "==> $(date '+%F %T') teacher generation thread died; restarting" >&2
+  sleep 5
+done

@@ -1,0 +1,58 @@
+- scenario: organizzare-matrimonio
+  level: C2
+  persona: en-f-professional
+  history: [register]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Immaginiamo una cerimonia civile al tramonto, in campagna, con una sessantina di invitati e niente di ingessato: tavolate lunghe, musica dal vivo e un menù che sappia di casa. Ecco, vorremmo che gli ospiti si sentissero a una festa, non a una sfilata."
+  - tutor: "«Una festa, non una sfilata»: me lo appunto, è la migliore sintesi che abbia sentito quest'anno. Le tavolate lunghe vanno di gran moda, ma chiedono spazio. Veniamo alle dolenti note: avete già in mente un budget?"
+    goals: [vision]
+    new: [{lemma: dolenti note, gloss: the painful part (often money)}, {lemma: tavolata, gloss: long shared table}]
+  - learner: "Dolenti note davvero, come in Dante! Pensavamo a venticinquemila euro tutto compreso, fotografo incluso. Dimmi sinceramente: con questa cifra si può fare qualcosa di bello, o stiamo sognando?"
+    errors: [register]
+  - tutor: "Vedo che l'Inferno lo conosce bene, complimenti. Sulla cifra le rispondo subito, ma prima un piccolo appunto: «dimmi»? Ci conosciamo da dieci minuti e finora ci siamo dati del Lei. Vuole riformulare?"
+    prompt: {text: "Dimmi sinceramente", tags: [register]}
+  - learner: "Mi scusi, ha ragione: mi dica sinceramente se con questa cifra si può fare qualcosa di bello."
+  - tutor: "Così va benissimo. E sinceramente le rispondo di sì: con sessanta invitati non si fanno follie, ma si fa una gran bella figura. Ho due posti in mente: una cascina con l'aia sotto i tigli, più rustica, e una villa liberty sul lago, elegante ma più cara. Quale vi somiglia di più?"
+    goals: [budget]
+    new: [{lemma: cascina, gloss: farmhouse (northern Italy)}, {lemma: aia, gloss: farmyard}, {lemma: tiglio, gloss: lime tree}]
+  - learner: "La villa sarà splendida, immagino, ma temo che ci mangerebbe mezzo budget. Preferisco la cascina: è più vicina a quello che siamo. Però prima di fare una decisione definitiva vorrei vederla di persona, magari proprio all'ora del tramonto."
+    errors: [word-choice]
+  - tutor: "Saggia prudenza: prima di prendere una decisione definitiva una visita è d'obbligo, e al tramonto la cascina dà il meglio di sé. Fissiamo per giovedì? Intanto mi dica se ha delle condizioni da pormi: preferisco patti chiari fin dall'inizio."
+    goals: [choices]
+    recast: {text: "fare una decisione definitiva", fix: "prendere una decisione definitiva", tags: [word-choice]}
+  - learner: "Patti chiari, amicizia lunga. Le condizioni sono tre: nessun fornitore scelto senza il nostro consenso, un preventivo dettagliato voce per voce e nessuna sorpresa oltre il cinque per cento della cifra pattuita. Se sforiamo, voglio saperlo prima, non dopo."
+  - tutor: "Chiarissima, e le confesso che i clienti così mi semplificano la vita. Metto tutto nero su bianco e giovedì le porto il preventivo voce per voce. Vedrà che sotto i tigli, al tramonto, le dolenti note saranno un lontano ricordo."
+    goals: [conditions]
+    new: [{lemma: mettere nero su bianco, gloss: to put in writing}]
+
+- scenario: organizzare-matrimonio
+  level: C2
+  persona: es-m-worker
+  history: [combined-pronouns]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "La ringrazio. A dire il vero, io e Giulia immaginiamo due cose diverse, e qui cominciano i problemi. Lei sogna un matrimonio in chiesa con duecento invitati; io mi accontenterei di un pranzo tra amici in riva al mare. Diciamo che cerchiamo un compromesso che non scontenti nessuno."
+  - tutor: "Non si preoccupi, è la storia di ogni coppia. Tra moglie e marito non mettere il dito, dice il proverbio, ma io di mestiere il dito lo metto eccome. Per capire quanto margine abbiamo, a che cifra avevate pensato?"
+    goals: [vision]
+    new: [{lemma: tra moglie e marito non mettere il dito, gloss: "don't meddle between husband and wife"}]
+  - learner: "Quarantamila euro al massimo, e già mi sembrano una follia. I genitori di Giulia vorrebbero contribuire, ma preferirei che non lo facessero: chi paga, poi vuole decidere anche il menù."
+  - tutor: "Vedo che i suoceri li conosce bene: soldi e consigli non arrivano mai da soli. Con quarantamila euro vi propongo due strade. Una chiesetta romanica con ricevimento in un agriturismo lì accanto, oppure una terrazza sul mare con rito civile. Sulla carta, quale la tenta di più?"
+    goals: [budget]
+    new: [{lemma: suocero, gloss: father-in-law}, {lemma: romanico, gloss: Romanesque}, {lemma: agriturismo, gloss: farm restaurant with rooms}]
+  - learner: "La terrazza, senza dubbio, ma non decido da solo. Mi prepari una scheda delle due location e stasera stessa se la mando a Giulia."
+    errors: [combined-pronouns]
+  - tutor: "Volentieri, la scheda sarà pronta nel pomeriggio. Però mi tolga una curiosità: «se la mando a Giulia»? Quel «se» mi sa tanto di spagnolo. In italiano, quando il destinatario è una terza persona, che pronome ci vuole?"
+    prompt: {text: "se la mando", tags: [combined-pronouns]}
+  - learner: "Ha ragione, lo spagnolo mi tradisce sempre lì. Volevo dire: le la mando stasera stessa."
+    errors: [combined-pronouns]
+  - tutor: "Ci siamo quasi: gliela mando, tutto attaccato, e vale sia per lui sia per lei. Anzi, gliela mando anch'io per posta elettronica, così la guardate insieme. E se Giulia insistesse per la chiesa, lei sarebbe disposto a cedere?"
+    recast: {text: "le la mando", fix: "gliela mando", tags: [combined-pronouns]}
+  - learner: "Se insistesse, cederei sulla chiesa ma non sui duecento invitati: la chiesetta romanica, con cento persone al massimo. Mi sembra un compromesso dignitoso, e così salvo capra e cavoli."
+  - tutor: "Salvare capra e cavoli è esattamente il mio lavoro: vedo che parliamo la stessa lingua. Chiesetta romanica e cento invitati, dunque. Prima di procedere, c'è qualcosa che vuole mettere in chiaro sul mio incarico?"
+    goals: [choices]
+    new: [{lemma: salvare capra e cavoli, gloss: to have it both ways}]
+  - learner: "Sì, due cose. Voglio che ogni spesa sopra i mille euro passi da noi prima di essere confermata, e che il suo compenso sia fisso, non una percentuale sul totale. Non è sfiducia: preferisco sapere fin da subito di che morte devo morire."
+  - tutor: "Nessuna offesa, anzi: compenso fisso e approvazione sopra i mille euro, lo scrivo nel contratto. Quanto al sapere di che morte si muore, parlando di un matrimonio, è una battuta che non ripeterei davanti a Giulia. Ci sentiamo domani, dopo che avrete visto le schede."
+    goals: [conditions]
+    new: [{lemma: sapere di che morte si deve morire, gloss: to know what one is in for}]
