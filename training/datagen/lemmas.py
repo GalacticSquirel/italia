@@ -67,6 +67,14 @@ IRREGULAR_FORMS = {
 }
 _SUPERLATIVE = re.compile(r"^(.{2,})issim[oaie]$")
 _ADVERB = re.compile(r"^(.{3,})mente$")
+# Spelled-out numbers ("trentacinque", "duecentocinquanta", "ventitré") are as easy as digits.
+_NUMBER_WORD = re.compile(
+    r"^(?:(?:un|due|tre|quattro|cinque|sei|sette|otto|nove)?cento|(?:due|tre|quattro|cinque|sei"
+    r"|sette|otto|nove|dieci)?mila|mille)?"
+    r"(?:venti?|trenta?|quaranta?|cinquanta?|sessanta?|settanta?|ottanta?|novanta?)?"
+    r"(?:uno|due|tré|tre|quattro|cinque|sei|sette|otto|nove|dieci|undici|dodici|tredici"
+    r"|quattordici|quindici|sedici|diciassette|diciotto|diciannove)?$"
+)
 
 # Present-tense and imperative endings, longest first, with the infinitive endings they can come
 # from. The dictionary lemmatiser picks one reading of a homograph ("paga" the noun, "usa" the
@@ -108,6 +116,15 @@ def action_noun_verbs(word: str) -> list[str]:
         return []
     stem, vowel = match.groups()
     return [stem + "are"] if vowel == "a" else [stem + "ire", stem + "ere"]
+
+
+_SHORT_IMPERATIVE_VERBS = {"di": "dire", "fa": "fare", "da": "dare", "sta": "stare", "va": "andare"}
+_SHORT_IMPERATIVE = re.compile(r"^(di|fa|da|sta|va)(?:mm|tt|ll|cc|gl|nn)[a-z]*$")
+
+
+def is_number_word(word: str) -> bool:
+    """Whether `word` is a spelled-out cardinal number (`trentacinque`, `duemila`)."""
+    return bool(word) and _NUMBER_WORD.match(word) is not None
 
 
 def verb_guesses(word: str) -> list[str]:
@@ -434,6 +451,12 @@ class SimplemmaLemmatizer:
             return []
         return verb_guesses(word) + action_noun_verbs(word)
 
+    @staticmethod
+    def _imperative_reading(word: str) -> list[str]:
+        """Short imperatives with a doubled clitic: dimmi, fammi, dallo, stammi, vacci."""
+        match = _SHORT_IMPERATIVE.match(word)
+        return [_SHORT_IMPERATIVE_VERBS[match.group(1)]] if match else []
+
     def lemmas(self, word: str) -> list[str]:
         import simplemma  # noqa: PLC0415 - heavy dictionary load only when used
 
@@ -463,8 +486,13 @@ class SimplemmaLemmatizer:
         if len(word) > 4 and word[-1] in "aie":  # vista -> visto -> vedere
             candidates.append(lemma(word[:-1] + "o"))
         candidates.extend(self._verb_readings(word))
+        candidates.extend(self._imperative_reading(word))
         for clitic in _CLITICS:
-            if word.endswith(clitic) and len(word) > len(clitic) + 3:
+            stem_len = len(word) - len(clitic)
+            # far-le, dar-ti, dir-gli: a three-letter infinitive stem ending in r is long enough.
+            if word.endswith(clitic) and (
+                stem_len > 3 or (stem_len == 3 and word[stem_len - 1] == "r")
+            ):
                 stem = word[: -len(clitic)]
                 candidates.append(lemma(stem))
                 if stem.endswith("r"):  # mangiar-lo -> mangiare
@@ -597,7 +625,12 @@ class BandChecker:
             for index, tok in enumerate(tokens(sentence)):
                 token = tok.text
                 lower = token.lower()
-                if token[0].isdigit() or lower in CLOSED_CLASS or lower in echo:
+                if (
+                    token[0].isdigit()
+                    or lower in CLOSED_CLASS
+                    or lower in echo
+                    or is_number_word(lower)
+                ):
                     continue
                 if index > 0 and token[0].isupper():
                     continue  # proper noun mid-sentence
