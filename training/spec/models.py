@@ -18,8 +18,12 @@ from pydantic.alias_generators import to_camel
 
 from spec.levels import Level
 
-SPEC_VERSION: Final = "1.0.0"
-"""Bump the major version for any change to the output format or the system prompt contract."""
+SPEC_VERSION: Final = "1.1.0"
+"""Bump the major version for any change to the output format or the system prompt contract.
+
+1.1.0 added the C1 and C2 levels (new enum values; output format and prompt unchanged). Contexts
+still accept 1.0.0 so records generated before it keep loading.
+"""
 
 START_MESSAGE = "[inizio]"
 """The first user message of every conversation: tells the tutor to open the scenario."""
@@ -183,7 +187,7 @@ class LearnerProfile(WireModel):
 class TutorContext(WireModel):
     """Everything the system prompt is rendered from."""
 
-    spec_version: Literal["1.0.0"] = SPEC_VERSION
+    spec_version: Literal["1.0.0", "1.1.0"] = SPEC_VERSION
     learner: LearnerProfile
     scenario: Scenario
 

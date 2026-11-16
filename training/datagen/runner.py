@@ -18,7 +18,7 @@ from __future__ import annotations
 import logging
 from collections import Counter
 from collections.abc import Callable, Iterable
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import CancelledError, Future, ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -71,6 +71,31 @@ def select_scenarios(config: DatagenConfig, library: dict[str, Scenario]) -> lis
     return chosen
 
 
+class _Outage:
+    """Stops a teacher-bound stage on the first error that is not about the item itself.
+
+    Leaving a `with ThreadPoolExecutor` block on an exception waits for every queued item to run,
+    and their results are lost, so a dead teacher used to burn hours of queue. Instead the queue
+    is cancelled, items already in flight are still collected, and the error is re-raised after.
+    """
+
+    def __init__(self, futures: Iterable[Future[object]]) -> None:
+        self._futures = list(futures)
+        self.error: Exception | None = None
+
+    def record(self, err: Exception) -> None:
+        if self.error is None:
+            self.error = err
+            cancelled = sum(f.cancel() for f in self._futures)
+            log.error(
+                "teacher unavailable, stopping (%d queued items cancelled): %s", cancelled, err
+            )
+
+    def reraise(self) -> None:
+        if self.error is not None:
+            raise self.error
+
+
 def pending_jobs(config: DatagenConfig, scenarios: list[Scenario]) -> list[Job]:
     """Jobs not yet generated and not exhausted by failures."""
     paths = RunPaths(config.output_dir)
@@ -107,10 +132,13 @@ def run_generate(
             pool.submit(synthesize, job, by_id[job.scenario_id], config, teacher): job
             for job in jobs
         }
+        outage = _Outage(futures)  # type: ignore[arg-type]
         for future in as_completed(futures):
             job = futures[future]
             try:
                 record = future.result()
+            except CancelledError:
+                continue
             except (SynthesisError, RuntimeError, ValueError) as err:
                 failed += 1
                 row: dict[str, object] = {"id": job.id, "error": str(err)[:500]}
@@ -118,11 +146,15 @@ def run_generate(
                     row["text"] = err.text  # lets `refilter --reparse-failed` recover it later
                 failures.append(row)
                 log.warning("job %s failed: %s", job.id, err)
+            except Exception as err:  # the teacher, not the job: stop without burning attempts
+                outage.record(err)
+                continue
             else:
                 ok += 1
                 raw.append(record.to_wire())
             if progress:
                 progress(ok + failed, len(jobs))
+    outage.reraise()
     return ok, failed
 
 
@@ -196,16 +228,23 @@ def run_judge(
             pool.submit(judge_dialogue, r, judge, max_tokens=config.judge.max_tokens): r
             for r in todo
         }
+        outage = _Outage(futures)  # type: ignore[arg-type]
         for future in as_completed(futures):
             record = futures[future]
             try:
                 result, _usage = future.result()
+            except CancelledError:
+                continue
             except (JudgeParseError, RuntimeError) as err:
                 bad += 1
                 log.warning("judge failed for %s: %s", record.id, err)
                 continue
+            except Exception as err:  # the judge endpoint, not the dialogue
+                outage.record(err)
+                continue
             ok += 1
             out.append(record.model_copy(update={"judge": result}).to_wire())
+    outage.reraise()
     return ok, bad
 
 

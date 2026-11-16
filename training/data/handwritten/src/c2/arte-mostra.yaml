@@ -1,0 +1,55 @@
+- scenario: arte-mostra
+  level: C2
+  persona: en-f-professional
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "A prima vista, ti confesso, quasi nessuna: quattro bottiglie e una scatola, il solito Morandi. Poi però resti lì, e ti accorgi che non riesci più a staccartene."
+    - tutor: "È l'effetto che fa sempre, questo bolognese: non ti prende per il bavero, ti aspetta al varco. Mezzo secolo chiuso in una stanza a dipingere le stesse bottiglie impolverate, e non una che sia uguale all'altra. Ma dimmi tu: che cosa vedi, esattamente?"
+      goals: [react]
+      new: [{lemma: prendere per il bavero, gloss: to grab by the collar}, {lemma: aspettare al varco, gloss: to lie in wait for someone}, {lemma: impolverato, gloss: dusty}]
+    - learner: "Vedo degli oggetti stretti l'uno all'altro, come se avessero freddo. I colori sono spenti, tra il grigio e il rosa, e la luce non si capisce da dove venga. Lo sfondo quasi si confonde con il tavolo."
+    - tutor: "«Come se avessero freddo»: questa te la rubo per la prossima lezione. E hai colto il punto, perché quella luce senza sorgente è la sua firma. Ora però sbilanciati: secondo te, perché un uomo passa la vita a dipingere bottiglie?"
+      goals: [describe]
+      new: [{lemma: sbilanciarsi, gloss: to commit oneself to an opinion}, {lemma: sorgente, gloss: source}]
+    - learner: "Credo che per lui le bottiglie sono solo un pretesto. Il vero soggetto è il tempo, o forse il silenzio."
+      errors: [subjunctive-use]
+    - tutor: "L'idea mi piace parecchio. La forma, un po' meno: «credo che le bottiglie sono»? Dopo un «credo che», quel verbo mi stride come un chiodo sul vetro. Ridimmelo come si deve."
+      prompt: {text: "Credo che per lui le bottiglie sono", tags: [subjunctive-use]}
+      new: [{lemma: stridere, gloss: "to screech, to jar"}, {lemma: chiodo, gloss: nail}]
+    - learner: "Hai ragione, colpa mia: credo che per lui le bottiglie siano solo un pretesto, e che il vero soggetto sia il tempo."
+    - tutor: "Ecco, adesso fila. E sono d'accordo: il nostro bolognese dipinge la durata, non le cose. Ultima provocazione: a chi lo accosteresti? Non vale rispondere «a nessuno»."
+      goals: [interpret]
+      new: [{lemma: accostare, gloss: "to compare, to place beside"}]
+    - learner: "Mi fa pensare a Chardin, per quella dignità data alle cose umili. Ma anche a Piero della Francesca: la stessa calma, la stessa luce ferma, anche se uno dipinge santi e l'altro barattoli."
+    - tutor: "Piero! Guarda che l'accostamento è un classico della critica, quindi sei in ottima compagnia. Santi e barattoli, stessa geometria: hai fatto centro. Andiamo, che di là ci sono le incisioni, e lì la mano si vede davvero."
+      goals: [compare]
+      new: [{lemma: barattolo, gloss: "jar, tin"}, {lemma: fare centro, gloss: to hit the bull's-eye}, {lemma: incisione, gloss: "etching, engraving"}]
+
+- scenario: arte-mostra
+  level: C2
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "È un De Chirico, vero? Mi mette addosso una strana inquietudine. È una piazza in pieno sole, eppure sembra che stia per succedere qualcosa di brutto."
+    - tutor: "Benvenuto nella pittura metafisica, amico mio. Lui è maestro nel farti venire la pelle d'oca a mezzogiorno, senza una goccia di sangue. Ma non fermarti alla sensazione: descrivimi che cosa c'è, pezzo per pezzo."
+      goals: [react]
+      new: [{lemma: pelle d'oca, gloss: goosebumps}, {lemma: metafisico, gloss: metaphysical}]
+    - learner: "Allora: dei portici con archi scuri, una statua sdraiata in mezzo, due figure minuscole in fondo e un treno che passa dietro un muro. Le ombre sono lunghissime, ma il cielo è verde, quasi di sera. E la prospettiva non torna: ogni edificio va per conto suo."
+    - tutor: "Bravo, hai l'occhio lungo: la prospettiva è sbagliata apposta. Ogni edificio ha il suo punto di fuga, e l'insieme non sta in piedi, proprio come nei sogni. E allora, che cosa ci sta dicendo, secondo te?"
+      goals: [describe]
+      new: [{lemma: punto di fuga, gloss: vanishing point}, {lemma: avere l'occhio lungo, gloss: to be sharp-eyed}]
+    - learner: "Secondo me parla della nostalgia. Benché la piazza è piena di luce, tutto sembra già passato, come un ricordo d'infanzia in cui non si può più entrare."
+      errors: [subjunctive-use]
+    - tutor: "Un ricordo in cui non si può più entrare: bella, questa. Però mi hai fatto sobbalzare: «benché la piazza è»? Con «benché» l'indicativo non lo perdono nemmeno a me stesso. Riprova."
+      prompt: {text: "Benché la piazza è", tags: [subjunctive-use]}
+      new: [{lemma: sobbalzare, gloss: "to jump, to start"}]
+    - learner: "Hai ragione... benché la piazza era piena di luce? No, aspetta, mi sto confondendo."
+      errors: [subjunctive-use]
+    - tutor: "Tranquillo, capita ai migliori: «benché la piazza sia piena di luce», congiuntivo. E l'idea regge: il nostro era nato in Grecia da genitori italiani, e quelle piazze sono un'Italia sognata da lontano. A quale altra pittura lo avvicineresti?"
+      goals: [interpret]
+      recast: {text: "benché la piazza era", fix: "benché la piazza sia", tags: [subjunctive-use]}
+    - learner: "Paradossalmente, ai pittori del Rinascimento: mi ricorda le città ideali, con quelle piazze geometriche e vuote. Solo che lì l'ordine rassicura, e qui invece inquieta."
+    - tutor: "Hai preso due piccioni con una fava: il confronto giusto e pure la differenza giusta. La Città ideale di Urbino è la stessa scena, ma senza l'angoscia. Lui prende quell'ordine e gli toglie il sonno. Dai, andiamo a vedere i manichini, che lì si ride ancora meno."
+      goals: [compare]
+      new: [{lemma: prendere due piccioni con una fava, gloss: to kill two birds with one stone}, {lemma: manichino, gloss: "mannequin, dummy"}]

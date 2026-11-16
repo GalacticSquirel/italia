@@ -72,7 +72,9 @@ class LanguageToolClient:
             data={"text": text, "language": "it", "level": "default"},
         )
         response.raise_for_status()
-        matches = parse_matches(response.json(), self._ignored_categories, self._ignored_rules)
+        matches = parse_matches(
+            response.json(), self._ignored_categories, self._ignored_rules, text=text
+        )
         with self._lock:
             self._cache[text] = matches
             if len(self._cache) > self._cache_size:
@@ -84,8 +86,14 @@ def parse_matches(
     payload: Mapping[str, object],
     ignored_categories: frozenset[str] = DEFAULT_IGNORED_CATEGORIES,
     ignored_rules: frozenset[str] = DEFAULT_IGNORED_RULES,
+    *,
+    text: str | None = None,
 ) -> list[GrammarMatch]:
-    """Turn a `/v2/check` response into matches, dropping ignored rules and categories."""
+    """Turn a `/v2/check` response into matches, dropping ignored rules and categories.
+
+    With the checked `text`, a spelling match on a capitalised word is dropped too: those are
+    names (Miller, Murphy, García) that the Italian dictionary does not know.
+    """
     raw = payload.get("matches", [])
     if not isinstance(raw, list):
         raise ValueError("unexpected LanguageTool response: 'matches' is not a list")
@@ -96,16 +104,23 @@ def parse_matches(
         category = str(rule.get("category", {}).get("id", ""))
         if rule_id in ignored_rules or category in ignored_categories:
             continue
-        out.append(
-            GrammarMatch(
-                rule_id=rule_id,
-                category=category,
-                message=str(item.get("message", "")),
-                offset=int(item.get("offset", 0)),
-                length=int(item.get("length", 0)),
-            )
+        match = GrammarMatch(
+            rule_id=rule_id,
+            category=category,
+            message=str(item.get("message", "")),
+            offset=int(item.get("offset", 0)),
+            length=int(item.get("length", 0)),
         )
+        misspelling = category == "TYPOS" or rule.get("issueType") == "misspelling"
+        if text is not None and misspelling and _is_name(match.span(text)):
+            continue
+        out.append(match)
     return out
+
+
+def _is_name(span: str) -> bool:
+    """A capitalised word that is not all capitals (an acronym or a shouted word is checked)."""
+    return span[:1].isupper() and not span.isupper()
 
 
 def errors_per_100_words(checker: GrammarChecker, texts: list[str]) -> float:

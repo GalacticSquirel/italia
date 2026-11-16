@@ -1,0 +1,58 @@
+- scenario: modi-di-dire
+  level: C2
+  persona: en-f-student
+  history: [hypothetical]
+  turns:
+  - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+  - learner: "Guarda, una giornata da dimenticare. Stamattina la sveglia non ha suonato, poi ho perso il treno per un soffio e, per finire in bellezza, sono arrivata al colloquio con mezz'ora di ritardo e la camicia macchiata di caffè."
+  - tutor: "Insomma, piove sempre sul bagnato! E al colloquio com'è andata: hai fatto buon viso a cattivo gioco o ti sei sciolta come neve al sole?"
+    goals: [tell]
+    new: [{lemma: piove sul bagnato, gloss: "it never rains but it pours"}, {lemma: fare buon viso a cattivo gioco, gloss: to put a brave face on it}]
+  - learner: "Piove sul bagnato, appunto: mi hanno pure chiesto quale fosse il mio punto debole, e io ho risposto «la puntualità». Almeno ho strappato una risata. Se avrei avuto dieci minuti in più, sarebbe andata diversamente."
+    errors: [hypothetical]
+  - tutor: "La risposta sulla puntualità è da applauso. Ma «se avrei avuto»? Ahi, qui mi cadi sul classico dei classici: dopo il «se» dell'ipotesi quel condizionale non ci può stare. Come la rigiri?"
+    goals: [react]
+    prompt: {text: "Se avrei avuto", tags: [hypothetical]}
+  - learner: "Hai ragione, che scivolone: se avessi avuto dieci minuti in più, sarebbe andata diversamente."
+  - tutor: "Ecco, adesso fila liscio come l'olio. Ma dimmi la verità: la colpa di chi è? Della sveglia, delle ferrovie o di qualcuno che ieri sera ha fatto le ore piccole?"
+    new: [{lemma: filare liscio come l'olio, gloss: to go smoothly}, {lemma: fare le ore piccole, gloss: to stay up very late}]
+  - learner: "Un po' di tutti, a essere onesta. La sveglia è vecchia, d'accordo, ma io ieri sono rimasta alzata fino alle due a guardare una serie. Direi che il treno è l'unico innocente: è partito in orario, per una volta."
+  - tutor: "Un treno puntuale proprio il giorno sbagliato: questa si chiama ironia della sorte. Apprezzo l'onestà, comunque: chi è causa del suo mal pianga sé stesso. E che cosa ti porti a casa da tutto questo?"
+    goals: [blame]
+    new: [{lemma: ironia della sorte, gloss: irony of fate}, {lemma: chi è causa del suo mal pianga sé stesso, gloss: "you've only yourself to blame"}]
+  - learner: "Che devo comprare due sveglie e guardare meno serie. Realmente, la morale è un'altra: non tutto il male viene per nuocere, perché ho capito che quel posto non faceva per me."
+    errors: [false-friend]
+  - tutor: "In realtà, la morale migliore l'hai trovata da sola: non tutto il male viene per nuocere. Un ufficio che non ride delle tue battute non ti merita. Dai, brindiamo alle due sveglie nuove: questo giro lo offro io."
+    goals: [moral]
+    recast: {text: "Realmente", fix: "In realtà", tags: [false-friend]}
+
+- scenario: modi-di-dire
+  level: C2
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+  - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+  - learner: "Lascia perdere, oggi me ne sono capitate di tutti i colori. Per cominciare, mi si è fermata la macchina in tangenziale. Quando finalmente sono arrivato in ufficio, la riunione col cliente cominciava già da mezz'ora."
+    errors: [tense-aspect]
+  - tutor: "Che sfortuna, in tangenziale poi! Però aspetta: «cominciava già da mezz'ora»? Se al tuo arrivo la cosa è bell'e avviata, quell'imperfetto non mi torna. Che tempo ci vuole per guardare ancora più indietro?"
+    prompt: {text: "cominciava già da mezz'ora", tags: [tense-aspect]}
+  - learner: "Ah, già: la riunione ha cominciato già da mezz'ora, volevo dire."
+    errors: [tense-aspect]
+  - tutor: "Quasi: la riunione era cominciata già da mezz'ora, perché il fatto viene prima del tuo arrivo. E tu sei entrato in punta di piedi o hai fatto l'ingresso trionfale?"
+    goals: [tell]
+    recast: {text: "ha cominciato già da mezz'ora", fix: "era cominciata già da mezz'ora", tags: [tense-aspect]}
+    new: [{lemma: in punta di piedi, gloss: on tiptoe}]
+  - learner: "Macché in punta di piedi. Entrando ho inciampato nel cavo del proiettore e ho spento tutto: una figuraccia memorabile. Il cliente rideva, il mio capo molto meno."
+  - tutor: "Ah, sei proprio entrato come un elefante in un negozio di cristalli! E il capo, immagino, ti avrà fulminato con lo sguardo. Ti ha fatto una lavata di capo, dopo?"
+    new: [{lemma: come un elefante in un negozio di cristalli, gloss: like a bull in a china shop}, {lemma: lavata di capo, gloss: telling-off}]
+  - learner: "Un elefante, sì, e pure con le scarpe slacciate! La lavata di capo me l'ha fatta eccome, davanti a tutti: mi ha detto che ormai il ritardo è il mio marchio di fabbrica."
+  - tutor: "Marchio di fabbrica, però, che stile nel rimprovero! Adesso fammi capire: di chi è la colpa, alla fine? Della macchina che ti ha piantato in asso o tua, che la tieni insieme con lo scotch?"
+    goals: [react]
+    new: [{lemma: piantare in asso, gloss: to leave in the lurch}]
+  - learner: "A voler essere giusti, la colpa è a metà. La macchina ha quindici anni e il meccanico mi aveva detto di cambiarla. Però anche il capo ha fissato la riunione alle otto senza avvisare nessuno, quindi non è che lui sia senza peccato."
+  - tutor: "Chi è senza peccato scagli la prima pietra, e il tuo capo farebbe bene a tenersela in tasca. Mezza colpa a testa, sentenza equa. E da questa giornata storta che lezione tiri fuori, a parte cambiare meccanico?"
+    goals: [blame]
+    new: [{lemma: scagliare la prima pietra, gloss: to cast the first stone}]
+  - learner: "Che è inutile piangere sul latte versato, e che la prossima volta prendo la metro. E magari che conviene ridere per primo delle proprie figuracce, prima che lo facciano gli altri."
+  - tutor: "Saggio come un proverbio, e più spiritoso. Ridere per primi è l'unico scherzo che la sfortuna non si aspetta. Dai, il prossimo giro lo offro io: dopo una giornata così, uno spritz ti spetta di diritto."
+    goals: [moral]

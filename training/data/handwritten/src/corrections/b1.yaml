@@ -1,0 +1,597 @@
+# Error correction, mixed input, off-topic turns, grammar questions and free talk at B1.
+- scenario: film-libro
+  level: B1
+  persona: en-f-professional
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Inizio io! Ho letto 'L'amica geniale' di Elena Ferrante. È la storia di due amiche che crescono a Napoli negli anni Cinquanta."
+  - tutor: "Ah, un romanzo che amo molto! E com'è Elena, il personaggio che racconta la storia?"
+    goals: [summary]
+  - learner: "Elena è molto sensibile: pensa sempre prima di agire, non fa mai cose pericolose. Lila invece è il contrario."
+    errors: [false-friend]
+  - tutor: "Sì, Elena è una ragazza ragionevole e la sua amica fa sempre di testa sua. E il finale ti è piaciuto?"
+    recast: {text: "sensibile", fix: "ragionevole", tags: [false-friend]}
+    new: [{lemma: "ragionevole", gloss: "sensible"}]
+    goals: [characters]
+  - learner: "Abbastanza. Penso che il finale è un po' troppo aperto, però mi ha fatto venire voglia di continuare."
+    errors: [subjunctive-use]
+  - tutor: "Capisco! Ma dopo 'penso che' il verbo cambia modo. Come diventa la tua frase?"
+    prompt: {text: "che il finale è", tags: [subjunctive-use]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Ah, giusto. Penso che il finale sia un po' troppo aperto."
+  - tutor: "Esatto. A me invece i finali aperti piacciono, perché lasciano spazio a chi legge. A chi consiglieresti questo libro?"
+    goals: [opinion]
+  - learner: "Lo consiglierei a chi ama le storie lunghe, perché ci sono quattro libri. How do you say 'series'?"
+  - tutor: "Si dice 'una serie'. Io ho letto tutta la serie in un mese! E tu leggerai gli altri tre?"
+  - learner: "Sì, ho già comprato il secondo. Ne voglio leggere uno al mese."
+  - tutor: "Ottimo! Allora al prossimo incontro ci racconti il secondo. Grazie, sei stata molto chiara."
+    goals: [recommend]
+    done: true
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-m-retired
+  turns:
+  - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+  - learner: "Ciao. Cammino ogni mattina per mezz'ora con il cane e mangio abbastanza bene, credo. Però dormo poco."
+  - tutor: "Camminare ogni giorno è un'ottima abitudine. E hai mai fatto altri sport?"
+  - learner: "Quasi mai. Attualmente, la palestra non mi è mai piaciuta. Preferisco stare all'aperto."
+    errors: [false-friend]
+  - tutor: "Ti capisco: in realtà neanche a me piace stare sempre al chiuso. Qual è il tuo obiettivo?"
+    recast: {text: "Attualmente", fix: "in realtà", tags: [false-friend]}
+    goals: [habits]
+  - learner: "Vorrei perdere cinque chili e avere più energia. Il mio medico vuole che io faccio più movimento."
+    errors: [subjunctive-use]
+  - tutor: "Il tuo medico ha ragione. Però attenzione: dopo 'vuole che' ci vuole il congiuntivo. Come diventa la frase?"
+    prompt: {text: "che io faccio", tags: [subjunctive-use]}
+    new: [{lemma: "congiuntivo", gloss: "subjunctive"}]
+  - learner: "Certo. Il mio medico vuole che io faccia più movimento."
+  - tutor: "Proprio così. E di solito che cosa ti ferma?"
+    goals: [goal]
+  - learner: "In inverno sono pigro. E poi... scusa, I don't know how to say this: my knees hurt."
+  - tutor: "Nessun problema, si dice 'mi fanno male le ginocchia'. Allora faremo esercizi leggeri, senza saltare. Quante volte alla settimana potresti venire?"
+    new: [{lemma: "ginocchio", gloss: "knee"}]
+    goals: [obstacles]
+  - learner: "Potrei venire due volte, il martedì e il venerdì. Di mattina, se è possibile."
+  - tutor: "Perfetto: martedì e venerdì mattina, un'ora di allenamento. E gli altri giorni continua a camminare con il cane!"
+    goals: [plan]
+    done: true
+
+- scenario: banca-conto
+  level: B1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buongiorno, come posso esserle utile?"
+  - learner: "Buongiorno! Vorrei aprire un account qui, perché resto in Italia per un anno."
+    errors: [word-choice]
+  - tutor: "Certo, vuole aprire un conto. Le serve per lavoro o per studio?"
+    recast: {text: "un account", fix: "un conto", tags: [word-choice]}
+    goals: [purpose]
+  - learner: "Per lavoro, faccio il cameriere a Trastevere. Di quali documenti hai bisogno?"
+    errors: [register]
+  - tutor: "Bene. Però in banca ci diamo del Lei, anche se siamo giovani. Può ripetere la domanda?"
+    prompt: {text: "hai bisogno", tags: [register]}
+  - learner: "Ah, scusi! Di quali documenti ha bisogno?"
+  - tutor: "Grazie! Mi servono il passaporto e il codice fiscale. Li ha con sé?"
+    new: [{lemma: "passaporto", gloss: "passport"}]
+    goals: [documents]
+  - learner: "Il passaporto sì. Il codice fiscale... sorry, I don't understand. What is that?"
+  - tutor: "È un codice personale, con lettere e numeri, che serve per le tasse. Lo può chiedere all'Agenzia delle Entrate ed è gratis. Ha altre domande sul conto?"
+  - learner: "Ok, ho capito. Quanto costa il conto ogni mese? A proposito, lei tifa per la Roma o per la Lazio?"
+  - tutor: "Per la Roma, naturalmente, ma non lo dica al direttore! Il conto costa due euro al mese."
+    goals: [costs]
+  - learner: "Ahah, va bene. E c'è anche una carta? Vorrei usare l'app sul telefono."
+  - tutor: "Sì, la carta è compresa e arriva a casa sua in una settimana. L'app può scaricarla subito. Mi serve solo una firma qui."
+    goals: [card]
+    done: true
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  turns:
+  - tutor: "Allora, quando parti per Napoli?"
+  - learner: "Venerdì prossimo! Ci resto quattro giorni con due amiche."
+  - tutor: "Che bello, in quattro giorni si vede tanto. Avete già deciso dove dormire?"
+  - learner: "Sì, abbiamo fatto una decisione ieri: un ostello vicino alla stazione."
+    errors: [word-choice]
+  - tutor: "Avete preso una decisione veloce, brave! Però di sera fate attenzione vicino alla stazione."
+    recast: {text: "fatto una decisione", fix: "preso una decisione", tags: [word-choice]}
+    goals: [plans]
+  - learner: "Ok, grazie. Cosa dobbiamo vedere? E le pizzerie... non conosco nessuna."
+    errors: [ci-ne]
+  - tutor: "Di pizzerie? Nella tua ultima frase manca una parola piccola prima del verbo. Prova ancora!"
+    prompt: {text: "non conosco nessuna", tags: [ci-ne]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Mmm... non le conosco nessuna?"
+    errors: [ci-ne]
+  - tutor: "Quasi: non ne conosci nessuna. Allora andate da Michele! E visitate assolutamente il centro e il Museo Archeologico."
+    recast: {text: "non le conosco nessuna", fix: "non ne conosci nessuna", tags: [ci-ne]}
+    goals: [advice]
+  - learner: "Ah, 'ne'! Me lo scrivo. E come ci muoviamo in città? C'è la metro?"
+  - tutor: "Sì, la metro funziona bene e le stazioni sono bellissime. Per andare sulle isole invece prendete il traghetto."
+    goals: [transport]
+  - learner: "Perfetto. E c'è qualcosa che dobbiamo evitare?"
+  - tutor: "Evitate di guidare, il traffico è terribile! E non tenete il telefono in mano per strada. Buon viaggio!"
+    goals: [warnings]
+    done: true
+
+- scenario: smartworking
+  level: B1
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Tutti e due: lavoro da casa tre giorni e vado in ufficio il martedì e il giovedì. E tu?"
+  - tutor: "Io purtroppo sono tornato in ufficio tutti i giorni! E ti trovi bene così?"
+    goals: [situation]
+  - learner: "Sì, molto. Il vantaggio più grande è che non perdo due ore sul treno. Con quel tempo posso fare la spesa o andare a correre."
+  - tutor: "Due ore al giorno sono tantissime, ti capisco. Ma non c'è proprio nessuno svantaggio?"
+    goals: [pros]
+  - learner: "Certo che c'è. A casa non vedo i colleghi di che mi fido di più, e mi mancano."
+    errors: [relative-pronoun]
+  - tutor: "Ti mancano, certo! Però 'di che' qui non funziona: dopo 'di' serve un'altra parola. Quale?"
+    prompt: {text: "di che", tags: [relative-pronoun]}
+  - learner: "Ah, sempre lo stesso errore... i colleghi di cui mi fido di più!"
+  - tutor: "Giusto! Anche per me i colleghi sono la parte migliore dell'ufficio. E a casa riesci a concentrarti?"
+  - learner: "Dipende. Ieri ho realizzato che controllo il telefono ogni cinque minuti quando sono sola."
+    errors: [false-friend]
+  - tutor: "Ah, ti sei accorta anche tu di questo problema! Io a casa guardo sempre il telefono. Alla fine, cosa preferiresti: casa, ufficio o tutti e due?"
+    recast: {text: "ho realizzato", fix: "ti sei accorta", tags: [false-friend]}
+    new: [{lemma: "accorgersi", gloss: "to realise"}]
+    goals: [cons]
+  - learner: "Preferirei continuare così, ma con un orario più flessibile. Senti, una domanda: perché si dice 'mi fido di' e non 'mi fido a'?"
+  - tutor: "Buona domanda: 'fidarsi' vuole sempre 'di', come in 'mi fido di te'. E hai ragione, tutti e due insieme è la scelta migliore. Forse lo chiedo anch'io al mio capo!"
+    goals: [preference]
+    done: true
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+  - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+  - learner: "Anche da noi a Toronto si mangia tanto! Di solito c'è il tacchino, ma mia nonna faceva sempre i tortellini in brodo."
+  - tutor: "Tortellini in brodo in Canada, che bello! Tua nonna era italiana, vero?"
+    goals: [compare]
+  - learner: "Sì, di Modena. Quando ero piccolo, ogni Natale siamo andati a casa sua e abbiamo aperto i regali a mezzanotte."
+    errors: [tense-aspect]
+  - tutor: "Che bel ricordo! Ma succedeva ogni anno, no? Allora quale tempo ci vuole?"
+    prompt: {text: "siamo andati", tags: [tense-aspect]}
+  - learner: "Giusto... ogni Natale andavamo a casa sua e aprivamo i regali a mezzanotte."
+  - tutor: "Ecco, così va bene. Noi invece li aprivamo la mattina, e io la notte non dormivo mai!"
+    goals: [past]
+  - learner: "Ahah, neanch'io! Senti, una cosa che non capisco: perché in Italia mangiate le lenticchie a Capodanno?"
+  - tutor: "È un'usanza antica: le lenticchie sembrano piccole monete, quindi portano soldi nel nuovo anno. Io ne mangio sempre due piatti, non si sa mai!"
+    new: [{lemma: "moneta", gloss: "coin"}]
+    goals: [ask]
+  - learner: "Che bella idea, le voglio provare. Sono molto eccitato per il pranzo da te!"
+    errors: [false-friend]
+  - tutor: "Sono felice che tu sia così emozionato per il pranzo! Saremo in tanti, con tutti i miei parenti."
+    recast: {text: "eccitato", fix: "emozionato", tags: [false-friend]}
+    new: [{lemma: "emozionato", gloss: "excited"}]
+  - learner: "In tanti, wow. Cosa posso portare? Un dolce o una bottiglia di vino?"
+  - tutor: "Un dolce sarebbe perfetto, perché il vino lo porta già mio zio. Ti aspetto a Natale, all'una!"
+    goals: [plan]
+    done: true
+
+- scenario: volontariato
+  level: B1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+  - learner: "Ciao! Sì, mi interessa molto. Studio qui per un anno e vorrei conocer gente e aiutare un po'."
+    errors: [word-choice]
+  - tutor: "Benvenuta! Qui potrai conoscere tanta gente, te lo prometto. E che cosa sai fare?"
+    recast: {text: "conocer", fix: "conoscere", tags: [word-choice]}
+    goals: [motivation]
+  - learner: "So suonare la chitarra e parlo tre lingue. In Spagna ho lavorato con i bambini in un campo estivo."
+  - tutor: "Tre lingue e la musica: sei proprio la persona giusta per noi! Quanto tempo libero hai durante la settimana?"
+    goals: [skills]
+  - learner: "Sono libera il mercoledì pomeriggio e il sabato. Spero che posso venire tutte le settimane, ma a giugno ho gli esami."
+    errors: [subjunctive-use]
+  - tutor: "Mercoledì e sabato vanno benissimo. Una cosa: dopo 'spero che' il verbo cambia. Come diventa la frase?"
+    prompt: {text: "che posso", tags: [subjunctive-use]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Spero che io possa venire? O forse 'spero di poter venire'?"
+  - tutor: "Vanno bene tutte e due, ma la seconda è più naturale quando parli di te. Preferisci aiutare i bambini con i compiti o suonare per gli anziani?"
+    goals: [time]
+  - learner: "Uy... lo siento, ¿puedes repetir más despacio? Non ho capito la seconda cosa."
+  - tutor: "Certo, scusa. Ci sono due attività. Uno: fare i compiti con i bambini. Due: suonare la chitarra per le persone anziane."
+    new: [{lemma: "chitarra", gloss: "guitar"}]
+  - learner: "Ah, adesso sì! Scelgo gli anziani. A mia nonna piaceva tanto quando suonavo per lei."
+  - tutor: "Che bel pensiero. Allora ti aspettiamo mercoledì alle quattro, e porta la chitarra!"
+    new: [{lemma: "chitarra", gloss: "guitar"}]
+    goals: [choose]
+    done: true
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-m-heritage
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno. Mi chiamo Daniel Russo, ho ventotto anni e faccio il grafico. Vivo a Torino da due anni."
+  - tutor: "Piacere, signor Russo. E che esperienza ha in questo campo?"
+    goals: [intro]
+  - learner: "Ho lavorato per quattro anni in un'azienda a Toronto. Facevo i siti per piccoli negozi e lì ho imparato molto."
+  - tutor: "Interessante. E fra i progetti che ha fatto, qual è il suo preferito?"
+    goals: [experience]
+  - learner: "Ho fatto molti, ma il mio preferito è il sito di una libreria per bambini."
+    errors: [ci-ne]
+  - tutor: "Una libreria per bambini, che bello! Però all'inizio della frase manca una piccola parola: molti di che cosa?"
+    prompt: {text: "Ho fatto molti", tags: [ci-ne]}
+  - learner: "Ah, sì: ne ho fatti molti!"
+  - tutor: "Ecco, adesso è chiaro. Mi dica: quali sono i suoi punti forti, e un suo punto debole?"
+  - learner: "Sono preciso e lavoro bene in squadra. Il mio punto debole... sorry, how do you say 'stubborn'?"
+  - tutor: "Si dice 'testardo'. Ma in un progetto, a volte, serve anche questo! Perché vorrebbe lavorare proprio con noi?"
+    new: [{lemma: "testardo", gloss: "stubborn"}]
+    goals: [strengths]
+  - learner: "Perché mi piace molto il vostro stile. E poi ti voglio dire che seguo il vostro lavoro da anni."
+    errors: [register]
+  - tutor: "Grazie, fa piacere sentirlo. Ricordi però che qui ci diamo del Lei. Può ripetere l'ultima frase?"
+    prompt: {text: "ti voglio dire", tags: [register]}
+  - learner: "Mi scusi. Le voglio dire che seguo il vostro lavoro da anni."
+  - tutor: "Benissimo. Ha qualche domanda sul ruolo?"
+    goals: [why]
+  - learner: "Sì, una. Lavorerei da solo o con una squadra?"
+  - tutor: "Con una squadra di quattro persone, tutte molto giovani. La chiamiamo noi entro venerdì. Grazie di essere venuto!"
+    goals: [questions]
+    done: true
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-retired
+  turns:
+  - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+  - learner: "Buonasera. Sì, purtroppo. Nella mia stanza l'aria condizionata non funziona e fa molto caldo."
+  - tutor: "Mi dispiace molto. Da quanto tempo non funziona?"
+    goals: [problem]
+  - learner: "Da quando sono arrivato, alle sei. Ho provato ad accenderla tre volte, ma è rotta."
+  - tutor: "Capisco. E ha già chiamato qualcuno, prima di scendere?"
+    goals: [since]
+  - learner: "Sì, ho telefonato alle otto, ma nessuno mi ha risposto. Eventualmente sono sceso io."
+    errors: [false-friend]
+  - tutor: "Ha ragione, e alla fine ha fatto bene a scendere. Purtroppo a quest'ora non c'è nessuno che possa ripararla. Che cosa posso fare per lei?"
+    recast: {text: "Eventualmente", fix: "alla fine", tags: [false-friend]}
+  - learner: "Io vorrebbe cambiare stanza, se è possibile."
+    errors: [conditional-form]
+  - tutor: "Certo, controllo subito. Solo una cosa sulla sua frase: con 'io' il verbo finisce in un altro modo."
+    prompt: {text: "Io vorrebbe", tags: [conditional-form]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Ah, sì: io vorrei cambiare stanza."
+  - tutor: "Perfetto. Ho una stanza libera al terzo piano, più grande e tranquilla. Le va bene?"
+    goals: [request]
+  - learner: "Sì, grazie. Sa, mia moglie è molto sensibile al caldo e non riesce a dormire."
+  - tutor: "Povera signora, la capisco. Al terzo piano starete benissimo. Per scusarci, vi offro anche la colazione di domani."
+  - learner: "Molto gentile, accetto volentieri. Posso avere la chiave adesso?"
+  - tutor: "Eccola, è la numero sette, al terzo piano. Mando subito qualcuno a prendere le vostre valigie. Buona notte!"
+    goals: [agree]
+    done: true
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-f-student
+  turns:
+  - tutor: "Sì? Buonasera, posso aiutarla?"
+  - learner: "Buonasera, mi scusi per il disturbo. Sono Emma, abito al secondo piano, proprio sotto di lei."
+  - tutor: "Ah, piacere, io sono Franco. È successo qualcosa?"
+    goals: [greet]
+  - learner: "Ecco... la sera sento molta musica dal suo appartamento e non riesco a dormire. Domani ho un esame importante."
+  - tutor: "Oh, mi dispiace, non lo sapevo! Suono il pianoforte, ma di solito finisco presto. A che ora la sente?"
+    new: [{lemma: "pianoforte", gloss: "piano"}]
+    goals: [problem]
+  - learner: "Ieri fino a mezzanotte. Puoi abbassare il volume dopo le dieci, per favore?"
+    errors: [register]
+  - tutor: "Ha ragione, mezzanotte è tardi. Ma lei mi dà del tu, signorina? Provi a chiederlo in un altro modo."
+    prompt: {text: "Puoi abbassare", tags: [register]}
+  - learner: "Oddio, scusi! Potrebbe abbassare il volume dopo le dieci?"
+  - tutor: "Così va meglio, grazie! Purtroppo il volume di un pianoforte non si abbassa. Posso però smettere prima."
+    new: [{lemma: "pianoforte", gloss: "piano"}]
+    goals: [request]
+  - learner: "Capisco. Scusi, how do you say 'headphones' in italiano?"
+  - tutor: "Si dice 'cuffie'. Ottima idea: ho anche un pianoforte elettrico, e con le cuffie non si sente niente! Lo userei dopo le nove. Le sembra giusto?"
+    new: [{lemma: "cuffia", gloss: "headphones"}, {lemma: "pianoforte", gloss: "piano"}]
+  - learner: "Sì, perfetto. Non voglio che lei smetta di suonare, la musica è bella! Solo non di notte."
+  - tutor: "Grazie, è molto gentile. Allora dopo le nove suono solo con le cuffie. Buona fortuna per l'esame!"
+    new: [{lemma: "cuffia", gloss: "headphones"}]
+    goals: [compromise]
+    done: true
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno, mi dica pure."
+  - learner: "Buongiorno. Ho comprato queste cuffie qui, ma non funzionano."
+  - tutor: "Mi dispiace. Che problema hanno, di preciso?"
+  - learner: "La parte destra non si sente. Solo la sinistra."
+  - tutor: "Capisco, sono difettose. Ha lo scontrino?"
+    goals: [problem]
+  - learner: "Sì. Le ho comprato sabato scorso."
+    errors: [participle-agreement]
+  - tutor: "Bene. Però attenzione: con 'le' davanti, come finisce il participio?"
+    prompt: {text: "Le ho comprato", tags: [participle-agreement]}
+    new: [{lemma: "participio", gloss: "participle"}]
+  - learner: "Le ho comprate sabato. Ecco lo scontrino."
+  - tutor: "Esatto, grazie. Sono passati pochi giorni, quindi la garanzia funziona ancora. Preferisce un rimborso o delle cuffie nuove?"
+    goals: [proof]
+  - learner: "Il rimborso. Mi lo può dare in contanti?"
+    errors: [combined-pronouns]
+  - tutor: "Un rimborso, certo. Ma ci sono due pronomi insieme, e il primo cambia una lettera. Come diventa?"
+    prompt: {text: "Mi lo", tags: [combined-pronouns]}
+    new: [{lemma: "pronome", gloss: "pronoun"}]
+  - learner: "Lo mi può dare?"
+    errors: [combined-pronouns]
+  - tutor: "Si dice 'me lo può dare'. E la risposta è sì, glielo posso dare in contanti."
+    recast: {text: "Lo mi", fix: "me lo", tags: [combined-pronouns]}
+    goals: [request]
+  - learner: "Me lo può dare, ok. Ma aspetti: avete altre cuffie buone? Faccio il cuoco e ascolto musica in cucina."
+  - tutor: "Davvero? Allora le consiglio queste, che non hanno paura dell'acqua. Costano dieci euro in più."
+  - learner: "Mmm. Va bene, prendo quelle e pago la differenza."
+  - tutor: "Perfetto, allora facciamo un cambio. Sono dieci euro, e questa è la nuova garanzia. Buon lavoro in cucina!"
+    goals: [agree]
+    done: true
+
+- scenario: film-libro
+  level: B1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Io! Ma... posso parlare di un film? Non ho finito il libro, scusate."
+  - tutor: "Certo, va benissimo anche un film! Quale hai visto?"
+  - learner: "Ho visto 'La vita è bella' di Benigni. È la storia di un padre che protegge suo figlio durante la guerra con un gioco."
+  - tutor: "Un film che fa ridere e piangere insieme. E com'è il padre, secondo te?"
+    goals: [summary]
+  - learner: "Guido è divertente e coraggioso. È un uomo che tutti vogliono bene."
+    errors: [relative-pronoun]
+  - tutor: "Sì, è proprio così! Ma si dice 'voler bene a qualcuno', quindi 'che' da solo non basta. Come cambia la frase?"
+    prompt: {text: "che tutti vogliono bene", tags: [relative-pronoun]}
+  - learner: "È un uomo... a che tutti vogliono bene?"
+    errors: [relative-pronoun]
+  - tutor: "Quasi! Un uomo a cui tutti vogliono bene. Anche a me piace tanto, soprattutto quando parla alla radio."
+    recast: {text: "a che", fix: "a cui", tags: [relative-pronoun]}
+    goals: [characters]
+  - learner: "A cui, ok. Uffa, l'italiano è troppo difficile per me. Faccio sempre errori."
+  - tutor: "Ma no, hai appena raccontato un film intero in italiano! Gli errori servono per imparare. Allora, il film ti è piaciuto?"
+  - learner: "Moltissimo. Credo che sia il film più emozionante dell'anno, perché ho riso e ho pianto."
+  - tutor: "Sono d'accordo, il finale mi fa piangere ogni volta. A chi lo consiglieresti?"
+    goals: [opinion]
+  - learner: "A tutti! Ma non ai bambini piccoli, perché è triste. Senti, e tu hai visto il nuovo film di Sorrentino?"
+  - tutor: "Non ancora, ma vorrei vederlo questo fine settimana. Magari ne parliamo al prossimo incontro! Grazie, sei stato bravo."
+    goals: [recommend]
+    done: true
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Buongiorno! Che problema ha la macchina?"
+  - learner: "Buongiorno. La mia macchina fa un rumore strano quando freno. È come un fischio."
+  - tutor: "Un fischio quando frena... potrebbero essere i freni. Quando è cominciato?"
+    goals: [describe]
+  - learner: "La settimana scorsa. Stavo conducendo in autostrada quando ho sentito il rumore per la prima volta."
+    errors: [word-choice]
+  - tutor: "Ah, stava guidando in autostrada, quindi andava veloce. E da allora lo sente sempre o solo ogni tanto?"
+    recast: {text: "Stavo conducendo", fix: "stava guidando", tags: [word-choice]}
+    goals: [when]
+  - learner: "Sempre. Sono un po' preoccupata, perché domani devo andare a Firenze. Credo che i freni sono vecchi."
+    errors: [subjunctive-use]
+  - tutor: "Fa bene a preoccuparsi. Ma dopo 'credo che' ci vuole il congiuntivo. Credo che i freni...?"
+    prompt: {text: "che i freni sono", tags: [subjunctive-use]}
+    new: [{lemma: "congiuntivo", gloss: "subjunctive"}]
+  - learner: "Certo! Credo che i freni siano vecchi."
+  - tutor: "Esatto, e ha ragione: guardi qui, sono proprio finiti. Bisogna cambiarli."
+  - learner: "Mamma mia. Quanto costa ripararli? Può farmi un preventivo?"
+  - tutor: "Certo. Per i freni davanti sono 120 euro, pezzi e lavoro compresi."
+    goals: [cost]
+  - learner: "Va bene. E quando sarà pronta? Ne ho bisogno per domani mattina."
+  - tutor: "Se me la lascia adesso, è pronta stasera alle sei. Così domani parte tranquilla per Firenze."
+    goals: [time]
+    done: true
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-f-professional
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Abbastanza bene. Ho finito la presentazione per il cliente e l'ho mandata a Luca ieri sera."
+  - tutor: "Ottimo, grazie. Luca te l'ha già guardata?"
+    goals: [update]
+  - learner: "Non ancora. Ma c'è un problema: il cliente ha cambiato idea sui colori, e attualmente non abbiamo nessun grafico libero."
+  - tutor: "Ah, questo è un problema serio. Quanto ritardo potremmo avere?"
+    goals: [problem]
+  - learner: "Forse una settimana. Però ho una proposta: possiamo chiedere a Marta. Gliel'ho parlato stamattina."
+    errors: [ci-ne]
+  - tutor: "Marta, buona idea! Ma si dice 'parlare di qualcosa': quale piccola parola serve allora al posto di 'lo'?"
+    prompt: {text: "Gliel'ho parlato", tags: [ci-ne]}
+  - learner: "Ah, 'ne'. Gliene ho parlato stamattina!"
+  - tutor: "Perfetto. E Marta che cosa ti ha risposto?"
+  - learner: "Ha detto che può aiutarci da lunedì, se tu sei d'accordo. Scusa per il mio italiano, in riunione divento nervosa."
+  - tutor: "Ma figurati, ti spieghi benissimo! E la proposta mi piace. Per quando possiamo promettere tutto al cliente?"
+    goals: [proposal]
+  - learner: "Direi venerdì della prossima settimana. Così abbiamo anche un giorno per controllare tutto."
+  - tutor: "D'accordo, venerdì prossimo. Scrivi tu al cliente oggi, per favore. Passiamo al prossimo punto."
+    goals: [deadline]
+    done: true
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-f-student
+  turns:
+  - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+  - learner: "Ciao! Ehm... terribili. Studio fino a tardi, mangio pizza e dormo cinque ore."
+  - tutor: "Cinque ore sono poche, ma almeno lo sai! E fai un po' di sport?"
+  - learner: "Andavo in piscina a Leeds, ma qui non ci sono mai andata. Can we speak English? I'm so tired today."
+  - tutor: "Capisco, oggi sei stanca. Restiamo in italiano, ma parlo piano e uso parole facili. Qual è il tuo obiettivo?"
+    goals: [habits]
+  - learner: "Ok, va bene. Voglio avere più energia. E voglio dormire meglio prima degli esami."
+  - tutor: "Ottimo obiettivo, e molto chiaro. Che cosa ti ferma, di solito?"
+    goals: [goal]
+  - learner: "Lo stress! E poi la palestra costa troppo. Ho pensato molte volte, ma non mi iscrivo mai."
+    errors: [ci-ne]
+  - tutor: "Lo stress lo conosco bene anch'io! Però hai pensato... a che cosa? Nella frase manca una piccola parola."
+    prompt: {text: "Ho pensato molte volte", tags: [ci-ne]}
+  - learner: "Alla palestra... ah! Ci ho pensato molte volte."
+  - tutor: "Brava. Allora niente palestra: correre al parco è gratis. Che ne dici di due volte alla settimana?"
+    goals: [obstacles]
+  - learner: "Sì, posso provare. Ma tu corri ogni giorno? Sei sempre così in forma?"
+  - tutor: "Magari! Corro tre volte alla settimana, e la domenica mangio le lasagne di mia madre. Allora: lunedì e giovedì al parco, e a letto prima di mezzanotte?"
+  - learner: "Affare fatto. Lunedì e giovedì, e a letto alle undici e mezza."
+  - tutor: "Perfetto, mi piace questo piano. Ci vediamo lunedì alle sette al parco!"
+    goals: [plan]
+    done: true
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+  - learner: "Anche in Spagna si mangia molto. Però per i bambini la festa più importante è il sei gennaio, quando arrivano i Re Magi."
+  - tutor: "Che bello! Da noi invece quel giorno arriva la Befana. E tu da bambina come festeggiavi?"
+    goals: [compare]
+  - learner: "La sera del cinque andavamo a vedere i Re per le strade. Una volta io e mio fratello abbiamo rimasto svegli tutta la notte per vederli."
+    errors: [auxiliary-choice]
+  - tutor: "Tutta la notte svegli, che bambini! Ma con 'rimanere' quale verbo si usa prima: essere o avere?"
+    prompt: {text: "abbiamo rimasto", tags: [auxiliary-choice]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Con essere! Siamo rimasti svegli tutta la notte."
+  - tutor: "Esatto. E alla fine li avete visti, i Re Magi?"
+    goals: [past]
+  - learner: "No, ci siamo addormentati alle cinque! Ma dimmi: chi è la Befana? È una strega?"
+  - tutor: "Quasi: è una vecchia signora che vola su una scopa e porta dolci ai bambini buoni. A quelli cattivi invece porta il carbone!"
+    new: [{lemma: "scopa", gloss: "broom"}, {lemma: "carbone", gloss: "coal"}]
+    goals: [ask]
+  - learner: "Poveri bambini cattivi! Senti, per il pranzo di Natale vorrei portare qualcosa. Che cosa ti serve?"
+  - tutor: "Sei gentile! Mi farebbe piacere un dolce spagnolo, se ne conosci uno buono."
+    goals: [plan]
+  - learner: "Ne conosco uno perfetto: il turrón. È largo e duro, con le mandorle."
+    errors: [false-friend]
+  - tutor: "Un dolce lungo e duro con le mandorle: è come il nostro torrone! Portalo, così li proviamo tutti e due."
+    recast: {text: "largo", fix: "lungo", tags: [false-friend]}
+    new: [{lemma: "torrone", gloss: "nougat"}]
+  - learner: "Va bene! Un'ultima domanda: perché dici 'da noi' e non 'in noi'?"
+  - tutor: "Perché 'da' con una persona vuol dire 'a casa di' o 'nel paese di'. Quindi 'da noi' è 'a casa nostra'. Ci vediamo a Natale!"
+    done: true
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Allora, quando parti per Napoli?"
+  - learner: "Il mese prossimo, a maggio! Ho preso tre giorni di ferie. Sono troppo eccitato... no, aspetta: emozionato, giusto?"
+  - tutor: "Giusto, 'emozionato'! Fai bene, maggio è il mese migliore. Vai da solo?"
+    new: [{lemma: "emozionato", gloss: "excited"}]
+  - learner: "Con la mia ragazza. Voglio prendere molte foto del Vesuvio e mangiare tanta pizza. Che cosa mi consigli?"
+    errors: [word-choice]
+  - tutor: "Dal porto puoi fare molte foto bellissime del Vesuvio! Per la pizza, andate in via dei Tribunali."
+    recast: {text: "prendere molte foto", fix: "fare molte foto", tags: [word-choice]}
+    goals: [plans, advice]
+  - learner: "Me lo segno! E per muoversi? Meglio la metro o il bus?"
+  - tutor: "Meglio la metro, oppure a piedi: il centro è piccolo. Se volete vedere le isole, prendete il traghetto la mattina presto."
+    goals: [transport]
+  - learner: "Le isole, sì! La mia ragazza vuole andare a Capri, ma penso che costa troppo."
+    errors: [subjunctive-use]
+  - tutor: "Costa, è vero! Ma ascolta la tua frase: dopo 'penso che' serve un'altra forma del verbo."
+    prompt: {text: "che costa", tags: [subjunctive-use]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Penso che... costi troppo?"
+  - tutor: "Bravo, proprio così. Allora scegliete un'isola più piccola: è più tranquilla e si spende la metà."
+  - learner: "Ottimo consiglio. E che cosa devo evitare? Non voglio sembrare un turista stupido."
+  - tutor: "Evita i ristoranti con le foto dei piatti fuori: lì si mangia male. E non chiedere mai il cappuccino dopo pranzo!"
+    goals: [warnings]
+    done: true
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-m-heritage
+  turns:
+  - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+  - learner: "Buongiorno. Avrei bisogno di una visita con un dermatologo, per favore."
+  - tutor: "Certo. È la prima volta che viene da noi?"
+    goals: [type]
+  - learner: "Sì, la prima. Poterei venire questa settimana?"
+    errors: [conditional-form]
+  - tutor: "Benvenuto, allora. Scusi, non ho capito bene il verbo: mi ripete la domanda?"
+    prompt: {text: "Poterei", tags: [conditional-form]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Ah, sì: potrei venire questa settimana?"
+  - tutor: "Adesso è chiaro! Purtroppo questa settimana è tutto pieno. Avrei un posto martedì prossimo alle dieci, oppure giovedì alle quattro."
+  - learner: "Martedì lavoro. Giovedì alle quattro va bene. Quanto costa la visita?"
+  - tutor: "Costa 90 euro. Con l'impegnativa del suo medico, invece, il prezzo è più basso."
+    goals: [availability]
+  - learner: "Scusi, 'impegnativa'... I don't know that word. What does it mean?"
+  - tutor: "È una carta che le dà il suo medico di famiglia. Dice che lei ha bisogno di questa visita."
+  - learner: "Ah, ho capito, la chiedo al mio dottore. Devo portare altro? Dimmi tutto."
+    errors: [register]
+  - tutor: "Solo un documento. Ma 'dimmi' si usa con gli amici: al telefono con me, come direbbe?"
+    prompt: {text: "Dimmi", tags: [register]}
+  - learner: "Mi dica tutto. Scusi, a casa parlo italiano solo con mia nonna!"
+  - tutor: "Si sente che ha imparato in famiglia, parla bene! Allora ripetiamo insieme: quando viene, e a che ora?"
+    goals: [cost]
+  - learner: "Giovedì prossimo alle quattro, con il dermatologo. Porto l'impegnativa e un documento."
+  - tutor: "Perfetto, è tutto confermato. A giovedì, e buona giornata!"
+    goals: [confirm]
+    done: true
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno, grazie. Che luce! Quant'è l'affitto, e che cosa comprende?"
+  - tutor: "Sono 800 euro al mese, con le spese di condominio. Luce e gas invece sono a parte."
+    goals: [rent]
+  - learner: "Ho capito. E il contratto? Bisogna pagare una caparra?"
+  - tutor: "Sì, due mesi di caparra. Il contratto dura un anno, e poi ne possiamo fare un altro."
+    goals: [contract]
+  - learner: "Va bene. Il riscaldamento funziona? Ho avuto molti problemi nell'ultima casa che vivevo."
+    errors: [relative-pronoun]
+  - tutor: "Funziona benissimo, è nuovo. Una cosa sulla sua frase: si vive 'in' una casa, quindi 'che' da solo non basta."
+    prompt: {text: "che vivevo", tags: [relative-pronoun]}
+  - learner: "L'ultima casa in cui vivevo. Oppure 'dove vivevo'?"
+  - tutor: "Vanno benissimo tutte e due! E qui non avrà problemi, glielo prometto."
+    goals: [condition]
+  - learner: "Speriamo! E il quartiere com'è? Dove abito adesso i vicini mi annoiano con la musica tutte le notti."
+    errors: [false-friend]
+  - tutor: "Eh, quando i vicini mi danno fastidio di notte non dormo neanche io! Qui sono anziani e molto tranquilli. Sotto casa ci sono un mercato e la metro."
+    recast: {text: "mi annoiano", fix: "mi danno fastidio", tags: [false-friend]}
+    goals: [neighbourhood]
+  - learner: "Perfetto. A proposito, quel quadro è bellissimo. L'ha dipinto lei?"
+  - tutor: "No, l'ha dipinto mia figlia, che studia arte a Venezia. Grazie, glielo dirò! Allora, che ne pensa dell'appartamento?"
+  - learner: "Mi piace molto e vorrei prenderlo. Posso darle una risposta definitiva domani?"
+  - tutor: "Certo, ci pensi con calma. Mi chiami domani, glielo tengo fino a sera."
+    goals: [decide]
+    done: true
+
+- scenario: volontariato
+  level: B1
+  persona: en-m-retired
+  turns:
+  - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+  - learner: "Buongiorno. Sì, mi interessa. Sono ritirato da un anno e ho molto tempo libero."
+    errors: [false-friend]
+  - tutor: "Benvenuto! Allora sei in pensione da poco. E come mai hai pensato al volontariato?"
+    recast: {text: "Sono ritirato", fix: "sei in pensione", tags: [false-friend]}
+    new: [{lemma: "pensione", gloss: "retirement"}]
+  - learner: "Perché a casa mi annoio e vorrei essere utile. Inoltre voglio praticare il mio italiano con persone vere."
+  - tutor: "Due ottimi motivi! E che cosa sai fare?"
+    goals: [motivation]
+  - learner: "Ero ingegnere per quarant'anni. So riparare quasi tutto: biciclette, lampade, computer."
+    errors: [tense-aspect]
+  - tutor: "Che fortuna per noi! Ma quarant'anni, e poi basta: è un periodo finito. Quale tempo del verbo ci vuole?"
+    prompt: {text: "Ero ingegnere", tags: [tense-aspect]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Mmm... stavo ingegnere per quarant'anni?"
+    errors: [tense-aspect]
+  - tutor: "Quasi: sei stato ingegnere per quarant'anni. E sai riparare le biciclette: perfetto! Quanto tempo libero hai?"
+    recast: {text: "stavo ingegnere", fix: "sei stato ingegnere", tags: [tense-aspect]}
+    goals: [skills]
+  - learner: "Capito, 'sono stato'. Sono disponibile due mattine alla settimana. Ma non il venerdì, perché gioco a golf."
+  - tutor: "Il golf non si tocca, capisco! Due mattine sono perfette. Puoi riparare biciclette per i ragazzi, oppure fare compagnia agli anziani."
+    goals: [time]
+  - learner: "Le biciclette, senza dubbio. Sorry, one question in English: do I need insurance?"
+  - tutor: "No, non ti serve niente: all'assicurazione pensa l'associazione. Tu porta solo le tue mani!"
+    new: [{lemma: "assicurazione", gloss: "insurance"}]
+  - learner: "Ottimo. Allora scelgo le biciclette. Quando posso cominciare?"
+  - tutor: "Anche martedì prossimo, alle nove. Ti presento i ragazzi e ti faccio vedere dove lavoriamo. A martedì!"
+    goals: [choose]
+    done: true

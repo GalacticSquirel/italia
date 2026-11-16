@@ -1,0 +1,292 @@
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-f-professional
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Capisco la sua preoccupazione, ma io sono a favore della chiusura. Credo che il centro è diventato invivibile per chi ci abita."
+    errors: [subjunctive-use]
+  - tutor: "«Credo che il centro è diventato»? Dopo «credo che», ne è proprio sicura?"
+    prompt: {text: "Credo che il centro è diventato", tags: [subjunctive-use]}
+    goals: [position]
+  - learner: "Mi scusi: credo che il centro sia diventato invivibile. C'è troppo traffico e l'aria è pessima."
+  - tutor: "Esatto. Sul traffico non le do torto, però i negozi vivono dei clienti che arrivano in macchina. Quali vantaggi vede, in pratica?"
+  - learner: "Ne vedo due. Primo, meno inquinamento, soprattutto per i bambini e gli anziani. Secondo, nelle città dove hanno creato una zona pedonale, la gente passeggia di più e compra di più."
+  - tutor: "Può darsi, ma io ho un negozio di mobili in via Garibaldi. Chi compra un letto non lo porta a casa a piedi. Come dovrei fare, secondo Lei?"
+    goals: [argue]
+  - learner: "Si potrebbe permettere l'ingresso ai furgoni per le consegne la mattina presto, come fanno a Bologna. Così i clienti non devono portare niente."
+  - tutor: "Questa è già un'idea più ragionevole. Resta il fatto che molti clienti anziani non verrebbero più. C'è qualcosa su cui mi dà ragione?"
+    goals: [counter]
+  - learner: "Sì, su un punto ha ragione: senza parcheggi vicini i commercianti perderebbero dei clienti. Propongo di chiudere solo il sabato e la domenica per un anno di prova, e intanto costruire un parcheggio vicino alla stazione."
+  - tutor: "Un anno di prova solo nel fine settimana potrei accettarlo. Lo proponga Lei al comitato, io la sosterrò. Grazie per il confronto."
+    goals: [concede]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: es-m-worker
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Buonasera. Io invece penso che sia una buona idea. Il quartiere che vivo è pieno di macchine a tutte le ore."
+    errors: [relative-pronoun]
+  - tutor: "«Il quartiere che vivo»? Qui a «che» manca qualcosa, ci pensi un attimo."
+    prompt: {text: "Il quartiere che vivo", tags: [relative-pronoun]}
+    goals: [position]
+  - learner: "Sì, il quartiere che vivo io, vicino al Duomo. Non si può nemmeno attraversare la strada."
+    errors: [relative-pronoun]
+  - tutor: "Guardi, anche il quartiere in cui vivo io è pieno di macchine, eppure senza auto il centro muore. Perché è così convinto del contrario?"
+    recast: {text: "il quartiere che vivo", fix: "il quartiere in cui vivo", tags: [relative-pronoun]}
+  - learner: "Per due motivi. Con meno traffico gli autobus sarebbero più puntuali, e poi l'aria sarebbe più pulita. Oggi il mio tragitto in autobus è molto largo, quasi un'ora."
+    errors: [false-friend]
+  - tutor: "Un tragitto molto lungo, capisco. Ma i mezzi pubblici qui finiscono alle 21. Chi lavora di sera, come mia figlia, come torna a casa?"
+    recast: {text: "molto largo", fix: "molto lungo", tags: [false-friend]}
+    new: [{lemma: tragitto, gloss: journey}]
+    goals: [argue]
+  - learner: "È vero, ma il comune potrebbe usare i soldi dei parcheggi per pagare più corse serali. In altre città funziona così."
+  - tutor: "Sulla carta sì, ma io di promesse del comune ne ho sentite tante. E poi i residenti dove lasciano la macchina?"
+    goals: [counter]
+  - learner: "Su questo le do ragione: i residenti hanno bisogno di un posto. Propongo che possano entrare con un permesso, e che il centro sia chiuso solo agli altri."
+  - tutor: "Con il permesso per i residenti il discorso cambia. Se poi arrivano davvero gli autobus di sera, potrei anche votare a favore. Ne parliamo alla prossima riunione."
+    goals: [concede]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-m-retired
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Con tutto il rispetto, non sono d'accordo. Secondo me il centro dovrebbe essere chiuso alle auto, almeno nelle ore centrali della giornata."
+  - tutor: "Almeno Lei parla chiaro. Ma io vendo scarpe in piazza da trent'anni e vedo già meno gente di una volta. Che cosa ci guadagneremmo?"
+    goals: [position]
+  - learner: "Prima di tutto, il silenzio: io abito sopra un incrocio e non dormo più. E poi i negozi stanno chiudendo anche adesso, con le auto. Nella mia via io conosco tre."
+    errors: [ci-ne]
+  - tutor: "«Io conosco tre»? Tre di che cosa? Qui manca una piccola parola."
+    prompt: {text: "io conosco tre", tags: [ci-ne]}
+    goals: [argue]
+  - learner: "Ha ragione: ne conosco tre che hanno chiuso quest'anno. Quindi il problema non sono le zone pedonali."
+  - tutor: "Giusto. Hanno chiuso per colpa degli affitti e dei centri commerciali, lo so bene. Ma se togliamo anche le auto, non diamo il colpo finale?"
+  - learner: "Non credo. La gente va al centro commerciale perché lì può camminare tranquilla. Se il nostro centro fosse piacevole come quello, tornerebbe da noi."
+  - tutor: "Questo ragionamento non l'avevo mai sentito, e un po' mi convince. Però chi cammina con difficoltà resterebbe fuori. A loro non pensa?"
+    goals: [counter]
+  - learner: "Ci penso eccome, ho 71 anni anch'io. Su questo punto ha ragione Lei. Si potrebbe mettere un piccolo autobus elettrico gratuito che gira per il centro, e lasciare entrare i taxi."
+  - tutor: "Un piccolo autobus gratuito mi sembra una proposta seria. Se il comune lo garantisce, sono disposta a provare per sei mesi. Le offro un caffè, così ne parliamo ancora."
+    goals: [concede]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: es-f-teacher
+  history: [subjunctive-form]
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Buonasera. Io sono un'insegnante della scuola qui vicino e sono favorevole. Voglio che i miei alunni vadino a scuola a piedi senza pericolo."
+    errors: [subjunctive-form]
+  - tutor: "Capisco il pensiero per i bambini. Ma «che i miei alunni vadino»? Controlli bene questa forma."
+    prompt: {text: "che i miei alunni vadino", tags: [subjunctive-form]}
+    goals: [position]
+  - learner: "Mi scusi, che vadano a scuola a piedi. Davanti alla scuola ogni mattina ci sono auto in doppia fila, ed è pericoloso. Inoltre l'aria che respirano i bambini è molto inquinata."
+  - tutor: "Così va bene. La doppia fila è un problema, lo ammetto. Ma i genitori che lavorano lontano come farebbero senza macchina?"
+    goals: [argue]
+  - learner: "Dipende di come organizziamo il servizio. Potrebbero lasciare i bambini in un punto di raccolta, e da lì si va a piedi tutti insieme con un adulto."
+    errors: [preposition]
+  - tutor: "«Dipende di come»? Ascolti bene la piccola parola dopo «dipende»."
+    prompt: {text: "Dipende di come", tags: [preposition]}
+  - learner: "Sì, dipende di come lo organizziamo, e noi insegnanti siamo pronti ad aiutare."
+    errors: [preposition]
+  - tutor: "Certo, dipende da come lo organizzate, ma anche dai soldi. Un servizio così costa, e il comune ripete sempre che non ne ha. Chi lo paga?"
+    recast: {text: "dipende di come", fix: "dipende da come", tags: [preposition]}
+    goals: [counter]
+  - learner: "Sul costo ha ragione, non è una cosa da poco. Allora propongo un compromesso: chiudiamo solo le strade intorno alla scuola, e solo all'entrata e all'uscita degli alunni."
+  - tutor: "Chiudere due strade per mezz'ora al giorno è ben diverso da chiudere tutto il centro. Così posso essere d'accordo anch'io. Mettiamo subito questa idea nella proposta per il comune."
+    goals: [concede]
+
+- scenario: politica-lavoro
+  level: B2
+  persona: en-f-student
+  history: [hypothetical]
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Secondo me esageri un po'. Alcuni lavori spariranno, certo, ma ne nasceranno di nuovi, come è sempre successo."
+  - tutor: "Sempre successo, dici. Ma stavolta le macchine imparano da sole, non è come con il treno o il telefono. Prova a immaginare: cosa succederebbe se un programma facesse il tuo lavoro?"
+    goals: [opinion]
+  - learner: "Io studio traduzione, quindi ci penso spesso. Se un programma tradurrebbe tutto perfettamente, io dovrei cambiare mestiere."
+    errors: [hypothetical]
+  - tutor: "«Se un programma tradurrebbe»? Dopo «se» questa forma non mi suona bene, riprova."
+    prompt: {text: "Se un programma tradurrebbe", tags: [hypothetical]}
+  - learner: "Hai ragione: se un programma traducesse tutto perfettamente, dovrei cambiare mestiere. Oppure diventerei quella che controlla le traduzioni."
+  - tutor: "Ecco, così sì. Però «controllare» mi sembra un lavoro più povero e pagato peggio. Hai un esempio vero di qualcuno a cui è andata bene?"
+    goals: [hypothesis]
+  - learner: "Sì, mia zia. Lavorava in banca allo sportello, e quando hanno chiuso la sua filiale ha fatto un corso di formazione. Adesso aiuta i clienti anziani a usare l'app e dice che è più contenta di prima."
+  - tutor: "Tua zia è stata fortunata, o brava, non lo so. Ma tu, alla fine, hai fiducia nel futuro o no?"
+    goals: [example]
+  - learner: "Riassumendo: la tecnologia è un rischio per chi non si aggiorna, ma un'opportunità per chi studia. E tu, Riccardo, davvero non vedi niente di positivo?"
+  - tutor: "Qualcosa di positivo lo vedo, dai: i lavori noiosi li lascio volentieri alle macchine. Resto dell'idea che molti resteranno indietro. Però stasera mi hai fatto venire qualche dubbio."
+    goals: [conclude]
+
+- scenario: politica-lavoro
+  level: B2
+  persona: es-m-worker
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Dico che hai ragione a metà. Io lavoro in una fabbrica di Brescia e in cinque anni la mia fabbrica ha cambiato moltissimo."
+    errors: [auxiliary-choice]
+  - tutor: "«La fabbrica ha cambiato»? Ha cambiato che cosa? Pensaci bene."
+    prompt: {text: "la mia fabbrica ha cambiato", tags: [auxiliary-choice]}
+    goals: [opinion]
+  - learner: "Voglio dire che la fabbrica ha cambiato da sola: adesso ci sono tre robot dove prima lavoravano dodici persone."
+    errors: [auxiliary-choice]
+  - tutor: "Ah, la fabbrica è cambiata, e tanto: allora mi dai ragione! E se domani arrivasse una macchina che fa anche il tuo lavoro, tu cosa faresti?"
+    recast: {text: "la fabbrica ha cambiato", fix: "la fabbrica è cambiata", tags: [auxiliary-choice]}
+  - learner: "Se arrivasse, non resterei a guardare. Chiederei all'azienda di pagarmi un corso, perché qualcuno deve pure riparare quelle macchine."
+  - tutor: "Bella speranza, ma io non credo che un'azienda paghi un corso a un operaio di 45 anni. Conosci qualcuno a cui è successo?"
+    goals: [hypothesis]
+  - learner: "Sì, il mio collega Dario. Faceva il magazziniere, poi l'azienda gli ha pagato sei mesi di formazione e adesso programma i robot del magazzino. Guadagna 200 euro in più al mese."
+  - tutor: "Dario mi sta già simpatico. Però per un Dario che ce la fa, quanti restano a casa?"
+    goals: [example]
+  - learner: "Alcuni, è vero. Insomma, per me l'automazione toglie i lavori pesanti ma non toglie il lavoro, se le aziende investono nelle persone. Tu invece pensi che finirà male per tutti?"
+  - tutor: "Per tutti no, ma per molti sì, se nessuno ci pensa prima. Diciamo che se tutte le aziende fossero come la tua, sarei più tranquillo. Brindiamo a Dario, allora."
+    new: [{lemma: brindare, gloss: to drink a toast}]
+    goals: [conclude]
+
+- scenario: politica-lavoro
+  level: B2
+  persona: en-m-heritage
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Dico che sei troppo pessimista, Riccardo. Metà mi sembra tantissimo. Io credo che cambieranno i compiti dentro ogni lavoro, più che i lavori."
+  - tutor: "Pessimista io? Guardo solo i fatti. Leggo ogni giorno di programmi che scrivono, disegnano, rispondono al telefono. Se domani un'azienda potesse fare tutto senza persone, secondo te cosa farebbe?"
+    goals: [opinion]
+  - learner: "Se potesse, licenzierebbe tutti, non ho dubbi. Ma poi chi comprerebbe i suoi prodotti, se nessuno avesse più uno stipendio?"
+  - tutor: "Questa è una bella domanda, e non ho la risposta. Però resta teoria. Mi fai un esempio di un lavoro che secondo te non sparirà?"
+    goals: [hypothesis]
+  - learner: "Il panettiere. Mio nonno aveva un forno in Abruzzo e voleva che io imparavo il mestiere. Oggi le macchine fanno il pane, ma la gente fa la fila per quello fatto a mano."
+    errors: [subjunctive-use]
+  - tutor: "Il pane di tuo nonno lo vorrei provare! Ma «voleva che io imparavo»? Dopo «voleva che» ci va un'altra forma."
+    prompt: {text: "voleva che io imparavo", tags: [subjunctive-use]}
+  - learner: "Giusto: voleva che io imparassi il mestiere. E forse aveva ragione lui."
+  - tutor: "Forse sì. Però un forno di paese non dà lavoro a un paese intero. Allora, alla fine dei conti, come la vedi?"
+    goals: [example]
+  - learner: "La vedo così: la tecnologia sostituirà i compiti ripetitivi, ma resterà spazio per chi sa fare bene una cosa con le mani o con la testa. E tu, sinceramente, hai paura per il tuo posto?"
+  - tutor: "Sinceramente un po' sì: lavoro con i numeri, e quelli le macchine li sanno fare meglio di me. Magari apro un forno anch'io, con la ricetta di tuo nonno."
+    goals: [conclude]
+
+- scenario: politica-lavoro
+  level: B2
+  persona: es-f-erasmus
+  history: [conditional-form]
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Dico che sono d'accordo solo in parte. Spariranno molti lavori, ma per noi giovani questo può essere anche un'opportunità."
+  - tutor: "Un'opportunità? Voi giovani siete quelli che rischiano di più, altro che. Facciamo un gioco: se tu fossi la ministra del Lavoro, cosa faresti domani mattina?"
+    goals: [opinion]
+  - learner: "Se fossi ministra, metterei più soldi nella formazione. Così una persona che perde il lavoro poterebbe imparare un mestiere nuovo in pochi mesi."
+    errors: [conditional-form]
+  - tutor: "L'idea mi piace, ma «poterebbe»? Questa forma è un po' diversa, riprova."
+    prompt: {text: "poterebbe", tags: [conditional-form]}
+  - learner: "Potrebbe, scusa. Potrebbe imparare un mestiere nuovo, e lo Stato pagherebbe il corso."
+  - tutor: "Ecco. Sulla carta funziona, ma i corsi dello Stato spesso non servono a niente. Hai un esempio concreto di dove ha funzionato?"
+    goals: [hypothesis]
+  - learner: "In Spagna, nella mia città, Valencia. Il porto è quasi tutto automatico adesso, ma le aziende che hanno esito sono quelle che hanno formato i vecchi operai a controllare le gru dal computer."
+    errors: [false-friend]
+  - tutor: "Le aziende che hanno successo, capito. Interessante, non sapevo che il porto di Valencia fosse così avanti. E quindi, in due parole, qual è la tua conclusione?"
+    recast: {text: "hanno esito", fix: "hanno successo", tags: [false-friend]}
+    goals: [example]
+  - learner: "Che l'automazione non si può fermare, però si può preparare la gente. Il rischio vero è non fare niente. E tu, Riccardo, cosa faresti al posto mio?"
+  - tutor: "Al posto tuo studierei qualcosa che le macchine non sanno fare, e intanto terrei gli occhi aperti. Io ho ancora i miei dubbi, ma spero tanto che abbia ragione tu."
+    goals: [conclude]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-f-professional
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Buongiorno e grazie dell'invito. Sono venuta a Torino sei anni fa per un progetto di lavoro di sei mesi. Poi mi sono innamorata della città e non sono più ripartita."
+  - tutor: "Una storia che sentiamo spesso, e fa sempre piacere. Ma i primi tempi non saranno stati tutti facili. Qual è stata la difficoltà più grande?"
+    goals: [story]
+  - learner: "Senza dubbio la burocrazia. Per affittare casa mi chiedevano documenti che non avevo ancora. Eventualmente ho trovato un appartamento, ma dopo quattro mesi."
+    errors: [false-friend]
+  - tutor: "Quattro mesi! Alla fine però ce l'ha fatta, per fortuna. In questi sei anni, Lei si sente cambiata?"
+    recast: {text: "Eventualmente", fix: "Alla fine", tags: [false-friend]}
+    goals: [difficulties]
+  - learner: "Moltissimo. Prima vivevo per lavorare, mangiavo davanti al computer. Credo che l'Italia mi ha insegnato a prendermi il tempo per le persone."
+    errors: [subjunctive-use]
+  - tutor: "Bello. Però «credo che l'Italia mi ha insegnato»? Dopo «credo che» ci ripensi un momento."
+    prompt: {text: "Credo che l'Italia mi ha insegnato", tags: [subjunctive-use]}
+  - learner: "Credo che l'Italia mi abbia insegnato a prendermi il tempo per le persone. Adesso il pranzo della domenica è sacro anche per me."
+  - tutor: "Perfetto, e il pranzo della domenica è una cosa seria! Molti ascoltatori sognano una scelta come la sua. Che consiglio darebbe a chi vuole trasferirsi qui?"
+    goals: [change]
+  - learner: "Consiglierei di imparare l'italiano prima di partire, non dopo. E di avere pazienza: se avessi saputo quanto tempo ci vuole per i documenti, avrei cominciato molto prima."
+  - tutor: "Lingua e pazienza: due consigli preziosi. Grazie di essere stata con noi e buona vita a Torino. Noi ci fermiamo un attimo per la musica."
+    goals: [advice]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-m-traveller
+  history: [hypothetical]
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Buongiorno a tutti. Ho viaggiato per anni con lo zaino, e nel 2019 sono passato per Lecce. Dovevo restare tre giorni, e invece ho aperto una piccola scuola di inglese."
+  - tutor: "Da tre giorni a sette anni: un bel cambio di programma! Immagino però che non sia stato tutto semplice. Qual è stata la parte più dura?"
+    goals: [story]
+  - learner: "La solitudine del primo inverno. D'estate Lecce è piena di vita, ma a gennaio non conoscevo nessuno. Se avrei saputo quanto è difficile, forse non sarei rimasto."
+    errors: [hypothetical]
+  - tutor: "Capisco bene. Ma «se avrei saputo»? Dopo «se» qui serve un'altra forma, riprovi."
+    prompt: {text: "Se avrei saputo", tags: [hypothetical]}
+    goals: [difficulties]
+  - learner: "Mi scusi... se avrei saputo prima com'era l'inverno, volevo dire. Per fortuna i vicini mi hanno invitato a Natale."
+    errors: [hypothetical]
+  - tutor: "Chissà, se avessi saputo certe cose prima, anch'io avrei fatto scelte diverse. Meno male che c'erano i vicini! E Lei, dopo questi anni, in che cosa è cambiato?"
+    recast: {text: "se avrei saputo", fix: "se avessi saputo", tags: [hypothetical]}
+  - learner: "Sono diventato più paziente e meno indipendente, in senso buono. Prima facevo tutto da solo; qui ho imparato che chiedere aiuto è normale."
+  - tutor: "Chiedere aiuto senza vergogna: non è poco. Tra chi ci ascolta c'è sicuramente qualcuno che sogna di partire. Che cosa gli direbbe?"
+    goals: [change]
+  - learner: "Gli direi di passare almeno un inverno nel posto prima di decidere. E di non frequentare solo altri stranieri, altrimenti non ci si integra mai."
+  - tutor: "Provare l'inverno prima di decidere: un consiglio molto saggio. La ringrazio per la sua storia e saluto i suoi vicini di Lecce. Restate con noi, tra poco le notizie."
+    goals: [advice]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Buongiorno! Sono arrivata a Bologna quattro anni fa con l'Erasmus, per un semestre. La città mi ha piaciuto così tanto che ho deciso di finire qui l'università."
+    errors: [auxiliary-choice]
+  - tutor: "Bologna conquista molti studenti! Ma «la città mi ha piaciuto»? Riprovi questa frase."
+    prompt: {text: "La città mi ha piaciuto", tags: [auxiliary-choice]}
+    goals: [story]
+  - learner: "Certo: la città mi è piaciuta così tanto che sono rimasta. Adesso lavoro in una libreria del centro."
+  - tutor: "Così è perfetto. Restare a vivere in un posto, però, è un'altra cosa rispetto a pochi mesi di studio. Che cosa le è pesato di più?"
+  - learner: "La nostalgia, soprattutto la domenica. Penso sempre in mia nonna, che vive a Siviglia e non usa il telefono. E poi trovare una stanza a Bologna è una vera sfida."
+    errors: [preposition]
+  - tutor: "La nostalgia la capiamo tutti. Però «penso sempre in mia nonna»? Controlli la piccola parola dopo «sempre»."
+    prompt: {text: "Penso sempre in mia nonna", tags: [preposition]}
+    goals: [difficulties]
+  - learner: "Ah, sì: penso sempre a mia nonna. Le scrivo una lettera ogni mese, come si faceva una volta."
+  - tutor: "Che bella abitudine, le lettere! E in questi quattro anni Lei è cambiata?"
+  - learner: "Sì, parecchio. Ero una ragazza che dipendeva dalla famiglia per tutto. Qui ho dovuto arrangiarmi da sola, e ho scoperto che ne sono capace."
+  - tutor: "Una bella scoperta. Ci avviciniamo alla fine: molti ragazzi spagnoli ci scrivono perché vorrebbero venire in Italia. Che consiglio ha per loro?"
+    goals: [change]
+  - learner: "Che cerchino casa mesi prima di arrivare, perché è la parte più difficile. E che non abbiano paura di sbagliare quando parlano: gli italiani apprezzano lo sforzo."
+  - tutor: "Casa per tempo e nessuna paura di sbagliare: lo ricorderemo. Grazie mille e tanti saluti alla nonna a Siviglia. Dopo la pubblicità torniamo con le vostre telefonate."
+    goals: [advice]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Buongiorno. I miei nonni erano di un paese vicino a Cosenza e sono emigrati a Boston negli anni Cinquanta. Io sono cresciuto con le loro storie e tre anni fa ho voluto vedere da dove venivano."
+  - tutor: "Un ritorno alle origini, dunque. E ha trovato il paese che i nonni le avevano raccontato?"
+    goals: [story]
+  - learner: "Non proprio. Quando sono arrivato, la casa di famiglia è già stata venduta da anni, e nessuno me l'aveva detto. Questa è stata la cosa più dura."
+    errors: [tense-aspect]
+  - tutor: "Mi dispiace molto. Ma «la casa di famiglia è già stata venduta»? Questo era successo prima del suo arrivo, ci ripensi."
+    prompt: {text: "la casa di famiglia è già stata venduta", tags: [tense-aspect]}
+    goals: [difficulties]
+  - learner: "Giusto: quando sono arrivato, la casa era già stata venduta. In più tutti mi chiamavano «l'americano», anche se parlavo il dialetto di mia nonna."
+  - tutor: "Ecco. «L'americano» in Calabria e forse «l'italiano» a Boston: non dev'essere facile. Dopo tre anni si sente una persona diversa?"
+  - learner: "Sì. Pensavo di sapere già tutto dell'Italia, invece conoscevo solo quella dei miei nonni, che non esiste più. Ho imparato ad ascoltare prima di parlare."
+  - tutor: "È una lezione che vale per molti di noi. Nel mondo ci sono tanti nipoti di italiani che pensano di tornare. Lei cosa consiglia loro?"
+    goals: [change]
+  - learner: "Di venire senza troppe aspettative e di studiare l'italiano di oggi, non solo il dialetto. E se possono, che provino prima per qualche mese: io l'avrei fatto, se ci avessi pensato."
+  - tutor: "Venire con la mente aperta, insomma. Grazie per aver raccontato questa storia ai nostri ascoltatori. E in bocca al lupo per la sua nuova vita in Calabria."
+    goals: [advice]

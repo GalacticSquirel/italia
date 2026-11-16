@@ -1,0 +1,118 @@
+- scenario: seminario-etica
+  level: C2
+  persona: en-f-student
+  history: [hypothetical]
+  turns:
+    - tutor: "Bene, dottoressa, la sua tesi è che una macchina non possa mai essere ritenuta responsabile. Mi permetta di dubitarne fin da subito."
+    - learner: "Dubiti pure, professore, è il suo mestiere. La mia tesi, per la precisione, è questa: la responsabilità morale presuppone la capacità di rispondere delle proprie ragioni, e una macchina, per quanto sofisticata, non ha ragioni proprie ma soltanto istruzioni e pesi statistici."
+    - tutor: "Enunciata con chiarezza, glielo riconosco. Ma «ragioni proprie» è un'espressione scivolosa. Anche le mie ragioni vengono da geni, educazione e abitudini che non ho scelto. Su quale distinzione poggia allora la sua tesi?"
+      goals: [thesis]
+      new: [{lemma: "scivoloso", gloss: "slippery"}, {lemma: "poggiare", gloss: "to rest on"}]
+    - learner: "Vorrei disegnare una distinzione tra causa e ragione. Un comportamento può avere cause senza che l'agente lo giustifichi; una ragione, invece, è qualcosa che l'agente può esaminare, difendere o ritrattare davanti ad altri."
+      errors: [word-choice]
+    - tutor: "Bene: lei vuole tracciare una distinzione classica, quella fra lo spazio delle cause e lo spazio delle ragioni. La accolgo. Ora faccio l'avvocato del diavolo. Un sistema che spiega le proprie decisioni e le corregge dopo una critica non sta forse esaminando e ritrattando, esattamente come richiede lei?"
+      goals: [distinguish]
+      recast: {text: "disegnare una distinzione", fix: "tracciare una distinzione", tags: [word-choice]}
+      new: [{lemma: "avvocato del diavolo", gloss: "devil's advocate"}, {lemma: "ritrattare", gloss: "to retract"}]
+    - learner: "Solo in apparenza. Quella spiegazione è un prodotto ulteriore, non un esame di coscienza. Se la macchina avrebbe davvero accesso alle proprie ragioni, potrebbe anche rifiutarsi di seguirle; invece produce la giustificazione più probabile."
+      errors: [hypothetical]
+    - tutor: "L'argomentazione mi interessa, ma prima un dettaglio che in sede di discussione le costerebbe caro: «se la macchina avrebbe»? Riformuli la premessa del suo periodo ipotetico, poi le rispondo nel merito."
+      prompt: {text: "Se la macchina avrebbe", tags: [hypothetical]}
+    - learner: "Mi scusi. Se la macchina avesse davvero accesso alle proprie ragioni, potrebbe rifiutarsi di seguirle. Il rifiuto motivato, a mio avviso, è il segno dell'agente morale."
+    - tutor: "Così va bene, e l'obiezione è respinta con eleganza. Tuttavia non canti vittoria. Gli esseri umani obbediscono spesso senza rifiutare nulla, eppure li riteniamo responsabili. Non le pare che il suo criterio sia troppo severo perfino per noi?"
+      goals: [objection]
+      new: [{lemma: "cantare vittoria", gloss: "to claim victory (too soon)"}]
+    - learner: "Su questo le do ragione: il rifiuto effettivo è un criterio troppo forte, e lo ritiro. Mi basta la capacità di rifiutare, anche se non esercitata. Chi obbedisce avrebbe potuto fare altrimenti; la macchina, allo stato attuale, no."
+    - tutor: "Una ritirata ordinata, come si conviene: cede il terreno ma salva la bandiera. Noto anche quel prudente «allo stato attuale». Ci dia dunque la conclusione, in una sola frase che potrei scrivere alla lavagna."
+      goals: [concede]
+    - learner: "Eccola: finché un sistema non potrà rispondere delle proprie ragioni e discostarsene, la responsabilità ricadrà interamente sugli agenti umani che lo progettano e lo impiegano."
+    - tutor: "Rigorosa e misurata: la scrivo alla lavagna. Quel «finché» lascia la porta socchiusa, ed è giusto così in filosofia. Per oggi ci fermiamo qui. Ottimo lavoro, dottoressa."
+      goals: [conclude]
+      new: [{lemma: "socchiuso", gloss: "ajar, half-closed"}]
+
+- scenario: seminario-etica
+  level: C2
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Bene, dottoressa, la sua tesi è che una macchina non possa mai essere ritenuta responsabile. Mi permetta di dubitarne fin da subito."
+    - learner: "La ringrazio, ma devo correggere il tiro: «mai» è una parola che non ho scritto. Sostengo che una macchina non possa essere l'unico soggetto responsabile, perché la responsabilità richiede qualcuno a cui si possa chiedere conto, e a un algoritmo non si chiede conto di nulla."
+    - tutor: "Prendo atto della correzione, e la apprezzo: le tesi senza «mai» invecchiano meglio. Però «chiedere conto» resta vago. Chiediamo conto anche alle aziende, che non hanno né corpo né coscienza. Come distingue i due casi?"
+      goals: [thesis]
+    - learner: "Distinguerei tra responsabilità causale e responsabilità morale. Benché la macchina è la causa prossima del danno, non ne è l'autrice in senso pieno. L'azienda, invece, è fatta di persone che deliberano."
+      errors: [subjunctive-use]
+    - tutor: "La distinzione promette bene. Prima però si fermi su quel «benché la macchina è»: una concessiva così, in una tesi di dottorato, mi farebbe prendere la penna rossa."
+      prompt: {text: "Benché la macchina è", tags: [subjunctive-use]}
+    - learner: "Ah, certo: benché la macchina è stata la causa prossima del danno, non ne è l'autrice in senso pieno."
+      errors: [subjunctive-use]
+    - tutor: "Non ancora: benché la macchina sia la causa prossima, serve il congiuntivo. Detto questo, la distinzione regge. Eccole però l'obiezione. Se nessun ingegnere poteva prevedere quel danno, la responsabilità morale evapora, e resta un colpevole che non può essere punito. Le sembra accettabile?"
+      goals: [distinguish]
+      recast: {text: "benché la macchina è", fix: "benché la macchina sia", tags: [subjunctive-use]}
+    - learner: "Non evapora: si sposta a monte. Chi mette in circolazione un sistema imprevedibile risponde proprio di questa scelta, come chi porta a spasso un cane senza guinzaglio. L'imprevedibilità non è una scusa, è un'aggravante."
+    - tutor: "Il cane senza guinzaglio: efficace, lo ammetto. Ma così lei vuole salvare capra e cavoli. Un cane, almeno, lo si può rimproverare. Ammetterà che con sistemi sempre più autonomi il suo «a monte» diventa molto lontano."
+      goals: [objection]
+      new: [{lemma: "salvare capra e cavoli", gloss: "to have it both ways"}, {lemma: "guinzaglio", gloss: "leash"}]
+    - learner: "Lo ammetto senza difficoltà: più il sistema è autonomo, più la catena si allunga, e a un certo punto individuare un singolo responsabile diventa una finzione. Ma una catena lunga resta una catena umana; ciò che cambia è che la responsabilità va distribuita, non abolita."
+    - tutor: "Concessione netta e tesi intatta: così si discute. Siamo quasi alla fine dell'ora. Mi riassuma tutto in una conclusione sola, senza «forse» e senza «in un certo senso»."
+      goals: [concede]
+    - learner: "La macchina può essere causa di un danno, ma mai destinataria di un rimprovero: perciò la responsabilità morale resta umana, distribuita lungo la catena di chi progetta, vende e utilizza."
+    - tutor: "Chiara, e stavolta il «mai» lo ha usato lei, ma al posto giusto. Su questa formula possiamo lavorare. Per la prossima settimana la metta per iscritto, con le obiezioni di oggi. Arrivederci, dottoressa."
+      goals: [conclude]
+
+- scenario: seminario-etica
+  level: C2
+  persona: en-m-retired
+  history: [register]
+  turns:
+    - tutor: "Bene, dottore, la sua tesi è che una macchina non possa mai essere ritenuta responsabile. Mi permetta di dubitarne fin da subito."
+    - learner: "Si accomodi, professore: quarant'anni da ingegnere mi hanno abituato ai collaudi. La mia tesi è che si è responsabili solo se si ha qualcosa da perdere. Una macchina non rischia nulla, né reputazione né rimorso, e dunque non può rispondere di ciò che fa."
+    - tutor: "Una tesi da ingegnere, solida e senza fronzoli. Ma io sono cresciuto con Collodi. Pinocchio è un pezzo di legno, eppure lo rimproveriamo dal primo capitolo. Che differenza vede tra il burattino e la sua macchina?"
+      goals: [thesis]
+      new: [{lemma: "fronzolo", gloss: "frill"}, {lemma: "burattino", gloss: "puppet"}]
+    - learner: "Una differenza decisiva: Pinocchio ha paura, ha fame, mente per vergogna. Distinguo quindi tra eseguire un compito e avere un interesse. Solo chi ha interessi propri può essere toccato da una punizione o da un perdono; il resto è manutenzione."
+    - tutor: "«Il resto è manutenzione»: questa gliela rubo. Però le faccio un'obiezione. Supponga che domani si costruisca una macchina programmata per evitare lo spegnimento a ogni costo. Non avrebbe, a quel punto, qualcosa da perdere?"
+      goals: [distinguish]
+      new: [{lemma: "spegnimento", gloss: "shutdown"}]
+    - learner: "No, e ti spiego perché: quell'avversione sarebbe scritta da noi, non nata da lei. Un interesse imposto dall'esterno è un vincolo di progetto, come il limite di carico di un ponte."
+      errors: [register]
+    - tutor: "Il ponte mi convince più del pronome. «Ti spiego», dottore? Ho i capelli bianchi anch'io, ma in seminario certe distanze si conservano."
+      prompt: {text: "ti spiego", tags: [register]}
+    - learner: "Chiedo scusa, professore, è la forza dell'abitudine: Le spiego perché. Un interesse imposto dall'esterno resta un vincolo di progetto, e a un vincolo non si chiede conto."
+    - tutor: "Scuse accettate, e risposta pulita. Ora però tocca a lei cedere qualcosa. Anche i nostri interessi sono imposti: la paura della morte non l'ho scelta io, me l'ha scritta addosso l'evoluzione. Dove sta, allora, la differenza?"
+      goals: [objection]
+    - learner: "Qui devo concedere: l'origine dell'interesse non basta a distinguere, e ritiro quell'argomento. Ma tengo il punto essenziale. Noi i nostri interessi li sentiamo, e possiamo perfino sacrificarli; alla macchina, per quanto ne sappiamo, non importa di nulla."
+    - tutor: "Ecco un collaudo superato: ha tolto un pezzo e la struttura sta ancora in piedi. Quel «per quanto ne sappiamo» è onesto. Chiuda lei, con una conclusione che reggerebbe anche davanti alla commissione."
+      goals: [concede]
+      new: [{lemma: "collaudo", gloss: "(engineering) test, inspection"}]
+    - learner: "La responsabilità presuppone un soggetto a cui importi qualcosa; finché non avremo ragioni per attribuire alle macchine un interesse sentito, risponderà sempre chi le costruisce e chi le adopera."
+    - tutor: "Rigorosa, e senza una parola di troppo. Collodi forse non sarebbe d'accordo, ma la commissione sì. Ci vediamo giovedì con il capitolo scritto. Buon lavoro, dottore."
+      goals: [conclude]
+
+- scenario: seminario-etica
+  level: C2
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Bene, dottoressa, la sua tesi è che una macchina non possa mai essere ritenuta responsabile. Mi permetta di dubitarne fin da subito."
+    - learner: "Dubiti pure, professore. Non pretendo negare che le macchine prendano decisioni con effetti morali. La mia tesi è più stretta: la responsabilità richiede intenzionalità, cioè stati mentali che vertano su qualcosa, e un sistema artificiale manipola simboli senza che significhino nulla per lui."
+      errors: [false-friend]
+    - tutor: "Dunque lei non intende negare gli effetti morali, ma soltanto l'intenzionalità: una tesi più stretta e più difendibile. Sento però l'eco di una vecchia stanza cinese. Mi dica allora che cosa separa, secondo lei, il manipolare simboli dal comprenderli."
+      goals: [thesis]
+      recast: {text: "Non pretendo negare", fix: "non intende negare", tags: [false-friend]}
+    - learner: "Distinguo tra intenzionalità originaria e intenzionalità derivata. Un libro parla di Napoleone solo perché qualcuno lo legge; allo stesso modo i simboli della macchina significano qualcosa per noi, non per lei. La responsabilità esige la prima, non la seconda."
+    - tutor: "Originaria e derivata: distinzione pulita, niente da dire. Ma il diavolo, come sa, si nasconde nei dettagli. Anche il mio cervello manipola segnali elettrici che, presi uno per uno, non significano nulla. Perché da me dovrebbe nascere il significato e dal silicio no?"
+      goals: [distinguish]
+      new: [{lemma: "silicio", gloss: "silicon"}]
+    - learner: "Perché lei, professore, non è soltanto il suo cervello: è un organismo che ha bisogni, un corpo, una storia tra altri parlanti. Il significato nasce da questo intreccio. Se un giorno una macchina vivesse così in mezzo a noi, la domanda cambierebbe; ma oggi non è questo il caso."
+    - tutor: "Risposta abile, e non mi pare che si stia arrampicando sugli specchi. Noto però una crepa. All'inizio parlava di macchine in generale, ora dice «oggi». Deve scegliere: la sua è una tesi di principio oppure una tesi sui sistemi attuali?"
+      goals: [objection]
+      new: [{lemma: "arrampicarsi sugli specchi", gloss: "to clutch at straws"}, {lemma: "crepa", gloss: "crack"}]
+    - learner: "Ha colto nel segno, e su questo mi sono equivocata: nella prima stesura parlavo di impossibilità di principio, ed era troppo. Restringo la tesi ai sistemi che conosciamo. Il nucleo però rimane: senza intenzionalità originaria non c'è responsabilità."
+      errors: [word-choice]
+    - tutor: "Apprezzo la franchezza. Se nella prima stesura si è sbagliata, lo ha riconosciuto senza perdere il nucleo, ed è così che una tesi matura. Arriviamo al dunque. Mi formuli la conclusione come la scriverebbe nell'ultima pagina."
+      goals: [concede]
+      recast: {text: "mi sono equivocata", fix: "si è sbagliata", tags: [word-choice]}
+    - learner: "Poiché la responsabilità morale presuppone un'intenzionalità originaria, e i sistemi artificiali attuali possiedono soltanto quella derivata, essi non possono essere ritenuti responsabili; la questione resta aperta per agenti di natura diversa."
+    - tutor: "Premessa, premessa, conclusione: un sillogismo in piena regola, con una porta lasciata aperta al futuro. La stanza cinese può dormire tranquilla. Per oggi basta così, dottoressa: complimenti e buon lavoro."
+      goals: [conclude]
+      new: [{lemma: "sillogismo", gloss: "syllogism"}]

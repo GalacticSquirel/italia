@@ -1,0 +1,57 @@
+- scenario: recensione-ristorante
+  level: C2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, e mi dispiace doverla disturbare, perché di solito non sono uno che si lamenta. Ma stasera, mi creda, la cena non è stata all'altezza né del posto né del conto."
+  - tutor: "La ringrazio di avermelo detto di persona, invece di scriverlo su internet: è merce rara. Mi aiuti a capire, però. Che cosa non ha funzionato, esattamente?"
+    goals: [complain]
+    new: [{lemma: merce rara, gloss: a rare thing}]
+  - learner: "Tre cose. Abbiamo atteso cinquanta minuti per i primi senza che nessuno ci dicesse nulla. Il mio risotto era scotto, una colla, mentre il brasato di mia moglie era tiepido. E quando l'ho fatto notare, il cameriere ha alzato le spalle e ha detto che la cucina era sotto pressione."
+  - tutor: "Cinquanta minuti e un'alzata di spalle: capisco che la cena le sia andata di traverso. Stasera ci manca un cuoco e siamo in affanno, ma questo è un problema nostro, non suo. Mi dica, che cosa si sarebbe aspettato da noi?"
+    goals: [detail]
+    new: [{lemma: andare di traverso, gloss: to go down the wrong way; to spoil}, {lemma: essere in affanno, gloss: to be struggling to keep up}]
+  - learner: "Niente di straordinario. Mi aspettavo che qualcuno ci avvisava del ritardo, magari con due parole e un po' di pane. E che, davanti a un piatto sbagliato, il cameriere si offrisse almeno di rifarlo."
+    errors: [subjunctive-use]
+  - tutor: "Nel merito ha perfettamente ragione. Mi permetta solo un appunto, visto che il suo italiano è quasi impeccabile: «mi aspettavo che qualcuno ci avvisava»? Nella seconda metà della frase il modo l'ha azzeccato. E nella prima?"
+    prompt: {text: "Mi aspettavo che qualcuno ci avvisava", tags: [subjunctive-use]}
+    new: [{lemma: azzeccare, gloss: to get right}]
+  - learner: "Che svista, grazie. Mi aspettavo che qualcuno ci avvisasse del ritardo: sarebbe bastato quello per cambiare la serata."
+  - tutor: "Appunto, e ha colto nel segno: un ritardo si perdona, il silenzio no. Vorrei rimediare. I due piatti non li troverà sul conto, e gradirei offrirvi il dolce e un amaro della casa. Le sembra una proposta accettabile?"
+    goals: [expectation]
+    new: [{lemma: cogliere nel segno, gloss: to hit the nail on the head}, {lemma: amaro, gloss: herbal digestif}]
+  - learner: "L'accetto volentieri per i piatti, e la ringrazio. Il dolce invece lo lasciamo per un'altra volta: si è fatto tardi e mia moglie ha perso la pazienza prima di me. Però apprezzo il gesto, e il modo."
+  - tutor: "Allora il dolce resta in sospeso, e lo consideri un invito: alla prossima visita chieda di me, e le garantisco un risotto come Dio comanda. Porga le mie scuse alla signora. Buona serata, e grazie della franchezza."
+    goals: [resolve]
+    new: [{lemma: come Dio comanda, gloss: done properly}, {lemma: franchezza, gloss: frankness}]
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera, grazie di essere venuto. Più che un problema, direi una delusione, ed è proprio per questo che ho chiesto di lei. Festeggiavo l'anniversario e avevo scelto il vostro locale per la sua fama."
+  - tutor: "Mi dispiace doppiamente, allora: deludere chi viene a festeggiare è il peggior biglietto da visita. Mi racconti con calma che cosa è andato storto, senza indorarmi la pillola."
+    goals: [complain]
+    new: [{lemma: indorare la pillola, gloss: to sugar the pill}, {lemma: biglietto da visita, gloss: calling card}]
+  - learner: "Senza indorare nulla, allora. Avevo prenotato un tavolo tranquillo e ci avete messi accanto alla porta della cucina. Poi il piatto che le ho parlato al telefono, il rombo al forno, era finito, e nessuno ce l'ha detto finché non abbiamo ordinato."
+    errors: [relative-pronoun]
+  - tutor: "Il tavolo accanto alla cucina, in una sera così: ha ragione. Una sola cosa, se permette: «il piatto che le ho parlato»? Con quel verbo il semplice «che» non basta: manca una preposizione, e un pronome che la regga. Come lo sistemerebbe?"
+    prompt: {text: "il piatto che le ho parlato", tags: [relative-pronoun]}
+  - learner: "Certo, mi scusi: il piatto del che le ho parlato al telefono."
+    errors: [relative-pronoun]
+  - tutor: "Quasi: il piatto di cui le ho parlato, direbbe un italiano. E sul rombo ha ragione da vendere: chi prenota un piatto deve trovarlo, o essere avvisato per tempo. C'è stato dell'altro, durante la cena?"
+    recast: {text: "del che le ho parlato", fix: "di cui le ho parlato", tags: [relative-pronoun]}
+    new: [{lemma: rombo, gloss: turbot}, {lemma: avere ragione da vendere, gloss: to be absolutely right}]
+  - learner: "Purtroppo sì. Il vino è arrivato dopo gli antipasti, il servizio era frettoloso e il cameriere ci ha portato il conto senza che lo chiedessimo, mentre mio marito stava ancora finendo il dolce. Ci siamo sentiti messi alla porta."
+  - tutor: "Il conto non richiesto è una scortesia che non ammetto, e ne parlerò con il personale stasera stessa. Mi tolga una curiosità, perché mi serve per rimediare: che serata aveva in mente, quando ha prenotato da noi?"
+    goals: [detail]
+    new: [{lemma: scortesia, gloss: discourtesy}]
+  - learner: "Avevo in mente una serata lenta. Mi sarei aspettata un tavolo appartato, il tempo di chiacchierare tra un piatto e l'altro, e qualcuno che ci facesse sentire attesi. Non pretendevo la luna: solo che la cura fosse all'altezza della fama."
+  - tutor: "Non chiedeva la luna, infatti, e gliela dovevamo. Le propongo questo: la cena di stasera è offerta dalla casa, e la invito a tornare per un secondo anniversario, al tavolo d'angolo sulla terrazza, con il rombo messo da parte per voi. Che ne dice?"
+    goals: [expectation]
+  - learner: "Accetto l'invito a tornare, e lo apprezzo molto. La cena di stasera, però, preferisco pagarla, tolto magari il vino: non sono venuta a parlarle per avere uno sconto, ma perché un locale così merita di sapere quando sbaglia."
+  - tutor: "Signora, clienti come lei sono oro colato, e lo dico senza piaggeria. Faremo come desidera: tolgo il vino e segno la prenotazione a suo nome. Grazie per averci dato una seconda possibilità: non la sprecheremo."
+    goals: [resolve]
+    new: [{lemma: oro colato, gloss: pure gold}, {lemma: piaggeria, gloss: flattery}]
