@@ -189,17 +189,23 @@ export function answerTrial(
 }
 
 /** Parse stored stats, falling back to a fresh learner. */
+const isRecord = (v: unknown): v is Record<string, Tally> =>
+  typeof v === 'object' && v !== null && !Array.isArray(v);
+
 export function parseHvptStats(json: string | null): HvptStats {
   if (json === null) return INITIAL_HVPT_STATS;
   try {
-    const value = JSON.parse(json) as Partial<HvptStats>;
+    const value = JSON.parse(json) as Partial<HvptStats> | null;
+    if (typeof value !== 'object' || value === null) return INITIAL_HVPT_STATS;
     const level = value.level === 2 || value.level === 3 ? value.level : 1;
     return {
       level,
-      byContrast: typeof value.byContrast === 'object' ? value.byContrast : {},
-      bySet: typeof value.bySet === 'object' ? value.bySet : {},
-      recent: Array.isArray(value.recent) ? value.recent.slice(-4) : [],
-      streak: typeof value.streak === 'number' ? value.streak : 0,
+      byContrast: isRecord(value.byContrast) ? value.byContrast : {},
+      bySet: isRecord(value.bySet) ? value.bySet : {},
+      recent: Array.isArray(value.recent)
+        ? value.recent.filter((r): r is boolean => typeof r === 'boolean').slice(-4)
+        : [],
+      streak: Number.isSafeInteger(value.streak) ? Math.max(0, value.streak ?? 0) : 0,
     };
   } catch {
     return INITIAL_HVPT_STATS;

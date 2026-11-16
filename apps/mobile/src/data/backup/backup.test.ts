@@ -1,3 +1,5 @@
+import { createScheduler, rebuildCardState } from '@italia/core';
+
 import { card as cardTable } from '@/db/schema';
 import {
   createTestDatabase,
@@ -5,6 +7,7 @@ import {
   type TestDatabase,
 } from '@/db/testing/createTestDatabase';
 
+import { toSchedule } from '../CardRepo';
 import { createRepositories, type Repositories } from '../repositories';
 import { exportBackup, importBackup, parseBackup, UnsupportedBackupVersionError } from './backup';
 import { BACKUP_SCHEMA_VERSION, type BackupFile } from './backupSchema';
@@ -17,6 +20,7 @@ interface Device {
 }
 
 const devices: Device[] = [];
+const scheduler = createScheduler();
 
 function device(prefix: string): Device {
   const t = createTestDatabase();
@@ -38,14 +42,14 @@ function populate({ repos }: Device, deviceId: string, offsetMin = 0): { cardId:
     schedule: schedule(),
     createdAt: at(offsetMin),
   });
-  repos.recordReview({
+  repos.reviewCard({
     cardId: c.id,
     rating: 'good',
     answer: 'ciao',
     latencyMs: 1000,
     reviewedAt: at(offsetMin + 1),
     deviceId,
-    next: schedule({ state: 'learning', reps: 1, lastReview: at(offsetMin + 1) }),
+    scheduler,
   });
   repos.settings.set('dailyNewLimit', 15, at(offsetMin + 2));
   repos.streak.save(
@@ -170,14 +174,14 @@ describe('backup', () => {
     const b = device('b');
     importBackup(b.t.db, fileA);
     // Device B reviews the same card again later.
-    b.repos.recordReview({
+    b.repos.reviewCard({
       cardId,
       rating: 'hard',
       answer: 'ciau',
       latencyMs: 3000,
       reviewedAt: at(100),
       deviceId: 'device-b',
-      next: schedule({ state: 'review', reps: 2, lastReview: at(100) }),
+      scheduler,
     });
     const fileB = exportBackup(b.t.db);
 
@@ -190,9 +194,13 @@ describe('backup', () => {
     ]);
     // The newly merged row is unsynced so sync pushes it; A's own row keeps its marker state.
     expect(a.repos.reviewLogs.listUnsynced(10)).toHaveLength(2);
-    // B reviewed later, so its FSRS state wins.
+    // B reviewed later, so its flags win; the FSRS state is the replay of both logs.
     expect(result.cards.updated).toBe(1);
-    expect(a.repos.cards.getById(cardId)).toMatchObject({ reps: 2, state: 'review' });
+    const merged = a.repos.cards.getById(cardId);
+    expect(merged && toSchedule(merged)).toEqual(
+      rebuildCardState(a.repos.reviewLogs.listForCard(cardId)),
+    );
+    expect(merged).toMatchObject({ reps: 2, lastReview: at(100) });
 
     // Importing the same file again changes nothing.
     const again = importBackup(a.t.db, fileB);
@@ -206,18 +214,47 @@ describe('backup', () => {
     const a = device('a');
     const { cardId } = populate(a, 'device-a');
     const old = exportBackup(a.t.db);
-    a.repos.recordReview({
+    a.repos.reviewCard({
       cardId,
       rating: 'easy',
       answer: null,
       latencyMs: 500,
       reviewedAt: at(500),
       deviceId: 'device-a',
-      next: schedule({ state: 'review', reps: 7, lastReview: at(500) }),
+      scheduler,
     });
+    const before = a.repos.cards.getById(cardId);
     const result = importBackup(a.t.db, old);
     expect(result.cards.updated).toBe(0);
-    expect(a.repos.cards.getById(cardId)?.reps).toBe(7);
+    expect(a.repos.cards.getById(cardId)).toEqual(before);
+    expect(before?.reps).toBe(2);
+  });
+
+  it('counts reviews made on both sides when both reviewed the same card', () => {
+    const a = device('a');
+    const { cardId } = populate(a, 'device-a');
+    const b = device('b');
+    importBackup(b.t.db, exportBackup(a.t.db));
+    // Both review the card again: A at +2 days (later), B at +1 day (earlier).
+    const review = (d: Device, deviceId: string, minutes: number) =>
+      d.repos.reviewCard({
+        cardId,
+        rating: 'good',
+        answer: 'ciao',
+        latencyMs: 900,
+        reviewedAt: at(minutes),
+        deviceId,
+        scheduler,
+      });
+    review(b, 'device-b', 24 * 60);
+    review(a, 'device-a', 48 * 60);
+
+    importBackup(a.t.db, exportBackup(b.t.db));
+    const logs = a.repos.reviewLogs.listForCard(cardId);
+    expect(logs).toHaveLength(3);
+    const merged = a.repos.cards.getById(cardId);
+    expect(merged?.reps).toBe(3);
+    expect(merged && toSchedule(merged)).toEqual(rebuildCardState(logs));
   });
 
   it('applies settings last-writer-wins per key and keeps the longest streak', () => {

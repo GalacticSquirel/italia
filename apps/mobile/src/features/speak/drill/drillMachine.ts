@@ -79,9 +79,9 @@ export interface DrillState {
 export type DrillEvent =
   | { type: 'start' }
   | { type: 'cueDone' }
-  | { type: 'recorded' }
-  | { type: 'transcribed'; transcript: string; latencyMs: number }
-  | { type: 'failed'; message: string }
+  | ({ type: 'recorded' } & AttemptRef)
+  | ({ type: 'transcribed'; transcript: string; latencyMs: number } & AttemptRef)
+  | ({ type: 'failed'; message: string } & AttemptRef)
   | { type: 'retryDone' }
   | { type: 'scored'; score: PronunciationScore; attempt: 1 | 2; index: number }
   | { type: 'answerDone' }
@@ -89,6 +89,23 @@ export type DrillEvent =
   | { type: 'skip' };
 
 /** A fresh drill. */
+/**
+ * The item and attempt an asynchronous result belongs to. Recording and
+ * speech recognition finish after a delay; a result for an item the learner
+ * already skipped must not be graded against the item now showing.
+ */
+export interface AttemptRef {
+  index?: number;
+  attempt?: 1 | 2;
+}
+
+function isStale(state: DrillState, ref: AttemptRef): boolean {
+  return (
+    (ref.index !== undefined && ref.index !== state.index) ||
+    (ref.attempt !== undefined && ref.attempt !== state.attempt)
+  );
+}
+
 export function createDrill(
   items: readonly DrillItem[],
   options: { allowRetry?: boolean } = {},
@@ -131,6 +148,12 @@ function advance(state: DrillState, skipped: boolean): DrillState {
 /** Apply an event; events that do not fit the current phase are ignored. */
 export function drillReducer(state: DrillState, event: DrillEvent): DrillState {
   const item = currentItem(state);
+  if (
+    (event.type === 'recorded' || event.type === 'transcribed' || event.type === 'failed') &&
+    isStale(state, event)
+  ) {
+    return state;
+  }
   switch (event.type) {
     case 'start':
       return state.phase === 'ready' ? { ...state, phase: 'cue' } : state;

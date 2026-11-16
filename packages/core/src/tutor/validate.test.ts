@@ -3,7 +3,13 @@ import { describe, expect, it } from 'vitest';
 import { tutorOutput } from '../testing';
 import { SCENARIOS } from './spec.generated';
 import type { TutorContext } from './types';
-import { correctedSentence, learnerErrorsOf, normaliseItalian, postValidate } from './validate';
+import {
+  correctedSentence,
+  learnerErrorsOf,
+  normaliseItalian,
+  postValidate,
+  spanInMessage,
+} from './validate';
 
 const scenario = SCENARIOS.find((s) => s.id === 'biglietto-treno');
 if (!scenario) throw new Error('missing scenario');
@@ -130,7 +136,32 @@ describe('helpers', () => {
     const r = { learnerText: 'ho andato', correctedText: 'sono andata', errorTags: ['x'] };
     expect(correctedSentence(learnerText, r)).toBe('Ieri sono andata a Napoli.');
     expect(correctedSentence('Ho andato a Roma.', r)).toBe('Sono andata a Roma.');
-    expect(correctedSentence('Something else', r)).toBe('sono andata');
+    expect(correctedSentence('Something else', r)).toBeNull();
+  });
+
+  it('finds the span the way validation compares text', () => {
+    const fix = (learner: string, corrected: string) => ({
+      learnerText: learner,
+      correctedText: corrected,
+      errorTags: ['x'],
+    });
+    expect(correctedSentence('Ieri ho andato a Napoli.', fix('ho andato.', 'sono andata.'))).toBe(
+      'Ieri sono andata a Napoli.',
+    );
+    expect(
+      correctedSentence('Ho bevuto l’acqua fredda', fix("l'acqua fredda", "l'acqua fresca")),
+    ).toBe("Ho bevuto l'acqua fresca");
+    expect(correctedSentence('Ieri  ho   andato a Napoli', fix('ho andato', 'sono andata'))).toBe(
+      'Ieri  sono andata a Napoli', // spaces outside the span are the learner's own
+    );
+    // Whole words only: "io" is not the "io" inside "Mio".
+    expect(correctedSentence('Mio fratello e io andiamo', fix('io', 'noi'))).toBe(
+      'Mio fratello e noi andiamo',
+    );
+    expect(correctedSentence('Vado dell’amico', fix("dell'", "dall'"))).toBe("Vado dall'amico");
+    expect(spanInMessage('io', 'Mio fratello')).toBe(false);
+    expect(spanInMessage('ho andato.', 'Ieri ho andato a Napoli')).toBe(true);
+    expect(spanInMessage('a (b', 'a (b c')).toBe(true);
   });
 
   it('lists learner errors of a turn', () => {

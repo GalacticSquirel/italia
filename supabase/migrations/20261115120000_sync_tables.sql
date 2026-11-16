@@ -1,4 +1,4 @@
--- Sync tables (ADR 0002, docs/sync.md).
+-- Sync tables (ADR 0002, docs/sync.md), in the `italia` schema.
 --
 -- Supabase stores only what devices exchange for log-based sync. Every table is
 -- scoped to one user by row-level security. Card FSRS state is NOT stored: each
@@ -20,8 +20,19 @@
 -- incoming (updated_at, device_id) is greater than the stored one; anything
 -- else is silently ignored by a trigger, whoever sends it.
 
-create schema if not exists private;
-revoke all on schema private from public, anon, authenticated;
+-- Everything lives in its own schemas so the app can share a (self-hosted)
+-- Supabase database with other projects: `italia` holds the tables the API
+-- exposes (add it to the API's exposed schemas, PGRST_DB_SCHEMAS), and
+-- `italia_private` holds the trigger functions, which nobody can call.
+
+create schema if not exists italia;
+revoke all on schema italia from public;
+-- anon gets usage so a signed-out request is refused by table grants, not by
+-- schema lookup; it has no table grants at all.
+grant usage on schema italia to anon, authenticated, service_role;
+
+create schema if not exists italia_private;
+revoke all on schema italia_private from public, anon, authenticated;
 
 -- ---------------------------------------------------------------------------
 -- Trigger functions
@@ -29,7 +40,7 @@ revoke all on schema private from public, anon, authenticated;
 
 -- Serialise a user's sync writes and give the row the next sequence value.
 -- tg_argv[0] is the table's server_seq sequence.
-create function private.assign_server_seq()
+create function italia_private.assign_server_seq()
 returns trigger
 language plpgsql
 security definer
@@ -45,7 +56,7 @@ end;
 $$;
 
 -- Append-only tables never change once written.
-create function private.reject_update()
+create function italia_private.reject_update()
 returns trigger
 language plpgsql
 set search_path = ''
@@ -58,7 +69,7 @@ $$;
 -- Last-writer-wins: keep the stored row unless the incoming one is newer by
 -- (updated_at, device_id). Device ids compare bytewise (collation "C") so the
 -- server and the devices agree on ties. tg_argv[0] is the server_seq sequence.
-create function private.last_writer_wins()
+create function italia_private.last_writer_wins()
 returns trigger
 language plpgsql
 security definer
@@ -79,17 +90,17 @@ begin
 end;
 $$;
 
-revoke all on function private.assign_server_seq() from public, anon, authenticated;
-revoke all on function private.reject_update() from public, anon, authenticated;
-revoke all on function private.last_writer_wins() from public, anon, authenticated;
+revoke all on function italia_private.assign_server_seq() from public, anon, authenticated;
+revoke all on function italia_private.reject_update() from public, anon, authenticated;
+revoke all on function italia_private.last_writer_wins() from public, anon, authenticated;
 
 -- ---------------------------------------------------------------------------
 -- review_log: append-only, the source of truth for card state
 -- ---------------------------------------------------------------------------
 
-create sequence public.review_log_server_seq_seq as bigint;
+create sequence italia.review_log_server_seq_seq as bigint;
 
-create table public.review_log (
+create table italia.review_log (
   user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
   id uuid not null,
   card_id text not null check (char_length(card_id) between 1 and 200),
@@ -104,25 +115,25 @@ create table public.review_log (
   primary key (user_id, id)
 );
 
-alter sequence public.review_log_server_seq_seq owned by public.review_log.server_seq;
+alter sequence italia.review_log_server_seq_seq owned by italia.review_log.server_seq;
 
-create unique index review_log_user_seq_idx on public.review_log (user_id, server_seq);
+create unique index review_log_user_seq_idx on italia.review_log (user_id, server_seq);
 
 create trigger review_log_assign_server_seq
-before insert on public.review_log
-for each row execute function private.assign_server_seq('public.review_log_server_seq_seq');
+before insert on italia.review_log
+for each row execute function italia_private.assign_server_seq('italia.review_log_server_seq_seq');
 
 create trigger review_log_append_only
-before update on public.review_log
-for each row execute function private.reject_update();
+before update on italia.review_log
+for each row execute function italia_private.reject_update();
 
 -- ---------------------------------------------------------------------------
 -- study_session: append-only; devices push a session once it has ended
 -- ---------------------------------------------------------------------------
 
-create sequence public.study_session_server_seq_seq as bigint;
+create sequence italia.study_session_server_seq_seq as bigint;
 
-create table public.study_session (
+create table italia.study_session (
   user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
   id uuid not null,
   started_at timestamptz not null,
@@ -137,25 +148,25 @@ create table public.study_session (
   check (ended_at >= started_at)
 );
 
-alter sequence public.study_session_server_seq_seq owned by public.study_session.server_seq;
+alter sequence italia.study_session_server_seq_seq owned by italia.study_session.server_seq;
 
-create unique index study_session_user_seq_idx on public.study_session (user_id, server_seq);
+create unique index study_session_user_seq_idx on italia.study_session (user_id, server_seq);
 
 create trigger study_session_assign_server_seq
-before insert on public.study_session
-for each row execute function private.assign_server_seq('public.study_session_server_seq_seq');
+before insert on italia.study_session
+for each row execute function italia_private.assign_server_seq('italia.study_session_server_seq_seq');
 
 create trigger study_session_append_only
-before update on public.study_session
-for each row execute function private.reject_update();
+before update on italia.study_session
+for each row execute function italia_private.reject_update();
 
 -- ---------------------------------------------------------------------------
 -- error_record: append-only
 -- ---------------------------------------------------------------------------
 
-create sequence public.error_record_server_seq_seq as bigint;
+create sequence italia.error_record_server_seq_seq as bigint;
 
-create table public.error_record (
+create table italia.error_record (
   user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
   id uuid not null,
   category text not null check (char_length(category) between 1 and 200),
@@ -168,25 +179,25 @@ create table public.error_record (
   primary key (user_id, id)
 );
 
-alter sequence public.error_record_server_seq_seq owned by public.error_record.server_seq;
+alter sequence italia.error_record_server_seq_seq owned by italia.error_record.server_seq;
 
-create unique index error_record_user_seq_idx on public.error_record (user_id, server_seq);
+create unique index error_record_user_seq_idx on italia.error_record (user_id, server_seq);
 
 create trigger error_record_assign_server_seq
-before insert on public.error_record
-for each row execute function private.assign_server_seq('public.error_record_server_seq_seq');
+before insert on italia.error_record
+for each row execute function italia_private.assign_server_seq('italia.error_record_server_seq_seq');
 
 create trigger error_record_append_only
-before update on public.error_record
-for each row execute function private.reject_update();
+before update on italia.error_record
+for each row execute function italia_private.reject_update();
 
 -- ---------------------------------------------------------------------------
 -- card_flag: per-card flags (suspended), last-writer-wins
 -- ---------------------------------------------------------------------------
 
-create sequence public.card_flag_server_seq_seq as bigint;
+create sequence italia.card_flag_server_seq_seq as bigint;
 
-create table public.card_flag (
+create table italia.card_flag (
   user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
   card_id text not null check (char_length(card_id) between 1 and 200),
   suspended boolean not null,
@@ -197,25 +208,25 @@ create table public.card_flag (
   primary key (user_id, card_id)
 );
 
-alter sequence public.card_flag_server_seq_seq owned by public.card_flag.server_seq;
+alter sequence italia.card_flag_server_seq_seq owned by italia.card_flag.server_seq;
 
-create unique index card_flag_user_seq_idx on public.card_flag (user_id, server_seq);
+create unique index card_flag_user_seq_idx on italia.card_flag (user_id, server_seq);
 
 create trigger card_flag_assign_server_seq
-before insert on public.card_flag
-for each row execute function private.assign_server_seq('public.card_flag_server_seq_seq');
+before insert on italia.card_flag
+for each row execute function italia_private.assign_server_seq('italia.card_flag_server_seq_seq');
 
 create trigger card_flag_last_writer_wins
-before update on public.card_flag
-for each row execute function private.last_writer_wins('public.card_flag_server_seq_seq');
+before update on italia.card_flag
+for each row execute function italia_private.last_writer_wins('italia.card_flag_server_seq_seq');
 
 -- ---------------------------------------------------------------------------
 -- setting: per-key settings, last-writer-wins
 -- ---------------------------------------------------------------------------
 
-create sequence public.setting_server_seq_seq as bigint;
+create sequence italia.setting_server_seq_seq as bigint;
 
-create table public.setting (
+create table italia.setting (
   user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
   key text not null check (char_length(key) between 1 and 100),
   value jsonb not null check (pg_column_size(value) <= 8192),
@@ -226,17 +237,17 @@ create table public.setting (
   primary key (user_id, key)
 );
 
-alter sequence public.setting_server_seq_seq owned by public.setting.server_seq;
+alter sequence italia.setting_server_seq_seq owned by italia.setting.server_seq;
 
-create unique index setting_user_seq_idx on public.setting (user_id, server_seq);
+create unique index setting_user_seq_idx on italia.setting (user_id, server_seq);
 
 create trigger setting_assign_server_seq
-before insert on public.setting
-for each row execute function private.assign_server_seq('public.setting_server_seq_seq');
+before insert on italia.setting
+for each row execute function italia_private.assign_server_seq('italia.setting_server_seq_seq');
 
 create trigger setting_last_writer_wins
-before update on public.setting
-for each row execute function private.last_writer_wins('public.setting_server_seq_seq');
+before update on italia.setting
+for each row execute function italia_private.last_writer_wins('italia.setting_server_seq_seq');
 
 -- ---------------------------------------------------------------------------
 -- Privileges and row-level security
@@ -246,54 +257,59 @@ for each row execute function private.last_writer_wins('public.setting_server_se
 -- operations sync needs; there is no delete for anyone but the table owner
 -- (account deletion cascades from auth.users).
 revoke all on table
-  public.review_log, public.study_session, public.error_record, public.card_flag, public.setting
+  italia.review_log, italia.study_session, italia.error_record, italia.card_flag, italia.setting
   from public, anon, authenticated;
 
-grant select, insert on table public.review_log, public.study_session, public.error_record
+grant select, insert on table italia.review_log, italia.study_session, italia.error_record
   to authenticated;
-grant select, insert, update on table public.card_flag, public.setting to authenticated;
+grant select, insert, update on table italia.card_flag, italia.setting to authenticated;
+-- The service role (server-side admin scripts only; never in the app)
+-- bypasses row-level security, as it does for the public schema.
+grant select, insert, update, delete on table
+  italia.review_log, italia.study_session, italia.error_record, italia.card_flag, italia.setting
+  to service_role;
 
 revoke all on sequence
-  public.review_log_server_seq_seq,
-  public.study_session_server_seq_seq,
-  public.error_record_server_seq_seq,
-  public.card_flag_server_seq_seq,
-  public.setting_server_seq_seq
+  italia.review_log_server_seq_seq,
+  italia.study_session_server_seq_seq,
+  italia.error_record_server_seq_seq,
+  italia.card_flag_server_seq_seq,
+  italia.setting_server_seq_seq
   from public, anon, authenticated;
 
-alter table public.review_log enable row level security;
-alter table public.study_session enable row level security;
-alter table public.error_record enable row level security;
-alter table public.card_flag enable row level security;
-alter table public.setting enable row level security;
+alter table italia.review_log enable row level security;
+alter table italia.study_session enable row level security;
+alter table italia.error_record enable row level security;
+alter table italia.card_flag enable row level security;
+alter table italia.setting enable row level security;
 
-create policy "review_log: read own" on public.review_log
+create policy "review_log: read own" on italia.review_log
   for select to authenticated using ((select auth.uid()) = user_id);
-create policy "review_log: insert own" on public.review_log
+create policy "review_log: insert own" on italia.review_log
   for insert to authenticated with check ((select auth.uid()) = user_id);
 
-create policy "study_session: read own" on public.study_session
+create policy "study_session: read own" on italia.study_session
   for select to authenticated using ((select auth.uid()) = user_id);
-create policy "study_session: insert own" on public.study_session
+create policy "study_session: insert own" on italia.study_session
   for insert to authenticated with check ((select auth.uid()) = user_id);
 
-create policy "error_record: read own" on public.error_record
+create policy "error_record: read own" on italia.error_record
   for select to authenticated using ((select auth.uid()) = user_id);
-create policy "error_record: insert own" on public.error_record
+create policy "error_record: insert own" on italia.error_record
   for insert to authenticated with check ((select auth.uid()) = user_id);
 
-create policy "card_flag: read own" on public.card_flag
+create policy "card_flag: read own" on italia.card_flag
   for select to authenticated using ((select auth.uid()) = user_id);
-create policy "card_flag: insert own" on public.card_flag
+create policy "card_flag: insert own" on italia.card_flag
   for insert to authenticated with check ((select auth.uid()) = user_id);
-create policy "card_flag: update own" on public.card_flag
+create policy "card_flag: update own" on italia.card_flag
   for update to authenticated
   using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
 
-create policy "setting: read own" on public.setting
+create policy "setting: read own" on italia.setting
   for select to authenticated using ((select auth.uid()) = user_id);
-create policy "setting: insert own" on public.setting
+create policy "setting: insert own" on italia.setting
   for insert to authenticated with check ((select auth.uid()) = user_id);
-create policy "setting: update own" on public.setting
+create policy "setting: update own" on italia.setting
   for update to authenticated
   using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);

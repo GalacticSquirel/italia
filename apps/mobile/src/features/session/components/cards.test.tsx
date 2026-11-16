@@ -1,7 +1,8 @@
-import { render, screen, userEvent } from '@testing-library/react-native';
-import * as Speech from 'expo-speech';
+import { render, screen, userEvent, waitFor } from '@testing-library/react-native';
 
 import type { GrammarPointRow, LemmaRow, SentenceRow } from '@/data';
+import { SpeechProvider } from '@/speech';
+import { createFakeSpeechServices } from '@/speech/testing';
 import { ThemeProvider } from '@/ui';
 
 import { RecognitionCard } from './RecognitionCard';
@@ -38,10 +39,16 @@ const grammar: GrammarPointRow = {
   noteMd: 'note',
 };
 
-const wrap = (node: React.ReactNode) => <ThemeProvider scheme="light">{node}</ThemeProvider>;
+let speech: ReturnType<typeof createFakeSpeechServices>;
+
+const wrap = (node: React.ReactNode) => (
+  <ThemeProvider scheme="light">
+    <SpeechProvider services={speech}>{node}</SpeechProvider>
+  </ThemeProvider>
+);
 
 beforeEach(() => {
-  jest.mocked(Speech.speak).mockClear();
+  speech = createFakeSpeechServices();
 });
 
 describe('RecognitionCard', () => {
@@ -62,12 +69,10 @@ describe('RecognitionCard', () => {
     expect(screen.getByText('noun')).toBeOnTheScreen();
     expect(screen.getByText('house, home')).toBeOnTheScreen();
     expect(screen.getByText('The house is big.')).toBeOnTheScreen();
-    expect(Speech.speak).toHaveBeenCalledWith('casa. La casa è grande.', {
-      language: 'it-IT',
-      rate: 0.9,
-      onDone: undefined,
-      onStopped: undefined,
-      onError: undefined,
+    await waitFor(() => {
+      expect(speech.audio.spoken).toEqual([
+        { text: 'casa. La casa è grande.', options: { language: 'it-IT', rate: 0.9 } },
+      ]);
     });
     await user.press(screen.getByRole('button', { name: 'Got it' }));
     expect(onGotIt).toHaveBeenCalledTimes(1);
@@ -181,11 +186,18 @@ describe('TypedPromptCard', () => {
     );
     expect(screen.getByText('Type what you hear')).toBeOnTheScreen();
     expect(screen.queryByText(sentence.it)).toBeNull();
-    expect(Speech.speak).toHaveBeenCalledWith(sentence.it, expect.objectContaining({ rate: 1 }));
+    await waitFor(() => {
+      expect(speech.audio.spoken.at(-1)).toEqual({
+        text: sentence.it,
+        options: { language: 'it-IT', rate: 1 },
+      });
+    });
     await user.press(screen.getByRole('button', { name: 'Play slowly' }));
-    expect(Speech.speak).toHaveBeenLastCalledWith(
-      sentence.it,
-      expect.objectContaining({ language: 'it-IT', rate: 0.7 }),
-    );
+    await waitFor(() => {
+      expect(speech.audio.spoken.at(-1)).toEqual({
+        text: sentence.it,
+        options: { language: 'it-IT', rate: 0.7 },
+      });
+    });
   });
 });
