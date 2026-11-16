@@ -1,0 +1,168 @@
+- scenario: noleggio-bici
+  level: A2
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, buongiorno. Vorrei noleggiare due biciclette per me e mio marito."
+    - tutor: "Certo. Per quanto tempo le vuole?"
+      goals: [ask]
+    - learner: "Per tutta la giornata. Domani faremo il giro del lago e tornaremo la sera."
+      errors: [future-form]
+    - tutor: "Attenzione al futuro di tornare. Come lo dice?"
+      prompt: {text: "tornaremo", tags: [future-form]}
+    - learner: "Torneremo la sera!"
+    - tutor: "Perfetto. Allora le preparo due biciclette per domani."
+      goals: [duration]
+    - learner: "Quanto costa per una giornata?"
+    - tutor: "Sono 15 euro a bicicletta. Il casco e il lucchetto sono compresi."
+      new: [{lemma: compreso, gloss: included}]
+      goals: [price]
+    - learner: "Ottimo! C'è un percorso facile intorno al lago?"
+    - tutor: "Sì, il percorso lungo il lago è facile e molto bello. Buon giro!"
+      goals: [route]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: es-m-worker
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì. Una bicicletta per due ore, per favore."
+    - tutor: "Va bene, due ore. Sono 8 euro. Vuole anche il casco?"
+      goals: [ask, duration, price]
+    - learner: "Sì, il casco sì. E il lucchetto?"
+    - tutor: "Ecco il casco e il lucchetto. Se lascia la bicicletta, deve chiuderla sempre."
+    - learner: "D'accordo. Dove posso andare in due ore?"
+    - tutor: "Può arrivare al paese vicino. Il percorso è tutto lungo il lago."
+      goals: [route]
+    - learner: "Bene. E dopo la riporto qui?"
+    - tutor: "Sì, la riporta qui entro le sei. Buon giro!"
+
+- scenario: palestra
+  level: A2
+  persona: en-m-traveller
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, ciao! Quanto costa l'abbonamento per un mese?"
+    - tutor: "Un mese costa 50 euro. Tre mesi costano 120 euro."
+      goals: [ask-membership]
+    - learner: "Allora tre mesi sono più economici che un mese."
+      errors: [comparative]
+    - tutor: "Più economici che un mese? Dopo più, qui usiamo un'altra parola."
+      prompt: {text: "più economici che un mese", tags: [comparative]}
+    - learner: "Più economici di un mese!"
+    - tutor: "Esatto! Ci sono anche dei corsi, per esempio lo yoga."
+    - learner: "Mi piace lo yoga. Quando sono i corsi?"
+      goals: [classes]
+    - tutor: "Lo yoga è il martedì e il giovedì alle sette di sera."
+      goals: [classes, timetable]
+    - learner: "Perfetto, posso venire dopo il lavoro. Mi iscrivo per tre mesi!"
+    - tutor: "Benissimo! Per l'iscrizione mi serve un documento. Lo spogliatoio è a destra."
+      goals: [sign-up]
+
+- scenario: palestra
+  level: A2
+  persona: es-f-teacher
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Ho appena cambiato casa e cerco una palestra vicino."
+    - tutor: "Benvenuta! L'abbonamento mensile è di 45 euro, quello per un anno di 400."
+      new: [{lemma: mensile, gloss: monthly}]
+      goals: [ask-membership]
+    - learner: "Avete anche corsi di nuoto?"
+      errors: []
+    - tutor: "No, mi dispiace, qui non c'è la piscina. Però abbiamo molti corsi, come lo yoga."
+      new: [{lemma: piscina, gloss: swimming pool}]
+      goals: [classes]
+    - learner: "Lo yoga mi piace molto! A che ora sono i corsi?"
+    - tutor: "Lo yoga è il lunedì e il mercoledì alle sei di sera."
+      goals: [timetable]
+    - learner: "Allora prendo l'abbonamento mensile. Cosa devo fare per l'iscrizione?"
+    - tutor: "Devi solo scrivere i tuoi dati qui e mostrare un documento. Poi sei pronta!"
+      new: [{lemma: dati, gloss: personal details}]
+      goals: [sign-up]
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-f-student
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Ho prenotato per un taglio alle tre. Mi chiamo Emily."
+    - tutor: "Sì, eccola. Come vuole i capelli?"
+      goals: [book]
+    - learner: "Li voglio un po' più corti. Ma non troppo."
+    - tutor: "Va bene. Quanto più corti? Così, fino alle spalle?"
+      new: [{lemma: spalla, gloss: shoulder}]
+      goals: [length]
+    - learner: "Sì, fino alle spalle. E la frangia, potete tagliarle un po'?"
+      errors: [object-pronoun]
+    - tutor: "Tagliarle? La frangia è una sola. Come dice?"
+      prompt: {text: "tagliarle", tags: [object-pronoun]}
+    - learner: "Potete tagliarla un po'?"
+    - tutor: "Certo, posso tagliarla un po'. Prima le lavo i capelli."
+      goals: [style]
+    - learner: "Perfetto. Grazie! È bellissimo. Quanto pago?"
+    - tutor: "Grazie a lei! Sono 35 euro."
+      goals: [pay]
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-m-retired
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Non ho una prenotazione. Ha tempo adesso per un taglio?"
+    - tutor: "Sì, per fortuna ho dieci minuti liberi. Prego, si sieda qui."
+      goals: [book]
+    - learner: "Grazie. Li voglio più corti di adesso, soprattutto sopra."
+    - tutor: "Va bene. E dietro? Li lascio lunghi o li faccio corti?"
+      goals: [length]
+    - learner: "Dietro corti, per favore. E niente gel."
+    - tutor: "D'accordo, niente gel. Vuole vedere dietro con lo specchio?"
+      goals: [style]
+    - learner: "Sì... perfetto, mi piace molto. Quanto le devo?"
+    - tutor: "Sono 18 euro. Grazie e arrivederci!"
+      goals: [pay]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Voglio prenotare un tavolo per stasera, per sei persone."
+    - tutor: "Certo. A che ora volete venire?"
+      goals: [book]
+    - learner: "Alle nove. Siamo studenti, veniamo in la università."
+      errors: [preposition]
+    - tutor: "In la università? Attenzione, qui manca una piccola parola dopo veniamo."
+      prompt: {text: "in la università", tags: [preposition]}
+    - learner: "Veniamo dall'università!"
+    - tutor: "Perfetto! Allora sei persone alle nove. Volete stare dentro o fuori?"
+      goals: [details]
+    - learner: "Fuori, se fa bel tempo. Ah, una mia amica è vegetariana."
+    - tutor: "Nessun problema, abbiamo molte cose senza carne. A che nome prenoto?"
+      goals: [special]
+    - learner: "A nome Carmen. Ci vediamo stasera!"
+    - tutor: "Perfetto, Carmen. Vi aspettiamo alle nove. Buona serata!"
+      goals: [name]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: en-m-heritage
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per due persone per sabato sera."
+    - tutor: "Per sabato, va bene. A che ora?"
+      goals: [book]
+    - learner: "Alle otto e mezza, se è possibile."
+    - tutor: "Sì, alle otto e mezza c'è posto. Preferite dentro o fuori?"
+      goals: [details]
+    - learner: "Dentro, per favore. È il compleanno di mia nonna. Possiamo avere una torta?"
+    - tutor: "Che bello! Certo, la prepariamo noi. Quanti anni compie?"
+      new: [{lemma: compiere, gloss: to turn (age)}]
+      goals: [special]
+    - learner: "Compie ottant'anni! La prenotazione è a nome Russo."
+    - tutor: "Perfetto, signor Russo. Sabato alle otto e mezza, per due persone. A sabato!"
+      goals: [name]
