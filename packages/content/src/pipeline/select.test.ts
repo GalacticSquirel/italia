@@ -60,4 +60,31 @@ describe('selectSentences', () => {
     const chosen = selectSentences([a, b], [1, 2], { ...options, perLemma: 5, perForm: 5 });
     expect([...chosen.keys()]).toEqual([40]);
   });
+
+  it('prefers sentences whose English is not taken yet', () => {
+    const en = (c: Candidate, enNorm: string): Candidate => ({ ...c, enNorm });
+    const chosen = selectSentences(
+      [
+        en(cand(30, [1, 3], 3, 'a'), 'what did you do to me'),
+        en(cand(31, [1, 3], 2, 'b'), 'what did you do to me'),
+        en(cand(32, [1, 3], 1, 'c'), 'i work here'),
+      ],
+      [1, 2, 3],
+      options,
+    );
+    const forThree = [...chosen].filter(([, s]) => s.targetLemmaId === 3).map(([id]) => id);
+    expect(forThree).toEqual([30, 32]);
+  });
+
+  it('repeats an English translation only when nothing else fills the slot', () => {
+    const en = (c: Candidate, enNorm: string): Candidate => ({ ...c, enNorm });
+    const chosen = selectSentences(
+      [en(cand(40, [1, 3], 2, 'a'), 'same'), en(cand(41, [1, 3], 1, 'b'), 'same')],
+      [1, 2, 3],
+      options,
+    );
+    expect([...chosen].filter(([, s]) => s.targetLemmaId === 3).map(([id]) => id)).toEqual([
+      40, 41,
+    ]);
+  });
 });
