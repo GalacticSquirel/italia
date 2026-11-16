@@ -1,0 +1,894 @@
+# Round 3: the same recurring error corrected more than once, spelling and accents, correct
+# fragments left alone, unprompted self-correction, "is this correct?" questions, Spanish
+# interference, and register slips that come back after a repair.
+- scenario: supermercato
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno, cerca qualcosa?"
+  - learner: "Sì. La manteca."
+    errors: [word-choice]
+  - tutor: "Ah, il burro! È in fondo, vicino al latte."
+    recast: {text: "La manteca", fix: "il burro", tags: [word-choice]}
+    new: [{lemma: "burro", gloss: "butter"}]
+    goals: [ask-product]
+  - learner: "Burro? In spagnolo burro è un animale!"
+  - tutor: "Davvero? Qui il burro è buono con il pane!"
+  - learner: "Ah ah, va bene. E tengo bisogno di uova."
+    errors: [word-choice]
+  - tutor: "Ha bisogno di uova? Sono nel reparto qui a destra."
+    recast: {text: "tengo bisogno", fix: "Ha bisogno", tags: [word-choice]}
+    goals: [ask-other]
+  - learner: "Quante uova in una scatola?"
+  - tutor: "Sono 6 uova. Vuole altro?"
+  - learner: "No. Solo questo."
+  - tutor: "Bene. La cassa è lì davanti."
+  - learner: "Grazie. Lei è muy gentile... molto gentile!"
+  - tutor: "Grazie a Lei! Buona giornata!"
+    goals: [thank]
+    done: true
+
+- scenario: presentarsi
+  level: A1
+  persona: en-f-student
+  history: [essere-avere]
+  turns:
+  - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+  - learner: "Ciao! Mi chiamo Hannah. Sono 20 anni."
+    errors: [essere-avere]
+  - tutor: "Piacere, Hannah! Sono 20 anni? Che verbo usi per gli anni?"
+    prompt: {text: "Sono 20 anni", tags: [essere-avere]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+    goals: [say-name]
+  - learner: "Oh! Ho 20 anni."
+  - tutor: "Ecco! E di dove sei?"
+  - learner: "Di Leeds."
+  - tutor: "Che bello! È una città grande?"
+    goals: [say-origin]
+  - learner: "Sì, grande. Studio storia all'università."
+  - tutor: "Storia, interessante! Io lavoro in un bar."
+    goals: [say-job]
+  - learner: "Ti piace il bar? Mia sorella lavora in un bar, e lei è 17 anni."
+    errors: [essere-avere]
+  - tutor: "Sì, mi piace molto! Ma tua sorella... è 17 anni?"
+    prompt: {text: "è 17 anni", tags: [essere-avere]}
+    goals: [ask-back]
+  - learner: "Ehm... lei sono 17 anni?"
+    errors: [essere-avere]
+  - tutor: "Tua sorella ha 17 anni, è giovane! Anche lei studia?"
+    recast: {text: "sono 17 anni", fix: "ha 17 anni", tags: [essere-avere]}
+  - learner: "Ha 17 anni, ok. No, lei lavora solo. E tu di dove sei?"
+  - tutor: "Io sono di Roma. È un piacere, Hannah!"
+    done: true
+
+- scenario: hotel-checkin
+  level: A1
+  persona: en-m-retired
+  turns:
+  - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+  - learner: "Buonasera. Sì, ho una prenotazione. Il nome e Walker."
+    errors: [spelling]
+  - tutor: "Benvenuto! Attenzione: qui sulla \"e\" manca l'accento."
+    prompt: {text: "nome e Walker", tags: [spelling]}
+    new: [{lemma: "accento", gloss: "accent mark"}]
+  - learner: "Ah, certo: il nome è Walker. Una camera per due notti."
+  - tutor: "Perfetto, signor Walker. Ha un documento?"
+    goals: [booking]
+  - learner: "Ecco il passaporto. Una domanda: \"A che ora è la colazione?\" È corretto?"
+  - tutor: "Sì, è perfetto! La colazione è dalle 7 alle 10."
+    goals: [document, breakfast]
+  - learner: "Bene. E la camera, dove?"
+  - tutor: "È al secondo piano. Ecco la chiave."
+    goals: [key]
+  - learner: "Grazie. La citta è molto bella... scusi, città, con l'accento!"
+  - tutor: "Sì, è bellissima! Buona notte, signor Walker."
+    done: true
+
+- scenario: casa-mia
+  level: A1
+  persona: en-m-heritage
+  turns:
+  - tutor: "Allora, com'è la tua casa?"
+  - learner: "È un appartamento. Piccolo ma bello."
+  - tutor: "Che bello! Quante camere ci sono?"
+    goals: [type]
+  - learner: "Due camera... no, due camere! E una cucina grande."
+  - tutor: "Una cucina grande, che fortuna! E il bagno?"
+  - learner: "C'è due bagni. È giusto?"
+    errors: [ce-ci-sono]
+  - tutor: "Quasi! Con due bagni, \"c'è\" cambia un po'."
+    prompt: {text: "C'è due bagni", tags: [ce-ci-sono]}
+  - learner: "Ah! Ci sono due bagni."
+  - tutor: "Ora è giusto! Qual è la tua stanza preferita?"
+    goals: [rooms]
+  - learner: "Il balcone. La sera bevo un caffè lì."
+  - tutor: "Bello! Anch'io amo stare sul balcone."
+    goals: [favourite]
+  - learner: "E la tua casa? È grande?"
+  - tutor: "No, è piccola. Ma ha una bella cucina!"
+    goals: [ask]
+    done: true
+
+- scenario: taxi
+  level: A1
+  persona: es-f-teacher
+  history: [register]
+  turns:
+  - tutor: "Buongiorno! Dove la porto?"
+  - learner: "Buongiorno. All'albergo Milano, per favore. Sai dov'è?"
+    errors: [register]
+  - tutor: "Sì, certo. Ma \"sai\"? Io sono un signore di 60 anni!"
+    prompt: {text: "Sai", tags: [register]}
+    goals: [destination]
+  - learner: "Mi scusi! Sa dov'è?"
+  - tutor: "Certo, è in centro. Andiamo!"
+  - learner: "Quanto tempo ci vuole? Ho molto equipaje."
+    errors: [word-choice]
+  - tutor: "Sono 15 minuti. Ha molte valigie, ma c'è posto!"
+    recast: {text: "molto equipaje", fix: "molte valigie", tags: [word-choice]}
+    goals: [ask-time]
+  - learner: "Grazie. Oggi fa molto calore, vero?"
+    errors: [word-choice]
+  - tutor: "Sì, oggi fa molto caldo! Per fortuna siamo vicini."
+    recast: {text: "calore", fix: "caldo", tags: [word-choice]}
+  - learner: "Bene. E quanto costa? Puoi dirmi il prezzo?"
+    errors: [register]
+  - tutor: "Signora, ancora il \"tu\"? Come si dice con Lei?"
+    prompt: {text: "Puoi", tags: [register]}
+  - learner: "Ay, è vero... tu può dirmi il prezzo?"
+    errors: [register]
+  - tutor: "Può dirmi il prezzo? Certo: sono 20 euro."
+    recast: {text: "tu può dirmi", fix: "Può dirmi", tags: [register]}
+    goals: [ask-price]
+  - learner: "Può dirmi, grazie! Posso pagare con la carta?"
+  - tutor: "Sì, certo. Ecco l'albergo, buona giornata!"
+    goals: [pay]
+    done: true
+
+- scenario: panetteria
+  level: A1
+  persona: en-m-traveller
+  history: [noun-number]
+  turns:
+  - tutor: "Buongiorno! Mi dica."
+  - learner: "Buongiorno! Pane, per favore."
+  - tutor: "Certo! Quanto pane vuole?"
+    goals: [greet]
+  - learner: "Mezzo chilo."
+  - tutor: "Ecco mezzo chilo di pane. Altro?"
+    goals: [order-bread]
+  - learner: "Sì, due focaccia."
+    errors: [noun-number]
+  - tutor: "Due focaccia? Una o più di una?"
+    prompt: {text: "due focaccia", tags: [noun-number]}
+  - learner: "Ah, due focacce!"
+  - tutor: "Bene, due focacce. Sono ancora calde!"
+  - learner: "Buono! How do you say 'breadsticks'?"
+  - tutor: "Si dice \"grissini\". Sono qui, vuole provare?"
+  - learner: "Grissini, ok! Un sacchetto. E tre pizza piccole."
+    errors: [noun-number]
+  - tutor: "Un sacchetto, bene. Tre pizza? Come prima!"
+    prompt: {text: "tre pizza", tags: [noun-number]}
+  - learner: "Tre... pizzas?"
+    errors: [noun-number]
+  - tutor: "Ecco tre pizze piccole. È tutto?"
+    recast: {text: "pizzas", fix: "pizze", tags: [noun-number]}
+    goals: [order-extra]
+  - learner: "Sì, è tutto. Quant'è?"
+  - tutor: "Sono 9 euro. Grazie e buona giornata!"
+    goals: [pay]
+    done: true
+
+- scenario: autobus
+  level: A2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Buongiorno! Dove deve andare?"
+  - learner: "Buongiorno! Tengo che andare al Duomo. Quale autobus prendo?"
+    errors: [word-choice]
+  - tutor: "Deve andare al Duomo? Allora prende la linea 14, da questa fermata."
+    recast: {text: "Tengo che andare", fix: "Deve andare", tags: [word-choice]}
+    goals: [route]
+  - learner: "La 14, bene. E il biglietto? Lo compro qui?"
+  - tutor: "No, sull'autobus non lo vendono. Lo compra in tabaccheria, lì davanti."
+    goals: [ticket]
+  - learner: "Ah, in tabaccheria. E dopo, dove devo salire? Voglio dire... dove finisce il mio viaggio?"
+    errors: [false-friend]
+  - tutor: "Deve scendere dopo 5 fermate, in piazza Duomo. Salire è all'inizio, scendere è alla fine!"
+    recast: {text: "dove devo salire", fix: "Deve scendere", tags: [false-friend]}
+    goals: [stop]
+  - learner: "Ay, in spagnolo 'salir' è il contrario! Allora salgo qui e scendo dopo 5 fermate. È giusto così?"
+  - tutor: "Giustissimo, ha detto tutto bene! E si ricordi di timbrare il biglietto."
+  - learner: "Timbrare? No entiendo... non capisco questa parola."
+  - tutor: "Sull'autobus c'è una piccola macchina gialla. Lei mette il biglietto dentro, così va bene."
+  - learner: "Ah, ho capito! Grazie mille, è stato molto gentile."
+  - tutor: "Di niente! Ecco, arriva proprio la 14. Buona giornata!"
+    goals: [thank]
+    done: true
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-f-professional
+  history: [register]
+  turns:
+  - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+  - learner: "Buongiorno! Vorrei tagliare i capelli. Hai tempo adesso?"
+    errors: [register]
+  - tutor: "Sì, certo. Ma \"hai\"? Qui ci diamo del Lei, signora."
+    prompt: {text: "Hai tempo", tags: [register]}
+  - learner: "Scusi! Ha tempo adesso?"
+  - tutor: "Sì, ho tempo. Come li vuole, corti o lunghi?"
+    goals: [book]
+  - learner: "Non troppo corti. Fino alle spalle, più o meno."
+  - tutor: "Fino alle spalle, va bene. E la frangia, la facciamo?"
+    goals: [length]
+  - learner: "Frangia... sorry, what is 'frangia'?"
+  - tutor: "La frangia sono i capelli corti qui davanti, sopra gli occhi."
+  - learner: "Ah! No, niente frangia. Ho trovato una foto di un'attrice... guarda, ti faccio vedere sul telefono."
+    errors: [register]
+  - tutor: "Certo! Però attenzione, è tornato il \"tu\": come me lo dice?"
+    prompt: {text: "guarda, ti faccio vedere", tags: [register]}
+  - learner: "Uffa, sempre! Guardi... ti faccio vedere?"
+    errors: [register]
+  - tutor: "Quasi: \"Guardi, Le faccio vedere\". Che bella foto! Li facciamo proprio così."
+    recast: {text: "ti faccio vedere", fix: "Le faccio vedere", tags: [register]}
+    goals: [style]
+  - learner: "Le faccio vedere, ok. Sì, proprio così, grazie. Quanto costa?"
+  - tutor: "Lavare e tagliare, sono 35 euro. Può pagare alla fine, con calma."
+  - learner: "Perfetto. Posso pagare con la carta?"
+  - tutor: "Certo, signora. Allora prima laviamo i capelli, venga con me."
+    goals: [pay]
+    done: true
+
+- scenario: weekend-scorso
+  level: A2
+  persona: en-m-heritage
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Ciao! Com'è andato il fine settimana?"
+  - learner: "Bene! Sabato ho andato a Verona."
+    errors: [auxiliary-choice]
+  - tutor: "Verona, che bella! Ma sabato tu...? Con questo verbo \"ho\" non va bene."
+    prompt: {text: "ho andato", tags: [auxiliary-choice]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Ah sì, mia nonna me lo dice sempre! Sono andato a Verona."
+  - tutor: "Brava la nonna! E cosa hai fatto a Verona?"
+    goals: [where]
+  - learner: "Ho visto l'Arena e ho mangiato tanto. Troppo!"
+  - tutor: "Eh sì, a Verona si mangia bene! Eri da solo?"
+    goals: [what]
+  - learner: "No. Con mio cugino."
+  - tutor: "Che bello! E lui abita lì?"
+    goals: [with-who]
+  - learner: "Sì, abita lì da due anni. La sera abbiamo usciti con i suoi amici."
+    errors: [auxiliary-choice]
+  - tutor: "Bella serata allora! Ma la sera voi...? È come con andare, ricordi?"
+    prompt: {text: "abbiamo usciti", tags: [auxiliary-choice]}
+  - learner: "Abbiamo... no, aspetta. Avete usciti? Non lo so!"
+    errors: [auxiliary-choice]
+  - tutor: "Tranquillo: siete usciti con i suoi amici. E ti sei divertito?"
+    recast: {text: "Avete usciti", fix: "siete usciti", tags: [auxiliary-choice]}
+  - learner: "Siamo usciti, ecco! Sì, mi sono divertito molto. Verona è bellissima di notte."
+  - tutor: "Sono d'accordo, è una città speciale. La prossima volta vengo anch'io!"
+    goals: [opinion]
+    done: true
+
+- scenario: lavanderia
+  level: A2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Tutto bene? Hai bisogno di una mano?"
+  - learner: "Sì, grazie! La lavatrice non funziona e non so perche."
+    errors: [spelling]
+  - tutor: "Vediamo subito. Prima una cosa: nella tua ultima parola manca l'accento."
+    prompt: {text: "perche", tags: [spelling]}
+    new: [{lemma: "accento", gloss: "accent mark"}]
+  - learner: "Ah, perché! Sul telefono non lo scrivo mai."
+  - tutor: "Succede a tutti! Allora, hai messo il gettone?"
+    goals: [problem]
+  - learner: "Gettone? No. Solo monete."
+  - tutor: "Ecco il problema! Questa lavatrice vuole il gettone, non le monete."
+  - learner: "Ah! E poi come funziona? Quale programma?"
+  - tutor: "Metti il detersivo qui sopra e scegli il programma 2. Poi metti il gettone e parte da sola."
+    goals: [ask-how]
+  - learner: "Ok. E dove compro... no, dove lo compro, il gettone?"
+  - tutor: "Lo compri da quella macchina vicino alla porta. Sono 4 euro."
+    goals: [payment]
+  - learner: "Quattro euro, va bene. E l'asciugatrice è piu cara?"
+    errors: [spelling]
+  - tutor: "No, per quella bastano 2 euro. E attenzione, anche qui manca l'accento: su quale parola?"
+    prompt: {text: "piu", tags: [spelling]}
+    new: [{lemma: "accento", gloss: "accent mark"}]
+  - learner: "Ehm... 'piu cara', con la u? Non vedo l'errore."
+    errors: [spelling]
+  - tutor: "È un errore piccolo: si scrive \"più cara\", con l'accento sulla u. E no, l'asciugatrice è meno cara!"
+    recast: {text: "piu cara", fix: "più cara", tags: [spelling]}
+    new: [{lemma: "accento", gloss: "accent mark"}]
+  - learner: "Più, con l'accento. Capito! Grazie mille per l'aiuto."
+  - tutor: "Di niente! Se hai bisogno, io sono qui a leggere."
+    goals: [thank]
+    done: true
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno! Ha visto il cartello?"
+  - learner: "Buongiorno. Sì. Cercate un cameriere?"
+  - tutor: "Sì, ci serve un cameriere per l'estate. Lei ha già fatto questo lavoro?"
+    goals: [ask]
+  - learner: "Cameriere, poco. Io soy cuoco."
+    errors: [word-choice]
+  - tutor: "Ah, Lei è cuoco! Interessante. Dove ha lavorato?"
+    recast: {text: "soy cuoco", fix: "è cuoco", tags: [word-choice]}
+    new: [{lemma: "cuoco", gloss: "cook"}]
+  - learner: "Ho lavorato 5 anni in un ristorante a Buenos Aires. È corretto, 'ho lavorato'?"
+  - tutor: "Sì, è corretto! E 5 anni sono tanti. Ha lavorato anche come cameriere?"
+    goals: [experience]
+  - learner: "Un'estate, in un bar."
+  - tutor: "Bene, allora conosce il lavoro. Quando è libero?"
+  - learner: "Sto disponibile tutte le sere. E il sabato tutto il giorno."
+    errors: [word-choice]
+  - tutor: "Perfetto, è disponibile tutte le sere: proprio quello che ci serve. L'orario è dalle 18 alle 23."
+    recast: {text: "Sto disponibile", fix: "è disponibile", tags: [word-choice]}
+    goals: [availability]
+  - learner: "Va bene. E lo stipendio?"
+  - tutor: "Sono 9 euro all'ora. Mi lascia il suo numero di telefono?"
+  - learner: "Sì. 333 45 67 890. Mi chiamo Diego."
+  - tutor: "Grazie, Diego. La chiamo domani mattina per una prova."
+    goals: [contact]
+    done: true
+
+- scenario: palestra
+  level: A2
+  persona: en-f-student
+  history: [modal-infinitive]
+  turns:
+  - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+  - learner: "Ciao! Sì. Quanto costa un mese? Si dice così?"
+  - tutor: "Sì, si dice proprio così! Un mese sono 40 euro, con tutti i corsi."
+    goals: [ask-membership]
+  - learner: "Non male! Voglio a fare yoga. C'è?"
+    errors: [modal-infinitive]
+  - tutor: "Sì, c'è! Ma senti la tua frase: lì c'è una parola di troppo."
+    prompt: {text: "Voglio a fare", tags: [modal-infinitive]}
+  - learner: "Una parola di troppo... ah! Voglio fare yoga."
+  - tutor: "Ecco. Yoga c'è il martedì e il giovedì sera."
+    goals: [classes]
+  - learner: "A che ora?"
+  - tutor: "Alle 19, e dura un'ora. Dopo puoi restare ancora un po'."
+  - learner: "Perfetto. E lo spogliatoio? Posso a lasciare lo zaino lì?"
+    errors: [modal-infinitive]
+  - tutor: "Certo, lì c'è posto per tutto. Però attenzione: è il problema di prima!"
+    prompt: {text: "Posso a lasciare", tags: [modal-infinitive]}
+  - learner: "Oh no, di nuovo! Posso lasciare lo zaino lì?"
+  - tutor: "Brava, adesso sì! Allora, facciamo l'iscrizione?"
+    goals: [timetable]
+  - learner: "Sì! Che cosa serve?"
+  - tutor: "Solo un documento e una foto. Benvenuta, ci vediamo martedì a yoga!"
+    goals: [sign-up]
+    done: true
+
+- scenario: banca-conto
+  level: B1
+  persona: en-m-retired
+  history: [register]
+  turns:
+  - tutor: "Buongiorno, come posso esserle utile?"
+  - learner: "Buongiorno. Vorrei aprire un conto, perché mi sono trasferito qui a Lucca a settembre. Puoi aiutarmi?"
+    errors: [register]
+  - tutor: "Certo, benvenuto a Lucca! Solo una cosa: in banca è meglio non usare il \"tu\". Come me lo chiede?"
+    prompt: {text: "Puoi aiutarmi", tags: [register]}
+  - learner: "Ha ragione, mi scusi. Può aiutarmi?"
+  - tutor: "Certo. Il conto le serve per la pensione o per le spese di tutti i giorni?"
+  - learner: "Per tutte e due. La pensione arriva dall'America, ma qui devo pagare l'affitto e le bollette."
+  - tutor: "Capisco, allora le consiglio un conto semplice. Ha con sé un documento e il codice fiscale?"
+    goals: [purpose]
+  - learner: "Ho il passaporto. Il codice fiscale... un momento. \"L'ho richiesto la settimana scorsa\": è giusto dire così?"
+  - tutor: "Sì, è giustissimo! Se l'ha richiesto la settimana scorsa, dovrebbe arrivare tra pochi giorni. Senza quel codice purtroppo non posso aprire il conto."
+    goals: [documents]
+  - learner: "Capisco, torno quando arriva. Intanto, quanto costa il conto? E dimmi anche se c'è una carta."
+    errors: [register]
+  - tutor: "Glielo spiego subito. Però ha sentito? Nella seconda frase è tornato il \"tu\"."
+    prompt: {text: "dimmi", tags: [register]}
+  - learner: "Oh, è l'abitudine! Mi dici... no. Dimmi Lei?"
+    errors: [register]
+  - tutor: "Non si preoccupi, succede: la forma giusta è \"mi dica\". Per il conto si pagano 3 euro al mese e la carta è compresa."
+    recast: {text: "Dimmi Lei", fix: "mi dica", tags: [register]}
+    goals: [costs, card]
+  - learner: "Mi dica, mi dica... devo ricordarlo! Tre euro al mese va benissimo. Posso usare la carta anche all'estero?"
+  - tutor: "Certo, funziona in tutto il mondo e la controlla dall'app. Allora la aspetto con il codice fiscale, buona giornata!"
+    done: true
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+  - learner: "Anche da noi! A Valencia la cena più importante è la sera del 24, e dura tantissimo: è una cena molto larga."
+    errors: [false-friend]
+  - tutor: "Una cena molto lunga, come il nostro pranzo del 25! E cosa mangiate di solito quella sera?"
+    recast: {text: "molto larga", fix: "molto lunga", tags: [false-friend]}
+  - learner: "Pesce, carne e alla fine il turrón, un dolce con le mandorle. Si dice \"mandorle\", vero?"
+  - tutor: "Sì, mandorle, perfetto! Noi abbiamo il torrone, che è quasi uguale. Credo che sia un'usanza arrivata proprio dalla Spagna."
+    new: [{lemma: "torrone", gloss: "nougat"}]
+    goals: [compare]
+  - learner: "Che curioso! Da piccola aspettavo soprattutto i Re Magi: il 6 gennaio portavano i regali, non Babbo Natale."
+  - tutor: "Da noi invece il 6 gennaio arriva la Befana, una vecchia signora che porta dolci! E com'era quella giornata a casa tua?"
+    new: [{lemma: "Befana", gloss: "the Epiphany witch who brings sweets"}]
+  - learner: "La mattina aprivamo i regali e dopo salivamo tutti in strada per vedere i vicini. Uy, no: uscivamo tutti in strada!"
+  - tutor: "Che bel ricordo! Immagino la strada piena di bambini con i giochi nuovi."
+    goals: [past]
+  - learner: "Esatto. E voi italiani? Tengo una curiosità: è vero che a Capodanno mangiate le lenticchie?"
+    errors: [word-choice]
+  - tutor: "Hai una curiosità giusta: sì, le mangiamo perché si dice che portino soldi! Io le preparo ogni anno, anche se non divento mai ricca."
+    recast: {text: "Tengo una curiosità", fix: "Hai una curiosità", tags: [word-choice]}
+    goals: [ask]
+  - learner: "Noi invece mangiamo l'uva a mezzanotte. Quest'anno resto in Italia per le feste, e spero che i miei genitori vengono qui."
+    errors: [subjunctive-use]
+  - tutor: "L'uva a mezzanotte, che simpatico! Ma dopo \"spero che\" il verbo cambia forma: come diventa?"
+    prompt: {text: "vengono", tags: [subjunctive-use]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Giusto, il congiuntivo! Spero che i miei genitori vengano qui."
+  - tutor: "Perfetto. Allora dovete provare un vero pranzo di Natale italiano: vi invito io!"
+    goals: [plan]
+    done: true
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+  - tutor: "Allora, quando parti per Napoli?"
+  - learner: "Venerdì! Tre giorni. Non sono mai andata, quindi sono un po' nervosa."
+    errors: [ci-ne]
+  - tutor: "Tranquilla, ti piacerà! Però nella frase manca una piccola parola che vuol dire \"a Napoli\": non... sono mai andata."
+    prompt: {text: "Non sono mai andata", tags: [ci-ne]}
+  - learner: "Non... ci sono mai andata!"
+  - tutor: "Esatto. E hai già deciso cosa vedere in 3 giorni?"
+  - learner: "Più o meno. Il centro, Pompei, la pizza. Cosa mi consigli?"
+  - tutor: "Il centro a piedi, assolutamente, e il museo prima di Pompei. Io farei anche una passeggiata sul mare, la sera."
+    goals: [plans, advice]
+  - learner: "Bello! E per Pompei, treno?"
+  - tutor: "Sì, c'è un treno che parte dalla stazione centrale e arriva in circa 40 minuti. In città invece usa la metro, è comoda."
+    goals: [transport]
+  - learner: "Ok, metro. Is it safe? Scusa: è... sicura?"
+  - tutor: "Sì, è sicura, ma fai attenzione al telefono e al portafoglio, come in ogni grande città. Ed evita di girare con la borsa aperta."
+    goals: [warnings]
+  - learner: "Va bene. E le sfogliatelle? Ho mangiato una a Londra, ma era terribile."
+    errors: [ci-ne]
+  - tutor: "A Londra, che peccato! Ma senti: \"ho mangiato una\"... una di che cosa? Serve di nuovo una piccola parola."
+    prompt: {text: "Ho mangiato una", tags: [ci-ne]}
+  - learner: "Ci ho mangiato una?"
+    errors: [ci-ne]
+  - tutor: "Questa volta è l'altra: ne hai mangiata una, ma a Napoli ne mangerai tante! Lì sono calde e buonissime."
+    recast: {text: "Ci ho mangiato una", fix: "ne hai mangiata una", tags: [ci-ne]}
+  - learner: "Ne ho mangiata una... ok, \"ne\" per le cose, \"ci\" per i posti. Ne mangerò tante, promesso!"
+  - tutor: "Brava, hai capito tutto. Poi mi mandi una foto dal mare?"
+    done: true
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-f-professional
+  turns:
+  - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+  - learner: "Buongiorno. Vorrei fare un appuntamento con un dermatologo."
+    errors: [word-choice]
+  - tutor: "Certo, può prendere un appuntamento con il nostro specialista. È una prima visita o un controllo?"
+    recast: {text: "fare un appuntamento", fix: "prendere un appuntamento", tags: [word-choice]}
+  - learner: "Prima visita. Ho una macchia sulla schiena che è cambiata."
+  - tutor: "Capisco, allora è meglio non aspettare. Preferisce la mattina o il pomeriggio?"
+    goals: [type]
+  - learner: "Il pomeriggio, dopo le cinque. \"Sono libera a giovedì\": è corretto?"
+    errors: [preposition]
+  - tutor: "Quasi! Con i giorni della settimana quella \"a\" non serve. Come diventa la frase?"
+    prompt: {text: "a giovedì", tags: [preposition]}
+  - learner: "Sono libera giovedì. Più semplice!"
+  - tutor: "Esatto. Giovedì c'è posto alle 17 e 30, le va bene?"
+    goals: [availability]
+  - learner: "Sì. Quanto costa? Non ho l'impegnativa del medico, e un problema?"
+    errors: [spelling]
+  - tutor: "Nessun problema, senza impegnativa la visita viene 90 euro. Solo un dettaglio: nell'ultima domanda manca un accento, dove?"
+    prompt: {text: "e un problema", tags: [spelling]}
+    new: [{lemma: "accento", gloss: "accent mark"}]
+  - learner: "Sulla e: è un problema? Scrivo troppo veloce."
+  - tutor: "Proprio lì! Allora confermo giovedì alle 17 e 30. Mi lascia nome e numero di telefono?"
+    goals: [cost]
+  - learner: "Sarah Collins, 347 889 2010. Devo portare qualcosa?"
+  - tutor: "Solo un documento. A giovedì, signora, buona giornata!"
+    goals: [confirm]
+    done: true
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-m-heritage
+  history: [reflexive]
+  turns:
+  - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+  - learner: "Mah, così così. Lavoro tanto, e la mattina sveglio alle sei per andare in ufficio."
+    errors: [reflexive]
+  - tutor: "Alle sei, presto! Ma chi svegli, tuo figlio? Se parli di te, manca qualcosa."
+    prompt: {text: "sveglio alle sei", tags: [reflexive]}
+  - learner: "Ah ah, no, mi sveglio alle sei!"
+  - tutor: "Ecco. E fai colazione o esci subito?"
+  - learner: "Solo caffè."
+  - tutor: "Come mio fratello: caffè e via! E la sera riesci a dormire abbastanza?"
+    goals: [habits]
+  - learner: "No. Cinque ore, forse sei. Voglio cambiare: il mio obiettivo è dormire di più e perdere... perso? No: perdere cinque chili."
+  - tutor: "Sono due ottimi obiettivi, e vanno insieme: chi dorme poco mangia peggio. Perché non riesci ad andare a letto prima?"
+    goals: [goal]
+  - learner: "Lo stress. Torno a casa tardi, guardo il telefono e poi la mattina sento stanco."
+    errors: [reflexive]
+  - tutor: "Ti capisco, il telefono la sera è un problema! Però \"sento stanco\"... è come prima con \"sveglio\", ricordi?"
+    prompt: {text: "sento stanco", tags: [reflexive]}
+  - learner: "Ehm... sento me stanco?"
+    errors: [reflexive]
+  - tutor: "Quasi: la mattina ti senti stanco perché dormi poco. E quindi mangi male, immagino."
+    recast: {text: "sento me stanco", fix: "ti senti stanco", tags: [reflexive]}
+    goals: [obstacles]
+  - learner: "Mi sento stanco, giusto. Sì, mangio panini davanti al computer. Che cosa posso fare?"
+  - tutor: "Io inizierei da una cosa sola: telefono spento alle 10 e mezza. Poi potresti aggiungere due allenamenti alla settimana, anche brevi."
+  - learner: "Va bene, ci provo. Telefono spento alle dieci e mezza, e camminata il martedì e il sabato."
+  - tutor: "Ottimo piano! Tra un mese mi dici se stai meglio."
+    goals: [plan]
+    done: true
+
+- scenario: volontariato
+  level: B1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+  - learner: "Ciao! Sì, molto. Sono a Bologna per l'Erasmus e voglio conoscere gente fuori dall'università. E mi piace aiutare."
+  - tutor: "Ottimo motivo, benvenuta! Hai già fatto qualche esperienza di questo tipo?"
+    goals: [motivation]
+  - learner: "Sì, a Siviglia. Ho lavorato con ancianos... come si dice? Persone di ottanta, novanta anni."
+  - tutor: "Si dice \"anziani\". Che bello, noi abbiamo proprio un'attività con gli anziani del quartiere! Che cosa facevi con loro?"
+  - learner: "Leggevo il giornale per loro e giocavamo a carte. Sono molto paziente, credo. \"Paziente\" è corretto in italiano?"
+  - tutor: "Sì, è corretto, e la pazienza qui serve davvero. Quanto tempo libero hai durante la settimana?"
+    goals: [skills]
+  - learner: "Il martedì e il giovedì pomeriggio sto libera. La mattina no, c'è lezione."
+    errors: [word-choice]
+  - tutor: "Perfetto, se sei libera il martedì e il giovedì possiamo organizzarci bene. Preferisci stare con gli anziani o aiutare i bambini con i compiti?"
+    recast: {text: "sto libera", fix: "sei libera", tags: [word-choice]}
+    goals: [time]
+  - learner: "Gli anziani! E posso cominciare pronto, anche questa settimana."
+    errors: [false-friend]
+  - tutor: "Allora puoi cominciare presto: giovedì alle 4 c'è il pomeriggio di carte. In italiano \"pronto\" vuol dire che sei preparata, e tu lo sei!"
+    recast: {text: "cominciare pronto", fix: "cominciare presto", tags: [false-friend]}
+  - learner: "Ah, come \"listo\"! Sono pronta e comincio presto. Devo portare qualcosa giovedì?"
+  - tutor: "Solo la tua pazienza e tanta voglia di parlare. Ci vediamo giovedì, grazie!"
+    goals: [choose]
+    done: true
+
+- scenario: vita-in-italia
+  level: B2
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Grazie dell'invito. All'inizio è stato per amore, come in tante storie: ho conosciuto mio marito durante un corso estivo e sei anni fa sono arrivata in Torino con due valigie."
+    errors: [preposition]
+  - tutor: "Una storia d'amore, che bell'inizio! Solo una domanda sulla lingua: con il nome di una città, quale preposizione usiamo in italiano?"
+    prompt: {text: "in Torino", tags: [preposition]}
+    new: [{lemma: "preposizione", gloss: "preposition"}]
+  - learner: "Ah, certo: sono arrivata a Torino. In spagnolo diciamo \"en\", è più forte di me."
+  - tutor: "Succede spesso tra lingue così vicine. E i primi mesi a Torino come sono stati?"
+    goals: [story]
+  - learner: "Duri, sinceramente. Non trovavo lavoro come insegnante perché il mio titolo non era riconosciuto, e negli uffici nessuno contestava alle mie email."
+    errors: [false-friend]
+  - tutor: "Capisco: nessuno rispondeva alle sue email, e la burocrazia italiana purtroppo è famosa per questo. Che cosa l'ha aiutata a non perdere la fiducia?"
+    recast: {text: "contestava alle mie email", fix: "rispondeva alle sue email", tags: [false-friend]}
+    goals: [difficulties]
+  - learner: "Le persone. Una vicina mi ha accompagnata all'anagrafe, e alla fine mi sono abituata. \"Mi sono abituata\" è la forma corretta? In spagnolo sarebbe \"acostumbrada\"."
+  - tutor: "Sì, è la forma corretta, e ha fatto bene a evitare la versione spagnola. Che cosa è cambiato in lei in questi sei anni?"
+  - learner: "Tante cose. Sono diventata più paziente, e ho imparato a godermi il pranzo: prima mangiavo in dieci minuti davanti al computer. Ora penso che la tavola sia sacra."
+  - tutor: "La tavola è sacra: lo metteremo come titolo di oggi! E la nostalgia di casa c'è ancora?"
+    goals: [change]
+  - learner: "Sì, soprattutto in primavera, quando in Valencia ci sono le Fallas e tutta la mia famiglia è in strada."
+    errors: [preposition]
+  - tutor: "Immagino, dev'essere una festa bellissima. Però mi permetta: ha sentito che cosa ha detto prima del nome della città?"
+    prompt: {text: "in Valencia", tags: [preposition]}
+  - learner: "Oh no, ancora! Quando a Valencia ci sono le Fallas. Sei anni e quell'errore è sempre lì."
+  - tutor: "Ma lo sente da sola, ed è questo che conta. Per chiudere: che consiglio darebbe a chi sta per trasferirsi in Italia?"
+  - learner: "Di non chiudersi nel gruppo dei connazionali. Bisogna uscire, sbagliare, chiedere aiuto ai vicini: gli italiani aiutano volentieri, se glielo chiedi."
+  - tutor: "Un ottimo consiglio, e detto in un italiano bellissimo. Grazie per essere stata con noi, e buona vita a Torino!"
+    goals: [advice]
+    done: true
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-traveller
+  history: [register]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, purtroppo. Abbiamo aspettato quasi un'ora per i primi, e quando sono arrivati il mio risotto era freddo. Guarda, tocca il piatto."
+    errors: [register]
+  - tutor: "Mi dispiace davvero, un'ora di attesa non è accettabile. Mi permetta solo una nota: tra noi, in sala, userei una forma più formale. Come mi inviterebbe a controllare il piatto?"
+    prompt: {text: "Guarda, tocca", tags: [register]}
+  - learner: "Giusto, scusi. Guardi, tocchi il piatto: è freddo."
+  - tutor: "Ha ragione, è freddo, e me ne scuso. C'è stato altro che non è andato bene?"
+    goals: [complain]
+  - learner: "La cottura. Il risotto era... how do you say 'overcooked'?"
+  - tutor: "Si dice \"scotto\". Quindi freddo e anche scotto: capisco perfettamente."
+    new: [{lemma: "scotto", gloss: "overcooked"}]
+  - learner: "Scotto, esatto. E mi dispiace dirlo, perché sono venuto qui apposta: un amico di Dublino mi aveva detto che è il miglior risotto di Milano. Mi aspettavo molto di più."
+  - tutor: "E aveva tutto il diritto di aspettarselo. Stasera in cucina manca un cuoco e abbiamo lavorato male, ma non è una scusa."
+    goals: [detail, expectation]
+  - learner: "Apprezzo l'onestà. Ma adesso cosa fai per noi? Abbiamo ancora fame, lo sai."
+    errors: [register]
+  - tutor: "Ha ragione a chiederlo. Prima, però, ha notato? Con la fame è tornata anche la forma di prima."
+    prompt: {text: "cosa fai", tags: [register]}
+  - learner: "Ah, damn. Cosa fa per noi? Abbiamo ancora fame, lo sai."
+    errors: [register]
+  - tutor: "Quasi perfetto: resta solo quel \"lo sai\" finale, che con me diventa \"lo sa\". Per voi faccio preparare subito due risotti nuovi, e i primi di stasera non li pagate."
+    recast: {text: "lo sai", fix: "lo sa", tags: [register]}
+    goals: [resolve]
+  - learner: "Lo sa, lo sa... lo imparerò prima del dolce! Va bene, accettiamo. Grazie per la disponibilità."
+  - tutor: "Grazie a voi per la pazienza. E il dolce, naturalmente, lo offre la casa."
+    done: true
+
+- scenario: politica-lavoro
+  level: B2
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Metà mi sembra esagerato. Nel marketing, per esempio, la tecnologia fa già molte cose, ma qualcuno deve ancora decidere la strategia."
+  - tutor: "Per ora sì. Però ammetterai che certi lavori sempre uguali stanno già sparendo, no?"
+    goals: [opinion]
+  - learner: "Certo. Se io sarei una giovane che inizia adesso, sceglierei un settore creativo."
+    errors: [hypothetical]
+  - tutor: "Scelta furba! Ma torna all'inizio della frase: dopo quel \"se\" il condizionale non regge. Che modo ci vuole?"
+    prompt: {text: "Se io sarei", tags: [hypothetical]}
+    new: [{lemma: "condizionale", gloss: "conditional"}]
+  - learner: "Il congiuntivo, lo so, lo so. Se io fossi una giovane che inizia adesso, sceglierei un settore creativo."
+  - tutor: "Ecco. Anche se, a dirla tutta, pure i creativi rischiano: hai visto cosa sanno fare oggi i programmi con le immagini?"
+    goals: [hypothesis]
+  - learner: "Sì, ed è impressionante. Nella mia agenzia abbiamo provato a usarli per una campagna: il risultato era bello ma freddo, e il cliente l'ha... l'ha rifiutata? No, scusa: l'ha rifiutato, il risultato."
+  - tutor: "Interessante, quindi il cliente ha sentito la differenza. E i tuoi colleghi come l'hanno presa, hanno paura?"
+    goals: [example]
+  - learner: "Alcuni sì. Io penso che il rischio vero sia per chi non si aggiorna. Se le aziende investirebbero di più nella formazione, nessuno avrebbe paura."
+    errors: [hypothetical]
+  - tutor: "Sulla formazione mi trovi d'accordo. Però attenta: è scappato di nuovo, proprio dopo il \"se\"."
+    prompt: {text: "investirebbero", tags: [hypothetical]}
+  - learner: "Uffa. Se le aziende avrebbero investito? No... non mi viene."
+    errors: [hypothetical]
+  - tutor: "Tranquilla, capita: se le aziende investissero di più, dicevi, nessuno avrebbe paura. E secondo me hai ragione, ma chi dovrebbe pagarla, questa formazione?"
+    recast: {text: "avrebbero investito", fix: "investissero", tags: [hypothetical]}
+  - learner: "Investissero, ecco! Secondo me dovrebbero pagarla insieme lo Stato e le aziende. In conclusione, non credo alla tua metà: i lavori cambieranno, ma non spariranno."
+  - tutor: "Va bene, mi hai quasi convinto: diciamo un terzo e non se ne parla più!"
+    goals: [conclude]
+    done: true
+
+- scenario: film-libro
+  level: B2
+  persona: en-m-heritage
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Inizio io. Ho letto \"Il barone rampante\" di Calvino. Parla di un ragazzo nobile che litiga con il padre, sale su un albero e non scende mai più."
+  - tutor: "Un classico, l'ho amato al liceo! E come mai non scende più, secondo te?"
+    goals: [summary]
+  - learner: "All'inizio per rabbia, poi diventa una scelta. Benché lui è lontano da tutti, partecipa alla vita del paese. Aspetta: \"benché lui è\"... si può dire?"
+    errors: [subjunctive-use]
+  - tutor: "Bella domanda, e il tuo dubbio è giusto: \"benché\" vuole un altro modo del verbo. Quale?"
+    prompt: {text: "Benché lui è", tags: [subjunctive-use]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Il congiuntivo: benché lui sia lontano da tutti, partecipa alla vita del paese."
+  - tutor: "Esatto. Ed è proprio questo il bello del personaggio: guarda il mondo dall'alto ma non lo abbandona mai."
+    goals: [characters]
+  - learner: "Sì! Mi ha fatto pensare a mio nonno. Lui era venuto... no, è venuto in Canada a vent'anni e guardava sempre l'Italia da lontano, come dall'albero."
+  - tutor: "Che bella immagine, davvero. E lo stile ti è piaciuto, o l'hai trovato difficile?"
+  - learner: "Difficile all'inizio, tante parole di piante! Ma è divertente. Il finale e un po' triste, pero giusto."
+    errors: [spelling]
+  - tutor: "Sono d'accordo, quel finale resta dentro. Piccola nota di scrittura: nell'ultima frase mancano due accenti, li trovi?"
+    prompt: {text: "pero", tags: [spelling]}
+    new: [{lemma: "accento", gloss: "accent mark"}]
+  - learner: "Vediamo... \"il finale è un po' triste\", e poi... \"pero\"? Non vedo l'altro."
+    errors: [spelling]
+  - tutor: "Il primo l'hai trovato! L'altro è su \"però\", che senza accento sarebbe un albero di pere: Calvino avrebbe apprezzato."
+    recast: {text: "pero", fix: "però", tags: [spelling]}
+    new: [{lemma: "accento", gloss: "accent mark"}, {lemma: "pera", gloss: "pear"}]
+    goals: [opinion]
+  - learner: "Ah ah, un pero! Però adesso non lo dimentico più. Comunque lo consiglio a tutti, soprattutto a chi ama le storie strane."
+  - tutor: "Ottima scelta e ottima presentazione. Lo mettiamo nella lista del mese prossimo!"
+    goals: [recommend]
+    done: true
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Residenza. Mi sono trasferito a Bologna."
+  - tutor: "Bene, quindi vuole registrare la residenza qui. Ha portato un documento e il contratto di affitto?"
+    goals: [request]
+  - learner: "Sì. Passaporto, permesso di soggiorno, contratto. Il contratto sta firmato dal proprietario."
+    errors: [word-choice]
+  - tutor: "Perfetto, vedo che il contratto è firmato dal proprietario e anche registrato. Manca solo il modulo: l'ha già preparato?"
+    recast: {text: "sta firmato", fix: "è firmato", tags: [word-choice]}
+    goals: [documents]
+  - learner: "Il modulo no. Quale?"
+  - tutor: "Questo qui, glielo lascio io. Deve scrivere i suoi dati, l'indirizzo nuovo e la data in cui si è trasferito."
+  - learner: "Va bene. Una domanda: \"data in cui\"... posso dire anche \"la data che mi sono trasferito\"?"
+    errors: [relative-pronoun]
+  - tutor: "Meglio di no: lì \"che\" da solo non basta, serve la forma che ho usato io poco fa. Se la ricorda?"
+    prompt: {text: "la data che mi sono trasferito", tags: [relative-pronoun]}
+  - learner: "Ah, sì. La data in cui mi sono trasferito."
+  - tutor: "Esatto, vedo che ascolta con attenzione. Scriva pure qui."
+  - learner: "Fatto. Però un problema: nel contratto c'è scritto numero 14. Io abito al 41."
+  - tutor: "Ah, questo purtroppo è un problema serio, perché i vigili verranno a controllare all'indirizzo scritto. Deve chiedere al proprietario di correggere il contratto."
+    goals: [problem]
+  - learner: "Capito. E dopo? Ho esperato due mesi per questo appuntamento."
+    errors: [word-choice]
+  - tutor: "Lo so, ha aspettato due mesi e mi dispiace. Ma non deve prendere un altro appuntamento: quando ha il contratto corretto, me lo manda per email e la pratica va avanti."
+    recast: {text: "Ho esperato", fix: "ha aspettato", tags: [word-choice]}
+  - learner: "Meno male. E i vigili, quando?"
+  - tutor: "Entro 45 giorni dalla domanda, di solito senza avvisare. Dopo il controllo le arriva il certificato a casa."
+    goals: [next]
+  - learner: "Perfetto. Grazie mille, è stata molto chiara."
+  - tutor: "Di nulla, buon lavoro e benvenuto a Bologna!"
+    done: true
+
+- scenario: smartworking
+  level: B2
+  persona: es-f-erasmus
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Faccio un tirocinio in un'azienda di design: tre giorni a casa e due all'officina."
+    errors: [false-friend]
+  - tutor: "Due giorni in ufficio, una buona soluzione! Attenta, perché l'officina è dove riparano le macchine. E come ti trovi?"
+    recast: {text: "all'officina", fix: "in ufficio", tags: [false-friend]}
+    goals: [situation]
+  - learner: "Ah ah, no, niente macchine! Mi trovo bene. All'inizio era strano, ma adesso mi ho abituata."
+    errors: [auxiliary-choice]
+  - tutor: "Meno male! Però senti la fine della frase: con i verbi riflessivi quale ausiliare serve?"
+    prompt: {text: "mi ho abituata", tags: [auxiliary-choice]}
+    new: [{lemma: "riflessivo", gloss: "reflexive"}, {lemma: "ausiliare", gloss: "auxiliary verb"}]
+  - learner: "Con essere! Mi sono abituata. In spagnolo usiamo sempre \"haber\", per questo sbaglio."
+  - tutor: "Lo immaginavo, succede a tanti che parlano spagnolo. E qual è per te il vantaggio più grande di lavorare da casa?"
+  - learner: "Il tempo. Non devo prendere l'autobus, mi alzo più tardi, e riesco a concentrarmi meglio. Si dice \"riesco a concentrarmi\" o \"riesco di concentrarmi\"?"
+  - tutor: "\"Riesco a concentrarmi\", come hai detto: perfetto. Io invece a casa mi distraggo con qualsiasi cosa, anche con il telefono!"
+    goals: [pros]
+  - learner: "Anch'io, a volte! E c'è un altro svantaggio: mi sento sola. La settimana scorsa ho rimasta a casa cinque giorni e non ho parlato con nessuno."
+    errors: [auxiliary-choice]
+  - tutor: "Cinque giorni senza parlare con nessuno sono tanti, ti capisco. Ma attenta, è tornato l'amico spagnolo: la settimana scorsa tu...?"
+    prompt: {text: "ho rimasta", tags: [auxiliary-choice]}
+  - learner: "Uy... ho rimasto a casa?"
+    errors: [auxiliary-choice]
+  - tutor: "Quasi: sei rimasta a casa, perché anche \"rimanere\" vuole essere. E in ufficio, invece, con i colleghi parli volentieri?"
+    recast: {text: "ho rimasto a casa", fix: "sei rimasta a casa", tags: [auxiliary-choice]}
+    goals: [cons]
+  - learner: "Sono rimasta, ok! Sì, in ufficio sono simpatici, pranziamo insieme. Se potessi scegliere, farei metà e metà."
+  - tutor: "Mi sembra la scelta migliore: la concentrazione a casa e la compagnia in ufficio. Farei così anch'io!"
+    goals: [preference]
+    done: true
+
+- scenario: giorno-tipico
+  level: A1
+  persona: en-f-professional
+  history: [verb-form]
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata di solito?"
+  - learner: "Ciao! Io svegliare alle 6. Troppo presto!"
+    errors: [verb-form]
+  - tutor: "Alle 6, che presto! Ma \"svegliare\"? Con \"io\" come cambia?"
+    prompt: {text: "Io svegliare", tags: [verb-form]}
+  - learner: "Ah, sì! Io mi sveglio alle 6."
+  - tutor: "Giusto! E poi fai colazione?"
+    goals: [wake]
+  - learner: "Sì. Caffè e pane."
+  - tutor: "Buona! E dove lavori?"
+  - learner: "In un ufficio a Milano. Io lavorare fino alle 7 di sera."
+    errors: [verb-form]
+  - tutor: "Fino alle 7, è tanto! Ma \"io lavorare\" è come prima."
+    prompt: {text: "Io lavorare", tags: [verb-form]}
+  - learner: "Ehm... io lavora fino alle 7?"
+    errors: [verb-form]
+  - tutor: "Quasi! Tu dici: io lavoro fino alle 7. E la sera cosa fai?"
+    recast: {text: "io lavora", fix: "io lavoro", tags: [verb-form]}
+    goals: [work]
+  - learner: "Io lavoro, ok! La sera sono stanca. Cena, poi letto."
+  - tutor: "Ti capisco! Anch'io la sera dormo presto."
+    goals: [evening]
+  - learner: "E tu? A che ora ti svegli?"
+  - tutor: "Alle 7. Poi prendo sempre un caffè al bar!"
+    goals: [ask]
+    done: true
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: es-f-teacher
+  turns:
+  - tutor: "Buongiorno, benvenuti! Quanti siete?"
+  - learner: "Buongiorno. Siamo in tre. Abbiamo prenotato a nome Ferrer."
+  - tutor: "Sì, ho trovato il nome. Prego, il vostro tavolo è vicino alla finestra."
+    goals: [ask-table]
+  - learner: "Grazie. Per iniziare, avete un caldo di verdure? Oggi fa freddo."
+    errors: [false-friend]
+  - tutor: "Sì, abbiamo un brodo di verdure molto buono, fatto stamattina. E come secondo?"
+    recast: {text: "un caldo di verdure", fix: "un brodo di verdure", tags: [false-friend]}
+    new: [{lemma: "brodo", gloss: "broth"}]
+  - learner: "Brodo! In spagnolo \"caldo\" è la zuppa, che confusione. Come secondo, il pesce con l'insalata. \"Il pesce è fresco?\" Si chiede così?"
+  - tutor: "Si chiede proprio così, e la risposta è sì: è arrivato oggi. Vuole altro da mangiare?"
+    goals: [order-food]
+  - learner: "No, basta così. Ma può portare l'aceto di oliva per l'insalata, per favore?"
+    errors: [false-friend]
+  - tutor: "Certo, le porto l'olio d'oliva. L'aceto è un'altra cosa, più forte: vuole anche quello?"
+    recast: {text: "l'aceto di oliva", fix: "l'olio d'oliva", tags: [false-friend]}
+    new: [{lemma: "olio", gloss: "oil"}]
+  - learner: "No, no, solo olio! E da bere, acqua. Naturale."
+  - tutor: "Acqua naturale, benissimo. Arriva tutto subito."
+    goals: [order-drink]
+  - learner: "Grazie. Più tardi... il conto, per favore. Abbiamo un treno alle tre."
+  - tutor: "Non si preoccupi, lo preparo già adesso. Così alle tre siete in stazione!"
+    goals: [ask-bill]
+    done: true
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno! Che problema ha la macchina?"
+  - learner: "Buongiorno. Un rumore. Forte."
+  - tutor: "Un rumore forte, capisco. Da dove viene, dal motore o dai freni?"
+  - learner: "Dai freni, credo. Quando freno, fa... non so la parola. Come un grido."
+  - tutor: "Ho capito, un fischio quando frena. Lo fa sempre o solo ogni tanto?"
+    new: [{lemma: "fischio", gloss: "whistle, squeal"}]
+    goals: [describe]
+  - learner: "Sempre. Da lunedì."
+  - tutor: "Da lunedì, quindi da pochi giorni. E lunedì è successo qualcosa di particolare?"
+    goals: [when]
+  - learner: "Sì. Ha piovuto molto e ho passato per una strada con molta acqua."
+    errors: [auxiliary-choice]
+  - tutor: "Ah, l'acqua può dare fastidio ai freni. Solo una cosa sul verbo: con \"passare per una strada\" quale ausiliare ci vuole?"
+    prompt: {text: "ho passato", tags: [auxiliary-choice]}
+    new: [{lemma: "verbo", gloss: "verb"}, {lemma: "ausiliare", gloss: "auxiliary verb"}]
+  - learner: "Essere? Sono passato per una strada con molta acqua."
+  - tutor: "Esatto. Allora devo controllare i freni: forse basta pulirli, forse bisogna cambiare un pezzo."
+  - learner: "E quanto costa?"
+  - tutor: "Se basta pulire, 40 euro. Se devo cambiare i pezzi, il preventivo è di circa 180 euro."
+    goals: [cost]
+  - learner: "Va bene. Quando sta pronta? Lavoro in un ristorante, la macchina mi serve."
+    errors: [word-choice]
+  - tutor: "Se le serve per lavorare, facciamo presto: la macchina è pronta domani alle 5. Le va bene?"
+    recast: {text: "sta pronta", fix: "è pronta", tags: [word-choice]}
+    goals: [time]
+  - learner: "Domani alle 5. Perfetto, grazie."
+  - tutor: "Grazie a lei. Mi lasci le chiavi e a domani!"
+    done: true
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, molto, soprattutto la luce del soggiorno. Però credo che il canone è un po' alto per la zona."
+    errors: [subjunctive-use]
+  - tutor: "La luce è il suo punto forte, in effetti. Del canone parliamo subito, ma prima: dopo \"credo che\" quale modo si aspetta un italiano?"
+    prompt: {text: "che il canone è", tags: [subjunctive-use]}
+  - learner: "Il congiuntivo, naturalmente. Credo che il canone sia un po' alto."
+  - tutor: "Perfetto. Il proprietario chiede 950 euro, ma il prezzo è trattabile. Lei a quanto pensava?"
+    goals: [interest]
+  - learner: "Pensavo a 850. Ho guardato altri appartamenti nel quartiere e costano meno. È corretto dire \"trattare il prezzo\"?"
+  - tutor: "Sì, è corretto: il prezzo si tratta, e infatti questo è trattabile. A 850 non credo che arriviamo, ma 900 mi sembra possibile."
+  - learner: "Novecento potrebbe andare, a una condizione: vorrei che il proprietario cambia la caldaia, perché mi è sembrata molto vecchia."
+    errors: [subjunctive-use]
+  - tutor: "È una richiesta giusta, la caldaia ha i suoi anni. Però attenzione, è il problema di prima: dopo \"vorrei che\" il presente non basta."
+    prompt: {text: "che il proprietario cambia", tags: [subjunctive-use]}
+  - learner: "Vorrei che il proprietario cambierà la caldaia?"
+    errors: [subjunctive-use]
+  - tutor: "Qui ci vuole il congiuntivo imperfetto: vorrei che il proprietario cambiasse la caldaia. Glielo propongo oggi, e credo che accetterà."
+    recast: {text: "cambierà", fix: "cambiasse", tags: [subjunctive-use]}
+    new: [{lemma: "congiuntivo", gloss: "subjunctive"}, {lemma: "imperfetto", gloss: "imperfect"}]
+    goals: [negotiate]
+  - learner: "Cambiasse, grazie. Un'altra domanda: se devo andare via prima, quanti mesi servono per la disdetta?"
+  - tutor: "Per la disdetta servono 3 mesi, con una lettera raccomandata. La garanzia invece è di 2 mesi di canone, che le tornano alla fine."
+    goals: [conditions]
+  - learner: "Mi sembra corretto. E la provvigione dell'agenzia? Mi dica la verita... verità, mi scusi, questa tastiera!"
+  - tutor: "La verità è semplice: un mese di canone, una volta sola. Allora, se il proprietario accetta 900 euro e la caldaia nuova, firmiamo?"
+  - learner: "Sì, a queste condizioni firmo volentieri. Mi faccia sapere appena ha una risposta."
+  - tutor: "La chiamo entro domani sera. È stato un piacere, a presto!"
+    goals: [conclude]
+    done: true
