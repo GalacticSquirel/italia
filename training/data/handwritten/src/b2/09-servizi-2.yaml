@@ -1,0 +1,339 @@
+# medico-specialista: colesterolo e storia familiare
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-teacher
+  history: [subjunctive-form]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Buongiorno, dottore. Fisicamente abbastanza bene, ma sono un po' nervosa. Il mio medico mi ha mandato da Lei perché nelle analisi il colesterolo era molto alto, e a volte mi stanco facilmente quando faccio le scale a scuola."
+  - tutor: "Ha fatto bene a venire. Questo affaticamento lo sente da molto tempo, o è una cosa recente?"
+  - learner: "Da qualche mese, direi. Prima andavo al lavoro a piedi senza problemi, adesso ogni tanto devo fermarmi a metà strada. Però non ho mai avuto dolore al petto."
+  - tutor: "Bene, questo è importante. Il colesterolo alto spesso è una questione di famiglia. I suoi genitori ne hanno sofferto?"
+    goals: [symptoms]
+  - learner: "Sì, credo di sì. Quando ero piccola, mio padre ha seguito sempre una dieta speciale, e mia madre prende delle medicine da anni."
+    errors: [tense-aspect]
+  - tutor: "«Quando ero piccola, mio padre ha seguito sempre»... Era un'abitudine di tutti i giorni, in quegli anni. Come lo direbbe?"
+    prompt: {text: "mio padre ha seguito sempre", tags: [tense-aspect]}
+  - learner: "Sì, mio padre ha seguito sempre una dieta, senza burro e senza formaggi. Mia nonna invece è morta giovane, di infarto."
+    errors: [tense-aspect]
+  - tutor: "Quindi suo padre seguiva sempre una dieta, e la nonna è morta giovane: sono informazioni utili. Vuole che le spieghi gli esami?"
+    goals: [history]
+    recast: {text: "ha seguito sempre", fix: "seguiva sempre", tags: [tense-aspect]}
+  - learner: "Sì, per favore. Il colesterolo è a 280: è molto pericoloso? E l'elettrocardiogramma com'è andato?"
+  - tutor: "L'elettrocardiogramma è normale, il cuore funziona bene. Però 280 è troppo alto, soprattutto con la sua storia familiare. Le propongo una terapia con una pastiglia la sera."
+    goals: [understand]
+  - learner: "Preferisco che Lei mi diga la verità: queste pastiglie hanno effetti collaterali? Ho sentito che fanno male ai muscoli."
+    errors: [subjunctive-form]
+  - tutor: "«Mi diga»? Questa è una forma spagnola, in italiano è diversa. Ci riprova?"
+    prompt: {text: "mi diga", tags: [subjunctive-form]}
+  - learner: "Ha ragione: preferisco che mi dica la verità."
+  - tutor: "Certo. A volte danno dolori ai muscoli, ma succede a poche persone, e in quel caso cambiamo medicina. Intanto le consiglio meno formaggi e una passeggiata al giorno. Facciamo un controllo del sangue tra tre mesi, d'accordo?"
+    goals: [treatment]
+
+# medico-specialista: viaggio in alta montagna
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Buongiorno, dottoressa. In generale bene, ma tre settimane fa, durante una camminata sulle Dolomiti, mi mancava il respiro e il cuore batteva in modo strano, come se saltasse un colpo."
+  - tutor: "Capisco. Le è successo solo in montagna, sotto sforzo, o anche in città?"
+  - learner: "Solo in montagna, credo. In città faccio una vita tranquilla. Il problema è che tra un mese parto per il Perù: voglio fare un trekking a 4.000 metri."
+  - tutor: "Un bel viaggio, ma ne parliamo tra poco. Prima mi dica: in famiglia qualcuno ha avuto problemi di cuore o di pressione?"
+    goals: [symptoms]
+  - learner: "Mio nonno aveva il cuore debole, ma è morto molto anziano. I miei genitori stanno bene, che io sappia. Allora, cosa dicono gli esami? Spero che posso partire tranquillo."
+    errors: [subjunctive-use]
+  - tutor: "Lo spero anch'io. Ma attenzione: «spero che posso partire». Dopo «spero che»... ci ripensi un attimo."
+    goals: [history]
+    prompt: {text: "Spero che posso partire", tags: [subjunctive-use]}
+  - learner: "Ah, giusto: spero che io possa partire tranquillo. Allora, gli esami?"
+  - tutor: "Esatto. Il cuore è sano, ma l'esame delle 24 ore mostra qualche battito in più, soprattutto sotto sforzo. Di solito non è niente di grave. Le spiego cosa possiamo fare?"
+    goals: [understand]
+  - learner: "Sì, per favore. Ma devo prendere delle medicine? Non vorrei sentirmi stanco proprio durante il viaggio."
+  - tutor: "Le do una medicina leggera per il battito. All'inizio può dare un po' di affaticamento, per questo è meglio cominciare subito. Prima di partire, però, vorrei che facesse una prova da sforzo."
+    goals: [treatment]
+  - learner: "Va bene, la faccio volentieri. E se in Perù mi sento male, cosa devo fare?"
+  - tutor: "Si fermi, si riposi e non salga più in alto finché non si sente meglio. Porti con sé gli esami e il nome della medicina. Ci vediamo la settimana prossima per la prova."
+
+# medico-specialista: paziente adottata, ansia
+- scenario: medico-specialista
+  level: B2
+  persona: en-f-student
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Buongiorno. Non lo so, sinceramente. Ogni tanto, la sera, sento il cuore che batte fortissimo e mi gira la testa. Ho letto molte cose su internet e mi sono spaventata."
+  - tutor: "Internet a volte fa più paura che altro. Quando le succede, cosa sta facendo di solito?"
+  - learner: "Di solito niente di speciale: sono a letto e penso agli esami all'università. Dura qualche minuto, poi passa. Una volta mi sono svegliata di notte con il battito velocissimo."
+  - tutor: "Grazie, è molto chiaro. Nella sua famiglia qualcuno ha avuto problemi di cuore?"
+    goals: [symptoms]
+  - learner: "Questo è il problema: sono stata adottata quando avevo tre anni, quindi non so niente della mia famiglia biologica. Ho paura che c'è qualcosa di ereditario."
+    errors: [subjunctive-use]
+  - tutor: "Capisco la sua preoccupazione. Però attenzione: «ho paura che c'è»... dopo «ho paura che», cosa usa?"
+    prompt: {text: "Ho paura che c'è", tags: [subjunctive-use]}
+  - learner: "Sì, scusi: ho paura che c'è un problema che nessuno conosce."
+    errors: [subjunctive-use]
+  - tutor: "È normale avere paura che ci sia un problema nascosto, quando mancano queste informazioni. Per questo abbiamo fatto esami completi. Vuole sapere cosa mostrano?"
+    goals: [history]
+    recast: {text: "che c'è", fix: "che ci sia", tags: [subjunctive-use]}
+  - learner: "Sì, per favore. Gli esami sono normali? Perché io mi sento davvero male in quei momenti."
+  - tutor: "Sono normali: il cuore è sano e anche la pressione va bene. Quello che sente è vero, ma probabilmente dipende dall'ansia e dalla stanchezza. Quanti caffè beve al giorno?"
+    goals: [understand]
+  - learner: "Troppi, forse quattro o cinque. E dormo poco. Ma allora non mi dà nessuna terapia? Una mia amica prende delle gocce per dormire."
+  - tutor: "Per ora niente medicine: le gocce possono dare sonnolenza di giorno, e lei non ne ha bisogno. Provi a bere meno caffè e a dormire di più per un mese. Le va bene così?"
+    goals: [treatment]
+    new: [{lemma: sonnolenza, gloss: drowsiness}]
+  - learner: "Sì, mi sembra ragionevole. Sono già più tranquilla, grazie. Devo tornare per un altro controllo?"
+  - tutor: "Sì, tra due mesi, così vediamo se le cose migliorano. Se il battito veloce dura più di mezz'ora, venga subito in ospedale. Arrivederci, e in bocca al lupo per gli esami!"
+
+# organizzare-matrimonio: secondo matrimonio, rito civile a Milano
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-f-professional
+  history: [conditional-form]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Per tutti e due è il secondo matrimonio, quindi vogliamo una cosa elegante ma senza troppe tradizioni: rito civile in comune a Milano, poi una cena con una cinquantina di invitati. Niente chiesa e niente torta a cinque piani."
+  - tutor: "Mi piace, uno stile moderno e personale. Quanto avete pensato di spendere, più o meno?"
+    goals: [vision]
+  - learner: "Circa 20.000 euro, fotografo compreso. Non è moltissimo, lo so, però preferirebbi spendere meno per la festa e di più per il viaggio di nozze."
+    errors: [conditional-form]
+  - tutor: "Con 20.000 euro si può fare molto. Ma ripeta un momento: «preferirebbi»? Ci pensi bene."
+    prompt: {text: "preferirebbi", tags: [conditional-form]}
+  - learner: "Sì... preferirebbi, cioè, vorrei risparmiare sulla festa. Il viaggio in Giappone costa tanto."
+    errors: [conditional-form]
+  - tutor: "Capisco: anch'io preferirei un bel viaggio a una festa enorme! Con questa cifra le propongo due posti: una terrazza in centro, vicino al Duomo, oppure una villa sul lago di Como. Quale le piace di più?"
+    goals: [budget]
+    recast: {text: "preferirebbi", fix: "preferirei", tags: [conditional-form]}
+  - learner: "La terrazza, senza dubbio. La villa è bellissima, ma molti nostri amici non hanno la macchina, e tornare da Como di notte sarebbe un problema."
+  - tutor: "Una scelta molto pratica. La terrazza ha anche una sala interna, in caso di pioggia. Prima di firmare, ha delle richieste particolari per me?"
+    goals: [choices]
+  - learner: "Sì, due. Prima: ogni preventivo deve passare da me, non dal mio compagno, perché lui dice sì a tutto. Se ci sono cambiamenti, mi li mandi per email, per favore."
+    errors: [combined-pronouns]
+  - tutor: "Ha ragione, meglio una sola persona. Ma attenzione a «mi li mandi»: qui c'è qualcosa che non va."
+    prompt: {text: "mi li mandi", tags: [combined-pronouns]}
+  - learner: "Giusto: me li mandi per email. E la seconda condizione: vorrei che nel contratto ci fosse una penale se i fornitori arrivano in ritardo."
+  - tutor: "Perfetto. Mettiamo tutto per iscritto, anche la penale, così può stare tranquilla. Le mando la bozza del contratto entro venerdì."
+    goals: [conditions]
+    new: [{lemma: penale, gloss: penalty clause}, {lemma: bozza, gloss: draft}]
+
+# organizzare-matrimonio: matrimonio in Salento e parenti numerosi
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-heritage
+  history: [register]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! È un po' complicato. Io sono cresciuto a Toronto, ma la famiglia di mio padre è di un paesino vicino a Lecce, e vogliamo sposarci lì, a settembre. Io e Sara sogniamo una festa semplice, all'aperto, con ottanta invitati al massimo."
+  - tutor: "Un matrimonio vicino a Lecce a settembre è un'ottima idea. Perché dice che è complicato?"
+    goals: [vision]
+  - learner: "Perché i miei parenti italiani pensano che ottanta sono pochissimi: vogliono invitare tutto il paese, almeno duecento persone. E noi abbiamo solo 35.000 euro."
+    errors: [subjunctive-use]
+  - tutor: "Succede spesso, non si preoccupi. Però, «pensano che ottanta sono»... dopo «pensano che», cosa ci vuole?"
+    prompt: {text: "pensano che ottanta sono", tags: [subjunctive-use]}
+  - learner: "Ah, sì: pensano che ottanta siano pochissimi. Mia nonna dice che è una vergogna!"
+  - tutor: "Ecco. Con 35.000 euro, 200 invitati sono difficili, ma 120 si possono fare, con un menù tipico. Per la festa ho due proposte: una masseria con piscina, o il ristorante del paese, sulla piazza. Che ne dice?"
+    goals: [budget]
+    new: [{lemma: masseria, gloss: farmhouse estate}]
+  - learner: "Senti, il ristorante del paese è quello dove si sono sposati i miei nonni, quindi per la famiglia sarebbe speciale. Però la masseria è più bella per le foto."
+    errors: [register]
+  - tutor: "Un attimo: «senti»? Ci siamo appena conosciuti, e con i clienti si parla in un altro modo."
+    prompt: {text: "Senti", tags: [register]}
+  - learner: "Mi scusi, ha ragione, a casa parliamo sempre così. Alla fine scelgo il ristorante: la nonna sarà felicissima, e le foto le facciamo nella campagna intorno."
+  - tutor: "Ottima scelta, anche per gli invitati più anziani. Prima di cominciare, ci sono condizioni che vuole mettere?"
+    goals: [choices]
+  - learner: "Sì. Vorrei che fosse Lei a parlare con i parenti quando chiedono di invitare altre persone, perché io non riesco a dire di no. E mia nonna vuole preparare i dolci: è possibile?"
+  - tutor: "Con i parenti ci parlo io, è il mio lavoro. Per i dolci della nonna nessun problema: li mettiamo su un tavolo tutto per lei. Le preparo un preventivo per 120 persone entro la settimana."
+    goals: [conditions]
+
+# organizzare-matrimonio: sposi in pensione, pranzo in collina
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-retired
+  history: [combined-pronouns]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie, è gentile. Io ho 72 anni e Margaret ne ha 68: ci siamo conosciuti a un corso di italiano a Firenze! Immaginiamo un pranzo tranquillo, non una cena, con trenta invitati, soprattutto figli e nipoti."
+  - tutor: "Che bella storia, davvero. Un pranzo è una scelta elegante e più rilassata. Avete già un'idea della spesa?"
+    goals: [vision]
+  - learner: "Abbiamo pensato a 15.000 euro. Non vogliamo spendere troppo, perché preferiremmo lasciare qualcosa ai nipoti."
+  - tutor: "Per 30 persone a pranzo va benissimo. Ho trovato due posti vicino a Firenze: una trattoria sul fiume, molto familiare, e un agriturismo in collina con una vista splendida. Quale preferisce?"
+    goals: [budget]
+    new: [{lemma: trattoria, gloss: family restaurant}, {lemma: agriturismo, gloss: farm stay}]
+  - learner: "Mi piace l'idea della collina, ma ci sono scale? Mia sorella è in sedia a rotelle, e anche Margaret ha problemi al ginocchio."
+  - tutor: "Domanda giustissima. In collina la sala è al piano terra e si entra senza scale. Sul fiume, invece, ci sono alcuni gradini all'ingresso."
+    new: [{lemma: gradino, gloss: step}]
+  - learner: "Allora scegliamo l'agriturismo. Ha delle foto della sala? Se le ha, le mi può mandare? Margaret vuole vederle prima di decidere i fiori."
+    errors: [combined-pronouns]
+  - tutor: "Certo che le ho. Ma attenzione: «le mi può mandare»... l'ordine non è quello giusto."
+    goals: [choices]
+    prompt: {text: "le mi può mandare", tags: [combined-pronouns]}
+  - learner: "Ah, già: me le può mandare stasera? Così le guardiamo insieme."
+  - tutor: "Perfetto, gliele mando stasera. Prima di firmare, ci sono condizioni che vorrebbe mettere?"
+  - learner: "Sì, due. Niente musica troppo alta, perché vogliamo parlare con gli ospiti. E vorrei che il fotografo fosse discreto: a noi non piace stare in posa per ore."
+  - tutor: "Capito: musica leggera e un fotografo che lavora senza disturbare. Lo scrivo nel contratto. Ci vediamo la settimana prossima, tutti e due, per scegliere il menù."
+    goals: [conditions]
+
+# recensione-ristorante: allergia della figlia
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-m-worker
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, un problema grave. Mia figlia ha otto anni ed è allergica alla frutta secca. L'ho detto al cameriere quando abbiamo ordinato, ma nelle trofie al pesto c'erano dei pistacchi."
+  - tutor: "Mi dispiace moltissimo. Prima di tutto: la bambina come sta adesso?"
+    goals: [complain]
+  - learner: "Adesso meglio, per fortuna. Ha avuto le labbra gonfie e un po' di prurito, e le ho dato la sua medicina. Il cameriere mi ha detto che il pesto era fatto solo con il basilico. Pensavo che il cuoco lo sapeva."
+    errors: [subjunctive-use]
+  - tutor: "Per fortuna va meglio. Lei ha ragione su tutto. Solo una cosa: «pensavo che il cuoco lo sapeva»? Ripeta con calma."
+    goals: [detail]
+    prompt: {text: "Pensavo che il cuoco lo sapeva", tags: [subjunctive-use]}
+  - learner: "Sì, insomma, pensavo che il cuoco lo sapeva, perché il cameriere è andato in cucina a chiedere."
+    errors: [subjunctive-use]
+  - tutor: "Era giusto pensare che il cuoco lo sapesse: purtroppo oggi abbiamo cambiato la ricetta e nessuno l'ha detto alla sala. È un errore nostro. Che cosa si sarebbe aspettato da noi?"
+    recast: {text: "il cuoco lo sapeva", fix: "il cuoco lo sapesse", tags: [subjunctive-use]}
+    new: [{lemma: cuoco, gloss: cook}]
+  - learner: "Mi sarei aspettato che qualcuno controllasse davvero. Se il cameriere mi avrebbe detto «non sono sicuro», avremmo ordinato un'altra cosa."
+    errors: [hypothetical]
+  - tutor: "Assolutamente. Però, «se il cameriere mi avrebbe detto»? Dopo «se»... provi di nuovo."
+    goals: [expectation]
+    prompt: {text: "Se il cameriere mi avrebbe detto", tags: [hypothetical]}
+  - learner: "Se il cameriere mi avesse detto la verità, avremmo scelto un altro piatto."
+  - tutor: "Esatto. Stasera la cena è offerta da noi, naturalmente, e da domani sul menù scriviamo tutti gli allergeni. Può andare bene?"
+    new: [{lemma: allergene, gloss: allergen}]
+  - learner: "Sì, accetto, grazie. Ma soprattutto sono contento che cambiate il menù: la prossima volta potrebbe succedere a un altro bambino."
+  - tutor: "Ha perfettamente ragione, ed è proprio per questo che lo facciamo. Ancora scuse a Lei e alla sua bambina: spero di rivedervi presto, più tranquilli."
+    goals: [resolve]
+
+# recensione-ristorante: vegetariana e brodo di carne
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-student
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, mi dispiace fare storie, ma stasera festeggiamo la mia laurea e c'è stato un problema con il mio piatto. Io sono vegetariana, l'ho detto chiaramente, e il cameriere mi ha consigliato il risotto ai funghi."
+  - tutor: "Prima di tutto, auguri per la laurea. Mi dica pure, cosa non andava nel risotto?"
+    goals: [complain]
+  - learner: "Dopo qualche cucchiaio ho chiesto alla cameriera, e lei mi ha detto che il risotto è fatto con il brodo di carne. Ero così eccitata per questa cena, e invece ho dovuto lasciare il piatto."
+    errors: [false-friend]
+  - tutor: "Capisco, era emozionata per questa serata e le abbiamo rovinato la cena. Il brodo di carne in un piatto consigliato a una vegetariana è un errore grave. C'è stato anche altro?"
+    recast: {text: "eccitata", fix: "emozionata", tags: [false-friend]}
+  - learner: "Sì, purtroppo. Anche le porzioni dei miei amici erano molto piccole per il prezzo: 15 euro per un piatto di pasta quasi vuoto."
+  - tutor: "Ha ragione, a volte le porzioni sono troppo piccole, lo dico subito in cucina. Cosa si aspettava da noi, stasera?"
+    goals: [detail]
+  - learner: "Mi avrebbe piaciuto che il cameriere controllasse prima di consigliarmi il piatto. Non è difficile chiedere in cucina."
+    errors: [auxiliary-choice]
+  - tutor: "Giusto. Ma «mi avrebbe piaciuto»? Con questa parola qualcosa non va. Ci riprova?"
+    prompt: {text: "Mi avrebbe piaciuto", tags: [auxiliary-choice]}
+  - learner: "Ah, sì: mi sarebbe piaciuto che il cameriere controllasse."
+  - tutor: "Perfetto, e ha ragione. Le offro un piatto vegetariano preparato adesso, e uno sconto del 30% su tutto il conto. Le va bene?"
+    goals: [expectation]
+  - learner: "Il piatto nuovo no, grazie, ormai non ho più fame. Lo sconto invece lo accetto volentieri, così i miei amici sono contenti."
+  - tutor: "Come preferisce. Le porto subito il conto con lo sconto, e il brindisi per la laurea lo offriamo noi. Ancora auguri, dottoressa!"
+    goals: [resolve]
+    new: [{lemma: laurea, gloss: degree}, {lemma: dottoressa, gloss: graduate (title)}]
+
+# recensione-ristorante: lasagne "della nonna" scaldate, offerta rifiutata
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-heritage
+  history: [hypothetical]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Guardi, non voglio fare una scenata, ma devo dirle una cosa. Sul vostro menù c'è scritto «lasagne della nonna, fatte in casa», e io ho mangiato le lasagne di mia nonna per trent'anni."
+  - tutor: "E le nostre non le sono piaciute, immagino. Che cosa non andava, esattamente?"
+    goals: [complain]
+  - learner: "Erano fredde al centro e calde fuori, come quando le scaldi nel microonde. Secondo me erano surgelate. E il ragù sapeva di barattolo."
+  - tutor: "Non le nascondo niente: stasera le lasagne erano di ieri, e in cucina le hanno scaldate in fretta. Non doveva succedere. Lei cosa si aspettava, entrando qui?"
+    goals: [detail]
+    new: [{lemma: lasagna, gloss: lasagna}, {lemma: scaldare, gloss: to heat up}]
+  - learner: "Mi aspettavo una cucina semplice, ma vera. Non chiedo un ristorante stellato, però vorrei che il menù dice la verità."
+    errors: [subjunctive-use]
+  - tutor: "È giusto. Però attenzione: «vorrei che il menù dice la verità»... pensi a come continua la frase dopo «vorrei che»."
+    prompt: {text: "vorrei che il menù dice la verità", tags: [subjunctive-use]}
+  - learner: "Sì, cioè... vorrei che il menù dice la verità, ecco. Se c'è scritto «fatto in casa», deve essere fatto oggi."
+    errors: [subjunctive-use]
+  - tutor: "Ha ragione, anch'io vorrei che il menù dicesse la verità. Per scusarmi, le offro il dolce e un caffè, e non metto le lasagne nel conto. Accetta?"
+    goals: [expectation]
+    recast: {text: "il menù dice la verità", fix: "il menù dicesse la verità", tags: [subjunctive-use]}
+  - learner: "La ringrazio, ma no. Preferisco pagare tutto, così sono libero di scrivere quello che penso. Non sarà una recensione cattiva, solo onesta."
+  - tutor: "La rispetto, ed è giusto così. Domani parlo con la cucina e cambio quella frase sul menù. Spero che tornerà a provare le lasagne fresche, magari la domenica."
+    goals: [resolve]
+
+# film-libro: un classico che non è piaciuto
+- scenario: film-libro
+  level: B2
+  persona: es-f-erasmus
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Posso iniziare io, ma vi avviso: non sono entusiasta. Ho letto «Il Gattopardo», perché tutti dicono che è un capolavoro. È ambientato in Sicilia quando arriva Garibaldi, e racconta come una famiglia nobile vede cambiare il suo mondo."
+  - tutor: "Ottimo riassunto, e senza dire troppo! Chi è il personaggio principale?"
+    goals: [summary]
+    new: [{lemma: riassunto, gloss: summary}]
+  - learner: "È il principe di Salina, un uomo che ha tutto il potere, ma capisce che la sua epoca sta finendo. È un personaggio che non riesco a capire bene le sue scelte: è intelligente, ma non fa niente."
+    errors: [relative-pronoun]
+  - tutor: "Interessante. Aspetta, però: «un personaggio che non riesco a capire bene le sue scelte» non funziona del tutto. Prova a cambiare la frase."
+    prompt: {text: "un personaggio che non riesco a capire bene le sue scelte", tags: [relative-pronoun]}
+  - learner: "Hai ragione: è un personaggio di cui non capisco bene le scelte."
+  - tutor: "Chiaro. E quindi, alla fine, ti è piaciuto o no?"
+    goals: [characters]
+  - learner: "Sinceramente no. Ci sono pagine bellissime, ma per me era troppo lento e un po' noioso: descrizioni lunghissime di palazzi e di cene. Forse il problema è che non conosco bene la storia italiana di quel periodo."
+  - tutor: "È un'opinione onesta, e non sei la sola a pensarla così. A chi lo consiglieresti, allora?"
+    goals: [opinion]
+  - learner: "A chi ama la storia e ha molta pazienza. Agli altri consiglierei di vedere prima il film di Visconti: è lungo anche quello, ma almeno ci sono i colori della Sicilia!"
+  - tutor: "Bel consiglio, anche il film è un classico. Grazie, sei stata sincera e ci hai dato molto da discutere. Chi parla adesso?"
+    goals: [recommend]
+
+# film-libro: letto in treno, durante un viaggio
+- scenario: film-libro
+  level: B2
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Io! Questo mese ho viaggiato molto in treno, e mentre ero in viaggio ho letto ogni sera un capitolo di «Io non ho paura» di Niccolò Ammaniti."
+    errors: [tense-aspect]
+  - tutor: "Bello leggere in treno! Ma «ho letto ogni sera»... era un'abitudine di quel periodo, no? Riprova."
+    prompt: {text: "ho letto ogni sera", tags: [tense-aspect]}
+  - learner: "Sì, ho letto ogni sera, prima di dormire, nelle stazioni o nei vagoni. È un libro breve, si legge in fretta."
+    errors: [tense-aspect]
+  - tutor: "Ah, «leggevo ogni sera»: è una bella abitudine, in viaggio. Senza dire troppo, di che cosa parla?"
+    recast: {text: "ho letto ogni sera", fix: "leggevo ogni sera", tags: [tense-aspect]}
+  - learner: "È l'estate del 1978, in un piccolo paese del Sud. Un bambino di dieci anni, Michele, scopre un segreto terribile vicino a una casa abbandonata. Non posso dire di più!"
+  - tutor: "Perfetto, mi hai fatto venire voglia di leggerlo. Com'è Michele come personaggio?"
+    goals: [summary]
+  - learner: "È un bambino normale, a volte pauroso, ma ha un senso della giustizia molto forte. La cosa che mi ha colpito di più è che vediamo tutto con i suoi occhi, anche quello che gli adulti nascondono."
+  - tutor: "Sì, il punto di vista di un bambino cambia tutto. E a te, alla fine, è piaciuto?"
+    goals: [characters]
+  - learner: "Moltissimo. È emozionante come un giallo, ma è anche un libro sull'infanzia e sulla paura. Il finale mi ha lasciato senza parole, sul treno per Napoli."
+  - tutor: "Ti capisco, quel finale resta in testa a lungo. A chi lo consiglieresti?"
+    goals: [opinion]
+  - learner: "A chi vuole un libro breve ma intenso, anche agli studenti di italiano come me: la lingua non è troppo difficile. Ai bambini però no, è troppo duro."
+  - tutor: "Ottimo consiglio, lo mettiamo nella lista del mese prossimo. Grazie! Chi è il prossimo?"
+    goals: [recommend]
+
+# film-libro: un audiolibro ascoltato in macchina
+- scenario: film-libro
+  level: B2
+  persona: en-f-professional
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Io ho fatto un po' diversamente: non avevo tempo di leggere, quindi ho ascoltato un audiolibro mentre andavo al lavoro. «La coscienza di Zeno», di Italo Svevo."
+  - tutor: "Vale assolutamente anche così! Di che cosa parla, senza dire troppo?"
+  - learner: "Zeno è un uomo di Trieste che va da uno psicanalista, e il medico gli chiede di scrivere la storia della sua vita. Così lui racconta i suoi tentativi di smettere di fumare, il matrimonio, gli affari con il cognato..."
+  - tutor: "Un riassunto perfetto. E Zeno, che tipo è?"
+    goals: [summary]
+    new: [{lemma: riassunto, gloss: summary}]
+  - learner: "È un personaggio che fa ridere e anche un po' pena. Dice sempre che quella è l'ultima sigaretta, e poi ne accende un'altra. Non sa mai cosa vuole, ma è molto sincero con se stesso, o almeno ci prova."
+  - tutor: "L'ultima sigaretta è famosa, in effetti! E il libro, nel complesso, ti è piaciuto?"
+    goals: [characters]
+  - learner: "Sì, più di quanto pensassi. Pensavo che fosse un classico pesante, invece è ironico e moderno. Le ultime pagine le ho ascoltato in macchina due volte, perché il finale è strano e molto attuale."
+    errors: [participle-agreement]
+  - tutor: "Bello tornare indietro per capire meglio. Ma «le ho ascoltato»? Guarda bene a cosa si riferisce quel «le»."
+    prompt: {text: "le ho ascoltato", tags: [participle-agreement]}
+  - learner: "Hai ragione, le ultime pagine le ho ascoltate due volte."
+  - tutor: "Brava. E allora, a chi lo consiglieresti?"
+    goals: [opinion]
+  - learner: "A chi pensa che i classici siano noiosi, soprattutto in audiolibro, perché l'attore che legge è bravissimo. E naturalmente a tutti i fumatori!"
+  - tutor: "Ai fumatori farà bene, forse! Grazie, mi hai convinto: lo rileggo dopo tanti anni. Chi vuole continuare?"
+    goals: [recommend]

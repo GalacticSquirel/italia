@@ -1,0 +1,59 @@
+- scenario: assicurazione-sinistro
+  level: C2
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri sera, verso le sette, ero fermo al semaforo di viale Mazzini quando una macchina mi ha tamponato. Niente di grave, per fortuna, ma il paraurti posteriore è da buttare."
+    - tutor: "Mi dispiace per lo spavento, ma almeno non si è fatto male nessuno. Un tamponamento da fermo è il caso di scuola, come diciamo noi. Mi tolga però una curiosità: l'altro conducente ha ammesso subito la colpa o ha tentato di rigirare la frittata?"
+      goals: [what]
+      new: [{lemma: tamponamento, gloss: rear-end collision}, {lemma: rigirare la frittata, gloss: to twist the facts in one's favour}, {lemma: conducente, gloss: driver}]
+    - learner: "All'inizio ha avuto un argomento con me: sosteneva che avessi frenato di colpo. Poi si è fatto avanti un testimone e si è calmato."
+      errors: [false-friend]
+    - tutor: "Capisco: prima ha discusso con Lei, poi davanti al testimone ha abbassato la cresta. Succede spesso. In ogni caso chi tampona ha torto, salvo prova contraria, quindi la responsabilità è sua. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+      recast: {text: "ha avuto un argomento con me", fix: "ha discusso con Lei", tags: [false-friend]}
+      new: [{lemma: abbassare la cresta, gloss: to climb down (lit. lower one's crest)}, {lemma: tamponare, gloss: to rear-end}]
+    - learner: "Sì, l'abbiamo compilata sul posto e l'abbiamo firmata tutti e due. Ho anche preso delle foto dei danni e della sua targa."
+      errors: [word-choice]
+    - tutor: "Ottimo: se ha fatto delle foto, tanto meglio, perché valgono oro. Me le mandi insieme al modulo. Una verifica: nella casella delle circostanze, che cosa ha barrato l'altro conducente?"
+      recast: {text: "preso delle foto", fix: "fatto delle foto", tags: [word-choice]}
+      new: [{lemma: barrare, gloss: to tick (a box)}, {lemma: casella, gloss: box (on a form)}]
+    - learner: "Ha barrato «tamponava un veicolo fermo», e nelle osservazioni non ha scritto nulla. Il testimone ha lasciato nome e numero di telefono in fondo al modulo."
+    - tutor: "Allora siamo in una botte di ferro. Doppia firma, casella giusta, testimone: di meglio non si potrebbe chiedere. Ha qualche domanda, prima che apra la pratica?"
+      goals: [documents]
+      new: [{lemma: essere in una botte di ferro, gloss: to be completely safe}]
+    - learner: "Sì, una: che cosa succede adesso? Devo aspettare la perizia prima di far riparare la macchina? E la franchigia tocca a me?"
+    - tutor: "La perizia sarà fissata entro pochi giorni: fino ad allora non tocchi nulla. Quanto alla franchigia, stia tranquillo: avendo ragione Lei, non si applica, e paga tutto la compagnia dell'altro. La chiamerà il perito. Buona giornata, e guidi con prudenza: gli altri, a quanto pare, non sempre lo fanno."
+      goals: [next]
+      new: [{lemma: perito, gloss: loss adjuster}]
+
+- scenario: assicurazione-sinistro
+  level: C2
+  persona: es-f-teacher
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Stamattina, mentre uscivo in retromarcia da un parcheggio, ho urtato una macchina che passava dietro di me. O forse è stata lei a urtare me: sinceramente, non saprei dirlo."
+    - tutor: "Apprezzo la franchezza: di solito al telefono sento solo innocenti. In retromarcia, però, la faccenda si complica, perché chi fa manovra deve dare la precedenza. L'altra auto andava piano o arrivava a tutta birra?"
+      goals: [what]
+      new: [{lemma: a tutta birra, gloss: at full speed}, {lemma: retromarcia, gloss: reverse gear}, {lemma: franchezza, gloss: frankness}]
+    - learner: "Andava forte, glielo assicuro. Se sarebbe andata più piano, avrebbe avuto tutto il tempo di frenare, perché io ero già uscita per metà."
+      errors: [hypothetical]
+    - tutor: "Un momento, torni indietro: «se sarebbe andata»? Dopo il «se» dell'ipotesi quel condizionale è il più classico degli scivoloni, e ci cascano anche parecchi italiani. Come lo raddrizza?"
+      prompt: {text: "Se sarebbe andata", tags: [hypothetical]}
+      new: [{lemma: scivolone, gloss: "slip, blunder"}, {lemma: raddrizzare, gloss: to straighten out}]
+    - learner: "Ha ragione, che vergogna, con il mestiere che faccio: se fosse andata più piano, avrebbe avuto il tempo di frenare."
+    - tutor: "Ecco, così torna. Quanto alla sostanza, temo che si vada verso un concorso di colpa: Lei in manovra, l'altra troppo veloce. Non è una tragedia, ma il torto si divide. Avete firmato insieme la constatazione amichevole?"
+      goals: [responsibility]
+      new: [{lemma: concorso di colpa, gloss: shared liability}]
+    - learner: "No, purtroppo. La signora non ha voluto firmare niente: mi ha detto il nome, ha fotografato la mia targa e se n'è andata. Io però ho compilato la mia parte e ho annotato la sua targa."
+    - tutor: "Ha fatto bene: il modulo con una sola firma vale comunque come denuncia. E i danni? Mi dica che cosa risulta danneggiato sulla Sua auto."
+    - learner: "Il paraurti dietro è stato rigato e un fanale si è rotto. Niente che impedisce di guidare, ma il carrozziere dice che ci vuole una settimana."
+      errors: [subjunctive-use]
+    - tutor: "Annoto: paraurti e fanale. Una pignoleria, visto il mestiere che fa: «niente che impedisce»? Dopo «niente che» un orecchio fino si aspetta un altro modo verbale. Me lo ridice?"
+      prompt: {text: "Niente che impedisce", tags: [subjunctive-use]}
+      new: [{lemma: pignoleria, gloss: nitpicking}, {lemma: fanale, gloss: "tail light, headlamp"}]
+    - learner: "Niente che impedisca di guidare, certo. E adesso che cosa devo aspettarmi? Quanto dura tutta la pratica?"
+    - tutor: "Perfetto. Adesso apro il sinistro e Le mando il numero di pratica. Il perito La contatterà in settimana, poi sentiremo l'altra compagnia: se la signora fa orecchie da mercante, i tempi si allungano. Conti un mese, a occhio e croce. Buona giornata."
+      goals: [documents, next]
+      new: [{lemma: fare orecchie da mercante, gloss: to turn a deaf ear}, {lemma: a occhio e croce, gloss: "roughly, at a guess"}, {lemma: perito, gloss: loss adjuster}]

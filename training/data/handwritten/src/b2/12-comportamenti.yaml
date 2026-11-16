@@ -1,0 +1,295 @@
+# Learner behaviours the tutor must handle in role: asking what a word means, drifting off
+# topic, pushing back, answering very briefly, mixing in an English word, recurring errors.
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-m-heritage
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno, grazie. È più luminoso di quanto pensassi dalle foto. Senta, quant'è l'affitto, e che cosa comprende esattamente?"
+  - tutor: "Sono 850 euro al mese. Dentro ci sono le spese di condominio, ma non la luce e il gas. All'inizio le chiedo anche una caparra di due mesi."
+    goals: [rent]
+  - learner: "Scusi, «caparra» la sentivo dire da mia nonna, ma non ho mai capito bene che cosa sia. Me lo può spiegare?"
+  - tutor: "Volentieri. Sono soldi che lei mi lascia quando firma, come sicurezza per la casa. Quando va via, se è tutto in ordine, glieli do indietro. Vuole sapere altro sul contratto?"
+  - learner: "Adesso è chiaro, grazie. Sì: quanto dura il contratto? Io cerco una casa in cui restare almeno tre anni."
+  - tutor: "Allora siamo d'accordo: il contratto dura quattro anni e poi si può continuare per altri quattro. Se dovesse andare via prima, basta che me lo dica sei mesi prima."
+    goals: [contract]
+  - learner: "Mi sembra ragionevole. E in che condizioni è la casa? Io soffro il freddo: il riscaldamento funziona bene? Vedo che c'è anche la lavastoviglie, una cosa che ne ho proprio bisogno."
+    errors: [relative-pronoun]
+  - tutor: "Il riscaldamento funziona bene ed è stato controllato un mese fa. Ma senta: «una cosa che ne ho proprio bisogno»? Si ha bisogno «di» qualcosa: provi a cambiare l'inizio."
+    prompt: {text: "che ne ho proprio bisogno", tags: [relative-pronoun]}
+  - learner: "Ha ragione: una cosa di cui ho proprio bisogno. È nuova?"
+  - tutor: "Esatto. Sì, l'ho comprata l'anno scorso, insieme al frigorifero. Anche il resto è in ottimo stato, come vede. C'è altro che vorrebbe sapere?"
+    goals: [condition]
+  - learner: "Sì, il quartiere. Non ho la macchina e vado quasi sempre a piedi: ci sono negozi qui vicino? E la sera è tranquillo?"
+  - tutor: "È uno dei quartieri più tranquilli di Bologna. A due minuti trova un supermercato, la farmacia e l'autobus per il centro. La sera si dorme bene, glielo assicuro. Che ne dice, le interessa?"
+    goals: [neighbourhood]
+  - learner: "Sì, mi interessa molto. Se per lei va bene, vorrei firmare già questa settimana, e la caparra gliela porto lo stesso giorno."
+  - tutor: "Benissimo, mi fa piacere. Preparo il contratto e ci vediamo giovedì alle 10 qui in casa. Porti un documento e il codice fiscale. A giovedì, allora!"
+    goals: [decide]
+
+- scenario: arte-mostra
+  level: B2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi piace, ha qualcosa di misterioso. Però, Giovanni, hai visto quanta gente c'è? Abbiamo fatto 40 minuti di fila e il biglietto costa 16 euro! A Siviglia i musei per gli studenti sono gratis."
+  - tutor: "Hai ragione, la fila era lunga, ma ormai siamo dentro! Torniamo al quadro, dai. Mi dici che cosa vedi?"
+    goals: [react]
+  - learner: "Va bene. Vedo una donna seduta vicino a una finestra, che legge una lettera. La luce entra da sinistra e illumina solo il suo viso e le mani; tutto il resto rimane nel buio."
+  - tutor: "Brava, hai notato la cosa più importante. Il quadro è stato dipinto a Roma verso il 1620, quando questa luce andava molto di moda. Secondo te, che cosa c'è scritto in quella lettera?"
+    goals: [describe]
+  - learner: "Penso che è una lettera d'amore, perché lei sorride un poco. A proposito, dopo andiamo a prendere un caffè? Nel bar del museo fanno una torta buonissima, me l'ha detto Marta."
+    errors: [subjunctive-use]
+  - tutor: "Il caffè dopo, promesso! Prima però: «penso che è una lettera d'amore»? Dopo «penso che» ci vuole un'altra forma. Come lo dici?"
+    prompt: {text: "Penso che è", tags: [subjunctive-use]}
+  - learner: "Penso che sia una lettera d'amore. E credo che la donna non voglia farla vedere a nessuno: per questo si è messa in un angolo."
+  - tutor: "Esatto. Bella idea, quella dell'angolo: è un amore che deve restare segreto. Ti ricorda qualche altro pittore, o un altro stile?"
+    goals: [interpret]
+  - learner: "Mi ricorda Velázquez, che ho visto tante volte al Prado. Anche lui usa uno sfondo scuro, ma i suoi personaggi sembrano più seri, quasi tristi. Qui invece c'è più dolcezza."
+  - tutor: "Ottimo confronto. I due pittori hanno studiato la stessa luce, ma qui i colori sono più caldi. Adesso ce la siamo meritata: andiamo a provare quella torta!"
+    goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-m-worker
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ho avuto un incidente."
+  - tutor: "Mi dispiace. Per aprire la pratica mi serve qualcosa in più. Dove si trovava, e che cosa stava facendo in quel momento?"
+  - learner: "Ero a Torino, in corso Francia. Ero fermo al semaforo e una macchina mi ha colpito da dietro. Il paraurti è rotto."
+  - tutor: "Adesso è chiaro, grazie. Quindi lei era fermo e il paraurti è stato rotto dall'altra macchina. Secondo lei, di chi è la colpa?"
+    goals: [what]
+  - learner: "Sua."
+  - tutor: "Le credo, ma devo scrivere bene come sono andate le cose. Perché ne è così sicuro?"
+  - learner: "Il semaforo era rosso e io ero fermo da un po'. L'altro guardava il telefono e non ha frenato. Me l'ha detto lui, quando ho sceso dalla macchina."
+    errors: [auxiliary-choice]
+  - tutor: "Bene, questo conta molto. Un attimo, però: «quando ho sceso dalla macchina»? Lì «ho» non va bene. Ci riprovi."
+    prompt: {text: "ho sceso", tags: [auxiliary-choice]}
+    goals: [responsibility]
+  - learner: "Sì, ho sceso subito. E lui anche."
+    errors: [auxiliary-choice]
+  - tutor: "D'accordo: lei è sceso subito, e anche l'altra persona. La constatazione amichevole è stata firmata da tutti e due?"
+    recast: {text: "ho sceso", fix: "è sceso", tags: [auxiliary-choice]}
+  - learner: "Sì, è stata firmata da tutti e due, e c'è anche la sua targa. Ho fatto delle foto del danno. E adesso che cosa devo fare?"
+  - tutor: "Mi mandi tutto per email entro tre giorni. Poi verrà fissata la perizia in un'officina vicino a casa sua. La colpa non è sua, quindi non paga nessuna franchigia. La chiamiamo noi entro la settimana. Buona giornata!"
+    goals: [documents, next]
+    new: [{lemma: officina, gloss: garage, repair shop}]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-professional
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Vorrei chiedere la residenza qui a Padova. Mi sono trasferita da Londra a ottobre: mio marito fa medico e lavora in ospedale di Padova."
+    errors: [article-use, articulated-preposition]
+  - tutor: "Benvenuta a Padova, allora. Solo una cosa: «lavora in ospedale di Padova»? Quando si dice quale ospedale, «in» da solo non basta. Riprovi."
+    prompt: {text: "in ospedale di Padova", tags: [articulated-preposition]}
+    goals: [request]
+  - learner: "Ah sì, ci casco sempre: lavora all'ospedale di Padova."
+  - tutor: "Esatto. Per la residenza si presentano il passaporto, il permesso di soggiorno e il contratto di affitto registrato. Ha tutto con sé?"
+  - learner: "Ho il passaporto e il permesso di soggiorno. Il contratto ce l'ho, ma che cosa significa «registrato»? È necessario che lo firmi qualcun altro?"
+  - tutor: "No, basta la firma che c'è già. Vuol dire che il padrone di casa lo ha portato all'ufficio delle tasse. Lì viene messo un timbro con la data. Sul suo contratto c'è?"
+    goals: [documents]
+    new: [{lemma: timbro, gloss: stamp}]
+  - learner: "Mi faccia guardare... No, non vedo nessun timbro. Il proprietario ci aveva detto che se ne sarebbe occupato lui, ma evidentemente non l'ha ancora fatto. È un problema grave?"
+  - tutor: "Si risolve, non si preoccupi. Oggi apro comunque la pratica, ma è necessario che lei mi porti il contratto registrato entro 30 giorni. Pensa che il proprietario faccia in tempo?"
+  - learner: "Credo di sì: lo chiamo oggi stesso e insisto finché non lo fa. E dopo, quanto tempo ci vuole prima che la residenza sia ufficiale?"
+  - tutor: "Brava, insista pure. Entro 45 giorni i vigili passano a casa sua per un controllo. Se va tutto bene, la residenza vale da oggi. Ecco la sua copia del modulo: buona giornata!"
+    goals: [problem, next]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-f-student
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno, grazie. Mi chiamo Emily Carter, ho 24 anni e vengo da Bristol. Mi sono laureata in design della comunicazione e vivo a Milano da un anno e mezzo."
+  - tutor: "Piacere. Vedo dal curriculum che ha già lavorato in Italia. Di che cosa si occupava?"
+    goals: [intro]
+  - learner: "Per un anno ho fatto un tirocinio in uno studio di grafica, qui a Milano. Disegnavo loghi per piccole aziende e lavoravo in una squadra di quattro persone. Ho imparato a rispettare le deadline, anche quando erano molto strette."
+    errors: [word-choice]
+  - tutor: "Rispettare le scadenze è importante anche qui, soprattutto con i clienti più grandi. Mi dica: quali sono i suoi punti di forza, e un suo punto debole?"
+    recast: {text: "le deadline", fix: "le scadenze", tags: [word-choice]}
+    goals: [experience]
+    new: [{lemma: scadenza, gloss: deadline}]
+  - learner: "Sono precisa e imparo in fretta. Il mio punto debole è che faccio fatica a dire di no: a volte accetto troppi lavori e poi consegno all'ultimo momento, anche se sempre entro la scadenza."
+  - tutor: "Mi piace che lo dica così chiaramente. E perché vorrebbe lavorare proprio nella nostra azienda?"
+    goals: [strengths]
+  - learner: "Perché seguo i vostri progetti da tempo. Quando studiavo ho visto la vostra campagna per il museo di Torino e ho pensato: mi piacerebbe lavorare con persone così. Inoltre vorrei crescere in una squadra piccola."
+  - tutor: "Mi fa piacere: a quel progetto abbiamo lavorato per un anno intero. Ha qualche domanda sul ruolo?"
+    goals: [why]
+  - learner: "Sì, una. Con chi lavorerei ogni giorno? E sarebbe possibile seguire un progetto dall'inizio alla fine?"
+  - tutor: "Lavorerebbe con due colleghe esperte, in una squadra di cinque persone. Dopo i primi tre mesi le daremmo un progetto tutto suo. Le faremo sapere entro venerdì. Grazie di essere venuta!"
+    goals: [questions]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-m-retired
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Guardi, io penso esattamente il contrario. Il disastro c'è adesso, non dopo! Abito in via Mazzini da sei anni e non riesco più a tenere le finestre aperte. Il centro va chiuso alle auto, punto e basta."
+  - tutor: "Capisco che sia arrabbiato, ma «punto e basta» non convince nessuno. Mi dia almeno due buoni motivi per cui dovremmo chiudere."
+    goals: [position]
+  - learner: "Gliene do anche tre. Primo, l'inquinamento: i bambini della scuola qui dietro respirano gas tutto il giorno. Secondo, il rumore. E terzo, non è vero che i negozi perdono clienti: a Bologna, nelle strade che sono state chiuse, la gente compra di più."
+  - tutor: "Sui bambini ha ragione, lo ammetto. Ma i commercianti che conosco io dicono un'altra cosa: senza parcheggio i clienti anziani non vengono più. A loro che cosa risponde?"
+    goals: [argue]
+  - learner: "Rispondo che è una scusa! Io ho 68 anni e vado a piedi tutti i giorni. E poi non credo che i suoi commercianti hanno mai contato quanti clienti arrivano davvero in macchina."
+    errors: [subjunctive-use]
+  - tutor: "Con calma, la sto ascoltando. Però: «non credo che hanno mai contato»? Dopo «non credo che» ci vuole un'altra forma."
+    prompt: {text: "hanno mai contato", tags: [subjunctive-use]}
+  - learner: "Va bene: non credo che abbiano mai contato i loro clienti. Ma la sostanza non cambia, e lei lo sa benissimo."
+  - tutor: "Esatto. Forse non li hanno contati, è vero. Ma c'è chi non può camminare, e ci sono i residenti che tornano tardi dal lavoro. Su questo non vuole proprio cedere nulla?"
+    goals: [counter]
+  - learner: "Su questo sì, glielo concedo: chi ha difficoltà a camminare deve poter entrare. Propongo un compromesso: centro chiuso dalle 10 alle 19, con permessi per i residenti e per chi ne ha davvero bisogno, e un autobus elettrico gratuito."
+  - tutor: "Così mi sembra già più ragionevole, e l'autobus piacerebbe anche ai commercianti. Portiamo insieme questa proposta in Comune, allora. Abbiamo discusso tanto, ma alla fine ci siamo capiti."
+    goals: [concede]
+
+- scenario: film-libro
+  level: B2
+  persona: es-f-teacher
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Comincio io! Ho letto «Le otto montagne» di Paolo Cognetti. Racconta l'amicizia fra Pietro, un ragazzo di città, e Bruno, che vive in un paese di montagna dove Pietro passa le estati."
+  - tutor: "Ottima scelta, l'ho letto anch'io. Senza raccontare il finale: c'è qualche colpo di scena, o è una storia tranquilla?"
+    goals: [summary]
+  - learner: "Scusa, Roberto, «colpo di scena» non l'ho mai sentito. Che cosa vuol dire?"
+  - tutor: "È quando in una storia succede qualcosa che nessuno si aspetta, e tutto cambia. Per esempio, si scopre che l'amico era il fratello! Nel tuo romanzo succede?"
+  - learner: "Ah, ho capito, grazie! No, non ci sono colpi di scena: è una storia lenta, in cui i silenzi contano più delle parole. Il protagonista, Pietro, è un uomo cui padre lo portava in montagna da bambino, e che da adulto ci ritorna per capire chi è."
+    errors: [relative-pronoun]
+  - tutor: "Bello, i silenzi che contano più delle parole. Però aspetta: «un uomo cui padre»? Davanti a «cui» lì manca una piccola parola."
+    prompt: {text: "cui padre", tags: [relative-pronoun]}
+  - learner: "È vero: un uomo il cui padre lo portava in montagna. In spagnolo non la mettiamo, per questo sbaglio."
+  - tutor: "Esatto, capita a tanti. E a te il libro è piaciuto davvero, o l'hai trovato un po' noioso?"
+    goals: [characters]
+  - learner: "Mi è piaciuto moltissimo, anche se all'inizio facevo fatica. Poi ho capito che la lentezza è voluta: l'autore ti obbliga a guardare la montagna come la guardano i personaggi. E il finale è emozionante senza essere esagerato."
+  - tutor: "Detto benissimo. E a chi lo consiglieresti, fra noi del gruppo?"
+    goals: [opinion]
+  - learner: "A chi ama camminare e a chi ha un amico che non vede da anni. Non lo consiglierei, invece, a chi cerca un romanzo pieno di azione."
+  - tutor: "Allora lo leggo di nuovo, perché un amico così ce l'ho anch'io. Grazie, hai fatto venire voglia a tutti! Il mese prossimo scegliamo un altro romanzo di questo autore."
+    goals: [recommend]
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Buongiorno, dottoressa. Abbastanza bene, direi. Sono appena tornato da un giro in bici in Puglia, sa? Posti meravigliosi, e si mangia benissimo. Lei c'è mai stata? Deve assolutamente andare a Lecce."
+  - tutor: "Ci sono stata, ed è bellissima. Ma torniamo a lei: durante il giro in bici, sotto sforzo, ha avuto qualche problema?"
+  - learner: "Sì, in effetti. Sulle salite sentivo il battito molto veloce, anche dopo essermi fermato. E il terzo giorno sentivo un dolore al petto, una volta sola, per due o tre minuti."
+    errors: [tense-aspect]
+  - tutor: "Questo è importante. Mi scusi: «il terzo giorno sentivo un dolore», una volta sola? Per una cosa successa una volta quella forma non va bene."
+    prompt: {text: "il terzo giorno sentivo un dolore", tags: [tense-aspect]}
+  - learner: "Giusto: il terzo giorno ho sentito un dolore al petto, mentre salivo verso un paese."
+  - tutor: "Esatto. Per fortuna è passato da solo. Nella sua famiglia qualcuno ha avuto problemi di cuore o di pressione?"
+    goals: [symptoms]
+  - learner: "Mio padre aveva la pressione alta e ha avuto un infarto a 60 anni. Era un grande tifoso, sa, e gli è venuto proprio durante una partita! A proposito, lei ha visto la partita di ieri sera?"
+  - tutor: "No, ieri sera lavoravo. Ma quello che mi dice di suo padre conta molto, ed è bene saperlo. Vuole che le spieghi gli esami?"
+    goals: [history]
+  - learner: "Sì, per favore. Ho letto il foglio, ma non ci ho capito molto. C'è qualcosa che non va? Devo preoccuparmi?"
+  - tutor: "Non credo che sia grave, ma bisogna fare attenzione. La pressione è un po' alta e sotto sforzo il battito sale troppo. Per questo le consiglio una terapia leggera: una pastiglia ogni mattina."
+    goals: [understand]
+    new: [{lemma: pastiglia, gloss: pill, tablet}]
+  - learner: "Capisco. E questa pastiglia ha effetti collaterali? Soprattutto: potrò continuare ad andare in bici? Per me è importante."
+  - tutor: "All'inizio può dare un po' di stanchezza, ma di solito passa in due settimane. La bici le fa bene, purché eviti le salite più dure per un mese. Ci rivediamo tra sei settimane per un controllo. E mi saluti la Puglia!"
+    goals: [treatment]
+    new: [{lemma: pastiglia, gloss: pill, tablet}]
+
+- scenario: politica-lavoro
+  level: B2
+  persona: es-m-worker
+  history: [hypothetical]
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Dico che esageri, come sempre! Io lavoro in una fabbrica di Brescia da otto anni e i robot li vedo tutti i giorni. Hanno cambiato il lavoro, non l'hanno eliminato."
+  - tutor: "Per ora! Ma le macchine costano sempre meno e non si ammalano mai. Che cosa succederebbe, secondo te, se un giorno sapessero fare tutto?"
+    goals: [opinion]
+  - learner: "Se le macchine farebbero tutto, noi lavoreremmo meno ore con lo stesso stipendio. Non mi sembra una tragedia!"
+    errors: [hypothetical]
+  - tutor: "Magari fosse così semplice! Ma aspetta: «se le macchine farebbero tutto»? Dopo «se» quella forma non funziona."
+    prompt: {text: "Se le macchine farebbero tutto", tags: [hypothetical]}
+  - learner: "Dai, Riccardo, non fare il professore, mi hai capito benissimo! Se le macchine farebbero tutto, il padrone avrebbe comunque bisogno di gente che le controlla."
+    errors: [hypothetical]
+  - tutor: "Ti ho capito, certo, e a cena non faccio il professore! Se le macchine facessero tutto, però, al padrone basterebbe una persona su dieci. Hai un esempio vero, dalla tua fabbrica?"
+    recast: {text: "Se le macchine farebbero tutto", fix: "Se le macchine facessero tutto", tags: [hypothetical]}
+    goals: [hypothesis]
+  - learner: "Certo. Tre anni fa hanno messo un robot che salda al posto di quattro operai. Nessuno è stato licenziato: l'azienda ha pagato un corso di formazione, e adesso quei quattro programmano la macchina e guadagnano di più."
+  - tutor: "Questo non me l'aspettavo, lo ammetto. Però la tua azienda è grande: una piccola non avrebbe i soldi per la formazione. Non ti pare un rischio?"
+    goals: [example]
+  - learner: "Un rischio c'è, non lo nego. Ma riassumendo: la tecnologia sostituisce i compiti, non le persone, se c'è formazione per tutti. E tu, sinceramente, credi ancora che metà dei lavori sparirà?"
+  - tutor: "Metà forse no, mi hai quasi convinto. Diciamo un terzo, e solo dove manca la formazione. Però resto preoccupato per i più giovani. Dai, brindiamo alle macchine che pagano i corsi!"
+    goals: [conclude]
+    new: [{lemma: brindare, gloss: to drink a toast}]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-professional
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, purtroppo. Stasera festeggiamo l'anniversario di matrimonio e avevo prenotato due settimane fa, ma la cena è stata deludente dall'inizio alla fine."
+  - tutor: "Mi dispiace molto, soprattutto in una serata così importante. Mi dica esattamente che cosa non è andato bene."
+    goals: [complain]
+  - learner: "Prima di tutto il tavolo: ne avevo chiesto uno tranquillo e ci avete messi accanto alla cucina. Poi il risotto ai funghi era... non trovo la parola, era bland, non sapeva di niente."
+    errors: [word-choice]
+  - tutor: "Un risotto insipido non dovrebbe mai uscire dalla nostra cucina, ha ragione. E per il tavolo mi scuso. Che cosa si aspettava, quando ha prenotato?"
+    recast: {text: "bland", fix: "insipido", tags: [word-choice]}
+    goals: [detail]
+    new: [{lemma: insipido, gloss: bland, tasteless}]
+  - learner: "Insipido, ecco, grazie. Mi aspettavo che qualcuno leggesse la mia richiesta. Se mi aveste detto che quel tavolo non era disponibile, avrei scelto un altro giorno."
+  - tutor: "Ha ragione, avremmo dovuto telefonare prima. Per questo vi offro il dolce e uno sconto del 10% sul conto. Può andare bene?"
+    goals: [expectation]
+  - learner: "Sinceramente no. Il 10% mi sembra poco per una serata rovinata. Preferirei che il risotto non mi venisse fatto pagare e, se possibile, un altro tavolo per il dolce."
+  - tutor: "È una richiesta giusta. Il risotto viene tolto dal conto e vi faccio preparare subito il tavolo vicino alla finestra. Il dolce, naturalmente, lo offriamo noi. Buon anniversario, e grazie della pazienza."
+    goals: [resolve]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-heritage
+  history: [comparative]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Da casa."
+  - tutor: "Che fortuna! Mi racconti un po' com'è la tua settimana?"
+  - learner: "Tre giorni a casa e due in ufficio, il martedì e il giovedì. L'orario è flessibile: basta fare otto ore."
+  - tutor: "Non male. E qual è il vantaggio più grande, per te?"
+    goals: [situation]
+  - learner: "Il silenzio. Casa mia è più tranquilla che l'ufficio, e non perdo un'ora in treno."
+    errors: [comparative]
+  - tutor: "Un'ora di treno in meno è tanto! Però senti: «più tranquilla che l'ufficio»? Tra due cose diverse quel «che» non va."
+    prompt: {text: "più tranquilla che l'ufficio", tags: [comparative]}
+  - learner: "Boh, io dico così. Più tranquilla che l'ufficio, no?"
+    errors: [comparative]
+  - tutor: "Quasi: casa tua è più tranquilla dell'ufficio. E uno svantaggio c'è, o è tutto perfetto?"
+    recast: {text: "Più tranquilla che l'ufficio", fix: "più tranquilla dell'ufficio", tags: [comparative]}
+    goals: [pros]
+  - learner: "Dell'ufficio, giusto. Uno svantaggio c'è: a casa mi sento solo. Con i colleghi parlo meno di prima e certe volte non esco per due giorni."
+  - tutor: "Ti capisco, a me mancherebbero le pause per il caffè. Quindi, se potessi scegliere tu, come lavoreresti?"
+    goals: [cons]
+  - learner: "Vorrei continuare così, metà e metà. Tutto da casa sarebbe troppo, ma tornare in ufficio cinque giorni sarebbe peggio."
+  - tutor: "Mi sembra la scelta più giusta. Io invece sono in ufficio tutti i giorni, quindi un po' ti invidio. Dai, ordiniamo qualcosa da bere!"
+    goals: [preference]
+    new: [{lemma: invidiare, gloss: to envy}]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: es-f-erasmus
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Buongiorno a tutti, e grazie dell'invito. Sono venuta a Bologna tre anni fa per l'Erasmus e dovevo restare sei mesi. Ma la città mi ha piaciuto così tanto che sono rimasta, anche se penso molto in mia madre, che vive a Granada."
+    errors: [preposition, auxiliary-choice]
+  - tutor: "Tre anni invece di sei mesi: brava Bologna! Solo un attimo: «la città mi ha piaciuto»? Con «piacere» non si usa «avere». Come lo direbbe?"
+    prompt: {text: "mi ha piaciuto", tags: [auxiliary-choice]}
+    goals: [story]
+  - learner: "È vero, è un errore che faccio sempre: la città mi è piaciuta moltissimo."
+  - tutor: "Esatto. E in questi tre anni qual è stata la sfida più grande, per lei?"
+  - learner: "La burocrazia, senza dubbio. Per avere il medico sono dovuta andare in quattro uffici diversi. E poi la nostalgia: il primo Natale non sono tornata a casa, e credo che sia stato il giorno più triste della mia vita."
+  - tutor: "Il primo Natale lontano da casa è duro per tutti, e molti ascoltatori lo sanno bene. E lei, da quando vive qui, si sente cambiata?"
+    goals: [difficulties]
+  - learner: "Moltissimo. Prima ero una persona impaziente e volevo tutto subito. Qui ho imparato ad aspettare, e anche a chiedere aiuto. Se non mi fossi trasferita, penso che sarei rimasta più chiusa."
+  - tutor: "Che bella risposta. Per chiudere: che consiglio darebbe a un ascoltatore che sogna di trasferirsi in Italia?"
+    goals: [change]
+  - learner: "Di imparare la lingua prima di arrivare, almeno un po', e di non frequentare solo gente del proprio paese. Integrarsi costa fatica all'inizio, ma poi l'accoglienza degli italiani ripaga tutto."
+  - tutor: "Consigli preziosi, e detti in un italiano bellissimo. La ringrazio di essere stata con noi. E a voi, cari ascoltatori, do appuntamento a domani, sempre alle 10."
+    goals: [advice]

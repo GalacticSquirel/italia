@@ -1,0 +1,521 @@
+- scenario: dibattito-ambiente
+  level: C1
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Buonasera. Io faccio l'idraulico e in centro ci lavoro tutti i giorni, quindi mi creda se le dico che così non si può andare avanti. Penso che il centro deve essere chiuso alle auto private, e al più presto."
+      errors: [subjunctive-use]
+    - tutor: "Un idraulico che vuole meno auto: questa non me l'aspettavo! Prima però mi tolga una curiosità: dopo «penso che», le pare che «deve» sia il modo giusto?"
+      goals: [position]
+      prompt: {text: "Penso che il centro deve essere chiuso", tags: [subjunctive-use]}
+    - learner: "Ha ragione, mi correggo: penso che debba essere chiuso. E le spiego perché. Primo: per ogni intervento perdo mezz'ora a cercare parcheggio, e quel tempo lo paga il cliente. Secondo: con meno traffico i mezzi pubblici sarebbero finalmente puntuali, e molta gente lascerebbe la macchina a casa volentieri."
+    - tutor: "Due ragioni concrete, glielo riconosco. Ma le faccio un caso altrettanto concreto: mia madre ha ottantadue anni e fa fatica a camminare. Se chiudono tutto, chi la porta dal medico o a fare la spesa?"
+      goals: [argue]
+    - learner: "È un'obiezione seria, e non voglio liquidarla con una battuta. Ma nessuno parla di chiudere tutto a tutti: i residenti avrebbero un permesso, e così chi accompagna una persona anziana o malata. In molte città funziona da anni senza drammi."
+    - tutor: "I permessi, certo: sulla carta funziona sempre tutto. E i commercianti? Il signor Aldo, quello della ferramenta, dice che metà dei suoi clienti arriva da fuori in macchina."
+      goals: [counter]
+      new: [{lemma: ferramenta, gloss: hardware shop}]
+    - learner: "Conosco bene il signor Aldo, ci compro i pezzi di ricambio. Però bisogna pensare anche nei clienti che oggi non vengono proprio, perché sanno che non troveranno mai posto."
+      errors: [preposition]
+    - tutor: "Su Aldo siamo d'accordo, è una brava persona. Un dettaglio, però: «pensare nei clienti» in italiano non si dice, con questo verbo ci vuole un'altra preposizione. E poi, scusi, questi clienti invisibili chi li ha mai contati?"
+      prompt: {text: "pensare anche nei clienti", tags: [preposition]}
+    - learner: "Pensare sui clienti, allora? Comunque li ha contati il Comune: secondo l'ultima indagine, un terzo dei residenti evita il centro per via del traffico. Detto questo, le concedo un punto: nei primi mesi qualche negozio soffrirebbe davvero. Per questo proporrei una prova di sei mesi, con un parcheggio gratuito ai margini e una navetta."
+      errors: [preposition]
+    - tutor: "Quasi: si dice «pensare ai clienti», come «pensare a qualcuno». Una prova di sei mesi con il parcheggio gratuito mi sembra già più ragionevole. E se alla fine i negozi hanno perso clienti, si torna indietro?"
+      goals: [concede]
+      recast: {text: "Pensare sui clienti", fix: "pensare ai clienti", tags: [preposition]}
+    - learner: "Certo, altrimenti che prova sarebbe? Si fissano prima i criteri, li si mette per iscritto, e se i numeri danno ragione a lei, sarò il primo ad ammetterlo."
+    - tutor: "Allora su questo ci possiamo intendere. Mettiamo la proposta ai voti: sei mesi di prova, parcheggio ai margini e criteri scritti. E se ho torto io, il caffè lo offro a tutta l'assemblea."
+
+- scenario: dibattito-ambiente
+  level: C1
+  persona: en-f-student
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Buonasera. Con tutto il rispetto, io la vedo in modo opposto. Studio qui da tre anni, mi muovo solo in bicicletta, e sono convinta che un centro senza auto farebbe bene a tutti, negozi compresi."
+    - tutor: "Lei si muove in bicicletta e ha vent'anni, beata lei. Ma su che cosa si basa, esattamente? I commercianti che conosco io non dormono la notte al solo pensiero."
+      goals: [position]
+    - learner: "Mi baso su due cose. La prima è la sicurezza: il mese scorso un automobilista ha aperto la portiera senza guardare e sono finita per terra. La seconda è l'aria: via Garibaldi, in cui abito vicino, è tra le strade più inquinate della città."
+      errors: [relative-pronoun]
+    - tutor: "Mi dispiace per la caduta, spero niente di grave. Una cosa, però: «via Garibaldi, in cui abito vicino» non funziona, provi a spostare «vicino» prima del relativo. Quanto all'aria, non crede che il traffico si sposterebbe semplicemente nelle strade accanto?"
+      goals: [argue]
+      prompt: {text: "in cui abito vicino", tags: [relative-pronoun]}
+    - learner: "Via Garibaldi, vicino a cui abito: sì, suona molto meglio. Quanto al traffico, in parte si sposta, è vero, ma in parte sparisce: quando guidare diventa scomodo, molte persone scelgono l'autobus o vanno a piedi."
+    - tutor: "Sparisce, dice lei... Io temo un altro problema. Dove hanno fatto la zona pedonale sono arrivati i locali con i tavolini fuori, e i residenti non chiudono occhio fino alle tre."
+    - learner: "Questa, sinceramente, è un'obiezione che non mi aspettavo. Ma il rumore dei locali non è una conseguenza inevitabile: basta che il Comune stabilisca delle regole chiare e, soprattutto, che le faccia rinforzare."
+      errors: [word-choice]
+    - tutor: "Che il Comune le faccia rispettare, le regole: ecco, proprio lì casca l'asino. Qui i vigili dopo le dieci di sera non si vedono. Lei si fiderebbe, al posto mio?"
+      goals: [counter]
+      recast: {text: "le faccia rinforzare", fix: "le faccia rispettare", tags: [word-choice]}
+      new: [{lemma: cascare, gloss: "to fall («qui casca l'asino» = that's the catch)"}]
+    - learner: "Capisco perfettamente, e su questo punto hai ragione: senza controlli, le regole restano lettera morta. Si potrebbe allora partire con una chiusura solo diurna, dalle otto alle venti, e vedere come va."
+      errors: [register]
+    - tutor: "Una chiusura solo di giorno: questa è già un'altra musica. Però attenzione, signorina: «hai ragione»... siamo passati al tu senza che me ne accorgessi?"
+      prompt: {text: "hai ragione", tags: [register]}
+    - learner: "Oh, mi scusi! Volevo dire: ha ragione lei. Con i compagni di corso do del tu a tutti e ogni tanto mi scappa. Allora, chiusura diurna per un anno, e i tavolini fuori solo fino a mezzanotte: le sembra accettabile?"
+    - tutor: "Scuse accettate, ci mancherebbe. Di giorno sì e di notte no: non è quello che volevo, ma è un compromesso con cui posso convivere. Lo proponga pure all'assemblea, io non voterò contro."
+      goals: [concede]
+
+- scenario: politica-lavoro
+  level: C1
+  persona: en-f-professional
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Dico che è una previsione poco sensibile, Riccardo, con tutto l'affetto. Che l'automazione cambi molti mestieri non lo metto in dubbio, ma tra cambiare e sparire c'è una bella differenza."
+      errors: [false-friend]
+    - tutor: "Poco sensata, la mia previsione? Guarda che l'ho letta su un giornale serio, mica me la sono sognata. E comunque le casse automatiche al supermercato le vedi anche tu."
+      goals: [opinion]
+      recast: {text: "poco sensibile", fix: "poco sensata", tags: [false-friend]}
+    - learner: "Le vedo, certo, e vedo anche che accanto c'è sempre una commessa che corre ad aiutare chi non ci capisce niente. Il lavoro non sparisce: cambia forma."
+    - tutor: "Sì, una commessa al posto di sei. Dai, facciamo un gioco: immagina che domani le macchine sappiano fare davvero tutto, anche il tuo mestiere. Che cosa succederebbe?"
+    - learner: "Bella domanda. Se le macchine sostituissero metà dei lavoratori, le aziende non avranno più nessuno a cui vendere, perché chi è disoccupato non compra. Prima o poi il sistema dovrebbe trovare un nuovo equilibrio."
+      errors: [hypothetical]
+    - tutor: "Il discorso torna, ma ascolta bene: «se sostituissero... le aziende non avranno». Dopo un «se» così, il futuro non va d'accordo con il resto. Riprova, che poi ti rispondo."
+      prompt: {text: "le aziende non avranno", tags: [hypothetical]}
+    - learner: "Se sostituissero metà dei lavoratori, le aziende non avrebbero più nessuno a cui vendere. Ecco, così. E infatti nessuno ha interesse ad arrivare a quel punto, nemmeno chi le macchine le produce."
+    - tutor: "Adesso sì. Però «nessuno ha interesse» è un atto di fede, scusa. Ce l'hai un caso concreto, uno vero, in cui la tecnologia è arrivata e la gente non è finita per strada?"
+      goals: [hypothesis]
+    - learner: "Di esempi ho tanti, ma te ne racconto uno di famiglia. Mia madre lavorava allo sportello di una banca; quando hanno cominciato a chiudere le filiali, le hanno pagato un corso e oggi fa la consulente per i mutui."
+      errors: [ci-ne]
+    - tutor: "Bella storia, tua madre è stata in gamba. Solo una cosa: «di esempi ho tanti» zoppica, manca una parolina piccola piccola davanti al verbo. E i suoi colleghi dello sportello, tutti consulenti anche loro?"
+      prompt: {text: "Di esempi ho tanti", tags: [ci-ne]}
+      new: [{lemma: zoppicare, gloss: "to limp; (of a sentence) to be shaky"}]
+    - learner: "Di esempi ne ho tanti, giusto! I colleghi no, non tutti: un paio sono andati in pensione prima del tempo, e non per scelta. Quindi, riassumendo: la tecnologia non cancella il lavoro, lo sposta, e il rischio vero è per chi resta senza formazione. Tu invece resti della tua idea?"
+    - tutor: "Era un buon esempio, te lo concedo, pensionati compresi. Resto pessimista, ma meno di prima: diciamo che sparirà un quarto dei lavori, non metà. Ti basta come vittoria, o vuoi anche il dolce?"
+      goals: [example, conclude]
+
+- scenario: politica-lavoro
+  level: C1
+  persona: en-m-retired
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Dico che alla nostra età le profezie bisognerebbe farle con più prudenza, caro Riccardo. Ne ho sentite tante in quarant'anni di lavoro: doveva sparire la carta, doveva sparire l'ufficio. Qualcosa cambierà, senz'altro, ma metà mi pare francamente troppo."
+    - tutor: "Prudenza, prudenza... intanto la carta è quasi sparita davvero! Facciamo così: mettiamo che io abbia ragione e che un giorno metà dei posti salti. Tu che cosa faresti, al posto di chi governa?"
+      goals: [opinion]
+    - learner: "Mah, se lo Stato dasse a ognuno la possibilità di rimettersi a studiare, a qualunque età, il colpo sarebbe molto meno duro. Il guaio non è perdere un lavoro: è non saperne fare un altro."
+      errors: [subjunctive-form]
+    - tutor: "Sul guaio sono d'accordo con te, pensa un po'. Ma «dasse» non mi convince: «dare», in questa forma, fa uno scherzo e cambia una lettera. Come diventa?"
+      prompt: {text: "se lo Stato dasse", tags: [subjunctive-form]}
+    - learner: "Ah, già, è irregolare... Se lo Stato dessi? Insomma, il concetto è quello: formazione per tutti, pagata con i soldi che le aziende risparmiano grazie alle macchine."
+      errors: [subjunctive-form]
+    - tutor: "Ci sei quasi: «dessi» va bene per io e tu, ma qui ci vuole «se lo Stato desse». Quanto ai soldi delle aziende, auguri! Dimmi piuttosto se conosci qualcuno a cui è andata bene davvero."
+      goals: [hypothesis]
+      recast: {text: "Se lo Stato dessi", fix: "se lo Stato desse", tags: [subjunctive-form]}
+    - learner: "Uno sì. Mio cognato ha lavorato trent'anni in una fattoria di automobili vicino a Coventry. Quando sono arrivati i robot alla catena di montaggio, pensava di essere finito; invece gli hanno insegnato a programmarli."
+      errors: [false-friend]
+    - tutor: "In una fabbrica di automobili, vorrai dire: nella fattoria ci stanno le mucche! Comunque tuo cognato è stato fortunato. Quanti dei suoi compagni di reparto hanno avuto la stessa occasione?"
+      goals: [example]
+      recast: {text: "in una fattoria di automobili", fix: "in una fabbrica di automobili", tags: [false-friend]}
+    - learner: "Fabbrica, certo, che figura! Pochi, a essere onesti: forse uno su cinque. Gli altri hanno preso la buonuscita e a cinquant'anni si sono trovati a spasso. Non è una storia tutta rosa, lo ammetto."
+    - tutor: "Ecco, vedi? Tu mi porti il caso migliore che hai, e quattro su cinque restano a casa. A me pare che i numeri diano ragione a me."
+    - learner: "Ti danno ragione a metà. Tirando le somme: la tecnologia crea opportunità, ma solo per chi viene accompagnato, e la differenza la fa la formazione, non la fortuna. Tu invece, se dovessi puntare su un settore per i tuoi nipoti, quale sceglieresti?"
+    - tutor: "Bella domanda. Direi l'idraulico: finché ci sono tubi che perdono c'è lavoro, e nessuna macchina si infila sotto un lavandino. Su una cosa però siamo d'accordo: studiare non fa mai male. Passami il vino, va'."
+      goals: [conclude]
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: en-m-traveller
+  turns:
+    - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+    - learner: "Buongiorno, grazie per avermi dato la parola. Mi chiamo Jack, sono scozzese e da dieci anni giro l'Italia in lungo e in largo per lavoro. Sono contrario al ticket: non penso che un biglietto da cinque euro risolve il sovraffollamento."
+      errors: [subjunctive-use]
+    - tutor: "Buongiorno Jack, benvenuto. Un piccolo appunto prima di entrare nel merito: «non penso che risolve»... con un'opinione così, dopo «che» ci vuole un altro modo. Si corregga pure, e poi mi spieghi perché no, visto che a molti sembra un primo passo."
+      prompt: {text: "non penso che un biglietto da cinque euro risolve", tags: [subjunctive-use]}
+    - learner: "Ha ragione: non penso che risolva il problema. Le spiego perché con un fatto. Due settimane fa sono entrato a Venezia in un giorno a pagamento: ho pagato, ho ricevuto il codice, e le calli erano piene esattamente come sempre. Per attraversare un ponte ci ho messo dieci minuti."
+    - tutor: "Un giorno solo non fa statistica, però. E c'è un'obiezione che sento spesso: quei soldi servono a pulire la città e a pagare i servizi che i turisti consumano. Non le sembra giusto che chi visita contribuisca?"
+      goals: [introduce, example]
+    - learner: "Mi sembrerebbe giustissimo, se funzionasse così. Ma da quando il ticket è venuto introdotto, da quel che ho letto, buona parte degli incassi se ne va per la gestione del sistema stesso: controllori, piattaforma, pubblicità."
+      errors: [passive]
+    - tutor: "Questa dei costi è una critica che merita attenzione. Mi permetta però: «è venuto introdotto» non si può dire, perché «venire» qui funziona solo nei tempi semplici. Come lo direbbe, allora?"
+      prompt: {text: "il ticket è venuto introdotto", tags: [passive]}
+    - learner: "Mi faccia pensare... da quando il ticket è andato introdotto? Comunque il punto è che una tassa che serve soprattutto a pagare sé stessa non aiuta né i residenti né l'economia locale."
+      errors: [passive]
+    - tutor: "Nemmeno «andare», qui: si dice «da quando il ticket è stato introdotto». Lei è duro, ma il dubbio è giusto. Dire di no però è facile: lei, al posto del sindaco, che cosa farebbe?"
+      goals: [rebut]
+      recast: {text: "il ticket è andato introdotto", fix: "il ticket è stato introdotto", tags: [passive]}
+    - learner: "Farei tre cose, tutte realistiche. Prenotazione obbligatoria, ma solo per i gruppi organizzati e per chi arriva con le crociere. Poi orari scaglionati per i luoghi più visitati. Infine, sconti seri per chi dorme in città almeno due notti fuori stagione."
+    - tutor: "Quindi più regole per chi viene in giornata e un premio per chi resta. Ma chi organizza i viaggi di gruppo non si metterebbe di traverso?"
+      new: [{lemma: traverso, gloss: "«mettersi di traverso» = to stand in the way"}]
+    - learner: "All'inizio sì, senza dubbio. Ma chi organizza viaggi si adatta in fretta quando le regole sono chiare e valgono per tutti. E una città vivibile, alla lunga, conviene anche a loro: nessuno vuole vendere una cartolina vuota."
+    - tutor: "«Una cartolina vuota»: questa gliela rubo per il titolo della puntata. Grazie Jack, è stato chiaro e concreto, anche per chi non la pensa come lei. Buon viaggio, e torni a trovarci in trasmissione."
+      goals: [proposal]
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+    - learner: "Buongiorno a tutti. Mi chiamo Marta, sono spagnola e insegno a Lucca da otto anni. Io sono a favore, anche se con qualche riserva: da quando sono arrivata gli affitti hanno aumentato moltissimo, e qualcosa bisogna pur fare."
+      errors: [auxiliary-choice]
+    - tutor: "Buongiorno Marta, benvenuta in trasmissione. Solo un attimo sulla forma: in «gli affitti hanno aumentato» il verbo non ha un oggetto, quindi l'ausiliare giusto è un altro. Ci riprovi, e intanto mi dica: che cosa c'entra il ticket con gli affitti?"
+      prompt: {text: "gli affitti hanno aumentato", tags: [auxiliary-choice]}
+    - learner: "Gli affitti sono aumentati, ha ragione. C'entra, eccome. Vengo da Maiorca, dove tutto è cominciato così: prima i visitatori in giornata, poi le case trasformate in alloggi per turisti. Oggi conosco colleghi che hanno rinunciato alla cattedra sull'isola perché con uno stipendio da insegnante non trovavano casa."
+    - tutor: "Una storia che fa riflettere. Ma faccio l'avvocato del diavolo: far pagare l'ingresso non trasforma una città in un museo? Io, per entrare in una piazza, il biglietto non lo pagherei mai."
+      goals: [introduce, example]
+    - learner: "Capisco, ma chi dorme in albergo paga già la tassa di soggiorno e nessuno si scandalizza. Sono i visitatori in giornata a non lasciare niente, a parte i rifiuti. L'anno scorso ho scritto perfino una carta al sindaco per chiedere che contribuissero anche loro."
+      errors: [false-friend]
+    - tutor: "Addirittura una lettera al sindaco: lei è una che non si arrende! E il paragone con la tassa di soggiorno regge, devo ammetterlo. Le ha mai risposto, il sindaco?"
+      goals: [rebut]
+      recast: {text: "una carta al sindaco", fix: "una lettera al sindaco", tags: [false-friend]}
+    - learner: "Mi ha risposto un assessore, due righe di cortesia e nient'altro. Ma non mi sono offesa: in fondo so bene che il ticket, da solo, è poco più di un simbolo. Serve se è il primo passo di un piano, non l'ultimo."
+    - tutor: "E allora parliamo del piano. Se domani la chiamassero in Comune a decidere, quale sarebbe la sua proposta, tenendo conto che di turismo qui vive mezza città?"
+    - learner: "Proporrei due cose. Primo, che gli incassi del ticket vengano destinati per legge alle case per i residenti. Secondo, un limite agli alloggi turistici nel centro storico, perché un turismo che espelle ai residenti non ha niente di sostenibile."
+      errors: [preposition]
+    - tutor: "Proposta chiara, e direi anche realistica. Mi consenta un'ultima osservazione: «espelle ai residenti» segue lo spagnolo, mentre in italiano l'oggetto diretto non vuole nessuna preposizione davanti. E chi ha comprato un appartamento proprio per affittarlo, che fine fa?"
+      prompt: {text: "espelle ai residenti", tags: [preposition]}
+    - learner: "Espelle i residenti, certo: è un vizio che mi porto dietro da casa. Chi ha già investito avrebbe qualche anno per adeguarsi, magari con vantaggi fiscali se passa agli affitti lunghi. Non si tratta di punire nessuno, ma di rimettere in equilibrio le cose."
+    - tutor: "Qualche anno di tempo e nessuna punizione: detta così, potrebbe piacere perfino ai proprietari. Grazie Marta, il suo è stato un intervento prezioso. Restate con noi, tra poco sentiamo un'altra voce."
+      goals: [proposal]
+
+- scenario: intelligenza-artificiale
+  level: C1
+  persona: en-m-heritage
+  history: [participle-agreement]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Eh, addirittura metà! Senti, io non faccio il tifo per le macchine, però non la vedo così nera. Secondo me certi lavori cambieranno faccia più che sparire. Dipende molto da come la usiamo, questa tecnologia, e da chi decide."
+    - tutor: "«Dipende da come la usiamo» lo dicono tutti, scusa, poi però i posti di lavoro saltano comunque. Tu disegni per mestiere: nel tuo settore non hai visto niente di strano?"
+      goals: [position]
+    - learner: "L'ho visto eccome. I clienti piccoli, quelli che volevano un logo a duecento dollari, li ho perso quasi tutti. Però adesso mi chiamano le agenzie: arrivano con venti immagini fatte dalla macchina e mi chiedono di tirarne fuori una che abbia un'anima."
+      errors: [participle-agreement]
+    - tutor: "Un'anima a pagamento, bella questa. Aspetta, però: in «i clienti li ho perso» c'è quel «li» davanti, e il participio non può restare così. Sistemalo, e poi dimmi: con le agenzie guadagni di più o di meno?"
+      prompt: {text: "li ho perso", tags: [participle-agreement]}
+    - learner: "Li ho persi, giusto, colpa dell'inglese. Guadagno più o meno uguale, ma lavoro in un altro modo: meno ore a disegnare, più ore a scegliere e correggere. Non è la fine del mestiere, è un mestiere diverso."
+    - tutor: "Va bene, a te è andata così. Ma pensa a chi ci guadagna davvero: quattro o cinque aziende enormi che si tengono tutto, mentre a noi restano le briciole. Questo non ti preoccupa?"
+      goals: [evidence]
+      new: [{lemma: briciola, gloss: crumb}]
+    - learner: "Qui mi tocca darti ragione, e non lo dico per gentilezza. Il problema c'è: la torta cresce ma se la mangiano in pochi. A me sta bene il progresso, basta che i soldi non vadino tutti nelle stesse tasche."
+      errors: [subjunctive-form]
+    - tutor: "Oh, finalmente mi dai ragione su qualcosa! Senti, «vadino» lo dicono in tanti, anche in televisione, ma la forma corretta del congiuntivo di «andare» è un'altra. Te la ricordi?"
+      goals: [concede]
+      prompt: {text: "non vadino", tags: [subjunctive-form]}
+    - learner: "Mmm, a casa mia si è sempre detto così... Basta che non vadono? Vabbè, tu hai capito. Il punto è che ci vogliono delle regole, e in fretta."
+      errors: [subjunctive-form]
+    - tutor: "Quasi: «basta che i soldi non vadano tutti nelle stesse tasche». Sulle regole, invece, mi trovi d'accordo, e mi stupisco io per primo. Chi dovrebbe farle, secondo te?"
+      recast: {text: "non vadono", fix: "non vadano", tags: [subjunctive-form]}
+    - learner: "I governi, ma ascoltando chi lavora, non solo chi vende i programmi. E chi perde il posto va aiutato a ripartire, con una formazione vera. Su questo, pessimista o no, mi sa che la pensiamo uguale."
+    - tutor: "La pensiamo uguale, sì: regole chiare e nessuno lasciato solo. Io resto con la mia paura, tu con la tua fiducia, ma almeno sappiamo che cosa chiedere. Dai, versami un altro goccio, che i discorsi seri mettono sete."
+      goals: [conclude]
+
+- scenario: intelligenza-artificiale
+  level: C1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Ma no, non essere così drammatico! Qualche rischio c'è, non lo nego, e in certi settori sarà dura. Però tu vedi soltanto i posti che si perdono; io, in cambio, vedo anche il tempo che si guadagna, almeno in ospedale."
+      errors: [word-choice]
+    - tutor: "Io vedo i posti che saltano e tu, invece, il tempo guadagnato: comodo, per una futura dottoressa! Ma spiegami che cosa c'entra l'ospedale, perché a me sembra il posto meno adatto alle macchine."
+      goals: [position]
+      recast: {text: "in cambio", fix: "invece", tags: [word-choice]}
+    - learner: "C'entra tantissimo. Nel reparto dove faccio il tirocinio c'è un programma che controlla le radiografie e segnala quelle sospette. Decide sempre la radiologa, ma lei adesso guarda per prime le urgenti, e le liste d'attesa si sono accorciate di parecchio."
+    - tutor: "Mmm, per ora decide la radiologa. Ma tra cinque anni chi dirige l'ospedale farà due conti e si chiederà a che cosa serve pagarla. E quando la macchina sbaglia, di chi è la colpa?"
+      goals: [evidence]
+    - learner: "La colpa resta del medico, per questo non lo possono togliere. E guarda che sbagliano anche le persone: il mese scorso, se non ci fosse stato il programma, nessuno avesse visto una macchia minuscola in un polmone."
+      errors: [hypothetical]
+    - tutor: "Meno male per quel paziente, davvero. Però riascolta la frase: dopo «se non ci fosse stato» hai messo un altro congiuntivo, «nessuno avesse visto». In spagnolo forse funziona, in italiano nella seconda parte ci vuole un altro modo."
+      prompt: {text: "nessuno avesse visto", tags: [hypothetical]}
+    - learner: "Ah, certo, in italiano è diverso: se non ci fosse stato il programma, nessuno avrebbe visto quella macchia. Ecco, questo per me conta più di qualsiasi previsione sui posti di lavoro."
+    - tutor: "Te lo concedo, un caso così pesa. Ma io penso ai giovani medici: se la macchina guarda sempre al posto loro, quando imparano a guardare da soli? Tra vent'anni nessuno saprà più leggere una lastra."
+      new: [{lemma: lastra, gloss: X-ray (plate)}]
+    - learner: "Su questo, guarda, hai ragione tu, e mi costa ammetterlo. Lo vedo già tra i miei compagni di carriera: c'è chi chiede tutto al programma e non si sforza più di ragionare. Se smettiamo di allenare la testa, diventiamo noi le macchine."
+      errors: [false-friend]
+    - tutor: "I tuoi compagni di corso che non ragionano più: ecco, è esattamente questo che mi toglie il sonno. Allora forse non siamo così lontani, io e te. Che cosa cambieresti, se dipendesse da te?"
+      goals: [concede]
+      recast: {text: "compagni di carriera", fix: "compagni di corso", tags: [false-friend]}
+    - learner: "Farei una regola semplice: prima impari a farlo senza, poi usi lo strumento. Vale per i medici e per tutti gli altri. La tecnologia va bene finché le competenze restano nelle nostre mani; su questo penso che possiamo brindare insieme."
+    - tutor: "Prima le competenze, poi la macchina: su questo brindo volentieri, anche da pessimista. Resto convinto che ci faremo male, ma con medici come te un po' meno. Alla salute!"
+      goals: [conclude]
+      new: [{lemma: brindare, gloss: to drink a toast}, {lemma: pessimista, gloss: pessimist}]
+
+- scenario: notizie-attualita
+  level: C1
+  persona: en-f-student
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatta?"
+    - learner: "L'ho vista, sì, e mi riguarda da vicino. Se ho capito bene, nei comuni turistici un appartamento si potrà affittare ai turisti solo per novanta giorni all'anno, e chi supera il limite rischia una multa pesante. In più, ogni annuncio dovrà riportare un codice."
+    - tutor: "Esatto, più o meno è così, anche se i dettagli cambiano da un giornale all'altro. Ma perché dici che ti riguarda da vicino? Non mi risulta che tu abbia case da affittare."
+      goals: [summarise]
+    - learner: "Magari! No, è che a giugno la mia padrona di casa non mi rinnova il contratto, perché con i turisti guadagna il triplo. Quindi in teoria dovrei esultare. Eppure ho qualche dubbio: vorrei che il governo distingue tra chi ha venti appartamenti e la vedova che affitta una stanza."
+      errors: [subjunctive-use]
+    - tutor: "Mi dispiace per la casa, è una bella seccatura. Il dubbio è giusto, ma senti come suona: «vorrei che il governo distingue». Dopo «vorrei che» ci vuole un altro modo, e anche un altro tempo."
+      prompt: {text: "vorrei che il governo distingue", tags: [subjunctive-use]}
+      new: [{lemma: seccatura, gloss: nuisance}]
+    - learner: "Hai ragione, il congiuntivo... Vorrei che il governo distingua tra i grandi proprietari e i piccoli. Perché così com'è, la legge tratta tutti allo stesso modo, e a me questo non sembra giusto."
+      errors: [subjunctive-use]
+    - tutor: "Il modo è giusto, il tempo no: «vorrei che il governo distinguesse», con l'imperfetto. Sulla sostanza sono più cattivo di te: la vedova di solito ha un nipote che gestisce sei appartamenti. Tu dove l'hai letta, la notizia?"
+      goals: [opinion]
+      recast: {text: "Vorrei che il governo distingua", fix: "vorrei che il governo distinguesse", tags: [subjunctive-use]}
+    - learner: "All'inizio l'ho vista in un video di trenta secondi, figurati. Poi ho cercato meglio: un quotidiano italiano spiegava bene i numeri, mentre un magazzino inglese titolava che l'Italia ha dichiarato guerra ai turisti. Roba da matti."
+      errors: [false-friend]
+    - tutor: "Una rivista inglese che parla di guerra ai turisti, addirittura! All'estero un titolo così funziona sempre. Anch'io ho trovato la stessa legge raccontata in tre modi: vittoria, disastro, oppure fumo negli occhi."
+      goals: [sources]
+      recast: {text: "un magazzino inglese", fix: "una rivista inglese", tags: [false-friend]}
+    - learner: "Rivista, giusto, il magazzino è un'altra cosa! Comunque sì, ognuno la racconta a modo suo. Per questo alla fine sono andata a leggermi un approfondimento con il testo della legge: almeno lì non c'erano aggettivi."
+    - tutor: "Brava, sei più seria di metà di questo ufficio. E adesso la domanda da un milione: secondo te tra un anno che cosa sarà cambiato, per quelli come te che cercano una stanza?"
+    - learner: "Poco, temo, almeno all'inizio. Qualche proprietario tornerà agli studenti, altri venderanno, e i più furbi affitteranno in nero. Può darsi che i prezzi smettano di salire, ma che scendano non ci credo finché non lo vedo."
+    - tutor: "Sottoscrivo parola per parola, e detto da me è un complimento. Facciamo così: tra un anno ci ritroviamo qui davanti alla macchinetta e vediamo chi aveva ragione. Intanto, in bocca al lupo per la stanza."
+      goals: [consequences]
+
+- scenario: notizie-attualita
+  level: C1
+  persona: es-m-worker
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatto?"
+    - learner: "Altroché se l'ho vista. L'ho saputo per mio cognato, che fa le pulizie negli appartamenti per turisti ed è preoccupatissimo. In sostanza: basta cassette con le chiavi fuori dalla porta, gli ospiti vanno accolti di persona, e chi non si registra paga multe salate."
+      errors: [preposition]
+    - tutor: "Perfetto, meglio di certi giornali. Solo un dettaglio: «l'ho saputo per mio cognato» sa di spagnolo, in italiano davanti alla persona che ti informa quel «per» non va. E tu, come la vedi?"
+      goals: [summarise]
+      prompt: {text: "L'ho saputo per mio cognato", tags: [preposition]}
+    - learner: "L'ho saputo da mio cognato, è vero. Io sto un po' nel mezzo. Per la sicurezza mi pare giusto sapere chi entra in un palazzo. Ma che questa legge faccia scendere gli affitti per noi, a quello non ci credo: le due cose c'entrano poco."
+    - tutor: "Vedo che siamo in due a non crederci. Io ho letto quattro giornali e sembrava che parlassero di quattro leggi diverse. Tu hai guardato solo il telegiornale o hai confrontato qualcosa?"
+      goals: [opinion]
+    - learner: "Ho confrontato, sì. Il telegiornale parlava solo di sicurezza. Invece sul giornale locale il titolare era «Colpo ai piccoli proprietari», e sotto c'erano tre interviste, tutte a gente arrabbiata. Nessuno che dicesse una parola a favore."
+      errors: [false-friend]
+    - tutor: "Se il titolo era quello, l'articolo l'avevano già scritto prima di fare le interviste. Il titolare, semmai, è il padrone del giornale, e forse ha qualche appartamento anche lui! E in Spagna come l'hanno raccontata?"
+      goals: [sources]
+      recast: {text: "il titolare era", fix: "il titolo era", tags: [false-friend]}
+    - learner: "Guarda, ho dato un'occhiata a una testata di Madrid, per curiosità. Lì ne parlavano quasi con invidia, perché a Barcellona stanno litigando sulla stessa cosa da anni. Da fuori sembra sempre tutto più semplice."
+    - tutor: "L'erba del vicino è sempre più verde, insomma. Veniamo al sodo, però: con le nuove regole, tu che cosa ti aspetti che succeda a gente come tuo cognato?"
+      new: [{lemma: sodo, gloss: "«venire al sodo» = to get to the point"}]
+    - learner: "Paradossalmente lui potrebbe lavorare di più, perché qualcuno dovrà pure consegnare le chiavi a mano. I piccoli proprietari invece molleranno, e resteranno le grandi agenzie. E per i turisti, forse i prezzi salgano un po'."
+      errors: [subjunctive-use]
+    - tutor: "Quindi vince chi è già grosso: temo proprio che tu abbia ragione. Senti, però: «forse i prezzi salgano» è un regalo dello spagnolo. In italiano «forse» si accontenta di un modo più semplice. Come la diresti?"
+      prompt: {text: "forse i prezzi salgano", tags: [subjunctive-use]}
+    - learner: "Forse i prezzi saliranno un po', ecco. In spagnolo con «quizás» viene naturale il congiuntivo, e ci casco sempre. Comunque tra un anno vedremo chi ci ha guadagnato; io scommetto sulle agenzie."
+    - tutor: "Scommessa accettata, anche se purtroppo punto sulle agenzie pure io. Dai, torniamo alla scrivania, prima che il capo scriva lui un titolo su di noi."
+      goals: [consequences]
+
+- scenario: vita-in-italia
+  level: C1
+  persona: en-m-heritage
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Buongiorno, e grazie dell'invito. Più che scegliere l'Italia, direi che ci sono tornato al posto di mio nonno. Lui è partito dall'Abruzzo nel 1955; io sono cresciuto a Pittsburgh con i suoi racconti. Quando sono arrivato in paese, quattro anni fa, la sua casa è stata chiusa da trent'anni."
+      errors: [tense-aspect]
+    - tutor: "Una storia che comincia molto prima di lei, dunque. Mi permetta una nota: «quando sono arrivato, la casa è stata chiusa da trent'anni» non torna, perché quella situazione durava già da tempo. Che tempo userebbe?"
+      prompt: {text: "la sua casa è stata chiusa da trent'anni", tags: [tense-aspect]}
+    - learner: "Era chiusa da trent'anni, certo. Dentro c'era ancora il calendario del 1994 appeso al muro. L'ho sistemata piano piano, e oggi ci vivo e ci lavoro: faccio il programmatore a distanza per una ditta americana."
+    - tutor: "Il calendario del 1994: un'immagine che vale un romanzo. Immagino però che non sia stato tutto così poetico. Qual è stata la difficoltà più grande, per un americano in un paese di montagna?"
+      goals: [story]
+    - learner: "La burocrazia, senza dubbio, almeno all'inizio. Ho applicato per la cittadinanza nel 2020, convinto che con un nonno italiano fosse una formalità. Ci sono voluti tre anni, e un numero di certificati che non le dico."
+      errors: [word-choice]
+    - tutor: "Tre anni da quando ha fatto domanda per la cittadinanza: i nostri ascoltatori sanno bene di che cosa parla! E con la gente del paese, invece, com'è andata l'accoglienza?"
+      recast: {text: "applicato per la cittadinanza", fix: "fatto domanda per la cittadinanza", tags: [word-choice]}
+    - learner: "Calorosa e spietata insieme. Mi chiamano ancora «l'americano», e nonostante parlavo il dialetto di mio nonno, al bar ridevano: usavo parole che lì nessuno dice più da cinquant'anni. Ero un pezzo da museo."
+      errors: [subjunctive-use]
+    - tutor: "Un pezzo da museo che parla, però: che fortuna per il paese! Attenzione soltanto a «nonostante parlavo»: dopo «nonostante» il modo normale dei fatti non basta. Vuole provare di nuovo? Poi le chiedo come l'ha cambiata questa esperienza."
+      goals: [difficulties]
+      prompt: {text: "nonostante parlavo", tags: [subjunctive-use]}
+    - learner: "Nonostante parlassi il dialetto, ha ragione. Come sono cambiato? Ho smesso di correre. A Pittsburgh mangiavo davanti al computer; qui, se salto il pranzo, la vicina mi bussa alla porta con un piatto in mano. E ho imparato a chiedere aiuto, cosa che prima mi sembrava una debolezza."
+    - tutor: "Una vicina così è un patrimonio nazionale. Molti nostri ascoltatori all'estero sognano di fare come lei e tornare al paese dei nonni. Che cosa consiglierebbe loro, in tutta sincerità?"
+      goals: [change]
+    - learner: "Di venire prima d'inverno, quando il paese è vuoto e nevica, non ad agosto con la festa del patrono. Se dopo un febbraio ci si vuole ancora restare, allora è la scelta giusta. E di non aspettarsi l'Italia dei racconti: quella non esiste più, ma quella vera merita lo stesso."
+    - tutor: "Provare l'inverno prima di innamorarsi dell'estate: un consiglio saggio, e non solo per chi vuole trasferirsi. La ringrazio di cuore per essere stato con noi. Un saluto a lei e, naturalmente, alla vicina."
+      goals: [advice]
+
+- scenario: vita-in-italia
+  level: C1
+  persona: en-m-traveller
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Buongiorno a tutti. Guardi, io l'Italia non l'ho scelta: mi ha fermato lei. Sei anni fa stavo facendo il giro d'Europa in bicicletta e in Puglia mi si è spezzato il telaio. Il meccanico mi ha mandato da un suo cugino, e la masseria che ci lavoro oggi è proprio quella."
+      errors: [relative-pronoun]
+    - tutor: "Fermato da un telaio rotto: un destino pugliese! Mi consenta però un'osservazione: in «la masseria che ci lavoro» quel «che» fa un po' troppi mestieri. Quale relativo metterebbe, per indicare il luogo?"
+      prompt: {text: "la masseria che ci lavoro", tags: [relative-pronoun]}
+      new: [{lemma: masseria, gloss: "large farmhouse (typical of Puglia)"}, {lemma: telaio, gloss: frame}]
+    - learner: "Vediamo... la masseria in quale lavoro oggi? Insomma, dovevo fermarmi tre giorni, il tempo di riparare la bici. Poi è cominciata la raccolta delle olive, serviva una mano, e non sono più ripartito."
+      errors: [relative-pronoun]
+    - tutor: "Quasi: «la masseria in cui lavoro», oppure «nella quale», con l'articolo. Tre giorni diventati sei anni, dunque. Ma restare è più difficile che arrivare: che cosa le è pesato di più?"
+      goals: [story]
+      recast: {text: "la masseria in quale lavoro", fix: "la masseria in cui lavoro", tags: [relative-pronoun]}
+      new: [{lemma: masseria, gloss: "large farmhouse (typical of Puglia)"}]
+    - learner: "All'inizio, la reazione a casa. I miei parenti non l'hanno presa bene: mia madre mi telefonava ogni sera, e mio padre per un mese non mi ha rivolto la parola. Per loro stavo buttando via una laurea in economia per raccogliere olive."
+      errors: [false-friend]
+    - tutor: "I suoi genitori avranno temuto di perderla, più che altro: da lontano le olive fanno paura. E qui in Italia, invece? Immagino che tra documenti e permessi non sia stata una passeggiata."
+      recast: {text: "parenti", fix: "genitori", tags: [false-friend]}
+    - learner: "Per niente. Dopo la Brexit ho dovuto rifare tutto da capo, e la burocrazia mi ha tolto parecchie notti di sonno. Ma la cosa più dura, a dire il vero, è stata un'altra: passare da ospite simpatico a uno del posto. Un invito a cena lo ottieni subito; un'amicizia vera richiede anni."
+    - tutor: "Da ospite a uno del posto: una distinzione molto fine, e molto italiana. E lei, in questi sei anni, si sente cambiato?"
+      goals: [difficulties]
+    - learner: "Parecchio. Prima ero uno che non restava nello stesso posto più di un mese, e ne andavo fiero. Qui ho scoperto che mettere radici non è una prigione. Conosco per nome ogni albero dell'oliveto, e se manco una settimana qualcuno se ne accorge."
+    - tutor: "Dal viaggiatore all'uomo che conosce gli alberi per nome: complimenti. Chiudiamo con un consiglio, perché so che tanti ci ascoltano sognando di mollare tutto. Che cosa direbbe loro?"
+      goals: [change]
+    - learner: "Direi di non confondere una vacanza con una vita. Venite, ma datevi un anno intero, inverno compreso, prima di decidere. E imparate un mestiere utile al posto in cui andate: l'accoglienza è generosa, ma integrarsi significa anche servire a qualcosa."
+    - tutor: "Un anno intero, inverno compreso, e un mestiere tra le mani: più chiaro di così non si può. Grazie per la sua testimonianza, e buona raccolta. Noi ci fermiamo qui, a domani."
+      goals: [advice]
+
+- scenario: modi-di-dire
+  level: C1
+  persona: en-f-professional
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Ordinami qualcosa di forte, prima. Allora: stamattina avevo la presentazione più importante dell'anno. Sono uscita di corsa, ho preso un caffè al volo e me lo sono rovesciato sulla camicia bianca. Poi sono arrivata dal cliente, ho aperto la borsa e mi sono accorta che ho lasciato il cavo del computer a casa."
+      errors: [tense-aspect]
+    - tutor: "Il buongiorno si vede dal mattino! Qualcosa di forte per la signora, subito. Senti però: «mi sono accorta che ho lasciato il cavo»... il cavo l'hai lasciato prima, no? Ci vuole un tempo più indietro."
+      prompt: {text: "mi sono accorta che ho lasciato", tags: [tense-aspect]}
+    - learner: "Mi sono accorta che avevo lasciato il cavo a casa, sì. Ho dovuto presentare tutto a voce, con una macchia enorme sul petto. E non è finita: ho chiamato il cliente «dottor Bianchi» per due volte. Si chiama Bianco."
+    - tutor: "Bianchi invece di Bianco, con la macchia in bella vista: che figuraccia! E siccome le disgrazie non vengono mai sole, scommetto che c'è dell'altro. O mi sbaglio?"
+      new: [{lemma: disgrazia, gloss: misfortune}]
+    - learner: "Non ti sbagli. Le disgrazie non vengono mai sole, e le mie oggi sono arrivate in comitiva! Lui era visibilmente annoiato per la storia del nome, e mi ha congedata dopo dieci minuti con un sorriso gelido."
+      errors: [false-friend]
+    - tutor: "In comitiva, questa è buona! Però lui era seccato, più che altro: se fosse stato solo annoiato, del nome non gli sarebbe importato niente. E tornata in ufficio, almeno, ti sei potuta nascondere?"
+      goals: [tell, react]
+      recast: {text: "annoiato", fix: "seccato", tags: [false-friend]}
+    - learner: "Magari. Ho scritto a una collega per sfogarmi: «Bianco è un pallone gonfiato e il capo mi ha mandata allo sbaraglio». Solo che, invece di mandarlo a lei, ho risposto a tutti. Tutto l'ufficio, capo compreso."
+    - tutor: "No! Hai fatto la frittata, altro che caffè rovesciato. E adesso dimmi la verità: di chi è la colpa di tutto questo disastro, tua o del destino?"
+      new: [{lemma: frittata, gloss: "omelette («fare la frittata» = to make a mess of things)"}]
+    - learner: "Un po' e un po'. Il caffè è stata sfortuna, può capitare a chiunque. Il cavo e il nome sono colpa mia, perché avevo preparato tutto all'ultimo momento. E il capo ci ha messo del suo, avvisandomi solo ieri sera. Ma più che altro sono arrabbiata a me stessa per quella mail."
+      errors: [preposition]
+    - tutor: "Analisi onesta, da vera professionista. Una cosa: «arrabbiata a me stessa» non va, dopo «arrabbiata» ci vuole un'altra parolina. Prova di nuovo, e poi racconta che cosa hai imparato da questa giornata."
+      goals: [blame]
+      prompt: {text: "arrabbiata a me stessa", tags: [preposition]}
+    - learner: "Arrabbiata di me stessa, allora? Insomma, furiosa. Ho imparato che le mail di sfogo si scrivono e poi si cancellano. E che domani porto i pasticcini a tutto l'ufficio, capo compreso: una figuraccia si perdona più in fretta a stomaco pieno."
+      errors: [preposition]
+    - tutor: "Si dice «arrabbiata con me stessa», ma furiosa rende l'idea. Saggia decisione, comunque: con i pasticcini si aggiusta quasi tutto. Vedrai che tra un mese questa storia la racconterai tu per prima, ridendo. Intanto brindiamo al dottor Bianco!"
+      goals: [moral]
+      recast: {text: "Arrabbiata di me stessa", fix: "arrabbiata con me stessa", tags: [preposition]}
+
+- scenario: modi-di-dire
+  level: C1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Ay, non me ne parlare. Oggi avevo la gita al museo con la seconda media, ventiquattro ragazzini. Il pullman è arrivato con un'ora di ritardo, e quando finalmente i bambini sono subiti sull'autobus, mi sono accorta che ne mancava uno: era rimasto chiuso in bagno a scuola."
+      errors: [false-friend]
+    - tutor: "Quando i bambini sono saliti sull'autobus ne mancava già uno: cominciamo bene! Una gita nata sotto una cattiva stella, direi. E al museo, almeno, ci siete arrivati tutti e ventiquattro?"
+      recast: {text: "i bambini sono subiti sull'autobus", fix: "i bambini sono saliti sull'autobus", tags: [false-friend]}
+    - learner: "Tutti e ventiquattro, sì, ma il museo era chiuso per sciopero. Nessuno ci aveva avvisati! Così ci siamo ritrovati in piazza, senza un programma, mentre cominciava a piovere. E io, naturalmente, senza ombrello."
+    - tutor: "Sciopero, pioggia e ventiquattro ragazzini: immagino che tu avessi un diavolo per capello. Io al tuo posto avrei perso le staffe dopo cinque minuti. Tu come hai reagito?"
+      new: [{lemma: staffa, gloss: "stirrup («perdere le staffe» = to lose one's temper)"}]
+    - learner: "Un diavolo per capello? Ne avevo almeno tre per capello, guarda! Ma davanti ai ragazzi ho fatto finta di niente e li ho portati in un bar a prendere una cioccolata. Solo che seguiva piovendo, e all'uscita uno è scivolato ed è caduto in una pozzanghera."
+      errors: [word-choice]
+    - tutor: "Tre diavoli per capello, me la segno! E siccome continuava a piovere, non poteva mancare il tuffo nella pozzanghera. Si è fatto male, il poveretto?"
+      goals: [tell, react]
+      recast: {text: "seguiva piovendo", fix: "continuava a piovere", tags: [word-choice]}
+    - learner: "Macché, rideva come un matto. Il guaio è venuto dopo: la madre ha visto la foto dei pantaloni sporchi nella chat dei genitori e ha telefonato alla preside prima ancora che tornassimo a scuola. Una polemica per un po' di fango!"
+    - tutor: "Le chat dei genitori sono peggio della pioggia, lo sanno tutti. Ma alla fine di chi è stata la colpa? Qui, tra autobus, museo chiuso e mamme, c'è l'imbarazzo della scelta."
+      new: [{lemma: imbarazzo, gloss: "«l'imbarazzo della scelta» = being spoilt for choice"}]
+    - learner: "Del ritardo, della ditta dei pullman. Dello sciopero, di nessuno: è un diritto. Ma un po' è anche colpa mia: non avevo un piano di riserva, perché contavo con l'aiuto di una collega che all'ultimo si è ammalata."
+      errors: [preposition]
+    - tutor: "Sei troppo onesta, io avrei dato la colpa all'autobus e basta. Una piccola cosa: «contavo con l'aiuto» è spagnolo puro, in italiano dopo «contare» ci vuole un'altra parolina. E a scuola, alla fine, che cosa ti hanno detto?"
+      goals: [blame]
+      prompt: {text: "contavo con l'aiuto", tags: [preposition]}
+    - learner: "Contavo sull'aiuto, è vero! La preside si è messa a ridere e ha detto che una gita senza guai non se la ricorda nessuno. Morale: la prossima volta piano di riserva, ombrello, e pantaloni di ricambio per tutti."
+    - tutor: "La tua preside è una donna saggia: tra vent'anni quei ragazzi ricorderanno la pozzanghera, mica il museo. Tutto è bene quel che finisce bene. E siccome la cioccolata l'hai già offerta tu, stasera pago io."
+      goals: [moral]
+
+- scenario: club-lettura
+  level: C1
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Ce l'ho fatta, ma in tre settimane, altro che tre sere! Nel complesso mi è piaciuto, e parecchio. Ho un solo rimprovero: ci sono troppi caratteri. Verso pagina cinquanta ho dovuto disegnarmi l'albero della famiglia su un foglio per non perdermi."
+      errors: [false-friend]
+    - tutor: "Troppi personaggi, dici? È una saga, la confusione fa parte del gioco: in una famiglia vera mica ti danno l'albero all'ingresso! Tra tutti, chi ti è rimasto più impresso?"
+      goals: [impression]
+      recast: {text: "troppi caratteri", fix: "troppi personaggi", tags: [false-friend]}
+    - learner: "Zia Ada, senza esitazione. Sposa il fidanzato della sorella morta perché alla famiglia conviene, e non si lamenta mai, per quarant'anni. Tutti la considerano una santa. Io invece ci vedo una donna che ha fatto i suoi conti, e li ha fatti bene."
+    - tutor: "Una calcolatrice, la povera Ada! Ma no, per me si sacrifica, punto. Che scelta aveva una ragazza senza dote nel 1947?"
+      new: [{lemma: dote, gloss: dowry}]
+    - learner: "Poche scelte, te lo concedo. Però rileggi la scena del notaio: è lei che insiste perché la casa sia intestata a suo nome. Una santa non l'avrebbe fatto. E quando ho letto quella pagina non immaginavo che il finale sarebbe così amaro proprio per lei."
+      errors: [tense-aspect]
+    - tutor: "La scena del notaio, accidenti: mi hai messo una pulce nell'orecchio. Ma aspetta, «non immaginavo che il finale sarebbe così amaro»: parli di un futuro visto dal passato, e lì il condizionale semplice non basta. Come lo aggiusti?"
+      goals: [character]
+      prompt: {text: "non immaginavo che il finale sarebbe così amaro", tags: [tense-aspect]}
+      new: [{lemma: pulce, gloss: "flea («mettere una pulce nell'orecchio» = to plant a doubt)"}]
+    - learner: "Dal passato... non immaginavo che il finale sarà stato così amaro? Comunque amaro lo è davvero: resta sola in quella casa enorme, che ha voluto tanto."
+      errors: [tense-aspect]
+    - tutor: "No, il futuro qui non c'entra: «non immaginavo che il finale sarebbe stato così amaro», con il condizionale passato. Sola nella casa che ha voluto: mi stai rovinando la mia santa! E dello stile che mi dici?"
+      recast: {text: "il finale sarà stato così amaro", fix: "il finale sarebbe stato così amaro", tags: [tense-aspect]}
+    - learner: "Lo stile mi ha conquistato a poco a poco. Il narratore sa tutto di tutti, ma lo racconta con un'ironia leggera, senza mai giudicare. E poi quelle lunghe pagine sul cibo: il pranzo di nozze del terzo capitolo l'ho letto due volte, e mi è venuta fame tutte e due."
+    - tutor: "Il pranzo di nozze è un pezzo di bravura, e te lo dice una che legge da cinquant'anni. Dunque promosso, nonostante l'albero disegnato a mano. A chi lo faresti leggere?"
+      goals: [style]
+    - learner: "A mia moglie, che adora le storie in cui le donne sono più furbe degli uomini. E a chiunque abbia conosciuto una zia Ada. Non lo darei a chi ha fretta: è un romanzo che va letto con la stessa calma con cui è stato scritto."
+    - tutor: "Sottoscrivo: è un libro per chi sa aspettare. Su Ada non sono ancora d'accordo, ma stasera rileggo la scena del notaio. Il mese prossimo, però, porta l'albero disegnato: lo voglio vedere."
+      goals: [recommend]
+
+- scenario: club-lettura
+  level: C1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "L'ho finito ieri sera, e meno male che ho insistito. Le prime cento pagine, te lo confesso, mi sono sembrate lentissime: tutta quella campagna, tutti quei cugini. Però gli ultimi capitoli mi hanno piaciuto tantissimo, ho pianto come una fontana."
+      errors: [auxiliary-choice]
+    - tutor: "Come una fontana, addirittura: allora c'è speranza anche per te! Occhio però a «mi hanno piaciuto»: il verbo «piacere» è capriccioso e nei tempi composti non vuole «avere». Riprova, e dimmi che cosa ti ha fatto cambiare idea a metà libro."
+      prompt: {text: "mi hanno piaciuto", tags: [auxiliary-choice]}
+    - learner: "Mi sono piaciuti, certo! Ho cambiato idea quando Lucia parte per Torino e va a lavorare in fabbrica. Da lì il romanzo prende vita. Lei scrive a casa che fa la segretaria, e guarda il segreto per anni, anche quando torna al paese per Natale."
+      errors: [false-friend]
+    - tutor: "Eh sì, mantiene il segreto per anni, con quelle lettere piene di bugie. A me Lucia ha fatto arrabbiare: sua madre si spacca la schiena e lei le racconta favole. Tu come la giudichi?"
+      goals: [impression]
+      recast: {text: "guarda il segreto", fix: "mantiene il segreto", tags: [false-friend]}
+    - learner: "Io la capisco fin troppo bene. Non mente per vergogna, mente per proteggere sua madre: se le avesse detto la verità, la madre avrebbe venduto l'orto per farla tornare. Anch'io, quando chiamo casa da qui, dico sempre che va tutto benissimo."
+    - tutor: "Colpito e affondato: all'orto non avevo pensato, e nemmeno alle telefonate di chi studia all'estero! E la scrittura, per te che non sei di madrelingua, com'è stata?"
+      goals: [character]
+    - learner: "Una bella sfida. I dialoghi non hanno le virgolette, quindi all'inizio non capivo mai chi stesse parlando. E poi ci sono parole in dialetto piemontese che nel mio dizionario non esistono. Però i capitoli sono brevi e ognuno si chiude con una frase secca, quasi una fotografia. Quello stile mi ha conquistata."
+    - tutor: "Le frasi finali sono la firma dell'autore, hai un buon orecchio. Per il dialetto la prossima volta chiedi a me, sono di queste parti. Lo consiglieresti alle tue coinquiline, o è meglio di no?"
+      goals: [style]
+    - learner: "A una sì, a quella che studia storia: ci troverebbe il dopoguerra meglio che nei manuali. All'altra no, perché se dopo venti pagine non è successo niente, lei abbandona. E lo regalerei a mia nonna, se esistesse una traduzione: anche lei è partita dal paese a diciott'anni."
+    - tutor: "Allora speriamo che lo traducano presto, per tua nonna. Sono contento che tu abbia tenuto duro fino alla fine. Il mese prossimo tocca a un giallo: niente cugini, promesso, ma almeno tre morti."
+      goals: [recommend]
+
+- scenario: film-libro
+  level: C1
+  persona: es-m-worker
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Comincio io, Roberto, che stavolta l'ho finito davvero. È un romanzo di strada: un camionista di Trieste deve consegnare un carico a Lisbona entro cinque giorni, e a una stazione di servizio fa salire una ragazza che scappa da qualcosa. Di più non dico, se no rovino la sorpresa."
+    - tutor: "Finito davvero: questa è già una notizia! E hai fatto bene a fermarti lì. Parlami di lui, piuttosto: che tipo è questo camionista?"
+      goals: [summary]
+    - learner: "Si chiama Dario, ha quasi sessant'anni ed è un tipo raro: parla con la radio ma non con le persone. A ogni sosta telefona alla ex moglie e, quando lei risponde, lui riattacca senza dire una parola."
+      errors: [false-friend]
+    - tutor: "Un tipo strano, direi: raro lo è solo perché di uomini così, per fortuna, ce ne sono pochi! Quelle telefonate senza parole mi fanno venire curiosità. E con la ragazza, almeno, parla un po'?"
+      goals: [characters]
+      recast: {text: "un tipo raro", fix: "un tipo strano", tags: [false-friend]}
+    - learner: "Piano piano, sì. Ma il vero personaggio, per me, è il camion con che viaggia: ha un nome, Dario gli parla, lo cura come un cavallo. Io guido un furgone tutto il giorno e ti giuro che è così."
+      errors: [relative-pronoun]
+    - tutor: "Se anche tu dai un nome al furgone, lo voglio sapere dopo! Intanto guarda «il camion con che viaggia»: dopo una preposizione «che» non regge, ci vuole un altro relativo. Come diventa?"
+      prompt: {text: "il camion con che viaggia", tags: [relative-pronoun]}
+    - learner: "Vero, in spagnolo diciamo «con el que»... Il camion con il che viaggia? Comunque il mio furgone si chiama Paco, ma non dirlo a nessuno."
+      errors: [relative-pronoun]
+    - tutor: "Quasi: «il camion con cui viaggia», oppure «con il quale». E Paco resta un segreto del club, parola mia. Ma dimmi: il libro ti è piaciuto fino in fondo, o qualcosa non ti ha convinto?"
+      recast: {text: "Il camion con il che viaggia", fix: "il camion con cui viaggia", tags: [relative-pronoun]}
+    - learner: "Mi è piaciuto moltissimo, perché è raro che un autore racconti bene il lavoro: la stanchezza, i panini alle tre di notte, la solitudine. L'unica cosa che non mi ha convinto è il finale. Dopo trecento pagine lente, si risolve tutto in dieci, come se l'autore avesse fretta di consegnare anche lui."
+    - tutor: "«Come se avesse fretta di consegnare anche lui»: bella questa, da critico vero. A chi lo consiglieresti, allora?"
+      goals: [opinion]
+    - learner: "Ai miei colleghi, che dicono sempre che i libri non parlano di gente come noi. E a chi ama le storie in cui succede poco ma si pensa molto. A chi cerca inseguimenti e colpi di scena, no: lo troverebbe noioso."
+    - tutor: "Un romanzo per chi lavora e per chi sa andare piano: mi hai convinto, lo metto nella lista per l'autunno. Grazie, è stato un ottimo inizio. Chi vuole continuare?"
+      goals: [recommend]
+
+- scenario: film-libro
+  level: C1
+  persona: en-f-student
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Posso cominciare io? Ho letto un romanzo ambientato in un futuro vicino, in una pianura padana ormai coperta dall'acqua. La protagonista ha una barca e trasporta persone e merci da un'isola all'altra, finché un giorno accetta un passeggero che non avrebbe dovuto accettare. Quando l'ho comprato non ho saputo che era il primo di tre volumi."
+      errors: [tense-aspect]
+    - tutor: "Una pianura padana sott'acqua: da queste parti fa un certo effetto! Solo una cosa: «quando l'ho comprato non ho saputo che era il primo»... qui non parli di un momento, ma di una situazione che durava. Che tempo ci vuole?"
+      goals: [summary]
+      prompt: {text: "non ho saputo che era", tags: [tense-aspect]}
+    - learner: "Non sapevo che fosse il primo di tre, giusto. L'ho scoperto all'ultima pagina, e ti lascio immaginare la mia faccia. Per fortuna il secondo è già uscito."
+    - tutor: "Almeno non devi aspettare anni, come capita con certe saghe. Raccontaci della protagonista: è una di quelle eroine perfette che sanno fare tutto?"
+    - learner: "Per niente, ed è il motivo per cui mi piace. Nora ha diciassette anni, è testarda, dice bugie con una facilità impressionante e si fida solo della sua barca. Però, quando qualcuno ha bisogno di lei, non si tira mai indietro. È il tipo di persona che vorresti come amica, ma non come socia in affari."
+    - tutor: "Amica sì, socia no: ho capito perfettamente il tipo. E il libro nel complesso com'è, ti ha convinta dall'inizio alla fine?"
+      goals: [characters]
+    - learner: "Quasi. Il mondo è costruito benissimo: i mercati sulle chiatte, i campanili che spuntano dall'acqua, tutto sembra vero. Quello che mi ha convinta meno è il romanzo tra Nora e il passeggero: l'ho trovato forzato, come se l'editore l'avesse preteso."
+      errors: [false-friend]
+    - tutor: "Ah, la storia d'amore tra Nora e il passeggero: il romanzo, semmai, è il libro intero! Capita spesso, purtroppo, che l'amore venga aggiunto a forza. A chi lo consiglieresti, nonostante questo difetto?"
+      goals: [opinion]
+      recast: {text: "il romanzo tra Nora e il passeggero", fix: "la storia d'amore tra Nora e il passeggero", tags: [false-friend]}
+    - learner: "A chi di solito dice che la fantascienza non fa per lui, perché in fondo è una storia di famiglia e di responsabilità. E agli adolescenti, senz'altro. A mio fratello, che ha quindici anni, gli l'ho già prestato, e non me lo restituisce più."
+      errors: [combined-pronouns]
+    - tutor: "Un fratello che si tiene il libro vale più di mille complimenti. Attenta però a «gli l'ho già prestato»: quando «gli» incontra «lo», i due diventano una parola sola. Com'è?"
+      prompt: {text: "gli l'ho già prestato", tags: [combined-pronouns]}
+    - learner: "Glie l'ho già prestato, allora? Con questi pronomi doppi non sono mai sicura. Comunque, a chi vuole un lieto fine garantito direi di aspettare il terzo volume, perché il primo ti lascia con il fiato sospeso."
+      errors: [combined-pronouns]
+    - tutor: "Tutto attaccato e con l'apostrofo: «gliel'ho già prestato». Con il fiato sospeso e senza libro, visto il fratello! Grazie, ci hai fatto venire voglia di salire su quella barca. Il titolo me lo segno."
+      goals: [recommend]
+      recast: {text: "Glie l'ho già prestato", fix: "gliel'ho già prestato", tags: [combined-pronouns]}

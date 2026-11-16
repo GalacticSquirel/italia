@@ -1,0 +1,108 @@
+- scenario: cena-suoceri
+  level: C2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+    - learner: "Esisto, glielo garantisco, anche se capisco il sospetto. La ringrazio dell'accoglienza: avete una casa splendida, e dalla cucina arriva un profumo che promette bene."
+    - tutor: "«Promette bene»: prudente, mi piace. È una ribollita, e la giudicherà a cose fatte. Mia moglie sostiene che io sappia cucinare solo quella, il che è vero. E Lei, quando non frequenta mia figlia, di che cosa si occupa?"
+      goals: [compliment]
+      new: [{lemma: ribollita, gloss: Tuscan bread and vegetable soup}, {lemma: a cose fatte, gloss: after the fact}]
+    - learner: "Faccio il traduttore, soprattutto di saggistica. Non è un mestiere che arricchisce, ma penso che è uno dei pochi in cui si viene pagati per leggere con attenzione."
+      errors: [subjunctive-use]
+    - tutor: "Pagati per leggere: detta così, quasi La invidio. Però da un traduttore mi aspetto orecchio fino, e «penso che è» a Firenze fa storcere il naso perfino ai piccioni di piazza della Signoria. Vuole riprovare?"
+      prompt: {text: "penso che è", tags: [subjunctive-use]}
+      new: [{lemma: storcere il naso, gloss: to turn up one's nose}, {lemma: piccione, gloss: pigeon}]
+    - learner: "Colpito e affondato. Penso che sia uno dei pochi mestieri in cui si viene pagati per leggere con attenzione. I piccioni possono stare tranquilli."
+    - tutor: "Molto meglio, e i piccioni ringraziano. E i progetti? Glielo chiedo perché mia figlia cambia idea ogni sei mesi, e in famiglia almeno uno dovrebbe sapere dove sarete tra un anno."
+    - learner: "Tra un anno, se tutto va come speriamo, saremo qui in Toscana. Io posso lavorare ovunque, e Sua figlia ha quel concorso a Pisa. Non Le prometto certezze, ma un piano ce l'abbiamo."
+    - tutor: "A Pisa. Guardi, da fiorentino dovrei ricordarLe che è «meglio un morto in casa che un pisano all'uscio». Ma sono un uomo di mondo: vi verrò a trovare lo stesso, magari di notte."
+      goals: [background]
+      new: [{lemma: uscio, gloss: "door, doorstep (Tuscan)"}]
+    - learner: "Apprezzo il sacrificio. Del resto mi hanno insegnato che i pisani rispondono «che Dio t'accontenti»: una stanza per Lei la terremo comunque, e l'uscio lo lascio aperto io."
+    - tutor: "Ma senti, conosce anche la risposta! Qui mi si batte in casa mia. A questo punto il Lei mi pare sprecato: chi sa rispondere così merita il tu. Che ne dice, ci diamo del tu?"
+      goals: [irony]
+    - learner: "Volentieri, se Le fa piacere. Mi ci vorrà una ribollita o due per abituarmi, ma comincio subito: grazie. E come ti devo chiamare?"
+    - tutor: "Piero, come fanno tutti, tranne l'ufficio delle tasse. Benvenuto in famiglia. E adesso un brindisi, prima che si freddi tutto."
+      goals: [tu-lei]
+
+- scenario: cena-suoceri
+  level: C2
+  persona: es-f-erasmus
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Prego, si sieda pure. Mio figlio ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+    - learner: "Spero di essere all'altezza del personaggio, allora. Grazie dell'invito: che tavola meravigliosa. E quest'aceto è buonissimo, è delle vostre olive?"
+      errors: [false-friend]
+    - tutor: "Delle nostre olive è l'olio, e La ringrazio: quest'olio lo facciamo a Fiesole da tre generazioni. L'aceto dalle olive sarebbe un miracolo, e in questa casa i miracoli li fa solo mia moglie in cucina. Assaggi il pane, intanto."
+      goals: [compliment]
+      recast: {text: "quest'aceto", fix: "quest'olio", tags: [false-friend]}
+    - learner: "Che figura, l'olio, certo! In spagnolo «aceite» mi tradisce sempre. Comunque è squisito, e lo dico senza esagerare: a Siviglia di olio ce ne intendiamo."
+    - tutor: "Una sivigliana che loda l'olio toscano: lo metto agli atti. E a Firenze che cosa La trattiene, oltre a mio figlio, che come motivo mi pare un po' debole?"
+      new: [{lemma: mettere agli atti, gloss: to put on record}]
+    - learner: "Suo figlio è un motivo più solido di quanto Lei creda. Ma c'è anche il dottorato in storia dell'arte: studio le botteghe fiorentine del Quattrocento, e finché non finisco la tesi resto qui."
+    - tutor: "Il Quattrocento, addirittura. Allora saprà che qui i forestieri li abbiamo sempre accolti bene, purché portassero lavoro e denaro. Lei che cosa ci porta, a parte la tesi?"
+      goals: [background]
+      new: [{lemma: forestiero, gloss: "outsider, stranger"}]
+    - learner: "Porto pazienza, che con un fiorentino in casa serve più dell'oro. Se lo dico sempre a Suo figlio: voi avete inventato la prospettiva, ma non sempre la usate."
+      errors: [combined-pronouns]
+    - tutor: "Toccato! La battuta è da dieci e lode, e la riferirò. Peccato per l'attacco, però: «se lo dico sempre a Suo figlio»? Lì sento Siviglia, non l'Arno. In italiano quei due pronomi si fondono in una parola sola: quale?"
+      prompt: {text: "Se lo dico sempre", tags: [combined-pronouns]}
+    - learner: "Glielo dico sempre, ha ragione. Vede? Anche la grammatica, qui, è questione di prospettiva."
+    - tutor: "Proprio così. Con una lingua tanto svelta, il Lei comincia a starmi stretto. In famiglia ci si dà del tu, e Lei ormai è di famiglia: che ne dice?"
+      goals: [irony]
+    - learner: "Ne sono felice, davvero. Ma mi permetta una condizione: Lei mi dia pure del tu da subito, io ci arrivo piano piano. A casa mia, con i genitori del fidanzato, il tu va guadagnato."
+    - tutor: "Saggia e piena di garbo: accetto la condizione. Allora, cara, passami il bicchiere, che facciamo un brindisi alla prospettiva."
+      goals: [tu-lei]
+
+- scenario: cena-suoceri
+  level: C2
+  persona: en-f-student
+  turns:
+    - tutor: "Prego, si sieda pure. Mio figlio ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+    - learner: "Buonasera, e grazie dell'invito. Sono reale, glielo assicuro, anche se un po' emozionata. Che figata questa casa, con gli affreschi sul soffitto!"
+      errors: [register]
+    - tutor: "Reale e sincera, vedo. Gli affreschi ringraziano: hanno trecento anni e ne hanno sentite di tutti i colori. Ma «che figata» dev'essere il lessico di mio figlio, non quello di una prima cena dai suoceri. Come lo direbbe a mia madre, che ha novant'anni?"
+      prompt: {text: "Che figata questa casa", tags: [register]}
+      new: [{lemma: sentirne di tutti i colori, gloss: to hear all sorts of things}, {lemma: affresco, gloss: fresco}]
+    - learner: "Oddio, mi scusi, è colpa della vita da studentessa. Volevo dire che la casa è incantevole, e che si vede la mano di chi l'ha curata con amore."
+    - tutor: "Ecco, questo a mia madre sarebbe piaciuto, e piace anche a me. La mano è di mia moglie, io mi limito a pagare i restauri. Mio figlio dice che Lei studia medicina: è vero, o era per fare bella figura?"
+      goals: [compliment]
+    - learner: "È vero, sono al quinto anno e vorrei specializzarmi in pediatria. Non so ancora se qui o in Inghilterra: dipende dai concorsi e un po' anche da Suo figlio, se posso dirlo."
+    - tutor: "Può dirlo, purché non lo dica a lui: si monterebbe la testa. Un medico in famiglia, finalmente: alla mia età conviene tenerseli buoni. E mi dica, voi due litigate mai, o siete una di quelle coppie perfette che fanno venire i nervi?"
+      goals: [background]
+      new: [{lemma: montarsi la testa, gloss: to get a big head}]
+    - learner: "Perfetti no, per fortuna. In due anni abbiamo avuto un solo argomento, ma serio: lui scuoce la pasta e sostiene che così è più digeribile."
+      errors: [false-friend]
+    - tutor: "Una sola discussione in due anni, e sulla pasta scotta? Allora ha ragione Lei, e glielo metto per iscritto. Chi difende la pasta al dente in casa mia merita qualcosa in cambio: lasciamo perdere il Lei, che ne dice?"
+      goals: [irony]
+      recast: {text: "un solo argomento", fix: "Una sola discussione", tags: [false-friend]}
+    - learner: "Mi farebbe piacere, grazie. Però all'inizio mi sentirò come se dessi del tu a un affresco: abbia pazienza, anzi, abbi pazienza con me."
+    - tutor: "A un affresco, addirittura: questa la racconto a mia moglie. Pazienza ne ho quanta ne vuoi. Vieni, andiamo a tavola, e alla pasta stasera ci penso io."
+      goals: [tu-lei]
+
+- scenario: cena-suoceri
+  level: C2
+  persona: en-m-heritage
+  turns:
+    - tutor: "Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+    - learner: "Immaginario no, ma in ritardo sì, e me ne scuso: il treno da Roma oggi si fermò mezz'ora a Orvieto. Grazie dell'ospitalità: non capita tutti i giorni di cenare sotto un soffitto così."
+      errors: [tense-aspect]
+    - tutor: "Il soffitto è merito del Settecento, io lo spolvero soltanto. Ma mi incuriosisce una cosa: «il treno oggi si fermò»? Per un fatto di poche ore fa, a Firenze quel tempo suona come una pagina di Verga. Come lo direbbe uno di qui?"
+      goals: [compliment]
+      prompt: {text: "si fermò", tags: [tense-aspect]}
+      new: [{lemma: spolverare, gloss: to dust}]
+    - learner: "Si è fermato, certo. È un'eredità dei miei nonni, che erano di Agrigento: a casa nostra anche la colazione si raccontava al passato remoto."
+    - tutor: "Allora tutto si spiega, e non se ne vergogni: è una bella eredità. In Sicilia il passato remoto è pane quotidiano; al Nord, invece, lo si trova ormai quasi solo nei libri. E oltre a prendere treni in ritardo, che cosa fa nella vita?"
+      new: [{lemma: pane quotidiano, gloss: "daily bread, an everyday thing"}]
+    - learner: "Sono ingegnere, mi occupo di restauro strutturale: ponti, soprattutto. Con Sua figlia stiamo valutando di trasferirci a Bologna, dove ho un'offerta, ma nulla è deciso senza di lei."
+    - tutor: "Ponti: mestiere utile, in un paese dove tutti preferiscono alzare muri. E «nulla è deciso senza di lei» è la frase più intelligente della serata. Però mi tolga una curiosità: un americano che ripara i ponti italiani non Le pare il mondo alla rovescia?"
+      goals: [background]
+      new: [{lemma: il mondo alla rovescia, gloss: the world turned upside down}]
+    - learner: "Forse, ma i miei nonni partirono con una valigia di cartone e io torno con una laurea: più che il mondo alla rovescia, mi pare un conto che si chiude. E poi i ponti non hanno mica il passaporto."
+    - tutor: "Bella risposta, e quel «mica» Le è uscito come a uno nato in riva all'Arno. Mi arrendo: un uomo che sa incassare e restituire con questo garbo non può restare «Lei» a lungo. Passiamo al tu?"
+      goals: [irony]
+      new: [{lemma: incassare, gloss: "to take a blow, a joke"}]
+    - learner: "Con piacere, ne sono onorato. Anche se Le confesso, cioè ti confesso, che dare del tu al padre della propria fidanzata fa più paura di un ponte pericolante."
+    - tutor: "Coraggio, i ponti pericolanti sono il tuo mestiere. Su, alziamo i bicchieri: un brindisi a chi torna, e a chi lo aspetta a tavola."
+      goals: [tu-lei]
+      new: [{lemma: pericolante, gloss: "unsafe, about to collapse"}]
