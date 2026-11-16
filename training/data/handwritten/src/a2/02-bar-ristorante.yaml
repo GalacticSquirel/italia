@@ -1,0 +1,143 @@
+- scenario: bar-colazione
+  level: A2
+  persona: en-m-retired
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno. Vorrei un cappuccino, per favore."
+    - tutor: "Certo, un cappuccino. Lo vuole con lo zucchero?"
+      goals: [greet, order-drink]
+    - learner: "No, grazie, senza zucchero. E posso avere un cornetto?"
+    - tutor: "Sì, abbiamo cornetti vuoti o alla crema. Quale preferisce?"
+      new: [{lemma: crema, gloss: custard}]
+      goals: [order-food]
+    - learner: "Prendo quello alla crema. Quanto è tutto?"
+    - tutor: "Allora, un cappuccino e un cornetto: sono tre euro e venti."
+    - learner: "Ecco cinque euro."
+    - tutor: "Grazie, ecco il resto e lo scontrino. Buona giornata!"
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A2
+  persona: es-f-erasmus
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Voglio di prendere un caffè."
+      errors: [modal-infinitive]
+    - tutor: "Voglio di prendere? Attenzione, dopo voglio c'è una parola in più."
+      prompt: {text: "voglio di prendere", tags: [modal-infinitive]}
+    - learner: "Ah, voglio prendere un caffè."
+    - tutor: "Benissimo, un caffè. Al bancone o al tavolo?"
+      goals: [greet, order-drink]
+    - learner: "Al bancone. Avete anche qualcosa da mangiare?"
+    - tutor: "Sì, abbiamo cornetti caldi, sono appena arrivati. Cosa le porto?"
+    - learner: "Un cornetto integrale, per favore. Ieri l'ho preso e era buonissimo."
+    - tutor: "Ottima scelta! Ecco il caffè e il cornetto."
+      goals: [order-food]
+    - learner: "Grazie. Quanto pago?"
+    - tutor: "Sono 2,50 euro. Vuole pagare con la carta?"
+    - learner: "Sì, con la carta, per favore."
+    - tutor: "Perfetto, ecco lo scontrino. Buona giornata e buono studio!"
+      goals: [pay]
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: en-f-professional
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Buongiorno! Siamo in tre. Avete un tavolo vicino alla finestra?"
+    - tutor: "Sì, quel tavolo è libero. Ecco il menù."
+      goals: [ask-table]
+    - learner: "Grazie. Per primo prendo gli spaghetti al pomodoro. Cosa è il piatto del giorno?"
+      errors: [question-form]
+    - tutor: "Cosa è il piatto del giorno? In italiano chiediamo in un altro modo, con una parola sola."
+      prompt: {text: "cosa è il piatto del giorno", tags: [question-form]}
+    - learner: "Qual è il piatto del giorno?"
+    - tutor: "Esatto! Oggi abbiamo il pesce al forno."
+      new: [{lemma: forno, gloss: oven}]
+    - learner: "Perfetto, lo prendo come secondo."
+    - tutor: "Benissimo. E da bere?"
+      goals: [order-food]
+    - learner: "Una bottiglia di acqua naturale e un bicchiere di vino rosso."
+    - tutor: "Arrivano subito."
+      goals: [order-drink]
+    - learner: "Scusi, alla fine possiamo avere il conto?"
+    - tutor: "Certo, ve lo porto io quando volete. Buon pranzo!"
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: en-m-heritage
+  history: [article-form, noun-number]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Buongiorno! Siamo due, io e mia moglie."
+    - tutor: "Va bene, prego, il tavolo in fondo è per voi. Ecco il menù."
+      goals: [ask-table]
+    - learner: "Grazie. Allora, io prendo i spaghetti alle vongole."
+      errors: [article-form]
+    - tutor: "I spaghetti? Attenzione alla prima lettera di spaghetti."
+      prompt: {text: "i spaghetti", tags: [article-form]}
+    - learner: "Gli spaghetti! Gli spaghetti alle vongole."
+    - tutor: "Bravo! E per sua moglie?"
+    - learner: "Lei prende una lasagna e poi due polpetta."
+      errors: [noun-number]
+    - tutor: "Due polpetta? Quante sono?"
+      prompt: {text: "due polpetta", tags: [noun-number]}
+    - learner: "Due polpetta... con il sugo."
+      errors: [noun-number]
+    - tutor: "Ah, due polpette con il sugo, va bene. E da bere?"
+      new: [{lemma: polpetta, gloss: meatball}]
+      recast: {text: "due polpetta", fix: "due polpette", tags: [noun-number]}
+      goals: [order-food]
+    - learner: "Un litro di vino della casa e una bottiglia di acqua frizzante."
+    - tutor: "Perfetto, arriva tutto tra poco."
+      goals: [order-drink]
+    - learner: "Grazie mille. Dopo pranzo possiamo pagare con la carta?"
+    - tutor: "Sì, certo. Alla fine vi porto il conto al tavolo."
+      goals: [ask-bill]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: es-f-teacher
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, ho prenotato una camera doppia per tre notti. Mi chiamo Lucía Romero."
+    - tutor: "Un momento... Sì, ecco la sua prenotazione. Ha un documento, per favore?"
+      goals: [booking]
+    - learner: "Sì, ecco la mia carta d'identità."
+    - tutor: "Grazie. La colazione è nel prezzo della camera."
+      goals: [document]
+    - learner: "Che bene! A che ora è la colazione?"
+      errors: [false-friend]
+    - tutor: "Che bello, vero? La colazione è dalle sette alle dieci, al primo piano."
+      recast: {text: "che bene", fix: "che bello", tags: [false-friend]}
+      goals: [breakfast]
+    - learner: "Perfetto. E la camera a che piano è?"
+    - tutor: "È al terzo piano. Ecco la chiave, l'ascensore è a destra."
+      new: [{lemma: ascensore, gloss: lift}]
+      goals: [key]
+    - learner: "Grazie mille, buonanotte."
+    - tutor: "Buonanotte a lei e buona vacanza!"
+
+- scenario: hotel-checkin
+  level: A2
+  persona: en-m-traveller
+  history: [register]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Ciao! Sì, ho una prenotazione a nome Byrne."
+      errors: [register]
+    - tutor: "Ciao? Siamo in albergo e io non sono un amico. Come dice, allora?"
+      prompt: {text: "ciao", tags: [register]}
+    - learner: "Ah, scusi! Buonasera. Ho una prenotazione a nome Byrne."
+    - tutor: "Benissimo. Ecco, una camera per una persona, per due notti. Mi dà un documento?"
+      goals: [booking]
+    - learner: "Ecco il mio passaporto. Quando è la colazione?"
+    - tutor: "Grazie. La colazione è dalle sette e mezza alle dieci, nella sala qui a sinistra."
+      goals: [document, breakfast]
+    - learner: "Perfetto. Posso lasciare la bicicletta da qualche parte?"
+    - tutor: "Sì, c'è un posto dietro l'albergo. Ecco la chiave, camera 12 al secondo piano."
+      goals: [key]
+    - learner: "Grazie, è molto gentile. Buonanotte!"
+    - tutor: "Prego, buonanotte!"
