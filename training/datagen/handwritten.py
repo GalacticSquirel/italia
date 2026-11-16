@@ -109,7 +109,9 @@ def load_sources(set_name: str, source_dir: Path = SOURCE_DIR) -> list[Source]:
         try:
             items = yaml.safe_load(path.read_text(encoding="utf-8")) or []
         except yaml.YAMLError as err:
-            raise AuthoringError(f"{path.name}: invalid YAML (quote text containing ': '): {err}")
+            raise AuthoringError(
+                f"{path.name}: invalid YAML (quote text containing ': '): {err}"
+            ) from err
         if not isinstance(items, list):
             raise AuthoringError(f"{path.name}: expected a list of dialogues")
         out.extend(Source(set_name, path, i, item) for i, item in enumerate(items))
