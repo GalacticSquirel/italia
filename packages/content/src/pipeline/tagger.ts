@@ -90,6 +90,18 @@ function contextFactor(reading: Reading, prev: Reading | null, nextUpos: Set<Upo
   // "la", "le", "gli", "lo", "l'": article before a noun, pronoun before a verb.
   if (upos === 'DET' && (nextUpos.has('NOUN') || nextUpos.has('ADJ'))) f *= 4;
   if (upos === 'PRON' && nextUpos.has('VERB') && !nextUpos.has('NOUN')) f *= 8;
+  // An article needs a noun phrase after it: before a word that can only be a
+  // verb, "la", "l'", "lo", "le" are object pronouns, as in
+  // "Non la avevo" or "Ce la sto facendo". The frequency prior for the article
+  // is strong enough to beat the boost above, so penalise the article too.
+  if (
+    upos === 'DET' &&
+    headLemma(reading) === 'il' &&
+    nextUpos.size > 0 &&
+    [...nextUpos].every((u) => u === 'VERB')
+  ) {
+    f *= 0.01;
+  }
   return f;
 }
 
