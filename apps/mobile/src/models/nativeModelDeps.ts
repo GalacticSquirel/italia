@@ -2,7 +2,7 @@
  * Native implementations of the model manager's {@link ModelStorage} and
  * {@link NetworkInfo}: expo-file-system for files, resumable downloads and
  * SHA-256, expo-network for the connection type, and sherpa-onnx's archive
- * extraction (libarchive) for `.tar.bz2` models.
+ * extraction (libarchive) for `.tar.bz2` and `.tar.zst` archives.
  */
 import { Directory, DownloadTask, File, Paths } from 'expo-file-system';
 import * as Network from 'expo-network';
@@ -81,13 +81,13 @@ export const nativeModelStorage: ModelStorage = {
   async writeText(uri, text) {
     await new File(uri).write(text);
   },
-  async extract(archiveUri, dirUri) {
+  async extract(archiveUri, dirUri, format) {
     const archivePath = uriToPath(archiveUri);
     const result = await extractArchive(
       {
         modelId: archivePath.split('/').pop() ?? 'model',
         archivePath,
-        format: 'tar.bz2',
+        format,
       },
       uriToPath(dirUri),
       { force: true },
