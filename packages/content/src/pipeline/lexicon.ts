@@ -421,7 +421,40 @@ function lookupVariant(lexicon: Lexicon, form: string): readonly Reading[] | und
       if (hit) return hit;
     }
   }
-  return bare !== form ? lexicon.get(bare) : undefined;
+  if (bare !== form) return lexicon.get(bare);
+  return lookupEnclitic(lexicon, form);
+}
+
+/**
+ * Morph-it! lists enclitic forms for common verbs only ("prendermi" but not
+ * "denunciarla"). Read an unlisted form as an infinitive ("denunciar-la"), gerund
+ * ("dicendo-lo") or imperative ("prendete-vela") followed by a clitic cluster.
+ */
+function lookupEnclitic(lexicon: Lexicon, form: string): readonly Reading[] | undefined {
+  for (let cut = form.length - 2; cut >= 3; cut--) {
+    const cluster = form.slice(cut);
+    const clitics = splitClitics(cluster);
+    if (!clitics || clitics.length === 0) continue;
+    const stem = form.slice(0, cut);
+    const out: Reading[] = [];
+    const tryBase = (base: string, moods: readonly string[]) => {
+      for (const r of lexicon.get(base) ?? []) {
+        const verb = r.units[0];
+        if (r.units.length !== 1 || verb?.upos !== 'VERB') continue;
+        const infl = r.infl.filter((i) => moods.some((m) => i.startsWith(m)));
+        if (infl.length === 0) continue;
+        out.push({
+          units: [verb, ...clitics.map(pron)],
+          heads: r.heads,
+          infl: infl.map((i) => `${i}+${cluster}`),
+        });
+      }
+    };
+    if (stem.endsWith('r')) tryBase(`${stem}e`, ['inf']);
+    tryBase(stem, ['ger', 'impr']);
+    if (out.length > 0) return out;
+  }
+  return undefined;
 }
 
 /**

@@ -145,6 +145,8 @@ describe('tagStorySentence', () => {
       tag('Costa una mela.', [], readings).sentence.tokens[0]?.lemmaId;
     expect(lemmaOf({ costa: 'costare' })).toBe(id('costare', 'VERB'));
     expect(lemmaOf({ costa: 'costa' })).toBe(id('costa', 'NOUN'));
+    expect(lemmaOf({ costa: 'costare|VERB' })).toBe(id('costare', 'VERB'));
+    expect(lemmaOf({ costa: 'costare|NOUN' })).toBeNull();
     expect(tag('Costa una mela.', [], { costa: 'pizza' }).issues).toEqual([
       '"Costa" is not a seed lemma',
     ]);

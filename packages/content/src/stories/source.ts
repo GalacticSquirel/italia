@@ -19,7 +19,8 @@
  *
  * `readings` pins the lemma of a spelling the tagger would otherwise read as
  * another word, for the whole story (its questions included): `readings:
- * costa=costare, urla=urlare` makes "costa" the verb, not "coast". Use it when
+ * costa=costare, urla=urlare` makes "costa" the verb, not "coast"; `lemma|POS`
+ * picks between same-spelling lemmas (`salutare=salutare|VERB`). Use it when
  * `build:stories --verbose` reports a wrong `homograph:`.
  *
  * A `questions:` line ends the story text and starts its comprehension
@@ -120,7 +121,7 @@ export function parseStorySource(text: string): StorySource {
         title = { it, en };
       } else if (header[1] === 'readings') {
         for (const pair of (header[2] ?? '').split(',')) {
-          const m = /^\s*([^\s=]+)\s*=\s*([^\s=]+)\s*$/.exec(pair);
+          const m = /^\s*([^\s=]+)\s*=\s*([^\s=|]+(?:\|[A-Z]+)?)\s*$/.exec(pair);
           if (!m?.[1] || !m[2]) throw new Error(`line ${n}: readings are "form=lemma, ..."`);
           readings.set(m[1].toLowerCase(), m[2]);
         }

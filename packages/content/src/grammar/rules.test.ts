@@ -84,6 +84,7 @@ describe('advanced grammar (B1 to C1)', () => {
     ['fosse', 'essere', 'VERB', ['sub+impf+3+s']],
     ['avessi', 'avere', 'VERB', ['sub+impf+1+s', 'sub+impf+2+s']],
     ['andò', 'andare', 'VERB', ['ind+past+3+s']],
+    ['fu', 'essere', 'VERB', ['ind+past+3+s']],
     ['ebbe', 'avere', 'VERB', ['ind+past+3+s']],
     ['avevo', 'avere', 'VERB', ['ind+impf+1+s']],
     ['avrà', 'avere', 'VERB', ['ind+fut+3+s']],
@@ -144,6 +145,12 @@ describe('advanced grammar (B1 to C1)', () => {
   it('tags the passive, combined pronouns and relatives', () => {
     expect(tags('Il libro è stato costruito.')).toContain('passive-essere');
     expect(tags('Il libro viene costruito.')).toContain('passive-venire-andare');
+    expect(tags('Il libro fu costruito.')).toEqual(
+      expect.arrayContaining(['passive-essere', 'passato-remoto']),
+    );
+    expect(tags('Penso che il libro sia costruito.')).toEqual(
+      expect.arrayContaining(['passive-essere', 'subjunctive-present']),
+    );
     expect(tags('Glielo porto.')).toContain('combined-pronouns');
     expect(tags('La casa in cui vivo.')).toContain('relative-che-cui');
   });
@@ -152,5 +159,8 @@ describe('advanced grammar (B1 to C1)', () => {
     expect(usesOutOfScopeGrammar(tagSentence('Lui mangiasse.', lex, new Map()))).toBe(false);
     expect(usesOutOfScopeGrammar(tagSentence('Andò a casa.', lex, new Map()))).toBe(false);
     expect(usesOutOfScopeGrammar(tagSentence('Lui mangia.', lex, new Map()))).toBe(false);
+    expect(usesOutOfScopeGrammar(tagSentence('Il libro fu costruito.', lex, new Map()))).toBe(
+      false,
+    );
   });
 });
