@@ -1,0 +1,110 @@
+- scenario: assemblea-condominio
+  level: C2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Sì, grazie, e cercherò di essere breve. Non sono contrario ai lavori in sé. Penso però che il preventivo è troppo alto per deliberare stasera, e vorrei chiedere all'assemblea di rinviare la decisione di qualche mese."
+      errors: [subjunctive-use]
+    - tutor: "La ringrazio per il tono, che stasera è merce rara. Prima di metterlo a verbale, però, mi riformuli la frase: «penso che il preventivo è»? Scritto così, il segretario storcerebbe il naso."
+      prompt: {text: "il preventivo è", tags: [subjunctive-use]}
+      new: [{lemma: "storcere il naso", gloss: "to turn up one's nose"}]
+    - learner: "Giusto, chiedo scusa: penso che il preventivo sia troppo alto per deliberare stasera. Chiedo quindi un rinvio, non una rinuncia."
+    - tutor: "Perfetto, annoto: rinvio e non rinuncia. Sento però la signora Parodi del terzo piano che commenta ad alta voce. Dice che è facile rinviare per chi sta al primo piano e non ha l'acqua che gli entra in camera da letto. Che cosa le risponde?"
+      goals: [position]
+    - learner: "Le rispondo che ha ragione a essere arrabbiata, e che l'acqua in camera da letto non è un mugugno ma un problema serio. Proprio per questo non voglio che si spendano male i soldi di tutti: se la sua infiltrazione è urgente, ripariamola subito, a parte."
+    - tutor: "Vedo che la signora annuisce, il che a memoria mia non era mai accaduto. E noto che ha imparato il mugugno, sport nazionale di noi genovesi. Mi serve però qualcosa di concreto. Qual è la sua proposta alternativa al preventivo?"
+      goals: [defuse]
+      new: [{lemma: "mugugno", gloss: "grumbling (Genoese)"}, {lemma: "annuire", gloss: "to nod"}]
+    - learner: "Propongo di chiedere altri due preventivi entro gennaio e di far riparare intanto la parte sopra il terzo piano, con il fondo di riserva. Così a febbraio potremo fare una decisione con i numeri davanti."
+      errors: [word-choice]
+    - tutor: "Mi pare ragionevole: due preventivi in più, e a febbraio potremo prendere una decisione con i numeri davanti. Il dottor Canepa però teme che rinviando i prezzi salgano e chiede una garanzia. Sarebbe disposto ad accettare una data fissa per la delibera?"
+      goals: [alternative]
+      recast: {text: "fare una decisione", fix: "prendere una decisione", tags: [word-choice]}
+    - learner: "Certamente. Fissiamo la nuova assemblea entro il 28 febbraio: se per allora non ci saranno preventivi migliori, voterò a favore di quello attuale. Chiedo solo che tutto questo venga messo a verbale."
+    - tutor: "Messo a verbale, parola per parola: riparazione urgente subito, due nuovi preventivi, delibera entro il 28 febbraio. Nessun contrario, e manca ancora un'ora a mezzanotte. Vi ringrazio tutti, la seduta è tolta."
+      goals: [compromise]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: es-f-erasmus
+  history: [register]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei, signorina, voleva intervenire?"
+    - learner: "Sì, grazie. Parlo con la delega della proprietaria dell'interno 7. Capisco che la facciata vada sistemata, ma questo preventivo costa un casino e la proprietaria chiede di rinviare i lavori alla primavera."
+      errors: [register]
+    - tutor: "Delega registrata, grazie. Sul contenuto ci arriviamo, ma «costa un casino», signorina? Qui c'è gente che mette tutto a verbale: provi a dirlo come lo scriverebbe in una lettera all'amministratore."
+      prompt: {text: "costa un casino", tags: [register]}
+    - learner: "Ha ragione, mi scusi. Volevo dire che il preventivo costa un botto, e che la proprietaria adesso non se lo può permettere."
+      errors: [register]
+    - tutor: "Diciamo allora che il preventivo è molto oneroso: così il verbale non arrossisce. La posizione è chiara, rinvio alla primavera. Il signor Costa però sbuffa e dice che gli studenti in affitto oggi ci sono e domani no, e che decidono con i soldi degli altri. Vuole replicare?"
+      goals: [position]
+      recast: {text: "costa un botto", fix: "è molto oneroso", tags: [register]}
+      new: [{lemma: "oneroso", gloss: "costly, burdensome"}, {lemma: "sbuffare", gloss: "to huff, to snort"}, {lemma: "arrossire", gloss: "to blush"}]
+    - learner: "Volentieri, e senza offendermi. Il signor Costa ha ragione su un punto: io domani potrei non esserci. La proprietaria invece resta, paga secondo i suoi millesimi come tutti, e mi ha chiesto di parlare proprio perché tiene a questo palazzo."
+    - tutor: "Risposta garbata, e vedo che il signor Costa ha smesso di sbuffare. Restiamo sul concreto, però, perché rinviare e basta non risolve nulla. Che cosa propone la proprietaria in alternativa?"
+      goals: [defuse]
+      new: [{lemma: "garbato", gloss: "polite, graceful"}]
+    - learner: "Propone di dividere i lavori in due lotti. Subito il lato sul mare, che è il più rovinato dalla salsedine; l'anno prossimo il lato sulla strada. In questo modo il ponteggio si monta una parte per volta e la spesa si divide in più rate."
+    - tutor: "Due lotti: non è un'idea campata in aria. L'impresa però chiederà qualcosa in più per montare il ponteggio due volte. Se l'assemblea accettasse i due lotti, la proprietaria sarebbe disposta a votare stasera la prima parte?"
+      goals: [alternative]
+      new: [{lemma: "campato in aria", gloss: "far-fetched, groundless"}, {lemma: "lotto", gloss: "lot, batch (of works)"}]
+    - learner: "Sì, mi ha autorizzata a votare a favore del primo lotto, purché le rate siano almeno sei e il secondo lotto venga deliberato in un'assemblea separata. Le chiederei di scriverlo nel verbale con queste precise parole."
+    - tutor: "Scrivo: primo lotto approvato stasera, sei rate, secondo lotto rinviato a una nuova assemblea. Tutti d'accordo, perfino il signor Costa. Signorina, saluti la proprietaria e le dica che ha scelto bene chi mandare."
+      goals: [compromise]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Sì, grazie, dottor Ferrando. Premetto che la facciata va rifatta, su questo non ci piove. Chiedo soltanto che i lavori slittino di un anno: con le rate del tetto ancora da finire di pagare, molte famiglie qui dentro sarebbero in seria difficoltà."
+    - tutor: "Chiaro e misurato, la ringrazio. Devo però riferirle il commento dell'avvocato Risso, in fondo alla sala. Dice che chi vuole rinviare, di solito, spera soltanto di vendere casa prima di pagare. Preferisce rispondere o lasciar correre?"
+      goals: [position]
+      new: [{lemma: "lasciar correre", gloss: "to let it go"}]
+    - learner: "Rispondo, ma con un sorriso. Avvocato, se volessi vendere, una facciata nuova mi farebbe soltanto comodo: alzerebbe il prezzo. Resto qui, invece, e proprio per questo vorrei pagarla senza dover chiedere un prestito."
+    - tutor: "L'avvocato ride, e conoscendolo è quasi un applauso. Il problema è che l'impresa non aspetta: a forza di rinvii, quel ponteggio lo vedremo con il binocolo. Ha in mente un'alternativa che non sia soltanto aspettare?"
+      goals: [defuse]
+      new: [{lemma: "vedere con il binocolo", gloss: "to never get to see (ironic)"}]
+    - learner: "«Con il binocolo», cioè mai: ho capito l'ironia. Sì, un'alternativa ce l'ho. Finora di preventivi abbiamo visto solo uno. Propongo di raccoglierne altri e di chiedere a ciascuna impresa un pagamento in tre anni."
+      errors: [ci-ne]
+    - tutor: "Ironia colta al volo, complimenti. La proposta mi interessa, ma una frase zoppica: «di preventivi abbiamo visto solo uno»? Lì in mezzo manca una particella minuscola, che sfugge anche ai genovesi quando scrivono di fretta."
+      prompt: {text: "abbiamo visto solo uno", tags: [ci-ne]}
+      new: [{lemma: "zoppicare", gloss: "to limp"}]
+    - learner: "Ha ragione: di preventivi ne abbiamo visto solo uno. Ne servono almeno tre, a parità di lavori, con il pagamento distribuito su tre anni."
+    - tutor: "Ora fila tutto. Tre preventivi e pagamento in tre anni: lo scrivo come proposta. La signora Bruno teme però che così si arrivi all'estate senza aver deciso nulla. Che garanzia possiamo darle sui tempi?"
+      goals: [alternative]
+    - learner: "Una scadenza precisa. Mi offro io di raccogliere i preventivi entro il 31 marzo e di consegnarli a Lei; l'assemblea straordinaria si terrà in aprile e la delibera verrà presa in quella sede, qualunque sia il risultato. Può verbalizzarlo così?"
+    - tutor: "Verbalizzo: tre preventivi entro il 31 marzo a cura sua, assemblea straordinaria in aprile, delibera in quella sede. Approvato all'unanimità, e non succedeva dal 2011. Grazie a tutti, e buonanotte."
+      goals: [compromise]
+      new: [{lemma: "verbalizzare", gloss: "to record in the minutes"}]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: en-m-traveller
+  history: [false-friend, word-choice]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei, in fondo, voleva intervenire?"
+    - learner: "Sì, grazie. Ho comprato l'appartamento all'ultimo piano due anni fa e so che eventualmente la facciata dovrà essere rifatta. Chiedo solo di rimandare di un anno, perché il preventivo è arrivato tre giorni fa e nessuno ha avuto il tempo di studiarlo."
+      errors: [false-friend]
+    - tutor: "Capisco. Che prima o poi la facciata vada rifatta lo sappiamo tutti, e sui tre giorni non ha torto: la posta ha fatto i suoi comodi. Devo però dare voce al signor Traverso. Dice che qui si decideva benissimo anche prima che arrivassero i foresti a spiegarci come si fa. Vuole rispondergli?"
+      goals: [position]
+      recast: {text: "eventualmente", fix: "prima o poi", tags: [false-friend]}
+      new: [{lemma: "foresto", gloss: "outsider (Ligurian, Venetian)"}, {lemma: "fare i propri comodi", gloss: "to take one's sweet time"}]
+    - learner: "Volentieri. Signor Traverso, foresto lo sono di sicuro, e l'accento mi tradisce. Ma le rate le pago in euro genovesi come lei. Non voglio spiegare niente a nessuno: voglio solo capire per che cosa pago, prima di pagare."
+    - tutor: "«Euro genovesi»: il signor Traverso ha sorriso, e da queste parti un sorriso vale una stretta di mano. Lei sa che a Genova abbiamo fama di avere il braccino corto, quindi l'argomento è ben scelto. Ma in concreto, che cosa propone al posto del rinvio puro e semplice?"
+      goals: [defuse]
+      new: [{lemma: "avere il braccino corto", gloss: "to be tight-fisted"}]
+    - learner: "Il braccino corto, me l'avevano detto! Allora parliamo di risparmio. Leggendo il preventivo ho pagato attenzione a una voce: il ponteggio costa quasi un terzo del totale. Propongo di chiedere un'offerta separata solo per quello, a un'altra ditta."
+      errors: [word-choice]
+    - tutor: "Vedo che ha prestato attenzione alla voce giusta: il ponteggio pesa davvero troppo. Un'offerta separata si può chiedere. La signora Olivari obietta però che con due ditte, se qualcosa va storto, ciascuna darà la colpa all'altra. Come la tranquillizziamo?"
+      goals: [alternative]
+      recast: {text: "ho pagato attenzione", fix: "ha prestato attenzione", tags: [word-choice]}
+    - learner: "Con un contratto chiaro. Si potrebbe nominare un direttore dei lavori unico, scelto dall'assemblea, che risponda di entrambe le ditte. Costa qualcosa, ma molto meno di quanto risparmieremmo sul ponteggio."
+    - tutor: "Un direttore dei lavori unico: la signora Olivari annuisce, e io respiro. Resta il nodo dei tempi, perché il rinvio di un anno intero non passerebbe mai ai voti. Su questo è disposto a venirci incontro?"
+      new: [{lemma: "venire incontro", gloss: "to meet halfway"}]
+    - learner: "Sì, mi sembra giusto. Rinuncio all'anno intero: mi bastano sessanta giorni per avere la seconda offerta. Se entro allora non sarà più conveniente, si procede con il preventivo attuale e io voto a favore. Vorrei che fosse scritto a verbale."
+    - tutor: "Scritto: sessanta giorni per l'offerta separata sul ponteggio, direttore dei lavori unico, poi delibera definitiva. Approvato a larga maggioranza. Per essere un foresto, ha capito i genovesi più in fretta di me, che sono nato a Savona. Seduta chiusa, buonanotte a tutti."
+      goals: [compromise]
+      new: [{lemma: "foresto", gloss: "outsider (Ligurian, Venetian)"}]
