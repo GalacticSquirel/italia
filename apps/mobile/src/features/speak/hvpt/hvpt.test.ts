@@ -98,6 +98,12 @@ describe('parseHvptStats', () => {
     const stats: HvptStats = { ...INITIAL_HVPT_STATS, level: 2, streak: 1, recent: [true] };
     expect(parseHvptStats(JSON.stringify(stats))).toEqual(stats);
     expect(parseHvptStats(null)).toEqual(INITIAL_HVPT_STATS);
+    expect(parseHvptStats('null')).toEqual(INITIAL_HVPT_STATS);
+    expect(parseHvptStats('{"level":2,"byContrast":null,"bySet":[],"recent":[1,true]}')).toEqual({
+      ...INITIAL_HVPT_STATS,
+      level: 2,
+      recent: [true],
+    });
     expect(parseHvptStats('{oops')).toEqual(INITIAL_HVPT_STATS);
     expect(parseHvptStats('{"level":9}').level).toBe(1);
   });

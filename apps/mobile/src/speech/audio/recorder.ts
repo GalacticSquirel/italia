@@ -46,6 +46,12 @@ export function createStreamRecorder(): Recorder {
   let rate = MODEL_SAMPLE_RATE;
   let channels = 1;
 
+  const restorePlayback = () => {
+    void setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true }).catch(
+      () => undefined,
+    );
+  };
+
   const release = () => {
     subscription?.remove();
     subscription = null;
@@ -75,14 +81,25 @@ export function createStreamRecorder(): Recorder {
         chunks.push(chunk);
         onLevel?.(Math.min(1, rms(chunk) * 4));
       });
-      await s.start();
-      await s.startFileRecordingAsync({ format: 'wav', directory: 'cache' });
+      try {
+        await s.start();
+        await s.startFileRecordingAsync({ format: 'wav', directory: 'cache' });
+      } catch (e) {
+        // Never leave the microphone running after a failed start.
+        release();
+        restorePlayback();
+        throw e;
+      }
     },
     async stop() {
       const s = stream;
       if (!s) throw new Error('Not recording');
-      const file = await s.stopFileRecordingAsync();
-      release();
+      let file: Awaited<ReturnType<typeof s.stopFileRecordingAsync>>;
+      try {
+        file = await s.stopFileRecordingAsync();
+      } finally {
+        release();
+      }
       await setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true });
       const mono = toMono(concatFloat32(chunks), channels);
       const samples = resampleLinear(mono, rate, MODEL_SAMPLE_RATE);
@@ -96,8 +113,11 @@ export function createStreamRecorder(): Recorder {
       };
     },
     cancel() {
+      const wasRecording = stream !== null;
       release();
       chunks = [];
+      // Leave recording mode, which on iOS sends playback to the quiet earpiece.
+      if (wasRecording) restorePlayback();
     },
   };
 }

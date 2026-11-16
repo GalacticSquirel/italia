@@ -1,5 +1,7 @@
 import * as Speech from 'expo-speech';
 
+import { speechLanguage } from '@/speech/audio/speechLanguage';
+
 /** Language of all spoken prompts. */
 export const ITALIAN = 'it-IT';
 
@@ -9,7 +11,13 @@ export const ITALIAN = 'it-IT';
  */
 export function speakItalian(text: string, rate: number, onDone?: () => void): void {
   void Speech.stop();
-  Speech.speak(text, { language: ITALIAN, rate, onDone, onStopped: onDone, onError: onDone });
+  Speech.speak(text, {
+    language: speechLanguage(ITALIAN),
+    rate,
+    onDone,
+    onStopped: onDone,
+    onError: onDone,
+  });
 }
 
 /** Stop speaking. */
