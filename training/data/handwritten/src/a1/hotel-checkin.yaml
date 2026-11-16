@@ -1,0 +1,181 @@
+- scenario: hotel-checkin
+  level: A1
+  persona: en-f-student
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Buonasera! Sì, ho una prenotazione. Mi chiamo Emily Brown.
+    - tutor: Un momento... Sì, una camera per due notti. Ha un documento?
+      goals: [booking]
+    - learner: Sì, ecco il mio passaporto.
+    - tutor: Grazie. A che ora vuole fare colazione?
+      goals: [document]
+      new: [{lemma: passaporto, gloss: passport}]
+    - learner: A che ora è la colazione?
+    - tutor: La colazione è dalle sette alle dieci.
+      goals: [breakfast]
+    - learner: Perfetto. Qual è la mia camera?
+    - tutor: La camera 21, al secondo piano. Ecco la chiave.
+      goals: [key]
+    - learner: Grazie mille! Buonanotte.
+    - tutor: Buonanotte e buon riposo!
+      new: [{lemma: riposo, gloss: rest}]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: en-m-retired
+  history: [essere-avere]
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Buonasera. Sì, sono una prenotazione.
+      errors: [essere-avere]
+    - tutor: Sono una prenotazione? Lei è una persona, non una prenotazione!
+      prompt: {text: sono una prenotazione, tags: [essere-avere]}
+    - learner: Ah! Ho una prenotazione. Mi chiamo Robert Smith.
+    - tutor: Sì, signor Smith, tre notti. Ha un documento, per favore?
+      goals: [booking]
+    - learner: Sì, ecco il documento.
+    - tutor: Grazie. La sua camera è al terzo piano.
+      goals: [document]
+      new: [{lemma: terzo, gloss: third}]
+    - learner: Bene. E la colazione, a che ora è?
+    - tutor: La colazione è dalle sette e mezza alle dieci.
+      goals: [breakfast]
+    - learner: Grazie. Posso avere la chiave?
+    - tutor: Certo, ecco la chiave. Camera 305.
+      goals: [key]
+    - learner: Grazie, buonanotte!
+    - tutor: Buonanotte, signor Smith!
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Sì, ho una reserva a nome Moreno.
+      errors: [word-choice]
+    - tutor: Sì, ecco la prenotazione a nome Moreno. Una notte, giusto?
+      goals: [booking]
+      recast: {text: una reserva, fix: la prenotazione, tags: [word-choice]}
+    - learner: Sì, una notte. Ha bisogno del mio documento?
+    - tutor: Sì, grazie. Ha una carta d'identità?
+      new: [{lemma: identità, gloss: identity}]
+    - learner: Sì, ecco la carta d'identità.
+    - tutor: Perfetto, grazie.
+      goals: [document]
+    - learner: C'è la colazione domani mattina?
+    - tutor: Sì, la colazione è dalle sette alle dieci, al primo piano.
+      goals: [breakfast]
+    - learner: Bene! E la chiave?
+    - tutor: Ecco la chiave. La camera è la numero 12.
+      goals: [key]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: en-m-traveller
+  history: [question-form]
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Sì, mi chiamo Liam Murphy. Due notti.
+    - tutor: Sì, ecco. Due notti, una camera singola.
+      goals: [booking]
+      new: [{lemma: singolo, gloss: single}]
+    - learner: Perfetto. Vuole il mio passaporto?
+    - tutor: Sì, grazie.
+    - learner: Ecco. E cosa ora è la colazione?
+      errors: [question-form]
+    - tutor: Cosa ora? Per chiedere l'ora, cosa non va bene.
+      goals: [document]
+      prompt: {text: cosa ora, tags: [question-form]}
+    - learner: A che ora è la colazione?
+    - tutor: Bravo! La colazione è dalle otto alle dieci.
+      goals: [breakfast]
+    - learner: Grazie. Qual è la mia camera?
+    - tutor: La camera 8, al primo piano. Ecco la chiave.
+      goals: [key]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: en-f-professional
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Buonasera. Sì, la prenotazione è a nome Taylor.
+    - tutor: Sì, signora Taylor. Una camera per quattro notti.
+      goals: [booking]
+    - learner: Esatto. Ecco il mio documento.
+    - tutor: Grazie mille.
+      goals: [document]
+    - learner: Scusi, la colazione è inclusa?
+    - tutor: Sì, è inclusa. È dalle sette alle dieci e mezza.
+      goals: [breakfast]
+      new: [{lemma: incluso, gloss: included}]
+    - learner: Ottimo. Qual è il numero della camera?
+    - tutor: È la camera 402, al quarto piano. Ecco la chiave.
+      goals: [key]
+      new: [{lemma: quarto, gloss: fourth}]
+    - learner: Grazie. C'è il wifi in camera?
+    - tutor: Sì, certo. La password è sulla chiave.
+      new: [{lemma: password, gloss: password}]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-m-worker
+  history: [article-use]
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Sì. Ho prenotazione per una notte.
+      errors: [article-use]
+    - tutor: Ho prenotazione? Manca una piccola parola.
+      prompt: {text: Ho prenotazione, tags: [article-use]}
+    - learner: Ho una prenotazione per una notte. Mi chiamo Diego Costa.
+    - tutor: Esatto! Sì, signor Costa. Ha un documento?
+      goals: [booking]
+    - learner: Ecco il passaporto.
+    - tutor: Grazie. Ecco la chiave, camera 14.
+      goals: [document, key]
+      new: [{lemma: passaporto, gloss: passport}]
+    - learner: A che piano è?
+    - tutor: Al primo piano.
+    - learner: E la colazione?
+    - tutor: La colazione è dalle sette alle dieci, qui a destra.
+      goals: [breakfast]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: en-m-heritage
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Buonasera! Sì, ho una prenotazione per me e mia madre.
+    - tutor: Bene. A che nome?
+    - learner: A nome Rossi, Marco Rossi.
+    - tutor: Sì, signor Rossi. Una camera doppia per tre notti.
+      goals: [booking]
+      new: [{lemma: doppio, gloss: double}]
+    - learner: Sì. Ecco i nostri documenti.
+    - tutor: Grazie. La colazione è dalle sette alle dieci.
+      goals: [document, breakfast]
+    - learner: E dov'è la colazione?
+    - tutor: È al piano terra, vicino al bar.
+      new: [{lemma: terra, gloss: ground (floor)}]
+    - learner: Perfetto. E la chiave, per favore?
+    - tutor: Ecco la chiave, camera 25, al secondo piano.
+      goals: [key]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-f-teacher
+  history: [register]
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Buonasera. Sì, a nome Ferri. Hai la mia prenotazione?
+      errors: [register]
+    - tutor: Hai? Siamo in albergo, non tra amici...
+      prompt: {text: Hai la mia prenotazione, tags: [register]}
+    - learner: Ha la mia prenotazione?
+    - tutor: Sì, signora Ferri, due notti. Ha un documento?
+      goals: [booking]
+    - learner: Sì, ecco la mia carta d'identità.
+    - tutor: Grazie. Ecco la chiave della camera 17.
+      goals: [document, key]
+    - learner: Grazie. A che ora è la colazione?
+    - tutor: Dalle sette alle dieci. Buonanotte!
+      goals: [breakfast]
