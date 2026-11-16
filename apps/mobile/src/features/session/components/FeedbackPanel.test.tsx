@@ -7,6 +7,8 @@ import { gradeTyped } from '@italia/core';
 import type { SentenceRow } from '@/data';
 import type { Feedback } from '@/features/session/sessionStore';
 import type { TypedPrompt } from '@/features/study/prompts';
+import { SpeechProvider } from '@/speech';
+import { createFakeSpeechServices } from '@/speech/testing';
 import { ThemeProvider } from '@/ui';
 
 import { FeedbackPanel } from './FeedbackPanel';
@@ -47,13 +49,15 @@ async function renderPanel(
 ) {
   await render(
     <ThemeProvider scheme="light">
-      <FeedbackPanel
-        prompt={prompt}
-        feedback={feedback}
-        speechRate={1}
-        autoPlay={false}
-        {...handlers}
-      />
+      <SpeechProvider services={createFakeSpeechServices()}>
+        <FeedbackPanel
+          prompt={prompt}
+          feedback={feedback}
+          speechRate={1}
+          autoPlay={false}
+          {...handlers}
+        />
+      </SpeechProvider>
     </ThemeProvider>,
   );
   return handlers;

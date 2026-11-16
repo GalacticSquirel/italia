@@ -18,6 +18,7 @@ import {
   type StreakConfig,
 } from '@italia/core';
 
+import { markCardStatesRetention } from '@/data/cardState';
 import { newUuid, type IdGenerator } from '@/data/ids';
 import { createMetaRepo, META_KEYS, type MetaKey } from '@/data/MetaRepo';
 import { createSettingsRepo } from '@/data/SettingsRepo';
@@ -113,14 +114,17 @@ const CURSOR_KEYS: Record<SyncTable, MetaKey> = {
   setting: META_KEYS.syncCursorSetting,
   study_session: META_KEYS.syncCursorStudySession,
   error_record: META_KEYS.syncCursorErrorRecord,
+  learner_sentence: META_KEYS.syncCursorLearnerSentence,
 };
 
 /**
  * Pull order: settings first so a changed desired retention is in place
- * before cards are rebuilt from pulled logs.
+ * before cards are rebuilt from pulled logs; corrected sentences before the
+ * reviews of their cards.
  */
 const PULL_ORDER: readonly SyncTable[] = [
   'setting',
+  'learner_sentence',
   'card_flag',
   'review_log',
   'study_session',
@@ -410,6 +414,9 @@ export class SyncEngine {
           const toRebuild = outcome.schedulerChanged ? cardsWithLogs(tx) : outcome.affectedCards;
           const replayWith = outcome.schedulerChanged ? this.makeScheduler(tx) : scheduler;
           rebuiltCards += rebuildCards(tx, toRebuild, replayWith);
+          if (outcome.schedulerChanged) {
+            markCardStatesRetention(tx, replayWith.desiredRetention, ctx.now);
+          }
           if (last !== undefined) {
             createMetaRepo(tx, this.newId).set(CURSOR_KEYS[table], String(last.serverSeq), ctx.now);
           }
@@ -431,6 +438,7 @@ export class SyncEngine {
         startedAt: studySession.startedAt,
         endedAt: studySession.endedAt,
         minutesActive: studySession.minutesActive,
+        activities: studySession.activities,
       })
       .from(studySession)
       .all();

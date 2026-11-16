@@ -53,7 +53,7 @@ function check(result: { error: { message: string } | null }): void {
 }
 
 /** {@link AuthService} over a Supabase client. */
-export function createAuthService(client: SupabaseClient): AuthService {
+export function createAuthService(client: Pick<SupabaseClient, 'auth'>): AuthService {
   return {
     async getUser() {
       const { data } = await client.auth.getSession();

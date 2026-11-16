@@ -280,8 +280,13 @@ export const learnerSentence = sqliteTable(
     grammarIds: text('grammar_ids', { mode: 'json' }).$type<number[]>().notNull(),
     source: text('source', { enum: ERROR_SOURCES }).notNull(),
     createdAt: createdAt(),
+    /** When this row was pushed to (or pulled from) the server; null until synced. */
+    syncedAt: timestamp('synced_at'),
   },
-  (t) => [check('learner_sentence_negative_id', sql`${t.id} < 0`)],
+  (t) => [
+    check('learner_sentence_negative_id', sql`${t.id} < 0`),
+    index('learner_sentence_unsynced_idx').on(t.syncedAt),
+  ],
 );
 
 export const studySession = sqliteTable(
