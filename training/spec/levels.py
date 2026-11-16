@@ -61,7 +61,7 @@ BANDS: dict[Level, LevelBand] = {
     # The seed lemma list stops at rank 3000, so above B2 the ceiling admits the whole list and
     # the out-of-band ratio is what bounds rarer vocabulary (idioms, register, specialist terms).
     Level.C1: LevelBand(Level.C1, 6000, 32, 6, 3, 0.20, english_allowed=False),
-    Level.C2: LevelBand(Level.C2, 10000, 40, 7, 3, 0.25, english_allowed=False),
+    Level.C2: LevelBand(Level.C2, 10000, 40, 7, 3, 0.40, english_allowed=False),
 }
 
 
