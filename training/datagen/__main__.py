@@ -39,6 +39,7 @@ from datagen.builders import (
 )
 from datagen.config import DatagenConfig, load_config
 from datagen.cost import estimate_cost
+from datagen.handwritten import load_handwritten
 from datagen.jsonutil import read_jsonl, write_jsonl
 from datagen.judge import JudgeParseError, judge_candidates
 from datagen.languagetool import GrammarChecker, LanguageToolClient, NullChecker
@@ -169,8 +170,14 @@ def cmd_judge(args: argparse.Namespace) -> int:
 
 def cmd_build_sft(args: argparse.Namespace) -> int:
     config = _config(args)
+    records = list(accepted_records(config))
+    extra = [p for pattern in args.extra or [] for p in sorted(Path().glob(pattern))]
+    if extra:
+        handwritten = load_handwritten(extra)
+        print(f"adding {len(handwritten)} hand-written dialogues from {len(extra)} file(s)")
+        records += handwritten
     train, val = build_sft(
-        accepted_records(config),
+        records,
         val_fraction=args.val_fraction,
         seed=config.seed,
         max_dialogues=args.max_dialogues,
@@ -347,6 +354,11 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--out", required=True)
     p.add_argument("--val-fraction", type=float, default=0.02)
     p.add_argument("--max-dialogues", type=int)
+    p.add_argument(
+        "--extra",
+        action="append",
+        help="hand-written records to add (glob, repeatable), e.g. data/handwritten/*.jsonl",
+    )
     p.set_defaults(fn=cmd_build_sft)
     p = with_config("build-dpo-prompts", "DPO prompts")
     p.add_argument("--out", required=True)
