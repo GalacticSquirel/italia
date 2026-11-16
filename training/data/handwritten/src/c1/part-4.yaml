@@ -1,0 +1,508 @@
+# ---------------------------------------------------------------- reclamo-comune
+- scenario: reclamo-comune
+  level: C1
+  persona: en-m-retired
+  history: [passive]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Vengo per via Roma, dove abito. A settembre hanno aperto un cantiere per rifare le tubature e da due mesi non si vede più un operaio: la strada è rimasta sventrata, con quattro transenne e basta."
+    - tutor: "Capisco, due mesi sono parecchi. Guardi, su via Roma risulta anche a noi una segnalazione. Purtroppo i lavori dipendono dall'ufficio tecnico, e in questo periodo hanno molte pratiche aperte."
+      goals: [describe]
+    - learner: "Mi perdoni, ma «molte pratiche aperte» non mi dice granché. Vorrei sapere perché i lavori vengono stati interrotti e quando riprenderanno: gli anziani del palazzo non riescono nemmeno a raggiungere il portone."
+      errors: [passive]
+    - tutor: "Ha ragione a insistere, e non voglio cavarmela con due parole. Solo una cosa: «vengono stati interrotti»? Davanti a «stati» ci vuole un altro verbo, non crede? Intanto guardo che cosa risulta qui."
+      prompt: {text: vengono stati interrotti, tags: [passive]}
+    - learner: "Ha ragione, mi scusi: perché i lavori sono stati interrotti. Resta il fatto che una risposta vera non l'ho ancora avuta."
+    - tutor: "Gliela do subito, per quel che vedo. La ditta ha sospeso tutto per un contenzioso con il Comune, e una data di ripresa ancora non c'è. Mi rendo conto del disagio, soprattutto per chi fa fatica a camminare."
+      goals: [insist]
+      new: [{lemma: contenzioso, gloss: legal dispute}]
+    - learner: "La ringrazio della franchezza. A questo punto vorrei capire quale sia la procedura formale: se presento un reclamo scritto, il Comune è tenuto a rispondermi entro un certo termine?"
+    - tutor: "Sì. Il reclamo viene registrato al protocollo e l'amministrazione deve risponderle entro trenta giorni. Se non riceve nulla, ha diritto a presentare un sollecito. Vuole che compiliamo il modulo adesso?"
+      goals: [rights]
+    - learner: "Volentieri. Però non vorrei uscire di qui con una promessa generica: mi servirebbero almeno il numero di protocollo e il nome di un responsabile a cui rivolgermi."
+    - tutor: "Più che giusto. Il suo reclamo è il numero 4812 di oggi, e il responsabile è il geometra Fabbri dell'ufficio tecnico. Entro venerdì la chiameremo per dirle a che punto siamo. Buona giornata!"
+      goals: [commitment]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Abito in via dei Mille, e davanti al mio portone c'è un cantiere abbandonato da due mesi: una buca enorme, le transenne rovesciate e di sera nemmeno una luce. Ho scritto due volte al Comune, ma nessuno mi ha contestato."
+      errors: [false-friend]
+    - tutor: "Mi dispiace che nessuno le abbia risposto, davvero. Le mail purtroppo finiscono in un ufficio diverso dal nostro. Comunque stia tranquilla: i lavori riprenderanno appena possibile."
+      goals: [describe]
+      recast: {text: contestato, fix: risposto, tags: [false-friend]}
+    - learner: "La ringrazio, ma «appena possibile» è quello che mi sento dire da settembre. Le chiederei di essere più precisa: esiste una data, oppure no?"
+    - tutor: "Ha ragione, non è una risposta. Una data ufficiale, a essere sincera, non ce l'ho: l'ufficio tecnico aspetta che la ditta consegni un nuovo progetto. Posso però registrare oggi stesso la sua segnalazione."
+      goals: [insist]
+    - learner: "Va bene, ma prima vorrei capire a che cosa ho diritto. Se presento un reclamo formale, entro quanto tempo dovete rispondermi? E la risposta dipende di voi o dell'ufficio tecnico?"
+      errors: [preposition]
+    - tutor: "Buona domanda. Prima però una cosa: «dipende di voi»? Con «dipendere», in italiano, al posto di «di» ci vuole un'altra parola. Ci riprova?"
+      prompt: {text: dipende di voi, tags: [preposition]}
+    - learner: "Ah, sì, mi scusi... dipende a voi?"
+      errors: [preposition]
+    - tutor: "Quasi: si dice «dipende da voi». A noi spetta la registrazione, all'ufficio tecnico la risposta vera e propria. Il reclamo scritto va chiuso entro trenta giorni; passato quel termine, lei può mandare un sollecito."
+      goals: [rights]
+      recast: {text: dipende a voi, fix: dipende da voi, tags: [preposition]}
+    - learner: "Allora procediamo. Le chiedo solo di lasciarmi un numero di protocollo, così la prossima volta non devo ricominciare da capo."
+    - tutor: "Certamente. Il suo reclamo è registrato con il protocollo 2291, e le stampo subito la ricevuta. Entro la fine del mese riceverà una risposta scritta dall'ufficio tecnico. Buona giornata!"
+      goals: [commitment]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: en-f-professional
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Si tratta del cantiere di via Carducci, se così lo vogliamo ancora chiamare. I lavori per la fognatura sono stati avviati ai primi di settembre e abbandonati dopo dieci giorni: da allora la carreggiata è ristretta e il marciapiede è impraticabile."
+    - tutor: "Sì, via Carducci la conosciamo bene, purtroppo. La questione è all'attenzione dell'ufficio tecnico, che sta valutando come procedere. Non appena ci saranno novità, i residenti verranno informati."
+      goals: [describe]
+    - learner: "Con tutto il rispetto, «sta valutando» è una formula che non impegna nessuno. Mi permetto di insistere: chi ha in mano la pratica, e che cosa manca perché i lavori riprendano?"
+    - tutor: "Capisco la sua insistenza, e non gliene faccio una colpa. La pratica è seguita dall'ingegner Riva; da quanto leggo, manca un'autorizzazione della Regione. Di più, da questo sportello, non mi è dato sapere."
+      goals: [insist]
+    - learner: "Apprezzo la sincerità. A questo punto vorrei mettere tutto per iscritto: qual è la procedura per un reclamo formale, e che cosa posso fare qualora non ricevessi risposta?"
+    - tutor: "Si compila questo modulo, che viene registrato al protocollo generale. L'amministrazione ha trenta giorni per rispondere. Scaduto il termine, lei può inviare un sollecito oppure rivolgersi al difensore civico."
+      goals: [rights]
+      new: [{lemma: difensore civico, gloss: ombudsman}]
+    - learner: "Benissimo, lo compilo subito. Sarebbe possibile, inoltre, avere un impegno un po' più concreto di una scadenza di legge? Che so, un incontro con l'ingegnere."
+    - tutor: "Un incontro non posso prometterglielo io, non rientra nei miei compiti. Posso però scrivere nella segnalazione che lei lo richiede in modo esplicito. Le va bene se aggiungo anche un suo numero di telefono?"
+    - learner: "Mi va bene, purché rimanga traccia della richiesta. Il numero è quello indicato sul modulo; e, se non le dispiace, gradirei una copia timbrata."
+    - tutor: "Eccola, con timbro e numero di protocollo: 7340 di oggi. Ho annotato la richiesta di incontro, e l'ufficio tecnico dovrà darle un riscontro entro trenta giorni. Arrivederci, e speriamo di non rivederci per questo motivo!"
+      goals: [commitment]
+      new: [{lemma: riscontro, gloss: formal reply}]
+
+# ---------------------------------------------------------------- burocrazia-residenza
+- scenario: burocrazia-residenza
+  level: C1
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno, sì, sono io. Mi sono trasferito qui a marzo per lavoro e vorrei chiedere la residenza: mi serve per il medico di base e, a quanto pare, anche per la banca."
+    - tutor: "Certo, si può fare oggi stesso. Per la pratica servono un documento d'identità, il codice fiscale e il contratto d'affitto registrato. Li ha con sé?"
+      goals: [request]
+    - learner: "Passaporto e codice fiscale sì. Sul contratto ho un dubbio: è necessario che sia registrato all'Agenzia delle Entrate, o basta la copia firmata che mi ha dato il proprietario?"
+    - tutor: "Deve essere registrato, altrimenti per noi non vale. Di solito sulla prima pagina c'è un timbro con la data e il numero della registrazione. Me lo fa vedere?"
+      goals: [documents]
+    - learner: "Ecco, temevo questa risposta. Il timbro non c'è: il proprietario mi ha detto che ci pensava lui, ma credo che non l'ha ancora fatto."
+      errors: [subjunctive-use]
+    - tutor: "Eh, capita più spesso di quanto si pensi. Un attimo, però: «credo che non l'ha ancora fatto»? Dopo «credo che» ci vuole un altro modo. Come lo direbbe?"
+      prompt: {text: credo che non l'ha ancora fatto, tags: [subjunctive-use]}
+    - learner: "Giusto: credo che non l'abbia ancora fatto. E in questo caso come si procede, devo tornare un'altra volta?"
+    - tutor: "Non per forza. Possiamo avviare la pratica oggi con una dichiarazione firmata dal proprietario, purché il contratto registrato venga consegnato entro trenta giorni. Le do il modulo da fargli compilare."
+      goals: [problem]
+    - learner: "Meno male. E una volta consegnato tutto, quanto ci vuole perché la residenza risulti effettiva? Ho sentito che passano i vigili a controllare."
+    - tutor: "Sì: entro quarantacinque giorni passano i vigili per verificare che lei abiti davvero lì. Se non riceve comunicazioni contrarie, la residenza vale dalla data di oggi. Si ricordi di mettere il nome sul campanello!"
+      goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: en-f-student
+  history: [register]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono una studentessa americana, sto facendo un dottorato qui e resterò almeno tre anni. Mi hanno detto che dovrei iscrivermi all'anagrafe, ma confesso di non aver capito bene come funziona."
+    - tutor: "Nessun problema, glielo spiego io. Non essendo cittadina europea, le servono passaporto, permesso di soggiorno valido, codice fiscale e un documento che dimostri dove abita. Ha già tutto?"
+      goals: [request]
+    - learner: "Quasi tutto. Per l'alloggio ho il contratto della residenza universitaria. Il permesso di soggiorno, invece, non l'ho ancora ricevuto: ho solo la ricevuta della posta. Puoi accettare quella?"
+      errors: [register]
+    - tutor: "Alla ricevuta arrivo subito. Prima però: «puoi accettare»? Siamo allo sportello e non ci conosciamo. Che forma userebbe con me?"
+      prompt: {text: Puoi accettare, tags: [register]}
+    - learner: "Oh, mi scusi! Può accettare quella? È colpa dell'università, lì ci diamo tutti del tu."
+    - tutor: "Si figuri, succede. Quanto alla ricevuta: sì, viene accettata, a condizione che sia accompagnata dalla copia della domanda di rilascio. Senza quella, la pratica resta sospesa."
+      goals: [documents]
+    - learner: "La copia della domanda ce l'ho a casa, purtroppo. Posso lasciarle intanto gli altri documenti, ed eventualmente riceverò il certificato quando il permesso sarà pronto?"
+      errors: [false-friend]
+    - tutor: "Esatto, il certificato lo riceverà alla fine, quando il permesso sarà pronto. Intanto apro la pratica con quello che ha, e lei mi porta la copia mancante entro dieci giorni. D'accordo?"
+      goals: [problem]
+      recast: {text: eventualmente, fix: alla fine, tags: [false-friend]}
+    - learner: "D'accordo, torno già domani mattina. E dopo che cosa succede? Quanto tempo passa prima che l'iscrizione sia definitiva?"
+    - tutor: "Entro quarantacinque giorni i vigili verificano che lei abiti all'indirizzo dichiarato. Se va tutto bene non riceverà nulla: il silenzio vale come conferma. A domani, allora, e non dimentichi il passaporto."
+      goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: en-m-heritage
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Guardi, la faccio breve: i miei nonni erano di qui, io sono cresciuto a Toronto e da gennaio mi sono trasferito nella loro vecchia casa. Vorrei prendere la residenza, come si deve."
+    - tutor: "Bentornato, allora, se così si può dire. Ha la cittadinanza italiana o solo quella canadese? Da questo dipende quali documenti le devo chiedere."
+      goals: [request]
+    - learner: "Tutte e due: sono iscritto all'anagrafe degli italiani all'estero da quando ero ragazzo. Immagino quindi che non serva il permesso di soggiorno, ma mi corregga se sbaglio. Che cosa devo presentare, di preciso?"
+    - tutor: "Non sbaglia affatto. Le bastano un documento italiano valido, il codice fiscale e una carta che dimostri che può abitare nella casa: atto di proprietà, contratto o dichiarazione del proprietario."
+      goals: [documents]
+    - learner: "Ecco il punto dolente. La casa è ancora intestata a mia nonna, che è mancata due anni fa, e la successione non è stata chiusa. Carte a mio nome, insomma, non ne ho."
+    - tutor: "Capisco, è una situazione che vediamo spesso. Non serve che la casa sia già sua: basta una dichiarazione firmata dagli eredi, che le permettono di abitarci. Gli altri eredi chi sarebbero?"
+      new: [{lemma: erede, gloss: heir}]
+    - learner: "Mio padre e mia zia, che però vivono entrambi in Canada. Se le facessi avere le loro firme per posta, con la copia dei passaporti, andrebbe bene lo stesso?"
+    - tutor: "Sì, purché le firme siano originali e i documenti si leggano bene. Io intanto apro la pratica con la data di oggi e la tengo sospesa per trenta giorni. Così non perde tempo."
+      goals: [problem]
+    - learner: "La ringrazio, è più di quanto sperassi. E poi, una volta arrivate le firme, che cosa mi devo aspettare e in che tempi?"
+    - tutor: "Poi passano i vigili a controllare che lei viva davvero lì, entro quarantacinque giorni. A quel punto potrà chiedere il certificato di residenza e la carta d'identità. Sua nonna ne sarebbe contenta, credo."
+      goals: [next]
+
+# ---------------------------------------------------------------- assicurazione-sinistro
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Stamattina, verso le otto, ero fermo al semaforo di viale Europa quando una macchina mi ha tamponato. Niente di drammatico, per fortuna, ma il paraurti posteriore è da buttare."
+    - tutor: "Mi dispiace per lo spavento. L'importante è che nessuno si sia fatto male. Mi conferma che lei era completamente fermo al momento dell'incidente?"
+      goals: [what]
+    - learner: "Fermissimo: aspettavo il verde da almeno dieci secondi. L'altro conducente l'ha ammesso subito: mentre ha guardato il telefono, non si è accorto che il semaforo era rosso."
+      errors: [tense-aspect]
+    - tutor: "Bene che l'abbia ammesso, ci semplifica le cose. Un dettaglio: «mentre ha guardato il telefono»? Per un'azione in corso, dopo «mentre», quale tempo si usa? Me lo ridica, così lo scrivo giusto."
+      prompt: {text: mentre ha guardato, tags: [tense-aspect]}
+    - learner: "Mentre è stato guardando il telefono, non si è accorto del rosso."
+      errors: [tense-aspect]
+    - tutor: "Diciamo così: mentre guardava il telefono, non si è accorto del rosso. La responsabilità è quindi tutta sua, e la registro in questi termini. Avete compilato insieme la constatazione amichevole?"
+      goals: [responsibility]
+      recast: {text: è stato guardando, fix: guardava, tags: [tense-aspect]}
+    - learner: "Sì, l'abbiamo compilata sul posto e firmata entrambi. Ho anche fotografato la sua targa e i danni, nel caso servissero."
+    - tutor: "Ottimo lavoro, le foto servono sempre. Mi mandi tutto per mail entro tre giorni, modulo compreso. Con la firma di entrambi i conducenti la pratica procede molto più in fretta."
+      goals: [documents]
+    - learner: "Lo faccio oggi stesso. E dopo? Devo aspettare un vostro tecnico prima di portare la macchina in officina, o posso farla riparare subito?"
+    - tutor: "Aspetti la perizia, mi raccomando: il nostro tecnico la contatterà entro cinque giorni lavorativi. Dato che lei ha ragione, non pagherà nessuna franchigia. Le mando ora il numero di sinistro per messaggio."
+      goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri pomeriggio stavo salendo dal parcheggio del supermercato, in retromarcia, quando un furgone che passava dietro di me mi ha urtato la fiancata."
+      errors: [false-friend]
+    - tutor: "Capisco: stava uscendo dal parcheggio in retromarcia e il furgone l'ha colpita di lato. Ci sono stati feriti, o soltanto danni alla macchina?"
+      goals: [what]
+      recast: {text: salendo dal parcheggio, fix: uscendo dal parcheggio, tags: [false-friend]}
+    - learner: "Soltanto danni, grazie al cielo: la portiera sinistra è ammaccata e lo specchietto è andato. Il furgone, invece, non ha quasi un graffio."
+    - tutor: "Meno male. Ora la domanda meno simpatica: secondo lei, di chi è la colpa? Glielo chiedo perché chi esce da un parcheggio, di norma, deve dare la precedenza."
+    - learner: "Lo so, e non pretendo di avere tutta la ragione. Però il furgone andava molto più veloce di quanto fosse consentito lì dentro, e l'autista non ha nemmeno provato a frenare. Direi che la responsabilità è condivisa."
+    - tutor: "È una posizione ragionevole, e la riporto così nella pratica. Si parla allora di concorso di colpa, e saranno le due compagnie a stabilire le percentuali. Avete firmato una constatazione amichevole?"
+      goals: [responsibility]
+      new: [{lemma: concorso di colpa, gloss: shared liability}]
+    - learner: "L'abbiamo compilata, ma lui non l'ha voluta firmare perché non era d'accordo con la mia versione. Ho comunque i suoi dati, la targa e il nome di una signora che ha visto tutto."
+    - tutor: "Va bene lo stesso. Senza la seconda firma il modulo vale come semplice denuncia, ma la testimone ci aiuterà molto. Mi invii modulo, foto e il numero della signora entro tre giorni."
+      goals: [documents]
+    - learner: "D'accordo. E poi quali sono i tempi? Vorrei anche sapere se, in un caso come questo, l'anno prossimo pagherò di più."
+    - tutor: "Entro una settimana un nostro tecnico farà la perizia sul danno; per chiudere il sinistro servono circa due mesi. Pagherà di più solo se le viene attribuita la colpa principale. Per ora, quindi, non si preoccupi."
+      goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: en-f-student
+  history: [participle-agreement]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno, chiamo per riportare un incidente di sabato sera. Avevo parcheggiato regolarmente sotto casa, e la mattina dopo ho trovato la macchina con il paraurti anteriore sfondato e un biglietto sul parabrezza."
+      errors: [word-choice]
+    - tutor: "Buongiorno. Ha fatto bene a denunciare un incidente del genere subito, anche se la macchina era ferma. Quindi lei non era presente quando è successo?"
+      goals: [what]
+      recast: {text: riportare un incidente, fix: denunciare un incidente, tags: [word-choice]}
+    - learner: "No, dormivo. Dal biglietto risulta che un vicino aveva visto tutto dalla finestra: una macchina grigia ha fatto manovra, mi ha preso in pieno e se n'è andata. Il vicino ha annotato la targa."
+    - tutor: "Un vicino così vale oro. In questo caso la responsabilità è interamente dell'altro conducente, che per di più si è allontanato. Ha già informato anche la polizia locale?"
+      goals: [responsibility]
+    - learner: "Sì, domenica mattina. Mi è stato dato una copia del verbale, e il vicino si è offerto di testimoniare."
+      errors: [participle-agreement]
+    - tutor: "Perfetto, il verbale ci serve. Ma senta: «mi è stato dato una copia»? Guardi il soggetto della frase. Con quale parola deve accordarsi il participio?"
+      prompt: {text: Mi è stato dato una copia, tags: [participle-agreement]}
+    - learner: "Con «copia», certo: mi è stata data una copia del verbale. Gliela posso inoltrare insieme alle foto e alla dichiarazione del vicino."
+    - tutor: "Sì, mi mandi tutto all'indirizzo che trova sul contratto. La constatazione amichevole qui naturalmente non esiste, perché l'altro se n'è andato: basta il verbale con la targa."
+      goals: [documents]
+    - learner: "Bene. Mi resta una preoccupazione: se quel signore non fosse assicurato, o se la targa risultasse sbagliata, il danno resterebbe a carico mio?"
+    - tutor: "No, stia tranquilla: in quel caso interviene un fondo pubblico per le vittime della strada. Intanto apriamo il sinistro, e un nostro tecnico la chiamerà entro la settimana per la perizia. Le scrivo subito il numero della pratica."
+      goals: [next]
+
+# ---------------------------------------------------------------- trattativa-affitto
+- scenario: trattativa-affitto
+  level: C1
+  persona: en-f-student
+  history: [hypothetical]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Molto, glielo dico sinceramente: è luminoso, e la zona è perfetta per l'università. Mi lascia perplessa solo la caldaia, che ha l'aria di aver visto tempi migliori."
+    - tutor: "Occhio fino, complimenti. La caldaia ha i suoi anni, ma viene controllata ogni inverno e funziona. Il canone, come sa, è di 850 euro al mese, spese escluse."
+      goals: [interest]
+    - learner: "Ecco, appunto. Per una studentessa 850 più le spese sono tanti. Se il proprietario abbasserebbe il canone a 780, firmerei anche domani."
+      errors: [hypothetical]
+    - tutor: "Domani addirittura! Mi piace la decisione. Però: «se il proprietario abbasserebbe»? Dopo il «se» il condizionale non ci va. Che forma serve?"
+      prompt: {text: Se il proprietario abbasserebbe, tags: [hypothetical]}
+    - learner: "Abbassasse! Se il proprietario abbassasse il canone a 780, firmerei domani. E in cambio potrei offrire una garanzia dei miei genitori."
+    - tutor: "La garanzia dei genitori gli farà piacere, glielo assicuro. A 780 non credo che scenda, ma su 810 posso provare a convincerlo. Che durata di contratto aveva in mente?"
+      goals: [negotiate]
+    - learner: "Il dottorato dura tre anni, quindi un contratto lungo mi andrebbe benissimo. Vorrei però una clausola che mi permetta di dare la disdetta con tre mesi di preavviso, nel caso dovessi andare all'estero."
+    - tutor: "Si può fare: un contratto di tre anni più due con cedolare secca, e disdetta con tre mesi di preavviso. Così il canone resta bloccato per tutta la durata. Le sembra una proposta equilibrata?"
+      goals: [conditions]
+    - learner: "Mi sembra onesta. A 810, con quella clausola e la caldaia controllata prima del mio ingresso, per me siamo d'accordo."
+    - tutor: "Affare fatto, allora, salvo conferma del proprietario. Lo chiamo oggi pomeriggio e le faccio sapere entro sera. Intanto mi prepari i documenti suoi e dei suoi genitori."
+      goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: C1
+  persona: en-m-retired
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Mi è piaciuto, non lo nego. Il terrazzo è una meraviglia e il quartiere è tranquillo. Devo dire però che il terzo piano senza ascensore, alla mia età, comincia a essere una questione seria."
+    - tutor: "La capisco, anche se le scale tengono giovani, dicono. Il proprietario chiede 1.100 euro al mese, e proprio per via dell'ascensore il prezzo è già più basso della media."
+      goals: [interest]
+    - learner: "Più basso della media, mi permetta, è tutto da dimostrare. Qui dietro ho visto un appartamento simile, al primo piano, a mille. Se il canone fosse trattabile fino a 950, ne potremmo parlare seriamente."
+    - tutor: "A 950 mi pare difficile, glielo dico con sincerità. Il proprietario potrebbe scendere a 1.050, a patto che lei firmi un contratto di quattro anni. Che ne pensa?"
+      goals: [negotiate]
+    - learner: "Penso che quattro anni, a settantadue, siano un impegno ottimista. Scherzi a parte: accetterei una durata lunga solo se potessi dare la disdetta in qualunque momento, con tre mesi di preavviso."
+    - tutor: "La disdetta con tre mesi gliela posso far mettere per iscritto, non è un problema. Sul canone, invece, temo che sotto i 1.050 non si scenda. E c'è la provvigione dell'agenzia, pari a un mese di affitto."
+      goals: [conditions]
+    - learner: "Un mese intero? Allora facciamo due conti: canone, provvigione, due mesi di deposito... Benché l'appartamento mi piaccia, a queste condizioni supera quello che avevo deciso di spendere."
+    - tutor: "Mi dispiace, perché la vedevo bene su quel terrazzo. Vuole che faccia un ultimo tentativo con il proprietario, magari sulla provvigione o sul deposito?"
+    - learner: "La ringrazio, ma preferisco non farle perdere tempo. Se cambiasse idea sul canone, sa dove trovarmi; altrimenti continuerò a cercare, possibilmente più vicino a terra."
+    - tutor: "Più vicino a terra, ho capito. Tengo il suo numero e, se arriva qualcosa al primo piano, la chiamo prima di tutti gli altri. È stato un piacere, anche senza firma."
+      goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: C1
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, mi è piaciuto, soprattutto la cucina, che è grande il doppio di quella dove sto adesso. Ho notato però una macchia di umidità in camera, vicino alla finestra, e vorrei capire da dove viene."
+    - tutor: "Ha fatto bene a dirlo. È una vecchia perdita d'acqua, riparata l'anno scorso: il proprietario si è impegnato a ridipingere prima della consegna. Il canone richiesto è di 920 euro."
+      goals: [interest]
+    - learner: "Guardi, glielo dico chiaramente: io l'appartamento lo prendo, a patto che il proprietario scende a 850 e mi garantisce per iscritto la storia della pittura."
+      errors: [subjunctive-use]
+    - tutor: "Chiaro e diretto, mi piace. Però «a patto che il proprietario scende»? Dopo «a patto che» il verbo vuole un altro modo. Me lo ripete?"
+      prompt: {text: a patto che il proprietario scende, tags: [subjunctive-use]}
+    - learner: "A patto che il proprietario scenderà a 850, volevo dire."
+      errors: [subjunctive-use]
+    - tutor: "Ci siamo quasi: a patto che il proprietario scenda a 850. Glielo chiedo, ma la avverto che difficilmente andrà sotto gli 880. Lei ha un contratto di lavoro stabile?"
+      goals: [negotiate]
+      recast: {text: scenderà, fix: scenda, tags: [subjunctive-use]}
+    - learner: "A tempo indeterminato, da tre anni, e posso portarle le ultime buste paga. A 880 ci posso arrivare, ma allora vorrei sapere bene la durata e come funziona la disdetta."
+    - tutor: "Con un lavoro così il proprietario dorme tranquillo. Sarebbe un contratto di quattro anni più quattro. Lei può andarsene con sei mesi di preavviso, mentre lui alla prima scadenza può dare la disdetta solo per motivi precisi."
+      goals: [conditions]
+    - learner: "Sei mesi sono tanti, ma si possono accettare. Allora: 880, pittura fatta prima che io entri, tutto scritto nel contratto. Se è così, per me va bene."
+    - tutor: "Perfetto, lo scrivo nella proposta parola per parola. Stasera la mando al proprietario e domani le do la risposta. Credo proprio che ci rivedremo per la firma."
+      goals: [conclude]
+
+# ---------------------------------------------------------------- medico-specialista
+- scenario: medico-specialista
+  level: C1
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Buongiorno, dottoressa. Meglio di prima, direi, ma non benissimo. Quando salgo le scale mi manca il fiato e sento il battito accelerato, cosa che fino a un anno fa non mi succedeva."
+    - tutor: "Capisco. E a riposo, o di notte, le è capitato di avvertire lo stesso affaticamento? Oppure compare soltanto sotto sforzo?"
+    - learner: "Soltanto sotto sforzo, per fortuna. Una sera però, la settimana scorsa, mentre guardavo la televisione, sentivo all'improvviso un forte battito irregolare, durato forse un minuto."
+      errors: [tense-aspect]
+    - tutor: "Questo episodio mi interessa. Mi aiuti a capirlo bene: «sentivo all'improvviso»? Per un fatto improvviso e concluso, quale tempo del passato ci vuole?"
+      prompt: {text: sentivo all'improvviso, tags: [tense-aspect]}
+    - learner: "Ha ragione: ho sentito all'improvviso un battito irregolare. Poi è passato da solo e non è più tornato."
+    - tutor: "Bene, lo annoto. Un episodio isolato di solito non preoccupa, ma va tenuto d'occhio. In famiglia qualcuno ha avuto problemi di cuore o di pressione?"
+      goals: [symptoms]
+    - learner: "Purtroppo sì. Mio padre è morto d'infarto a sessantotto anni, e mio fratello maggiore prende da tempo qualcosa per la pressione. Di mia madre, invece, non ricordo nulla del genere."
+    - tutor: "Grazie, è un'informazione importante. Vengo agli esami: il cuore è sano, ma la pressione è più alta del dovuto, anche sotto sforzo. Niente di allarmante, però non possiamo far finta di niente."
+      goals: [history]
+    - learner: "Quindi non si tratta di qualcosa di grave, se ho capito bene? E in pratica che cosa significa: dovrò prendere medicine per il resto della vita?"
+    - tutor: "Grave no, se interveniamo adesso. Le propongo una terapia leggera, una compressa al mattino, più mezz'ora di cammino al giorno. Gli effetti collaterali sono rari: a volte un po' di tosse o qualche giramento di testa."
+      goals: [understand]
+      new: [{lemma: giramento di testa, gloss: dizzy spell}]
+    - learner: "La tosse la posso sopportare. Mi preoccupano di più i giramenti di testa, perché guido spesso. Nel caso comparissero, devo sospendere tutto o chiamarla prima?"
+    - tutor: "Mi chiami prima, senza sospendere di testa sua: di solito basta cambiare dose o farmaco. Ci rivediamo tra due mesi per un controllo, con il diario della pressione. E continui a fare le scale!"
+      goals: [treatment]
+
+- scenario: medico-specialista
+  level: C1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Buongiorno, dottore. A dire il vero, stanca. Non è un dolore, è piuttosto una sensazione di peso al petto che arriva verso sera, soprattutto dopo una giornata larga di lezioni."
+      errors: [false-friend]
+    - tutor: "Dopo una giornata lunga in classe è normale essere stanchi, ma quel peso al petto va capito meglio. Quando lo avverte, sente anche il battito più veloce o irregolare?"
+      recast: {text: una giornata larga, fix: una giornata lunga, tags: [false-friend]}
+    - learner: "Più veloce sì, irregolare non saprei dirlo. Dura una decina di minuti e passa se mi siedo e respiro con calma. Durante lo sforzo fisico, stranamente, non mi succede quasi mai."
+    - tutor: "Interessante, e in parte è una buona notizia: lo sforzo fisico lo sopporta bene. In famiglia ci sono stati casi di malattie del cuore, pressione alta o diabete?"
+      goals: [symptoms]
+    - learner: "Mia madre soffre di pressione alta da quando aveva cinquant'anni, e mio nonno materno ebbe un infarto, anche se in età avanzata. Dalla parte di mio padre, che io sappia, niente."
+    - tutor: "Bene, ne teniamo conto. Gli esami, glielo dico subito, sono buoni: il cuore funziona regolarmente. L'unico dato fuori posto è la pressione, un po' alta nelle ore serali."
+      goals: [history]
+    - learner: "Mi toglie un peso, è il caso di dirlo. Ma allora quella sensazione al petto da che cosa dipende? Possibile che sia soltanto stress?"
+    - tutor: "È molto probabile che lo stress c'entri, insieme alla pressione. Per questo non partirei subito con i farmaci: le propongo tre mesi di cammino ogni giorno, meno sale e meno caffè. Se la pressione non scende, valuteremo una terapia."
+      goals: [understand]
+    - learner: "Preferisco anch'io evitare le medicine, finché si può. Se però alla fine servissero, hanno effetti collaterali di cui dovrei preoccuparmi?"
+    - tutor: "Pochi, alle dosi che userei: a volte ci si sente stanchi o si gonfiano le caviglie, ma basta cambiare farmaco. Ne parleremo solo se serve. Intanto controlli la pressione ogni sera e torni a marzo per un controllo."
+      new: [{lemma: caviglia, gloss: ankle}]
+      goals: [treatment]
+
+- scenario: medico-specialista
+  level: C1
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Buongiorno, dottore. Insomma, così così. La pressione la misuro tutte le mattine, come m'ha detto lei, e sta quasi sempre sopra i 150. In più mi stanco subito: due rampe di scale e devo fermarmi."
+    - tutor: "Sopra i 150 nonostante la terapia, dunque. E oltre all'affaticamento ha notato altro, per esempio gambe gonfie o battito irregolare?"
+    - learner: "Le gambe sì, la sera le caviglie si gonfiano. Il battito ogni tanto lo sento forte nelle orecchie, specie quando mi corico. Dolori al petto, invece, mai."
+    - tutor: "Sono dettagli utili, grazie. Mi ricordi una cosa che nella sua cartella non trovo: nella sua famiglia ci sono stati problemi di cuore?"
+      goals: [symptoms]
+    - learner: "Eh, altroché. Mio nonno e due suoi fratelli, tutti morti di cuore prima dei settanta. Mia madre dice sempre che è il sangue della famiglia, sebbene io non credo molto a queste cose."
+      errors: [subjunctive-use]
+    - tutor: "Il sangue della famiglia, in un certo senso, esiste davvero. Ma torniamo un attimo alla sua frase: «sebbene io non credo»? Dopo «sebbene» che modo ci vuole?"
+      prompt: {text: sebbene io non credo, tags: [subjunctive-use]}
+    - learner: "Sebbene io non crederei molto a queste cose?"
+      errors: [subjunctive-use]
+    - tutor: "Non proprio: sebbene io non creda molto a queste cose. E invece un po' ci deve credere, perché gli esami lo confermano: il cuore lavora troppo e la terapia di adesso non basta più."
+      goals: [history]
+      recast: {text: non crederei, fix: non creda, tags: [subjunctive-use]}
+    - learner: "Non basta più... questo non me l'aspettavo. Ma che vuol dire di preciso, dottore? Che il cuore è danneggiato, o che siamo ancora in tempo?"
+    - tutor: "Siamo in tempo, glielo assicuro. Il muscolo del cuore è un po' ispessito, ma non danneggiato. Dobbiamo solo abbassare la pressione sul serio: aggiungerei un secondo farmaco, da prendere la sera."
+      goals: [understand]
+      new: [{lemma: ispessito, gloss: thickened}]
+    - learner: "Un'altra pasticca, va bene. Però mi dica onestamente che effetti collaterali ha, perché con la prima ho avuto una tosse che non mi faceva dormire."
+    - tutor: "Onestamente: questa non dà tosse. All'inizio potrà sentirsi un po' debole e andare in bagno più spesso, poi il corpo si abitua. Se la tosse continua, cambiamo anche l'altro farmaco. Controllo tra sei settimane."
+      goals: [treatment]
+
+# ---------------------------------------------------------------- smartworking
+- scenario: smartworking
+  level: C1
+  persona: en-f-professional
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Un po' e un po': tre giorni a casa e due in ufficio, almeno sulla carta. In pratica in ufficio ci vado quando c'è una riunione che non si può proprio evitare."
+    - tutor: "Beata te! Io sono tornato in ufficio cinque giorni su cinque, e ti giuro che mi sembra di essere tornato indietro di dieci anni. Dai, fammi un po' d'invidia: cos'è che ti piace di più?"
+      goals: [situation]
+    - learner: "Guarda, più che altro il tempo che non butto via. Niente metropolitana all'ora di punta, un pranzo decente e, se devo concentrarmi su un documento, nessuno che viene a chiedermi «hai un minuto?»."
+    - tutor: "«Hai un minuto?», che poi diventa mezz'ora. Però, scusa, non ti manca proprio niente? Io mi lamento tanto, ma senza due chiacchiere davanti al caffè impazzirei."
+      goals: [pros]
+    - learner: "Su questo ti do ragione, anche se mi costa ammetterlo. Certi giorni non parlo con anima viva fino a sera. E poi l'orario si allarga senza che tu te ne accorga: alle nove sono ancora lì a rispondere alle mail."
+    - tutor: "Ecco, vedi? Almeno io alle sei chiudo il computer e chi s'è visto s'è visto. Tu invece vivi in ufficio, solo che l'ufficio è il tuo salotto. Non è peggio, a pensarci bene?"
+      goals: [cons]
+      new: [{lemma: chi s'è visto s'è visto, gloss: "and that's the end of it"}]
+    - learner: "Messa così sembra una condanna! No, non credo che sia peggio: è solo che ci vuole disciplina, e io ne ho meno di quanto pensassi. Ma non tornerei indietro per niente al mondo."
+    - tutor: "Per niente al mondo, addirittura. E se domani il tuo capo ti dicesse: scegli, o sempre a casa o sempre in ufficio?"
+    - learner: "Sarebbe una cattiveria, ma sceglierei casa. L'ideale, però, resta la via di mezzo: due giorni in ufficio per vedere i colleghi, e il resto a casa mia, in pace."
+    - tutor: "La via di mezzo, certo, la vorrebbero tutti. Io resto dell'idea che l'ufficio abbia il suo perché, ma ammetto che un po' mi hai convinto. Intanto ordino un altro giro, che questa discussione mette sete."
+      goals: [preference]
+
+- scenario: smartworking
+  level: C1
+  persona: es-f-erasmus
+  history: [comparative]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Dipende dal giorno! Sto facendo un tirocinio in un'agenzia di comunicazione: vado in officina il lunedì e il giovedì, e gli altri giorni lavoro dalla mia stanza, in pigiama."
+      errors: [false-friend]
+    - tutor: "In ufficio solo due giorni e il resto in pigiama: praticamente un sogno! Se andassi davvero in officina, tra l'altro, torneresti a casa sporca di grasso. E com'è lavorare dalla stanza?"
+      goals: [situation]
+      recast: {text: in officina, fix: In ufficio, tags: [false-friend]}
+    - learner: "Ahah, è vero, che figura! Comunque sì, ha i suoi vantaggi: mi sveglio mezz'ora prima di cominciare, risparmio i soldi dell'autobus, e la mia stanza è più tranquilla che l'ufficio, dove tutti parlano ad alta voce."
+      errors: [comparative]
+    - tutor: "Tutti che urlano al telefono, immagino. Però aspetta: «più tranquilla che l'ufficio»? Tra due nomi, dopo «più», non si usa «che». Come diresti?"
+      prompt: {text: più tranquilla che l'ufficio, tags: [comparative]}
+    - learner: "Più tranquilla dell'ufficio! In spagnolo è sempre «que», mi frega ogni volta."
+    - tutor: "Capita anche a me, al contrario, quando provo a parlare spagnolo. Ma dimmi la verità: è tutto rose e fiori? Io da casa dopo due giorni comincio a parlare con le piante."
+      goals: [pros]
+    - learner: "No, infatti. Il problema è che sono nuova e imparo molto meno: in ufficio ascolto i colleghi, faccio domande, vedo come si risolvono i problemi. Da casa, se ho un dubbio, mi vergogno di scrivere per ogni sciocchezza."
+    - tutor: "Questo è verissimo: all'inizio si impara guardando gli altri, altro che riunioni al computer. E poi sei in città da pochi mesi, lavorare chiusa in una stanza non aiuta a conoscere gente."
+      goals: [cons]
+    - learner: "Un po' pesa, sì. Per questo, se potessi scegliere, farei il contrario di adesso: tre giorni in ufficio e due a casa. Almeno finché non conosco bene il lavoro e la gente."
+    - tutor: "Mi sembra saggio, più di tanti che lavorano da vent'anni. Prova a chiederlo alla tua responsabile: al massimo ti dice di no. Intanto brindiamo al pigiama, che resta un grande vantaggio."
+      goals: [preference]
+
+- scenario: smartworking
+  level: C1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Né l'uno né l'altro, in realtà. Faccio il traduttore e lavoro da dove capita: questo mese da un appartamento a Lecce, il mese scorso da Palermo. Il mio ufficio è il portatile."
+    - tutor: "Ma senti che vita! E io che mi lamento perché per arrivare in ufficio ci metto quasi un'ora. Non mi dire che è tutto bello come nelle foto."
+      goals: [situation]
+    - learner: "Quasi. Il vantaggio enorme è la libertà: scelgo l'orario, scelgo il posto, e se una città mi stanca cambio. Di clienti non ho molti, ma quelli che ho mi lasciano lavorare in pace."
+      errors: [ci-ne]
+    - tutor: "La libertà, eh! Io me la sogno di notte. Senti, ma «di clienti non ho molti»? Lì, prima del verbo, manca una parola piccolissima. Quale?"
+      prompt: {text: Di clienti non ho molti, tags: [ci-ne]}
+    - learner: "Ah... di clienti non ci ho molti?"
+      errors: [ci-ne]
+    - tutor: "Ci sei vicino: di clienti non ne ho molti. Comunque pochi ma buoni, mi pare di capire. E il rovescio della medaglia? Perché qualcosa che non va ci sarà pure."
+      goals: [pros]
+      recast: {text: non ci ho molti, fix: non ne ho molti, tags: [ci-ne]}
+      new: [{lemma: rovescio della medaglia, gloss: the other side of the coin}]
+    - learner: "C'è eccome. Non hai colleghi, quindi nessuno con cui sfogarti o prendere un caffè. E quando sei sempre in viaggio non fa senso comprare niente, nemmeno una sedia decente: la mia schiena ringrazia."
+      errors: [word-choice]
+    - tutor: "Capisco: senza una casa fissa non ha senso riempirsi di roba. Però la schiena è una sola, amico mio. Allora, se potessi scegliere tra la tua vita e un posto fisso in ufficio, cosa faresti?"
+      goals: [cons]
+      recast: {text: non fa senso, fix: non ha senso, tags: [word-choice]}
+    - learner: "Bella domanda. Adesso come adesso continuerei così, perché a trentacinque anni me lo posso permettere. Ma tra qualche anno preferirei una base fissa e magari un ufficio condiviso, per non diventare un orso."
+    - tutor: "Un orso con il portatile, non male come immagine. Mi sembra un piano sensato: goditi questa vita finché dura. E quando ti fermi fammi un fischio, che un collega come te lo prenderei subito."
+      goals: [preference]
+      new: [{lemma: fare un fischio, gloss: to give someone a shout}]
+
+# ---------------------------------------------------------------- organizzare-matrimonio
+- scenario: organizzare-matrimonio
+  level: C1
+  persona: en-f-professional
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Lo immaginiamo semplice ma curato: una cerimonia civile all'aperto, a fine settembre, e poi una cena lunga, senza troppe formalità. Una settantina di invitati, non di più."
+    - tutor: "Settembre è il mese più bello, e settanta invitati sono un numero che permette di godersi la festa. Avete già un'idea della cifra che volete spendere?"
+      goals: [vision]
+    - learner: "Vorremmo restare sui venticinquemila euro, tutto compreso. Mi rendo conto che non è una cifra enorme, quindi preferirei spendere di più per il menù e il fotografo, e risparmiare su fiori e bomboniere."
+    - tutor: "Idee chiare, così si lavora bene. Con quella cifra vedo due luoghi possibili: una villa sul lago, elegante ma costosa, oppure un agriturismo in collina, più semplice e con un'ottima cucina."
+      goals: [budget]
+    - learner: "La villa mi tenta, non lo nego. Il mio compagno però ha visto le foto dell'agriturismo e se n'è innamorato. Se mi manda i due preventivi, gli li mostro stasera e decidiamo insieme."
+      errors: [combined-pronouns]
+    - tutor: "Certo, i preventivi sono pronti. Un dettaglio, però: «gli li mostro»? Quando questi due pronomi si incontrano, diventano una parola sola. Quale?"
+      prompt: {text: gli li mostro, tags: [combined-pronouns]}
+    - learner: "Glieli mostro! Glieli mostro stasera, e domani le facciamo sapere."
+    - tutor: "Benissimo. Intanto un consiglio sincero: con i vostri invitati e la vostra idea di festa, l'agriturismo vi lascerebbe più margine per menù e fotografo. La villa si mangerebbe metà dei soldi."
+    - learner: "In effetti il ragionamento fila. Allora direi agriturismo, a meno che il mio compagno non cambi idea all'ultimo, cosa che escludo. Così avanza qualcosa per la musica dal vivo."
+    - tutor: "Ottima scelta, e la musica dal vivo in collina fa sempre il suo effetto. Blocco la data con l'agriturismo, allora. C'è qualcosa a cui tenete in modo particolare, per quanto riguarda il mio lavoro?"
+      goals: [choices]
+    - learner: "Due cose. Vorrei che ogni spesa oltre i cinquecento euro ci venisse sottoposta prima di essere confermata, e che i preventivi dei fornitori ci arrivassero sempre per iscritto. Niente sorprese alla fine."
+    - tutor: "Mi sembra giustissimo, lavoro sempre così: niente viene confermato senza la vostra firma. Vi mando il contratto con queste due clausole entro domani. Sarà una bellissima festa, vedrete."
+      goals: [conditions]
+
+- scenario: organizzare-matrimonio
+  level: C1
+  persona: en-m-heritage
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie mille! Guardi, io sono cresciuto con i racconti del matrimonio dei miei nonni in Calabria: tutto il paese invitato, tavolate infinite, la banda. Vorrei qualcosa di quello spirito, anche se la mia fidanzata è inglese e le tavolate infinite la spaventano un po'."
+    - tutor: "Che bella immagine, la banda e il paese intero! Si può conservare lo spirito senza spaventare nessuno: una festa calorosa, ma con tempi più umani. Quanti invitati avete in mente, e quanto pensate di spendere?"
+      goals: [vision]
+    - learner: "Tra parenti italiani, amici di Londra e colleghi arriviamo a centoventi. Quanto al budget, pensavamo a quarantamila euro, ma le confesso che non ho la minima idea se sia tanto o poco."
+    - tutor: "Per centoventi persone è una cifra giusta, a patto di scegliere con attenzione. Vi propongo due luoghi: una masseria vicino al mare, grande e spettacolare, oppure un palazzo nel centro del paese dei suoi nonni."
+      goals: [budget]
+      new: [{lemma: masseria, gloss: large traditional farm estate in southern Italy}]
+    - learner: "Il palazzo in paese mi commuove solo a sentirlo nominare. D'altra parte temo che per gli ospiti inglesi sia scomodo: non ci sono alberghi, e ad agosto le stradine sono un forno. Lei che cosa farebbe al posto nostro?"
+    - tutor: "Al posto vostro terrei tutti e due i luoghi, ognuno per ciò che sa fare meglio. La cerimonia in paese, con la banda in piazza, e poi la cena alla masseria, dove c'è spazio e si dorme. Che ne dice?"
+    - learner: "Dico che è un'idea geniale, e che mia nonna avrebbe approvato. Allora facciamo così: cerimonia in paese, ricevimento alla masseria. Purché ci sia un pullman per gli invitati, altrimenti metà si perde per strada."
+    - tutor: "Il pullman è già nel preventivo, ci avevo pensato. Vi preparo una proposta precisa entro la settimana, con menù e fotografo. Avete richieste particolari sul modo in cui lavoreremo insieme?"
+      goals: [choices]
+    - learner: "Sì, una sola ma importante. Viviamo a Londra, quindi vorrei che ci aggiornasse ogni due settimane con una videochiamata, e che nessun fornitore venisse pagato senza che noi abbiamo visto il preventivo."
+    - tutor: "Più che ragionevole. Una chiamata ogni due settimane e nessun pagamento senza il vostro consenso: lo metto nel contratto. E alla banda ci penso io, conosco quella giusta."
+      goals: [conditions]
+
+- scenario: organizzare-matrimonio
+  level: C1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Noi immaginiamo qualcosa di intimo: una cerimonia breve in un giardino, una quarantina di persone e una cena in cui si possa parlare senza gridare. Niente balli di gruppo, per carità."
+    - tutor: "Niente balli di gruppo, me lo segno in rosso. Un matrimonio intimo è spesso il più riuscito. Posso chiederle su quale cifra stiamo ragionando?"
+      goals: [vision]
+    - learner: "Quindicimila euro, e non vorrei superarli. Siamo due insegnanti, e preferiamo che avanzi qualcosa per il viaggio piuttosto che fare debiti per una sola giornata."
+    - tutor: "Capisco perfettamente. Devo però essere sincera: con quella cifra fotografo e fiori andranno scelti con cura. Ho due posti per voi: un antico chiostro in città, a seimila euro, e un giardino privato in campagna, a duemila."
+      goals: [budget]
+      new: [{lemma: chiostro, gloss: cloister}]
+    - learner: "Il chiostro deve essere splendido, ma seimila euro solo per lo spazio mi sembrano una follia, con il nostro budget. Che cosa offre in più, a parte la bellezza?"
+    - tutor: "Offre la comodità: è in centro, ha una cucina interna e, se piove, i portici salvano la serata. Nel giardino invece servirebbe una grande tenda, che costa circa mille euro. Io, onestamente, vi vedrei meglio nel chiostro."
+    - learner: "Apprezzo la sincerità, ma non sono d'accordo. Anche con la tenda il giardino costa la metà, ed è esattamente il posto che avevamo in testa. Scegliamo il giardino, e che piova pure."
+    - tutor: "E che piova pure: sposa bagnata, sposa fortunata, del resto. Vada per il giardino, allora, la decisione spetta a voi. C'è altro che devo sapere prima di preparare il preventivo?"
+      goals: [choices]
+    - learner: "Sì. Le chiederei di non proporci extra che facciano salire il totale, a meno che non siamo noi a domandarli. E vorrei un preventivo con tutte le voci separate, in modo che si capisca dove vanno i soldi."
+    - tutor: "Promesso: nessun extra non richiesto e un preventivo voce per voce, che le invio entro venerdì. Mi piace lavorare con chi ha le idee chiare. Sarà un matrimonio piccolo, ma fatto bene."
+      goals: [conditions]

@@ -1,0 +1,67 @@
+- scenario: burocrazia-residenza
+  level: C2
+  persona: en-m-heritage
+  history: [register]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono io, il 47. Mi sono trasferito a Bologna il mese scorso e vorrei fare richiesta di residenza. Mi dai il modulo, per favore?"
+      errors: [register]
+    - tutor: "Il modulo glielo consegno volentieri. Però, tra uno sportello e un cittadino, quel «mi dai» mi fa un certo effetto: non abbiamo mica pascolato le pecore insieme, come diceva mia nonna. Come me lo chiederebbe, qui in Comune?"
+      prompt: {text: "Mi dai il modulo", tags: [register]}
+      new: [{lemma: pascolare, gloss: to graze (animals)}, {lemma: sportello, gloss: "counter, service window"}]
+    - learner: "Mi scusi, a casa con i nonni si parlava solo con il tu. Potrebbe darmi il modulo, per cortesia?"
+    - tutor: "Così va benissimo, e non si scusi: il tu di casa è il più difficile da perdere. Ecco il modulo. Oltre a questo servono un documento d'identità e il titolo per cui occupa l'alloggio. Lei è cittadino italiano o straniero?"
+      goals: [request]
+    - learner: "Ho il doppio passaporto, quindi italiano. Per l'alloggio ho un contratto d'affitto registrato. C'è qualche altro documento che dovrei portare?"
+    - tutor: "Con il passaporto italiano niente permesso di soggiorno: una grana in meno. Il contratto registrato va bene, purché ci sia la ricevuta dell'Agenzia delle Entrate. Ce l'ha con sé?"
+      goals: [documents]
+      new: [{lemma: grana, gloss: "hassle, headache"}, {lemma: purché, gloss: provided that}]
+    - learner: "Ecco, temo di no. La ricevuta l'ha tenuta il proprietario, che è in viaggio e torna tra due settimane. Eventualmente me la manderà, ma non so quando."
+      errors: [false-friend]
+    - tutor: "Prima o poi gliela manderà, non ne dubito, ma non occorre aspettare i suoi comodi. La domanda la protocollo oggi stesso, e Lei mi integra la ricevuta entro dieci giorni: basta una copia per posta elettronica. Il proprietario un telefono ce l'avrà anche in viaggio, no?"
+      recast: {text: "Eventualmente me la manderà", fix: "Prima o poi gliela manderà", tags: [false-friend]}
+      new: [{lemma: protocollare, gloss: to register officially}, {lemma: integrare, gloss: to supply (a missing document)}]
+    - learner: "Ce l'ha, e gli scrivo stasera stessa. Me la faccio mandare e gliela inoltro subito. E dopo, che cosa succede? Quanto ci vuole perché la residenza sia effettiva?"
+    - tutor: "La residenza decorre da oggi, data della domanda. Poi, entro quarantacinque giorni, passano i vigili a verificare che Lei abiti davvero lì. Non avvisano: metta il cognome sul campanello, mi raccomando."
+      goals: [problem]
+      new: [{lemma: decorrere, gloss: "to run, to take effect from"}, {lemma: campanello, gloss: doorbell}]
+    - learner: "Sul campanello c'è ancora il nome dell'inquilino di prima: lo cambio domani. E se i vigili passassero mentre sono al lavoro?"
+    - tutor: "Ripassano, e al limite Le lasciano un avviso. Se entro i quarantacinque giorni non riceve nulla, vale il silenzio-assenso e la pratica è chiusa. Ecco la ricevuta. Benvenuto a Bologna: i Suoi nonni sarebbero contenti."
+      goals: [next]
+      new: [{lemma: silenzio-assenso, gloss: tacit approval (silence counts as consent)}]
+
+- scenario: burocrazia-residenza
+  level: C2
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono spagnola, faccio un dottorato qui a Padova e mi fermo almeno tre anni. Mi hanno detto che devo iscrivermi all'anagrafe, ma confesso che non ho capito bene né come né perché."
+    - tutor: "Gliel'hanno detto bene. Da cittadina europea non Le serve il permesso di soggiorno, ma oltre i tre mesi l'iscrizione anagrafica è d'obbligo. Stia tranquilla, è meno un calvario di quanto si racconti. Ha già un alloggio stabile?"
+      goals: [request]
+      new: [{lemma: calvario, gloss: ordeal}, {lemma: anagrafico, gloss: of the registry office}]
+    - learner: "Sì, divido un appartamento con due colleghe, con un contratto regolare. Quali documenti c'è bisogno, oltre al contratto e alla carta d'identità?"
+      errors: [preposition]
+    - tutor: "Ci arrivo subito. Prima, però: «quali documenti c'è bisogno»? Lì manca un pezzetto piccolo ma prezioso, proprio in testa alla frase. Me la ripete intera?"
+      prompt: {text: "Quali documenti c'è bisogno", tags: [preposition]}
+    - learner: "Di quali documenti c'è bisogno, certo: in spagnolo la preposizione l'avrei messa senza pensarci."
+    - tutor: "Appunto: La tradisce la fretta, non lo spagnolo. Dunque: iscrizione al dottorato, una dichiarazione di risorse sufficienti e una copertura sanitaria valida per tutto il soggiorno. Le prime due le ha di sicuro; e la terza?"
+      goals: [documents]
+      new: [{lemma: copertura sanitaria, gloss: health cover}]
+    - learner: "La terza è il problema. Ho la tessera sanitaria europea, ma scade a marzo, e una polizza privata non me la posso permettere con la borsa di dottorato."
+    - tutor: "La tessera, da sola, per un soggiorno lungo non ci basta. Ma c'è una via d'uscita: l'iscrizione volontaria al Servizio sanitario, che per gli studenti costa una cifra quasi simbolica. Si paga in posta e si porta la ricevuta alla ASL. Lo sapeva?"
+      new: [{lemma: via d'uscita, gloss: way out}]
+    - learner: "No, e mi toglie un peso enorme. Allora faccio l'iscrizione questa settimana e torno con la ricevuta. Nel frattempo la mia domanda rimane sospesa, oppure devo ricominciare tutto di capo?"
+      errors: [preposition]
+    - tutor: "No, la pratica resta aperta, non si butta via niente. Ma mi permetta: «di capo»? Quell'espressione vuole un'altra preposizione, e in musica la trova scritta su tutti gli spartiti. Quale?"
+      prompt: {text: "ricominciare tutto di capo", tags: [preposition]}
+      new: [{lemma: spartito, gloss: sheet music}]
+    - learner: "In musica... «a capo»? Ricominciare tutto a capo?"
+      errors: [preposition]
+    - tutor: "Quasi: «andare a capo» si fa quando si scrive. Qui si dice «ricominciare tutto da capo», e per fortuna non ce n'è bisogno. Lei mi porta la ricevuta della ASL, io completo la pratica, e poi passano i vigili a controllare che abiti lì."
+      goals: [problem]
+      recast: {text: "Ricominciare tutto a capo", fix: "ricominciare tutto da capo", tags: [preposition]}
+    - learner: "Da capo, me lo segno. E quanto tempo passa, più o meno, prima che arrivi il certificato di residenza?"
+    - tutor: "I vigili hanno quarantacinque giorni, ma con gli studenti di solito fanno prima. Dopodiché il certificato lo scarica da casa, senza rifare la fila. Ci vediamo con la ricevuta, dottoressa. E in bocca al lupo per la tesi."
+      goals: [next]
+      new: [{lemma: in bocca al lupo, gloss: good luck (lit. into the wolf's mouth)}]

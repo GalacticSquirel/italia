@@ -1,0 +1,174 @@
+- scenario: taxi
+  level: A1
+  persona: en-f-student
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: Buongiorno! Alla stazione, per favore.
+    - tutor: Va bene. Ha una valigia?
+      goals: [destination]
+    - learner: Sì, una valigia. Quanto tempo ci vuole?
+    - tutor: Ci vogliono quindici minuti, più o meno.
+      goals: [ask-time]
+    - learner: E quanto costa?
+    - tutor: Costa più o meno 20 euro.
+      goals: [ask-price]
+    - learner: Va bene. Posso pagare con la carta?
+    - tutor: Sì, certo.
+    - learner: Ecco la carta. Grazie e arrivederci!
+    - tutor: Grazie a Lei, buon viaggio!
+      goals: [pay]
+
+- scenario: taxi
+  level: A1
+  persona: en-m-retired
+  history: [preposition]
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: Buongiorno. Vado in albergo Roma, in via Verdi.
+      errors: [articulated-preposition]
+    - tutor: In albergo Roma? Qui ci vuole un'altra preposizione.
+      prompt: {text: in albergo Roma, tags: [articulated-preposition]}
+      new: [{lemma: preposizione, gloss: preposition}]
+    - learner: All'albergo Roma, in via Verdi.
+    - tutor: Perfetto. Via Verdi, va bene.
+      goals: [destination]
+    - learner: Quanti minuti ci vogliono?
+    - tutor: Venti minuti, più o meno. C'è traffico.
+      goals: [ask-time]
+      new: [{lemma: traffico, gloss: traffic}]
+    - learner: E quanto costa?
+    - tutor: Costa più o meno 25 euro.
+      goals: [ask-price]
+    - learner: Ecco 25 euro. Grazie.
+    - tutor: Grazie a Lei! Arrivederci.
+      goals: [pay]
+
+- scenario: taxi
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: All'aeroporto, per favore.
+    - tutor: Va bene. Metto la valigia dietro.
+      goals: [destination]
+    - learner: Grazie. Quanto tempo ci vuole?
+    - tutor: Mezz'ora, più o meno.
+      goals: [ask-time]
+    - learner: Quanto costa per l'aeroporto?
+    - tutor: Il prezzo è 40 euro.
+      goals: [ask-price]
+    - learner: Posso pagare in contanti?
+    - tutor: Sì, certo.
+    - learner: Ecco 40 euro. Grazie mille!
+    - tutor: Grazie, buon viaggio!
+      goals: [pay]
+
+- scenario: taxi
+  level: A1
+  persona: en-m-traveller
+  history: [word-choice]
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: Al ostello in piazza Venezia.
+      errors: [articulated-preposition]
+    - tutor: Al ostello? Ostello comincia con o...
+      prompt: {text: Al ostello, tags: [articulated-preposition]}
+    - learner: All'ostello in piazza Venezia!
+    - tutor: Esatto! Va bene, piazza Venezia.
+      goals: [destination]
+    - learner: Ci vuole molto?
+    - tutor: No, dieci minuti.
+      goals: [ask-time]
+    - learner: Quanto costa più o meno?
+    - tutor: Più o meno 12 euro.
+      goals: [ask-price]
+    - learner: Ok. Ecco 15 euro, va bene così.
+    - tutor: Grazie mille! Buona giornata!
+      goals: [pay]
+
+- scenario: taxi
+  level: A1
+  persona: en-f-professional
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: In via Garibaldi, numero 8, per favore.
+    - tutor: Va bene, via Garibaldi 8.
+      goals: [destination]
+    - learner: Ho un appuntamento alle dieci. Quanto tempo ci vuole?
+    - tutor: Ci vogliono quindici minuti. Arriviamo prima delle dieci.
+      goals: [ask-time]
+      new: [{lemma: appuntamento, gloss: appointment}]
+    - learner: Ottimo. Quanto costa?
+    - tutor: Più o meno 18 euro.
+      goals: [ask-price]
+    - learner: Ecco la mia carta.
+    - tutor: Grazie. Ecco la ricevuta. Buona giornata!
+      goals: [pay]
+      new: [{lemma: ricevuta, gloss: receipt}]
+
+- scenario: taxi
+  level: A1
+  persona: es-m-worker
+  history: [question-form]
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: Al ristorante Da Mario, in centro.
+    - tutor: Conosco il ristorante. Va bene!
+      goals: [destination]
+    - learner: Quanti minuti?
+    - tutor: Più o meno dieci minuti.
+      goals: [ask-time]
+    - learner: Quanto è costa?
+      errors: [verb-form]
+    - tutor: Quanto è costa? C'è una parola in più.
+      prompt: {text: Quanto è costa, tags: [verb-form]}
+    - learner: Quanto costa?
+    - tutor: Esatto! Costa più o meno 10 euro.
+      goals: [ask-price]
+    - learner: Ecco 10 euro in contanti.
+    - tutor: Grazie! Buon lavoro!
+      goals: [pay]
+
+- scenario: taxi
+  level: A1
+  persona: en-m-heritage
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: Buongiorno! A questo indirizzo, per favore.
+    - tutor: Vediamo... Via Roma 15. Va bene!
+      goals: [destination]
+    - learner: È lontano?
+    - tutor: No, cinque minuti in macchina.
+      goals: [ask-time]
+    - learner: Allora non costa molto?
+    - tutor: No, sono più o meno 8 euro.
+      goals: [ask-price]
+    - learner: Posso pagare con la carta?
+    - tutor: Sì, certo.
+    - learner: Ecco la carta. Grazie e arrivederci!
+    - tutor: Arrivederci!
+      goals: [pay]
+
+- scenario: taxi
+  level: A1
+  persona: es-f-teacher
+  history: [register]
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: Buongiorno. All'albergo Bellavista, per favore.
+    - tutor: Va bene. Ha una valigia?
+      goals: [destination]
+    - learner: Sì, due valigie. Quanto tempo ci vuole?
+    - tutor: Ci vogliono venti minuti.
+      goals: [ask-time]
+    - learner: E quanto costa? Accetti la carta?
+      errors: [register]
+    - tutor: Accetti? Lei parla con un tassista...
+      goals: [ask-price]
+      prompt: {text: Accetti, tags: [register]}
+      new: [{lemma: tassista, gloss: taxi driver}]
+    - learner: Accetta la carta?
+    - tutor: Sì, certo. Sono 22 euro.
+    - learner: Ecco la carta. Grazie!
+    - tutor: Grazie a Lei! Buona giornata!
+      goals: [pay]

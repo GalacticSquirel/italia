@@ -1,0 +1,189 @@
+# B1, renting a flat and talking about the past.
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-professional
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! È molto luminoso. Quanto costa l'affitto al mese?"
+    - tutor: "L'affitto è di 850 euro al mese, più circa 80 euro di spese di condominio."
+      goals: [rent]
+    - learner: "Le spese comprendono anche il riscaldamento?"
+    - tutor: "Sì, il riscaldamento è centralizzato ed è compreso nelle spese. Luce e gas, invece, sono a parte."
+      goals: [rent]
+      new: [{lemma: centralizzato, gloss: central (heating)}]
+    - learner: "Capisco. Il contratto di quanti anni è? E quanto è la caparra?"
+    - tutor: "È un contratto di quattro anni più quattro. La caparra è di due mensilità."
+      goals: [contract]
+      new: [{lemma: mensilità, gloss: monthly payment}]
+    - learner: "D'accordo. La lavatrice e il frigorifero funzionano bene? Sembrano un po' vecchi."
+    - tutor: "Il frigorifero è vecchio ma funziona benissimo. La lavatrice invece è nuova, l'ho comprata due mesi fa."
+      goals: [condition]
+    - learner: "E com'è il quartiere? Ci sono negozi e fermate dell'autobus vicino?"
+    - tutor: "Sì, c'è un supermercato all'angolo e la metro è a cinque minuti a piedi. È una zona tranquilla."
+      goals: [neighbourhood]
+    - learner: "Mi piace molto. Sono interessata, ma vorrei pensarci fino a domani."
+    - tutor: "Certo, nessun problema. Mi chiami pure domani, così le preparo il contratto."
+      goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. Bello! Quanto è l'affitto?"
+    - tutor: "Sono 700 euro al mese, spese di condominio comprese."
+      goals: [rent]
+    - learner: "Va bene. E il contratto? Devo pagare una caparra?"
+    - tutor: "Sì, la caparra è di tre mesi, e il contratto è di quattro anni. Lei lavora qui in città?"
+      goals: [contract]
+    - learner: "Sì, sono cuoco in un ristorante del centro. E il riscaldamento funziona bene? L'inverno qui è freddo."
+    - tutor: "L'ho fatto controllare il mese scorso e funziona perfettamente. Vuole vedere anche la cucina?"
+      goals: [condition]
+    - learner: "Sì, per me la cucina è importante! Quanti fornelli ci sono?"
+    - tutor: "Ce ne sono quattro, e sono tutti nuovi. Ecco, guardi."
+      new: [{lemma: fornello, gloss: hob burner}]
+    - learner: "Bella. E nel quartiere, ci sono mercati? Vado spesso al mercato per il lavoro."
+    - tutor: "Sì, il mercato è a due strade da qui. Ci vanno tutti gli abitanti del quartiere."
+      goals: [neighbourhood]
+    - learner: "Perfetto. Lo prendo! Quando posso firmare il contratto?"
+    - tutor: "Benissimo! Possiamo firmare venerdì mattina, se le va bene."
+      goals: [decide]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: en-f-student
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao Elena! Ho andato in Sardegna con due amiche per due settimane."
+      errors: [auxiliary-choice]
+    - tutor: "In Sardegna, che bello! Ma... ho andato?"
+      prompt: {text: "Ho andato", tags: [auxiliary-choice]}
+    - learner: "Ah, sì: sono andata in Sardegna!"
+    - tutor: "Esatto! E che tempo faceva?"
+      goals: [where]
+    - learner: "Faceva molto caldo, sempre trentacinque gradi. Il mare era bellissimo, azzurro e trasparente."
+    - tutor: "Che invidia! E cosa avete fatto, a parte il mare?"
+      goals: [weather]
+      new: [{lemma: invidia, gloss: envy}]
+    - learner: "Abbiamo fatto un'escursione in barca e siamo andate a vedere un paese in montagna."
+    - tutor: "Che bello! Qual è stata la cosa più bella della vacanza?"
+      goals: [activities]
+    - learner: "La più bella è stata una sera in spiaggia: abbiamo cucinato il pesce e abbiamo guardato le stelle."
+    - tutor: "Che ricordo meraviglioso! La prossima volta ci vengo anch'io."
+      goals: [best]
+      new: [{lemma: meraviglioso, gloss: wonderful}]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: es-f-erasmus
+  history: [participle-agreement]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao! Sono tornata in Spagna dalla mia famiglia, e poi sono stato a Lisbona con il mio ragazzo."
+      errors: [participle-agreement]
+    - tutor: "Che bello! Sono stato a Lisbona? Attenzione alla fine..."
+      prompt: {text: "sono stato", tags: [participle-agreement]}
+    - learner: "Sì, sono stato a Lisbona una settimana."
+      errors: [participle-agreement]
+    - tutor: "Ah, quindi sei stata a Lisbona una settimana! Che tempo faceva?"
+      goals: [where]
+      recast: {text: "sono stato", fix: "sei stata", tags: [participle-agreement]}
+    - learner: "C'era sole, ma non faceva troppo caldo. Era perfetto per camminare."
+    - tutor: "Ideale per visitare la città. Che cosa avete fatto?"
+      goals: [weather]
+    - learner: "Abbiamo camminato tanto, abbiamo preso il tram vecchio e abbiamo mangiato i dolci tipici."
+    - tutor: "Il famoso tram giallo! E cosa ti è piaciuto di più?"
+      goals: [activities]
+    - learner: "Mi è piaciuto di più il tramonto dal castello. Era bellissimo."
+    - tutor: "Dev'essere stato magnifico. Mi devi far vedere le foto!"
+      goals: [best]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: en-m-retired
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao! Quest'anno sono andato in montagna, in Trentino, con mia moglie."
+    - tutor: "In Trentino, che bello! E il tempo com'era?"
+      goals: [where]
+    - learner: "La prima settimana pioveva quasi ogni giorno. Poi è tornato il sole e faceva fresco."
+    - tutor: "Peccato per la pioggia! E cosa facevate quando pioveva?"
+      goals: [weather]
+    - learner: "Leggevamo in albergo e visitavamo i musei. Quando c'era il sole, facevamo lunghe passeggiate."
+    - tutor: "Una vacanza tranquilla, allora. Siete saliti anche in alta montagna?"
+      goals: [activities]
+    - learner: "Sì, un giorno abbiamo preso la funivia e siamo arrivati a tremila metri. Faceva freddo, ma la vista era incredibile."
+    - tutor: "Che esperienza! È stata la cosa più bella?"
+      new: [{lemma: funivia, gloss: cable car}]
+    - learner: "Sì, sicuramente. Mia moglie dice che è stato il giorno più bello dell'estate."
+    - tutor: "Allora dovete tornarci l'anno prossimo! Sono contenta che vi siate divertiti."
+      goals: [best]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Abitavo a Toronto, in una casa piccola vicino a un parco. Però ogni estate andavamo in Calabria dai nonni."
+    - tutor: "Ah, quindi hai radici in Calabria! E cosa facevi d'estate in Calabria?"
+      goals: [place]
+      new: [{lemma: radice, gloss: root}]
+    - learner: "Ogni giorno sono andato al mare con mio cugino, e la sera abbiamo giocato a calcio in piazza."
+      errors: [tense-aspect]
+    - tutor: "Ogni giorno sono andato? Parli di una cosa che facevi sempre..."
+      prompt: {text: "Ogni giorno sono andato", tags: [tense-aspect]}
+    - learner: "Ah, ogni giorno andavo al mare con mio cugino e la sera giocavamo a calcio."
+    - tutor: "Perfetto! Sembra un'estate felice. E a scuola, a Toronto, com'eri?"
+      goals: [habits]
+    - learner: "Ero bravo in matematica, ma parlavo troppo in classe. La maestra mi mandava spesso fuori."
+    - tutor: "Ah, eri un chiacchierone! C'è un ricordo speciale che non dimentichi?"
+      goals: [school]
+      new: [{lemma: chiacchierone, gloss: chatterbox}]
+    - learner: "Sì: un'estate mia nonna mi ha insegnato a fare il pane. Era la prima volta che cucinavo qualcosa."
+    - tutor: "Che bel ricordo! E lo sai ancora fare, il pane della nonna?"
+      goals: [event]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: es-f-teacher
+  history: [imperfetto-form]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo a Valencia, in un appartamento al quinto piano, vicino al mare."
+    - tutor: "Vicino al mare, che fortuna! E cosa facevi nel tempo libero?"
+      goals: [place]
+    - learner: "Il pomeriggio andavo in bicicletta con mia sorella. Il sabato mio padre ci portava sempre in spiaggia."
+    - tutor: "Che bello! E com'era la scuola?"
+      goals: [habits]
+    - learner: "Mi piaceva molto. La mia maestra si chiamava Carmen ed era molto dolce. Io leggevo tutto il tempo."
+    - tutor: "Forse per questo sei diventata insegnante! Hai un ricordo speciale di quegli anni?"
+      goals: [school]
+    - learner: "Sì. Quando avevo otto anni, siamo andati a Parigi in treno. Era il mio primo viaggio all'estero."
+    - tutor: "Che emozione! Ti ricordi cosa hai visto per primo?"
+      goals: [event]
+    - learner: "Sì, la Torre Eiffel di notte, con tutte le luci. Non lo dimenticherò mai."
+    - tutor: "Che ricordo bellissimo. Grazie per avermelo raccontato!"
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-f-student
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo in un piccolo paese vicino a York, in campagna. C'erano più pecore che persone!"
+    - tutor: "Più pecore che persone, che ridere! Cosa facevi di solito dopo la scuola?"
+      goals: [place]
+      new: [{lemma: pecora, gloss: sheep}]
+    - learner: "Giocavo fuori con i miei amici fino a sera. In inverno guardavamo i cartoni animati."
+    - tutor: "Una vita semplice e bella. E a scuola andavi bene?"
+      goals: [habits]
+    - learner: "Abbastanza bene. La mia materia preferita era l'arte, ma odiavo la matematica."
+    - tutor: "Ti capisco benissimo! C'è un ricordo particolare che ti viene in mente?"
+      goals: [school]
+    - learner: "Una volta, quando avevo dieci anni, è nevicato tantissimo e la scuola è rimasta chiusa per una settimana."
+    - tutor: "Una settimana di vacanza! Che cosa avete fatto in quei giorni?"
+      goals: [event]
+    - learner: "Abbiamo fatto un pupazzo di neve enorme e abbiamo giocato sempre fuori. È stato fantastico."
+    - tutor: "Che bel ricordo! Grazie per avermelo raccontato."

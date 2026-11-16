@@ -1,0 +1,57 @@
+- scenario: trattativa-affitto
+  level: C2
+  persona: en-f-student
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Molto, glielo dico subito. È luminoso, i soffitti alti mi hanno conquistata e la posizione è molto conveniente per me, a dieci minuti a piedi dall'università. Ho solo una perplessità: in bagno ho notato una macchia di umidità sopra la finestra."
+    errors: [false-friend]
+  - tutor: "Ha l'occhio lungo, complimenti. La posizione è davvero comoda, e per questo l'appartamento è molto richiesto. Quanto alla macchia, è una vecchia infiltrazione già riparata: il proprietario farà ridipingere prima della consegna. Altri dubbi, o parliamo di cifre?"
+    goals: [interest]
+    recast: {text: "conveniente", fix: "comoda", tags: [false-friend]}
+    new: [{lemma: avere l'occhio lungo, gloss: to be sharp-eyed}, {lemma: infiltrazione, gloss: water seepage}]
+  - learner: "Parliamo di cifre, volentieri. Novecento euro al mese mi sembrano tanti per un bilocale al terzo piano senza ascensore. In zona ho visto appartamenti simili a ottocento. Il canone è trattabile, o è un prendere o lasciare?"
+  - tutor: "Prendere o lasciare non è nel mio stile, e nemmeno in quello del proprietario. Però le dico francamente che a ottocento non scende: ha già rifiutato un'offerta simile. Lei fin dove sarebbe disposta ad arrivare?"
+  - learner: "Potrei arrivare a ottocentocinquanta, a patto che il proprietario toglie dal conto le spese di condominio e fa ridipingere tutto l'appartamento, non solo il bagno."
+    errors: [subjunctive-use]
+  - tutor: "La proposta è sensata e la porto volentieri al proprietario. Solo un dettaglio, prima: «a patto che il proprietario toglie»? Dopo «a patto che» l'italiano vuole un altro modo, e a lei non devo certo spiegare quale. Come suona, corretta?"
+    prompt: {text: "a patto che il proprietario toglie", tags: [subjunctive-use]}
+  - learner: "Suona così: a patto che il proprietario tolga le spese di condominio e faccia ridipingere tutto."
+  - tutor: "Impeccabile. Ottocentocinquanta con spese incluse e pareti fresche: credo di poterglielo strappare, perché il proprietario è il classico cane che abbaia ma non morde. In cambio vorrà un contratto lungo, il solito quattro più quattro. Per lei sarebbe un problema?"
+    goals: [negotiate]
+    new: [{lemma: can che abbaia non morde, gloss: his bark is worse than his bite}, {lemma: quattro più quattro, gloss: standard 4+4-year lease}]
+  - learner: "Un po' sì. Finisco il dottorato tra due anni e non so dove sarò dopo. Il quattro più quattro mi va bene solo se posso dare disdetta con tre mesi di preavviso, senza penali. E vorrei una sola mensilità di garanzia, non tre."
+  - tutor: "I tre mesi di preavviso si possono scrivere nel contratto, è una clausola normale. Sulla garanzia, invece, una sola mensilità non la accetterà mai: possiamo incontrarci a metà strada, con due. Che ne dice, chiudiamo così?"
+    goals: [conditions]
+    new: [{lemma: preavviso, gloss: notice period}, {lemma: mensilità, gloss: "one month's rent"}]
+  - learner: "Due mensilità, ottocentocinquanta spese comprese, disdetta a tre mesi e pareti ridipinte: sì, a queste condizioni firmo. Però lo voglio vedere scritto prima di versare un euro."
+  - tutor: "Giustissimo, verba volant: le mando la bozza entro domani sera, e vedrà che il proprietario non abbaia più. Se tutto fila liscio, firmiamo lunedì in agenzia. È stato un piacere trattare con lei: sa quello che vuole."
+    goals: [conclude]
+    new: [{lemma: verba volant, gloss: "spoken words fly away (Latin tag: get it in writing)"}, {lemma: bozza, gloss: draft}]
+
+- scenario: trattativa-affitto
+  level: C2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, mi è piaciuto, inutile fare il difficile: la terrazza vale da sola la visita. Sono senz'altro interessato nell'appartamento. Quello che mi lascia perplesso è il riscaldamento: una caldaia di vent'anni, in una casa così grande, d'inverno si fa sentire in bolletta."
+    errors: [preposition]
+  - tutor: "La terrazza fa sempre il suo effetto, lo so. Mi perdoni la deformazione professionale, leggo contratti tutto il giorno: «interessato nell'appartamento»? In italiano l'interesse va verso qualcosa, con un'altra preposizione. Quale?"
+    goals: [interest]
+    prompt: {text: "interessato nell'appartamento", tags: [preposition]}
+    new: [{lemma: deformazione professionale, gloss: occupational habit}]
+  - learner: "All'appartamento, naturalmente: sono interessato all'appartamento. La caldaia, però, resta un punto debole."
+  - tutor: "Esatto. Sulla caldaia non le racconto favole: è vecchiotta, ma viene controllata ogni anno. Il canone è di milleduecento euro, più la provvigione dell'agenzia, pari a una mensilità. Il proprietario è una persona seria, ma le confesso che ha il braccino corto."
+    new: [{lemma: avere il braccino corto, gloss: to be tight-fisted}, {lemma: caldaia, gloss: boiler}, {lemma: vecchiotto, gloss: oldish}]
+  - learner: "Braccino corto, me la segno. Allora gli faccia questa proposta: millecento al mese, e in cambio mi impegno per quattro anni e pago io la manutenzione ordinaria. Oppure milleduecento, ma con una caldaia nuova prima dell'inverno. Scelga lui la strada che gli pesa meno."
+  - tutor: "Proposta elegante: gli lascia scegliere di che morte morire. L'ho sentito stamattina, però, e glielo anticipo: sulla caldaia non ci sente da quell'orecchio, e sotto i milleduecento non scende. Potrebbe venirle incontro sulla durata o sulla disdetta. Le interessa?"
+    goals: [negotiate]
+    new: [{lemma: non sentirci da quell'orecchio, gloss: to turn a deaf ear on a subject}, {lemma: venire incontro, gloss: to meet halfway}]
+  - learner: "Mi interessa capire, almeno. Che cosa prevede il contratto? Se è un quattro più quattro con sei mesi di preavviso, per me è troppo rigido: il mio lavoro potrebbe portarmi altrove da un anno all'altro. E la cedolare secca la applica, o l'aumento annuale resta possibile?"
+  - tutor: "Domande precise. Applica la cedolare secca, quindi nessun aumento per tutta la durata. Il contratto è un quattro più quattro, e il preavviso posso farlo scendere a tre mesi. Di più, onestamente, non riesco a ottenere. Come vogliamo rimanere?"
+    goals: [conditions]
+    new: [{lemma: preavviso, gloss: notice period}]
+  - learner: "Allora la ringrazio, ma mi fermo qui. A milleduecento, con quella caldaia e senza margine sul canone, i conti non mi tornano. Non è una mossa per trattare: preferisco dirglielo chiaramente che farle perdere altro tempo. Se il proprietario cambiasse idea, sa dove trovarmi."
+  - tutor: "La chiarezza è una cortesia rara, e gliene sono grato. Riferirò parola per parola: chissà che l'inverno non gli porti consiglio, visto che la notte non è bastata. Intanto ho un trilocale con caldaia nuova in via Roma, senza terrazza ma con meno pensieri. Glielo mando, senza impegno. Buona giornata."
+    goals: [conclude]
+    new: [{lemma: la notte porta consiglio, gloss: sleep on it (night brings counsel)}, {lemma: trilocale, gloss: three-room flat}]

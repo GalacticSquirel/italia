@@ -1,0 +1,58 @@
+- scenario: intelligenza-artificiale
+  level: C2
+  persona: en-m-traveller
+  history: [hypothetical]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Vedrai, vedrai... Lo dicevano anche del telaio meccanico, e siamo ancora qui a lamentarci del lunedì. Io cerco di restare sensibile: credo che spariranno molte mansioni, non necessariamente i mestieri."
+      errors: [false-friend]
+    - tutor: "Tu cerchi sempre di restare ragionevole, è il tuo sport preferito. Mansioni e mestieri: senti che finezza, dopo due bicchieri! Però non mi incanti. Il telaio toglieva fatica alle braccia; questa roba la toglie alla testa. Dammi un esempio, non una formula."
+      goals: [position]
+      recast: {text: "restare sensibile", fix: "restare ragionevole", tags: [false-friend]}
+      new: [{lemma: telaio, gloss: loom}, {lemma: mansione, gloss: "task, duty"}, {lemma: incantare, gloss: "to charm, to fool"}]
+    - learner: "Te ne do uno vicino. Mia sorella fa la radiologa: da due anni ha un programma che legge le lastre insieme a lei. Non l'hanno licenziata; anzi, vede più pazienti e sbaglia meno. Se la macchina avrebbe dovuto sostituirla, sarebbe già successo."
+      errors: [hypothetical]
+    - tutor: "Tua sorella mi sta simpatica, ma prima sistemiamo una cosa. «Se la macchina avrebbe dovuto»? Con me puoi dire tutto, ma dopo il «se» quel condizionale mi va di traverso come una lisca. Riprova."
+      prompt: {text: "Se la macchina avrebbe dovuto", tags: [hypothetical]}
+      new: [{lemma: andare di traverso, gloss: to go down the wrong way}, {lemma: lisca, gloss: fish bone}]
+    - learner: "Se la macchina avesse dovuto sostituirla, sarebbe già successo. Contento? Ora rispondi sull'esempio, però, non sulla grammatica."
+    - tutor: "Contentissimo. Sull'esempio: tua sorella ha vent'anni di mestiere. Ma il ragazzo che oggi dovrebbe imparare guardando mille lastre, chi lo assume più? Si taglia il primo gradino della scala, e poi voglio vedere come si sale. Lì non hai risposta, ammettilo."
+      goals: [evidence]
+      new: [{lemma: gradino, gloss: "step, rung"}, {lemma: lastra, gloss: X-ray plate}]
+    - learner: "Lo ammetto, e non per cortesia: è il punto più serio che hai toccato stasera. Se i giovani non fanno più la gavetta, tra vent'anni non avremo nessuno capace di controllare la macchina. Su questo hai ragione tu."
+    - tutor: "Segnatelo sul calendario: mi hai dato ragione. La gavetta, appunto, quella che abbiamo fatto tutti a forza di errori. E allora, visto che sei tu l'ottimista di casa, dimmi come se ne esce. O ci teniamo il problema e ordiniamo il dolce?"
+      goals: [concede]
+      new: [{lemma: gavetta, gloss: learning a trade from the bottom up}]
+    - learner: "Se ne esce solo con la formazione, credo. Non vietando la tecnologia, ma obbligando le aziende a formare i giovani accanto alle macchine, non al loro posto. Tu hai paura e io no, ma in fondo vogliamo la stessa cosa: che il lavoro resti una faccenda umana."
+    - tutor: "Che resti una faccenda umana: su questo firmo anch'io, pessimista come sono. Vedi che tra il tuo bicchiere mezzo pieno e il mio mezzo vuoto, alla fine, il vino è lo stesso? Dai, passami il dolce, che almeno quello non l'ha fatto un algoritmo."
+      goals: [conclude]
+      new: [{lemma: algoritmo, gloss: algorithm}]
+
+- scenario: intelligenza-artificiale
+  level: C2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "A casa magari no, ma un po' di paura ce l'ho anch'io, non lo nego. Solo che la mia è una paura con dei distinguo: non temo che il lavoro finisca, temo che peggiori per chi è già fragile."
+    - tutor: "Con dei distinguo, sentila! Sei l'unica persona che conosco capace di avere paura in modo ordinato. Io invece ho paura e basta. Ma dimmi su che cosa ti basi, perché a me sembra che qui caschi il mondo, altro che peggiorare."
+      goals: [position]
+      new: [{lemma: distinguo, gloss: "fine distinction, caveat"}]
+    - learner: "Mi baso su un caso che conosco bene. Una mia amica fa la traduttrice. Sebbene ha perso metà dei clienti in due anni, quelli che le sono rimasti la pagano meglio, perché vogliono qualcuno che firmi e risponda del testo."
+      errors: [subjunctive-use]
+    - tutor: "Aspetta, che l'esempio è interessante. Ma «sebbene ha perso»? Proprio tu, che i verbi li insegni! Con «sebbene» l'indicativo non passa nemmeno a cena tra amici. Come si dice?"
+      prompt: {text: "Sebbene ha perso", tags: [subjunctive-use]}
+    - learner: "Hai ragione... sebbene perdeva metà dei clienti? No, nemmeno così, vero?"
+      errors: [subjunctive-use]
+    - tutor: "Nemmeno così: «sebbene abbia perso metà dei clienti», congiuntivo passato, e amici come prima. Ma torniamo a lei: si è salvata perché è brava. E le altre mille, quelle normali, che fine fanno? Non tutte possono essere il fiore all'occhiello della categoria."
+      goals: [evidence]
+      recast: {text: "sebbene perdeva metà dei clienti", fix: "sebbene abbia perso metà dei clienti", tags: [subjunctive-use]}
+      new: [{lemma: fiore all'occhiello, gloss: "pride and joy, showpiece"}]
+    - learner: "Qui mi tocca darti ragione, e mi costa. I mediocri onesti, quelli che vivevano di lavoro normale fatto bene, sono i primi a pagare. E non basta dire loro «riqualificatevi»: a cinquant'anni non ci si reinventa dall'oggi al domani."
+    - tutor: "Dall'oggi al domani, appunto. Lo vedi che sotto sotto sei pessimista quanto me? Solo che tu lo dici con più garbo. Però ti conosco: non riesci a chiudere una serata senza una proposta. Sentiamo."
+      goals: [concede]
+      new: [{lemma: garbo, gloss: "tact, grace"}, {lemma: sotto sotto, gloss: deep down}]
+    - learner: "Eccola. Né tu né io fermeremo l'automazione, quindi discutiamo di come si dividono i guadagni: formazione pagata da chi ci risparmia, e tutele per chi resta indietro. Su questo possiamo stare d'accordo perfino noi due, che non siamo d'accordo mai."
+    - tutor: "Formazione pagata da chi ci guadagna e una rete per chi cade: detto così, lo voterei perfino io. Facciamo un patto: io continuo ad avere paura, tu continui a fare i distinguo, e intanto teniamo gli occhi aperti. Brindiamo, va', finché il vino lo versiamo ancora noi."
+      goals: [conclude]
+      new: [{lemma: brindare, gloss: to toast}]
