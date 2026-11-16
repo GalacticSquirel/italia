@@ -195,7 +195,9 @@ The build needs `morph-it` and `subtlex-it` in `.cache/` (`fetch:sources`) and e
 when a story fails; fix the story rather than the thresholds. `--verbose` also lists each
 story's grammar points, its target words and any `homograph:` the tagger read as a rarer lemma
 although the same spelling is a commoner word ("insegna = insegna NOUN #4051 (also insegnare
-VERB #592)"); check those by hand and rephrase when the reading is wrong. `src/stories/corpus.test.ts` checks
+VERB #592)"); check those by hand. When the reading is wrong, pin it with a `readings:` header after
+`names:` (`readings: costa=costare, urla=urlare`), which applies to the whole story and its
+questions; a pin that matches no word is reported. `src/stories/corpus.test.ts` checks
 that every committed story validates, matches its source, is in the index and the bundle, and
 that the checksums in the manifest are current; with the cache present it also re-tags the sources
 and compares.

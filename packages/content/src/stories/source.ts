@@ -17,6 +17,11 @@
  * tagged as names and left out of coverage, even when they are also words
  * ("Rosa", "Bruno").
  *
+ * `readings` pins the lemma of a spelling the tagger would otherwise read as
+ * another word, for the whole story (its questions included): `readings:
+ * costa=costare, urla=urlare` makes "costa" the verb, not "coast". Use it when
+ * `build:stories --verbose` reports a wrong `homograph:`.
+ *
  * A `questions:` line ends the story text and starts its comprehension
  * questions. Each question is a `?` line followed by its answer options, the
  * correct one marked `*` and the others `-`:
@@ -46,6 +51,8 @@ export interface StorySourceQuestion {
 export interface StorySource {
   readonly title: { readonly it: string; readonly en: string };
   readonly names: readonly string[];
+  /** Lower-case spelling -> the lemma it must be read as. */
+  readonly readings: ReadonlyMap<string, string>;
   readonly paragraphs: readonly (readonly StorySourceSentence[])[];
   readonly questions: readonly StorySourceQuestion[];
 }
@@ -54,6 +61,7 @@ export interface StorySource {
 export function parseStorySource(text: string): StorySource {
   let title: { it: string; en: string } | undefined;
   let names: string[] = [];
+  const readings = new Map<string, string>();
   const paragraphs: StorySourceSentence[][] = [];
   let current: StorySourceSentence[] = [];
   let inQuestions = false;
@@ -105,11 +113,17 @@ export function parseStorySource(text: string): StorySource {
       current = [];
       return;
     }
-    const header = /^(title|names):\s*(.*)$/.exec(line);
+    const header = /^(title|names|readings):\s*(.*)$/.exec(line);
     if (header && paragraphs.length === 0 && current.length === 0) {
       if (header[1] === 'title') {
         const [it, en] = split(header[2] ?? '', n);
         title = { it, en };
+      } else if (header[1] === 'readings') {
+        for (const pair of (header[2] ?? '').split(',')) {
+          const m = /^\s*([^\s=]+)\s*=\s*([^\s=]+)\s*$/.exec(pair);
+          if (!m?.[1] || !m[2]) throw new Error(`line ${n}: readings are "form=lemma, ..."`);
+          readings.set(m[1].toLowerCase(), m[2]);
+        }
       } else {
         names = (header[2] ?? '')
           .split(',')
@@ -129,5 +143,5 @@ export function parseStorySource(text: string): StorySource {
       throw new Error(`question "${q.prompt.it}" needs one "*" answer and at least one "-" option`);
     }
   }
-  return { title, names, paragraphs, questions };
+  return { title, names, readings, paragraphs, questions };
 }

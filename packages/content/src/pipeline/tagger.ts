@@ -108,8 +108,8 @@ function contextFactor(reading: Reading, prev: Reading | null, nextUpos: Set<Upo
 /**
  * Tag a sentence: tokenise, look up each token and choose a reading.
  *
- * Options: `allowed` keeps only readings whose units satisfy it (e.g. "lemma is
- * in the seed"; a token with none is left untagged); `lemmaFrequency` breaks
+ * Options: `allowed` keeps only readings it accepts for a lower-case form (e.g.
+ * "lemma is in the seed"; a token with none is left untagged); `lemmaFrequency` breaks
  * ties between same-POS readings.
  */
 export function tagSentence(
@@ -119,12 +119,15 @@ export function tagSentence(
   {
     allowed = () => true,
     lemmaFrequency,
-  }: { allowed?: (reading: Reading) => boolean; lemmaFrequency?: LemmaFrequency } = {},
+  }: {
+    allowed?: (reading: Reading, form: string) => boolean;
+    lemmaFrequency?: LemmaFrequency;
+  } = {},
 ): TaggedToken[] {
   const tokens = tokenize(sentence);
   const candidates = tokens.map((t) => {
     const readings = lookup(lexicon, t.lower) ?? [];
-    return readings.filter((r) => headUpos(r) !== 'PROPN' && allowed(r));
+    return readings.filter((r) => headUpos(r) !== 'PROPN' && allowed(r, t.lower));
   });
   const out: TaggedToken[] = [];
   let prev: Reading | null = null;

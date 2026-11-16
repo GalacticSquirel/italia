@@ -114,13 +114,20 @@ export function createStoryTagger({ lexicon, subtlex, lemmas, variants }: StoryT
     return ids;
   };
 
-  /** Tag one Italian sentence. `names` are the story's proper nouns. */
+  /**
+   * Tag one Italian sentence. `names` are the story's proper nouns; `readings`
+   * pins the lemma of some lower-case spellings (see `StorySource.readings`).
+   */
   function tagStorySentence(
     it: string,
     names: ReadonlySet<string>,
+    readings: ReadonlyMap<string, string> = new Map(),
   ): { sentence: Omit<StorySentence, 'en'>; issues: string[] } {
     const raw = tagSentence(it, lexicon, subtlex, {
-      allowed: (r) => readingIds(r) !== null,
+      allowed: (r, form) => {
+        const pinned = readings.get(form);
+        return readingIds(r) !== null && (pinned === undefined || r.units[0]?.lemma === pinned);
+      },
       lemmaFrequency: (key) => perRank.get(key) ?? 0,
     });
     // Names never carry a reading, even when they are also words ("Rosa").
@@ -166,13 +173,21 @@ export function createStoryTagger({ lexicon, subtlex, lemmas, variants }: StoryT
     const issues: string[] = [];
     const paragraphs = source.paragraphs.map((p) => ({
       sentences: p.map(({ it, en }) => {
-        const { sentence, issues: found } = tagStorySentence(normaliseApostrophes(it), names);
+        const { sentence, issues: found } = tagStorySentence(
+          normaliseApostrophes(it),
+          names,
+          source.readings,
+        );
         issues.push(...found);
         return { it: sentence.it, en, tokens: sentence.tokens, grammarIds: sentence.grammarIds };
       }),
     }));
     const tagText = ({ it, en }: { it: string; en: string }) => {
-      const { sentence, issues: found } = tagStorySentence(normaliseApostrophes(it), names);
+      const { sentence, issues: found } = tagStorySentence(
+        normaliseApostrophes(it),
+        names,
+        source.readings,
+      );
       issues.push(...found.map((f) => `question: ${f}`));
       return { it: sentence.it, en, tokens: sentence.tokens, grammarIds: sentence.grammarIds };
     };
@@ -183,6 +198,19 @@ export function createStoryTagger({ lexicon, subtlex, lemmas, variants }: StoryT
     }));
     const sentences = paragraphs.flatMap((p) => p.sentences);
     const tokens = sentences.flatMap((s) => s.tokens);
+    const allTokens = [
+      ...tokens,
+      ...questions.flatMap((q) => [q.prompt, ...q.options].flatMap((x) => x.tokens)),
+    ];
+    for (const [form, lemma] of source.readings) {
+      const used = allTokens.some(
+        (t) =>
+          t.text.toLowerCase() === form &&
+          t.lemmaId !== null &&
+          rankOf.get(t.lemmaId)?.lemma === lemma,
+      );
+      if (!used) issues.push(`readings: "${form}=${lemma}" matches no word of the story`);
+    }
 
     const counts = new Map<number, number>();
     for (const t of tokens) {
