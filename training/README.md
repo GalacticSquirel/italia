@@ -114,10 +114,10 @@ You also need these services:
 `mlx_lm.server` exposes an OpenAI-compatible endpoint with continuous batching, so the existing
 `openai` client is the teacher and judge. Pick the strongest instruct model that fits beside the
 OS (training does not run at the same time as generation). Start it with
-`scripts/serve-teacher.sh` or `python -m datagen.mlx_server`, which take the same flags as
+`scripts/serve-teacher.sh` or `python -m datagen.serve_teacher`, which take the same flags as
 `mlx_lm.server` but first fix mlx-lm's leak of Metal buffers in batched decode on hybrid models
 such as Qwen3-Next and Qwen3.5 (without it the server dies every few minutes with
-`[metal::malloc] Resource limit (499000) exceeded`; see `datagen/mlx_server.py`):
+`[metal::malloc] Resource limit (499000) exceeded`; see `datagen/mlx_compat.py`):
 
 | Unified memory | Recommended teacher (MLX 4-bit) | Weights | Alternative |
 |---|---|---|---|
@@ -155,7 +155,7 @@ prompt at ~164 tok/s; Qwen3.5-122B-A10B 4-bit decodes at ~57 tok/s. Decode is as
 Measure your machine instead of trusting the table, then let the estimator do the arithmetic:
 
 ```sh
-uv run --extra mlx python -m datagen.mlx_server --model mlx-community/Qwen3.5-122B-A10B-4bit \
+uv run --extra mlx python -m datagen.serve_teacher --model mlx-community/Qwen3.5-122B-A10B-4bit \
   --port 8080 --decode-concurrency 8 --prompt-concurrency 4 &
 uv run python -m datagen bench -c datagen/configs/local-mac.yaml    # prints a throughput block
 export LOCAL_PROMPT_TPS=... LOCAL_GEN_TPS=...                        # or paste it into the config
