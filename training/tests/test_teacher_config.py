@@ -19,6 +19,7 @@ from datagen.teacher import (
     OpenAICompatibleClient,
     Pricing,
     ScriptedClient,
+    TeacherUnavailableError,
     Usage,
     make_client,
 )
@@ -127,7 +128,11 @@ def test_gives_up_after_max_retries(monkeypatch: pytest.MonkeyPatch) -> None:
         http=httpx.Client(transport=transport),
         sleep=lambda s: None,
     )
-    with pytest.raises(RuntimeError, match="giving up"):
+    # not a RuntimeError: callers must not mistake a dead teacher for a bad job
+    with pytest.raises(TeacherUnavailableError, match="giving up") as info:
+        client.complete([], temperature=0, max_tokens=1)
+    assert not isinstance(info.value, RuntimeError)
+    with pytest.raises(TeacherUnavailableError, match="giving up"):
         client.complete([], temperature=0, max_tokens=1)
 
 
