@@ -514,7 +514,21 @@ async function main(): Promise<void> {
       names * 1.5 -
       (en.text.length > s.text.length * 2 || en.text.length * 2 < s.text.length ? 1 : 0);
     built.set(s.id, { it: s, en, tokens, lemmaIds, grammarIds: detectGrammar(s.text, tagged) });
-    cands.push({ id: s.id, norm, lemmaIds, difficulty, rarestLemmaId: rarest, formOf, score });
+    const enNorm = en.text
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}' ]+/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    cands.push({
+      id: s.id,
+      norm,
+      enNorm,
+      lemmaIds,
+      difficulty,
+      rarestLemmaId: rarest,
+      formOf,
+      score,
+    });
   }
   log(`candidates ${cands.length} ${JSON.stringify(rejected)}`);
 

@@ -67,23 +67,36 @@ export interface CardBrowser {
   setSuspended: (cardId: string, suspended: boolean) => void;
 }
 
+/** What the browser shows at `now`: counts by state and the cards in `filter`. */
+export function loadCardBrowser(
+  repos: Repositories,
+  filter: BrowseFilter,
+  query: string,
+  now: Date,
+): { counts: CardCounts; cards: CardListItem[] } {
+  return {
+    counts: repos.cards.countsByState(),
+    cards:
+      query.trim() === ''
+        ? repos.cards.listByFilter(filter, { limit: PAGE }).map((c) => describeCard(c, repos, now))
+        : [],
+  };
+}
+
 /**
  * Cards in a filter, or lemmas matching a search query when one is given.
  * Refreshes on focus and after suspending.
+ *
+ * The reads go through {@link loadCardBrowser} with `now` as an argument: the
+ * React Compiler memoises each expression on the values it reads, so a bare
+ * `repos.cards.countsByState()` would be cached on `repos` alone and the
+ * counts would never refresh.
  */
 export function useCardBrowser(filter: BrowseFilter, query: string): CardBrowser {
   const repos = useRepositories();
   const [now, refresh] = useFocusNow();
   const { counts, cards } = useMemo(
-    () => ({
-      counts: repos.cards.countsByState(),
-      cards:
-        query.trim() === ''
-          ? repos.cards
-              .listByFilter(filter, { limit: PAGE })
-              .map((c) => describeCard(c, repos, now))
-          : [],
-    }),
+    () => loadCardBrowser(repos, filter, query, now),
     [repos, filter, query, now],
   );
   const lemmas = useMemo(() => repos.lemmas.search(query, { limit: PAGE }), [repos, query]);
