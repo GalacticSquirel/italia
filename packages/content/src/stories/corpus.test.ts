@@ -26,6 +26,7 @@ import { readMorphIt } from '../../scripts/morph-it';
 import {
   loadSeedFile,
   loadStoriesFile,
+  loadVariantSpellings,
   MANIFEST_FILE,
   SEED_FILE,
   STORIES_DIR,
@@ -106,6 +107,20 @@ describe('committed stories', () => {
       expect(story.paragraphs.map((p) => p.sentences.map((s) => ({ it: s.it, en: s.en })))).toEqual(
         source.paragraphs.map((p) => p.map((s) => ({ it: normaliseApostrophes(s.it), en: s.en }))),
       );
+      const text = (x: { it: string; en: string }) => ({ it: normaliseApostrophes(x.it), en: x.en });
+      expect(
+        story.questions.map((q) => ({
+          prompt: { it: q.prompt.it, en: q.prompt.en },
+          options: q.options.map((o) => ({ it: o.it, en: o.en })),
+          answer: q.answer,
+        })),
+      ).toEqual(
+        source.questions.map((q) => ({
+          prompt: text(q.prompt),
+          options: q.options.map(text),
+          answer: q.answer,
+        })),
+      );
       expect(story.seriesId).toBe(f.dir);
     });
   });
@@ -167,7 +182,12 @@ describe.skipIf(!haveCache)('re-tagging the sources', () => {
     const lexicon = parseMorphIt(`${await readMorphIt()}\n${LEXICON_SUPPLEMENT}`);
     applyFormReadings(lexicon, FORM_READINGS);
     const subtlex = parseSubtlex(readFileSync(cachePath('subtlex-it'), 'latin1'));
-    const tagger = createStoryTagger({ lexicon, subtlex, lemmas: seed.lemmas });
+    const tagger = createStoryTagger({
+      lexicon,
+      subtlex,
+      lemmas: seed.lemmas,
+      variants: await loadVariantSpellings(),
+    });
     for (const dir of seriesDirs) {
       const meta = StorySeriesSchema.parse(JSON.parse(read(join(STORIES_DIR, dir, 'series.json'))));
       const taught = new Set<number>();

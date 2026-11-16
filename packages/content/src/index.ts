@@ -50,6 +50,7 @@ export {
   StoryIndexEntrySchema,
   StoryIndexSchema,
   StoryParagraphSchema,
+  StoryQuestionSchema,
   StorySchema,
   StorySentenceSchema,
   StorySeriesSchema,
@@ -60,16 +61,23 @@ export {
   type StoryIndex,
   type StoryIndexEntry,
   type StoryParagraph,
+  type StoryQuestion,
   type StorySentence,
   type StorySeries,
   type StoryToken,
   type StoryWordTimings,
 } from './stories/schema';
 export { parseStoriesFile, toStoryRow, type StoryBody, type StoryRow } from './stories/loader';
-export { parseStorySource, type StorySource, type StorySourceSentence } from './stories/source';
+export {
+  parseStorySource,
+  type StorySource,
+  type StorySourceQuestion,
+  type StorySourceSentence,
+} from './stories/source';
 export {
   createLemmaResolver,
   createStoryTagger,
+  parseVariantSpellings,
   tokenLemmaIds,
   type StoryLemma,
   type StoryPlacement,
@@ -80,6 +88,7 @@ export {
   MAX_NAME_SHARE,
   MIN_IN_BAND,
   MIN_TARGETS,
+  QUESTIONS_PER_STORY,
   validateCorpus,
   validateStory,
   type StoryReport,

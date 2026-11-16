@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
 import { parseStorySource } from './source';
-import { createLemmaResolver, createStoryTagger, type StoryLemma, tokenLemmaIds } from './tagger';
+import {
+  createLemmaResolver,
+  createStoryTagger,
+  parseVariantSpellings,
+  type StoryLemma,
+  tokenLemmaIds,
+} from './tagger';
 import { grammarId } from '../grammar/rules';
 import { lemmaId } from '../pipeline/ids';
 import { parseMorphIt, type Upos } from '../pipeline/lexicon';
@@ -183,5 +189,47 @@ describe('tagStory', () => {
       { taught: new Set([id('mela', 'NOUN')]) },
     );
     expect(story.targetLemmaIds).toEqual([id('rosso', 'ADJ'), id('mela', 'NOUN')]);
+  });
+
+  it('tags comprehension questions without counting them in the story', () => {
+    const withQuestions = parseStorySource(
+      [
+        'title: La mela | The apple',
+        'names: Sara',
+        '',
+        'Sara mangia una mela. | Sara is eating an apple.',
+        '',
+        'questions:',
+        '? Sara mangia una casa? | Is Sara eating a house?',
+        '- Mangia una casa rossa. | She is eating a red house.',
+        '* Non mangia una casa: mangia una mela. | She isn\'t eating a house: she\'s eating an apple.',
+      ].join('\n'),
+    );
+    const { story, issues } = tagger.tagStory(withQuestions, {
+      seriesId: 'la-mela',
+      seriesIndex: 1,
+      band: 150,
+    });
+    expect(issues).toEqual([]);
+    expect(story.wordCount).toBe(4);
+    expect(story.questions).toHaveLength(1);
+    const [q] = story.questions;
+    expect(q?.answer).toBe(1);
+    expect(q?.prompt.en).toBe('Is Sara eating a house?');
+    expect(q?.prompt.tokens.map((t) => t.text)).toEqual(['Sara', 'mangia', 'una', 'casa']);
+    expect(q?.prompt.tokens[0]?.isName).toBe(true);
+    expect(q?.options[1]?.tokens.at(-1)?.lemmaId).toBe(id('mela', 'NOUN'));
+  });
+});
+
+describe('createLemmaResolver', () => {
+  it('maps variant spellings the seed merged to their base word', () => {
+    const resolve = createLemmaResolver(
+      [{ id: 7, lemma: 'e', pos: 'CCONJ', freqRank: 4 }],
+      parseVariantSpellings(['ed|CCONJ -> e|CCONJ', 'alcun|PRON -> e (shown as)', 'junk']),
+    );
+    expect(resolve({ lemma: 'ed', upos: 'CCONJ' })).toBe(7);
+    expect(resolve({ lemma: 'alcun', upos: 'PRON' })).toBe(7);
+    expect(resolve({ lemma: 'ad', upos: 'ADP' })).toBeNull();
   });
 });

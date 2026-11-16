@@ -14,6 +14,8 @@ export const MIN_IN_BAND = 0.98;
 export const MIN_TARGETS = 3;
 /** Names may not make up more than this share of a story's tokens. */
 export const MAX_NAME_SHARE = 0.12;
+/** Comprehension questions a story must have (inclusive range). */
+export const QUESTIONS_PER_STORY = [3, 6] as const;
 
 export interface StoryReport {
   readonly id: string;
@@ -160,6 +162,8 @@ export function validateStory(story: Story, lemmas: ReadonlyMap<number, StoryLem
     }
   }
 
+  errors.push(...validateQuestions(story, lemmas));
+
   return {
     id: story.id,
     band: story.band,
@@ -178,6 +182,44 @@ export function validateStory(story: Story, lemmas: ReadonlyMap<number, StoryLem
     meanSentence: Math.round((lengths.reduce((a, b) => a + b, 0) / lengths.length) * 10) / 10,
     errors,
   };
+}
+
+/**
+ * Question checks: a story has 3 to 6 questions; every word of a prompt or
+ * option is a seed lemma within the next band's ceiling (questions are short, so
+ * they get no 98% share of their own) or a name from the story; their grammar
+ * stays under the band's ceiling; options of one question are distinct.
+ */
+function validateQuestions(story: Story, lemmas: ReadonlyMap<number, StoryLemma>): string[] {
+  const rules = bandRules(story.band);
+  const errors: string[] = [];
+  const [min, max] = QUESTIONS_PER_STORY;
+  if (story.questions.length < min || story.questions.length > max) {
+    errors.push(`${story.questions.length} questions (need ${min}-${max})`);
+  }
+  story.questions.forEach((q, i) => {
+    const label = `question ${i + 1}`;
+    const texts = [q.prompt, ...q.options];
+    for (const s of texts) {
+      for (const t of s.tokens) {
+        if (t.isName) continue;
+        const ids = tokenLemmaIds(t);
+        if (ids.length === 0) {
+          errors.push(`${label}: untagged token ${t.text}`);
+          continue;
+        }
+        const worst = Math.max(...ids.map((id) => lemmas.get(id)?.freqRank ?? Infinity));
+        if (worst > rules.next) errors.push(`${label}: "${t.text}" is above rank ${rules.next}`);
+      }
+      const over = s.grammarIds.filter(
+        (id) => (grammarById.get(id)?.order ?? Infinity) > rules.maxGrammarOrder,
+      );
+      if (over.length > 0) errors.push(`${label}: grammar above band ${story.band} in "${s.it}"`);
+    }
+    const seen = new Set(q.options.map((o) => o.it.toLowerCase()));
+    if (seen.size !== q.options.length) errors.push(`${label}: repeated option`);
+  });
+  return errors;
 }
 
 /**
