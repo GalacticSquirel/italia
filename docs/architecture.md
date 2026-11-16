@@ -26,7 +26,7 @@ Owen's decision (2026-11-15): the app runs fully on the phone. No API keys, no p
 | Scheduling | **ts-fsrs 6** | Best-performing open scheduler |
 | Audio | **expo-audio** (playback, recording) | First-party module |
 | LLM (conversation, story generation, glosses, error explanations) | **llama.cpp via `llama.rn`**, running a small open instruction model (Qwen3 or Gemma 3n class, 1.5 to 4B parameters, 4-bit GGUF, roughly 1 to 2.5 GB). Phase 5 adds our own LoRA fine-tune for Italian tutoring (level-controlled replies, recasts, error tags) | Best supported on-device LLM runtime in React Native; uses Metal on iOS and CPU or GPU on Android |
-| Speech to text | **whisper.cpp via `whisper.rn`** (multilingual small or base model), with the OS on-device recognizer (`expo-speech-recognition`) as a light fallback | Works offline on both platforms |
+| Speech to text | **sherpa-onnx via `react-native-sherpa-onnx`** (Parakeet TDT 0.6B v3, int8), with the OS on-device recognizer (`expo-speech-recognition`) as a light fallback; see `docs/speech.md` | Works offline on both platforms |
 | Text to speech | **Neural voices bundled as audio** for all fixed content (generated at build time, see 2a), plus **on-device neural TTS (Piper Italian voices via sherpa-onnx)** for generated text, with OS voices as fallback | Natural audio offline; several voices for ear training |
 | Pronunciation scoring | **Our own scorer**: rule-based Italian grapheme-to-phoneme (Italian spelling is very regular), a phoneme-recognition CTC model (wav2vec2 XLS-R class, quantized ONNX via `onnxruntime-react-native`), forced alignment and goodness-of-pronunciation scores per phoneme, plus explicit checks for double consonants (closure duration), stress and vowel quality | No off-the-shelf on-device Italian scorer exists; this is the standard research approach |
 | Models delivery | Downloaded once after install (Wi-Fi, resumable, checksum-verified), not inside the app binary | Store size limits; users on older phones can skip them |
@@ -94,7 +94,7 @@ Owen wants accounts and sync across devices (2026-11-15). Supabase provides Auth
 
 ## 5a. AI provider layer
 
-AI features sit behind interfaces in `packages/core` (`StoryGenerator`, `ConversationPartner`, `Glosser`, `PronunciationScorer`, `SpeechToText`, `TextToSpeech`). Implementations are on-device (`llama.rn`, `whisper.rn`, sherpa-onnx, our scorer). Interfaces keep screens independent of the model, let us swap models as better small ones ship, and let tests use fakes.
+AI features sit behind interfaces in `packages/core` (`StoryGenerator`, `ConversationPartner`, `Glosser`, `PronunciationScorer`, `SpeechToText`, `TextToSpeech`). Implementations are on-device (`llama.rn`, sherpa-onnx, our scorer). Interfaces keep screens independent of the model, let us swap models as better small ones ship, and let tests use fakes.
 
 ## 6. Security and privacy
 
@@ -128,7 +128,7 @@ Result: a usable flashcard and grammar app that works with no network, using dev
 Synced transcript, tap-to-translate, add-to-reviews, playback speed, story selection by coverage.
 
 **Phase 4: speaking (3 parallel PRs)**
-- On-device speech to text (whisper.rn) and the Pimsleur-style prompt, pause, answer drills plus hands-free audio-only mode.
+- On-device speech to text (sherpa-onnx) and the Pimsleur-style prompt, pause, answer drills plus hands-free audio-only mode.
 - On-device pronunciation scorer (packages/speech) validated against labelled recordings.
 - HVPT ear training with multi-voice audio, and shadowing.
 

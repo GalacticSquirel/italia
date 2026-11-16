@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://italia.app/schemas/tutor/tutor_output.v1.schema.json",
+  "x-spec-version": "1.0.0",
+  "$defs": {
+    "Annotations": {
+      "additionalProperties": false,
+      "properties": {
+        "prompt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Prompt"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recast": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Recast"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "newWords": {
+          "items": {
+            "$ref": "#/$defs/NewWord"
+          },
+          "maxItems": 3,
+          "type": "array"
+        },
+        "scenarioProgress": {
+          "$ref": "#/$defs/ScenarioProgress"
+        }
+      },
+      "required": [
+        "prompt",
+        "recast",
+        "newWords",
+        "scenarioProgress"
+      ],
+      "type": "object"
+    },
+    "NewWord": {
+      "additionalProperties": false,
+      "description": "A lemma above the learner's ceiling that the reply introduces on purpose.",
+      "properties": {
+        "lemma": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "glossEn": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "lemma",
+        "glossEn"
+      ],
+      "type": "object"
+    },
+    "Prompt": {
+      "additionalProperties": false,
+      "description": "A prompt: the reply pushes the learner to self-correct (first step of the error loop).",
+      "properties": {
+        "learnerText": {
+          "description": "The erroneous span, copied from the learner turn.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "errorTags": {
+          "items": {
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "type": "string"
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "learnerText",
+        "errorTags"
+      ],
+      "type": "object"
+    },
+    "Recast": {
+      "additionalProperties": false,
+      "description": "A recast: the reply gives back the corrected form (second step, or meaning-critical).",
+      "properties": {
+        "learnerText": {
+          "description": "The erroneous span, copied from the learner turn.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "correctedText": {
+          "description": "The same span, corrected.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "errorTags": {
+          "items": {
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "type": "string"
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "learnerText",
+        "correctedText",
+        "errorTags"
+      ],
+      "type": "object"
+    },
+    "ScenarioProgress": {
+      "additionalProperties": false,
+      "properties": {
+        "goalsCompleted": {
+          "description": "Ids of all scenario goals completed so far (cumulative).",
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9-]*$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "done": {
+          "description": "True when the scenario has reached its end.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "goalsCompleted",
+        "done"
+      ],
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "One tutor turn: the Italian reply plus structured annotations.",
+  "properties": {
+    "reply": {
+      "maxLength": 600,
+      "minLength": 1,
+      "type": "string"
+    },
+    "annotations": {
+      "$ref": "#/$defs/Annotations"
+    }
+  },
+  "required": [
+    "reply",
+    "annotations"
+  ],
+  "type": "object"
+}

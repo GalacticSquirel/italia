@@ -77,6 +77,7 @@ export type CardKind =
   | 'sentence_production'
   | 'dictation'
   | 'grammar_cloze'
+  | 'grammar_drill'
   | 'spoken_prompt'
   | 'recognition'
   | 'minimal_pair';
@@ -87,6 +88,7 @@ export const CARD_KINDS: readonly CardKind[] = [
   'sentence_production',
   'dictation',
   'grammar_cloze',
+  'grammar_drill',
   'spoken_prompt',
   'recognition',
   'minimal_pair',

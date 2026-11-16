@@ -1,0 +1,20 @@
+# DPO on judge-ranked pairs from the merged SFT model. Roughly 20-30% of the SFT compute.
+extends: _gemma4-e2b-base.yaml
+name: dpo-gemma4-e2b
+policyModel: out/sft-gemma4-e2b-full/final
+method: full
+pairsFile: work/dpo/pairs.jsonl
+valFraction: 0.03
+beta: 0.1
+lossType: sigmoid
+sftLossWeight: 0.2
+maxLength: 4096
+optim:
+  learningRate: 5.0e-7
+  epochs: 1
+  perDeviceBatchSize: 1
+  gradientAccumulationSteps: 8
+  warmupRatio: 0.1
+  lrScheduler: cosine
+  optimizer: adamw_torch_fused
+outputDir: out/dpo-gemma4-e2b
