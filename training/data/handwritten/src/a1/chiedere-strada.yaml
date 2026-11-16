@@ -1,0 +1,170 @@
+- scenario: chiedere-strada
+  level: A1
+  persona: en-f-student
+  history: [register]
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Scusa, dov'è la stazione?
+      errors: [register]
+    - tutor: Scusa? Io non sono un amico...
+      prompt: {text: Scusa, tags: [register]}
+    - learner: Scusi! Dov'è la stazione, per favore?
+    - tutor: Perfetto! La stazione è vicino. Va dritto e poi a destra.
+      goals: [get-attention, ask-place]
+    - learner: Dritto e poi a destra?
+    - tutor: Sì, esatto. Al semaforo giri a destra.
+    - learner: Ho capito. Grazie mille!
+      errors: []
+    - tutor: Prego! Buon viaggio!
+      goals: [understand, thank]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: en-m-retired
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Sì, scusi. Io cerco la stazione. È lontano?
+    - tutor: No, non è lontano. Sono dieci minuti a piedi.
+      goals: [get-attention, ask-place]
+    - learner: Bene. Dove vado?
+    - tutor: Va dritto fino alla piazza. Poi giri a sinistra.
+    - learner: Fino alla piazza, poi a sinistra. E dopo?
+    - tutor: Dopo la piazza, la stazione è a destra.
+    - learner: Allora dritto, sinistra, e la stazione è a destra.
+    - tutor: Esatto, ha capito bene!
+      goals: [understand]
+    - learner: Grazie mille, Lei è molto gentile.
+    - tutor: Di niente! Buona giornata!
+      goals: [thank]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: es-f-erasmus
+  history: [ce-ci-sono]
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Sì, scusi! Dov'è la stazione?
+    - tutor: La stazione? È in piazza Garibaldi, vicino.
+      goals: [get-attention, ask-place]
+    - learner: E è un autobus per la stazione?
+      errors: [ce-ci-sono]
+    - tutor: È un autobus? Non è la forma giusta.
+      prompt: {text: è un autobus, tags: [ce-ci-sono]}
+      new: [{lemma: forma, gloss: form}]
+    - learner: C'è un autobus per la stazione?
+    - tutor: Sì, c'è! Ma a piedi sono solo cinque minuti.
+    - learner: Allora vado a piedi. Dritto?
+    - tutor: Sì, dritto. Al semaforo giri a sinistra.
+    - learner: Dritto e al semaforo a sinistra. Perfetto!
+    - tutor: Brava, è così!
+      goals: [understand]
+    - learner: Grazie mille! Buona giornata!
+    - tutor: Prego, anche a Lei!
+      goals: [thank]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: en-m-traveller
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Sì, scusi. Dov'è la station?
+      errors: [word-choice]
+    - tutor: Ah, la stazione! La stazione è lontano, venti minuti a piedi.
+      goals: [get-attention, ask-place]
+      recast: {text: la station, fix: la stazione, tags: [word-choice]}
+    - learner: Venti minuti! C'è un autobus?
+    - tutor: Sì, c'è l'autobus numero 3, qui in piazza.
+    - learner: Il 3, qui in piazza. E dopo, a destra o a sinistra?
+    - tutor: No, l'autobus va dritto alla stazione.
+    - learner: Ah, perfetto! Ho capito.
+    - tutor: Bene!
+      goals: [understand]
+    - learner: Grazie mille!
+    - tutor: Di niente. Buon viaggio!
+      goals: [thank]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: en-f-professional
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Buongiorno! Scusi, la stazione è vicino?
+    - tutor: Sì, è vicino. Prende la prima strada a destra.
+      goals: [get-attention, ask-place]
+    - learner: La prima strada a destra. Poi?
+    - tutor: Poi va dritto e la stazione è davanti a Lei.
+    - learner: Ho capito, prima a destra e poi dritto.
+    - tutor: Esatto, brava!
+      goals: [understand]
+    - learner: Grazie! Lei è molto gentile.
+    - tutor: Si figuri! Arrivederci!
+      goals: [thank]
+      new: [{lemma: figurarsi, gloss: not at all}]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: es-m-worker
+  history: [question-form]
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Sì, scusi. Dove è stazione?
+      errors: [article-use]
+    - tutor: Dove è stazione? Manca una piccola parola.
+      prompt: {text: Dove è stazione, tags: [article-use]}
+    - learner: Dov'è la stazione?
+    - tutor: Esatto! È a dieci minuti. Va dritto, poi a destra.
+      goals: [get-attention, ask-place]
+    - learner: Quanto minuti a piedi?
+      errors: [question-form]
+    - tutor: Quanto minuti? Minuti è plurale...
+      prompt: {text: Quanto minuti, tags: [question-form]}
+      new: [{lemma: plurale, gloss: plural}]
+    - learner: Quanti minuti?
+    - tutor: Bravo! Dieci minuti a piedi.
+    - learner: Dritto, poi a destra. Va bene.
+    - tutor: Sì, così!
+      goals: [understand]
+    - learner: Grazie, arrivederci.
+    - tutor: Prego, arrivederci!
+      goals: [thank]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: en-m-heritage
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Scusi, signora. Sa dov'è la stazione?
+    - tutor: Certo! La stazione non è lontano.
+      goals: [get-attention, ask-place]
+    - learner: Vado a destra o a sinistra?
+    - tutor: Va a sinistra. Poi va dritto per due minuti.
+    - learner: A sinistra e poi dritto per due minuti. Giusto?
+    - tutor: Sì, giusto. La stazione è in piazza.
+      goals: [understand]
+    - learner: Grazie mille, signora!
+    - tutor: Prego! Buona giornata.
+      goals: [thank]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: es-f-teacher
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Buonasera. Scusi, cerco la stazione.
+    - tutor: La stazione è vicino, a cinque minuti.
+      goals: [get-attention, ask-place]
+    - learner: Devo andare dritto?
+    - tutor: Sì. Va dritto fino al semaforo.
+    - learner: E al semaforo, giro a la destra?
+      errors: [article-use]
+    - tutor: A la destra? Qui non serve l'articolo.
+      prompt: {text: a la destra, tags: [article-use]}
+      new: [{lemma: articolo, gloss: article}]
+    - learner: Giro a destra al semaforo?
+    - tutor: Esatto! Al semaforo giri a destra.
+    - learner: Giro a destra al semaforo. Ho capito.
+    - tutor: Perfetto. Poi la stazione è lì.
+      goals: [understand]
+    - learner: Grazie mille. Buona serata!
+    - tutor: Grazie, anche a Lei!
+      goals: [thank]
