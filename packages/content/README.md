@@ -6,14 +6,14 @@ runs on a development machine.
 
 ## What is in the seed
 
-`seed/seed.v1.json` (committed, about 7 MB) has the shape
+`seed/seed.v1.json` (committed, about 18 MB) has the shape
 `{ version, generatedAt, sources[], lemmas[], sentences[], grammarPoints[] }`:
 
-- **lemmas**: the 3,000 most frequent Italian lemmas with part of speech (Universal POS), rank and
+- **lemmas**: the 10,000 most frequent Italian lemmas with part of speech (Universal POS), rank and
   a short English gloss.
-- **sentences**: about 14,000 Italian-English pairs from Tatoeba, 3 to 12 words, chosen per lemma
+- **sentences**: about 36,000 Italian-English pairs from Tatoeba, 3 to 12 words, chosen per lemma
   so that the target is the rarest word in the sentence (n+1), up to 5 per lemma.
-- **grammarPoints**: 38 hand-written A1-A2 (and first B1) grammar points in acquisition order,
+- **grammarPoints**: 114 hand-written A1-C2 grammar points in acquisition order,
   with prerequisites and a short note with examples. Sentences carry the ids of the grammar
   points simple rules detect in them.
 
@@ -25,8 +25,8 @@ build statistics (coverage, merged variant spellings, rejected sentences, gramma
 `seed/top-forms.json` records which seed lemma each of the 300 most frequent subtitle word forms
 maps to.
 
-The 3,000 lemmas cover about 89% of subtitle tokens (83% for the top 1,000, 87% for the top
-2,000).
+The 10,000 lemmas cover about 93% of subtitle tokens (83% for the top 1,000, 89% for the top
+3,000, 91% for the top 5,000).
 
 Ids are stable across rebuilds: lemma ids are a 31-bit hash of `lemma|POS`, sentence ids are the
 Tatoeba ids, and grammar ids are fixed in `src/grammar/points.ts`. `generatedAt` only changes
@@ -136,29 +136,36 @@ questions:
 
 ### Bands
 
-A story's **band** is a lemma-rank ceiling (150, 300, 500, 750, 1000, 1500, 2000, 3000). The
+A story's **band** is a lemma-rank ceiling (150, 300, 500, 750, 1000, 1500, 2000, 3000, 4000,
+5000, 6500, 8000, 10000). The
 validator (`src/stories/validate.ts`) requires, per story:
 
 - at least **98%** of word tokens (names excluded) with every lemma ranked within the band, the
   rest from the next band only (so at most 2%), and no untagged or unknown words;
 - names at most 12% of tokens;
-- no grammar point above the band's ceiling, and no subjunctive or passato remoto forms;
+- no grammar point above the band's ceiling (subjunctive and passato remoto forms count as their
+  grammar points, so they appear from B1 and B2 on);
 - a length and a longest sentence that grow with the band;
 - 3 to 6 comprehension questions (see above);
 - 3 to 6 **target lemmas**: content words above the previous band's ceiling (and above rank 20)
   that the story uses at least twice. The tagger picks them, preferring words earlier episodes of
   the series have not targeted.
 
-| Band | Level | Grammar allowed up to (point order)                                   | Words   | Longest sentence |
-| ---- | ----- | --------------------------------------------------------------------- | ------- | ---------------- |
-| 150  | A1    | `piacere` (20): the present-tense A1 core                             | 80-140  | 10               |
-| 300  | A1    | `piacere` (20)                                                        | 100-170 | 12               |
-| 500  | A1    | `passato-prossimo-essere` (23): passato prossimo                      | 120-200 | 14               |
-| 750  | A2    | `indirect-object-pronouns` (28): reflexives, object pronouns          | 150-240 | 16               |
-| 1000 | A2    | `passato-prossimo-vs-imperfetto` (31): imperfetto                     | 170-270 | 18               |
-| 1500 | A2    | `comparatives` (35): future, stare + gerund, imperative, comparatives | 200-300 | 20               |
-| 2000 | B1    | `conditional` (38): all points                                        | 230-330 | 24               |
-| 3000 | B1    | `conditional` (38)                                                    | 250-350 | 28               |
+| Band  | Level | Grammar allowed up to (point order)                                       | Words   | Longest sentence |
+| ----- | ----- | ------------------------------------------------------------------------- | ------- | ---------------- |
+| 150   | A1    | `piacere` (24): the present-tense A1 core                                 | 80-140  | 10               |
+| 300   | A1    | `piacere` (24)                                                            | 100-170 | 12               |
+| 500   | A1    | `passato-prossimo-essere` (27): passato prossimo                          | 120-200 | 14               |
+| 750   | A2    | `indirect-object-pronouns` (36): reflexives, object pronouns              | 150-240 | 16               |
+| 1000  | A2    | `passato-prossimo-vs-imperfetto` (41): imperfetto                         | 170-270 | 18               |
+| 1500  | A2    | `comparatives` (50): future, stare + gerund, imperative, comparatives     | 200-300 | 20               |
+| 2000  | B1    | `infinitive-past` (69): ci, ne, conditional, double pronouns, relatives   | 230-330 | 24               |
+| 3000  | B1    | `subjunctive-past` (76): all of B1, incl. present and past subjunctive    | 250-350 | 28               |
+| 4000  | B2    | `si-passivante` (86): imperfect subjunctive, hypotheticals, come se       | 280-400 | 30               |
+| 5000  | B2    | `altered-nouns` (93): passato remoto, reported speech, causative fare     | 300-450 | 32               |
+| 6500  | C1    | `formal-register` (104): participle clauses, hearsay conditional          | 320-500 | 36               |
+| 8000  | C1    | `adjective-position` (108): discourse markers, nominalisation             | 350-550 | 40               |
+| 10000 | C2    | `tense-stylistics` (114): the whole syllabus                              | 380-600 | 45               |
 
 Grammar is detected with the same rules as the seed sentences (`src/grammar/rules.ts`). They are
 precise rather than complete, so writers also follow the ceiling by hand (for example no "Lo so"
@@ -185,7 +192,10 @@ pnpm --filter @italia/content build:stories --only via-verdi --verbose   # itera
 ```
 
 The build needs `morph-it` and `subtlex-it` in `.cache/` (`fetch:sources`) and exits non-zero
-when a story fails; fix the story rather than the thresholds. `src/stories/corpus.test.ts` checks
+when a story fails; fix the story rather than the thresholds. `--verbose` also lists each
+story's grammar points, its target words and any `homograph:` the tagger read as a rarer lemma
+although the same spelling is a commoner word ("insegna = insegna NOUN #4051 (also insegnare
+VERB #592)"); check those by hand and rephrase when the reading is wrong. `src/stories/corpus.test.ts` checks
 that every committed story validates, matches its source, is in the index and the bundle, and
 that the checksums in the manifest are current; with the cache present it also re-tags the sources
 and compares.

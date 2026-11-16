@@ -1,5 +1,5 @@
 /**
- * Imports the real seed from `@italia/content` (3,000 lemmas, about 14,000
+ * Imports the real seed from `@italia/content` (10,000 lemmas, about 36,000
  * sentences) into an in-memory database. Slower than the other tests (a few
  * seconds), but it is what the app does on first launch.
  */
@@ -49,8 +49,8 @@ afterAll(() => {
 describe('full seed import', () => {
   it('writes every row and records the version', () => {
     const repos = createRepositories(t.db);
-    expect(repos.lemmas.count()).toBe(3000);
-    expect(repos.sentences.count()).toBeGreaterThan(14_000);
+    expect(repos.lemmas.count()).toBe(10_000);
+    expect(repos.sentences.count()).toBeGreaterThan(36_000);
     expect(repos.grammar.listInOrder()).toHaveLength(GRAMMAR_POINTS.length);
     expect(getImportedSeed(t.db)?.version).toBe(1);
   });
