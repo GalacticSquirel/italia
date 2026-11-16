@@ -2,12 +2,11 @@ import { useEffect, useRef } from 'react';
 import { ScrollView, StyleSheet, View, type ScrollViewInstance } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Button, Card, EmptyState, Screen, Text, useTheme } from '@/ui';
+import { Button, Card, Chip, EmptyState, Screen, Text, useTheme } from '@/ui';
 
 import { ComprehensionCheck } from './components/ComprehensionCheck';
 import { NewWordsPreview } from './components/NewWordsPreview';
 import { PlaybackBar } from './components/PlaybackBar';
-import { ReaderAction } from './components/ReaderAction';
 import { SentenceView } from './components/SentenceView';
 import { WordSheet } from './components/WordSheet';
 import { coveragePercent, FIT_LABELS } from './library';
@@ -90,7 +89,7 @@ export function StoryScreen({ storyId, onOpenStory, onOpenWord, onClose }: Story
               sentence for its English.
             </Text>
             <View style={[styles.row, { gap: spacing.sm }]}>
-              <ReaderAction
+              <Chip
                 label="Listen first"
                 accessibilityLabel="Listening first: hide the text until you tap a sentence"
                 selected={reader.listenFirst}
@@ -99,7 +98,9 @@ export function StoryScreen({ storyId, onOpenStory, onOpenWord, onClose }: Story
                 }}
               />
               {reader.listenFirst && !reader.allRevealed ? (
-                <ReaderAction
+                <Button
+                  variant="secondary"
+                  size="compact"
                   label="Show all text"
                   onPress={() => {
                     reader.reveal('all');

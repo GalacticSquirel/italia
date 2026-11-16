@@ -40,24 +40,26 @@ function knownWord(lemmaId: number, reviewedDaysAgo: number) {
     schedule: schedule({}, reviewedAt),
     createdAt: reviewedAt,
   });
-  app.repos.recordReview({
+  app.repos.reviewLogs.append({
+    id: `log-${String(lemmaId)}`,
     cardId: card.id,
     rating: 'easy',
     answer: 'x',
     latencyMs: 1000,
     reviewedAt,
     deviceId: 'test',
-    next: {
-      due: new Date(now.getTime() + 3 * DAY),
-      stability: 60,
-      difficulty: 3,
-      scheduledDays: 60,
-      learningSteps: 0,
-      reps: 1,
-      lapses: 0,
-      state: 'review',
-      lastReview: new Date(now.getTime() - 1 * DAY),
-    },
+  });
+  // A state FSRS would reach after a long history, set directly so the word is known at `now`.
+  app.repos.cards.upsertState(card.id, {
+    due: new Date(now.getTime() + 3 * DAY),
+    stability: 60,
+    difficulty: 3,
+    scheduledDays: 60,
+    learningSteps: 0,
+    reps: 1,
+    lapses: 0,
+    state: 'review',
+    lastReview: new Date(now.getTime() - 1 * DAY),
   });
   return card.id;
 }

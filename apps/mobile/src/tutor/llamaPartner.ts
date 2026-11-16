@@ -12,20 +12,21 @@
  * the background) does not process it again.
  */
 import {
-  fromConversationHistory,
-  learnerErrorsOf,
-  parseTutorOutput,
-  partialReply,
-  renderMessages,
-  renderSystemPrompt,
-  runtimeOutputSchema,
-  tutorOutputToJson,
   type CallOptions,
   type ConversationPartner,
   type ConversationReply,
   type ConversationReplyResult,
   type ConversationRequest,
+  fnv1a32Hex,
+  fromConversationHistory,
+  learnerErrorsOf,
+  parseTutorOutput,
+  partialReply,
   type ProviderAvailability,
+  renderMessages,
+  renderSystemPrompt,
+  runtimeOutputSchema,
+  tutorOutputToJson,
 } from '@italia/core';
 
 import {
@@ -72,14 +73,7 @@ export interface TutorPartner extends ConversationPartner {
 }
 
 /** 32-bit FNV-1a as hex, to name prompt-cache files. */
-export function promptKey(text: string): string {
-  let hash = 0x811c9dc5;
-  for (let i = 0; i < text.length; i += 1) {
-    hash ^= text.charCodeAt(i);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-  return hash.toString(16).padStart(8, '0');
-}
+export const promptKey = (text: string): string => fnv1a32Hex(text);
 
 /** A single-consumer async queue of strings. */
 function channel() {

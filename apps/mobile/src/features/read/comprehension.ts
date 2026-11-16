@@ -1,4 +1,4 @@
-import { buildComprehensionCheck, type ComprehensionQuestion } from '@italia/core';
+import { buildComprehensionCheck, type ComprehensionQuestion, fnv1a32 } from '@italia/core';
 
 import type { Repositories } from '@/data';
 
@@ -8,14 +8,7 @@ import type { ReaderStory } from './storyModel';
 const CONTENT_POS = new Set(['NOUN', 'VERB', 'ADJ', 'ADV']);
 
 /** A stable 32-bit seed from a story id, so a story always gets the same check. */
-export function seedFor(id: string): number {
-  let hash = 0x811c9dc5;
-  for (let i = 0; i < id.length; i++) {
-    hash ^= id.charCodeAt(i);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-  return hash;
-}
+export const seedFor = (id: string): number => fnv1a32(id);
 
 /** The end-of-story check: three items built by core from the story's own sentences. */
 export function comprehensionFor(repos: Repositories, story: ReaderStory): ComprehensionQuestion[] {
