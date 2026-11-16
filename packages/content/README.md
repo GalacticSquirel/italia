@@ -151,21 +151,21 @@ validator (`src/stories/validate.ts`) requires, per story:
   that the story uses at least twice. The tagger picks them, preferring words earlier episodes of
   the series have not targeted.
 
-| Band  | Level | Grammar allowed up to (point order)                                       | Words   | Longest sentence |
-| ----- | ----- | ------------------------------------------------------------------------- | ------- | ---------------- |
-| 150   | A1    | `piacere` (24): the present-tense A1 core                                 | 80-140  | 10               |
-| 300   | A1    | `piacere` (24)                                                            | 100-170 | 12               |
-| 500   | A1    | `passato-prossimo-essere` (27): passato prossimo                          | 120-200 | 14               |
-| 750   | A2    | `indirect-object-pronouns` (36): reflexives, object pronouns              | 150-240 | 16               |
-| 1000  | A2    | `passato-prossimo-vs-imperfetto` (41): imperfetto                         | 170-270 | 18               |
-| 1500  | A2    | `comparatives` (50): future, stare + gerund, imperative, comparatives     | 200-300 | 20               |
-| 2000  | B1    | `infinitive-past` (69): ci, ne, conditional, double pronouns, relatives   | 230-330 | 24               |
-| 3000  | B1    | `subjunctive-past` (76): all of B1, incl. present and past subjunctive    | 250-350 | 28               |
-| 4000  | B2    | `si-passivante` (86): imperfect subjunctive, hypotheticals, come se       | 280-400 | 30               |
-| 5000  | B2    | `altered-nouns` (93): passato remoto, reported speech, causative fare     | 300-450 | 32               |
-| 6500  | C1    | `formal-register` (104): participle clauses, hearsay conditional          | 320-500 | 36               |
-| 8000  | C1    | `adjective-position` (108): discourse markers, nominalisation             | 350-550 | 40               |
-| 10000 | C2    | `tense-stylistics` (114): the whole syllabus                              | 380-600 | 45               |
+| Band  | Level | Grammar allowed up to (point order)                                     | Words   | Longest sentence |
+| ----- | ----- | ----------------------------------------------------------------------- | ------- | ---------------- |
+| 150   | A1    | `piacere` (24): the present-tense A1 core                               | 80-140  | 10               |
+| 300   | A1    | `piacere` (24)                                                          | 100-170 | 12               |
+| 500   | A1    | `passato-prossimo-essere` (27): passato prossimo                        | 120-200 | 14               |
+| 750   | A2    | `indirect-object-pronouns` (36): reflexives, object pronouns            | 150-240 | 16               |
+| 1000  | A2    | `passato-prossimo-vs-imperfetto` (41): imperfetto                       | 170-270 | 18               |
+| 1500  | A2    | `comparatives` (50): future, stare + gerund, imperative, comparatives   | 200-300 | 20               |
+| 2000  | B1    | `infinitive-past` (69): ci, ne, conditional, double pronouns, relatives | 230-330 | 24               |
+| 3000  | B1    | `subjunctive-past` (76): all of B1, incl. present and past subjunctive  | 250-350 | 28               |
+| 4000  | B2    | `si-passivante` (86): imperfect subjunctive, hypotheticals, come se     | 280-400 | 30               |
+| 5000  | B2    | `altered-nouns` (93): passato remoto, reported speech, causative fare   | 300-450 | 32               |
+| 6500  | C1    | `formal-register` (104): participle clauses, hearsay conditional        | 320-500 | 36               |
+| 8000  | C1    | `adjective-position` (108): discourse markers, nominalisation           | 350-550 | 40               |
+| 10000 | C2    | `tense-stylistics` (114): the whole syllabus                            | 380-600 | 45               |
 
 Grammar is detected with the same rules as the seed sentences (`src/grammar/rules.ts`). They are
 precise rather than complete, so writers also follow the ceiling by hand (for example no "Lo so"
