@@ -20,6 +20,15 @@ or licensed.**
 Hand-written content in this package (grammar notes in `src/grammar/points.ts`, gloss overrides
 and corrections in `src/pipeline/overrides.ts`) is original to this project.
 
+## Graded stories
+
+The graded stories in `stories/` (sources, tagged files and the bundled `seed/stories.v1.json`),
+their English translations and the series descriptions are **original works written for this
+project and owned by it**. No third-party text is used. Their token tags are seed lemma ids
+assigned with the Morph-it! lexicon (CC BY-SA 2.0, above); the tags point into the seed's lemma
+list rather than copying Morph-it! data. The stories may be relicensed by the project as it
+chooses.
+
 ## Attribution in the seed
 
 - Each sentence row keeps `source` = `tatoeba:<Italian sentence id>` and `licence` =

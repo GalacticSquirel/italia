@@ -15,6 +15,7 @@ import { join } from 'node:path';
 import { createInterface } from 'node:readline';
 
 import { cachePath, ensureSources, PACKAGE_DIR, sourceById } from './cache';
+import { readMorphIt, run } from './morph-it';
 import { SOURCES, type SourceId } from './sources';
 import { GRAMMAR_POINTS } from '../src/grammar/points';
 import { detectGrammar, usesOutOfScopeGrammar } from '../src/grammar/rules';
@@ -97,32 +98,11 @@ const log = (message: string) => {
 // IO helpers
 // ---------------------------------------------------------------------------
 
-function run(command: string, args: string[]): Promise<Buffer> {
-  return new Promise((resolve, reject) => {
-    const child = spawn(command, args);
-    const chunks: Buffer[] = [];
-    child.stdout.on('data', (c: Buffer) => chunks.push(c));
-    child.on('error', reject);
-    child.on('close', (code) => {
-      if (code === 0) resolve(Buffer.concat(chunks));
-      else reject(new Error(`${command} ${args.join(' ')} exited with ${String(code)}`));
-    });
-  });
-}
-
 /** Stream the lines of a .bz2 file (needs the `bzip2` command). */
 async function* bz2Lines(path: string): AsyncGenerator<string> {
   const child = spawn('bzip2', ['-dc', path]);
   const rl = createInterface({ input: child.stdout, crlfDelay: Infinity });
   for await (const line of rl) yield line;
-}
-
-async function readMorphIt(): Promise<string> {
-  const archive = cachePath('morph-it');
-  const listing = (await run('tar', ['-tzf', archive])).toString('utf8').split('\n');
-  const member = listing.find((m) => /morph-it_\d+\.txt$/.test(m));
-  if (!member) throw new Error('morph-it.tgz has no morph-it_*.txt');
-  return (await run('tar', ['-xzOf', archive, member])).toString('latin1');
 }
 
 async function readWiktionary(words: ReadonlySet<string>): Promise<Map<string, WiktionaryEntry[]>> {
