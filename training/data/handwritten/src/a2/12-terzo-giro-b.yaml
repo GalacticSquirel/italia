@@ -1,0 +1,197 @@
+- scenario: casa-mia
+  level: A2
+  persona: en-f-student
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Vivo in una casa per studenti, con altre quattro ragazze."
+    - tutor: "Cinque ragazze in una casa! Com'è?"
+      goals: [type]
+    - learner: "È vecchia ma carina. La mia camera è piccolo ma luminosa."
+      errors: [adjective-agreement]
+    - tutor: "La camera è piccolo? Attenzione, camera finisce in a."
+      prompt: {text: "camera è piccolo", tags: [adjective-agreement]}
+    - learner: "La mia camera è piccola ma luminosa."
+    - tutor: "Brava! E quanti bagni ci sono per cinque ragazze?"
+    - learner: "Solo uno! La mattina è un disastro."
+    - tutor: "Lo immagino! Qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "La cucina, perché la sera cuciniamo e mangiamo tutte insieme. E tu dove vivi?"
+    - tutor: "Io vivo da solo in un appartamento. È tranquillo, ma a volte un po' triste!"
+      goals: [favourite, ask]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-m-traveller
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì, buongiorno! Il cartello dice che cercate un cameriere."
+    - tutor: "Esatto. Ha esperienza come cameriere?"
+      goals: [ask]
+    - learner: "Sì, ho lavorato in un pub a Dublino per due anni."
+    - tutor: "Bene! Parla anche inglese, quindi. Qui vengono molti turisti."
+      new: [{lemma: turista, gloss: tourist}]
+      goals: [experience]
+    - learner: "Certo. Io e il mio amico siamo qui tutta l'estate. Anche lui cerca lavoro e noi può lavorare la sera."
+      errors: [subject-verb-agreement]
+    - tutor: "Noi può? Attenzione al verbo con noi."
+      prompt: {text: "noi può", tags: [subject-verb-agreement]}
+      new: [{lemma: verbo, gloss: verb}]
+    - learner: "Noi possiamo lavorare la sera!"
+    - tutor: "Perfetto! Mi servono proprio due persone per la sera."
+      goals: [availability]
+    - learner: "Fantastico! Le lascio il mio numero di telefono?"
+    - tutor: "Sì, grazie. Vi chiamo domani per l'orario."
+      goals: [contact]
+
+- scenario: chiedere-strada
+  level: A2
+  persona: es-m-worker
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì. Scusi, dov'è la stazione degli autobus?"
+    - tutor: "È un po' lontana, circa venti minuti a piedi."
+      goals: [get-attention, ask-place]
+    - learner: "Va bene, cammino. Che strada prendo?"
+    - tutor: "Va sempre dritto fino alla piazza grande. Poi al semaforo va a destra."
+    - learner: "Dritto fino alla piazza, poi a destra al semaforo."
+    - tutor: "Sì, esatto. Poi la vede subito a sinistra."
+      goals: [understand]
+    - learner: "Perfetto. Grazie."
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]
+
+- scenario: compleanno
+  level: A2
+  persona: es-f-teacher
+  history: [object-pronoun]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Io penso a una cena al ristorante. Sabato sera è libera?"
+    - tutor: "Sì, sabato è libera. Il ristorante lo chiamo io."
+      goals: [date]
+    - learner: "Perfetto. Chi invitiamo?"
+    - tutor: "I suoi amici più cari, circa dieci persone. E il regalo?"
+      goals: [guests]
+    - learner: "Sara ama viaggiare. La regaliamo una guida di Parigi?"
+      errors: [object-pronoun]
+    - tutor: "La regaliamo? A chi regaliamo la guida?"
+      prompt: {text: "la regaliamo", tags: [object-pronoun]}
+    - learner: "A Sara... Le regaliamo una guida di Parigi!"
+    - tutor: "Brava! Ottima idea. E la torta la ordiniamo al ristorante?"
+      goals: [gift]
+    - learner: "Sì, una torta al limone. È la sua preferita."
+    - tutor: "Perfetto, chiamo il ristorante domani!"
+      goals: [food]
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: en-m-traveller
+  history: [imperative-form]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera faccio una zuppa irlandese con patate e carne."
+    - tutor: "Buona! Cosa ci serve?"
+    - learner: "Carne, patate, cipolle, acqua e sale. Tutto è già sul tavolo."
+    - tutor: "Perfetto. Allora, cosa faccio io?"
+      goals: [ingredients]
+    - learner: "Tagli le cipolle, per favore!"
+      errors: [imperative-form]
+    - tutor: "Tagli? Siamo amici, usa il tu."
+      prompt: {text: "tagli", tags: [imperative-form]}
+    - learner: "Taglia le cipolle, per favore!"
+    - tutor: "Va bene, capo! E dopo?"
+    - learner: "Dopo metti tutto nella pentola con l'acqua."
+    - tutor: "Fatto. Per quanto tempo deve cuocere?"
+      goals: [steps]
+    - learner: "Per due ore, piano piano."
+    - tutor: "Due ore! Allora prima beviamo qualcosa."
+      goals: [time]
+    - learner: "Sì! E poi la mangiamo con il pane caldo."
+    - tutor: "Perfetto, io preparo il tavolo."
+      goals: [serve]
+
+- scenario: famiglia
+  level: A2
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Sono i miei nonni, nella loro casa al mare."
+    - tutor: "Che carini! Come si chiamano?"
+      goals: [who]
+    - learner: "Si chiamano Pilar e Antonio. Mio nonno era pescatore."
+    - tutor: "Che bello! E sono ancora giovani?"
+    - learner: "No, hanno più di ottanta anni, ma sono molto attivi. Mia nonna nuota ogni mattina!"
+    - tutor: "Brava la nonna! E tu somigli a lei?"
+      goals: [ages]
+      new: [{lemma: somigliare, gloss: to look like}]
+    - learner: "Sì, tutti dicono che sono uguale a lei. E tu, hai ancora i nonni?"
+      goals: []
+    - tutor: "Sì, ho ancora una nonna. Ha più di 80 anni e cucina ancora per tutti!"
+      goals: [describe, ask]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: es-m-worker
+  history: [reflexive]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Lavoro la sera, quindi alzo tardi, verso le dieci."
+      errors: [reflexive]
+    - tutor: "Alzo tardi? Chi alzi? Manca una piccola parola."
+      prompt: {text: "alzo tardi", tags: [reflexive]}
+    - learner: "Mi alzo tardi, verso le dieci!"
+    - tutor: "Ecco! Che fortuna. E cosa fai la mattina?"
+      goals: [wake]
+    - learner: "Vado in palestra e faccio la spesa. Poi alle quattro vado al ristorante."
+    - tutor: "E finisci tardi la sera?"
+      goals: [work]
+    - learner: "Sì, finisco a mezzanotte. Poi torno a casa e guardo la TV."
+    - tutor: "Che giornata lunga! E tu non sei stanco?"
+      goals: [evening]
+    - learner: "Un po', ma mi piace il mio lavoro. E tu, cosa fai la sera?"
+    - tutor: "Io mangio e poi leggo un libro. Vado a letto presto!"
+      goals: [ask]
+
+- scenario: lavanderia
+  level: A2
+  persona: es-m-worker
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì. La lavatrice ha finito, ma la porta non si apre."
+    - tutor: "Ah, è normale. Devi aspettare due minuti, poi si apre da sola."
+      goals: [problem]
+    - learner: "Ah, va bene. E per l'asciugatrice, come funziona?"
+    - tutor: "Metti i vestiti dentro, scegli il programma e poi parte."
+      goals: [ask-how]
+    - learner: "E quanto costa?"
+    - tutor: "Due gettoni per mezz'ora. Li compri alla macchina vicino alla porta."
+      goals: [payment]
+    - learner: "Grazie mille, sei gentile."
+    - tutor: "Figurati! Buona serata."
+      new: [{lemma: figurarsi, gloss: no problem}]
+      goals: [thank]
+
+- scenario: medico-base
+  level: A2
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di testa da una settimana."
+    - tutor: "Una settimana è tanto. Ha anche la febbre?"
+      goals: [symptoms, since-when]
+    - learner: "No, la febbre no. Ma dormo poco, perché lavoro molto."
+    - tutor: "Capisco. Ha preso qualche medicina?"
+    - learner: "Sì, ho preso un'aspirina ogni giorno. Mio padre mi ha detto di prenderlo."
+      errors: [object-pronoun]
+    - tutor: "Di prenderlo? Attenzione, aspirina è femminile."
+      new: [{lemma: femminile, gloss: feminine}]
+      prompt: {text: "prenderlo", tags: [object-pronoun]}
+    - learner: "Ah, no! Mio padre mi ha detto di prenderla."
+    - tutor: "Esatto. È allergico a qualcosa?"
+      goals: [history]
+    - learner: "No, a niente."
+    - tutor: "Bene. Allora deve dormire di più e bere molta acqua. Se il dolore resta, può tornare qui."
+      goals: [instructions]
