@@ -14,16 +14,18 @@ from enum import StrEnum
 
 
 class Level(StrEnum):
-    """CEFR levels the tutor supports (C1 is out of scope for v1)."""
+    """CEFR levels the tutor supports, A1 through C2 (fluency)."""
 
     A1 = "A1"
     A2 = "A2"
     B1 = "B1"
     B2 = "B2"
+    C1 = "C1"
+    C2 = "C2"
 
     @property
     def rank(self) -> int:
-        """1 for A1 up to 4 for B2, for ordering comparisons."""
+        """1 for A1 up to 6 for C2, for ordering comparisons."""
         return _RANK[self]
 
     def at_most(self, other: Level) -> bool:
@@ -31,7 +33,7 @@ class Level(StrEnum):
         return self.rank <= other.rank
 
 
-_RANK = {Level.A1: 1, Level.A2: 2, Level.B1: 3, Level.B2: 4}
+_RANK = {Level.A1: 1, Level.A2: 2, Level.B1: 3, Level.B2: 4, Level.C1: 5, Level.C2: 6}
 
 
 @dataclass(frozen=True)
@@ -56,6 +58,10 @@ BANDS: dict[Level, LevelBand] = {
     Level.A2: LevelBand(Level.A2, 1000, 12, 3, 1, 0.05, english_allowed=False),
     Level.B1: LevelBand(Level.B1, 2000, 18, 4, 2, 0.08, english_allowed=False),
     Level.B2: LevelBand(Level.B2, 3000, 25, 5, 2, 0.10, english_allowed=False),
+    # The seed lemma list stops at rank 3000, so above B2 the ceiling admits the whole list and
+    # the out-of-band ratio is what bounds rarer vocabulary (idioms, register, specialist terms).
+    Level.C1: LevelBand(Level.C1, 6000, 32, 6, 3, 0.20, english_allowed=False),
+    Level.C2: LevelBand(Level.C2, 10000, 40, 7, 3, 0.40, english_allowed=False),
 }
 
 
