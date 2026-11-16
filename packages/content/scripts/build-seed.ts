@@ -68,8 +68,8 @@ import {
   SEED_VERSION,
 } from '../src/schema';
 
-const LEMMA_COUNT = 3000;
-const COVERAGE_LEVELS = [1000, 2000, 3000, 5000];
+const LEMMA_COUNT = 10000;
+const COVERAGE_LEVELS = [1000, 2000, 3000, 5000, 10000];
 const MIN_TOKENS = 3;
 const MAX_TOKENS = 12;
 const MAX_PROPER_NOUNS = 2;
@@ -214,7 +214,7 @@ async function main(): Promise<void> {
   const candidates = [...counted.counts.entries()]
     .filter(([key]) => eligibleKey(key) && !shadowed.has(key))
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .slice(0, 9000);
+    .slice(0, Math.round(LEMMA_COUNT * 1.6));
   const candidateCount = new Map(candidates);
 
   // Members of each merged homograph group, most frequent first.

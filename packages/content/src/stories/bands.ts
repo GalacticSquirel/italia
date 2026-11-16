@@ -10,7 +10,9 @@
 import { GRAMMAR_POINTS } from '../grammar/points';
 
 /** Lemma-rank ceilings, easiest first. */
-export const STORY_BANDS = [150, 300, 500, 750, 1000, 1500, 2000, 3000] as const;
+export const STORY_BANDS = [
+  150, 300, 500, 750, 1000, 1500, 2000, 3000, 4000, 5000, 6500, 8000, 10000,
+] as const;
 export type StoryBand = (typeof STORY_BANDS)[number];
 
 /** CEFR levels, matching `CEFR_LEVELS` in `apps/mobile/src/db/schema.ts`. */
@@ -56,8 +58,14 @@ const order = (slug: string): number => {
  * | 1500 | A2 | `comparatives` | future, stare + gerund, imperative, comparatives |
  * | 2000 | B1 | `infinitive-past` | ci, ne, conditional, imperative with pronouns, double pronouns, relatives, trapassato, future perfect, past conditional, impersonal si, gerund clauses, past infinitive |
  * | 3000 | B1 | `subjunctive-past` | all of B1: connectors, real if-clauses, the passive, present and past subjunctive |
+ * | 4000 | B2 | `si-passivante` | imperfect and pluperfect subjunctive, sequence of tenses, hypothetical clauses, come se, the venire/andare passive, si passivante |
+ * | 5000 | B2 | `altered-nouns` | passato remoto, reported speech, advanced relatives, pronominal verbs, causative fare, cleft sentences, altered nouns |
+ * | 6500 | C1 | `formal-register` | participle clauses, past gerund, mixed hypotheticals, hearsay conditional, independent subjunctive, trapassato remoto, formal register |
+ * | 8000 | C1 | `adjective-position` | discourse markers, nominalisation, auxiliary choice, adjective position |
+ * | 10000 | C2 | `tense-stylistics` | literary forms and stylistic choices: the whole syllabus |
  *
- * Bands above B1 (B2 to C2) use the later points of the syllabus.
+ * From band 4000 the seed's lemma list (10,000 lemmas) is the ceiling, so the
+ * last band has no next band: every word must be in the seed.
  */
 export const BAND_RULES: Readonly<Record<StoryBand, BandRules>> = {
   150: rules(150, 'A1', 'piacere', [80, 140], 10),
@@ -68,6 +76,11 @@ export const BAND_RULES: Readonly<Record<StoryBand, BandRules>> = {
   1500: rules(1500, 'A2', 'comparatives', [200, 300], 20),
   2000: rules(2000, 'B1', 'infinitive-past', [230, 330], 24),
   3000: rules(3000, 'B1', 'subjunctive-past', [250, 350], 28),
+  4000: rules(4000, 'B2', 'si-passivante', [280, 400], 30),
+  5000: rules(5000, 'B2', 'altered-nouns', [300, 450], 32),
+  6500: rules(6500, 'C1', 'formal-register', [320, 500], 36),
+  8000: rules(8000, 'C1', 'adjective-position', [350, 550], 40),
+  10000: rules(10000, 'C2', 'tense-stylistics', [380, 600], 45),
 };
 
 function rules(
