@@ -7,6 +7,7 @@ import { useRepositories } from '@/db';
 import { useSettingsStore } from '@/features/settings/settingsStore';
 import { getContentIndex } from '@/features/study/content';
 import { SPOKEN_PROMPT_MAX_WORDS, wordCount } from '@/features/study/prompts';
+import { usePracticeSession } from '@/features/study/usePracticeSession';
 import {
   recordingClip,
   sayItalian,
@@ -51,6 +52,7 @@ export function ShadowingScreen() {
   const [scorerReady, setScorerReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const sentence = sentences[index];
+  const practice = usePracticeSession('shadowing');
 
   useEffect(() => {
     void services.scorer.availability().then((a) => {
@@ -71,6 +73,7 @@ export function ShadowingScreen() {
   }
 
   const listen = async () => {
+    practice.touch();
     setStep('playing');
     setError(null);
     const clip = await sayItalian(services, sentence.it, rate).catch(() => null);
@@ -80,6 +83,7 @@ export function ShadowingScreen() {
   };
 
   const record = async () => {
+    practice.touch();
     setError(null);
     setAnalysis(null);
     try {

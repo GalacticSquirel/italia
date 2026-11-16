@@ -435,6 +435,7 @@ export class SyncEngine {
         startedAt: studySession.startedAt,
         endedAt: studySession.endedAt,
         minutesActive: studySession.minutesActive,
+        activities: studySession.activities,
       })
       .from(studySession)
       .all();

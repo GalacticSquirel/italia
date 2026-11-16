@@ -44,4 +44,12 @@ describe('replayStreak', () => {
     expect(replayStreak([session('a', 0, 3, false)], config).currentDays).toBe(0);
     expect(replayStreak([session('a', 0, 12, false)], config).currentDays).toBe(1);
   });
+
+  it('counts a quit session by its minutes only, like live study', () => {
+    const quit = { ...session('a', 0, 3), activities: [] };
+    expect(replayStreak([quit], config).currentDays).toBe(0);
+    const finished = { ...session('a', 0, 3), activities: ['review_session'] };
+    expect(replayStreak([finished], config).currentDays).toBe(1);
+    expect(replayStreak([{ ...session('a', 0, 12), activities: [] }], config).currentDays).toBe(1);
+  });
 });
