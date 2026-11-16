@@ -70,6 +70,21 @@ export const StoryParagraphSchema = z
   .object({ sentences: z.array(StorySentenceSchema).min(1) })
   .strict();
 
+/**
+ * A multiple-choice comprehension question. The prompt and each option are
+ * tagged like story sentences, so the reader can offer tap-to-translate on them.
+ * Options are stored in authored order; the app shuffles them.
+ */
+export const StoryQuestionSchema = z
+  .object({
+    prompt: StorySentenceSchema,
+    options: z.array(StorySentenceSchema).min(2).max(4),
+    /** Index of the correct option in `options`. */
+    answer: z.number().int().nonnegative(),
+  })
+  .strict()
+  .refine((q) => q.answer < q.options.length, { message: 'answer is not one of the options' });
+
 /** A bundled graded story. */
 export const StorySchema = z
   .object({
@@ -89,9 +104,11 @@ export const StorySchema = z
      * band's ceiling that the story repeats (most repeated first).
      */
     targetLemmaIds: z.array(lemmaIdSchema),
-    /** Grammar point ids used anywhere in the story, sorted. */
+    /** Grammar point ids used anywhere in the story text, sorted. */
     grammarIds: z.array(z.number().int().positive()),
-    /** Number of word tokens, names included. */
+    /** Comprehension questions on the story, in story order. */
+    questions: z.array(StoryQuestionSchema).default([]),
+    /** Number of word tokens of the story text (questions excluded), names included. */
     wordCount: z.number().int().positive(),
   })
   .strict()
@@ -168,6 +185,7 @@ export const StoriesFileSchema = z
 export type StoryToken = z.infer<typeof StoryTokenSchema>;
 export type StorySentence = z.infer<typeof StorySentenceSchema>;
 export type StoryParagraph = z.infer<typeof StoryParagraphSchema>;
+export type StoryQuestion = z.infer<typeof StoryQuestionSchema>;
 export type Story = z.infer<typeof StorySchema>;
 export type StoryWordTimings = z.infer<typeof StoryWordTimingsSchema>;
 export type StoryIndexEntry = z.infer<typeof StoryIndexEntrySchema>;

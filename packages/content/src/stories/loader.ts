@@ -12,6 +12,7 @@ export interface StoryBody {
   readonly paragraphs: Story['paragraphs'];
   readonly targetLemmaIds: readonly number[];
   readonly grammarIds: readonly number[];
+  readonly questions: Story['questions'];
   readonly wordCount: number;
 }
 
@@ -43,6 +44,7 @@ export function toStoryRow(story: Story): StoryRow {
       paragraphs: story.paragraphs,
       targetLemmaIds: story.targetLemmaIds,
       grammarIds: story.grammarIds,
+      questions: story.questions,
       wordCount: story.wordCount,
     },
     audioRef: null,

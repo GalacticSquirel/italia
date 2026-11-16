@@ -27,6 +27,16 @@ export {
   type NewCardInput,
 } from './CardRepo';
 export {
+  alignCardStates,
+  cardsWithLogs,
+  markCardStatesRetention,
+  rebuildAllCards,
+  rebuildCards,
+  reviewCard,
+  type ReviewCardInput,
+  type ReviewCardResult,
+} from './cardState';
+export {
   createGrammarRepo,
   createLemmaRepo,
   createSentenceRepo,
@@ -61,7 +71,6 @@ export {
   type ReadingTotals,
   type StoryReading,
 } from './ReadingRepo';
-export { recordReview, type RecordReviewInput } from './recordReview';
 export { createRepositories, type Repositories, type RepositoryOptions } from './repositories';
 export {
   createReviewLogRepo,

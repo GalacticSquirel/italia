@@ -1,10 +1,9 @@
 import { memo } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
-import { minTouchTarget, Text, useTheme } from '@/ui';
+import { Button, Chip, minTouchTarget, Text, useTheme } from '@/ui';
 
 import type { ReaderSentence } from '../storyModel';
-import { ReaderAction } from './ReaderAction';
 
 /** Props for {@link SentenceView}. */
 export interface SentenceViewProps {
@@ -154,14 +153,16 @@ export const SentenceView = memo(function SentenceView({
         </Text>
       ) : null}
       <View style={[styles.actions, { gap: spacing.sm }]}>
-        <ReaderAction
+        <Button
+          variant="secondary"
+          size="compact"
           label="Play"
           accessibilityLabel={`Play sentence ${String(number)}`}
           onPress={() => {
             onPlay(sentence.index);
           }}
         />
-        <ReaderAction
+        <Chip
           label={showTranslation ? 'Hide English' : 'English'}
           accessibilityLabel={
             showTranslation

@@ -13,6 +13,7 @@ export const DEFAULT_SECONDS_PER_ITEM: Readonly<Record<CardKind, number>> = {
   recognition: 6,
   cloze_production: 10,
   grammar_cloze: 12,
+  grammar_drill: 12,
   dictation: 15,
   spoken_prompt: 12,
   sentence_production: 20,

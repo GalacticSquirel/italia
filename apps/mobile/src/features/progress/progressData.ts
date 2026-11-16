@@ -6,6 +6,7 @@ import {
   projectHoursToNextLevel,
   rebuildCardStates,
   type CefrEstimate,
+  type CefrLevel,
   type DayLoad,
   type HoursProjection,
   type LemmaCard,
@@ -14,7 +15,8 @@ import {
 } from '@italia/core';
 
 import { toSchedule, type CardRow, type ReadingTotals, type Repositories } from '@/data';
-import { getContentIndex } from '@/features/study/content';
+import { grammarCefr } from '@/features/grammar/grammarGuide';
+import { getContentIndex, type ContentIndex } from '@/features/study/content';
 import { unlockedGrammar } from '@/features/study/curriculum';
 import { schedulerFor } from '@/features/study/planning';
 import { isShownKind } from '@/features/study/prompts';
@@ -50,6 +52,8 @@ export interface ProgressData {
   calendar: CalendarDay[];
   /** Stories finished, words read and distinct words met in stories. */
   reading: ReadingTotals;
+  /** Grammar points learnt (unlocked) and in the syllabus. */
+  grammar: { learnt: number; total: number };
   now: Date;
 }
 
@@ -57,6 +61,16 @@ const lemmaCard = (row: CardRow): LemmaCard => ({
   lemmaIds: [row.targetId],
   schedule: toSchedule(row),
 });
+
+/** The seeded grammar points of each CEFR level, which the level estimate needs. */
+function grammarRequirements(content: ContentIndex): Partial<Record<CefrLevel, number[]>> {
+  const out: Partial<Record<CefrLevel, number[]>> = {};
+  for (const g of content.grammar) {
+    const cefr = grammarCefr(g.id);
+    if (cefr) (out[cefr] ??= []).push(g.id);
+  }
+  return out;
+}
 
 /** All review logs before `cutoff`, for replay. */
 function logsBefore(repos: Repositories, cutoff: Date): ReplayLog[] {
@@ -86,9 +100,11 @@ export function loadProgress(repos: Repositories, now: Date): ProgressData {
   const wordCards = rows.filter((r) => r.kind === KNOWN_WORD_KIND);
 
   const knownWords = knownLemmaCount(wordCards.map(lemmaCard), now);
+  const unlocked = unlockedGrammar(rows, content);
   const cefr = estimateCefr({
     knownLemmas: knownWords,
-    unlockedGrammarIds: [...unlockedGrammar(rows, content)],
+    unlockedGrammarIds: [...unlocked],
+    grammarRequirements: grammarRequirements(content),
   });
 
   // Known words 30 days ago, by replaying the word cards' logs up to then.
@@ -138,6 +154,7 @@ export function loadProgress(repos: Repositories, now: Date): ProgressData {
     load: forecast.days,
     calendar,
     reading: repos.reading.totals(),
+    grammar: { learnt: unlocked.size, total: content.grammar.length },
     now,
   };
 }

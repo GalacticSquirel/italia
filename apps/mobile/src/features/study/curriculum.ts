@@ -11,10 +11,14 @@
  *   for (an unreviewed cloze card already exists, for example from "Add to
  *   reviews" in the reader) come first, oldest request first.
  * - **Grammar** unlocks in acquisition order. A point is unlocked once one of
- *   its `grammar_cloze` items has been answered; the next point to unlock
- *   (the frontier) is the first locked one with an item available whose
- *   prerequisites are unlocked (a prerequisite with no item available yet
- *   does not block it; see {@link frontierGrammar}).
+ *   its `grammar_drill` or `grammar_cloze` items has been answered; the next
+ *   point to unlock (the frontier) is the first locked one with an item
+ *   available whose prerequisites are unlocked (a prerequisite with no item
+ *   available yet does not block it; see {@link frontierGrammar}). A point's
+ *   level also needs enough words first ({@link GRAMMAR_WORD_GATE}), so the
+ *   grammar keeps pace with the vocabulary. The frontier is practised with its
+ *   hand-written drills first (they target exactly that point), then with
+ *   seed sentences; drills of unlocked points keep coming as practice.
  * - **Sentence practice** (`grammar_cloze`, `sentence_production`,
  *   `dictation`) uses sentences whose words have all been introduced and
  *   whose main grammar point is unlocked (or is the frontier, for grammar
@@ -30,6 +34,7 @@
  *   prompts, up to `limits.speaking` per day. The session builder gathers
  *   them, with due spoken reviews, into one speaking block at the end.
  */
+import { GRAMMAR_POINTS, type GrammarCefr } from '@italia/content';
 import type { CardKind, NewCandidate } from '@italia/core';
 
 import { cardIdFor, type CardRow, type LemmaRow, type SentenceRow } from '@/data';
@@ -58,8 +63,33 @@ export const SPOKEN_PROMPTS_PER_DAY = 3;
 /** Conversation corrections offered per session as new items. */
 export const CORRECTIONS_PER_SESSION = 3;
 
-/** Most grammar cloze items introduced for the frontier point per day. */
+/** Most grammar items introduced for the frontier point per session. */
 const FRONTIER_ITEMS = 3;
+
+/** Most new drills of already unlocked points per session. */
+const DRILL_PRACTICE_ITEMS = 3;
+
+/**
+ * Words the learner must have met before a level's grammar opens: enough
+ * vocabulary for the level's drills and sentences to be understood. Roughly
+ * the CEFR vocabulary sizes, scaled to the app's frequency-ordered list.
+ */
+export const GRAMMAR_WORD_GATE: Readonly<Record<GrammarCefr, number>> = {
+  A1: 0,
+  A2: 150,
+  B1: 500,
+  B2: 1000,
+  C1: 1800,
+  C2: 2500,
+};
+
+const cefrById = new Map(GRAMMAR_POINTS.map((p) => [p.id, p.cefr]));
+
+/** Whether a grammar point's level is open with this many words met. */
+export function grammarLevelOpen(pointId: number, wordsMet: number): boolean {
+  const cefr = cefrById.get(pointId);
+  return cefr === undefined || wordsMet >= GRAMMAR_WORD_GATE[cefr];
+}
 
 /** A candidate with the target it practises, so its card can be created. */
 export interface CurriculumCandidate extends NewCandidate {
@@ -110,11 +140,17 @@ function stateIndex(cards: readonly CardRow[]) {
   return { introduced, open };
 }
 
-/** The grammar points unlocked by the learner's answered grammar cloze cards. */
+/** The grammar points unlocked by the learner's answered grammar drills and cloze cards. */
 export function unlockedGrammar(cards: readonly CardRow[], content: ContentIndex): Set<number> {
   const unlocked = new Set<number>();
   for (const c of cards) {
-    if (c.kind !== 'grammar_cloze' || c.state === 'new') continue;
+    if (c.state === 'new') continue;
+    if (c.kind === 'grammar_drill') {
+      const drill = content.drillById.get(c.targetId);
+      if (drill) unlocked.add(drill.pointId);
+      continue;
+    }
+    if (c.kind !== 'grammar_cloze') continue;
     const sentence = content.sentenceById.get(c.targetId);
     const focus = sentence ? grammarFocus(sentence, content) : null;
     if (focus !== null) unlocked.add(focus);
@@ -207,11 +243,24 @@ export function buildCurriculum(
   const unlocked = unlockedGrammar(cards, content);
   const knows = (s: SentenceRow) => s.lemmaIds.every((id) => introducedLemmaIds.has(id));
 
-  // Points with a grammar cloze item available now (all words introduced).
+  const levelOpen = (pointId: number) => grammarLevelOpen(pointId, introducedLemmaIds.size);
+  const newDrills = (pointId: number) =>
+    (content.drillsByPoint.get(pointId) ?? []).filter(
+      (d) => open('grammar_drill', d.id) && !introduced('grammar_drill', d.id),
+    );
+
+  // Points with a grammar item available now: an open drill, or a cloze
+  // sentence whose words have all been introduced; and the level is open.
   const practisable = new Set<number>();
+  for (const g of content.grammar) {
+    if (!unlocked.has(g.id) && levelOpen(g.id) && newDrills(g.id).length > 0) {
+      practisable.add(g.id);
+    }
+  }
   for (const s of content.sentencesByLength) {
     const focus = grammarFocus(s, content);
     if (focus === null || unlocked.has(focus) || practisable.has(focus)) continue;
+    if (!levelOpen(focus)) continue;
     if (knows(s) && open('grammar_cloze', s.id) && grammarBlank(s, content)) practisable.add(focus);
   }
   const frontier = frontierGrammar(unlocked, content, practisable);
@@ -241,6 +290,20 @@ export function buildCurriculum(
     // sentences are often longer than practice for points already unlocked,
     // and must not be crowded out by them (that would stall grammar).
     const frontierCap = frontier === null ? 0 : Math.min(FRONTIER_ITEMS, limits.practice);
+    if (frontier !== null) {
+      for (const d of newDrills(frontier).slice(0, frontierCap)) {
+        frontierItems.push(candidate('grammar_drill', d.id, [], [frontier]));
+      }
+    }
+    // Drills of unlocked points, the latest point in the syllabus first.
+    for (const g of [...content.grammar].reverse()) {
+      if (practice.length >= Math.min(DRILL_PRACTICE_ITEMS, limits.practice)) break;
+      if (!unlocked.has(g.id)) continue;
+      for (const d of newDrills(g.id)) {
+        if (practice.length >= Math.min(DRILL_PRACTICE_ITEMS, limits.practice)) break;
+        practice.push(candidate('grammar_drill', d.id, [], [g.id]));
+      }
+    }
     for (const s of content.sentencesByLength) {
       if (frontierItems.length >= frontierCap && practice.length >= limits.practice) break;
       if (!knows(s)) continue;

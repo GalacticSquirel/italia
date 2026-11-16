@@ -3,7 +3,7 @@
  * today's new spoken prompts (the same ones the study session's speaking
  * block would introduce), and recording their reviews.
  */
-import { toSchedule, type CardRow, type Repositories } from '@/data';
+import { type CardRow, type Repositories } from '@/data';
 import { encodeAnswer } from '@/features/session/answerLog';
 import { planToday, type StudyPlan } from '@/features/study/planning';
 import { resolvePrompt } from '@/features/study/prompts';
@@ -60,17 +60,16 @@ export function loadSpeakingDrill(
     record(outcome, when) {
       const card = cards.get(outcome.cardId);
       if (!card) return;
-      const result = plan.scheduler.review(toSchedule(card), outcome.rating, when);
-      repos.recordReview({
+      const { card: updated } = repos.reviewCard({
         cardId: card.id,
         rating: outcome.rating,
         answer: encodeAnswer({ text: outcome.transcript }),
         latencyMs: Math.max(0, Math.round(outcome.latencyMs)),
         reviewedAt: when,
         deviceId,
-        next: result.card,
+        scheduler: plan.scheduler,
       });
-      cards.set(card.id, { ...card, ...result.card });
+      cards.set(card.id, updated);
     },
   };
 }

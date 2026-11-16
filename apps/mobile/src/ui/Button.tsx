@@ -5,24 +5,29 @@ import { useTheme } from './ThemeProvider';
 import { minTouchTarget } from './tokens';
 
 export type ButtonVariant = 'primary' | 'secondary';
+export type ButtonSize = 'regular' | 'compact';
 
 export interface ButtonProps extends Omit<PressableProps, 'children' | 'style'> {
   /** Visible label; also the accessibility label unless one is given. */
   label: string;
   /** Visual style. Defaults to `primary`. */
   variant?: ButtonVariant;
+  /** `compact` for inline actions in dense layouts (same 48pt target, less padding). */
+  size?: ButtonSize;
 }
 
 /** Accessible button with a 48pt minimum touch target. */
 export function Button({
   label,
   variant = 'primary',
+  size = 'regular',
   disabled = false,
   accessibilityLabel,
   ...rest
 }: ButtonProps) {
   const { colors, radii, spacing } = useTheme();
   const isPrimary = variant === 'primary';
+  const compact = size === 'compact';
   return (
     <Pressable
       accessibilityRole="button"
@@ -34,9 +39,9 @@ export function Button({
       style={({ pressed }) => [
         styles.base,
         {
-          borderRadius: radii.md,
-          paddingHorizontal: spacing.xl,
-          paddingVertical: spacing.md,
+          borderRadius: compact ? radii.pill : radii.md,
+          paddingHorizontal: compact ? spacing.md : spacing.xl,
+          paddingVertical: compact ? 0 : spacing.md,
           backgroundColor: isPrimary
             ? pressed
               ? colors.primaryPressed

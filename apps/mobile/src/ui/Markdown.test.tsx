@@ -19,6 +19,22 @@ describe('Markdown', () => {
     ]);
   });
 
+  it('parses tables, skipping the separator row', () => {
+    expect(
+      parseMarkdown('Forms:\n| | sing. | plur. |\n|---|---|---|\n| m. | **il** | **i** |\nAfter.'),
+    ).toEqual([
+      { type: 'paragraph', text: 'Forms:' },
+      {
+        type: 'table',
+        rows: [
+          ['', 'sing.', 'plur.'],
+          ['m.', '**il**', '**i**'],
+        ],
+      },
+      { type: 'paragraph', text: 'After.' },
+    ]);
+  });
+
   it('renders a grammar note', async () => {
     await render(
       <ThemeProvider scheme="light">

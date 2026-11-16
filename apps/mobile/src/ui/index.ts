@@ -1,5 +1,5 @@
 export { BarChart, type BarChartProps, type BarDatum } from './BarChart';
-export { Button, type ButtonProps, type ButtonVariant } from './Button';
+export { Button, type ButtonProps, type ButtonSize, type ButtonVariant } from './Button';
 export { Card } from './Card';
 export { Chip, type ChipProps } from './Chip';
 export { EmptyState, type EmptyStateProps } from './EmptyState';

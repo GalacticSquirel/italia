@@ -1,12 +1,9 @@
-import { createScheduler } from '@italia/core';
-
 import {
   createTestDatabase,
   sequentialIds,
   type TestDatabase,
 } from '@/db/testing/createTestDatabase';
 
-import { CardNotFoundError, toSchedule } from './CardRepo';
 import { createRepositories, type Repositories } from './repositories';
 import type { ReviewLogRepo } from './ReviewLogRepo';
 import { at, schedule } from './testing/fixtures';
@@ -147,40 +144,5 @@ describe('ReviewLogRepo queries for planning', () => {
       repos.reviewLogs.countCardsFirstReviewedBetween(at(0), at(200), { kinds: ['dictation'] }),
     ).toBe(1);
     expect(repos.reviewLogs.countCardsFirstReviewedBetween(at(0), at(200), { kinds: [] })).toBe(0);
-  });
-});
-
-describe('recordReview', () => {
-  it('appends the log and updates the card in one step', () => {
-    const scheduler = createScheduler();
-    const current = repos.cards.getById(cardId);
-    if (!current) throw new Error('card missing');
-    const { card: next } = scheduler.review(toSchedule(current), 'good', at(1));
-
-    const log = repos.recordReview({ ...review(1), next });
-    expect(log.cardId).toBe(cardId);
-    expect(repos.reviewLogs.count()).toBe(1);
-    const updated = repos.cards.getById(cardId);
-    expect(updated && toSchedule(updated)).toEqual(next);
-  });
-
-  it('keeps neither write when the card does not exist', () => {
-    expect(() =>
-      repos.recordReview({ ...review(1), cardId: 'missing', next: schedule({ reps: 1 }) }),
-    ).toThrow(CardNotFoundError);
-    expect(repos.reviewLogs.count()).toBe(0);
-  });
-
-  it('rolls back the card update when the log insert fails', () => {
-    repos.reviewLogs.append(review(1, 'dup'));
-    const before = repos.cards.getById(cardId);
-    expect(() =>
-      repos.recordReview({
-        ...review(2),
-        logId: 'dup',
-        next: schedule({ reps: 5, state: 'review' }),
-      }),
-    ).toThrow();
-    expect(repos.cards.getById(cardId)).toEqual(before);
   });
 });

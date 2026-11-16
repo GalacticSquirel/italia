@@ -12,6 +12,7 @@ export const SYNC_TABLES = [
   'setting',
   'study_session',
   'error_record',
+  'learner_sentence',
 ] as const;
 
 /** A synced table. */
@@ -121,6 +122,31 @@ export const ErrorRecordDtoSchema = z
 /** An error record in transit. */
 export type ErrorRecordDto = z.infer<typeof ErrorRecordDtoSchema>;
 
+/**
+ * A sentence the learner corrected in conversation, practised as a
+ * `sentence_production` card. Append-only. Ids are negative (content ids are
+ * positive) and derived from the corrected text on the device, so devices
+ * give the same sentence the same id.
+ */
+export const LearnerSentenceDtoSchema = z
+  .object({
+    id: z.number().int().negative().min(-2_147_483_647),
+    /** The corrected sentence (the card's answer). */
+    it: z.string().min(1).max(4000),
+    /** What the learner wrote (the card's prompt). */
+    original: z.string().max(4000),
+    /** Error tags of the correction. */
+    errorTags: z.array(z.string().max(200)).max(50),
+    /** Content grammar point ids the errors are evidence about. */
+    grammarIds: z.array(z.number().int()).max(50),
+    source: z.enum(['conversation', 'review']),
+    createdAt: isoTime,
+  })
+  .strict();
+
+/** A learner sentence in transit. */
+export type LearnerSentenceDto = z.infer<typeof LearnerSentenceDtoSchema>;
+
 /** The row schema of each synced table. */
 export const SYNC_ROW_SCHEMAS = {
   review_log: ReviewLogDtoSchema,
@@ -128,6 +154,7 @@ export const SYNC_ROW_SCHEMAS = {
   setting: SettingDtoSchema,
   study_session: StudySessionDtoSchema,
   error_record: ErrorRecordDtoSchema,
+  learner_sentence: LearnerSentenceDtoSchema,
 } as const;
 
 /** The row type of each synced table. */
@@ -137,6 +164,7 @@ export interface SyncRowMap {
   setting: SettingDto;
   study_session: StudySessionDto;
   error_record: ErrorRecordDto;
+  learner_sentence: LearnerSentenceDto;
 }
 
 const batch = <T extends z.ZodType>(row: T) => z.array(row).min(1).max(SYNC_BATCH_MAX);
@@ -155,6 +183,7 @@ export const PushRequestSchema = z.discriminatedUnion('table', [
   pushOf('setting'),
   pushOf('study_session'),
   pushOf('error_record'),
+  pushOf('learner_sentence'),
 ]);
 
 /** A push batch. */
@@ -201,6 +230,7 @@ export const PullResponseSchema = z.union([
   pulledOf('setting'),
   pulledOf('study_session'),
   pulledOf('error_record'),
+  pulledOf('learner_sentence'),
 ]);
 
 /** A page of pulled rows. */

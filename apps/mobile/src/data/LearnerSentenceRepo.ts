@@ -1,5 +1,7 @@
 import { desc, eq, inArray } from 'drizzle-orm';
 
+import { fnv1a32 } from '@italia/core';
+
 import { learnerSentence } from '@/db/schema';
 import type { AppDatabase } from '@/db/types';
 
@@ -35,16 +37,6 @@ export interface LearnerSentenceRepo {
 
 const normalise = (text: string) => text.trim().replace(/\s+/gu, ' ');
 
-/** 32-bit FNV-1a hash of a string's UTF-16 code units. */
-function fnv1a(text: string): number {
-  let hash = 0x811c9dc5;
-  for (let i = 0; i < text.length; i += 1) {
-    hash ^= text.charCodeAt(i);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-  return hash;
-}
-
 /**
  * The id of a corrected sentence: negative (content ids are positive) and
  * derived from the text, so two devices give the same sentence the same id
@@ -52,7 +44,7 @@ function fnv1a(text: string): number {
  */
 export function learnerSentenceId(text: string, attempt = 0): number {
   const key = attempt === 0 ? normalise(text) : `${normalise(text)}#${String(attempt)}`;
-  return -(fnv1a(key) % 0x7fffffff) - 1;
+  return -(fnv1a32(key) % 0x7fffffff) - 1;
 }
 
 /** Create a {@link LearnerSentenceRepo}. */

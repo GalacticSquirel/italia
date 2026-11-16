@@ -31,6 +31,7 @@ export {
   type ReviewResult,
 } from './types';
 export { createRng, shuffle, type Rng } from './rng';
+export { fnv1a32, fnv1a32Hex } from './hash';
 export { normaliseAnswer } from './normalise';
 export { diffStrings, type DiffSegment, type DiffSegmentType } from './edit-distance';
 export {

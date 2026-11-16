@@ -13,8 +13,8 @@ runs on a development machine.
   a short English gloss.
 - **sentences**: about 14,000 Italian-English pairs from Tatoeba, 3 to 12 words, chosen per lemma
   so that the target is the rarest word in the sentence (n+1), up to 5 per lemma.
-- **grammarPoints**: 38 hand-written A1-A2 (and first B1) grammar points in acquisition order,
-  with prerequisites and a short note with examples. Sentences carry the ids of the grammar
+- **grammarPoints**: 114 hand-written grammar points from A1 to C2 in acquisition order
+  (`src/grammar/levels/`), with prerequisites, an explanation and drills. Sentences carry the ids of the grammar
   points simple rules detect in them.
 
 Row fields match the insert types of the `lemma`, `sentence` and `grammar_point` tables in
@@ -119,6 +119,21 @@ names: Luca, Sara
 Al lavoro, Luca parla con Sara. | At work, Luca talks to Sara.
 ```
 
+A `questions:` line ends the story text and starts its multiple-choice comprehension questions:
+a `?` line per question, then its options, the right one marked `*` and the others `-`. Every story
+has 3 to 6 questions (we write 4 with 3 options). Questions are tagged like sentences, so the reader
+can offer tap-to-translate on them; their words must be within the next band's ceiling (or a name
+from the story's `names:`) and their grammar within the band's ceiling. Options are stored in
+authored order with the index of the right one, and the app shuffles them.
+
+```text
+questions:
+? Con chi parla Luca? | Who is Luca talking to?
+- Con il capo. | To the boss.
+* Con Sara. | To Sara.
+- Con un amico. | To a friend.
+```
+
 ### Bands
 
 A story's **band** is a lemma-rank ceiling (150, 300, 500, 750, 1000, 1500, 2000, 3000). The
@@ -129,6 +144,7 @@ validator (`src/stories/validate.ts`) requires, per story:
 - names at most 12% of tokens;
 - no grammar point above the band's ceiling, and no subjunctive or passato remoto forms;
 - a length and a longest sentence that grow with the band;
+- 3 to 6 comprehension questions (see above);
 - 3 to 6 **target lemmas**: content words above the previous band's ceiling (and above rank 20)
   that the story uses at least twice. The tagger picks them, preferring words earlier episodes of
   the series have not targeted.
@@ -153,7 +169,8 @@ before band 750). Informal _tu_ is used throughout; formal _Lei_ appears from ba
 `src/stories/tagger.ts` tokenises each sentence and tags it with the Morph-it! lexicon, so elision
 ("l'acqua", "dell'", "c'è"), articulated prepositions ("nel" = in + il) and enclitics ("dimmi" =
 dire + mi, "alzarsi" = alzare + si) map to seed lemmas. A token has the head lemma in `lemmaId`
-and further lemmas in `partIds`. Tokens listed under `names:` are marked `isName` even when they
+and further lemmas in `partIds`. Variant spellings the seed folded into a base word (`ed`, `ad`,
+`po'`, `buon`, `bel`, `qual`, `anch'`; listed in `seed/build-report.json`) map to that word. Tokens listed under `names:` are marked `isName` even when they
 are also words ("Rosa", "Bruno"); a capitalised word that is neither is reported.
 
 `wordTimings` is filled by the audio phase and stored in the `story.word_timings` column: one
@@ -166,6 +183,9 @@ array per sentence in reading order, with one `[startMs, endMs]` pair per token
 pnpm --filter @italia/content build:stories                 # tag, validate, write everything
 pnpm --filter @italia/content build:stories --only via-verdi --verbose   # iterate on one series
 ```
+
+Stories are tagged against the committed seed and record its checksum, so after `build:seed`
+always run `build:stories` too (in that order); `corpus.test.ts` fails otherwise.
 
 The build needs `morph-it` and `subtlex-it` in `.cache/` (`fetch:sources`) and exits non-zero
 when a story fails; fix the story rather than the thresholds. `src/stories/corpus.test.ts` checks

@@ -1,6 +1,7 @@
 import { eq } from 'drizzle-orm';
 
 import { parseStoriesFile, toStoryRow, type StoriesFile } from '@italia/content';
+import { fnv1a32Hex } from '@italia/core';
 
 import { story } from '@/db/schema';
 import type { AppDatabase } from '@/db/types';
@@ -30,21 +31,11 @@ export interface ImportStoriesResult {
   storiesWritten: number;
 }
 
-/** 32-bit FNV-1a of a string, as 8 hex digits. */
-function fnv1a(text: string): string {
-  let hash = 0x811c9dc5;
-  for (let i = 0; i < text.length; i++) {
-    hash ^= text.charCodeAt(i);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-  return hash.toString(16).padStart(8, '0');
-}
-
 /** The identity of a validated stories file. */
 export function storiesIdentity(file: StoriesFile): StoriesIdentity {
   return {
     version: file.version,
-    digest: `${file.seedSha256.slice(0, 16)}-${fnv1a(JSON.stringify([file.series, file.stories]))}`,
+    digest: `${file.seedSha256.slice(0, 16)}-${fnv1a32Hex(JSON.stringify([file.series, file.stories]))}`,
   };
 }
 

@@ -1,3 +1,5 @@
+import { GRAMMAR_DRILLS, GRAMMAR_POINTS, type GrammarDrill } from '@italia/content';
+
 import type {
   GrammarPointRow,
   LearnerSentenceRow,
@@ -28,6 +30,13 @@ export interface ContentIndex {
   grammar: readonly GrammarPointRow[];
   grammarById: ReadonlyMap<number, GrammarPointRow>;
   /**
+   * Hand-written drills for each grammar point (in drill order), only for
+   * points in the seed. They target exactly the point being taught, so they
+   * are how a point is first practised and unlocked.
+   */
+  drillsByPoint: ReadonlyMap<number, readonly GrammarDrill[]>;
+  drillById: ReadonlyMap<number, GrammarDrill>;
+  /**
    * Sentences the learner corrected in conversation (negative ids), practised
    * only as `sentence_production` cards. They are not in the other indexes, so
    * they are never used as example or cloze material.
@@ -37,12 +46,15 @@ export interface ContentIndex {
 
 const cache = new WeakMap<object, ContentIndex>();
 
+const SYLLABUS_TITLES = new Map(GRAMMAR_POINTS.map((p) => [p.id, p.title]));
+
 /** Build a {@link ContentIndex} from content rows. */
 export function buildContentIndex(
   lemmas: readonly LemmaRow[],
   sentences: readonly SentenceRow[],
   grammar: readonly GrammarPointRow[],
   learnerSentences: readonly LearnerSentenceRow[] = [],
+  drills: readonly GrammarDrill[] = GRAMMAR_DRILLS,
 ): ContentIndex {
   const byLength = [...sentences].sort((a, b) => a.it.length - b.it.length || a.id - b.id);
   const rank = new Map(lemmas.map((l) => [l.id, l.freqRank]));
@@ -67,6 +79,19 @@ export function buildContentIndex(
   }
   const sortedLemmas = [...lemmas].sort((a, b) => a.freqRank - b.freqRank);
   const sortedGrammar = [...grammar].sort((a, b) => a.order - b.order);
+  // A drill belongs to the syllabus point with its id. Attach it only when the
+  // seeded point is that point (same title), so a different or older content
+  // seed never shows drills for the wrong grammar.
+  const titleById = new Map(grammar.map((g) => [g.id, g.title]));
+  const seededDrills = drills.filter(
+    (d) => titleById.get(d.pointId) === SYLLABUS_TITLES.get(d.pointId),
+  );
+  const drillsByPoint = new Map<number, GrammarDrill[]>();
+  for (const d of seededDrills) {
+    const list = drillsByPoint.get(d.pointId);
+    if (list) list.push(d);
+    else drillsByPoint.set(d.pointId, [d]);
+  }
   return {
     lemmas: sortedLemmas,
     lemmaById: new Map(sortedLemmas.map((l) => [l.id, l])),
@@ -75,6 +100,8 @@ export function buildContentIndex(
     sentencesByLength: byLength,
     grammar: sortedGrammar,
     grammarById: new Map(sortedGrammar.map((g) => [g.id, g])),
+    drillsByPoint,
+    drillById: new Map(seededDrills.map((d) => [d.id, d])),
     learnerSentenceById: new Map(learnerSentences.map((s) => [s.id, s])),
   };
 }

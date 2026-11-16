@@ -102,6 +102,35 @@ describe('drillReducer', () => {
     expect(s).toMatchObject({ index: 1, skipped: 1, outcomes: [] });
     expect(createDrill([]).phase).toBe('done');
   });
+
+  it('ignores a late result for an item that was skipped', () => {
+    // Item a is skipped while its recording is still being transcribed.
+    let s = run(createDrill(items), { type: 'start' }, { type: 'cueDone' });
+    s = run(s, { type: 'recorded', index: 0, attempt: 1 }, { type: 'skip' });
+    // Item b is now being transcribed when a's transcript arrives.
+    s = run(s, { type: 'cueDone' }, { type: 'recorded', index: 1, attempt: 1 });
+    s = run(s, {
+      type: 'transcribed',
+      transcript: 'buona sera',
+      latencyMs: 900,
+      index: 0,
+      attempt: 1,
+    });
+    expect(s).toMatchObject({ phase: 'transcribing', index: 1, outcomes: [] });
+    s = run(s, { type: 'failed', message: 'late', index: 0, attempt: 1 });
+    expect(s.error).toBeNull();
+    s = run(s, { type: 'transcribed', transcript: 'grazie', latencyMs: 900, index: 1, attempt: 1 });
+    expect(s.outcomes).toEqual([expect.objectContaining({ cardId: 'b', rating: 'easy' })]);
+  });
+
+  it('ignores a late first-attempt result during the retry', () => {
+    let s = run(createDrill(items), { type: 'start' }, { type: 'cueDone' }, { type: 'recorded' });
+    s = run(s, said('niente'));
+    expect(s.attempt).toBe(2);
+    s = run(s, { type: 'retryDone' }, { type: 'recorded', index: 0, attempt: 2 });
+    s = run(s, { type: 'failed', message: 'late', index: 0, attempt: 1 });
+    expect(s.phase).toBe('transcribing');
+  });
 });
 
 describe('createSilenceDetector', () => {

@@ -20,6 +20,7 @@ import { useRepositories } from '@/db';
 import { useSettingsStore } from '@/features/settings/settingsStore';
 import { getContentIndex } from '@/features/study/content';
 import { schedulerFor } from '@/features/study/planning';
+import { usePracticeSession } from '@/features/study/usePracticeSession';
 import { sayItalian, useSpeech } from '@/speech';
 import { useTutor, type PowerAdvice } from '@/tutor';
 import { Button, Chip, EmptyState, Text, TextField, useTheme } from '@/ui';
@@ -40,6 +41,9 @@ export interface ConversationScreenProps {
   /** Clock (tests). */
   now?: () => Date;
 }
+
+/** Activity recorded on the study session when a conversation is ended. */
+export const CONVERSATION_ACTIVITY = 'conversation';
 
 function Chat({
   context,
@@ -67,11 +71,13 @@ function Chat({
     voiceOn.current = voice;
   }, [voice]);
   const [scheduler] = useState(() => schedulerFor(repos.settings.getAll()));
+  const practice = usePracticeSession(CONVERSATION_ACTIVITY, now);
 
   const conversation = useConversation({
     partner,
     context,
     onTutorTurn: ({ output, learnerMessage }) => {
+      practice.touch();
       if (learnerMessage !== null) {
         try {
           const recorded = recordTutorTurn(repos, {
@@ -99,6 +105,10 @@ function Chat({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (state.phase === 'ended') practice.complete();
+  }, [state.phase, practice]);
+
   const newWords = useMemo<NewWord[]>(
     () => state.turns.flatMap((t) => (t.role === 'tutor' ? t.output.annotations.newWords : [])),
     [state.turns],
@@ -117,6 +127,7 @@ function Chat({
 
   const generating = state.phase === 'thinking' || state.phase === 'streaming';
   const send = (text: string) => {
+    practice.touch();
     setNotice(null);
     setTapped(null);
     speech.audio.stop();

@@ -12,7 +12,7 @@ import type { ErrorHistoryItem, LearnerProfile, TutorLevel, TutorScenario } from
 /** Lowest lemma ceiling the prompt uses: a scene needs the commonest words even at the start. */
 export const MIN_LEMMA_CEILING = 300;
 
-/** The tutor level for a CEFR estimate: below A1 talks at A1, C1 and above at B2. */
+/** The tutor level for a CEFR estimate: below A1 talks at A1, otherwise at the estimate. */
 export function tutorLevelFor(level: CefrEstimateLevel): TutorLevel {
   switch (level) {
     case 'pre-A1':
@@ -21,10 +21,9 @@ export function tutorLevelFor(level: CefrEstimateLevel): TutorLevel {
     case 'A2':
     case 'B1':
     case 'B2':
-      return level;
     case 'C1':
     case 'C2':
-      return 'B2';
+      return level;
   }
 }
 
@@ -36,7 +35,8 @@ export function tutorLevelFor(level: CefrEstimateLevel): TutorLevel {
  */
 export function lemmaCeilingFor(level: TutorLevel, knownLemmas: number): number | null {
   const band = LEVEL_BANDS[level].lemmaCeiling;
-  const rounded = Math.round(knownLemmas / 50) * 50;
+  // A count that is not a number (corrupt progress data) counts as a beginner's.
+  const rounded = Number.isFinite(knownLemmas) ? Math.round(knownLemmas / 50) * 50 : 0;
   const ceiling = Math.min(band, Math.max(MIN_LEMMA_CEILING, rounded));
   return ceiling === band ? null : ceiling;
 }

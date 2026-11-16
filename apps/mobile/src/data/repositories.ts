@@ -1,6 +1,14 @@
+import type { Scheduler } from '@italia/core';
+
 import type { AppDatabase } from '@/db/types';
 
 import { createCardRepo, type CardRepo } from './CardRepo';
+import {
+  alignCardStates,
+  reviewCard,
+  type ReviewCardInput,
+  type ReviewCardResult,
+} from './cardState';
 import {
   createGrammarRepo,
   createLemmaRepo,
@@ -15,9 +23,7 @@ import { createLearnerSentenceRepo, type LearnerSentenceRepo } from './LearnerSe
 import { createMetaRepo, type MetaRepo } from './MetaRepo';
 import { createModelFileRepo, type ModelFileRepo } from './ModelFileRepo';
 import { createReadingRepo, type ReadingRepo } from './ReadingRepo';
-import { recordReview, type RecordReviewInput } from './recordReview';
 import { createReviewLogRepo, type ReviewLogRepo } from './ReviewLogRepo';
-import type { ReviewLogRow } from './rows';
 import { createSettingsRepo, type SettingsRepo } from './SettingsRepo';
 import { createStoryRepo, type StoryRepo } from './StoryRepo';
 import { createStreakRepo, type StreakRepo } from './StreakRepo';
@@ -42,8 +48,10 @@ export interface Repositories {
   meta: MetaRepo;
   /** Install state of on-device model files. */
   modelFiles: ModelFileRepo;
-  /** {@link recordReview} bound to this database. */
-  recordReview(input: RecordReviewInput): ReviewLogRow;
+  /** {@link reviewCard} bound to this database: the way screens record a review. */
+  reviewCard(input: ReviewCardInput): ReviewCardResult;
+  /** {@link alignCardStates} bound to this database. */
+  alignCardStates(scheduler: Scheduler, now?: Date): number;
 }
 
 /** Options for {@link createRepositories}. */
@@ -70,6 +78,7 @@ export function createRepositories(db: AppDatabase, options: RepositoryOptions =
     streak: createStreakRepo(db),
     meta: createMetaRepo(db, newId),
     modelFiles: createModelFileRepo(db),
-    recordReview: (input) => recordReview(db, input, newId),
+    reviewCard: (input) => reviewCard(db, input, newId),
+    alignCardStates: (scheduler, now) => alignCardStates(db, scheduler, now),
   };
 }

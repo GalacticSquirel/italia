@@ -5,7 +5,7 @@
  */
 import { readFileSync } from 'node:fs';
 
-import { parseSeed } from '@italia/content';
+import { GRAMMAR_POINTS, parseSeed } from '@italia/content';
 
 import { createTestDatabase, type TestDatabase } from '@/db/testing/createTestDatabase';
 
@@ -51,7 +51,7 @@ describe('full seed import', () => {
     const repos = createRepositories(t.db);
     expect(repos.lemmas.count()).toBe(3000);
     expect(repos.sentences.count()).toBeGreaterThan(14_000);
-    expect(repos.grammar.listInOrder()).toHaveLength(38);
+    expect(repos.grammar.listInOrder()).toHaveLength(GRAMMAR_POINTS.length);
     expect(getImportedSeed(t.db)?.version).toBe(1);
   });
 
