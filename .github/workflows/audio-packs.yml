@@ -11,14 +11,9 @@ name: Audio packs
 # Needs the same settings as "Publish model files": the HF_TOKEN (or HF_WRITE) secret and the
 # HF_MODELS_REPO variable.
 
+# Run it by hand after the seed or the stories change: it records only the new text, adds it as
+# the next shard of each pack and commits the manifest to the branch it ran on.
 on:
-  # A workflow can be started by hand only once it is on the default branch, so it also runs
-  # when the audio pipeline changes on the branch that adds it.
-  push:
-    branches: [claude/project-thread-9uarzt]
-    paths:
-      - '.github/workflows/audio-packs.yml'
-      - 'audio/italia_audio/**'
   workflow_dispatch:
     inputs:
       only:
