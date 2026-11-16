@@ -10,6 +10,7 @@ import * as Speech from 'expo-speech';
 import type { AudioClip, Voice } from '@italia/core';
 
 import { encodeWav } from '../pcm';
+import { speechLanguage } from './speechLanguage';
 
 /** Options for {@link AudioOut.speak}. */
 export interface SpeakOptions {
@@ -87,7 +88,7 @@ export function createDeviceAudioOut(): AudioOut {
         };
         void Speech.stop();
         Speech.speak(text, {
-          language,
+          language: speechLanguage(language),
           rate,
           ...(voiceId === undefined ? {} : { voice: voiceId }),
           ...(onBoundary === undefined ? {} : { onBoundary }),

@@ -8,14 +8,22 @@
 // .so files, and the JSI module could be built against headers newer than the
 // runtime that wins the merge. The plugin
 //
-// 1. pins onnxruntime-android to the version of onnxruntime-react-native, so
-//    its JSI module uses the same C API version as the bundled runtimes
-//    (ONNX Runtime's C API is backward compatible within a major version), and
+// 1. pins onnxruntime-android, which onnxruntime-react-native links its JSI
+//    module against, to the ONNX Runtime that sherpa-onnx bundles. The library
+//    exports its C API under an ELF symbol version named after its release
+//    (`OrtGetApiBase@VERS_1.25.0`), so the JSI module must be linked against
+//    the same release as the libonnxruntime.so that ends up in the APK, or
+//    dlopen fails at startup. Raise SHERPA_ORT_SYMBOL_VERSION whenever a
+//    react-native-sherpa-onnx upgrade changes its bundled runtime; check with
+//    `llvm-readelf -V lib/arm64-v8a/libonnxruntime.so` on the built APK. And
 // 2. keeps the first copy of each duplicated native library.
 //
 // iOS needs no change here; see docs/speech.md for the iOS build notes.
 const { withAppBuildGradle, withProjectBuildGradle } = require('expo/config-plugins');
-const ortVersion = require('onnxruntime-react-native/package.json').version;
+// The ONNX Runtime release that react-native-sherpa-onnx 0.4.x bundles (its
+// `1.24.4-qnn` build exports VERS_1.25.0).
+const SHERPA_ORT_SYMBOL_VERSION = '1.25.0';
+const ortVersion = SHERPA_ORT_SYMBOL_VERSION;
 
 /**
  * Insert `block` after the first line matching `anchor`, once (a marker
