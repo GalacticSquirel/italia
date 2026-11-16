@@ -26,7 +26,7 @@ import {
   STORIES_FILE,
 } from '../src/node';
 import { parseSubtlex } from '../src/pipeline/frequency';
-import { applyFormReadings, parseMorphIt } from '../src/pipeline/lexicon';
+import { applyFormReadings, lookup, parseMorphIt } from '../src/pipeline/lexicon';
 import { FORM_READINGS, LEXICON_SUPPLEMENT } from '../src/pipeline/overrides';
 import { type SeedManifest, SeedManifestSchema } from '../src/schema';
 import { STORY_BANDS } from '../src/stories/bands';
@@ -43,7 +43,7 @@ import {
 } from '../src/stories/schema';
 import { serialiseStoriesFile, serialiseStory } from '../src/stories/serialise';
 import { parseStorySource } from '../src/stories/source';
-import { createStoryTagger } from '../src/stories/tagger';
+import { createLemmaResolver, createStoryTagger } from '../src/stories/tagger';
 import { type StoryReport, validateCorpus, validateStory } from '../src/stories/validate';
 
 const log = (message: string) => {
@@ -75,12 +75,43 @@ async function main(): Promise<void> {
   const seedText = await readFile(SEED_FILE, 'utf8');
   const seed = await loadSeedFile();
   const lemmaById = new Map(seed.lemmas.map((l) => [l.id, l]));
-  const tagger = createStoryTagger({
-    lexicon,
-    subtlex,
-    lemmas: seed.lemmas,
-    variants: await loadVariantSpellings(),
-  });
+  const variants = await loadVariantSpellings();
+  const tagger = createStoryTagger({ lexicon, subtlex, lemmas: seed.lemmas, variants });
+  const resolve = createLemmaResolver(seed.lemmas, variants);
+  const label = (id: number) => {
+    const l = lemmaById.get(id);
+    return l ? `${l.lemma} ${l.pos} #${l.freqRank}` : String(id);
+  };
+  /**
+   * Words the tagger read as a lemma past rank 1000 although the same form is
+   * also a more frequent seed lemma: "insegna = insegna NOUN #4051 (also
+   * insegnare VERB #592)". Writers check these by hand, because a wrong choice
+   * shows the learner the wrong word.
+   */
+  const homographs = (story: Story): string[] => {
+    const out = new Set<string>();
+    const sentences = [
+      ...story.paragraphs.flatMap((p) => p.sentences),
+      ...story.questions.flatMap((q) => [q.prompt, ...q.options]),
+    ];
+    for (const sentence of sentences) {
+      for (const t of sentence.tokens) {
+        if (t.lemmaId === null || t.partIds) continue;
+        const ids = new Set<number>();
+        for (const r of lookup(lexicon, t.text.toLowerCase()) ?? []) {
+          const head = r.units[0];
+          const id = r.units.length === 1 && head ? resolve(head) : null;
+          if (id !== null) ids.add(id);
+        }
+        ids.delete(t.lemmaId);
+        const rank = (id: number) => lemmaById.get(id)?.freqRank ?? 0;
+        const own = rank(t.lemmaId);
+        if (own <= 1000 || ![...ids].some((id) => rank(id) < own)) continue;
+        out.add(`${t.text} = ${label(t.lemmaId)} (also ${[...ids].map(label).join(', ')})`);
+      }
+    }
+    return [...out];
+  };
 
   const series: StorySeries[] = [];
   const stories: Story[] = [];
@@ -140,6 +171,7 @@ async function main(): Promise<void> {
       const targets = (story?.targetLemmaIds ?? []).map((id) => lemmaById.get(id)?.lemma ?? id);
       console.log(`       grammar: ${r.grammarUsed.join(' ')}`);
       console.log(`       targets: ${targets.join(' ')}`);
+      if (story) for (const h of homographs(story)) console.log(`       homograph: ${h}`);
     }
     for (const e of r.errors) console.log(`       - ${e}`);
     if (r.errors.length > 0) failed = true;
