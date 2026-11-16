@@ -94,6 +94,22 @@ _VERB_ENDINGS: tuple[tuple[str, tuple[str, ...]], ...] = (
 )
 
 
+_ACTION_NOUN = re.compile(r"^(.{3,})([ai])zion[ei]$")
+
+
+def action_noun_verbs(word: str) -> list[str]:
+    """The verb behind an action noun: `riparazione -> riparare`, `spedizione -> spedire`.
+
+    A tutor that may say "riparare" can say "la riparazione"; the guess only counts when the
+    verb is known or allowed.
+    """
+    match = _ACTION_NOUN.match(word)
+    if not match:
+        return []
+    stem, vowel = match.groups()
+    return [stem + "are"] if vowel == "a" else [stem + "ire", stem + "ere"]
+
+
 def verb_guesses(word: str) -> list[str]:
     """Infinitives a present-tense or imperative form could belong to (unchecked guesses).
 
@@ -414,7 +430,9 @@ class SimplemmaLemmatizer:
         """Verb guesses for a known Italian form only, so a learner's "sapo" stays unknown."""
         import simplemma  # noqa: PLC0415 - heavy dictionary load only when used
 
-        return verb_guesses(word) if simplemma.is_known(word, lang="it") else []
+        if not simplemma.is_known(word, lang="it"):
+            return []
+        return verb_guesses(word) + action_noun_verbs(word)
 
     def lemmas(self, word: str) -> list[str]:
         import simplemma  # noqa: PLC0415 - heavy dictionary load only when used

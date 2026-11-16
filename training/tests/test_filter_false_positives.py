@@ -61,6 +61,28 @@ def test_reflexive_key_vocab_covers_its_forms(checker: BandChecker) -> None:
     assert report.out_of_band == []
 
 
+@pytest.mark.parametrize(
+    ("noun", "verb"),
+    [("riparazione", "riparare"), ("spedizione", "spedire"), ("spedizioni", "spedire")],
+)
+def test_action_nouns_reach_their_verb(noun: str, verb: str, checker: BandChecker) -> None:
+    assert verb in SimplemmaLemmatizer().lemmas(noun)
+    report = checker.check(f"La {noun} costa poco.", band_for(Level.B1), allowed=[verb])
+    assert report.out_of_band == []
+
+
+@pytest.mark.parametrize(
+    "reply",
+    [
+        "Attenzione: casa è femminile, quindi la casa.",
+        "Il verbo va al plurale.",
+        "Corretto! Hai detto tutto correttamente.",
+    ],
+)
+def test_grammar_terms_and_praise_are_a1(reply: str, checker: BandChecker) -> None:
+    assert checker.check(reply, band_for(Level.A1)).out_of_band == []
+
+
 def test_misconjugations_are_not_read_as_verbs(checker: BandChecker) -> None:
     assert [o.token for o in checker.check("Non sapo?", band_for(Level.A1)).out_of_band] == ["sapo"]
 
