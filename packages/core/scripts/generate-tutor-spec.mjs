@@ -32,7 +32,7 @@ function pyConstant(source, name) {
 /** The level bands from `levels.py` (`Level.A1: LevelBand(Level.A1, 500, 8, 2, 1, 0.05, english_allowed=True)`). */
 function pyBands(source) {
   const re =
-    /Level\.(A1|A2|B1|B2): LevelBand\(Level\.\1, (\d+), (\d+), (\d+), (\d+), ([\d.]+), english_allowed=(True|False)\)/g;
+    /Level\.(A1|A2|B1|B2|C1|C2): LevelBand\(Level\.\1, (\d+), (\d+), (\d+), (\d+), ([\d.]+), english_allowed=(True|False)\)/g;
   const bands = {};
   for (const m of source.matchAll(re)) {
     bands[m[1]] = {
@@ -45,7 +45,7 @@ function pyBands(source) {
       englishAllowed: m[7] === 'True',
     };
   }
-  if (Object.keys(bands).length !== 4) throw new Error('expected 4 level bands in levels.py');
+  if (Object.keys(bands).length !== 6) throw new Error('expected 6 level bands in levels.py');
   return bands;
 }
 
