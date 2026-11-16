@@ -1,5 +1,4 @@
-import { render, screen, userEvent } from '@testing-library/react-native';
-import * as Speech from 'expo-speech';
+import { render, screen, userEvent, waitFor } from '@testing-library/react-native';
 import { AccessibilityInfo } from 'react-native';
 
 import { createScheduler } from '@italia/core';
@@ -29,7 +28,10 @@ afterEach(() => {
   app.t.close();
 });
 
+let speech = createFakeSpeechServices({ mic: 'denied' });
+
 async function renderSession(): Promise<SessionStore> {
+  speech = createFakeSpeechServices({ mic: 'denied' });
   const store = createSessionStore({
     repos: app.repos,
     now: () => {
@@ -39,7 +41,7 @@ async function renderSession(): Promise<SessionStore> {
   });
   await render(
     app.wrap(
-      <SpeechProvider services={createFakeSpeechServices({ mic: 'denied' })}>
+      <SpeechProvider services={speech}>
         <SessionProvider store={store}>
           <SessionScreen />
         </SessionProvider>
@@ -59,10 +61,12 @@ describe('SessionScreen', () => {
     // First exposure: the word, its meaning and Italian audio.
     expect(screen.getByText('New word')).toBeOnTheScreen();
     expect(screen.getByText('essere')).toBeOnTheScreen();
-    expect(Speech.speak).toHaveBeenCalledWith(
-      expect.stringContaining('essere'),
-      expect.objectContaining({ language: 'it-IT' }),
-    );
+    await waitFor(() => {
+      expect(speech.audio.spoken[0]).toEqual({
+        text: 'essere',
+        options: expect.objectContaining({ language: 'it-IT' }) as unknown,
+      });
+    });
 
     let guard = 0;
     let typedOnce = false;

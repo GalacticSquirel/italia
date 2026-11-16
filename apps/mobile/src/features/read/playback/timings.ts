@@ -70,3 +70,35 @@ export function tokenAtChar(tokens: readonly TokenSpan[], charIndex: number): nu
   }
   return tokens.length - 1;
 }
+
+/** A word's place in a recorded clip, over the clip's normalised text. */
+export interface RecordedWord {
+  charStart: number;
+  charEnd: number;
+  startMs: number;
+  endMs: number;
+}
+
+/**
+ * Recorded word timings mapped onto the sentence's tokens by character
+ * overlap (`text` must be the clip's normalised text). A token with no
+ * aligned word (a number, say) spans the gap between its neighbours. Null
+ * when fewer than half the tokens line up, so the caller estimates instead.
+ */
+export function recordedTimings(
+  words: readonly RecordedWord[],
+  tokens: readonly TokenSpan[],
+  durationMs: number,
+): WordTimings | null {
+  if (tokens.length === 0 || words.length === 0) return null;
+  const found = tokens.map(
+    (t) => words.find((w) => w.charStart < t.end && t.start < w.charEnd) ?? null,
+  );
+  if (found.filter(Boolean).length * 2 < tokens.length) return null;
+  return found.map((w, i) => {
+    if (w) return [w.startMs, w.endMs] as const;
+    const before = found.slice(0, i).reverse().find(Boolean);
+    const after = found.slice(i + 1).find(Boolean);
+    return [before?.endMs ?? 0, after?.startMs ?? durationMs] as const;
+  });
+}

@@ -1,7 +1,8 @@
-import { render, screen, userEvent } from '@testing-library/react-native';
-import * as Speech from 'expo-speech';
+import { render, screen, userEvent, waitFor } from '@testing-library/react-native';
 
 import type { GrammarPointRow, LemmaRow, SentenceRow } from '@/data';
+import { SpeechProvider } from '@/speech';
+import { createFakeSpeechServices } from '@/speech/testing';
 import { ThemeProvider } from '@/ui';
 
 import { RecognitionCard } from './RecognitionCard';
@@ -38,10 +39,16 @@ const grammar: GrammarPointRow = {
   noteMd: 'note',
 };
 
-const wrap = (node: React.ReactNode) => <ThemeProvider scheme="light">{node}</ThemeProvider>;
+let speech = createFakeSpeechServices();
+
+const wrap = (node: React.ReactNode) => (
+  <ThemeProvider scheme="light">
+    <SpeechProvider services={speech}>{node}</SpeechProvider>
+  </ThemeProvider>
+);
 
 beforeEach(() => {
-  jest.mocked(Speech.speak).mockClear();
+  speech = createFakeSpeechServices();
 });
 
 describe('RecognitionCard', () => {
@@ -62,15 +69,37 @@ describe('RecognitionCard', () => {
     expect(screen.getByText('noun')).toBeOnTheScreen();
     expect(screen.getByText('house, home')).toBeOnTheScreen();
     expect(screen.getByText('The house is big.')).toBeOnTheScreen();
-    expect(Speech.speak).toHaveBeenCalledWith('casa. La casa è grande.', {
-      language: 'it-IT',
-      rate: 0.9,
-      onDone: undefined,
-      onStopped: undefined,
-      onError: undefined,
+    await waitFor(() => {
+      expect(speech.audio.spoken.map((s) => [s.text, s.options])).toEqual([
+        ['casa', { language: 'it-IT', rate: 0.9 }],
+        ['La casa è grande.', { language: 'it-IT', rate: 0.9 }],
+      ]);
     });
     await user.press(screen.getByRole('button', { name: 'Got it' }));
     expect(onGotIt).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('ListenButton', () => {
+  it('credits a native speaker when their recording plays', async () => {
+    speech = createFakeSpeechServices({
+      clips: {
+        casa: { credit: { by: 'LangPao', licence: 'CC BY-SA 4.0', source: 'https://c/1' } },
+      },
+    });
+    await render(
+      wrap(
+        <RecognitionCard
+          prompt={{ kind: 'recognition', lemma, example: null }}
+          speechRate={1}
+          autoPlay
+          onGotIt={jest.fn()}
+        />,
+      ),
+    );
+    expect(
+      await screen.findByText('Said by LangPao · Lingua Libre, CC BY-SA 4.0'),
+    ).toBeOnTheScreen();
   });
 });
 
@@ -148,11 +177,40 @@ describe('TypedPromptCard', () => {
     );
     expect(screen.getByText('Type what you hear')).toBeOnTheScreen();
     expect(screen.queryByText(sentence.it)).toBeNull();
-    expect(Speech.speak).toHaveBeenCalledWith(sentence.it, expect.objectContaining({ rate: 1 }));
+    await waitFor(() => {
+      expect(speech.audio.spoken.at(-1)).toEqual({
+        text: sentence.it,
+        options: { language: 'it-IT', rate: 1 },
+      });
+    });
     await user.press(screen.getByRole('button', { name: 'Play slowly' }));
-    expect(Speech.speak).toHaveBeenLastCalledWith(
-      sentence.it,
-      expect.objectContaining({ language: 'it-IT', rate: 0.7 }),
+    await waitFor(() => {
+      expect(speech.audio.spoken.at(-1)?.options.rate).toBe(0.7);
+    });
+  });
+
+  it('plays the pre-recorded clip when a pack has one', async () => {
+    speech = createFakeSpeechServices({ clips: { [sentence.it]: {} } });
+    const user = userEvent.setup();
+    await render(
+      wrap(
+        <TypedPromptCard
+          prompt={{ kind: 'dictation', sentence, accepted: [sentence.it] }}
+          speechRate={1}
+          autoPlay={false}
+          answered={false}
+        />,
+      ),
     );
+    await user.press(screen.getByRole('button', { name: 'Play slowly' }));
+    await waitFor(() => {
+      expect(speech.audio.playedClips).toEqual([
+        {
+          clip: { kind: 'file', uri: 'file:///clips/La%20casa%20%C3%A8%20grande..m4a' },
+          rate: 0.7,
+        },
+      ]);
+    });
+    expect(speech.audio.spoken).toEqual([]);
   });
 });

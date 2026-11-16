@@ -12,6 +12,8 @@ import {
   type TestDatabase,
 } from '@/db/testing/createTestDatabase';
 import { useSettingsStore } from '@/features/settings/settingsStore';
+import { SpeechProvider } from '@/speech';
+import { createFakeSpeechServices } from '@/speech/testing';
 import { FIXTURE_SEED } from '@/testing/fixtureSeed';
 import { ThemeProvider } from '@/ui';
 
@@ -19,7 +21,9 @@ import { ThemeProvider } from '@/ui';
 export interface TestApp {
   t: TestDatabase;
   repos: Repositories;
-  /** Wraps a tree in the theme and the database providers. */
+  /** Fake speech services the wrapped tree uses (record what was said and played). */
+  speech: ReturnType<typeof createFakeSpeechServices>;
+  /** Wraps a tree in the theme, database and (fake) speech providers. */
   wrap: (children: ReactNode) => ReactElement;
 }
 
@@ -29,13 +33,15 @@ export async function createTestApp(): Promise<TestApp> {
   const repos = createRepositories(t.db, { newId: sequentialIds() });
   await importSeedContent(t.db, FIXTURE_SEED, { yieldBetweenBatches: () => Promise.resolve() });
   useSettingsStore.getState().hydrate(repos);
+  const speech = createFakeSpeechServices();
   return {
     t,
     repos,
+    speech,
     wrap: (children) => (
       <ThemeProvider scheme="light">
         <RepositoryProvider db={t.db} repos={repos}>
-          {children}
+          <SpeechProvider services={speech}>{children}</SpeechProvider>
         </RepositoryProvider>
       </ThemeProvider>
     ),

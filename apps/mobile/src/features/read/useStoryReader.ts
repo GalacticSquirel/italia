@@ -143,7 +143,7 @@ export function useStoryReader(storyId: string) {
     if (!story || !data) return undefined;
     const c = createPlaybackController({
       sentences: story.sentences.map((s) => ({ text: s.it, tokens: s.tokens })),
-      speaker: createStorySpeaker(services),
+      speaker: createStorySpeaker(services, { voiceSeed: story.id }),
       rate: initialRate.current,
       startAt: data.startAt,
       onSentenceDone: (i) => {
@@ -289,5 +289,6 @@ const IDLE: PlaybackState = {
   rate: 1,
   timing: null,
   voice: null,
+  voiceName: null,
   error: null,
 };

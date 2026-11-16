@@ -27,8 +27,8 @@ export interface SpeakOptions {
 export interface AudioOut {
   /** Speak with a device voice; resolves when done or stopped. */
   speak(text: string, options: SpeakOptions): Promise<void>;
-  /** Play a clip; resolves when it ends or is stopped. */
-  play(clip: AudioClip): Promise<void>;
+  /** Play a clip (at `rate`, pitch kept); resolves when it ends or is stopped. */
+  play(clip: AudioClip, options?: { rate?: number }): Promise<void>;
   /** Device voices for a language prefix such as `it`. */
   voices(language: string): Promise<Voice[]>;
   /** Stop speech and playback. */
@@ -46,7 +46,7 @@ let clipCounter = 0;
 export function createDeviceAudioOut(): AudioOut {
   let stopCurrent: (() => void) | null = null;
 
-  const play = async (clip: AudioClip): Promise<void> => {
+  const play = async (clip: AudioClip, rate = 1): Promise<void> => {
     let uri: string;
     if (clip.kind === 'file') uri = clip.uri;
     else {
@@ -56,6 +56,10 @@ export function createDeviceAudioOut(): AudioOut {
       uri = file.uri;
     }
     const player = createAudioPlayer(uri);
+    if (rate !== 1) {
+      player.shouldCorrectPitch = true;
+      player.setPlaybackRate(rate, 'high');
+    }
     await new Promise<void>((resolve) => {
       const finish = () => {
         sub.remove();
@@ -93,9 +97,9 @@ export function createDeviceAudioOut(): AudioOut {
         });
       });
     },
-    play(clip) {
+    play(clip, options) {
       stopCurrent?.();
-      return play(clip);
+      return play(clip, options?.rate);
     },
     async voices(language) {
       const all = await Speech.getAvailableVoicesAsync();
