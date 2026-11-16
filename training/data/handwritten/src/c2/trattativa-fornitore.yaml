@@ -1,0 +1,60 @@
+- scenario: trattativa-fornitore
+  level: C2
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno, dottor Marini. Sì, la chiamo proprio per questo. Capisco che i costi siano saliti, ma un aumento del quindici per cento da un mese all'altro, comunicato con due righe scritte, per un'azienda piccola come la nostra è un colpo difficile da assorbire."
+  - tutor: "Me ne rendo conto, e avrei preferito dirglielo a voce. Ma carta e plastica sono aumentate del venti, e noi ne abbiamo assorbito una parte. Mi creda, non stiamo facendo la cresta su nessuno."
+    goals: [problem]
+    new: [{lemma: fare la cresta, gloss: to pad the bill, skim a profit}]
+  - learner: "Non lo metto in dubbio. Però mi permetta di ricordarle una cosa: abbiamo lavorato insieme da dieci anni, non abbiamo mai saltato un pagamento e durante la pandemia siamo stati tra i pochi a non ridurre gli ordini. Un cliente così non merita lo stesso listino di chi è arrivato ieri."
+    errors: [tense-aspect]
+  - tutor: "È tutto vero, e non l'ho dimenticato. Una curiosità, però, prima di risponderle: «abbiamo lavorato insieme da dieci anni»? Detto così, sembra che il rapporto sia finito, e spero proprio di no. Con «da dieci anni», per una cosa che dura ancora, che tempo si usa?"
+    prompt: {text: "abbiamo lavorato insieme da dieci anni", tags: [tense-aspect]}
+  - learner: "Per carità, non è finito affatto! Lavoriamo insieme da dieci anni, e vorrei continuare per altri dieci. Proprio per questo le chiedo un trattamento diverso."
+  - tutor: "Mi ha tolto un peso, e nel merito ha ragione: la fedeltà va riconosciuta. Il quindici per tutti, però, è una decisione della direzione, e io ho le mani legate fino a un certo punto. Mi dica lei che cosa avrebbe in mente."
+    goals: [argue]
+    new: [{lemma: avere le mani legate, gloss: to have one's hands tied}, {lemma: togliere un peso, gloss: to take a weight off someone's mind}]
+  - learner: "Le propongo questo: un aumento del sette per cento invece del quindici, e in cambio firmiamo un contratto di due anni con un ordine minimo garantito, più alto del venti per cento rispetto a oggi. Lei ha volumi sicuri, noi un margine che ci lascia respirare. Sono confidente che la sua direzione capirà."
+    errors: [false-friend]
+  - tutor: "Lei è fiduciosa, io un po' meno: al sette la direzione non scende. Ma i volumi garantiti per due anni sono un argomento che pesa. Posso arrivare al dieci, con consegna gratuita su tutti gli ordini. Ci veniamo incontro così?"
+    goals: [counteroffer]
+    recast: {text: "confidente", fix: "fiduciosa", tags: [false-friend]}
+  - learner: "Il dieci con la consegna gratuita è un passo avanti, lo riconosco. Le chiedo un ultimo sforzo: nove per cento, e il prezzo bloccato per tutti i ventiquattro mesi, qualunque cosa succeda alle materie prime. A queste condizioni firmo anche domani."
+  - tutor: "Lei tratta meglio di molti miei colleghi. Nove per cento, prezzo bloccato per ventiquattro mesi, consegna gratuita e ordine minimo più venti: affare fatto. Le mando la bozza del contratto entro giovedì. Tra dieci anni, spero, saremo ancora qui a tirare sul prezzo."
+    goals: [agreement]
+    new: [{lemma: affare fatto, gloss: "it's a deal"}, {lemma: tirare sul prezzo, gloss: to haggle}, {lemma: bozza, gloss: draft}]
+
+- scenario: trattativa-fornitore
+  level: C2
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno, ingegnere. Immagina bene. Non le nascondo che il nuovo listino ci ha lasciati di sasso: quindici per cento in più sugli imballaggi significa, per noi, lavorare in perdita su metà dei prodotti."
+  - tutor: "Di sasso ci sono rimasto anch'io, quando ho visto le fatture dei nostri fornitori di carta. Capisco la sua posizione, ma non posso vendere in perdita nemmeno io. Siamo tutti sulla stessa barca, e la barca imbarca acqua."
+    goals: [problem]
+    new: [{lemma: rimanere di sasso, gloss: to be stunned}, {lemma: essere sulla stessa barca, gloss: to be in the same boat}, {lemma: imbarcare acqua, gloss: to take on water}]
+  - learner: "Sulla stessa barca, d'accordo, ma noi remiamo da più tempo. Siamo vostri clienti dal 2012, vi abbiamo presentato almeno tre aziende della zona e paghiamo a trenta giorni quando tutti pagano a novanta. Preferirei che mi manda un'offerta che tenga conto di tutto questo."
+    errors: [subjunctive-use]
+  - tutor: "Sui pagamenti a trenta giorni tanto di cappello: siete una mosca bianca. Però una cosa mi stona: «preferirei che mi manda»? Dopo un condizionale di desiderio quel verbo non può restare così. Vuole riprovare?"
+    goals: [argue]
+    prompt: {text: "Preferirei che mi manda", tags: [subjunctive-use]}
+    new: [{lemma: tanto di cappello, gloss: hats off}, {lemma: mosca bianca, gloss: a rare bird}]
+  - learner: "Certo: preferirei che mi mandi un'offerta su misura."
+    errors: [subjunctive-use]
+  - tutor: "Meglio, ma dopo «preferirei» il congiuntivo va all'imperfetto: preferirei che mi mandasse un'offerta. E gliela preparo volentieri, se mi aiuta a costruirla. Che numeri ha in testa?"
+    recast: {text: "preferirei che mi mandi", fix: "preferirei che mi mandasse", tags: [subjunctive-use]}
+  - learner: "Glieli dico subito. Aumento dell'otto per cento, non del quindici, e noi passiamo dagli ordini mensili a un ordine unico ogni tre mesi, così lei risparmia sulle consegne. Mi sembra un buon negozio per tutti e due."
+    errors: [false-friend]
+  - tutor: "Anch'io cerco un buon affare per tutti e due, mi creda. L'ordine ogni tre mesi mi interessa, perché mi semplifica i trasporti. All'otto però non arrivo: posso fare l'undici, e le tengo ferme le condizioni di pagamento. Che ne pensa?"
+    goals: [counteroffer]
+    recast: {text: "un buon negozio", fix: "un buon affare", tags: [false-friend]}
+  - learner: "Penso che ci stiamo avvicinando. All'undici non ci sto, ma al dieci sì, a una condizione: se il prezzo della carta scende, il listino scende con lui. Non vorrei che l'aumento restasse quando la causa non c'è più."
+  - tutor: "Una clausola di revisione, insomma: lei la sa lunga. Va bene, ma che valga nei due sensi: se la carta sale ancora, ne riparliamo. Dieci per cento, ordini ogni tre mesi, revisione ogni sei. Siamo d'accordo?"
+    new: [{lemma: saperla lunga, gloss: to know a thing or two}, {lemma: clausola di revisione, gloss: price-review clause}]
+  - learner: "Siamo d'accordo. Dieci per cento, un ordine ogni tre mesi, pagamento a trenta giorni e revisione ogni sei, in entrambe le direzioni. Aspetto il contratto per iscritto e, se è tutto come ha detto, lo firmo in settimana."
+  - tutor: "Perfetto, glielo faccio avere entro domani. È stato un piacere: lei difende i suoi margini con le unghie e con i denti, ma senza mai alzare la voce. Alla prossima revisione, allora, e speriamo con la carta in discesa."
+    goals: [agreement]
+    new: [{lemma: con le unghie e con i denti, gloss: tooth and nail}]

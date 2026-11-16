@@ -1,0 +1,164 @@
+- scenario: panetteria
+  level: A1
+  persona: en-f-student
+  history: [noun-number]
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno! Vorrei mezzo chilo di pane, per favore.
+    - tutor: Ecco mezzo chilo di pane. Altro?
+      goals: [greet, order-bread]
+    - learner: Sì, due focaccia.
+      errors: [noun-number]
+    - tutor: Due focaccia? Sono due...
+      prompt: {text: due focaccia, tags: [noun-number]}
+    - learner: Due focacce!
+    - tutor: Brava! Ecco due focacce nel sacchetto.
+      goals: [order-extra]
+    - learner: Quanto costa tutto?
+    - tutor: Sono 5 euro.
+    - learner: Ecco 5 euro. Grazie, arrivederci!
+    - tutor: Grazie a Lei, buona giornata!
+      goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: en-m-retired
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno. Un chilo di pane, per favore.
+    - tutor: Ecco un chilo di pane. Desidera altro?
+      goals: [greet, order-bread]
+      new: [{lemma: desiderare, gloss: to wish}]
+    - learner: Sì, due etti di pizza bianca.
+    - tutor: Ecco la pizza bianca, due etti.
+      goals: [order-extra]
+    - learner: Quanto pago?
+    - tutor: Sono 6 euro e venti centesimi.
+      new: [{lemma: centesimo, gloss: cent}]
+    - learner: Ecco 10 euro.
+    - tutor: Ecco il resto. Arrivederci!
+      goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: es-f-erasmus
+  history: [article-form]
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno! Vorrei un sacchetto di grissini.
+    - tutor: Certo. Ecco un sacchetto di grissini.
+      goals: [greet]
+    - learner: E anche il pane, mezzo chilo.
+    - tutor: Ecco mezzo chilo di pane. Altro?
+      goals: [order-bread, order-extra]
+    - learner: No, grazie. Quanto costa?
+    - tutor: Sono 4 euro, per favore.
+    - learner: Ecco. Buona giornata!
+    - tutor: Grazie, altrettanto!
+      goals: [pay]
+      new: [{lemma: altrettanto, gloss: likewise}]
+
+- scenario: panetteria
+  level: A1
+  persona: en-m-traveller
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno! Vorrei un bread, per favore.
+      errors: [word-choice]
+    - tutor: Un pane, certo! Quanto pane vuole? Mezzo chilo?
+      goals: [greet]
+      recast: {text: un bread, fix: Un pane, tags: [word-choice]}
+    - learner: Sì, mezzo chilo di pane.
+    - tutor: Ecco il pane. Altro?
+      goals: [order-bread]
+    - learner: Sì, un pezzo di focaccia, per favore.
+    - tutor: Ecco la focaccia. È ancora calda!
+      goals: [order-extra]
+    - learner: Quanto costa tutto?
+    - tutor: Sono 3,50 euro.
+    - learner: Ecco i soldi. Grazie mille!
+    - tutor: Grazie a Lei, arrivederci!
+      goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: en-f-professional
+  history: [noun-gender]
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno! Vorrei un focaccia, per favore.
+      errors: [noun-gender]
+    - tutor: Un focaccia? Focaccia è femminile.
+      goals: [greet]
+      prompt: {text: un focaccia, tags: [noun-gender]}
+      new: [{lemma: femminile, gloss: feminine}]
+    - learner: Una focaccia, per favore.
+    - tutor: Brava! Ecco una focaccia. Altro?
+      goals: [order-extra]
+    - learner: Sì, anche un chilo di pane.
+    - tutor: Ecco un chilo di pane.
+      goals: [order-bread]
+    - learner: Quanto pago?
+    - tutor: Sono 5 euro. Vuole un sacchetto?
+    - learner: Sì, grazie. Ecco 5 euro.
+    - tutor: Grazie, arrivederci!
+      goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: es-m-worker
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno. Due chili di pane per il ristorante.
+    - tutor: Due chili! Ecco il pane.
+      goals: [greet, order-bread]
+    - learner: E tre etti di grissini.
+    - tutor: Ecco i grissini. Altro?
+      goals: [order-extra]
+    - learner: No. Quanto costa?
+    - tutor: Sono 9 euro in tutto.
+    - learner: Pago con la carta.
+    - tutor: Va bene. Grazie e buon lavoro!
+      goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: en-m-heritage
+  history: [ce-ci-sono]
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno! È la focaccia oggi?
+      errors: [ce-ci-sono]
+    - tutor: È la focaccia? Lei chiede se esiste...
+      goals: [greet]
+      prompt: {text: È la focaccia, tags: [ce-ci-sono]}
+    - learner: C'è la focaccia oggi?
+    - tutor: Sì, c'è! Quanta ne vuole?
+    - learner: Tre etti di focaccia, per favore.
+    - tutor: Ecco tre etti di focaccia. Altro?
+      goals: [order-extra]
+    - learner: Sì, anche mezzo chilo di pane.
+    - tutor: Ecco il pane. Sono 4,50 euro.
+      goals: [order-bread]
+    - learner: Ecco 5 euro. Arrivederci!
+    - tutor: Ecco il resto. Arrivederci!
+      goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: es-f-teacher
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno! Vorrei del pane, mezzo chilo.
+    - tutor: Certo. Ecco mezzo chilo di pane.
+      goals: [greet, order-bread]
+    - learner: Avete anche la pizza?
+    - tutor: Sì, abbiamo pizza rossa e pizza bianca.
+    - learner: Due etti di pizza rossa, per favore.
+    - tutor: Ecco la pizza rossa. Altro?
+      goals: [order-extra]
+    - learner: No, grazie. Quanto costa?
+    - tutor: Sono 4 euro. Ecco il sacchetto.
+    - learner: Grazie. Ecco 4 euro.
+    - tutor: Grazie e arrivederci!
+      goals: [pay]

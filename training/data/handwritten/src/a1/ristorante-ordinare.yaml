@@ -1,0 +1,179 @@
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-f-student
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Buongiorno! Siamo due. C'è un tavolo?
+    - tutor: Sì, ecco un tavolo vicino alla finestra. Ecco il menù.
+      goals: [ask-table]
+    - learner: Grazie. Per primo, vorrei gli spaghetti al pomodoro.
+    - tutor: Ottimo! E da bere?
+      goals: [order-food]
+    - learner: Una bottiglia di acqua naturale, per favore.
+    - tutor: Va bene, acqua naturale.
+      goals: [order-drink]
+      new: [{lemma: bottiglia, gloss: bottle}]
+    - learner: Grazie! Dopo, il conto, per favore.
+    - tutor: Certo, ecco il conto. Sono 18 euro.
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-m-retired
+  history: [modal-infinitive]
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Buongiorno. Siamo in quattro.
+    - tutor: Perfetto, ecco un tavolo per quattro.
+      goals: [ask-table]
+    - learner: Grazie. Noi vogliamo di mangiare il pesce.
+      errors: [modal-infinitive]
+    - tutor: Vogliamo di mangiare? Dopo vogliamo, niente di.
+      prompt: {text: vogliamo di mangiare, tags: [modal-infinitive]}
+    - learner: Vogliamo mangiare il pesce!
+    - tutor: Esatto! Oggi il pesce del giorno è molto buono.
+      goals: [order-food]
+    - learner: Bene, quattro pesci del giorno. E una bottiglia di vino bianco.
+    - tutor: Perfetto, quattro pesci e un vino bianco.
+      goals: [order-drink]
+    - learner: Alla fine, possiamo avere il conto?
+    - tutor: Certo, alla fine Le porto il conto.
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: es-f-erasmus
+  history: [article-form]
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Siamo tre. Avete un tavolo libero?
+    - tutor: Sì, prego, da questa parte.
+      goals: [ask-table]
+    - learner: Grazie. Vorrei il spaghetti alla carbonara.
+      errors: [article-form]
+    - tutor: Il spaghetti? Spaghetti è plurale...
+      prompt: {text: il spaghetti, tags: [article-form]}
+      new: [{lemma: plurale, gloss: plural}]
+    - learner: Gli spaghetti alla carbonara!
+    - tutor: Brava! E da bere?
+      goals: [order-food]
+    - learner: Acqua frizzante per tutti, per favore.
+    - tutor: Va bene, acqua frizzante per tre.
+      goals: [order-drink]
+      new: [{lemma: frizzante, gloss: sparkling}]
+    - learner: Grazie. E poi il conto, per favore.
+    - tutor: Certo, ecco il conto.
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-m-traveller
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Solo io. Un tavolo per uno, per favore.
+    - tutor: Certo, prego. Ecco il menù.
+      goals: [ask-table]
+    - learner: Grazie. Cosa è buono oggi?
+    - tutor: Oggi le lasagne sono molto buone.
+      new: [{lemma: lasagna, gloss: lasagne}]
+    - learner: Allora prendo le lasagne.
+    - tutor: Perfetto! E da bere?
+      goals: [order-food]
+    - learner: Una birra, per favore.
+    - tutor: Una birra, subito.
+      goals: [order-drink]
+    - learner: Il conto, per favore.
+    - tutor: Ecco il conto. Sono 15 euro.
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-f-professional
+  history: [article-use]
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Buongiorno, siamo due. Abbiamo una prenotazione.
+    - tutor: A che nome?
+    - learner: A nome Taylor.
+    - tutor: Sì, ecco il vostro tavolo.
+      goals: [ask-table]
+    - learner: Grazie. Per secondo vorrei la bistecca.
+    - tutor: Ottimo. Come la vuole?
+      goals: [order-food]
+      new: [{lemma: bistecca, gloss: steak}]
+    - learner: Ben cotta, per favore. E un bicchiere di vino rosso.
+    - tutor: Va bene, un vino rosso.
+      goals: [order-drink]
+    - learner: Il conto, per favore.
+    - tutor: Subito, ecco il conto.
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: es-m-worker
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Siamo due. Un tavolo fuori, per favore.
+    - tutor: Certo, c'è un tavolo fuori. Prego.
+      goals: [ask-table]
+    - learner: Per primo, due risotti ai funghi.
+    - tutor: Due risotti, perfetto. E per secondo?
+      goals: [order-food]
+      new: [{lemma: risotto, gloss: risotto}]
+    - learner: Niente secondo. Mezzo litro di vino rosso, per favore.
+    - tutor: Va bene, mezzo litro di rosso.
+      goals: [order-drink]
+      new: [{lemma: litro, gloss: litre}]
+    - learner: Possiamo pagare? Il conto, per favore.
+    - tutor: Certo, ecco il conto.
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-m-heritage
+  history: [noun-number]
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Siamo cinque. Io, mia moglie e i nostri tre figli.
+    - tutor: Che bella famiglia! Ecco un tavolo grande.
+      goals: [ask-table]
+    - learner: Grazie. Vorrei tre pizza per i bambini.
+      errors: [noun-number]
+    - tutor: Tre pizza? Sono tre...
+      prompt: {text: tre pizza, tags: [noun-number]}
+    - learner: Tre pizze per i bambini!
+    - tutor: Bravo! E per voi due?
+    - learner: Per noi due piatti di pasta.
+    - tutor: Perfetto. E da bere?
+      goals: [order-food]
+    - learner: Acqua per tutti e un vino rosso.
+    - tutor: Va bene, acqua e vino rosso.
+      goals: [order-drink]
+    - learner: Alla fine il conto, per favore.
+    - tutor: Certo, nessun problema.
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: es-f-teacher
+  history: [register]
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Buongiorno. Siamo due.
+    - tutor: Prego, ecco il tavolo e il menù.
+      goals: [ask-table]
+    - learner: Grazie. Cosa mi consigli?
+      errors: [register]
+    - tutor: Mi consigli? Siamo in un ristorante...
+      prompt: {text: Cosa mi consigli, tags: [register]}
+    - learner: Cosa mi consiglia?
+    - tutor: Perfetto! Oggi il pesce è molto buono.
+    - learner: Allora, il pesce per secondo, per favore.
+    - tutor: Bene. E da bere?
+      goals: [order-food]
+    - learner: Un'acqua naturale, per favore.
+    - tutor: Subito.
+      goals: [order-drink]
+    - learner: E il conto alla fine, grazie.
+    - tutor: Certo, signora.
+      goals: [ask-bill]
