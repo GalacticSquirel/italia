@@ -8,6 +8,13 @@ import { JsonValueSchema, SYNC_ROW_SCHEMAS, type SyncRowMap, type SyncTable } fr
  * `user_id` is set from the signed-in user and `server_seq` by the server.
  */
 
+/**
+ * The Postgres schema that holds the sync tables. They are kept out of
+ * `public` so the app can share a (self-hosted) database with other projects;
+ * the API must expose this schema and the client must select it.
+ */
+export const SYNC_DB_SCHEMA = 'italia';
+
 const serverSeq = z.coerce.number().int().positive();
 const time = z.string().min(1);
 
@@ -50,6 +57,16 @@ const SERVER_ROW_SCHEMAS = {
     example: z.string(),
     source: z.string(),
     card_id: z.string().nullable(),
+    created_at: time,
+    server_seq: serverSeq,
+  }),
+  learner_sentence: z.object({
+    id: z.number(),
+    it: z.string(),
+    original: z.string(),
+    error_tags: z.array(z.string()),
+    grammar_ids: z.array(z.number()),
+    source: z.string(),
     created_at: time,
     server_seq: serverSeq,
   }),
@@ -100,6 +117,11 @@ export const SYNC_TABLE_SPECS: Readonly<Record<SyncTable, SyncTableSpec>> = {
     conflictColumns: ['user_id', 'id'],
     appendOnly: true,
     selectColumns: columnsOf('error_record'),
+  },
+  learner_sentence: {
+    conflictColumns: ['user_id', 'id'],
+    appendOnly: true,
+    selectColumns: columnsOf('learner_sentence'),
   },
 };
 
@@ -188,6 +210,26 @@ const MAPPERS: { [K in SyncTable]: Mapper<K> } = {
       example: r.example,
       source: r.source,
       cardId: r.card_id,
+      createdAt: r.created_at,
+    }),
+  },
+  learner_sentence: {
+    toServer: (r) => ({
+      id: r.id,
+      it: r.it,
+      original: r.original,
+      error_tags: r.errorTags,
+      grammar_ids: r.grammarIds,
+      source: r.source,
+      created_at: r.createdAt,
+    }),
+    fromServer: (r) => ({
+      id: r.id,
+      it: r.it,
+      original: r.original,
+      errorTags: r.error_tags,
+      grammarIds: r.grammar_ids,
+      source: r.source,
       createdAt: r.created_at,
     }),
   },
