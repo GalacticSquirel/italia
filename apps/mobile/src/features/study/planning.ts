@@ -86,6 +86,8 @@ export function schedulerFor(settings: Settings): Scheduler {
 export function planToday(repos: Repositories, now: Date): StudyPlan {
   const settings = repos.settings.getAll();
   const scheduler = schedulerFor(settings);
+  // Card states must match the current desired retention before planning on them.
+  repos.alignCardStates(scheduler, now);
   const content = getContentIndex(repos);
   const rows = repos.cards.listAll();
 

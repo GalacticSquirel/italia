@@ -61,6 +61,15 @@ describe('server rows', () => {
         cardId: null,
         createdAt: '2026-11-15T09:30:00Z',
       },
+      learner_sentence: {
+        id: -123_456,
+        it: 'Ieri sono andata a Napoli.',
+        original: 'Ieri ho andato a Napoli.',
+        errorTags: ['aux.essere'],
+        grammarIds: [12],
+        source: 'conversation' as const,
+        createdAt: '2026-11-15T09:30:00Z',
+      },
     };
     for (const table of SYNC_TABLES) {
       const { user_id: _u, ...server } = toServerRow(table, samples[table], USER);
@@ -102,5 +111,26 @@ describe('server rows', () => {
       appendOnly: false,
     });
     expect(SYNC_TABLE_SPECS.card_flag.appendOnly).toBe(false);
+    expect(SYNC_TABLE_SPECS.learner_sentence).toMatchObject({
+      conflictColumns: ['user_id', 'id'],
+      appendOnly: true,
+    });
+  });
+
+  it('rejects learner sentences with content (positive) ids', () => {
+    const { user_id: _u, ...server } = toServerRow(
+      'learner_sentence',
+      {
+        id: -1,
+        it: 'Ciao.',
+        original: 'Ciao',
+        errorTags: [],
+        grammarIds: [],
+        source: 'conversation',
+        createdAt: '2026-11-15T09:30:00Z',
+      },
+      USER,
+    );
+    expect(() => fromServerRow('learner_sentence', { ...server, id: 5, server_seq: 1 })).toThrow();
   });
 });

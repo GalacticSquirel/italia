@@ -6,8 +6,10 @@ project_id = "italia"
 [api]
 enabled = true
 port = 54321
-# Only the public schema is exposed through the REST API.
-schemas = ["public"]
+# The app's tables live in the `italia` schema (so it can share a database
+# with other projects); the client selects it with `db: { schema: 'italia' }`.
+# On a self-hosted stack the same list is PGRST_DB_SCHEMAS in docker/.env.
+schemas = ["public", "graphql_public", "italia"]
 extra_search_path = ["public", "extensions"]
 # Pull pages are at most 500 rows; keep a hard cap above that.
 max_rows = 1000

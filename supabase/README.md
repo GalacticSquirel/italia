@@ -5,8 +5,8 @@ log-based sync; nothing here calls a model or stores audio. The app works fully 
 signed out; sync is optional.
 
 - `config.toml`: project config for `supabase start` (local stack) and `supabase config push`.
-- `migrations/`: user-scoped sync tables (`review_log`, `study_session`, `error_record`,
-  `card_flag`, `setting`) with row-level security, append-only and last-writer-wins triggers, and
+- `migrations/`: user-scoped sync tables in the `italia` schema (`review_log`, `study_session`,
+  `error_record`, `card_flag`, `setting`, `learner_sentence`) with row-level security, append-only and last-writer-wins triggers, and
   server-assigned `server_seq` pull cursors.
 - `tests/`: Vitest tests that apply the migrations to PGlite with a stand-in for the Supabase
   `auth` schema and check the policies and triggers (`pnpm test`).

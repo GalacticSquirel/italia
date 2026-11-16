@@ -3,8 +3,8 @@
  * pushed, and merging pulled rows into the SQLite database.
  *
  * Merge rules (see docs/sync.md):
- * - review_log, study_session, error_record: append-only, union by id. A row
- *   the device already has is left untouched.
+ * - review_log, study_session, error_record, learner_sentence: append-only,
+ *   union by id. A row the device already has is left untouched.
  * - card flags and settings: last-writer-wins by (updatedAt, deviceId); ties
  *   with identical values are no-ops, and a local null device id means this
  *   device.
@@ -18,6 +18,7 @@ import {
   type CardFlagDto,
   type ErrorRecordDto,
   type JsonValue,
+  type LearnerSentenceDto,
   type PullResponseFor,
   type ReviewLogDto,
   type SettingDto,
@@ -28,16 +29,16 @@ import {
 import {
   CARD_KINDS,
   PROMPT_MODES,
-  rebuildCardState,
   type CardKind,
   type PromptMode,
   type Scheduler,
 } from '@italia/core';
 
+import { cardsWithLogs, rebuildCards } from '@/data/cardState';
 import { cardIdFor } from '@/data/ids';
 import { isSettingKey, SETTINGS_SCHEMA } from '@/data/SettingsRepo';
 import { chunk, MAX_IDS_PER_QUERY } from '@/data/util';
-import { card, errorRecord, reviewLog, settings, studySession } from '@/db/schema';
+import { card, errorRecord, learnerSentence, reviewLog, settings, studySession } from '@/db/schema';
 import type { AppDatabase } from '@/db/types';
 
 /** One table's rows still to push, and how to mark them once pushed. */
@@ -88,7 +89,8 @@ export function isNewer(
 // Cards from deterministic ids
 // ---------------------------------------------------------------------------
 
-const CARD_ID_RE = /^([a-z_]+):(\d+):([a-z_]+)$/u;
+// Target ids are negative for learner sentences (see `learnerSentenceId`).
+const CARD_ID_RE = /^([a-z_]+):(-?\d+):([a-z_]+)$/u;
 
 /** The kind, target and prompt mode encoded in a card id from {@link cardIdFor}, or null. */
 export function parseCardId(
@@ -122,53 +124,7 @@ function ensureCard(tx: AppDatabase, id: string, at: Date, scheduler: Scheduler)
   return true;
 }
 
-/**
- * Rebuild the FSRS state of `cardIds` by replaying all their logs. Cards
- * without logs are left alone.
- *
- * @returns the number of cards rebuilt
- */
-export function rebuildCards(
-  tx: AppDatabase,
-  cardIds: Iterable<string>,
-  scheduler: Scheduler,
-): number {
-  let rebuilt = 0;
-  for (const part of chunk([...new Set(cardIds)], MAX_IDS_PER_QUERY)) {
-    const logs = tx
-      .select({
-        id: reviewLog.id,
-        cardId: reviewLog.cardId,
-        rating: reviewLog.rating,
-        reviewedAt: reviewLog.reviewedAt,
-      })
-      .from(reviewLog)
-      .where(inArray(reviewLog.cardId, part))
-      .all();
-    const byCard = new Map<string, typeof logs>();
-    for (const log of logs) {
-      const list = byCard.get(log.cardId);
-      if (list) list.push(log);
-      else byCard.set(log.cardId, [log]);
-    }
-    for (const [cardId, cardLogs] of byCard) {
-      // createdAt defaults to the first log, so every device gets the same state.
-      const schedule = rebuildCardState(cardLogs, { scheduler });
-      tx.update(card).set(schedule).where(eq(card.id, cardId)).run();
-      rebuilt += 1;
-    }
-  }
-  return rebuilt;
-}
-
-/** Ids of every card that has review logs. */
-export function cardsWithLogs(tx: AppDatabase): string[] {
-  return tx
-    .selectDistinct({ cardId: reviewLog.cardId })
-    .from(reviewLog)
-    .all()
-    .map((r) => r.cardId);
-}
+export { cardsWithLogs, rebuildCards };
 
 // ---------------------------------------------------------------------------
 // Reading unsynced rows
@@ -354,6 +310,36 @@ export function readUnsynced<K extends SyncTable>(
           } satisfies ErrorRecordDto) as SyncRowMap[K] | null,
       );
     }
+    case 'learner_sentence': {
+      // Keys are numbers; the batch key is their decimal string.
+      const raw = db
+        .select()
+        .from(learnerSentence)
+        .where(
+          and(
+            isNull(learnerSentence.syncedAt),
+            afterKey === null ? undefined : gt(learnerSentence.id, Number(afterKey)),
+          ),
+        )
+        .orderBy(asc(learnerSentence.id))
+        .limit(limit)
+        .all();
+      return batchOf<K, (typeof raw)[number]>(
+        raw,
+        limit,
+        (r) => String(r.id),
+        (r) =>
+          v({
+            id: r.id,
+            it: r.it,
+            original: r.original,
+            errorTags: r.errorTags,
+            grammarIds: r.grammarIds,
+            source: r.source,
+            createdAt: iso(r.createdAt),
+          } satisfies LearnerSentenceDto) as SyncRowMap[K] | null,
+      );
+    }
   }
   throw new RangeError(`unknown sync table: ${String(table)}`);
 }
@@ -376,7 +362,15 @@ export function markPushed<K extends SyncTable>(
   const list = rows as readonly unknown[];
   const t: SyncTable = table;
   db.transaction((tx) => {
-    if (t === 'review_log' || t === 'study_session' || t === 'error_record') {
+    if (t === 'learner_sentence') {
+      const ids = (list as readonly LearnerSentenceDto[]).map((r) => r.id);
+      for (const part of chunk(ids, MAX_IDS_PER_QUERY)) {
+        tx.update(learnerSentence)
+          .set({ syncedAt: now })
+          .where(and(inArray(learnerSentence.id, part), isNull(learnerSentence.syncedAt)))
+          .run();
+      }
+    } else if (t === 'review_log' || t === 'study_session' || t === 'error_record') {
       const ids = (list as readonly { id: string }[]).map((r) => r.id);
       for (const part of chunk(ids, MAX_IDS_PER_QUERY)) {
         if (t === 'review_log') {
@@ -423,6 +417,10 @@ export function markAllUnsynced(tx: AppDatabase): void {
   tx.update(reviewLog).set({ syncedAt: null }).where(isNotNull(reviewLog.syncedAt)).run();
   tx.update(studySession).set({ syncedAt: null }).where(isNotNull(studySession.syncedAt)).run();
   tx.update(errorRecord).set({ syncedAt: null }).where(isNotNull(errorRecord.syncedAt)).run();
+  tx.update(learnerSentence)
+    .set({ syncedAt: null })
+    .where(isNotNull(learnerSentence.syncedAt))
+    .run();
   tx.update(settings).set({ syncedAt: null }).where(isNotNull(settings.syncedAt)).run();
   tx.update(card).set({ flagSyncedAt: null }).where(isNotNull(card.flagSyncedAt)).run();
 }
@@ -617,6 +615,38 @@ function mergeErrors(
   }
 }
 
+/**
+ * Corrected sentences: union by id. A pulled sentence whose id this device
+ * already uses (for the same text, or in the very rare case of a hash
+ * collision, another one) is left alone.
+ */
+function mergeLearnerSentences(
+  tx: AppDatabase,
+  rows: LearnerSentenceDto[],
+  ctx: LocalContext,
+  out: MergeOutcome,
+): void {
+  for (const r of rows) {
+    const inserted = tx
+      .insert(learnerSentence)
+      .values({
+        id: r.id,
+        it: r.it,
+        original: r.original,
+        errorTags: r.errorTags,
+        grammarIds: r.grammarIds,
+        source: r.source,
+        createdAt: ms(r.createdAt),
+        syncedAt: ctx.now,
+      })
+      .onConflictDoNothing({ target: learnerSentence.id })
+      .returning({ id: learnerSentence.id })
+      .all();
+    if (inserted.length > 0) out.applied += 1;
+    else out.ignored += 1;
+  }
+}
+
 /** Merge one pulled page into the database (the caller provides the transaction). */
 export function mergePulled<K extends SyncTable>(
   tx: AppDatabase,
@@ -641,6 +671,9 @@ export function mergePulled<K extends SyncTable>(
       break;
     case 'error_record':
       mergeErrors(tx, rows as ErrorRecordDto[], ctx, scheduler, out);
+      break;
+    case 'learner_sentence':
+      mergeLearnerSentences(tx, rows as LearnerSentenceDto[], ctx, out);
       break;
   }
   return out;
@@ -669,6 +702,13 @@ export function countUnsynced(db: AppDatabase): number {
         .select({ n: sql<number>`count(*)` })
         .from(errorRecord)
         .where(isNull(errorRecord.syncedAt))
+        .get(),
+    ) +
+    n(
+      db
+        .select({ n: sql<number>`count(*)` })
+        .from(learnerSentence)
+        .where(isNull(learnerSentence.syncedAt))
         .get(),
     ) +
     n(

@@ -29,6 +29,9 @@ export const META_KEYS = {
   syncCursorSetting: 'sync.cursor.setting',
   syncCursorStudySession: 'sync.cursor.study_session',
   syncCursorErrorRecord: 'sync.cursor.error_record',
+  syncCursorLearnerSentence: 'sync.cursor.learner_sentence',
+  /** Desired retention the stored card states were last computed with, see `alignCardStates`. */
+  cardStateRetention: 'cards.stateRetention',
   /** Reader preference: hide story text until tapped ("1") or show it ("0"). */
   readerListenFirst: 'read.listenFirst',
   /** Ear-training (minimal pair) level and accuracy, as JSON. */

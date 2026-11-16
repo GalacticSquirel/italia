@@ -191,7 +191,8 @@ describe('SyncEngine', () => {
     expectOk(await a.engine.sync());
 
     const b = device('b', { batchSize: 10 });
-    b.transport.failures = { pullNumber: 4 }; // setting, card_flag, then review_log pages 1 and 2
+    // setting, learner_sentence, card_flag, then review_log pages 1 and 2
+    b.transport.failures = { pullNumber: 5 };
     expect((await b.engine.sync()).status).toBe('error');
     expect(b.repos.reviewLogs.count()).toBe(10);
     expect(b.repos.meta.get(META_KEYS.syncCursorReviewLog)).toBe('10');
@@ -268,6 +269,122 @@ describe('SyncEngine', () => {
     expect(toSchedule(cardOf(b, c1))).toEqual(
       rebuildCardState(logs, { scheduler: createScheduler({ desiredRetention: 0.8 }) }),
     );
+  });
+
+  it('keeps the changing device in step with the others after a retention change', async () => {
+    const a = device('a');
+    const b = device('b');
+    const c1 = makeCard(a, 1, at(0));
+    review(a, c1, 'good', at(1));
+    review(a, c1, 'good', at(20));
+    review(a, c1, 'good', at(3 * 24 * 60));
+    expectOk(await a.engine.sync());
+    expectOk(await b.engine.sync());
+
+    // A changes the retention locally; its next plan aligns its own cards.
+    a.repos.settings.set('desiredRetention', 0.8, at(5));
+    const lower = createScheduler({ desiredRetention: 0.8 });
+    expect(a.repos.alignCardStates(lower)).toBe(1);
+    expect(a.repos.alignCardStates(lower)).toBe(0); // already aligned
+    expectOk(await a.engine.sync());
+    expectOk(await b.engine.sync());
+    expect(cardStates(a)).toEqual(cardStates(b));
+  });
+
+  it("applies a review older than the card's last one by replaying (clock skew)", async () => {
+    const a = device('a');
+    const b = device('b');
+    const c1 = makeCard(a, 1, at(0));
+    review(a, c1, 'good', at(60));
+    // A's clock runs a day ahead.
+    review(a, c1, 'good', at(2 * 24 * 60));
+    expectOk(await a.engine.sync());
+    expectOk(await b.engine.sync());
+    // B reviews "now" by its own clock, earlier than A's last review.
+    const { card: updated } = b.repos.reviewCard({
+      cardId: c1,
+      rating: 'again',
+      answer: null,
+      latencyMs: 1000,
+      reviewedAt: at(24 * 60),
+      deviceId: 'device-b',
+      scheduler,
+    });
+    const logs = b.repos.reviewLogs.listForCard(c1);
+    expect(logs.map((l) => l.rating)).toEqual(['good', 'again', 'good']);
+    expect(toSchedule(updated)).toEqual(rebuildCardState(logs));
+    expectOk(await b.engine.sync());
+    expectOk(await a.engine.sync());
+    expect(cardStates(a)).toEqual(cardStates(b));
+  });
+
+  it('syncs reviews of cards for sentences corrected in conversation', async () => {
+    const a = device('a');
+    const b = device('b');
+    const c1 = makeCard(a, -123_456, at(0), 'sentence_production');
+    review(a, c1, 'good', at(1));
+    expectOk(await a.engine.sync());
+    const result = expectOk(await b.engine.sync());
+    expect(result.applied).toBe(1);
+    expect(b.repos.cards.getById(c1)).toMatchObject({
+      kind: 'sentence_production',
+      targetId: -123_456,
+    });
+    expect(cardStates(b)).toEqual(cardStates(a));
+  });
+
+  it('syncs the corrected sentences themselves, so other devices can show their cards', async () => {
+    const a = device('a');
+    const b = device('b');
+    const sentence = a.repos.learnerSentences.add({
+      it: 'Ieri sono andata a Napoli.',
+      original: 'Ieri ho andato a Napoli.',
+      errorTags: ['aux.essere'],
+      grammarIds: [12],
+      source: 'conversation',
+      createdAt: at(0),
+    });
+    const c1 = makeCard(a, sentence.id, at(0), 'sentence_production');
+    review(a, c1, 'good', at(1));
+
+    const pushed = expectOk(await a.engine.sync());
+    expect(pushed.pushed.learner_sentence).toBe(1);
+    expect(server.rows(USER, 'learner_sentence')).toEqual([
+      {
+        id: sentence.id,
+        it: 'Ieri sono andata a Napoli.',
+        original: 'Ieri ho andato a Napoli.',
+        errorTags: ['aux.essere'],
+        grammarIds: [12],
+        source: 'conversation',
+        createdAt: at(0).toISOString(),
+      },
+    ]);
+    expect(expectOk(await a.engine.sync()).pushed.learner_sentence).toBe(0);
+
+    expect(b.repos.learnerSentences.getById(sentence.id)).toBeNull();
+    const pulled = expectOk(await b.engine.sync());
+    expect(pulled.pulled.learner_sentence).toBe(1);
+    const { syncedAt: _a, ...onA } = sentence;
+    const fromB = b.repos.learnerSentences.getById(sentence.id);
+    expect(fromB).toMatchObject({ ...onA, createdAt: at(0) });
+    expect(fromB?.syncedAt).not.toBeNull();
+    expect(b.repos.cards.getById(c1)?.kind).toBe('sentence_production');
+
+    // B corrected the same sentence on its own: same id, so nothing new to push.
+    expect(expectOk(await b.engine.sync()).pushed.learner_sentence).toBe(0);
+    const c = device('c');
+    c.repos.learnerSentences.add({
+      it: 'Ieri sono andata a Napoli.',
+      original: 'ieri ho andato a napoli',
+      errorTags: [],
+      grammarIds: [],
+      source: 'conversation',
+      createdAt: at(5),
+    });
+    expectOk(await c.engine.sync());
+    expect(server.rows(USER, 'learner_sentence')).toHaveLength(1);
+    expect(c.repos.learnerSentences.listAll()).toHaveLength(1);
   });
 
   it('syncs study sessions once ended, error records, and replays the streak', async () => {
@@ -381,6 +498,13 @@ describe('SyncEngine', () => {
     const c1 = makeCard(a, 1, at(0));
     review(a, c1, 'good', at(1));
     a.repos.settings.set('theme', 'dark', at(1));
+    a.repos.learnerSentences.add({
+      it: 'Sono andata.',
+      original: 'Ho andato.',
+      errorTags: [],
+      grammarIds: [],
+      source: 'conversation',
+    });
     expectOk(await a.engine.sync());
 
     a.user = 'user-2';
@@ -388,6 +512,7 @@ describe('SyncEngine', () => {
     expect(result.pushed.review_log).toBe(1);
     expect(result.pushed.setting).toBe(1);
     expect(server.rows('user-2', 'review_log')).toHaveLength(1);
+    expect(result.pushed.learner_sentence).toBe(1);
     expect(a.transport.pullCalls.at(-1)?.after).toBe(0);
   });
 
@@ -411,7 +536,13 @@ describe('parseCardId', () => {
       targetId: 42,
       promptMode: 'spoken',
     });
+    expect(parseCardId(cardIdFor('sentence_production', -77, 'typed'))).toEqual({
+      kind: 'sentence_production',
+      targetId: -77,
+      promptMode: 'typed',
+    });
     expect(parseCardId('dictation:042:spoken')).toBeNull();
+    expect(parseCardId('dictation:-0:spoken')).toBeNull();
     expect(parseCardId('unknown:1:typed')).toBeNull();
     expect(parseCardId('dictation:1:telepathic')).toBeNull();
     expect(parseCardId('card-1')).toBeNull();
