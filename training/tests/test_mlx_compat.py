@@ -16,7 +16,7 @@ from mlx_lm.generate import BatchGenerator  # noqa: E402
 from mlx_lm.models import qwen3_next  # noqa: E402
 from mlx_lm.models.cache import ArraysCache  # noqa: E402
 
-from datagen import mlx_server  # noqa: E402
+from datagen import mlx_compat, serve_teacher  # noqa: E402
 
 
 class _FakeGenerator:
@@ -32,25 +32,25 @@ class _FakeGenerator:
 def test_dead_generation_thread_exits_the_process(monkeypatch: pytest.MonkeyPatch) -> None:
     exits: list[int] = []
     monkeypatch.setattr(os, "_exit", exits.append)
-    run = mlx_server.exit_when_generation_dies(_FakeGenerator._run_generate)
+    run = serve_teacher.exit_when_generation_dies(_FakeGenerator._run_generate)
     run(_FakeGenerator(fail=False))  # a clean stop does not exit
     assert exits == []
     run(_FakeGenerator(fail=True))  # mlx-lm would otherwise answer 404 forever
-    assert exits == [mlx_server.EXIT_GENERATION_DIED]
+    assert exits == [serve_teacher.EXIT_GENERATION_DIED]
 
 
 @pytest.fixture
 def stock() -> Iterator[None]:
-    mlx_server.unpatch_arrays_cache()
+    mlx_compat.unpatch_arrays_cache()
     yield
-    mlx_server.unpatch_arrays_cache()
+    mlx_compat.unpatch_arrays_cache()
 
 
 @pytest.fixture
 def patched() -> Iterator[None]:
-    mlx_server.patch_arrays_cache()
+    mlx_compat.patch_arrays_cache()
     yield
-    mlx_server.unpatch_arrays_cache()
+    mlx_compat.unpatch_arrays_cache()
 
 
 def graph_edges(value: Any, tmp_path: Path) -> int:
@@ -77,15 +77,45 @@ def test_stock_advance_grows_a_graph(stock: None, tmp_path: Path) -> None:
 
 def test_patched_advance_builds_no_graph(patched: None, tmp_path: Path) -> None:
     cache = merged_cache()
-    raw = cache._raw_left_padding
+    stored = cache.__dict__["_left_padding"]
     cache.advance(1)
     one_step = graph_edges(cache.left_padding, tmp_path)
+    stored = cache.__dict__["_left_padding"]
     for _ in range(4999):
         cache.advance(1)
-    assert cache._raw_left_padding is raw
-    assert graph_edges(cache.left_padding, tmp_path) == one_step
+    # nothing was created per step: same array object, the shift is a plain int
+    assert cache.__dict__["_left_padding"] is stored
+    assert cache.__dict__["_pending"] == 4999
+    assert graph_edges(cache.left_padding, tmp_path) <= max(one_step, 1)
     assert cache.left_padding.tolist() == [-5000]
     assert cache.lengths.tolist() == [128 - 5000]
+
+
+def test_advance_without_padding_is_a_no_op(patched: None) -> None:
+    cache = ArraysCache(2)
+    cache.advance(5)
+    assert cache.left_padding is None and cache.lengths is None
+    assert cache.__dict__.get("_pending", 0) == 0
+
+
+def test_filter_extend_and_state_see_folded_values(patched: None) -> None:
+    a = ArraysCache(1, left_padding=[4, 1])
+    a[0] = mx.zeros((2, 3))
+    a.advance(2)
+    b = ArraysCache(1, left_padding=[7])
+    b[0] = mx.ones((1, 3))
+    b.advance(3)
+    a.extend(b)
+    assert a.left_padding.tolist() == [2, -1, 4]
+    a.filter(mx.array([0, 2]))
+    assert a.left_padding.tolist() == [2, 4]
+    _, padding, lengths = a.state
+    assert padding.tolist() == [2, 4] and lengths is None
+    a.advance(1)
+    a.state = (a.cache, mx.array([9, 9]), None)  # setter drops the pending shift
+    assert a.left_padding.tolist() == [9, 9]
+    a.finalize()
+    assert a.left_padding is None
 
 
 def run_cache_ops() -> list[Any]:
@@ -112,13 +142,13 @@ def run_cache_ops() -> list[Any]:
 
 
 def test_patched_cache_matches_stock_values() -> None:
-    mlx_server.unpatch_arrays_cache()
+    mlx_compat.unpatch_arrays_cache()
     expected = run_cache_ops()
-    mlx_server.patch_arrays_cache()
+    mlx_compat.patch_arrays_cache()
     try:
         assert run_cache_ops() == expected
     finally:
-        mlx_server.unpatch_arrays_cache()
+        mlx_compat.unpatch_arrays_cache()
 
 
 def tiny_qwen3_next() -> Any:
@@ -170,15 +200,15 @@ def decode(steps: int) -> tuple[dict[int, list[int]], list[Any]]:
 
 
 def test_patched_server_decode_is_identical_and_flat(tmp_path: Path) -> None:
-    mlx_server.unpatch_arrays_cache()
+    mlx_compat.unpatch_arrays_cache()
     expected, stock_caches = decode(120)
     stock_edges = max(graph_edges(c.left_padding, tmp_path) for c in stock_caches)
-    mlx_server.patch_arrays_cache()
+    mlx_compat.patch_arrays_cache()
     try:
         tokens, caches = decode(120)
         edges = max(graph_edges(c.left_padding, tmp_path) for c in caches)
     finally:
-        mlx_server.unpatch_arrays_cache()
+        mlx_compat.unpatch_arrays_cache()
     assert tokens == expected
     assert stock_edges > 50, "the stock decode loop no longer leaks; drop the patch"
     assert edges <= 6
@@ -186,9 +216,9 @@ def test_patched_server_decode_is_identical_and_flat(tmp_path: Path) -> None:
 
 def test_patch_is_idempotent_and_reversible(stock: None) -> None:
     original = ArraysCache.advance
-    mlx_server.patch_arrays_cache()
-    mlx_server.patch_arrays_cache()
-    assert mlx_server.is_patched()
-    mlx_server.unpatch_arrays_cache()
+    assert mlx_compat.patch_arrays_cache() is True
+    assert mlx_compat.patch_arrays_cache() is False
+    assert mlx_compat.is_patched()
+    mlx_compat.unpatch_arrays_cache()
     assert ArraysCache.advance is original
-    assert not mlx_server.is_patched()
+    assert not mlx_compat.is_patched()

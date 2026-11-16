@@ -34,6 +34,7 @@ from spec.levels import Level, band_for
 from spec.models import Scenario, TutorOutput
 from spec.taxonomy import SPEC_DIR, error_tags
 
+# Common English words that are not also Italian words ("do" is "I give", "me" as in "a me").
 _ENGLISH = frozenset(
     [
         "the",
@@ -55,13 +56,11 @@ _ENGLISH = frozenset(
         "with",
         "have",
         "has",
-        "do",
         "does",
         "please",
         "thanks",
         "yes",
         "my",
-        "me",
         "we",
         "they",
         "would",
