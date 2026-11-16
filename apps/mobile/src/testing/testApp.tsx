@@ -21,7 +21,7 @@ import { ThemeProvider } from '@/ui';
 export interface TestApp {
   t: TestDatabase;
   repos: Repositories;
-  /** Fake speech services the wrapped tree uses. */
+  /** Fake speech services the wrapped tree uses (record what was said and played). */
   speech: ReturnType<typeof createFakeSpeechServices>;
   /** Wraps a tree in the theme, database and (fake) speech providers. */
   wrap: (children: ReactNode) => ReactElement;

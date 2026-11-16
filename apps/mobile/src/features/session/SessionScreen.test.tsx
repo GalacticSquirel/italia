@@ -17,20 +17,21 @@ jest.mock('expo-router', () => ({
 }));
 
 let app: TestApp;
-let speech: ReturnType<typeof createFakeSpeechServices>;
 let clock: number;
 
 beforeEach(async () => {
   app = await createTestApp();
   clock = new Date(2026, 10, 16, 9, 0, 0).getTime();
-  speech = createFakeSpeechServices({ mic: 'denied' });
 });
 
 afterEach(() => {
   app.t.close();
 });
 
+let speech = createFakeSpeechServices({ mic: 'denied' });
+
 async function renderSession(): Promise<SessionStore> {
+  speech = createFakeSpeechServices({ mic: 'denied' });
   const store = createSessionStore({
     repos: app.repos,
     now: () => {
@@ -61,9 +62,9 @@ describe('SessionScreen', () => {
     expect(screen.getByText('New word')).toBeOnTheScreen();
     expect(screen.getByText('essere')).toBeOnTheScreen();
     await waitFor(() => {
-      expect(speech.audio.spoken).toContainEqual({
-        text: expect.stringContaining('essere') as string,
-        options: expect.objectContaining({ language: 'it-IT' }) as object,
+      expect(speech.audio.spoken[0]).toEqual({
+        text: 'essere',
+        options: expect.objectContaining({ language: 'it-IT' }) as unknown,
       });
     });
 

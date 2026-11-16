@@ -71,7 +71,6 @@ export {
   type ReadingTotals,
   type StoryReading,
 } from './ReadingRepo';
-export { recordReview, type RecordReviewInput } from './recordReview';
 export { createRepositories, type Repositories, type RepositoryOptions } from './repositories';
 export {
   createReviewLogRepo,

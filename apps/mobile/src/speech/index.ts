@@ -7,8 +7,16 @@ export { feedbackText } from './pronunciation/feedbackText';
 export {
   createNativeSpeechServices,
   SpeechProvider,
+  useOptionalSpeech,
   useSpeech,
   type SpeechProviderProps,
   type SpeechServices,
 } from './SpeechContext';
-export { ENGLISH, ITALIAN, sayEnglish, sayItalian } from './voice';
+export {
+  ENGLISH,
+  ITALIAN,
+  sayEnglish,
+  sayItalian,
+  sayItalianParts,
+  type SayOptions,
+} from './voice';

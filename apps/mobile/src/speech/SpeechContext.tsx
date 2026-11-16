@@ -4,11 +4,13 @@
  * sound output and microphone permission. The app provides the on-device
  * implementations; tests provide fakes (see `speech/testing.ts`).
  */
+import { File } from 'expo-file-system';
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import { decodeAudioFileToFloatSamples } from 'react-native-sherpa-onnx/audio';
 
 import type { SpeechToText, TextToSpeech } from '@italia/core';
 
+import { createClipLibrary, type ClipLibrary, type InstalledPack } from '@/audio/clipLibrary';
 import { useModelManager, uriToPath, type ModelManager } from '@/models';
 
 import { createDeviceAudioOut, type AudioOut } from './audio/audioOut';
@@ -31,6 +33,21 @@ export interface SpeechServices {
   recorder: Recorder;
   audio: AudioOut;
   mic: MicPermissions;
+  /** Pre-recorded clips from downloaded audio packs. */
+  clips: ClipLibrary;
+}
+
+/** Installed audio packs, from the model manager. */
+export function installedAudioPacks(models: ModelManager): InstalledPack[] {
+  const packs: InstalledPack[] = [];
+  for (const view of models.getSnapshot()) {
+    if (view.spec.kind !== 'audio-pack') continue;
+    const dir = models.installedDir(view.spec.id);
+    if (dir !== null) {
+      packs.push({ id: view.spec.id, dir, files: view.spec.files.map((f) => f.name) });
+    }
+  }
+  return packs;
 }
 
 /** The on-device implementations. */
@@ -71,6 +88,10 @@ export function createNativeSpeechServices(models: ModelManager): SpeechServices
     recorder,
     audio: createDeviceAudioOut(),
     mic: deviceMicPermissions,
+    clips: createClipLibrary({
+      installed: () => installedAudioPacks(models),
+      readText: (uri) => new File(uri).text(),
+    }),
   };
 }
 
@@ -93,6 +114,11 @@ function NativeSpeechProvider({ children }: { children: ReactNode }) {
 export function SpeechProvider({ children, services }: SpeechProviderProps) {
   if (services) return <SpeechContext.Provider value={services}>{children}</SpeechContext.Provider>;
   return <NativeSpeechProvider>{children}</NativeSpeechProvider>;
+}
+
+/** The speech services, or null outside a {@link SpeechProvider}. */
+export function useOptionalSpeech(): SpeechServices | null {
+  return useContext(SpeechContext);
 }
 
 /** The speech services. */

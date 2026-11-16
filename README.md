@@ -14,19 +14,25 @@ The full design is in [docs/architecture.md](docs/architecture.md); decisions ar
 ## Repository layout
 
 ```
-apps/mobile/            Expo app: screens, UI components, database, platform code
-  src/app/              Expo Router routes ((tabs): Today, Review, Read, Speak, Progress; settings)
-  src/ui/               Design system: tokens, ThemeProvider, Text, Button, Card, Screen, ProgressBar
-  src/db/               Drizzle schema, database client, DatabaseProvider (runs migrations)
-  drizzle/              Generated SQL migrations (committed)
-packages/core/          Pure TypeScript learning logic (FSRS scheduler wrapper, ...). No React/Expo.
-packages/api-contract/  zod schemas for sync DTOs shared by the app and Supabase functions
-packages/content/       Build-time content pipeline (placeholder) and source licences
-supabase/               Auth, Postgres migrations, RLS and sync (Phase 2)
-training/               Python (uv) pipeline for the on-device tutor model; outside the JS workspace
+apps/mobile/            Expo app: routes, feature screens, database, speech, tutor, sync, UI
+packages/core/          Pure TypeScript learning logic (scheduler, grading, sessions, progress,
+                        story selection, tutor contract). No React or Expo.
+packages/content/       Build-time content pipeline; the bundled seed (3,000 lemmas, about 14,400
+                        sentences, 114 grammar points) and 120 graded stories
+packages/speech/        Italian pronunciation rules, alignment and scoring
+packages/api-contract/  zod schemas for every row that syncs
+supabase/               Migrations and row-level security tests for the sync server
+training/               Python (uv) pipeline for the on-device tutor model
 models/                 Manifest of on-device models (URLs, sizes, checksums, licences); no weights
-docs/                   Architecture plan and ADRs
+docs/                   Architecture, subsystem notes and ADRs
 ```
+
+## Installing on a phone
+
+GitHub Actions builds a release APK on every push to `main` (or on demand from the Actions tab
+for any branch) and publishes the newest as the `android-latest` pre-release. Open that release on the phone and
+install the APK. Models (tutor, speech recognition, voice, pronunciation) are downloaded later
+from Settings, On-device models.
 
 ## Tutor model training
 
@@ -75,8 +81,8 @@ In `apps/mobile`:
 
 ## Running on a device (development build)
 
-The app uses native modules (SQLite now; on-device AI later), so it needs a **development
-build**. Expo Go is not supported.
+The app uses native modules (SQLite, llama.rn, sherpa-onnx, ONNX Runtime), so development needs
+a **development build**. Expo Go is not supported.
 
 With EAS (no local Android SDK needed):
 

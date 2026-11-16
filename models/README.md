@@ -54,6 +54,14 @@ entry is published, so nothing is lost before the upload, and stores native libr
 compressed. The Hexagon/OpenCL build is dropped once engines are published: the app cannot tell
 which phones have that NPU, and the CPU builds run Q4_0 models well.
 
+## Audio packs (`kind: audio-pack`)
+
+Pre-recorded clips for words, sentences and stories, built and published by the **Audio packs**
+workflow (see `audio/README.md`). Each file is one append-only shard (`<id>-sNNN.tar.zst`,
+`extract: "tar.zst"`); when content grows the workflow adds a shard, and a phone that has the
+pack downloads only that file. Each shard's `index.json` is also uploaded beside the archive so
+the next build knows which clips exist.
+
 ## Current models
 
 | Model                            | Files                                                                        | Size     | Checksum                                        |

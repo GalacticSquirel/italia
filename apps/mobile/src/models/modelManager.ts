@@ -21,7 +21,13 @@
 import type { ModelFileRepo, ModelFileRow } from '@/data/ModelFileRepo';
 
 import type { DeviceCapability } from './capability';
-import { isPublished, type Manifest, type ModelKind, type ModelSpec } from './manifest';
+import {
+  isPublished,
+  type ArchiveFormat,
+  type Manifest,
+  type ModelKind,
+  type ModelSpec,
+} from './manifest';
 
 /** Outcome of a download job. */
 export type DownloadOutcome = { paused: false } | { paused: true; resumeData: string | null };
@@ -50,7 +56,7 @@ export interface ModelStorage {
   /** Write a small text file. */
   writeText(uri: string, text: string): Promise<void>;
   /** Unpack an archive into a folder. */
-  extract(archiveUri: string, dirUri: string): Promise<void>;
+  extract(archiveUri: string, dirUri: string, format: ArchiveFormat): Promise<void>;
   /** Free space in bytes, or null when unknown. */
   freeBytes(): Promise<number | null>;
   download(request: {
@@ -387,7 +393,7 @@ export class ModelManager {
       const hash = (await storage.sha256(uri)).toLowerCase();
       if (hash !== file.sha256) throw new Error(`${file.name} failed its checksum.`);
       if (file.extract !== undefined) {
-        await storage.extract(uri, dir);
+        await storage.extract(uri, dir, file.extract);
         await storage.remove(uri);
       }
       repo.put({ ...base, status: 'installed', bytesDone: file.sizeBytes, resumeData: null });

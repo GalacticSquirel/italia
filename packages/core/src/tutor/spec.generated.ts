@@ -4,7 +4,7 @@
 import type { ErrorTagInfo, GrammarPointInfo, LevelBand, TutorLevel, TutorScenario } from './types';
 
 /** Version of the tutor spec this module was generated from. */
-export const SPEC_VERSION = '1.0.0';
+export const SPEC_VERSION = '1.1.0';
 
 /** The first user message of every conversation: tells the tutor to open the scenario. */
 export const START_MESSAGE = '[inizio]';
@@ -936,13 +936,31 @@ export const LEVEL_BANDS: Readonly<Record<TutorLevel, LevelBand>> = {
     maxOutOfBandRatio: 0.1,
     englishAllowed: false,
   },
+  C1: {
+    level: 'C1',
+    lemmaCeiling: 6000,
+    maxWordsPerSentence: 32,
+    maxSentences: 6,
+    maxNewWords: 3,
+    maxOutOfBandRatio: 0.2,
+    englishAllowed: false,
+  },
+  C2: {
+    level: 'C2',
+    lemmaCeiling: 10000,
+    maxWordsPerSentence: 40,
+    maxSentences: 7,
+    maxNewWords: 3,
+    maxOutOfBandRatio: 0.4,
+    englishAllowed: false,
+  },
 };
 
 /** JSON Schema of one tutor turn (`training/spec/schema/tutor_output.v1.schema.json`). */
 export const TUTOR_OUTPUT_SCHEMA: Readonly<Record<string, unknown>> = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
   $id: 'https://italia.app/schemas/tutor/tutor_output.v1.schema.json',
-  'x-spec-version': '1.0.0',
+  'x-spec-version': '1.1.0',
   $defs: {
     Annotations: {
       additionalProperties: false,
@@ -1170,7 +1188,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'arte-mostra',
     title: "Una mostra d'arte",
     titleEn: 'At an art exhibition',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: 'A friend who studies art history visits an exhibition with the learner.',
     tutorRole: 'Giovanni, an art historian friend',
     learnerRole: 'a friend at the exhibition',
@@ -1212,7 +1230,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'assicurazione-sinistro',
     title: 'Un incidente in macchina',
     titleEn: 'Reporting a car accident',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: 'A phone call to the car insurance company after a minor accident.',
     tutorRole: 'the insurance claims handler',
     learnerRole: 'a driver reporting an accident',
@@ -1405,7 +1423,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'burocrazia-residenza',
     title: 'La residenza in Comune',
     titleEn: 'Registering residence at the town hall',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: 'The registry office of the town hall.',
     tutorRole: 'the registry office clerk',
     learnerRole: 'a foreign resident',
@@ -1562,10 +1580,55 @@ export const SCENARIOS: readonly TutorScenario[] = [
     split: 'train',
   },
   {
+    id: 'club-lettura',
+    title: 'Il club di lettura',
+    titleEn: 'Book club discussion',
+    levels: ['C1', 'C2'],
+    setting:
+      "A monthly book club in a Turin bookshop; this month's novel is a family saga set in post-war Italy.",
+    tutorRole: 'a long-standing member who loved the book and likes a good argument',
+    learnerRole: 'a newer member who finished the book',
+    formality: 'informal',
+    goals: [
+      {
+        id: 'impression',
+        description: 'Give your overall impression of the novel',
+      },
+      {
+        id: 'character',
+        description: "Analyse one character's choices",
+      },
+      {
+        id: 'style',
+        description: "Comment on the author's style",
+      },
+      {
+        id: 'recommend',
+        description: 'Say who you would or would not recommend it to',
+      },
+    ],
+    keyVocab: [
+      'romanzo',
+      'trama',
+      'personaggio',
+      'protagonista',
+      'stile',
+      'finale',
+      'narratore',
+      'ambientazione',
+      'capitolo',
+    ],
+    grammarFocus: ['congiuntivo-passato', 'conditional-past'],
+    opening:
+      "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti.",
+    tags: ['culture', 'books'],
+    split: 'train',
+  },
+  {
     id: 'colloquio-lavoro',
     title: 'Il colloquio di lavoro',
     titleEn: 'A job interview',
-    levels: ['B1', 'B2'],
+    levels: ['B1', 'B2', 'C1', 'C2'],
     setting: 'An interview at a small design company.',
     tutorRole: 'the HR manager',
     learnerRole: 'a candidate',
@@ -1611,7 +1674,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'colloquio-promozione',
     title: 'Chiedere una promozione',
     titleEn: 'Asking for a promotion',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: "A one-to-one meeting with the learner's manager.",
     tutorRole: 'the manager',
     learnerRole: 'an employee',
@@ -1804,7 +1867,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'dibattito-ambiente',
     title: 'Città e ambiente',
     titleEn: 'Debate: cars in the city centre',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: 'A neighbourhood meeting about closing the centre to cars.',
     tutorRole: 'a resident who disagrees with the learner',
     learnerRole: 'a resident at the meeting',
@@ -1913,7 +1976,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'film-libro',
     title: 'Un libro che ti è piaciuto',
     titleEn: 'Talking about a book or film',
-    levels: ['B1', 'B2'],
+    levels: ['B1', 'B2', 'C1', 'C2'],
     setting: 'A book club meeting in a library.',
     tutorRole: 'Roberto, the club organiser',
     learnerRole: 'a club member',
@@ -2026,7 +2089,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'guasto-internet',
     title: 'Internet non funziona',
     titleEn: 'Calling tech support',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: "A call to the internet provider's helpline.",
     tutorRole: 'the helpline operator',
     learnerRole: 'a customer whose internet does not work',
@@ -2098,6 +2161,93 @@ export const SCENARIOS: readonly TutorScenario[] = [
     split: 'train',
   },
   {
+    id: 'intelligenza-artificiale',
+    title: 'Lavoro e intelligenza artificiale',
+    titleEn: 'Debate with a friend: AI and jobs',
+    levels: ['C1', 'C2'],
+    setting:
+      "A long dinner at a friend's house; the conversation turns to whether artificial intelligence will destroy or create jobs.",
+    tutorRole: 'a friend who is a pessimist about technology',
+    learnerRole: 'a friend with a more balanced view',
+    formality: 'informal',
+    goals: [
+      {
+        id: 'position',
+        description: 'State and qualify your position',
+      },
+      {
+        id: 'evidence',
+        description: 'Bring an example or piece of evidence',
+      },
+      {
+        id: 'concede',
+        description: 'Concede a valid point',
+      },
+      {
+        id: 'conclude',
+        description: 'Find common ground',
+      },
+    ],
+    keyVocab: [
+      'intelligenza artificiale',
+      'posto di lavoro',
+      'automazione',
+      'competenze',
+      'formazione',
+      'rischio',
+      'settore',
+      'tecnologia',
+    ],
+    grammarFocus: ['congiuntivo-imperfetto', 'periodo-ipotetico'],
+    opening:
+      "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai.",
+    tags: ['society', 'debate', 'technology'],
+    split: 'train',
+  },
+  {
+    id: 'intervista-podcast',
+    title: 'Ospite in un podcast',
+    titleEn: 'Guest on a podcast about living in Italy',
+    levels: ['C1', 'C2'],
+    setting: 'A recording studio for a podcast about foreigners who have chosen to live in Italy.',
+    tutorRole: 'a curious, friendly podcast host',
+    learnerRole: 'a guest who has lived in Italy for some years',
+    formality: 'informal',
+    goals: [
+      {
+        id: 'story',
+        description: 'Tell how and why you came to Italy',
+      },
+      {
+        id: 'culture-shock',
+        description: 'Describe a cultural difference that surprised you',
+      },
+      {
+        id: 'critique',
+        description: 'Criticise something about Italy, tactfully',
+      },
+      {
+        id: 'advice',
+        description: 'Give advice to someone thinking of moving',
+      },
+    ],
+    keyVocab: [
+      'trasferirsi',
+      'abitudini',
+      'burocrazia',
+      'mentalità',
+      'nostalgia',
+      'integrarsi',
+      'stereotipo',
+      'accoglienza',
+    ],
+    grammarFocus: ['congiuntivo-imperfetto', 'trapassato-prossimo'],
+    opening:
+      "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivato proprio in Italia?",
+    tags: ['culture'],
+    split: 'train',
+  },
+  {
     id: 'lavanderia',
     title: 'Il problema con la lavatrice',
     titleEn: 'A problem at the laundrette',
@@ -2139,6 +2289,50 @@ export const SCENARIOS: readonly TutorScenario[] = [
     split: 'train',
   },
   {
+    id: 'mediazione-colleghi',
+    title: 'Mediare un conflitto',
+    titleEn: 'Mediating a conflict in the team',
+    levels: ['C1', 'C2'],
+    setting:
+      "A one-to-one in the learner's office; a team member is upset because a colleague took credit for shared work.",
+    tutorRole: 'an upset team member who feels treated unfairly',
+    learnerRole: 'the team leader',
+    formality: 'formal',
+    goals: [
+      {
+        id: 'listen',
+        description: 'Let them explain and show you understand',
+      },
+      {
+        id: 'clarify',
+        description: 'Ask tactful questions to clarify the facts',
+      },
+      {
+        id: 'perspective',
+        description: "Offer the other side's perspective diplomatically",
+      },
+      {
+        id: 'solution',
+        description: 'Propose a fair way forward',
+      },
+    ],
+    keyVocab: [
+      'collega',
+      'merito',
+      'riunione',
+      'malinteso',
+      'fiducia',
+      'responsabilità',
+      'chiarimento',
+      'squadra',
+    ],
+    grammarFocus: ['congiuntivo-passato', 'reported-speech'],
+    opening:
+      'Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù.',
+    tags: ['work'],
+    split: 'train',
+  },
+  {
     id: 'medico-base',
     title: 'Dal medico',
     titleEn: "At the doctor's",
@@ -2175,7 +2369,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'medico-specialista',
     title: 'Dal cardiologo',
     titleEn: 'At the specialist',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: 'A follow-up visit with a cardiologist.',
     tutorRole: 'the cardiologist',
     learnerRole: 'a patient',
@@ -2280,6 +2474,50 @@ export const SCENARIOS: readonly TutorScenario[] = [
     split: 'eval',
   },
   {
+    id: 'modi-di-dire',
+    title: 'Una giornata storta',
+    titleEn: 'Telling a friend about a disastrous day',
+    levels: ['C1', 'C2'],
+    setting:
+      'An aperitivo with an Italian friend who loves idioms; the learner tells the story of a day where everything went wrong.',
+    tutorRole: 'a witty Italian friend who comments with idioms and colloquial expressions',
+    learnerRole: 'a friend recounting a bad day',
+    formality: 'informal',
+    goals: [
+      {
+        id: 'tell',
+        description: 'Tell what went wrong, in order',
+      },
+      {
+        id: 'react',
+        description: 'React to and use an idiom the friend uses',
+      },
+      {
+        id: 'blame',
+        description: 'Say whose fault it was, with nuance',
+      },
+      {
+        id: 'moral',
+        description: 'Draw a lesson from it, light-heartedly',
+      },
+    ],
+    keyVocab: [
+      'giornata',
+      'guaio',
+      'sfortuna',
+      'capitare',
+      'ritardo',
+      'figuraccia',
+      'pazienza',
+      'colpa',
+      'scherzo',
+    ],
+    grammarFocus: ['trapassato-prossimo', 'gerund-clauses'],
+    opening: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?",
+    tags: ['social', 'idioms'],
+    split: 'train',
+  },
+  {
     id: 'noleggio-bici',
     title: 'Noleggiare una bici',
     titleEn: 'Renting a bike',
@@ -2319,6 +2557,51 @@ export const SCENARIOS: readonly TutorScenario[] = [
     grammarFocus: ['modal-verbs', 'future'],
     opening: 'Buongiorno! Vuole una bicicletta?',
     tags: ['travel', 'sport'],
+    split: 'train',
+  },
+  {
+    id: 'notizie-attualita',
+    title: 'Commentare una notizia',
+    titleEn: 'Talking over the news with a colleague',
+    levels: ['C1', 'C2'],
+    setting:
+      'The office coffee machine, the morning after a much-discussed news story about a new law on short-term holiday rentals.',
+    tutorRole: 'a sceptical colleague who has read several newspapers on the story',
+    learnerRole: 'a colleague who also followed the news',
+    formality: 'informal',
+    goals: [
+      {
+        id: 'summarise',
+        description: 'Summarise the news in your own words',
+      },
+      {
+        id: 'opinion',
+        description: 'Give a nuanced opinion with reasons',
+      },
+      {
+        id: 'sources',
+        description: 'Compare how different sources reported it',
+      },
+      {
+        id: 'consequences',
+        description: 'Speculate about the consequences',
+      },
+    ],
+    keyVocab: [
+      'notizia',
+      'articolo',
+      'testata',
+      'legge',
+      'affitti brevi',
+      'polemica',
+      'fonte',
+      'titolo',
+      'approfondimento',
+    ],
+    grammarFocus: ['congiuntivo-imperfetto', 'reported-speech'],
+    opening:
+      "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatto?",
+    tags: ['society', 'media'],
     split: 'train',
   },
   {
@@ -2420,7 +2703,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'organizzare-matrimonio',
     title: 'Organizzare un matrimonio',
     titleEn: 'Planning a wedding',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: 'A meeting with a wedding planner.',
     tutorRole: 'the wedding planner',
     learnerRole: 'a client planning their wedding',
@@ -2561,7 +2844,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'politica-lavoro',
     title: 'Il futuro del lavoro',
     titleEn: 'Discussing the future of work',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: 'A dinner with friends; the talk turns to automation and jobs.',
     tutorRole: 'Riccardo, a sceptical friend',
     learnerRole: 'a guest at the dinner',
@@ -2707,6 +2990,51 @@ export const SCENARIOS: readonly TutorScenario[] = [
     split: 'train',
   },
   {
+    id: 'presentazione-progetto',
+    title: 'Presentare un progetto',
+    titleEn: 'Pitching a project to a director',
+    levels: ['C1', 'C2'],
+    setting:
+      'A meeting room in a Milan company; the learner is pitching a new project and the director has doubts about budget and timing.',
+    tutorRole: 'a demanding department director',
+    learnerRole: 'a project manager presenting a proposal',
+    formality: 'formal',
+    goals: [
+      {
+        id: 'pitch',
+        description: 'Present the project and its goal',
+      },
+      {
+        id: 'benefits',
+        description: 'Explain the expected benefits with figures',
+      },
+      {
+        id: 'objection',
+        description: 'Handle an objection about cost or risk',
+      },
+      {
+        id: 'next-steps',
+        description: 'Agree on the next steps',
+      },
+    ],
+    keyVocab: [
+      'progetto',
+      'budget',
+      'scadenza',
+      'obiettivo',
+      'rischio',
+      'risorse',
+      'fatturato',
+      'cliente',
+      'investimento',
+    ],
+    grammarFocus: ['periodo-ipotetico', 'congiuntivo-presente'],
+    opening:
+      'Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto.',
+    tags: ['work'],
+    split: 'train',
+  },
+  {
     id: 'pronto-soccorso',
     title: 'Al pronto soccorso',
     titleEn: 'At A&E',
@@ -2752,7 +3080,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'recensione-ristorante',
     title: 'Una cena deludente',
     titleEn: 'Complaining about a meal',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: 'A restaurant; the learner asks to speak to the manager.',
     tutorRole: 'the restaurant manager',
     learnerRole: 'a dissatisfied customer',
@@ -2788,6 +3116,49 @@ export const SCENARIOS: readonly TutorScenario[] = [
     grammarFocus: ['congiuntivo-imperfetto', 'conditional-past'],
     opening: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema.",
     tags: ['food', 'problems'],
+    split: 'train',
+  },
+  {
+    id: 'reclamo-comune',
+    title: 'Un reclamo al Comune',
+    titleEn: 'Complaining to the town council',
+    levels: ['C1', 'C2'],
+    setting:
+      "The public relations office (URP) of the town council; the street outside the learner's home has had roadworks abandoned for two months.",
+    tutorRole: 'a civil servant at the counter, courteous but bureaucratic',
+    learnerRole: 'a resident making a formal complaint',
+    formality: 'formal',
+    goals: [
+      {
+        id: 'describe',
+        description: 'Describe the problem precisely',
+      },
+      {
+        id: 'insist',
+        description: 'Insist politely when given a vague answer',
+      },
+      {
+        id: 'rights',
+        description: 'Ask about the formal procedure and your rights',
+      },
+      {
+        id: 'commitment',
+        description: 'Obtain a concrete commitment or reference number',
+      },
+    ],
+    keyVocab: [
+      'reclamo',
+      'cantiere',
+      'lavori',
+      'ufficio tecnico',
+      'protocollo',
+      'segnalazione',
+      'disagio',
+      'sollecito',
+    ],
+    grammarFocus: ['passive-voice', 'si-impersonale'],
+    opening: 'Buongiorno, mi dica pure. Di che cosa si tratta?',
+    tags: ['bureaucracy'],
     split: 'train',
   },
   {
@@ -2943,7 +3314,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'riunione-lavoro',
     title: 'Una riunione di lavoro',
     titleEn: 'A work meeting',
-    levels: ['B1', 'B2'],
+    levels: ['B1', 'B2', 'C1', 'C2'],
     setting: 'A weekly team meeting in an office.',
     tutorRole: 'Federica, the team leader',
     learnerRole: 'a team member',
@@ -3027,7 +3398,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'scuola-figli',
     title: "Colloquio con l'insegnante",
     titleEn: 'Parent-teacher meeting',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: 'A parent-teacher meeting at a primary school.',
     tutorRole: 'the teacher',
     learnerRole: 'a parent',
@@ -3102,7 +3473,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'smartworking',
     title: 'Lavorare da casa',
     titleEn: 'Working from home',
-    levels: ['B1', 'B2'],
+    levels: ['B1', 'B2', 'C1', 'C2'],
     setting: 'Two friends compare jobs over an aperitivo.',
     tutorRole: 'Andrea, a friend',
     learnerRole: 'a friend',
@@ -3324,7 +3695,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'trattativa-affitto',
     title: "Negoziare l'affitto",
     titleEn: 'Negotiating the rent',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: 'A meeting with an estate agent about a flat the learner wants.',
     tutorRole: 'the estate agent',
     learnerRole: 'a prospective tenant',
@@ -3360,6 +3731,95 @@ export const SCENARIOS: readonly TutorScenario[] = [
     grammarFocus: ['congiuntivo-presente', 'periodo-ipotetico', 'conditional'],
     opening: "Allora, le è piaciuto l'appartamento?",
     tags: ['home', 'money'],
+    split: 'train',
+  },
+  {
+    id: 'trattativa-fornitore',
+    title: 'Trattativa con un fornitore',
+    titleEn: 'Negotiating with a supplier',
+    levels: ['C1', 'C2'],
+    setting:
+      'A video call with a supplier of packaging materials whose prices have just gone up by fifteen per cent.',
+    tutorRole: "a supplier's sales manager, polite but firm",
+    learnerRole: 'a purchasing manager for a small food company',
+    formality: 'formal',
+    goals: [
+      {
+        id: 'problem',
+        description: 'Raise the problem of the price increase',
+      },
+      {
+        id: 'argue',
+        description: 'Argue your case using the business relationship',
+      },
+      {
+        id: 'counteroffer',
+        description: 'Make a counter-offer',
+      },
+      {
+        id: 'agreement',
+        description: 'Reach and confirm an agreement',
+      },
+    ],
+    keyVocab: [
+      'fornitore',
+      'aumento',
+      'listino',
+      'sconto',
+      'ordine',
+      'contratto',
+      'consegna',
+      'margine',
+      'condizioni',
+    ],
+    grammarFocus: ['conditional', 'congiuntivo-imperfetto'],
+    opening:
+      'Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti.',
+    tags: ['work', 'negotiation'],
+    split: 'train',
+  },
+  {
+    id: 'turismo-di-massa',
+    title: 'Il turismo di massa',
+    titleEn: 'Radio phone-in: overtourism',
+    levels: ['C1', 'C2'],
+    setting:
+      'A live regional radio phone-in about overtourism in Venice and other art cities, and whether entry fees work.',
+    tutorRole: "the radio host, who plays devil's advocate",
+    learnerRole: 'a listener calling in to give an opinion',
+    formality: 'formal',
+    goals: [
+      {
+        id: 'introduce',
+        description: 'Introduce yourself and your position',
+      },
+      {
+        id: 'example',
+        description: 'Support it with a concrete example',
+      },
+      {
+        id: 'rebut',
+        description: "Rebut the host's objection",
+      },
+      {
+        id: 'proposal',
+        description: 'Propose a realistic solution',
+      },
+    ],
+    keyVocab: [
+      'turismo',
+      "ticket d'ingresso",
+      'residenti',
+      'centro storico',
+      'sovraffollamento',
+      'economia locale',
+      'crociere',
+      'sostenibilità',
+    ],
+    grammarFocus: ['congiuntivo-presente', 'passive-voice'],
+    opening:
+      "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?",
+    tags: ['society', 'debate'],
     split: 'train',
   },
   {
@@ -3492,7 +3952,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
     id: 'vita-in-italia',
     title: "Vivere all'estero",
     titleEn: 'Living abroad',
-    levels: ['B2'],
+    levels: ['B2', 'C1', 'C2'],
     setting: 'A radio interview about foreigners living in Italy.',
     tutorRole: 'the radio host',
     learnerRole: 'a foreigner who lives in Italy',

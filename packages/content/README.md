@@ -13,8 +13,8 @@ runs on a development machine.
   a short English gloss.
 - **sentences**: about 36,000 Italian-English pairs from Tatoeba, 3 to 12 words, chosen per lemma
   so that the target is the rarest word in the sentence (n+1), up to 5 per lemma.
-- **grammarPoints**: 114 hand-written A1-C2 grammar points in acquisition order,
-  with prerequisites and a short note with examples. Sentences carry the ids of the grammar
+- **grammarPoints**: 114 hand-written grammar points from A1 to C2 in acquisition order
+  (`src/grammar/levels/`), with prerequisites, an explanation and drills. Sentences carry the ids of the grammar
   points simple rules detect in them.
 
 Row fields match the insert types of the `lemma`, `sentence` and `grammar_point` tables in
@@ -190,6 +190,9 @@ array per sentence in reading order, with one `[startMs, endMs]` pair per token
 pnpm --filter @italia/content build:stories                 # tag, validate, write everything
 pnpm --filter @italia/content build:stories --only via-verdi --verbose   # iterate on one series
 ```
+
+Stories are tagged against the committed seed and record its checksum, so after `build:seed`
+always run `build:stories` too (in that order); `corpus.test.ts` fails otherwise.
 
 The build needs `morph-it` and `subtlex-it` in `.cache/` (`fetch:sources`) and exits non-zero
 when a story fails; fix the story rather than the thresholds. `--verbose` also lists each

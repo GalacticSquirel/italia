@@ -76,18 +76,15 @@ function makeCard(
 }
 
 function review(d: Device, cardId: string, rating: Rating, when: Date) {
-  const current = d.repos.cards.getById(cardId);
-  if (!current) throw new Error(`no card ${cardId}`);
-  const next = scheduler.review(toSchedule(current), rating, when).card;
-  return d.repos.recordReview({
+  return d.repos.reviewCard({
     cardId,
     rating,
     answer: null,
     latencyMs: 1500,
     reviewedAt: when,
     deviceId: `device-${d.name}`,
-    next,
-  });
+    scheduler,
+  }).log;
 }
 
 function cardOf(d: Device, id: string) {

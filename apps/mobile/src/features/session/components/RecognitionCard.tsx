@@ -52,7 +52,7 @@ export function RecognitionCard({ prompt, speechRate, autoPlay, onGotIt }: Recog
         ) : null}
       </Card>
       <ListenButton
-        text={example ? `${lemma.lemma}. ${example.it}` : lemma.lemma}
+        text={example ? [lemma.lemma, example.it] : lemma.lemma}
         rate={speechRate}
         autoPlay={autoPlay}
       />
