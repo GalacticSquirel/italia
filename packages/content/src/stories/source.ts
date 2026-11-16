@@ -16,6 +16,18 @@
  * `names` lists the proper nouns (characters, places) used in the story; they are
  * tagged as names and left out of coverage, even when they are also words
  * ("Rosa", "Bruno").
+ *
+ * A `questions:` line ends the story text and starts its comprehension
+ * questions. Each question is a `?` line followed by its answer options, the
+ * correct one marked `*` and the others `-`:
+ *
+ * ```text
+ * questions:
+ * ? Che cosa ha Luca? | What does Luca have?
+ * - Un cane. | A dog.
+ * * Una casa. | A house.
+ * - Una macchina. | A car.
+ * ```
  */
 
 export interface StorySourceSentence {
@@ -23,10 +35,19 @@ export interface StorySourceSentence {
   readonly en: string;
 }
 
+/** A multiple-choice comprehension question. */
+export interface StorySourceQuestion {
+  readonly prompt: StorySourceSentence;
+  readonly options: readonly StorySourceSentence[];
+  /** Index of the correct option. */
+  readonly answer: number;
+}
+
 export interface StorySource {
   readonly title: { readonly it: string; readonly en: string };
   readonly names: readonly string[];
   readonly paragraphs: readonly (readonly StorySourceSentence[])[];
+  readonly questions: readonly StorySourceQuestion[];
 }
 
 /** Parse a story source file. Throws with the line number on malformed input. */
@@ -35,6 +56,12 @@ export function parseStorySource(text: string): StorySource {
   let names: string[] = [];
   const paragraphs: StorySourceSentence[][] = [];
   let current: StorySourceSentence[] = [];
+  let inQuestions = false;
+  const questions: {
+    prompt: StorySourceSentence;
+    options: StorySourceSentence[];
+    answer: number;
+  }[] = [];
   const split = (line: string, n: number): [string, string] => {
     const parts = line.split('|').map((p) => p.trim());
     const [it, en] = parts;
@@ -48,6 +75,31 @@ export function parseStorySource(text: string): StorySource {
     const n = i + 1;
     const line = raw.trim();
     if (line.startsWith('#')) return;
+    if (inQuestions) {
+      if (line === '') return;
+      const kind = line[0];
+      const rest = line.slice(1).trim();
+      if (kind === '?') {
+        const [it, en] = split(rest, n);
+        questions.push({ prompt: { it, en }, options: [], answer: -1 });
+        return;
+      }
+      const q = questions.at(-1);
+      if ((kind !== '*' && kind !== '-') || !q) {
+        throw new Error(`line ${n}: expected "? question", "* right answer" or "- wrong answer"`);
+      }
+      if (kind === '*') {
+        if (q.answer >= 0) throw new Error(`line ${n}: a question has one right answer`);
+        q.answer = q.options.length;
+      }
+      const [it, en] = split(rest, n);
+      q.options.push({ it, en });
+      return;
+    }
+    if (line === 'questions:') {
+      inQuestions = true;
+      return;
+    }
     if (line === '') {
       if (current.length > 0) paragraphs.push(current);
       current = [];
@@ -72,5 +124,10 @@ export function parseStorySource(text: string): StorySource {
   if (current.length > 0) paragraphs.push(current);
   if (!title) throw new Error('missing "title:" line');
   if (paragraphs.length === 0) throw new Error('story has no sentences');
-  return { title, names, paragraphs };
+  for (const q of questions) {
+    if (q.answer < 0 || q.options.length < 2) {
+      throw new Error(`question "${q.prompt.it}" needs one "*" answer and at least one "-" option`);
+    }
+  }
+  return { title, names, paragraphs, questions };
 }

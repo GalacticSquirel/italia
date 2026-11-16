@@ -78,6 +78,9 @@ export const nativeModelStorage: ModelStorage = {
     }
     return Promise.resolve();
   },
+  async writeText(uri, text) {
+    await new File(uri).write(text);
+  },
   async extract(archiveUri, dirUri) {
     const archivePath = uriToPath(archiveUri);
     const result = await extractArchive(

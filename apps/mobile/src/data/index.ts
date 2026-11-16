@@ -27,6 +27,16 @@ export {
   type NewCardInput,
 } from './CardRepo';
 export {
+  alignCardStates,
+  cardsWithLogs,
+  markCardStatesRetention,
+  rebuildAllCards,
+  rebuildCards,
+  reviewCard,
+  type ReviewCardInput,
+  type ReviewCardResult,
+} from './cardState';
+export {
   createGrammarRepo,
   createLemmaRepo,
   createSentenceRepo,

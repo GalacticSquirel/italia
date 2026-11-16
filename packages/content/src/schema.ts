@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { GRAMMAR_CEFR_LEVELS } from './grammar/types';
 import { UPOS } from './pipeline/lexicon';
 
 /** Seed format version. Bump when the shape changes incompatibly. */
@@ -126,7 +127,7 @@ export const SeedGrammarPointSchema = z
     extra: z
       .object({
         slug: z.string().regex(/^[a-z0-9-]+$/),
-        cefr: z.enum(['A1', 'A2', 'B1']),
+        cefr: z.enum(GRAMMAR_CEFR_LEVELS),
       })
       .strict(),
   })

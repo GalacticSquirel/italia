@@ -3,6 +3,7 @@ import { View } from 'react-native';
 
 import { useRepositories } from '@/db';
 import { useSettingsStore } from '@/features/settings/settingsStore';
+import { usePracticeSession } from '@/features/study/usePracticeSession';
 import { Button, EmptyState, Screen, Text, useTheme } from '@/ui';
 
 import { DrillView } from './components/DrillView';
@@ -11,6 +12,9 @@ import { loadSpeakingDrill, type SpeakingDrill } from './drill/drillData';
 import type { DrillOutcome } from './drill/drillMachine';
 import { useDrillRunner } from './drill/useDrillRunner';
 import { useHandsFree } from './useHandsFree';
+
+/** Activity recorded on the study session when a drill is finished. */
+export const SPEAKING_DRILL_ACTIVITY = 'speaking_drill';
 
 export interface DrillScreenProps {
   /** Audio-only: no taps needed, screen kept awake. */
@@ -52,14 +56,19 @@ function Runner({
   const rate = useSettingsStore((s) => s.settings.speechRate);
   const [finished, setFinished] = useState<readonly DrillOutcome[] | null>(null);
   useHandsFree(handsFree);
+  const practice = usePracticeSession(SPEAKING_DRILL_ACTIVITY, now);
   const runner = useDrillRunner({
     items: drill.items,
     rate,
     handsFree,
     onOutcome: (outcome) => {
+      practice.touch();
       drill.record(outcome, now());
     },
-    onFinished: setFinished,
+    onFinished: (outcomes) => {
+      practice.complete();
+      setFinished(outcomes);
+    },
   });
   if (finished) return <Summary outcomes={finished} onClose={onClose} />;
   return (

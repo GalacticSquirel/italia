@@ -1,3 +1,4 @@
+import type { GrammarDrill } from '@italia/content';
 import type { CardKind, PromptMode } from '@italia/core';
 
 import type { GrammarPointRow, LearnerSentenceRow, LemmaRow, SentenceRow } from '@/data';
@@ -11,6 +12,7 @@ export const SHOWN_KINDS = [
   'sentence_production',
   'dictation',
   'grammar_cloze',
+  'grammar_drill',
   'spoken_prompt',
 ] as const satisfies readonly CardKind[];
 
@@ -63,6 +65,18 @@ export interface GrammarClozePrompt {
 }
 
 /**
+ * A hand-written drill for one grammar point: produce exactly the form the
+ * point teaches, cued by the English sentence and a hint.
+ */
+export interface GrammarDrillPrompt {
+  kind: 'grammar_drill';
+  drill: GrammarDrill;
+  blank: Blank;
+  grammarPoint: GrammarPointRow | null;
+  accepted: string[];
+}
+
+/**
  * Translate an English sentence into Italian, or, for a sentence corrected in
  * conversation (`correction` set), write the learner's sentence correctly.
  */
@@ -96,6 +110,7 @@ export type Prompt =
   | RecognitionPrompt
   | ClozePrompt
   | GrammarClozePrompt
+  | GrammarDrillPrompt
   | SentenceProductionPrompt
   | DictationPrompt
   | SpokenPrompt;
@@ -178,12 +193,37 @@ export function clozeSentences(lemma: LemmaRow, content: ContentIndex): Sentence
 }
 
 /**
+ * Answers a cloze accepts: its own blank, plus the blank of every other seed
+ * sentence for the lemma that has the same English and the same words around
+ * the blank. Tatoeba often holds one sentence per person or gender with one
+ * translation ("Che mi ha fatto?", "Che mi hai fatto?", "Che mi avete fatto?"
+ * are all "What did you do to me?"), so from the English alone each of those
+ * forms is right.
+ */
+export function clozeAnswers(
+  sentence: SentenceRow,
+  blank: Blank,
+  lemma: LemmaRow,
+  content: ContentIndex,
+): string[] {
+  const answers = [blank.answer];
+  for (const other of content.sentencesByLemma.get(lemma.id) ?? []) {
+    if (other.id === sentence.id || other.en !== sentence.en) continue;
+    const b = blankForLemma(other, lemma);
+    if (b?.before === blank.before && b.after === blank.after && !answers.includes(b.answer)) {
+      answers.push(b.answer);
+    }
+  }
+  return answers;
+}
+
+/**
  * Resolve a card into what to show, or null when its content is missing (for
  * example after a seed update removed it) or its kind is not shown yet.
  *
  * Targets: `recognition` and `cloze_production` practise a lemma;
  * `grammar_cloze`, `sentence_production`, `dictation` and `spoken_prompt`
- * practise a sentence.
+ * practise a sentence; `grammar_drill` practises a hand-written drill.
  */
 export function resolvePrompt(card: PromptCard, content: ContentIndex): Prompt | null {
   switch (card.kind) {
@@ -199,7 +239,13 @@ export function resolvePrompt(card: PromptCard, content: ContentIndex): Prompt |
       const sentence = pool[card.reps % Math.max(1, pool.length)];
       const blank = sentence ? blankForLemma(sentence, lemma) : null;
       if (!sentence || !blank) return null;
-      return { kind: 'cloze_production', lemma, sentence, blank, accepted: [blank.answer] };
+      return {
+        kind: 'cloze_production',
+        lemma,
+        sentence,
+        blank,
+        accepted: clozeAnswers(sentence, blank, lemma, content),
+      };
     }
     case 'grammar_cloze': {
       const sentence = content.sentenceById.get(card.targetId);
@@ -213,6 +259,17 @@ export function resolvePrompt(card: PromptCard, content: ContentIndex): Prompt |
         baseForm: found.lemma.lemma,
         grammarPoint: focus === null ? null : (content.grammarById.get(focus) ?? null),
         accepted: [found.blank.answer],
+      };
+    }
+    case 'grammar_drill': {
+      const drill = content.drillById.get(card.targetId);
+      if (!drill) return null;
+      return {
+        kind: 'grammar_drill',
+        drill,
+        blank: { before: drill.before, answer: drill.answer, after: drill.after },
+        grammarPoint: content.grammarById.get(drill.pointId) ?? null,
+        accepted: [...drill.accepted],
       };
     }
     case 'sentence_production': {
@@ -261,6 +318,8 @@ export function cardLemmaIds(card: Pick<PromptCard, 'kind' | 'targetId'>, conten
     case 'recognition':
     case 'cloze_production':
       return [card.targetId];
+    case 'grammar_drill':
+      return [];
     default:
       return content.sentenceById.get(card.targetId)?.lemmaIds ?? [];
   }
@@ -272,6 +331,10 @@ export function cardGrammarIds(
   content: ContentIndex,
 ): number[] {
   if (card.kind === 'recognition' || card.kind === 'cloze_production') return [];
+  if (card.kind === 'grammar_drill') {
+    const drill = content.drillById.get(card.targetId);
+    return drill ? [drill.pointId] : [];
+  }
   if (card.targetId < 0)
     return [...(content.learnerSentenceById.get(card.targetId)?.grammarIds ?? [])];
   const sentence = content.sentenceById.get(card.targetId);

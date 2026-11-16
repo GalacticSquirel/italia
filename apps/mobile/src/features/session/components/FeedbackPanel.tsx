@@ -31,7 +31,7 @@ export const withStop = (text: string) => (/[.!?…]$/u.test(text) ? text : `${t
 
 /** The full Italian sentence a prompt is about, for "listen" after answering. */
 export function fullSentence(prompt: TypedPrompt): string {
-  return prompt.sentence.it;
+  return prompt.kind === 'grammar_drill' ? prompt.drill.it : prompt.sentence.it;
 }
 
 export interface FeedbackPanelProps {

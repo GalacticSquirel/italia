@@ -10,6 +10,7 @@ export {
   CardFlagDtoSchema,
   ErrorRecordDtoSchema,
   JsonValueSchema,
+  LearnerSentenceDtoSchema,
   nextCursor,
   PullRequestSchema,
   PullResponseSchema,
@@ -24,6 +25,7 @@ export {
   type CardFlagDto,
   type ErrorRecordDto,
   type JsonValue,
+  type LearnerSentenceDto,
   type PullRequest,
   type PullResponse,
   type PullResponseFor,
@@ -37,6 +39,7 @@ export {
 } from './sync';
 export {
   fromServerRow,
+  SYNC_DB_SCHEMA,
   SYNC_TABLE_SPECS,
   toServerRow,
   type ServerRowInput,

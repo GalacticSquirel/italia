@@ -1,0 +1,61 @@
+diff --git a/android/src/main/java/com/rnllama/RNLlama.java b/android/src/main/java/com/rnllama/RNLlama.java
+index da47b6c7e3cdcdce8e493f95040af5f9637adcf0..29cd9e2a3f46cc30454b23523904280d27b4a55b 100644
+--- a/android/src/main/java/com/rnllama/RNLlama.java
++++ b/android/src/main/java/com/rnllama/RNLlama.java
+@@ -19,6 +19,11 @@ public class RNLlama {
+   private static final String TAG = "RNLlama";
+   private static boolean libsLoaded = false;
+ 
++  // Italia: CPU-specific engine builds are not packaged in the APK; the app
++  // downloads the one this phone can use into <files>/models/llama-engine-<variant>/
++  // and writes `.installed` there after verifying its SHA-256.
++  private static File downloadedEnginesDir = null;
++
+   // HTP (Hexagon Tensor Processor) constants
+   private static final int HTP_DIR_MODE = 0755;  // rwx for owner, rx for group/others
+   private static final int HTP_FILE_MODE = 0755;
+@@ -174,6 +179,8 @@ public class RNLlama {
+   public static synchronized boolean loadNative(ReactApplicationContext context) {
+     if (libsLoaded) return true;
+ 
++    downloadedEnginesDir = new File(context.getFilesDir(), "models");
++
+     if (Build.SUPPORTED_64_BIT_ABIS.length == 0) {
+       Log.w(TAG, "Only 64-bit architectures are supported");
+       return false;
+@@ -302,6 +309,7 @@ public class RNLlama {
+   }
+ 
+   private static boolean tryLoadLibrary(String libraryName) {
++    loadDownloadedEngine(libraryName);
+     try {
+       System.loadLibrary(libraryName);
+       return true;
+@@ -310,6 +318,27 @@ public class RNLlama {
+     }
+   }
+ 
++  /**
++   * Italia: before loading a JNI wrapper, load the engine library it links
++   * (same soname) from a verified download, when there is one. The linker then
++   * resolves the wrapper's dependency to it; without it the wrapper fails to
++   * load and the next, more generic build is tried.
++   */
++  private static void loadDownloadedEngine(String jniName) {
++    String prefix = "rnllama_jni_";
++    if (downloadedEnginesDir == null || !jniName.startsWith(prefix)) return;
++    String variant = jniName.substring(prefix.length());
++    File dir = new File(downloadedEnginesDir, "llama-engine-" + variant);
++    File lib = new File(dir, "librnllama_" + variant + ".so");
++    if (!lib.isFile() || !new File(dir, ".installed").isFile()) return;
++    try {
++      System.load(lib.getAbsolutePath());
++      Log.d(NAME, "Loaded downloaded engine " + lib.getName());
++    } catch (UnsatisfiedLinkError e) {
++      Log.w(NAME, "Could not load downloaded engine " + lib.getName(), e);
++    }
++  }
++
+   private static String lowerOrEmpty(String value) {
+     return value == null ? "" : value.toLowerCase(Locale.ROOT);
+   }

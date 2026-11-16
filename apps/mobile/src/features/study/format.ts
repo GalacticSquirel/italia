@@ -5,6 +5,7 @@ export const KIND_NAMES: Record<CardKind, string> = {
   recognition: 'First exposure',
   cloze_production: 'Word in context',
   grammar_cloze: 'Grammar',
+  grammar_drill: 'Grammar drill',
   sentence_production: 'Translate',
   dictation: 'Dictation',
   spoken_prompt: 'Speaking',

@@ -19,7 +19,7 @@ import {
   type StreakView,
 } from '@italia/core';
 
-import { toSchedule, type CardRow, type GrammarPointRow, type Repositories } from '@/data';
+import { type CardRow, type GrammarPointRow, type Repositories } from '@/data';
 import { NEW_WORD_KIND } from '@/features/study/curriculum';
 import { planToday, type StudyPlan } from '@/features/study/planning';
 import { resolvePrompt, type Prompt } from '@/features/study/prompts';
@@ -234,17 +234,16 @@ export function createSessionStore({
       if (!queue || !entry || !plan) return;
       const card = cards.get(entry.item.cardId);
       if (!card) throw new Error(`Card not found: ${entry.item.cardId}`);
-      const result = plan.scheduler.review(toSchedule(card), rating, at);
-      repos.recordReview({
+      const { card: updated } = repos.reviewCard({
         cardId: card.id,
         rating,
         answer: logged,
         latencyMs: Math.max(0, Math.round(latencyMs)),
         reviewedAt: at,
         deviceId,
-        next: result.card,
+        scheduler: plan.scheduler,
       });
-      cards.set(card.id, { ...card, ...result.card });
+      cards.set(card.id, updated);
       flushTime();
       show(recordAnswer(queue, rating));
     };

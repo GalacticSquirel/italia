@@ -6,12 +6,56 @@ sign-in and for exchanging learner records between a learner's devices. It runs 
 audio and has no Edge Functions: the app talks to PostgREST directly, and row-level security
 limits every request to the signed-in user's rows.
 
-- Server schema: `supabase/migrations/` (tests: `supabase/tests/`, run by `pnpm test`).
+- Server schema: `supabase/migrations/` (tests: `supabase/tests/`, run by `pnpm test`). All
+  tables live in the **`italia`** Postgres schema (trigger functions in `italia_private`), not
+  `public`, so the app can share a database with other projects. The API must expose `italia`,
+  and the app's client selects it (`db: { schema: 'italia' }`, `SYNC_DB_SCHEMA`).
 - Wire formats: `packages/api-contract/src/sync.ts` and `server-rows.ts` (zod).
 - App side: `apps/mobile/src/sync/` (engine, Supabase transport, auth, provider) and
   `apps/mobile/src/features/account/AccountSection.tsx` (Settings > Account).
 
-## Set up a Supabase project
+## Set up a self-hosted Supabase (Docker)
+
+For the official `supabase/docker` stack. Everything the app creates is in the `italia` and
+`italia_private` schemas, so other projects on the same database are untouched.
+
+1. **Expose the schema.** In `docker/.env`, add `italia` to the API's schemas, keeping what is
+   there, for example `PGRST_DB_SCHEMAS=public,storage,graphql_public,italia`. Restart so the REST
+   service picks it up: `docker compose up -d` (or `docker compose restart rest`).
+2. **Apply the migrations**, in name order: paste each file in `supabase/migrations/` into Studio's
+   SQL editor and run it, or from the `docker/` folder on the server:
+
+   ```sh
+   for f in /path/to/italia/supabase/migrations/*.sql; do
+     docker compose exec -T db psql -U postgres -d postgres -v ON_ERROR_STOP=1 < "$f"
+   done
+   ```
+
+   Then reload the API's schema cache: `notify pgrst, 'reload schema';` in the SQL editor (a
+   restart of `rest` does the same).
+
+3. **Auth redirects.** In `docker/.env`, append `italia://auth-callback` to
+   `ADDITIONAL_REDIRECT_URLS` (comma separated; add `exp+italia://auth-callback` too for
+   development builds). Restart `auth`.
+4. **Email sign-in.** Self-hosted auth only sends mail through your own SMTP server: set
+   `SMTP_ADMIN_EMAIL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` and `SMTP_SENDER_NAME`,
+   and keep `ENABLE_EMAIL_SIGNUP=true` (the first sign-in creates the account). The app signs in
+   with a six-digit code, and the default emails only carry a link. Save this template somewhere
+   the `auth` container can fetch over HTTP (a public Storage bucket works):
+
+   ```html
+   <p>Your Italia code: {{ .Token }}</p>
+   <p><a href="{{ .ConfirmationURL }}">Or open this link on your phone</a></p>
+   ```
+
+   Then add `GOTRUE_MAILER_TEMPLATES_MAGIC_LINK: <its URL>` and
+   `GOTRUE_MAILER_TEMPLATES_CONFIRMATION: <its URL>` (first sign-ins get the confirmation email)
+   under the `auth` service's `environment` in `docker-compose.yml`, and restart `auth`.
+
+5. **Keys.** The app needs the public URL (`API_EXTERNAL_URL` / `SUPABASE_PUBLIC_URL`) and
+   `ANON_KEY` from `docker/.env`. Never use `SERVICE_ROLE_KEY` in the app.
+
+## Set up a hosted Supabase project
 
 1. Create a project at [supabase.com](https://supabase.com/dashboard) (free tier is enough). Pick
    a region near you and keep the database password somewhere safe.
@@ -28,11 +72,12 @@ limits every request to the signed-in user's rows.
    Without the CLI, paste each file in `supabase/migrations/` (in name order) into the dashboard
    SQL editor.
 
-3. **Auth > URL configuration**: add `italia://auth-callback` to the redirect URLs (and
+3. **Project settings > Data API > Exposed schemas**: add `italia`.
+4. **Auth > URL configuration**: add `italia://auth-callback` to the redirect URLs (and
    `exp+italia://auth-callback` for development builds). **Auth > Providers > Email**: keep email
    enabled; the template sends both a magic link and the six-digit code (`{{ .Token }}`). Make sure
    the "Magic Link" email template includes `{{ .Token }}` so the code is shown.
-4. **Project settings > API**: copy the project URL and the `anon` public key.
+5. **Project settings > API**: copy the project URL and the `anon` public key.
 
 ### Local development stack (optional)
 
@@ -52,7 +97,8 @@ EXPO_PUBLIC_SUPABASE_ANON_KEY=<anon public key>
 
 The anon key is public by design; row-level security is what protects the data. Never put the
 `service_role` key or any other secret in the app. For EAS builds set the same two variables as
-EAS environment variables. When either variable is missing or malformed, sync is switched off:
+EAS environment variables; for the GitHub Actions APK build (`.github/workflows/android-apk.yml`)
+set them as repository **Variables** (Settings > Secrets and variables > Actions > Variables). When either variable is missing or malformed, sync is switched off:
 `useSync().enabled` is false, Settings > Account says sync is not set up, and the app works as
 before.
 
@@ -95,13 +141,14 @@ because a session is larger than SecureStore's 2 KB value guidance
 
 ## What syncs
 
-| Server table    | Local source                     | Kind                      |
-| --------------- | -------------------------------- | ------------------------- |
-| `review_log`    | `review_log`                     | append-only, union by id  |
-| `study_session` | `study_session` (once ended)     | append-only, union by id  |
-| `error_record`  | `error_record`                   | append-only, union by id  |
-| `card_flag`     | `card.suspended` + `flag_*` cols | last writer wins per card |
-| `setting`       | `settings`                       | last writer wins per key  |
+| Server table       | Local source                     | Kind                      |
+| ------------------ | -------------------------------- | ------------------------- |
+| `review_log`       | `review_log`                     | append-only, union by id  |
+| `study_session`    | `study_session` (once ended)     | append-only, union by id  |
+| `error_record`     | `error_record`                   | append-only, union by id  |
+| `card_flag`        | `card.suspended` + `flag_*` cols | last writer wins per card |
+| `setting`          | `settings`                       | last writer wins per key  |
+| `learner_sentence` | `learner_sentence`               | append-only, union by id  |
 
 Not synced, by design:
 
@@ -112,6 +159,12 @@ Not synced, by design:
 - **Streak.** Derived: after a pull adds study sessions, the streak is replayed from all sessions
   with `replayStreak` (`@italia/core`); `longestDays` never decreases.
 - Content (seeded), stories, app metadata (device id, cursors).
+
+Corrected sentences (`learner_sentence`) are what a `sentence_production:<negative id>` card
+practises, so a device needs the sentence to show the card. Their ids are derived from the
+corrected text (`learnerSentenceId`), so devices that correct the same sentence agree on its id
+and a re-push is a no-op. If two different sentences ever hash to the same id on two devices, the
+first one pushed wins on the server and each device keeps its own.
 
 ## Protocol
 

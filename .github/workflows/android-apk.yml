@@ -1,0 +1,106 @@
+name: Android APK
+
+# Builds an installable release APK on GitHub's runners, with no Expo account:
+# `expo prebuild` generates the native project, then Gradle builds it.
+# The APK is attached to the run as an artifact and published to the
+# `android-latest` pre-release, so it can be downloaded straight from a phone.
+#
+# The APK is signed with the React Native template's debug keystore, which is
+# the same on every runner, so a new build installs over the old one and keeps
+# the app's data. That key is public: this build is for sideloading only, never
+# for a store.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, claude/project-thread-wsi07a, claude/project-thread-4f7g3i]
+    paths:
+      - 'apps/mobile/**'
+      - 'packages/**'
+      - 'models/**'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/android-apk.yml'
+
+concurrency:
+  group: android-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    name: Build release APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      # Optional sync. Without these the app runs fully local and signed out.
+      EXPO_PUBLIC_SUPABASE_URL: ${{ vars.EXPO_PUBLIC_SUPABASE_URL }}
+      EXPO_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.EXPO_PUBLIC_SUPABASE_ANON_KEY }}
+      NODE_ENV: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL
+          df -h /
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Generate the native Android project
+        working-directory: apps/mobile
+        run: npx expo prebuild --platform android --no-install --clean
+
+      - name: Build the APK
+        working-directory: apps/mobile/android
+        # Phones from the last several years are all arm64; one ABI halves the
+        # build time and the APK size.
+        run: >-
+          ./gradlew assembleRelease
+          -PreactNativeArchitectures=arm64-v8a
+          -Dorg.gradle.jvmargs="-Xmx6g -XX:MaxMetaspaceSize=1g"
+          --no-daemon
+
+      - name: Name the APK
+        id: apk
+        run: |
+          short=$(git rev-parse --short HEAD)
+          name="italia-${short}.apk"
+          cp apps/mobile/android/app/build/outputs/apk/release/app-release.apk "$name"
+          ls -lh "$name"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "short=$short" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: italia-apk-${{ steps.apk.outputs.short }}
+          path: ${{ steps.apk.outputs.name }}
+          retention-days: 30
+          # An APK is already a zip.
+          compression-level: 0
+
+      - name: Publish to the android-latest pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete android-latest --cleanup-tag --yes || true
+          gh release create android-latest "${{ steps.apk.outputs.name }}" \
+            --prerelease \
+            --target "${{ github.sha }}" \
+            --title "Android build ${{ steps.apk.outputs.short }} (${{ github.ref_name }})" \
+            --notes "Release APK built from \`${{ github.ref_name }}\` at ${{ github.sha }} by run ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}. Download the .apk on your Android phone and open it to install."

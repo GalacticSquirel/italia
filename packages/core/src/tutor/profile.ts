@@ -35,7 +35,8 @@ export function tutorLevelFor(level: CefrEstimateLevel): TutorLevel {
  */
 export function lemmaCeilingFor(level: TutorLevel, knownLemmas: number): number | null {
   const band = LEVEL_BANDS[level].lemmaCeiling;
-  const rounded = Math.round(knownLemmas / 50) * 50;
+  // A count that is not a number (corrupt progress data) counts as a beginner's.
+  const rounded = Number.isFinite(knownLemmas) ? Math.round(knownLemmas / 50) * 50 : 0;
   const ceiling = Math.min(band, Math.max(MIN_LEMMA_CEILING, rounded));
   return ceiling === band ? null : ceiling;
 }

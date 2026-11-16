@@ -19,6 +19,7 @@ import { useSession, useSessionStore } from './SessionContext';
 const ANSWER_LABELS = {
   cloze_production: 'Missing word',
   grammar_cloze: 'Missing word',
+  grammar_drill: 'Missing words',
   sentence_production: 'Italian sentence',
   dictation: 'What you heard',
 } as const;

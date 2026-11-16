@@ -23,6 +23,10 @@ export class FakeStorage implements ModelStorage {
     for (const key of [...this.files.keys()]) if (key.startsWith(uri)) this.files.delete(key);
     return Promise.resolve();
   };
+  writeText = (uri: string, text: string) => {
+    this.files.set(uri, { size: text.length, sha: '' });
+    return Promise.resolve();
+  };
   extract = (archive: string, dir: string) => {
     this.extracted.push(`${archive}->${dir}`);
     return Promise.resolve();

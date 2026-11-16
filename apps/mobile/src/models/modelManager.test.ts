@@ -1,7 +1,7 @@
 import { createModelFileRepo, type ModelFileRepo } from '@/data';
 import { createTestDatabase, type TestDatabase } from '@/db/testing/createTestDatabase';
 
-import { capabilityFor, tierFor } from './capability';
+import { capabilityFor, parseCpuFeatures, tierFor } from './capability';
 import { MANIFEST, parseManifest, type Manifest } from './manifest';
 import {
   InsufficientStorageError,
@@ -256,5 +256,147 @@ describe('capability tiers', () => {
     expect(tierFor(11.5 * GIB)).toBe('high');
     expect(capabilityFor(null).canRun(GIB)).toBe(true);
     expect(capabilityFor(2 * GIB).canRun(4 * GIB)).toBe(false);
+  });
+});
+
+describe('engine builds', () => {
+  const SHA_E = 'e'.repeat(64);
+  const SHA_L = 'c'.repeat(64);
+  const engine = (id: string, features: string[], available = true) => ({
+    id,
+    kind: 'engine',
+    title: 'Engine',
+    description: 'Build.',
+    licence: 'MIT',
+    source: 'https://example.com/engine',
+    minRamBytes: 0,
+    provides: 'llama',
+    cpu: { abi: 'arm64-v8a', features },
+    files: [
+      {
+        name: `lib${id}.so`,
+        url: `https://example.com/${id}.so`,
+        sha256: SHA_E,
+        sizeBytes: 20,
+        verification: 'downloaded',
+        available,
+      },
+    ],
+  });
+  const engines = parseManifest({
+    version: 2,
+    models: [
+      {
+        id: 'llm-test',
+        kind: 'llm',
+        title: 'Tutor',
+        description: 'LLM.',
+        licence: 'MIT',
+        source: 'https://example.com/llm',
+        minRamBytes: 0,
+        needsEngine: 'llama',
+        files: [
+          {
+            name: 'm.gguf',
+            url: 'https://example.com/m.gguf',
+            sha256: SHA_L,
+            sizeBytes: 1000,
+            verification: 'downloaded',
+          },
+        ],
+      },
+      engine('fast', ['dotprod', 'i8mm']),
+      engine('unpublished', ['dotprod'], false),
+      engine('basic', []),
+    ],
+  });
+
+  function engineManager(features: ('fp16' | 'dotprod' | 'i8mm')[], abi = 'arm64-v8a') {
+    for (const id of ['fast', 'unpublished', 'basic']) {
+      storage.served.set(`https://example.com/${id}.so`, { size: 20, sha: SHA_E });
+    }
+    storage.served.set('https://example.com/m.gguf', { size: 1000, sha: SHA_L });
+    return new ModelManager({
+      manifest: engines,
+      repo,
+      storage,
+      network: { connection: () => Promise.resolve(connection) },
+      capability: capabilityFor(8 * GIB, { abi, features }),
+    });
+  }
+
+  it('picks the first published build the CPU supports', () => {
+    expect(engineManager(['fp16', 'dotprod', 'i8mm']).engineFor('llm-test')?.id).toBe('fast');
+    // The dot-product build is not published, so the generic downloaded build is next.
+    expect(engineManager(['dotprod']).engineFor('llm-test')?.id).toBe('basic');
+    expect(engineManager([], 'x86_64').engineFor('llm-test')).toBeNull();
+  });
+
+  it('shows the model with its engine and installs both, writing the markers', async () => {
+    const m = engineManager(['dotprod', 'i8mm']);
+    expect(m.view('llm-test')).toMatchObject({ status: 'not_installed', bytesTotal: 1020 });
+    await m.install('llm-test');
+    expect(m.view('llm-test')).toMatchObject({ status: 'installed', bytesDone: 1020 });
+    expect(m.view('fast')?.status).toBe('installed');
+    expect(m.view('basic')?.status).toBe('not_installed');
+    expect(storage.files.has('file:///models/fast/.installed')).toBe(true);
+    expect(storage.files.has('file:///models/llm-test/.installed')).toBe(true);
+    expect(m.storageUsedBytes()).toBe(1020);
+  });
+
+  it('counts an installed model without its engine as partly installed', async () => {
+    const m = engineManager(['dotprod', 'i8mm']);
+    await m.install('llm-test');
+    await m.remove('fast');
+    expect(m.view('llm-test')?.status).toBe('paused');
+    expect(m.installedDir('llm-test')).toBeNull();
+    await m.install('llm-test');
+    expect(m.view('llm-test')?.status).toBe('installed');
+  });
+
+  it('removes the engine with the last model that needs it', async () => {
+    const m = engineManager(['dotprod', 'i8mm']);
+    await m.install('llm-test');
+    await m.remove('llm-test');
+    expect(m.view('fast')?.status).toBe('not_installed');
+    expect(storage.files.size).toBe(0);
+  });
+
+  it('rejects engines without CPU requirements and models needing a missing engine', () => {
+    expect(() =>
+      parseManifest({ version: 2, models: [{ ...engine('x', []), cpu: undefined }] }),
+    ).toThrow(/engines/);
+    expect(() =>
+      parseManifest({
+        version: 2,
+        models: [{ ...engines.models[0], files: engines.models[0]?.files }],
+      }),
+    ).toThrow(/needs engine/);
+  });
+
+  it('lists the bundled engine builds most specific first', () => {
+    const builds = MANIFEST.models.filter((m) => m.kind === 'engine');
+    expect(builds.map((m) => m.id)).toEqual([
+      'llama-engine-v8_2_dotprod_i8mm',
+      'llama-engine-v8_2_dotprod',
+      'llama-engine-v8_2_i8mm',
+      'llama-engine-v8_2',
+      'llama-engine-v8',
+      'llama-engine-x86_64',
+    ]);
+    expect(MANIFEST.models.filter((m) => m.kind === 'llm').every((m) => m.needsEngine)).toBe(true);
+  });
+});
+
+describe('parseCpuFeatures', () => {
+  it('reads Arm feature flags the way the native loader does', () => {
+    const cpuinfo = [
+      'processor\t: 0',
+      'Features\t: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp asimddp i8mm',
+      'CPU implementer\t: 0x41',
+    ].join('\n');
+    expect([...parseCpuFeatures(cpuinfo)].sort()).toEqual(['dotprod', 'fp16', 'i8mm']);
+    expect(parseCpuFeatures('Features : fp asimd').size).toBe(0);
+    expect(parseCpuFeatures('flags : fpu sse4_2').size).toBe(0);
   });
 });

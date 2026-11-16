@@ -23,6 +23,10 @@ export interface RecordReviewInput {
 }
 
 /**
+ * Low-level: persist a review whose next state the caller computed. Screens
+ * use `reviewCard` (in `cardState`) instead, which computes the state from the stored
+ * card and handles reviews older than the card's last one.
+ *
  * Persist a review atomically: append its `review_log` row and replace the
  * card's FSRS state with `input.next`, in one transaction. If either write
  * fails (for example the card does not exist) neither is kept.

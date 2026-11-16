@@ -1,6 +1,7 @@
+import { router } from 'expo-router';
 import { View } from 'react-native';
 
-import { BarChart, Card, Screen, Stat, Text, useTheme } from '@/ui';
+import { BarChart, Button, Card, Screen, Stat, Text, useTheme } from '@/ui';
 
 import type { CalendarDay, ProgressData } from './progressData';
 import { useProgress } from './useProgress';
@@ -110,6 +111,25 @@ export function ProgressScreen() {
         <Text variant="caption" color="textMuted">
           An estimate from vocabulary and grammar only; speaking will refine it later.
         </Text>
+      </Card>
+
+      <Card>
+        <Text variant="heading">Grammar</Text>
+        <Stat
+          label="Points learnt"
+          value={`${String(data.grammar.learnt)} of ${String(data.grammar.total)}`}
+        />
+        <Text variant="caption" color="textMuted">
+          From A1 to C2. Each point opens with a short explanation and its own exercises.
+        </Text>
+        <Button
+          label="Grammar guide"
+          variant="secondary"
+          accessibilityHint="Lists every grammar point with its explanation"
+          onPress={() => {
+            router.push('/grammar');
+          }}
+        />
       </Card>
 
       <Card>

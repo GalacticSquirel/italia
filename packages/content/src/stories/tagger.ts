@@ -27,6 +27,26 @@ export interface StoryTaggerInput {
   readonly lexicon: Lexicon;
   readonly subtlex: ReadonlyMap<string, PosDistribution>;
   readonly lemmas: readonly StoryLemma[];
+  /**
+   * Variant spellings the seed merged into a base word, `lemma|POS` -> base
+   * (`ed|CCONJ` -> `e|CCONJ`, `po'|PRON` -> `poco|ADV`, `buon|ADJ` -> `buono|ADJ`).
+   * The base is a `lemma|POS` key or a bare lemma. From
+   * `seed/build-report.json`; see {@link parseVariantSpellings}.
+   */
+  readonly variants?: ReadonlyMap<string, string>;
+}
+
+/**
+ * Parse the `lemmaPipeline.variantSpellings` lines of `seed/build-report.json`
+ * (`"ed|CCONJ -> e|CCONJ"`, `"alcun|PRON -> alcuno (shown as)"`) into a map.
+ */
+export function parseVariantSpellings(lines: readonly string[]): Map<string, string> {
+  const out = new Map<string, string>();
+  for (const line of lines) {
+    const m = /^(\S+\|[A-Z]+) -> (\S+)/.exec(line);
+    if (m?.[1] && m[2]) out.set(m[1], m[2]);
+  }
+  return out;
 }
 
 /** Where a story sits: its series, episode number and band. */
@@ -57,7 +77,10 @@ export const TARGET_MIN_RANK = 20;
  * same lemma under another part of speech (the seed folds homographs such as
  * `domani` noun/adverb into one lemma), preferring the more frequent one.
  */
-export function createLemmaResolver(lemmas: readonly StoryLemma[]): (unit: Unit) => number | null {
+export function createLemmaResolver(
+  lemmas: readonly StoryLemma[],
+  variants: ReadonlyMap<string, string> = new Map(),
+): (unit: Unit) => number | null {
   const byKey = new Map<string, number>();
   const byLemma = new Map<string, StoryLemma>();
   for (const l of lemmas) {
@@ -65,12 +88,20 @@ export function createLemmaResolver(lemmas: readonly StoryLemma[]): (unit: Unit)
     const seen = byLemma.get(l.lemma);
     if (!seen || l.freqRank < seen.freqRank) byLemma.set(l.lemma, l);
   }
-  return (unit) => byKey.get(unitKey(unit)) ?? byLemma.get(unit.lemma)?.id ?? null;
+  const direct = (key: string, lemma: string) => byKey.get(key) ?? byLemma.get(lemma)?.id;
+  return (unit) => {
+    const key = unitKey(unit);
+    const found = direct(key, unit.lemma);
+    if (found !== undefined) return found;
+    const base = variants.get(key);
+    if (base === undefined) return null;
+    return direct(base, base.split('|')[0] ?? base) ?? null;
+  };
 }
 
 /** Create a tagger bound to one lexicon and seed. */
-export function createStoryTagger({ lexicon, subtlex, lemmas }: StoryTaggerInput) {
-  const resolve = createLemmaResolver(lemmas);
+export function createStoryTagger({ lexicon, subtlex, lemmas, variants }: StoryTaggerInput) {
+  const resolve = createLemmaResolver(lemmas, variants);
   const rankOf = new Map(lemmas.map((l) => [l.id, l]));
   const perRank = new Map(lemmas.map((l) => [`${l.lemma}|${l.pos}`, 1 / l.freqRank]));
   const readingIds = (r: Reading): number[] | null => {
@@ -140,6 +171,16 @@ export function createStoryTagger({ lexicon, subtlex, lemmas }: StoryTaggerInput
         return { it: sentence.it, en, tokens: sentence.tokens, grammarIds: sentence.grammarIds };
       }),
     }));
+    const tagText = ({ it, en }: { it: string; en: string }) => {
+      const { sentence, issues: found } = tagStorySentence(normaliseApostrophes(it), names);
+      issues.push(...found.map((f) => `question: ${f}`));
+      return { it: sentence.it, en, tokens: sentence.tokens, grammarIds: sentence.grammarIds };
+    };
+    const questions = source.questions.map((q) => ({
+      prompt: tagText(q.prompt),
+      options: q.options.map(tagText),
+      answer: q.answer,
+    }));
     const sentences = paragraphs.flatMap((p) => p.sentences);
     const tokens = sentences.flatMap((s) => s.tokens);
 
@@ -175,6 +216,7 @@ export function createStoryTagger({ lexicon, subtlex, lemmas }: StoryTaggerInput
       paragraphs,
       targetLemmaIds,
       grammarIds: [...new Set(sentences.flatMap((s) => s.grammarIds))].sort((a, b) => a - b),
+      questions,
       wordCount: tokens.length,
     };
     return { story, issues };
