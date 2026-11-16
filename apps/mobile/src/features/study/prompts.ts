@@ -178,6 +178,31 @@ export function clozeSentences(lemma: LemmaRow, content: ContentIndex): Sentence
 }
 
 /**
+ * Answers a cloze accepts: its own blank, plus the blank of every other seed
+ * sentence for the lemma that has the same English and the same words around
+ * the blank. Tatoeba often holds one sentence per person or gender with one
+ * translation ("Che mi ha fatto?", "Che mi hai fatto?", "Che mi avete fatto?"
+ * are all "What did you do to me?"), so from the English alone each of those
+ * forms is right.
+ */
+export function clozeAnswers(
+  sentence: SentenceRow,
+  blank: Blank,
+  lemma: LemmaRow,
+  content: ContentIndex,
+): string[] {
+  const answers = [blank.answer];
+  for (const other of content.sentencesByLemma.get(lemma.id) ?? []) {
+    if (other.id === sentence.id || other.en !== sentence.en) continue;
+    const b = blankForLemma(other, lemma);
+    if (b?.before === blank.before && b.after === blank.after && !answers.includes(b.answer)) {
+      answers.push(b.answer);
+    }
+  }
+  return answers;
+}
+
+/**
  * Resolve a card into what to show, or null when its content is missing (for
  * example after a seed update removed it) or its kind is not shown yet.
  *
@@ -199,7 +224,13 @@ export function resolvePrompt(card: PromptCard, content: ContentIndex): Prompt |
       const sentence = pool[card.reps % Math.max(1, pool.length)];
       const blank = sentence ? blankForLemma(sentence, lemma) : null;
       if (!sentence || !blank) return null;
-      return { kind: 'cloze_production', lemma, sentence, blank, accepted: [blank.answer] };
+      return {
+        kind: 'cloze_production',
+        lemma,
+        sentence,
+        blank,
+        accepted: clozeAnswers(sentence, blank, lemma, content),
+      };
     }
     case 'grammar_cloze': {
       const sentence = content.sentenceById.get(card.targetId);

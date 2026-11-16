@@ -12,7 +12,7 @@ import { parseInline, parseMarkdown, ThemeProvider } from '@/ui';
 
 import { getContentIndex, type ContentIndex } from './content';
 import { buildCurriculum } from './curriculum';
-import { resolvePrompt } from './prompts';
+import { blankForLemma, clozeAnswers, resolvePrompt } from './prompts';
 
 jest.setTimeout(30_000);
 
@@ -148,5 +148,33 @@ describe('real seed: grammar intro notes', () => {
     );
     expect(screen.getByText(point.title)).toBeOnTheScreen();
     expect(screen.getByRole('button', { name: 'Start practising' })).toBeOnTheScreen();
+  });
+});
+
+describe('real seed: cloze answers', () => {
+  it('accept every form that fits the English when the seed has one sentence per form', () => {
+    const avere = [...content.lemmaById.values()].find((l) => l.lemma === 'avere');
+    if (!avere) throw new Error('no avere');
+    const sentence = content.sentencesByLemma
+      .get(avere.id)
+      ?.find((s) => s.it === 'Che mi avete fatto?');
+    if (!sentence) throw new Error('no "Che mi avete fatto?"');
+    const blank = blankForLemma(sentence, avere);
+    if (!blank) throw new Error('no blank');
+    expect(clozeAnswers(sentence, blank, avere, content)).toEqual(
+      expect.arrayContaining(['avete', 'hai', 'ha']),
+    );
+  });
+
+  it('keep a single answer when no other sentence matches', () => {
+    const casa = [...content.lemmaById.values()].find((l) => l.lemma === 'casa');
+    if (!casa) throw new Error('no casa');
+    for (const sentence of content.sentencesByLemma.get(casa.id) ?? []) {
+      const blank = blankForLemma(sentence, casa);
+      if (!blank) continue;
+      const answers = clozeAnswers(sentence, blank, casa, content);
+      expect(answers[0]).toBe(blank.answer);
+      expect(new Set(answers).size).toBe(answers.length);
+    }
   });
 });
