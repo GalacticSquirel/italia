@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
@@ -30,7 +31,7 @@ class _FakeGenerator:
 
 def test_dead_generation_thread_exits_the_process(monkeypatch: pytest.MonkeyPatch) -> None:
     exits: list[int] = []
-    monkeypatch.setattr(mlx_server.os, "_exit", exits.append)
+    monkeypatch.setattr(os, "_exit", exits.append)
     run = mlx_server.exit_when_generation_dies(_FakeGenerator._run_generate)
     run(_FakeGenerator(fail=False))  # a clean stop does not exit
     assert exits == []
