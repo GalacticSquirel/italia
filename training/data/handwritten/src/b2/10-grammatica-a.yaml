@@ -1,0 +1,291 @@
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-heritage
+  history: [combined-pronouns]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Chiamo per un incidente, ma non guidavo io: guidava mio nipote, a cui avevo prestato la macchina. È successo martedì, però lui mi ne ha parlato solo ieri sera."
+    errors: [combined-pronouns]
+  - tutor: "Capisco, succede spesso. Però ripeta un attimo: «mi ne ha parlato»? Davanti a «ne» la prima parola cambia."
+    prompt: {text: "mi ne ha parlato", tags: [combined-pronouns]}
+  - learner: "Ah, certo: me ne ha parlato solo ieri sera. Stava uscendo da un parcheggio a Bergamo e ha urtato una macchina che passava sulla strada."
+  - tutor: "Esatto. Quindi il danno è stato fatto mentre usciva dal parcheggio. Secondo suo nipote, di chi è la colpa?"
+    goals: [what]
+  - learner: "Purtroppo è sua, e lui lo ammette. Se avesse guardato meglio, non sarebbe successo niente. L'altra macchina aveva la precedenza."
+  - tutor: "La ringrazio, questo ci aiuta molto. La constatazione amichevole è stata compilata e firmata da tutti e due?"
+    goals: [responsibility]
+    new: [{lemma: compilare, gloss: to fill in}]
+  - learner: "Sì, l'hanno compilata sul posto e mio nipote me l'ha consegnata ieri. Però manca la targa dell'altra macchina: se ne sono dimenticati."
+  - tutor: "Non è grave, ma quel dato va aggiunto. Di solito la targa si vede nelle foto del danno. La constatazione me la mandi per email entro domani, per favore."
+    goals: [documents]
+  - learner: "Va bene, gliela mando stasera, e le foto ce le ho. E dopo cosa succede? Devo pagare qualcosa io?"
+  - tutor: "Appena riceviamo tutto, verrà fissata la perizia sull'altra macchina. Il danno viene pagato da noi, quindi lei non deve pagare nulla. Dall'anno prossimo, però, la sua assicurazione costerà un po' di più. Le scrivo io appena ci sono novità."
+    goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Due settimane fa ho avuto un piccolo incidente a Bologna: un furgone è passato con il rosso e ha colpito la mia macchina sul lato sinistro."
+  - tutor: "Mi dispiace. Vedo che la pratica era già stata aperta da un mio collega. C'è qualcosa di nuovo?"
+    goals: [what]
+  - learner: "Sì, purtroppo. Sul posto l'altro guidatore aveva ammesso la colpa, ma adesso dice che il semaforo era verde per lui. Per fortuna c'è un testimone con chi ho parlato subito dopo l'incidente."
+    errors: [relative-pronoun]
+  - tutor: "Questo cambia le cose. Un attimo, però: «un testimone con chi ho parlato»? Lì la parola «chi» non va bene."
+    prompt: {text: "con chi ho parlato", tags: [relative-pronoun]}
+    goals: [responsibility]
+    new: [{lemma: testimone, gloss: witness}]
+  - learner: "Mmm... è un signore con chi ho parlato io, sì. Era alla fermata dell'autobus e ha visto tutto."
+    errors: [relative-pronoun]
+  - tutor: "Bene, il signore con cui ha parlato ci sarà molto utile. La constatazione amichevole era stata firmata da tutti e due?"
+    recast: {text: "con chi", fix: "con cui", tags: [relative-pronoun]}
+  - learner: "Sì, l'avevamo firmata tutti e due, e ne ho una copia. Se avessi saputo che lui avrebbe cambiato versione, avrei fatto anche un video."
+  - tutor: "Non si preoccupi, una firma vale più delle parole. Mi serve però il numero di quel signore: glielo può chiedere?"
+    goals: [documents]
+  - learner: "Ce l'ho già, me lo ha lasciato lui. Glielo do subito: 333 4521 987. E adesso cosa succede?"
+  - tutor: "Grazie. Il signore verrà chiamato in settimana, e poi sarà fissata la perizia. Se le due versioni restano diverse, la decisione viene presa dalle compagnie insieme. Le faremo sapere tutto entro 30 giorni."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Mi sono trasferito a Verona dalla mia compagna e vorrei chiedere la residenza a casa sua. Il contratto di affitto però è solo a suo nome."
+  - tutor: "Nessun problema, succede spesso. In questi casi va presentata una dichiarazione firmata dalla persona che la ospita. Quali documenti ha con sé?"
+    goals: [request]
+    new: [{lemma: dichiarazione, gloss: declaration}]
+  - learner: "Ho il passaporto, il permesso di soggiorno e una copia del contratto. Di fotografie, invece, ho portato due, ma non so se servono."
+    errors: [ci-ne]
+  - tutor: "Le fotografie non servono. Ma senta: «di fotografie ho portato due»? Lì manca una piccola parola prima di «ho»."
+    prompt: {text: "ho portato due", tags: [ci-ne]}
+  - learner: "Ah, giusto: ne ho portate due. E quel foglio per la mia compagna, dove lo trovo?"
+  - tutor: "Esatto. È questo modulo: va compilato e firmato da lei, e ci va unita una copia del suo documento. La sua compagna è qui con lei oggi?"
+    goals: [documents]
+  - learner: "No, purtroppo è a Londra per lavoro fino a venerdì. Se l'avessi saputo, le avrei chiesto di firmarlo prima di partire. Posso portarlo la settimana prossima?"
+  - tutor: "Certo. Oppure le manda il modulo per email: la sua compagna lo firma e glielo spedisce. Noi lo accettiamo anche così. Intanto apro la pratica oggi."
+    goals: [problem]
+  - learner: "Perfetto, allora glielo faccio firmare stasera. E poi quanto tempo ci vuole? Ho sentito che passano i vigili."
+  - tutor: "Sì, entro 45 giorni i vigili passano a casa per controllare che lei abiti davvero lì. Se non la trovano, viene lasciato un avviso nella posta. Mi raccomando, metta il suo nome sulla porta. Arrivederci!"
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-f-teacher
+  history: [combined-pronouns]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Il mese scorso ho cambiato casa, sempre qui a Parma, e devo comunicare il nuovo indirizzo per la residenza."
+  - tutor: "Bene, si tratta di un cambio di indirizzo. Servono un documento, il permesso di soggiorno e il contratto della nuova casa. Ha tutto con sé?"
+    goals: [request]
+  - learner: "Quasi. Ho il passaporto e il contratto registrato. Il permesso di soggiorno invece è scaduto a marzo: ho chiesto il rinnovo, ma non me l'hanno ancora consegnato."
+  - tutor: "Capisco. Senza un permesso valido la pratica non può essere chiusa. Quando ha chiesto il rinnovo, le è stato dato un foglio?"
+    goals: [documents]
+  - learner: "Sì, alla posta ci hanno dato un foglio, e mio marito se lo ha già portato al suo collega la settimana scorsa. Il collega ci ha detto di tornare oggi."
+    errors: [combined-pronouns]
+  - tutor: "Un momento: «se lo ha già portato» al mio collega? In italiano quel «se» qui non funziona. Come lo direbbe?"
+    prompt: {text: "se lo ha già portato", tags: [combined-pronouns]}
+  - learner: "Sì, mio marito se lo ha portato martedì, al signore con gli occhiali."
+    errors: [combined-pronouns]
+  - tutor: "Ah, se gliel'ha portato martedì, allora deve essere nella pratica. Infatti, eccolo qui. Con questo foglio il cambio di indirizzo viene accettato lo stesso. Vuole sapere come si va avanti?"
+    recast: {text: "se lo ha portato", fix: "gliel'ha portato", tags: [combined-pronouns]}
+    goals: [problem]
+  - learner: "Meno male! Sì: quanto tempo ci vuole? E devo fare qualcosa quando arriva il permesso nuovo?"
+  - tutor: "Il cambio viene registrato entro due giorni, poi passano i vigili per un controllo. Quando le consegnano il permesso nuovo, ce ne porti una copia: va aggiunta alla pratica. Se non lo facesse, la residenza potrebbe essere cancellata. Buona giornata!"
+    goals: [next]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-student
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, e purtroppo non è una cosa da poco. Sono allergica alle noci e l'avevo detto chiaramente al cameriere, ma nel mio piatto ce n'erano."
+  - tutor: "Mi dispiace moltissimo, è una cosa seria. Mi racconti con calma com'è andata: che cosa aveva ordinato?"
+    goals: [complain]
+  - learner: "Le tagliatelle al pesto. Quando ho ordinato, avevo chiesto che mi dassero un piatto senza frutta secca, e il cameriere ha risposto che non c'era problema. Per fortuna me ne sono accorta al primo boccone."
+    errors: [subjunctive-form]
+  - tutor: "Meno male che sta bene. Solo una cosa: «avevo chiesto che mi dassero»? Quella forma non esiste, ci pensi un attimo."
+    prompt: {text: "che mi dassero", tags: [subjunctive-form]}
+  - learner: "Ha ragione: avevo chiesto che mi dessero un piatto senza frutta secca. E invece nel pesto c'erano le noci."
+  - tutor: "Esatto. Il nostro pesto viene preparato con le noci, e il cameriere avrebbe dovuto saperlo. In una situazione così, lei che cosa si aspettava da noi?"
+    goals: [detail]
+    new: [{lemma: noce, gloss: walnut}, {lemma: pesto, gloss: pesto sauce}]
+  - learner: "Mi sarei aspettata più attenzione. Bastava che il cameriere chiedesse in cucina, o che mi dicesse di scegliere un altro piatto. Con le allergie non si scherza."
+  - tutor: "Ha perfettamente ragione, e me ne scuso a nome di tutti. Naturalmente la cena non le verrà fatta pagare. Le faccio preparare un altro primo, che controllo io di persona: lo accetta?"
+    goals: [expectation]
+  - learner: "La ringrazio, ma preferisco non mangiare altro stasera. Accetto volentieri che la cena non mi venga fatta pagare. Vorrei solo che ne parlasse con il personale."
+  - tutor: "Lo farò stasera, glielo prometto. Da domani gli ingredienti a rischio verranno scritti accanto a ogni piatto del menù. La ringrazio per la calma con cui ce ne ha parlato. Buona serata."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-traveller
+  history: [conditional-form]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, mi dispiace dirlo, ma l'attesa è stata davvero troppo lunga. Siamo seduti da un'ora e mezza e i secondi non sono ancora arrivati."
+  - tutor: "Un'ora e mezza è davvero troppo, ha ragione. Mi può dire com'è andata, dall'inizio?"
+    goals: [complain]
+  - learner: "Abbiamo ordinato alle otto. Gli antipasti sono arrivati quasi subito, poi più niente. Alle nove il cameriere ha detto che i secondi arriverebbero in cinque minuti, ma ormai sono le dieci meno un quarto."
+    errors: [conditional-form]
+  - tutor: "Capisco. Un attimo, però: «ha detto che i secondi arriverebbero»? Il cameriere parlava di un futuro visto dal passato: ci riprovi."
+    prompt: {text: "i secondi arriverebbero", tags: [conditional-form]}
+  - learner: "Ah, sì: ha detto che i secondi sarebbero arrivati in cinque minuti. E dopo nessuno è più venuto al tavolo."
+  - tutor: "Esatto. Stasera in cucina manca una persona, ma avremmo dovuto avvisarvi subito. Lei che cosa si sarebbe aspettato da noi?"
+    goals: [detail]
+  - learner: "Mi sarei aspettato un po' di sincerità. Se ce lo aveste detto alle otto, avremmo ordinato solo un primo, oppure saremmo andati altrove. Abbiamo un treno alle undici."
+  - tutor: "Ha ragione, e mi scuso a nome di tutto il personale. I secondi escono tra due minuti e glieli porto io. Inoltre vi offro il vino e uno sconto del 20% sul conto. Le sembra giusto?"
+    goals: [expectation]
+  - learner: "Lo sconto lo accetto volentieri, grazie. Però i dolci non li prendiamo: non ce la faremmo con il treno. Il conto ce lo può portare subito?"
+  - tutor: "Certamente, ve lo porto insieme ai secondi, così non perdete altro tempo. Se volete, vi faccio anche chiamare un taxi per la stazione. Mi scuso ancora e spero di rivedervi."
+    goals: [resolve]
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Buongiorno, dottoressa. Non molto bene. Ogni tanto sento il cuore che salta un battito, soprattutto la sera quando mi metto a letto. Dura pochi secondi, ma mi spaventa. Forse è il caffè: lavoro di notte e ne bevo tanto."
+  - tutor: "Capisco che faccia paura. Dall'esame delle 24 ore risulta che le succede soprattutto a riposo. Mi dica: in famiglia ci sono stati problemi di cuore?"
+    goals: [symptoms]
+  - learner: "Sì, dalla parte di mio padre. Di fratelli, mio padre aveva quattro, e due hanno avuto un infarto prima dei 60 anni."
+    errors: [ci-ne]
+  - tutor: "È un dato importante. Ma ripeta: «di fratelli aveva quattro»? Davanti ad «aveva» manca una piccola parola."
+    prompt: {text: "aveva quattro", tags: [ci-ne]}
+  - learner: "Sì, mio padre aveva quattro, tutti più grandi di lui. Lui invece è morto a 80 anni, per un'altra malattia."
+    errors: [ci-ne]
+  - tutor: "Ho capito: ne aveva quattro, e due si sono ammalati di cuore da giovani. Di questo terremo conto. Ha delle domande sui suoi esami?"
+    recast: {text: "aveva quattro", fix: "ne aveva quattro", tags: [ci-ne]}
+    goals: [history]
+  - learner: "Sì. Sul foglio c'è scritto «battiti prematuri»: che cosa significa? È qualcosa di grave, vista la storia della mia famiglia?"
+  - tutor: "Sono battiti in più, che arrivano prima del tempo. Nel suo caso il cuore è sano, e gli esami lo confermano. Credo che dipendano dal poco sonno e dai troppi caffè."
+    goals: [understand]
+  - learner: "Meno male. E quindi devo prendere delle medicine? Ho paura degli effetti collaterali, perché di notte devo restare sveglio per lavoro."
+  - tutor: "Per ora nessuna terapia, quindi nessun effetto collaterale. Di caffè, però, ne beva al massimo due al giorno. Se fra tre mesi i battiti non fossero diminuiti, penseremmo a una medicina leggera. Ci vediamo al prossimo controllo."
+    goals: [treatment]
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Buongiorno, dottore. Da quando prendo la medicina per la pressione, il battito è regolare. Però mi sento sempre stanca: dopo due piani di scale devo fermarmi, e prima non mi succedeva."
+  - tutor: "Questo affaticamento è importante. Lo sente tutto il giorno o soprattutto in certi momenti?"
+  - learner: "Soprattutto la mattina. La farmacista ha consigliato mi di prendere la medicina la sera, ma non ho voluto cambiare niente senza chiedere a lei."
+    errors: [pronoun-position]
+  - tutor: "Ha fatto bene ad aspettare. Però ripeta: «ha consigliato mi»? Quella piccola parola è nel posto sbagliato."
+    prompt: {text: "ha consigliato mi", tags: [pronoun-position]}
+    goals: [symptoms]
+  - learner: "Giusto: la farmacista mi ha consigliato di prenderla la sera."
+  - tutor: "Esatto, e non è una cattiva idea. Prima però mi dica: nella sua famiglia qualcuno ha avuto la pressione alta o problemi di cuore?"
+  - learner: "Sì, mia madre. Le avevano trovato la pressione alta a 50 anni, ma lei non voleva che noi figli ci preoccupassimo e non ce ne ha mai parlato. L'abbiamo saputo solo dopo il suo ictus."
+  - tutor: "Mi dispiace molto. È un'informazione di cui devo tenere conto. I suoi esami, comunque, sono buoni: vuole che glieli spieghi?"
+    goals: [history]
+  - learner: "Sì, grazie. Ho visto un valore segnato con un asterisco, quello del potassio. Devo preoccuparmi? E la stanchezza dipende da quello?"
+  - tutor: "No, il potassio è appena sotto la norma: basta mangiare più frutta e verdura. La stanchezza, invece, è un effetto collaterale abbastanza comune di questa terapia. Preferirebbe cambiare medicina o provare prima con una dose più bassa?"
+    goals: [understand]
+    new: [{lemma: potassio, gloss: potassium}, {lemma: dose, gloss: dose}]
+  - learner: "Preferirei provare con la dose più bassa, se la pressione resta sotto controllo. Se avessi saputo che la stanchezza dipendeva dalla medicina, gliene avrei parlato prima."
+  - tutor: "Allora facciamo così: metà dose, la sera, per un mese. La pressione va misurata ogni mattina e scritta su un foglio. Se salisse sopra 140, mi chiami subito. Ci rivediamo tra quattro settimane."
+    goals: [treatment]
+    new: [{lemma: dose, gloss: dose}]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, è luminoso e la zona è tranquilla. Però ho notato che la caldaia è molto vecchia e che in bagno c'è dell'umidità sul soffitto. Prima di parlare del canone vorrei capire chi se ne occupa."
+  - tutor: "Ha buon occhio. La caldaia ha 20 anni, è vero, ma viene controllata ogni anno. Lei che cosa proporrebbe?"
+    goals: [interest]
+    new: [{lemma: caldaia, gloss: boiler}]
+  - learner: "Vorrei che il proprietario cambia la caldaia prima della firma. Altrimenti il canone di 950 euro dovrebbe scendere almeno a 850."
+    errors: [subjunctive-use]
+  - tutor: "Capisco la richiesta. Però ripeta: «vorrei che il proprietario cambia»? Dopo «vorrei che» ci vuole un'altra forma."
+    prompt: {text: "Vorrei che il proprietario cambia", tags: [subjunctive-use]}
+  - learner: "Mi scusi: vorrei che il proprietario cambiasse la caldaia prima della firma."
+  - tutor: "Esatto. Gliel'ho già chiesto ieri, e glielo dico subito: quest'anno non intende farlo. Il canone però è trattabile, e potrebbe scendere a 900. Per la durata, che cosa aveva in mente?"
+    goals: [negotiate]
+  - learner: "900 potrebbe andare, se il resto è ragionevole. Mi serve un contratto lungo, il classico quattro più quattro, ma con la possibilità di dare la disdetta con tre mesi di preavviso."
+  - tutor: "Il quattro più quattro va benissimo. Per la disdetta, invece, il proprietario chiede sei mesi, ed è una clausola alla quale tiene molto. Se la caldaia si rompesse, la pagherebbe lui. Che ne dice?"
+    goals: [conditions]
+    new: [{lemma: caldaia, gloss: boiler}]
+  - learner: "La ringrazio, ma temo che non faccia per me. Sei mesi di preavviso sono troppi alla mia età, e non voglio passare l'inverno con una caldaia di vent'anni. Preferisco cercare ancora."
+  - tutor: "La capisco, e apprezzo che me lo dica chiaramente. Se il proprietario cambiasse idea, la chiamerei subito. Intanto, se vuole, le mando altri due appartamenti nella stessa zona. Arrivederci e buona ricerca!"
+    goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-m-worker
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, molto. Ha tre camere, e con due figli ne abbiamo proprio bisogno. L'unico dubbio è la scuola: è lontana, e dovrei comprare una seconda macchina."
+  - tutor: "Capisco, per una famiglia è una spesa in più. Però un appartamento così è raro in questa zona. Vuole fare una proposta al proprietario?"
+    goals: [interest]
+  - learner: "Sì. Il canone è di 1100 euro: io ne offrirei 1000, e in cambio firmerei per molti anni. Gli avevo già scritto una email, ma non mi ha contestato."
+    errors: [false-friend]
+  - tutor: "Strano che non le abbia risposto, di solito è molto veloce. Gli parlo io oggi. 1000 euro mi sembrano pochi, ma a 1050 credo che accetterebbe. Con la cedolare secca, poi, il canone non verrebbe aumentato ogni anno. Le andrebbe bene?"
+    recast: {text: "contestato", fix: "risposto", tags: [false-friend]}
+    goals: [negotiate]
+  - learner: "1050 senza aumenti mi va bene. Per la durata vorrei un quattro più quattro. Però nel contratto ho letto che la disdetta deve essere mandato sei mesi prima: per noi è troppo."
+    errors: [passive]
+  - tutor: "Sulla durata siamo d'accordo. Un attimo, però: «la disdetta deve essere mandato»? Guardi bene l'ultima parola."
+    prompt: {text: "la disdetta deve essere mandato", tags: [passive]}
+  - learner: "Ah, sì: la disdetta deve essere mandata sei mesi prima. Potremmo scendere a tre mesi?"
+  - tutor: "Esatto. Sei mesi sono previsti dalla legge, ma per chi cambia lavoro si può aggiungere una clausola speciale. In quel caso ne bastano tre. Le può andare bene?"
+    goals: [conditions]
+  - learner: "Sì, è proprio il mio caso: la mia azienda potrebbe trasferirmi. Allora, se il proprietario accetta 1050 e questa clausola, per me possiamo firmare. La provvigione dell'agenzia a quanto ammonta?"
+  - tutor: "È pari a un mese di canone e va pagata alla firma. Preparo il contratto e glielo mando entro giovedì, così lo legge con calma. Se tutto va bene, le chiavi le verranno consegnate il primo del mese. A presto!"
+    goals: [conclude]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Vorremmo sposarci a dicembre, in montagna, con la neve. Una cosa piccola: 40 invitati, una cerimonia civile e poi una lunga cena davanti al camino."
+  - tutor: "Un matrimonio d'inverno, che bella idea! È una scelta rara, e le foto con la neve sono bellissime. Avete già pensato a quanto vorreste spendere?"
+    goals: [vision]
+  - learner: "Su questo non eravamo d'accordo. Io avrei messo 20.000 euro, il mio compagno al massimo 15.000. Gliene ho parlato ieri sera e alla fine abbiamo deciso di non superare i 18.000."
+  - tutor: "Con 18.000 euro e 40 invitati si può fare un'ottima festa. Per il posto ho due proposte: un albergo storico a Cortina oppure un rifugio sopra Bolzano, più semplice. Quale la attira di più?"
+    goals: [budget]
+    new: [{lemma: rifugio, gloss: mountain hut}]
+  - learner: "Il rifugio, credo. È quello che le ho parlato al telefono? Una mia collega si è sposata lì e mi ha detto che la cucina è eccezionale."
+    errors: [relative-pronoun]
+  - tutor: "Forse sì. Ma senta: «quello che le ho parlato»? Si dice «parlare di qualcosa»: quindi qui «che» da solo non basta."
+    prompt: {text: "quello che le ho parlato", tags: [relative-pronoun]}
+  - learner: "Giusto: è quello di cui le ho parlato al telefono?"
+  - tutor: "Proprio quello. Ci si arriva solo con la funivia, il che è molto romantico, ma gli invitati anziani vanno avvisati. Lo confermo come prima scelta?"
+    new: [{lemma: funivia, gloss: cable car}]
+  - learner: "Sì, scegliamo il rifugio. Però ho due condizioni. Voglio che ogni spesa sopra i 500 euro mi venga comunicata prima. E il fotografo vorrei sceglierlo io."
+  - tutor: "Mi sembrano condizioni giuste, e le accetto volentieri. Ogni spesa le verrà comunicata per email, e nessun contratto sarà firmato senza di lei. Il preventivo glielo mando entro lunedì. A presto, e ancora auguri!"
+    goals: [choices, conditions]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-retired
+  history: [combined-pronouns]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Alla nostra età non vogliamo una grande festa. Io ho 68 anni e la mia compagna 64: immaginiamo un pranzo sul lago di Como, con i figli, i nipoti e pochi amici."
+  - tutor: "Che bello, sarà una vera festa di famiglia. Sul lago ci sono posti magnifici anche per pochi invitati. Avete già un'idea della spesa?"
+    goals: [vision]
+  - learner: "Saremo una trentina. Non abbiamo problemi particolari, ma non mi piace sprecare: diciamo 12.000 euro. L'abito della sposa non lo contiamo, perché gli lo regala sua sorella."
+    errors: [combined-pronouns]
+  - tutor: "12.000 euro per 30 persone bastano di sicuro. Ma ripeta: «gli lo regala»? Quelle due piccole parole, insieme, cambiano forma."
+    prompt: {text: "gli lo regala", tags: [combined-pronouns]}
+    goals: [budget]
+  - learner: "Sì, sua sorella gli lo regala, perché è una sarta molto brava."
+    errors: [combined-pronouns]
+  - tutor: "Che bel pensiero: se glielo regala sua sorella, sarà un abito speciale. Veniamo al posto. Ho in mente una villa con giardino vicino a Como, oppure un ristorante proprio sull'acqua, a Lecco. Quale preferirebbe?"
+    recast: {text: "gli lo regala", fix: "glielo regala", tags: [combined-pronouns]}
+  - learner: "La villa è bella, ma temo che per i nipoti piccoli sia troppo formale. Preferiamo il ristorante sull'acqua. Se fosse possibile, vorremmo arrivarci in barca."
+  - tutor: "Ottima scelta, e la barca si può prenotare senza problemi. Il pesce di lago è il piatto forte di quel ristorante. C'è qualcosa a cui tiene in modo particolare?"
+    goals: [choices]
+  - learner: "Sì, due cose. Niente sorprese sul prezzo: una volta firmato, il preventivo non deve più cambiare. E non vorrei che i miei figli venissero a sapere i dettagli prima del tempo, perché vogliamo dirglielo noi."
+  - tutor: "Stia tranquillo: il preventivo sarà scritto e firmato, e non verrà più cambiato. Con i suoi figli non parlerò di nulla, glielo assicuro. Vi mando tutto per posta entro una settimana. Auguri a tutti e due!"
+    goals: [conditions]
