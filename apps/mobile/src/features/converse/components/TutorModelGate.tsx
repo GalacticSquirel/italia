@@ -24,9 +24,7 @@ export function TutorModelGate({ children }: { children: ReactNode }) {
         <View style={{ gap: spacing.md }} testID="tutor-needs-download">
           <Text variant="heading">Download the conversation partner</Text>
           <Text color="textMuted">
-            {`Conversations run entirely on this phone, so the tutor model has to be downloaded once (${formatBytes(
-              choice.sizeBytes,
-            )}). Use Wi-Fi if you can. Everything else in the app works without it.`}
+            {`Conversations run entirely on this phone, so the tutor model has to be downloaded once (${formatBytes(choice.model.bytesTotal)}). Use Wi-Fi if you can. Everything else in the app works without it.`}
           </Text>
           <ModelCard model={choice.model} />
           <Text variant="caption" color="textMuted">
