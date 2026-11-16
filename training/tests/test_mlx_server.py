@@ -18,6 +18,26 @@ from mlx_lm.models.cache import ArraysCache  # noqa: E402
 from datagen import mlx_server  # noqa: E402
 
 
+class _FakeGenerator:
+    def __init__(self, fail: bool) -> None:
+        self.fail = fail
+        self._generation_failed = False
+
+    def _run_generate(self) -> None:  # stands in for mlx_lm's: logs and sets the flag
+        if self.fail:
+            self._generation_failed = True
+
+
+def test_dead_generation_thread_exits_the_process(monkeypatch: pytest.MonkeyPatch) -> None:
+    exits: list[int] = []
+    monkeypatch.setattr(mlx_server.os, "_exit", exits.append)
+    run = mlx_server.exit_when_generation_dies(_FakeGenerator._run_generate)
+    run(_FakeGenerator(fail=False))  # a clean stop does not exit
+    assert exits == []
+    run(_FakeGenerator(fail=True))  # mlx-lm would otherwise answer 404 forever
+    assert exits == [mlx_server.EXIT_GENERATION_DIED]
+
+
 @pytest.fixture
 def stock() -> Iterator[None]:
     mlx_server.unpatch_arrays_cache()
