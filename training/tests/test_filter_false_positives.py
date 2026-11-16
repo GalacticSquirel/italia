@@ -114,6 +114,21 @@ def test_not_number_words(word: str) -> None:
     assert not is_number_word(word)
 
 
+@pytest.mark.parametrize(
+    ("reply", "level"),
+    [
+        ("Buon appetito! Il parco è aperto.", Level.A1),
+        ("È al terzo piano. Il pesce è fresco.", Level.A1),
+        ("Il frigorifero e la lavatrice sono nel soggiorno?", Level.A2),
+        ("L'affitto mensile è di 600 euro, con le bollette.", Level.A2),
+        ("Compili il modulo, per favore. Il totale è 20 euro.", Level.A2),
+        ("Ci sono latticini?", Level.A2),
+    ],
+)
+def test_round_one_scenario_words(reply: str, level: Level, checker: BandChecker) -> None:
+    assert checker.check(reply, band_for(level)).out_of_band == []
+
+
 def test_misconjugations_are_not_read_as_verbs(checker: BandChecker) -> None:
     assert [o.token for o in checker.check("Non sapo?", band_for(Level.A1)).out_of_band] == ["sapo"]
 
