@@ -118,6 +118,39 @@ describe('TypedPromptCard', () => {
     expect(screen.getByLabelText('Use a form of essere')).toBeOnTheScreen();
   });
 
+  it('renders a grammar drill with its translation and hint, not the answer', async () => {
+    await render(
+      wrap(
+        <TypedPromptCard
+          prompt={{
+            kind: 'grammar_drill',
+            drill: {
+              id: 2301,
+              pointId: 23,
+              before: 'Ieri Giulia ',
+              answer: 'è andata',
+              after: ' al mare.',
+              it: 'Ieri Giulia è andata al mare.',
+              en: 'Yesterday Giulia went to the seaside.',
+              hint: 'andare (passato prossimo)',
+              accepted: ['è andata'],
+            },
+            blank: { before: 'Ieri Giulia ', answer: 'è andata', after: ' al mare.' },
+            grammarPoint: grammar,
+            accepted: ['è andata'],
+          }}
+          speechRate={1}
+          autoPlay={false}
+          answered={false}
+        />,
+      ),
+    );
+    expect(screen.getByText('Fill in the gap')).toBeOnTheScreen();
+    expect(screen.getByText('Yesterday Giulia went to the seaside.')).toBeOnTheScreen();
+    expect(screen.getByLabelText('Hint: andare (passato prossimo)')).toBeOnTheScreen();
+    expect(screen.queryByText(/è andata/)).toBeNull();
+  });
+
   it('renders sentence production as an English sentence to translate', async () => {
     await render(
       wrap(

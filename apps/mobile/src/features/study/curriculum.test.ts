@@ -1,11 +1,12 @@
+import type { GrammarDrill } from '@italia/content';
 import { createScheduler } from '@italia/core';
 
 import { cardIdFor, createRepositories, importSeedContent, type CardRow } from '@/data';
 import { createTestDatabase, type TestDatabase } from '@/db/testing/createTestDatabase';
 import { FIXTURE_SEED } from '@/testing/fixtureSeed';
 
-import { getContentIndex } from './content';
-import { buildCurriculum, frontierGrammar } from './curriculum';
+import { buildContentIndex, getContentIndex, type ContentIndex } from './content';
+import { buildCurriculum, frontierGrammar, grammarLevelOpen } from './curriculum';
 import { resolvePrompt, SPOKEN_PROMPT_MAX_WORDS, wordCount } from './prompts';
 
 let t: TestDatabase;
@@ -151,5 +152,74 @@ describe('curriculum', () => {
     // The shortest sentence with a form of essere: "Sei a casa?".
     expect(prompt.accepted).toEqual(['Sei']);
     expect(prompt.blank.before + prompt.blank.answer + prompt.blank.after).toBe(prompt.sentence.it);
+  });
+
+  describe('with hand-written drills', () => {
+    const drill = (pointId: number, n: number): GrammarDrill => ({
+      id: pointId * 100 + n,
+      pointId,
+      before: 'Io ',
+      answer: 'sono',
+      after: ' qui.',
+      it: 'Io sono qui.',
+      en: 'I am here.',
+      hint: 'essere',
+      accepted: ['sono'],
+    });
+    const withDrills = (base: ContentIndex, drills: GrammarDrill[]) =>
+      buildContentIndex(base.lemmas, [...base.sentenceById.values()], base.grammar, [], drills);
+    // The fixture's grammar titles differ from the syllabus, so drills are given
+    // for its points by building the index with them directly.
+    const content = () => {
+      const base = getContentIndex(createRepositories(t.db));
+      const drills = [1, 2, 3].flatMap((p) => [1, 2, 3, 4, 5].map((n) => drill(p, n)));
+      const index = withDrills(base, drills);
+      return {
+        ...index,
+        drillsByPoint: new Map([1, 2, 3].map((p) => [p, drills.filter((d) => d.pointId === p)])),
+        drillById: new Map(drills.map((d) => [d.id, d])),
+      };
+    };
+
+    it('drops drills whose point in the seed is a different point', () => {
+      const base = getContentIndex(createRepositories(t.db));
+      expect(withDrills(base, [drill(1, 1)]).drillById.size).toBe(0);
+    });
+
+    it('teaches the frontier with its drills before any word is known', () => {
+      const index = content();
+      const first = buildCurriculum(index, [], { words: 0, practice: 10 });
+      expect(first.frontierGrammarId).toBe(1);
+      const drills = first.candidates.filter((c) => c.kind === 'grammar_drill');
+      expect(drills.map((c) => c.targetId)).toEqual([101, 102, 103]);
+      expect(drills.every((c) => c.grammarIds[0] === 1 && c.lemmaIds.length === 0)).toBe(true);
+      const item = drills[0];
+      if (!item) throw new Error('no drill');
+      const prompt = resolvePrompt({ ...item, reps: 0 }, index);
+      expect(prompt?.kind).toBe('grammar_drill');
+      if (prompt?.kind !== 'grammar_drill') return;
+      expect(prompt.blank).toEqual({ before: 'Io ', answer: 'sono', after: ' qui.' });
+      expect(prompt.grammarPoint?.id).toBe(1);
+    });
+
+    it('unlocks a point with one answered drill and keeps practising its other drills', () => {
+      const index = content();
+      const cards = [introduced('grammar_drill', 101)];
+      const next = buildCurriculum(index, cards, { words: 0, practice: 10 });
+      expect([...next.unlockedGrammarIds]).toEqual([1]);
+      expect(next.frontierGrammarId).toBe(2);
+      const ids = next.candidates.filter((c) => c.kind === 'grammar_drill').map((c) => c.targetId);
+      // Three frontier drills for point 2, then the remaining drills of point 1.
+      expect(ids).toEqual([201, 202, 203, 102, 103, 104]);
+    });
+
+    it('gates later levels on words met', () => {
+      // Point ids outside the syllabus are never gated.
+      expect(grammarLevelOpen(9999, 0)).toBe(true);
+      // Syllabus point 38 (conditional) is B1: 500 words.
+      expect(grammarLevelOpen(38, 499)).toBe(false);
+      expect(grammarLevelOpen(38, 500)).toBe(true);
+      expect(grammarLevelOpen(1, 0)).toBe(true);
+    });
   });
 });

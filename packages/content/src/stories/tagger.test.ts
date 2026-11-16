@@ -129,15 +129,18 @@ describe('tagStorySentence', () => {
     expect(sentence.tokens[2]?.partIds).toEqual([id('si', 'PRON')]);
   });
 
-  it('reports words outside the seed, undeclared names and out-of-scope verb forms', () => {
+  it('reports words outside the seed and undeclared names', () => {
     expect(tag('Io mangio la pizza.').issues).toEqual(['"pizza" is not a seed lemma']);
     expect(tag('Io mangio a Milano.').issues).toEqual([
       '"a" is not a seed lemma',
       '"Milano" looks like a name: add it to "names:" or use another word',
     ]);
-    expect(tag('È possibile che sia bella.').issues).toContain(
-      'subjunctive or passato remoto form in "È possibile che sia bella."',
-    );
+  });
+
+  it('tags subjunctive forms as grammar points (the band ceiling decides if they fit)', () => {
+    const { sentence, issues } = tag('È possibile che sia bella.');
+    expect(issues.some((i) => i.includes('subjunctive'))).toBe(false);
+    expect(sentence.grammarIds).toContain(grammarId('subjunctive-present'));
   });
 });
 

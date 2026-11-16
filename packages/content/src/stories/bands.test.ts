@@ -29,7 +29,13 @@ describe('band rules', () => {
     expect(slugAt(BAND_RULES[750].maxGrammarOrder)).toBe('indirect-object-pronouns');
     expect(slugAt(BAND_RULES[1000].maxGrammarOrder)).toBe('passato-prossimo-vs-imperfetto');
     expect(slugAt(BAND_RULES[1500].maxGrammarOrder)).toBe('comparatives');
-    expect(BAND_RULES[2000].maxGrammarOrder).toBe(GRAMMAR_POINTS.length);
+    expect(slugAt(BAND_RULES[2000].maxGrammarOrder)).toBe('infinitive-past');
+    expect(slugAt(BAND_RULES[3000].maxGrammarOrder)).toBe('subjunctive-past');
+    // Every band up to B1 stays within A1 to B1 grammar.
+    for (const rules of Object.values(BAND_RULES)) {
+      const point = GRAMMAR_POINTS[rules.maxGrammarOrder - 1];
+      expect(['A1', 'A2', 'B1']).toContain(point?.cefr);
+    }
   });
 
   it('maps bands to CEFR levels and rejects unknown bands', () => {

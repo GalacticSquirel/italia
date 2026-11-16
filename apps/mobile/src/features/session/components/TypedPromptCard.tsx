@@ -19,6 +19,7 @@ export interface TypedPromptCardProps {
 export const INSTRUCTIONS: Record<TypedPrompt['kind'], string> = {
   cloze_production: 'Fill in the missing word',
   grammar_cloze: 'Fill in the right form',
+  grammar_drill: 'Fill in the gap',
   sentence_production: 'Say it in Italian',
   dictation: 'Type what you hear',
 };
@@ -56,6 +57,20 @@ export function TypedPromptCard({ prompt, speechRate, autoPlay, answered }: Type
           <Text color="textMuted">{prompt.sentence.en}</Text>
           <Text variant="bodyStrong" accessibilityLabel={`Use a form of ${prompt.baseForm}`}>
             {`Use: ${prompt.baseForm}`}
+          </Text>
+        </>
+      ) : null}
+      {prompt.kind === 'grammar_drill' ? (
+        <>
+          {prompt.grammarPoint ? (
+            <Text variant="label" color="primary">
+              {prompt.grammarPoint.title}
+            </Text>
+          ) : null}
+          <BlankSentence blank={prompt.blank} />
+          <Text color="textMuted">{prompt.drill.en}</Text>
+          <Text variant="bodyStrong" accessibilityLabel={`Hint: ${prompt.drill.hint}`}>
+            {`Use: ${prompt.drill.hint}`}
           </Text>
         </>
       ) : null}

@@ -84,6 +84,59 @@ const BETWEEN_AUX_AND_PARTICIPLE = new Set([
   'tutto',
   'tutti',
 ]);
+/**
+ * Common verbs whose compound tenses take essere. Essere + participle of any
+ * other verb is usually an adjective ("era chiusa"), so the compound-tense
+ * rules beyond the passato prossimo only count these (or a reflexive).
+ */
+const ESSERE_VERBS = new Set([
+  'andare',
+  'venire',
+  'arrivare',
+  'partire',
+  'uscire',
+  'entrare',
+  'tornare',
+  'ritornare',
+  'restare',
+  'rimanere',
+  'stare',
+  'essere',
+  'diventare',
+  'nascere',
+  'morire',
+  'succedere',
+  'cadere',
+  'salire',
+  'scendere',
+  'riuscire',
+  'piacere',
+  'sembrare',
+  'crescere',
+  'cambiare',
+  'finire',
+  'cominciare',
+  'passare',
+  'scappare',
+  'sparire',
+]);
+
+/** Weak pronouns that combine with a following clitic: me lo, te ne, se la. */
+const COMBINING_CLITICS = new Set(['me', 'te', 'ce', 've', 'se']);
+const SECOND_CLITICS = new Set(['lo', 'la', 'li', 'le', 'ne']);
+const GLIE_FORMS = /^glie(lo|la|li|le|ne)$/;
+/** Verbs and phrases before "che" that call for the subjunctive (opinion, wish, fear, doubt). */
+const OPINION_CHE =
+  /\b(penso|pensi|pensa|pensiamo|pensate|pensano|pensavo|pensava|credo|credi|crede|crediamo|credono|credevo|credeva|voglio|vuoi|vuole|vogliamo|volete|vogliono|volevo|voleva|vorrei|spero|speri|spera|speriamo|sperano|speravo|temo|teme|temevo|preferisco|preferisce|preferirei|dubito|immagino|sembra|sembrava|pare|mi auguro|ho paura)\s+che\b/i;
+/** Impersonal expressions before "che" that call for the subjunctive. */
+const IMPERSONAL_CHE =
+  /\b((è|era|sarebbe|sarà)\s+(molto\s+|più\s+)?(importante|necessario|meglio|giusto|possibile|impossibile|probabile|improbabile|strano|normale|difficile|facile|bello|utile|inutile|ora|bene|naturale|incredibile)|bisogna|occorre|basta|conviene|serve|peccato)\s+che\b/i;
+/** Conjunctions that always take the subjunctive. */
+const SUBJUNCTIVE_CONJUNCTIONS =
+  /\b(benché|sebbene|affinché|purché|nonostante|prima che|senza che|a meno che|a patto che|a condizione che|malgrado)\b/i;
+/** Formal conditional and concessive conjunctions (C1). */
+const FORMAL_CONJUNCTIONS = /\b(qualora|per quanto|ammesso che|nel caso in cui|casomai)\b/i;
+
 const SUBJECT_PRONOUNS = new Set(['io', 'tu', 'lui', 'lei', 'noi', 'voi', 'loro']);
 const POSSESSIVES = new Set(['mio', 'tuo', 'suo', 'nostro', 'vostro', 'loro']);
 
@@ -103,6 +156,19 @@ const hasUnit = (r: Reading | null, l: string, u: string) =>
 const isArticleHead = (r: Reading | null) => !!r && r.heads.some((h) => h.startsWith('ART-'));
 const isArtpre = (r: Reading | null) => !!r && r.heads.some((h) => h.startsWith('ARTPRE'));
 const finitePresent = (r: Reading | null) => hasInfl(r, 'ind+pres');
+/** Every reading of the form is in this mood/tense, e.g. `sub+impf` (so the form is unambiguous). */
+const onlyInfl = (r: Reading | null, prefix: string) =>
+  !!r && isVerb(r) && r.infl.length > 0 && r.infl.every((i) => i.startsWith(prefix));
+/** Subjunctive or passato remoto forms, which only the B1+ rules cover. */
+const isAdvancedForm = (r: Reading | null) => onlyInfl(r, 'sub+') || onlyInfl(r, 'ind+past');
+/** A finite form (not infinitive, gerund or participle). */
+const isFinite = (r: Reading | null) =>
+  isVerb(r) &&
+  !!r &&
+  r.infl.some((i) => /^(ind|sub|cond|impr)\+/.test(i)) &&
+  !hasInfl(r, 'part') &&
+  !hasInfl(r, 'inf') &&
+  !hasInfl(r, 'ger');
 const isParticiple = (r: Reading | null) => isVerb(r) && hasInfl(r, 'part+past');
 const isClitic = (
   r: Reading | null,
@@ -146,7 +212,19 @@ function participleAfter(tokens: readonly TaggedToken[], i: number): number {
 
 /** Detect grammar points used by a tagged sentence. Returns sorted ids. */
 export function detectGrammar(sentence: string, tokens: readonly TaggedToken[]): number[] {
+  return [...analyse(sentence, tokens).found].map(grammarId).sort((a, b) => a - b);
+}
+
+/**
+ * The grammar slugs a sentence uses, and the indexes of subjunctive or
+ * passato remoto forms that a rule accounted for.
+ */
+function analyse(
+  sentence: string,
+  tokens: readonly TaggedToken[],
+): { found: Set<string>; covered: Set<number> } {
   const found = new Set<string>();
+  const covered = new Set<number>();
   const add = (slug: string) => found.add(slug);
   const seen = { passato: false, imperfetto: false };
   // Participles after essere/avere ("sono andate") are not present-tense forms.
@@ -203,6 +281,39 @@ export function detectGrammar(sentence: string, tokens: readonly TaggedToken[]):
         add(AUX.has(l) ? 'imperfetto-essere-avere' : 'imperfetto');
       }
       if (l === 'stare' && isVerb(next) && hasInfl(next, 'ger')) add('stare-gerund');
+      if (
+        l === 'stare' &&
+        tokens[i + 1]?.lower === 'per' &&
+        hasInfl(tokens[i + 2]?.reading ?? null, 'inf')
+      ) {
+        add('stare-per');
+      }
+      // Simple tenses beyond the A2 core (compound tenses are handled below).
+      if (!AUX.has(l) || participleAfter(tokens, i) < 0) {
+        if (onlyInfl(r, 'sub+pres')) {
+          add('subjunctive-present');
+          covered.add(i);
+        }
+        if (onlyInfl(r, 'sub+impf')) {
+          add('subjunctive-imperfect');
+          covered.add(i);
+        }
+        if (onlyInfl(r, 'ind+past')) {
+          add('passato-remoto');
+          covered.add(i);
+        }
+      }
+      if (
+        onlyInfl(r, 'ger') &&
+        !isVerb(prev, 'stare') &&
+        !(AUX.has(l) && participleAfter(tokens, i) >= 0)
+      ) {
+        add('gerund-clauses');
+      }
+      // Passive with venire / andare: "viene servito", "va fatto".
+      if ((l === 'venire' || l === 'andare') && isFinite(r) && isParticiple(next)) {
+        add('passive-venire-andare');
+      }
       // Enclitics on infinitives and imperatives.
       const enclitics = r.units.slice(1).map((u) => u.lemma);
       if (enclitics.some((c) => DIRECT_3RD.has(c))) add('direct-object-pronouns');
@@ -213,6 +324,36 @@ export function detectGrammar(sentence: string, tokens: readonly TaggedToken[]):
         add('reflexive-verbs');
       }
       if (hasInfl(r, 'impr') && enclitics.length > 0) add('imperative');
+
+      // Compound tenses of avere/essere + participle beyond the passato prossimo.
+      if (AUX.has(l)) {
+        const j = participleAfter(tokens, i);
+        const partLemma = lemma(tokens[j]?.reading ?? null) ?? '';
+        const compound =
+          j >= 0 &&
+          (l === 'avere' || ESSERE_VERBS.has(partLemma) || isClitic(prev, REFLEXIVE_CLITICS));
+        if (compound) {
+          const tense = (prefix: string) => hasInfl(r, prefix);
+          if (onlyInfl(r, 'sub+pres')) {
+            add('subjunctive-past');
+            covered.add(i);
+          } else if (onlyInfl(r, 'sub+impf')) {
+            add('subjunctive-pluperfect');
+            covered.add(i);
+          } else if (onlyInfl(r, 'ind+past')) {
+            add('trapassato-remoto');
+            covered.add(i);
+          } else if (tense('ind+impf')) add('trapassato-prossimo');
+          else if (tense('ind+fut')) add('future-perfect-probability');
+          else if (tense('cond')) add('conditional-past');
+          else if (tense('inf')) add('infinitive-past');
+          else if (tense('ger')) add('past-gerund');
+          // "è stato costruito": essere + stato + participle.
+          if (l === 'essere' && isVerb(tokens[j]?.reading ?? null, 'essere')) {
+            if (participleAfter(tokens, j) >= 0) add('passive-essere');
+          }
+        }
+      }
 
       // Passato prossimo: present of avere/essere + participle.
       if ((l === 'avere' || l === 'essere') && finitePresent(r)) {
@@ -237,6 +378,25 @@ export function detectGrammar(sentence: string, tokens: readonly TaggedToken[]):
         }
       }
     }
+
+    // Combined pronouns: glielo, me lo, te ne (before a verb), or two enclitics (dammelo).
+    if (GLIE_FORMS.test(t.lower)) add('combined-pronouns');
+    if (
+      COMBINING_CLITICS.has(t.lower) &&
+      upos(r) === 'PRON' &&
+      SECOND_CLITICS.has(tokens[i + 1]?.lower.replace("'", '') ?? '') &&
+      isVerb(tokens[i + 2]?.reading ?? null)
+    ) {
+      add('combined-pronouns');
+    }
+    if (isVerb(r) && r.units.length >= 3) add('combined-pronouns');
+    // Relatives: cui, il cui (whose), il quale, ciò che.
+    if (l === 'cui') {
+      const before = tokens[i - 1]?.reading ?? null;
+      add(isArticleHead(before) && !isArtpre(before) ? 'cui-possessive' : 'relative-che-cui');
+    }
+    if (l === 'quale' && isArticleHead(prev) && !/\?\s*$/.test(sentence)) add('relatives-advanced');
+    if (t.lower === 'ciò' && tokens[i + 1]?.lower === 'che') add('relatives-advanced');
 
     // Clitics before a finite verb.
     if (upos(r) === 'PRON' && isVerb(next)) {
@@ -301,17 +461,35 @@ export function detectGrammar(sentence: string, tokens: readonly TaggedToken[]):
   });
   if (seen.passato && seen.imperfetto) add('passato-prossimo-vs-imperfetto');
 
-  return [...found].map(grammarId).sort((a, b) => a - b);
+  // Subjunctive in context: after opinion and impersonal expressions,
+  // conjunctions, "se" and "come se".
+  const presentSub = found.has('subjunctive-present') || found.has('subjunctive-past');
+  const pastSub = found.has('subjunctive-imperfect') || found.has('subjunctive-pluperfect');
+  if (presentSub || pastSub) {
+    if (OPINION_CHE.test(sentence))
+      add(presentSub ? 'subjunctive-opinion-wish' : 'sequence-of-tenses');
+    if (IMPERSONAL_CHE.test(sentence)) {
+      add(presentSub ? 'subjunctive-impersonal' : 'sequence-of-tenses');
+    }
+    if (SUBJUNCTIVE_CONJUNCTIONS.test(sentence)) add('subjunctive-conjunctions');
+    if (FORMAL_CONJUNCTIONS.test(sentence)) add('advanced-conjunctions');
+  }
+  if (pastSub && /\bcome se\b/i.test(sentence)) add('come-se');
+  else if (pastSub && /\bse\b/i.test(sentence)) {
+    const result = found.has('conditional') || found.has('conditional-past');
+    if (result) add(found.has('subjunctive-pluperfect') ? 'if-past-unreal' : 'if-hypothetical');
+  }
+
+  return { found, covered };
 }
 
 /**
- * Verb forms beyond the A1-A2 graph (subjunctive, passato remoto). Sentences that
- * contain one are not used as anchors.
+ * Whether a sentence has a subjunctive or passato remoto form that no grammar
+ * rule accounts for (so its grammar tags would be incomplete). Such sentences
+ * are not used. Forms the rules cover are tagged with their grammar point
+ * instead, and a story band's grammar ceiling decides whether they may appear.
  */
 export function usesOutOfScopeGrammar(tokens: readonly TaggedToken[]): boolean {
-  return tokens.some((t) => {
-    const r = t.reading;
-    if (!isVerb(r) || !r || r.infl.length === 0) return false;
-    return r.infl.every((i) => i.startsWith('sub+') || i.startsWith('ind+past'));
-  });
+  const { covered } = analyse('', tokens);
+  return tokens.some((t, i) => isAdvancedForm(t.reading) && !covered.has(i));
 }

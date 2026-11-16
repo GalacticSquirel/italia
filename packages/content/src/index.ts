@@ -34,7 +34,16 @@ export {
 } from './schema';
 export { parseSeed, toRows, type GrammarPointRow, type LemmaRow, type SentenceRow } from './loader';
 export { UPOS, type Upos } from './pipeline/lexicon';
-export { GRAMMAR_POINTS, type GrammarCefr, type GrammarPointSource } from './grammar/points';
+export {
+  GRAMMAR_CEFR_LEVELS,
+  GRAMMAR_DRILLS,
+  GRAMMAR_POINTS,
+  parseDrillGap,
+  type GrammarCefr,
+  type GrammarDrill,
+  type GrammarDrillSource,
+  type GrammarPointSource,
+} from './grammar/points';
 export {
   buildClipPack,
   CLIP_PACK_VERSION,

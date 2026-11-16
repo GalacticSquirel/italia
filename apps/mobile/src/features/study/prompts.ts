@@ -1,3 +1,4 @@
+import type { GrammarDrill } from '@italia/content';
 import type { CardKind, PromptMode } from '@italia/core';
 
 import type { GrammarPointRow, LearnerSentenceRow, LemmaRow, SentenceRow } from '@/data';
@@ -11,6 +12,7 @@ export const SHOWN_KINDS = [
   'sentence_production',
   'dictation',
   'grammar_cloze',
+  'grammar_drill',
   'spoken_prompt',
 ] as const satisfies readonly CardKind[];
 
@@ -63,6 +65,18 @@ export interface GrammarClozePrompt {
 }
 
 /**
+ * A hand-written drill for one grammar point: produce exactly the form the
+ * point teaches, cued by the English sentence and a hint.
+ */
+export interface GrammarDrillPrompt {
+  kind: 'grammar_drill';
+  drill: GrammarDrill;
+  blank: Blank;
+  grammarPoint: GrammarPointRow | null;
+  accepted: string[];
+}
+
+/**
  * Translate an English sentence into Italian, or, for a sentence corrected in
  * conversation (`correction` set), write the learner's sentence correctly.
  */
@@ -96,6 +110,7 @@ export type Prompt =
   | RecognitionPrompt
   | ClozePrompt
   | GrammarClozePrompt
+  | GrammarDrillPrompt
   | SentenceProductionPrompt
   | DictationPrompt
   | SpokenPrompt;
@@ -183,7 +198,7 @@ export function clozeSentences(lemma: LemmaRow, content: ContentIndex): Sentence
  *
  * Targets: `recognition` and `cloze_production` practise a lemma;
  * `grammar_cloze`, `sentence_production`, `dictation` and `spoken_prompt`
- * practise a sentence.
+ * practise a sentence; `grammar_drill` practises a hand-written drill.
  */
 export function resolvePrompt(card: PromptCard, content: ContentIndex): Prompt | null {
   switch (card.kind) {
@@ -213,6 +228,17 @@ export function resolvePrompt(card: PromptCard, content: ContentIndex): Prompt |
         baseForm: found.lemma.lemma,
         grammarPoint: focus === null ? null : (content.grammarById.get(focus) ?? null),
         accepted: [found.blank.answer],
+      };
+    }
+    case 'grammar_drill': {
+      const drill = content.drillById.get(card.targetId);
+      if (!drill) return null;
+      return {
+        kind: 'grammar_drill',
+        drill,
+        blank: { before: drill.before, answer: drill.answer, after: drill.after },
+        grammarPoint: content.grammarById.get(drill.pointId) ?? null,
+        accepted: [...drill.accepted],
       };
     }
     case 'sentence_production': {
@@ -261,6 +287,8 @@ export function cardLemmaIds(card: Pick<PromptCard, 'kind' | 'targetId'>, conten
     case 'recognition':
     case 'cloze_production':
       return [card.targetId];
+    case 'grammar_drill':
+      return [];
     default:
       return content.sentenceById.get(card.targetId)?.lemmaIds ?? [];
   }
@@ -272,6 +300,10 @@ export function cardGrammarIds(
   content: ContentIndex,
 ): number[] {
   if (card.kind === 'recognition' || card.kind === 'cloze_production') return [];
+  if (card.kind === 'grammar_drill') {
+    const drill = content.drillById.get(card.targetId);
+    return drill ? [drill.pointId] : [];
+  }
   if (card.targetId < 0)
     return [...(content.learnerSentenceById.get(card.targetId)?.grammarIds ?? [])];
   const sentence = content.sentenceById.get(card.targetId);
