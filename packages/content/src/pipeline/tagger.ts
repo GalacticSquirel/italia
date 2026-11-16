@@ -88,10 +88,15 @@ function contextFactor(
   prev: Reading | null,
   nextUpos: Set<Upos>,
   before: Reading | null = null,
+  alternatives: ReadonlySet<Upos> = new Set(),
 ): number {
   const upos = headUpos(reading);
   let f = 1;
-  if (upos === 'NUM' && numberContext(prev, before, nextUpos)) f *= 1000;
+  // SUBTLEX-IT tags most "sei" as a number, so the context decides between the
+  // number and the verb form ("sei" six or you are).
+  if (upos === 'NUM' && alternatives.has('VERB')) {
+    f *= numberContext(prev, before, nextUpos) ? 1000 : 0.001;
+  }
   if (prev) {
     if (isDeterminerLike(prev)) {
       if (upos === 'NOUN') f *= 6;
@@ -167,10 +172,11 @@ export function tagSentence(
       if (u) nextUpos.add(u);
     }
     const priors = readingPriors(readings, subtlex.get(token.lower), lemmaFrequency);
+    const alternatives = new Set(readings.map(headUpos).filter((u): u is Upos => !!u));
     let best = 0;
     let bestScore = -1;
     readings.forEach((r, j) => {
-      const score = (priors[j] ?? 0) * contextFactor(r, prev, nextUpos, before);
+      const score = (priors[j] ?? 0) * contextFactor(r, prev, nextUpos, before, alternatives);
       if (score > bestScore) {
         bestScore = score;
         best = j;

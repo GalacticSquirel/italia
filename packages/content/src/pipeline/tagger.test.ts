@@ -51,7 +51,8 @@ describe('number words', () => {
       'tu\ttu\tPRO-PERS-2-M-S',
     ].join('\n'),
   );
-  const counts = new Map([['sei', dist({ VER: 980, ADJ: 20 })]]);
+  // SUBTLEX-IT tags most "sei" as a numeral (ADJ); the context must still win.
+  const counts = new Map([['sei', dist({ VER: 100, ADJ: 900 })]]);
   const sei = (sentence: string) =>
     tagSentence(sentence, lexicon, counts).find((t) => t.lower === 'sei')?.reading?.units[0]?.lemma;
 

@@ -19,10 +19,13 @@ export type EverydayLevel = 'A1' | 'A2' | 'B1' | 'B2';
 
 /**
  * The highest seed rank a word of each level may have: the top story band of
- * that level (A1 stories go up to band 500, A2 to 1500, B1 to 3000, B2 to 5000).
+ * that level (A2 stories go up to band 1500, B1 to 3000, B2 to 5000). A1 words
+ * go up to the first A2 band (750) instead of 500: the A1 bands are so small
+ * that pushing some 70 words into them would push out core words such as
+ * "cane"; the A1 stories can still use them as next-band words.
  */
 export const LEVEL_CEILING: Readonly<Record<EverydayLevel, number>> = {
-  A1: 500,
+  A1: 750,
   A2: 1500,
   B1: 3000,
   B2: 5000,
@@ -31,6 +34,8 @@ export const LEVEL_CEILING: Readonly<Record<EverydayLevel, number>> = {
 /** The list, by level. Each string is a space-separated group of one topic. */
 export const EVERYDAY_VOCABULARY: Readonly<Record<EverydayLevel, readonly string[]>> = {
   A1: [
+    // Core words of everyday scenes, which the A1 stories need.
+    'cane gatto casa scuola negozio bar chiesa treno biglietto regalo scarpa',
     'zero uno due tre quattro cinque sei|NUM sette otto nove dieci undici dodici tredici',
     'quattordici quindici sedici diciassette diciotto diciannove venti trenta quaranta',
     'cinquanta sessanta settanta ottanta novanta cento mille',
@@ -46,7 +51,7 @@ export const EVERYDAY_VOCABULARY: Readonly<Record<EverydayLevel, readonly string
     'verdura insalata patata carota cipolla riso zucchero sale pepe olio burro marmellata',
     'biscotto gelato torta cioccolato prosciutto pollo bistecca minestra zuppa colazione pranzo',
     'cena merenda forchetta coltello cucchiaio piatto bicchiere tazza bottiglia',
-    'maglietta camicia gonna pantalone giacca cappotto maglione scarpa calza calzino cappello',
+    'maglietta camicia gonna pantalone giacca cappotto maglione calza calzino cappello',
     'sciarpa guanto vestito borsa ombrello',
     'cucina bagno camera letto tavolo sedia divano armadio finestra porta frigorifero forno',
     'doccia lavandino specchio lampada chiave giardino balcone scala ascensore',
@@ -54,8 +59,8 @@ export const EVERYDAY_VOCABULARY: Readonly<Record<EverydayLevel, readonly string
     'testa capello occhio naso bocca orecchio dente mano braccio gamba piede dito pancia',
     'schiena collo',
     'pioggia neve sole vento nuvola',
-    'cane gatto cavallo mucca pecora maiale gallina uccello pesce coniglio topo',
-    'autobus treno stazione fermata biglietto piazza strada negozio supermercato farmacia',
+    'cavallo mucca pecora maiale gallina uccello pesce coniglio topo',
+    'autobus stazione fermata piazza strada supermercato farmacia',
     'ospedale banca',
     'settimana mese stagione primavera estate autunno inverno mattina pomeriggio sera notte',
     'medico dottoressa infermiere infermiera cameriere cameriera cuoco commesso commessa',

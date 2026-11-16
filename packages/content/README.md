@@ -83,7 +83,7 @@ minute and needs roughly 4 GB of memory.
    each merged group takes the part of speech that has a gloss. Lemmas without a gloss,
    profanity and mostly vulgar words are dropped. Lemmas are ranked by frequency, except that the
    hand-picked everyday words in `src/pipeline/everyday.ts` move up, as little as needed, to
-   their level's rank ceiling (A1 500, A2 1,500, B1 3,000, B2 5,000): subtitles rarely say
+   their level's rank ceiling (A1 750, A2 1,500, B1 3,000, B2 5,000): subtitles rarely say
    "gennaio", "forchetta" or "nuora", but learners need them early. Everyday nouns Morph-it!
    lacks (`aglio`, `noce`, `capra`) are added in `overrides.ts`.
 4. **Sentences**: Tatoeba it-en pairs are tokenised and tagged with a small rule-based tagger.

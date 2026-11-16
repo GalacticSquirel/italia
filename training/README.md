@@ -306,9 +306,10 @@ Steps for a rented GPU:
 - The GPU stages (`train/`, `export merge`, `train.sample`) have not been run on a GPU yet. Their
   pure logic is unit-tested, and their calls were checked against the pinned library sources.
   The first bake-off run is the integration test.
-- The seed lemma list (`data/lemmas.seed-v1.tsv`) comes from subtitle frequencies. It ranks
-  basic course vocabulary (days of the week, food, places) low and lacks some lemmas entirely
-  (for example "grande"). `data/core_vocab.tsv` patches this for band checks. The content
-  pipeline should fix it at the source.
+- The seed lemma list (`data/lemmas.seed-v1.tsv`) comes from subtitle frequencies, with
+  everyday words moved up to their CEFR level by the content pipeline (A1 words to rank 750, A2
+  to 1,500; `packages/content/src/pipeline/everyday.ts`). The tutor's own A1 and A2 ceilings
+  (500 and 1,000) are tighter, so `data/core_vocab.tsv` still lowers the ranks of the basic
+  course vocabulary for band checks.
 - No error-annotated Italian learner corpus exists, so the gold labels are the injected errors.
   Native-speaker spot checks remain essential.
