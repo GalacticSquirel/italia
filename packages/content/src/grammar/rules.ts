@@ -210,6 +210,26 @@ function participleAfter(tokens: readonly TaggedToken[], i: number): number {
   return -1;
 }
 
+/** Index of a gerund following stare at position i (skipping a few adverbs), or -1. */
+function gerundAfter(tokens: readonly TaggedToken[], i: number): number {
+  for (let j = i + 1; j < tokens.length && j <= i + 3; j++) {
+    const r = tokens[j]?.reading ?? null;
+    if (isVerb(r) && hasInfl(r, 'ger')) return j;
+    if (!BETWEEN_AUX_AND_PARTICIPLE.has(tokens[j]?.lower ?? '')) break;
+  }
+  return -1;
+}
+
+/** Whether the gerund at position i belongs to stare + gerund ("sta già mangiando"). */
+function afterStare(tokens: readonly TaggedToken[], i: number): boolean {
+  for (let j = i - 1; j >= 0 && j >= i - 3; j--) {
+    const t = tokens[j];
+    if (isVerb(t?.reading ?? null, 'stare')) return gerundAfter(tokens, j) === i;
+    if (!BETWEEN_AUX_AND_PARTICIPLE.has(t?.lower ?? '')) return false;
+  }
+  return false;
+}
+
 /** Detect grammar points used by a tagged sentence. Returns sorted ids. */
 export function detectGrammar(sentence: string, tokens: readonly TaggedToken[]): number[] {
   return [...analyse(sentence, tokens).found].map(grammarId).sort((a, b) => a - b);
@@ -280,7 +300,7 @@ function analyse(
         seen.imperfetto = true;
         add(AUX.has(l) ? 'imperfetto-essere-avere' : 'imperfetto');
       }
-      if (l === 'stare' && isVerb(next) && hasInfl(next, 'ger')) add('stare-gerund');
+      if (l === 'stare' && gerundAfter(tokens, i) >= 0) add('stare-gerund');
       if (
         l === 'stare' &&
         tokens[i + 1]?.lower === 'per' &&
@@ -305,7 +325,7 @@ function analyse(
       }
       if (
         onlyInfl(r, 'ger') &&
-        !isVerb(prev, 'stare') &&
+        !afterStare(tokens, i) &&
         !(AUX.has(l) && participleAfter(tokens, i) >= 0)
       ) {
         add('gerund-clauses');
