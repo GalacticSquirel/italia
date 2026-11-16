@@ -1,0 +1,218 @@
+- scenario: casa-mia
+  level: A1
+  persona: en-f-student
+  history: [ce-ci-sono]
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Io abito in un appartamento piccolo.
+    - tutor: Ah, un appartamento! Quante camere ci sono?
+      goals: [type]
+    - learner: C'è due camere e un bagno.
+      errors: [ce-ci-sono]
+    - tutor: C'è due camere? Due camere sono plurale...
+      prompt: {text: C'è due camere, tags: [ce-ci-sono]}
+      new: [{lemma: plurale, gloss: plural}]
+    - learner: Ci sono due camere e un bagno.
+    - tutor: Perfetto! E qual è la tua stanza preferita?
+      goals: [rooms]
+    - learner: La cucina. È piccola ma bella.
+    - tutor: Che bello! Io amo cucinare.
+      goals: [favourite]
+    - learner: E tu, Luca? Dove abiti?
+    - tutor: Io abito in una casa grande con un balcone.
+      goals: [ask]
+    - learner: Che fortuna!
+    - tutor: Sì, ma è lontano dal centro. Ciao, a presto!
+
+- scenario: casa-mia
+  level: A1
+  persona: en-m-retired
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Io abito in una casa con mia moglie.
+    - tutor: Bello! È grande la casa?
+      goals: [type]
+    - learner: Sì, è grande. Ci sono tre camere e due bagni.
+    - tutor: Tre camere! Qual è la tua stanza preferita?
+      goals: [rooms]
+    - learner: Il mio stanza preferito è la cucina.
+      errors: [noun-gender]
+    - tutor: Il mio stanza? Stanza finisce con la a.
+      prompt: {text: Il mio stanza preferito, tags: [noun-gender]}
+    - learner: La mia stanza preferita è la cucina.
+    - tutor: Bravo! Perché ti piace la cucina?
+      goals: [favourite]
+    - learner: Perché è grande e io cucino molto. E la tua casa, Luca?
+    - tutor: Io ho un appartamento piccolo, ma ha un bel balcone.
+      goals: [ask]
+    - learner: Mi piace il balcone!
+    - tutor: Bello, vero? Vieni a casa mia quando vuoi.
+
+- scenario: casa-mia
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Abito in un apartamento con tre amiche.
+      errors: [spelling]
+    - tutor: Attenzione, come si scrive questa parola in italiano?
+      prompt: {text: apartamento, tags: [spelling]}
+    - learner: Appartamento! Abito in un appartamento.
+    - tutor: Esatto! Quante camere ci sono?
+      goals: [type]
+    - learner: Ci sono quattro camere, una cucina e un bagno.
+    - tutor: Un solo bagno per quattro? È difficile!
+      goals: [rooms]
+    - learner: Sì, è difficile! Ma la mia camera è bella.
+    - tutor: Com'è la tua camera?
+    - learner: È piccola, ma ha una finestra grande.
+    - tutor: Bella! Io preferisco la cucina, nella mia casa.
+      goals: [favourite]
+    - learner: Perché, Luca? Com'è la tua cucina?
+    - tutor: È grande e c'è un tavolo per gli amici.
+      goals: [ask]
+
+- scenario: casa-mia
+  level: A1
+  persona: en-m-traveller
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Adesso abito in un ostello, ma a Dublino ho una casa.
+      errors: []
+    - tutor: Ah, e com'è la tua casa a Dublino?
+      goals: [type]
+    - learner: È piccola. C'è una camera, un bagno e una cucina.
+    - tutor: E c'è un balcone?
+      goals: [rooms]
+    - learner: No, non c'è un balcone. Ma c'è un giardino piccolo.
+    - tutor: Un giardino! Ti piace stare lì?
+    - learner: Sì, è la mia parte preferita della casa.
+    - tutor: Che bello! Io non ho un giardino.
+      goals: [favourite]
+      new: [{lemma: giardino, gloss: garden}]
+    - learner: E dove abiti tu?
+    - tutor: Io abito in un appartamento al terzo piano.
+      goals: [ask]
+      new: [{lemma: terzo, gloss: third}]
+    - learner: Bello! C'è un ascensore?
+    - tutor: No! Ma va bene, così faccio sport.
+
+- scenario: casa-mia
+  level: A1
+  persona: en-f-professional
+  history: [adjective-agreement]
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Abito in un appartamento a Milano. È molto moderna.
+      errors: [adjective-agreement]
+    - tutor: È molto moderna? Pensa alla parola appartamento.
+      prompt: {text: È molto moderna, tags: [adjective-agreement]}
+    - learner: È molto moderno!
+    - tutor: Esatto! Quante camere ci sono?
+      goals: [type]
+    - learner: Ci sono due camere e un bagno grande.
+    - tutor: E qual è la tua stanza preferita?
+      goals: [rooms]
+    - learner: Il balcone. Ci sono tante piante.
+    - tutor: Che bello, un balcone con le piante!
+      goals: [favourite]
+      new: [{lemma: pianta, gloss: plant}]
+    - learner: E tu? Com'è la tua casa?
+    - tutor: La mia casa è vecchia ma molto bella.
+      goals: [ask]
+
+- scenario: casa-mia
+  level: A1
+  persona: es-m-worker
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Abito in un appartamento vicino al ristorante.
+    - tutor: Che comodo! È grande?
+      goals: [type]
+      new: [{lemma: comodo, gloss: handy}]
+    - learner: No, è piccolo. C'è solo una camera.
+    - tutor: E la cucina com'è?
+      goals: [rooms]
+    - learner: La cucina è molto piccolo.
+      errors: [adjective-agreement]
+    - tutor: Molto piccolo? Pensa alla parola cucina.
+      prompt: {text: molto piccolo, tags: [adjective-agreement]}
+    - learner: Molto piccolo, sì.
+      errors: [adjective-agreement]
+    - tutor: Ah, la cucina è molto piccola! Ma tu cucini al lavoro, vero?
+      recast: {text: molto piccolo, fix: molto piccola, tags: [adjective-agreement]}
+    - learner: Sì! La mia stanza preferita è la camera, per dormire.
+    - tutor: Giusto, dopo il lavoro serve dormire!
+      goals: [favourite]
+    - learner: Tu dove abiti, Luca?
+    - tutor: Io abito in centro, in una casa con mio fratello.
+      goals: [ask]
+
+- scenario: casa-mia
+  level: A1
+  persona: en-m-heritage
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Io abito in una casa grande a Toronto.
+    - tutor: Bello! Quante stanze ci sono?
+      goals: [type]
+    - learner: Ci sono quattro camere e tre bagni.
+    - tutor: Tre bagni! Qual è la tua stanza preferita?
+      goals: [rooms]
+    - learner: La cucina, perché la mia nonna cucina la pasta lì.
+      errors: [possessive]
+    - tutor: La mia nonna? Con la famiglia, l'articolo...
+      prompt: {text: la mia nonna, tags: [possessive]}
+      new: [{lemma: articolo, gloss: article}]
+    - learner: Mia nonna! Mia nonna cucina la pasta.
+    - tutor: Bravo! Che bello cucinare con la nonna.
+      goals: [favourite]
+    - learner: Sì! E tu, Luca, abiti in una casa?
+    - tutor: No, abito in un appartamento con un balcone piccolo.
+      goals: [ask]
+
+- scenario: casa-mia
+  level: A1
+  persona: es-f-teacher
+  history: [article-form]
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Abito in un appartamento in centro.
+    - tutor: Che bello! Com'è l'appartamento?
+      goals: [type]
+    - learner: È grande. Ci sono tre camere e un balcone.
+    - tutor: E qual è la tua stanza preferita?
+      goals: [rooms]
+    - learner: Il studio. Lavoro lì ogni giorno.
+      errors: [article-form]
+    - tutor: "Il studio? Attenzione: studio comincia con s più consonante."
+      prompt: {text: Il studio, tags: [article-form]}
+      new: [{lemma: consonante, gloss: consonant}]
+    - learner: Lo studio!
+    - tutor: Esatto! Lo studio è importante per un'insegnante.
+      goals: [favourite]
+    - learner: Sì. E tu, Luca, com'è la tua casa?
+    - tutor: La mia casa è piccola, ma c'è un balcone grande.
+      goals: [ask]
+    - learner: Ti piace stare sul balcone?
+    - tutor: Sì, molto! La sera mangio lì.
+
+- scenario: casa-mia
+  level: A1
+  persona: en-f-student
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Io abito con la mia famiglia in una casa.
+    - tutor: Ah, una casa! Quante camere ci sono?
+      goals: [type]
+    - learner: Ci sono tre camere, ma la mia camera è la più piccola.
+    - tutor: Va bene, una camera piccola è carina.
+      goals: [rooms]
+    - learner: La mia stanza preferita è il bagno. È nuovo e bello!
+    - tutor: Il bagno? Che bello, un bagno nuovo!
+      goals: [favourite]
+    - learner: E la tua casa, com'è?
+    - tutor: Io abito in un appartamento al primo piano.
+      goals: [ask]
+    - learner: C'è un balcone?
+    - tutor: Sì, c'è un balcone piccolo sulla strada.

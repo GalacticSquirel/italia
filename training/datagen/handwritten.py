@@ -106,7 +106,10 @@ def load_sources(set_name: str, source_dir: Path = SOURCE_DIR) -> list[Source]:
         raise AuthoringError(f"no YAML files in {folder}")
     out: list[Source] = []
     for path in files:
-        items = yaml.safe_load(path.read_text(encoding="utf-8")) or []
+        try:
+            items = yaml.safe_load(path.read_text(encoding="utf-8")) or []
+        except yaml.YAMLError as err:
+            raise AuthoringError(f"{path.name}: invalid YAML (quote text containing ': '): {err}")
         if not isinstance(items, list):
             raise AuthoringError(f"{path.name}: expected a list of dialogues")
         out.extend(Source(set_name, path, i, item) for i, item in enumerate(items))
@@ -344,6 +347,12 @@ def main(argv: list[str] | None = None) -> int:
             print(f"[{set_name}] FAIL {record.parse_notes[0]} ({record.scenario_id}):")
             for reason in record.filter.reasons:
                 print(f"    - {reason}")
+            if any("LanguageTool" in r for r in record.filter.reasons):
+                for turn in record.tutor_turns():
+                    for match in grammar.check(turn.text):
+                        print(
+                            f"      LT {match.rule_id}: {match.span(turn.text)!r} in {turn.text!r}"
+                        )
         passed = len(records) - len(failed)
         print(f"[{set_name}] {passed}/{len(records) + len(problems)} pass")
         if problems or failed:
