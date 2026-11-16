@@ -1,0 +1,253 @@
+- scenario: bar-colazione
+  level: A1
+  persona: en-f-student
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno! Un cappuccino, per favore.
+    - tutor: Certo, un cappuccino. Vuole anche qualcosa da mangiare?
+      goals: [greet, order-drink]
+    - learner: Sì, una cornetto, per favore.
+      errors: [noun-gender]
+    - tutor: Una cornetto? Cornetto è maschile.
+      prompt: {text: una cornetto, tags: [noun-gender]}
+      new: [{lemma: maschile, gloss: masculine}]
+    - learner: Ah, un cornetto!
+    - tutor: Esatto! Ecco il cappuccino e il cornetto.
+      goals: [order-food]
+    - learner: Grazie. Quanto costa?
+    - tutor: Sono tre euro. Ecco lo scontrino.
+    - learner: Ecco tre euro. Grazie, arrivederci!
+    - tutor: Grazie a Lei! Buona giornata!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-retired
+  history: [modal-infinitive]
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno. Io voglio di bere un caffè.
+      errors: [modal-infinitive]
+    - tutor: Buongiorno! Voglio di bere? Dopo voglio, niente di.
+      goals: [greet]
+      prompt: {text: voglio di bere, tags: [modal-infinitive]}
+    - learner: Voglio bere un caffè, per favore.
+    - tutor: Perfetto! Un caffè. Con zucchero?
+      goals: [order-drink]
+    - learner: No, senza zucchero, grazie.
+    - tutor: Va bene. Prende anche un cornetto?
+    - learner: Sì, un cornetto con la crema.
+      errors: []
+    - tutor: Ecco il caffè e il cornetto con la crema.
+      goals: [order-food]
+      new: [{lemma: crema, gloss: custard}]
+    - learner: Quanto pago?
+    - tutor: Sono 2,50 euro. Può pagare qui al bancone.
+    - learner: Ecco. Buona giornata!
+    - tutor: Grazie, anche a Lei! Arrivederci!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno! Vorrei un tè caldo, per favore.
+    - tutor: Un tè caldo, va bene. Con latte o con zucchero?
+      goals: [greet, order-drink]
+    - learner: Con zucchero. E anche un cornetto, per favore.
+    - tutor: Certo! Ecco il tè e il cornetto.
+      goals: [order-food]
+    - learner: Grazie! Quanto es?
+      errors: [verb-form]
+    - tutor: Quanto es? In italiano non si dice così.
+      prompt: {text: Quanto es, tags: [verb-form]}
+    - learner: Quanto è?
+    - tutor: Esatto! Sono 3 euro, per favore.
+    - learner: Ecco a Lei. Arrivederci!
+    - tutor: Grazie e buona giornata!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-traveller
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Ciao! Un caffè, please.
+      errors: [word-choice]
+    - tutor: Buongiorno! Un caffè, per favore, certo. Lo vuole con zucchero?
+      goals: [greet, order-drink]
+      recast: {text: please, fix: per favore, tags: [word-choice]}
+    - learner: Sì, con zucchero. Avete cornetti?
+    - tutor: Sì, abbiamo cornetti con la marmellata.
+      new: [{lemma: marmellata, gloss: jam}]
+    - learner: Un cornetto con la marmellata, per favore.
+    - tutor: Ecco il caffè e il cornetto.
+      goals: [order-food]
+    - learner: Grazie! Quanto costa tutto?
+    - tutor: Sono 2,80 euro. Ecco lo scontrino.
+    - learner: Pago con la carta, va bene?
+    - tutor: Sì, certo, va bene. Grazie e arrivederci!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: en-f-professional
+  history: [article-form]
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno! Prendo un cappuccino e il zucchero, per favore.
+      errors: [article-form]
+    - tutor: Buongiorno! Il zucchero? Attenzione all'articolo.
+      goals: [greet, order-drink]
+      prompt: {text: il zucchero, tags: [article-form]}
+      new: [{lemma: articolo, gloss: article}]
+    - learner: Lo zucchero!
+    - tutor: Bravissima! Ecco il cappuccino e lo zucchero.
+    - learner: Grazie. Posso avere anche un cornetto?
+    - tutor: Certo. Vuole un cornetto con la crema?
+      new: [{lemma: crema, gloss: custard}]
+    - learner: No, un cornetto semplice, per favore.
+    - tutor: Ecco a Lei. Altro?
+      goals: [order-food]
+    - learner: No, grazie. Quanto costa?
+    - tutor: Sono 2,70 euro, per favore.
+    - learner: Ecco. Grazie e buona giornata!
+    - tutor: Grazie a Lei! Arrivederci!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: es-m-worker
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno. Un caffè con leche.
+      errors: [word-choice]
+    - tutor: Buongiorno! Un caffè con latte, va bene. Altro?
+      goals: [greet, order-drink]
+      recast: {text: con leche, fix: con latte, tags: [word-choice]}
+    - learner: Sì, due cornetti, per favore.
+    - tutor: Ecco i due cornetti e il caffè.
+      goals: [order-food]
+    - learner: Grazie. Quanto costa?
+    - tutor: Sono 3,50 euro.
+    - learner: Ecco 5 euro.
+    - tutor: Ecco il resto e lo scontrino. Buona giornata!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-heritage
+  history: [noun-number]
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno! Due cappuccino, per favore.
+      errors: [noun-number]
+    - tutor: Buongiorno! Due cappuccino? Sono due, quindi...
+      goals: [greet]
+      prompt: {text: Due cappuccino, tags: [noun-number]}
+    - learner: Due cappuccini!
+    - tutor: Bravo! Due cappuccini. Anche qualcosa da mangiare?
+      goals: [order-drink]
+    - learner: Sì, due cornetti con la crema, per favore.
+    - tutor: Ecco i cappuccini e i cornetti con la crema.
+      goals: [order-food]
+      new: [{lemma: crema, gloss: custard}]
+    - learner: Grazie mille! Quanto costa?
+    - tutor: Sono 6 euro in tutto.
+    - learner: Ecco 10 euro.
+    - tutor: Ecco il resto. Grazie e buona giornata!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: es-f-teacher
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno. Un caffè, per favore.
+    - tutor: Subito! Lo vuole con zucchero?
+      goals: [greet, order-drink]
+    - learner: No, grazie. Senza zucchero.
+    - tutor: Va bene. Vuole anche mangiare qualcosa?
+    - learner: Sì. Avete una pizzetta?
+    - tutor: Sì, abbiamo una pizzetta con il pomodoro.
+      new: [{lemma: pizzetta, gloss: small pizza}]
+    - learner: Perfetto, una pizzetta, grazie.
+    - tutor: Ecco il caffè e la pizzetta.
+      goals: [order-food]
+    - learner: Quanto costa, per favore?
+    - tutor: Sono 3 euro. Vuole pagare con la carta?
+    - learner: No, pago con i contanti.
+    - tutor: Va bene, grazie. Arrivederci!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: en-f-student
+  history: [register]
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Ciao! Mi dai un cappuccino?
+      errors: [register]
+    - tutor: Buongiorno! Mi dai? Qui usiamo il Lei.
+      goals: [greet]
+      prompt: {text: Mi dai, tags: [register]}
+    - learner: Mi dà un cappuccino, per favore?
+    - tutor: Perfetto! Ecco il cappuccino.
+      goals: [order-drink]
+    - learner: Grazie. E un cornetto, per favore.
+    - tutor: Ecco il cornetto. Altro?
+      goals: [order-food]
+    - learner: No, grazie. Quanto pago?
+    - tutor: Sono 2,50 euro.
+    - learner: Ecco. Buona giornata!
+    - tutor: Grazie, altrettanto!
+      goals: [pay]
+      new: [{lemma: altrettanto, gloss: likewise}]
+
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-retired
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno. Io vorrei un caffè e un bicchiere d'acqua.
+    - tutor: Certo, un caffè e un bicchiere d'acqua. Altro?
+      goals: [greet, order-drink]
+      new: [{lemma: bicchiere, gloss: glass}]
+    - learner: Sì. Cè un cornetto con la marmellata?
+      errors: [spelling]
+    - tutor: Attenzione, come si scrive la prima parola?
+      prompt: {text: Cè, tags: [spelling]}
+    - learner: C'è un cornetto con la marmellata?
+    - tutor: Sì, c'è! Ecco il cornetto con la marmellata.
+      goals: [order-food]
+      new: [{lemma: marmellata, gloss: jam}]
+    - learner: Grazie. Quanto costa tutto?
+    - tutor: Sono 2,80 euro, per favore.
+    - learner: Ecco 3 euro.
+    - tutor: Ecco il resto. Grazie e arrivederci!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: es-f-erasmus
+  history: [negation]
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno! Un cappuccino, ma io voglio zucchero no.
+      errors: [negation]
+    - tutor: Buongiorno! Voglio zucchero no? Come si dice in italiano?
+      goals: [greet, order-drink]
+      prompt: {text: io voglio zucchero no, tags: [negation]}
+    - learner: Io voglio zucchero non.
+      errors: [negation]
+    - tutor: Ah, io non voglio lo zucchero! Va bene, un cappuccino senza zucchero.
+      recast: {text: Io voglio zucchero non, fix: io non voglio lo zucchero, tags: [negation]}
+    - learner: Sì, grazie. E un cornetto vuoto.
+    - tutor: Ecco il cappuccino e il cornetto.
+      goals: [order-food]
+    - learner: Quanto costa?
+    - tutor: Sono 2,50 euro.
+    - learner: Ecco a Lei. Ciao!
+    - tutor: Grazie, arrivederci!
+      goals: [pay]
