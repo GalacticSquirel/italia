@@ -68,6 +68,53 @@ IRREGULAR_FORMS = {
 _SUPERLATIVE = re.compile(r"^(.{2,})issim[oaie]$")
 _ADVERB = re.compile(r"^(.{3,})mente$")
 
+# Present-tense and imperative endings, longest first, with the infinitive endings they can come
+# from. The dictionary lemmatiser picks one reading of a homograph ("paga" the noun, "usa" the
+# country, "sveglio" the adjective), so verb readings are added as extra candidates; a guess
+# only counts when the lemma list knows that infinitive.
+_VERB_ENDINGS: tuple[tuple[str, tuple[str, ...]], ...] = (
+    ("iscono", ("ire",)),
+    ("iscano", ("ire",)),
+    ("iamo", ("are", "ere", "ire")),
+    ("iate", ("are", "ere", "ire")),
+    ("isco", ("ire",)),
+    ("isci", ("ire",)),
+    ("isce", ("ire",)),
+    ("isca", ("ire",)),
+    ("ano", ("are", "ere", "ire")),
+    ("ono", ("ere", "ire")),
+    ("ino", ("are",)),
+    ("ate", ("are",)),
+    ("ete", ("ere",)),
+    ("ite", ("ire",)),
+    ("o", ("are", "ere", "ire")),
+    ("i", ("are", "ere", "ire")),
+    ("a", ("are", "ere", "ire")),
+    ("e", ("are", "ere", "ire")),
+)
+
+
+def verb_guesses(word: str) -> list[str]:
+    """Infinitives a present-tense or imperative form could belong to (unchecked guesses).
+
+    `paga -> pagare`, `usi -> usare`, `svegli -> svegliare`, `paghi -> pagare`,
+    `capisci -> capire`. Most guesses are not words; callers keep the ones in their list.
+    """
+    out: list[str] = []
+    for ending, infinitives in _VERB_ENDINGS:
+        if not word.endswith(ending) or len(word) - len(ending) < 2:
+            continue
+        stem = word[: -len(ending)]
+        stems = [stem]
+        if stem.endswith(("ch", "gh")):  # paghi -> pagare, cerchi -> cercare
+            stems.append(stem[:-1])
+        if ending[0] == "i":  # studi, studiamo -> studiare (the stem keeps its i)
+            stems.append(stem + "i")
+        for st in stems:
+            out.extend(st + inf for inf in infinitives)
+    return out
+
+
 # A word may end in an apostrophe when it is elided before a space ("qualcos' altro").
 _WORD = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]+(?:['\u2019][A-Za-zÀ-ÖØ-öø-ÿ]+)*['\u2019]?|\d+(?:[.,]\d+)*")
 _ELISION = re.compile(r"^([A-Za-zÀ-ÖØ-öø-ÿ]+)['\u2019]([A-Za-zÀ-ÖØ-öø-ÿ]+)$")
@@ -362,6 +409,13 @@ class Lemmatizer(Protocol):
 class SimplemmaLemmatizer:
     """Dictionary lemmatiser (simplemma, MIT) with an enclitic-pronoun fallback."""
 
+    @staticmethod
+    def _verb_readings(word: str) -> list[str]:
+        """Verb guesses for a known Italian form only, so a learner's "sapo" stays unknown."""
+        import simplemma  # noqa: PLC0415 - heavy dictionary load only when used
+
+        return verb_guesses(word) if simplemma.is_known(word, lang="it") else []
+
     def lemmas(self, word: str) -> list[str]:
         import simplemma  # noqa: PLC0415 - heavy dictionary load only when used
 
@@ -390,6 +444,7 @@ class SimplemmaLemmatizer:
             candidates.extend((adjective, lemma(adjective)))
         if len(word) > 4 and word[-1] in "aie":  # vista -> visto -> vedere
             candidates.append(lemma(word[:-1] + "o"))
+        candidates.extend(self._verb_readings(word))
         for clitic in _CLITICS:
             if word.endswith(clitic) and len(word) > len(clitic) + 3:
                 stem = word[: -len(clitic)]
