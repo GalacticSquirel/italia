@@ -46,7 +46,12 @@ function session(context: LlamaContext): LlamaSession {
         promptMs: result.timings.prompt_ms,
       };
     },
-    stop: () => context.stopCompletion(),
+    // llama.rn types stopCompletion() as a promise, but its JSI function only
+    // flags the running completion and returns undefined; wrap it so callers
+    // get the promise the interface promises.
+    async stop() {
+      await context.stopCompletion();
+    },
     async saveState(path, tokens) {
       await context.saveSession(path, { tokenSize: tokens });
     },
