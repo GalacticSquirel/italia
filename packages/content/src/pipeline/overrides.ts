@@ -151,6 +151,8 @@ export const FORM_READINGS: Readonly<Record<string, string>> = {
   stia: 'stare|VERB',
   do: 'dare|VERB',
   nulla: 'nulla|PRON',
+  "vent'": 'venti|NUM',
+  "mezz'": 'mezzo|ADJ',
   accetto: 'accettare|VERB',
   accetta: 'accettare|VERB',
   accetti: 'accettare|VERB',
