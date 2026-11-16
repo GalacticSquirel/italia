@@ -1,0 +1,95 @@
+# Supabase project configuration for local development (`supabase start`) and
+# for `supabase db push` / `supabase config push` against the hosted project.
+# Supabase is used only for accounts and log-based sync; see docs/sync.md.
+project_id = "italia"
+
+[api]
+enabled = true
+port = 54321
+# Only the public schema is exposed through the REST API.
+schemas = ["public"]
+extra_search_path = ["public", "extensions"]
+# Pull pages are at most 500 rows; keep a hard cap above that.
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 17
+
+[db.pooler]
+enabled = false
+
+[db.migrations]
+enabled = true
+schema_paths = []
+
+[db.seed]
+enabled = false
+
+[realtime]
+# Sync pulls on demand; no realtime subscriptions.
+enabled = false
+
+[studio]
+enabled = true
+port = 54323
+
+[inbucket]
+# Local mail catcher, for reading magic links and one-time codes in development.
+enabled = true
+port = 54324
+
+[storage]
+# No files or audio are stored on the server.
+enabled = false
+
+[edge_runtime]
+# No Edge Functions: the app talks to PostgREST directly, protected by row-level security.
+enabled = false
+
+[analytics]
+enabled = false
+
+[auth]
+enabled = true
+site_url = "italia://"
+additional_redirect_urls = ["italia://auth-callback", "exp+italia://auth-callback"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+enable_signup = true
+enable_anonymous_sign_ins = false
+minimum_password_length = 12
+
+[auth.rate_limit]
+email_sent = 4
+token_refresh = 150
+sign_in_sign_ups = 30
+token_verifications = 30
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false
+# Six-digit one-time codes, typed into the app; the same email also carries a magic link.
+otp_length = 6
+otp_expiry = 3600
+max_frequency = "60s"
+
+[auth.sms]
+enable_signup = false
+
+[auth.external.google]
+# Native Google sign-in passes an ID token to signInWithIdToken. List every OAuth client id
+# (web, Android, iOS) in client_id, comma separated. See docs/sync.md.
+enabled = false
+client_id = "env(SUPABASE_AUTH_GOOGLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_GOOGLE_SECRET)"
+skip_nonce_check = false
+
+[auth.external.apple]
+# Native Sign in with Apple passes an ID token to signInWithIdToken. See docs/sync.md.
+enabled = false
+client_id = "env(SUPABASE_AUTH_APPLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_APPLE_SECRET)"

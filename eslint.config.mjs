@@ -34,6 +34,8 @@ export default defineConfig([
     `${MOBILE}/android/`,
     `${MOBILE}/ios/`,
     `${MOBILE}/drizzle/`,
+    // Python model-training pipeline (checked by ruff, mypy and pytest instead).
+    'training/',
   ]),
 
   // Everything

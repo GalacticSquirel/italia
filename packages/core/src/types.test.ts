@@ -15,6 +15,6 @@ describe('enumerations', () => {
 
   it('includes every card kind from the plan', () => {
     expect(CARD_KINDS).toContain('minimal_pair');
-    expect(CARD_KINDS).toHaveLength(7);
+    expect(CARD_KINDS).toHaveLength(8);
   });
 });

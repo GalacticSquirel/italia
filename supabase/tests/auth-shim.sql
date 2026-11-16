@@ -1,0 +1,37 @@
+-- Test-only stand-in for the parts of a Supabase database the migrations use:
+-- the anon/authenticated roles, auth.users, and auth.uid() reading the JWT
+-- claims that PostgREST puts in `request.jwt.claims`. Lets the migrations and
+-- their row-level security be tested on plain Postgres (or PGlite) without
+-- the Supabase stack. Never apply this to a real Supabase project.
+do $$
+begin
+  if not exists (select 1 from pg_roles where rolname = 'anon') then
+    create role anon nologin noinherit;
+  end if;
+  if not exists (select 1 from pg_roles where rolname = 'authenticated') then
+    create role authenticated nologin noinherit;
+  end if;
+end
+$$;
+
+create schema if not exists auth;
+grant usage on schema auth to anon, authenticated;
+grant usage on schema public to anon, authenticated;
+
+create table if not exists auth.users (id uuid primary key);
+
+create or replace function auth.uid()
+returns uuid
+language sql
+stable
+as $$
+  select nullif(
+    coalesce(
+      current_setting('request.jwt.claim.sub', true),
+      (nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'sub')
+    ),
+    ''
+  )::uuid
+$$;
+
+grant execute on function auth.uid() to anon, authenticated;

@@ -1,0 +1,18 @@
+# LoRA SFT on one 80 GB GPU (A100/H100): ablations and quick iterations. ~4-8 h on 40k dialogues.
+extends: _gemma4-e4b-base.yaml
+name: sft-gemma4-e4b-lora
+method: lora
+backend: unsloth
+lora: {r: 64, alpha: 64, dropout: 0.0, targetModules: all-linear}
+trainFile: work/sft/sft.train.jsonl
+valFile: work/sft/sft.val.jsonl
+maxSeqLength: 4096
+optim:
+  learningRate: 2.0e-4
+  epochs: 2
+  perDeviceBatchSize: 4
+  gradientAccumulationSteps: 4
+  warmupRatio: 0.03
+  lrScheduler: cosine
+  optimizer: adamw_8bit
+outputDir: out/sft-gemma4-e4b-lora
