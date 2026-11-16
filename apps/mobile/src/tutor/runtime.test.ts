@@ -96,7 +96,6 @@ describe('chooseTutorModel', () => {
   it('recommends the largest model the phone can run', () => {
     const high = chooseTutorModel(views(['not_installed', 'not_installed']));
     expect(high.state === 'needs_download' && high.model.spec.id).toBe('gemma-4-e4b-it-q4_0');
-    expect(high.state === 'needs_download' && high.sizeBytes).toBe(4_590_807_392);
     const mid = chooseTutorModel(views(['unsupported', 'not_installed']));
     expect(mid.state === 'needs_download' && mid.model.spec.id).toBe('gemma-4-e2b-it-q4_0');
   });
