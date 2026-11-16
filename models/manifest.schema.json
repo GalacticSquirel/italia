@@ -39,7 +39,28 @@
         },
         "kind": {
           "description": "What the model does; the app picks providers by kind.",
-          "enum": ["stt", "phonemes", "tts", "llm", "audio-pack"]
+          "enum": ["stt", "phonemes", "tts", "llm", "audio-pack", "engine"]
+        },
+        "provides": {
+          "description": "Engine entries only: the native engine these files are a build of.",
+          "const": "llama"
+        },
+        "cpu": {
+          "description": "Engine entries only: the CPU this build needs. The app takes the first engine entry the phone meets, so list the most specific builds first.",
+          "type": "object",
+          "required": ["abi", "features"],
+          "additionalProperties": false,
+          "properties": {
+            "abi": { "enum": ["arm64-v8a", "x86_64"] },
+            "features": {
+              "type": "array",
+              "items": { "enum": ["fp16", "dotprod", "i8mm"] }
+            }
+          }
+        },
+        "needsEngine": {
+          "description": "Models run by a native engine: the engine they need, downloaded with them.",
+          "const": "llama"
         },
         "title": {
           "description": "Short name shown in Settings.",

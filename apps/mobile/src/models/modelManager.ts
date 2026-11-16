@@ -8,6 +8,13 @@
  * are unpacked after verification, and progress is kept in SQLite
  * (`model_file`) so a download interrupted by the app closing resumes later.
  *
+ * A model run by a native engine (`needsEngine`) is shown and installed
+ * together with the engine build that suits the phone's CPU (the first
+ * matching `engine` entry), so the app carries only a generic engine and the
+ * phone downloads the one fast build it can use. When every file of a model
+ * is verified the manager writes {@link INSTALLED_MARKER} into its folder;
+ * the native engine loader only loads a downloaded build that has it.
+ *
  * Native work (files, network, archives) sits behind {@link ModelStorage} and
  * {@link NetworkInfo}, so the logic here is tested with fakes.
  */
@@ -40,6 +47,8 @@ export interface ModelStorage {
   sha256(uri: string): Promise<string>;
   /** Delete a file or folder (no error when missing). */
   remove(uri: string): Promise<void>;
+  /** Write a small text file. */
+  writeText(uri: string, text: string): Promise<void>;
   /** Unpack an archive into a folder. */
   extract(archiveUri: string, dirUri: string): Promise<void>;
   /** Free space in bytes, or null when unknown. */
@@ -115,6 +124,12 @@ export interface ModelManagerDeps {
   capability: DeviceCapability;
 }
 
+/**
+ * File written into a model's folder once every file is verified. The
+ * patched llama.rn loader checks for it (see `patches/llama.rn*.patch`).
+ */
+export const INSTALLED_MARKER = '.installed';
+
 /** Room kept free on top of a download, so the phone does not fill up. */
 export const STORAGE_HEADROOM_BYTES = 200 * 1024 ** 2;
 
@@ -167,9 +182,32 @@ export class ModelManager {
     return null;
   }
 
-  /** Bytes used by installed and partly downloaded models. */
+  /** Bytes used by installed and partly downloaded models (engines included once). */
   storageUsedBytes(): number {
-    return this.snapshot.reduce((sum, m) => sum + m.bytesDone, 0);
+    const all = this.deps.repo.list();
+    return this.deps.manifest.models.reduce((sum, spec) => sum + this.ownBytes(spec, all), 0);
+  }
+
+  /**
+   * The engine build a model needs on this phone: the first published
+   * `engine` entry for its engine whose CPU requirements the phone meets, or
+   * null when the model needs none or no build matches (the app's generic
+   * engine is used then).
+   */
+  engineFor(modelId: string): ModelSpec | null {
+    const needs = this.spec(modelId).needsEngine;
+    if (needs === undefined) return null;
+    const { abi, cpuFeatures } = this.deps.capability;
+    return (
+      this.deps.manifest.models.find(
+        (m) =>
+          m.kind === 'engine' &&
+          m.provides === needs &&
+          m.cpu?.abi === abi &&
+          m.cpu.features.every((f) => cpuFeatures.has(f)) &&
+          isPublished(m),
+      ) ?? null
+    );
   }
 
   /**
@@ -191,6 +229,12 @@ export class ModelManager {
     if (connection === 'none') throw new OfflineError();
     if (connection !== 'wifi' && options.allowCellular !== true) throw new NotOnWifiError();
 
+    const engine = this.engineFor(modelId);
+    if (engine !== null && this.ownStatus(engine) !== 'installed') {
+      await this.install(engine.id, options);
+      if (this.ownStatus(engine) !== 'installed') return; // paused
+    }
+
     const rows = this.rows(modelId);
     const remaining = spec.files.filter(
       (f) => !(isCurrent(rows.get(f.name), f.sha256) && rows.get(f.name)?.status === 'installed'),
@@ -210,11 +254,14 @@ export class ModelManager {
     this.installing.add(modelId);
     try {
       const dir = this.deps.storage.modelDir(modelId);
+      const marker = this.deps.storage.join(dir, INSTALLED_MARKER);
       await this.deps.storage.ensureDir(dir);
+      if (remaining.length > 0) await this.deps.storage.remove(marker);
       for (const file of remaining) {
         const done = await this.installFile(spec, file.name, dir);
         if (!done) return; // paused
       }
+      await this.deps.storage.writeText(marker, spec.files.map((f) => f.sha256).join('\n'));
     } finally {
       this.installing.delete(modelId);
       this.refresh();
@@ -228,15 +275,38 @@ export class ModelManager {
     }
   }
 
-  /** Delete a model's files and state. */
+  /** Delete a model's files and state, and its engine build when nothing else needs it. */
   async remove(modelId: string): Promise<void> {
+    const engine = this.engineFor(modelId);
+    await this.removeOwn(modelId);
+    if (engine === null) return;
+    const stillNeeded = this.deps.manifest.models.some(
+      (m) =>
+        m.id !== modelId &&
+        this.engineFor(m.id)?.id === engine.id &&
+        this.ownStatus(m) !== 'not_installed',
+    );
+    if (!stillNeeded) await this.removeOwn(engine.id);
+  }
+
+  // -------------------------------------------------------------------------
+
+  private async removeOwn(modelId: string): Promise<void> {
     this.pause(modelId);
     await this.deps.storage.remove(this.deps.storage.modelDir(modelId));
     this.deps.repo.removeModel(modelId);
     this.refresh();
   }
 
-  // -------------------------------------------------------------------------
+  /** A model's own status, without its engine. */
+  private ownStatus(spec: ModelSpec): ModelStatus {
+    return this.ownView(spec, this.deps.repo.list()).status;
+  }
+
+  /** Bytes of a model's own files on disk. */
+  private ownBytes(spec: ModelSpec, all: readonly ModelFileRow[]): number {
+    return this.ownView(spec, all).bytesDone;
+  }
 
   private spec(modelId: string): ModelSpec {
     const spec = this.deps.manifest.models.find((m) => m.id === modelId);
@@ -344,7 +414,24 @@ export class ModelManager {
     for (const listener of [...this.listeners]) listener();
   }
 
+  /** A model's view, folded together with its engine build when it needs one. */
   private viewOf(spec: ModelSpec, all: readonly ModelFileRow[]): ModelView {
+    const own = this.ownView(spec, all);
+    const engineSpec = this.engineFor(spec.id);
+    if (engineSpec === null || ['unavailable', 'unsupported'].includes(own.status)) return own;
+    const engine = this.ownView(engineSpec, all);
+    const bytesDone = own.bytesDone + engine.bytesDone;
+    const bytesTotal = own.bytesTotal + engine.bytesTotal;
+    const error = own.error ?? engine.error;
+    if (own.status === engine.status) return { ...own, bytesDone, bytesTotal, error };
+    const order: ModelStatus[] = ['verifying', 'downloading', 'failed', 'paused'];
+    let status = order.find((s) => own.status === s || engine.status === s);
+    // One part installed and the other not started: partly installed.
+    status ??= 'paused';
+    return { spec, status, bytesDone, bytesTotal, error };
+  }
+
+  private ownView(spec: ModelSpec, all: readonly ModelFileRow[]): ModelView {
     const rows = new Map(all.filter((r) => r.modelId === spec.id).map((r) => [r.name, r]));
     const bytesTotal = spec.files.reduce((s, f) => s + f.sizeBytes, 0);
     let bytesDone = 0;
