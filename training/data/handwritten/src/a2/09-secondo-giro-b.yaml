@@ -1,0 +1,197 @@
+- scenario: biglietto-treno
+  level: A2
+  persona: en-m-retired
+  history: [verb-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Io e mia moglie andiamo a Venezia sabato."
+    - tutor: "Benissimo. Solo andata o andata e ritorno?"
+      goals: [destination]
+    - learner: "Solo andata. Poi da Venezia prendiamo l'aereo per tornare a casa."
+    - tutor: "Va bene. Preferite il treno veloce o il regionale? Il regionale è meno caro."
+      goals: [type]
+    - learner: "Prendiamo il treno veloce. Mia moglie non vuole stare in treno tante ore."
+    - tutor: "Capisco. Prima o seconda classe?"
+    - learner: "La seconda va bene. Noi sapiamo che è comoda."
+      errors: [verb-form]
+    - tutor: "Noi sapiamo? Sapere è un po' speciale. Ci prova ancora?"
+      prompt: {text: "noi sapiamo", tags: [verb-form]}
+    - learner: "Noi sappiamo che è comoda."
+    - tutor: "Perfetto! Allora due biglietti in seconda classe, sabato alle 9:20."
+      goals: [class]
+    - learner: "Grazie. Da quale binario parte?"
+    - tutor: "Il binario lo vedete sabato in stazione, di solito è il 5. Buon viaggio!"
+      goals: [platform]
+
+- scenario: casa-mia
+  level: A2
+  persona: es-m-worker
+  history: [noun-gender]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Vivo in un appartamento piccolo, vicino al ristorante dove lavoro."
+    - tutor: "Che bello! Quante stanze ci sono?"
+      goals: [type]
+    - learner: "C'è una camera, un bagno e la cucina. Il cucina è molto piccolo."
+      errors: [noun-gender]
+    - tutor: "Il cucina? Ma cucina finisce in a..."
+      prompt: {text: "il cucina", tags: [noun-gender]}
+    - learner: "La cucina è molto piccola!"
+    - tutor: "Esatto! Strano, per un cuoco una cucina piccola. Qual è la tua stanza preferita?"
+      goals: [rooms]
+      new: [{lemma: cuoco, gloss: cook}]
+    - learner: "La camera, perché ha un balcone grande con le piante."
+    - tutor: "Che bello! E tu, hai domande sulla mia casa?"
+      goals: [favourite]
+    - learner: "Sì. La tua casa ha un balcone?"
+    - tutor: "No, mi dispiace. Ma ho una terrazza grande!"
+      new: [{lemma: terrazza, gloss: terrace}]
+      goals: [ask]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-f-student
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì! Buongiorno. Il lavoro è ancora libero?"
+    - tutor: "Sì, cerco due camerieri per l'estate. Ha già fatto questo lavoro?"
+      goals: [ask]
+    - learner: "Sì, ho lavorato in un caffè a Leeds per un anno, durante l'università."
+    - tutor: "Bene. E sa portare tre caffè insieme?"
+      goals: [experience]
+    - learner: "Sì, l'ho fatto tante volte!"
+    - tutor: "Va bene! È disponibile tutta l'estate, anche a giugno?"
+      new: [{lemma: giugno, gloss: June}]
+    - learner: "No, solo da luglio. A giugno ho ancora gli esami."
+    - tutor: "Non è un problema. Mi lascia il suo numero? La chiamo questa settimana."
+      goals: [availability]
+    - learner: "Certo, ecco il mio numero. Grazie mille!"
+    - tutor: "Grazie a lei, a presto!"
+      goals: [contact]
+
+- scenario: chiedere-strada
+  level: A2
+  persona: es-f-teacher
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, scusi. È una farmacia qui vicino?"
+      errors: [ce-ci-sono]
+    - tutor: "È una farmacia? Lei vuole sapere se esiste qui vicino. Allora come chiede?"
+      prompt: {text: "è una farmacia", tags: [ce-ci-sono]}
+      new: [{lemma: esistere, gloss: to exist}]
+    - learner: "C'è una farmacia qui vicino?"
+    - tutor: "Sì, c'è! È in piazza, a cinque minuti."
+      goals: [get-attention, ask-place]
+    - learner: "Come arrivo in piazza?"
+    - tutor: "Va dritto e poi prende la seconda strada a destra. La farmacia è accanto alla chiesa."
+      new: [{lemma: accanto, gloss: next to}]
+    - learner: "Dritto, la seconda a destra, vicino alla chiesa. Ho capito bene?"
+    - tutor: "Sì, perfetto!"
+      goals: [understand]
+    - learner: "Grazie mille, è molto gentile."
+    - tutor: "Si figuri! Buona giornata."
+      goals: [thank]
+      new: [{lemma: figurarsi, gloss: not at all}]
+
+- scenario: compleanno
+  level: A2
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa a casa mia. Il compleanno è venerdì."
+    - tutor: "Venerdì sera va bene? Così il giorno dopo nessuno lavora."
+      goals: []
+    - learner: "Sì, perfetto. Invitamo i suoi amici del corso di danza?"
+      errors: [verb-form]
+    - tutor: "Attenzione al verbo con noi, manca una lettera."
+      new: [{lemma: verbo, gloss: verb}]
+      prompt: {text: "invitamo", tags: [verb-form]}
+    - learner: "Invitiamo i suoi amici del corso di danza?"
+      goals: []
+    - tutor: "Sì, invitiamoli tutti! Io scrivo anche a sua sorella."
+      goals: [date, guests]
+    - learner: "Bene. Io comprerò le bibite e tu porterai la torta, va bene?"
+    - tutor: "D'accordo, io porto la torta. E come regalo?"
+      goals: [food]
+    - learner: "Possiamo regalarle un biglietto per un concerto. Le piace molto la musica."
+    - tutor: "Bellissima idea! Lo compro io domani e lo diamo a Sara venerdì."
+      goals: [gift]
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: es-f-erasmus
+  history: [object-pronoun]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera cuciniamo la tortilla de patatas, un piatto spagnolo!"
+    - tutor: "Che bello! Cosa ci serve?"
+    - learner: "Ci servono patate, uova, cipolla, olio e sale."
+    - tutor: "Ho tutto. Cosa faccio con le patate?"
+      goals: [ingredients]
+    - learner: "Taglia le patate a pezzi piccoli. Poi cuocile in molto olio."
+    - tutor: "Va bene. E le uova?"
+    - learner: "Le uova, devi batterli in una ciotola."
+      errors: [object-pronoun]
+    - tutor: "Batterli? Attenzione, uova è femminile."
+      prompt: {text: "batterli", tags: [object-pronoun]}
+      new: [{lemma: femminile, gloss: feminine}]
+    - learner: "Devi batterle in una ciotola!"
+    - tutor: "Brava! E poi metto tutto insieme?"
+      goals: [steps]
+    - learner: "Sì, e poi cuoci tutto in una padella per dieci minuti."
+    - tutor: "Dieci minuti, va bene. Mangiamo subito o aspettiamo?"
+      goals: [time]
+    - learner: "È più buona fredda! Ma io la mangio sempre subito."
+    - tutor: "Anche io! Allora la mangiamo subito."
+      goals: [serve]
+
+- scenario: famiglia
+  level: A2
+  persona: en-m-retired
+  history: [essere-avere]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Sono i miei nipoti. Questa è Emma e questo è Jack."
+    - tutor: "Che belli! Quanti anni hanno?"
+      goals: [who]
+    - learner: "Emma è nove anni e Jack ha cinque anni."
+      errors: [essere-avere]
+    - tutor: "Emma è nove anni? Attenzione, qui usiamo un altro verbo."
+      prompt: {text: "emma è nove anni", tags: [essere-avere]}
+      new: [{lemma: verbo, gloss: verb}]
+    - learner: "Emma ha nove anni!"
+    - tutor: "Esatto! E come sono? Sono vivaci?"
+      goals: [ages]
+    - learner: "Emma è calma e molto intelligente. Jack invece è un piccolo terremoto!"
+    - tutor: "Un terremoto, che ridere! Li vedi spesso?"
+      goals: [describe]
+    - learner: "Ogni domenica. E tu, hai nipoti?"
+    - tutor: "Non ancora, ma mio fratello aspetta un bambino quest'inverno!"
+      goals: [ask]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: en-f-professional
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Mi sveglio alle sette e vado in ufficio in metro."
+    - tutor: "E arrivi presto in ufficio?"
+      goals: [wake]
+    - learner: "Alle otto e mezza. Io e i miei colleghi facciamo una riunione ogni mattina."
+    - tutor: "Ogni mattina! E a pranzo mangiate insieme?"
+      goals: [work]
+    - learner: "Sì, noi mangia sempre al bar sotto l'ufficio."
+      errors: [subject-verb-agreement]
+    - tutor: "Noi mangia? Con noi la fine è diversa."
+      prompt: {text: "noi mangia", tags: [subject-verb-agreement]}
+    - learner: "Noi mangiamo sempre al bar sotto l'ufficio."
+    - tutor: "Perfetto! E la sera?"
+    - learner: "La sera torno a casa verso le sette, cucino e guardo una serie."
+    - tutor: "Che bello! Io la sera invece vado a correre."
+      goals: [evening]
+    - learner: "Davvero? E a che ora ti svegli tu?"
+    - tutor: "Alle sei! Ma vado a dormire presto."
+      goals: [ask]

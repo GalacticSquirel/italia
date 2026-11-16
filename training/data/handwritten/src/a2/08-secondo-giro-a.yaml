@@ -1,0 +1,189 @@
+- scenario: weekend-scorso
+  level: A2
+  persona: en-m-heritage
+  history: [reflexive]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Ciao! Benissimo. Sabato sono andato al matrimonio di mio cugino a Napoli."
+    - tutor: "Un matrimonio, che bello! Com'era la festa?"
+      goals: [where]
+      new: [{lemma: matrimonio, gloss: wedding}]
+    - learner: "Bellissima. Abbiamo mangiato per cinque ore e abbiamo ballato fino alle tre."
+    - tutor: "Cinque ore! C'era tutta la famiglia?"
+      goals: [what]
+    - learner: "Sì, c'erano più di cento persone. Ho divertito molto."
+      errors: [reflexive]
+    - tutor: "Ho divertito? Chi hai divertito? Pensa a divertirsi."
+      prompt: {text: "ho divertito", tags: [reflexive]}
+    - learner: "Ho... ho divertito molto con i miei cugini."
+      errors: [reflexive]
+    - tutor: "Ah, ti sei divertito molto con i tuoi cugini! Sono contenta."
+      recast: {text: "ho divertito", fix: "ti sei divertito", tags: [reflexive]}
+      goals: [with-who]
+    - learner: "Sì, è stato un fine settimana fantastico, ma domenica ero stanchissimo."
+    - tutor: "Lo credo! Allora oggi ti offro io il caffè."
+      goals: [opinion]
+
+- scenario: vacanze-passate
+  level: A2
+  persona: es-f-teacher
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Sono stata in montagna, in Trentino, con la mia famiglia."
+    - tutor: "In montagna, che bello! Che tempo faceva?"
+      goals: [where]
+    - learner: "Faceva fresco, e un giorno ha piovuto tutto il giorno."
+    - tutor: "Peccato! E cosa avete fatto quel giorno?"
+      goals: [weather]
+    - learner: "Siamo rimasti in albergo e abbiamo giocato a carte. Gli altri giorni abbiamo camminato molto."
+    - tutor: "Che brava! Siete saliti anche in cima a una montagna?"
+      goals: [activities]
+      new: [{lemma: cima, gloss: top}]
+    - learner: "Sì, un giorno abbiamo salito fino a un rifugio a duemila metri."
+      errors: [auxiliary-choice]
+    - tutor: "Abbiamo salito? Qui salire è come andare."
+      prompt: {text: "abbiamo salito", tags: [auxiliary-choice]}
+    - learner: "Siamo saliti fino a un rifugio!"
+    - tutor: "Esatto! È stato il giorno più bello?"
+    - learner: "Sì, la vista era bellissima e abbiamo mangiato la polenta lassù."
+    - tutor: "Che bello! La prossima estate vengo con voi."
+      goals: [best]
+
+- scenario: vacanze-passate
+  level: A2
+  persona: en-f-student
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao Elena! Sono andata in Grecia con tre amiche."
+    - tutor: "In Grecia! Siete state al mare?"
+      goals: [where]
+    - learner: "Sì, siamo state su un'isola. Faceva caldissimo, quaranta gradi!"
+    - tutor: "Che caldo! E cosa facevate durante il giorno?"
+      goals: [weather]
+    - learner: "La mattina andavamo in spiaggia e il pomeriggio dormivamo. La sera uscivamo."
+    - tutor: "Vita perfetta! Avete visitato anche qualche città?"
+    - learner: "Sì, alla fine abbiamo visitato Atene per due giorni."
+    - tutor: "E qual è stato il momento più bello?"
+      goals: [activities]
+    - learner: "Una sera abbiamo visto il tramonto dal mare con una barca. Era incredibile."
+    - tutor: "Che sogno! Adesso voglio andare anche io in Grecia."
+      goals: [best]
+
+- scenario: bar-colazione
+  level: A2
+  persona: en-m-traveller
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Un caffè lungo, per favore. Ho dormito poco stanotte."
+    - tutor: "Subito! E da mangiare?"
+      goals: [greet, order-drink]
+    - learner: "Avete qualcosa di salato? Un panino con il prosciutto, forse?"
+    - tutor: "Sì, ho un panino con prosciutto e formaggio. Lo vuole caldo?"
+      goals: [order-food]
+    - learner: "Sì, grazie. Quanto è? Posso pagare per carta?"
+      errors: [preposition]
+    - tutor: "Per carta? Attenzione alla piccola parola prima di carta."
+      prompt: {text: "per carta", tags: [preposition]}
+    - learner: "Posso pagare con la carta?"
+    - tutor: "Esatto! Sì, certo. Sono 5 euro in tutto."
+    - learner: "Ecco. Grazie e buona giornata!"
+    - tutor: "Grazie a lei, buona giornata!"
+      goals: [pay]
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Siamo quattro. C'è un tavolo libero fuori?"
+    - tutor: "Sì, quello in fondo è libero. Ecco il menù."
+      goals: [ask-table]
+    - learner: "Grazie. Per primo voglio la pasta al pesto. È molto burro?"
+      errors: [word-choice]
+    - tutor: "Ah, vuole sapere se c'è molto burro? No, nel pesto non c'è."
+      recast: {text: "è molto burro", fix: "c'è molto burro", tags: [word-choice]}
+      new: [{lemma: burro, gloss: butter}]
+    - learner: "Perfetto, allora la prendo. E per secondo il pollo con le verdure."
+    - tutor: "Benissimo. E da bere cosa vi porto?"
+      goals: [order-food]
+    - learner: "Una caraffa d'acqua e quattro birre, per favore."
+    - tutor: "Arrivano subito."
+      goals: [order-drink]
+    - learner: "Scusi, ci porta il conto? Dobbiamo andare a lezione."
+    - tutor: "Certo, ve lo porto subito. Pagate tutti insieme?"
+      goals: [ask-bill]
+    - learner: "Sì, insieme, grazie."
+    - tutor: "Va bene, ecco il conto. Grazie e buona giornata!"
+
+- scenario: hotel-checkin
+  level: A2
+  persona: en-f-professional
+  history: [question-form]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Sì, buonasera. Ho prenotato una camera per due notti a nome Mitchell."
+    - tutor: "Sì, eccola: una camera per due persone. Mi può dare un documento, per favore?"
+      goals: [booking]
+    - learner: "Ecco il passaporto. A che ora finisce la colazione?"
+    - tutor: "Grazie. La colazione finisce alle dieci, al piano terra."
+      goals: [document, breakfast]
+    - learner: "Perfetto. E come funziona il wifi? Cosa è la password?"
+      errors: [question-form]
+    - tutor: "Cosa è la password? Qui in italiano usiamo un'altra parola per chiedere."
+      prompt: {text: "cosa è la password", tags: [question-form]}
+    - learner: "Qual è la password?"
+    - tutor: "Esatto! La password è sulla chiave. Camera 25, al secondo piano."
+      goals: [key]
+    - learner: "Grazie mille. Buonanotte!"
+    - tutor: "Buonanotte!"
+
+- scenario: abbigliamento
+  level: A2
+  persona: es-m-worker
+  history: [noun-number]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Cerco dei pantaloni per il lavoro, neri."
+    - tutor: "Certo. Ecco i nostri pantaloni neri. Che taglia porta?"
+      goals: [ask-item]
+    - learner: "La 48. E ho bisogno anche di due maglietta bianche."
+      errors: [noun-number]
+    - tutor: "Due maglietta bianche? Quante sono? Attenzione alla fine della parola."
+      prompt: {text: "due maglietta", tags: [noun-number]}
+    - learner: "Due magliette bianche!"
+    - tutor: "Perfetto! Ecco le magliette nella sua taglia."
+      goals: [size-colour]
+    - learner: "Posso provare i pantaloni?"
+    - tutor: "Sì, certo. Il camerino è lì, a sinistra."
+    - learner: "Mi vanno bene. Ci sono sconti oggi?"
+    - tutor: "Sì, sulle magliette c'è uno sconto del trenta per cento."
+      goals: [try]
+    - learner: "Ottimo, allora prendo tutto."
+    - tutor: "Benissimo! In tutto sono 62 euro."
+      goals: [decide]
+
+- scenario: autobus
+  level: A2
+  persona: en-f-student
+  history: [stare-gerund]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno! Sono cercando l'autobus per il museo."
+      errors: [stare-gerund]
+    - tutor: "Sono cercando? Attenzione, con cercando non usiamo essere."
+      prompt: {text: "sono cercando", tags: [stare-gerund]}
+    - learner: "Sto cercando l'autobus per il museo!"
+    - tutor: "Brava! Allora deve prendere la linea 3. Passa ogni dieci minuti."
+      goals: [route]
+    - learner: "Grazie. Ho un biglietto, ma non so dove timbrarlo."
+    - tutor: "Lo timbra sull'autobus, nella macchina gialla vicino alla porta."
+      goals: [ticket]
+    - learner: "E a quale fermata devo scendere?"
+    - tutor: "Deve scendere alla fermata Museo, dopo quattro fermate."
+      goals: [stop]
+    - learner: "Perfetto. Grazie mille!"
+    - tutor: "Di niente, buona visita!"
+      goals: [thank]
