@@ -57,8 +57,11 @@ export function parseStorySource(text: string): StorySource {
   const paragraphs: StorySourceSentence[][] = [];
   let current: StorySourceSentence[] = [];
   let inQuestions = false;
-  const questions: { prompt: StorySourceSentence; options: StorySourceSentence[]; answer: number }[] =
-    [];
+  const questions: {
+    prompt: StorySourceSentence;
+    options: StorySourceSentence[];
+    answer: number;
+  }[] = [];
   const split = (line: string, n: number): [string, string] => {
     const parts = line.split('|').map((p) => p.trim());
     const [it, en] = parts;

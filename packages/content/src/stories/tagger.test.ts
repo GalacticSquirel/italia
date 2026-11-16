@@ -202,7 +202,7 @@ describe('tagStory', () => {
         'questions:',
         '? Sara mangia una casa? | Is Sara eating a house?',
         '- Mangia una casa rossa. | She is eating a red house.',
-        '* Non mangia una casa: mangia una mela. | She isn\'t eating a house: she\'s eating an apple.',
+        "* Non mangia una casa: mangia una mela. | She isn't eating a house: she's eating an apple.",
       ].join('\n'),
     );
     const { story, issues } = tagger.tagStory(withQuestions, {

@@ -76,6 +76,14 @@ describe('committed stories', () => {
     }
     const low = new Set(stories.filter((s) => s.band <= 500).map((s) => s.seriesId));
     expect(low.size).toBeGreaterThanOrEqual(3);
+    // Past the beginner bands each band has several series, so learners keep
+    // finding new reading at their level.
+    for (const band of STORY_BANDS.filter((b) => b >= 750)) {
+      const inBand = stories.filter((s) => s.band === band);
+      expect(inBand.length, `band ${band}`).toBeGreaterThanOrEqual(15);
+      expect(new Set(inBand.map((s) => s.seriesId)).size, `band ${band}`).toBeGreaterThanOrEqual(3);
+    }
+    for (const s of stories) expect(s.questions.length, s.id).toBeGreaterThanOrEqual(3);
   });
 
   it('passes validation against the seed', () => {
@@ -107,7 +115,10 @@ describe('committed stories', () => {
       expect(story.paragraphs.map((p) => p.sentences.map((s) => ({ it: s.it, en: s.en })))).toEqual(
         source.paragraphs.map((p) => p.map((s) => ({ it: normaliseApostrophes(s.it), en: s.en }))),
       );
-      const text = (x: { it: string; en: string }) => ({ it: normaliseApostrophes(x.it), en: x.en });
+      const text = (x: { it: string; en: string }) => ({
+        it: normaliseApostrophes(x.it),
+        en: x.en,
+      });
       expect(
         story.questions.map((q) => ({
           prompt: { it: q.prompt.it, en: q.prompt.en },

@@ -17,7 +17,14 @@ import { join } from 'node:path';
 
 import { cachePath, readLock, sha256File } from './cache';
 import { readMorphIt } from './morph-it';
-import { loadSeedFile, loadVariantSpellings, MANIFEST_FILE, SEED_FILE, STORIES_DIR, STORIES_FILE } from '../src/node';
+import {
+  loadSeedFile,
+  loadVariantSpellings,
+  MANIFEST_FILE,
+  SEED_FILE,
+  STORIES_DIR,
+  STORIES_FILE,
+} from '../src/node';
 import { parseSubtlex } from '../src/pipeline/frequency';
 import { applyFormReadings, parseMorphIt } from '../src/pipeline/lexicon';
 import { FORM_READINGS, LEXICON_SUPPLEMENT } from '../src/pipeline/overrides';
