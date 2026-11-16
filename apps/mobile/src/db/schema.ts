@@ -6,7 +6,9 @@
  * - Content tables (`lemma`, `sentence`, `grammar_point`) use integer ids
  *   assigned by the content pipeline, so seed updates keep ids stable.
  * - Learner tables use text UUIDs generated on the device, so rows from
- *   several devices can be merged without collisions.
+ *   several devices can be merged without collisions. The exception is
+ *   `card`, whose id is derived from `(kind, target_id, prompt_mode)` (see
+ *   `cardIdFor` in `@/data`) so every device names the same card alike.
  * - Times are stored as integer milliseconds since the Unix epoch.
  * - `review_log` is append-only: rows are inserted, never updated or deleted.
  */
@@ -121,8 +123,10 @@ export const card = sqliteTable(
   },
   (t) => [
     uniqueIndex('card_target_unique').on(t.kind, t.targetId, t.promptMode),
-    index('card_due_idx').on(t.suspended, t.due),
-    index('card_state_idx').on(t.state),
+    // Serves CardRepo.getDue: equality on suspended, range and order on (due, id).
+    index('card_due_order_idx').on(t.suspended, t.due, t.id),
+    // Serves CardRepo.getNew and counts by state.
+    index('card_state_new_idx').on(t.suspended, t.state, t.createdAt, t.id),
   ],
 );
 
@@ -144,7 +148,8 @@ export const reviewLog = sqliteTable(
   },
   (t) => [
     index('review_log_card_reviewed_idx').on(t.cardId, t.reviewedAt),
-    index('review_log_reviewed_idx').on(t.reviewedAt),
+    // Serves keyset paging by (reviewed_at, id) in ReviewLogRepo.listSince.
+    index('review_log_reviewed_id_idx').on(t.reviewedAt, t.id),
     index('review_log_unsynced_idx').on(t.syncedAt),
     check('review_log_latency_nonnegative', sql`${t.latencyMs} >= 0`),
   ],
@@ -224,3 +229,13 @@ export const streakState = sqliteTable(
   },
   (t) => [check('streak_state_singleton', sql`${t.id} = 1`)],
 );
+
+/**
+ * Device-local key-value metadata (for example the imported seed version and
+ * this device's id). Never synced and never included in backups.
+ */
+export const appMeta = sqliteTable('app_meta', {
+  key: text('key').primaryKey(),
+  value: text('value').notNull(),
+  updatedAt: timestamp('updated_at').notNull(),
+});
