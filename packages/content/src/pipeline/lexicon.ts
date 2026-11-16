@@ -12,6 +12,8 @@
  * Pure: the build script reads the file and passes the text in.
  */
 
+import { splitNumeral } from './numerals';
+
 /** Universal POS tags used for seed lemmas. */
 export const UPOS = [
   'NOUN',
@@ -197,6 +199,12 @@ interface Row {
   gender?: 'm' | 'f';
 }
 
+/** A compound numeral ("ventotto") as its basic numbers (venti + otto); null otherwise. */
+function numeral(lemma: string, head: string, infl: string): Row | null {
+  const parts = splitNumeral(lemma);
+  return parts && { units: parts.map((l) => ({ lemma: l, upos: 'NUM' })), head, infl };
+}
+
 /** Normalise one Morph-it row; null for punctuation, symbols, abbreviations. */
 export function normaliseRow(form: string, lemma: string, tag: string): Row | null {
   const colon = tag.indexOf(':');
@@ -239,12 +247,12 @@ export function normaliseRow(form: string, lemma: string, tag: string): Row | nu
       return one('DET', 'il');
     }
     case 'DET':
-      if (head === 'DET-NUM-CARD') return one('NUM');
+      if (head === 'DET-NUM-CARD') return numeral(lemma, head, infl) ?? one('NUM');
       return one('DET');
     case 'TALE':
       return one('DET');
     case 'PRO': {
-      if (head === 'PRO-NUM') return one('NUM');
+      if (head === 'PRO-NUM') return numeral(lemma, head, infl) ?? one('NUM');
       if (head === 'PRO-PERS-CLI-COM') {
         const base = lemma.replace(/'$/, 'o');
         const pieces = splitClitics(base);
@@ -422,7 +430,13 @@ function lookupVariant(lexicon: Lexicon, form: string): readonly Reading[] | und
     }
   }
   if (bare !== form) return lexicon.get(bare);
-  return lookupEnclitic(lexicon, form);
+  return lookupNumeral(form) ?? lookupEnclitic(lexicon, form);
+}
+
+/** A compound numeral Morph-it! lacks ("ventitré") is read as its parts. */
+function lookupNumeral(form: string): readonly Reading[] | undefined {
+  const row = numeral(form, 'DET-NUM-CARD', '');
+  return row ? [{ units: row.units, heads: [row.head], infl: [] }] : undefined;
 }
 
 /**

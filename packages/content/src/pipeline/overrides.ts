@@ -4,7 +4,8 @@
 
 /**
  * Glosses for high-frequency function words whose Wiktionary first senses are
- * long usage notes or alternative forms. Key: `lemma|UPOS`.
+ * long usage notes or alternative forms, and for everyday words Wiktionary only
+ * lists as a form of another word. Key: `lemma|UPOS`.
  */
 export const GLOSS_OVERRIDES: Readonly<Record<string, string>> = {
   'il|DET': 'the',
@@ -69,6 +70,15 @@ export const GLOSS_OVERRIDES: Readonly<Record<string, string>> = {
   'vostro|DET': 'your, yours (plural)',
   'questo|DET': 'this, this one',
   'quello|DET': 'that, that one',
+  // Everyday nouns whose Wiktionary entry is only "female equivalent of ...".
+  'cugina|NOUN': 'cousin (female)',
+  'maestra|NOUN': 'teacher (female, primary school)',
+  'dottoressa|NOUN': 'doctor (female)',
+  'commessa|NOUN': 'shop assistant (female)',
+  'impiegata|NOUN': 'office worker, clerk (female)',
+  'professoressa|NOUN': 'teacher, professor (female)',
+  'operaia|NOUN': 'worker, factory worker (female)',
+  'segretaria|NOUN': 'secretary (female)',
 };
 
 /**
@@ -162,6 +172,7 @@ export const FORM_READINGS: Readonly<Record<string, string>> = {
   malissimo: 'male|ADV',
   salivo: 'salire|VERB',
   salivano: 'salire|VERB',
+  latte: 'latte|NOUN',
 };
 
 /**
@@ -180,8 +191,30 @@ export const PREFERRED_POS: Readonly<Record<string, string>> = {
 };
 
 /**
+ * Everyday nouns Morph-it! 0.4.8 lacks (see `everyday.ts`), as
+ * `singular:plural:gender`. A blank plural means the noun is invariable; `-` leaves
+ * the plural out ("agli" is far more often the preposition).
+ */
+const MISSING_NOUNS = [
+  'aceto:aceti:M aglio:-:M aspirapolvere::M bancomat::M brina:brine:F capolinea::M',
+  'capra:capre:F caraffa:caraffe:F cece:ceci:M colapasta::M grattugia:grattugie:F',
+  'impiegata:impiegate:F mandorla:mandorle:F noce:noci:F origano:origani:M',
+  'ortografia:ortografie:F passero:passeri:M preside:presidi:M ragù::M',
+  'rosmarino:rosmarini:M rotonda:rotonde:F sagrestano:sagrestani:M spinacio:spinaci:M',
+  'stendino:stendini:M teglia:teglie:F zucchina:zucchine:F',
+];
+
+function nounRows(entry: string): string[] {
+  const [singular = '', plural = '', gender = ''] = entry.split(':');
+  const rows = [`${singular}\t${singular}\tNOUN-${gender}:s`];
+  if (plural !== '-') rows.push(`${plural || singular}\t${singular}\tNOUN-${gender}:p`);
+  return rows;
+}
+
+/**
  * Rows missing from Morph-it! 0.4.8, in its own `form<TAB>lemma<TAB>tag` format
- * (it lists only "veduto" as the participle of vedere, and lacks "ehi").
+ * (it lists only "veduto" as the participle of vedere, lacks "ehi", and lacks
+ * some everyday nouns).
  */
 export const LEXICON_SUPPLEMENT = [
   'ehi\tehi\tINT',
@@ -189,6 +222,7 @@ export const LEXICON_SUPPLEMENT = [
   'vista\tvedere\tVER:part+past+s+f',
   'visti\tvedere\tVER:part+past+p+m',
   'viste\tvedere\tVER:part+past+p+f',
+  ...MISSING_NOUNS.join(' ').split(' ').flatMap(nounRows),
 ].join('\n');
 
 /** Single letters are only kept when they are real words. */

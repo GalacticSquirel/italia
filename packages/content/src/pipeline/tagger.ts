@@ -72,9 +72,26 @@ function isCliticOrNegation(r: Reading): boolean {
 const isAuxForm = (r: Reading): boolean =>
   (isVerb(r, 'essere') || isVerb(r, 'avere')) && headUpos(r) === 'VERB';
 
-function contextFactor(reading: Reading, prev: Reading | null, nextUpos: Set<Upos>): number {
+/**
+ * A number word after an article or another number ("alle sei", "cinque o sei")
+ * or before a word that can only be a noun ("sei anni") is a number, not a verb.
+ */
+function numberContext(prev: Reading | null, before: Reading | null, nextUpos: Set<Upos>): boolean {
+  if (prev && (headLemma(prev) === 'il' || prev.units.at(-1)?.lemma === 'il')) return true;
+  if (prev && headUpos(prev) === 'NUM') return true;
+  if (prev && headUpos(prev) === 'CCONJ' && before && headUpos(before) === 'NUM') return true;
+  return nextUpos.size > 0 && [...nextUpos].every((u) => u === 'NOUN');
+}
+
+function contextFactor(
+  reading: Reading,
+  prev: Reading | null,
+  nextUpos: Set<Upos>,
+  before: Reading | null = null,
+): number {
   const upos = headUpos(reading);
   let f = 1;
+  if (upos === 'NUM' && numberContext(prev, before, nextUpos)) f *= 1000;
   if (prev) {
     if (isDeterminerLike(prev)) {
       if (upos === 'NOUN') f *= 6;
@@ -131,6 +148,7 @@ export function tagSentence(
   });
   const out: TaggedToken[] = [];
   let prev: Reading | null = null;
+  let before: Reading | null = null;
   tokens.forEach((token, i) => {
     const readings = candidates[i] ?? [];
     const capitalised = /^\p{Lu}/u.test(token.text);
@@ -139,6 +157,7 @@ export function tagSentence(
     const properNoun = capitalised && (!known || onlyName || (i > 0 && readings.length === 0));
     if (readings.length === 0) {
       out.push({ ...token, reading: null, properNoun });
+      before = prev;
       prev = null;
       return;
     }
@@ -151,7 +170,7 @@ export function tagSentence(
     let best = 0;
     let bestScore = -1;
     readings.forEach((r, j) => {
-      const score = (priors[j] ?? 0) * contextFactor(r, prev, nextUpos);
+      const score = (priors[j] ?? 0) * contextFactor(r, prev, nextUpos, before);
       if (score > bestScore) {
         bestScore = score;
         best = j;
@@ -159,6 +178,7 @@ export function tagSentence(
     });
     const reading = readings[best] ?? null;
     out.push({ ...token, reading, properNoun: false });
+    before = prev;
     prev = reading;
   });
   return out;
