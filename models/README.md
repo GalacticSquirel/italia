@@ -36,7 +36,7 @@ and bandwidth, no file size limit, resumable downloads), with URLs pinned to a c
 `scripts/publish_files.py` uploads each file (from a local build or its upstream URL, checked
 against the manifest's size and SHA-256), skips files already there, and rewrites the URLs. Run
 it from GitHub with the **Publish model files** workflow (Actions tab), which needs the
-`HF_TOKEN` secret (a Hugging Face write token) and the `HF_MODELS_REPO` variable
+`HF_TOKEN` (or `HF_WRITE`) secret (a Hugging Face write token) and the `HF_MODELS_REPO` variable
 (`OWNER/italia-models`). Put files we build (the phonemizer export, a fine-tuned tutor GGUF) in
 `models/build/` (git-ignored) or pass `--local-dir`.
 
