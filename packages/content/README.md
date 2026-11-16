@@ -10,7 +10,8 @@ runs on a development machine.
 `{ version, generatedAt, sources[], lemmas[], sentences[], grammarPoints[] }`:
 
 - **lemmas**: the 10,000 most frequent Italian lemmas with part of speech (Universal POS), rank and
-  a short English gloss.
+  a short English gloss. About 560 everyday words that subtitles underrate (months, numbers,
+  food, family, school, home) are ranked within their CEFR level (see Pipeline step 3).
 - **sentences**: about 36,000 Italian-English pairs from Tatoeba, 3 to 12 words, chosen per lemma
   so that the target is the rarest word in the sentence (n+1), up to 5 per lemma.
 - **grammarPoints**: 114 hand-written grammar points from A1 to C2 in acquisition order
@@ -80,7 +81,11 @@ minute and needs roughly 4 GB of memory.
 3. **Glosses**: the first usable Wiktionary senses for the matching part of speech. Variant
    spellings (apocopic `buon`, `bel`, euphonic `ed`, `ad`) are merged into their base lemma, and
    each merged group takes the part of speech that has a gloss. Lemmas without a gloss,
-   profanity and mostly vulgar words are dropped.
+   profanity and mostly vulgar words are dropped. Lemmas are ranked by frequency, except that the
+   hand-picked everyday words in `src/pipeline/everyday.ts` move up, as little as needed, to
+   their level's rank ceiling (A1 500, A2 1,500, B1 3,000, B2 5,000): subtitles rarely say
+   "gennaio", "forchetta" or "nuora", but learners need them early. Everyday nouns Morph-it!
+   lacks (`aglio`, `noce`, `capra`) are added in `overrides.ts`.
 4. **Sentences**: Tatoeba it-en pairs are tokenised and tagged with a small rule-based tagger.
    Sentences with unknown words, digits, more than two names or subjunctive / passato remoto
    forms are skipped. Each lemma gets up to 5 anchor sentences ranked by native-speaker
@@ -89,7 +94,8 @@ minute and needs roughly 4 GB of memory.
 5. **Grammar**: `src/grammar/points.ts` (hand-written) and `src/grammar/rules.ts` (detection).
 6. **Validation**: the seed is parsed with the zod schema before it is written, and
    `src/seed.test.ts` checks ids, the prerequisite DAG, coverage and size, that about 120
-   must-have words are present within a rank limit, and that every one of the top 300 word
+   must-have words are present within a rank limit, that every everyday word is within its
+   level ceiling, and that every one of the top 300 word
    forms maps to a seed lemma, is a name, or is listed in `EXCLUDED_TOP_FORMS` with a reason.
 
 ## Graded stories
@@ -177,7 +183,11 @@ before band 750). Informal _tu_ is used throughout; formal _Lei_ appears from ba
 ("l'acqua", "dell'", "c'è"), articulated prepositions ("nel" = in + il) and enclitics ("dimmi" =
 dire + mi, "alzarsi" = alzare + si) map to seed lemmas. A token has the head lemma in `lemmaId`
 and further lemmas in `partIds`. Variant spellings the seed folded into a base word (`ed`, `ad`,
-`po'`, `buon`, `bel`, `qual`, `anch'`; listed in `seed/build-report.json`) map to that word. Tokens listed under `names:` are marked `isName` even when they
+`po'`, `buon`, `bel`, `qual`, `anch'`; listed in `seed/build-report.json`) map to that word.
+Compound numerals are read as their parts ("ventotto" = venti + otto, "duemilasei" = due +
+mille + sei, `src/pipeline/numerals.ts`), so any number is in band once its parts are, and "sei"
+after an article or a number or before a noun ("alle sei", "sei anni") is the number, not the
+verb. Tokens listed under `names:` are marked `isName` even when they
 are also words ("Rosa", "Bruno"); a capitalised word that is neither is reported.
 
 `wordTimings` is filled by the audio phase and stored in the `story.word_timings` column: one

@@ -53,8 +53,7 @@ describe('number words', () => {
   );
   const counts = new Map([['sei', dist({ VER: 980, ADJ: 20 })]]);
   const sei = (sentence: string) =>
-    tagSentence(sentence, lexicon, counts).find((t) => t.lower === 'sei')?.reading
-      ?.units[0]?.lemma;
+    tagSentence(sentence, lexicon, counts).find((t) => t.lower === 'sei')?.reading?.units[0]?.lemma;
 
   it('reads "sei" as six after an article or a number, or before a noun', () => {
     expect(sei('alle sei')).toBe('sei');

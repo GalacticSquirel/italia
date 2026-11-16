@@ -104,7 +104,8 @@ export const EVERYDAY_VOCABULARY: Readonly<Record<EverydayLevel, readonly string
     'panettone coriandolo polenta salumeria enoteca osteria caraffa mestolo grattugia colapasta',
     'nostalgia malinconia stanchezza lentezza pigrizia timidezza sollievo spazzaneve sagrestano',
     'doglia raffermo geografo',
-  ],};
+  ],
+};
 
 /** Every entry with its rank ceiling. Throws on a duplicate. */
 export function everydayCeilings(): Map<string, number> {

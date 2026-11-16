@@ -10,6 +10,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import { GRAMMAR_POINTS } from './grammar/points';
 import { toRows } from './loader';
 import { loadSeedFile, SEED_FILE } from './node';
+import { everydayCeilings } from './pipeline/everyday';
 import { lemmaId } from './pipeline/ids';
 import { EXCLUDED_TOP_FORMS } from './pipeline/overrides';
 import { type Seed } from './schema';
@@ -161,6 +162,21 @@ describe('frequent words', () => {
       .map(
         ({ word, limit }) =>
           `${word} (rank ${String(rankOf.get(word) ?? 'missing')}, limit ${limit})`,
+      );
+    expect(failures).toEqual([]);
+  });
+
+  it('ranks every everyday word within its level ceiling', () => {
+    const rankOf = new Map<string, number>();
+    for (const l of seed.lemmas) {
+      for (const key of [l.lemma, `${l.lemma}|${l.pos}`])
+        rankOf.set(key, Math.min(rankOf.get(key) ?? Infinity, l.freqRank));
+    }
+    const failures = [...everydayCeilings()]
+      .filter(([entry, ceiling]) => !((rankOf.get(entry) ?? Infinity) <= ceiling))
+      .map(
+        ([entry, ceiling]) =>
+          `${entry} (rank ${rankOf.get(entry) ?? 'missing'}, ceiling ${ceiling})`,
       );
     expect(failures).toEqual([]);
   });

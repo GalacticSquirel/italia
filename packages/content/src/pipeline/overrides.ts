@@ -147,7 +147,6 @@ export const BLOCKED_LEMMAS: ReadonlySet<string> = new Set([
  * (the tagged corpus mislabels them). Value: the one `lemma|UPOS` to keep.
  */
 export const FORM_READINGS: Readonly<Record<string, string>> = {
-  sei: 'essere|VERB',
   era: 'essere|VERB',
   sai: 'sapere|VERB',
   grazie: 'grazie|INTJ',

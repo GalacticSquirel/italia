@@ -97,7 +97,10 @@ export function splitNumeral(word: string): string[] | null {
   } else if (mila > 0) {
     const head = belowThousand(s.slice(0, mila));
     const rest = belowThousand(s.slice(mila + 'mila'.length));
-    parts = head && rest && !(head.length === 1 && head[0] === 'uno') ? [...head, 'mille', ...rest] : null;
+    parts =
+      head && rest && !(head.length === 1 && head[0] === 'uno')
+        ? [...head, 'mille', ...rest]
+        : null;
   } else {
     parts = belowThousand(s);
   }

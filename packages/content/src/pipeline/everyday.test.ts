@@ -19,7 +19,8 @@ describe('applyRankCeilings', () => {
     const ceilings: Record<string, number> = { h: 2, j: 4, i: 4 };
     const out = applyRankCeilings(letters, (x) => ceilings[x]);
     expect(out).toEqual(['a', 'h', 'i', 'j', 'b', 'c', 'd', 'e', 'f', 'g']);
-    for (const [x, c] of Object.entries(ceilings)) expect(out.indexOf(x) + 1).toBeLessThanOrEqual(c);
+    for (const [x, c] of Object.entries(ceilings))
+      expect(out.indexOf(x) + 1).toBeLessThanOrEqual(c);
   });
 
   it('throws when the ceilings cannot all be met', () => {

@@ -19,7 +19,16 @@ describe('splitNumeral', () => {
   });
 
   it('leaves basic numbers and other words alone', () => {
-    for (const w of ['venti', 'cento', 'mille', 'tre', 'diciotto', 'tré', 'quarantena', 'centrale']) {
+    for (const w of [
+      'venti',
+      'cento',
+      'mille',
+      'tre',
+      'diciotto',
+      'tré',
+      'quarantena',
+      'centrale',
+    ]) {
       expect(splitNumeral(w)).toBeNull();
     }
     expect(splitNumeral('ventidieci')).toBeNull();

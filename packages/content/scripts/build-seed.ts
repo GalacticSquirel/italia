@@ -20,6 +20,7 @@ import { serialiseSeed } from './serialise-seed';
 import { SOURCES, type SourceId } from './sources';
 import { detectGrammar, usesOutOfScopeGrammar } from '../src/grammar/rules';
 import { grammarSeedRows } from '../src/grammar/seedRows';
+import { applyRankCeilings, everydayCeilings, everydayKeys } from '../src/pipeline/everyday';
 import {
   countLemmas,
   ghostLemmas,
@@ -37,7 +38,6 @@ import {
   WIKTIONARY_POS,
   type WiktionaryEntry,
 } from '../src/pipeline/glosses';
-import { applyRankCeilings, everydayCeilings, everydayKeys } from '../src/pipeline/everyday';
 import { lemmaId } from '../src/pipeline/ids';
 import {
   applyFormReadings,
