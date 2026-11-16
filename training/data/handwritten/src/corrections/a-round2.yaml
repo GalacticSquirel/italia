@@ -1,0 +1,706 @@
+# Round 2 (A1 + A2): failed repairs with recast, two errors in one turn, repeated off-topic turns,
+# longer free conversation, and scenarios round 1 barely used.
+- scenario: supermercato
+  level: A1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buongiorno, cerca qualcosa?"
+  - learner: "Buongiorno. Sì, cerco il zucchero."
+    errors: [article-form]
+  - tutor: "Certo! Ma attenzione alla parola prima di zucchero."
+    prompt: {text: "il zucchero", tags: [article-form]}
+  - learner: "Ehm... un zucchero?"
+    errors: [article-form]
+  - tutor: "Lo zucchero è qui, vicino al caffè."
+    recast: {text: "un zucchero", fix: "Lo zucchero", tags: [article-form]}
+    goals: [ask-product]
+  - learner: "Lo zucchero, ok. Grazie! E avete eggs?"
+    errors: [word-choice]
+  - tutor: "Sì, abbiamo le uova. Sono in fondo, dopo il latte."
+    recast: {text: "eggs", fix: "le uova", tags: [word-choice]}
+    goals: [ask-other]
+  - learner: "Perfetto. Lei è di Napoli? Io amo Napoli!"
+  - tutor: "No, sono di Bari! Ma Napoli è bellissima. Cerca altro?"
+  - learner: "No, grazie. Dov'è la cassa?"
+  - tutor: "La cassa è lì, a sinistra."
+  - learner: "Grazie mille, arrivederci!"
+  - tutor: "Prego, buona giornata!"
+    goals: [thank]
+    done: true
+
+- scenario: taxi
+  level: A1
+  persona: en-m-retired
+  turns:
+  - tutor: "Buongiorno! Dove la porto?"
+  - learner: "Buongiorno. Vado a l'albergo Roma, per favore. Sono due valigie."
+    errors: [essere-avere, articulated-preposition]
+  - tutor: "Sono due valigie? Lei è una valigia?"
+    prompt: {text: "Sono due valigie", tags: [essere-avere]}
+  - learner: "Ah, no! Ho due valigie."
+  - tutor: "Ecco! Le metto dietro. Andiamo all'albergo Roma."
+    goals: [destination]
+  - learner: "Grazie. L'albergo è lontano?"
+  - tutor: "No, è vicino. Sono 10 minuti."
+    goals: [ask-time]
+  - learner: "Bene. Fa molto caldo oggi! A Lei piace questa città?"
+  - tutor: "Sì, molto! Oggi però fa troppo caldo."
+  - learner: "Capisco. E quanto costa per l'albergo?"
+  - tutor: "Sono 15 euro. Contanti o carta?"
+    goals: [ask-price]
+  - learner: "Posso pagare con card?"
+    errors: [word-choice]
+  - tutor: "Sì, certo, può pagare con la carta. Siamo arrivati!"
+    recast: {text: "card", fix: "carta", tags: [word-choice]}
+  - learner: "Ecco la carta. Grazie e arrivederci!"
+  - tutor: "Grazie a Lei! Ecco le valigie. Buona giornata!"
+    goals: [pay]
+    done: true
+
+- scenario: chiedere-strada
+  level: A1
+  persona: en-f-student
+  turns:
+  - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+  - learner: "Sì, scusi! Dov'è la stazione?"
+  - tutor: "È vicina. Lei va dritto fino al semaforo."
+    goals: [get-attention, ask-place]
+  - learner: "Sorry, I don't understand. Semaforo?"
+  - tutor: "Il semaforo è la luce rossa e verde. Lì gira a destra."
+  - learner: "Ah, ok! Dritto, poi a destra. È lontano?"
+  - tutor: "No, sono 5 minuti a piedi."
+    goals: [understand]
+  - learner: "Bene! Lei abita qui? Mi piace molto questa città."
+  - tutor: "Sì, abito qui dietro. È piccola ma bella, vero?"
+  - learner: "Sì! E c'è un ristorante buono qui vicino?"
+  - tutor: "In piazza c'è una buona pizza. Ma Lei non prende il treno?"
+  - learner: "Sì, sì! Il mio treno parte a le tre."
+    errors: [articulated-preposition]
+  - tutor: "A le tre? Sono due parole o una sola?"
+    prompt: {text: "a le tre", tags: [articulated-preposition]}
+  - learner: "Una! Parte alle tre. Grazie mille, arrivederci!"
+  - tutor: "Giusto! Allora ha tempo. Buon viaggio!"
+    goals: [thank]
+    done: true
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno, benvenuti! Quanti siete?"
+  - learner: "Buongiorno. Siamo dos."
+    errors: [word-choice]
+  - tutor: "Siete in due? Ecco un tavolo vicino alla finestra."
+    recast: {text: "dos", fix: "due", tags: [word-choice]}
+    goals: [ask-table]
+  - learner: "Grazie. Per me la pasta al pomodoro. E per mio amico il pesce."
+    errors: [possessive]
+  - tutor: "Per mio amico? Qui manca una piccola parola."
+    prompt: {text: "per mio amico", tags: [possessive]}
+  - learner: "Per... mi amico?"
+    errors: [possessive]
+  - tutor: "Va bene: il pesce per il suo amico. E da bere?"
+    recast: {text: "mi amico", fix: "il suo amico", tags: [possessive]}
+    goals: [order-food]
+  - learner: "Una bottiglia di acqua e un bicchiere di vino rosso."
+  - tutor: "Benissimo, li porto subito."
+    goals: [order-drink]
+  - learner: "Una domanda: perché 'il suo amico' ma 'mio padre'?"
+  - tutor: "Con la famiglia non c'è l'articolo: mio padre. Con amico sì!"
+    new: [{lemma: "articolo", gloss: "article"}]
+  - learner: "Ah, capisco. Il mio amico! Il conto, per favore."
+  - tutor: "Subito! Sono 30 euro in tutto."
+    goals: [ask-bill]
+  - learner: "Ecco. Grazie, tutto molto buono!"
+  - tutor: "Grazie a voi! Buona giornata!"
+    done: true
+
+- scenario: orari-negozio
+  level: A1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Pronto, negozio Bianchi, buongiorno!"
+  - learner: "Buongiorno. A che ora chiude il negozio oggi?"
+  - tutor: "Buongiorno! Oggi chiudiamo alle 19."
+    goals: [greet, ask-hours]
+  - learner: "Bene. E il negozio è abierto la domenica?"
+    errors: [word-choice]
+  - tutor: "No, la domenica non è aperto. Apriamo dal lunedì al sabato."
+    recast: {text: "abierto", fix: "aperto", tags: [word-choice]}
+    new: [{lemma: "aperto", gloss: "open"}]
+    goals: [ask-day]
+  - learner: "Capisco. Io lavoro in una scuola e la mattina non posso. Tu sei aperto il pomeriggio?"
+    errors: [register]
+  - tutor: "Tu? Signora, con un negozio serve un'altra parola."
+    prompt: {text: "Tu sei aperto", tags: [register]}
+  - learner: "Ah, mi scusi! Siete aperti il pomeriggio?"
+  - tutor: "Sì, il pomeriggio apriamo alle 15."
+  - learner: "Perfetto. Allora vengo lunedì dopo la scuola. Grazie e arrivederci!"
+  - tutor: "Grazie a Lei, a lunedì! Arrivederci!"
+    goals: [goodbye]
+    done: true
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-m-heritage
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Buongiorno. Sì, cerco una maglietta per una festa."
+  - tutor: "Certo! Che taglia porta?"
+    goals: [ask-item]
+  - learner: "La taglia media. Avete una maglietta rosso?"
+    errors: [adjective-agreement]
+  - tutor: "Sì! Ma il colore non finisce in o."
+    prompt: {text: "maglietta rosso", tags: [adjective-agreement]}
+  - learner: "Una maglietta rossi, taglia media?"
+    errors: [adjective-agreement]
+  - tutor: "Ecco una maglietta rossa, taglia media."
+    recast: {text: "maglietta rossi", fix: "maglietta rossa", tags: [adjective-agreement]}
+    goals: [size-colour]
+  - learner: "Rossa, giusto. La festa è per mia nonna. She turns ninety on Sunday!"
+  - tutor: "90 anni, che bello! È una grande festa."
+  - learner: "Grazie! Lei è di Bari e parla sempre italiano con me. How do you say 'try on'?"
+  - tutor: "Si dice provare. Vuole provare la maglietta?"
+  - learner: "Sì, grazie. Dov'è il camerino?"
+  - tutor: "Il camerino è lì, a destra."
+    goals: [try]
+  - learner: "È perfetta! Quanto viene?"
+  - tutor: "Sono 20 euro. Oggi però c'è lo sconto: 15."
+  - learner: "Bene, la prendo!"
+  - tutor: "Benissimo, grazie! Buona festa e arrivederci!"
+    goals: [decide]
+    done: true
+
+- scenario: tempo-libero
+  level: A1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  - learner: "Di solito gioco a football con amici. E poi andiamo al bar!"
+    errors: [word-choice]
+  - tutor: "Ah, giochi a calcio! Giochi ogni settimana?"
+    recast: {text: "a football", fix: "a calcio", tags: [word-choice]}
+    new: [{lemma: "calcio", gloss: "football"}]
+    goals: [hobby]
+  - learner: "Sì, ogni sabato. Ma tu di dove sei? Sei di Roma?"
+  - tutor: "No, sono di Torino. Ma parliamo di te: sei bravo?"
+    goals: [frequency]
+  - learner: "No! Io gioco no bene."
+    errors: [negation]
+  - tutor: "Scusa, come? Gioco no bene?"
+    prompt: {text: "gioco no bene", tags: [negation]}
+  - learner: "Ehm... io no gioco bene?"
+    errors: [negation]
+  - tutor: "Ah, non giochi bene! Neanche io."
+    recast: {text: "no gioco bene", fix: "non giochi bene", tags: [negation]}
+  - learner: "Non gioco bene, ok. Italian is so hard, sorry!"
+  - tutor: "Ma no, parli già bene! All'inizio è normale."
+  - learner: "Grazie! E tu cosa fai il sabato?"
+  - tutor: "Io vado spesso al mare. E leggo molto."
+    goals: [ask]
+  - learner: "Il mare! In Irlanda il mare è molto freddo. Quanto costa una casa a Torino?"
+  - tutor: "Eh, troppo! Senti, sabato c'è un concerto in piazza."
+    new: [{lemma: "concerto", gloss: "concert"}]
+  - learner: "Davvero? Andiamo insieme?"
+  - tutor: "Sì, certo! Ci vediamo sabato alle 8."
+    goals: [propose]
+    done: true
+
+- scenario: giorno-tipico
+  level: A1
+  persona: en-f-student
+  history: [subject-verb-agreement]
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata di solito?"
+  - learner: "Ciao! Mi sveglio alle sette e faccio colazione a casa."
+  - tutor: "Presto! E cosa mangi a colazione?"
+    goals: [wake]
+  - learner: "Pane e tè. Poi io va a università in autobus."
+    errors: [subject-verb-agreement, preposition]
+  - tutor: "Io va? Attenzione al verbo: io...?"
+    prompt: {text: "io va", tags: [subject-verb-agreement]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Ah! Io vado."
+  - tutor: "Giusto! Vai all'università in autobus. Fino a che ora resti lì?"
+    goals: [work]
+  - learner: "Fino alle cinque. Poi torno a casa e cucino con... how do you say 'flatmates'?"
+  - tutor: "Si dice coinquiline. Cosa cucinate la sera?"
+    new: [{lemma: "coinquilina", gloss: "flatmate"}]
+  - learner: "Pasta, sempre pasta! Non mi piace cucinare, ma mi piace mangiare."
+  - tutor: "Anche a me piace mangiare! E dopo cena cosa fate?"
+  - learner: "Guardiamo un film e a mezzanotte vado a dormire."
+  - tutor: "A mezzanotte, tardi! Io dormo alle 10."
+    goals: [evening]
+  - learner: "Alle dieci? E tu a che ora ti svegli?"
+  - tutor: "Alle 6! Lavoro presto la mattina."
+    goals: [ask]
+  - learner: "Alle sei! No, no, troppo presto per me."
+  - tutor: "Hai ragione, è presto! Buona giornata, ciao!"
+    done: true
+
+- scenario: casa-mia
+  level: A1
+  persona: en-m-retired
+  turns:
+  - tutor: "Allora, com'è la tua casa?"
+  - learner: "La mia casa è in Ohio. È grande e ha un giardino."
+  - tutor: "Bella! E com'è il giardino?"
+    goals: [type]
+  - learner: "È molto verde. Nel giardino sono tre alberi."
+    errors: [ce-ci-sono]
+  - tutor: "Sono tre alberi? Manca una piccola parola prima."
+    prompt: {text: "sono tre alberi", tags: [ce-ci-sono]}
+  - learner: "Nel giardino... là sono tre alberi?"
+    errors: [ce-ci-sono]
+  - tutor: "Ah, ci sono tre alberi, che bello! E dentro, quante camere?"
+    recast: {text: "là sono tre alberi", fix: "ci sono tre alberi", tags: [ce-ci-sono]}
+  - learner: "Ci sono tre camere, due bagni e una cucina piccola."
+  - tutor: "Una bella casa grande! Qual è la tua stanza preferita?"
+    goals: [rooms]
+  - learner: "Il garage! I'm an engineer, you know. I build things there."
+  - tutor: "Ah, lavori nel garage! Che cosa fai lì?"
+    goals: [favourite]
+  - learner: "Faccio tavoli e sedie. Adesso faccio un tavolo per mia figlia."
+  - tutor: "Che bravo! Tua figlia abita con voi?"
+  - learner: "No, lei abita a Chicago. E tu? Com'è la tua casa?"
+  - tutor: "Io ho un appartamento piccolo. Ma c'è un bel balcone!"
+    goals: [ask]
+  - learner: "Un balcone, che bello. Hai molti fiori?"
+  - tutor: "Sì, tanti fiori rossi! Li amo molto."
+    done: true
+
+- scenario: numero-telefono
+  level: A1
+  persona: en-f-professional
+  turns:
+  - tutor: "È stata una bella lezione, vero?"
+  - learner: "Sì, molto! Ma io faccio troppi errori. Sorry for all my mistakes."
+  - tutor: "Ma no, parli bene! Anch'io faccio errori in inglese."
+  - learner: "Grazie! Senti, vuoi prendere un caffè con me? Così parliamo italiano."
+  - tutor: "Sì, che bella idea! Quando sei libera?"
+    goals: [propose]
+  - learner: "Sabato sono libera. La domenica no: vado alla libreria per studiare, tutto il giorno."
+    errors: [false-friend]
+  - tutor: "Ah, vai in biblioteca! Allora sabato. A che ora?"
+    recast: {text: "alla libreria", fix: "in biblioteca", tags: [false-friend]}
+    new: [{lemma: "biblioteca", gloss: "library"}]
+  - learner: "Biblioteca, giusto! Sabato alle dieci va bene?"
+  - tutor: "Sì, alle 10 è perfetto. Qual è il tuo numero?"
+    goals: [when]
+  - learner: "Il mio numero è 347 555 0182. E il tuo?"
+  - tutor: "Il mio è 333 555 0147. Ti mando un messaggio."
+    goals: [number]
+  - learner: "Ecco il messaggio! A sabato allora."
+  - tutor: "A sabato! Ciao, buona giornata!"
+    done: true
+
+- scenario: lavanderia
+  level: A2
+  persona: en-f-student
+  turns:
+  - tutor: "Tutto bene? Hai bisogno di una mano?"
+  - learner: "Ciao! Sì, grazie. Ho messo le monete nella lavatrice, ma non ha partito."
+    errors: [auxiliary-choice]
+  - tutor: "Che strano! Ma attenzione: partire non vuole avere. La lavatrice...?"
+    prompt: {text: "non ha partito", tags: [auxiliary-choice]}
+  - learner: "La lavatrice non ha partita?"
+    errors: [auxiliary-choice]
+  - tutor: "Ah, non è partita! Succede spesso. Hai scelto il programma?"
+    recast: {text: "non ha partita", fix: "non è partita", tags: [auxiliary-choice]}
+    goals: [problem]
+  - learner: "Il programma? No... how does it work?"
+  - tutor: "È facile. Scegli un numero, per esempio il 3. Poi spingi il bottone verde."
+    new: [{lemma: "bottone", gloss: "button"}]
+  - learner: "Ah, ecco, adesso funziona! Tu vieni spesso qui? Sei uno studente anche tu?"
+  - tutor: "Sì, studio qui vicino e vengo ogni domenica. A casa non ho la lavatrice!"
+    goals: [ask-how]
+  - learner: "Neanch'io! La mia casa è piccolissima. Senti, c'è un bar qui vicino? Ho fame."
+  - tutor: "Sì, proprio di fronte, e si mangia bene. Ma prima: hai il detersivo?"
+  - learner: "Oh no, l'ho dimenticato! Posso comprarlo qui? E quanto costa l'asciugatrice?"
+  - tutor: "Il detersivo è in quella macchina, un euro. Per l'asciugatrice servono due gettoni."
+    goals: [payment]
+  - learner: "E dove compro i gettoni?"
+  - tutor: "Alla macchina vicino alla porta. Prende monete e carta."
+  - learner: "Perfetto. Grazie mille, sei stato molto gentile!"
+  - tutor: "Di niente! Se vuoi, dopo andiamo insieme a quel bar."
+    goals: [thank]
+    done: true
+
+- scenario: palestra
+  level: A2
+  persona: en-m-heritage
+  history: [past-participle-form]
+  turns:
+  - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+  - learner: "Ciao! Sì. Quanto costa l'abbonamento per un mese?"
+  - tutor: "Sono 40 euro al mese. Se prendi tre mesi, sono 100."
+    goals: [ask-membership]
+  - learner: "Non male. Mio cugino ha venuto qui l'anno scorso e ha dicuto che è una bella palestra."
+    errors: [past-participle-form, auxiliary-choice]
+  - tutor: "Tuo cugino ha ragione! Ma dire al passato è un po' strano. Lui ha...?"
+    prompt: {text: "ha dicuto", tags: [past-participle-form]}
+  - learner: "Lui ha... detto! Ha detto che è una bella palestra."
+  - tutor: "Esatto! E lui è venuto qui spesso? Abbiamo anche molti corsi."
+  - learner: "Sì, ogni giorno. C'è un corso di yoga? La mia ragazza vuole fare yoga, io preferisco i pesi."
+  - tutor: "Sì, c'è yoga il martedì e il giovedì sera. La sala pesi è sempre libera."
+    goals: [classes]
+  - learner: "A che ora comincia yoga? Lei lavora fino alle sei."
+  - tutor: "Comincia alle 19, quindi va bene per lei. Noi apriamo alle 7 e chiudiamo alle 22."
+    goals: [timetable]
+  - learner: "Perfetto. Una domanda: si dice 'vado in palestra' o 'vado alla palestra'?"
+  - tutor: "Di solito diciamo in palestra: vado in palestra. Allora, facciamo l'iscrizione oggi?"
+  - learner: "Sì, per tre mesi. Devo portare qualcosa?"
+  - tutor: "Solo un documento, per favore. Lo spogliatoio è in fondo a destra."
+  - learner: "Ecco il documento. Grazie!"
+  - tutor: "Grazie a te e benvenuto! Ci vediamo domani."
+    goals: [sign-up]
+    done: true
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-m-retired
+  turns:
+  - tutor: "Buongiorno! Vuole una bicicletta?"
+  - learner: "Buongiorno. Sì, vorrei noleggiare due biciclette, per me e per mia moglie."
+  - tutor: "Benissimo! Per quanto tempo le vuole?"
+    goals: [ask]
+  - learner: "Per tutta la giornata. Noi tornaremo alle sei di sera."
+    errors: [future-form]
+  - tutor: "Tutta la giornata, va bene. Scusi, come ha detto? Alle sei voi...?"
+    prompt: {text: "tornaremo", tags: [future-form]}
+  - learner: "Alle sei noi... tornaramo?"
+    errors: [future-form]
+  - tutor: "Ho capito, tornerete alle sei. Va bene, noi chiudiamo alle sette."
+    recast: {text: "tornaramo", fix: "tornerete", tags: [future-form]}
+    goals: [duration]
+  - learner: "Torneremo, con la e. Grazie. Quanto costa per due?"
+  - tutor: "Sono 15 euro a bicicletta, quindi 30 in tutto, con casco e lucchetto."
+    goals: [price]
+  - learner: "Bene. Mia moglie non ama le hills. C'è un percorso facile?"
+    errors: [word-choice]
+  - tutor: "Capisco, niente salite! C'è un percorso facile intorno al lago."
+    recast: {text: "le hills", fix: "salite", tags: [word-choice]}
+    new: [{lemma: "salita", gloss: "hill, climb"}]
+  - learner: "Ottimo. Sa, in Ohio usiamo sempre la macchina. Lei è mai stato in America?"
+  - tutor: "No, mai, ma è il mio sogno! Qui invece la bicicletta è perfetta. Il percorso è di 20 chilometri."
+    new: [{lemma: "chilometro", gloss: "kilometre"}]
+  - learner: "Venti chilometri vanno bene. C'è un posto per mangiare?"
+  - tutor: "Sì, a metà strada c'è un bar sul lago. Ha un documento, per favore?"
+    goals: [route]
+  - learner: "Certo, ecco il mio passaporto. Grazie mille!"
+  - tutor: "Grazie a Lei. Ecco le biciclette: buona giornata a tutti e due!"
+    done: true
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno, mi dica."
+  - learner: "Buongiorno. Devo spedire questo pacco in Australia. È per il compleanno di mia sorella."
+  - tutor: "Certo. Lo metta qui sopra, per favore."
+    goals: [send]
+  - learner: "Ecco. Quanto tempo ci vuole? Devo fare una decisione oggi."
+    errors: [word-choice]
+  - tutor: "Con la posta normale 15 giorni, con quella veloce 5. Così può prendere una decisione."
+    recast: {text: "fare una decisione", fix: "prendere una decisione", tags: [word-choice]}
+  - learner: "Allora prendo la posta veloce: il compleanno è venerdì prossimo. Devo scrivere qualcosa?"
+  - tutor: "Sì, questo modulo. Scriva l'indirizzo e che cosa c'è nel pacco."
+    goals: [speed]
+  - learner: "Va bene. Dentro ci sono due libri e una maglietta. Puoi darmi una penna?"
+    errors: [register]
+  - tutor: "Certo, signora. Però qui in ufficio non siamo amiche: puoi o...?"
+    prompt: {text: "Puoi darmi", tags: [register]}
+  - learner: "Ah, sì... tu puoi darmi una penna, per favore?"
+    errors: [register]
+  - tutor: "Può darmi una penna? Certo, eccola!"
+    recast: {text: "tu puoi darmi", fix: "Può darmi", tags: [register]}
+  - learner: "Oh, 'può'! Mi scusi, parlo sempre con gli amici. Ecco il modulo."
+  - tutor: "Nessun problema, succede! Il modulo va bene. Sono 32 euro."
+    goals: [form]
+  - learner: "Posso pagare con la carta?"
+  - tutor: "Sì, certo. Ecco la ricevuta: il pacco arriva giovedì."
+    goals: [pay]
+    new: [{lemma: "ricevuta", gloss: "receipt"}]
+  - learner: "Perfetto, grazie. Arrivederci!"
+  - tutor: "Arrivederci e buona giornata!"
+    done: true
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno! Ha visto il cartello?"
+  - learner: "Buongiorno. Sì, ho visto il cartello. Cercate un cameriere?"
+  - tutor: "Sì, per l'estate. Lei ha già lavorato in un ristorante?"
+    goals: [ask]
+  - learner: "Sì. Ho lavorato cinque anni in Buenos Aires. Ho cucinato e ho servido ai tavoli."
+    errors: [past-participle-form, preposition]
+  - tutor: "Bene, molta esperienza! Ma servire al passato non finisce così. Ho...?"
+    prompt: {text: "servido", tags: [past-participle-form]}
+  - learner: "Ho... servito ai tavoli."
+  - tutor: "Esatto! E adesso vive qui a Bologna?"
+  - learner: "Sì. Sono arrivato due anni fa per una vacanza e ho rimasto qui per amore."
+    errors: [auxiliary-choice]
+  - tutor: "Per amore, che bello! Ma rimanere è come arrivare, con un altro verbo. Lei...?"
+    prompt: {text: "ho rimasto", tags: [auxiliary-choice]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Io... ho rimanuto qui?"
+    errors: [auxiliary-choice, past-participle-form]
+  - tutor: "Ho capito: è rimasto qui per amore. E adesso lavora?"
+    recast: {text: "ho rimanuto", fix: "è rimasto", tags: [auxiliary-choice]}
+    goals: [experience]
+  - learner: "Sono rimasto, va bene. Sì, lavoro in una cucina, ma solo la sera. Di giorno sono disponibile."
+  - tutor: "Perfetto. Ci serve una persona dalle 11 alle 16. Può cominciare lunedì?"
+  - learner: "Sì, posso. E quanto è lo stipendio?"
+  - tutor: "Sono 9 euro all'ora, più le mance."
+    goals: [availability]
+    new: [{lemma: "mancia", gloss: "tip"}]
+  - learner: "Va bene. Vi lascio il mio numero: 320 555 0199."
+  - tutor: "Grazie. La chiamo domani mattina e Le dico tutto."
+    goals: [contact]
+  - learner: "Grazie mille. A domani!"
+  - tutor: "A domani e buona giornata!"
+    done: true
+
+- scenario: weekend-scorso
+  level: A2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Ciao! Com'è andato il fine settimana?"
+  - learner: "Ciao! Benissimo. Sabato sono andato a Napoli in treno."
+  - tutor: "Napoli, che bella città! Era la prima volta?"
+    goals: [where]
+  - learner: "Sì, la prima. Ho mangiato tre pizze in due giorni e ho preso tante foto."
+    errors: [word-choice]
+  - tutor: "Tre pizze, bravo! E hai fatto tante foto: dopo le voglio vedere. Eri da solo?"
+    recast: {text: "ho preso tante foto", fix: "hai fatto tante foto", tags: [word-choice]}
+    goals: [what]
+  - learner: "No, ero con Liam, un amico irlandese. Mentre abbiamo camminato in centro, lui ha perso il telefono!"
+    errors: [tense-aspect]
+  - tutor: "Oh no, povero amico! Ma con mentre l'azione è lunga. Quale passato serve?"
+    prompt: {text: "abbiamo camminato", tags: [tense-aspect]}
+  - learner: "Mentre... siamo camminati in centro?"
+    errors: [tense-aspect]
+  - tutor: "Ah, mentre camminavate in centro! E poi l'ha trovato?"
+    recast: {text: "siamo camminati", fix: "camminavate", tags: [tense-aspect]}
+    goals: [with-who]
+  - learner: "Camminavamo, ok. No, mai più! But why not 'abbiamo camminato'? It's the past too."
+  - tutor: "Sì, ma era un'azione lunga, non finita: camminavamo. Poi succede una cosa di un momento: ha perso il telefono."
+  - learner: "Ah, adesso capisco. E a te piace Napoli? Ci sei mai stata?"
+  - tutor: "Tante volte! Mia zia abita lì e cucina benissimo. E a te è piaciuta la città?"
+  - learner: "Tantissimo! La gente è simpatica e il mare è bello. Ma il traffico è terribile."
+  - tutor: "Eh sì, lì guidano in un modo speciale! Pensi di tornare?"
+    goals: [opinion]
+  - learner: "Sì, forse a maggio, con mia sorella."
+  - tutor: "Bella idea, a maggio fa già caldo. Allora portala a mangiare la pizza!"
+    done: true
+
+- scenario: vacanze-passate
+  level: A2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+  - learner: "Ciao! Sono tornata a Siviglia e poi siamo andati una settimana in Portogallo."
+  - tutor: "Che bello! Con chi sei andata in Portogallo?"
+    goals: [where]
+  - learner: "Con i miei genitori e mio fratello. Abbiamo affittato una casa vicino alla spiaggia."
+  - tutor: "Una casa vicino alla spiaggia, che sogno! Faceva caldo?"
+  - learner: "Sì, ma c'era molto vento e l'acqua era freddissima. Mi ho bagnato solo due volte!"
+    errors: [word-choice, auxiliary-choice]
+  - tutor: "Hai fatto il bagno solo due volte? Mi dispiace! E oltre al mare, cosa avete fatto?"
+    recast: {text: "Mi ho bagnato", fix: "Hai fatto il bagno", tags: [word-choice]}
+    goals: [weather]
+  - learner: "Abbiamo visitato Lisbona e mi ha piaciuto moltissimo."
+    errors: [auxiliary-choice]
+  - tutor: "Lisbona è bellissima, lo so! Ma attenzione: al passato piacere non vuole avere."
+    prompt: {text: "mi ha piaciuto", tags: [auxiliary-choice]}
+  - learner: "Ah, sì... mi è piaciuta moltissimo!"
+  - tutor: "Proprio così! Anche a me è piaciuta tanto. Cosa avete visto lì?"
+  - learner: "Il castello e il quartiere vecchio. Abbiamo camminato tanto e mangiato pesce ogni sera. E tu, sei rimasta in Italia?"
+  - tutor: "Sì, sono andata in montagna con mio marito. Niente mare, ma tanto silenzio!"
+    goals: [activities]
+  - learner: "In montagna! Io non ho mai visto le Alpi. Si può andare da Bologna in treno?"
+  - tutor: "Certo, in tre ore sei a Bolzano. Ma senti: qual è stato il momento più bello della vacanza?"
+  - learner: "L'ultima sera. Abbiamo cenato sulla spiaggia e mio padre ha cantato per tutti!"
+  - tutor: "Che bel ricordo! E tuo padre canta bene?"
+    goals: [best]
+  - learner: "No, malissimo! Ma era molto divertente."
+  - tutor: "Allora è stata la serata perfetta!"
+    done: true
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: en-f-professional
+  history: [article-form]
+  turns:
+  - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+  - learner: "Abitavo vicino a Sydney. La nostra casa era a cinque minuti dal mare."
+  - tutor: "Così vicino, che bello! E cosa facevate tu e i tuoi fratelli?"
+    goals: [place]
+  - learner: "Io e mia sorella eramo sempre in spiaggia."
+    errors: [imperfetto-form]
+  - tutor: "Sempre in spiaggia, che bella vita! Ma guarda bene il verbo: noi...?"
+    prompt: {text: "eramo", tags: [imperfetto-form]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Noi... eravano sempre in spiaggia?"
+    errors: [imperfetto-form]
+  - tutor: "Quasi! Eravate sempre in spiaggia, ho capito. E facevate il bagno ogni giorno?"
+    recast: {text: "eravano", fix: "Eravate", tags: [imperfetto-form]}
+  - learner: "Eravamo, right. Sì, ogni giorno, anche d'inverno. Tu sai nuotare?"
+  - tutor: "Sì, ma male: io sono cresciuta in montagna! E la scuola com'era?"
+    goals: [habits]
+  - learner: "Mi piaceva. Ero molto brava in matematica. Attualmente lavoro nel marketing, che strano!"
+    errors: [false-friend]
+  - tutor: "Adesso lavori nel marketing? Allora la matematica serve ancora! Hai un ricordo speciale di quegli anni?"
+    recast: {text: "Attualmente", fix: "Adesso", tags: [false-friend]}
+    goals: [school]
+  - learner: "Sì! Una volta ho visto un squalo vicino alla spiaggia e ho corso a casa."
+    errors: [article-form, auxiliary-choice]
+  - tutor: "Che paura! Ma attenzione alla piccola parola prima di squalo."
+    prompt: {text: "un squalo", tags: [article-form]}
+  - learner: "Uno squalo! Ho visto uno squalo."
+  - tutor: "Esatto! E sei corsa a casa, ti capisco. Sei tornata in acqua dopo?"
+    goals: [event]
+  - learner: "Sì, il giorno dopo. Mio padre mi ha detto: lo squalo ha più paura di te!"
+  - tutor: "Tuo padre aveva ragione! Che bei ricordi, grazie."
+    done: true
+
+- scenario: giorno-tipico
+  level: A2
+  persona: es-m-worker
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata di solito?"
+  - learner: "Lunga! Mi alzo alle dieci perché lavoro di notte."
+  - tutor: "Alle 10, che fortuna! E la mattina cosa fai?"
+    goals: [wake]
+  - learner: "Faccio la spesa per il ristorante. Compro le verdure al mercato e le porto in cucina."
+  - tutor: "Ah, le scegli tu! E a che ora cominci a lavorare?"
+  - learner: "Alle quattro. Adesso è estate e ogni sera sono cucinando per cento persone!"
+    errors: [stare-gerund]
+  - tutor: "Cento persone, bravo! Ma con cucinando serve un altro verbo, non essere."
+    prompt: {text: "sono cucinando", tags: [stare-gerund]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Ah, sì! Sto cucinando per cento persone."
+  - tutor: "Ecco! E dopo il lavoro cosa fai?"
+    goals: [work]
+  - learner: "Torno a casa in bici, a mezzanotte. Sono morto e mi dormo subito."
+    errors: [reflexive]
+  - tutor: "Ti capisco! Ma dormire non vuole mi. Qui serve un verbo un po' diverso."
+    prompt: {text: "mi dormo", tags: [reflexive]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Mi... dormento subito?"
+    errors: [reflexive]
+  - tutor: "Ah, ti addormenti subito! Dopo tante ore è normale."
+    recast: {text: "Mi... dormento", fix: "ti addormenti", tags: [reflexive]}
+    new: [{lemma: "addormentarsi", gloss: "to fall asleep"}]
+    goals: [evening]
+  - learner: "Mi addormento, ok. E tu? Lavori molto?"
+  - tutor: "Abbastanza: insegno la mattina e il pomeriggio preparo le lezioni. La sera sono libera."
+    goals: [ask]
+  - learner: "Allora vieni al ristorante una sera! Ti faccio le tagliatelle."
+  - tutor: "Che bella idea, le amo! Va bene venerdì?"
+  - learner: "Venerdì, perfetto. Ti aspetto."
+  - tutor: "Grazie! A venerdì, e buon lavoro stasera."
+    done: true
+
+- scenario: abbigliamento
+  level: A2
+  persona: en-f-student
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Buongiorno. Cerco un vestito per un matrimonio. La mia amica si sposa a giugno."
+  - tutor: "Che bello! Ha già un'idea del colore?"
+    goals: [ask-item]
+  - learner: "Sì, mi piace il blu. Ho visto quello vestito lì fuori, è bellissimo."
+    errors: [demonstrative]
+  - tutor: "È vero, è molto bello! Ma davanti alla parola vestito, quello diventa più corto."
+    prompt: {text: "quello vestito", tags: [demonstrative]}
+  - learner: "Ah... quel vestito!"
+  - tutor: "Esatto! Che taglia porta?"
+  - learner: "Una 40. Posso provarlo?"
+  - tutor: "Certo, il camerino è lì in fondo. Lo porto subito."
+    goals: [size-colour, try]
+  - learner: "È un po' grande. Avete una taglia più piccolo? Devo decidere oggi, sabato parto a Londra."
+    errors: [adjective-agreement, preposition]
+  - tutor: "Certo! Ma attenzione: taglia finisce in a, quindi più...?"
+    prompt: {text: "più piccolo", tags: [adjective-agreement]}
+  - learner: "Più piccola! Una taglia più piccola."
+  - tutor: "Ecco la 38. Allora sabato parte per Londra: il matrimonio è lì?"
+  - learner: "Sì, in un castle vicino a Londra. Sono un po' nervosa, devo leggere una poesia!"
+    errors: [word-choice]
+  - tutor: "In un castello, che bello! Stia tranquilla, andrà benissimo. Come va la 38?"
+    recast: {text: "castle", fix: "castello", tags: [word-choice]}
+    new: [{lemma: "castello", gloss: "castle"}]
+  - learner: "Perfetta! Quanto costa?"
+  - tutor: "Sono 80 euro, ma oggi c'è uno sconto: 65."
+  - learner: "Allora lo prendo. Grazie mille!"
+  - tutor: "Grazie a Lei! Buon viaggio e tante belle cose alla sua amica!"
+    goals: [decide]
+    done: true
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: en-m-heritage
+  turns:
+  - tutor: "Buongiorno, benvenuti! Quanti siete?"
+  - learner: "Buongiorno! Siamo in tre, ma mia cugina arriva più tardi."
+  - tutor: "Va bene. Preferite dentro o fuori?"
+  - learner: "Fuori, grazie. Sa, mio nonno è nato in questo paese! Si chiamava Rossi."
+  - tutor: "Davvero? Qui ci sono tanti Rossi! Allora benvenuto a casa. Ecco il menù."
+    goals: [ask-table]
+  - learner: "Grazie. Come primo prendo le tagliatelle al ragù. Mia nonna li faceva ogni domenica."
+    errors: [object-pronoun]
+  - tutor: "Ottima scelta! Ma guardi quel li: tagliatelle è una parola femminile."
+    prompt: {text: "li faceva", tags: [object-pronoun]}
+    new: [{lemma: "femminile", gloss: "feminine"}]
+  - learner: "Mia nonna... la faceva ogni domenica?"
+    errors: [object-pronoun]
+  - tutor: "Sua nonna le faceva ogni domenica? Che fortuna! E per gli altri?"
+    recast: {text: "la faceva", fix: "le faceva", tags: [object-pronoun]}
+  - learner: "Le faceva, giusto. Per loro due pizze. Senta, Lei conosce la vera ricetta del ragù?"
+  - tutor: "Certo: carne, pomodoro e tre ore sul fuoco! E da bere cosa prendete?"
+    goals: [order-food]
+  - learner: "Mezzo litro di vino rosso e una bottiglia d'acqua."
+  - tutor: "Benissimo, arrivo subito con il vino."
+    goals: [order-drink]
+  - learner: "Era tutto buonissimo, come a casa di mia nonna. Possiamo avere il conto?"
+  - tutor: "Che belle parole, grazie! Ecco il conto: sono 54 euro."
+    goals: [ask-bill]
+  - learner: "Ecco a Lei. Torniamo presto!"
+  - tutor: "Grazie a voi, vi aspettiamo!"
+    done: true
+
+- scenario: tempo-libero
+  level: A2
+  persona: en-m-retired
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  - learner: "Da quando non lavoro più ho molto tempo. Mi piace pescare e riparare vecchie radio."
+  - tutor: "Vecchie radio, che bello! Quante radio hai?"
+    goals: [hobby]
+  - learner: "Circa trenta. La più vecchia è del 1935 e funziona ancora. Ma preferisco pescare."
+  - tutor: "Incredibile! E a pescare vai spesso?"
+  - learner: "Ogni sabato, con il mio vicino. Sabato scorso pescavo un pesce enorme!"
+    errors: [tense-aspect]
+  - tutor: "Enorme, che bravo! Ma è successo una volta sola, sabato. Quale passato serve?"
+    prompt: {text: "pescavo", tags: [tense-aspect]}
+  - learner: "Ah, certo. Sabato scorso ho pescato un pesce enorme."
+  - tutor: "Proprio così! E poi l'avete mangiato?"
+    goals: [frequency]
+  - learner: "Sì, mia moglie l'ha cucinato con il limone. E tu, cosa fai nel tempo libero?"
+  - tutor: "Io sono in un coro, il giovedì sera. Non sono brava, ma mi diverto!"
+    goals: [ask]
+    new: [{lemma: "coro", gloss: "choir"}]
+  - learner: "Un coro! Io cantavo in chiesa da giovane. Why do you say 'mi diverto' and not just 'diverto'?"
+  - tutor: "Perché divertirsi è un verbo con si: io mi diverto, tu ti diverti. È come svegliarsi!"
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Ah, come 'mi sveglio'. Sometimes I think I'm too old to learn all this."
+  - tutor: "Ma no, impari in fretta! E poi adesso hai tempo, no? Senti, sabato vieni a sentire il coro?"
+    new: [{lemma: "coro", gloss: "choir"}]
+  - learner: "Con piacere! Dove cantate?"
+  - tutor: "Nella chiesa di San Marco, alle 18. Dopo c'è anche un bicchiere di vino!"
+    new: [{lemma: "bicchiere", gloss: "glass"}]
+  - learner: "Allora vengo di sicuro. Grazie!"
+  - tutor: "Perfetto, ti aspetto sabato!"
+    goals: [propose]
+    done: true

@@ -1,0 +1,707 @@
+# Round 2: failed repairs, two errors in one turn, recurring errors from history,
+# long switches to English, off-topic tangents and free conversation at B1 and B2.
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-traveller
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno, dove deve andare?"
+  - learner: "Buongiorno! Vorrei andare a Firenze domani mattina, verso le nove. C'è un treno?"
+  - tutor: "Sì, c'è un regionale alle 9 e 10 e un treno veloce alle 9 e 25. Quale preferisce?"
+    goals: [destination]
+  - learner: "Il veloce. Vorrei un biglietto di andata e ritorno: torno domenica sera, a le 8 più o meno."
+    errors: [articulated-preposition]
+  - tutor: "Andata e ritorno, bene. Scusi, domenica a che ora? Attenzione: qui due parole piccole diventano una sola."
+    prompt: {text: "a le 8", tags: [articulated-preposition]}
+  - learner: "Ehm... a la 8?"
+    errors: [articulated-preposition]
+  - tutor: "Alle 8, benissimo: domenica c'è un treno che parte alle 8 e un quarto. Preferisce la prima o la seconda classe?"
+    recast: {text: "a la 8", fix: "alle 8", tags: [articulated-preposition]}
+    goals: [type]
+  - learner: "Alle 8, ok. Seconda classe. Scusi, how do you say 'window seat'?"
+  - tutor: "Si dice \"posto vicino al finestrino\". Lo vuole così?"
+    new: [{lemma: "finestrino", gloss: "train window"}]
+  - learner: "Sì, un posto vicino al finestrino, grazie. A proposito, lei è di Firenze? Che cosa devo mangiare lì?"
+  - tutor: "No, sono di qui, ma a Firenze provi la bistecca: è famosa! Ecco il suo biglietto, seconda classe, vicino al finestrino."
+    new: [{lemma: "bistecca", gloss: "steak"}]
+    goals: [class]
+  - learner: "La bistecca, perfetto! Da quale binario parte il treno domani?"
+  - tutor: "Parte dal binario 6. Buon viaggio, e mangi bene a Firenze!"
+    goals: [platform]
+    done: true
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: en-f-student
+  turns:
+  - tutor: "Che profumo! Cosa cuciniamo stasera?"
+  - learner: "Stasera facciamo il curry di mia nonna! Servono pollo, cipolle, pomodori, riso e molte spezie."
+  - tutor: "Buono, non l'ho mai fatto in casa! Da dove iniziamo?"
+    goals: [ingredients]
+  - learner: "Prima prendi le cipolle e taglia loro molto piccole. Poi metti l'olio su la pentola."
+    errors: [object-pronoun, articulated-preposition]
+  - tutor: "Ok, prendo le cipolle. Aspetta, cosa faccio con loro? Qui serve un pronome corto vicino al verbo."
+    prompt: {text: "taglia loro", tags: [object-pronoun]}
+    new: [{lemma: "pronome", gloss: "pronoun"}, {lemma: "verbo", gloss: "verb"}]
+  - learner: "Ah... taglia li molto piccole?"
+    errors: [object-pronoun]
+  - tutor: "Ci sei quasi: le cipolle le taglio molto piccole, così. Guarda, ho già finito! E dopo l'olio cosa metto?"
+    recast: {text: "taglia li", fix: "le taglio", tags: [object-pronoun]}
+    new: [{lemma: "cipolla", gloss: "onion"}]
+  - learner: "Dopo aggiungi il pollo e le spezie. Sorry, è difficile spiegare in italiano, faccio tanti errori!"
+  - tutor: "Ma no, ti capisco benissimo e sto imparando un piatto nuovo! Quanto tempo deve cuocere il pollo?"
+    goals: [steps]
+  - learner: "Circa venti minuti, insieme ai pomodori. Do you like spicy food?"
+  - tutor: "Sì, mi piace molto il cibo piccante! Venti minuti, perfetto. E alla fine come lo serviamo?"
+    new: [{lemma: "piccante", gloss: "spicy"}]
+    goals: [time]
+  - learner: "Piccante, ok! Lo serviamo con il riso bianco e un po' di yogurt sopra."
+  - tutor: "Che buono, ho già fame! Io preparo la tavola, tu controlla la pentola."
+    goals: [serve]
+    done: true
+
+- scenario: compleanno
+  level: B1
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+  - learner: "Facciamo una festa a sorpresa! Sabato sera a casa mia, che ne dici?"
+  - tutor: "Ottima idea, casa tua è grande. Chi invitiamo?"
+    goals: [date]
+  - learner: "Tutti gli amici dell'università e anche sua sorella. Voglio che viene anche Luca, anche se loro due hanno litigato."
+    errors: [subjunctive-use]
+  - tutor: "Luca, sei sicuro? Comunque dopo \"voglio che\" il verbo cambia forma, lo sai. Come lo dici?"
+    prompt: {text: "che viene", tags: [subjunctive-use]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Uffa, sempre quello! Voglio che venga anche Luca."
+  - tutor: "Giusto. Va bene, lo invito io e speriamo che facciano pace! E da mangiare?"
+    goals: [guests]
+  - learner: "Aspetta, a proposito di Luca: hai visto la partita ieri sera? Lui era allo stadio!"
+  - tutor: "No, l'ho persa, ero a cena da mia madre. Com'è finita?"
+  - learner: "Due a zero per noi! È stata una partita bellissima, e il secondo gol è arrivato all'ultimo minuto."
+  - tutor: "Che peccato non averla vista! Dai, torniamo alla festa: cosa prepariamo da mangiare?"
+  - learner: "Possiamo fare la pizza, e la torta la ordino io. Sara ama il cioccolato, quindi prendo una torta al cioccolato."
+  - tutor: "Perfetto, la torta al cioccolato le piacerà di sicuro. E come regalo hai qualche idea?"
+    goals: [food]
+  - learner: "Sì, un libro di fotografia. Io la regalo il libro e tu puoi comprare i fiori."
+    errors: [object-pronoun]
+  - tutor: "Bella idea, a Sara piace tanto fare foto! Però il libro lo regali a Sara: quale pronome serve allora?"
+    prompt: {text: "la regalo", tags: [object-pronoun]}
+    new: [{lemma: "pronome", gloss: "pronoun"}]
+  - learner: "A Sara... allora io le regalo il libro!"
+  - tutor: "Esatto. E io le porto i fiori, così sabato sarà una serata perfetta!"
+    goals: [gift]
+    done: true
+
+- scenario: medico-base
+  level: B1
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+  - learner: "Buongiorno dottore. Ho un forte mal di gola e la tosse, soprattutto di notte."
+  - tutor: "Mi dispiace. Ha anche la febbre?"
+  - learner: "Ieri sera sì, 38. Sorry, I'm really tired and I can't think in Italian today."
+  - tutor: "Non si preoccupi, parlo lentamente e uso parole semplici. Da quanti giorni sta male?"
+    goals: [symptoms]
+  - learner: "Since Monday. It started with a headache and then my throat."
+  - tutor: "Da lunedì, quindi da 4 giorni: prima il mal di testa, poi la gola. Prende qualche medicina di solito?"
+    goals: [since-when]
+  - learner: "No, nothing regular. But I'm allergic to penicillin."
+  - tutor: "Capisco: è allergica alla penicillina, lo scrivo subito. Allora le preparo la ricetta per un'altra medicina."
+    new: [{lemma: "penicillina", gloss: "penicillin"}]
+    goals: [history]
+  - learner: "Va bene, grazie. Ora provo di nuovo in italiano: quante volte al giorno devo prenderla?"
+  - tutor: "Brava, la domanda è perfetta! Una compressa due volte al giorno, dopo i pasti, per 5 giorni."
+    new: [{lemma: "pasto", gloss: "meal"}, {lemma: "compressa", gloss: "tablet"}]
+  - learner: "Due volte al giorno dopo i pasti, per 5 giorni. Ma il mio capo vuole che torno in ufficio domani."
+    errors: [subjunctive-use]
+  - tutor: "No, domani deve riposare! E attenzione alla frase: il suo capo vuole che lei...? Qui il verbo cambia."
+    prompt: {text: "che torno", tags: [subjunctive-use]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+    goals: [instructions]
+  - learner: "Vuole che io tornerò?"
+    errors: [subjunctive-use]
+  - tutor: "Il suo capo vuole che lei torni, ma il medico dice di no! Resti a casa almeno 3 giorni e beva molta acqua."
+    recast: {text: "che io tornerò", fix: "che lei torni", tags: [subjunctive-use]}
+  - learner: "Vuole che io torni, ho capito. Va bene, dottore, resto a casa."
+  - tutor: "Ecco, così va bene. Se la febbre non passa, torni da me. Buona giornata!"
+    done: true
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: es-m-worker
+  turns:
+  - tutor: "Pronto, Trattoria da Mario, buonasera!"
+  - learner: "Buonasera. Quisiera prenotare un tavolo."
+    errors: [word-choice]
+  - tutor: "Buonasera! Certo, lei vorrebbe prenotare un tavolo: per quando?"
+    recast: {text: "Quisiera", fix: "vorrebbe", tags: [word-choice]}
+    goals: [book]
+  - learner: "Vorrei, sì. Per sabato, alle 9. Siamo 6 persone."
+  - tutor: "Sabato alle 9 per 6 persone, va bene. Avete qualche richiesta particolare?"
+    goals: [details]
+  - learner: "Sì. Es il compleanno di mia moglie e voglio che il tavolo è fuori."
+    errors: [subjunctive-use, word-choice]
+  - tutor: "Auguri a sua moglie! Scusi, la linea non è buona: lei vuole che il tavolo...?"
+    prompt: {text: "che il tavolo è", tags: [subjunctive-use]}
+  - learner: "Voglio che il tavolo sia fuori, in giardino."
+  - tutor: "Benissimo, un tavolo fuori in giardino. Le serve altro?"
+  - learner: "Sì, una... cómo se dice, a chair for a baby?"
+  - tutor: "Si dice \"seggiolone\". Certo, ne abbiamo uno! A che nome prenoto?"
+    new: [{lemma: "seggiolone", gloss: "high chair"}]
+    goals: [special]
+  - learner: "Martín Ferrari. Lei mi può confirmare l'ora, per favore?"
+    errors: [word-choice]
+  - tutor: "Certo, signor Ferrari, le posso confermare tutto: sabato alle 9, 6 persone, tavolo fuori con seggiolone."
+    recast: {text: "confirmare", fix: "confermare", tags: [word-choice]}
+    new: [{lemma: "seggiolone", gloss: "high chair"}]
+    goals: [name]
+  - learner: "Perfetto, grazie. A sabato!"
+  - tutor: "Grazie a lei, a sabato!"
+    done: true
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+  - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+  - learner: "Abitavo in una piccola città in Ohio, vicino a un lago. La nostra casa era bianca, con un grande giardino."
+  - tutor: "Che bel posto per un bambino! E cosa facevi dopo la scuola?"
+    goals: [place]
+  - learner: "D'estate ho pescato ogni giorno con mio padre. Tornavamo a casa solo per cena."
+    errors: [tense-aspect]
+  - tutor: "Ogni giorno, che fortuna! Ma era una cosa di tutti i giorni, quindi \"ho pescato\" qui non funziona. Come lo cambi?"
+    prompt: {text: "ho pescato", tags: [tense-aspect]}
+  - learner: "Hai ragione, ci casco sempre. D'estate pescavo ogni giorno con mio padre."
+  - tutor: "Proprio così. Io invece passavo l'estate dai nonni, in campagna. E a scuola com'eri?"
+    goals: [habits]
+  - learner: "Ero bravo in matematica ma terribile in musica. A proposito, tu suoni qualche strumento? Ho visto una chitarra a casa tua."
+  - tutor: "Sì, suono la chitarra da 20 anni, ma solo per gli amici! E tu non hai mai provato?"
+  - learner: "Ho provato il pianoforte a sessant'anni. Mia moglie dice che il gatto scappa quando suono."
+  - tutor: "Povero gatto! Però ci vuole coraggio per iniziare a quell'età. E a scuola il maestro di musica com'era?"
+  - learner: "Molto severo. Una volta mi ha mandato fuori perché ridevo. La maestra di matematica invece era fantastica: grazie a lei sono diventato ingegnere."
+  - tutor: "Che bello avere una maestra così. C'è un ricordo di quegli anni che non dimenticherai mai?"
+    goals: [school]
+  - learner: "Sì. Quando avevo dieci anni il lago è diventato tutto ghiaccio e la città intera pattinava sopra. Mio padre mi teneva la mano."
+  - tutor: "Che immagine meravigliosa, tu e tuo padre sul lago! Grazie per questi ricordi. Adesso ci prendiamo un caffè?"
+    goals: [event]
+    done: true
+
+- scenario: vacanze-passate
+  level: B1
+  persona: en-f-student
+  turns:
+  - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+  - learner: "Ciao! Ho andato a Sardegna con le mie coinquiline, per due settimane."
+    errors: [auxiliary-choice, preposition]
+  - tutor: "La Sardegna, che bello! Ma con \"andare\" non usiamo \"avere\". Come lo dici?"
+    prompt: {text: "Ho andato", tags: [auxiliary-choice]}
+  - learner: "Ah... ho andata in Sardegna?"
+    errors: [auxiliary-choice]
+  - tutor: "Quasi! Sei andata in Sardegna, con \"essere\". E che tempo avete trovato?"
+    recast: {text: "ho andata", fix: "Sei andata", tags: [auxiliary-choice]}
+    goals: [where]
+  - learner: "Sono andata, ok! Il tempo era perfetto, sempre sole e 30 gradi. Solo un giorno ha piovuto."
+  - tutor: "Che fortuna, qui ha piovuto tutta l'estate! E cosa avete fatto di bello?"
+    goals: [weather]
+  - learner: "Tanto mare! Abbiamo noleggiato una macchina e visitato le spiagge del nord. Ho anche provato il surf, ma sono caduta mille volte."
+  - tutor: "Che coraggio, io non ci ho mai provato! E ti sei divertita comunque?"
+    goals: [activities]
+  - learner: "Tantissimo! Senti, cambio discorso: tu sei rimasta in città tutta l'estate? Mi dispiace per te!"
+  - tutor: "Eh sì, ho lavorato fino a metà agosto, poi sono stata 3 giorni in montagna dai miei. Poco, ma mi sono riposata."
+  - learner: "In montagna! Io non sono mai stata sulle Alpi. È caro lì?"
+  - tutor: "Dipende dal posto, ma se dormi in un rifugio spendi poco. Un giorno ci andiamo insieme! Torniamo alla Sardegna: cosa ti è piaciuto di più?"
+    new: [{lemma: "rifugio", gloss: "mountain hut"}]
+  - learner: "La cosa più bella è stata una spiaggia piccola dove siamo arrivate a piedi. Non c'era nessuno, solo noi e il mare."
+  - tutor: "Sembra un sogno. La prossima estate voglio venire anch'io!"
+    goals: [best]
+    done: true
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-heritage
+  history: [register]
+  turns:
+  - tutor: "Buongiorno! Che problema ha la macchina?"
+  - learner: "Buongiorno. La macchina fa un rumore strano quando freno, tipo un fischio. Puoi guardare?"
+    errors: [register]
+  - tutor: "Un fischio quando frena, ho capito. Però qui in officina ci diamo del Lei: come mi chiede di guardare?"
+    prompt: {text: "Puoi guardare", tags: [register]}
+    new: [{lemma: "officina", gloss: "garage, workshop"}]
+  - learner: "Scusi, con mio nonno parlavo sempre così! Può guardare i freni, per favore?"
+  - tutor: "Certo, li controllo subito. Da quando sente questo rumore?"
+    goals: [describe]
+  - learner: "Da una settimana circa. Prima il rumore c'era solo la mattina, adesso lo sento sempre."
+  - tutor: "Allora è meglio non aspettare. Lei usa molto la macchina?"
+    goals: [when]
+  - learner: "Sì, ogni giorno. Sa, mio nonno aveva una Fiat 500 del 1965, come quella lì fuori! È sua?"
+  - tutor: "Sì, è mia, l'ho rimessa a posto io in due anni! Suo nonno la guidava in Italia?"
+  - learner: "Sì, in Calabria. Mi portava al mare con quella macchina, e noi bambini stavamo in quattro dietro!"
+  - tutor: "In quattro dietro, che tempi! Erano macchine piccole ma forti. Torniamo alla sua: bisogna cambiare i freni davanti."
+  - learner: "Va bene. E quanto costarà?"
+    errors: [future-form]
+  - tutor: "Scusi, con questo rumore non ho sentito bene: quanto...? Attenzione alla forma del futuro."
+    prompt: {text: "costarà", tags: [future-form]}
+  - learner: "Quanto costarà la riparazione? Non sento la differenza!"
+    errors: [future-form]
+  - tutor: "Si dice \"costerà\", con la e: il lavoro costerà circa 180 euro, pezzi compresi. Le preparo subito il preventivo."
+    recast: {text: "costarà", fix: "costerà", tags: [future-form]}
+    goals: [cost]
+  - learner: "Costerà, con la e. Va bene per 180 euro. E quando sarà pronta la macchina?"
+  - tutor: "Domani sera dopo le 6. La chiamo io quando ho finito."
+    goals: [time]
+    done: true
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+  - learner: "Buonasera. Sì, purtroppo. Nella mia camera l'aria condizionata non funziona e fa un caldo terribile."
+  - tutor: "Mi dispiace molto. Da quando non funziona?"
+    goals: [problem]
+  - learner: "Da quando sono arrivata, alle 4. Ho chiamato due volte la reception, ma nessuno ha contestato."
+    errors: [false-friend]
+  - tutor: "Mi scuso davvero: nessuno ha risposto perché oggi c'era un solo collega. Adesso ci penso io."
+    recast: {text: "ha contestato", fix: "ha risposto", tags: [false-friend]}
+    goals: [since]
+  - learner: "La ringrazio. Sono molto stanca: mi potrebbe cambiare la camera? Altrimenti vorrei parlare con il direttore."
+  - tutor: "Non serve, la capisco benissimo. Ho una camera libera al terzo piano, più grande e più fresca. Le va bene?"
+    goals: [request]
+  - learner: "Sì, grazie. E gli asciugamani? Nella mia camera c'è solo uno."
+    errors: [ci-ne]
+  - tutor: "Gli asciugamani arrivano subito. Ma nella sua frase manca una parola piccola prima di \"solo uno\": quale?"
+    prompt: {text: "c'è solo uno", tags: [ci-ne]}
+  - learner: "Ci è solo uno?"
+    errors: [ci-ne]
+  - tutor: "Si dice \"ce n'è solo uno\". Nella camera nuova ne trova già quattro, puliti e grandi."
+    recast: {text: "Ci è solo uno", fix: "ce n'è solo uno", tags: [ci-ne]}
+  - learner: "Ce n'è solo uno... Perché si usa \"ne\"? Nella mia lingua non esiste."
+  - tutor: "Perché \"ne\" sta al posto di \"di asciugamani\": ce n'è uno, cioè c'è un asciugamano. Ecco la chiave della camera 305."
+    new: [{lemma: "asciugamano", gloss: "towel"}]
+  - learner: "Adesso è chiaro. Accetto la camera 305, grazie, è stato molto gentile."
+  - tutor: "Grazie a lei per la pazienza. Buona notte!"
+    goals: [agree]
+    done: true
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Sì? Buonasera, posso aiutarla?"
+  - learner: "Buonasera, scusi il disturbo. Sono Conor, abito al piano di sotto da un mese."
+  - tutor: "Ah, piacere, io sono Paola. Mi dica pure."
+    goals: [greet]
+  - learner: "Ecco... la sera sento molto rumore da qui. La musica, e anche i footsteps. Non riesco a dormire."
+    errors: [word-choice]
+  - tutor: "Oh, mi dispiace! Sente la musica e i passi, quindi. A che ora, di solito?"
+    recast: {text: "i footsteps", fix: "i passi", tags: [word-choice]}
+  - learner: "Dopo mezzanotte, quasi ogni giorno. Can we speak English, please? È troppo difficile per me."
+  - tutor: "Purtroppo l'inglese non lo parlo, ma lei si spiega bene! Userò parole semplici. Dopo mezzanotte è mio figlio che suona."
+    goals: [problem]
+  - learner: "Ok, provo. Io lavoro presto la mattina. Lei lo potrebbe chiedere di suonare prima delle 11?"
+    errors: [object-pronoun]
+  - tutor: "Ha ragione, certo. Solo una cosa: chiedo qualcosa a mio figlio, quindi \"lo\" qui non va bene. Quale pronome serve?"
+    prompt: {text: "lo potrebbe chiedere", tags: [object-pronoun]}
+    new: [{lemma: "pronome", gloss: "pronoun"}]
+  - learner: "La potrebbe chiedere?"
+    errors: [object-pronoun]
+  - tutor: "Quasi: gli potrei chiedere, e infatti lo faccio stasera. Dopo le 11 userà le cuffie, promesso."
+    recast: {text: "La potrebbe chiedere", fix: "gli potrei chiedere", tags: [object-pronoun]}
+    new: [{lemma: "cuffia", gloss: "headphones"}]
+    goals: [request]
+  - learner: "Gli, ok! Grazie mille. E per i passi, forse un tappeto?"
+  - tutor: "Buona idea, ne metto uno in corridoio. E se sente ancora rumore, mi scriva un messaggio."
+    goals: [compromise]
+  - learner: "Perfetto, è molto gentile. Buona serata, signora!"
+  - tutor: "Buona serata a lei, e benvenuto nel palazzo!"
+    done: true
+
+- scenario: banca-conto
+  level: B1
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno, come posso esserle utile?"
+  - learner: "Buongiorno. Mi sono appena trasferita a Milano e avrei bisogno di aprire un conto."
+  - tutor: "Benvenuta a Milano! Certo. È un conto personale o per un'attività?"
+    goals: [purpose]
+  - learner: "Personale. La mia compagnia mi paga lo stipendio a fine mese, quindi mi serve presto. Quali documenti devo portare?"
+    errors: [false-friend]
+  - tutor: "Capisco, se la sua azienda la paga a fine mese facciamo in fretta. Servono un documento e il codice fiscale."
+    recast: {text: "compagnia", fix: "azienda", tags: [false-friend]}
+    goals: [documents]
+  - learner: "Li ho tutti e due. E quanto costa il conto? Se pago con la carta all'estero, c'è un costo in più?"
+  - tutor: "Il conto costa 3 euro al mese. Fuori dall'Europa c'è un piccolo costo, in Europa no."
+    goals: [costs]
+  - learner: "Bene. Mi piacerebbe una carta anche, e io volerei usare l'app per fare i bonifici."
+    errors: [conditional-form, word-order]
+  - tutor: "La carta è compresa. Scusi, può ripetere l'ultima parte? Il verbo \"volere\" al condizionale ha un'altra forma."
+    prompt: {text: "volerei", tags: [conditional-form]}
+    new: [{lemma: "verbo", gloss: "verb"}, {lemma: "condizionale", gloss: "conditional"}]
+  - learner: "Ah sì, scusi: vorrei usare l'app per fare i bonifici."
+  - tutor: "Benissimo, con l'app può fare tutto dal telefono. La carta arriva a casa sua in 5 giorni."
+    goals: [card]
+  - learner: "Great. One question: why 'vorrei' and not 'volerei'? I always get that wrong."
+  - tutor: "Perché \"volere\" è irregolare: al condizionale diventa vorrei, vorresti, vorrebbe. Succede anche con \"potere\" e \"dovere\". Adesso mi serve la sua firma."
+    new: [{lemma: "irregolare", gloss: "irregular"}, {lemma: "condizionale", gloss: "conditional"}]
+  - learner: "Grazie, adesso è chiaro. Dove devo firmare?"
+  - tutor: "Qui sotto, per favore. Ecco fatto: il suo conto è aperto!"
+    done: true
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Buongiorno, mi dica pure."
+  - learner: "Buongiorno. Ho comprato queste cuffie qui, ma sono rotte: si sente solo da un lato."
+  - tutor: "Mi dispiace. Sono cadute o hanno preso acqua?"
+  - learner: "No, mai! Le uso solo a casa per studiare."
+  - tutor: "Va bene, allora sono difettose. Ha lo scontrino?"
+    goals: [problem]
+  - learner: "Sì, ho il ticket. Le ho comprate il 3 marzo, cioè fa dieci giorni."
+    errors: [word-choice, word-order]
+  - tutor: "Perfetto, vedo lo scontrino: 3 marzo, quindi sono ancora in garanzia. Che cosa preferisce fare?"
+    recast: {text: "il ticket", fix: "lo scontrino", tags: [word-choice]}
+    goals: [proof]
+  - learner: "Preferisco il rimborso. Non penso che queste cuffie sono buone."
+    errors: [subjunctive-use]
+  - tutor: "Capisco. Però dopo \"non penso che\" il verbo non resta così. Come cambia?"
+    prompt: {text: "sono buone", tags: [subjunctive-use]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Non penso che queste cuffie sean... no, siano buone!"
+  - tutor: "Esatto! Per il rimborso devo chiedere al direttore, ma c'è subito un altro modello per lei. Cosa ne pensa?"
+    goals: [request]
+  - learner: "Un altro modello va bene, ma solo se la qualità è migliore. E se costa di più?"
+  - tutor: "Questo modello è migliore e costa 5 euro in più, ma la differenza la offriamo noi."
+  - learner: "Allora accetto. Muchas gracias... scusi, grazie mille!"
+  - tutor: "Prego! Ecco le cuffie nuove con lo scontrino nuovo. Buona giornata!"
+    goals: [agree]
+    done: true
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-f-professional
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Abbastanza bene. Abbiamo finito la nuova versione del sito e l'abbiamo mandata al cliente venerdì, due giorni prima della scadenza."
+  - tutor: "Ottimo lavoro, due giorni di anticipo non capitano spesso! E il cliente come ha reagito?"
+    goals: [update]
+  - learner: "Ecco, questo è il problema. Io avevo assunto che il cliente era d'accordo sui colori, invece adesso vuole cambiare tutto."
+    errors: [false-friend, subjunctive-use]
+  - tutor: "Capisco: avevi dato per scontato che fosse d'accordo, e invece no. Che cosa chiede di cambiare, esattamente?"
+    recast: {text: "avevo assunto", fix: "avevi dato per scontato", tags: [false-friend]}
+    goals: [problem]
+  - learner: "Vuole un sito più \"elegante\", ma non spiega cosa significa. Il vero problema è che il loro direttore non ha mai visto la nostra proposta: nessuno la gli ha mostrata."
+    errors: [combined-pronouns]
+  - tutor: "Ah, ecco perché! Però ascolta l'ultima parte: i due pronomi vanno in un altro ordine e si uniscono. Come diventa?"
+    prompt: {text: "la gli ha mostrata", tags: [combined-pronouns]}
+    new: [{lemma: "pronome", gloss: "pronoun"}]
+  - learner: "Nessuno glila ha mostrata?"
+    errors: [combined-pronouns]
+  - tutor: "Quasi: nessuno gliel'ha mostrata, e questo spiega molte cose. Allora, che cosa proponi di fare?"
+    recast: {text: "glila ha mostrata", fix: "gliel'ha mostrata", tags: [combined-pronouns]}
+  - learner: "Gliel'ha, giusto. Propongo di organizzare una videochiamata con lui giovedì e di presentargli due alternative. A proposito, giovedì sera c'è la cena di Natale dell'ufficio, vero? Non ho ancora capito dove si fa."
+  - tutor: "Sì, giovedì alle 8 in quel ristorante di pesce vicino al porto, ha prenotato Marco. Tu vieni, spero!"
+  - learner: "Certo! Ma devo portare un regalo? In Australia ci scambiamo dei regali segreti tra colleghi, qui non so come funziona."
+  - tutor: "Anche qui si fa, ma quest'anno abbiamo deciso di no: ognuno porta solo un dolce o una bottiglia. Tornando al cliente, la videochiamata mi sembra un'ottima proposta."
+    goals: [proposal]
+  - learner: "Perfetto. Allora preparo le due alternative entro mercoledì, così giovedì mattina le presentiamo. Va bene come scadenza?"
+  - tutor: "Va benissimo: mercoledì le guardiamo insieme e giovedì chiudiamo la questione. Grazie, ottimo lavoro."
+    goals: [deadline]
+    done: true
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno. È molto luminoso, mi piace. L'annuncio parlava di 850 euro al mese: che cosa è compreso nell'affitto?"
+  - tutor: "Sono comprese le spese di condominio e l'acqua. Luce, gas e riscaldamento invece sono a parte, circa 100 euro al mese."
+    goals: [rent]
+  - learner: "Capisco. E per la caparra, quante mensilità chiede? Il mio ultimo padrone di casa voleva tre."
+    errors: [ci-ne]
+  - tutor: "Tre sono tante! Ma nella sua frase, prima di \"voleva\", manca una piccola parola al posto di \"mensilità\". Quale?"
+    prompt: {text: "voleva tre", tags: [ci-ne]}
+  - learner: "Già, me la dimentico sempre: il mio ultimo padrone di casa ne voleva tre."
+  - tutor: "Esatto. Io ne chiedo due, e il contratto dura 4 anni; dopo, se vuole, ne firmiamo uno nuovo."
+    goals: [contract]
+  - learner: "Mi sembra ragionevole. E il riscaldamento è autonomo? Se si romperebbe in pieno inverno, chi pagherebbe la riparazione?"
+    errors: [hypothetical]
+  - tutor: "Sì, è autonomo. Però in un'ipotesi come questa, dopo \"se\" il condizionale non si usa: quale forma ci vuole?"
+    prompt: {text: "Se si romperebbe", tags: [hypothetical]}
+    new: [{lemma: "ipotesi", gloss: "hypothesis"}, {lemma: "condizionale", gloss: "conditional"}]
+  - learner: "Se si rompeva in pieno inverno, chi pagherebbe?"
+    errors: [hypothetical]
+  - tutor: "Se si rompesse, pagherei io: è previsto dal contratto. Comunque la caldaia è stata cambiata l'anno scorso, quindi stia tranquillo."
+    recast: {text: "Se si rompeva", fix: "Se si rompesse", tags: [hypothetical]}
+    new: [{lemma: "caldaia", gloss: "boiler"}]
+    goals: [condition]
+  - learner: "Si rompesse, grazie. Un'ultima cosa: com'è il quartiere? Io cammino molto e mi servono negozi vicini. E lei abita qui da tanto?"
+  - tutor: "Io ci sono nato, in questo palazzo! Il quartiere è tranquillo: a due minuti trova il mercato, la farmacia e un bel parco."
+    goals: [neighbourhood]
+  - learner: "Nato qui, davvero? Allora mi fido. L'appartamento mi interessa: potrei darle una risposta definitiva entro venerdì?"
+  - tutor: "Certo, venerdì va benissimo. Le lascio il mio numero, mi chiami quando vuole."
+    goals: [decide]
+    done: true
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, molto, soprattutto il balcone. Però il canone mi sembra un po' alto per la zona: 1.100 euro è tanto."
+  - tutor: "La capisco, ma la zona è molto richiesta e l'appartamento ha cucina e bagno nuovi. Che cifra aveva in mente?"
+    goals: [interest]
+  - learner: "Pensavo a 950. Ho visto un altro appartamento simile per meno soldi, e sinceramente... sorry, this is getting too technical for my Italian."
+  - tutor: "Nessun problema, andiamo con calma e uso parole più semplici. Il proprietario può scendere un po', ma 950 è troppo poco. Lei quanto può pagare al massimo?"
+  - learner: "Honestly, a thousand is my limit. And I'd need the washing machine fixed before I move in."
+  - tutor: "Quindi 1.000 euro al mese e la lavatrice riparata prima del suo arrivo: mi sembra una proposta seria. Chiamo il proprietario oggi pomeriggio."
+    goals: [negotiate]
+  - learner: "Great, thanks. What about the contract, how long is it? I might have to go back to Dublin next year."
+  - tutor: "Il contratto dura 4 anni, ma lei può andare via prima. Deve solo mandare la disdetta, cioè una lettera, 6 mesi prima."
+  - learner: "Ok, torno all'italiano, ci provo! Sei mesi sono troppi per me. È possibile che la disdetta è di tre mesi?"
+    errors: [subjunctive-use]
+  - tutor: "Ha fatto bene a riprovare! Una cosa sola: dopo \"è possibile che\" il secondo verbo deve cambiare. In che modo?"
+    prompt: {text: "che la disdetta è", tags: [subjunctive-use]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "È possibile che la disdetta sia di tre mesi?"
+  - tutor: "Perfetto. Sì, possiamo aggiungere una clausola con 3 mesi di preavviso, se lei lascia due mensilità di garanzia."
+    new: [{lemma: "preavviso", gloss: "notice"}, {lemma: "mensilità", gloss: "month's rent"}]
+    goals: [conditions]
+  - learner: "Due mensilità vanno bene. E la provvigione dell'agenzia quant'è?"
+  - tutor: "È una mensilità, come sempre. Se il proprietario accetta 1.000 euro, firmiamo venerdì?"
+  - learner: "D'accordo: se lui accetta, venerdì firmo. Grazie per la pazienza con il mio italiano!"
+  - tutor: "Ma si figuri, se l'è cavata benissimo. La chiamo domani con la risposta."
+    goals: [conclude]
+    done: true
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri sera ho avuto un incidente. Ero fermo al semaforo e un furgone mi ha colpito da dietro."
+  - tutor: "Mi dispiace. Lei sta bene? Qualcuno si è fatto male?"
+  - learner: "No, per fortuna nessuno. Ma il mio coche ha il paraurti rotto e anche una luce."
+    errors: [word-choice]
+  - tutor: "Meno male. Quindi la sua macchina ha il paraurti rotto e una luce da cambiare. Di chi è stata la colpa, secondo lei?"
+    recast: {text: "coche", fix: "macchina", tags: [word-choice]}
+    goals: [what]
+  - learner: "Sua, al cento per cento. Io ero fermo da un minuto e il semaforo era rosso. Lui ha detto che stava guardando il telefono."
+  - tutor: "Allora la responsabilità è chiara. Avete riempito insieme la constatazione amichevole?"
+    goals: [responsibility]
+  - learner: "Sì. La constatazione ha stato firmata da tutti e due, e ho fatto anche delle foto."
+    errors: [passive]
+  - tutor: "Bene, le foto sono utili. Ma attenzione alla forma passiva: con \"firmata\" non si usa \"avere\". Come si dice?"
+    prompt: {text: "ha stato firmata", tags: [passive]}
+    new: [{lemma: "passivo", gloss: "passive"}]
+  - learner: "La constatazione è stato firmata?"
+    errors: [passive]
+  - tutor: "Quasi: la constatazione è stata firmata da tutti e due, benissimo. Ricorda anche la targa del furgone?"
+    recast: {text: "è stato firmata", fix: "è stata firmata", tags: [passive]}
+  - learner: "È stata firmata, grazie. La targa è scritta nel modulo. Una domanda: lei conosce un buon meccanico qui a Bologna? Il mio ha chiuso."
+  - tutor: "Io vado da anni da un meccanico in via Emilia e mi trovo bene, ma può scegliere lei liberamente. Intanto mi mandi il modulo e le foto per mail."
+    goals: [documents]
+  - learner: "Va bene, li mando oggi. E dopo che succede? Devo pagare io la riparazione?"
+  - tutor: "No, lei non paga niente e non c'è franchigia, perché non ha colpa. Entro una settimana un nostro tecnico farà la perizia sul danno."
+    goals: [next]
+  - learner: "Perfetto. Allora aspetto la chiamata del tecnico. Grazie, è stata molto chiara."
+  - tutor: "Grazie a lei. Buona giornata e guidi con attenzione!"
+    done: true
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: en-m-heritage
+  history: [subjunctive-form]
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie. Scusi se sono un po' nervoso, è la prima volta che faccio un colloquio così in italiano."
+  - tutor: "Stia tranquillo, abbiamo tutto il tempo. Mi dica pure."
+  - learner: "Quest'anno ho gestito il progetto di Torino e abbiamo superato gli obiettivi del 15 per cento. Inoltre ho formato due colleghi nuovi."
+  - tutor: "Sì, i risultati di Torino li ho visti e sono davvero buoni. Dove vuole arrivare?"
+    goals: [results]
+  - learner: "Ecco, vorrei che lei mi dasse la responsabilità di tutta l'area nord, con un aumento adeguato."
+    errors: [subjunctive-form]
+  - tutor: "È una richiesta chiara. Però attenzione a \"dasse\": è una forma che si sente spesso, ma non è quella corretta. Qual è?"
+    prompt: {text: "dasse", tags: [subjunctive-form]}
+  - learner: "Lo diceva sempre mia nonna! Allora... vorrei che lei mi dassi?"
+    errors: [subjunctive-form]
+  - tutor: "Quasi: lei vorrebbe che io le dessi l'area nord, ho capito bene. Il problema è che le spese di quest'anno sono già state decise."
+    recast: {text: "dassi", fix: "dessi", tags: [subjunctive-form]}
+    goals: [request]
+  - learner: "Dessi, con la e. Capisco, ma se l'avessi saputo prima, avrei chiesto a gennaio. Per l'aumento posso aspettare, ma non per il ruolo: i risultati dimostrano che sono pronto."
+  - tutor: "Mi sembra un discorso giusto. Se le affidassi il ruolo subito e l'aumento arrivasse a gennaio, accetterebbe?"
+    goals: [handle]
+  - learner: "Sì, accetterei, se è messo per iscritto. Scusi, una curiosità: lei da quanto tempo lavora qui? Mi hanno detto che ha cominciato come stagista."
+  - tutor: "È vero, 18 anni fa, e portavo i caffè a tutti! Per questo apprezzo chi cresce dentro l'azienda. Le mando la proposta per mail entro lunedì."
+    goals: [next-steps]
+  - learner: "Perfetto, lunedì la leggo e le rispondo subito. Grazie per la fiducia."
+  - tutor: "Grazie a lei, se la merita. A lunedì!"
+    done: true
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-f-student
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Buongiorno dottoressa. Meglio, ma ogni tanto sento il battito molto veloce, specialmente quando salgo le scale o bevo troppo caffè."
+  - tutor: "Capisco. E quando succede, quanto dura? Ha anche dolore o le gira la testa?"
+  - learner: "Dura qualche minuto, senza dolore. Però martedì scorso all'improvviso mi sentivo male in biblioteca e dovevo uscire."
+    errors: [tense-aspect]
+  - tutor: "Mi dispiace. Parliamo di un momento preciso, martedì: i due verbi vanno bene così, all'imperfetto?"
+    prompt: {text: "mi sentivo male in biblioteca e dovevo uscire", tags: [tense-aspect]}
+    new: [{lemma: "verbo", gloss: "verb"}, {lemma: "imperfetto", gloss: "imperfect tense"}]
+  - learner: "Ah... martedì mi ero sentita male e dovevo uscire?"
+    errors: [tense-aspect]
+  - tutor: "Direi così: martedì si è sentita male e ha dovuto uscire. Per fortuna è durato poco. In famiglia qualcuno ha problemi di cuore?"
+    recast: {text: "mi ero sentita male e dovevo uscire", fix: "si è sentita male e ha dovuto uscire", tags: [tense-aspect]}
+    goals: [symptoms]
+  - learner: "Mio nonno ha avuto un infarto a 60 anni e mia madre prende le pillole per la pressione. Sono un po' spaventata, sinceramente."
+  - tutor: "È normale avere paura, ma i suoi esami sono buoni. Il cuore è sano: c'è solo un battito irregolare, molto comune alla sua età."
+    new: [{lemma: "irregolare", gloss: "irregular"}]
+    goals: [history]
+  - learner: "Sorry, can you say that in English? I want to be sure I understand."
+  - tutor: "Glielo spiego più lentamente. Il suo cuore funziona bene. Qualche volta batte troppo in fretta, ma non è pericoloso."
+    goals: [understand]
+  - learner: "Ok, adesso ho capito: non è pericoloso. Devo prendere delle medicine? Ho gli esami all'università e non voglio che le medicine mi fanno dormire."
+    errors: [subjunctive-use]
+  - tutor: "Per ora niente medicine, non si preoccupi. Ma senta: dopo \"non voglio che\" il verbo non resta così. Come lo corregge?"
+    prompt: {text: "mi fanno", tags: [subjunctive-use]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Non voglio che le medicine mi facciano dormire."
+  - tutor: "Esatto, e infatti non serviranno. Come terapia basta ridurre il caffè, dormire di più e fare un controllo tra 6 mesi."
+    goals: [treatment]
+  - learner: "Meno caffè durante gli esami sarà difficile! A proposito, lei quanti ne beve al giorno? I medici italiani bevono caffè, vero?"
+  - tutor: "Io due, e mai dopo pranzo, glielo assicuro! Lei cerchi di non superare i due. Ci vediamo tra 6 mesi."
+    done: true
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-f-erasmus
+  history: [hypothetical]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, mi dispiace disturbarla, ma la cena di stasera è stata piuttosto deludente."
+  - tutor: "Mi dispiace sentirlo. Mi racconti pure cosa non è andato bene."
+    goals: [complain]
+  - learner: "Prima di tutto l'attesa: abbiamo aspettato cinquanta minuti per i primi. Il cameriere ripeteva che i piatti arrivavano pronto, ma non era vero."
+    errors: [false-friend]
+  - tutor: "Cinquanta minuti sono troppi, ha ragione, e il cameriere non doveva promettere che arrivavano subito. E i piatti, alla fine, com'erano?"
+    recast: {text: "pronto", fix: "subito", tags: [false-friend]}
+  - learner: "Il risotto era freddo e la porzione di pesce piccolissima per 24 euro. Se ci avrebbero avvisato del ritardo, avremmo ordinato solo un piatto."
+    errors: [hypothetical]
+  - tutor: "Capisco perfettamente. Solo una cosa sulla sua ultima frase: dopo \"se\" il condizionale non ci va. Come la direbbe?"
+    prompt: {text: "Se ci avrebbero avvisato", tags: [hypothetical]}
+    new: [{lemma: "condizionale", gloss: "conditional"}]
+  - learner: "Uf, lo sbaglio sempre. Se ci avevano avvisato del ritardo...?"
+    errors: [hypothetical]
+  - tutor: "Se vi avessero avvisato, avreste ordinato meno, ed è giusto così. Che cosa si aspettava da noi stasera?"
+    recast: {text: "Se ci avevano avvisato", fix: "Se vi avessero avvisato", tags: [hypothetical]}
+    goals: [detail]
+  - learner: "Avessero, è vero, in spagnolo è quasi uguale! Mi aspettavo un servizio più attento, perché questo ristorante ce l'aveva consigliato un'amica italiana. Tra l'altro, lei conosce Siviglia? Lì un'attesa così sarebbe normale, ma almeno ti portano le olive!"
+  - tutor: "Ci sono stato due anni fa e ricordo benissimo quelle olive, e le serate lunghissime! Qui però l'attesa di stasera non è accettabile."
+    goals: [expectation]
+  - learner: "Grazie per averlo riconosciuto. Allora che cosa propone?"
+  - tutor: "Prima di tutto mi scuso. Vorrei offrire a tutti i primi e il dolce, e sul resto del conto farei uno sconto del 20 per cento."
+  - learner: "Mi sembra una proposta corretta, la accetto. E magari torneremo, per darvi una seconda possibilità."
+  - tutor: "Ne sarei felice. La prossima volta chieda di me, così vi seguo io personalmente."
+    goals: [resolve]
+    done: true
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-f-professional
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Stiamo guardando avanti a questo giorno da due anni. Immaginiamo una cerimonia piccola all'aperto, con una sessantina di invitati."
+    errors: [word-choice]
+  - tutor: "Si vede che non vedete l'ora, ed è bellissimo! Una cerimonia all'aperto con 60 invitati è perfetta per la campagna toscana. Avete già un'idea della cifra che volete spendere?"
+    recast: {text: "Stiamo guardando avanti", fix: "non vedete l'ora", tags: [word-choice]}
+    goals: [vision]
+  - learner: "Circa 25.000 euro in tutto. Sa, Davide mi ha chiesto di sposarlo proprio in Toscana, in una vigna, durante un temporale! Eravamo bagnati come due pesci."
+  - tutor: "Che scena, sembra un film! E lei ha detto subito di sì, sotto la pioggia?"
+  - learner: "Ho detto \"aspetta, non sento niente!\" per via dei tuoni. Ha dovuto ripetere la domanda tre volte, poverino."
+  - tutor: "Tre volte: allora è proprio l'uomo giusto! Torniamo al matrimonio: con 25.000 euro possiamo fare una bella festa. Ho due posti in mente: una villa con giardino vicino a Siena e una vigna in collina, più semplice."
+    goals: [budget]
+  - learner: "La vigna, ovviamente! Ha delle foto? Può me le mandare stasera, così le faccio vedere a Davide?"
+    errors: [combined-pronouns]
+  - tutor: "Certo che ho delle foto! Ma i due pronomi sono finiti nel posto sbagliato: vanno prima di \"può\" oppure attaccati a \"mandare\". Come lo dice?"
+    prompt: {text: "Può me le mandare", tags: [combined-pronouns]}
+    new: [{lemma: "pronome", gloss: "pronoun"}]
+  - learner: "Giusto: me le può mandare stasera?"
+  - tutor: "Perfetto, gliele mando appena finiamo. La vigna ha anche una sala coperta, quindi un altro temporale non sarà un problema!"
+    goals: [choices]
+  - learner: "Ottimo. Abbiamo due condizioni, però: vogliamo che il fotografo sia scelto da noi e che il preventivo finale non superi la cifra che le ho detto."
+  - tutor: "Mi sembrano condizioni ragionevoli. Il fotografo lo scegliete voi, e nel preventivo metto che il totale non può superare 25.000 euro."
+    goals: [conditions]
+  - learner: "Grazie, allora aspetto le foto e il preventivo. Davide sarà felicissimo."
+  - tutor: "Li riceverà entro domani. E ancora auguri a tutti e due!"
+    done: true
+
+- scenario: politica-lavoro
+  level: B2
+  persona: es-f-teacher
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Mi sembra esagerato. Alcuni lavori spariranno, certo, ma ne nasceranno altri. È sempre successo così, anche con le fabbriche e con internet."
+  - tutor: "Può darsi, ma stavolta la tecnologia impara da sola, e questo cambia tutto. Il tuo lavoro, per esempio, lo vedi a rischio?"
+    goals: [opinion]
+  - learner: "Io insegno, e no, non credo. Un programma può spiegare la grammatica, ma i miei studenti hanno bisogno di qualcuno che li guardi negli occhi. Però ammetto che i programmi sono già più pazienti che me!"
+    errors: [comparative]
+  - tutor: "Ah, la pazienza! Però dopo \"più pazienti\" la parola \"che\" non funziona davanti a un pronome. Cosa ci metti?"
+    prompt: {text: "pazienti che me", tags: [comparative]}
+    new: [{lemma: "pronome", gloss: "pronoun"}]
+  - learner: "Più pazienti come me?"
+    errors: [comparative]
+  - tutor: "Si dice \"più pazienti di me\". E di me di sicuro: io perdo la calma dopo cinque minuti! Ma se un giorno i tuoi studenti preferissero il programma, che faresti?"
+    recast: {text: "pazienti come me", fix: "pazienti di me", tags: [comparative]}
+  - learner: "Di me, certo. Se lo preferissero, cambierei il mio modo di insegnare: farei meno grammatica e più conversazione, più teatro. Quello una macchina non lo sa fare."
+  - tutor: "Teatro in classe, bella idea. Hai già provato?"
+    goals: [hypothesis]
+  - learner: "Sì! A Valencia facevo teatro con gli adolescenti. E a proposito: sabato recito in uno spettacolo in italiano, qui in città. Sono nervosissima. Tu vai mai a teatro?"
+  - tutor: "Poco, purtroppo, ma da ragazzo recitavo anch'io, sempre nella parte del cattivo! Che spettacolo è?"
+  - learner: "Una commedia di Goldoni, faccio la serva furba. Il regista dice che il mio accento spagnolo è perfetto per il personaggio."
+  - tutor: "Allora sabato vengo a vederti, promesso. Vedi, questo è un buon esempio: un attore vero sul palco non lo puoi sostituire."
+    new: [{lemma: "palco", gloss: "stage"}]
+    goals: [example]
+  - learner: "Esatto! Tutto quello che si fa dal vivo, davanti a persone vere, resterà. Quindi la mia conclusione è: meno paura e più formazione, a scuola e in azienda."
+  - tutor: "Mi hai quasi convinto: formazione sì, ma un po' di paura la tengo. Ci vediamo sabato a teatro!"
+    goals: [conclude]
+    done: true
+
+- scenario: arte-mostra
+  level: B2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Wow, è enorme! Mi fa un'impressione forte, quasi di paura. È tutto buio e poi c'è quella luce sul viso della donna."
+  - tutor: "Anche a me colpisce ogni volta. Cosa vedi esattamente nella scena?"
+    goals: [react]
+  - learner: "Vedo una donna che tiene una spada e un uomo per terra. C'è molto sangue. Onestamente lo trovo un po' morbido, ma non riesco a smettere di guardare."
+    errors: [false-friend]
+  - tutor: "Sì, è un soggetto macabro, ma il pittore voleva proprio questo effetto. E lo sfondo, come lo descriveresti?"
+    recast: {text: "morbido", fix: "macabro", tags: [false-friend]}
+    new: [{lemma: "macabro", gloss: "morbid, gruesome"}]
+  - learner: "Lo sfondo è... ugh, I don't have the words for this. Art vocabulary is impossible in Italian."
+  - tutor: "Non servono parole difficili, te la stai cavando benissimo. Lo sfondo è chiaro o scuro? Pieno o vuoto?"
+  - learner: "Scuro e vuoto. Non c'è niente dietro, solo nero, così tutta l'attenzione va alle figure. Sembra una scena di teatro."
+  - tutor: "Esatto, sembra un palco con una sola luce accesa. Secondo te, perché il pittore ha scelto un momento così violento?"
+    new: [{lemma: "palco", gloss: "stage"}]
+    goals: [describe]
+  - learner: "Forse vuole mostrare che la donna è più forte dell'uomo: lei è calma, concentrata. Ho letto che il pittore si ha ispirato a una storia della Bibbia."
+    errors: [auxiliary-choice]
+  - tutor: "Sì, è proprio una storia della Bibbia. Però un verbo con \"si\" al passato non vuole \"avere\". Come diventa la tua frase?"
+    prompt: {text: "si ha ispirato", tags: [auxiliary-choice]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Il pittore si è ispirato a una storia della Bibbia."
+  - tutor: "Giusto. E sulla donna hai ragione: è lei la più forte nella scena, senza paura. Guarda ora il quadro accanto, che racconta la stessa storia: che differenze noti?"
+    goals: [interpret]
+  - learner: "Questo è molto più chiaro e più \"pulito\". La donna quasi non guarda, sembra che non voglia sporcarsi. Preferisco il primo, è più vero. By the way, tu dipingi? Parli come un artista."
+  - tutor: "Magari! Disegno un po' la domenica, ma i miei quadri restano in cantina. Anch'io preferisco il primo: è meno elegante, ma più sincero."
+    goals: [compare]
+  - learner: "In cantina! Un giorno me li fai vedere. Andiamo alla prossima sala?"
+  - tutor: "Volentieri, c'è una sala intera di ritratti che ti piacerà. E i miei quadri te li mostro solo dopo un caffè!"
+    done: true
