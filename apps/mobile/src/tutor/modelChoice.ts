@@ -4,14 +4,17 @@
  * its memory allows (`minRamBytes`, see the device tiers). A fine-tuned GGUF
  * replaces a base model by taking its manifest entry.
  */
-import { modelSizeBytes, type ModelView } from '@/models';
+import type { ModelView } from '@/models';
 
 /** The tutor model state for this phone. */
 export type TutorModelChoice =
   /** A model is installed and can be loaded. */
   | { state: 'ready'; model: ModelView }
-  /** The recommended model is not (fully) downloaded; `model.status` says how far it is. */
-  | { state: 'needs_download'; model: ModelView; sizeBytes: number }
+  /**
+   * The recommended model is not (fully) downloaded; `model.status` says how
+   * far it is and `model.bytesTotal` what it downloads (its engine included).
+   */
+  | { state: 'needs_download'; model: ModelView }
   /** No conversation model is published yet. */
   | { state: 'unavailable' }
   /** The phone has too little memory for any conversation model. */
@@ -31,12 +34,6 @@ export function chooseTutorModel(views: readonly ModelView[]): TutorModelChoice 
     ['downloading', 'paused', 'verifying', 'failed'].includes(v.status),
   );
   const recommended = started ?? runnable.find((v) => v.status === 'not_installed');
-  if (recommended) {
-    return {
-      state: 'needs_download',
-      model: recommended,
-      sizeBytes: modelSizeBytes(recommended.spec),
-    };
-  }
+  if (recommended) return { state: 'needs_download', model: recommended };
   return { state: 'unavailable' };
 }
