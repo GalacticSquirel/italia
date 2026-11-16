@@ -74,6 +74,8 @@ def manifest_entry(
                 "verification": "built",
             }
         ],
+        # Run by llama.rn; the app downloads the engine build for the phone's CPU with it.
+        "needsEngine": "llama",
     }
 
 

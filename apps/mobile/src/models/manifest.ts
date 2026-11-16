@@ -7,10 +7,16 @@ import { z } from 'zod';
 import rawManifest from '../../../../models/manifest.json';
 
 /** What a model does; providers look models up by kind. */
-export const MODEL_KINDS = ['stt', 'phonemes', 'tts', 'llm', 'audio-pack'] as const;
+export const MODEL_KINDS = ['stt', 'phonemes', 'tts', 'llm', 'audio-pack', 'engine'] as const;
 
 /** A model kind. */
 export type ModelKind = (typeof MODEL_KINDS)[number];
+
+/** CPU features an engine build may need (names as in the Linux `/proc/cpuinfo`, normalised). */
+export const CPU_FEATURES = ['fp16', 'dotprod', 'i8mm'] as const;
+
+/** A CPU feature. */
+export type CpuFeature = (typeof CPU_FEATURES)[number];
 
 const FileSchema = z.object({
   name: z.string().regex(/^[A-Za-z0-9._-]+$/),
@@ -35,6 +41,21 @@ const ModelSchema = z.object({
     .regex(/^[A-Za-z0-9._-]+$/)
     .optional(),
   files: z.array(FileSchema).min(1),
+  /**
+   * For `engine` entries: the native engine this file set is a build of
+   * (`llama`), and the CPU it needs. Engines are not shown to the learner;
+   * the manager downloads the best one for the phone with the model that
+   * needs it.
+   */
+  provides: z.literal('llama').optional(),
+  cpu: z
+    .object({
+      abi: z.enum(['arm64-v8a', 'x86_64']),
+      features: z.array(z.enum(CPU_FEATURES)),
+    })
+    .optional(),
+  /** For models run by a native engine: which engine they need. */
+  needsEngine: z.literal('llama').optional(),
 });
 
 /** Zod schema of the manifest (format version 2). */
@@ -58,6 +79,15 @@ export function parseManifest(input: unknown): Manifest {
   for (const model of manifest.models) {
     if (ids.has(model.id)) throw new Error(`Duplicate model id: ${model.id}`);
     ids.add(model.id);
+    if ((model.kind === 'engine') !== (model.provides !== undefined && model.cpu !== undefined)) {
+      throw new Error(`Model ${model.id}: engines, and only engines, need provides and cpu`);
+    }
+  }
+  for (const model of manifest.models) {
+    const needs = model.needsEngine;
+    if (needs !== undefined && !manifest.models.some((m) => m.provides === needs)) {
+      throw new Error(`Model ${model.id} needs engine ${needs}, which the manifest lacks`);
+    }
   }
   return manifest;
 }

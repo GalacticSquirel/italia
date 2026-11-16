@@ -12,7 +12,7 @@ A model is one or more files downloaded into one install folder named after the 
 | Field         | Meaning                                                                               |
 | ------------- | ------------------------------------------------------------------------------------- |
 | `id`          | Stable identifier and install folder name, lowercase                                  |
-| `kind`        | `stt`, `phonemes`, `tts`, `llm` or `audio-pack`; the app picks providers by kind      |
+| `kind`        | `stt`, `phonemes`, `tts`, `llm`, `audio-pack` or `engine`; providers pick by kind     |
 | `title`       | Short name shown in Settings > On-device models                                       |
 | `description` | One sentence shown under the title                                                    |
 | `licence`     | SPDX expression covering the weights and data files                                   |
@@ -28,6 +28,31 @@ A model is one or more files downloaded into one install folder named after the 
   file too large to fetch when it was added.
 - `built`: we produce the file with a reproducible script in `models/scripts/`; `available: false`
   means it is not uploaded yet, so the app does not offer it.
+
+## Where the files live
+
+Every file is mirrored to one public Hugging Face model repository that we own (free storage
+and bandwidth, no file size limit, resumable downloads), with URLs pinned to a commit.
+`scripts/publish_files.py` uploads each file (from a local build or its upstream URL, checked
+against the manifest's size and SHA-256), skips files already there, and rewrites the URLs. Run
+it from GitHub with the **Publish model files** workflow (Actions tab), which needs the
+`HF_TOKEN` secret (a Hugging Face write token) and the `HF_MODELS_REPO` variable
+(`OWNER/italia-models`). Put files we build (the phonemizer export, a fine-tuned tutor GGUF) in
+`models/build/` (git-ignored) or pass `--local-dir`.
+
+## Engine builds (`kind: engine`)
+
+llama.rn ships one ~12 MB copy of llama.cpp per Arm feature level. The APK keeps only the
+generic copy; the faster CPU-specific copies are manifest entries with `provides: "llama"` and
+`cpu: { abi, features }`, listed most specific first. A model with `needsEngine: "llama"` (every
+`llm`) is downloaded together with the first engine entry the phone's CPU supports (read from
+`/proc/cpuinfo`, the same way llama.rn's loader does), and shown as one item. The patched loader
+(`patches/llama.rn@*.patch`) loads a downloaded build from `models/llama-engine-<variant>/` once
+the app has verified it (the `.installed` marker); otherwise it falls back to the generic copy.
+The `withSlimNativeLibs` config plugin leaves a build out of the APK only once its manifest
+entry is published, so nothing is lost before the upload, and stores native libraries
+compressed. The Hexagon/OpenCL build is dropped once engines are published: the app cannot tell
+which phones have that NPU, and the CPU builds run Q4_0 models well.
 
 ## Current models
 
