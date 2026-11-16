@@ -1,0 +1,205 @@
+# B1, work and opinions.
+- scenario: smartworking
+  level: B1
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Adesso lavoro da casa tre giorni a settimana e vado in ufficio il martedì e il giovedì."
+    - tutor: "Ah, un po' e un po'! E come ti trovi?"
+      goals: [situation]
+    - learner: "Bene. A casa mi concentro meglio e non perdo un'ora nel traffico. Anche l'orario è più flessibile."
+      goals: [pros]
+    - tutor: "Sono vantaggi importanti. Ci sono anche degli svantaggi?"
+      goals: [pros]
+    - learner: "Sì, a volte mi sento sola. I miei colleghi mi mancano, e lavoro più tardi di quando ero in ufficio."
+      goals: [cons]
+    - tutor: "Capisco, succede a molti. Se potessi scegliere, cosa preferiresti?"
+      goals: [cons]
+    - learner: "Preferirei lavorare in ufficio due giorni, perché la casa è più tranquilla che l'ufficio."
+      errors: [comparative]
+    - tutor: "Più tranquilla che l'ufficio? Quando confronti due nomi, cosa usi dopo più?"
+      prompt: {text: "più tranquilla che l'ufficio", tags: [comparative]}
+    - learner: "Più tranquilla dell'ufficio! Ma in ufficio vedo le persone."
+    - tutor: "Esatto. Quindi per te l'ideale è un equilibrio tra le due cose. Ti capisco benissimo!"
+      goals: [preference]
+      new: [{lemma: equilibrio, gloss: balance}]
+
+- scenario: smartworking
+  level: B1
+  persona: es-m-worker
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Io non posso lavorare da casa. Sono cuoco, devo stare in cucina tutti i giorni!"
+    - tutor: "Ah, certo, un cuoco non può cucinare al computer! Ti piacerebbe lavorare da casa, a volte?"
+      goals: [situation]
+    - learner: "Mah, forse sì. Avrei più tempo per la mia famiglia e non devo prendere il treno."
+      goals: [pros]
+    - tutor: "È vero. E secondo te quali sarebbero gli svantaggi?"
+      goals: [pros]
+    - learner: "Mi mancherebbe la squadra. In cucina si lavora insieme, si parla, si ride."
+    - tutor: "Hai ragione, il lavoro di squadra da casa è più difficile. Quindi alla fine, cosa preferisci?"
+      goals: [cons]
+    - learner: "Preferisco il ristorante. Mi piace lavorare con i miei colleghi, anche se è stancante."
+    - tutor: "Allora sei proprio nato per la cucina! Un giorno vengo a mangiare da te."
+      goals: [preference]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Va abbastanza bene. Ho finito la prima parte e ho mandato la proposta al cliente lunedì."
+    - tutor: "Ottimo. Il cliente ti ha già risposto?"
+      goals: [update]
+    - learner: "Sì, ma c'è un problema: vuole delle modifiche e siamo un po' in ritardo."
+      goals: [problem]
+    - tutor: "Capisco. Che cosa proponi per risolvere il problema?"
+      goals: [problem]
+    - learner: "Penso che Marco può aiutarmi con la grafica, così finiamo prima."
+      errors: [subjunctive-use]
+    - tutor: "Penso che Marco può? Dopo «penso che» ci vuole un'altra forma."
+      prompt: {text: "Penso che Marco può", tags: [subjunctive-use]}
+    - learner: "Penso che Marco possa aiutarmi con la grafica."
+      goals: [proposal]
+    - tutor: "Esatto. Va bene, parlo io con Marco. Per quando pensi di finire?"
+      goals: [proposal]
+    - learner: "Se Marco mi aiuta, finirò entro venerdì prossimo."
+    - tutor: "Perfetto, allora la scadenza è venerdì prossimo. Ne parliamo di nuovo alla riunione di lunedì."
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Questa settimana ho parlato con tre clienti e ho preparato una presentazione."
+    - tutor: "Benissimo. E ci sono problemi?"
+      goals: [update]
+    - learner: "Sì, uno. Il cliente di Torino non ha ancora mandato i dati, e senza i dati non posso finire."
+      goals: [problem]
+    - tutor: "Ah, questo è un problema. Che cosa possiamo fare, secondo te?"
+      goals: [problem]
+    - learner: "Potremmo chiamarlo oggi e spiegarli che è urgente."
+      errors: [object-pronoun]
+    - tutor: "Spiegarli? Il cliente è uno solo, un uomo..."
+      prompt: {text: "spiegarli", tags: [object-pronoun]}
+    - learner: "Ah, spiegarli, sì... che è urgente."
+    - tutor: "Sì, dobbiamo spiegargli che è urgente. Buona idea, lo chiami tu oggi pomeriggio?"
+      goals: [proposal]
+      recast: {text: "spiegarli", fix: "spiegargli", tags: [object-pronoun]}
+    - learner: "Sì, lo chiamo io. Se manda i dati domani, posso finire tutto entro giovedì."
+    - tutor: "Perfetto, allora la scadenza è giovedì. Grazie, passiamo al prossimo punto."
+      goals: [deadline]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-student
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Hannah, ho ventitré anni e ho appena finito l'università a Leeds. Ho studiato design grafico."
+    - tutor: "Molto bene. Ha già qualche esperienza di lavoro?"
+      goals: [intro]
+    - learner: "Sì, l'anno scorso ho fatto uno stage di sei mesi in un'agenzia. Lavoravo con una piccola squadra su progetti per clienti."
+      goals: [experience]
+    - tutor: "Interessante. Quali sono i suoi punti forti? E qual è un suo punto debole?"
+      goals: [experience]
+    - learner: "Sono creativa e organizzata. Il mio punto debole è che a volte sono troppo perfezionista."
+      goals: [strengths]
+    - tutor: "Capisco. E perché vorrebbe lavorare proprio nella nostra azienda?"
+      goals: [strengths]
+    - learner: "Perché mi piacciono molto i vostri progetti. Vorrei crescere in un'azienda giovane."
+      goals: [why]
+    - tutor: "Bene. Ha qualche domanda per noi?"
+      goals: [why]
+    - learner: "Sì: com'è organizzata la squadra e chi sarebbe il mio responsabile?"
+    - tutor: "Sono cinque persone e la responsabile è Giulia, la direttrice. Le faremo sapere entro venerdì. Grazie e buona giornata!"
+      goals: [questions]
+      new: [{lemma: direttore, gloss: director}]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Diego, sono argentino e vivo a Bologna da quattro anni. Sono grafico."
+    - tutor: "Piacere, Diego. Mi racconti la sua esperienza precedente."
+      goals: [intro]
+    - learner: "In Argentina ho lavorato in una agenzia per cinque anni. Ogni giorno ho preparato pubblicità per i giornali."
+      errors: [tense-aspect]
+    - tutor: "Ogni giorno ho preparato? È un'azione abituale nel passato..."
+      prompt: {text: "Ogni giorno ho preparato", tags: [tense-aspect]}
+    - learner: "Ah, ogni giorno preparavo pubblicità per i giornali."
+      goals: [experience]
+    - tutor: "Esatto. E quali sono i suoi punti di forza?"
+      goals: [experience]
+    - learner: "Lavoro velocemente e sono molto preciso. Ma a volte parlo poco con i colleghi."
+      goals: [strengths]
+    - tutor: "È onesto, apprezzo. Perché vuole lavorare con noi?"
+      goals: [strengths]
+      new: [{lemma: apprezzare, gloss: to appreciate}]
+    - learner: "Perché la vostra azienda lavora con ristoranti e io conosco bene quel mondo."
+      goals: [why]
+    - tutor: "Ottimo motivo. Ha qualche domanda sul ruolo?"
+      goals: [why]
+    - learner: "Sì. Potrei lavorare da casa qualche giorno a settimana?"
+    - tutor: "Sì, il venerdì si lavora da casa. Le faremo sapere la settimana prossima. Grazie, Diego!"
+      goals: [questions]
+
+- scenario: film-libro
+  level: B1
+  persona: en-m-retired
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Comincio io. Ho letto un romanzo giallo di Andrea Camilleri. Parla di un commissario siciliano che deve scoprire chi ha ucciso un uomo."
+    - tutor: "Ah, un classico! Senza dire il finale, com'è la trama?"
+      goals: [summary]
+    - learner: "Un uomo importante muore e tutti pensano che è stato un incidente. Ma il commissario non ci crede."
+      errors: [subjunctive-use]
+    - tutor: "Tutti pensano che è stato? Dopo «pensare che» ci vuole un'altra forma."
+      prompt: {text: "tutti pensano che è stato", tags: [subjunctive-use]}
+    - learner: "Tutti pensano che sia stato un incidente."
+    - tutor: "Perfetto. E com'è il personaggio principale?"
+      goals: [summary]
+    - learner: "È un uomo intelligente e ironico, che ama mangiare bene. A volte è anche un po' arrabbiato."
+      goals: [characters]
+    - tutor: "Piace molto anche a me! E a te è piaciuto il libro?"
+      goals: [characters]
+    - learner: "Sì, molto. È emozionante e divertente, anche se alcune parole in siciliano sono difficili."
+      goals: [opinion]
+    - tutor: "È vero, il siciliano non è facile. A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "Lo consiglierei a chi ama i gialli e vuole conoscere la Sicilia."
+    - tutor: "Ottimo consiglio! Grazie, chi è il prossimo?"
+      goals: [recommend]
+
+- scenario: film-libro
+  level: B1
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io ho letto «L'amica geniale» di Elena Ferrante. È la storia di due amiche che crescono a Napoli."
+    - tutor: "Bellissimo libro! Puoi raccontare un po' la trama, senza svelare il finale?"
+      goals: [summary]
+      new: [{lemma: svelare, gloss: to reveal}]
+    - learner: "Le due ragazze sono molto diverse. Lila è la ragazza di cui tutti hanno paura, Lenù è più timida."
+      goals: [summary]
+    - tutor: "E quale dei due personaggi ti è piaciuto di più?"
+      goals: [characters]
+    - learner: "Lila, perché è forte e intelligente. È il personaggio che penso sempre anche adesso."
+      errors: [relative-pronoun]
+    - tutor: "Il personaggio che penso? Si pensa a qualcosa..."
+      prompt: {text: "il personaggio che penso", tags: [relative-pronoun]}
+    - learner: "Il personaggio a cui penso sempre!"
+    - tutor: "Esatto! E in generale, cosa ne pensi del romanzo?"
+      goals: [characters]
+    - learner: "Mi è piaciuto molto, ma l'inizio è un po' lento. Poi diventa emozionante."
+      goals: [opinion]
+    - tutor: "Sono d'accordo. A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A chi ama le storie lunghe, perché ci sono quattro libri!"
+    - tutor: "Ottimo, grazie! Adesso sentiamo il prossimo."
+      goals: [recommend]
