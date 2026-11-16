@@ -136,6 +136,8 @@ describe('advanced grammar (B1 to C1)', () => {
     expect(tags('Dopo aver mangiato, vado.')).toContain('infinitive-past');
     expect(tags('Mangiando, leggo.')).toContain('gerund-clauses');
     expect(tags('Lui sta dormendo.')).not.toContain('gerund-clauses');
+    expect(tags('Lui sta già dormendo.')).toEqual(expect.arrayContaining(['stare-gerund']));
+    expect(tags('Lui sta già dormendo.')).not.toContain('gerund-clauses');
     expect(tags('Sto per uscire.')).toContain('stare-per');
   });
 
