@@ -21,13 +21,13 @@ beforeAll(async () => {
 });
 
 describe('seed.v1.json', () => {
-  it('passes the zod schema and stays under 8 MB', () => {
+  it('passes the zod schema and stays under 24 MB', () => {
     expect(seed.version).toBe(1);
-    expect(statSync(SEED_FILE).size).toBeLessThan(8 * 1024 * 1024);
+    expect(statSync(SEED_FILE).size).toBeLessThan(24 * 1024 * 1024);
   });
 
-  it('has about 3,000 unique lemmas with dense ranks and hash ids', () => {
-    expect(seed.lemmas.length).toBeGreaterThanOrEqual(2900);
+  it('has about 10,000 unique lemmas with dense ranks and hash ids', () => {
+    expect(seed.lemmas.length).toBeGreaterThanOrEqual(9900);
     const ranks = seed.lemmas.map((l) => l.freqRank).sort((a, b) => a - b);
     expect(ranks).toEqual(ranks.map((_, i) => i + 1));
     expect(new Set(seed.lemmas.map((l) => `${l.lemma}|${l.pos}`)).size).toBe(seed.lemmas.length);

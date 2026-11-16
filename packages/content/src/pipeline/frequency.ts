@@ -22,6 +22,10 @@ export interface PosDistribution {
   readonly total: number;
 }
 
+/**
+ * SUBTLEX class for each part of speech. SUBTLEX-IT keeps NUM for digits and tags
+ * spelled-out numbers ("tre", "sette") as adjectives, so numerals read as ADJ.
+ */
 export const SUBTLEX_CLASS: Readonly<Record<Upos, string>> = {
   NOUN: 'NOM',
   VERB: 'VER',
@@ -32,7 +36,7 @@ export const SUBTLEX_CLASS: Readonly<Record<Upos, string>> = {
   ADP: 'PRE',
   CCONJ: 'CON',
   SCONJ: 'CON',
-  NUM: 'NUM',
+  NUM: 'ADJ',
   INTJ: 'INT',
   PROPN: 'NPR',
 };

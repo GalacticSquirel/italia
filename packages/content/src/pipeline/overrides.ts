@@ -150,6 +150,15 @@ export const FORM_READINGS: Readonly<Record<string, string>> = {
   faro: 'fare|VERB',
   stia: 'stare|VERB',
   do: 'dare|VERB',
+  accetto: 'accettare|VERB',
+  accetta: 'accettare|VERB',
+  accetti: 'accettare|VERB',
+  confesso: 'confessare|VERB',
+  confessa: 'confessare|VERB',
+  riporto: 'riportare|VERB',
+  malissimo: 'male|ADV',
+  salivo: 'salire|VERB',
+  salivano: 'salire|VERB',
 };
 
 /**
