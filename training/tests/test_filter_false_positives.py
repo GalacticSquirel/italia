@@ -7,7 +7,13 @@ import pytest
 
 from datagen.filters import english_ratio
 from datagen.languagetool import parse_matches
-from datagen.lemmas import BandChecker, SimplemmaLemmatizer, default_lemma_list, verb_guesses
+from datagen.lemmas import (
+    BandChecker,
+    SimplemmaLemmatizer,
+    default_lemma_list,
+    is_number_word,
+    verb_guesses,
+)
 from spec.levels import Level, band_for
 
 
@@ -81,6 +87,31 @@ def test_action_nouns_reach_their_verb(noun: str, verb: str, checker: BandChecke
 )
 def test_grammar_terms_and_praise_are_a1(reply: str, checker: BandChecker) -> None:
     assert checker.check(reply, band_for(Level.A1)).out_of_band == []
+
+
+@pytest.mark.parametrize(
+    "reply",
+    [
+        "Puoi farle una domanda.",
+        "Posso darti il menù?",
+        "Dimmi tutto. Fammi vedere.",
+        "Ci vediamo a gennaio o a marzo.",
+        "Ho trentacinque anni, lui ne ha ventitré.",
+        "C'è tanta gente.",
+    ],
+)
+def test_clitics_imperatives_months_and_numbers_are_a1(reply: str, checker: BandChecker) -> None:
+    assert checker.check(reply, band_for(Level.A1)).out_of_band == []
+
+
+@pytest.mark.parametrize("word", ["trentacinque", "duemila", "centoventi", "ventitré", "diciotto"])
+def test_number_words(word: str) -> None:
+    assert is_number_word(word)
+
+
+@pytest.mark.parametrize("word", ["", "tremare", "settimana", "novità", "centro"])
+def test_not_number_words(word: str) -> None:
+    assert not is_number_word(word)
 
 
 def test_misconjugations_are_not_read_as_verbs(checker: BandChecker) -> None:
