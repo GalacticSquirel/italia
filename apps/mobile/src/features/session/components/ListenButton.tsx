@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { speakItalian, stopSpeaking } from '@/platform/speech';
+import { sayItalian, useSpeech } from '@/speech';
 import { Button } from '@/ui';
 
 export interface ListenButtonProps {
@@ -12,7 +12,10 @@ export interface ListenButtonProps {
   variant?: 'primary' | 'secondary';
 }
 
-/** Plays Italian text with the device voice. */
+/**
+ * Plays Italian text: with the downloaded Italian voice when it is installed,
+ * else with the device voice.
+ */
 export function ListenButton({
   text,
   rate,
@@ -20,17 +23,21 @@ export function ListenButton({
   autoPlay = false,
   variant = 'secondary',
 }: ListenButtonProps) {
+  const speech = useSpeech();
   useEffect(() => {
-    if (autoPlay) speakItalian(text, rate);
-    return stopSpeaking;
-  }, [autoPlay, text, rate]);
+    if (autoPlay) void sayItalian(speech, text, rate);
+    return () => {
+      speech.audio.stop();
+    };
+  }, [speech, autoPlay, text, rate]);
   return (
     <Button
       label={label}
       variant={variant}
       accessibilityHint="Plays the Italian audio"
       onPress={() => {
-        speakItalian(text, rate);
+        speech.audio.stop();
+        void sayItalian(speech, text, rate);
       }}
     />
   );
