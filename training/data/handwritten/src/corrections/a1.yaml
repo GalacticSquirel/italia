@@ -1,0 +1,470 @@
+# Error correction, mixed English/Italian input, off-topic turns and free talk at A1.
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buongiorno! Cosa prende?"
+  - learner: "Buongiorno! Un cappuccino, please."
+    errors: [word-choice]
+  - tutor: "Un cappuccino, per favore? Certo! Prende anche qualcosa da mangiare?"
+    goals: [greet, order-drink]
+    recast: {text: "please", fix: "per favore", tags: [word-choice]}
+  - learner: "Sì, un cornetto. How do you say... with chocolate?"
+  - tutor: "Al cioccolato! Sì, abbiamo il cornetto al cioccolato."
+    goals: [order-food]
+    new: [{lemma: "cioccolato", gloss: "chocolate"}]
+  - learner: "Perfetto, un cornetto al cioccolato. Quanto costa tutto?"
+  - tutor: "Sono tre euro e venti, per favore."
+  - learner: "Ecco cinque euro. Grazie mille!"
+  - tutor: "Grazie a Lei! Ecco il resto e lo scontrino. Buona giornata!"
+    goals: [pay]
+    done: true
+
+- scenario: presentarsi
+  level: A1
+  persona: en-f-student
+  turns:
+  - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+  - learner: "Ciao Giulia! Mi chiamo Emma. Sono inglese, di Leeds."
+  - tutor: "Piacere, Emma! Io sono di Bologna. Quanti anni hai?"
+    goals: [say-name, say-origin]
+  - learner: "Sono vent'anni."
+    errors: [essere-avere]
+  - tutor: "Sono vent'anni? Attenzione al verbo!"
+    prompt: {text: "Sono vent'anni", tags: [essere-avere]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Ah, ho vent'anni!"
+  - tutor: "Esatto! Anch'io ho vent'anni. E che lavoro fai?"
+  - learner: "Sono un studente di storia."
+    errors: [article-form]
+  - tutor: "Un studente? Attenzione alla prima parola."
+    prompt: {text: "un studente", tags: [article-form]}
+  - learner: "Uno studente! Sono uno studente di storia."
+  - tutor: "Giusto! Io invece lavoro in un bar. Ti piace l'Italia?"
+    goals: [say-job]
+  - learner: "Sì, mi piace molto! E tu, sei studente?"
+  - tutor: "No, non più. Lavoro e basta! Piacere di conoscerti, Emma."
+    goals: [ask-back]
+    done: true
+
+- scenario: famiglia
+  level: A1
+  persona: en-m-heritage
+  history: [possessive]
+  turns:
+  - tutor: "Che bella foto! Chi sono queste persone?"
+  - learner: "Questa è la mia madre e questo è il mio padre."
+    errors: [possessive]
+  - tutor: "La mia madre? Con la famiglia, attenzione all'articolo."
+    prompt: {text: "la mia madre", tags: [possessive]}
+    new: [{lemma: "articolo", gloss: "article"}]
+  - learner: "Ah sì. Questa è mia madre e questo è mio padre."
+  - tutor: "Perfetto! Tua madre è molto bella. E il ragazzo chi è?"
+    goals: [who]
+  - learner: "È mio fratello. Ha diciotto anni e lui e molto alto."
+    errors: [spelling]
+  - tutor: "Lui e molto alto? Qui manca qualcosa sulla e."
+    prompt: {text: "lui e molto alto", tags: [spelling]}
+  - learner: "Ah, l'accento! Lui è molto alto."
+  - tutor: "Bene! E lui studia o lavora?"
+    goals: [describe, ages]
+  - learner: "Studia a Toronto. E tu hai fratelli?"
+  - tutor: "Sì, ho una sorella. Si chiama Anna e vive a Roma."
+    goals: [ask]
+    done: true
+
+- scenario: hotel-checkin
+  level: A1
+  persona: en-m-retired
+  turns:
+  - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+  - learner: "Buonasera. Sì, ho una prenotazione per due notti. Il mio nome è Smith."
+  - tutor: "Sì, signor Smith, una camera per due notti. Ha un documento, per favore?"
+    goals: [booking]
+  - learner: "Sorry, I don't understand. Documento?"
+  - tutor: "Il passaporto, per favore. È un documento."
+    new: [{lemma: "passaporto", gloss: "passport"}]
+  - learner: "Ah, il passaporto! Ecco."
+  - tutor: "Grazie. La colazione è dalle sette alle dieci."
+    goals: [document]
+  - learner: "Va bene. Il colazione è in camera?"
+    errors: [noun-gender]
+  - tutor: "Il colazione? Attenzione: la parola finisce in e."
+    prompt: {text: "Il colazione", tags: [noun-gender]}
+  - learner: "La colazione! La colazione è in camera?"
+  - tutor: "No, è al primo piano. Ecco la chiave: camera otto."
+    goals: [breakfast, key]
+  - learner: "Grazie mille. Buonanotte!"
+  - tutor: "Buonanotte, signor Smith!"
+    done: true
+
+- scenario: mercato-frutta
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Ciao! Cosa prendi oggi?"
+  - learner: "Ciao! Quanto costano las mele?"
+    errors: [article-form]
+  - tutor: "Attenzione alla parola prima di mele. È spagnolo!"
+    prompt: {text: "las mele", tags: [article-form]}
+    new: [{lemma: "spagnolo", gloss: "Spanish"}]
+  - learner: "Los... no. Quanto costano los mele?"
+    errors: [article-form]
+  - tutor: "Le mele costano due euro al chilo."
+    goals: [ask-price]
+    recast: {text: "los mele", fix: "Le mele", tags: [article-form]}
+  - learner: "Va bene. Un chilo di mele, per favore."
+  - tutor: "Ecco qua. Altro?"
+    goals: [buy-quantity]
+  - learner: "Sì. Hai pomodori freschi?"
+  - tutor: "Sì, sono molto freschi! Vuoi mezzo chilo?"
+    goals: [ask-other]
+  - learner: "Sì, mezzo chilo. Quanto è tutto?"
+  - tutor: "Tre euro in tutto. Grazie e buona giornata!"
+    goals: [pay]
+    done: true
+
+- scenario: tempo-libero
+  level: A1
+  persona: en-f-professional
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  - learner: "Il sabato io gioco a tennis. Mi piacciono molto lo sport."
+    errors: [piacere]
+  - tutor: "Mi piacciono lo sport? Lo sport è uno o sono tanti?"
+    prompt: {text: "Mi piacciono molto lo sport", tags: [piacere]}
+  - learner: "Mi piace molto lo sport!"
+  - tutor: "Giusto! Giochi spesso a tennis?"
+    goals: [hobby]
+  - learner: "Sì, gioco ogni sabato. Do you play tennis?"
+  - tutor: "No, io non gioco. Leggo molto, e tu?"
+    goals: [frequency, ask]
+  - learner: "Sì, leggo libri gialli la domenica. Andiamo al cinema insieme sabato?"
+  - tutor: "Sì, che bella idea! Sabato sera va bene?"
+  - learner: "Sì, perfetto. A sabato!"
+  - tutor: "A sabato, ciao!"
+    goals: [propose]
+    done: true
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-m-retired
+  turns:
+  - tutor: "Buongiorno, benvenuti! Quanti siete?"
+  - learner: "Buongiorno. Siamo due. Un tavolo per due, per favore."
+  - tutor: "Certo, prego. Ecco il menù."
+    goals: [ask-table]
+  - learner: "Grazie. Siamo molto fame oggi!"
+    errors: [essere-avere]
+  - tutor: "Scusi, come? Con fame usiamo un altro verbo."
+    prompt: {text: "Siamo molto fame", tags: [essere-avere]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Ah, of course. Abbiamo molta fame!"
+  - tutor: "Molto bene, allora! Cosa prendete?"
+  - learner: "Per me la pasta al pomodoro. Per mia moglie il pesce."
+  - tutor: "Benissimo. E da bere?"
+    goals: [order-food]
+  - learner: "Una bottle di acqua, per favore."
+    errors: [word-choice]
+  - tutor: "Una bottiglia di acqua, subito."
+    recast: {text: "bottle", fix: "bottiglia", tags: [word-choice]}
+    new: [{lemma: "bottiglia", gloss: "bottle"}]
+    goals: [order-drink]
+  - learner: "Grazie. È tutto molto buono! Il conto, per favore."
+  - tutor: "Grazie mille! Ecco il conto: trenta euro."
+    goals: [ask-bill]
+    done: true
+
+- scenario: taxi
+  level: A1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buongiorno! Dove la porto?"
+  - learner: "Buongiorno! Vado a il albergo Roma, in via Verdi."
+    errors: [articulated-preposition]
+  - tutor: "Scusi, dove? Qui due parole fanno una parola sola."
+    prompt: {text: "a il albergo", tags: [articulated-preposition]}
+  - learner: "Ah, sì! All'albergo Roma, in via Verdi."
+  - tutor: "Benissimo, andiamo. Ha solo una valigia?"
+    goals: [destination]
+  - learner: "Sì, una. Sorry, can we speak English? My Italian is so bad."
+  - tutor: "Ma no, Lei parla bene! Parliamo italiano, piano piano."
+  - learner: "Okay, grazie. Quanti minuti per l'albergo?"
+  - tutor: "Dieci minuti. È vicino."
+    goals: [ask-time]
+  - learner: "Bene. E quanto costa?"
+  - tutor: "Venti euro. Con carta o in contanti?"
+    goals: [ask-price]
+  - learner: "Con carta. Ecco. Grazie, arrivederci!"
+  - tutor: "Grazie a Lei. Buona giornata!"
+    goals: [pay]
+    done: true
+
+- scenario: casa-mia
+  level: A1
+  persona: en-f-student
+  turns:
+  - tutor: "Allora, com'è la tua casa?"
+  - learner: "Vivo in un appartamento con due amiche. È in centro."
+  - tutor: "In centro, che bello! Quante camere avete?"
+    goals: [type]
+  - learner: "C'è tre camere e un bagno."
+    errors: [ce-ci-sono]
+  - tutor: "C'è tre camere? È una camera o sono tante?"
+    prompt: {text: "C'è tre camere", tags: [ce-ci-sono]}
+  - learner: "Ah! Ci sono tre camere e un bagno."
+  - tutor: "Esatto. E quale stanza ti piace di più?"
+    goals: [rooms]
+  - learner: "Mi piace la cucina. La cucina è grande e molto bello."
+    errors: [adjective-agreement]
+  - tutor: "Molto bello? Ma la cucina è femminile."
+    prompt: {text: "molto bello", tags: [adjective-agreement]}
+    new: [{lemma: "femminile", gloss: "feminine"}]
+  - learner: "La cucina è... molto bello? Sorry, I don't know."
+    errors: [adjective-agreement]
+  - tutor: "Nessun problema! La cucina è molto bella. Cucini molto?"
+    recast: {text: "molto bello", fix: "molto bella", tags: [adjective-agreement]}
+    goals: [favourite]
+  - learner: "Sì, cucino ogni sera. Hey, do you have a dog? I love dogs!"
+  - tutor: "Un cane? No, ho un gatto. Lui ama la mia casa!"
+    new: [{lemma: "gatto", gloss: "cat"}]
+  - learner: "Che bello, un gatto! E com'è la tua casa, Luca?"
+  - tutor: "È piccola, ma ha un bel balcone."
+    goals: [ask]
+    done: true
+
+- scenario: chiedere-strada
+  level: A1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+  - learner: "Ciao, scusa! Dov'è la stazione?"
+    errors: [register]
+  - tutor: "Ciao? Sono una signora, non un'amica!"
+    prompt: {text: "Ciao, scusa", tags: [register]}
+  - learner: "Oh! Buongiorno, signora. Scusi, dov'è la stazione?"
+  - tutor: "Molto meglio! Sempre dritto, poi a sinistra."
+    goals: [get-attention, ask-place]
+  - learner: "Dritto e poi a sinistra. La stazione è cerca?"
+    errors: [false-friend]
+  - tutor: "Sì, è vicino: cinque minuti a piedi."
+    recast: {text: "cerca", fix: "vicino", tags: [false-friend]}
+  - learner: "Perfetto. Allora dritto, poi a sinistra al semaforo?"
+  - tutor: "Esatto, al semaforo a sinistra."
+    goals: [understand]
+  - learner: "Grazie mille, signora. Buona giornata!"
+  - tutor: "Prego! Buona giornata anche a Lei."
+    goals: [thank]
+    done: true
+
+- scenario: giorno-tipico
+  level: A1
+  persona: en-m-heritage
+  history: [subject-verb-agreement]
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata di solito?"
+  - learner: "Ciao Anna! Mi sveglio alle sette e faccio colazione."
+  - tutor: "Presto! E la mattina cosa fai?"
+    goals: [wake]
+  - learner: "La mattina io lavora in un ufficio."
+    errors: [subject-verb-agreement]
+  - tutor: "Io lavora? Lui lavora, ma io?"
+    prompt: {text: "io lavora", tags: [subject-verb-agreement]}
+  - learner: "Io lavoro! But why? Perché lavoro e non lavora?"
+  - tutor: "Io finisce in o, lui in a. E la sera cosa fai?"
+    goals: [work]
+  - learner: "La sera torno a casa, cucino e guardo un film."
+  - tutor: "Che bello! Io la sera leggo sempre."
+    goals: [evening]
+  - learner: "E tu, Anna? A che ora ti svegli?"
+  - tutor: "Alle sei! Lavoro molto presto la mattina."
+    goals: [ask]
+    done: true
+
+- scenario: panetteria
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno! Mi dica."
+  - learner: "Buongiorno. Vorrei mezzo chilo di pane."
+  - tutor: "Ecco il pane. Altro?"
+    goals: [greet, order-bread]
+  - learner: "Sì... cómo se dice... pizza pequeña?"
+  - tutor: "Una pizza piccola! Ecco, è ancora calda."
+  - learner: "Sì, una pizza piccola. Io no voglio il sacchetto."
+    errors: [negation]
+  - tutor: "Scusi, come? Prima del verbo cambia la parola."
+    prompt: {text: "no voglio", tags: [negation]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Mmm... no quiero... Io no voglio sacchetto."
+    errors: [negation]
+  - tutor: "Anch'io non voglio mai il sacchetto! Sono quattro euro."
+    recast: {text: "no voglio", fix: "non voglio", tags: [negation]}
+    goals: [order-extra]
+  - learner: "Ecco cinque euro. Grazie, arrivederci."
+  - tutor: "Ecco un euro di resto. Arrivederci!"
+    goals: [pay]
+    done: true
+
+- scenario: supermercato
+  level: A1
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno, cerca qualcosa?"
+  - learner: "Buongiorno. Sì, dove sono le eggs, per favore?"
+    errors: [word-choice]
+  - tutor: "Le uova sono in fondo, a destra."
+    recast: {text: "eggs", fix: "uova", tags: [word-choice]}
+    goals: [ask-product]
+  - learner: "Sorry, I don't understand. In fondo?"
+  - tutor: "In fondo: alla fine del negozio. Là, dopo il latte."
+  - learner: "Ah, capisco! E dove è la pasta?"
+  - tutor: "La pasta è qui vicino, a sinistra."
+    goals: [ask-other]
+  - learner: "Grazie. Questo supermercato è molto grande! Lei lavora qui tutti i giorni?"
+  - tutor: "Quasi tutti i giorni, sì! Cerca altro?"
+  - learner: "No, grazie mille. Lei è molto gentile."
+  - tutor: "Prego! La cassa è là. Buona giornata!"
+    goals: [thank]
+    done: true
+
+- scenario: numero-telefono
+  level: A1
+  persona: en-m-retired
+  turns:
+  - tutor: "È stata una bella lezione, vero?"
+  - learner: "Sì, molto bella. Ma l'italiano è difficile. I make so many mistakes, sorry."
+  - tutor: "Ma no, parli già bene! E ogni giorno parli meglio."
+  - learner: "Grazie, sei gentile. Vuoi studiare insieme un altro giorno?"
+  - tutor: "Sì, certo! Hai un numero di telefono?"
+    goals: [propose]
+  - learner: "Sì. Mio numero è tre tre nove, cinque sei, uno due."
+    errors: [possessive]
+  - tutor: "Mio numero? Qui manca una piccola parola."
+    prompt: {text: "Mio numero", tags: [possessive]}
+  - learner: "Il mio numero è tre tre nove, cinque sei, uno due."
+  - tutor: "Grazie, ora ho il tuo numero. Quando sei libero?"
+    goals: [number]
+  - learner: "Sono libero in sabato mattina."
+    errors: [preposition]
+  - tutor: "In sabato? Qui c'è una parola di troppo."
+    prompt: {text: "in sabato", tags: [preposition]}
+  - learner: "Oh. Sono libero a sabato mattina?"
+    errors: [preposition]
+  - tutor: "Sei libero sabato mattina, bene! Alle dieci al bar?"
+    recast: {text: "libero a sabato", fix: "libero sabato", tags: [preposition]}
+  - learner: "Sì, alle dieci va bene. A sabato!"
+  - tutor: "A sabato! Ti scrivo un messaggio."
+    goals: [when]
+    done: true
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-f-student
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Buongiorno. Cerco una rossa maglietta."
+    errors: [word-order]
+  - tutor: "Una rossa maglietta? Attenzione: dove va il colore?"
+    prompt: {text: "rossa maglietta", tags: [word-order]}
+  - learner: "Oh, right. Cerco una maglietta rossa!"
+  - tutor: "Ecco, bene! Che taglia porta?"
+    goals: [ask-item]
+  - learner: "La emme. How do you say 'try on'? Posso... ?"
+  - tutor: "Provare! Sì, può provare la maglietta."
+    goals: [size-colour]
+    new: [{lemma: "provare", gloss: "to try on"}]
+  - learner: "Grazie. Dove posso provare la maglietta?"
+  - tutor: "Il camerino è là, a destra."
+    goals: [try]
+  - learner: "Mi piace molto! Quanto costa questo maglietta?"
+    errors: [demonstrative]
+  - tutor: "Questo maglietta? Attenzione: maglietta finisce in a."
+    prompt: {text: "questo maglietta", tags: [demonstrative]}
+  - learner: "Questa maglietta! Quanto costa?"
+  - tutor: "Venti euro, con lo sconto."
+  - learner: "Bene, prendo la maglietta. Pago con carta."
+  - tutor: "Perfetto. Ecco a Lei, grazie e arrivederci!"
+    goals: [decide]
+    done: true
+
+- scenario: orari-negozio
+  level: A1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Pronto, negozio Bianchi, buongiorno!"
+  - learner: "Buongiorno. Chiamo per gli orari. A che ora aprite oggi?"
+  - tutor: "Buongiorno! Oggi apriamo alle nove."
+    goals: [greet]
+  - learner: "Grazie. E a che ora cerrate?"
+    errors: [word-choice]
+  - tutor: "Quando chiudete? Alle sette di sera."
+    recast: {text: "cerrate", fix: "chiudete", tags: [word-choice]}
+    goals: [ask-hours]
+  - learner: "Bene. E il domenica siete aperti?"
+    errors: [noun-gender]
+  - tutor: "Il domenica? Attenzione: domenica finisce in a."
+    prompt: {text: "il domenica", tags: [noun-gender]}
+  - learner: "Ah, certo. La domenica siete aperti?"
+  - tutor: "Sì, ma solo la mattina."
+    goals: [ask-day]
+  - learner: "Perfetto. Scusi, una domanda: Lei parla spagnolo?"
+  - tutor: "Solo due parole! Allora, viene domenica mattina?"
+  - learner: "Sì, vengo domenica mattina. Grazie, arrivederci!"
+  - tutor: "Grazie a Lei. A domenica, arrivederci!"
+    goals: [goodbye]
+    done: true
+
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-heritage
+  history: [piacere]
+  turns:
+  - tutor: "Buongiorno! Cosa prende?"
+  - learner: "Buongiorno! Un caffè, per favore. Io piaccio molto il caffè italiano."
+    errors: [piacere]
+  - tutor: "Io piaccio? La frase comincia in un altro modo."
+    prompt: {text: "Io piaccio", tags: [piacere]}
+    new: [{lemma: "frase", gloss: "sentence"}]
+  - learner: "Ah, giusto, come dice mia nonna... Mi piace molto il caffè italiano!"
+  - tutor: "Bene, ecco il caffè! Prende qualcosa da mangiare?"
+    goals: [greet, order-drink]
+  - learner: "Sì, un cornetto. Senta, Lei guarda il calcio? Forza Juve!"
+  - tutor: "Io? Forza Roma, sempre! Ecco il cornetto."
+    goals: [order-food]
+  - learner: "Ha ha, va bene! Quanto pago?"
+  - tutor: "Tre euro, grazie."
+  - learner: "Ecco tre euro. Posso avere lo scontrino?"
+  - tutor: "Certo, ecco lo scontrino. Buona giornata!"
+    goals: [pay]
+    done: true
+
+- scenario: presentarsi
+  level: A1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+  - learner: "Ciao! Sono Liam. Sono da Dublino, in Irlanda."
+    errors: [preposition]
+  - tutor: "Piacere, Liam! Da Dublino? Qui serve un'altra parola."
+    prompt: {text: "da Dublino", tags: [preposition]}
+  - learner: "Um... sono a Dublino? No... sono in Dublino?"
+    errors: [preposition]
+  - tutor: "Sei di Dublino, che bello! E adesso dove vivi?"
+    recast: {text: "in Dublino", fix: "di Dublino", tags: [preposition]}
+    goals: [say-name, say-origin]
+  - learner: "Adesso vivo a Roma. Lavoro in un pub. How do you say 'bartender'?"
+  - tutor: "Si dice barista. Ti piace il lavoro?"
+    goals: [say-job]
+    new: [{lemma: "barista", gloss: "bartender"}]
+  - learner: "Sì, mi piace. Ma voglio imparo bene l'italiano."
+    errors: [modal-infinitive]
+  - tutor: "Voglio imparo? Dopo voglio, il verbo non cambia."
+    prompt: {text: "voglio imparo", tags: [modal-infinitive]}
+    new: [{lemma: "verbo", gloss: "verb"}]
+  - learner: "Okay... Voglio imparare bene l'italiano!"
+  - tutor: "Ecco, bravo! E parli già bene."
+  - learner: "Grazie! E tu, Giulia, di dove sei?"
+  - tutor: "Sono di Bologna, una bella città. A presto, Liam!"
+    goals: [ask-back]
+    done: true
