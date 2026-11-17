@@ -45,6 +45,8 @@ KNOWN_WORDS = frozenset(
 # Words Italian doubles on purpose ("quasi quasi", "ciao ciao", "pian piano").
 REDUPLICATED = frozenset({"quasi", "ciao", "piano", "così", "subito", "presto", "bene", "via"})
 REPEAT_RULE = "ITALIAN_WORD_REPEAT_RULE"
+# Correct idioms a LanguageTool rule misreads ("senza badare a spese": ER_01_001 wants "ha").
+KNOWN_PHRASES = ("badare a spese",)
 
 
 @dataclass(frozen=True)
@@ -146,7 +148,8 @@ def parse_matches(
 def _is_mention_or_known(
     match: GrammarMatch, rule: Mapping[str, object], text: str, regions: list[tuple[int, int]]
 ) -> bool:
-    if in_quotes(regions, match.offset, match.offset + match.length):
+    start, end = match.offset, match.offset + match.length
+    if in_quotes(regions, start, end) or in_quotes(_phrase_regions(text), start, end):
         return True
     span = match.span(text)
     words = {w.lower() for w in tokenize(span)}
@@ -154,9 +157,29 @@ def _is_mention_or_known(
     misspelling = rule.get("issueType") == "misspelling" or (
         isinstance(category, Mapping) and category.get("id") == "TYPOS"
     )
-    if misspelling and (_is_name(span) or (words and words <= KNOWN_WORDS)):
+    if misspelling and (
+        _is_name(span) or _is_affix(span, text, start) or (bool(words) and words <= KNOWN_WORDS)
+    ):
         return True
     return match.rule_id == REPEAT_RULE and bool(words) and words <= REDUPLICATED
+
+
+def _phrase_regions(text: str) -> list[tuple[int, int]]:
+    lowered = text.lower()
+    regions = []
+    for phrase in KNOWN_PHRASES:
+        start = lowered.find(phrase)
+        while start >= 0:
+            regions.append((start, start + len(phrase)))
+            start = lowered.find(phrase, start + 1)
+    return regions
+
+
+def _is_affix(span: str, text: str, start: int) -> bool:
+    """A suffix or prefix under discussion ("finisce in -a", "il prefisso ri-")."""
+    before = text[start - 1] if start > 0 else ""
+    after = text[start + len(span)] if start + len(span) < len(text) else ""
+    return span.startswith("-") or span.endswith("-") or before == "-" or after == "-"
 
 
 def _is_name(span: str) -> bool:

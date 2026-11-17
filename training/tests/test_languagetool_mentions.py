@@ -38,6 +38,9 @@ def _kept(text: str, word: str, rule: str = "MORFOLOGIK_RULE_IT_IT") -> list[str
         ("Avete già un'idea del budget?", "budget", "ST_01_005"),
         ("Yoga il martedì, pilates il venerdì.", "pilates", "MORFOLOGIK_RULE_IT_IT"),
         ("Quasi quasi lo propongo anche io.", "Quasi quasi", "ITALIAN_WORD_REPEAT_RULE"),
+        ("Questa parola finisce in -a, ma è un po' speciale.", "-a", "MORFOLOGIK_RULE_IT_IT"),
+        ("Questa parola finisce in -a, ma è un po' speciale.", "a,", "MORFOLOGIK_RULE_IT_IT"),
+        ("Vogliamo fare le cose senza badare a spese.", "a spese", "ER_01_001"),
     ],
 )
 def test_mentions_loanwords_and_idioms_are_dropped(text: str, word: str, rule: str) -> None:
