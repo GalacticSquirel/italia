@@ -1,12 +1,13 @@
-import { EmptyState, Screen } from '@/ui';
+import { router } from 'expo-router';
 
-export default function ReadScreen() {
+import { ReadScreen } from '@/features/read/ReadScreen';
+
+export default function ReadRoute() {
   return (
-    <Screen title="Read">
-      <EmptyState
-        title="No stories yet"
-        message="Graded stories at your level will appear here, with audio and tap-to-translate."
-      />
-    </Screen>
+    <ReadScreen
+      onOpenStory={(id) => {
+        router.push({ pathname: '/story/[id]', params: { id } });
+      }}
+    />
   );
 }

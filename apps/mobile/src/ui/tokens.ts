@@ -28,6 +28,12 @@ export interface ColorTokens {
   success: string;
   /** Errors and wrong answers. */
   danger: string;
+  /** Near misses: accent-only or typo answers. */
+  warning: string;
+  /** Background behind correct-answer feedback. */
+  successSurface: string;
+  /** Background behind wrong-answer feedback. */
+  dangerSurface: string;
   /** Focus outline. */
   focus: string;
 }
@@ -49,6 +55,9 @@ export const palettes: Record<ColorSchemeName, ColorTokens> = {
     track: '#E4DFD8',
     success: '#1E7A3C',
     danger: '#B3261E',
+    warning: '#8A5300',
+    successSurface: '#E4F2E8',
+    dangerSurface: '#FBE6E4',
     focus: '#1F5FBF',
   },
   dark: {
@@ -63,6 +72,9 @@ export const palettes: Record<ColorSchemeName, ColorTokens> = {
     track: '#3A3834',
     success: '#6FCF8E',
     danger: '#F2B8B5',
+    warning: '#F2C46D',
+    successSurface: '#17301F',
+    dangerSurface: '#3A1E1C',
     focus: '#8AB4F8',
   },
 };

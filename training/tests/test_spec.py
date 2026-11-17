@@ -7,6 +7,7 @@ import pytest
 from pydantic import ValidationError
 
 from spec.__main__ import SCHEMA_DIR, dump, schemas
+from spec.bundle import GENERATED_DIR, generated_files, render_cases, scenario_bundle
 from spec.levels import BANDS, Level, band_for
 from spec.models import START_MESSAGE, ErrorHistoryItem, LearnerProfile, Turn, TutorContext
 from spec.policy import expected_move, pick_target_error, prompted_tags
@@ -21,6 +22,29 @@ def test_committed_schemas_match_models() -> None:
         assert (SCHEMA_DIR / name).read_text(encoding="utf-8") == dump(schema), (
             f"{name} is stale: run `python -m spec export-schema`"
         )
+
+
+def test_committed_generated_files_are_current() -> None:
+    for name, data in generated_files().items():
+        assert (GENERATED_DIR / name).read_text(encoding="utf-8") == dump(data), (
+            f"{name} is stale: run `python -m spec export-schema`"
+        )
+
+
+def test_scenario_bundle_validates_against_scenario_schema() -> None:
+    schema = json.loads((SCHEMA_DIR / "scenario.v1.schema.json").read_text())
+    bundle = scenario_bundle()
+    assert len(bundle["scenarios"]) == len(load_library())
+    for scenario in bundle["scenarios"]:
+        jsonschema.validate(scenario, schema)
+
+
+def test_render_cases_cover_dialogues_with_both_feedback_moves() -> None:
+    cases = render_cases()["cases"]
+    contents = [m["content"] for c in cases for m in c["messages"] if m["role"] == "assistant"]
+    assert any('"prompt":{' in c for c in contents)
+    assert any('"recast":{' in c for c in contents)
+    assert all(c["messages"][0]["role"] == "system" for c in cases)
 
 
 def test_output_serialises_reply_first_and_validates_against_schema() -> None:
