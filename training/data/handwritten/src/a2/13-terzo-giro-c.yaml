@@ -1,0 +1,175 @@
+- scenario: noleggio-bici
+  level: A2
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì! Siamo tre amiche. Avete tre biciclette per domani?"
+    - tutor: "Sì, certo. Per quanto tempo?"
+      goals: [ask]
+    - learner: "Per tutta la giornata. Domani faremo il giro del lago e vederemo i paesi."
+      errors: [future-form]
+    - tutor: "Attenzione, vedere al futuro è un po' speciale. Come lo dice?"
+      prompt: {text: "vederemo", tags: [future-form]}
+    - learner: "Vedremo i paesi!"
+    - tutor: "Esatto! Allora tre biciclette per una giornata."
+      goals: [duration]
+    - learner: "Quanto costa in tutto?"
+    - tutor: "Sono 12 euro a bicicletta, quindi 36 euro. Il casco è compreso."
+      new: [{lemma: compreso, gloss: included}]
+      goals: [price]
+    - learner: "Perfetto. Qual è il percorso più bello?"
+    - tutor: "Il percorso lungo il lago, fino al paese vecchio. È facile e bellissimo."
+      goals: [route]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-heritage
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Voglio tornare in forma dopo l'inverno."
+    - tutor: "Ottima idea! Abbiamo l'abbonamento per un mese o per un anno."
+      goals: [ask-membership]
+    - learner: "Quale è più conveniente?"
+    - tutor: "Un anno, perché è meno caro al mese. Ma per cominciare il mese va bene."
+      new: [{lemma: conveniente, gloss: good value}]
+    - learner: "Allora un mese. Avete corsi per principianti?"
+    - tutor: "Sì, c'è un corso di yoga per principianti il venerdì alle sei."
+      goals: [classes, timetable]
+    - learner: "Perfetto! Posso iscrivermi oggi?"
+    - tutor: "Certo! Mi dai un documento e facciamo subito l'iscrizione."
+      goals: [sign-up]
+
+- scenario: parrucchiere
+  level: A2
+  persona: es-f-teacher
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Ho prenotato per lavare e tagliare i capelli."
+    - tutor: "Sì, eccola. Come li vuole?"
+      goals: [book]
+    - learner: "Come adesso, ma più corti di due centimetri."
+    - tutor: "Va bene, solo due centimetri. E la frangia?"
+      goals: [length]
+    - learner: "La frangia è troppo lunga. Può tagliarlo un po'?"
+      errors: [object-pronoun]
+    - tutor: "Tagliarlo? Frangia è femminile."
+      prompt: {text: "tagliarlo", tags: [object-pronoun]}
+      new: [{lemma: femminile, gloss: feminine}]
+    - learner: "Può tagliarla un po'?"
+    - tutor: "Certo! Ecco, può guardare nello specchio. Le piace?"
+      goals: [style]
+    - learner: "Sì, è perfetto. Quanto le devo?"
+    - tutor: "Sono 30 euro. Grazie e buona giornata!"
+      goals: [pay]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: es-m-worker
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Ho bisogno di un tavolo per stasera, per otto persone."
+    - tutor: "Per otto persone, vediamo. A che ora?"
+      goals: [book]
+    - learner: "Alle nove e mezza. Lavoriamo tutti in un ristorante e finiamo tardi."
+    - tutor: "Va bene, alle nove e mezza c'è posto. Dentro o fuori?"
+      goals: [details]
+    - learner: "Dentro. C'è qualcosa senza latte? Un collega è allergico."
+    - tutor: "Sì, nessun problema. Lo dite a noi quando arrivate."
+      goals: [special]
+    - learner: "Perfetto. La prenotazione è a nome Ruiz."
+    - tutor: "Grazie! Otto persone alle nove e mezza. A stasera!"
+      goals: [name]
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: en-f-professional
+  history: [imperfetto-form]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo a Sydney, vicino al mare. Ogni weekend andavamo in spiaggia."
+    - tutor: "Che fortuna! E cosa facevate in spiaggia?"
+      goals: [place]
+    - learner: "Io e mio fratello nuotavamo e facevamo castelli di sabbia. Mia madre leggeva sotto l'ombrellone."
+    - tutor: "Che bel ricordo! E a scuola com'eri?"
+      goals: [habits]
+    - learner: "Ero molto timida. Non dicevo mai niente in classe."
+    - tutor: "Davvero? Adesso sei così sicura! E ti ricordi un giorno speciale?"
+      goals: [school]
+    - learner: "Sì, quando avevo otto anni ho visto un delfino vicino alla spiaggia!"
+    - tutor: "Un delfino! Che bello! Eri con tuo fratello?"
+      new: [{lemma: delfino, gloss: dolphin}]
+      goals: [event]
+    - learner: "Sì, e abbiamo gridato tanto. Tutti sono venuti a guardare."
+    - tutor: "Che bella storia! Anche io voglio vedere un delfino."
+      new: [{lemma: delfino, gloss: dolphin}]
+
+- scenario: serata-cinema
+  level: A2
+  persona: es-f-teacher
+  history: [piacere]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Perché non andiamo al cinema? C'è un film italiano nuovo."
+    - tutor: "Bella idea! Che tipo di film è?"
+      goals: [propose]
+    - learner: "È un film drammatico. Ma a te piace le commedie, vero?"
+      errors: [piacere]
+    - tutor: "A te piace le commedie? Quante commedie sono?"
+      prompt: {text: "a te piace le commedie", tags: [piacere]}
+    - learner: "Ah! A te piacciono le commedie, vero?"
+    - tutor: "Esatto! Sì, le adoro. Ma un film italiano va bene, è più interessante."
+      goals: [genre]
+    - learner: "Allora andiamo. C'è uno spettacolo alle otto e mezza."
+    - tutor: "Perfetto, scegliamo quello."
+      goals: [choose]
+    - learner: "Ci vediamo alle otto davanti al cinema?"
+    - tutor: "Sì, alle otto. Ci vediamo lì!"
+      goals: [meet]
+
+- scenario: tempo-libero
+  level: A2
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Mi piace molto suonare la chitarra. Suono con un gruppo di amici."
+    - tutor: "Che bello! Suonate spesso?"
+      goals: [hobby]
+    - learner: "Sì, ogni sabato. Il sabato pomeriggio suoniamo a il parco vicino all'università."
+      errors: [articulated-preposition]
+    - tutor: "A il parco? Attenzione, qui le due parole diventano una."
+      prompt: {text: "a il parco", tags: [articulated-preposition]}
+    - learner: "Al parco!"
+    - tutor: "Perfetto! Che bello suonare fuori. E la domenica?"
+      goals: [frequency]
+    - learner: "La domenica dormo! E tu, cosa fai?"
+    - tutor: "Io vado spesso al cinema. Sabato prossimo posso venire a sentirvi?"
+      goals: [ask]
+    - learner: "Sì, certo! Vieni alle quattro, così dopo prendiamo un aperitivo."
+    - tutor: "Perfetto, ci sono!"
+      goals: [propose]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: es-f-erasmus
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Voglio spedire una cartolina in Spagna. Quanto costa il francobollo?"
+    - tutor: "Per la Spagna il francobollo è 1,30 euro."
+      goals: [send]
+    - learner: "Va bene. E quanti giorni ci vuole?"
+      errors: [subject-verb-agreement]
+    - tutor: "Quanti giorni ci vuole? Giorni sono tanti..."
+      prompt: {text: "ci vuole", tags: [subject-verb-agreement]}
+    - learner: "Quanti giorni ci vogliono?"
+    - tutor: "Brava! Ci vogliono circa cinque giorni."
+      goals: [speed]
+    - learner: "Perfetto. Devo scrivere qualcosa sul modulo?"
+    - tutor: "No, qui non serve il modulo. Basta l'indirizzo."
+      goals: [form]
+    - learner: "Ecco 2 euro."
+    - tutor: "Grazie, ecco il resto. Buona giornata!"
+      goals: [pay]

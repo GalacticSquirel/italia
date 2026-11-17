@@ -1,0 +1,241 @@
+- scenario: lavanderia
+  level: A2
+  persona: en-f-student
+  history: [negation]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! Ho messo le monete, ma la lavatrice fa niente."
+      errors: [negation]
+    - tutor: "Fa niente? Manca una piccola parola prima di fa."
+      prompt: {text: "fa niente", tags: [negation]}
+    - learner: "Non fa niente!"
+    - tutor: "Esatto! Vediamo... Ah, devi chiudere bene la porta."
+      goals: [problem]
+    - learner: "Ah, ecco! E adesso quale programma scelgo?"
+    - tutor: "Per i vestiti normali, scegli il programma 3. Hai il detersivo?"
+      goals: [ask-how]
+    - learner: "No, l'ho dimenticato a casa. Posso comprarlo qui?"
+    - tutor: "Sì, la macchina vicino alla porta vende detersivo e gettoni. Il detersivo è un euro."
+      goals: [payment]
+    - learner: "Perfetto. Grazie, sei molto gentile!"
+    - tutor: "Di niente, buon bucato!"
+      new: [{lemma: bucato, gloss: laundry}]
+      goals: [thank]
+
+- scenario: medico-base
+  level: A2
+  persona: es-m-worker
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Mi fa male la mano. Ieri al lavoro mi sono tagliato con un coltello."
+    - tutor: "Vediamo... Sì, è una brutta ferita. Da quando ha dolore?"
+      new: [{lemma: ferita, gloss: wound}]
+      goals: [symptoms]
+    - learner: "Da ieri pomeriggio. Ho metto subito l'acqua fredda."
+      errors: [past-participle-form]
+    - tutor: "Ho metto? Attenzione al passato di mettere."
+      prompt: {text: "ho metto", tags: [past-participle-form]}
+    - learner: "Ho messo subito l'acqua fredda."
+    - tutor: "Bene, ha fatto bene. È allergico a qualche medicina?"
+      goals: [since-when]
+    - learner: "No, a niente."
+    - tutor: "Perfetto. Le do una crema. La deve mettere due volte al giorno."
+      new: [{lemma: crema, gloss: cream}]
+      goals: [history]
+    - learner: "Posso lavorare in cucina?"
+    - tutor: "Sì, ma per tre giorni deve usare i guanti. Ecco la ricetta."
+      new: [{lemma: guanto, gloss: glove}]
+      goals: [instructions]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-m-retired
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Buongiorno. Sì, ma non vado in bicicletta da molti anni. Ha una bicicletta elettrica?"
+    - tutor: "Sì, certo. Con quella è tutto più facile, anche in salita."
+      new: [{lemma: salita, gloss: uphill slope}]
+      goals: [ask]
+    - learner: "Perfetto. Devo di prenotarla o posso prenderla adesso?"
+      errors: [modal-infinitive]
+    - tutor: "Devo di prenotarla? Dopo devo, c'è una parola in più."
+      prompt: {text: "devo di prenotarla", tags: [modal-infinitive]}
+    - learner: "Devo prenotarla o posso prenderla adesso?"
+    - tutor: "Esatto! Può prenderla adesso. Per quante ore la vuole?"
+    - learner: "Per tre ore. Voglio fare il giro del lago."
+    - tutor: "Tre ore sono 18 euro, con casco e lucchetto."
+      goals: [duration, price]
+    - learner: "Va bene. Il percorso intorno al lago è difficile?"
+    - tutor: "No, è facile. C'è solo una salita prima del paese. Buon giro!"
+      goals: [route]
+
+- scenario: palestra
+  level: A2
+  persona: en-f-professional
+  history: [question-form]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, ciao. Lavoro molto e posso venire solo la sera tardi. Fino a che ora siete aperti?"
+    - tutor: "Siamo aperti fino alle 23, tutti i giorni tranne la domenica."
+      new: [{lemma: tranne, gloss: except}]
+      goals: [timetable]
+    - learner: "Ottimo. Quanto costa un abbonamento di un mese?"
+    - tutor: "Un mese è 60 euro. Tre mesi sono 150, quindi più convenienti."
+      new: [{lemma: conveniente, gloss: good value}]
+      goals: [ask-membership]
+    - learner: "Ci sono anche corsi la sera?"
+    - tutor: "Sì, ci sono corsi di yoga e di boxe alle nove."
+      new: [{lemma: boxe, gloss: boxing}]
+      goals: [classes]
+    - learner: "La boxe è più faticosa dello yoga, no?"
+    - tutor: "Sì, molto di più! Allora, vuoi fare l'iscrizione?"
+    - learner: "Sì, prendo l'abbonamento di tre mesi."
+    - tutor: "Perfetto! Per l'iscrizione mi serve solo un documento."
+      goals: [sign-up]
+
+- scenario: parrucchiere
+  level: A2
+  persona: es-f-erasmus
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno! Ho una prenotazione alle quattro. Voglio cambiare un po'."
+    - tutor: "Benissimo, ecco la sua prenotazione. Cosa vuole cambiare?"
+      goals: [book]
+    - learner: "Voglio i capelli più corti, ma non tanto corti come lei."
+      errors: [comparative]
+    - tutor: "Non tanto corti come lei? Prova anche con meno?"
+      prompt: {text: "non tanto corti come lei", tags: [comparative]}
+    - learner: "Sì: li voglio meno corti dei suoi."
+    - tutor: "Perfetto! Allora fino al collo?"
+      new: [{lemma: collo, gloss: neck}]
+      goals: [length]
+    - learner: "Sì, fino al collo. E vorrei anche la frangia."
+    - tutor: "La frangia lunga o corta?"
+    - learner: "Lunga, sopra gli occhi."
+    - tutor: "Perfetto. Prima le lavo i capelli e poi comincio."
+      goals: [style]
+    - learner: "Wow, sono bellissimi! Quanto le devo?"
+    - tutor: "Sono 40 euro. Grazie e arrivederci!"
+      goals: [pay]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: en-f-student
+  history: [register]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Puoi prenotare un tavolo per quattro persone per domani?"
+      errors: [register]
+    - tutor: "Puoi? Siamo un ristorante, qui usiamo il Lei. Come chiede?"
+      prompt: {text: "puoi", tags: [register]}
+    - learner: "Scusi! Può prenotare un tavolo per quattro persone per domani?"
+    - tutor: "Certo! A che ora?"
+      goals: [book]
+    - learner: "Alle otto, se è possibile. Possiamo stare fuori, in terrazza?"
+    - tutor: "Sì, domani c'è posto fuori. Avete richieste speciali?"
+      new: [{lemma: richiesta, gloss: request}]
+      goals: [details]
+    - learner: "Sì, un mio amico non può mangiare il glutine."
+    - tutor: "Nessun problema, abbiamo la pasta senza glutine. A che nome?"
+      goals: [special]
+    - learner: "A nome Taylor. Grazie mille!"
+    - tutor: "Perfetto, a domani alle otto!"
+      goals: [name]
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo in un paese vicino a Leeds, in campagna."
+    - tutor: "In campagna! Avevi degli animali?"
+      goals: [place]
+    - learner: "Sì, avevamo due cani e un gatto. Ogni giorno giocavo con loro in giardino."
+    - tutor: "Che bello! E a scuola come andavi?"
+      goals: [habits]
+    - learner: "Andavo bene. La mia maestra era molto gentile. Ma un giorno cadevo e mi sono rotta il braccio."
+      errors: [tense-aspect]
+    - tutor: "Un giorno cadevo? È successo una volta sola. Come lo dici?"
+      prompt: {text: "un giorno cadevo", tags: [tense-aspect]}
+      goals: [school]
+    - learner: "Un giorno sono caduta!"
+    - tutor: "Brava! Che peccato! E cosa hai fatto dopo?"
+    - learner: "Sono stata a casa per due settimane e ho guardato tanti cartoni animati."
+    - tutor: "Allora non era tanto male! Che bel ricordo."
+      goals: [event]
+
+- scenario: serata-cinema
+  level: A2
+  persona: en-m-heritage
+  history: [comparative]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema? Non vado al cinema da un mese."
+    - tutor: "Ottima idea! Che film ti va di vedere?"
+      goals: [propose]
+    - learner: "Mi piacciono i film di fantascienza. Sono più interessanti che le commedie."
+      errors: [comparative]
+    - tutor: "Più interessanti che le commedie? Prova con un'altra piccola parola dopo interessanti."
+      prompt: {text: "più interessanti che le commedie", tags: [comparative]}
+    - learner: "Sono più interessanti che... le commedie?"
+      errors: [comparative]
+    - tutor: "Ah, più interessanti delle commedie! Per me no, io adoro le commedie."
+      recast: {text: "più interessanti che... le commedie", fix: "più interessanti delle commedie", tags: [comparative]}
+      goals: [genre]
+    - learner: "Allora stasera vediamo una commedia, e la prossima volta un film di fantascienza."
+    - tutor: "Perfetto, affare fatto! Lo spettacolo è alle 21:15."
+      goals: [choose]
+    - learner: "Ci vediamo alle nove davanti al cinema?"
+    - tutor: "Sì, a dopo!"
+      goals: [meet]
+
+- scenario: tempo-libero
+  level: A2
+  persona: es-m-worker
+  history: [piacere]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Il sabato lavoro, ma la domenica è libera. Mi piace cucinare per gli amici."
+    - tutor: "Che fortuna i tuoi amici! E cosa ti piace fare oltre a cucinare?"
+      goals: [hobby]
+    - learner: "Mi piace i libri di storia. Leggo sempre prima di dormire."
+      errors: [piacere]
+    - tutor: "Mi piace i libri? Quanti libri sono?"
+      prompt: {text: "mi piace i libri", tags: [piacere]}
+    - learner: "Mi piacciono i libri di storia!"
+    - tutor: "Perfetto! Leggi ogni sera?"
+      goals: []
+    - learner: "Sì, quasi ogni sera, anche solo dieci minuti. E tu?"
+    - tutor: "Io leggo poco. Ma la domenica vado spesso al mercato. Vieni con me domenica prossima?"
+      goals: [frequency, ask]
+    - learner: "Sì, volentieri! Così compro le verdure per cucinare."
+    - tutor: "Perfetto, allora ci vediamo domenica alle dieci in piazza."
+      goals: [propose]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Ho questi libri per mia nonna in Canada. Posso spedirli?"
+    - tutor: "Certo. Li mettiamo in un pacco. Quanto pesano?"
+      new: [{lemma: pesare, gloss: to weigh}]
+      goals: [send]
+    - learner: "Non lo so, forse tre chili."
+    - tutor: "Vediamo... sì, tre chili. Vuole la spedizione veloce?"
+      new: [{lemma: spedizione, gloss: shipping}]
+    - learner: "No, la normale va bene. Mia nonna non ha fretta!"
+    - tutor: "Va bene, allora ci vogliono circa quindici giorni."
+      goals: [speed]
+    - learner: "Perfetto. Devo scrivere il suo indirizzo da qualche parte?"
+    - tutor: "Sì, lo può scrivere su questo modulo, con il suo nome."
+      goals: [form]
+    - learner: "Ecco fatto. Quanto costa?"
+    - tutor: "Sono 32 euro. Ecco la ricevuta."
+      new: [{lemma: ricevuta, gloss: receipt}]
+      goals: [pay]
