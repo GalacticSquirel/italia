@@ -1,6 +1,15 @@
 import { asc, eq } from 'drizzle-orm';
 
-import { card, errorRecord, reviewLog, settings, streakState, studySession } from '@/db/schema';
+import {
+  card,
+  errorRecord,
+  lemmaExposure,
+  reviewLog,
+  settings,
+  storyProgress,
+  streakState,
+  studySession,
+} from '@/db/schema';
 import type { AppDatabase } from '@/db/types';
 
 import type { CardRow, NewCardRow, NewReviewLogRow } from '../rows';
@@ -32,6 +41,8 @@ export interface ImportBackupResult {
   streakUpdated: boolean;
   studySessions: { inserted: number; updated: number };
   errorRecords: { inserted: number; duplicates: number };
+  storyProgress: { inserted: number; updated: number };
+  lemmaExposure: { inserted: number; updated: number };
 }
 
 /** Thrown when a backup was written by a newer app version. */
@@ -57,7 +68,8 @@ function insertChunked<T>(rows: readonly T[], columns: number, insert: (part: T[
 
 /**
  * Export all learner data as a JSON-safe object: cards, review logs, settings,
- * streak, study sessions and error records. Content tables are not included
+ * streak, study sessions, error records, reading progress and words met in
+ * stories. Content tables are not included
  * (they come from the seed), nor is device-local metadata such as the device
  * id. Times are epoch milliseconds. Serialise with `JSON.stringify`.
  */
@@ -106,6 +118,23 @@ export function exportBackup(db: AppDatabase, now: Date = new Date()): BackupFil
       .orderBy(asc(errorRecord.createdAt), asc(errorRecord.id))
       .all()
       .map((e) => ({ ...e, createdAt: time(e.createdAt) })),
+    storyProgress: db
+      .select()
+      .from(storyProgress)
+      .orderBy(asc(storyProgress.storyId))
+      .all()
+      .map((p) => ({
+        ...p,
+        startedAt: time(p.startedAt),
+        completedAt: timeOrNull(p.completedAt),
+        updatedAt: time(p.updatedAt),
+      })),
+    lemmaExposure: db
+      .select()
+      .from(lemmaExposure)
+      .orderBy(asc(lemmaExposure.lemmaId))
+      .all()
+      .map((e) => ({ ...e, firstSeenAt: time(e.firstSeenAt), lastSeenAt: time(e.lastSeenAt) })),
   };
 }
 
@@ -159,6 +188,12 @@ function toCardRow(c: BackupFile['cards'][number]): NewCardRow {
  * - **study_session**: union by `id`; when both have a session, the one with
  *   more active minutes wins (it is the more complete record).
  * - **error_record**: union by `id`; a `cardId` that matches no card becomes null.
+ * - **story_progress**: per story, the earliest start and first completion,
+ *   the larger read and word counts, and the position and comprehension
+ *   result of the side updated last.
+ * - **lemma_exposure**: per lemma, the larger count (counts from two devices
+ *   cannot be told apart, so they are not added), the earliest first and
+ *   latest last sighting.
  *
  * @param input - a backup object or its JSON string
  * @throws ZodError when the backup is malformed
@@ -178,6 +213,8 @@ export function importBackup(
     streakUpdated: false,
     studySessions: { inserted: 0, updated: 0 },
     errorRecords: { inserted: 0, duplicates: 0 },
+    storyProgress: { inserted: 0, updated: 0 },
+    lemmaExposure: { inserted: 0, updated: 0 },
   };
 
   db.transaction((tx) => {
@@ -188,6 +225,8 @@ export function importBackup(
       tx.delete(settings).run();
       tx.delete(streakState).run();
       tx.delete(studySession).run();
+      tx.delete(storyProgress).run();
+      tx.delete(lemmaExposure).run();
     }
 
     // Cards ------------------------------------------------------------------
@@ -348,6 +387,69 @@ export function importBackup(
       result.errorRecords.inserted += inserted;
       result.errorRecords.duplicates += part.length - inserted;
     });
+
+    // Story progress ---------------------------------------------------------
+    for (const p of file.storyProgress) {
+      const incoming = {
+        ...p,
+        startedAt: date(p.startedAt),
+        completedAt: dateOrNull(p.completedAt),
+        updatedAt: date(p.updatedAt),
+      };
+      const existing = tx
+        .select()
+        .from(storyProgress)
+        .where(eq(storyProgress.storyId, p.storyId))
+        .get();
+      if (!existing) {
+        tx.insert(storyProgress).values(incoming).run();
+        result.storyProgress.inserted += 1;
+        continue;
+      }
+      const later = p.updatedAt > existing.updatedAt.getTime() ? incoming : existing;
+      const completed = [existing.completedAt, incoming.completedAt]
+        .filter((d): d is Date => d !== null)
+        .sort((a, b) => a.getTime() - b.getTime())[0];
+      tx.update(storyProgress)
+        .set({
+          startedAt: new Date(Math.min(p.startedAt, existing.startedAt.getTime())),
+          completedAt: completed ?? null,
+          timesRead: Math.max(p.timesRead, existing.timesRead),
+          wordsRead: Math.max(p.wordsRead, existing.wordsRead),
+          lastSentence: later.lastSentence,
+          comprehensionCorrect: later.comprehensionCorrect,
+          comprehensionTotal: later.comprehensionTotal,
+          updatedAt: later.updatedAt,
+        })
+        .where(eq(storyProgress.storyId, p.storyId))
+        .run();
+      result.storyProgress.updated += 1;
+    }
+
+    // Lemma exposure ---------------------------------------------------------
+    for (const e of file.lemmaExposure) {
+      const existing = tx
+        .select()
+        .from(lemmaExposure)
+        .where(eq(lemmaExposure.lemmaId, e.lemmaId))
+        .get();
+      if (!existing) {
+        tx.insert(lemmaExposure)
+          .values({ ...e, firstSeenAt: date(e.firstSeenAt), lastSeenAt: date(e.lastSeenAt) })
+          .run();
+        result.lemmaExposure.inserted += 1;
+        continue;
+      }
+      tx.update(lemmaExposure)
+        .set({
+          count: Math.max(e.count, existing.count),
+          firstSeenAt: new Date(Math.min(e.firstSeenAt, existing.firstSeenAt.getTime())),
+          lastSeenAt: new Date(Math.max(e.lastSeenAt, existing.lastSeenAt.getTime())),
+        })
+        .where(eq(lemmaExposure.lemmaId, e.lemmaId))
+        .run();
+      result.lemmaExposure.updated += 1;
+    }
   });
 
   return result;

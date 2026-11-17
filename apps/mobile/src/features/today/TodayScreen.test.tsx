@@ -1,6 +1,10 @@
 import { render, screen, userEvent } from '@testing-library/react-native';
 import { router } from 'expo-router';
 
+import { createScheduler } from '@italia/core';
+
+import { importStories } from '@/data';
+import { FIXTURE_STORIES } from '@/testing/fixtureStories';
 import { createTestApp, type TestApp } from '@/testing/testApp';
 
 import { TodayScreen } from './TodayScreen';
@@ -56,5 +60,46 @@ describe('Today', () => {
     await render(app.wrap(<TodayScreen />));
     expect(screen.getByText('Done for today')).toBeOnTheScreen();
     expect(screen.queryByRole('button', { name: 'Start session' })).toBeNull();
+  });
+
+  it('plans one story as the reading block, honestly when none fits yet', async () => {
+    const now = new Date(2026, 10, 16, 9);
+    expect(summariseToday(app.repos, now).reading).toBeNull();
+    importStories(app.t.db, FIXTURE_STORIES);
+    // A new learner knows no words yet: the closest story is shown, with its coverage.
+    expect(summariseToday(app.repos, now).reading).toMatchObject({ kind: 'closest', readToday: 0 });
+    await render(app.wrap(<TodayScreen />));
+    expect(screen.getByText(/Stories open up once you know at least 90%/)).toBeOnTheScreen();
+    expect(screen.queryByRole('button', { name: 'Read the next story' })).toBeNull();
+  });
+
+  it('offers the next story once its words are known', async () => {
+    importStories(app.t.db, FIXTURE_STORIES);
+    const now = new Date();
+    const scheduler = createScheduler();
+    app.repos.cards.createMany(
+      Array.from({ length: 33 }, (_, i) => ({
+        kind: 'cloze_production' as const,
+        targetId: i + 1,
+        promptMode: 'typed' as const,
+        schedule: {
+          ...scheduler.newCard(now),
+          state: 'review' as const,
+          stability: 60,
+          reps: 5,
+          due: new Date(now.getTime() + 30 * 86_400_000),
+          lastReview: new Date(now.getTime() - 86_400_000),
+        },
+      })),
+    );
+    const reading = summariseToday(app.repos, now).reading;
+    expect(reading).toMatchObject({ kind: 'next', coverage: 1 });
+    const user = userEvent.setup();
+    await render(app.wrap(<TodayScreen />));
+    await user.press(screen.getByRole('button', { name: 'Read the next story' }));
+    expect(router.push).toHaveBeenCalledWith({
+      pathname: '/story/[id]',
+      params: { id: reading?.storyId },
+    });
   });
 });

@@ -1,10 +1,11 @@
 import { router } from 'expo-router';
 import { View } from 'react-native';
 
+import { coveragePercent, FIT_LABELS } from '@/features/read/library';
 import { Button, Card, EmptyState, ProgressBar, Screen, Stat, Text, useTheme } from '@/ui';
 
 import { days, freezesText, streakMessage } from './streakCopy';
-import { useTodayPlan, type TodaySummary } from './useTodayPlan';
+import { useTodayPlan, type TodayReading, type TodaySummary } from './useTodayPlan';
 
 const LIMIT_NOTES = {
   daily_limit: null,
@@ -26,6 +27,45 @@ function emptyMessage(s: TodaySummary): { title: string; message: string } {
     message:
       "You have learned today's new words and nothing is due. Come back tomorrow, or raise the daily limit in Settings.",
   };
+}
+
+/** The plan's reading block: one story episode at the learner's level. */
+function ReadingCard({ reading }: { reading: TodayReading }) {
+  const { spacing } = useTheme();
+  const done = reading.readToday > 0;
+  const open = () => {
+    router.push({ pathname: '/story/[id]', params: { id: reading.storyId } });
+  };
+  return (
+    <Card testID="today-reading">
+      <Text variant="heading">Reading</Text>
+      {done ? (
+        <Text color="success">
+          {`Done for today: ${String(reading.readToday)} ${reading.readToday === 1 ? 'story' : 'stories'} read.`}
+        </Text>
+      ) : null}
+      {reading.kind === 'next' ? (
+        <>
+          <Text variant="bodyStrong">{reading.title}</Text>
+          <Text color="textMuted">
+            {`${reading.seriesTitle}, episode ${String(reading.episode)} · ${coveragePercent(reading.coverage)} known · ${FIT_LABELS[reading.fit]} · about ${String(reading.minutes)} min`}
+          </Text>
+          <View style={{ marginTop: spacing.sm }}>
+            <Button
+              label={done ? 'Read another story' : 'Read the next story'}
+              variant={done ? 'secondary' : 'primary'}
+              accessibilityHint={`Opens ${reading.title}`}
+              onPress={open}
+            />
+          </View>
+        </>
+      ) : (
+        <Text color="textMuted">
+          {`Stories open up once you know at least 90% of their words. The closest, ${reading.title}, is at ${coveragePercent(reading.coverage)}: keep learning words in your sessions.`}
+        </Text>
+      )}
+    </Card>
+  );
 }
 
 /** The Today tab: today's plan, the streak and the start button. */
@@ -76,6 +116,8 @@ export function TodayScreen() {
       ) : (
         <EmptyState title={empty.title} message={empty.message} />
       )}
+
+      {summary.reading ? <ReadingCard reading={summary.reading} /> : null}
 
       <Card>
         <Text variant="heading">Streak</Text>

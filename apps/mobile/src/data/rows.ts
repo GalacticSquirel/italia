@@ -8,10 +8,12 @@ import type {
   errorRecord,
   grammarPoint,
   lemma,
+  lemmaExposure,
   reviewLog,
   sentence,
   settings,
   story,
+  storyProgress,
   streakState,
   studySession,
 } from '@/db/schema';
@@ -40,6 +42,10 @@ export type NewReviewLogRow = typeof reviewLog.$inferInsert;
 export type StoryRow = typeof story.$inferSelect;
 /** Insert shape of a story. */
 export type NewStoryRow = typeof story.$inferInsert;
+/** The learner's reading progress on one story. */
+export type StoryProgressRow = typeof storyProgress.$inferSelect;
+/** How often a lemma was met in finished stories. */
+export type LemmaExposureRow = typeof lemmaExposure.$inferSelect;
 /** A recorded learner error. */
 export type ErrorRecordRow = typeof errorRecord.$inferSelect;
 /** A study session. */

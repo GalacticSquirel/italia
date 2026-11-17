@@ -13,6 +13,7 @@ import { createErrorRecordRepo, type ErrorRecordRepo } from './ErrorRecordRepo';
 import { newUuid, type IdGenerator } from './ids';
 import { createMetaRepo, type MetaRepo } from './MetaRepo';
 import { createModelFileRepo, type ModelFileRepo } from './ModelFileRepo';
+import { createReadingRepo, type ReadingRepo } from './ReadingRepo';
 import { recordReview, type RecordReviewInput } from './recordReview';
 import { createReviewLogRepo, type ReviewLogRepo } from './ReviewLogRepo';
 import type { ReviewLogRow } from './rows';
@@ -29,6 +30,8 @@ export interface Repositories {
   cards: CardRepo;
   reviewLogs: ReviewLogRepo;
   stories: StoryRepo;
+  /** Reading progress and words met in stories. */
+  reading: ReadingRepo;
   errors: ErrorRecordRepo;
   studySessions: StudySessionRepo;
   settings: SettingsRepo;
@@ -56,6 +59,7 @@ export function createRepositories(db: AppDatabase, options: RepositoryOptions =
     cards: createCardRepo(db),
     reviewLogs: createReviewLogRepo(db, newId),
     stories: createStoryRepo(db, newId),
+    reading: createReadingRepo(db),
     errors: createErrorRecordRepo(db, newId),
     studySessions: createStudySessionRepo(db, newId),
     settings: createSettingsRepo(db),

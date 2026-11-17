@@ -101,6 +101,27 @@ export const BackupErrorRecordSchema = z.object({
   createdAt: ms,
 });
 
+/** Reading progress on one story in a backup. */
+export const BackupStoryProgressSchema = z.object({
+  storyId: z.string().min(1),
+  startedAt: ms,
+  completedAt: ms.nullable(),
+  timesRead: z.number().int().nonnegative(),
+  lastSentence: z.number().int().nonnegative(),
+  wordsRead: z.number().int().nonnegative(),
+  comprehensionCorrect: z.number().int().nonnegative().nullable(),
+  comprehensionTotal: z.number().int().nonnegative().nullable(),
+  updatedAt: ms,
+});
+
+/** Exposure count of one lemma in a backup. */
+export const BackupLemmaExposureSchema = z.object({
+  lemmaId: z.number().int(),
+  count: z.number().int().nonnegative(),
+  firstSeenAt: ms,
+  lastSeenAt: ms,
+});
+
 /** A complete backup of the learner's data (content is not included; it comes from the seed). */
 export const BackupFileSchema = z.object({
   format: z.literal(BACKUP_FORMAT),
@@ -115,6 +136,10 @@ export const BackupFileSchema = z.object({
   streakState: BackupStreakSchema.nullable(),
   studySessions: z.array(BackupStudySessionSchema),
   errorRecords: z.array(BackupErrorRecordSchema),
+  /** Reading progress; absent in older backups. */
+  storyProgress: z.array(BackupStoryProgressSchema).default([]),
+  /** Words met in stories; absent in older backups. */
+  lemmaExposure: z.array(BackupLemmaExposureSchema).default([]),
 });
 
 /** A backup file. */

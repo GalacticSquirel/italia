@@ -197,6 +197,48 @@ export const story = sqliteTable(
   ],
 );
 
+/**
+ * The learner's reading of one story: where they are and whether they have
+ * finished it. Device-local for now (not synced; reading time itself syncs
+ * through `study_session`). Keyed by story id without a foreign key, so a
+ * content update that drops a story keeps the history.
+ */
+export const storyProgress = sqliteTable(
+  'story_progress',
+  {
+    storyId: text('story_id').primaryKey(),
+    startedAt: timestamp('started_at').notNull(),
+    /** First time the story was finished, or null while unread. */
+    completedAt: timestamp('completed_at'),
+    /** Times the story was finished. */
+    timesRead: integer('times_read').notNull().default(0),
+    /** Sentence (reading order) the learner was last on, to resume there. */
+    lastSentence: integer('last_sentence').notNull().default(0),
+    /** Words read across all finished readings. */
+    wordsRead: integer('words_read').notNull().default(0),
+    /** Latest comprehension check: items answered correctly, of `comprehensionTotal`. */
+    comprehensionCorrect: integer('comprehension_correct'),
+    comprehensionTotal: integer('comprehension_total'),
+    updatedAt: timestamp('updated_at').notNull(),
+  },
+  (t) => [index('story_progress_completed_idx').on(t.completedAt)],
+);
+
+/**
+ * How often the learner has met each lemma in stories they finished
+ * (incidental exposure). Device-local, like `story_progress`.
+ */
+export const lemmaExposure = sqliteTable(
+  'lemma_exposure',
+  {
+    lemmaId: integer('lemma_id').primaryKey(),
+    count: integer('count').notNull().default(0),
+    firstSeenAt: timestamp('first_seen_at').notNull(),
+    lastSeenAt: timestamp('last_seen_at').notNull(),
+  },
+  (t) => [check('lemma_exposure_count_nonnegative', sql`${t.count} >= 0`)],
+);
+
 export const errorRecord = sqliteTable(
   'error_record',
   {
