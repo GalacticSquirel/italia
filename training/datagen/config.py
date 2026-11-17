@@ -12,6 +12,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from pydantic.alias_generators import to_camel
 
 from datagen.lemmas import TRAINING_DIR
+from datagen.records import JUDGE_CRITERIA, JudgeScores
 from datagen.teacher import ModelEndpoint
 from spec.levels import Level
 
@@ -89,6 +90,34 @@ class JudgeConfig(ConfigModel):
     temperature: float = 0.0
     max_tokens: int = 1200
     min_overall: float = Field(default=3.8, description="Dialogues below this are dropped.")
+    min_scores: dict[str, float] = Field(
+        default_factory=lambda: {"grammaticality": 4.0, "feedback": 4.0, "promptWithholds": 4.0},
+        description=(
+            "Per-criterion floors (wire names, e.g. grammaticality). The mean hides a single bad "
+            "criterion: grammaticality 2 with six 5s still averages 4.57."
+        ),
+    )
+
+    @model_validator(mode="after")
+    def _known_criteria(self) -> JudgeConfig:
+        unknown = set(self.min_scores) - set(JUDGE_CRITERIA)
+        if unknown:
+            raise ValueError(f"unknown judge criteria in minScores: {sorted(unknown)}")
+        return self
+
+    def accepts(self, scores: JudgeScores) -> bool:
+        """Whether a judgement passes the mean threshold and every per-criterion floor.
+
+        A criterion the judge did not score (promptWithholds without a prompt) has no floor.
+        """
+        if scores.overall < self.min_overall:
+            return False
+        values = scores.by_criterion()
+        for name, floor in self.min_scores.items():
+            value = values.get(name)
+            if value is not None and value < floor:
+                return False
+        return True
 
 
 class TokenEstimate(ConfigModel):
