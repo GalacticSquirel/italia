@@ -12,6 +12,8 @@
  * Pure: the build script reads the file and passes the text in.
  */
 
+import { splitNumeral } from './numerals';
+
 /** Universal POS tags used for seed lemmas. */
 export const UPOS = [
   'NOUN',
@@ -197,6 +199,12 @@ interface Row {
   gender?: 'm' | 'f';
 }
 
+/** A compound numeral ("ventotto") as its basic numbers (venti + otto); null otherwise. */
+function numeral(lemma: string, head: string, infl: string): Row | null {
+  const parts = splitNumeral(lemma);
+  return parts && { units: parts.map((l) => ({ lemma: l, upos: 'NUM' })), head, infl };
+}
+
 /** Normalise one Morph-it row; null for punctuation, symbols, abbreviations. */
 export function normaliseRow(form: string, lemma: string, tag: string): Row | null {
   const colon = tag.indexOf(':');
@@ -239,12 +247,12 @@ export function normaliseRow(form: string, lemma: string, tag: string): Row | nu
       return one('DET', 'il');
     }
     case 'DET':
-      if (head === 'DET-NUM-CARD') return one('NUM');
+      if (head === 'DET-NUM-CARD') return numeral(lemma, head, infl) ?? one('NUM');
       return one('DET');
     case 'TALE':
       return one('DET');
     case 'PRO': {
-      if (head === 'PRO-NUM') return one('NUM');
+      if (head === 'PRO-NUM') return numeral(lemma, head, infl) ?? one('NUM');
       if (head === 'PRO-PERS-CLI-COM') {
         const base = lemma.replace(/'$/, 'o');
         const pieces = splitClitics(base);
@@ -421,7 +429,46 @@ function lookupVariant(lexicon: Lexicon, form: string): readonly Reading[] | und
       if (hit) return hit;
     }
   }
-  return bare !== form ? lexicon.get(bare) : undefined;
+  if (bare !== form) return lexicon.get(bare);
+  return lookupNumeral(form) ?? lookupEnclitic(lexicon, form);
+}
+
+/** A compound numeral Morph-it! lacks ("ventitré") is read as its parts. */
+function lookupNumeral(form: string): readonly Reading[] | undefined {
+  const row = numeral(form, 'DET-NUM-CARD', '');
+  return row ? [{ units: row.units, heads: [row.head], infl: [] }] : undefined;
+}
+
+/**
+ * Morph-it! lists enclitic forms for common verbs only ("prendermi" but not
+ * "denunciarla"). Read an unlisted form as an infinitive ("denunciar-la"), gerund
+ * ("dicendo-lo") or imperative ("prendete-vela") followed by a clitic cluster.
+ */
+function lookupEnclitic(lexicon: Lexicon, form: string): readonly Reading[] | undefined {
+  for (let cut = form.length - 2; cut >= 3; cut--) {
+    const cluster = form.slice(cut);
+    const clitics = splitClitics(cluster);
+    if (!clitics || clitics.length === 0) continue;
+    const stem = form.slice(0, cut);
+    const out: Reading[] = [];
+    const tryBase = (base: string, moods: readonly string[]) => {
+      for (const r of lexicon.get(base) ?? []) {
+        const verb = r.units[0];
+        if (r.units.length !== 1 || verb?.upos !== 'VERB') continue;
+        const infl = r.infl.filter((i) => moods.some((m) => i.startsWith(m)));
+        if (infl.length === 0) continue;
+        out.push({
+          units: [verb, ...clitics.map(pron)],
+          heads: r.heads,
+          infl: infl.map((i) => `${i}+${cluster}`),
+        });
+      }
+    };
+    if (stem.endsWith('r')) tryBase(`${stem}e`, ['inf']);
+    tryBase(stem, ['ger', 'impr']);
+    if (out.length > 0) return out;
+  }
+  return undefined;
 }
 
 /**

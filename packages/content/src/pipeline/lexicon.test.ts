@@ -93,6 +93,15 @@ describe('parseMorphIt and lookup', () => {
     expect(lookup(testLexicon(), 'zzz')).toBeUndefined();
   });
 
+  it('reads unlisted enclitic forms as infinitive, gerund or imperative + clitics', () => {
+    const units = (form: string) =>
+      (lookup(testLexicon(), form) ?? []).map((r) => r.units.map(unitKey).join(' + '));
+    expect(units('studiarla')).toEqual(['studiare|VERB + la|PRON']);
+    expect(units('dormendoci')).toEqual(['dormire|VERB + ci|PRON']);
+    expect(units('portamelo')).toEqual(['portare|VERB + mi|PRON + lo|PRON']);
+    expect(lookup(testLexicon(), 'studiarx')).toBeUndefined();
+  });
+
   it('gives inflected pronoun lemmas the determiner lemma', () => {
     const lexicon = parseMorphIt(
       'mia\tmia\tPRO-POSS-F-S\nmia\tmio\tDET-POSS:f+s\nnulla\tnulla\tPRO-INDEF-M-S\nnulla\tnullo\tADJ:pos+f+s',

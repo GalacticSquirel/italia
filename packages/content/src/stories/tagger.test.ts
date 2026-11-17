@@ -44,6 +44,8 @@ pizza	pizza	NOUN-F:s
 bella	bello	ADJ:pos+f+s
 bella	bella	NOUN-F:s
 rossa	rosso	ADJ:pos+f+s
+costa	costa	NOUN-F:s
+costa	costare	VER:ind+pres+3+s
 `);
 
 const seedRows: [string, Upos][] = [
@@ -69,6 +71,8 @@ const seedRows: [string, Upos][] = [
   ['bello', 'ADJ'],
   ['rosso', 'ADJ'],
   ['amica', 'NOUN'],
+  ['costa', 'NOUN'],
+  ['costare', 'VERB'],
 ];
 // Ranks: content words start above the target floor (rank 20).
 const lemmas: StoryLemma[] = seedRows.map(([lemma, pos], i) => ({
@@ -79,7 +83,8 @@ const lemmas: StoryLemma[] = seedRows.map(([lemma, pos], i) => ({
 }));
 const id = (lemma: string, pos: Upos) => lemmaId(lemma, pos);
 const tagger = createStoryTagger({ lexicon, subtlex: new Map(), lemmas });
-const tag = (it: string, names: string[] = []) => tagger.tagStorySentence(it, new Set(names));
+const tag = (it: string, names: string[] = [], readings: Record<string, string> = {}) =>
+  tagger.tagStorySentence(it, new Set(names), new Map(Object.entries(readings)));
 
 describe('createLemmaResolver', () => {
   it('matches lemma and POS, then falls back to the same lemma under another POS', () => {
@@ -133,6 +138,18 @@ describe('tagStorySentence', () => {
     ]);
     expect(sentence.tokens[0]?.isName).toBe(true);
     expect(sentence.tokens[2]?.partIds).toEqual([id('si', 'PRON')]);
+  });
+
+  it('reads a pinned spelling as the pinned lemma only', () => {
+    const lemmaOf = (readings: Record<string, string>) =>
+      tag('Costa una mela.', [], readings).sentence.tokens[0]?.lemmaId;
+    expect(lemmaOf({ costa: 'costare' })).toBe(id('costare', 'VERB'));
+    expect(lemmaOf({ costa: 'costa' })).toBe(id('costa', 'NOUN'));
+    expect(lemmaOf({ costa: 'costare|VERB' })).toBe(id('costare', 'VERB'));
+    expect(lemmaOf({ costa: 'costare|NOUN' })).toBeNull();
+    expect(tag('Costa una mela.', [], { costa: 'pizza' }).issues).toEqual([
+      '"Costa" is not a seed lemma',
+    ]);
   });
 
   it('reports words outside the seed and undeclared names', () => {
@@ -192,6 +209,32 @@ describe('tagStory', () => {
       { taught: new Set([id('mela', 'NOUN')]) },
     );
     expect(story.targetLemmaIds).toEqual([id('rosso', 'ADJ'), id('mela', 'NOUN')]);
+  });
+
+  it('applies pinned readings to the story and its questions, and reports unused pins', () => {
+    const pinned = parseStorySource(
+      [
+        'title: La mela | The apple',
+        'readings: costa=costare, mela=pizza',
+        '',
+        'La mela costa. | The apple costs.',
+        '',
+        'questions:',
+        '? Costa la mela? | Does the apple cost?',
+        '* Sì. | Yes.',
+        '- No. | No.',
+      ].join('\n'),
+    );
+    const { story, issues } = tagger.tagStory(pinned, {
+      seriesId: 'la-mela',
+      seriesIndex: 1,
+      band: 150,
+    });
+    const costa = (tokens: readonly { text: string; lemmaId: number | null }[]) =>
+      tokens.find((t) => t.text.toLowerCase() === 'costa')?.lemmaId;
+    expect(costa(story.paragraphs[0]?.sentences[0]?.tokens ?? [])).toBe(id('costare', 'VERB'));
+    expect(costa(story.questions[0]?.prompt.tokens ?? [])).toBe(id('costare', 'VERB'));
+    expect(issues).toContain('readings: "mela=pizza" matches no word of the story');
   });
 
   it('tags comprehension questions without counting them in the story', () => {

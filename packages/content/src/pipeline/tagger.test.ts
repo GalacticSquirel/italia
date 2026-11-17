@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import type { PosDistribution } from './frequency';
+import { parseMorphIt } from './lexicon';
 import { tagSentence } from './tagger';
 import { testLexicon } from './test-lexicon';
 
@@ -34,5 +35,35 @@ describe('tagSentence: article or clitic pronoun', () => {
 
   it('keeps "la" before a noun as the article', () => {
     expect(posOf('Io mangio la casa.', 'la')).toBe('il/DET');
+  });
+});
+
+describe('number words', () => {
+  const lexicon = parseMorphIt(
+    [
+      'sei\tessere\tAUX:ind+pres+2+s',
+      'sei\tsei\tDET-NUM-CARD',
+      'cinque\tcinque\tDET-NUM-CARD',
+      'o\to\tCON',
+      'alle\talla\tARTPRE-F:p',
+      'anni\tanno\tNOUN-M:p',
+      'stanco\tstanco\tADJ:pos+m+s',
+      'tu\ttu\tPRO-PERS-2-M-S',
+    ].join('\n'),
+  );
+  // SUBTLEX-IT tags most "sei" as a numeral (ADJ); the context must still win.
+  const counts = new Map([['sei', dist({ VER: 100, ADJ: 900 })]]);
+  const sei = (sentence: string) =>
+    tagSentence(sentence, lexicon, counts).find((t) => t.lower === 'sei')?.reading?.units[0]?.lemma;
+
+  it('reads "sei" as six after an article or a number, or before a noun', () => {
+    expect(sei('alle sei')).toBe('sei');
+    expect(sei('cinque o sei')).toBe('sei');
+    expect(sei('sei anni')).toBe('sei');
+  });
+
+  it('keeps the verb elsewhere', () => {
+    expect(sei('tu sei stanco')).toBe('essere');
+    expect(sei('sei stanco')).toBe('essere');
   });
 });

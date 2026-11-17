@@ -20,6 +20,7 @@ import { serialiseSeed } from './serialise-seed';
 import { SOURCES, type SourceId } from './sources';
 import { detectGrammar, usesOutOfScopeGrammar } from '../src/grammar/rules';
 import { grammarSeedRows } from '../src/grammar/seedRows';
+import { applyRankCeilings, everydayCeilings, everydayKeys } from '../src/pipeline/everyday';
 import {
   countLemmas,
   ghostLemmas,
@@ -68,8 +69,8 @@ import {
   SEED_VERSION,
 } from '../src/schema';
 
-const LEMMA_COUNT = 3000;
-const COVERAGE_LEVELS = [1000, 2000, 3000, 5000];
+const LEMMA_COUNT = 10000;
+const COVERAGE_LEVELS = [1000, 2000, 3000, 5000, 10000];
 const MIN_TOKENS = 3;
 const MAX_TOKENS = 12;
 const MAX_PROPER_NOUNS = 2;
@@ -211,10 +212,16 @@ async function main(): Promise<void> {
   const canonical = mergeHomographs(firstPass.counts, { preferred: PREFERRED_POS });
   const counted = countLemmas(formCounts, lexicon, subtlex, { canonical });
   const shadowed = shadowedLemmas(counted, new Set(['VERB', 'ADJ']));
-  const candidates = [...counted.counts.entries()]
-    .filter(([key]) => eligibleKey(key) && !shadowed.has(key))
+  // Everyday words (everyday.ts) join the candidates however rare they are in subtitles.
+  const everyday = everydayKeys(everydayCeilings(), counted.counts, lexicon);
+  const frequent = [...counted.counts.entries()]
+    .filter(([key]) => eligibleKey(key) && !shadowed.has(key) && !everyday.has(key))
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .slice(0, 9000);
+    .slice(0, Math.round(LEMMA_COUNT * 1.6));
+  const candidates = [
+    ...frequent,
+    ...[...everyday.keys()].map((key): [string, number] => [key, counted.counts.get(key) ?? 0]),
+  ].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   const candidateCount = new Map(candidates);
 
   // Members of each merged homograph group, most frequent first.
@@ -339,11 +346,10 @@ async function main(): Promise<void> {
         genderOf.set(unitKey(u), r.gender);
     }
   }
-  const lemmaRows: SeedLemma[] = [];
-  const glossedKeys: string[] = [];
+  const kept: { key: string; count: number; gloss: string }[] = [];
   const firstGloss = new Map<string, string>();
   for (const [key, count] of ranked) {
-    const { lemma, upos } = parseUnitKey(key);
+    const { lemma } = parseUnitKey(key);
     const picked = glossed.get(key);
     if (!picked) continue;
     if (picked.offensive) {
@@ -359,6 +365,22 @@ async function main(): Promise<void> {
       continue;
     }
     firstGloss.set(`${lemma}|${firstItem}`, key);
+    kept.push({ key, count, gloss: picked.gloss });
+  }
+  // Everyday words move up to their level's rank ceiling.
+  const ceilingOf = new Map<string, number>();
+  for (const [key, ceiling] of everyday) {
+    const k = resolve(key);
+    ceilingOf.set(k, Math.min(ceiling, ceilingOf.get(k) ?? Infinity));
+  }
+  const order = applyRankCeilings(kept, (k) => ceilingOf.get(k.key));
+  const keptIndex = new Map(kept.map((k, i) => [k, i]));
+  const lifted = order.filter((k, i) => i < (keptIndex.get(k) ?? 0)).length;
+
+  const lemmaRows: SeedLemma[] = [];
+  const glossedKeys: string[] = [];
+  for (const { key, count, gloss } of order) {
+    const { lemma, upos } = parseUnitKey(key);
     glossedKeys.push(key);
     if (lemmaRows.length < LEMMA_COUNT) {
       const gender = upos === 'NOUN' ? genderOf.get(key) : undefined;
@@ -368,7 +390,7 @@ async function main(): Promise<void> {
         lemma: shown,
         pos: upos,
         freqRank: lemmaRows.length + 1,
-        glossEn: picked.gloss,
+        glossEn: gloss,
         audioRef: null,
         extra: {
           ...(gender ? { gender } : {}),
@@ -377,6 +399,14 @@ async function main(): Promise<void> {
       });
     }
   }
+  const missingEveryday = [...ceilingOf.keys()].filter((k) => {
+    const rank = glossedKeys.indexOf(k) + 1;
+    return rank === 0 || rank > (ceilingOf.get(k) ?? 0);
+  });
+  if (missingEveryday.length > 0) {
+    throw new Error(`Everyday words missing or above their ceiling: ${missingEveryday.join(' ')}`);
+  }
+  log(`everyday words: ${everyday.size}, moved up: ${lifted}`);
   const ids = new Set(lemmaRows.map((l) => l.id));
   if (ids.size !== lemmaRows.length) throw new Error('Lemma id collision; change the hash input');
   const lemmaFrequency = (key: string) => total.get(resolve(key)) ?? 0;

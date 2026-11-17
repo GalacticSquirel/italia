@@ -10,6 +10,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import { GRAMMAR_POINTS } from './grammar/points';
 import { toRows } from './loader';
 import { loadSeedFile, SEED_FILE } from './node';
+import { everydayCeilings } from './pipeline/everyday';
 import { lemmaId } from './pipeline/ids';
 import { EXCLUDED_TOP_FORMS } from './pipeline/overrides';
 import { type Seed } from './schema';
@@ -21,13 +22,13 @@ beforeAll(async () => {
 });
 
 describe('seed.v1.json', () => {
-  it('passes the zod schema and stays under 8 MB', () => {
+  it('passes the zod schema and stays under 24 MB', () => {
     expect(seed.version).toBe(1);
-    expect(statSync(SEED_FILE).size).toBeLessThan(8 * 1024 * 1024);
+    expect(statSync(SEED_FILE).size).toBeLessThan(24 * 1024 * 1024);
   });
 
-  it('has about 3,000 unique lemmas with dense ranks and hash ids', () => {
-    expect(seed.lemmas.length).toBeGreaterThanOrEqual(2900);
+  it('has about 10,000 unique lemmas with dense ranks and hash ids', () => {
+    expect(seed.lemmas.length).toBeGreaterThanOrEqual(9900);
     const ranks = seed.lemmas.map((l) => l.freqRank).sort((a, b) => a - b);
     expect(ranks).toEqual(ranks.map((_, i) => i + 1));
     expect(new Set(seed.lemmas.map((l) => `${l.lemma}|${l.pos}`)).size).toBe(seed.lemmas.length);
@@ -161,6 +162,21 @@ describe('frequent words', () => {
       .map(
         ({ word, limit }) =>
           `${word} (rank ${String(rankOf.get(word) ?? 'missing')}, limit ${limit})`,
+      );
+    expect(failures).toEqual([]);
+  });
+
+  it('ranks every everyday word within its level ceiling', () => {
+    const rankOf = new Map<string, number>();
+    for (const l of seed.lemmas) {
+      for (const key of [l.lemma, `${l.lemma}|${l.pos}`])
+        rankOf.set(key, Math.min(rankOf.get(key) ?? Infinity, l.freqRank));
+    }
+    const failures = [...everydayCeilings()]
+      .filter(([entry, ceiling]) => !((rankOf.get(entry) ?? Infinity) <= ceiling))
+      .map(
+        ([entry, ceiling]) =>
+          `${entry} (rank ${rankOf.get(entry) ?? 'missing'}, ceiling ${ceiling})`,
       );
     expect(failures).toEqual([]);
   });

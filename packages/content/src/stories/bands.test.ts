@@ -17,7 +17,7 @@ describe('band rules', () => {
       expect(rules.words[0]).toBeGreaterThanOrEqual(last.words[0]);
       expect(rules.maxSentenceWords).toBeGreaterThanOrEqual(last.maxSentenceWords);
       expect(rules.words[0]).toBeGreaterThanOrEqual(80);
-      expect(rules.words[1]).toBeLessThanOrEqual(350);
+      expect(rules.words[1]).toBeLessThanOrEqual(600);
       previous = band;
       last = rules;
     }
@@ -31,10 +31,14 @@ describe('band rules', () => {
     expect(slugAt(BAND_RULES[1500].maxGrammarOrder)).toBe('comparatives');
     expect(slugAt(BAND_RULES[2000].maxGrammarOrder)).toBe('infinitive-past');
     expect(slugAt(BAND_RULES[3000].maxGrammarOrder)).toBe('subjunctive-past');
-    // Every band up to B1 stays within A1 to B1 grammar.
+    expect(slugAt(BAND_RULES[5000].maxGrammarOrder)).toBe('altered-nouns');
+    expect(slugAt(BAND_RULES[8000].maxGrammarOrder)).toBe('adjective-position');
+    expect(slugAt(BAND_RULES[10000].maxGrammarOrder)).toBe(GRAMMAR_POINTS.at(-1)?.slug);
+    // From B1 on, a band's grammar ceiling is a point of the band's own CEFR level.
     for (const rules of Object.values(BAND_RULES)) {
-      const point = GRAMMAR_POINTS[rules.maxGrammarOrder - 1];
-      expect(['A1', 'A2', 'B1']).toContain(point?.cefr);
+      const cefr = GRAMMAR_POINTS[rules.maxGrammarOrder - 1]?.cefr;
+      if (rules.band >= 2000) expect(cefr).toBe(rules.level);
+      else expect(['A1', 'A2']).toContain(cefr);
     }
   });
 
@@ -48,6 +52,11 @@ describe('band rules', () => {
       'A2',
       'B1',
       'B1',
+      'B2',
+      'B2',
+      'C1',
+      'C1',
+      'C2',
     ]);
     expect(() => bandRules(400)).toThrow(/Unknown story band/);
   });

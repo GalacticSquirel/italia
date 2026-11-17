@@ -29,6 +29,20 @@ describe('parseStorySource', () => {
     ]);
   });
 
+  it('reads pinned readings, lower-casing the spelling', () => {
+    const source = parseStorySource(
+      'title: A | B\nreadings: Costa=costare, urla = urlare, salutare=salutare|VERB\n\nUno. | One.\n',
+    );
+    expect([...source.readings]).toEqual([
+      ['costa', 'costare'],
+      ['urla', 'urlare'],
+      ['salutare', 'salutare|VERB'],
+    ]);
+    expect(() => parseStorySource('title: A | B\nreadings: costa\n\nUno. | One.\n')).toThrow(
+      /form=lemma/,
+    );
+  });
+
   it('only reads headers before the first sentence', () => {
     const source = parseStorySource('title: A | B\n\nUno. | One.\nnames: x | y\n');
     expect(source.names).toEqual([]);

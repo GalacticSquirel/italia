@@ -372,6 +372,18 @@ function analyse(
           if (l === 'essere' && isVerb(tokens[j]?.reading ?? null, 'essere')) {
             if (participleAfter(tokens, j) >= 0) add('passive-essere');
           }
+        } else if (j >= 0 && l === 'essere') {
+          // Passive with a subjunctive or passato remoto of essere: "fu costruita",
+          // "sia ingannato", "fosse chiusa". (Present and imperfetto "è chiusa" are
+          // usually adjectival and stay untagged.)
+          const tense = ['sub+pres', 'sub+impf', 'ind+past'].find((t) => onlyInfl(r, t));
+          if (tense) {
+            add('passive-essere');
+            if (tense === 'sub+pres') add('subjunctive-present');
+            else if (tense === 'sub+impf') add('subjunctive-imperfect');
+            else add('passato-remoto');
+            covered.add(i);
+          }
         }
       }
 
