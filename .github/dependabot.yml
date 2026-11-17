@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      # Expo SDK packages must move together; upgrade them with `npx expo install --fix`.
+      expo:
+        patterns:
+          - 'expo'
+          - 'expo-*'
+          - '@expo/*'
+          - 'react'
+          - 'react-dom'
+          - 'react-native'
+          - 'react-native-*'
+          - 'jest-expo'
+          - 'eslint-config-expo'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
