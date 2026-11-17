@@ -6,8 +6,11 @@ thin. They follow the same contract and pass the same filters as generated dialo
 - `src/<set>/*.yaml`: sources in the compact format documented in `datagen/handwritten.py`
 - `<set>.jsonl`: compiled `DialogueRecord`s that passed every filter (`teacher: handwritten`)
 
-One set per level or theme (`a1`, `a2`, `b1`, `b2`, `corrections`, ...). Only train-split
-scenarios are allowed; evaluation scenarios are rejected.
+One set per level or theme (`a1`, `a2`, `b1`, `b2`, `corrections`, ...). The `x-<level>-<n>`
+sets are the larger second wave, written to the same contract with more correction sequences
+and more error-free turns (so the model learns not to over-correct). Only train-split
+scenarios are allowed; evaluation scenarios are rejected (they belong to the benchmark in
+`data/bench/`).
 
 ```sh
 # LanguageTool on :8010 (Docker, or the standalone zip from languagetool.org:

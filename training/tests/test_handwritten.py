@@ -96,3 +96,66 @@ def test_build_writes_only_passing_and_load(tmp_path: Path) -> None:
     assert len(loaded) == 1
     write_jsonl(tmp_path / "x.jsonl", [loaded[0].model_copy(update={"filter": None}).to_wire()])
     assert load_handwritten([tmp_path / "x.jsonl"]) == []
+
+
+BENCH = """\
+- scenario: gelateria
+  level: A1
+  persona: es-m-worker
+  turns:
+    - tutor: Buonasera! Cono o coppetta?
+    - learner: Una cono piccolo, per favore.
+      errors: [noun-gender]
+      gold: {text: Una cono, fix: Un cono}
+    - tutor: Una cono? Cono è maschile o femminile?
+      prompt: {text: Una cono, tags: [noun-gender]}
+    - learner: Un cono piccolo, per favore.
+    - tutor: Perfetto! Quali gusti vuole?
+      goals: [choose-size]
+    - learner: Cioccolato e fragola.
+    - tutor: Ottima scelta. Sono due euro e cinquanta.
+      goals: [choose-flavours]
+    - learner: Ecco a Lei. Grazie!
+    - tutor: Grazie a Lei, arrivederci!
+      goals: [pay]
+"""
+
+
+def test_gold_spans_from_source_or_recast(tmp_path: Path) -> None:
+    with_gold = GOOD.replace(
+        "      errors: [noun-gender]\n    - tutor: Una cornetto?",
+        "      errors: [noun-gender]\n      gold: {text: una cornetto, fix: un cornetto}\n"
+        "    - tutor: Una cornetto?",
+    )
+    records, problems = compile_set(
+        "t", grammar=NullChecker(), source_dir=_write(tmp_path, with_gold)
+    )
+    assert problems == []
+    prompt_step, recast_step = records[0].plan[1], records[0].plan[2]
+    assert (prompt_step.learner_span, prompt_step.corrected_span) == ("una cornetto", "un cornetto")
+    # no gold on the repair-fail turn: the recast supplies it
+    assert (recast_step.learner_span, recast_step.corrected_span) == ("Una cornetto", "un cornetto")
+    assert records[0].plan[0].corrected_span is None
+
+
+def test_bench_sets_need_eval_scenarios_and_gold(tmp_path: Path) -> None:
+    src = _write(tmp_path, BENCH)
+    records, problems = compile_set("t", grammar=NullChecker(), source_dir=src, split="eval")
+    assert problems == []
+    (record,) = records
+    assert record.split == "eval" and record.filter is not None and record.filter.passed
+    assert record.plan[0].corrected_span == "Un cono"
+    no_gold = BENCH.replace("      gold: {text: Una cono, fix: Un cono}\n", "")
+    (tmp_path / "src" / "t" / "d.yaml").write_text(no_gold, encoding="utf-8")
+    _, problems = compile_set("t", grammar=NullChecker(), source_dir=src, split="eval")
+    assert "needs gold" in problems[0]
+    (tmp_path / "src" / "t" / "d.yaml").write_text(GOOD, encoding="utf-8")
+    _, problems = compile_set("t", grammar=NullChecker(), source_dir=src, split="eval")
+    assert "training scenario" in problems[0]
+
+
+def test_bench_build_is_never_loaded_for_training(tmp_path: Path) -> None:
+    src = _write(tmp_path, BENCH)
+    out = ["--source-dir", str(src), "--out-dir", str(tmp_path)]
+    assert main(["build", "t", "--bench", "--no-languagetool", *out]) == 0
+    assert load_handwritten([tmp_path / "t.jsonl"]) == []

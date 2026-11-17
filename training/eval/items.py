@@ -1,8 +1,9 @@
 """Evaluation items: one per tutor reaction in the held-out dialogues.
 
-Each item is the conversation up to a learner turn, the teacher's tutor turn as the reference,
-and gold labels from the learner-simulator plan (the injected error and the policy's move).
-Items come only from `split: eval` scenarios, which no training set ever contains.
+Each item is the conversation up to a learner turn, the reference tutor turn (the teacher's, or
+the author's in a hand-written benchmark set), and gold labels from the plan: the injected error,
+the policy's move and, when recorded, the wrong span and its correction. Items come only from
+`split: eval` scenarios, which no training set ever contains.
 """
 
 from __future__ import annotations
@@ -21,6 +22,8 @@ class Gold(WireModel):
     expected_move: FeedbackMove
     target_tag: str | None = None
     injected_tags: list[str] = Field(default_factory=list)
+    learner_span: str | None = None
+    corrected_span: str | None = None
 
     @property
     def tags(self) -> set[str]:
@@ -69,6 +72,8 @@ def build_items(
                         expected_move=plan.expected_move,
                         target_tag=plan.target_tag,
                         injected_tags=plan.error_tags,
+                        learner_span=plan.learner_span,
+                        corrected_span=plan.corrected_span,
                     ),
                 )
             )

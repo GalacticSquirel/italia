@@ -11,6 +11,7 @@ from spec.levels import Level
 from spec.models import FeedbackMove, Turn, TutorContext, WireModel
 
 RepairKind = Literal["fresh", "repair-success", "repair-fail"]
+Split = Literal["train", "eval"]
 
 
 class LearnerTurnPlan(WireModel):
@@ -20,6 +21,10 @@ class LearnerTurnPlan(WireModel):
     error_tags: list[str] = Field(default_factory=list)
     target_tag: str | None = None
     expected_move: FeedbackMove
+    learner_span: str | None = None
+    """The learner's wrong words for the target error, when the author recorded them."""
+    corrected_span: str | None = None
+    """Their correction; scores recasts and catches prompts that give the answer away."""
 
 
 class Persona(WireModel):
@@ -33,7 +38,7 @@ class Job(WireModel):
     """One dialogue to generate. The id is a stable hash, so reruns skip finished jobs."""
 
     id: str
-    split: Literal["train", "eval"]
+    split: Split
     scenario_id: str
     level: Level
     persona_id: str
@@ -139,7 +144,7 @@ class JudgeResult(WireModel):
 class DialogueRecord(WireModel):
     id: str
     spec_version: str
-    split: Literal["train", "eval"]
+    split: Split
     scenario_id: str
     level: Level
     persona: Persona

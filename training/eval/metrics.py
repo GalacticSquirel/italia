@@ -4,10 +4,12 @@
 - grammaticality: LanguageTool errors per 100 reply words, and share of replies with any error
 - level adherence: share of content tokens outside the band; replies over the band limit;
   sentences over the word limit
-- feedback: move accuracy (none/prompt/recast), over- and under-correction rates
+- feedback: move accuracy (none/prompt/recast), over- and under-correction rates, and
+  correction accuracy (a due correction made, on the gold target error)
+- prompt leaks: prompts whose reply gives away the gold correction (items with gold spans)
 - error tags: micro and macro precision/recall/F1 against the gold tags
 - recast correctness: on items where a recast is due, the prediction recasts the right error and
-  its correction matches the reference correction and passes LanguageTool
+  its correction matches the gold correction (or the reference recast's) and passes LanguageTool
 - annotation consistency: learnerText copied from the learner, goal ids valid, correction used
 """
 
@@ -18,7 +20,13 @@ from collections.abc import Sequence
 from dataclasses import dataclass, field
 
 from datagen.config import FilterConfig
-from datagen.filters import annotation_reasons, check_tutor_turn, english_ratio, parse_tutor_output
+from datagen.filters import (
+    annotation_reasons,
+    check_tutor_turn,
+    english_ratio,
+    parse_tutor_output,
+    reveals_correction,
+)
 from datagen.languagetool import GrammarChecker
 from datagen.lemmas import BandChecker, tokenize
 from eval.items import EvalItem
@@ -93,6 +101,10 @@ class SystemScores:
     move_confusion: Counter[tuple[str, str]] = field(default_factory=Counter)
     recast_due: int = 0
     recast_correct: int = 0
+    correction_due: int = 0
+    correction_right: int = 0
+    prompts_scored: int = 0
+    prompts_leaked: int = 0
     annotations_consistent: int = 0
     gold_tags: list[set[str]] = field(default_factory=list)
     predicted_tags: list[set[str]] = field(default_factory=list)
@@ -134,6 +146,8 @@ class SystemScores:
             "move_accuracy": self.move_accuracy,
             "over_correction": self.over_correction,
             "under_correction": self.under_correction,
+            "correction_accuracy": self.rate(self.correction_right, self.correction_due),
+            "prompt_leak_rate": self.rate(self.prompts_leaked, self.prompts_scored),
             "recast_correctness": self.rate(self.recast_correct, self.recast_due),
             "tag_f1_micro": micro.f1,
             "tag_f1_macro": macro.f1,
@@ -147,11 +161,38 @@ def _recast_correct(pred: TutorOutput, item: EvalItem, grammar: GrammarChecker) 
     recast = pred.annotations.recast
     if recast is None or item.gold.target_tag not in recast.error_tags:
         return False
-    reference, _ = parse_tutor_output(item.reference)
-    expected = reference.annotations.recast if reference is not None else None
-    if expected is not None and _norm(expected.corrected_text) != _norm(recast.corrected_text):
-        return False
+    if item.gold.corrected_span:
+        if _norm(item.gold.corrected_span) not in _norm(recast.corrected_text):
+            return False
+    else:
+        reference, _ = parse_tutor_output(item.reference)
+        expected = reference.annotations.recast if reference is not None else None
+        if expected is not None and _norm(expected.corrected_text) != _norm(recast.corrected_text):
+            return False
     return not grammar.check(recast.corrected_text)
+
+
+def _leaks(pred: TutorOutput, item: EvalItem) -> bool | None:
+    """Whether a prompt gives the answer away; None when it cannot be scored."""
+    gold = item.gold
+    if pred.annotations.move != "prompt" or not gold.corrected_span or not gold.learner_span:
+        return None
+    return reveals_correction(pred.reply, gold.learner_span, gold.corrected_span)
+
+
+def _score_correction(
+    scores: SystemScores, pred: TutorOutput, item: EvalItem, grammar: GrammarChecker
+) -> None:
+    """Recast correctness, correction accuracy and prompt leaks for one valid prediction."""
+    gold_move = item.gold.expected_move
+    if gold_move == "recast" and _recast_correct(pred, item, grammar):
+        scores.recast_correct += 1
+    if gold_move != "none" and pred.annotations.move != "none":
+        scores.correction_right += item.gold.target_tag in pred.annotations.error_tags
+    leaked = _leaks(pred, item)
+    if leaked is not None:
+        scores.prompts_scored += 1
+        scores.prompts_leaked += leaked
 
 
 def score_system(
@@ -173,6 +214,8 @@ def score_system(
         gold_move = item.gold.expected_move
         if gold_move == "recast":
             scores.recast_due += 1
+        if gold_move != "none":
+            scores.correction_due += 1
         pred, _errors = parse_tutor_output(predictions.get(item.id, ""))
         if pred is None:
             scores.move_confusion[(gold_move, "invalid")] += 1
@@ -186,8 +229,7 @@ def score_system(
             scores.by_level[level]["move_correct"] += 1
         scores.gold_tags.append(item.gold.tags)
         scores.predicted_tags.append(set(pred.annotations.error_tags))
-        if gold_move == "recast" and _recast_correct(pred, item, grammar):
-            scores.recast_correct += 1
+        _score_correction(scores, pred, item, grammar)
 
         matches = grammar.check(pred.reply)
         words = len(tokenize(pred.reply))
