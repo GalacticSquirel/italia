@@ -1,0 +1,207 @@
+# C2, correction-dense: near-native slips (register, hypotheticals, false friends, collocations).
+- scenario: arte-mostra
+  level: C2
+  persona: en-f-professional
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi mette a disagio, a dire il vero. A prima vista sembra una scena quasi tenera, eppure c'è qualcosa di morbido nel modo in cui il pittore indugia su quel corpo ferito."
+    errors: [false-friend]
+  - tutor: "Qualcosa di morboso, sì, hai colto nel segno: è un compiacimento che all'epoca fece scandalo. E oltre al disagio, che cosa vedi esattamente?"
+    recast: {text: "morbido", fix: "morboso", tags: [false-friend]}
+    goals: [react]
+  - learner: "Vedo un uomo disteso in primo piano, quasi fuori dalla tela, e dietro uno sfondo scuro che è stato dipinto con pennellate larghissime. I colori sono pochi: ocra, nero, e quel rosso che è l'unica cosa viva."
+  - tutor: "Ottimo occhio: lo sfondo è stato steso in fretta proprio per spingere la figura verso di noi. E quel rosso, secondo te, che cosa ci sta a fare?"
+    goals: [describe]
+  - learner: "Credo che il rosso è una specie di firma morale: il pittore ci dice che la violenza è l'unica cosa vera della scena."
+    errors: [subjunctive-use]
+  - tutor: "Lettura affascinante. Però riascoltati un attimo: «credo che il rosso è»? Dopo un verbo di opinione, quale modo ti aspetteresti?"
+    prompt: {text: "Credo che il rosso è", tags: [subjunctive-use]}
+  - learner: "Hai ragione: credo che il rosso sia una specie di firma morale, e che tutto il resto sia volutamente spento per farlo gridare."
+  - tutor: "Esatto, e detta così regge benissimo. Se dovessi accostarlo a un altro pittore o a un'altra epoca, a chi penseresti?"
+    goals: [interpret]
+  - learner: "A Caravaggio, per il buio e per la crudezza, anche se qui manca del tutto la sua teatralità. Rispetto al Rinascimento, dove la prospettiva mette ordine nel mondo, qui lo spazio sembra crollare addosso a chi guarda."
+  - tutor: "Confronto azzeccato: Caravaggio mette in scena, questo qui ti toglie il palcoscenico da sotto i piedi. Vieni, nella sala accanto c'è un'opera che ti farà cambiare idea sull'ordine del Rinascimento."
+    goals: [compare]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: es-m-worker
+  history: [hypothetical]
+  turns:
+  - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+  - learner: "Sì, grazie. Io non sono contrario ai lavori. Dico solo che quest'anno la spesa è troppo alta per molte famiglie e che sarebbe più prudente rimandare la facciata."
+  - tutor: "Posizione chiara, e detta con garbo, cosa rara stasera. Però un signore in fondo alla sala fa notare che chi vuole rimandare è sempre chi non vuole pagare. Che cosa gli risponde?"
+    goals: [position]
+  - learner: "Capisco il sospetto, ma non è il mio caso: ho sempre pagato puntuale. Se l'assemblea ci avrebbe informati prima dei costi, oggi non staremmo a discutere così."
+    errors: [hypothetical]
+  - tutor: "Risposta pacata, gliene do atto. Solo un dettaglio, prima di metterla a verbale: «se l'assemblea ci avrebbe informati»? Dopo quel se, il condizionale non regge."
+    prompt: {text: "Se l'assemblea ci avrebbe informati", tags: [hypothetical]}
+  - learner: "Ha ragione. Se l'assemblea ci avesse informati prima dei costi, oggi non staremmo a discutere così."
+  - tutor: "Perfetto, e così lo scrivo. Detto questo, rimandare e basta non risolve nulla: l'intonaco continua a staccarsi. Lei avrebbe una proposta concreta?"
+    goals: [defuse]
+  - learner: "Sì. Propongo di fare subito solo la messa in sicurezza dei balconi. Per il resto chiederei altri due preventivi: io ho già scritto a una ditta, ma ancora non mi ha contestato."
+    errors: [false-friend]
+  - tutor: "Se quella ditta non Le ha ancora risposto, possiamo sollecitarla noi come amministrazione. La proposta è sensata: balconi subito, facciata dopo i nuovi preventivi. Qualcuno però teme che rimandando salgano i prezzi: sarebbe disposto a fissare una scadenza?"
+    recast: {text: "non mi ha contestato", fix: "non Le ha ancora risposto", tags: [false-friend]}
+    goals: [alternative]
+  - learner: "Certo. Entro marzo votiamo i preventivi e i lavori partono in autunno. Però chiedo che questo sia scritto nel verbale, con le date."
+  - tutor: "Mi pare un compromesso che può mettere d'accordo quasi tutti. Metto a verbale: balconi entro gennaio, nuovi preventivi entro marzo, facciata in autunno. E forse, per una volta, usciamo di qui prima di mezzanotte."
+    goals: [compromise]
+
+- scenario: assicurazione-sinistro
+  level: C2
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri pomeriggio, verso le cinque, percorrevo viale Mazzini a velocità moderata. Mentre ho rallentato per il semaforo, una vettura mi ha tamponato da dietro."
+    errors: [tense-aspect]
+  - tutor: "Mi dispiace, spero che Lei stia bene. Per la pratica devo essere preciso: «mentre ho rallentato»? L'azione era in corso quando è arrivato l'urto: quale tempo la descrive meglio?"
+    prompt: {text: "Mentre ho rallentato", tags: [tense-aspect]}
+  - learner: "Giusto: mentre rallentavo per il semaforo, una vettura mi ha tamponato. Sto bene, grazie, è stato solo un bello spavento."
+  - tutor: "Meno male. Dunque Lei stava frenando e l'altra vettura non si è fermata in tempo. Secondo Lei, di chi è la responsabilità?"
+    goals: [what]
+  - learner: "Dell'altro conducente, senza dubbio. Non manteneva la distanza di sicurezza e, come ha ammesso lui stesso, guardava il telefono. Sono stato detto dai vigili che la dinamica è chiarissima."
+    errors: [passive]
+  - tutor: "Se lo ha ammesso, tanto meglio. Un momento, però: «sono stato detto»? In italiano chi riceve l'informazione non può fare da soggetto: come lo riformulerebbe?"
+    prompt: {text: "Sono stato detto", tags: [passive]}
+  - learner: "Mi scusi, è un vizio dell'inglese. Sono stato detto... no, i vigili sono stati detti... non mi viene."
+    errors: [passive]
+  - tutor: "Capita ai migliori, non si preoccupi: si dice «mi è stato detto dai vigili». Bene, la responsabilità è dunque dell'altro conducente. Avete compilato insieme il modulo di constatazione amichevole?"
+    recast: {text: "Sono stato detto", fix: "mi è stato detto", tags: [passive]}
+    goals: [responsibility]
+  - learner: "Sì, è stato compilato e firmato da entrambi sul posto. Ho anche le fotografie dei danni e i dati dei due testimoni che si erano fermati ad aiutarci."
+  - tutor: "Ottimo, è tutto quello che serve. Mi mandi modulo e fotografie per posta elettronica entro tre giorni."
+    goals: [documents]
+  - learner: "Lo farò oggi stesso. E dopo che cosa succede? Devo aspettare un perito prima di portare la macchina in officina?"
+  - tutor: "Sì, il perito La contatterà entro una settimana per valutare il danno; dopo la sua visita potrà far riparare la vettura in un'officina convenzionata. Le arriverà un messaggio con il numero della pratica. Buona giornata."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Vorrei chiedere l'iscrizione all'anagrafe: mi sono trasferita qui a settembre e ho bisogno della residenza, perché me la chiedono nell'officina del personale."
+    errors: [false-friend]
+  - tutor: "Capisco, se gliela chiede l'ufficio del personale conviene fare in fretta. Si tratta di una dichiarazione di residenza: il modulo si compila qui e si allegano alcuni documenti. Lei è cittadina dell'Unione?"
+    recast: {text: "nell'officina del personale", fix: "l'ufficio del personale", tags: [false-friend]}
+    goals: [request]
+  - learner: "Sì, sono spagnola. Che documenti servono, oltre alla carta d'identità? Me l'hanno spiegato al telefono, ma temo di non aver capito bene."
+  - tutor: "Servono un documento valido, il codice fiscale e il contratto d'affitto registrato. Ai cittadini europei si richiede anche la prova di un lavoro o di un'iscrizione all'università."
+    goals: [documents]
+  - learner: "Ecco il problema. Il contratto d'affitto c'è, ma il proprietario non l'ha ancora registrato, e dubito che lo fa prima di gennaio."
+    errors: [subjunctive-use]
+  - tutor: "Situazione frequente, purtroppo. Mi permetta però: «dubito che lo fa»? Con un verbo di dubbio l'indicativo stona un po'."
+    prompt: {text: "dubito che lo fa", tags: [subjunctive-use]}
+  - learner: "Ha ragione: dubito che lo faccia prima di gennaio. Si può procedere lo stesso, in qualche modo?"
+  - tutor: "Precisamente. Sì, una via c'è: può farsi firmare dal proprietario una dichiarazione di ospitalità, con copia del suo documento. Non è l'ideale, ma viene accettata finché il contratto non sarà registrato."
+    goals: [problem]
+  - learner: "Perfetto, gliela chiedo stasera. E una volta consegnato tutto, quanto si aspetta? Mi hanno detto che devono passare i vigili per un controllo."
+  - tutor: "Esatto: entro quarantacinque giorni un agente della polizia locale passa a verificare che Lei abiti davvero lì. Se non riceve comunicazioni entro quel termine, la residenza si considera confermata dalla data della domanda. Torni pure con la dichiarazione, senza prendere un altro numero."
+    goals: [next]
+
+- scenario: cena-suoceri
+  level: C2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+  - learner: "Purtroppo esisto, e sono anche puntuale. Grazie dell'invito, davvero: avete una casa bellissima, e dal profumo che arriva dalla cucina direi che stasera sono fortunato."
+  - tutor: "Puntuale e ottimista: mia moglie ne sarà lusingata, il profumo è il suo arrosto. Intanto assaggi questi crostini. E mi dica, di che cosa si occupa esattamente? Mia figlia è stata piuttosto vaga."
+    goals: [compliment]
+  - learner: "Squisiti, complimenti. Lavoro per una rivista di viaggi: scrivo, fotografo, e ogni tanto curo anche l'edizione online. Non è un mestiere stabile, lo so, ma eventualmente vorrei aprire una piccola agenzia qui a Firenze."
+    errors: [false-friend]
+  - tutor: "Prima o poi, dunque, un'agenzia a Firenze: i progetti a lunga scadenza mi rassicurano più dei mestieri stabili. Certo, un irlandese che scrive di viaggi e si ferma proprio qui... Non sarà che ha finito i posti da visitare?"
+    recast: {text: "eventualmente", fix: "Prima o poi", tags: [false-friend]}
+    goals: [background]
+  - learner: "Al contrario: ho capito che per conoscere davvero un posto bisogna smettere di viaggiare. E poi, se posso dirlo, Sua figlia è una ragione migliore di qualsiasi museo."
+  - tutor: "Risposta elegante, la riferirò ai musei. Senta, tutto questo Lei mi sembra eccessivo tra persone che stanno per dividere un arrosto: che ne dice se ci diamo del tu?"
+    goals: [irony]
+  - learner: "Volentieri, se non ti dispiace. Però ti avverto: mi ha voluto un anno per imparare il Lei, quindi ogni tanto mi scapperà."
+    errors: [ci-ne]
+  - tutor: "Ti perdono in anticipo. Però senti qui: «mi ha voluto un anno»? A quel verbo manca una parola piccola piccola, e anche il verbo che lo accompagna non mi convince."
+    prompt: {text: "mi ha voluto un anno", tags: [ci-ne]}
+  - learner: "Pignolo ma giusto: mi ci è voluto un anno. Vedi? Con il tu faccio già meno errori."
+  - tutor: "Appunto, il tu ti dona. Vieni, andiamo a tavola prima che l'arrosto si offenda: da stasera sei ufficialmente uscito dal regno dei personaggi immaginari."
+    goals: [tu-lei]
+
+- scenario: circolo-lettura
+  level: C2
+  persona: es-f-teacher
+  turns:
+  - tutor: "Allora, confessatelo, chi di voi ha trovato Cosimo insopportabile? Io, a rileggerlo, un po' sì."
+  - learner: "Insopportabile no, testardo sì. A me il romanzo è piaciuto moltissimo: sembra una favola leggera, ma sotto c'è una riflessione seria su quanto costa restare fedeli a un'idea."
+  - tutor: "Testardo è già una concessione, me la prendo. E questa fedeltà a un'idea, dove la vedi di preciso nel testo?"
+    goals: [impression]
+  - learner: "Nella distanza. Cosimo sale sugli alberi per un piatto di lumache, ma poi resta lassù tutta la vita, e da lì partecipa a tutto: aiuta i contadini, legge, ama. Per guardare bene il mondo bisogna allontanarsi un po', ed è il motivo per quale Calvino lo fa vivere tra i rami."
+    errors: [relative-pronoun]
+  - tutor: "Bella lettura, la distanza come forma di partecipazione. Solo un inciampo: «il motivo per quale»? Lì al relativo manca qualcosa, oppure ce n'è uno più breve."
+    prompt: {text: "il motivo per quale", tags: [relative-pronoun]}
+  - learner: "Vero: è il motivo per cui Calvino lo fa vivere tra i rami. In spagnolo la costruzione è diversa e mi sono confusa a metà strada."
+  - tutor: "Ecco fatto. E dello stile che mi dici? Perché io sostengo che tutta quell'ironia sia un modo elegante di non prendere posizione."
+    goals: [theme]
+  - learner: "Qui non sono d'accordo. L'ironia di Calvino non è evasione: è pudore. Il narratore, che è il fratello rimasto a terra, racconta con leggerezza proprio perché ammira Cosimo e non vuole farne un santo. Se Calvino avesse scritto con tono solenne, il libro sarebbe una predica."
+  - tutor: "Pudore, dici: è una difesa abile, e il fratello a terra è un buon argomento. Ma resto convinto che Cosimo, lassù, in fondo scappi dalle responsabilità. Tu davvero lo assolvi?"
+    goals: [style]
+  - learner: "Lo assolvo, sì. Chi scappa non fonda una biblioteca sugli alberi né organizza i contadini contro gli incendi. Semmai è il padre che scappa, chiuso nei suoi titoli. In cambio, Cosimo paga la sua scelta con la solitudine, e Calvino non ce lo nasconde."
+    errors: [false-friend]
+  - tutor: "Cosimo invece paga, d'accordo, e quella solitudine è la pagina più vera del libro. Va bene, mi arrendo a metà: fuga no, ma una bella dose di orgoglio sì. Tocca a te, allora: che cosa leggiamo il mese prossimo?"
+    recast: {text: "In cambio, Cosimo", fix: "Cosimo invece", tags: [false-friend]}
+    goals: [disagree]
+  - learner: "Proporrei 'Lessico famigliare' di Natalia Ginzburg. Dopo un barone sugli alberi ci vuole una famiglia con i piedi per terra, e poi lì l'ironia nasce dalla lingua di tutti i giorni: sarebbe un bel confronto."
+  - tutor: "Approvato: dalla chioma degli alberi al tavolo di cucina, mi piace. Preparati, però, perché su quel libro ho opinioni ancora più antipatiche."
+    goals: [recommend]
+
+- scenario: club-lettura
+  level: C2
+  persona: en-m-heritage
+  history: [hypothetical]
+  turns:
+  - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+  - learner: "Ce l'ho fatta, ma per un pelo: l'ho finito stamattina sul tram. Mi è piaciuto più di quanto pensassi, anche se i primi capitoli mi hanno sembrato lenti."
+    errors: [auxiliary-choice]
+  - tutor: "Sul tram, che eroe! Però aspetta: i capitoli «mi hanno sembrato» lenti? Sembrare è uno di quei verbi che vogliono un altro ausiliare."
+    prompt: {text: "mi hanno sembrato", tags: [auxiliary-choice]}
+  - learner: "Ah già, mi sono sembrati lenti. Mia nonna mi avrebbe tirato le orecchie. Comunque poi la storia decolla, soprattutto quando entra in scena il fratello maggiore."
+  - tutor: "Tua nonna sarebbe fiera della correzione. Il fratello maggiore, ecco: a me pare il personaggio più riuscito. Tu come giudichi la sua scelta di vendere la terra?"
+    goals: [impression]
+  - learner: "Per me è un egoista, però un egoista che capisco. Aveva fatto la guerra, era tornato senza niente, e la terra per lui era una prigione. Penso che abbia venduto non per i soldi ma per potersene finalmente andare. Se sarebbe rimasto, avrebbe odiato tutti."
+    errors: [hypothetical]
+  - tutor: "Un egoista che si capisce: è proprio l'effetto che l'autore cercava. Occhio solo all'ultima frase: «se sarebbe rimasto»? Rifalla con calma."
+    prompt: {text: "Se sarebbe rimasto", tags: [hypothetical]}
+  - learner: "Se sarebbe... se rimaneva? Boh, a casa nostra si diceva così."
+    errors: [hypothetical]
+  - tutor: "A casa di molti, tranquillo, ma sulla pagina si scrive: se fosse rimasto, avrebbe odiato tutti. E su questo hai ragione tu: restando avrebbe avvelenato la famiglia intera. Lo stile, invece, ti ha convinto?"
+    recast: {text: "Se sarebbe", fix: "se fosse rimasto", tags: [hypothetical]}
+    goals: [character]
+  - learner: "Abbastanza. Scrive semplice, senza fronzoli, e i dialoghi sembrano veri, con quel poco di dialetto che ti fa sentire la cucina. Forse esagera con i salti nel tempo: ogni tanto ho dovuto tornare indietro per capire in che anno eravamo."
+  - tutor: "I salti nel tempo dividono tutti, qui dentro. A me piacciono, ma capisco chi ci si perde. E dimmi, a chi lo consiglieresti?"
+    goals: [style]
+  - learner: "A chi ha dei nonni italiani, di sicuro: ci ritrova mezza famiglia. Non lo consiglierei a chi vuole azione, perché succede poco e si parla tanto."
+  - tutor: "Succede poco e si parla tanto: praticamente un pranzo di Natale. Ottimo, il mese prossimo porta tu qualcosa, magari una storia di chi invece è partito."
+    goals: [recommend]
+
+- scenario: colloquio-lavoro
+  level: C2
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno, e grazie per avermi ricevuta. Ho ventiquattro anni e mi sono laureata in design della comunicazione a Leeds. Da un anno vivo a Bologna, dove ho appena concluso un master in grafica editoriale."
+  - tutor: "Benvenuta. Un percorso tra due paesi è già un buon biglietto da visita. Che esperienze di lavoro ha avuto finora?"
+    goals: [intro]
+  - learner: "Per due anni lavoravo in uno studio di Leeds che curava l'immagine di piccoli editori. Seguivo i progetti dalla prima bozza alla stampa, e nell'ultimo periodo coordinavo anche due stagisti."
+    errors: [tense-aspect]
+  - tutor: "Interessante, soprattutto il coordinamento. Una precisazione sulla prima frase: «per due anni lavoravo»? Il periodo è chiuso e ha una durata precisa: quale passato si aspetterebbe un selezionatore?"
+    prompt: {text: "Per due anni lavoravo", tags: [tense-aspect]}
+  - learner: "Certo, mi scusi: per due anni ho lavorato in quello studio. L'emozione mi fa regredire di un livello."
+  - tutor: "Non direi proprio, se n'è accorta al volo. Veniamo a lei: quali ritiene siano i suoi punti di forza, e dove invece sa di dover migliorare?"
+    goals: [experience]
+  - learner: "Sono precisa e rispetto le scadenze, anche sotto pressione. Il mio punto debole è che fatico a delegare: preferisco rifare una cosa da sola piuttosto che spiegarla. Ci sto lavorando, anche perché ho realizzato che così rallento tutto il gruppo."
+    errors: [false-friend]
+  - tutor: "È già molto essersi resa conto che delegare fa parte del mestiere: qui i progetti passano sempre per più mani. E perché vorrebbe lavorare proprio da noi?"
+    recast: {text: "ho realizzato", fix: "essersi resa conto", tags: [false-friend]}
+    goals: [strengths]
+  - learner: "Perché seguo il vostro lavoro da tempo e mi riconosco nel vostro modo di unire tipografia e illustrazione. In uno studio piccolo potrei imparare da vicino e, credo, dare un contributo fin dal primo giorno. Posso farle una domanda? Come sarebbe organizzata la mia giornata tipo?"
+  - tutor: "Le motivazioni sono chiare, e la domanda è quella giusta. Lavorerebbe accanto a una grafica esperta su due o tre progetti per volta, con una riunione breve ogni mattina. Le faremo sapere entro venerdì: per quanto mi riguarda, è stato un ottimo colloquio."
+    goals: [why, questions]

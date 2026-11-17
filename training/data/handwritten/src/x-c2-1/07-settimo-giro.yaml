@@ -1,0 +1,208 @@
+- scenario: burocrazia-residenza
+  level: C2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno, finalmente! Spero da quaranta minuti, ma non importa. Vorrei iscrivermi all'anagrafe: sono spagnola, faccio un master a Pavia e ho appena firmato un contratto d'affitto di un anno."
+    errors: [false-friend]
+  - tutor: "«Aspetto da quaranta minuti»: lo so, e mi scuso, oggi siamo in due su cinque. Come cittadina europea, per l'iscrizione Le servono un documento d'identità, il contratto e la prova che può mantenersi."
+    recast: {text: "Spero da quaranta minuti", fix: "Aspetto da quaranta minuti", tags: [false-friend]}
+    goals: [request]
+  - learner: "Ho il passaporto, il contratto d'affitto e la lettera della borsa di studio dell'università. Basta questo?"
+  - tutor: "Quasi. Il contratto, però, deve essere registrato all'Agenzia delle Entrate, e qui vedo che manca il timbro di registrazione."
+    goals: [documents]
+  - learner: "Ah, no. Il proprietario mi aveva promesso che l'avrebbe registrato lui, ma evidentemente non l'ha ancora fatto. Si deve portare per forza tutti i documenti oggi, o posso tornare dopo con la copia registrata?"
+    errors: [subject-verb-agreement]
+  - tutor: "Succede più spesso di quanto pensi. Ma «si deve portare tutti i documenti»: in una costruzione con il «si», chi è il soggetto di quel verbo?"
+    prompt: {text: "Si deve portare per forza tutti i documenti", tags: [subject-verb-agreement]}
+  - learner: "I documenti, quindi: si devono portare tutti i documenti oggi? Oppure posso tornare?"
+  - tutor: "Giusto. Può tornare: oggi apro la pratica con quello che ha, e Lei ha dieci giorni per portare la copia registrata."
+    goals: [problem]
+  - learner: "Perfetto. E dopo quanto tempo ricevo il certificato di residenza? Mi serve per aprire un conto in banca."
+  - tutor: "Dopo la verifica dei vigili, che passano entro quarantacinque giorni. Nel frattempo, per la banca, può chiedere una ricevuta della domanda: di solito la accettano."
+    goals: [next]
+
+- scenario: organizzare-matrimonio
+  level: C2
+  persona: en-m-heritage
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Io e Sara pensiamo a una cosa intima: una sessantina di invitati, la cerimonia nella chiesa del paese di mio nonno, in Molise, e poi il pranzo in un agriturismo lì vicino. Mio nonno emigrò in Canada nel 1958; per noi è un modo di tornare alle radici."
+  - tutor: "Che bella storia, e che bel modo di chiudere un cerchio. Avete già un'idea del budget?"
+    goals: [vision]
+  - learner: "Trentamila euro, ed eventualmente possiamo arrivare a trentacinque, ma solo se ne vale la pena. Il problema è mia madre: vuole una festa grandiosa senza spendere niente. Vuole avere la torta e mangiarla anche."
+    errors: [word-choice]
+  - tutor: "Ah, vuole la botte piena e la moglie ubriaca: un classico. Con trentamila euro e sessanta invitati, comunque, si fa una festa bella e senza sprechi."
+    recast: {text: "Vuole avere la torta e mangiarla anche", fix: "vuole la botte piena e la moglie ubriaca", tags: [word-choice]}
+    goals: [budget]
+  - learner: "La botte piena e la moglie ubriaca! Questa devo raccontarla a Sara. Per il pranzo abbiamo visto due agriturismi: uno con una vista meravigliosa ma una cucina normale, l'altro con una cucina eccezionale ma in fondo a una valle, senza vista."
+  - tutor: "Il solito dilemma: gli occhi o la pancia. Conoscendo i matrimoni molisani, io punterei sulla cucina: la vista la guardano dieci minuti, il pranzo dura cinque ore."
+  - learner: "Figo, ha ragione! Allora la cucina. E per il menù preferiamo che è tutto a base di prodotti locali: niente salmone norvegese, per favore."
+    errors: [register, subjunctive-use]
+  - tutor: "La cucina, allora, e sui prodotti locali sfonda una porta aperta. Solo una cosa: «preferiamo che è tutto»? Dopo «preferire che», il verbo cambia modo."
+    prompt: {text: "preferiamo che è tutto", tags: [subjunctive-use]}
+    goals: [choices]
+  - learner: "Preferiamo che sia tutto locale, certo. Il congiuntivo mi tradisce sempre quando parlo veloce."
+  - tutor: "Succede ai migliori. Vi propongo il menù dello chef entro la settimana prossima. Ci sono condizioni che volete fissare con me fin da ora?"
+  - learner: "Una sola, ma importante: vorrei che le decisioni le prendessimo io e Sara, non mia madre. Se dovesse chiamarLa, La prego di ascoltarla con gentilezza, ma di non confermare niente senza di noi."
+  - tutor: "Chiarissimo, e mi creda, è una richiesta che sento spesso. Senza la vostra firma non si conferma nulla: lo scrivo nel contratto, nero su bianco."
+    goals: [conditions]
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: en-m-retired
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, e Le dico subito che non voglio fare un argomento: è il nostro anniversario e preferirei non rovinarlo. Però ci tengo a spiegarLe che cosa è successo."
+    errors: [false-friend]
+  - tutor: "Nessuno vuole litigare, tanto meno in una sera così: auguri, innanzitutto. Mi racconti con calma."
+    recast: {text: "fare un argomento", fix: "litigare", tags: [false-friend]}
+  - learner: "Grazie. Abbiamo ordinato il branzino del giorno, che sul menù era descritto come pescato stamattina. Appena l'ho assaggiato ho capito che era surgelato: la consistenza non mentiva. L'ho chiesto al cameriere, e alla fine l'ha ammesso."
+  - tutor: "Mi dispiace molto, e La ringrazio della franchezza. Le confermo che oggi il pesce fresco non è arrivato: il cameriere avrebbe dovuto dirvelo prima di prendere l'ordine."
+    goals: [complain]
+  - learner: "Appunto. Se il cameriere ci avrebbe avvertiti, avremmo scelto la carne e saremmo stati contenti lo stesso. Venticinque euro per un pesce surgelato sono troppi."
+    errors: [hypothetical]
+  - tutor: "Su questo ha perfettamente ragione. Mi permetta però di notare una cosa: «se il cameriere ci avrebbe avvertiti»? Nella parte con il «se», quel condizionale non regge."
+    prompt: {text: "Se il cameriere ci avrebbe avvertiti", tags: [hypothetical]}
+    goals: [detail]
+  - learner: "Ah, sì... se il cameriere ci aveva avvertiti, avremmo scelto la carne. Così va meglio?"
+    errors: [hypothetical]
+  - tutor: "Certo: se ci avesse avvertiti, avreste scelto la carne, e avreste fatto bene. Lei si aspettava, giustamente, che il menù dicesse la verità."
+    recast: {text: "ci aveva avvertiti", fix: "ci avesse avvertiti", tags: [hypothetical]}
+  - learner: "Esatto, mi aspettavo semplicemente un po' di onestà. Veniamo qui da dieci anni, e il pesce è sempre stato il motivo per cui tornavamo."
+  - tutor: "E dieci anni di fiducia valgono più di un branzino. Vorrei togliere il pesce dal conto e offrirvi il dessert e due calici di spumante, per l'anniversario."
+    goals: [expectation]
+  - learner: "Accetto volentieri, grazie: è un gesto che apprezzo. E la prossima volta che il pesce fresco manca, ditelo prima: torneremo comunque."
+  - tutor: "Glielo prometto, e lo dirò io stesso al personale. Buon anniversario a Lei e a Sua moglie: lo spumante arriva subito."
+    goals: [resolve]
+
+- scenario: reclamo-comune
+  level: C2
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Vengo per i lampioni del parco di via Manzoni: da tre settimane sono spenti tutti e sei. Di sera il parco è completamente buio, e ci passano ragazzi che tornano da scuola, anziani con il cane, chiunque."
+  - tutor: "Via Manzoni, sei lampioni spenti da tre settimane. Ha già fatto una segnalazione?"
+    goals: [describe]
+  - learner: "Due, sul sito del Comune, il 3 e il 17 ottobre. Ho ricevuto una risposta automatica e poi più niente. Intanto nel quartiere si lamentano tutti, ma qui al Comune pretendono di non vedere il problema."
+    errors: [false-friend]
+  - tutor: "«Al Comune fanno finta di non vedere»: lo sento dire spesso, e La capisco. Ma Le assicuro che le segnalazioni arrivano: l'illuminazione è gestita da una ditta esterna, e i tempi dipendono anche da loro."
+    recast: {text: "pretendono di non vedere", fix: "fanno finta di non vedere", tags: [false-friend]}
+  - learner: "Allora dipende di chi? Dalla ditta o da voi? Perché noi cittadini parliamo con il Comune, non con la ditta."
+    errors: [preposition]
+  - tutor: "Domanda giustissima. Però, «dipende di chi»? Con «dipendere» la preposizione è un'altra, la stessa che ha usato subito dopo per la ditta."
+    prompt: {text: "dipende di chi", tags: [preposition]}
+  - learner: "Dipende da chi, giusto. Allora: chi è responsabile, voi o la ditta?"
+  - tutor: "Formalmente il Comune, che ha il contratto con la ditta. Quindi Lei può presentare un reclamo formale, e noi siamo obbligati a sollecitarla e a rispondere per iscritto entro trenta giorni."
+    goals: [insist, rights]
+  - learner: "Allora lo presento subito. Vorrei però un impegno concreto, non solo un numero: almeno sapere entro quando la ditta deve intervenire."
+  - tutor: "Il contratto prevede l'intervento entro dieci giorni dal sollecito formale. Protocollo il reclamo adesso: questo è il numero, e se fra dieci giorni il parco è ancora al buio, chiami direttamente me."
+    goals: [commitment]
+
+- scenario: assicurazione-sinistro
+  level: C2
+  persona: es-f-teacher
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri pomeriggio ho uscito dal parcheggio del supermercato, molto piano, e un motorino mi ha colpito sulla fiancata destra."
+    errors: [auxiliary-choice]
+  - tutor: "Mi dispiace, spero che nessuno si sia fatto male. Prima però una cosa: «ho uscito»? Con «uscire», quale ausiliare usiamo?"
+    prompt: {text: "ho uscito", tags: [auxiliary-choice]}
+  - learner: "Sono uscita, scusi: con i verbi di movimento sbaglio ancora. Nessuno si è fatto male, per fortuna: il ragazzo è caduto, ma si è rialzato subito."
+  - tutor: "Meno male. E com'è andata, esattamente? Lei era già sulla strada o stava ancora uscendo?"
+    goals: [what]
+  - learner: "Ero quasi fuori. Il ragazzo andava contromano sulla corsia degli autobus, e io non potevo vederlo perché c'era un furgone parcheggiato. Lui stesso ha ammesso che aveva fretta."
+  - tutor: "Contromano e sulla corsia preferenziale: la responsabilità, almeno in gran parte, sembra sua. Avete compilato la constatazione amichevole?"
+    goals: [responsibility]
+  - learner: "Sì, e l'ha firmata. Però, quando è arrivata la polizia locale, ha detto che io sono uscita senza guardare. Sono rimasta di sasso, perché prima era d'accordo. La sua firma vale ancora?"
+  - tutor: "Vale, eccome: una constatazione firmata da entrambi pesa più di una versione cambiata dopo. Ha una copia del verbale della polizia locale?"
+  - learner: "Non ancora: mi hanno detto che il verbale sarà spedito a casa per la polizia entro quindici giorni. Ho però fatto delle foto: si vedono il furgone, il motorino e la segnaletica. Gliele mando per email?"
+    errors: [preposition]
+  - tutor: "Le foto sono preziosissime, me le mandi pure. Ma una cosa: il verbale sarà spedito «per la polizia»? Nel passivo, chi compie l'azione vuole un'altra preposizione."
+    prompt: {text: "per la polizia", tags: [preposition]}
+  - learner: "Sarà spedito dalla polizia, certo: «per» è spagnolo. E adesso, quali sono i prossimi passi?"
+  - tutor: "Ricevuti le foto e il verbale, apriamo la pratica e mandiamo un perito entro una settimana. Se la responsabilità del ragazzo viene confermata, Lei non pagherà nessuna franchigia."
+    goals: [documents, next]
+
+- scenario: medico-specialista
+  level: C2
+  persona: en-m-heritage
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Buongiorno, dottore. Meglio, direi. Le palpitazioni della sera sono quasi sparite e salgo le scale senza fiatone. Però dieci giorni fa ho smesso di andare in palestra per un'ingiuria al ginocchio, e da allora mi sento un po' fiacco."
+    errors: [false-friend]
+  - tutor: "Bene per le palpitazioni. E mi dispiace per l'infortunio al ginocchio: niente di grave, spero? Dieci giorni senza palestra bastano a sentirsi fiacchi."
+    recast: {text: "ingiuria al ginocchio", fix: "infortunio al ginocchio", tags: [false-friend]}
+    goals: [symptoms]
+  - learner: "Una distorsione, niente di serio. Volevo chiederLe degli esami: la pressione com'è? Mio padre e mio zio hanno la pressione alta da quando avevano quarant'anni, e io ne ho quarantadue."
+  - tutor: "La familiarità conta, ha fatto bene a dirmelo. La pressione è scesa a centotrenta su ottantacinque: un buon risultato, ma siamo ancora un po' sopra il valore ideale."
+    goals: [history]
+  - learner: "Quindi la terapia funziona, ma non abbastanza. Vuole dire che è il caso che aumento la dose, o che cambio farmaco?"
+    errors: [subjunctive-use]
+  - tutor: "Bella domanda, e ci arriviamo. Però, «è il caso che aumento»: dopo un'espressione come «è il caso che», quel presente indicativo stona."
+    prompt: {text: "è il caso che aumento la dose", tags: [subjunctive-use]}
+    goals: [understand]
+  - learner: "È il caso che aumenti la dose... sì, suona molto meglio. Allora?"
+  - tutor: "Né l'una né l'altra cosa, per ora. Riprenda la palestra appena il ginocchio lo permette e riduca il sale: spesso bastano cinque punti in meno. Ci rivediamo fra due mesi."
+  - learner: "Va bene. Un'ultima domanda: ho letto che queste pillole possono dare la tosse secca. Io ce l'ho da tre settimane, e la notte non mi fa dormire. È normale?"
+  - tutor: "Sì, è un effetto collaterale noto di questi farmaci, e se Le toglie il sonno non va sopportato. Le cambio la pillola con una simile che non dà tosse: in una settimana dovrebbe passare."
+    goals: [treatment]
+
+- scenario: vita-in-italia
+  level: C2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Buongiorno! La verità è che non l'ho scelta io: me l'ha assegnata l'università. Tre anni fa vinsi una borsa Erasmus per Torino, e dovevo restare cinque mesi."
+    errors: [tense-aspect]
+  - tutor: "Benvenuta! E i cinque mesi, immagino, si sono allungati. Ma «tre anni fa vinsi», per una storia che arriva fino a oggi: è il tempo che userebbe un torinese?"
+    prompt: {text: "Tre anni fa vinsi", tags: [tense-aspect]}
+  - learner: "No, un torinese direbbe «ho vinto». In spagnolo usiamo l'indefinido e io lo traduco con il passato remoto. Comunque sì: i cinque mesi sono diventati tre anni, e adesso faccio il dottorato qui."
+  - tutor: "Esatto: il passato remoto, qui, suonerebbe da romanzo. E qual è stata la parte più difficile, all'inizio?"
+    goals: [story]
+  - learner: "Il primo inverno, senza dubbio: buio alle cinque, nebbia, e nessuno che mi rivolgesse la parola in ascensore. Mi ha salvata una vicina, la signora Elsa, che un giorno mi ha invitata a mangiare la bagna cauda. Se non avrei conosciuto lei, sarei tornata a Siviglia a Natale."
+    errors: [hypothetical]
+  - tutor: "La bagna cauda come terapia: non mi sorprende. Ma «se non avrei conosciuto lei»: in un'ipotesi sul passato, come si costruisce la parte con il «se»?"
+    prompt: {text: "Se non avrei conosciuto lei", tags: [hypothetical]}
+    goals: [difficulties]
+  - learner: "Se non avessi conosciuto lei, sarei tornata a casa. Congiuntivo trapassato, lo so, ma in diretta me ne dimentico."
+  - tutor: "Perfetto, e in diretta nessuno se n'è accorto. In questi tre anni, che cosa è cambiato in Lei?"
+  - learner: "Sono diventata più lenta, nel senso buono: mangio seduta, saluto in ascensore anche se non mi rispondono. Ma non credo che i miei amici di Siviglia hanno notato la differenza: per loro sono sempre la stessa."
+    errors: [subjunctive-use]
+  - tutor: "Mangiare seduti è già una rivoluzione. Però, «non credo che i miei amici hanno notato»: dopo «non credo che», quale forma prende il verbo?"
+    prompt: {text: "non credo che i miei amici di Siviglia hanno notato", tags: [subjunctive-use]}
+    goals: [change]
+  - learner: "Non credo che i miei amici abbiano notato niente. Mia madre sì, però: dice che adesso parlo con le mani."
+  - tutor: "Questo è il segno che l'integrazione è completa. Un consiglio per chi ci ascolta e sogna di trasferirsi?"
+  - learner: "Di arrivare con pazienza e un buon ombrello. E di dire sì al primo invito di una vicina, anche se è per un piatto pieno d'aglio."
+  - tutor: "Pazienza, ombrello e aglio: i consigli giusti per arrivare a primavera. Grazie di essere stata con noi, e in bocca al lupo per la ricerca."
+    goals: [advice]
+
+- scenario: colloquio-lavoro
+  level: C2
+  persona: en-m-heritage
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno, grazie. Mi chiamo Daniel, ho trentadue anni e sono un designer di interni. Sono cresciuto a Chicago in una famiglia di origine pugliese, e da tre anni vivo a Bologna. Ho applicato per questo ruolo perché conosco i vostri lavori da tempo."
+    errors: [word-choice]
+  - tutor: "Quindi si è candidato per questo ruolo conoscendo già i nostri lavori: è un buon segno. Mi racconti la sua esperienza più recente."
+    recast: {text: "applicato per questo ruolo", fix: "candidato per questo ruolo", tags: [word-choice]}
+    goals: [intro]
+  - learner: "Negli ultimi quattro anni ho lavorato per uno studio di architettura. Mi occupavo soprattutto di negozi e ristoranti: ho seguito una ventina di progetti, dall'idea al cantiere. Ogni lunedì ho incontrato i clienti per fare il punto."
+    errors: [tense-aspect]
+  - tutor: "Una ventina di progetti completi: notevole. Ma quell'«ogni lunedì ho incontrato i clienti»: per un'abitudine che si ripeteva, è il tempo giusto?"
+    prompt: {text: "Ogni lunedì ho incontrato i clienti", tags: [tense-aspect]}
+  - learner: "No, per un'abitudine ci vuole l'imperfetto: ogni lunedì incontravo i clienti. In inglese è lo stesso tempo, e ogni tanto mi frega."
+  - tutor: "Capita, e l'ha sistemato subito. Quali sono, secondo lei, i suoi punti di forza? E una debolezza, se vuole essere sincero."
+    goals: [experience]
+  - learner: "Il mio punto di forza è ascoltare: capisco che cosa vuole il cliente anche quando non lo sa spiegare. La debolezza è che sono troppo perfezionista: a volte passo ore su un dettaglio che nessuno noterà."
+  - tutor: "Il perfezionismo lo dicono tutti, ma almeno lei ci ha messo un esempio credibile. Perché vuole lavorare proprio con noi?"
+    goals: [strengths]
+  - learner: "Perché fate progetti piccoli ma curatissimi, e lavorate con artigiani locali. Se avrei potuto scegliere uno studio in Italia, avrei scelto il vostro già tre anni fa, ma allora non cercavate nessuno."
+    errors: [hypothetical]
+  - tutor: "Ci fa piacere sentirlo. Solo, «se avrei potuto scegliere»: in un'ipotesi al passato, il verbo dopo «se» va in un altro modo, non crede?"
+    prompt: {text: "Se avrei potuto scegliere", tags: [hypothetical]}
+    goals: [why]
+  - learner: "Sì, scusi: se avessi potuto scegliere. Posso farle anch'io una domanda? Com'è organizzata la squadra, e chi seguirebbe i miei progetti?"
+  - tutor: "Certo. Siamo in sette: lavorerebbe in coppia con la nostra architetta senior, che segue anche i rapporti con gli artigiani. Le faremo sapere entro due settimane."
+    goals: [questions]
