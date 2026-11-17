@@ -191,7 +191,8 @@ describe('SyncEngine', () => {
     expectOk(await a.engine.sync());
 
     const b = device('b', { batchSize: 10 });
-    b.transport.failures = { pullNumber: 4 }; // setting, card_flag, then review_log pages 1 and 2
+    // setting, learner_sentence, card_flag, then review_log pages 1 and 2
+    b.transport.failures = { pullNumber: 5 };
     expect((await b.engine.sync()).status).toBe('error');
     expect(b.repos.reviewLogs.count()).toBe(10);
     expect(b.repos.meta.get(META_KEYS.syncCursorReviewLog)).toBe('10');
@@ -332,6 +333,60 @@ describe('SyncEngine', () => {
     expect(cardStates(b)).toEqual(cardStates(a));
   });
 
+  it('syncs the corrected sentences themselves, so other devices can show their cards', async () => {
+    const a = device('a');
+    const b = device('b');
+    const sentence = a.repos.learnerSentences.add({
+      it: 'Ieri sono andata a Napoli.',
+      original: 'Ieri ho andato a Napoli.',
+      errorTags: ['aux.essere'],
+      grammarIds: [12],
+      source: 'conversation',
+      createdAt: at(0),
+    });
+    const c1 = makeCard(a, sentence.id, at(0), 'sentence_production');
+    review(a, c1, 'good', at(1));
+
+    const pushed = expectOk(await a.engine.sync());
+    expect(pushed.pushed.learner_sentence).toBe(1);
+    expect(server.rows(USER, 'learner_sentence')).toEqual([
+      {
+        id: sentence.id,
+        it: 'Ieri sono andata a Napoli.',
+        original: 'Ieri ho andato a Napoli.',
+        errorTags: ['aux.essere'],
+        grammarIds: [12],
+        source: 'conversation',
+        createdAt: at(0).toISOString(),
+      },
+    ]);
+    expect(expectOk(await a.engine.sync()).pushed.learner_sentence).toBe(0);
+
+    expect(b.repos.learnerSentences.getById(sentence.id)).toBeNull();
+    const pulled = expectOk(await b.engine.sync());
+    expect(pulled.pulled.learner_sentence).toBe(1);
+    const { syncedAt: _a, ...onA } = sentence;
+    const fromB = b.repos.learnerSentences.getById(sentence.id);
+    expect(fromB).toMatchObject({ ...onA, createdAt: at(0) });
+    expect(fromB?.syncedAt).not.toBeNull();
+    expect(b.repos.cards.getById(c1)?.kind).toBe('sentence_production');
+
+    // B corrected the same sentence on its own: same id, so nothing new to push.
+    expect(expectOk(await b.engine.sync()).pushed.learner_sentence).toBe(0);
+    const c = device('c');
+    c.repos.learnerSentences.add({
+      it: 'Ieri sono andata a Napoli.',
+      original: 'ieri ho andato a napoli',
+      errorTags: [],
+      grammarIds: [],
+      source: 'conversation',
+      createdAt: at(5),
+    });
+    expectOk(await c.engine.sync());
+    expect(server.rows(USER, 'learner_sentence')).toHaveLength(1);
+    expect(c.repos.learnerSentences.listAll()).toHaveLength(1);
+  });
+
   it('syncs study sessions once ended, error records, and replays the streak', async () => {
     const a = device('a');
     const b = device('b');
@@ -443,6 +498,13 @@ describe('SyncEngine', () => {
     const c1 = makeCard(a, 1, at(0));
     review(a, c1, 'good', at(1));
     a.repos.settings.set('theme', 'dark', at(1));
+    a.repos.learnerSentences.add({
+      it: 'Sono andata.',
+      original: 'Ho andato.',
+      errorTags: [],
+      grammarIds: [],
+      source: 'conversation',
+    });
     expectOk(await a.engine.sync());
 
     a.user = 'user-2';
@@ -450,6 +512,7 @@ describe('SyncEngine', () => {
     expect(result.pushed.review_log).toBe(1);
     expect(result.pushed.setting).toBe(1);
     expect(server.rows('user-2', 'review_log')).toHaveLength(1);
+    expect(result.pushed.learner_sentence).toBe(1);
     expect(a.transport.pullCalls.at(-1)?.after).toBe(0);
   });
 

@@ -26,6 +26,8 @@ const keyOf = (table: SyncTable, row: SyncRowMap[SyncTable]): string => {
       return (row as SyncRowMap['card_flag']).cardId;
     case 'setting':
       return (row as SyncRowMap['setting']).key;
+    case 'learner_sentence':
+      return String((row as SyncRowMap['learner_sentence']).id);
     default:
       return (row as { id: string }).id;
   }

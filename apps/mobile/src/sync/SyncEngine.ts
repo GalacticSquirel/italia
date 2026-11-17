@@ -114,14 +114,17 @@ const CURSOR_KEYS: Record<SyncTable, MetaKey> = {
   setting: META_KEYS.syncCursorSetting,
   study_session: META_KEYS.syncCursorStudySession,
   error_record: META_KEYS.syncCursorErrorRecord,
+  learner_sentence: META_KEYS.syncCursorLearnerSentence,
 };
 
 /**
  * Pull order: settings first so a changed desired retention is in place
- * before cards are rebuilt from pulled logs.
+ * before cards are rebuilt from pulled logs; corrected sentences before the
+ * reviews of their cards.
  */
 const PULL_ORDER: readonly SyncTable[] = [
   'setting',
+  'learner_sentence',
   'card_flag',
   'review_log',
   'study_session',

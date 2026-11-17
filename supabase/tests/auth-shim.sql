@@ -1,5 +1,5 @@
 -- Test-only stand-in for the parts of a Supabase database the migrations use:
--- the anon/authenticated roles, auth.users, and auth.uid() reading the JWT
+-- the anon/authenticated/service_role roles, auth.users, and auth.uid() reading the JWT
 -- claims that PostgREST puts in `request.jwt.claims`. Lets the migrations and
 -- their row-level security be tested on plain Postgres (or PGlite) without
 -- the Supabase stack. Never apply this to a real Supabase project.
@@ -10,6 +10,9 @@ begin
   end if;
   if not exists (select 1 from pg_roles where rolname = 'authenticated') then
     create role authenticated nologin noinherit;
+  end if;
+  if not exists (select 1 from pg_roles where rolname = 'service_role') then
+    create role service_role nologin noinherit bypassrls;
   end if;
 end
 $$;
