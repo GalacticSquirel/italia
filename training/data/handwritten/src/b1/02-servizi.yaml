@@ -1,0 +1,136 @@
+# B1, services: bank, mechanic, clinic.
+- scenario: banca-conto
+  level: B1
+  persona: en-m-traveller
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire un conto, perché ho appena cominciato a lavorare qui a Bologna."
+    - tutor: "Benissimo. Allora le serve un conto per lo stipendio. Da quanto tempo vive in Italia?"
+      goals: [purpose]
+      new: [{lemma: stipendio, gloss: salary}]
+    - learner: "Vivo qui da marzo. Quali documenti devo portare?"
+    - tutor: "Le servono un documento d'identità e il codice fiscale. Ce li ha con sé oggi?"
+      goals: [documents]
+    - learner: "Ho il passaporto, ma il codice fiscale l'ho lasciato a casa. Posso portarlo domani?"
+    - tutor: "Certo, nessun problema. Oggi possiamo già cominciare la pratica. Vuole sapere anche quanto costa il conto?"
+    - learner: "Sì, grazie. Ci sono dei costi ogni mese?"
+    - tutor: "Il conto base costa 3 euro al mese, ma per chi ha meno di 30 anni è gratis."
+      goals: [costs]
+      new: [{lemma: gratis, gloss: free of charge}]
+    - learner: "Perfetto, ho 27 anni. E la carta di debito? Posso usare anche l'app per fare i bonifici?"
+    - tutor: "Sì, la carta è compresa e con l'app può fare bonifici e controllare il conto. Allora ci vediamo domani con il codice fiscale per la firma."
+      goals: [card]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno! Vorrei aprire un conto. Sono studentessa Erasmus e resto qui fino a luglio."
+    - tutor: "Va bene. Per gli studenti abbiamo un conto senza costi fissi. Ha già un codice fiscale?"
+      goals: [purpose]
+    - learner: "Sì, ce l'ho. Ma quali altri documenti mi servono?"
+    - tutor: "Il codice fiscale, un documento d'identità e una lettera dell'università. Li ha portati?"
+      goals: [documents]
+    - learner: "Ho il documento e il codice fiscale. La lettera la posso chiedere domani in segretaria."
+      errors: [spelling]
+    - tutor: "In segretaria? Manca una piccola cosa in questa parola."
+      prompt: {text: "segretaria", tags: [spelling]}
+    - learner: "Ah, in segreteria! Scusi. E quanto costa il conto ogni mese?"
+    - tutor: "Esatto. Per gli studenti non costa niente, si pagano solo i bonifici verso altri paesi."
+      goals: [costs]
+    - learner: "Ottimo. Avete anche una carta e un'app per il telefono?"
+    - tutor: "Sì, la carta arriva a casa in una settimana e l'app è già disponibile. Quando ha la lettera, torni pure e firmiamo il contratto."
+      goals: [card]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando freno, la macchina fa un rumore strano, come un fischio."
+    - tutor: "Un fischio quando frena, capisco. Probabilmente sono i freni. Da quando lo sente?"
+      goals: [describe]
+    - learner: "L'ho sentito per la prima volta la settimana scorsa. Ho guidato in montagna e pioveva molto."
+    - tutor: "In montagna i freni lavorano tanto. Le è successo anche in città, dopo?"
+      goals: [when]
+    - learner: "Sì, ieri tornavo a casa e il rumore era molto forte. Quanto costerebbe la riparazione?"
+    - tutor: "Prima devo controllare, ma se sono solo le pastiglie, le farò un preventivo di circa 150 euro."
+      goals: [cost]
+      new: [{lemma: pastiglia, gloss: brake pad}]
+    - learner: "Va bene. E quando sarà pronta la macchina?"
+    - tutor: "Se il pezzo arriva domani mattina, sarà pronta domani sera verso le 18. La chiamo io quando ho finito."
+      goals: [time]
+    - learner: "Perfetto, allora le lascio le chiavi. Grazie."
+    - tutor: "Grazie a lei. A domani, e per oggi niente montagna!"
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-m-worker
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Il motore fa un rumore forte quando parto la mattina."
+    - tutor: "Un rumore forte solo quando parte? Che tipo di rumore è?"
+    - learner: "È come un colpo, poi va bene. Il problema ha cominciato lunedì."
+      errors: [auxiliary-choice]
+    - tutor: "Il problema ha cominciato? Con un problema che comincia da solo, quale ausiliare ci vuole?"
+      goals: [describe]
+      prompt: {text: "Il problema ha cominciato", tags: [auxiliary-choice]}
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+    - learner: "Il problema è cominciato lunedì mattina, quando faceva freddo."
+    - tutor: "Giusto. Con il freddo succede spesso. Lasci pure la macchina qui e la controllo oggi."
+      goals: [when]
+    - learner: "Quanto mi costa più o meno?"
+    - tutor: "Per il controllo sono 40 euro. Se devo cambiare un pezzo, prima le telefono e le faccio un preventivo."
+      goals: [cost]
+    - learner: "D'accordo. Quando posso venire a prenderla?"
+    - tutor: "Passi giovedì dopo le 17. Se è un problema piccolo, la finisco anche prima e le mando un messaggio."
+      goals: [time]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-f-student
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita da un dermatologo, per favore."
+    - tutor: "Certo. È la prima visita o un controllo?"
+      goals: [type]
+    - learner: "È la prima visita. Avete disponibilità questa settimana?"
+    - tutor: "Questa settimana è tutto pieno, mi dispiace. Il primo appuntamento libero è martedì prossimo alle 10:30. Le andrebbe bene?"
+    - learner: "Martedì ho lezione la mattina. Avete qualcosa di pomeriggio?"
+    - tutor: "Sì, martedì alle 16:15 c'è ancora un posto. Lo vuole?"
+      goals: [availability]
+    - learner: "Sì, grazie. Quanto costa la visita? Mi serve l'impegnativa del medico?"
+    - tutor: "La visita costa 90 euro e l'impegnativa non serve. Porti solo un documento d'identità e la tessera del medico."
+      goals: [cost]
+      new: [{lemma: tessera, gloss: card (ID or membership)}]
+    - learner: "Allora, martedì prossimo alle 16:15 con il dermatologo, 90 euro. Il mio nome è Emma Clarke."
+    - tutor: "Perfetto, signora, è tutto confermato. Arrivi dieci minuti prima, per favore. Buona giornata!"
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-f-teacher
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Mi serve una visita da uno specialista per il ginocchio. Mi fa male da un mese."
+    - tutor: "Allora le serve un ortopedico. Ha già un'impegnativa del medico di famiglia?"
+      goals: [type]
+      new: [{lemma: ortopedico, gloss: orthopaedic specialist}]
+    - learner: "Sì, ce l'ho. Volerei un appuntamento il prima possibile."
+      errors: [conditional-form]
+    - tutor: "Volerei? Provi di nuovo: è la forma gentile di volere."
+      prompt: {text: "Volerei", tags: [conditional-form]}
+    - learner: "Vorrei un appuntamento il prima possibile, scusi."
+    - tutor: "Esatto. Il primo posto libero è giovedì alle 9. Per lei va bene?"
+      goals: [availability]
+    - learner: "Giovedì alle 9 va benissimo. Quanto costa con l'impegnativa?"
+    - tutor: "Con l'impegnativa costa solo 36 euro. Porti anche le lastre, se le ha."
+      goals: [cost]
+      new: [{lemma: lastra, gloss: X-ray image}]
+    - learner: "Va bene. Allora giovedì alle 9 dall'ortopedico, con l'impegnativa e le lastre."
+    - tutor: "Esatto, è tutto confermato. A giovedì e buona giornata!"
+      goals: [confirm]

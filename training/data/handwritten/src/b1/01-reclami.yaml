@@ -1,0 +1,89 @@
+# B1, complaints and problems (formal scenes).
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-professional
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, purtroppo c'è un problema con la mia camera. L'aria condizionata non funziona e fa molto caldo."
+    - tutor: "Mi dispiace molto, signora. Da quando non funziona? L'ha notato appena è arrivata?"
+      goals: [problem]
+    - learner: "No, funzionava ieri sera. Ma stamattina è diventato rotto e oggi pomeriggio non ha funzionato per niente."
+      errors: [word-choice]
+    - tutor: "Capisco, quindi stamattina si è rotta. Ha già chiamato qualcuno per questo?"
+      goals: [since]
+      recast: {text: "è diventato rotto", fix: "si è rotta", tags: [word-choice]}
+    - learner: "No, non ancora. Potrebbe mandare qualcuno a ripararla, o forse cambiare camera?"
+    - tutor: "Il tecnico purtroppo arriva solo domani mattina. Però ho una camera libera al terzo piano, più tranquilla. Le andrebbe bene?"
+      goals: [request]
+    - learner: "Sì, mi andrebbe benissimo. Grazie mille per l'aiuto."
+    - tutor: "Perfetto. Le preparo subito la nuova chiave. Mi scusi ancora per il disagio e buona notte!"
+      goals: [agree]
+      new: [{lemma: disagio, gloss: inconvenience}]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-m-worker
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, c'è molto rumore nella mia camera. Non posso dormire."
+    - tutor: "Mi dispiace. Che tipo di rumore sente? Viene dalla strada o da un'altra camera?"
+      goals: [problem]
+    - learner: "Viene dalla strada. C'è un bar sotto la finestra e la gente parla e canta. Ho sentito il rumore da le dieci."
+      errors: [articulated-preposition]
+    - tutor: "Da le dieci? Ricordi che da e le diventano una parola sola."
+      goals: [since]
+      prompt: {text: "da le dieci", tags: [articulated-preposition]}
+    - learner: "Ah, sì: dalle dieci. Ho chiuso la finestra, ma si sente ancora tutto."
+    - tutor: "Esatto. Purtroppo il bar chiude a mezzanotte. Cosa possiamo fare per lei?"
+    - learner: "Vorrei cambiare camera, se è possibile. Una camera che dà sul cortile, magari."
+    - tutor: "Ne ho una sul cortile al secondo piano, molto più tranquilla. Gliela preparo subito?"
+      goals: [request]
+    - learner: "Sì, va benissimo. La ringrazio, è molto gentile."
+    - tutor: "Si figuri. Ecco la chiave della camera 22. Se c'è ancora qualche problema, mi chiami pure."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-retired
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie la settimana scorsa, ma non funzionano bene. Il suono viene solo da un lato."
+    - tutor: "Mi dispiace. Le ha usate con il telefono o con il computer? Succede sempre?"
+      goals: [problem]
+    - learner: "Sì, succede sempre, con tutti e due. Le ho provato anche con il telefono di mia moglie."
+      errors: [participle-agreement]
+    - tutor: "Le ho provato? Guardi bene la fine dell'ultima parola."
+      prompt: {text: "Le ho provato", tags: [participle-agreement]}
+    - learner: "Le ho provate, scusi. Ecco lo scontrino. Le ho comprate martedì scorso."
+    - tutor: "Benissimo, grazie. Sono ancora in garanzia, quindi non c'è nessun problema. Cosa preferisce fare?"
+      goals: [proof]
+    - learner: "Preferirei un rimborso, perché vorrei comprare un altro modello."
+    - tutor: "Certo. Le posso fare il rimborso sulla carta che ha usato per pagare. Va bene?"
+      goals: [request]
+    - learner: "Sì, va bene. Ho pagato con questa carta."
+    - tutor: "Perfetto. Ecco fatto: il rimborso arriverà sul conto in tre o quattro giorni. Buona giornata!"
+      goals: [agree]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi il disturbo. Sono Lucia, la vicina del piano di sotto. Abito qui da due mesi."
+    - tutor: "Ah, piacere, Lucia! Io sono Paolo. Mi dica, c'è qualche problema?"
+      goals: [greet]
+    - learner: "Sì, purtroppo. Da qualche settimana la sua musica è molto alta di notte, anche dopo l'una. Io devo alzarmi presto per lavoro."
+    - tutor: "Oh, mi dispiace davvero. Non sapevo che si sentisse così tanto. Ogni notte?"
+      goals: [problem]
+    - learner: "Quasi ogni notte. Le dispiacerebbe abbassare il volume dopo le undici?"
+    - tutor: "No, certo, ha ragione. Però il venerdì sera vengono spesso degli amici. Per lei sarebbe un problema?"
+      goals: [request]
+    - learner: "Il venerdì va bene, perché il sabato non lavoro. Basta che finite prima dell'una."
+      errors: [subjunctive-use]
+    - tutor: "Basta che finite? Dopo «basta che» ci vuole un'altra forma."
+      prompt: {text: "Basta che finite", tags: [subjunctive-use]}
+    - learner: "Ah, giusto: basta che finiate prima dell'una."
+    - tutor: "Perfetto, allora siamo d'accordo: musica bassa dopo le 23, e il venerdì fino all'una. Grazie mille, Lucia, lei è molto gentile."
+      goals: [compromise]
