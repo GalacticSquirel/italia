@@ -11,18 +11,40 @@ from __future__ import annotations
 
 import threading
 from collections import OrderedDict
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Protocol
 
 import httpx
 
 from datagen.lemmas import tokenize
+from datagen.quotes import in_quotes, quoted_regions
 
 # Rules that flag style or typography rather than grammar; the tutor's short spoken-style replies
 # trip them constantly and they say nothing about whether the Italian is correct.
 DEFAULT_IGNORED_CATEGORIES = frozenset({"TYPOGRAPHY", "STYLE", "CASING", "REDUNDANCY"})
 DEFAULT_IGNORED_RULES = frozenset({"WHITESPACE_RULE", "UPPERCASE_SENTENCE_START"})
+# ST_* are Italian style rules filed outside the STYLE category, e.g. ST_01_005 "budget" ->
+# "bilancio" and ST_01_003 "io personalmente" (redundancy).
+IGNORED_RULE_PREFIXES = ("ST_",)
+# Loanwords and correct Italian forms the LanguageTool dictionary lacks.
+KNOWN_WORDS = frozenset(
+    {
+        "budget",
+        "location",
+        "pilates",
+        "wifi",
+        "karaoke",
+        "yoga",
+        "smartworking",
+        "weekend",
+        "ibuprofene",
+        "tienitelo",
+    }
+)
+# Words Italian doubles on purpose ("quasi quasi", "ciao ciao", "pian piano").
+REDUPLICATED = frozenset({"quasi", "ciao", "piano", "così", "subito", "presto", "bene", "via"})
+REPEAT_RULE = "ITALIAN_WORD_REPEAT_RULE"
 
 
 @dataclass(frozen=True)
@@ -91,18 +113,22 @@ def parse_matches(
 ) -> list[GrammarMatch]:
     """Turn a `/v2/check` response into matches, dropping ignored rules and categories.
 
-    With the checked `text`, a spelling match on a capitalised word is dropped too: those are
-    names (Miller, Murphy, García) that the Italian dictionary does not know.
+    With the checked `text`, these are dropped too: any match inside quotation marks (a mention,
+    such as an echo of the learner's mistake), a spelling match on a capitalised word (names such
+    as Miller or García) or on a known loanword, and a deliberate reduplication ("quasi quasi").
     """
     raw = payload.get("matches", [])
     if not isinstance(raw, list):
         raise ValueError("unexpected LanguageTool response: 'matches' is not a list")
+    regions = quoted_regions(text) if text is not None else []
     out: list[GrammarMatch] = []
     for item in raw:
         rule = item.get("rule", {})
         rule_id = str(rule.get("id", ""))
         category = str(rule.get("category", {}).get("id", ""))
         if rule_id in ignored_rules or category in ignored_categories:
+            continue
+        if rule_id.startswith(IGNORED_RULE_PREFIXES):
             continue
         match = GrammarMatch(
             rule_id=rule_id,
@@ -111,11 +137,26 @@ def parse_matches(
             offset=int(item.get("offset", 0)),
             length=int(item.get("length", 0)),
         )
-        misspelling = category == "TYPOS" or rule.get("issueType") == "misspelling"
-        if text is not None and misspelling and _is_name(match.span(text)):
+        if text is not None and _is_mention_or_known(match, rule, text, regions):
             continue
         out.append(match)
     return out
+
+
+def _is_mention_or_known(
+    match: GrammarMatch, rule: Mapping[str, object], text: str, regions: list[tuple[int, int]]
+) -> bool:
+    if in_quotes(regions, match.offset, match.offset + match.length):
+        return True
+    span = match.span(text)
+    words = {w.lower() for w in tokenize(span)}
+    category = rule.get("category")
+    misspelling = rule.get("issueType") == "misspelling" or (
+        isinstance(category, Mapping) and category.get("id") == "TYPOS"
+    )
+    if misspelling and (_is_name(span) or (words and words <= KNOWN_WORDS)):
+        return True
+    return match.rule_id == REPEAT_RULE and bool(words) and words <= REDUPLICATED
 
 
 def _is_name(span: str) -> bool:
@@ -123,12 +164,39 @@ def _is_name(span: str) -> bool:
     return span[:1].isupper() and not span.isupper()
 
 
-def errors_per_100_words(checker: GrammarChecker, texts: list[str]) -> float:
-    """LanguageTool matches per 100 words over `texts` (0 for no words)."""
+def without_echoes(
+    matches: list[GrammarMatch], text: str, echoed: str | None
+) -> list[GrammarMatch]:
+    """Drop matches whose words all come from `echoed` (the learner's turn the reply answers).
+
+    A tutor repeats the learner's mistake to point at it ("Ha prenduto?" after "ho prenduto"),
+    often changing the person or quoting one word, so the echo is found word by word.
+    """
+    if not echoed:
+        return matches
+    learner_words = {w.lower() for w in tokenize(echoed)}
+    kept = []
+    for m in matches:
+        words = {w.lower() for w in tokenize(m.span(text))}
+        if not words or not words <= learner_words:
+            kept.append(m)
+    return kept
+
+
+def errors_per_100_words(
+    checker: GrammarChecker, texts: list[str], echoed: Sequence[str | None] | None = None
+) -> float:
+    """LanguageTool matches per 100 words over `texts` (0 for no words).
+
+    `echoed[i]`, when given, is the learner turn `texts[i]` replies to; see `without_echoes`.
+    """
     words = sum(len(tokenize(t)) for t in texts)
     if words == 0:
         return 0.0
-    errors = sum(len(checker.check(t)) for t in texts)
+    sources = list(echoed) if echoed is not None else [None] * len(texts)
+    errors = sum(
+        len(without_echoes(checker.check(t), t, e)) for t, e in zip(texts, sources, strict=True)
+    )
     return 100.0 * errors / words
 
 
