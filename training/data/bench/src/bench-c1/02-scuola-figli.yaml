@@ -1,0 +1,197 @@
+- scenario: scuola-figli
+  level: C1
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buonasera, si accomodi. Parliamo un po' di Tommaso?"
+    - learner: "Buonasera, maestra. Sì, volentieri: vorrei sapere come va Tommaso in questo quadrimestre, perché a casa racconta poco."
+    - tutor: "Nel complesso va bene. In italiano legge con sicurezza e scrive testi ordinati; in matematica è più lento, ma non si arrende. C'è qualcosa che la preoccupa in particolare?"
+      goals: [progress]
+    - learner: "Sì. Temo che Tommaso non ha molti amici in classe. E poi le sue note di matematica sono basse."
+      errors: [subjunctive-use, false-friend]
+      gold: {text: "Temo che Tommaso non ha", fix: "Temo che Tommaso non abbia"}
+    - tutor: "È una preoccupazione che capisco. Riprendiamo un attimo l'inizio: «temo che Tommaso non ha»? Dopo «temo che», quale modo del verbo ci aspettiamo?"
+      prompt: {text: "Temo che Tommaso non ha", tags: [subjunctive-use]}
+    - learner: "Mi scusi... Temo che non avrà molti amici?"
+      errors: [subjunctive-use]
+      gold: {text: "Temo che non avrà", fix: "Temo che non abbia"}
+    - tutor: "Ci vuole il congiuntivo: «temo che non abbia molti amici». Ma su questo posso rassicurarla: Tommaso è riservato, però ha due compagni con cui gioca ogni giorno. E a casa, con lo studio, come va?"
+      goals: [concern]
+      recast: {text: "Temo che non avrà", fix: "Temo che non abbia", tags: [subjunctive-use]}
+    - learner: "Così così. Fa i doveri di malavoglia e si distrae subito. Che cosa mi consiglia?"
+      errors: [false-friend]
+      gold: {text: "Fa i doveri", fix: "Fa i compiti"}
+    - tutor: "Se fa i compiti di malavoglia, provi a dividerli in due momenti brevi, con una pausa in mezzo. A quell'età la concentrazione dura poco, ed è normale. Riuscirebbe a organizzarsi così?"
+      goals: [advice]
+      recast: {text: "Fa i doveri", fix: "fa i compiti", tags: [false-friend]}
+    - learner: "Credo di sì. Potremmo fare venti minuti prima della merenda e venti dopo, e la sera leggere insieme un quarto d'ora."
+    - tutor: "Mi sembra un ottimo piano. Io, da parte mia, lo farò lavorare più spesso in coppia, così lega con altri compagni. Ci risentiamo tra un mese per vedere come procede?"
+      goals: [plan]
+
+- scenario: scuola-figli
+  level: C1
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buonasera, si accomodi. Parliamo un po' di Tommaso?"
+    - learner: "Buonasera. Sì, grazie di avermi ricevuto. Ho visto la pagella e vorrei capire meglio come sta andando, al di là dei voti."
+    - tutor: "Ha fatto bene a venire. Tommaso è un bambino curioso, che fa domande intelligenti. I voti sono buoni quasi ovunque; l'unico punto debole è la matematica."
+      goals: [progress]
+    - learner: "Ecco, proprio di questo volevo parlare. La matematica è la materia che ha più difficoltà, e a casa si scoraggia subito."
+      errors: [relative-pronoun]
+      gold: {text: "la materia che ha più difficoltà", fix: "la materia in cui ha più difficoltà"}
+    - tutor: "Me ne sono accorta anch'io. Però senta: «la materia che ha più difficoltà»? Detto così, è la materia ad avere difficoltà. Quale pronome relativo ci vuole, con la preposizione?"
+      prompt: {text: "la materia che ha più difficoltà", tags: [relative-pronoun]}
+    - learner: "Capisco. La matematica è la materia che lui ha più difficoltà."
+      errors: [relative-pronoun]
+      gold: {text: "la materia che lui ha più difficoltà", fix: "la materia in cui ha più difficoltà"}
+    - tutor: "Guardi, si dice «la materia in cui ha più difficoltà». Comunque non è una questione di capacità: Tommaso ha paura di sbagliare e si blocca. C'è altro che ha notato, a casa?"
+      goals: [concern]
+      recast: {text: "la materia che lui ha più difficoltà", fix: "la materia in cui ha più difficoltà", tags: [relative-pronoun]}
+    - learner: "Sì: qualche compagno lo prende in giro quando sbaglia alla lavagna, e lui ci resta male. Lei che cosa farebbe, al posto mio?"
+    - tutor: "Ne parlerò con la classe, senza fare nomi. A casa, intanto, lo lasci sbagliare senza correggerlo subito: deve capire che l'errore fa parte del lavoro. Chi lo segue nei compiti?"
+      goals: [advice]
+    - learner: "Di solito io, perché mia moglie lavora fino a tardi. Ma penso che noi parenti dovremmo fare tutti e due la nostra parte."
+      errors: [false-friend]
+      gold: {text: "noi parenti", fix: "noi genitori"}
+    - tutor: "Sono d'accordo: è bene che voi genitori vi alterniate, così Tommaso sente l'impegno di tutti e due. Che ne dice di dieci minuti di esercizi al giorno, presentati come un gioco?"
+      recast: {text: "noi parenti", fix: "voi genitori", tags: [false-friend]}
+    - learner: "Mi sembra fattibile. Dieci minuti al giorno, a turno, e senza correggerlo subito. Tra qualche settimana le farò sapere come va."
+    - tutor: "Perfetto. Io le preparo una scheda con qualche gioco di numeri adatto a lui. Vedrà che con un po' di fiducia in più i risultati arriveranno."
+      goals: [plan]
+
+- scenario: scuola-figli
+  level: C1
+  persona: en-f-professional
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Buonasera, si accomodi. Parliamo un po' di Tommaso?"
+    - learner: "Buonasera. Sì, sono un po' in ansia: ci siamo trasferiti da poco e spero che lui facci progressi con l'italiano. Come se la cava?"
+      errors: [subjunctive-form]
+      gold: {text: "spero che lui facci", fix: "spero che lui faccia"}
+    - tutor: "La rassicuro subito, ma prima un dettaglio: «spero che lui facci»? Il congiuntivo è la scelta giusta; guardi però la forma del verbo «fare»."
+      prompt: {text: "spero che lui facci", tags: [subjunctive-form]}
+    - learner: "Spero che lui faccia progressi, certo."
+    - tutor: "Esatto. E li sta facendo: in tre mesi ha imparato a seguire le spiegazioni e interviene sempre più spesso. Nello scritto fa ancora fatica, com'è normale."
+      goals: [progress]
+    - learner: "Mi fa piacere. Quello che mi preoccupa è il comportamento: a casa è nervoso, risponde male, e non so se dipenda dalla scuola."
+    - tutor: "In classe è tranquillo, ma a volte si isola. Credo che la fatica di esprimersi tutto il giorno in un'altra lingua, la sera, si faccia sentire. Lei ne ha parlato con lui?"
+      goals: [concern]
+    - learner: "Ci ho provato, ma dice che va tutto bene. Per me non fa senso: se andasse tutto bene, non sarebbe così nervoso."
+      errors: [word-choice]
+      gold: {text: "non fa senso", fix: "non ha senso"}
+    - tutor: "Per lei non ha senso, lo capisco, ma a nove anni è difficile dare un nome a quello che si prova. Io aspetterei un momento rilassato, senza fargli troppe domande dirette."
+      recast: {text: "non fa senso", fix: "non ha senso", tags: [word-choice]}
+    - learner: "Proverò. E per aiutarlo a integrarsi, che cosa mi consiglia? Vorrei conoscere i bambini con chi gioca durante la ricreazione."
+      errors: [relative-pronoun]
+      gold: {text: "i bambini con chi gioca", fix: "i bambini con cui gioca"}
+    - tutor: "Buona idea. Mi ripeta solo l'ultima frase: «i bambini con chi gioca»? Dopo una preposizione, in una frase relativa, quale pronome usiamo?"
+      prompt: {text: "i bambini con chi gioca", tags: [relative-pronoun]}
+    - learner: "I bambini con cui gioca. Potrei invitarne uno o due a casa, un pomeriggio?"
+    - tutor: "Benissimo. Inviti due compagni a fare merenda da voi: fuori dalla scuola i bambini legano più in fretta. Io, intanto, lo metto nel gruppo di lettura, dove si parla molto."
+      goals: [advice]
+    - learner: "D'accordo. Allora questo mese organizzo una merenda e la sera leggiamo insieme in italiano, senza insistere troppo."
+    - tutor: "Ottimo programma. Ci rivediamo dopo le vacanze e facciamo il punto. E stia serena: Tommaso ha tutte le carte in regola per farcela."
+      goals: [plan]
+
+- scenario: scuola-figli
+  level: C1
+  persona: es-m-worker
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buonasera, si accomodi. Parliamo un po' di Tommaso?"
+    - learner: "Buonasera. Sì, lavoro in cucina fino a tardi e lo vedo poco, quindi mi dica lei: come va a scuola?"
+    - tutor: "Va bene, soprattutto in scienze e in disegno. Legge ancora lentamente, ma rispetto a settembre è un altro bambino. E lei, a casa, come lo vede?"
+      goals: [progress]
+    - learner: "A me pare che Tommaso è sempre stanco. Quest'anno ha cresciuto molto e la mattina non si sveglia mai."
+      errors: [subjunctive-use, auxiliary-choice]
+      gold: {text: "pare che Tommaso è", fix: "pare che Tommaso sia"}
+    - tutor: "È un'osservazione importante. Guardiamo però il verbo: «a me pare che Tommaso è»? «Mi pare che» esprime un'impressione, non una certezza: quale modo richiede?"
+      prompt: {text: "pare che Tommaso è", tags: [subjunctive-use]}
+    - learner: "Mi pare che Tommaso sta sempre stanco."
+      errors: [subjunctive-use]
+      gold: {text: "pare che Tommaso sta", fix: "pare che Tommaso sia"}
+    - tutor: "Con il congiuntivo: «mi pare che Tommaso sia sempre stanco». E ha ragione, anche in classe dopo pranzo fa fatica a seguire. A che ora va a letto, di solito?"
+      goals: [concern]
+      recast: {text: "pare che Tommaso sta", fix: "pare che Tommaso sia", tags: [subjunctive-use]}
+    - learner: "Tardi, verso le undici, perché mi aspetta sveglio. Che cosa posso fare, secondo lei?"
+    - tutor: "Capisco che voglia vederla, ma a quell'età dieci ore di sonno servono tutte. Potreste trovare un altro momento per stare insieme, magari la mattina a colazione?"
+      goals: [advice]
+    - learner: "Sì, la mattina posso. Per i compiti non mi preoccupo: sempre ha fatto i compiti da solo, senza che nessuno glielo dicesse."
+      errors: [word-order]
+      gold: {text: "sempre ha fatto", fix: "ha sempre fatto"}
+    - tutor: "Questo gli fa onore. Senta però l'ordine delle parole: «sempre ha fatto»? In italiano quell'avverbio, con un tempo composto, sta in un altro punto. Dove?"
+      prompt: {text: "sempre ha fatto", tags: [word-order]}
+    - learner: "Ha sempre fatto i compiti da solo. Allora facciamo così: a letto alle nove e mezza, e la colazione la prepariamo insieme."
+    - tutor: "Perfetto, in tutti i sensi. Colazione insieme e a letto presto: vedrà che in due settimane sarà più sveglio anche in classe. Io la tengo aggiornato con una nota sul diario."
+      goals: [plan]
+
+- scenario: scuola-figli
+  level: C1
+  persona: en-m-heritage
+  history: [article-use]
+  turns:
+    - tutor: "Buonasera, si accomodi. Parliamo un po' di Tommaso?"
+    - learner: "Buonasera, maestra. Volevo chiederle come va con la lettura, perché Tommaso non piace leggere, e a casa è una battaglia."
+      errors: [piacere]
+      gold: {text: "Tommaso non piace leggere", fix: "a Tommaso non piace leggere"}
+    - tutor: "Parliamone volentieri. Prima però: «Tommaso non piace leggere»? Detto così, sembra che sia Tommaso a non piacere a qualcuno. Come si costruisce questo verbo?"
+      prompt: {text: "Tommaso non piace leggere", tags: [piacere]}
+    - learner: "Giusto: a Tommaso non piace leggere."
+    - tutor: "Ecco. In classe, a dire il vero, legge senza errori; quello che gli manca è il gusto di farlo. In compenso in matematica è tra i più rapidi."
+      goals: [progress]
+    - learner: "Meno male. L'altra cosa è che di pomeriggio attende una scuola di calcio tre volte alla settimana, e temo che sia troppo."
+      errors: [false-friend]
+      gold: {text: "attende una scuola di calcio", fix: "frequenta una scuola di calcio"}
+    - tutor: "Se frequenta una scuola di calcio tre volte alla settimana, il tempo per il resto è poco, in effetti. Il giorno dopo l'allenamento lo vedo spesso distratto. Lui che cosa ne dice?"
+      goals: [concern]
+      recast: {text: "attende una scuola di calcio", fix: "frequenta una scuola di calcio", tags: [false-friend]}
+    - learner: "Dice che non vuole rinunciare. Benché è stanco, il calcio è la cosa che ama di più. Lei che cosa mi consiglia?"
+      errors: [subjunctive-use]
+      gold: {text: "Benché è stanco", fix: "Benché sia stanco"}
+    - tutor: "Lo capisco, il calcio gli fa bene. Ma mi ripeta l'inizio: «benché è stanco»? Con «benché» l'indicativo non va."
+      prompt: {text: "Benché è stanco", tags: [subjunctive-use]}
+    - learner: "Benché era stanco?"
+      errors: [subjunctive-use]
+      gold: {text: "Benché era stanco", fix: "Benché sia stanco"}
+    - tutor: "«Benché sia stanco», con il congiuntivo. Il mio consiglio è di non togliergli il calcio, ma di passare a due allenamenti e di usare il terzo pomeriggio per leggere qualcosa che scelga lui."
+      goals: [advice]
+      recast: {text: "Benché era stanco", fix: "Benché sia stanco", tags: [subjunctive-use]}
+    - learner: "Mi sembra ragionevole. Gli proporrò due allenamenti e, il mercoledì, una visita in biblioteca per scegliere un libro sul calcio."
+    - tutor: "Un libro sul calcio è l'idea migliore che potesse avere. Io gli chiederò di raccontarlo ai compagni: quando un bambino si sente esperto, leggere diventa un piacere."
+      goals: [plan]
+
+- scenario: scuola-figli
+  level: C1
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Buonasera, si accomodi. Parliamo un po' di Tommaso?"
+    - learner: "Buonasera. Sì, grazie. Ultimamente penso molto in Tommaso, perché ha cambiato scuola a metà anno. Come si sta ambientando?"
+      errors: [preposition]
+      gold: {text: "penso molto in Tommaso", fix: "penso molto a Tommaso"}
+    - tutor: "È naturale, dopo un cambiamento così. Una cosa sola: «penso molto in Tommaso»? Con il verbo «pensare», davanti a una persona, quale preposizione usiamo?"
+      prompt: {text: "penso molto in Tommaso", tags: [preposition]}
+    - learner: "Ha ragione: penso molto a Tommaso."
+    - tutor: "Benissimo. Si sta ambientando meglio di quanto mi aspettassi: partecipa, alza la mano, e in geografia ha già recuperato tutto il programma."
+      goals: [progress]
+    - learner: "Che sollievo. Però la sera piange, perché dice che i compiti sono troppo larghi e non finisce mai."
+      errors: [false-friend]
+      gold: {text: "i compiti sono troppo larghi", fix: "i compiti sono troppo lunghi"}
+    - tutor: "Se per lui i compiti sono troppo lunghi, dobbiamo intervenire: nella sua vecchia scuola ne davano meno, e deve ancora prendere il ritmo. Per qualche settimana posso ridurglieli."
+      goals: [concern]
+      recast: {text: "i compiti sono troppo larghi", fix: "i compiti sono troppo lunghi", tags: [false-friend]}
+    - learner: "Gliene sarei grata. E con i compagni? C'è un compagno che il padre è medico e che lo invita spesso, ma io non so se accettare."
+      errors: [relative-pronoun]
+      gold: {text: "un compagno che il padre è medico", fix: "un compagno il cui padre è medico"}
+    - tutor: "So di chi parla. Aspetti, però: «un compagno che il padre è medico»? Per dire che il padre è di quel compagno serve un altro pronome relativo."
+      prompt: {text: "un compagno che il padre è medico", tags: [relative-pronoun]}
+    - learner: "Un compagno che suo padre è medico?"
+      errors: [relative-pronoun]
+      gold: {text: "Un compagno che suo padre è medico", fix: "Un compagno il cui padre è medico"}
+    - tutor: "Si dice «un compagno il cui padre è medico». Ed è un bambino gentile: accetti pure l'invito, anzi glielo consiglio. Un amico fuori dalla scuola è quello che serve a Tommaso."
+      goals: [advice]
+      recast: {text: "Un compagno che suo padre è medico", fix: "un compagno il cui padre è medico", tags: [relative-pronoun]}
+    - learner: "Allora accetto. Riassumendo: meno compiti per qualche settimana, un pomeriggio dall'amico e, anche se è stanco, dieci minuti di lettura prima di dormire."
+    - tutor: "Esattamente così. Tra un mese torniamo ai compiti normali, se lui se la sente. E mi scriva pure sul diario, se la sera dovesse ancora piangere."
+      goals: [plan]

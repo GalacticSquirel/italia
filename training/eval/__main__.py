@@ -1,6 +1,7 @@
 """Evaluation CLI. Run from `training/`: `uv run python -m eval <command> ...`.
 
-build-items  held-out items from accepted eval-split dialogues (datagen eval config)
+build-items  held-out items from accepted eval-split dialogues (a datagen eval config's
+             accepted dialogues, or compiled benchmark sets with --records)
 predict      run a system from eval/configs/systems.yaml over the items
 report       score systems, optional judge win rates and llama-bench results -> markdown
 """
@@ -15,6 +16,7 @@ from pathlib import Path
 from datagen.__main__ import band_checker, grammar_checker
 from datagen.config import load_config
 from datagen.jsonutil import read_jsonl, write_jsonl
+from datagen.records import DialogueRecord
 from datagen.runner import accepted_records
 from datagen.teacher import make_client
 from eval.items import EvalItem, build_items
@@ -30,9 +32,27 @@ def load_items(path: Path) -> list[EvalItem]:
     return [EvalItem.model_validate(r) for r in read_jsonl(path)]
 
 
+def benchmark_records(patterns: list[str]) -> list[DialogueRecord]:
+    """Passing records of compiled benchmark sets (paths or globs relative to training/)."""
+    out: list[DialogueRecord] = []
+    for pattern in patterns:
+        paths = sorted(Path().glob(pattern)) or [Path(pattern)]
+        for path in paths:
+            for row in read_jsonl(path):
+                record = DialogueRecord.model_validate(row)
+                if record.filter is not None and record.filter.passed:
+                    out.append(record)
+    return out
+
+
 def cmd_build_items(args: argparse.Namespace) -> int:
-    config = load_config(Path(args.config))
-    items = build_items(accepted_records(config), max_per_dialogue=args.max_per_dialogue)
+    records: list[DialogueRecord] = []
+    if args.config:
+        records += accepted_records(load_config(Path(args.config)))
+    records += benchmark_records(args.records or [])
+    if not records:
+        raise SystemExit("no records: pass -c CONFIG and/or --records 'data/bench/*.jsonl'")
+    items = build_items(records, max_per_dialogue=args.max_per_dialogue)
     write_jsonl(Path(args.out), (i.to_wire() for i in items))
     print(f"{len(items)} items -> {args.out}")
     return 0
@@ -84,7 +104,9 @@ def cmd_report(args: argparse.Namespace) -> int:
     for spec in args.bench or []:
         device, path = spec.split("=", 1)
         bench += parse_llama_bench(Path(path).read_text(encoding="utf-8"), device)
-    report = render_report(args.title, scores, win_rates, bench, notes=args.note or [])
+    report = render_report(
+        args.title, scores, win_rates, bench, notes=args.note or [], reference=REFERENCE
+    )
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(report, encoding="utf-8")
@@ -104,7 +126,12 @@ def main(argv: list[str] | None = None) -> int:
     )
     sub = parser.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("build-items")
-    p.add_argument("-c", "--config", required=True, help="datagen eval config")
+    p.add_argument("-c", "--config", help="datagen eval config (its accepted dialogues)")
+    p.add_argument(
+        "--records",
+        action="append",
+        help="compiled benchmark JSONL (glob), e.g. 'data/bench/*.jsonl'",
+    )
     p.add_argument("--out", required=True)
     p.add_argument("--max-per-dialogue", type=int)
     p.set_defaults(fn=cmd_build_items)

@@ -1,0 +1,168 @@
+- scenario: edicola
+  level: A2
+  persona: en-f-student
+  history: [question-form]
+  turns:
+    - tutor: "Buongiorno! Che cosa le serve?"
+    - learner: "Buongiorno. Cerco un giornale locale. Che è la differenza tra questi due?"
+      errors: [question-form]
+      gold: {text: "Che è la differenza", fix: "Qual è la differenza"}
+    - tutor: "Che è la differenza? Qui serve un'altra parola per la domanda."
+      prompt: {text: "Che è la differenza", tags: [question-form]}
+    - learner: "Che è la differenza, per favore?"
+      errors: [question-form]
+      gold: {text: "Che è la differenza", fix: "Qual è la differenza"}
+    - tutor: "Qual è la differenza? Questo parla di sport, quello di politica."
+      recast: {text: "Che è la differenza", fix: "Qual è la differenza", tags: [question-form]}
+      new: [{lemma: politica, gloss: politics}]
+    - learner: "Allora prendo quello di politica. Vendete anche biglietti dell'autobus?"
+    - tutor: "Sì. Quanti ne vuole?"
+      goals: [newspaper]
+    - learner: "Prendo due. Quanto costa in tutto?"
+      errors: [ci-ne]
+      gold: {text: "Prendo due", fix: "Ne prendo due"}
+    - tutor: "Prendo due? Manca una piccola parola davanti al verbo."
+      prompt: {text: "Prendo due", tags: [ci-ne]}
+    - learner: "Ne prendo due. Quanto costa in tutto?"
+    - tutor: "Perfetto! Sono quattro euro e ottanta in tutto."
+      goals: [ticket, price]
+    - learner: "Ecco cinque euro."
+    - tutor: "Grazie. Ecco venti centesimi di resto."
+      goals: [pay]
+      new: [{lemma: centesimo, gloss: cent}]
+
+- scenario: edicola
+  level: A2
+  persona: es-m-worker
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno! Che cosa le serve?"
+    - learner: "Buongiorno. Mi dà il giornale di oggi e uno accendino?"
+      errors: [article-form]
+      gold: {text: "uno accendino", fix: "un accendino"}
+    - tutor: "Uno accendino? Guardi come comincia la parola."
+      prompt: {text: "uno accendino", tags: [article-form]}
+    - learner: "Un accendino."
+    - tutor: "Esatto! Ecco il giornale e l'accendino. Altro?"
+      goals: [newspaper]
+    - learner: "Sì, anche un boleto per l'autobus."
+      errors: [word-choice]
+      gold: {text: "boleto", fix: "biglietto"}
+    - tutor: "Un biglietto per l'autobus, eccolo."
+      goals: [ticket]
+      recast: {text: "un boleto", fix: "Un biglietto", tags: [word-choice]}
+    - learner: "Fino a che ora vale il biglietto?"
+    - tutor: "Vale novanta minuti."
+    - learner: "Va bene. Quant'è? Ho solo dieci euro."
+    - tutor: "Sono sei euro e trenta. Ecco il resto, buon lavoro!"
+      goals: [price, pay]
+
+- scenario: edicola
+  level: A2
+  persona: en-m-retired
+  history: [article-use]
+  turns:
+    - tutor: "Buongiorno! Che cosa le serve?"
+    - learner: "Buongiorno. Vorrei rivista di giardinaggio per la mia moglie."
+      errors: [article-use, possessive]
+      gold: {text: "Vorrei rivista", fix: "Vorrei una rivista"}
+    - tutor: "Vorrei rivista? Manca una piccola parola prima di «rivista»."
+      prompt: {text: "Vorrei rivista", tags: [article-use]}
+    - learner: "Sì, vorrei rivista di giardinaggio."
+      errors: [article-use]
+      gold: {text: "vorrei rivista", fix: "vorrei una rivista"}
+    - tutor: "Ecco una rivista di giardinaggio: è nuova."
+      goals: [newspaper]
+      recast: {text: "vorrei rivista", fix: "una rivista", tags: [article-use]}
+    - learner: "Grazie. Ha anche i biglietti per l'autobus?"
+    - tutor: "Sì, certo. Quanti ne vuole?"
+    - learner: "Uno solo. Quanto costano la rivista e il biglietto? Pago con la carta."
+    - tutor: "Sei euro e settanta in tutto. Con la carta va benissimo, grazie!"
+      goals: [ticket, price, pay]
+
+- scenario: edicola
+  level: A2
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Buongiorno! Che cosa le serve?"
+    - learner: "Buongiorno! Ha qualche rivista di viaggi?"
+    - tutor: "Sì, ne abbiamo due. Questa parla dell'Italia."
+    - learner: "Che bella! La prendo. È molto cara?"
+    - tutor: "No, costa quattro euro e cinquanta."
+      goals: [newspaper, price]
+    - learner: "Bene. Mi serve anche un biglietto, perché devo coger il autobus."
+      errors: [word-choice, article-form]
+      gold: {text: "il autobus", fix: "l'autobus"}
+    - tutor: "Il autobus? Guardi la prima lettera di «autobus»."
+      prompt: {text: "il autobus", tags: [article-form]}
+    - learner: "Ah, l'autobus! Devo coger l'autobus per l'aeroporto."
+      errors: [word-choice]
+      gold: {text: "coger", fix: "prendere"}
+    - tutor: "Esatto. Deve prendere l'autobus per l'aeroporto? Ecco il biglietto."
+      goals: [ticket]
+      recast: {text: "coger l'autobus", fix: "prendere l'autobus", tags: [word-choice]}
+    - learner: "Grazie. Dov'è la parata dell'autobus?"
+      errors: [false-friend]
+      gold: {text: "parata", fix: "fermata"}
+    - tutor: "La fermata dell'autobus è qui davanti."
+      recast: {text: "parata", fix: "fermata", tags: [false-friend]}
+      new: [{lemma: fermata, gloss: stop}]
+    - learner: "Perfetto. Quanto pago in tutto? Ho solo un biglietto da venti."
+    - tutor: "Sono sei euro. Ecco quattordici euro di resto."
+      goals: [pay]
+
+- scenario: edicola
+  level: A2
+  persona: en-m-heritage
+  history: [question-form]
+  turns:
+    - tutor: "Buongiorno! Che cosa le serve?"
+    - learner: "Buongiorno. Vorrei un giornale di sport. Quanti costa?"
+      errors: [question-form]
+      gold: {text: "Quanti costa", fix: "Quanto costa"}
+    - tutor: "Quanti costa? Guardi bene la prima parola."
+      prompt: {text: "Quanti costa", tags: [question-form]}
+    - learner: "Quanti costa il giornale?"
+      errors: [question-form]
+      gold: {text: "Quanti costa", fix: "Quanto costa"}
+    - tutor: "Quanto costa? Un euro e ottanta. Eccolo."
+      goals: [newspaper, price]
+      recast: {text: "Quanti costa", fix: "Quanto costa", tags: [question-form]}
+    - learner: "E dove posso comprare un biglietto per l'autobus? Qua?"
+    - tutor: "Sì, qua. Dove deve andare?"
+    - learner: "Devo andare dalla mia zia, in centro."
+      errors: [possessive]
+      gold: {text: "dalla mia zia", fix: "da mia zia"}
+    - tutor: "Dalla mia zia? Con «zia» al singolare c'è una parola in più."
+      prompt: {text: "dalla mia zia", tags: [possessive]}
+    - learner: "Da mia zia! Abita in centro."
+    - tutor: "Giusto! Allora basta un biglietto normale. Eccolo."
+      goals: [ticket]
+    - learner: "Grazie. Ecco cinque euro."
+    - tutor: "Grazie. Sono tre euro e cinquanta: ecco il resto."
+      goals: [pay]
+
+- scenario: edicola
+  level: A2
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno! Che cosa le serve?"
+    - learner: "Buongiorno. Cerco una rivista di economia, ma non troppo difficile."
+    - tutor: "Abbiamo queste due. Questa è più semplice."
+    - learner: "Va bene. E questa è più cara che quella?"
+      errors: [comparative]
+      gold: {text: "più cara che quella", fix: "più cara di quella"}
+    - tutor: "Più cara che quella? Qui dopo «più cara» non usiamo «che»."
+      prompt: {text: "più cara che quella", tags: [comparative]}
+    - learner: "Sì, è più cara che quella?"
+      errors: [comparative]
+      gold: {text: "più cara che quella", fix: "più cara di quella"}
+    - tutor: "Sì, è un po' più cara di quella: un euro in più."
+      recast: {text: "più cara che quella", fix: "più cara di quella", tags: [comparative]}
+    - learner: "Allora prendo la più semplice e un biglietto dell'autobus. Quanto fa?"
+    - tutor: "Ecco la rivista e il biglietto. Fa sei euro e venti."
+      goals: [newspaper, ticket, price]
+    - learner: "Ecco. Ho solo un biglietto da cinquanta, mi dispiace."
+    - tutor: "Nessun problema, ecco il resto. Buona giornata!"
+      goals: [pay]

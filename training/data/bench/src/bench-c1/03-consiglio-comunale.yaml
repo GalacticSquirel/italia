@@ -1,0 +1,216 @@
+- scenario: consiglio-comunale
+  level: C1
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera, presidente. Mi chiamo Karen Lewis e abito in via Garibaldi da cinque anni. Sono favorevole al progetto: il quartiere ha bisogno di verde pubblico molto più che di un altro parcheggio."
+    - tutor: "Grazie, signora. La sua posizione è chiara. Ci dica ora su quali argomenti si fonda: il consiglio deve decidere sui dati, non sulle impressioni."
+      goals: [position]
+    - learner: "Certo. Oggi il parcheggio si riempie solo il sabato, mentre i bambini della zona non hanno un posto dove giocare. Se il comune costruirebbe il parco, ne beneficerebbero trecento famiglie."
+      errors: [hypothetical]
+      gold: {text: "Se il comune costruirebbe", fix: "Se il comune costruisse"}
+    - tutor: "Trecento famiglie sono un dato che pesa. Mi permetta però: «se il comune costruirebbe»? Dopo «se», in un'ipotesi, il condizionale non può stare. Vuole riformulare?"
+      prompt: {text: "Se il comune costruirebbe", tags: [hypothetical]}
+    - learner: "Se il comune costruisse il parco, ne beneficerebbero trecento famiglie."
+    - tutor: "Così è perfetto. Le faccio però un'obiezione: chi ha un negozio teme di perdere clienti, se vengono tolti cento posti auto. Che cosa risponde?"
+      goals: [arguments]
+    - learner: "Rispondo che è una paura comprensibile ma non molto sensibile: in altre città, dopo interventi simili, le vendite sono aumentate, perché la gente passeggia e si ferma davanti alle vetrine."
+      errors: [false-friend]
+      gold: {text: "non molto sensibile", fix: "non molto ragionevole"}
+    - tutor: "Dunque una paura comprensibile ma non molto ragionevole, a suo avviso. Il consiglio prende nota dei dati sulle altre città. Ha anche una proposta concreta da sottoporci?"
+      goals: [objection]
+      recast: {text: "non molto sensibile", fix: "non molto ragionevole", tags: [false-friend]}
+    - learner: "Sì. Propongo che metà dell'area diventi parco e che sotto venga realizzato un parcheggio interrato da cinquanta posti, finanziato in parte con fondi europei."
+    - tutor: "È una proposta ragionevole. Chiedo agli uffici di verificarne i costi prima del voto sulla delibera. Grazie del suo intervento."
+      goals: [proposal]
+
+- scenario: consiglio-comunale
+  level: C1
+  persona: es-m-worker
+  history: [passive]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera. Sono Diego Morales, ho una trattoria davanti al parcheggio. Io sono contrario: la delibera è stato scritto senza sentire i commercianti."
+      errors: [passive]
+      gold: {text: "la delibera è stato scritto", fix: "la delibera è stata scritta"}
+    - tutor: "Buonasera, e grazie di essere venuto. Prima di entrare nel merito: «la delibera è stato scritto»? «Delibera» è femminile, e il verbo deve seguirla in tutte le sue parti. Ci riprovi."
+      prompt: {text: "la delibera è stato scritto", tags: [passive]}
+    - learner: "La delibera è stata scritto in fretta, volevo dire."
+      errors: [passive]
+      gold: {text: "La delibera è stata scritto", fix: "La delibera è stata scritta"}
+    - tutor: "«La delibera è stata scritta in fretta»: anche l'ultima parola va al femminile. Quanto al merito, ho capito che lei è contrario. Su che cosa si basa, di preciso?"
+      goals: [position]
+      recast: {text: "La delibera è stata scritto", fix: "La delibera è stata scritta", tags: [passive]}
+    - learner: "Sui numeri. Il sessanta per cento dei miei clienti arriva in macchina da fuori. Senza posti auto, a pranzo perderei metà dei coperti, e ho sei dipendenti."
+    - tutor: "Sono cifre di cui dobbiamo tenere conto. Tuttavia, secondo l'assessore, un parco porterebbe più gente a piedi, e quindi più clienti. Non la convince?"
+      goals: [arguments]
+    - learner: "No, non mi convince. Chi passeggia prende un gelato, non un pranzo completo. Vorrei che il comune ci dasse garanzie, prima di votare."
+      errors: [subjunctive-form]
+      gold: {text: "ci dasse", fix: "ci desse"}
+    - tutor: "L'argomento del gelato è efficace, lo riconosco. Ma torni sull'ultima frase: «vorrei che il comune ci dasse»? Il congiuntivo imperfetto di «dare» è irregolare."
+      prompt: {text: "ci dasse", tags: [subjunctive-form]}
+    - learner: "Vorrei che il comune ci desse garanzie. Per esempio, propongo di lasciare trenta posti lungo la strada, a pagamento, riservati a chi viene nei negozi."
+    - tutor: "Ora è perfetto. Trenta posti riservati al commercio: è una proposta precisa, e la trasformo in un emendamento da votare insieme alla delibera. La ringrazio."
+      goals: [objection, proposal]
+
+- scenario: consiglio-comunale
+  level: C1
+  persona: en-m-retired
+  history: [noun-gender]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera, signor presidente. Mi chiamo Robert Hayes e vivo qui dal 2015. In linea di principio sono favorevole, ma la problema è che i residenti non sono stati consultato."
+      errors: [noun-gender, passive]
+      gold: {text: "non sono stati consultato", fix: "non sono stati consultati"}
+    - tutor: "La ringrazio della sincerità. Mi consenta però di fermarla sull'ultima parte: «i residenti non sono stati consultato»? L'ultima parola del verbo con chi si accorda?"
+      prompt: {text: "non sono stati consultato", tags: [passive]}
+    - learner: "Con il soggetto: i residenti non sono stati consultati."
+    - tutor: "Precisamente. E prendo atto: favorevole al parco, ma critico sul metodo. Quali elementi porta a sostegno?"
+      goals: [position]
+    - learner: "Ho raccolto qualche dato. La maggior parte dei residenti è favorevole, ma solo se resta qualche posto auto per gli anziani. E in questa zona il verde per abitante è la metà della media nazionale."
+    - tutor: "Dati utili, la ringrazio. C'è però chi dice che una consultazione farebbe perdere mesi, e i fondi scadono a dicembre. Come risponde?"
+      goals: [arguments]
+    - learner: "Rispondo che non si può fare una decisione così importante in fretta. Basterebbe un'assemblea pubblica: una sera, non mesi."
+      errors: [word-choice]
+      gold: {text: "fare una decisione", fix: "prendere una decisione"}
+    - tutor: "Ha ragione: non si dovrebbe prendere una decisione di questo peso senza ascoltare chi ci vive, e un'assemblea è compatibile con i tempi. Lei ha una proposta su come organizzarla?"
+      goals: [objection]
+      recast: {text: "fare una decisione", fix: "prendere una decisione", tags: [word-choice]}
+    - learner: "Sì. Sarebbe meglio che il consiglio aspetta l'esito dell'assemblea, prima di votare. Propongo quindi un incontro pubblico entro ottobre e un questionario da distribuire nelle case."
+      errors: [subjunctive-use]
+      gold: {text: "Sarebbe meglio che il consiglio aspetta", fix: "Sarebbe meglio che il consiglio aspettasse"}
+    - tutor: "La proposta è chiara. Solo la forma: «sarebbe meglio che il consiglio aspetta»? Dopo «sarebbe meglio che» l'indicativo non regge. Come lo direbbe?"
+      prompt: {text: "Sarebbe meglio che il consiglio aspetta", tags: [subjunctive-use]}
+    - learner: "Sarebbe meglio che il consiglio aspettasse l'esito dell'assemblea."
+    - tutor: "Esatto, e nel merito non ha torto. Incontro pubblico entro ottobre e questionario alle famiglie: metto la sua proposta ai voti come mozione. Grazie."
+      goals: [proposal]
+
+- scenario: consiglio-comunale
+  level: C1
+  persona: es-f-teacher
+  history: [word-order]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera a tutti. Mi chiamo Pilar Navarro e insegno nella scuola elementare qui accanto. Sono decisamente a favore: i nostri alunni non hanno uno spazio verde raggiungibile a piedi."
+    - tutor: "Grazie. La sua posizione è chiarissima. Quali argomenti porta al consiglio?"
+      goals: [position]
+    - learner: "Il parco di via Roma, inaugurato due anni fa, ha avuto molto esito: lo usano le scuole, gli anziani, le famiglie. E i bambini che giocano all'aperto si concentrano meglio in classe."
+      errors: [false-friend]
+      gold: {text: "ha avuto molto esito", fix: "ha avuto molto successo"}
+    - tutor: "È vero, il parco di via Roma ha avuto molto successo, e il consiglio lo sa bene. Ma quel parco è costato il doppio del previsto. Chi ci assicura che questa volta il bilancio regga?"
+      goals: [arguments]
+      recast: {text: "ha avuto molto esito", fix: "ha avuto molto successo", tags: [false-friend]}
+    - learner: "Capisco l'obiezione. Però è importante che i costi sono controllati fin dall'inizio, con un tetto di spesa scritto nella delibera."
+      errors: [subjunctive-use]
+      gold: {text: "è importante che i costi sono", fix: "è importante che i costi siano"}
+    - tutor: "Un tetto di spesa: interessante. Ma senta: «è importante che i costi sono»? Dopo «è importante che» quale modo ci vuole?"
+      prompt: {text: "è importante che i costi sono", tags: [subjunctive-use]}
+    - learner: "È importante che i costi saranno controllati."
+      errors: [subjunctive-use]
+      gold: {text: "È importante che i costi saranno", fix: "È importante che i costi siano"}
+    - tutor: "Con il congiuntivo: «è importante che i costi siano controllati». Sul contenuto mi trova d'accordo: un tetto di spesa risponderebbe ai dubbi di molti consiglieri. Che cosa propone, in concreto?"
+      goals: [objection]
+      recast: {text: "È importante che i costi saranno", fix: "è importante che i costi siano", tags: [subjunctive-use]}
+    - learner: "Propongo che il parco venga realizzato in due fasi: prima l'area giochi e gli alberi, poi, se il bilancio lo permette, il resto. E che le scuole siano coinvolte nella cura delle aiuole."
+    - tutor: "Due fasi, con le scuole in prima linea: è una proposta seria e realistica. La inserisco nella discussione sulla delibera. Grazie."
+      goals: [proposal]
+
+- scenario: consiglio-comunale
+  level: C1
+  persona: en-m-traveller
+  history: [subjunctive-use]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Ciao a tutti! Sono Sean, vivo qui da due anni. Io dico sì al parco, senza dubbio."
+      errors: [register]
+      gold: {text: "Ciao a tutti", fix: "Buonasera a tutti"}
+    - tutor: "Benvenuto. Le ricordo soltanto che siamo in una seduta pubblica del consiglio: con quale saluto si apre un intervento, in un contesto come questo?"
+      prompt: {text: "Ciao a tutti", tags: [register]}
+    - learner: "Mi scusi. Buonasera a tutti: mi chiamo Sean Byrne, vivo qui da due anni e sono a favore del parco."
+    - tutor: "Grazie, ora ci siamo. Ci spieghi le sue ragioni."
+      goals: [position]
+    - learner: "In centro non c'è un posto dove sedersi senza pagare un caffè. E poi, per un quartiere, un parco è più utile che un parcheggio."
+      errors: [comparative]
+      gold: {text: "più utile che un parcheggio", fix: "più utile di un parcheggio"}
+    - tutor: "Sul caffè ha strappato un sorriso all'aula. Però: «più utile che un parcheggio»? Quando si confrontano due nomi, che cosa introduce il secondo?"
+      prompt: {text: "più utile che un parcheggio", tags: [comparative]}
+    - learner: "Più utile che il parcheggio?"
+      errors: [comparative]
+      gold: {text: "Più utile che il parcheggio", fix: "Più utile del parcheggio"}
+    - tutor: "Si dice «più utile del parcheggio». Le faccio però un'obiezione: di sera un parco può diventare un luogo poco sicuro. Non la preoccupa?"
+      goals: [arguments]
+      recast: {text: "Più utile che il parcheggio", fix: "più utile del parcheggio", tags: [comparative]}
+    - learner: "Un po' sì. Ma con una buona illuminazione e un pavimento largo lungo la strada, dove la gente cammina anche di sera, il rischio diminuisce."
+      errors: [false-friend]
+      gold: {text: "un pavimento largo", fix: "un marciapiede largo"}
+    - tutor: "Illuminazione e un marciapiede largo: sono misure di buon senso, e costano poco. C'è una proposta precisa che vuole lasciare al consiglio?"
+      goals: [objection]
+      recast: {text: "un pavimento largo", fix: "un marciapiede largo", tags: [false-friend]}
+    - learner: "Sì: propongo che il parco resti aperto fino a mezzanotte, con un chiosco gestito da una cooperativa di giovani, così c'è sempre qualcuno."
+    - tutor: "Un chiosco che tenga vivo il parco anche di sera: l'idea mi pare sensata. La metto a verbale come proposta della cittadinanza. Grazie del suo intervento."
+      goals: [proposal]
+
+- scenario: consiglio-comunale
+  level: C1
+  persona: en-f-student
+  history: [conditional-form]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera. Mi chiamo Emma Clarke, studio all'università e abito in affitto in piazza Verdi. Sono a favore del progetto, anche se con qualche riserva."
+    - tutor: "Grazie. Ci illustri allora sia le ragioni sia le riserve."
+      goals: [position]
+    - learner: "Le ragioni sono semplici: la gente del quartiere vogliono un posto dove incontrarsi, e gli studenti non hanno dove studiare all'aperto."
+      errors: [subject-verb-agreement]
+      gold: {text: "la gente del quartiere vogliono", fix: "la gente del quartiere vuole"}
+    - tutor: "Sono ragioni che molti condividono. Un appunto sulla forma: «la gente del quartiere vogliono»? «La gente» indica molte persone, ma per la grammatica che numero ha?"
+      prompt: {text: "la gente del quartiere vogliono", tags: [subject-verb-agreement]}
+    - learner: "È singolare: la gente del quartiere vuole un posto dove incontrarsi. La mia riserva riguarda i costi di manutenzione, che nel progetto non vengono indicati."
+    - tutor: "Corretto, e la riserva è fondata. L'assessore sostiene però che la manutenzione sarà affidata a volontari. Le sembra una risposta sufficiente?"
+      goals: [arguments]
+    - learner: "Sinceramente no. I volontari potrebbono aiutare, ma non si può contare solo su di loro per dieci anni."
+      errors: [conditional-form]
+      gold: {text: "potrebbono aiutare", fix: "potrebbero aiutare"}
+    - tutor: "Il dubbio è serio. Controlli solo il verbo: «i volontari potrebbono»? La terza persona plurale del condizionale ha un'altra desinenza."
+      prompt: {text: "potrebbono aiutare", tags: [conditional-form]}
+    - learner: "I volontari potrebbano aiutare?"
+      errors: [conditional-form]
+      gold: {text: "potrebbano aiutare", fix: "potrebbero aiutare"}
+    - tutor: "Non ancora: «i volontari potrebbero aiutare», con la e. E condivido il suo dubbio, perché da soli non bastano. Lei come risolverebbe la questione?"
+      goals: [objection]
+      recast: {text: "potrebbano aiutare", fix: "potrebbero aiutare", tags: [conditional-form]}
+    - learner: "Proporrei che una piccola quota del bilancio, fissata ogni anno, venisse destinata alla manutenzione, e che l'università adottasse una parte del parco."
+    - tutor: "Una quota fissa in bilancio e un'area affidata all'università: sono due proposte concrete, e le sottopongo alla commissione prima del voto. Grazie."
+      goals: [proposal]
+
+- scenario: consiglio-comunale
+  level: C1
+  persona: es-f-erasmus
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera. Mi chiamo Lucía Romero, sono qui per un anno di studio e vado ovunque in bicicletta. Sono favorevole al parco, e vorrei spiegare perché."
+    - tutor: "Benvenuta. Prego, la ascoltiamo."
+      goals: [position]
+    - learner: "Negli ultimi anni il traffico in centro ha aumentato molto, e con il traffico anche lo smog. Un'area verde abbasserebbe la temperatura in estate."
+      errors: [auxiliary-choice]
+      gold: {text: "il traffico in centro ha aumentato", fix: "il traffico in centro è aumentato"}
+    - tutor: "Il tema dell'aria ci sta a cuore. Ma: «il traffico ha aumentato»? Qui il traffico non aumenta qualcos'altro: cresce lui. Quale ausiliare ci vuole?"
+      prompt: {text: "il traffico in centro ha aumentato", tags: [auxiliary-choice]}
+    - learner: "Il traffico si ha aumentato molto?"
+      errors: [auxiliary-choice]
+      gold: {text: "si ha aumentato", fix: "è aumentato"}
+    - tutor: "Con «essere», e senza «si»: il traffico è aumentato molto. I dati della polizia locale lo confermano. Ma senza parcheggio, dice qualcuno, le auto gireranno a vuoto e l'aria peggiorerà."
+      goals: [arguments]
+      recast: {text: "si ha aumentato", fix: "è aumentato", tags: [auxiliary-choice]}
+    - learner: "È un rischio, ma solo all'inizio. Quando trovare posto diventa difficile, molti lasciano l'auto a casa: è successo a Siviglia, dove sono cresciuta."
+    - tutor: "L'esempio di Siviglia è pertinente, ne prendiamo nota. Che cosa propone, dunque, al consiglio?"
+      goals: [objection]
+    - learner: "Se il comune avrebbe chiesto ai giovani, avremmo detto tutti la stessa cosa: più piste ciclabili. Propongo che il parco sia collegato alla stazione con una pista."
+      errors: [hypothetical]
+      gold: {text: "Se il comune avrebbe chiesto", fix: "Se il comune avesse chiesto"}
+    - tutor: "Una pista fino alla stazione: buona idea. Riveda solo l'inizio: «se il comune avrebbe chiesto»? Dopo «se» il condizionale non si usa, nemmeno al passato."
+      prompt: {text: "Se il comune avrebbe chiesto", tags: [hypothetical]}
+    - learner: "Se il comune avesse chiesto ai giovani, avremmo detto tutti la stessa cosa."
+    - tutor: "Perfetto. E la critica è accolta: la prossima volta sentiremo anche gli studenti. La sua proposta della pista ciclabile entra nel verbale e sarà esaminata con la delibera."
+      goals: [proposal]

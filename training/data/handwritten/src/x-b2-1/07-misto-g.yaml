@@ -1,0 +1,222 @@
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-f-student
+  history: [subject-verb-agreement]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno. Carino! Cerco una casa con due amiche dell'università. Quanto è l'affitto in totale, e le bollette sono incluse?"
+  - tutor: "Sono 1.200 euro al mese per tutto l'appartamento. Il condominio è incluso, le bollette no: di solito sono circa 150 euro."
+    goals: [rent]
+  - learner: "Quindi 450 a testa, più o meno. Si può fare. E il contratto è per studenti? Noi restiamo fino a luglio dell'anno prossimo."
+  - tutor: "Sì, facciamo un contratto per studenti di dodici mesi. Chiedo una caparra di un mese a persona."
+    goals: [contract]
+  - learner: "D'accordo. Il riscaldamento com'è? L'anno scorso vivevo in una casa freddissima e non voglio ripetere l'esperienza. E c'è la lavatrice?"
+  - tutor: "Non si preoccupi: il riscaldamento è nuovo e funziona bene. La lavatrice c'è, ed è in bagno."
+    goals: [condition]
+  - learner: "Meno male. E com'è la zona di sera? Le mie amiche vorrebbe sapere se è sicura, perché torniamo spesso tardi dalla biblioteca."
+    errors: [subject-verb-agreement]
+  - tutor: "È una zona sicura, piena di studenti. Ma «le mie amiche vorrebbe»? Le amiche sono due: guardi la fine del verbo."
+    prompt: {text: "Le mie amiche vorrebbe", tags: [subject-verb-agreement]}
+    goals: [neighbourhood]
+  - learner: "Le mie amiche vorrebbero sapere se è sicura."
+  - tutor: "Giusto. Possono stare tranquille: la strada ha molta luce e l'autobus passa fino all'una."
+  - learner: "Perfetto. Allora siamo interessate. Possiamo tornare domani tutte e tre per vederlo insieme? Se a loro piace, lo prendiamo."
+  - tutor: "Certo, vi aspetto domani alle cinque. Portate un documento, così se siete d'accordo prepariamo subito il contratto."
+    goals: [decide]
+
+- scenario: arte-mostra
+  level: B2
+  persona: es-f-teacher
+  history: [passive]
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi emoziona. È una scena semplice, una madre con un bambino, però c'è una dolcezza che mi tocca molto."
+  - tutor: "Anche a me piace tanto. Descrivimelo come se io non lo vedessi."
+    goals: [react]
+  - learner: "La madre è seduta e tiene il bambino sulle ginocchia. Dietro di loro c'è un paesaggio con colline e un fiume. I colori sono chiari, e la luce cade sul viso della donna."
+  - tutor: "Bravissima. Sai che questo quadro ha una storia curiosa? Per quasi cento anni nessuno ha saputo dove fosse."
+    goals: [describe]
+  - learner: "Davvero? Chi l'ha trovato? Ho letto che molte opere sono state rubati durante la guerra."
+    errors: [passive]
+  - tutor: "È vero, purtroppo. Ma «molte opere sono state rubati»? Guarda l'ultima parola: va d'accordo con «opere»?"
+    prompt: {text: "sono state rubati", tags: [passive]}
+  - learner: "Molte opere sono state rubate."
+  - tutor: "Esatto. Questa invece era in una casa privata, e nessuno sapeva che fosse così importante. Secondo te che cosa voleva comunicare il pittore?"
+  - learner: "Penso che volesse mostrare l'amore di una madre normale, non di una regina. La donna non guarda il cielo: guarda suo figlio."
+  - tutor: "Che bella lettura, mi piace molto. E se lo confronti con i quadri più antichi su questo tema?"
+    goals: [interpret]
+    new: [{lemma: lettura, gloss: "reading, interpretation"}]
+  - learner: "Quelli più antichi sono più freddi, con lo sfondo d'oro e senza prospettiva. Questo è più umano. È come se il pittore ha conosciuto davvero questa donna."
+    errors: [subjunctive-use]
+  - tutor: "Sono d'accordo su tutto. Solo la fine: «come se il pittore ha conosciuto»... dopo «come se» ci vuole sempre un'altra forma."
+    prompt: {text: "come se il pittore ha conosciuto", tags: [subjunctive-use]}
+  - learner: "Come se il pittore avesse conosciuto questa donna."
+  - tutor: "Perfetto. E forse la conosceva davvero: molti pittori usavano come modello la moglie. Andiamo avanti?"
+    goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-heritage
+  history: [past-participle-form]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Chiamo per un incidente di ieri pomeriggio. Stavo guidando in autostrada quando un camion ha perso una ruota, e la ruota ha colpito la mia macchina."
+  - tutor: "Che paura. Lei come sta? C'erano altre persone in macchina?"
+  - learner: "Stiamo tutti bene, grazie. C'era anche mia figlia. Per fortuna andavo piano, perché aveva appena cominciato a piovere."
+  - tutor: "Meno male. Quindi lei non poteva fare niente per evitare la ruota?"
+    goals: [what]
+  - learner: "No, niente. È successo in un secondo. Il camionista si è fermato subito e ha ammettuto che era colpa sua."
+    errors: [past-participle-form]
+  - tutor: "Bene, questo ci aiuta. Però «ha ammettuto»? Questo verbo non è regolare: come si dice?"
+    prompt: {text: "ha ammettuto", tags: [past-participle-form]}
+    goals: [responsibility]
+  - learner: "Ha ammesso che era colpa sua."
+  - tutor: "Esatto. Avete compilato la constatazione amichevole? Ha i dati del camion?"
+  - learner: "Sì, ho la targa e i dati della sua assicurazione. La constatazione è stata firmata da tutti e due. Il camion era di un'azienda tedesca, non so se questo cambia qualcosa."
+  - tutor: "Cambia poco: ci vorrà solo qualche giorno in più. Com'è il danno?"
+    goals: [documents]
+  - learner: "Il paraurti è distrutto e il cofano non si chiude. Il meccanico ha detto che la riparazione costa tremila euro. Devo pagare io, e poi voi mi date i soldi indietro?"
+  - tutor: "No, per ora non paghi niente. Prima facciamo la perizia, entro una settimana; poi il meccanico viene pagato direttamente da noi. La franchigia non si applica, perché lei non ha colpa."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-professional
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Mi sono trasferita a Milano per lavoro e mi hanno detto che devo registrare la residenza entro venti giorni. È corretto?"
+  - tutor: "Sì, è corretto. Ha già un indirizzo fisso in città?"
+    goals: [request]
+  - learner: "Sì, ho affittato un appartamento in zona Isola. Che documenti devono essere portati? Ho letto sul sito, ma non era chiaro."
+  - tutor: "Glielo spiego io. Servono il passaporto, il permesso di soggiorno, il contratto registrato e questo modulo."
+    goals: [documents]
+  - learner: "Il permesso di soggiorno è il problema. L'ho richiesto due mesi fa, ma non è ancora pronto. Ho solo la ricevuta della posta. Suppongo che non è sufficiente."
+    errors: [subjunctive-use]
+  - tutor: "Vediamo. Prima la frase: «suppongo che non è»... dopo «suppongo che» serve un'altra forma."
+    prompt: {text: "Suppongo che non è", tags: [subjunctive-use]}
+  - learner: "Suppongo che non sia sufficiente."
+  - tutor: "Perfetto. E invece la ricevuta basta: la pratica può essere aperta comunque, e il permesso lo porta quando arriva."
+    goals: [problem]
+  - learner: "Che sollievo! Non me lo aspettavo. Nel mio paese la burocrazia è molto più rigida."
+  - tutor: "Ogni tanto anche noi siamo veloci! Ha altre domande?"
+  - learner: "Sì: cosa succede dopo? Devo fare qualcos'altro, o aspetto una lettera?"
+  - tutor: "Entro 45 giorni i vigili vengono a controllare che lei abiti a quell'indirizzo. Metta il suo nome sul citofono, altrimenti non la trovano."
+    goals: [next]
+    new: [{lemma: citofono, gloss: entry phone}]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno, grazie. Mi chiamo Marco Rinaldi, sono nato a Toronto da una famiglia italiana. Ho trentacinque anni e sono un designer di interni."
+  - tutor: "Piacere. Il suo italiano è ottimo. Mi racconti: dove ha lavorato prima?"
+    goals: [intro]
+  - learner: "Grazie. Ho lavorato dieci anni in uno studio a Toronto, dove disegnavo soprattutto uffici e ristoranti. Poi, nel 2022, decidevo di venire in Italia."
+    errors: [tense-aspect]
+  - tutor: "Dieci anni sono una bella esperienza. Ma «nel 2022 decidevo»... è una scelta fatta una volta, in un momento preciso: quale tempo ci vuole?"
+    prompt: {text: "decidevo di venire in Italia", tags: [tense-aspect]}
+  - learner: "Nel 2022 ho deciso di venire in Italia."
+  - tutor: "Esatto. E quali competenze porterebbe nella nostra squadra? Mi dica anche un suo limite."
+    goals: [experience]
+  - learner: "So ascoltare i clienti e capire quello che vogliono, anche quando non lo sanno spiegare. Il mio limite è la burocrazia italiana: i permessi, le regole. Sto ancora imparando."
+  - tutor: "Quella si impara, non si preoccupi. Perché ha scelto noi?"
+    goals: [strengths]
+  - learner: "Perché fate progetti piccoli e curati. Ho visto il ristorante che avete fatto a Brera e mi ne sono innamorato."
+    errors: [combined-pronouns]
+  - tutor: "Grazie, quel progetto ci è molto caro. Solo una cosa: «mi ne sono innamorato»? Davanti a «ne», la prima parola cambia."
+    prompt: {text: "mi ne sono innamorato", tags: [combined-pronouns]}
+    goals: [why]
+  - learner: "Me ne sono innamorato."
+  - tutor: "Perfetto. Vuole chiedermi qualcosa sul ruolo?"
+  - learner: "Sì. Lavorerei da solo sui progetti o in coppia con un altro designer? E c'è un periodo di prova?"
+  - tutor: "All'inizio in coppia, poi da solo. Il periodo di prova è di tre mesi. Le faremo sapere entro la settimana."
+    goals: [questions]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: es-f-teacher
+  history: [hypothetical]
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie. Insegno spagnolo qui da sei anni, e vorrei parlarle del mio futuro nella scuola."
+  - tutor: "Certo. So che i suoi corsi sono sempre pieni. Mi dica."
+  - learner: "Quest'anno i miei studenti hanno avuto i risultati migliori all'esame: il novanta per cento è stato promosso. E ho organizzato lo scambio con Valencia, che prima non esisteva."
+  - tutor: "Lo so, e lo scambio è andato benissimo. Quindi?"
+    goals: [results]
+  - learner: "Quindi vorrei chiedere il posto di coordinatrice dei corsi di lingue. So che la collega va in pensione a giugno."
+  - tutor: "È vero. Ma ci sono altri due candidati, che lavorano qui da più anni. E il budget non permette un aumento per tutti."
+    goals: [request]
+  - learner: "Capisco. Però io ho più esito con gli studenti, e ho già fatto questo lavoro senza essere pagata."
+    errors: [false-friend]
+  - tutor: "Che lei abbia più successo con gli studenti è vero, lo dicono i numeri. Ma chi coordina deve anche guidare i colleghi: se la sente?"
+    recast: {text: "esito", fix: "successo", tags: [false-friend]}
+  - learner: "Sì. Se lei mi desse questa possibilità, le dimostrerei che posso farlo. Avrebbe potuto vedere il mio lavoro durante lo scambio, se sarebbe venuta a Valencia con noi."
+    errors: [hypothetical]
+  - tutor: "Ha ragione, dovevo venire. Però «se sarebbe venuta»... dopo «se» quella forma non va. Come lo dice?"
+    prompt: {text: "se sarebbe venuta", tags: [hypothetical]}
+  - learner: "Se fosse venuta a Valencia con noi."
+  - tutor: "Esatto. Facciamo così: le do il posto di coordinatrice per sei mesi, in prova, con un piccolo aumento."
+    goals: [handle]
+  - learner: "Accetto volentieri. Che cosa devo fare adesso, e da quando comincio?"
+  - tutor: "Comincia a settembre. Prima dell'estate mi prepari un piano per l'anno, e a gennaio facciamo insieme una valutazione."
+    goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Io lavoro in un ristorante del centro, quindi capisco i commercianti. Ma penso che chiudere il centro sia una buona idea, se si fa bene."
+  - tutor: "Se si fa bene, dice. E che cosa ci guadagna un ristorante, senza clienti che arrivano in macchina?"
+    goals: [position]
+  - learner: "Ci guadagna i tavoli fuori. Nella strada che lavoro io, adesso le macchine passano a un metro dai piatti. Senza auto, potremmo mettere venti tavoli in più."
+    errors: [relative-pronoun]
+  - tutor: "Venti tavoli, capisco. Ma «nella strada che lavoro io»... lei lavora «in» quella strada: come cambia «che»?"
+    prompt: {text: "Nella strada che lavoro io", tags: [relative-pronoun]}
+  - learner: "Nella strada in cui lavoro io."
+  - tutor: "Esatto. Va bene per i ristoranti. Ma un negozio di mobili? Nessuno porta a casa un divano a piedi."
+  - learner: "Per i negozi così si può fare un orario speciale per i furgoni. E c'è un secondo argomento: con meno inquinamento, la gente resta in centro più tempo e spende di più."
+  - tutor: "Un orario per i furgoni, d'accordo. Però il Comune promette sempre e poi non fa niente."
+    goals: [argue, counter]
+  - learner: "Su questo ha ragione, è il rischio più grande. Per questo chiederei una prova di sei mesi. Io sono a favore, purché il Comune fa i parcheggi fuori dal centro."
+    errors: [subjunctive-use]
+  - tutor: "Una prova mi sembra giusta. Però «purché il Comune fa»: dopo «purché» serve un'altra forma del verbo."
+    prompt: {text: "purché il Comune fa", tags: [subjunctive-use]}
+  - learner: "Purché il Comune fa... farà i parcheggi?"
+    errors: [subjunctive-use]
+  - tutor: "Ci è quasi. Anch'io dico di sì, purché il Comune faccia quei parcheggi: senza, non firmo niente."
+    recast: {text: "Purché il Comune fa", fix: "purché il Comune faccia", tags: [subjunctive-use]}
+    goals: [concede]
+  - learner: "Allora siamo d'accordo almeno su una cosa. Lo proponiamo insieme alla riunione?"
+  - tutor: "Volentieri. Una prova di sei mesi, con i parcheggi: così posso accettarlo anch'io."
+
+- scenario: film-libro
+  level: B2
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Io ho letto «L'amica geniale» di Elena Ferrante. Parla di due bambine che crescono in un quartiere povero di Napoli negli anni Cinquanta, e della loro amicizia complicata."
+  - tutor: "Ah, lo aspettavo! E le due amiche come sono?"
+    goals: [summary]
+  - learner: "Elena è tranquilla e studiosa. Lila invece è brillante ma ribelle. Elena è sempre un po' gelosa di Lila, anche se è lei che continua a studiare."
+  - tutor: "Le hai descritte benissimo. E a te, chi delle due è più simpatica?"
+    goals: [characters]
+  - learner: "Lila, anche se a volte è crudele. Il libro mi è piaciuto perché è onesto: l'amicizia non è sempre bella. Ma ho avuto un argomento con mio marito, perché secondo lui è un libro per donne."
+    errors: [false-friend]
+  - tutor: "Hai avuto una discussione con tuo marito per un libro? Mi piace! Digli che lo leggono moltissimi uomini. E il modo di scrivere ti è piaciuto?"
+    recast: {text: "un argomento", fix: "una discussione", tags: [false-friend]}
+    goals: [opinion]
+  - learner: "Sì, è molto diretto. Anche se ci sono tante parole in dialetto, ho potuto di capire quasi tutto."
+    errors: [modal-infinitive]
+  - tutor: "Brava, non è facile. Però «ho potuto di capire»? Dopo «potere» c'è una parola di troppo."
+    prompt: {text: "ho potuto di capire", tags: [modal-infinitive]}
+  - learner: "Ho potuto capire quasi tutto."
+  - tutor: "Esatto. A chi lo consiglieresti, allora?"
+  - learner: "A chiunque abbia avuto un'amicizia lunga e difficile. E a mio marito, naturalmente!"
+  - tutor: "Naturalmente! Facci sapere se cambia idea. Grazie, adesso ho voglia di leggerlo di nuovo."
+    goals: [recommend]

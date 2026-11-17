@@ -1,0 +1,200 @@
+# x-a2-1, file 08: pronoun position, aspect, auxiliaries, comparatives, piacere, negation,
+# word order, stare + gerundio.
+- scenario: ufficio-postale
+  level: A2
+  persona: en-m-retired
+  history: [pronoun-position]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Devo spedire questo pacco a mia figlia, in Germania."
+    - tutor: "Certo. Normale o veloce?"
+      goals: [send]
+    - learner: "Quanto tempo ci vuole con quello normale?"
+    - tutor: "Sette giorni. Quello veloce arriva in due giorni, ma costa di più."
+    - learner: "Allora veloce, è per il suo compleanno."
+    - tutor: "Va bene. Deve scrivere l'indirizzo su questo modulo."
+      goals: [speed]
+    - learner: "Il modulo? Devo lo scrivere adesso?"
+      errors: [pronoun-position]
+    - tutor: "Devo lo...? La parola lo non va lì in mezzo. Dove la mette?"
+      prompt: {text: "Devo lo scrivere", tags: [pronoun-position]}
+    - learner: "Devo scrivere lo adesso?"
+      errors: [pronoun-position]
+    - tutor: "Quasi: si dice lo devo scrivere. Sì, per favore, qui."
+      recast: {text: "Devo scrivere lo", fix: "lo devo scrivere", tags: [pronoun-position]}
+    - learner: "Lo devo scrivere, capisco. Ecco: l'indirizzo, e dentro c'è un libro."
+    - tutor: "Grazie, va bene così. Sono ventidue euro."
+      goals: [form]
+    - learner: "Ecco venticinque euro."
+    - tutor: "Ecco il resto e la ricevuta. Buona giornata!"
+      goals: [pay]
+      new: [{lemma: ricevuta, gloss: receipt}]
+
+- scenario: vacanze-passate
+  level: A2
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao Elena! Sono stata in montagna, in Trentino, con mio marito."
+    - tutor: "Che bello, la montagna! Com'era il tempo?"
+      goals: [where]
+    - learner: "Di giorno c'era il sole, ma di notte faceva freddo."
+    - tutor: "E l'albergo com'era?"
+      goals: [weather]
+    - learner: "Molto carino. L'albergo ha avuto una piscina calda e una vista bellissima."
+      errors: [tense-aspect]
+    - tutor: "Ha avuto una piscina? La piscina c'era sempre. Allora come lo dici?"
+      prompt: {text: "ha avuto", tags: [tense-aspect]}
+      new: [{lemma: piscina, gloss: swimming pool}]
+    - learner: "L'albergo ebbe una piscina calda?"
+      errors: [tense-aspect]
+    - tutor: "Quasi: l'albergo aveva una piscina calda. Che bello! E cosa avete fatto?"
+      recast: {text: "ebbe", fix: "aveva", tags: [tense-aspect]}
+      new: [{lemma: piscina, gloss: swimming pool}]
+    - learner: "Aveva, certo! Abbiamo camminato molto e un giorno abbiamo visitato Trento."
+    - tutor: "Bravi! E cosa ti è piaciuto di più?"
+      goals: [activities]
+    - learner: "La vista dalla montagna al mattino. Era bellissima, con le nuvole sotto di noi."
+    - tutor: "Che bello! Voglio vedere le foto."
+      goals: [best]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: en-f-student
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Ciao Chiara! Bene, grazie. Sabato sera ho uscito con le mie amiche."
+      errors: [auxiliary-choice]
+    - tutor: "Bello! Ma ho uscito? Uscire è come andare e venire. Quindi sabato...?"
+      prompt: {text: "ho uscito", tags: [auxiliary-choice]}
+    - learner: "Sabato sera sono uscita con le mie amiche!"
+    - tutor: "Perfetto! E dove siete andate?"
+      goals: [with-who]
+    - learner: "Siamo andate in un locale in centro. Abbiamo ballato fino alle due!"
+    - tutor: "Fino alle due! E domenica?"
+      goals: [where, what]
+    - learner: "Domenica ho dormito tanto e ho guardato una serie. Mi è piaciuto molto il fine settimana. E il tuo?"
+    - tutor: "Anche il mio è andato bene: sono andata al mare con mio marito."
+      goals: [opinion]
+
+- scenario: serata-cinema
+  level: A2
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì, volentieri! Che ne dici di un film al cinema?"
+    - tutor: "Perfetto! Tu che film preferisci?"
+      goals: [propose]
+    - learner: "Mi piacciono i film romantici. Per me sono più interessanti che i film di guerra."
+      errors: [comparative]
+    - tutor: "Più interessanti che i film? Tra due cose non usiamo che. Più interessanti...?"
+      prompt: {text: "che i film di guerra", tags: [comparative]}
+    - learner: "Più interessanti dei film di guerra."
+    - tutor: "Brava! Anche per me. Stasera c'è un bel film d'amore."
+      goals: [genre]
+    - learner: "Ottimo! A che ora comincia?"
+    - tutor: "Alle sette e mezza o alle dieci meno un quarto."
+    - learner: "Meglio alle sette e mezza, domani lavoro presto."
+    - tutor: "D'accordo. Ci vediamo lì o passo da te?"
+      goals: [choose]
+    - learner: "Ci vediamo davanti al cinema alle sette e un quarto."
+    - tutor: "Va bene, a più tardi!"
+      goals: [meet]
+
+- scenario: tempo-libero
+  level: A2
+  persona: en-m-heritage
+  history: [piacere]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Io piace molto giocare a hockey con gli amici."
+      errors: [piacere]
+    - tutor: "Io piace? Con piacere non usiamo io. Quale piccola parola va prima?"
+      prompt: {text: "Io piace", tags: [piacere]}
+    - learner: "Mi piace molto giocare a hockey!"
+    - tutor: "Ecco! Che sport veloce. Giochi spesso?"
+      goals: [hobby]
+    - learner: "Sì, gioco ogni sabato mattina. E qualche volta anche il mercoledì sera."
+    - tutor: "Bravo! Io invece non faccio mai sport."
+      goals: [frequency]
+    - learner: "Davvero? E allora cosa fai nel tempo libero, Sara?"
+    - tutor: "Leggo molto e vado spesso al cinema."
+      goals: [ask]
+    - learner: "Anche a me piace il cinema. Andiamo insieme domenica?"
+    - tutor: "Sì, con piacere! Scegli tu il film."
+      goals: [propose]
+
+- scenario: tempo-libero
+  level: A2
+  persona: es-m-worker
+  history: [negation]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Lavoro quasi sempre! Ma la domenica gioco a calcio con i colleghi del ristorante."
+    - tutor: "Che bello! Giocate ogni domenica?"
+      goals: [hobby]
+    - learner: "Sì, ogni domenica mattina. Ma mai vado al cinema, non ho tempo."
+      errors: [negation]
+    - tutor: "Mai vado? Con mai serve anche un'altra parola, prima di vado. Prova!"
+      prompt: {text: "mai vado", tags: [negation]}
+    - learner: "Non vado mai al cinema."
+    - tutor: "Giusto! Peccato, però. Lo sport ti piace di più?"
+      goals: [frequency]
+    - learner: "Sì, molto di più. E tu, Sara? Fai sport?"
+    - tutor: "No, io preferisco la musica. Ascolto musica tutte le sere."
+      goals: [ask]
+    - learner: "Che musica ascolti? Sabato c'è un concerto gratis in piazza. Vieni con me?"
+    - tutor: "Ascolto un po' di tutto. Sì, vengo con piacere!"
+      goals: [propose]
+
+- scenario: abbigliamento
+  level: A2
+  persona: en-f-professional
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Cerco una blu maglietta per me."
+      errors: [word-order]
+    - tutor: "Una blu maglietta? In italiano il colore ha un altro posto. Cerca...?"
+      prompt: {text: "una blu maglietta", tags: [word-order]}
+    - learner: "Cerco una maglietta blu."
+    - tutor: "Perfetto! Che taglia porta?"
+      goals: [ask-item]
+    - learner: "Porto la M, di solito."
+    - tutor: "Ecco, questa è una M. Abbiamo anche il rosso e il verde."
+      goals: [size-colour]
+    - learner: "No, il blu va bene. Posso provarla?"
+    - tutor: "Certo! Il camerino è dietro di lei."
+      goals: [try]
+    - learner: "Mi sta bene. Quanto costa?"
+    - tutor: "Costa ventidue euro, ma oggi c'è uno sconto: venti euro."
+    - learner: "Benissimo, la prendo. Pago con la carta."
+    - tutor: "Grazie! Ecco la sua maglietta. Arrivederci!"
+      goals: [decide]
+
+- scenario: lavanderia
+  level: A2
+  persona: en-m-retired
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Buongiorno. Sì, grazie. Sono aspettando da venti minuti, ma la lavatrice non parte."
+      errors: [stare-gerund]
+    - tutor: "Sono aspettando? Con aspettando non usiamo essere. Quale altro verbo?"
+      prompt: {text: "Sono aspettando", tags: [stare-gerund]}
+      new: [{lemma: verbo, gloss: verb}]
+    - learner: "Sto aspettando da venti minuti."
+    - tutor: "Ecco! Venti minuti sono tanti. Hai messo il gettone?"
+      goals: [problem]
+    - learner: "Il gettone? No, ho messo una moneta da due euro."
+    - tutor: "Ah, ecco il problema! Questa lavatrice vuole solo il gettone."
+    - learner: "Capisco. E dove compro il gettone? Quanto costa?"
+    - tutor: "Lì, alla macchina vicino alla porta. Costa cinque euro."
+      goals: [payment]
+    - learner: "Grazie. E poi come funziona? Devo scegliere un programma?"
+    - tutor: "Sì: metti il gettone, scegli il programma e chiudi."
+      goals: [ask-how]
+    - learner: "Molto chiaro. Grazie mille per l'aiuto!"
+    - tutor: "Di niente! Buona giornata."
+      goals: [thank]

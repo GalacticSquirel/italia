@@ -1,0 +1,190 @@
+- scenario: oggetti-smarriti
+  level: A2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Sì! Ho perso il mio backpack sul treno."
+      errors: [word-choice]
+      gold: {text: "backpack", fix: "zaino"}
+    - tutor: "Ha perso lo zaino sul treno? Mi dispiace. Quale treno era?"
+      goals: [report]
+      recast: {text: "il mio backpack", fix: "lo zaino", tags: [word-choice]}
+    - learner: "Il treno da Firenze. Io ho arrivato alle dieci."
+      errors: [auxiliary-choice]
+      gold: {text: "ho arrivato", fix: "sono arrivato"}
+    - tutor: "Ho arrivato? Con «arrivare» usiamo un altro ausiliare."
+      prompt: {text: "ho arrivato", tags: [auxiliary-choice]}
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+    - learner: "Sono arrivato alle dieci."
+    - tutor: "Esatto! Com'è lo zaino?"
+      goals: [when]
+    - learner: "È grande e blu. Dentro c'è la mia camera."
+      errors: [false-friend]
+      gold: {text: "camera", fix: "macchina fotografica"}
+    - tutor: "Dentro c'è la sua macchina fotografica? Che altro c'è?"
+      recast: {text: "la mia camera", fix: "la sua macchina fotografica", tags: [false-friend]}
+      new: [{lemma: fotografico, gloss: photographic (macchina fotografica = camera)}]
+    - learner: "Anche il portafoglio. Il mio numero è 347 555 0199."
+    - tutor: "Va bene, ho il suo numero. La chiamiamo se troviamo lo zaino."
+      goals: [describe, contact]
+
+- scenario: oggetti-smarriti
+  level: A2
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Buongiorno. Sì, ho perso la mia valigia. Ero al binario due per sperare il treno per Bologna."
+      errors: [false-friend]
+      gold: {text: "sperare", fix: "aspettare"}
+    - tutor: "Era al binario due per aspettare il treno. E poi?"
+      goals: [report]
+      recast: {text: "sperare il treno", fix: "aspettare il treno", tags: [false-friend]}
+    - learner: "Mentre ho parlato al telefono, è arrivato il treno e sono salita senza la valigia."
+      errors: [tense-aspect]
+      gold: {text: "Mentre ho parlato", fix: "Mentre parlavo"}
+    - tutor: "Mentre ho parlato? Dopo «mentre» serve un altro tempo del passato."
+      prompt: {text: "Mentre ho parlato", tags: [tense-aspect]}
+    - learner: "Mentre parlavo al telefono, è arrivato il treno."
+    - tutor: "Esatto! A che ora è successo?"
+    - learner: "Erano le otto e mezza, più o meno."
+    - tutor: "Va bene. Com'è la valigia?"
+      goals: [when]
+      new: [{lemma: valigia, gloss: suitcase}]
+    - learner: "È piccola e roja, con il mio nome."
+      errors: [word-choice]
+      gold: {text: "roja", fix: "rossa"}
+    - tutor: "Una valigia piccola e rossa, bene. Mi lascia un numero di telefono?"
+      goals: [describe]
+      recast: {text: "roja", fix: "rossa", tags: [word-choice]}
+      new: [{lemma: valigia, gloss: suitcase}]
+    - learner: "Certo. Mi chiamo Lucía Romero, 333 555 0142."
+    - tutor: "Grazie, ho il suo numero. La chiamiamo presto."
+      goals: [contact]
+
+- scenario: oggetti-smarriti
+  level: A2
+  persona: en-f-professional
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Buongiorno. Sì, ho lasciato la mia borsa sul treno per Milano."
+    - tutor: "Mi dispiace. Quando è successo?"
+      goals: [report]
+    - learner: "Ieri sera. Ho prenduto il treno delle sette."
+      errors: [past-participle-form]
+      gold: {text: "Ho prenduto", fix: "Ho preso"}
+    - tutor: "Ho prenduto? Il verbo «prendere» ha una forma speciale al passato."
+      prompt: {text: "Ho prenduto", tags: [past-participle-form]}
+    - learner: "Ho preso il treno delle sette."
+    - tutor: "Esatto! Com'è la borsa?"
+      goals: [when]
+    - learner: "È una borsa di pelle marrone. L'ho comprato a Sydney."
+      errors: [participle-agreement]
+      gold: {text: "L'ho comprato", fix: "L'ho comprata"}
+    - tutor: "L'ho comprato? Pensi alla parola «borsa»."
+      prompt: {text: "L'ho comprato", tags: [participle-agreement]}
+    - learner: "Sì, l'ho comprato a Sydney l'anno scorso."
+      errors: [participle-agreement]
+      gold: {text: "comprato", fix: "comprata"}
+    - tutor: "Ah, l'ha comprata a Sydney. Che cosa c'era dentro?"
+      recast: {text: "l'ho comprato", fix: "l'ha comprata", tags: [participle-agreement]}
+    - learner: "C'era il mio computer. Il mio numero è 340 555 0117."
+    - tutor: "Grazie. Se troviamo la borsa, la chiamiamo subito."
+      goals: [describe, contact]
+
+- scenario: oggetti-smarriti
+  level: A2
+  persona: es-m-worker
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Buongiorno. Sì, ho perso il mio zaino sul treno da Bologna."
+    - tutor: "Mi dispiace. Quando è successo?"
+      goals: [report]
+    - learner: "Stamattina. Sono sceso dal treno alle sette e lo zaino ha rimasto sul posto."
+      errors: [auxiliary-choice]
+      gold: {text: "ha rimasto", fix: "è rimasto"}
+    - tutor: "Ha rimasto? Con «rimanere» usiamo un altro ausiliare."
+      prompt: {text: "ha rimasto", tags: [auxiliary-choice]}
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+    - learner: "Sì, lo zaino ha rimasto sul treno."
+      errors: [auxiliary-choice]
+      gold: {text: "ha rimasto", fix: "è rimasto"}
+    - tutor: "Ho capito: lo zaino è rimasto sul treno. Com'è?"
+      goals: [when]
+      recast: {text: "ha rimasto", fix: "è rimasto", tags: [auxiliary-choice]}
+    - learner: "È nero e vecchio. Dentro c'erano i miei coltelli da cucina."
+    - tutor: "Coltelli? Va bene, lo scrivo. C'era altro?"
+    - learner: "Sì, la mia cartera con i documenti."
+      errors: [word-choice]
+      gold: {text: "cartera", fix: "portafoglio"}
+    - tutor: "Il portafoglio con i documenti, bene. Mi lascia un numero?"
+      goals: [describe]
+      recast: {text: "la mia cartera", fix: "Il portafoglio", tags: [word-choice]}
+    - learner: "Sì, 351 555 0188."
+    - tutor: "Grazie. La chiamiamo appena lo troviamo."
+      goals: [contact]
+
+- scenario: oggetti-smarriti
+  level: A2
+  persona: en-m-heritage
+  history: [imperfetto-form]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Sì, purtroppo. Ho dimenticato la mia giacca sul treno da Napoli."
+    - tutor: "Capisco. Dov'era la giacca?"
+      goals: [report]
+    - learner: "Stava sopra il posto. Mio figlio dormeva e io leggevo il giornale."
+      errors: [imperfetto-form]
+      gold: {text: "dormeva", fix: "dormiva"}
+    - tutor: "Dormeva? Guardi bene: il verbo è «dormire»."
+      prompt: {text: "dormeva", tags: [imperfetto-form]}
+    - learner: "Sì, dormeva. Non abbiamo visto niente."
+      errors: [imperfetto-form]
+      gold: {text: "dormeva", fix: "dormiva"}
+    - tutor: "Capisco: suo figlio dormiva e Lei leggeva. Com'è la giacca?"
+      recast: {text: "dormeva", fix: "dormiva", tags: [imperfetto-form]}
+      new: [{lemma: giacca, gloss: jacket}]
+    - learner: "È verde. Nella tasca c'era le mie chiavi."
+      errors: [ce-ci-sono]
+      gold: {text: "c'era le mie chiavi", fix: "c'erano le mie chiavi"}
+    - tutor: "C'era le mie chiavi? Le chiavi sono più di una."
+      prompt: {text: "c'era le mie chiavi", tags: [ce-ci-sono]}
+    - learner: "C'erano le mie chiavi."
+    - tutor: "Giusto! Quando è arrivato il treno?"
+      goals: [describe]
+    - learner: "Un'ora fa, alle undici. Il mio numero è 366 555 0123."
+    - tutor: "Grazie. La chiamiamo se troviamo la giacca."
+      goals: [when, contact]
+      new: [{lemma: giacca, gloss: jacket}]
+
+- scenario: oggetti-smarriti
+  level: A2
+  persona: es-f-teacher
+  history: [article-use]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Buongiorno. Sì, ieri ho perduto un libro molto importante."
+    - tutor: "Mi dispiace. Dove l'ha perso?"
+    - learner: "Sul treno regionale. Ho leggiuto il libro durante il viaggio e poi ho dormito."
+      errors: [past-participle-form]
+      gold: {text: "Ho leggiuto", fix: "Ho letto"}
+    - tutor: "Ho leggiuto? Questa forma del passato non esiste. Provi ancora."
+      prompt: {text: "Ho leggiuto", tags: [past-participle-form]}
+    - learner: "Sì, ho leggiuto il libro e poi l'ho lasciato sul posto."
+      errors: [past-participle-form]
+      gold: {text: "leggiuto", fix: "letto"}
+    - tutor: "Capisco: ha letto il libro e poi l'ha lasciato lì. A che ora è arrivato il treno?"
+      goals: [report]
+      recast: {text: "ho leggiuto", fix: "ha letto", tags: [past-participle-form]}
+    - learner: "È arrivato alle sei di sera. Sono uscita rapido e ho lasciato il libro."
+      errors: [word-choice]
+      gold: {text: "rapido", fix: "in fretta"}
+    - tutor: "Capisco, è uscita in fretta. Com'è il libro?"
+      goals: [when]
+      recast: {text: "rapido", fix: "in fretta", tags: [word-choice]}
+      new: [{lemma: fretta, gloss: hurry}]
+    - learner: "È un libro vecchio di poesie. Il mio numero è 320 555 0164."
+    - tutor: "Grazie, ho il suo numero. La chiamiamo se lo troviamo."
+      goals: [describe, contact]

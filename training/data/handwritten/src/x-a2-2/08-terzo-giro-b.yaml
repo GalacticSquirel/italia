@@ -1,0 +1,206 @@
+- scenario: chiedere-strada
+  level: A2
+  persona: en-f-student
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Scusi, signore. È una stazione vicino qui?"
+      errors: [ce-ci-sono, word-order]
+    - tutor: "È una stazione? All'inizio della domanda manca una piccola parola."
+      prompt: {text: "È una stazione", tags: [ce-ci-sono]}
+    - learner: "C'è una stazione qui vicino?"
+    - tutor: "Perfetto! Sì, la stazione è a dieci minuti da qui."
+      goals: [get-attention, ask-place]
+    - learner: "Meno male. Come ci arrivo?"
+    - tutor: "Prenda la prima strada a sinistra, poi vada dritto fino al semaforo."
+    - learner: "Prima a sinistra, poi dritto fino al semaforo. E dopo il semaforo?"
+    - tutor: "Dopo il semaforo la stazione è davanti a lei, in piazza."
+      goals: [understand]
+    - learner: "Ho capito. È facile! Grazie per l'aiuto."
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]
+
+- scenario: compleanno
+  level: A2
+  persona: es-f-teacher
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Possiamo organizzare una cena a sorpresa. Si dice fare una festa o dare una festa?"
+    - tutor: "Tutte e due vanno bene, ma di solito diciamo fare una festa. Quando la facciamo?"
+    - learner: "Allora facciamo una festa sabato prossimo, a casa mia. Ho un giardino grande."
+    - tutor: "Perfetto, in giardino! Chi invitiamo?"
+      goals: [date]
+    - learner: "Inviterò i suoi colleghi e le amiche del corso di yoga. Tu puoi chiamare i suoi fratelli?"
+    - tutor: "Certo, li chiamo stasera. E cosa prepariamo da mangiare?"
+      goals: [guests]
+    - learner: "Io preparerò una paella grande. Tu puoi portare la torta?"
+    - tutor: "Sì, prendo una torta alla frutta. A Sara piace tanto!"
+      goals: [food]
+    - learner: "Benissimo. E il regalo? Io pensavo a una borsa nuova."
+    - tutor: "Buona idea, la sua è vecchia. La compriamo insieme giovedì?"
+      goals: [gift]
+    - learner: "Sì, giovedì dopo il lavoro. Sarà una bella sorpresa!"
+    - tutor: "Sicuro! A giovedì, allora."
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: es-m-worker
+  history: [imperative-form]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera cucino io: una zuppa di zucca, la ricetta del mio ristorante."
+    - tutor: "Che fortuna! Cosa serve?"
+    - learner: "Una zucca, due patate, una cipolla, acqua, sale e un po' di panna."
+    - tutor: "Ho tutto. Io cosa faccio?"
+      goals: [ingredients]
+    - learner: "Taglia la zucca e le patate a pezzi piccoli. Io preparo la pentola con l'olio."
+    - tutor: "Ecco fatto. Adesso metto il sale?"
+      goals: [steps]
+    - learner: "No, non metti il sale adesso! Prima l'acqua."
+      errors: [imperative-form]
+    - tutor: "Non metti? Per dire a un amico di non fare una cosa, cambia la fine."
+      prompt: {text: "non metti", tags: [imperative-form]}
+    - learner: "Non mettere il sale adesso!"
+    - tutor: "Giusto! Allora prima l'acqua. Quanto deve cuocere?"
+    - learner: "Mezz'ora, a fuoco basso. Poi aggiungiamo il sale e la panna."
+    - tutor: "Mezz'ora, va bene. E come la serviamo?"
+      goals: [time]
+    - learner: "In un piatto fondo, con un po' di pane caldo."
+    - tutor: "Che buona! Non vedo l'ora di mangiare."
+      goals: [serve]
+
+- scenario: famiglia
+  level: A2
+  persona: en-f-professional
+  history: [essere-avere]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Questa è mia sorella con suo marito e i loro due bambini, a Sydney."
+    - tutor: "Che bella famiglia! Com'è tua sorella?"
+      goals: [who]
+    - learner: "È molto simpatica e sportiva. Lavora in un ospedale. Lei è trentacinque anni."
+      errors: [essere-avere]
+    - tutor: "Lei è trentacinque anni? Con gli anni non usiamo essere."
+      prompt: {text: "Lei è trentacinque anni", tags: [essere-avere]}
+    - learner: "Lei ha trentacinque anni."
+    - tutor: "Esatto! E i bambini quanti anni hanno?"
+      goals: [describe]
+    - learner: "Il bambino ha sei anni e la bambina ha tre anni. Come si dice nephew in italiano?"
+    - tutor: "Si dice nipote. Sono i tuoi nipoti!"
+      new: [{lemma: nipote, gloss: nephew or niece}]
+      goals: [ages]
+    - learner: "Grazie! I miei nipoti mi mancano molto. E tu, Marco? Hai nipoti?"
+    - tutor: "Non ancora! Ma mio fratello aspetta un bambino a maggio."
+      goals: [ask]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Ciao Anna! Io mi sveglio tardi, alle dieci, perché lavoro per la notte."
+      errors: [preposition]
+    - tutor: "Per la notte? Con notte usiamo un'altra piccola parola."
+      prompt: {text: "per la notte", tags: [preposition]}
+    - learner: "Lavoro di notte, al ristorante."
+    - tutor: "Giusto! E la mattina cosa fai?"
+      goals: [wake]
+    - learner: "Bevo un caffè, faccio la spesa al mercato e poi preparo il pranzo."
+    - tutor: "E a che ora cominci a lavorare?"
+      goals: [work]
+    - learner: "Alle cinque. Finisco a mezzanotte, torno a casa e mi acosto subito."
+      errors: [word-choice]
+    - tutor: "Vai a letto subito, certo! Sarai molto stanco."
+      recast: {text: "mi acosto", fix: "Vai a letto", tags: [word-choice]}
+      goals: [evening]
+    - learner: "Sì, molto. E tu, Anna? Com'è la tua giornata?"
+    - tutor: "Io lavoro in ufficio dalle nove alle sei. La sera guardo un film."
+      goals: [ask]
+    - learner: "Allora non ci vediamo mai! Solo la domenica."
+    - tutor: "È vero! Domenica facciamo colazione insieme?"
+    - learner: "Sì, preparo io."
+    - tutor: "Perfetto, a domenica!"
+
+- scenario: hotel-checkin
+  level: A2
+  persona: en-m-traveller
+  history: [article-use]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera! Sì, a nome O'Brien, per due notti."
+    - tutor: "Sì, eccola: una camera per una persona. Ha un documento?"
+      goals: [booking]
+    - learner: "Certo. Ecco mio passaporto."
+      errors: [article-use]
+    - tutor: "Ecco mio passaporto? Prima di mio manca una piccola parola."
+      prompt: {text: "Ecco mio passaporto", tags: [article-use]}
+    - learner: "Ecco il mio passaporto."
+    - tutor: "Perfetto, grazie."
+      goals: [document]
+    - learner: "Come si dice towel in italiano? Non ne ho."
+    - tutor: "Si dice asciugamano. Gli asciugamani sono già in camera."
+      new: [{lemma: asciugamano, gloss: towel}]
+    - learner: "Ottimo! E la colazione a che ora è?"
+    - tutor: "Dalle sette alle nove e mezza, qui a destra."
+      goals: [breakfast]
+    - learner: "Bene. Domani mi sveglio presto per andare a Pompei."
+    - tutor: "Bella idea! Ecco la chiave: camera 7, al primo piano."
+      goals: [key]
+    - learner: "Grazie, buonanotte!"
+    - tutor: "Buonanotte!"
+
+- scenario: lavanderia
+  level: A2
+  persona: es-f-teacher
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie. Questa lavatrice non parte. Che cosa devo fare?"
+    - tutor: "Vediamo. Hai messo le monete?"
+      goals: [problem]
+    - learner: "No, non ho monete. Ho solo un biglietto di dieci euro."
+      errors: [false-friend]
+    - tutor: "Una banconota da dieci euro? La macchina lì te la cambia."
+      recast: {text: "un biglietto di dieci euro", fix: "Una banconota da dieci euro", tags: [false-friend]}
+      new: [{lemma: banconota, gloss: banknote}]
+    - learner: "Ah, grazie. Quanto costa un lavaggio?"
+    - tutor: "Cinque euro. Metti le monete qui e poi scegli il programma."
+      goals: [payment]
+    - learner: "E quale programma scelgo per la lana?"
+    - tutor: "Il numero quattro, con acqua fredda."
+    - learner: "Perfetto. Il detersivo lo metto qui sopra?"
+    - tutor: "Sì, proprio lì. Adesso chiudi e parte."
+      goals: [ask-how]
+    - learner: "Funziona! Mille grazie, sei stata gentilissima."
+    - tutor: "Di niente! Buona giornata."
+      goals: [thank]
+
+- scenario: medico-base
+  level: A2
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Ho preso un freddo, credo. Ho mal di testa e tosse."
+      errors: [word-choice]
+    - tutor: "Ha preso il raffreddore, capisco. Ha anche la febbre?"
+      recast: {text: "un freddo", fix: "il raffreddore", tags: [word-choice]}
+      new: [{lemma: raffreddore, gloss: a cold}]
+      goals: [symptoms]
+    - learner: "Un po', trentasette e mezzo. E sono molto stanca."
+    - tutor: "Da quanto tempo sta così?"
+    - learner: "Sto male per tre giorni."
+      errors: [preposition]
+    - tutor: "Per tre giorni? Se sta ancora male oggi, usiamo un'altra piccola parola."
+      prompt: {text: "per tre giorni", tags: [preposition]}
+    - learner: "Sto male da tre giorni."
+    - tutor: "Esatto. Prende altre medicine adesso?"
+      goals: [since-when]
+    - learner: "No, nessuna. Ma sono allergica alla penicillina."
+    - tutor: "Va bene, lo scrivo. Allora prenda questa medicina due volte al giorno, dopo pranzo e dopo cena."
+      goals: [history]
+    - learner: "Due volte al giorno, dopo pranzo e dopo cena. Per quanti giorni?"
+    - tutor: "Per cinque giorni. E beva molta acqua. Ecco la ricetta."
+      goals: [instructions]
+    - learner: "Grazie, dottoressa. Arrivederci!"
+    - tutor: "Arrivederci!"

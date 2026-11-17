@@ -1,0 +1,238 @@
+- scenario: medico-specialista
+  level: B2
+  persona: en-f-professional
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Buongiorno, dottore. Non benissimo. Tre settimane fa, mentre correvo nel parco, ho sentito un dolore forte al petto e ho dovuto fermarmi."
+  - tutor: "Ha fatto bene a fermarsi. Il dolore è durato molto? E da allora si è ripetuto?"
+  - learner: "È durato forse cinque minuti. Da allora non corro più, ma ogni tanto sento il battito irregolare, specialmente quando sono nervosa per il lavoro."
+  - tutor: "Capisco. E in famiglia? Genitori, fratelli, qualcuno con problemi di cuore?"
+    goals: [symptoms]
+  - learner: "Mio padre ha stato operato al cuore due anni fa. Adesso sta bene."
+    errors: [auxiliary-choice]
+  - tutor: "Sono contento per lui. Ma «ha stato operato»? Con «stato», il verbo «avere» non si usa mai."
+    prompt: {text: "ha stato operato", tags: [auxiliary-choice]}
+    goals: [history]
+  - learner: "È stato operato al cuore due anni fa."
+  - tutor: "Esatto. Veniamo agli esami: il cuore è sano, ma sotto sforzo la pressione sale troppo."
+  - learner: "Che cosa vuol dire? È pericoloso? Io pensavo che lo sport fa bene al cuore."
+    errors: [subjunctive-use]
+  - tutor: "E fa bene, infatti. Però «pensavo che lo sport fa»: «pensavo» è al passato, quindi dopo «che» serve un'altra forma."
+    prompt: {text: "pensavo che lo sport fa", tags: [subjunctive-use]}
+  - learner: "Pensavo che lo sport facesse bene al cuore."
+  - tutor: "Perfetto. Fa bene, sì, ma per ora senza grandi sforzi: non è pericoloso, se lo teniamo sotto controllo."
+    goals: [understand]
+  - learner: "Meno male. Devo prendere qualcosa? E posso continuare a correre?"
+  - tutor: "Le do una terapia leggera per la pressione; l'unico effetto possibile è un po' di sonno i primi giorni. Per un mese cammini invece di correre, poi facciamo un nuovo controllo."
+    goals: [treatment]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-heritage
+  history: [hypothetical]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! La mia fidanzata è italiana, e vogliamo sposarci nel paese dei miei nonni, in Calabria. Immaginiamo una festa grande, con musica dal vivo."
+  - tutor: "Che bello tornare al paese dei nonni! Quanti invitati pensate di avere?"
+  - learner: "Circa centoventi. Metà vengono dagli Stati Uniti, quindi sarebbe meglio che la cerimonia è a giugno, quando hanno le vacanze."
+    errors: [subjunctive-use]
+  - tutor: "Giugno è un mese perfetto. Però «sarebbe meglio che la cerimonia è»... dopo «sarebbe meglio che» quale forma ci vuole?"
+    prompt: {text: "sarebbe meglio che la cerimonia è", tags: [subjunctive-use]}
+    goals: [vision]
+  - learner: "Sarebbe meglio che la cerimonia fosse a giugno."
+  - tutor: "Benissimo. Con centoventi invitati, che budget avete in mente?"
+  - learner: "Possiamo arrivare a quarantamila euro. I miei genitori ci aiutano, ma non voglio spendere tutto per un giorno solo."
+  - tutor: "È una cifra che ci permette di lavorare bene. Per la location vi propongo un vecchio palazzo in paese oppure un ristorante sul mare, a venti minuti."
+    goals: [budget]
+  - learner: "Il palazzo in paese, senza dubbio. I miei nonni si sono sposati lì vicino. Mia nonna sarebbe felice se lei vedrebbe la festa nella sua piazza."
+    errors: [hypothetical]
+  - tutor: "Che pensiero dolce. Scusi, «se lei...» come? Me lo ripete?"
+    prompt: {text: "se lei vedrebbe", tags: [hypothetical]}
+    goals: [choices]
+  - learner: "Se lei vedesse la festa nella sua piazza."
+  - tutor: "Ecco. Allora palazzo in paese. C'è qualcosa che per voi è molto importante, nel mio lavoro?"
+  - learner: "Sì. Il menù deve essere calabrese, e voglio vedere il preventivo del fotografo prima di decidere. E per favore, ci parla sempre in italiano, anche con i miei parenti americani!"
+    errors: [imperative-form]
+  - tutor: "Promesso! Però una cosa: «ci parla sempre in italiano» è una richiesta fatta a me, con il lei. Che forma prende il verbo?"
+    prompt: {text: "ci parla sempre in italiano", tags: [imperative-form]}
+  - learner: "Ci parli sempre in italiano, per favore."
+  - tutor: "Perfetto, e lo farò con piacere. Vi mando il preventivo del fotografo e una proposta di menù entro venerdì."
+    goals: [conditions]
+
+- scenario: politica-lavoro
+  level: B2
+  persona: en-m-retired
+  history: [hypothetical]
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Dico che ho già visto questo film. Quando lavoravo come ingegnere, negli anni Ottanta, tutti dicevano che i robot avrebbero preso il nostro posto. Non è successo."
+  - tutor: "Sì, ma allora i robot non sapevano scrivere né parlare. Oggi sì. Non ti sembra diverso?"
+    goals: [opinion]
+  - learner: "Un po' diverso, sì. Ma se io avrei trent'anni oggi, non avrei paura. Studierei qualcosa che le macchine non sanno fare."
+    errors: [hypothetical]
+  - tutor: "E che cosa studieresti? Prima però: «se io avrei trent'anni»... dopo «se» quella forma non va. Riprova."
+    prompt: {text: "se io avrei trent'anni", tags: [hypothetical]}
+  - learner: "Se io avessi trent'anni oggi, non avrei paura."
+  - tutor: "Esatto. Sei molto tranquillo, tu. Ma dammi un esempio vero, non solo un'idea."
+    goals: [hypothesis]
+  - learner: "Te lo do. La fabbrica dove lavoravo ha comprato dei robot nel 1995. Nessuno è stato licenziato: gli operai sono stati formati per controllare le macchine, e la produzione è raddoppiata."
+  - tutor: "Un bel caso, lo ammetto. Ma era una grande azienda con molti soldi. E le piccole?"
+    goals: [example]
+  - learner: "Per le piccole è più difficile, hai ragione. Loro non hanno soldi per la formazione. Per questo il governo deve aiutare le."
+    errors: [pronoun-position]
+  - tutor: "Su questo siamo d'accordo. Ma «deve aiutare le»? Quella piccola parola alla fine è nel posto sbagliato."
+    prompt: {text: "deve aiutare le", tags: [pronoun-position]}
+  - learner: "Il governo deve aiutarle."
+  - tutor: "Giusto. Allora, qual è la tua conclusione?"
+  - learner: "Che la tecnologia è un rischio per chi resta fermo e un'opportunità per chi impara. E tu, Riccardo, sei ancora convinto del tuo cinquanta per cento?"
+  - tutor: "Diciamo che scendo al trenta. Mi hai quasi convinto, ingegnere. Un altro bicchiere?"
+    goals: [conclude]
+    new: [{lemma: ingegnere, gloss: engineer}]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-student
+  history: [register]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, grazie di essere venuto. Mi dispiace, ma non siamo contente della cena."
+  - tutor: "Mi dispiace sentirlo. Mi spieghi pure che cosa non è andato bene."
+    goals: [complain]
+  - learner: "Abbiamo ordinato due pizze e un risotto. Le pizze sono arrivate subito, ma il risotto è arrivato quaranta minuti dopo, quando le mie amiche avevano già finito. E il riso era duro, non era cotto."
+  - tutor: "Quaranta minuti dopo? Ha ragione, i piatti dovevano arrivare insieme. E la cottura del risotto è un errore nostro."
+    goals: [detail]
+  - learner: "Grazie. Io mi aspettavo almeno delle scuse dal cameriere. Invece ha detto che era colpa nostra, perché avevamo ordinato piatti diversi. Guarda, non voglio essere antipatica, ma è assurdo."
+    errors: [register]
+  - tutor: "È assurdo, sono d'accordo con lei. Solo una cosa: «guarda» si dice a un amico. A me, in questa situazione, come lo direbbe?"
+    prompt: {text: "Guarda", tags: [register]}
+    goals: [expectation]
+  - learner: "Guardi, non voglio essere antipatica."
+  - tutor: "Perfetto, e non è antipatica per niente. Per scusarci, quel piatto non lo paga, e offriamo noi il caffè a tutto il tavolo."
+  - learner: "È gentile. Però avrei preferito che il cameriere ci chiede scusa di persona."
+    errors: [subjunctive-use]
+  - tutor: "Lo capisco bene. Però «avrei preferito che il cameriere ci chiede»... dopo «avrei preferito che» serve un'altra forma."
+    prompt: {text: "avrei preferito che il cameriere ci chiede", tags: [subjunctive-use]}
+  - learner: "Avrei preferito che ci chiede... chiederebbe scusa?"
+    errors: [subjunctive-use]
+  - tutor: "Quasi. Anch'io avrei preferito che vi chiedesse scusa subito, e adesso lo chiamo qui. Intanto, accetta la nostra proposta?"
+    recast: {text: "che ci chiede", fix: "che vi chiedesse scusa", tags: [subjunctive-use]}
+  - learner: "Sì, accetto, grazie. E se viene a scusarsi, per me la questione è chiusa."
+  - tutor: "Arriva subito. Grazie per la pazienza, e spero di rivedervi presto."
+    goals: [resolve]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Bene, grazie. Ho quasi finito la traduzione del catalogo: mancano solo dieci pagine. Le finirò domani mattina."
+  - tutor: "Ottimo, sei più avanti del previsto. Tutto tranquillo, quindi?"
+    goals: [update]
+  - learner: "Non del tutto. Il cliente vuole anche la versione in tedesco per fine mese, e noi da soli non poderemo farla: nessuno parla tedesco."
+    errors: [future-form]
+  - tutor: "Ah, questo cambia le cose. Ma «non poderemo»? Quella forma non esiste: il futuro di questo verbo è più corto."
+    prompt: {text: "non poderemo", tags: [future-form]}
+    goals: [problem]
+  - learner: "Non potremo farla da soli."
+  - tutor: "Esatto. E allora che cosa proponi?"
+  - learner: "Conosco una traduttrice tedesca molto brava, ha lavorato con me a Siviglia. Potremmo chiederle un preventivo. Costerebbe meno che un'agenzia."
+    errors: [comparative]
+  - tutor: "Buona idea, mi piace. Solo un dettaglio: «meno che un'agenzia»? Davanti a un nome, dopo «meno», non si usa «che»."
+    prompt: {text: "meno che un'agenzia", tags: [comparative]}
+    goals: [proposal]
+  - learner: "Costerebbe meno di un'agenzia."
+  - tutor: "Giusto. Scrivile oggi, allora. Quando possiamo dare tutto al cliente?"
+  - learner: "L'italiano e l'inglese venerdì. Per il tedesco direi il 28, se lei è libera. Ti confermo la data appena mi risponde."
+  - tutor: "Perfetto: venerdì le prime due lingue, il 28 il tedesco. Lo dico io al cliente oggi pomeriggio."
+    goals: [deadline]
+
+- scenario: smartworking
+  level: B2
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Tutte e due. Vado in ufficio il martedì e il giovedì, e gli altri giorni lavoro da casa. È una regola nuova dell'azienda."
+  - tutor: "E ti trovi bene? Io da casa non combino niente."
+    goals: [situation]
+  - learner: "Molto bene. Risparmio due ore di metro al giorno, e mi concentro di più. A casa è più tranquillo che l'ufficio: non c'è nessuno che parla al telefono vicino a me."
+    errors: [comparative]
+  - tutor: "Due ore al giorno sono tante! Però «più tranquillo che l'ufficio»... il confronto è tra «a casa» e...? Manca una piccola parola."
+    prompt: {text: "più tranquillo che l'ufficio", tags: [comparative]}
+    goals: [pros]
+  - learner: "A casa è più tranquillo che in ufficio."
+  - tutor: "Ecco. E gli svantaggi? Non dirmi che è tutto perfetto."
+  - learner: "No, certo. A casa lavoro di più, non di meno: non c'è una fine chiara. E mi manca il pranzo con i colleghi, dove nascono le idee migliori."
+  - tutor: "Questo lo dicono in molti. Quindi, se dipendesse da te, come organizzeresti la settimana?"
+    goals: [cons]
+  - learner: "Se dipendesse da me, farei tre giorni in ufficio e due a casa, ma scelti da ogni persona. La flessibilità è più importante del numero di giorni."
+  - tutor: "Mi sembra molto ragionevole. Perché non lo proponi al tuo capo?"
+    goals: [preference]
+  - learner: "L'ho fatto ieri! Ha detto che ci penserà. Speriamo che dice di sì."
+    errors: [subjunctive-use]
+  - tutor: "Speriamo! Ma «speriamo che dice»... dopo «speriamo che» il verbo cambia. Come diventa?"
+    prompt: {text: "Speriamo che dice", tags: [subjunctive-use]}
+  - learner: "Speriamo che dica di sì."
+  - tutor: "Perfetto. E se accetta, voglio sapere tutto: magari convinco anche il mio capo. Salute!"
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, mi è piaciuto. È vicino al ristorante dove lavoro, e questo per me conta molto. Ma mi preoccupa la provvigione dell'agenzia: mi hanno detto che è molto alta."
+  - tutor: "La provvigione è di un mese di canone, come quasi sempre. Sul canone, invece, c'è un po' di spazio per discutere."
+    goals: [interest]
+  - learner: "Allora discutiamo. Il canone è di 900 euro. Io offro 800, e pago sempre in tempo: può chiedere al mio vecchio padrone di casa."
+  - tutor: "Pagare sempre in tempo è un buon argomento. A 800 non credo che il proprietario accetti, ma a 850 forse sì."
+  - learner: "850 va bene, se il proprietario mi lascia cambiare la cucina a gas, che è molto vecchia. Dubito che funziona bene."
+    errors: [subjunctive-use]
+  - tutor: "È una richiesta giusta, per un cuoco. Ma «dubito che funziona»: dopo «dubito che» il verbo vuole un'altra forma."
+    prompt: {text: "Dubito che funziona", tags: [subjunctive-use]}
+    goals: [negotiate]
+  - learner: "Dubito che funzioni bene."
+  - tutor: "Esatto. Chiederò al proprietario di cambiarla prima del suo arrivo. Per il contratto: tre anni più due, con cedolare secca. Le va bene?"
+  - learner: "Sì. Ma se devo tornare in Argentina, quanto tempo prima devo avvisare? Non vorrei perdere la garanzia."
+  - tutor: "Per la disdetta servono tre mesi, per lettera. Se li rispetta, la garanzia le viene resa tutta."
+    goals: [conditions]
+  - learner: "Perfetto. Allora accetto: 850 euro, cucina nuova e tre mesi per la disdetta. Quando firmamos?"
+    errors: [verb-form]
+  - tutor: "Benissimo, siamo d'accordo. Ma «firmamos»? Questa mi sembra una forma spagnola: in italiano come finisce il verbo, con «noi»?"
+    prompt: {text: "firmamos", tags: [verb-form]}
+  - learner: "Quando firmiamo, scusi."
+  - tutor: "Ecco. Ci vediamo giovedì alle dieci, qui in agenzia. Porti un documento e il contratto di lavoro."
+    goals: [conclude]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-f-student
+  history: [preposition]
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Buongiorno, grazie dell'invito. Sono venuta per studiare: ho vinto una borsa di studio per un anno a Bologna. Poi mi sono innamorata della città e sono rimasta."
+  - tutor: "Succede a molti studenti. E all'inizio, che cosa è stato più difficile?"
+    goals: [story]
+  - learner: "Fare amicizia con gli italiani. Gli studenti stranieri stanno sempre tra loro. Io ho dovuto sforzarmi molto per uscire di quel gruppo."
+    errors: [preposition]
+  - tutor: "È una difficoltà di cui si parla poco. Ma «uscire di quel gruppo»? Con «uscire», qui, la preposizione è un'altra."
+    prompt: {text: "uscire di quel gruppo", tags: [preposition]}
+    goals: [difficulties]
+  - learner: "Uscire da quel gruppo."
+  - tutor: "Esatto. E com'è cambiata, in questi anni?"
+  - learner: "Sono diventata più aperta, credo. E più paziente! In Inghilterra tutto era organizzato. Qui ho imparato che un piano può cambiare e non è una tragedia."
+  - tutor: "Una bella lezione, direi. Si sente anche un po' italiana, ormai?"
+    goals: [change]
+  - learner: "Un po' sì. Quando torno a Leeds, i miei amici dicono che gesticolo troppo! Ma mi sentirei più italiana se avrei la cittadinanza."
+    errors: [hypothetical]
+  - tutor: "I gesti si imparano in fretta! Però «se avrei la cittadinanza»... dopo «se» ci vuole un altro modo."
+    prompt: {text: "se avrei la cittadinanza", tags: [hypothetical]}
+  - learner: "Se avrei... se avrò la cittadinanza?"
+    errors: [hypothetical]
+  - tutor: "Glielo dico io: si sentirebbe più italiana se avesse la cittadinanza. Speriamo che arrivi presto. E che consiglio darebbe a uno studente che vuole venire qui?"
+    recast: {text: "Se avrei", fix: "se avesse la cittadinanza", tags: [hypothetical]}
+  - learner: "Di non avere paura di sbagliare quando parla. Gli italiani apprezzano lo sforzo, e l'accoglienza è migliore di quello che si pensa."
+  - tutor: "Grazie, è un consiglio che vale per tutti. È stato un piacere averla con noi."
+    goals: [advice]

@@ -1,0 +1,220 @@
+# B1, flats, doctors, garages and neighbours: negotiation, complaints, few corrections.
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! Che bello, c'è tanta luce. È tutto arredato o solo il soggiorno?"
+    - tutor: "È tutto arredato: soggiorno, cucina e due camere. Dopo le mostro anche la cucina."
+    - learner: "Perfetto. E quanto è la renta al mese? Sono studentessa, quindi non posso spendere molto."
+      errors: [false-friend]
+    - tutor: "L'affitto è di 650 euro al mese, più 60 euro di spese. Nelle spese è compresa anche l'acqua."
+      recast: {text: "la renta", fix: "l'affitto", tags: [false-friend]}
+      goals: [rent]
+    - learner: "650 è un po' tanto per me. Per una stanza più piccola, in centro, mi hanno chiesto 550. Si può fare 600?"
+    - tutor: "Capisco, ma qui ci sono due camere e può dividere l'appartamento con un'amica. Facciamo 620, e le spese restano uguali."
+    - learner: "Va bene, 620. Ho un'amica a cui posso chiedere. Il contratto quanto dura? Io resto fino a luglio."
+    - tutor: "Per gli studenti faccio un contratto di un anno, ma può lasciarlo prima con tre mesi di preavviso. La caparra è di due mesi."
+      new: [{lemma: preavviso, gloss: notice period}]
+      goals: [contract]
+    - learner: "D'accordo. E il riscaldamento? Nella casa in che abitavo l'anno scorso avevo sempre freddo, perché il riscaldamento era molto vecchia."
+      errors: [relative-pronoun, adjective-agreement]
+    - tutor: "Nella casa... in che abitavo? Dopo una preposizione, che non va bene: quale parola usiamo?"
+      prompt: {text: "in che", tags: [relative-pronoun]}
+    - learner: "Ah, sì: nella casa in cui abitavo avevo sempre freddo."
+    - tutor: "Perfetto. Qui non avrà freddo: la caldaia è nuova, e anche la lavatrice e il frigorifero."
+      new: [{lemma: caldaia, gloss: boiler}]
+      goals: [condition]
+    - learner: "Ottimo. Ultima domanda: com'è il quartiere? Ci sono supermercati e autobus per l'università?"
+    - tutor: "Il supermercato è all'angolo, e con l'autobus 27 arriva all'università in un quarto d'ora. È una zona tranquilla, con tanti studenti."
+      goals: [neighbourhood]
+    - learner: "Mi piace molto. Ne parlo con la mia amica stasera e la chiamo domani, va bene?"
+    - tutor: "Benissimo, aspetto la sua telefonata. Buona serata!"
+      goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-m-traveller
+  history: [pronoun-position]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. Mmm, sembrava più grande nelle foto, ma la vista sul fiume è bellissima."
+    - tutor: "Le foto fanno sempre sembrare tutto più grande, purtroppo! Però c'è anche un balcone. Per quanto tempo cerca casa?"
+    - learner: "Per un anno, forse due. Lavoro da casa per un'azienda irlandese. Quanto costa l'affitto, e cosa comprende?"
+    - tutor: "Sono 800 euro al mese. Poi ci sono 70 euro di spese di condominio, con l'acqua e la luce delle scale."
+      goals: [rent]
+    - learner: "E il riscaldamento? Lavoro a casa tutto il giorno, quindi è importante. È incluso o devo pagare lo a parte?"
+      errors: [pronoun-position]
+    - tutor: "Domanda giusta. Ma: devo pagare lo? Quel pronome sta in un altro posto."
+      prompt: {text: "pagare lo", tags: [pronoun-position]}
+    - learner: "Ah, certo: devo pagarlo a parte?"
+    - tutor: "Esatto. Sì, si paga a parte. Ma la casa è nuova, e d'inverno spende circa 50 euro al mese."
+      goals: [condition]
+    - learner: "Va bene. Ho un gatto, è un problema? È molto tranquillo, dorme tutto il giorno."
+    - tutor: "Un gatto tranquillo non è un problema. Ha altre domande?"
+    - learner: "Sì, sul contratto. Quanto è la caparra? Tre mesi sarebbero troppi per me in questo momento."
+    - tutor: "Di solito chiedo tre mesi, ma con un contratto di due anni posso accettarne due."
+      goals: [contract]
+    - learner: "Grazie, mi sembra giusto. E il quartiere? Vado in palestra ogni mattina: c'è una qui vicino?"
+      errors: [ci-ne]
+    - tutor: "C'è una...? Abbiamo già parlato della palestra, quindi manca una piccola parola."
+      prompt: {text: "c'è una", tags: [ci-ne]}
+    - learner: "Ce n'è una qui vicino?"
+    - tutor: "Proprio così. Ce n'è una in fondo alla strada, che apre alle sei. E il quartiere è tranquillo, con una bella piazza."
+      goals: [neighbourhood]
+    - learner: "Allora sono molto interessato. Posso tornare domani con il passaporto per firmare?"
+    - tutor: "Certo, l'aspetto domani alle dieci. Il contratto lo preparo io."
+      goals: [decide]
+
+- scenario: medico-base
+  level: B1
+  persona: es-m-worker
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Il lunedì mi è venuta la febbre e adesso mi fa male tutto il corpo. Non riesco a lavorare."
+      errors: [article-use]
+    - tutor: "Mi dispiace. Scusi, il lunedì? Parla di tutti i lunedì o di un giorno preciso?"
+      prompt: {text: "Il lunedì", tags: [article-use]}
+    - learner: "Di un giorno preciso: lunedì mi è venuta la febbre, scusi."
+    - tutor: "Ho capito, da lunedì. E quanto ha di febbre, più o meno?"
+      goals: [symptoms, since-when]
+    - learner: "Ieri sera avevo 38 e mezzo. Anche la gola mi fa molto male quando mangio."
+    - tutor: "Vediamo... Apra la bocca. Sì, la gola è molto rossa. È allergico a qualche medicina?"
+    - learner: "No, credo di no. Però l'anno scorso un medico mi ha dato un antibiotico e mi sono venute delle macchie rosse sulle braccia."
+    - tutor: "Questo è importante, ha fatto bene a dirmelo. Allora le scrivo sulla ricetta un antibiotico diverso."
+      goals: [history]
+    - learner: "Devo restare a casa? Lavoro in cucina, in un ristorante, e il mio capo dice che mancano persone."
+    - tutor: "Sì, almeno tre giorni a casa: con la febbre non può cucinare per gli altri. Prenda l'antibiotico due volte al giorno, dopo i pasti, per sei giorni."
+      new: [{lemma: antibiotico, gloss: antibiotic}, {lemma: pasto, gloss: meal}]
+    - learner: "Allora: due volte al giorno, dopo i pasti, per sei giorni, e tre giorni a casa. Mi fa un certificato per il lavoro?"
+    - tutor: "Esatto, ha capito tutto. Ecco il certificato per il suo capo: si riposi e beva molto!"
+      goals: [instructions]
+
+- scenario: medico-base
+  level: B1
+  persona: en-f-student
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Ho un dolore forte alla caviglia sinistra. Ieri ho caduto dalla bicicletta mentre andavo all'università."
+      errors: [auxiliary-choice]
+    - tutor: "Mi dispiace. Però, ho caduto? Con cadere usiamo avere o un altro verbo?"
+      prompt: {text: "ho caduto", tags: [auxiliary-choice]}
+    - learner: "Sì, ieri ho caduto dalla bici, in una curva."
+      errors: [auxiliary-choice]
+    - tutor: "Si dice: sono caduta dalla bici. Le fa male anche quando non cammina?"
+      recast: {text: "ho caduto", fix: "sono caduta", tags: [auxiliary-choice]}
+      goals: [symptoms, since-when]
+    - learner: "Sì, anche di notte. È gonfia e un po' blu. Ho messo del ghiaccio, ma non è servito molto."
+    - tutor: "Vediamo... Non sembra rotta, ma è una brutta distorsione. Prende qualche medicina, o è allergica a qualcosa?"
+      new: [{lemma: distorsione, gloss: sprain}]
+    - learner: "Sono allergica alla penicillina. Ieri sera ho preso un'aspirina, perché non riuscivo a dormire."
+    - tutor: "Bene saperlo. Allora le do una pomata e delle compresse per il dolore, senza penicillina."
+      new: [{lemma: pomata, gloss: ointment}, {lemma: compressa, gloss: tablet}]
+      goals: [history]
+    - learner: "Quante compresse devo prendere? E quando posso giocare di nuovo a calcio? Gioco nella squadra dell'università."
+    - tutor: "Prenda una la mattina e una la sera, per cinque giorni, e la pomata tre volte al giorno. Niente calcio per due settimane, mi dispiace!"
+      new: [{lemma: pomata, gloss: ointment}]
+    - learner: "Due settimane senza calcio, che noia! Allora: una compressa mattina e sera per cinque giorni, la pomata tre volte al giorno, e riposo."
+    - tutor: "Perfetto, ha capito tutto. Quando è seduta, tenga la gamba alta, e torni se il dolore non passa."
+      goals: [instructions]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-retired
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Domenica ho guidato in autostrada quando ho sentito un colpo forte sotto la macchina. Poi mi sono fermato e ho vedito una macchia d'olio."
+      errors: [tense-aspect, past-participle-form]
+    - tutor: "Che spavento! Ma ho guidato... quando ho sentito: che cosa stava succedendo in quel momento?"
+      prompt: {text: "ho guidato", tags: [tense-aspect]}
+    - learner: "Ah, giusto: guidavo in autostrada quando ho sentito il colpo."
+    - tutor: "Esatto. E da domenica come va la macchina?"
+      goals: [describe, when]
+    - learner: "Va, ma piano, e la spia dell'olio è sempre accesa. Sono venuto fin qui con molta attenzione."
+    - tutor: "Ha fatto bene. Probabilmente ha preso una pietra e si è rotto un pezzo sotto il motore. Lo guardo subito."
+    - learner: "Quanto costerà, più o meno? Sono in pensione, quindi preferirei sapere il prezzo prima."
+    - tutor: "Le preparo un preventivo. Se è solo quel pezzo, saranno circa 250 euro."
+      goals: [cost]
+    - learner: "250 euro! Il mio meccanico in Ohio prendeva molto meno. Non può farmi un piccolo sconto?"
+    - tutor: "Il pezzo da solo costa 150 euro, purtroppo. Sul lavoro, però, posso farle 20 euro di sconto."
+    - learner: "Va bene, grazie. E quando sarà pronta? Giovedì arriva mia figlia all'aeroporto e devo andare a prenderla."
+    - tutor: "Il pezzo arriverà domani mattina, quindi la macchina sarà pronta domani sera verso le sei. Giusto in tempo per giovedì!"
+      goals: [time]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera. Mi scusi per l'ora. Sono la vicina del piano di sotto, abito qui da settembre."
+    - tutor: "Piacere, benvenuta nel palazzo! Mi dica pure, c'è qualche problema?"
+      goals: [greet]
+    - learner: "Sì, purtroppo. Io insegno e mi alzo alle sei, ma la sua lavatrice va sempre verso mezzanotte e fa molto rumore."
+    - tutor: "Ah, la lavatrice! Non sapevo che si sentisse fino a casa sua. Mi dispiace molto."
+      goals: [problem]
+    - learner: "Si sente moltissimo, trema tutto il soffitto. Le chiederei un favore: se lei potrebbe usarla prima delle dieci, io dormirei molto meglio."
+      errors: [hypothetical]
+    - tutor: "Capisco. Solo una cosa: se lei potrebbe? Dopo questo se, quale tempo ci vuole?"
+      prompt: {text: "se lei potrebbe", tags: [hypothetical]}
+    - learner: "Se lei potesse usarla prima delle dieci, dormirei molto meglio."
+    - tutor: "Perfetto. Il problema è che lavoro fino alle otto e la sera ho poco tempo. Le andrebbe bene entro le nove e mezza?"
+      goals: [request]
+    - learner: "Le nove e mezza va bene. Nel fine settimana, invece, preferirei non sentirla prima delle dieci di mattina."
+    - tutor: "Mi sembra giusto. Allora siamo d'accordo: la sera entro le nove e mezza, il sabato e la domenica dopo le dieci."
+      goals: [compromise]
+    - learner: "Grazie mille, è molto gentile. Se ha bisogno di qualcosa, sono al secondo piano."
+    - tutor: "Grazie a lei, e scusi ancora per le notti passate. Buonanotte!"
+
+- scenario: volontariato
+  level: B1
+  persona: en-m-heritage
+  history: [stare-gerund]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Ciao! Sì, molto. Mia nonna è morta l'anno scorso e mi manca parlare con le persone anziane."
+    - tutor: "Mi dispiace per tua nonna. È un motivo bellissimo, e abbiamo proprio un progetto con gli anziani. Cosa sai fare?"
+      goals: [motivation]
+    - learner: "Suono la chitarra e cucino abbastanza bene. Adesso sono imparando anche a fare il pane, con un corso online."
+      errors: [stare-gerund]
+    - tutor: "La chitarra è perfetta! Però, sono imparando? Per dire cosa fai in questo periodo, essere non va bene: quale verbo serve?"
+      prompt: {text: "sono imparando", tags: [stare-gerund]}
+    - learner: "Sto imparando a fare il pane."
+    - tutor: "Giusto! Allora potresti suonare per gli anziani della casa di riposo. Quanto tempo hai?"
+      new: [{lemma: casa di riposo, gloss: care home}]
+      goals: [skills]
+    - learner: "Lavoro dal lunedì al venerdì, ma sono libero il sabato e il giovedì sera. Però non voglio fare un concerto: davanti a tanta gente sono timido."
+    - tutor: "Il sabato pomeriggio va benissimo. Niente concerto: suoni per un piccolo gruppo, che di solito canta con te!"
+      goals: [time]
+    - learner: "Allora sì, mi piacerebbe. E il giovedì sera c'è un'attività in cui potrei cucinare?"
+    - tutor: "Sì, il giovedì prepariamo la cena per le persone senza casa. Ti segno per tutte e due le attività?"
+    - learner: "Sì, tutte e due! Ma prima vorrei provare una volta, per vedere se sono capace."
+    - tutor: "Certo, è giusto così. Ci vediamo sabato alle tre, e porta la chitarra!"
+      new: [{lemma: chitarra, gloss: guitar}]
+      goals: [choose]
+
+- scenario: smartworking
+  level: B1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Un po' e un po'. Faccio un tirocinio in un'agenzia di viaggi: due giorni lavoro da casa e tre vado all'officina."
+      errors: [false-friend]
+    - tutor: "Ah, tre giorni in ufficio e due a casa. E quale delle due cose preferisci?"
+      recast: {text: "all'officina", fix: "in ufficio", tags: [false-friend]}
+      goals: [situation]
+    - learner: "Da casa è più comodo, perché non perdo un'ora sull'autobus. Ma il mio camera è più piccola che il bagno della mia casa a Siviglia!"
+      errors: [noun-gender, comparative]
+    - tutor: "Così piccola? Però, più piccola che il bagno: quando confronti due cose così, cosa va dopo più piccola?"
+      prompt: {text: "più piccola che il bagno", tags: [comparative]}
+    - learner: "La mia camera è più piccola del bagno di casa mia!"
+    - tutor: "Perfetto! Comodo, sì, ma un po' piccolo. E in ufficio come ti trovi?"
+      goals: [pros]
+    - learner: "In ufficio c'è più spazio e parlo con i colleghi. A casa mi sento sola, e a volte lavoro fino alle nove di sera senza accorgermi."
+    - tutor: "Anch'io, quando lavoro da casa, non stacco mai! Se potessi scegliere, cosa faresti?"
+      new: [{lemma: staccare, gloss: to switch off from work}]
+      goals: [cons]
+    - learner: "Sinceramente, preferirei andare in ufficio quattro giorni. Il venerdì resterei a casa, per finire le cose con calma."
+    - tutor: "Mi sembra la soluzione giusta. Prova a chiederlo al tuo responsabile, magari è d'accordo!"
+      goals: [preference]

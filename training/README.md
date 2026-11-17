@@ -25,7 +25,7 @@ spec/        The tutor's behaviour contract, versioned (SPEC_VERSION 1.0.0):
              shared with packages/content), error_tags.json (42 tags mapped to grammar
              points), policy.py (prompt first, recast second, one error per turn),
              system_prompt.v1.txt + render.py (the exact prompt the model sees)
-scenarios/   66 role-play scenarios, A1 to B2 (8 marked `split: eval`, never trained on)
+scenarios/   91 role-play scenarios, A1 to C2 (11 marked `split: eval`, never trained on)
 data/        Seed lemma list (frequency ranks) and curated core vocabulary
 datagen/     Teacher clients (any OpenAI- or Anthropic-compatible endpoint, including a local
              mlx-lm server), simulated learner, synthesis, filters, judge, cost and time
@@ -335,10 +335,14 @@ uv run python -m eval report -c datagen/configs/eval-local.yaml --items work/eva
 
 The report covers:
 
+- a parity table: each system against the reference turns on the headline metrics below, with
+  a tolerance per metric, and the judge win rate against the reference (on par at 45% or more)
 - JSON validity
 - LanguageTool errors per 100 words
 - tokens outside the level band
 - feedback-move accuracy, over-correction and under-correction
+- correction accuracy (a due correction made, on the right error)
+- prompts that give the answer away (the reply contains the gold correction)
 - recast correctness
 - error-tag F1 against the injected errors
 - annotation consistency
@@ -347,6 +351,25 @@ The report covers:
 
 If the bf16-to-Q4_0 gap is more than 2 to 3 rubric points, try the imatrix variants, or add a
 short QAT phase.
+
+**The parity benchmark.** The items above come from the local teacher's eval-split dialogues, so
+their reference is only as good as that teacher. `data/bench/` holds a hand-written benchmark at
+the level of the best hosted tutors: dialogues on evaluation-only scenarios at every level from
+A1 to C2, each corrected learner turn with its gold wrong span and correction, and every tutor turn
+written as the best move under the policy. Use it as the yardstick for "as good as a cloud tutor":
+
+```sh
+uv run python -m datagen.handwritten build --bench --all     # needs LanguageTool on :8010
+uv run python -m eval build-items --records 'data/bench/*.jsonl' --out work/eval/bench.jsonl
+uv run python -m eval predict --items work/eval/bench.jsonl --out work/eval/bench-pred.jsonl \
+  --system student-q4 --system base
+uv run python -m eval report -c datagen/configs/eval-local.yaml --items work/eval/bench.jsonl \
+  --predictions work/eval/bench-pred.jsonl --system student-q4 --system base \
+  --pairwise student-q4:teacher-reference --title "Parity benchmark" --out out/eval/bench.md
+```
+
+Here `teacher-reference` is the benchmark's own tutor turns. The model reaches parity when every
+row of the parity table is on par.
 
 ## How generation and filtering handle teacher slips
 

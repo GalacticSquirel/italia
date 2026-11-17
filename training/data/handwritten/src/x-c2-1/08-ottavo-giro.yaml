@@ -1,0 +1,205 @@
+- scenario: burocrazia-residenza
+  level: C2
+  persona: en-f-student
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Ciao! Scusa, sono un po' agitata. Devo trasferire la residenza qui da Siena, perché ho cominciato un dottorato a Firenze, ma ho un problema con i documenti."
+    errors: [register]
+  - tutor: "Mi dica pure, con calma. Però, «ciao» e «scusa» allo sportello dell'anagrafe? Qui conviene un registro un po' più formale."
+    prompt: {text: "Ciao! Scusa", tags: [register]}
+  - learner: "Ha ragione, mi scusi: buongiorno. Il problema è che ho perso il passaporto la settimana scorsa: l'ho lasciato sul tavolo della libreria di facoltà, mentre studiavo."
+    errors: [false-friend]
+  - tutor: "Perso in biblioteca, mentre studiava? Ha provato a chiedere al banco dei prestiti, o ha già fatto la denuncia di smarrimento?"
+    recast: {text: "libreria", fix: "biblioteca", tags: [false-friend]}
+    goals: [request]
+  - learner: "Ho chiesto, ma niente. Ho fatto la denuncia ai carabinieri e ne ho una copia. Ho anche il permesso di soggiorno e il contratto della nuova casa. La denuncia è sufficiente?"
+  - tutor: "Per aprire la pratica sì, insieme al permesso di soggiorno, che è comunque un documento di riconoscimento valido. Il contratto è registrato?"
+    goals: [documents, problem]
+  - learner: "Sì, è registrato. Il problema è che il mio permesso scade a gennaio, e non so se sarà rinnovato prima che arriva la conferma della residenza."
+    errors: [subjunctive-use]
+  - tutor: "Domanda sensata. Ma «prima che arriva»: dopo «prima che», l'indicativo non regge. Come lo diciamo?"
+    prompt: {text: "prima che arriva", tags: [subjunctive-use]}
+  - learner: "Prima che arrivi la conferma, giusto. Quindi, se il permesso scade nel frattempo, la pratica si blocca?"
+  - tutor: "No: basta la ricevuta del rinnovo, che ha lo stesso valore. I vigili passeranno entro quarantacinque giorni, e la residenza decorre da oggi."
+    goals: [next]
+
+- scenario: organizzare-matrimonio
+  level: C2
+  persona: es-m-worker
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Oggi sono venuto da solo, perché Lucía lavora a Valencia fino a maggio. Immaginiamo una cosa allegra e senza troppe formalità: rito civile a Bologna, dove viviamo, e poi una festa con paella e tortellini, metà spagnola e metà italiana."
+  - tutor: "Paella e tortellini: un matrimonio misto anche nel piatto. Quanti invitati, e con che budget?"
+    goals: [vision]
+  - learner: "Circa novanta persone, e un budget di ventimila euro. Una cosa importante per noi è il fotografo: ne vogliamo uno bravo ma non molesto, che non stia sempre in mezzo durante la cerimonia."
+  - tutor: "Ventimila per novanta persone è un budget ragionevole. E La capisco benissimo: un fotografo sempre in mezzo rovina la cerimonia più della pioggia. Ne conosco due che sanno quasi sparire."
+    goals: [budget]
+  - learner: "Perfetto. Me lo può mandare a me il portfolio di tutti e due, così lo guardo con Lucía stasera in videochiamata?"
+    errors: [combined-pronouns]
+  - tutor: "Certo. Solo, «me lo può mandare a me»: in quella frase c'è qualcosa di troppo. Che cosa?"
+    prompt: {text: "Me lo può mandare a me", tags: [combined-pronouns]}
+  - learner: "«A me» è di troppo: me lo può mandare? In spagnolo lo diciamo due volte, e mi scappa."
+  - tutor: "Esatto. Glielo mando stasera stessa. Il primo lavora in bianco e nero, quasi da reportage; il secondo ha uno stile più classico, con colori caldi."
+  - learner: "Allora credo che sceglieremo il primo: a Lucía piace la fotografia di reportage, e io non sopporto le foto in posa. Lo confermiamo dopo la videochiamata, ma diciamo che è quasi deciso."
+  - tutor: "Ottimo, lo tengo libero per voi fino a lunedì. Volete fissare qualche condizione, prima di firmare il contratto con me?"
+    goals: [choices]
+  - learner: "Sì, una: vorrei che i pagamenti fossero divisi in tre rate, e che l'ultima venisse pagata solo dopo la festa, se tutto è andato bene."
+  - tutor: "Mi sembra corretto, è la formula che preferisco anch'io. Tre rate, l'ultima dopo il matrimonio: lo scrivo nel contratto e ve lo mando entro venerdì."
+    goals: [conditions]
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, e più di uno. Due settimane fa avevo prenotato un tavolo per otto in terrazza, per il compleanno di mia moglie. Siamo arrivati e ci avete messi dentro, accanto alla porta dei bagni."
+  - tutor: "Mi dispiace davvero, non è il modo di festeggiare un compleanno. Le hanno spiegato perché il tavolo in terrazza non c'era?"
+    goals: [complain]
+  - learner: "Il cameriere ha detto che c'era stato un errore nel sistema. Pazienza, succede. Ma poi, quando abbiamo tirato fuori la torta che avevamo portato, ci hanno detto che c'erano trenta euro di supplemento per il taglio. Quella è stata la goccia che ha rotto il vaso."
+    errors: [word-choice]
+  - tutor: "Capisco che sia stata la goccia che ha fatto traboccare il vaso: un supplemento così, senza avvisare, è sgradevole. La regola esiste, ma andava comunicata al momento della prenotazione."
+    recast: {text: "la goccia che ha rotto il vaso", fix: "la goccia che ha fatto traboccare il vaso", tags: [word-choice]}
+    goals: [detail]
+  - learner: "Esatto. Non contesto la regola in sé; contesto il fatto che nessuno ce l'abbia detta. Avrei preferito che ce lo dicevate al telefono: avremmo preso il dolce da voi."
+    errors: [subjunctive-use]
+  - tutor: "Ha ragione su tutta la linea. Però, dopo «avrei preferito che», il verbo può restare all'imperfetto indicativo?"
+    prompt: {text: "Avrei preferito che ce lo dicevate", tags: [subjunctive-use]}
+  - learner: "No: avrei preferito che ce lo diceste. Il congiuntivo imperfetto, giusto?"
+  - tutor: "Giustissimo. Il supplemento lo togliamo, naturalmente, e vorrei offrirvi anche lo spumante per il brindisi, a carico della casa."
+    goals: [expectation]
+  - learner: "Grazie, togliere il supplemento mi sembra il minimo. Lo spumante lo accetto per mia moglie, che se lo merita. Ma la prossima volta vorrei la terrazza, quella vera."
+  - tutor: "Ha la mia parola: la prossima volta prenoti direttamente con me, e la terrazza è vostra. Intanto, tanti auguri alla signora."
+    goals: [resolve]
+
+- scenario: reclamo-comune
+  level: C2
+  persona: en-m-retired
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Abito in via Petrarca, al numero 8. A settembre hanno cominciato una pista ciclabile, hanno messo le transenne davanti a tutti i passi carrabili, e da allora non si è più visto nessuno. Da due mesi non posso tirare fuori la macchina dal garage."
+  - tutor: "Via Petrarca 8, la pista ciclabile: ne ho sentito parlare. Quindi la macchina è bloccata in garage da due mesi?"
+    goals: [describe]
+  - learner: "Esattamente. Ho ottantun anni e la uso per portare mia moglie alla dialisi tre volte alla settimana. Adesso prendiamo un taxi ogni volta. Ho chiamato l'ufficio tecnico quattro volte, e mi hanno sempre risposto «a breve». Sono stanco ad aspettare."
+    errors: [preposition]
+  - tutor: "Capisco, e con la dialisi di mezzo è ancora più grave. Ma una cosa: «stanco ad aspettare»? Con «stanco», quando non se ne può più, la preposizione è un'altra."
+    prompt: {text: "stanco ad aspettare", tags: [preposition]}
+  - learner: "Stanco di aspettare, certo. E non voglio più sentire «a breve»: domando una data precisa."
+  - tutor: "Ha tutto il diritto di chiederla. Il cantiere è fermo perché manca un'autorizzazione della Soprintendenza, che il Comune ha sollecitato la settimana scorsa."
+    goals: [insist]
+  - learner: "La Soprintendenza, per una pista ciclabile? Va bene, non discuto. Ma nel frattempo ho diritto a un accesso provvisorio al garage? Se l'avessi saputo prima, avrei chiesto un permesso per parcheggiare in strada."
+  - tutor: "Sì, in questi casi chi abita nella via può chiedere di spostare per qualche giorno le transenne, e anche un permesso per parcheggiare gratis. Lo scriviamo nel reclamo formale."
+    new: [{lemma: transenna, gloss: barrier}]
+    goals: [rights]
+  - learner: "Allora presentiamolo subito. E vorrei che qualcuno mi chiamasse quando spostano le transenne, non dopo."
+  - tutor: "Lo scrivo nel reclamo, con il Suo numero di telefono. Ecco il protocollo, 7713: l'ufficio tecnico deve intervenire entro cinque giorni lavorativi, e se non succede, mi chiami direttamente."
+    goals: [commitment]
+
+- scenario: condoglianze
+  level: C2
+  persona: en-f-student
+  turns:
+  - tutor: "Grazie di essere venuta, davvero. Non doveva disturbarsi, con tutto il lavoro che ha."
+  - learner: "Nessun disturbo, si figuri. Le porgo le mie più sentite condoglianze. Ho saputo della scomparsa di Sua madre solo ieri sera, e ci tenevo a venire di persona."
+  - tutor: "Lei è molto cara. Mamma aveva novantun anni e se n'è andata nel sonno: almeno questo, ce lo dicono tutti, è una consolazione."
+    goals: [condolences]
+  - learner: "Lo è davvero. Io l'ho conosciuta solo alla festa per i Suoi sessant'anni, ma ricordo che abbiamo parlato a lungo di libri. Era una donna molto educata: aveva letto tutto Pavese e ne parlava come di un vecchio amico."
+    errors: [false-friend]
+  - tutor: "Sì, era una donna colta, e lo era diventata da sola: aveva lasciato la scuola a dodici anni per lavorare nei campi. Che bello che se lo ricordi."
+    recast: {text: "educata", fix: "colta", tags: [false-friend]}
+    goals: [memory]
+  - learner: "Me lo ricordo benissimo. Senta, so che in questi giorni ci sono mille cose da sbrigare. Se ha bisogno di qualcosa, anche solo di una commissione in città, chiamami senza problemi."
+    errors: [imperative-form]
+  - tutor: "È un pensiero gentile, grazie. Mi permetta solo una piccola nota da vecchia collega: «chiamami», detto a chi dà del Lei?"
+    prompt: {text: "chiamami", tags: [imperative-form]}
+  - learner: "Ha ragione: se ha bisogno di qualcosa, mi chiami. Posso anche occuparmi delle pratiche in ufficio, così non ci deve pensare per qualche settimana."
+  - tutor: "Questo sì che mi sarebbe d'aiuto: le ferie, i permessi, tutte quelle carte. Gliene sarò grata."
+    goals: [offer-help]
+  - learner: "Allora me ne occupo io da domani. Adesso La lascio con la Sua famiglia. Spero che in questi giorni trova un po' di pace, e che i ricordi belli La aiutino."
+    errors: [subjunctive-use]
+  - tutor: "Grazie di cuore. Ma «spero che trova»? Dopo «spero che», quel verbo vuole un altro modo."
+    prompt: {text: "Spero che in questi giorni trova", tags: [subjunctive-use]}
+  - learner: "Spero che trovi un po' di pace. Mi scusi, con l'emozione la grammatica se ne va."
+  - tutor: "Non si scusi, anzi: grazie della visita e dell'aiuto. Mamma avrebbe apprezzato una ragazza che legge Pavese."
+    goals: [leave]
+
+- scenario: email-rettore
+  level: C2
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+  - learner: "Buongiorno, grazie. Sono ricercatrice ospite al dipartimento di Fisica. Il fondo per i convegni mi ha negato il rimborso del viaggio a Boston perché la domanda è arrivata con un giorno di ritardo. Ma il ritardo è dovuto al sito dell'ateneo, che quel giorno era fuori servizio, e ho le schermate che lo provano. Vorrei applicare un ricorso."
+    errors: [word-choice]
+  - tutor: "Capisco: vuole presentare un ricorso, e le schermate sono un'ottima prova. Prima però pensiamo all'intestazione: come pensava di cominciare?"
+    recast: {text: "applicare un ricorso", fix: "presentare un ricorso", tags: [word-choice]}
+    goals: [situation]
+  - learner: "Pensavo semplicemente «Caro Rettore», come il «Dear» inglese. È troppo confidenziale?"
+  - tutor: "Un po' sì: «caro» si usa con chi si conosce. Per un rettore la formula è «Magnifico Rettore», poi si va a capo e comincia il testo."
+    goals: [opening-formula]
+  - learner: "Magnifico! Sembra il titolo di un principe del Rinascimento. Allora la prima frase sarebbe: «Le scrivo per lamentarmi di una decisione assurda e chiedo che venga annullata immediatamente»."
+    errors: [register]
+  - tutor: "Il titolo è antico, sì. Ma rilegga la frase mettendosi nei panni del Rettore: «lamentarmi», «assurda», «immediatamente»... come la riceverebbe?"
+    prompt: {text: "Le scrivo per lamentarmi di una decisione assurda", tags: [register]}
+  - learner: "Male, immagino. Proviamo così: «Mi permetto di sottoporre alla Sua cortese attenzione una decisione che ritengo ingiusta, chiedendoLe di volerne valutare il riesame»."
+  - tutor: "Molto meglio: ferma ma rispettosa. «Ingiusta» può restare, perché le schermate Le danno ragione."
+    goals: [tone]
+  - learner: "Bene. Per la chiusura pensavo: «Le sarei grata se la decisione verrebbe riesaminata entro la fine del mese. Distinti saluti»."
+    errors: [hypothetical]
+  - tutor: "La chiusura è quasi pronta. Ma «se la decisione verrebbe riesaminata»: nella parte introdotta da «se», il condizionale può stare?"
+    prompt: {text: "se la decisione verrebbe riesaminata", tags: [hypothetical]}
+  - learner: "No, ci vuole il congiuntivo: se la decisione venisse riesaminata. E «Distinti saluti» va bene?"
+  - tutor: "Va bene, ma con un rettore si usa anche «Con osservanza», più solenne. Aggiunga «In attesa di un cortese riscontro», e la lettera è pronta."
+    goals: [closing]
+
+- scenario: film-libro
+  level: C2
+  persona: es-f-teacher
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Inizio io, se volete. Ho letto «Il giardino dei Finzi-Contini» di Bassani. È ambientato a Ferrara alla fine degli anni Trenta. Il narratore, un ragazzo ebreo, conosce Micol da bambino, e anni dopo la rivide durante una partita a tennis nel giardino della sua famiglia."
+    errors: [tense-aspect]
+  - tutor: "Ottima scelta. Una cosa sul riassunto, però: prima «conosce» e poi «la rivide»? Nella stessa trama, i tempi verbali dovrebbero andare d'accordo."
+    prompt: {text: "la rivide", tags: [tense-aspect]}
+  - learner: "Ah, giusto: o tutto al presente o tutto al passato. Allora: la conosce da bambino e anni dopo la rivede durante una partita a tennis. Da lì comincia un amore che non si realizza mai."
+  - tutor: "Perfetto, e senza svelare il finale. Che tipo di personaggio è Micol?"
+    goals: [summary]
+  - learner: "È affascinante e sfuggente: ironica, intelligente, sempre un passo avanti al narratore. Viene da una famiglia ricchissima cui il nonno ha costruito quel giardino enorme, quasi un mondo a parte."
+    errors: [relative-pronoun]
+  - tutor: "Sfuggente è la parola giusta. Ma «una famiglia cui il nonno ha costruito»: se il nonno appartiene a quella famiglia, come si costruisce la relativa?"
+    prompt: {text: "una famiglia ricchissima cui il nonno", tags: [relative-pronoun]}
+    goals: [characters]
+  - learner: "Una famiglia il cui nonno ha costruito il giardino. Il «cui» va tra l'articolo e il nome: me lo dimentico sempre."
+  - tutor: "Esatto. E a te, nel complesso, è piaciuto?"
+  - learner: "Moltissimo, anche se non è un libro facile. È molto largo, più di trecento pagine, e all'inizio è lento. Ma il finale, con le leggi razziali che arrivano piano piano, mi ha lasciata senza parole."
+    errors: [false-friend]
+  - tutor: "È lungo, sì, e lento all'inizio, ma quella lentezza è voluta: la tragedia entra in punta di piedi. A chi lo consiglieresti?"
+    recast: {text: "largo", fix: "lungo", tags: [false-friend]}
+    goals: [opinion]
+  - learner: "A chi ama i romanzi d'atmosfera e non ha fretta. E a chi crede di conoscere la storia di quegli anni solo dai libri di scuola: questo romanzo te la fa sentire sulla pelle."
+  - tutor: "Bellissimo consiglio, e lo segno per il mese prossimo. Grazie: chi vuole continuare?"
+    goals: [recommend]
+
+- scenario: intervista-podcast
+  level: C2
+  persona: en-m-retired
+  turns:
+  - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivato proprio in Italia?"
+  - learner: "Ciao, grazie a voi. Per colpa di un libro, direi. Io e mia moglie abbiamo insegnato storia per quarant'anni a Manchester; una sera, poco prima della pensione, lei ha letto una guida delle Marche e ha detto: «Andiamo». Sei mesi dopo avevamo venduto casa."
+  - tutor: "Una guida turistica come destino: mi piace. E una volta lì, cosa ti ha sorpreso di più?"
+    goals: [story]
+  - learner: "Gli orari! Credevo che gli italiani cenavano presto, come noi, e la prima sera siamo andati al ristorante alle sette: era vuoto, c'era solo il cuoco che mangiava."
+    errors: [subjunctive-use]
+  - tutor: "Il cuoco a cena alle sette, che scena. Però, «credevo che gli italiani cenavano»: dopo «credevo che», il verbo resta all'indicativo?"
+    prompt: {text: "Credevo che gli italiani cenavano", tags: [subjunctive-use]}
+  - learner: "No, scusa: credevo che gli italiani cenassero presto. Adesso mi sono abituato di cenare alle nove, e non tornerei indietro."
+    errors: [preposition]
+  - tutor: "Bravo. E «abituato di cenare»? Con «abituarsi», la preposizione è un'altra."
+    prompt: {text: "abituato di cenare", tags: [preposition]}
+    goals: [culture-shock]
+  - learner: "Abituato a cenare alle nove, giusto. Ma non è tutto rose e fiori, eh."
+  - tutor: "Ecco, questo mi interessa: che cosa non ti piace dell'Italia? Puoi dirlo, ma con gentilezza."
+  - learner: "Con gentilezza, allora: la burocrazia. Per convertire la patente inglese dopo la Brexit ho dovuto rifare l'esame di guida, a settantadue anni, con un ragazzo di diciotto accanto. L'ho superato, ma è stato umiliante. E la ciliegina sulla torta: il ragazzo è stato bocciato."
+  - tutor: "La ciliegina sulla torta, appunto: combatti con la burocrazia e vinci pure la sfida tra generazioni. Che consiglio daresti a chi sta pensando di trasferirsi?"
+    goals: [critique]
+  - learner: "Di non fare come noi, che abbiamo imparato l'italiano dopo. Se avessimo studiato prima, i primi due anni sarebbero stati molto più facili. E di scegliere un paese piccolo: lì ci si integra in un mese, se vai al bar tutte le mattine."
+  - tutor: "Studiare prima e frequentare il bar: due consigli d'oro. Grazie mille di essere stato con noi, e buona cena... alle nove, naturalmente."
+    goals: [advice]

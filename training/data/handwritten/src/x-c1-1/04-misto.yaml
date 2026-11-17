@@ -1,0 +1,223 @@
+- scenario: vita-in-italia
+  level: C1
+  persona: en-m-retired
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Buongiorno a tutti, e grazie dell'invito. Ho scelto l'Italia quasi per caso: mia moglie e io eravamo venuti in Umbria in vacanza e ci eravamo innamorati di un piccolo paese. Quando sono andato in pensione, abbiamo venduto la casa in Ohio e ci siamo trasferiti."
+  - tutor: "Una scelta coraggiosa. E qual è stata la parte più difficile, all'inizio?"
+    goals: [story]
+  - learner: "La burocrazia, senza dubbio, e poi la lingua. I primi mesi non capivo niente di quello che diceva il nostro idraulico. E avevo molta nostalgia dei nipoti; ancora oggi li manco molto."
+    errors: [piacere]
+  - tutor: "La nostalgia dei nipoti la capiamo tutti. Un momento, però: \"li manco\"? Questo verbo funziona come \"piacere\": chi è, qui, il soggetto?"
+    prompt: {text: "li manco molto", tags: [piacere]}
+  - learner: "Ah, certo: i nipoti mi mancano molto."
+  - tutor: "Esattamente. E dopo questi anni, sente di essere cambiato?"
+    goals: [difficulties]
+  - learner: "Moltissimo. In America ero sempre di fretta; qui ho imparato a prendere le cose con calma. Credo che l'Italia mi ha insegnato a vivere il presente."
+    errors: [subjunctive-use]
+  - tutor: "Bello, questo. Riascolti però la frase: dopo \"credo che\" il verbo \"ha insegnato\" può restare così?"
+    prompt: {text: "Credo che l'Italia mi ha insegnato", tags: [subjunctive-use]}
+  - learner: "Credo che l'Italia mi abbia insegnato a vivere il presente."
+  - tutor: "Perfetto, e detto da un americano vale doppio! Per finire: che consiglio darebbe a un ascoltatore che sogna di fare come lei?"
+    goals: [change]
+  - learner: "Gli direi di venire prima per qualche mese, in inverno, non in vacanza. Se io avessi visto il paese a gennaio, forse avrei scelto una casa con un riscaldamento migliore! E di studiare l'italiano prima di partire."
+  - tutor: "Un consiglio pratico e sincero. Grazie di essere stato con noi, e tanti saluti all'Umbria!"
+    goals: [advice]
+
+- scenario: arte-mostra
+  level: C1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Onestamente? Mi mette un po' a disagio. Tutti quei corpi ammassati, quei colori scuri... Però non riesco a smettere di guardarlo."
+  - tutor: "È la reazione giusta, credimi: è fatto apposta per non lasciarti tranquillo. Che cosa vedi, esattamente?"
+    goals: [react]
+  - learner: "Vedo una folla che scappa da qualcosa, forse da un incendio. La luce arriva da sinistra e colpisce solo una donna con un bambino in braccio. Il resto dello sfondo è stato lasciato quasi al buio."
+  - tutor: "Hai un buon occhio. Quella donna è il centro di tutto. E secondo te perché il pittore ha illuminato solo lei?"
+    goals: [describe]
+  - learner: "Penso che voglia dire che in mezzo al caos c'è ancora speranza. È l'unica figura che non sembra avere paura. Suppongo che il quadro è stato dipinto dopo una guerra, no?"
+    errors: [subjunctive-use]
+  - tutor: "La speranza in mezzo al caos: una lettura bellissima. Sulla data ci arriviamo; prima senti quel \"suppongo che il quadro è stato dipinto\". Dopo un verbo così, che modo ti aspetti?"
+    prompt: {text: "Suppongo che il quadro è stato dipinto", tags: [subjunctive-use]}
+  - learner: "Suppongo che il quadro sia stato dipinto dopo una guerra."
+  - tutor: "Esatto, e hai indovinato: è del 1946. Ti viene in mente un'altra opera, o un altro stile, da mettere accanto a questa?"
+    goals: [interpret]
+  - learner: "Mi fa pensare a Guernica, anche se lì non ci sono colori. In Picasso le figure sono rotte, spezzate; qui invece sono realistiche, e questo lo rende più... come si dice, più disturbing."
+    errors: [word-choice]
+  - tutor: "Più inquietante, sì: proprio perché le figure sono realistiche ci sembra di conoscerle. Un bel confronto, davvero."
+    recast: {text: "disturbing", fix: "inquietante", tags: [word-choice]}
+    new: [{lemma: inquietante, gloss: disturbing}]
+  - learner: "Inquietante, ecco la parola che cercavo! Senti, c'è qualcos'altro di questo pittore qui alla mostra?"
+  - tutor: "Due sale più avanti ci sono i suoi disegni preparatori. Andiamo, così vedi come è nata quella donna con il bambino."
+    goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: es-f-teacher
+  history: [participle-agreement]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri pomeriggio stavo uscendo da un parcheggio in retromarcia quando un'altra macchina, che andava piuttosto veloce, mi ha urtata sul lato destro. Per fortuna nessuno si è fatto male."
+  - tutor: "Meno male. Quindi lei era in manovra e l'altra auto passava sulla strada. Secondo lei di chi è la responsabilità?"
+    goals: [what]
+  - learner: "Credo che sia di tutti e due. Io avrei dovuto guardare meglio, lo riconosco, ma l'altro conducente andava troppo veloce per una strada così stretta. Inoltre non aveva acceso le luci, e già stava facendo buio."
+    errors: [word-order]
+  - tutor: "Apprezzo la sua onestà, e le luci spente sono un elemento utile. Una piccola cosa sull'ordine delle parole: in \"già stava facendo buio\", dove metterebbe \"già\" in italiano?"
+    prompt: {text: "già stava facendo buio", tags: [word-order]}
+  - learner: "Stava già facendo buio. Grazie."
+  - tutor: "Perfetto. Avete compilato la constatazione amichevole sul posto?"
+    goals: [responsibility]
+  - learner: "Sì, l'abbiamo compilato insieme, però con una difficoltà: l'altro conducente non voleva firmare perché diceva che la colpa era solo mia. Alla fine ha firmato, ma ha aggiunto le sue osservazioni."
+    errors: [participle-agreement]
+  - tutor: "Le osservazioni sono un suo diritto, non si preoccupi. Torni un attimo sulla prima frase: \"l'abbiamo compilato\". Quel pronome sta per la constatazione: il participio è a posto?"
+    prompt: {text: "l'abbiamo compilato", tags: [participle-agreement]}
+    new: [{lemma: participio, gloss: participle}]
+  - learner: "No, ha ragione: l'abbiamo compilata insieme."
+  - tutor: "Benissimo. Me ne mandi una copia, con le foto dei danni se ne ha."
+    goals: [documents]
+  - learner: "Certo, gliela mando oggi. E poi che cosa succede? La mia macchina è dal carrozziere: devo aspettare qualcuno prima di farla riparare?"
+  - tutor: "Sì, aspetti la perizia: il nostro tecnico passerà dal carrozziere entro cinque giorni. Poi le due compagnie stabiliranno le percentuali di responsabilità e lei riceverà una comunicazione scritta."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: en-f-student
+  history: [register]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Sono una studentessa inglese e mi fermo a Torino per almeno due anni. Vorrei applicare per la residenza."
+    errors: [word-choice]
+  - tutor: "Buongiorno. Per richiedere la residenza è nel posto giusto. Ha già un contratto di affitto a suo nome?"
+    recast: {text: "applicare per la residenza", fix: "richiedere la residenza", tags: [word-choice]}
+    goals: [request]
+  - learner: "Sì, ho un contratto di un anno, rinnovabile. Quali altri documenti si devono presentare? Ho portato il passaporto e l'iscrizione all'università."
+  - tutor: "Servono anche il permesso di soggiorno e questo modulo compilato. Il contratto deve essere registrato: il suo lo è?"
+    goals: [documents]
+  - learner: "Il permesso ce l'ho. Sul contratto, boh, non ne ho idea: il padrone di casa mi ha detto che lo registrerà il mese prossimo."
+    errors: [register]
+  - tutor: "Capisco. Senta, \"boh\" va benissimo con gli amici; in un ufficio pubblico come direbbe la stessa cosa?"
+    prompt: {text: "boh, non ne ho idea", tags: [register]}
+  - learner: "Mi scusi. Sul contratto non saprei dirle: il proprietario mi ha detto che lo registrerà il mese prossimo. È un problema?"
+  - tutor: "Così è perfetto. Sì, è un problema: senza registrazione la pratica non può essere accettata. Può però chiedere al proprietario una ricevuta della richiesta di registrazione, e intanto si avvia tutto."
+    goals: [problem]
+  - learner: "Va bene, gliela chiedo oggi stesso. E una volta presentata la domanda, che cosa succede? Bisogna che io sto a casa in certi orari?"
+    errors: [subjunctive-use]
+  - tutor: "Buona domanda. Guardi però il verbo dopo \"bisogna che\": lì ci vuole un altro modo."
+    prompt: {text: "Bisogna che io sto", tags: [subjunctive-use]}
+  - learner: "Bisogna che io starò a casa?"
+    errors: [subjunctive-use]
+  - tutor: "Non bisogna che lei stia a casa tutto il giorno: i vigili passano entro 45 giorni e, se non la trovano, lasciano un avviso. Dopo il controllo la residenza viene confermata."
+    recast: {text: "Bisogna che io starò", fix: "bisogna che lei stia", tags: [subjunctive-use]}
+  - learner: "Perfetto, tutto chiaro. Allora torno con la ricevuta appena il proprietario me la manda. Grazie della pazienza."
+  - tutor: "Si figuri. Quando torna, prenda di nuovo il numero e chieda di me. Buona giornata!"
+    goals: [next]
+
+- scenario: club-lettura
+  level: C1
+  persona: es-m-worker
+  turns:
+  - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+  - learner: "L'ho finito, sì, anche se ci ho messo un mese. A me è piaciuto, ma con riserve: la storia è potente, però l'autore la tira troppo per le lunghe."
+  - tutor: "Un mese! Io l'avrei letto anche più in fretta, se non avessi dovuto dormire. E il vecchio pescatore, che ne pensi di lui?"
+    goals: [impression]
+  - learner: "È un personaggio testardo, ma lo capisco. Rimane sull'isola quando tutti se ne vanno, perché quel mare è tutta la sua vita. Io al suo posto sarei andato via, credo. Mi sembra strano che non ha mai chiesto aiuto al figlio."
+    errors: [subjunctive-use]
+  - tutor: "Testardo è la parola giusta. Ma fermati su \"mi sembra strano che non ha mai chiesto\": dopo un'espressione così l'indicativo ti convince?"
+    prompt: {text: "Mi sembra strano che non ha mai chiesto", tags: [subjunctive-use]}
+    new: [{lemma: indicativo, gloss: indicative}]
+  - learner: "No: mi sembra strano che non abbia mai chiesto aiuto al figlio."
+  - tutor: "Ecco. Per me non lo chiede per orgoglio: preferisce perdere tutto piuttosto che ammettere di avere bisogno. E come scrive, questo autore?"
+    goals: [character]
+  - learner: "Scrive bene, con frasi corte e parole semplici, come piace a me. Però certi capitoli sono molto lenti, e in un momento ho pensato di lasciarlo."
+    errors: [word-choice]
+  - tutor: "A un certo punto anch'io ho pensato di lasciarlo, lo confesso: il capitolo della tempesta non finisce mai! Ma poi il finale ripaga. Lo consiglieresti a qualcuno?"
+    recast: {text: "in un momento", fix: "A un certo punto", tags: [word-choice]}
+    goals: [style]
+  - learner: "Lo consiglierei a mio padre, che è cresciuto vicino al mare e ha la stessa testa dura del protagonista. Non lo darei a chi vuole una trama veloce."
+  - tutor: "Allora regalaglielo, e poi fammi sapere se si è riconosciuto! Al prossimo incontro scegliamo qualcosa di più breve, promesso."
+    goals: [recommend]
+
+- scenario: colloquio-lavoro
+  level: C1
+  persona: en-m-heritage
+  history: [register]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno, grazie. Mi chiamo Daniel Ferraro, sono canadese di origine italiana e sono ingegnere informatico. Da cinque anni lavoro nello sviluppo di applicazioni per le banche."
+  - tutor: "Benvenuto. Il suo curriculum è interessante. Mi racconti meglio la sua ultima esperienza."
+    goals: [intro]
+  - learner: "Negli ultimi tre anni ho guidato una squadra di otto persone a Toronto. Quando ho iniziato, il progetto era in ritardo di sei mesi; l'abbiamo consegnato in tempo e il cliente ha rinnovato il contratto. Guarda, è stato il periodo più duro della mia carriera."
+    errors: [register]
+  - tutor: "Un bel risultato. Solo un appunto: \"guarda\"? In un colloquio, con chi le dà del lei, quella forma è troppo amichevole."
+    prompt: {text: "Guarda", tags: [register]}
+  - learner: "Mi scusi, a casa parlavo italiano solo con i nonni. Guardi, è stato il periodo più duro della mia carriera."
+  - tutor: "Non si preoccupi, capita. E quali sono, secondo lei, i suoi punti di forza? Mi dica anche un difetto."
+    goals: [experience]
+  - learner: "Sono preciso e so ascoltare le persone della mia squadra. Il mio difetto è che a volte sono troppo testardo: quando credo in un'idea, faccio fatica ad abbandonarla."
+  - tutor: "Anche essere testardi, se si sa come, può diventare una qualità. Perché vorrebbe lavorare proprio da noi?"
+    goals: [strengths]
+  - learner: "Perché la vostra azienda lavora su progetti che mi appassionano, e perché vorrei vivere in Italia. Sempre ho voluto conoscere meglio il paese dei miei nonni."
+    errors: [word-order]
+  - tutor: "Una ragione personale, e si sente che è sincera. Riguardi però l'ultima frase: \"sempre\", in italiano, dove si mette di solito rispetto al verbo?"
+    prompt: {text: "Sempre ho voluto", tags: [word-order]}
+  - learner: "Ho sempre voluto conoscere meglio il paese dei miei nonni."
+  - tutor: "Esatto. Ha qualche domanda da farmi sul ruolo?"
+    goals: [why]
+  - learner: "Sì. Vorrei sapere come è organizzata la squadra e se è previsto un periodo di formazione all'inizio."
+  - tutor: "La squadra è di dodici persone, divise in tre gruppi, e il primo mese è dedicato alla formazione. La contatteremo entro dieci giorni; intanto, grazie di essere venuto."
+    goals: [questions]
+
+- scenario: colloquio-promozione
+  level: C1
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, direttore, grazie. Lavoro in questa cucina da quattro anni e volevo parlare del mio futuro qui. Quest'anno ho gestito da solo la linea dei primi, e gli sprechi sono scesi del venti per cento."
+  - tutor: "L'ho notato, e l'hanno notato anche i clienti. Che cosa mi vuole chiedere?"
+    goals: [results]
+  - learner: "Vorrei diventare capo partita, con l'aumento corrispondente. Quando Gianni è andato via, lei ha detto che verrebbe il mio turno."
+    errors: [conditional-form]
+  - tutor: "Ricordo bene quella conversazione. A proposito: \"ha detto che verrebbe\"? Per un futuro visto dal passato, in italiano il condizionale semplice non basta."
+    prompt: {text: "ha detto che verrebbe", tags: [conditional-form]}
+    new: [{lemma: condizionale, gloss: conditional}]
+  - learner: "Ha detto che sarebbe venuto il mio turno."
+  - tutor: "Proprio così, e l'ho detto davvero. Il problema è un altro: lei in cucina è bravissimo, ma un capo partita deve anche comandare. E con i ragazzi nuovi lei è troppo buono."
+    goals: [request]
+  - learner: "Capisco l'obiezione. È vero che non mi piace alzare la voce. Però i due ragazzi che ho formato io lavorano bene e non sbagliano un ordine. Si può guidare una squadra anche senza gridare, benché sia più lento."
+  - tutor: "Su questo ha ragione, i risultati si vedono. Facciamo così: tre mesi di prova come capo partita, e poi decidiamo."
+    goals: [handle]
+  - learner: "Accetto volentieri. Mi piacerebbe solo sapere da quando comincio, e se l'aumento arriva subito o dopo la prova. Non vorrei che ci sono malintesi."
+    errors: [subjunctive-use]
+  - tutor: "Domande giuste. Prima però sistemi l'ultima frase: dopo \"non vorrei che\" il verbo non può restare all'indicativo."
+    prompt: {text: "Non vorrei che ci sono", tags: [subjunctive-use]}
+    new: [{lemma: indicativo, gloss: indicative}]
+  - learner: "Non vorrei che ci fossero malintesi."
+  - tutor: "Perfetto, e non ce ne saranno. Comincia il primo del mese; metà dell'aumento arriva subito, l'altra metà dopo i tre mesi. Lo mettiamo per iscritto domani."
+    goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: C1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Guardi, io sono a favore della zona pedonale. Vivo in centro e ogni mattina il traffico sotto casa è insopportabile. Credo che una città debba pensare prima alle persone che alle macchine."
+  - tutor: "Belle parole, ma i commercianti pagano l'affitto con i clienti, non con le belle parole. Mi dia degli argomenti."
+    goals: [position]
+  - learner: "Gliene do due. Primo: nelle città in cui il centro è stato chiuso, le vendite sono aumentate dopo il primo anno. Secondo: l'inquinamento. I dati del Comune sono molto preoccupanti, e non possiamo continuare a guardare da un'altra parte. È una questione di salute, non di comodità."
+  - tutor: "Quei dati li conosco. Ma i miei clienti anziani come ci arrivano, in negozio, senza macchina? A piedi dalla periferia?"
+    goals: [argue]
+  - learner: "Per loro si possono prevedere permessi speciali e più mezzi pubblici. Non pretendo avere tutte le risposte, ma i problemi pratici si risolvono, se c'è volontà."
+    errors: [preposition]
+  - tutor: "I permessi speciali potrebbero aiutare, lo ammetto. Un dettaglio: \"non pretendo avere\"? Tra questo verbo e l'infinito, in italiano, serve una preposizione."
+    prompt: {text: "Non pretendo avere", tags: [preposition]}
+  - learner: "Non pretendo di avere tutte le risposte."
+  - tutor: "Ecco. Però ammetterà che per noi il primo anno sarebbe durissimo."
+    goals: [counter]
+  - learner: "Lo ammetto, il primo anno è il più difficile, e capisco la sua preoccupazione. Per questo proporrei una chiusura graduale: prima solo la domenica, poi il fine settimana. Così i commercianti avrebbero tempo di adattarsi, e alla fine tutti usciremmo guadagnando."
+    errors: [word-choice]
+  - tutor: "Lei dice che alla fine ci guadagneremmo tutti: vedremo. Ma una chiusura graduale, cominciando dalla domenica, è una proposta che posso discutere."
+    recast: {text: "tutti usciremmo guadagnando", fix: "ci guadagneremmo tutti", tags: [word-choice]}
+  - learner: "Mi fa piacere. Allora potremmo presentarla insieme alla prossima riunione, lei per i commercianti e io per i residenti."
+  - tutor: "Insieme? Non l'avrei mai detto, ma perché no. Ci vediamo giovedì, e porti quei dati sulle vendite."
+    goals: [concede]

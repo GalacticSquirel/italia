@@ -1,0 +1,201 @@
+# x-a2-1, file 05: more failed repairs with recasts, plus self-repairs.
+- scenario: lavanderia
+  level: A2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Ciao! Sì, per favore. Ho il detersivo, ma dove metto lo?"
+      errors: [pronoun-position]
+    - tutor: "Dove metto lo? La parola lo non sta bene lì in fondo. Prova ancora!"
+      prompt: {text: "metto lo", tags: [pronoun-position]}
+    - learner: "Dove mettolo?"
+      errors: [pronoun-position]
+    - tutor: "Quasi! Dove lo metto, dici? Qui in alto, a sinistra."
+      recast: {text: "mettolo", fix: "lo metto", tags: [pronoun-position]}
+      goals: [problem]
+    - learner: "Ah, dove lo metto! Grazie. E poi come funziona la lavatrice?"
+    - tutor: "Scegli il programma, poi chiudi. Per i colori va bene il tre."
+      goals: [ask-how]
+    - learner: "Ok. Devo pagare prima? Accetta le monete?"
+    - tutor: "Sì, paghi prima. Prende monete da uno o due euro."
+      goals: [payment]
+    - learner: "Perfetto, le ho. Grazie, mi hai salvato!"
+    - tutor: "Di niente! Buona giornata."
+      goals: [thank]
+
+- scenario: medico-base
+  level: A2
+  persona: en-m-heritage
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Mi fa male la gola e ho un po' di febbre."
+    - tutor: "Capisco. Da quando?"
+      goals: [symptoms]
+    - learner: "Da sabato. Mia moglie ha rimasto a casa con me tutto il fine settimana."
+      errors: [auxiliary-choice]
+    - tutor: "Ha rimasto? Con rimanere non usiamo avere. Sua moglie...?"
+      prompt: {text: "ha rimasto", tags: [auxiliary-choice]}
+    - learner: "Mia moglie ha restato a casa?"
+      errors: [auxiliary-choice]
+    - tutor: "Quasi: sua moglie è rimasta a casa. Che gentile! È allergico a qualche medicina?"
+      recast: {text: "ha restato", fix: "è rimasta", tags: [auxiliary-choice]}
+      goals: [since-when]
+    - learner: "È rimasta, ok. No, nessuna allergia. Non prendo medicine."
+    - tutor: "Bene. Prenda questa medicina due volte al giorno, dopo pranzo e dopo cena."
+      goals: [history]
+    - learner: "Due volte al giorno, dopo pranzo e dopo cena. Per quanti giorni?"
+    - tutor: "Per una settimana. E beva molta acqua."
+    - learner: "Va bene: una settimana, e molta acqua. Grazie, dottore."
+    - tutor: "Bravo. Arrivederci e buona giornata!"
+      goals: [instructions]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-f-student
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Buongiorno! Sì, voglio a noleggiare una bicicletta per oggi."
+      errors: [modal-infinitive]
+    - tutor: "Voglio a noleggiare? Tra volere e noleggiare c'è una parola di troppo."
+      prompt: {text: "voglio a noleggiare", tags: [modal-infinitive]}
+    - learner: "Voglio di noleggiare una bicicletta?"
+      errors: [modal-infinitive]
+    - tutor: "Quasi: si dice voglio noleggiare. Certo! Per quante ore?"
+      recast: {text: "Voglio di noleggiare", fix: "voglio noleggiare", tags: [modal-infinitive]}
+      goals: [ask]
+    - learner: "Voglio noleggiare, ho capito! Per quattro ore, fino alle tre."
+    - tutor: "Va bene. Quattro ore costano dieci euro, con il casco."
+      goals: [duration]
+    - learner: "Bene. C'è anche il lucchetto nel prezzo?"
+    - tutor: "Sì, nel prezzo c'è tutto."
+      goals: [price]
+    - learner: "Perfetto. Dove posso andare? Conosce un bel percorso?"
+    - tutor: "Vada al lago: sono trenta minuti e la strada è facile."
+      goals: [route]
+    - learner: "Benissimo, vado al lago. Grazie!"
+    - tutor: "Buon giro e a più tardi!"
+
+- scenario: serata-cinema
+  level: A2
+  persona: es-m-worker
+  history: [piacere]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Perché non andiamo al cinema? C'è un film nuovo."
+    - tutor: "Buona idea! Che tipo di film preferisci?"
+      goals: [propose]
+    - learner: "Mi piace i film d'azione, e anche le commedie."
+      errors: [piacere]
+    - tutor: "Mi piace i film? I film sono tanti. Come cambia piace?"
+      prompt: {text: "Mi piace i film", tags: [piacere]}
+    - learner: "Mi piaco i film d'azione?"
+      errors: [piacere]
+    - tutor: "Quasi: mi piacciono i film d'azione. A me invece piacciono le commedie!"
+      recast: {text: "Mi piaco i film", fix: "mi piacciono i film", tags: [piacere]}
+      goals: [genre]
+    - learner: "Mi piacciono, capito! Allora vediamo una commedia. Sono più divertenti dei film tristi."
+    - tutor: "Sono d'accordo! C'è una commedia alle otto o alle dieci."
+    - learner: "Alle otto, così dopo mangiamo qualcosa."
+    - tutor: "Perfetto, alle otto. Dove ci troviamo?"
+      goals: [choose]
+    - learner: "Davanti al cinema, alle sette e mezza. Compro io i biglietti!"
+    - tutor: "Grazie, che gentile! A stasera."
+      goals: [meet]
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: es-f-teacher
+  history: [imperfetto-form]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo a Valencia, vicino al mare. Quando io era bambina, la città era più piccola."
+      errors: [imperfetto-form]
+    - tutor: "Io era? Era va bene per lei o per la città. E quando parli di te?"
+      prompt: {text: "io era", tags: [imperfetto-form]}
+    - learner: "Quando io eravo bambina?"
+      errors: [imperfetto-form]
+    - tutor: "Quasi: quando ero bambina. Che bello, Valencia! E cosa facevi d'estate?"
+      recast: {text: "eravo", fix: "ero", tags: [imperfetto-form]}
+      goals: [place]
+    - learner: "Ero, giusto. D'estate andavo in spiaggia con i miei cugini e giocavamo tutto il giorno."
+    - tutor: "Che belle estati! E la scuola com'era?"
+      goals: [habits]
+    - learner: "Mi piaceva molto. Avevo una maestra bravissima e per questo oggi sono maestra anch'io."
+    - tutor: "Che bella storia! Hai un ricordo speciale?"
+      goals: [school]
+    - learner: "Sì. Una volta mia nonna mi ha portato a vedere le Fallas di notte. C'erano luci e fuochi dappertutto."
+    - tutor: "Che bello! Capisco perché lo ricordi ancora."
+      goals: [event]
+
+- scenario: vacanze-passate
+  level: A2
+  persona: en-m-traveller
+  history: [participle-agreement]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao Elena! Io e la mia ragazza siamo andato in Puglia, in treno."
+      errors: [participle-agreement]
+    - tutor: "In Puglia, che bello! Ma siete in due: siamo andato? Come finisce?"
+      prompt: {text: "siamo andato", tags: [participle-agreement]}
+    - learner: "Siamo andati in Puglia!"
+    - tutor: "Esatto! E com'era il tempo?"
+      goals: [where]
+    - learner: "Bellissimo. Faceva caldo, ma c'era sempre un po' di vento."
+    - tutor: "Perfetto per il mare! Cosa avete fatto?"
+      goals: [weather]
+    - learner: "Abbiamo nuotato molto e abbiamo visitato Lecce. Una sera abbiamo mangiato il pesce in spiaggia."
+    - tutor: "Che buono! E qual è stata la cosa più bella del viaggio?"
+      goals: [activities]
+    - learner: "Per me Lecce di sera. Era piena di luci e di musica."
+    - tutor: "Bellissimo! La prossima volta vengo con voi."
+      goals: [best]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: es-f-erasmus
+  history: [past-participle-form]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Ciao Chiara! Bene. Sabato ho decidito di andare a Venezia, da sola."
+      errors: [past-participle-form]
+    - tutor: "Venezia, che bello! Ma decidito? Decidere al passato è diverso. Prova ancora!"
+      prompt: {text: "decidito", tags: [past-participle-form]}
+    - learner: "Ho deciduto di andare a Venezia?"
+      errors: [past-participle-form]
+    - tutor: "Quasi: hai deciso di andare a Venezia. Brava, da sola! E cosa hai visto?"
+      recast: {text: "deciduto", fix: "deciso", tags: [past-participle-form]}
+      goals: [where, with-who]
+    - learner: "Ho deciso, grazie! Ho visto Piazza San Marco e ho preso il vaporetto."
+    - tutor: "Bello! Hai mangiato bene?"
+      goals: [what]
+    - learner: "Sì, ho mangiato un risotto di pesce buonissimo. Mi sono divertita molto. E tu, cosa hai fatto?"
+    - tutor: "Io sono andata al mercato e ho cucinato per i miei amici. Un bel fine settimana!"
+      goals: [opinion]
+
+- scenario: compleanno
+  level: A2
+  persona: en-f-professional
+  history: [object-pronoun]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Io penso a una cena sabato, in quel ristorante vicino al parco."
+    - tutor: "Mi piace! Sabato alle otto? Chi invitiamo?"
+      goals: [date]
+    - learner: "Invitiamo i colleghi e suo fratello. Lo telefono stasera."
+      errors: [object-pronoun]
+    - tutor: "Lo telefono? Si dice telefonare a una persona. Quale piccola parola usi?"
+      prompt: {text: "Lo telefono", tags: [object-pronoun]}
+      new: [{lemma: telefonare, gloss: to phone}]
+    - learner: "Lui telefono stasera?"
+      errors: [object-pronoun]
+    - tutor: "Quasi: gli telefono stasera. Perfetto, tu chiami lui e io scrivo agli altri."
+      recast: {text: "Lui telefono", fix: "gli telefono", tags: [object-pronoun]}
+      goals: [guests]
+    - learner: "Gli telefono, ho capito. E la torta? La ordiniamo al ristorante?"
+    - tutor: "Sì, la ordino io: una torta grande per tutti."
+      goals: [food]
+    - learner: "Buonissima. E il regalo? A Sara piacciono le piante."
+    - tutor: "Vero! Allora le compriamo una bella pianta per la casa."
+      goals: [gift]
+      new: [{lemma: pianta, gloss: plant}]

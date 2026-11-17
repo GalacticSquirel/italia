@@ -1,0 +1,203 @@
+- scenario: compleanno
+  level: A2
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Ho un'idea: una festa a sorpresa a casa mia, venerdì sera!"
+    - tutor: "Bellissimo! Chi viene?"
+      goals: [date]
+    - learner: "Tutti i colleghi e i suoi due fratelli. Domani scrivo a tutti."
+    - tutor: "Perfetto. E per mangiare?"
+      goals: [guests]
+    - learner: "Io farerò una torta alle fragole, la sua preferita."
+      errors: [future-form]
+    - tutor: "Farerò? Il futuro di fare è più corto. Prova ancora!"
+      prompt: {text: "farerò", tags: [future-form]}
+    - learner: "Hmm... io farrò una torta?"
+      errors: [future-form]
+    - tutor: "Quasi! Si dice farò. Bene: tu la torta, io le pizze. E il regalo?"
+      recast: {text: "farrò", fix: "farò", tags: [future-form]}
+      goals: [food]
+    - learner: "Farò, ok! Per il regalo: le piace leggere. Le regaliamo un libro?"
+    - tutor: "Sì, buona idea. Lo compro io domani in centro."
+      goals: [gift]
+    - learner: "Grazie! Allora a venerdì, e non dire niente a Sara!"
+    - tutor: "Tranquilla, non dico niente!"
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "La pasta al pomodoro di mia nonna. È semplice ma buonissima."
+    - tutor: "Perfetto! Cosa ci serve?"
+    - learner: "Pomodori freschi, aglio, olio, sale e basilico. E la pasta, ovviamente!"
+    - tutor: "Ho tutto. Cosa faccio io?"
+      goals: [ingredients]
+    - learner: "Taglia i pomodori e metti loro nella pentola con l'olio."
+      errors: [object-pronoun]
+    - tutor: "Metti loro? Per i pomodori usiamo una parola più corta, dopo metti."
+      prompt: {text: "metti loro", tags: [object-pronoun]}
+    - learner: "Mettili nella pentola!"
+    - tutor: "Esatto! Fatto. E adesso?"
+      goals: [steps]
+    - learner: "Adesso l'aglio. Come si dice to stir in italiano?"
+    - tutor: "Si dice mescolare. Devo mescolare spesso?"
+      new: [{lemma: mescolare, gloss: to stir}]
+    - learner: "Sì, mescola ogni tanto. Il sugo deve cuocere venti minuti."
+    - tutor: "Va bene, venti minuti. E alla fine?"
+      goals: [time]
+    - learner: "Alla fine aggiungiamo il basilico e serviamo la pasta con il formaggio."
+    - tutor: "Che buona! Tua nonna cucinava proprio bene."
+      goals: [serve]
+
+- scenario: famiglia
+  level: A2
+  persona: es-f-erasmus
+  history: [possessive]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Questa è la mia famiglia a Natale. Questi sono miei genitori e questa è mia nonna."
+      errors: [possessive]
+    - tutor: "Sono miei genitori? Prima di miei manca una piccola parola."
+      prompt: {text: "sono miei genitori", tags: [possessive]}
+    - learner: "Questi sono i miei genitori."
+    - tutor: "Giusto! Che bella famiglia. E tua nonna com'è?"
+      goals: [who]
+    - learner: "È una donna molto forte e allegra. Tiene ottantasei anni!"
+      errors: [word-choice]
+    - tutor: "Ha ottantasei anni? Che brava! Vive con voi?"
+      recast: {text: "Tiene ottantasei anni", fix: "Ha ottantasei anni", tags: [word-choice]}
+      goals: [describe, ages]
+    - learner: "No, vive da sola, vicino a noi. E la tua famiglia, Marco? È grande?"
+    - tutor: "No, siamo in tre: io, mio padre e mia sorella."
+      goals: [ask]
+    - learner: "E tua sorella è più grande di te?"
+    - tutor: "Sì, ha trent'anni e fa il medico a Torino."
+
+- scenario: giorno-tipico
+  level: A2
+  persona: en-m-retired
+  history: [reflexive]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Ciao Anna. Sono in pensione, quindi la mia giornata è tranquilla. Io sveglio alle sei."
+      errors: [reflexive]
+    - tutor: "Io sveglio? Prima di sveglio manca una piccola parola."
+      prompt: {text: "Io sveglio", tags: [reflexive]}
+    - learner: "Io mi sveglio alle sei."
+    - tutor: "Esatto! Alle sei, così presto? E poi?"
+      goals: [wake]
+    - learner: "Faccio colazione con calma e leggo il giornale. Poi studio l'italiano per un'ora."
+    - tutor: "Bravo! E la sera cosa fai?"
+      goals: [work]
+    - learner: "La sera cucino e poi telefono a mia figlia in America."
+    - tutor: "Che bello! Vi sentite ogni sera?"
+      goals: [evening]
+    - learner: "Quasi. E tu, Anna? Lavori sempre fino a tardi?"
+    - tutor: "Sì, torno alle otto. Poi ceno e vado subito a dormire!"
+      goals: [ask]
+    - learner: "È una giornata lunga. Domani ti preparo io la cena."
+    - tutor: "Grazie, che gentile!"
+
+- scenario: hotel-checkin
+  level: A2
+  persona: en-f-professional
+  history: [question-form]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, a nome Walker, una camera doppia per tre notti."
+    - tutor: "Sì, eccola. Posso avere un documento, per favore?"
+      goals: [booking]
+    - learner: "Ecco il mio passaporto. Mio marito arriva più tardi, va bene?"
+    - tutor: "Nessun problema. Mi dà il suo documento quando arriva."
+      goals: [document]
+    - learner: "Grazie. A che tempo è la colazione?"
+      errors: [question-form]
+    - tutor: "A che tempo? Tempo qui non va bene: pensi all'orologio."
+      new: [{lemma: orologio, gloss: clock}]
+      prompt: {text: "A che tempo", tags: [question-form]}
+    - learner: "A che ora è la colazione?"
+    - tutor: "Perfetto! È dalle sette alle dieci e mezza."
+      goals: [breakfast]
+    - learner: "Bene. C'è il wifi in camera?"
+    - tutor: "Sì, funziona in tutto l'albergo. Ecco la chiave: camera 14, primo piano."
+      goals: [key]
+    - learner: "Grazie mille, buona serata."
+    - tutor: "Buona serata a lei!"
+
+- scenario: lavanderia
+  level: A2
+  persona: es-m-worker
+  history: [negation]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, per favore. È la prima volta qui e no so come funziona la lavatrice."
+      errors: [negation]
+    - tutor: "No so? In italiano questa parola è un po' più lunga."
+      prompt: {text: "no so", tags: [negation]}
+    - learner: "Non so come funziona!"
+    - tutor: "Esatto! Tranquillo, è facile. Hai già messo i vestiti?"
+      goals: [problem]
+    - learner: "Sì, sono dentro. E il detersivo dove lo metto?"
+    - tutor: "Lo metti qui in alto, a sinistra. Poi scegli il programma."
+    - learner: "Quale programma mi consigli? Sono tutte magliette da lavoro."
+    - tutor: "Il numero tre va bene. Dura mezz'ora."
+      goals: [ask-how]
+    - learner: "Perfetto. E come si paga? Con le monete?"
+    - tutor: "No, con il gettone. Lo compri lì, costa tre euro e cinquanta."
+      goals: [payment]
+    - learner: "Ah, ecco. Grazie mille, sei molto gentile!"
+    - tutor: "Di niente! Se hai problemi, sono qui."
+      goals: [thank]
+
+- scenario: medico-base
+  level: A2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Mi fa male lo stomaco e non ho fame."
+    - tutor: "Capisco. Da quando ha questo dolore?"
+      goals: [symptoms]
+    - learner: "Da due giorni. Ho mangiato pesce in un ristorante sabato sera."
+    - tutor: "Ah, forse è quello. Ha preso qualcosa?"
+      goals: [since-when]
+    - learner: "Sì, ieri ho preso una droga per il dolore, ma non funziona."
+      errors: [false-friend]
+    - tutor: "Ha preso una medicina, bene. È allergico a qualcosa?"
+      recast: {text: "una droga", fix: "una medicina", tags: [false-friend]}
+    - learner: "No, non sono allergico a niente."
+    - tutor: "Bene. Allora beva molta acqua e mangi solo riso per due giorni."
+      goals: [history]
+    - learner: "Solo riso e molta acqua, per due giorni. Niente caffè?"
+    - tutor: "Esatto, niente caffè. Se sta ancora male, torni giovedì."
+      goals: [instructions]
+    - learner: "Va bene, dottore. Grazie mille!"
+    - tutor: "Prego, arrivederci!"
+
+- scenario: noleggio-bici
+  level: A2
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Buongiorno. Sì, vorrei noleggiare tre biciclette: due per adulti e una per un bambino."
+    - tutor: "Certo. Quanti anni ha il bambino?"
+      goals: [ask]
+    - learner: "Ha otto anni. Le prendiamo per mezza giornata. Tornaremo alle due."
+      errors: [future-form]
+    - tutor: "Tornaremo? Nel futuro di tornare cambia una lettera."
+      prompt: {text: "Tornaremo", tags: [future-form]}
+    - learner: "Torneremo alle due."
+    - tutor: "Perfetto! Mezza giornata costa 10 euro per bicicletta, 6 per il bambino."
+      goals: [duration]
+    - learner: "E i caschi? Si pagano?"
+    - tutor: "No, i caschi non si pagano."
+      goals: [price]
+    - learner: "Benissimo. C'è un percorso facile? Mio figlio non va molto veloce."
+    - tutor: "Sì, il percorso vicino al lago è tutto piano, senza macchine."
+    - learner: "Perfetto per noi. Quanto tempo ci vuole?"
+    - tutor: "Un'ora, più o meno. A metà strada c'è anche un bar!"
+      goals: [route]

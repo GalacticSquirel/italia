@@ -15,6 +15,7 @@ One YAML file holds a list of dialogues:
         - tutor: Buongiorno! Cosa prende?
         - learner: Buongiorno. Vorrei un cappuccino e una cornetto.
           errors: [noun-gender]       # the errors in this learner turn (omit when none)
+          gold: {text: una cornetto, fix: un cornetto}   # wrong span of the error to address
         - tutor: Una cornetto? Cornetto è maschile...
           goals: [greet]              # goals newly completed by this turn (accumulated)
           prompt: {text: una cornetto, tags: [noun-gender]}
@@ -26,11 +27,18 @@ One YAML file holds a list of dialogues:
           done: false                 # default: true on the last tutor turn if all goals done
 
 The learner plan (`LearnerTurnPlan`) is derived from the learner turns' `errors` and the feedback
-policy (`spec.policy`), so the policy filter checks the tutor's moves against it.
+policy (`spec.policy`), so the policy filter checks the tutor's moves against it. `gold` is
+optional in training sets (a recast fills it in) and required in benchmark sets, where it scores
+recasts and catches prompts that give the answer away.
+
+Benchmark sets (`--bench`) live in `data/bench/src/<set>/`, use only evaluation scenarios and
+compile to `data/bench/<set>.jsonl` with split `eval`, so no training glob ever reaches them;
+`python -m eval build-items --records 'data/bench/*.jsonl'` turns them into evaluation items.
 
     uv run python -m datagen.handwritten build a1      # compile + filter, write a1.jsonl
     uv run python -m datagen.handwritten build --all   # every set
     uv run python -m datagen.handwritten check a1      # compile + filter, print failures only
+    uv run python -m datagen.handwritten build --bench --all   # every benchmark set
 """
 
 from __future__ import annotations
@@ -58,7 +66,7 @@ from datagen.lemmas import (
     LemmaList,
     SimplemmaLemmatizer,
 )
-from datagen.records import DialogueRecord, FilterResult, LearnerTurnPlan
+from datagen.records import DialogueRecord, FilterResult, LearnerTurnPlan, Split
 from spec.levels import Level
 from spec.models import (
     SPEC_VERSION,
@@ -80,6 +88,8 @@ from spec.taxonomy import error_tags
 
 HANDWRITTEN_DIR = TRAINING_DIR / "data" / "handwritten"
 SOURCE_DIR = HANDWRITTEN_DIR / "src"
+BENCH_DIR = TRAINING_DIR / "data" / "bench"
+BENCH_SOURCE_DIR = BENCH_DIR / "src"
 TEACHER_LABEL = "handwritten"
 
 
@@ -147,16 +157,29 @@ def _output(item: dict[str, Any], goals_so_far: list[str], where: str) -> TutorO
     )
 
 
-def compile_source(  # noqa: PLR0912 (one pass over the turns, checking as it goes)
-    source: Source, library: dict[str, Scenario]
+def _gold(value: Any, where: str) -> tuple[str, str] | None:
+    if value is None:
+        return None
+    if not isinstance(value, dict) or not value.get("text") or not value.get("fix"):
+        raise AuthoringError(f"{where}: gold needs text and fix")
+    return str(value["text"]).strip(), str(value["fix"]).strip()
+
+
+def compile_source(  # noqa: PLR0912, PLR0915 (one pass over the turns, checking as it goes)
+    source: Source, library: dict[str, Scenario], split: Split = "train"
 ) -> DialogueRecord:
-    """One source dialogue as a DialogueRecord (no filter result yet)."""
+    """One source dialogue as a DialogueRecord (no filter result yet).
+
+    `split` is "train" for training sets and "eval" for benchmark sets; the scenario must be of
+    the same split, and in benchmark sets every corrected error needs its `gold` span.
+    """
     raw, where = source.raw, source.where
     scenario = library.get(str(raw.get("scenario")))
     if scenario is None:
         raise AuthoringError(f"{where}: unknown scenario {raw.get('scenario')!r}")
-    if scenario.split != "train":
-        raise AuthoringError(f"{where}: {scenario.id} is an evaluation scenario")
+    if scenario.split != split:
+        kind = "an evaluation" if scenario.split == "eval" else "a training"
+        raise AuthoringError(f"{where}: {scenario.id} is {kind} scenario (set split: {split})")
     level = Level(raw["level"])
     if level not in scenario.levels:
         raise AuthoringError(f"{where}: {scenario.id} does not list level {level.value}")
@@ -182,6 +205,7 @@ def compile_source(  # noqa: PLR0912 (one pass over the turns, checking as it go
     turns: list[Turn] = []
     plan: list[LearnerTurnPlan] = []
     learner_errors: list[str] = []
+    learner_gold: tuple[str, str] | None = None
     prompted: list[str] = []
     for n, item in enumerate(items):
         at = f"{where}.turns[{n}]"
@@ -201,12 +225,27 @@ def compile_source(  # noqa: PLR0912 (one pass over the turns, checking as it go
             output = _output(spec, goals_so_far, at)
             turns.append(Turn.tutor(output))
             if n > 0:
-                plan.append(_plan_step(learner_errors, prompted, output, scenario, history_tags))
+                step = _plan_step(learner_errors, prompted, output, scenario, history_tags)
+                spans = learner_gold or _recast_span(output, step.target_tag)
+                policy_pick = pick_target_error(learner_errors, scenario, history_tags)
+                if split == "eval" and step.kind == "fresh" and step.target_tag != policy_pick:
+                    # a benchmark cannot expect a choice the policy would not make
+                    raise AuthoringError(f"{at}: the policy addresses {policy_pick} here")
+                if step.expected_move != "none" and spans is None and split == "eval":
+                    raise AuthoringError(f"{at}: the corrected learner turn needs gold")
+                if step.expected_move != "none" and spans is not None:
+                    step = step.model_copy(
+                        update={"learner_span": spans[0], "corrected_span": spans[1]}
+                    )
+                plan.append(step)
             prompted = (
                 list(output.annotations.prompt.error_tags) if output.annotations.prompt else []
             )
         else:
             learner_errors = _tags(item.get("errors"), at)
+            learner_gold = _gold(item.get("gold"), at)
+            if learner_gold is not None and not learner_errors:
+                raise AuthoringError(f"{at}: gold on a learner turn without errors")
             turns.append(Turn.learner(str(item["learner"]).strip()))
     if not turns or turns[-1].role != "tutor":
         raise AuthoringError(f"{where}: the dialogue must end with a tutor turn")
@@ -214,7 +253,7 @@ def compile_source(  # noqa: PLR0912 (one pass over the turns, checking as it go
     return DialogueRecord(
         id=f"hw-{source.set_name}-{digest}",
         spec_version=SPEC_VERSION,
-        split="train",
+        split=split,
         scenario_id=scenario.id,
         level=level,
         persona=persona,
@@ -224,6 +263,13 @@ def compile_source(  # noqa: PLR0912 (one pass over the turns, checking as it go
         teacher=TEACHER_LABEL,
         parse_notes=[f"source {source.set_name}/{where}"],
     )
+
+
+def _recast_span(output: TutorOutput, target: str | None) -> tuple[str, str] | None:
+    recast = output.annotations.recast
+    if recast is None or target not in recast.error_tags:
+        return None
+    return recast.learner_text, recast.corrected_text
 
 
 def _plan_step(
@@ -273,6 +319,7 @@ def compile_set(
     grammar: GrammarChecker,
     source_dir: Path = SOURCE_DIR,
     config: FilterConfig | None = None,
+    split: Split = "train",
 ) -> tuple[list[DialogueRecord], list[str]]:
     """Compile and filter one set. Returns the records (with filter results) and errors."""
     library = load_library()
@@ -282,7 +329,7 @@ def compile_set(
     problems: list[str] = []
     for source in load_sources(set_name, source_dir):
         try:
-            record = compile_source(source, library)
+            record = compile_source(source, library, split)
         except (AuthoringError, ValueError, KeyError, TypeError) as err:
             problems.append(f"{source.where}: {err}")
             continue
@@ -323,10 +370,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--all", action="store_true", help="every set under the source folder")
     parser.add_argument("--languagetool-url", default="http://localhost:8010/v2")
     parser.add_argument("--no-languagetool", action="store_true", help="skip grammar checks")
-    parser.add_argument("--source-dir", default=str(SOURCE_DIR))
-    parser.add_argument("--out-dir", default=str(HANDWRITTEN_DIR))
-    args = parser.parse_args(argv)
-    source_dir = Path(args.source_dir)
+    parser.add_argument(
+        "--bench", action="store_true", help="benchmark sets: data/bench, evaluation scenarios"
+    )
+    parser.add_argument("--source-dir", help="default data/handwritten/src (data/bench/src)")
+    parser.add_argument("--out-dir", help="default data/handwritten (data/bench)")
+    args = parser.parse_intermixed_args(argv)
+    split: Split = "eval" if args.bench else "train"
+    source_dir = Path(args.source_dir or (BENCH_SOURCE_DIR if args.bench else SOURCE_DIR))
+    out_dir = Path(args.out_dir or (BENCH_DIR if args.bench else HANDWRITTEN_DIR))
     sets = sorted(p.name for p in source_dir.iterdir() if p.is_dir()) if args.all else args.sets
     if not sets:
         parser.error("name at least one set, or pass --all")
@@ -335,7 +387,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     status = 0
     for set_name in sets:
-        records, problems = compile_set(set_name, grammar=grammar, source_dir=source_dir)
+        records, problems = compile_set(
+            set_name, grammar=grammar, source_dir=source_dir, split=split
+        )
         for problem in problems:
             print(f"[{set_name}] ERROR {problem}")
         failed = [r for r in records if r.filter is not None and not r.filter.passed]
@@ -349,7 +403,7 @@ def main(argv: list[str] | None = None) -> int:
         if problems or failed:
             status = 1
         if args.command == "build":
-            out = Path(args.out_dir) / f"{set_name}.jsonl"
+            out = out_dir / f"{set_name}.jsonl"
             kept = (r.to_wire() for r in records if r.filter is not None and r.filter.passed)
             n = write_jsonl(out, kept)
             print(f"[{set_name}] wrote {n} passing records -> {out}")

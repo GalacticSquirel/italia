@@ -1,0 +1,237 @@
+# B2 benchmark: emergency department triage (focus: passato prossimo vs imperfetto, reflexives).
+- scenario: pronto-soccorso
+  level: B2
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buonasera. Cosa le è successo?"
+    - learner: "Buonasera. Stavo scendendo dal tram quando ho messo male il piede e sono caduta sul pavimento, davanti alla fermata."
+      errors: [false-friend]
+      gold: {text: "sul pavimento", fix: "sul marciapiede"}
+    - tutor: "Mi dispiace: una caduta sul marciapiede può fare molto male. Dove sente dolore, esattamente?"
+      goals: [what]
+      recast: {text: "sul pavimento", fix: "sul marciapiede", tags: [false-friend]}
+      new: [{lemma: marciapiede, gloss: pavement}]
+    - learner: "Alla caviglia destra. Non ho potuto proteggermi con le mani, perché quando sono caduta ho avuto in mano il telefono e la borsa."
+      errors: [tense-aspect]
+      gold: {text: "ho avuto in mano", fix: "avevo in mano"}
+    - tutor: "«Quando sono caduta ho avuto in mano il telefono»? Qui descrive la situazione in quel momento, non un fatto concluso: che tempo usiamo?"
+      prompt: {text: "ho avuto in mano", tags: [tense-aspect]}
+    - learner: "Avevo in mano il telefono e la borsa. Adesso la caviglia è gonfia e sento un dolore continuo."
+    - tutor: "Esatto. È allergica a qualche farmaco? Ha altri problemi di salute?"
+      goals: [pain]
+    - learner: "Sono allergica all'ibuprofene. E ho una condizione alla tiroide, ma niente di grave."
+      errors: [word-choice]
+      gold: {text: "una condizione alla tiroide", fix: "un disturbo alla tiroide"}
+    - tutor: "Quindi allergia all'ibuprofene e un disturbo alla tiroide: lo segno. Prende un farmaco per questo?"
+      recast: {text: "una condizione alla tiroide", fix: "un disturbo alla tiroide", tags: [word-choice]}
+    - learner: "Sì, una compressa ogni mattina. Mi scusi, quanto pensa che durerà l'attesa?"
+    - tutor: "Con il codice verde, circa due ore. Nel frattempo le porto del ghiaccio."
+      goals: [history, wait]
+
+- scenario: pronto-soccorso
+  level: B2
+  persona: es-m-worker
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buonasera. Cosa le è successo?"
+    - learner: "Buonasera. Mi sono fatto male giocando a calcetto: un avversario mi ha pestato il piede e ho sentito un rumore strano."
+    - tutor: "Capisco. Riesce a mettere il piede per terra?"
+      goals: [what]
+    - learner: "No, per niente. Mi hanno dovuto portare in braccio fino alla macchina. La caviglia si ha gonfiato in cinque minuti."
+      errors: [auxiliary-choice]
+      gold: {text: "si ha gonfiato", fix: "si è gonfiata"}
+    - tutor: "«La caviglia si ha gonfiato»? Con un verbo come «gonfiarsi», quale ausiliare serve? E attenzione all'accordo."
+      prompt: {text: "si ha gonfiato", tags: [auxiliary-choice]}
+      new: [{lemma: ausiliare, gloss: auxiliary verb}, {lemma: gonfiare, gloss: to swell}]
+    - learner: "Si ha gonfiata? Non sono sicuro."
+      errors: [auxiliary-choice]
+      gold: {text: "Si ha gonfiata", fix: "Si è gonfiata"}
+    - tutor: "Quasi: la caviglia si è gonfiata, e si vede. Com'è il dolore adesso?"
+      recast: {text: "Si ha gonfiata", fix: "si è gonfiata", tags: [auxiliary-choice]}
+    - learner: "È continuo, e quando muovo le dita diventa insopportabile."
+    - tutor: "Ho capito. Ha allergie, prende farmaci o ha avuto operazioni?"
+      goals: [pain]
+    - learner: "Nessuna allergia e nessun farmaco. Però mi hanno operato al ginocchio fa due anni."
+      errors: [word-order]
+      gold: {text: "fa due anni", fix: "due anni fa"}
+    - tutor: "«Fa due anni»? In italiano l'ordine di queste parole è diverso."
+      prompt: {text: "fa due anni", tags: [word-order]}
+    - learner: "Due anni fa, giusto. Devo aspettare molto?"
+    - tutor: "Esatto. Circa un'ora di attesa: la chiamo io per la radiografia."
+      goals: [history, wait]
+
+- scenario: pronto-soccorso
+  level: B2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buonasera. Cosa le è successo?"
+    - learner: "Buonasera. Temo di essermi rotto la caviglia: sono inciampato nel tappeto di casa."
+    - tutor: "Mi dispiace. Dove sente dolore?"
+      goals: [what]
+    - learner: "Mi fa male soprattutto qui, sull'osso. Mia moglie pensa che è solo una distorsione, ma io non ne sono convinto."
+      errors: [subjunctive-use]
+      gold: {text: "pensa che è", fix: "pensa che sia"}
+    - tutor: "«Pensa che è»? Dopo un verbo di opinione come pensare, quale modo usiamo?"
+      prompt: {text: "pensa che è", tags: [subjunctive-use]}
+    - learner: "Lei pensa che è una distorsione... che non è grave, insomma."
+      errors: [subjunctive-use]
+      gold: {text: "pensa che è", fix: "pensa che sia"}
+    - tutor: "Capisco: sua moglie pensa che sia una distorsione. Lo vedremo dalla radiografia. Da uno a dieci, quanto è forte il dolore?"
+      recast: {text: "pensa che è", fix: "pensa che sia", tags: [subjunctive-use]}
+    - learner: "Direi sette. E peggiora se provo ad alzarmi."
+    - tutor: "Va bene. Ha allergie? Prende farmaci?"
+      goals: [pain]
+    - learner: "Sono allergico al lattice e prendo un anticoagulante. Due anni fa ho avuto un'ingiuria a questo stesso piede."
+      errors: [false-friend]
+      gold: {text: "un'ingiuria", fix: "un infortunio"}
+    - tutor: "Lattice, anticoagulante e un infortunio allo stesso piede due anni fa: lo segnalo subito al medico."
+      goals: [history]
+      recast: {text: "un'ingiuria", fix: "un infortunio", tags: [false-friend]}
+      new: [{lemma: infortunio, gloss: injury}]
+    - learner: "Grazie. Sa dirmi quanto ci vorrà? Non vorrei che mia moglie aspettasse in macchina tutta la sera."
+    - tutor: "Circa un'ora e mezza di attesa. Sua moglie può aspettare qui dentro, al caldo."
+      goals: [wait]
+
+- scenario: pronto-soccorso
+  level: B2
+  persona: es-f-erasmus
+  history: [reflexive]
+  turns:
+    - tutor: "Buonasera. Cosa le è successo?"
+    - learner: "Buonasera. Ho avuto un accidente stupido: ballavo con i tacchi alti e la caviglia ha ceduto."
+      errors: [false-friend]
+      gold: {text: "un accidente", fix: "un incidente"}
+    - tutor: "Un incidente stupido, ma capita spesso! E dopo che cosa ha fatto?"
+      goals: [what]
+      recast: {text: "un accidente", fix: "un incidente", tags: [false-friend]}
+    - learner: "Mi sono rimasta seduta un'ora con il ghiaccio, sperando che passasse, ma è peggiorato."
+      errors: [reflexive]
+      gold: {text: "Mi sono rimasta seduta", fix: "Sono rimasta seduta"}
+    - tutor: "«Mi sono rimasta seduta»? In italiano rimanere funziona in un altro modo: c'è un pronome di troppo."
+      prompt: {text: "Mi sono rimasta seduta", tags: [reflexive]}
+    - learner: "Sono rimasta seduta un'ora. Adesso mi fa malissimo, e la pelle è diventata viola."
+    - tutor: "Esatto. Vedo, è molto gonfia. Ha allergie? Ha preso farmaci in questi giorni?"
+      goals: [pain]
+    - learner: "Non ho allergie, ma ieri ho preso un antibiotico per la gola: mi lo ha dato un'amica."
+      errors: [combined-pronouns]
+      gold: {text: "mi lo ha dato", fix: "me lo ha dato"}
+    - tutor: "«Mi lo ha dato»? Davanti a «lo», il primo pronome cambia forma."
+      prompt: {text: "mi lo ha dato", tags: [combined-pronouns]}
+    - learner: "Me lo ha dato un'amica. Ho qui la scatola. Scusi, c'è molto da aspettare?"
+    - tutor: "Perfetto, la scatola mi serve. L'attesa è di circa un'ora e mezza."
+      goals: [history, wait]
+
+- scenario: pronto-soccorso
+  level: B2
+  persona: en-m-traveller
+  history: [auxiliary-choice, participle-agreement]
+  turns:
+    - tutor: "Buonasera. Cosa le è successo?"
+    - learner: "Buonasera! Stamattina ho noleggiato un motorino e sono caduto in una curva. Niente di grave, spero."
+    - tutor: "Ha fatto bene a venire. Andava veloce? Ha battuto la testa?"
+      goals: [what]
+    - learner: "No, andavo piano e avevo il casco. Però la moto mi ha caduto sopra la gamba."
+      errors: [auxiliary-choice]
+      gold: {text: "ha caduto", fix: "è caduta"}
+    - tutor: "«La moto mi ha caduto sopra»? Con cadere il passato si forma con l'altro verbo."
+      prompt: {text: "ha caduto", tags: [auxiliary-choice]}
+    - learner: "La moto mi ha caduto sulla gamba destra, ecco."
+      errors: [auxiliary-choice]
+      gold: {text: "ha caduto", fix: "è caduta"}
+    - tutor: "Ho capito: la moto le è caduta sulla gamba destra. Dove sente più dolore?"
+      recast: {text: "mi ha caduto", fix: "le è caduta", tags: [auxiliary-choice]}
+    - learner: "Alla caviglia. Non l'ho ancora guardata bene, ma è calda e gonfia."
+    - tutor: "Dopo la controlliamo. Ha allergie? Ha preso farmaci oggi?"
+      goals: [pain]
+    - learner: "Nessuna allergia, che io sappia. Stamattina ho preso due pastiglie per il mal di testa, ma non le ho portato con me."
+      errors: [participle-agreement]
+      gold: {text: "non le ho portato", fix: "non le ho portate"}
+    - tutor: "«Non le ho portato»? Con «le» davanti al verbo, l'ultima lettera cambia."
+      prompt: {text: "non le ho portato", tags: [participle-agreement]}
+    - learner: "Non le ho portate. Ma ho una foto della scatola! E quanto dovrò aspettare?"
+    - tutor: "Perfetto, la foto basta. Circa un'ora di attesa, poi facciamo la radiografia."
+      goals: [history, wait]
+
+- scenario: pronto-soccorso
+  level: B2
+  persona: es-f-teacher
+  history: [conditional-form, tense-aspect]
+  turns:
+    - tutor: "Buonasera. Cosa le è successo?"
+    - learner: "Buonasera. Ero in gita con i miei alunni: mentre ho sceso una scala bagnata, sono scivolata."
+      errors: [tense-aspect]
+      gold: {text: "mentre ho sceso", fix: "mentre scendevo"}
+    - tutor: "«Mentre ho sceso»? Dopo «mentre», per un'azione ancora in corso, serve un altro tempo."
+      prompt: {text: "mentre ho sceso", tags: [tense-aspect]}
+    - learner: "Mentre scendevo una scala bagnata, sono scivolata. Tenevo per mano una bambina; per fortuna lei sta bene."
+    - tutor: "Esatto. Meno male per la bambina! Mi descrive il dolore?"
+      goals: [what]
+    - learner: "È un dolore acuto quando metto il piede per terra. Se non mi facesse così male, non sarei venuta."
+    - tutor: "Ha fatto bene a venire. Ha allergie o altri problemi di salute?"
+      goals: [pain]
+    - learner: "Sono allergica alla penicillina e ho la tensione alta: prendo una pastiglia ogni mattina."
+      errors: [false-friend]
+      gold: {text: "la tensione alta", fix: "la pressione alta"}
+    - tutor: "Allergia alla penicillina e una pastiglia per la pressione alta: lo segno per il medico."
+      goals: [history]
+      recast: {text: "la tensione alta", fix: "la pressione alta", tags: [false-friend]}
+    - learner: "Grazie. Quanto ci vorrà, più o meno? Dovrei avvisare la scuola."
+    - tutor: "Circa un'ora di attesa. Può telefonare da qui, se vuole."
+      goals: [wait]
+
+- scenario: pronto-soccorso
+  level: B2
+  persona: en-f-student
+  history: [hypothetical]
+  turns:
+    - tutor: "Buonasera. Cosa le è successo?"
+    - learner: "Buonasera. Correvo lungo il fiume e sono inciampata in una radice."
+    - tutor: "Capisco. Riesce a camminare?"
+      goals: [what]
+    - learner: "Zoppico. Se avrei guardato dove mettevo i piedi, non sarebbe successo!"
+      errors: [hypothetical]
+      gold: {text: "Se avrei guardato", fix: "Se avessi guardato"}
+    - tutor: "«Se avrei guardato»? Dopo «se» non usiamo il condizionale: quale forma serve?"
+      prompt: {text: "Se avrei guardato", tags: [hypothetical]}
+    - learner: "Se avrei... se ho guardato? Non mi ricordo mai questa regola."
+      errors: [hypothetical]
+      gold: {text: "se ho guardato", fix: "se avessi guardato"}
+    - tutor: "«Se avessi guardato dove mettevo i piedi»: lo diciamo tutti, dopo! Non si preoccupi. Dove le fa male di preciso?"
+      recast: {text: "se ho guardato", fix: "Se avessi guardato", tags: [hypothetical]}
+    - learner: "Sulla parte esterna della caviglia. È un dolore sordo, ma se giro il piede diventa fortissimo."
+    - tutor: "Va bene. Ha allergie? Prende farmaci?"
+      goals: [pain]
+    - learner: "Non ho allergie. Prendo un antistaminico in primavera, ma attualmente no. Quanto ci vorrà? Domani ho un esame."
+    - tutor: "Circa un'ora di attesa. Se è solo una distorsione, domani potrà fare l'esame senza problemi."
+      goals: [history, wait]
+
+- scenario: pronto-soccorso
+  level: B2
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buonasera. Cosa le è successo?"
+    - learner: "Buonasera. Aiutavo mio zio a raccogliere le olive e sono caduto dalla scala."
+    - tutor: "Da che altezza, più o meno? Ha battuto la testa?"
+    - learner: "Saranno stati due metri. No, la testa no, ma mio zio si è spaventato molto e mi ha voluto portare qui subito."
+    - tutor: "Ha fatto bene. Dove le fa male?"
+      goals: [what]
+    - learner: "Soprattutto alla caviglia sinistra. Ho provato a sentire il mio medico: lo ho telefonato due volte, ma non risponde."
+      errors: [object-pronoun]
+      gold: {text: "lo ho telefonato", fix: "gli ho telefonato"}
+    - tutor: "«Lo ho telefonato»? Si telefona a qualcuno: quale pronome ci vuole?"
+      prompt: {text: "lo ho telefonato", tags: [object-pronoun]}
+    - learner: "Gli ho telefonato due volte. Comunque, la caviglia è gonfia e non riesco a piegarla."
+    - tutor: "Esatto. Adesso ci pensiamo noi. Ha allergie? Prende farmaci?"
+      goals: [pain]
+    - learner: "Sono allergico a un antibiotico, ma non ricordo quale. Il nome è scritto sulla mia carta sanitaria."
+      errors: [word-choice]
+      gold: {text: "carta sanitaria", fix: "tessera sanitaria"}
+    - tutor: "Bene, allora lo leggo sulla tessera sanitaria: me la dà un attimo?"
+      goals: [history]
+      recast: {text: "carta sanitaria", fix: "tessera sanitaria", tags: [word-choice]}
+    - learner: "Eccola. Senta, quanto c'è da aspettare? Mio zio è anziano e si agita."
+    - tutor: "Circa quaranta minuti di attesa. Dica a suo zio di stare tranquillo: non sembra niente di grave."
+      goals: [wait]

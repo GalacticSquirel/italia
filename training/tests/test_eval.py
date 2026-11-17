@@ -5,9 +5,13 @@ from pathlib import Path
 
 import pytest
 
+from datagen.handwritten import compile_set
+from datagen.handwritten import main as handwritten_main
 from datagen.languagetool import NullChecker
 from datagen.lemmas import BandChecker, SimplemmaLemmatizer, default_lemma_list
 from datagen.teacher import ScriptedClient
+from eval.__main__ import load_items
+from eval.__main__ import main as eval_main
 from eval.items import EvalItem, build_items
 from eval.metrics import prf, score_system, tag_scores
 from eval.pairwise import compare, wilson_interval, win_rate_from_scores
@@ -22,6 +26,7 @@ from eval.predict import (
 from eval.report import parse_llama_bench, render_report
 from spec.levels import Level
 from tests.helpers import make_record, output
+from tests.test_handwritten import BENCH
 
 CHECKER = BandChecker(default_lemma_list(), SimplemmaLemmatizer())
 ROOT = Path(__file__).resolve().parents[1]
@@ -179,3 +184,55 @@ def test_report_and_bench() -> None:
     ):
         assert heading in text
     assert "| JSON validity (higher is better) | **100.0%** | 0.0% |" in text
+
+
+def bench_items(tmp_path: Path) -> list[EvalItem]:
+    folder = tmp_path / "src" / "b"
+    folder.mkdir(parents=True)
+    (folder / "d.yaml").write_text(BENCH, encoding="utf-8")
+    records, _ = compile_set("b", grammar=NullChecker(), source_dir=tmp_path / "src", split="eval")
+    return build_items(records)
+
+
+def test_bench_items_carry_gold_spans_and_score_leaks(tmp_path: Path) -> None:
+    items = bench_items(tmp_path)
+    first = items[0]
+    assert first.gold.expected_move == "prompt"
+    assert (first.gold.learner_span, first.gold.corrected_span) == ("Una cono", "Un cono")
+    reference = score(reference_predictions(items), items)
+    assert reference["prompt_leak_rate"] == 0.0
+    assert reference["correction_accuracy"] == 1.0
+    leak = output("Un cono, non una cono!", prompt=("Una cono", ["noun-gender"])).to_json()
+    wrong_tag = output("Sei sicuro?", prompt=("Una cono", ["spelling"])).to_json()
+    for pred, leak_rate, accuracy in ((leak, 1.0, 1.0), (wrong_tag, 0.0, 0.0)):
+        summary = score({**reference_predictions(items), first.id: pred}, items)
+        assert summary["prompt_leak_rate"] == leak_rate
+        assert summary["correction_accuracy"] == accuracy
+
+
+def test_build_items_from_bench_records(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    folder = tmp_path / "src" / "b"
+    folder.mkdir(parents=True)
+    (folder / "d.yaml").write_text(BENCH, encoding="utf-8")
+    out = ["--source-dir", str(tmp_path / "src"), "--out-dir", str(tmp_path)]
+    assert handwritten_main(["build", "b", "--bench", "--no-languagetool", *out]) == 0
+    monkeypatch.chdir(tmp_path)
+    assert eval_main(["build-items", "--records", "*.jsonl", "--out", "items.jsonl"]) == 0
+    assert len(load_items(tmp_path / "items.jsonl")) == 4
+
+
+def test_report_parity_against_the_reference(tmp_path: Path) -> None:
+    items = bench_items(tmp_path)
+    scores = [
+        score_system(n, items, p, band_checker=CHECKER, grammar=NullChecker())
+        for n, p in [
+            ("teacher-reference", reference_predictions(items)),
+            ("twin", reference_predictions(items)),
+            ("student", {}),
+        ]
+    ]
+    win = win_rate_from_scores("twin", "teacher-reference", [1, 0, 0.5, 0.5])
+    text = render_report("Eval", scores, [win], reference="teacher-reference")
+    assert "## Parity with the reference (teacher-reference)" in text
+    assert "twin: 10/10 on par (parity reached)" in text
+    assert "student: " in text and "student: 10/10" not in text

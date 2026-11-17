@@ -1,0 +1,204 @@
+- scenario: vacanze-passate
+  level: A2
+  persona: en-f-professional
+  history: [participle-agreement]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao Elena! Sono stata in Sardegna con mio marito, dieci giorni."
+    - tutor: "Che bello! Che tempo faceva?"
+      goals: [where]
+    - learner: "Faceva caldissimo, ma c'era sempre un po' di vento. Perfetto per il mare."
+    - tutor: "Che fortuna! E cosa avete fatto?"
+      goals: [weather]
+    - learner: "Siamo andato in spiaggia ogni mattina e il pomeriggio abbiamo visitato i paesi vicini."
+      errors: [participle-agreement]
+    - tutor: "Siamo andato? Siete in due: guarda la fine di andato."
+      prompt: {text: "Siamo andato", tags: [participle-agreement]}
+    - learner: "Siamo andati in spiaggia ogni mattina."
+    - tutor: "Esatto! Hai fatto tante foto?"
+      goals: [activities]
+    - learner: "Purtroppo no. Ho dimenticato la mia camera a casa, a Milano."
+      errors: [false-friend]
+    - tutor: "Hai dimenticato la macchina fotografica? Peccato! E cosa ti è piaciuto di più?"
+      recast: {text: "la mia camera", fix: "la macchina fotografica", tags: [false-friend]}
+      new: [{lemma: fotografico, gloss: photographic (macchina fotografica = camera)}]
+    - learner: "Il mare, senza dubbio. L'acqua era chiara come in piscina!"
+    - tutor: "Che bello! L'anno prossimo ci vado anch'io."
+      goals: [best]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: es-f-erasmus
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Ciao Chiara! Molto bene. Sabato sera sono salita con le mie amiche spagnole."
+      errors: [false-friend]
+    - tutor: "Sei uscita con le tue amiche, bene! Dove siete andate?"
+      recast: {text: "sono salita", fix: "Sei uscita", tags: [false-friend]}
+      goals: [with-who]
+    - learner: "Siamo andate in un locale in centro, con musica dal vivo."
+    - tutor: "Bello! E cosa avete fatto lì?"
+      goals: [where]
+    - learner: "Abbiamo ballato fino alle due. Ci abbiamo divertito tantissimo!"
+      errors: [auxiliary-choice]
+    - tutor: "Ci abbiamo divertito? Con ci non usiamo avere. Prova ancora!"
+      prompt: {text: "Ci abbiamo divertito", tags: [auxiliary-choice]}
+    - learner: "Ci siamo divertite tantissimo!"
+    - tutor: "Brava! E domenica hai dormito tutto il giorno?"
+      goals: [what]
+    - learner: "Quasi! Mi sono alzata a mezzogiorno. E tu? Hai fatto qualcosa di bello?"
+    - tutor: "Io ho visto un film a casa, niente di speciale."
+      goals: [opinion]
+    - learner: "La prossima volta vieni con noi!"
+    - tutor: "Sì, con piacere!"
+
+- scenario: abbigliamento
+  level: A2
+  persona: en-f-student
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno! Cerco una maglietta bianca per l'estate."
+    - tutor: "Certo. Che taglia porta?"
+      goals: [ask-item]
+    - learner: "La M, credo. In Inghilterra le taglie sono diverse."
+    - tutor: "Allora proviamo la M. Ecco, questa è bianca con un po' di blu."
+      goals: [size-colour]
+    - learner: "Carina! Dov'è il camerino? Vorrei provarla."
+    - tutor: "È lì, dietro di lei."
+      goals: [try]
+    - learner: "Mmm, questa maglietta è troppo stretto per me."
+      errors: [adjective-agreement]
+    - tutor: "La maglietta è troppo stretto? Guardi la fine di stretto."
+      prompt: {text: "troppo stretto", tags: [adjective-agreement]}
+    - learner: "È troppo stretta!"
+    - tutor: "Giusto! Allora prenda la L, eccola."
+    - learner: "Sì, questa va bene. La prendo. Quanto costa?"
+    - tutor: "Costa 15 euro. Grazie e buona giornata!"
+      goals: [decide]
+
+- scenario: autobus
+  level: A2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Devo andare all'aeroporto. Questo autobus ci va?"
+    - tutor: "Sì, è l'ultima fermata di questa linea."
+      goals: [route]
+    - learner: "Perfetto. Posso comprare il biglietto da lei?"
+    - tutor: "Sì, qui costa tre euro. Quanti biglietti vuole?"
+      goals: [ticket]
+    - learner: "Voglio due, per favore. Uno per me e uno per la mia collega."
+      errors: [ci-ne]
+    - tutor: "Voglio due? Prima di voglio manca una piccola parola, per i biglietti."
+      prompt: {text: "Voglio due", tags: [ci-ne]}
+    - learner: "Ne voglio due."
+    - tutor: "Esatto! Ecco i due biglietti. Li deve timbrare subito."
+    - learner: "Fatto. Dove dobbiamo scendere? E quanto tempo ci vuole?"
+    - tutor: "Scendete all'ultima fermata. Ci vogliono quaranta minuti."
+      goals: [stop]
+    - learner: "Grazie mille, è stato molto gentile."
+    - tutor: "Prego! Buon viaggio."
+      goals: [thank]
+
+- scenario: bar-colazione
+  level: A2
+  persona: en-m-retired
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno. Posso avere uno cappuccino e un pasta, per favore?"
+      errors: [article-form, noun-gender]
+    - tutor: "Uno cappuccino? Prima di cappuccino serve una parola più corta."
+      prompt: {text: "uno cappuccino", tags: [article-form]}
+    - learner: "Un cappuccino, mi scusi."
+    - tutor: "Perfetto! E una pasta, certo. Con la crema o con la frutta?"
+      new: [{lemma: crema, gloss: custard}]
+      goals: [greet, order-drink]
+    - learner: "Con la crema, grazie. È fresca?"
+    - tutor: "Sì, è di stamattina. Ecco a lei."
+      goals: [order-food]
+    - learner: "Grazie. Com'è buona! Quanto le devo?"
+    - tutor: "Sono 3 euro. Ecco lo scontrino."
+      goals: [pay]
+    - learner: "Ecco cinque euro. Tenga il resto."
+    - tutor: "Grazie mille, buona giornata!"
+
+- scenario: biglietto-treno
+  level: A2
+  persona: es-f-teacher
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei andare a Napoli venerdì mattina."
+    - tutor: "Certo. Solo andata?"
+      goals: [destination]
+    - learner: "No, un biglietto di ida e vuelta. Torno domenica."
+      errors: [word-choice]
+    - tutor: "Andata e ritorno, bene. Prima o seconda classe?"
+      recast: {text: "ida e vuelta", fix: "Andata e ritorno", tags: [word-choice]}
+      goals: [type]
+    - learner: "Seconda, grazie. Se possibile, un posto vicino al finestrino."
+    - tutor: "Sì, c'è. Posto 45, vicino al finestrino."
+      goals: [class]
+    - learner: "Perfetto. A che ora sale il treno venerdì?"
+      errors: [false-friend]
+    - tutor: "Il treno parte alle 8 e 10. Arriva a Napoli alle 9 e 20."
+      recast: {text: "sale", fix: "parte", tags: [false-friend]}
+    - learner: "E da quale binario parte?"
+    - tutor: "Dal binario 12. Lo vede anche sul tabellone."
+      new: [{lemma: tabellone, gloss: departures board}]
+      goals: [platform]
+    - learner: "Grazie mille. Quanto pago in tutto?"
+    - tutor: "Sono 78 euro. Ecco i biglietti, buon viaggio!"
+
+- scenario: casa-mia
+  level: A2
+  persona: en-m-heritage
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Abito in una casa con i miei genitori, fuori Toronto. È abbastanza grande."
+    - tutor: "Bello! Quante stanze avete?"
+      goals: [type]
+    - learner: "C'è tre camere e due bagno. E una cucina enorme!"
+      errors: [ce-ci-sono, noun-number]
+    - tutor: "C'è tre camere? Le camere sono tre: come cambia la prima parola?"
+      prompt: {text: "C'è tre camere", tags: [ce-ci-sono]}
+    - learner: "Ci sono tre camere!"
+    - tutor: "Giusto! E qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "La cucina. La domenica mia nonna viene e facciamo la pasta insieme."
+    - tutor: "Che bello! Com'è la cucina?"
+    - learner: "È grande e gialla, con un tavolo lungo per dodici persone."
+    - tutor: "Dodici persone! Una vera cucina italiana."
+      goals: [favourite]
+    - learner: "Sì! E tu, Luca? Hai una cucina grande?"
+    - tutor: "No, la mia è piccolissima. Ma ho un bel balcone, sempre al sole."
+      goals: [ask]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Buongiorno. Sì. Cercate un cameriere, ma avete bisogno anche di un cuoco?"
+    - tutor: "Forse sì! Il nostro cuoco va via ad agosto. Ha esperienza?"
+      goals: [ask]
+    - learner: "Sì, molta. Ho lavorato cinque anni di cuoco in un ristorante a Bologna."
+      errors: [preposition]
+    - tutor: "Di cuoco? Per parlare di un lavoro, qui non usiamo di."
+      prompt: {text: "di cuoco", tags: [preposition]}
+    - learner: "Ho lavorato come cuoco per cinque anni."
+    - tutor: "Perfetto! Cinque anni sono tanti. Quando può cominciare?"
+      goals: [experience]
+    - learner: "Posso cominciare il primo agosto. Sono libero tutta l'estate."
+    - tutor: "Benissimo. Lavoriamo dalle dieci alle quattro, anche la domenica."
+      goals: [availability]
+    - learner: "Per me va bene. E lo stipendio?"
+    - tutor: "Sono 1600 euro al mese. Mi lascia un numero di telefono?"
+    - learner: "Certo: 351 20 77 430. Mi chiamo Diego Paz."
+    - tutor: "Grazie! La chiamo questa settimana."
+      goals: [contact]

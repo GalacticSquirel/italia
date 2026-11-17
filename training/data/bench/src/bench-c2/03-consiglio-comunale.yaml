@@ -1,0 +1,211 @@
+- scenario: consiglio-comunale
+  level: C2
+  persona: en-f-professional
+  history: [passive]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera. Sono Claire Bennett, urbanista, e abito a due passi dal parcheggio. Sono favorevole al progetto, ma a una condizione: che il parco non sia solo un prato con quattro panchine."
+    - tutor: "Grazie, la sua posizione è chiara, condizione compresa. Su quali argomenti la fonda? Le chiedo di essere concreta, perché il tempo a disposizione è limitato."
+      goals: [position]
+    - learner: "Il primo è idraulico. Ogni volta che piove forte, via Manzoni si allaga, perché l'acqua piovana non viene assorbito dall'asfalto e finisce tutta nelle cantine."
+      errors: [passive]
+      gold: {text: "l'acqua piovana non viene assorbito", fix: "l'acqua piovana non viene assorbita"}
+    - tutor: "Un problema che qui in molti conoscono bene, purtroppo. Ma riascolti la sua frase: «l'acqua piovana non viene assorbito»? Il participio deve accordarsi con il soggetto."
+      prompt: {text: "l'acqua piovana non viene assorbito", tags: [passive]}
+    - learner: "L'acqua piovana non viene assorbita, certo. Se quell'asfalto fosse stato tolto dieci anni fa, oggi molte cantine sarebbero asciutte."
+    - tutor: "Ora è impeccabile, e l'argomento è forte. Le riporto però l'obiezione dell'assessore al bilancio: togliere l'asfalto e rifare il drenaggio costa il doppio di un normale giardino. Chi paga?"
+      goals: [arguments]
+      new: [{lemma: drenaggio, gloss: drainage}]
+    - learner: "In buona parte la Regione: esiste un bando per l'adattamento climatico che copre fino al settanta per cento delle spese. Mi stupisce soltanto che il comune non abbia ancora applicato."
+      errors: [word-choice]
+      gold: {text: "non abbia ancora applicato", fix: "non abbia ancora presentato domanda"}
+    - tutor: "Se il comune non ha ancora presentato domanda, è un'omissione che verificherò personalmente con gli uffici. Ha dunque una proposta precisa da sottoporre al consiglio?"
+      goals: [objection]
+      recast: {text: "non abbia ancora applicato", fix: "non ha ancora presentato domanda", tags: [word-choice]}
+    - learner: "Sì. Propongo una mozione: che entro marzo venga presentata la domanda per il bando, e che il progetto definitivo preveda giardini della pioggia, cioè aiuole leggermente ribassate che raccolgono l'acqua."
+    - tutor: "Proposta chiara e documentata. La mozione viene messa agli atti e sarà votata nella prossima seduta, insieme alla delibera. Grazie del suo intervento."
+      goals: [proposal]
+
+- scenario: consiglio-comunale
+  level: C2
+  persona: en-m-retired
+  history: [comparative]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera, signor presidente, signori consiglieri. Mi chiamo Walter Price, sono in pensione e vivo qui da dodici anni. Sono contrario al progetto, o almeno a questo progetto."
+    - tutor: "Grazie. Una posizione netta, ma con una sfumatura interessante: ci spieghi che cosa non la convince di questo progetto in particolare."
+      goals: [position]
+    - learner: "Il parcheggio si trova a cinquanta metri dall'ambulatorio. Per gli anziani, e per chi è in carrozzina, è più comodo che qualsiasi alternativa: il primo parcheggio libero è a un chilometro."
+      errors: [comparative]
+      gold: {text: "più comodo che qualsiasi alternativa", fix: "più comodo di qualsiasi alternativa"}
+    - tutor: "È un punto che finora nessuno aveva sollevato. Una precisazione, però: «più comodo che qualsiasi alternativa»? Quando il secondo termine del paragone è un nome, la costruzione cambia."
+      prompt: {text: "più comodo che qualsiasi alternativa", tags: [comparative]}
+    - learner: "Più comodo che ogni altra soluzione, intendevo."
+      errors: [comparative]
+      gold: {text: "Più comodo che ogni altra soluzione", fix: "Più comodo di ogni altra soluzione"}
+    - tutor: "Si dice «più comodo di ogni altra soluzione», ma il senso era chiarissimo. Le obietto però che il progetto prevede già sei posti per disabili lungo la strada. Non le bastano?"
+      goals: [arguments]
+      recast: {text: "Più comodo che ogni altra soluzione", fix: "più comodo di ogni altra soluzione", tags: [comparative]}
+    - learner: "Sei posti per un ambulatorio che riceve ottanta persone al giorno? Mi permetta di dubitarne. Se fossero stati consultati i medici, si sarebbe capito subito che ne servono almeno il triplo."
+    - tutor: "Il dato degli ottanta pazienti è rilevante, e mi riprometto di verificarlo. Ha una proposta per conciliare le due esigenze, il verde e l'accesso all'ambulatorio?"
+      goals: [objection]
+    - learner: "Sì: propongo che la parte vicina all'ambulatorio rimanga parcheggio, riservato a disabili e anziani, e che il resto diventi parco. Basterebbe spostare l'ingresso del giardino sul lato opposto."
+    - tutor: "È una soluzione ragionevole, che non cambia la natura del progetto. La invito a presentarla per scritto in segreteria, così potrà essere votata come emendamento. Grazie."
+      goals: [proposal]
+
+- scenario: consiglio-comunale
+  level: C2
+  persona: es-m-worker
+  history: [hypothetical]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera. Sono Martín, faccio il cuoco in una trattoria qui in piazza. Io sono a favore, ma ho in mente un'idea che il progetto non prevede."
+    - tutor: "Ci incuriosisce. Prima, però, ci dica perché è a favore: quali vantaggi vede per il quartiere?"
+      goals: [position]
+    - learner: "Vedo gente. Oggi la piazza è morta: le macchine arrivano, parcheggiano e vanno via. Se ci saria un parco, le famiglie resterebbero, e anche i ristoranti lavorerebbero di più."
+      errors: [hypothetical]
+      gold: {text: "Se ci saria", fix: "Se ci fosse"}
+    - tutor: "Un argomento che i commercianti presenti apprezzeranno. Ma riprenda l'inizio della frase: «se ci saria un parco»? Dopo «se», in un'ipotesi sul presente, quale modo ci vuole?"
+      prompt: {text: "Se ci saria", tags: [hypothetical]}
+    - learner: "Se ci sarebbe un parco?"
+      errors: [hypothetical]
+      gold: {text: "Se ci sarebbe", fix: "Se ci fosse"}
+    - tutor: "Con il congiuntivo: «se ci fosse un parco», le famiglie resterebbero. Le riferisco però un timore di diversi suoi colleghi: senza posti auto, i clienti da fuori potrebbero smettere di venire."
+      goals: [arguments]
+      recast: {text: "Se ci sarebbe", fix: "se ci fosse", tags: [hypothetical]}
+    - learner: "Lo so, ne abbiamo parlato tra noi. Ma i clienti che vengono da fuori sono pochi, e non è detto che smettano: la stazione è a cinque minuti a piedi."
+    - tutor: "Un'osservazione puntuale: la stazione, in effetti, è vicinissima. E l'idea che il progetto non prevede?"
+      goals: [objection]
+    - learner: "Un mercato contadino la domenica mattina, nella parte lastricata del parco. I produttori della zona sarebbero venuti volentieri: ne ho già parlato con quattro o cinque."
+      errors: [conditional-form]
+      gold: {text: "sarebbero venuti volentieri", fix: "verrebbero volentieri"}
+    - tutor: "Un mercato a chilometro zero: idea interessante. Però: «i produttori sarebbero venuti volentieri»? Lei parla di una disponibilità futura, non di un'occasione mancata: quale condizionale serve?"
+      prompt: {text: "sarebbero venuti volentieri", tags: [conditional-form]}
+    - learner: "Verrebbero volentieri, certo. Quindi propongo che nella delibera venga riservato uno spazio per il mercato, con gli allacci per l'acqua e la corrente."
+    - tutor: "Ora è perfetto, e la proposta è concreta. Chiedo che venga trasmessa alla commissione attività produttive, perché ne valuti la fattibilità prima del voto."
+      goals: [proposal]
+
+- scenario: consiglio-comunale
+  level: C2
+  persona: es-f-teacher
+  history: [subjunctive-form]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera. Mi chiamo Carmen Ortega e insegno scienze nella scuola media che si affaccia sul parcheggio. Sono favorevole, e porto dati raccolti dai miei alunni."
+    - tutor: "Dati raccolti dagli alunni: non capita spesso. Prego, ce li illustri."
+      goals: [position]
+    - learner: "Per tre mesi abbiamo misurato la contaminazione dell'aria davanti alla scuola: nelle ore di punta le polveri sottili superavano il limite quasi tutti i giorni. E un alunno su sei soffre d'asma."
+      errors: [false-friend]
+      gold: {text: "la contaminazione dell'aria", fix: "l'inquinamento dell'aria"}
+    - tutor: "L'inquinamento dell'aria davanti a una scuola non è un dettaglio, e la ringrazio del lavoro. Le faccio però un'obiezione: le polveri arrivano anche dalla strada, non solo dal parcheggio. Perché il parco dovrebbe risolvere il problema?"
+      goals: [arguments]
+      recast: {text: "la contaminazione dell'aria", fix: "l'inquinamento dell'aria", tags: [false-friend]}
+    - learner: "Non dico che lo risolva del tutto. Ma se gli alberi fossero piantati lungo la strada, farebbero da filtro; e se il traffico verso il parcheggio sparirebbe, i valori scenderebbero."
+      errors: [hypothetical]
+      gold: {text: "se il traffico verso il parcheggio sparirebbe", fix: "se il traffico verso il parcheggio sparisse"}
+    - tutor: "Il primo ragionamento è ineccepibile. Il secondo un po' meno, ma solo nella forma: «se il traffico verso il parcheggio sparirebbe»? Riconsideri il verbo dopo «se»."
+      prompt: {text: "se il traffico verso il parcheggio sparirebbe", tags: [hypothetical]}
+    - learner: "Se il traffico sparissi, volevo dire."
+      errors: [subjunctive-form]
+      gold: {text: "Se il traffico sparissi", fix: "Se il traffico sparisse"}
+    - tutor: "Il modo, adesso, è quello giusto. Controlli soltanto la persona: «il traffico sparissi»?"
+      prompt: {text: "Se il traffico sparissi", tags: [subjunctive-form]}
+    - learner: "Se il traffico sparisse, certo. Mi perdoni, l'emozione."
+    - tutor: "Non si scusi, capita a tutti in quest'aula. Accetto l'argomento e lo faccio mettere a verbale. Che cosa propone, concretamente, al consiglio?"
+      goals: [objection]
+    - learner: "Propongo che la prima fila di alberi venga piantata già questo autunno, prima ancora che comincino i lavori, e che la scuola adotti l'area e continui le misurazioni."
+    - tutor: "Una proposta concreta e dal costo contenuto. La metto ai voti come mozione collegata alla delibera, e la invito a presentare i dati anche alla commissione ambiente."
+      goals: [proposal]
+
+- scenario: consiglio-comunale
+  level: C2
+  persona: en-m-heritage
+  history: [article-use]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera. Mi chiamo Daniel Russo; i miei nonni erano di qui, e da tre anni ci vivo anch'io. Non sono contrario al parco, ma penso che adesso non è il momento."
+      errors: [subjunctive-use]
+      gold: {text: "penso che adesso non è il momento", fix: "penso che adesso non sia il momento"}
+    - tutor: "Benvenuto, e grazie di essere intervenuto. Prima di proseguire: «penso che adesso non è il momento»? Dopo un verbo d'opinione, il modo dovrebbe cambiare."
+      prompt: {text: "penso che adesso non è il momento", tags: [subjunctive-use]}
+    - learner: "Penso che adesso non sia il momento. Il motivo è semplice: la palestra della scuola elementare è chiusa da due anni per infiltrazioni, e il bilancio non basta per tutto."
+    - tutor: "Ecco una posizione argomentata: il problema della palestra è noto a tutti in quest'aula. Sa dirci quanto costerebbe ripararla?"
+      goals: [position]
+    - learner: "Secondo il preventivo dell'ufficio tecnico, circa trecentomila euro, cioè la metà del costo del parco. Mi sembra che bambini vengano prima degli alberi."
+      errors: [article-use]
+      gold: {text: "che bambini vengano", fix: "che i bambini vengano"}
+    - tutor: "Il confronto tra le due cifre è eloquente. Ma ascolti l'ultima frase: «mi sembra che bambini vengano prima degli alberi»? Parlando di una categoria in generale, davanti al nome manca qualcosa."
+      goals: [arguments]
+      prompt: {text: "che bambini vengano", tags: [article-use]}
+    - learner: "Mi sembra che dei bambini vengano prima degli alberi?"
+      errors: [article-use]
+      gold: {text: "che dei bambini vengano", fix: "che i bambini vengano"}
+    - tutor: "Con l'articolo determinativo: «mi sembra che i bambini vengano prima degli alberi», e su questo nessuno le darà torto. Le obietto però che i fondi del parco arrivano in gran parte dall'Europa e non possono essere spesi per la palestra."
+      recast: {text: "che dei bambini vengano", fix: "che i bambini vengano", tags: [article-use]}
+    - learner: "Questo non lo sapevo, e cambia le cose. Allora propongo di lasciare intatti i fondi europei e di usare per la palestra i soldi del parcheggio interrato, che è stato cancellato l'anno scorso."
+    - tutor: "Un'ammissione onesta e una proposta intelligente: quei fondi, in effetti, sono rimasti liberi. La invito a formalizzarla in una mozione, che sarà discussa insieme alla delibera."
+      goals: [objection, proposal]
+
+- scenario: consiglio-comunale
+  level: C2
+  persona: en-f-student
+  history: [noun-gender]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera. Sono Hannah, studio agraria all'università e vivo qui in affitto. Sono a favore, anzi entusiasta, ma vorrei che il parco non fosse solo da guardare."
+    - tutor: "Entusiasmo e una riserva: ci spieghi meglio. In che senso «non solo da guardare»?"
+      goals: [position]
+    - learner: "Nel senso che la gente dovrebbe poterlo usare e curare. Con il cambiamento del clima, il problema del verde non è solo estetico; e in una parte dell'area si potrebbe ricavare degli orti condivisi."
+      errors: [passive]
+      gold: {text: "si potrebbe ricavare degli orti", fix: "si potrebbero ricavare degli orti"}
+    - tutor: "L'idea degli orti è suggestiva. Ma riguardi il verbo: «si potrebbe ricavare degli orti»? Con il «si» passivante, il verbo si accorda con ciò che segue."
+      prompt: {text: "si potrebbe ricavare degli orti", tags: [passive]}
+    - learner: "Si potrebbero ricavare degli orti, giusto. Altrove funziona: a Bologna ci sono più di duemila orti comunali, e la lista d'attesa è lunghissima."
+    - tutor: "Esatto. Il dato di Bologna fa riflettere. Mi permetta però di farle notare che gli orti vanno recintati, e un parco recintato non è più davvero pubblico."
+      goals: [arguments]
+    - learner: "Non necessariamente. Si possono fare orti aperti, con una siepe bassa al posto del recinto. Funziona come la libreria comunale: tutto è di tutti, e proprio per questo ognuno ne ha cura."
+      errors: [false-friend]
+      gold: {text: "la libreria comunale", fix: "la biblioteca comunale"}
+    - tutor: "Il paragone con la biblioteca comunale è efficace: un bene condiviso, in fondo, si protegge da sé. Qual è, dunque, la sua proposta concreta?"
+      goals: [objection]
+      recast: {text: "la libreria comunale", fix: "la biblioteca comunale", tags: [false-friend]}
+    - learner: "Propongo che una parte dell'area sia destinato agli orti, assegnati a rotazione a scuole e anziani, e che il comune paghi la sistema d'irrigazione."
+      errors: [passive, noun-gender]
+      gold: {text: "una parte dell'area sia destinato", fix: "una parte dell'area sia destinata"}
+    - tutor: "Una proposta dettagliata. Ma ricontrolli l'accordo: «una parte dell'area sia destinato»? Con quale parola deve accordarsi il participio?"
+      prompt: {text: "una parte dell'area sia destinato", tags: [passive]}
+    - learner: "Una parte sia destinata agli orti, appunto. E il sistema d'irrigazione a carico del comune."
+    - tutor: "Ora è tutto in ordine. La proposta viene messa agli atti e trasmessa alla commissione ambiente, che dovrà esprimere un parere prima del voto."
+      goals: [proposal]
+
+- scenario: consiglio-comunale
+  level: C2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "La parola alla cittadinanza. Prego, si presenti e ci spieghi la sua posizione."
+    - learner: "Buonasera. Mi chiamo Inés Herrera, sono una studentessa spagnola e vivo qui da otto mesi. Sono favorevole, a patto che nel parco ci sia posto anche per i giovani."
+    - tutor: "Benvenuta in quest'aula. Che cosa intende, esattamente, con «posto per i giovani»?"
+      goals: [position]
+    - learner: "Oggi i ragazzi del quartiere passano le serate seduti sui muretti del parcheggio, perché non hanno alternative. Di campi da basket, in tutto il quartiere, c'è solo uno."
+      errors: [ci-ne]
+      gold: {text: "c'è solo uno", fix: "ce n'è solo uno"}
+    - tutor: "È un'immagine che molti di noi conoscono. Ma torni sull'ultima frase: «di campi da basket c'è solo uno»? Manca una particella che riprenda «di campi»."
+      prompt: {text: "c'è solo uno", tags: [ci-ne]}
+    - learner: "Ce n'è solo uno, ed è dietro la chiesa, chiuso dopo le sei. Se i ragazzi avessero un posto loro, non sarebbero costretti a stare per strada."
+    - tutor: "Esatto. Le giro però la preoccupazione di molti residenti: un campo da basket fa rumore, la sera, e chi abita lì accanto ha diritto a dormire. Che cosa risponde?"
+      goals: [arguments]
+    - learner: "Rispondo che il campo si può mettere nell'angolo verso la ferrovia, dove non abita nessuno. E che il rumore di un pallone è meno molesto che quello delle macchine alle due di notte."
+      errors: [comparative]
+      gold: {text: "meno molesto che quello", fix: "meno molesto di quello"}
+    - tutor: "Argomento concreto. Solo un dettaglio: «meno molesto che quello delle macchine»? Nel paragone fra due rumori, quale parola introduce il secondo termine?"
+      goals: [objection]
+      prompt: {text: "meno molesto che quello", tags: [comparative]}
+    - learner: "Meno molesto come quello delle macchine?"
+      errors: [comparative]
+      gold: {text: "Meno molesto come quello", fix: "Meno molesto di quello"}
+    - tutor: "«Meno molesto di quello delle macchine»: dopo «meno» e «più», davanti a un pronome, si usa «di». E la sua proposta concreta per il consiglio?"
+      recast: {text: "Meno molesto come quello", fix: "Meno molesto di quello", tags: [comparative]}
+    - learner: "Propongo che il progetto definitivo venga discusso in due o tre incontri aperti ai ragazzi, e che il campo sia costruito nell'angolo verso la ferrovia."
+    - tutor: "Una proposta chiara e coerente con quanto ha detto. Il consiglio la mette agli atti, e gli incontri con i ragazzi potrebbero essere organizzati già a gennaio."
+      goals: [proposal]

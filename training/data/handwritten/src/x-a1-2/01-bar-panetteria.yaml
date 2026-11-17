@@ -1,0 +1,216 @@
+- scenario: bar-colazione
+  level: A1
+  persona: en-f-student
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno! Un cappuccino, per favore.
+    - tutor: Subito! Vuole anche qualcosa da mangiare?
+      goals: [greet, order-drink]
+    - learner: Sì. Come si dice "croissant" in italiano?
+    - tutor: Si dice cornetto. Ne vuole uno?
+    - learner: Sì, un cornetto, grazie. Quanto costa tutto?
+    - tutor: Sono due euro e ottanta.
+      goals: [order-food]
+    - learner: Ecco tre euro.
+    - tutor: Grazie! Ecco il resto. Buona giornata!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-retired
+  history: [modal-infinitive]
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno. Voglio di bere un caffè, per favore.
+      errors: [modal-infinitive]
+    - tutor: Buongiorno! Voglio di bere? C'è una parola in più.
+      goals: [greet]
+      prompt: {text: Voglio di bere, tags: [modal-infinitive]}
+    - learner: Voglio bere un caffè.
+    - tutor: Perfetto! Ecco il caffè. Altro?
+      goals: [order-drink]
+    - learner: Sì, vorrei un cornetto alla crema.
+    - tutor: Ecco il cornetto. Lo mangia qui?
+      goals: [order-food]
+    - learner: Sì, qui. Quanto pago?
+    - tutor: Due euro e cinquanta, grazie.
+    - learner: Ecco. Arrivederci!
+    - tutor: Grazie a Lei! Arrivederci!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: es-m-worker
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno. Un caffè con leche, per favore.
+      errors: [word-choice]
+    - tutor: Buongiorno! Un caffè con latte, subito.
+      goals: [greet, order-drink]
+      recast: {text: con leche, fix: con latte, tags: [word-choice]}
+    - learner: Grazie. Avete anche i cornetti?
+    - tutor: Sì, certo. Con la crema o senza?
+      new: [{lemma: crema, gloss: custard cream}]
+    - learner: Senza crema. Quanto è?
+    - tutor: Sono due euro e sessanta.
+      goals: [order-food]
+    - learner: Scusi, può ripetere?
+    - tutor: Certo. Due euro e sessanta.
+    - learner: Ah, va bene. Ecco.
+    - tutor: Grazie! Buon lavoro!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-traveller
+  history: [noun-gender]
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno! Vorrei una cappuccino e due cornetto.
+      errors: [noun-gender, noun-number]
+    - tutor: Una cappuccino? Cappuccino è maschile...
+      goals: [greet]
+      prompt: {text: una cappuccino, tags: [noun-gender]}
+    - learner: Ah, un cappuccino!
+    - tutor: Esatto! Ecco il cappuccino e due cornetti.
+      goals: [order-drink, order-food]
+    - learner: Grazie! Quanto costa?
+    - tutor: Quattro euro in tutto.
+    - learner: Posso pagare con la carta?
+    - tutor: Certo, nessun problema.
+    - learner: Ecco. Grazie e arrivederci!
+    - tutor: Grazie, buona giornata!
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: es-f-teacher
+  turns:
+    - tutor: Buongiorno! Cosa prende?
+    - learner: Buongiorno. Scusi, che cosa significa "macchiato"?
+    - tutor: Buongiorno! È un caffè con poco latte.
+      goals: [greet]
+    - learner: Ah, capisco. Allora un caffè macchiato, per favore.
+    - tutor: Subito. Qualcosa da mangiare?
+      goals: [order-drink]
+    - learner: Sì, vorrei uno cornetto.
+      errors: [article-form]
+    - tutor: Uno cornetto? Attenzione all'articolo.
+      prompt: {text: uno cornetto, tags: [article-form]}
+    - learner: Un cornetto, scusi.
+    - tutor: Benissimo! Ecco il cornetto.
+      goals: [order-food]
+    - learner: Quanto pago?
+    - tutor: Due euro e settanta, grazie.
+    - learner: Ecco a Lei. Buona giornata!
+    - tutor: Grazie, anche a Lei!
+      goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: en-f-professional
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno! Vorrei mezzo chilo di pane, per favore.
+    - tutor: Certo. Questo pane va bene?
+      goals: [greet]
+    - learner: Sì, va bene. Scusi, come si chiama quello lì?
+    - tutor: Quella è la focaccia. È molto buona!
+      goals: [order-bread]
+    - learner: Allora prendo anche un pezzo di focaccia.
+    - tutor: Ecco qui. Vuole un sacchetto?
+      goals: [order-extra]
+    - learner: Sì, grazie. Quanto pago?
+    - tutor: Quattro euro e venti.
+    - learner: Ecco. Grazie e arrivederci!
+    - tutor: Grazie a Lei, arrivederci!
+      goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: en-m-retired
+  history: [noun-number]
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno. Vorrei un chilo di pane.
+    - tutor: Buongiorno! Ecco un chilo di pane. Altro?
+      goals: [greet, order-bread]
+    - learner: Sì, due etto di focaccia.
+      errors: [noun-number]
+    - tutor: Due etto? Dopo due, la parola cambia.
+      prompt: {text: due etto, tags: [noun-number]}
+    - learner: Due etti di focaccia.
+    - tutor: Esatto! Ecco la focaccia.
+      goals: [order-extra]
+    - learner: Quanto costa tutto?
+    - tutor: Sono sei euro e cinquanta.
+    - learner: Ecco dieci euro.
+    - tutor: Ecco il resto. Grazie e arrivederci!
+      goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno! Vorrei un chilo di pane, per favore.
+    - tutor: Buongiorno! Ecco il pane.
+      goals: [greet, order-bread]
+    - learner: Grazie. Avete anche galletas?
+      errors: [word-choice]
+    - tutor: Sì, abbiamo i biscotti. Sono qui.
+      recast: {text: galletas, fix: biscotti, tags: [word-choice]}
+      new: [{lemma: biscotto, gloss: biscuit}]
+    - learner: Ah, biscotti! Prendo un sacchetto di biscotti.
+    - tutor: Ecco il sacchetto. Altro?
+      goals: [order-extra]
+    - learner: No, grazie. Quanto è?
+    - tutor: Sono cinque euro.
+    - learner: Ecco. Arrivederci!
+    - tutor: Grazie, buona giornata!
+      goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: en-m-heritage
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno! Vorrei tre panino piccolo, per favore.
+      errors: [noun-number, adjective-agreement]
+    - tutor: Buongiorno! Tre panino? Sono tre, non uno...
+      goals: [greet]
+      prompt: {text: tre panino, tags: [noun-number]}
+    - learner: Tre panini!
+    - tutor: Bravo! Ecco tre panini piccoli. Altro?
+      goals: [order-bread]
+    - learner: Sì, una pizza piccola per mio figlio.
+    - tutor: Ecco la pizza. È molto buona!
+      goals: [order-extra]
+    - learner: Grazie. Quanto pago?
+    - tutor: Sei euro, grazie.
+    - learner: Ecco. Buona giornata!
+    - tutor: Grazie, anche a Lei!
+      goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: en-f-student
+  turns:
+    - tutor: Buongiorno! Mi dica.
+    - learner: Buongiorno! Un chilo di pane, per favore.
+    - tutor: Buongiorno! Ecco il pane. Altro?
+      goals: [greet, order-bread]
+    - learner: Sì, vorrei uno focaccia.
+      errors: [noun-gender]
+    - tutor: Uno focaccia? Focaccia è femminile...
+      prompt: {text: uno focaccia, tags: [noun-gender]}
+    - learner: Ah... un focaccia?
+      errors: [noun-gender]
+    - tutor: Una focaccia, certo! Ecco qui.
+      goals: [order-extra]
+      recast: {text: un focaccia, fix: una focaccia, tags: [noun-gender]}
+    - learner: Una focaccia, grazie. Quanto costa?
+    - tutor: Sette euro in tutto.
+    - learner: Ecco. Arrivederci!
+    - tutor: Grazie, arrivederci!
+      goals: [pay]

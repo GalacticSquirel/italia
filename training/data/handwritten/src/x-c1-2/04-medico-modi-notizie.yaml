@@ -1,0 +1,179 @@
+- scenario: medico-specialista
+  level: C1
+  persona: en-m-retired
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Buongiorno, dottoressa. Non benissimo, a essere sincero. Dopo l'influenza di gennaio non mi sono mai ricoverato del tutto: mi stanco facilmente, e quando salgo le scale di casa devo fermarmi a metà."
+      errors: [false-friend]
+    - tutor: "Capisco: quindi dall'influenza non si è più ripreso del tutto. Mi descriva meglio questo affaticamento: sente solo il fiato corto, o anche il battito accelerato o un peso al petto?"
+      recast: {text: "ricoverato del tutto", fix: "ripreso del tutto", tags: [false-friend]}
+    - learner: "Soprattutto il fiato corto. Il battito lo sento accelerare solo sotto sforzo, e torna normale dopo un paio di minuti. Dolori al petto non ne ho mai avuti, ma la sera mi si gonfiano un po' le caviglie, cosa che prima non succedeva."
+    - tutor: "Ha fatto bene a dirmelo, è un dettaglio che conta. In famiglia ci sono stati problemi di cuore o di pressione?"
+      goals: [symptoms]
+    - learner: "Purtroppo sì. Mio padre ha avuto un infarto a sessantadue anni, e mia sorella prende farmaci per la pressione da quando ne aveva quaranta. Io finora me l'ero cavata, ed è per questo che la cosa mi preoccupa."
+    - tutor: "La sua preoccupazione è comprensibile, ma non corriamo troppo. Gli esami dicono che la pressione è un po' alta e che il cuore lavora con una certa fatica: niente, però, che non si possa tenere sotto controllo."
+      goals: [history]
+    - learner: "Mi tolga un dubbio, allora: quando dice che il cuore «lavora con fatica», significa che rischio quello che è capitato a mio padre?"
+    - tutor: "No, non è la stessa cosa. Significa che il cuore spinge il sangue con meno forza del normale, e questo spiega il fiato corto e le caviglie gonfie. Presa in tempo, come nel suo caso, è una condizione che si cura bene."
+      goals: [understand]
+    - learner: "Meno male. E in che cosa consisterebbe la terapia? Glielo chiedo perché mia sorella, con le sue medicine, ha avuto parecchi effetti collaterali."
+    - tutor: "Le prescrivo un farmaco per la pressione e uno che aiuta a eliminare i liquidi. All'inizio potrebbe girarle un po' la testa quando si alza in fretta; se dovesse durare più di una settimana, mi chiami. Ci rivediamo tra un mese per un controllo."
+      goals: [treatment]
+
+- scenario: medico-specialista
+  level: C1
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Buongiorno, dottore. Meglio rispetto all'ultima visita, direi, anche se le palpitazioni non sono sparite. Mi vengono soprattutto la sera, quando mi metto a letto, e durano qualche minuto."
+    - tutor: "Bene che ci sia un miglioramento. Queste palpitazioni arrivano all'improvviso o dopo qualcosa di preciso, per esempio un caffè, una discussione, uno sforzo?"
+      new: [{lemma: palpitazione, gloss: palpitation}]
+    - learner: "Ci ho fatto caso: arrivano nei giorni in cui ho sei ore di lezione di fila e salto il pranzo. Nei fine settimana quasi mai. Per questo temo che è soprattutto una questione di stress."
+      errors: [subjunctive-use]
+    - tutor: "L'osservazione è preziosa, e potrebbe avere ragione. Solo un dettaglio: «temo che è»? Dopo un verbo come «temere» serve un altro modo."
+      goals: [symptoms]
+      prompt: {text: "temo che è", tags: [subjunctive-use]}
+    - learner: "Temo che sia una questione di stress, certo. In famiglia, comunque, di cuore non ha sofferto nessuno, tranne mia nonna materna, che aveva la pressione alta ma è arrivata a novantatré anni."
+    - tutor: "Esatto, e la nonna è un bell'esempio! La storia della sua famiglia mi lascia tranquillo. Anche gli esami sono buoni: il cuore è sano, e questi battiti in più non sono affatto pericolosi."
+      goals: [history]
+    - learner: "Mi fa piacere sentirlo. Però, se sono innocui, perché continuo ad averli? Vorrei capire se devo semplicemente conviverci o se si può fare qualcosa."
+    - tutor: "Domanda giusta. Sono battiti che il cuore aggiunge quando è sotto tensione o a stomaco vuoto: danno fastidio, ma non sono pericolosi. Non occorre che lei prenda farmaci, almeno per ora."
+      goals: [understand]
+    - learner: "Quindi niente terapia? Devo confessare che una parte di me sperava in una pastiglia che risolvesse tutto."
+    - tutor: "Una pastiglia ci sarebbe, ma tra gli effetti collaterali ci sono stanchezza e pressione bassa, e nel suo caso i rischi superano i vantaggi. La vera cura è non saltare i pasti e ridurre il caffè; se tra tre mesi non cambia nulla, ne riparliamo."
+      goals: [treatment]
+
+- scenario: medico-specialista
+  level: C1
+  persona: en-m-traveller
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Buongiorno. Nel complesso bene, ma ho avuto due episodi che mi hanno spaventato. In entrambi i casi stavo correndo e, di colpo, ho sentito il cuore battere in modo irregolare, come se ogni tanto perdesse un colpo."
+    - tutor: "Ha fatto bene a venire. Quanto sono durati questi episodi, e ha dovuto fermarsi? Le è anche girata la testa, o ha avuto la vista annebbiata?"
+    - learner: "Sono durati meno di un minuto. Mi sono fermato per prudenza, ma non ho avuto né giramenti di testa né dolore. A riposo, glielo dico subito, non mi è mai capitato."
+    - tutor: "Chiarissimo, è la precisione che vorrei da tutti i pazienti. Che lei sappia, qualcuno in famiglia ha avuto disturbi del battito, o è morto giovane all'improvviso?"
+      goals: [symptoms]
+    - learner: "Che io sappia, nessuno è morto all'improvviso. Mio nonno paterno però portava un pacemaker, e a mio padre hanno trovato un'aritmia qualche anno fa, durante una visita per la patente."
+    - tutor: "Grazie, è un'informazione utile. Venendo agli esami: a riposo il battito è normale, mentre nella prova sotto sforzo compaiono alcuni battiti irregolari, proprio come quelli che descrive."
+      goals: [history]
+    - learner: "Ecco, è questo che non mi è chiaro. Se a riposo va tutto bene, devo preoccuparmi lo stesso? E soprattutto: posso continuare a correre?"
+    - tutor: "Non c'è motivo di allarmarsi: il cuore in sé è sano. Vorrei però che per un paio di settimane portasse un piccolo apparecchio che registra il battito, così capiamo quanto spesso succede. Nel frattempo può correre, ma senza forzare."
+      goals: [understand]
+    - learner: "D'accordo. E se l'apparecchio confermasse il problema, quali sarebbero le possibilità? Preferirei evitare farmaci a vita, se esiste un'alternativa."
+    - tutor: "Capisco. Spesso basta una terapia leggera, che tra gli effetti collaterali ha al massimo un po' di stanchezza nelle prime settimane; nei casi più difficili esiste un piccolo intervento che risolve il problema. Ma procediamo un passo alla volta: ci vediamo tra quindici giorni."
+      goals: [treatment]
+
+- scenario: modi-di-dire
+  level: C1
+  persona: en-f-student
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Lascia stare, oggi è stata una giornata da incorniciare. Stamattina ho rovesciato il caffè sul portatile, che ovviamente si è spento e non si è più riacceso. E dentro c'era la tesina da consegnare a mezzogiorno."
+    - tutor: "Ahia, cominciamo bene! E la tesina l'avevi salvata da qualche parte, o sei rimasta con un pugno di mosche?"
+      new: [{lemma: rimanere con un pugno di mosche, gloss: to be left empty-handed}]
+    - learner: "Con un pugno di mosche, esatto, questa me la segno! Niente copia, naturalmente. Sono corsa in un negozio di riparazioni e mi hanno recuperato il file in un'ora, ma mi è costato un braccio e una gamba."
+      errors: [word-choice]
+    - tutor: "Ti è costato un occhio della testa, eh? Certi negozi, quando ti vedono disperata, se ne approfittano. Ma almeno la tesina era salva: sei riuscita a consegnarla?"
+      goals: [react]
+      recast: {text: "un braccio e una gamba", fix: "un occhio della testa", tags: [word-choice]}
+    - learner: "Macché. Sono arrivata in facoltà a mezzogiorno e cinque, e la segreteria aveva già chiuso. Ho dovuto scrivere alla professoressa una mail piena di scuse, e non mi ha ancora risposto."
+    - tutor: "Per cinque minuti, che rabbia! Ma dimmi la verità: la colpa è del caffè, della segreteria o un pochino anche tua?"
+      goals: [tell]
+    - learner: "Un pochino mia, lo ammetto. Il caffè poteva capitare a chiunque, ma ridursi all'ultimo giorno e non avere nemmeno una copia è stata una leggerezza. Diciamo che la sfortuna ha trovato la porta aperta."
+    - tutor: "«La sfortuna ha trovato la porta aperta»: questa sì che è da incorniciare! E quindi, che lezione ne tiri fuori?"
+      goals: [blame]
+    - learner: "Che d'ora in poi salvo tutto in tre posti diversi, e che il caffè si beve lontano dal computer. Meglio una pausa di cinque minuti che una figuraccia del genere."
+    - tutor: "Sagge parole. E vedrai che la professoressa chiude un occhio: una giornata storta capita a tutti. Intanto da bere offro io, che te lo sei guadagnato."
+      goals: [moral]
+
+- scenario: modi-di-dire
+  level: C1
+  persona: es-m-worker
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Non me ne parlare. Oggi dovevo presentare il nuovo progetto ai capi, quelli importanti. Mi ero preparato per una settimana, avevo perfino stirato la camicia. Arrivo in sala riunioni, accendo il proiettore e... salta la luce in tutto il palazzo."
+    - tutor: "No! Proprio sul più bello. E tu che cosa hai fatto, sei rimasto lì al buio come un baccalà?"
+      new: [{lemma: restare come un baccalà, gloss: to stand there like a fool}]
+    - learner: "Come un baccalà, sì, per dieci minuti buoni! All'inizio pensavo che un collega mi stesse prendendo i capelli, perché due giorni fa era il mio compleanno. Invece era un guasto vero."
+      errors: [word-choice]
+    - tutor: "Capisco che tu abbia pensato che ti stessero prendendo in giro: come scherzo sarebbe stato perfetto! E poi la luce è tornata, o avete rimandato tutto?"
+      goals: [react]
+      recast: {text: "prendendo i capelli", fix: "prendendo in giro", tags: [word-choice]}
+    - learner: "Non è tornata. Così ho deciso di presentare lo stesso, senza diapositive, disegnando gli schemi su un foglio vicino alla finestra. E sai una cosa? È andata meglio del previsto, perché mi hanno ascoltato invece di leggere lo schermo."
+    - tutor: "Ma allora hai fatto di necessità virtù! Altro che giornata storta. E del guasto, alla fine, di chi era la colpa?"
+      goals: [tell]
+      new: [{lemma: fare di necessità virtù, gloss: to make a virtue of necessity}]
+    - learner: "Dei lavori nel palazzo accanto: avevano tagliato un cavo per sbaglio. Quindi colpa di nessuno dei nostri, per una volta. Anche se, a essere onesti, se avessi stampato una copia della presentazione, come mi aveva consigliato mia moglie, avrei sudato molto meno."
+    - tutor: "Le mogli hanno sempre ragione, ormai dovresti saperlo. E da tutta questa storia che cosa ti porti a casa?"
+      goals: [blame]
+    - learner: "Che un piano B di carta non passa mai di moda, e che a volte un guaio ti costringe a dare il meglio. Però la prossima volta preferirei scoprirlo con la luce accesa."
+    - tutor: "Ben detto! Non tutto il male viene per nuocere, come diciamo noi. Alla tua presentazione al buio, allora: salute!"
+      goals: [moral]
+      new: [{lemma: non tutto il male viene per nuocere, gloss: every cloud has a silver lining}]
+
+- scenario: modi-di-dire
+  level: C1
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Eh, si vede dalla faccia, vero? Dovevo andare a Ischia a trovare la zia per il suo ottantesimo compleanno. Ho sbagliato molo, e quando sono arrivato a quello giusto il traghetto è già partito da cinque minuti."
+      errors: [tense-aspect]
+    - tutor: "Mannaggia, per cinque minuti! Aspetta, però: «il traghetto è già partito»? Se la partenza viene prima del tuo arrivo, che tempo ti serve?"
+      prompt: {text: "il traghetto è già partito", tags: [tense-aspect]}
+    - learner: "Giusto: quando sono arrivato, il traghetto era già partito. E quello dopo era tre ore più tardi, quindi addio pranzo."
+    - tutor: "Ecco, adesso torna. Tre ore sul molo: hai fatto un bel buco nell'acqua, insomma. E la zia come l'ha presa?"
+      new: [{lemma: fare un buco nell'acqua, gloss: to come to nothing}]
+    - learner: "Un buco nell'acqua con vista mare, almeno! La zia ha fatto finta di niente, ma i cugini mi hanno mandato le foto della torta ogni dieci minuti, per farmi rosicare. Sono arrivato al caffè, giusto in tempo per lavare i piatti."
+    - tutor: "I cugini sono fatti apposta per questo. E adesso la domanda scomoda: colpa dei cartelli del porto, o colpa tua?"
+      goals: [tell, react]
+    - learner: "Mezza e mezza. I cartelli al porto di Napoli sono un mistero anche per i napoletani, ma io il biglietto l'avevo guardato di corsa, convinto di ricordarmi il molo dall'estate scorsa. Mi sono fidato della memoria, e la memoria mi ha tradito."
+    - tutor: "Almeno non dai tutta la colpa al porto, bravo. E la lezione qual è?"
+      goals: [blame]
+    - learner: "Che i biglietti si leggono fino in fondo, e che alle feste di famiglia conviene arrivare la sera prima. Così, male che vada, perdi il traghetto ma non la torta."
+    - tutor: "Parole sante! E alla zia la prossima volta porta un bel mazzo di fiori, che con quelli si aggiusta tutto. Dai, ordiniamo qualcosa da mangiare, visto che il pranzo l'hai saltato."
+      goals: [moral]
+
+- scenario: notizie-attualita
+  level: C1
+  persona: en-f-professional
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatta?"
+    - learner: "L'ho seguita, sì. Da quel che ho capito, la nuova legge obbliga chi affitta ai turisti a registrarsi e limita il numero di notti all'anno nei centri storici. Chi supera il limite viene trattato come un'impresa, con tutte le tasse del caso."
+    - tutor: "Hai spiegato la legge meglio della televisione, brava. E ti sembra una buona idea, o la solita legge fatta per finire sui giornali?"
+      goals: [summarise]
+    - learner: "In linea di principio la condivido: in certe città trovare casa è diventato impossibile per chi ci lavora. Però ho qualche dubbio sull'applicazione. Se i controlli non ci sono, pagheranno solo gli onesti, e chi affittava in nero continuerà come prima."
+    - tutor: "Ecco, è esattamente il mio sospetto. Però hai notato come ne hanno parlato i giornali? A leggerne due sembrava che parlassero di due leggi diverse."
+      goals: [opinion]
+    - learner: "Verissimo. Una testata titolava «Stop alla giungla degli affitti», come se fosse una liberazione; un'altra parlava di «stangata sui piccoli proprietari». E c'è già il rumore che il governo cambierà il testo prima dell'estate, anche se nessuno cita una fonte."
+      errors: [false-friend]
+    - tutor: "Gira voce, sì, ma finché nessuno cita una fonte io non ci credo: sono le classiche notizie messe in giro per vedere l'effetto che fanno. Mettiamo però che la legge resti così: secondo te che cosa succederà?"
+      goals: [sources]
+      recast: {text: "il rumore", fix: "voce", tags: [false-friend]}
+    - learner: "Penso che nel breve periodo qualche appartamento tornerà sul mercato degli affitti normali, ma meno di quanto si spera. Se fossi un proprietario con una casa sola, forse venderei. I grandi, invece, troveranno il modo di aggirare il limite."
+    - tutor: "Come sempre: fatta la legge, trovato l'inganno. Temo che tu abbia ragione, anche se mi piacerebbe sbagliarmi. Dai, torniamo alle scrivanie, che il capo ci guarda storto."
+      goals: [consequences]
+      new: [{lemma: "fatta la legge, trovato l'inganno", gloss: every law has its loophole}]
+
+- scenario: notizie-attualita
+  level: C1
+  persona: es-m-worker
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatto?"
+    - learner: "Come no, ieri sera a casa mia non si parlava d'altro. In sostanza hanno deciso che nelle città più turistiche non si potrà affittare una casa ai turisti per più di novanta giorni all'anno, e che ogni appartamento dovrà avere un codice nazionale."
+    - tutor: "Esatto, novanta giorni e il codice. E tu da che parte stai? Io, ti dirò, non ho ancora deciso se è una cosa seria o solo fumo negli occhi."
+      goals: [summarise]
+    - learner: "Io sono combattuto. Da una parte, quando cercavo casa a Firenze ho visto venti annunci per turisti per ogni annuncio normale, quindi qualcosa andava fatto. Dall'altra, conosco una coppia di pensionati che arrotonda così, e non mi sembra giusto trattarli come speculatori."
+    - tutor: "I famosi pensionati: li citano tutti, ma poi salta fuori che la maggior parte degli annunci è in mano a poche società. L'hai letto, l'articolo del giornale economico?"
+      goals: [opinion]
+    - learner: "Sì, e mi ha colpito proprio perché dava i numeri, mentre gli altri davano solo opinioni. Il giornale locale, invece, ha pubblicato una carta aperta degli albergatori, tutta a favore della legge: comprensibile, ma non è proprio una fonte neutrale."
+      errors: [false-friend]
+    - tutor: "Certo, la lettera aperta degli albergatori va presa con le pinze: tirano l'acqua al loro mulino. Bravo che guardi chi parla, oltre a che cosa dice. E adesso, secondo te, che succede?"
+      goals: [sources]
+      recast: {text: "carta aperta", fix: "lettera aperta", tags: [false-friend]}
+      new: [{lemma: tirare l'acqua al proprio mulino, gloss: to act in one's own interest}, {lemma: prendere con le pinze, gloss: to take with a pinch of salt}]
+    - learner: "Credo che i prezzi degli affitti non scenderanno subito, come qualcuno promette. Può darsi che tra un paio d'anni si veda qualche effetto, sempre che i Comuni facciano i controlli. Se la legge restasse sulla carta, sarebbe l'ennesima occasione persa."
+    - tutor: "Sempre che facciano i controlli: è lì che casca l'asino. Vedremo tra due anni chi aveva ragione. Intanto il caffè lo pago io, che questa chiacchierata valeva più dei giornali."
+      goals: [consequences]
+      new: [{lemma: qui casca l'asino, gloss: that's the stumbling block}]

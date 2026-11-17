@@ -1,4 +1,5 @@
-"""Markdown evaluation report: metric table, per-level view, move confusion, win rates, device."""
+"""Markdown evaluation report: parity verdict, metric table, per-level view, move confusion, win
+rates, device speed."""
 
 from __future__ import annotations
 
@@ -22,11 +23,31 @@ METRICS: tuple[tuple[str, str, bool, str], ...] = (
     ("move_accuracy", "Feedback move accuracy", True, "pct"),
     ("over_correction", "Over-correction (corrected a correct turn)", False, "pct"),
     ("under_correction", "Under-correction (missed a due correction)", False, "pct"),
+    ("correction_accuracy", "Correction accuracy (due correction, right error)", True, "pct"),
+    ("prompt_leak_rate", "Prompts that give the answer away", False, "pct"),
     ("recast_correctness", "Recast correctness", True, "pct"),
     ("tag_f1_micro", "Error-tag F1 (micro)", True, "num"),
     ("tag_f1_macro", "Error-tag F1 (macro)", True, "num"),
     ("annotation_consistency", "Annotation consistency", True, "pct"),
 )
+
+
+PARITY: tuple[tuple[str, float], ...] = (
+    ("json_validity", 0.01),
+    ("move_accuracy", 0.05),
+    ("correction_accuracy", 0.05),
+    ("over_correction", 0.03),
+    ("prompt_leak_rate", 0.03),
+    ("recast_correctness", 0.05),
+    ("lt_errors_per_100_words", 0.3),
+    ("out_of_band_token_rate", 0.02),
+    ("italian_only", 0.02),
+)
+"""Headline metrics and how far below the reference a system may fall and still be on par
+(absolute: fractions for percentages, errors per 100 words for LanguageTool)."""
+
+PARITY_WIN_RATE = 0.45
+"""A judge win rate against the reference at or above this counts as on par (0.5 is a tie)."""
 
 
 @dataclass(frozen=True)
@@ -81,6 +102,67 @@ def _metrics_section(scores: Sequence[SystemScores]) -> list[str]:
         arrow = "higher" if higher else "lower"
         lines.append(f"| {label} ({arrow} is better) | " + " | ".join(cells) + " |")
     return [*lines, ""]
+
+
+def _on_par(value: float, reference: float, higher: bool, tolerance: float) -> bool:
+    return value >= reference - tolerance if higher else value <= reference + tolerance
+
+
+def _parity_section(
+    scores: Sequence[SystemScores], reference: str | None, win_rates: Sequence[WinRate]
+) -> list[str]:
+    """Each system against the reference: per headline metric, on par within a tolerance."""
+    ref = next((s for s in scores if s.system == reference), None)
+    others = [s for s in scores if s.system != reference]
+    if ref is None or not others:
+        return []
+    labels = {key: (label, higher, kind) for key, label, higher, kind in METRICS}
+    ref_summary = ref.summary()
+    summaries = {s.system: s.summary() for s in others}
+    lines = [
+        f"## Parity with the reference ({ref.system})",
+        "",
+        "A system is on par on a metric when it is no worse than the reference by more than the",
+        f"tolerance; on the judge when its win rate against the reference is at least "
+        f"{_fmt(PARITY_WIN_RATE, 'pct')}.",
+        "",
+        "| Metric | Tolerance | " + ref.system + " | " + " | ".join(summaries) + " |",
+        "|---|---|---|" + "---|" * len(summaries),
+    ]
+    passed: dict[str, list[bool]] = {name: [] for name in summaries}
+    for key, tolerance in PARITY:
+        label, higher, kind = labels[key]
+        cells = []
+        for name, summary in summaries.items():
+            ok = _on_par(summary[key], ref_summary[key], higher, tolerance)
+            passed[name].append(ok)
+            cells.append(f"{_fmt(summary[key], kind)} {'on par' if ok else 'below'}")
+        lines.append(
+            f"| {label} | {_fmt(tolerance, kind)} | {_fmt(ref_summary[key], kind)} | "
+            + " | ".join(cells)
+            + " |"
+        )
+    judged = {w.system: w for w in win_rates if w.opponent == reference}
+    if judged:
+        cells = []
+        for name in summaries:
+            w = judged.get(name)
+            if w is None:
+                cells.append("not judged")
+                continue
+            ok = w.win_rate >= PARITY_WIN_RATE
+            passed[name].append(ok)
+            cells.append(f"{_fmt(w.win_rate, 'pct')} {'on par' if ok else 'below'}")
+        lines.append(
+            f"| Judge win rate vs reference | min {_fmt(PARITY_WIN_RATE, 'pct')} | 50.0% | "
+            + " | ".join(cells)
+            + " |"
+        )
+    verdicts = [
+        f"{name}: {sum(oks)}/{len(oks)} on par" + (" (parity reached)" if all(oks) else "")
+        for name, oks in passed.items()
+    ]
+    return [*lines, "", *[f"- {v}" for v in verdicts], ""]
 
 
 def _ratio(numerator: int, denominator: int) -> str:
@@ -177,12 +259,15 @@ def render_report(
     scores: Sequence[SystemScores],
     win_rates: Sequence[WinRate] = (),
     bench: Sequence[BenchRow] = (),
+    *,
     notes: Sequence[str] = (),
+    reference: str | None = None,
 ) -> str:
     lines = [f"# {title}", ""]
     if scores:
         n = scores[0].items
         lines += [f"Held-out items: {n} tutor turns from evaluation-only scenarios.", ""]
+    lines += _parity_section(scores, reference, win_rates)
     lines += _metrics_section(scores)
     lines += _level_section(scores)
     lines += _moves_section(scores)
