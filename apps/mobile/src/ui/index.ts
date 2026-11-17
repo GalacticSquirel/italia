@@ -21,3 +21,4 @@ export { TextField, type TextFieldProps } from './TextField';
 export { ThemeProvider, useTheme, type ThemeProviderProps } from './ThemeProvider';
 export * from './tokens';
 export { useScreenReaderEnabled } from './useScreenReaderEnabled';
+export { useKeyboardHeight } from './useKeyboardHeight';

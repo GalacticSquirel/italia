@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { KeyboardAvoidingView, ScrollView, View, type ScrollViewInstance } from 'react-native';
+import { ScrollView, View, type ScrollViewInstance } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import {
@@ -17,7 +17,7 @@ import { schedulerFor } from '@/features/study/planning';
 import { usePracticeSession } from '@/features/study/usePracticeSession';
 import { sayItalian, useSpeech } from '@/speech';
 import { useTutor, type PowerAdvice } from '@/tutor';
-import { Button, Chip, EmptyState, Text, TextField, useTheme } from '@/ui';
+import { Button, Chip, EmptyState, Text, TextField, useKeyboardHeight, useTheme } from '@/ui';
 
 import { LearnerBubble, TutorBubble } from './components/ChatBubble';
 import { ConversationSummaryView } from './components/ConversationSummaryView';
@@ -53,6 +53,7 @@ function Chat({
   const speech = useSpeech();
   const rate = useSettingsStore((s) => s.settings.speechRate);
   const { colors, spacing } = useTheme();
+  const keyboard = useKeyboardHeight();
   const [draft, setDraft] = useState('');
   const [voice, setVoice] = useState(true);
   const [notice, setNotice] = useState<string | null>(null);
@@ -131,9 +132,8 @@ function Chat({
   const goals = context.scenario.goals;
 
   return (
-    // Edge to edge, Android does not resize the window for the keyboard,
-    // so pad for it on both platforms to keep the message box visible.
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+    // Pad for the keyboard to keep the message box above it (useKeyboardHeight).
+    <View style={{ flex: 1, paddingBottom: keyboard }}>
       <View
         style={{
           flexDirection: 'row',
@@ -275,7 +275,7 @@ function Chat({
           />
         </View>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
