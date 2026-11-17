@@ -153,8 +153,11 @@ describe('reader', () => {
     const user = userEvent.setup();
     await renderStory();
     expect(screen.queryByText('Marco is at home.')).toBeNull();
-    await user.press(screen.getByRole('button', { name: 'Show the translation of sentence 1' }));
+    // The sentence's buttons stay hidden until the sentence is tapped.
+    expect(screen.queryByRole('button', { name: 'Play sentence 1' })).toBeNull();
+    await user.press(screen.getByTestId('sentence-0'));
     expect(screen.getByText('Marco is at home.')).toBeOnTheScreen();
+    expect(screen.getByRole('button', { name: 'Play sentence 1' })).toBeOnTheScreen();
     await user.press(screen.getByRole('button', { name: 'Hide the translation of sentence 1' }));
     expect(screen.queryByText('Marco is at home.')).toBeNull();
 
@@ -169,6 +172,7 @@ describe('reader', () => {
   it('plays a sentence with the device voice when the neural voice is not installed', async () => {
     const user = userEvent.setup();
     const { services } = await renderStory();
+    await user.press(screen.getByTestId('sentence-1'));
     await user.press(screen.getByRole('button', { name: 'Play sentence 2' }));
     expect(services.audio.spoken.map((s) => s.text)).toContain('La casa è molto bella.');
     expect(
@@ -176,6 +180,13 @@ describe('reader', () => {
         /^Device voice · word highlighting estimated from text length · Download recorded audio/,
       ),
     ).toBeOnTheScreen();
+  });
+
+  it('steps the playback speed with one button', async () => {
+    const user = userEvent.setup();
+    await renderStory();
+    await user.press(screen.getByRole('button', { name: 'Playback speed 1 times' }));
+    expect(screen.getByRole('button', { name: 'Playback speed 1.1 times' })).toBeOnTheScreen();
   });
 
   it('runs the comprehension check, then marks the story read and counts the words met', async () => {

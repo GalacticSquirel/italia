@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 
-import { Button, SegmentedControl, Text, useTheme } from '@/ui';
+import { Button, Text, useTheme } from '@/ui';
 
 import type { PlaybackState } from '../playback/playbackController';
 
@@ -55,7 +55,7 @@ function voiceLine(state: PlaybackState): string | null {
 
 /**
  * Story playback controls: play or pause the whole story (from the current
- * sentence), the speed (0.75 to 1.25), and an honest note on the voice and
+ * sentence), the speed (one button that steps from 0.75 to 1.25), and an honest note on the voice and
  * on whether word highlighting is measured or estimated.
  */
 export function PlaybackBar({ state, sentenceCount, onToggle, onRate }: PlaybackBarProps) {
@@ -81,6 +81,15 @@ export function PlaybackBar({ state, sentenceCount, onToggle, onRate }: Playback
             onPress={onToggle}
           />
         </View>
+        <Button
+          label={`${speed}×`}
+          variant="secondary"
+          accessibilityLabel={`Playback speed ${speed} times`}
+          accessibilityHint="Changes to the next speed, from 0.75 to 1.25"
+          onPress={() => {
+            onRate(Number(SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length]));
+          }}
+        />
         <Text
           variant="caption"
           color="textMuted"
@@ -89,14 +98,6 @@ export function PlaybackBar({ state, sentenceCount, onToggle, onRate }: Playback
           {`${String(state.sentenceIndex + 1)} / ${String(sentenceCount)}`}
         </Text>
       </View>
-      <SegmentedControl
-        label="Playback speed"
-        options={SPEEDS.map((s) => ({ value: s, label: `${s}×` }))}
-        value={speed}
-        onChange={(v) => {
-          onRate(Number(v));
-        }}
-      />
       {line ? (
         <Text
           variant="caption"

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
-import { Button, Chip, minTouchTarget, Text, useTheme } from '@/ui';
+import { Button, Chip, minTouchTarget, Text, useScreenReaderEnabled, useTheme } from '@/ui';
 
 import type { ReaderSentence } from '../storyModel';
 
@@ -38,9 +38,11 @@ function pieces(sentence: ReaderSentence) {
 
 /**
  * One sentence of the story: tappable words (opening the word sheet), with
- * the spoken word highlighted while it plays, a play button and an English
- * translation toggle (also on tapping the sentence outside its words). In
- * listening-first mode the text stays hidden until tapped.
+ * the spoken word highlighted while it plays. Tapping the sentence outside
+ * its words shows its English with a play button and a hide toggle; those
+ * buttons stay hidden otherwise so the story reads as text, not as a column
+ * of buttons (a screen reader user always gets them). In listening-first
+ * mode the text stays hidden until tapped.
  */
 export const SentenceView = memo(function SentenceView({
   sentence,
@@ -55,6 +57,7 @@ export const SentenceView = memo(function SentenceView({
   onPlay,
 }: SentenceViewProps) {
   const { colors, spacing, radii, typography } = useTheme();
+  const screenReader = useScreenReaderEnabled();
   const number = sentence.index + 1;
   const reading = {
     fontSize: typography.heading.fontSize,
@@ -152,29 +155,31 @@ export const SentenceView = memo(function SentenceView({
           {sentence.en}
         </Text>
       ) : null}
-      <View style={[styles.actions, { gap: spacing.sm }]}>
-        <Button
-          variant="secondary"
-          size="compact"
-          label="Play"
-          accessibilityLabel={`Play sentence ${String(number)}`}
-          onPress={() => {
-            onPlay(sentence.index);
-          }}
-        />
-        <Chip
-          label={showTranslation ? 'Hide English' : 'English'}
-          accessibilityLabel={
-            showTranslation
-              ? `Hide the translation of sentence ${String(number)}`
-              : `Show the translation of sentence ${String(number)}`
-          }
-          selected={showTranslation}
-          onPress={() => {
-            onToggleTranslation(sentence.index);
-          }}
-        />
-      </View>
+      {showTranslation || screenReader ? (
+        <View style={[styles.actions, { gap: spacing.sm }]}>
+          <Button
+            variant="secondary"
+            size="compact"
+            label="Play"
+            accessibilityLabel={`Play sentence ${String(number)}`}
+            onPress={() => {
+              onPlay(sentence.index);
+            }}
+          />
+          <Chip
+            label={showTranslation ? 'Hide English' : 'English'}
+            accessibilityLabel={
+              showTranslation
+                ? `Hide the translation of sentence ${String(number)}`
+                : `Show the translation of sentence ${String(number)}`
+            }
+            selected={showTranslation}
+            onPress={() => {
+              onToggleTranslation(sentence.index);
+            }}
+          />
+        </View>
+      ) : null}
     </Pressable>
   );
 });
