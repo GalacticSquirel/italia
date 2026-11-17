@@ -1,0 +1,213 @@
+# C1, correction-dense (continued): comparativi, concessive, futuro nel passato, registro, accordo del passivo.
+- scenario: smartworking
+  level: C1
+  persona: es-m-worker
+  history: [comparative]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Da settembre vado in ufficio quattro giorni su cinque. Il mio capo dice che in presenza siamo più produttivi, ma secondo me non è vero: a casa lavoravo tanto come in ufficio, se non di più."
+    errors: [comparative]
+  - tutor: "Quattro giorni, che cambiamento! Però \"tanto come in ufficio\": in italiano, dopo \"tanto\", il paragone si completa con un'altra parola."
+    prompt: {text: "tanto come in ufficio", tags: [comparative]}
+  - learner: "A casa lavoravo tanto quanto in ufficio, se non di più."
+  - tutor: "Esatto. E allora, che cosa ti piaceva di più del lavoro da casa?"
+    goals: [situation]
+  - learner: "Soprattutto il tempo: risparmiavo un'ora e mezza di traffico al giorno. E poi riuscivo a pranzare con mia figlia quando tornava da scuola."
+  - tutor: "Un'ora e mezza al giorno, non è poco. Ma qualche svantaggio c'era, no?"
+    goals: [pros]
+  - learner: "Sì, certo. Mi sentivo un po' isolato, e certe decisioni si prendevano alla macchinetta del caffè senza di me. E a casa, con i bambini, era difficile concentrarsi."
+  - tutor: "Le decisioni alla macchinetta, un classico! Quindi, se potessi scegliere, che cosa faresti?"
+    goals: [cons]
+  - learner: "Preferirei che mi lasciano lavorare da casa almeno due giorni. Così vedrei i colleghi senza perdere tutto quel tempo in macchina."
+    errors: [subjunctive-use]
+  - tutor: "Mi sembra ragionevole. Però, se al tuo capo dici \"preferirei che mi lasciano\", gli dai un motivo per dirti di no! Riprova a costruire la frase."
+    prompt: {text: "Preferirei che mi lasciano", tags: [subjunctive-use]}
+  - learner: "Preferirei che mi lasciassero lavorare da casa almeno due giorni."
+  - tutor: "Perfetto, così il tuo capo non avrà niente da dire. Proponiglielo: tre giorni in ufficio e due a casa mi sembra un buon compromesso."
+    goals: [preference]
+
+- scenario: trattativa-affitto
+  level: C1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, molto, soprattutto la luce e la cucina. Però ho un dubbio: il piso è al quarto piano e non c'è l'ascensore, e io ho una bicicletta."
+    errors: [false-friend]
+  - tutor: "Capisco, l'appartamento è al quarto piano senza ascensore. Per la bicicletta, però, c'è un cortile interno con un posto apposta."
+    recast: {text: "il piso", fix: "l'appartamento", tags: [false-friend]}
+    goals: [interest]
+  - learner: "Questo mi tranquillizza. Il canone però è un po' alto per me: settecento euro più le spese. Sarei disposta a firmare subito, a patto che il proprietario accetta di scendere a seicentocinquanta."
+    errors: [subjunctive-use]
+  - tutor: "Proposta chiara. Solo una cosa: dopo \"a patto che\" il verbo non può restare all'indicativo. Come lo direbbe?"
+    prompt: {text: "a patto che il proprietario accetta", tags: [subjunctive-use]}
+  - learner: "A patto che il proprietario accetti di scendere a seicentocinquanta."
+  - tutor: "Esatto. Ho sentito il proprietario stamattina: arriva a seicentosettanta, se lei firma per quattro anni più quattro."
+    goals: [negotiate]
+  - learner: "Seicentosettanta va bene. E se dovessi lasciare l'appartamento prima, quanti mesi di preavviso si deve dare?"
+    errors: [passive]
+  - tutor: "Bene. Riascolti però la fine della domanda: \"quanti mesi... si deve dare\". Con un plurale come \"mesi\", il verbo si accorda?"
+    prompt: {text: "si deve dare", tags: [passive]}
+  - learner: "Quanti mesi di preavviso si devono dare?"
+  - tutor: "Perfetto. Sei mesi, con una lettera raccomandata. Il deposito, invece, è di due mensilità."
+    goals: [conditions]
+  - learner: "D'accordo, mi sembra tutto chiaro. Allora accetto: può preparare il contratto per la settimana prossima?"
+  - tutor: "Certo, glielo preparo per martedì. Congratulazioni, e benvenuta nel quartiere!"
+    goals: [conclude]
+
+- scenario: trattativa-fornitore
+  level: C1
+  persona: en-m-heritage
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno. Sì, la chiamo proprio per quello. Capisco l'aumento delle materie prime, ma il quindici per cento tutto in una volta, per noi, è difficile da sostenere."
+  - tutor: "Lo capisco, ma è un aumento che abbiamo applicato a tutti i clienti, senza eccezioni."
+    goals: [problem]
+  - learner: "Però noi non siamo un cliente qualsiasi: siamo stati vostri clienti da dodici anni e non abbiamo mai pagato in ritardo. Credo che questo conti qualcosa."
+    errors: [tense-aspect]
+  - tutor: "Ha ragione, siete tra i clienti più affidabili. Però \"siamo stati vostri clienti da dodici anni\": il rapporto è finito o continua ancora oggi?"
+    prompt: {text: "siamo stati vostri clienti da dodici anni", tags: [tense-aspect]}
+  - learner: "Continua, certo: siamo vostri clienti da dodici anni."
+  - tutor: "Ecco, ed è proprio per questo che sono disposto a parlarne. Che cosa propone?"
+    goals: [argue]
+  - learner: "Accetteremmo un aumento dell'otto per cento, se ci garantirebbe lo stesso prezzo per tutto il prossimo anno. In cambio aumenteremmo gli ordini del venti per cento."
+    errors: [hypothetical]
+  - tutor: "Una proposta seria. Però guardi la prima parte: \"se ci garantirebbe\". Dopo quel \"se\", il condizionale ci può stare?"
+    prompt: {text: "se ci garantirebbe", tags: [hypothetical]}
+  - learner: "Se ci garantisse lo stesso prezzo per tutto il prossimo anno, volevo dire."
+  - tutor: "Perfetto. L'otto è troppo poco, ma potrei arrivare al dieci, bloccato per dodici mesi, con ordini più alti del venti per cento, come dice lei."
+    goals: [counteroffer]
+  - learner: "Il dieci per cento per dodici mesi ci sta bene. Mi mandi la proposta per iscritto, così la faccio firmare dal direttore entro venerdì."
+  - tutor: "Gliela mando oggi pomeriggio. Grazie per la franchezza: è un piacere trattare con chi conosce così bene i propri conti."
+    goals: [agreement]
+
+- scenario: trattativa-fornitore
+  level: C1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno. Sì, e devo dirle che l'aumento ci ha colto di sorpresa. Se ce lo dicevate un mese fa, avremmo potuto adeguare i nostri prezzi in tempo."
+    errors: [hypothetical]
+  - tutor: "Capisco il disagio. Ma in una trattativa \"se ce lo dicevate\" suona un po' troppo parlato: come costruirebbe l'ipotesi nel passato?"
+    prompt: {text: "Se ce lo dicevate", tags: [hypothetical]}
+  - learner: "Se ce lo aveste detto un mese fa, avremmo potuto adeguare i nostri prezzi in tempo."
+  - tutor: "Ha ragione, avremmo dovuto avvisarvi prima, e me ne scuso. Ma i costi sono aumentati per tutti, anche per noi."
+    goals: [problem]
+  - learner: "Lo so bene. Però siamo una piccola azienda e il nostro margine è già ridotto. Abbiamo sempre rispettato i contratti, anche durante la pandemia, quando molti vostri clienti hanno sospeso gli ordini."
+  - tutor: "È vero, e non l'abbiamo dimenticato. Che cosa le servirebbe per continuare a lavorare con noi?"
+    goals: [argue]
+  - learner: "Le propongo un aumento del sette per cento subito e il resto da giugno, se i prezzi delle materie prime restano alti. Aspetto che mi contesti entro domani, perché dobbiamo chiudere il budget."
+    errors: [false-friend]
+  - tutor: "Non serve che io le risponda domani: posso darle una risposta adesso. Il sette per cento subito va bene, ma il resto da aprile, non da giugno."
+    recast: {text: "mi contesti", fix: "le risponda", tags: [false-friend]}
+    goals: [counteroffer]
+  - learner: "Aprile è un po' presto, ma possiamo incontrarci a metà strada: da maggio. Se è d'accordo, chiudiamo così."
+  - tutor: "Va bene, da maggio. Le mando la conferma scritta entro stasera, con le nuove condizioni."
+    goals: [agreement]
+
+- scenario: intelligenza-artificiale
+  level: C1
+  persona: en-f-professional
+  turns:
+  - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+  - learner: "Capisco la paura, ma non sono così pessimista. Per quanto queste tecnologie sono brave, hanno ancora bisogno di qualcuno che le controlli."
+    errors: [subjunctive-use]
+  - tutor: "Ottimista, tu! Però \"per quanto... sono brave\": quando ammetti qualcosa con questa espressione, il verbo vuole un altro modo."
+    prompt: {text: "Per quanto queste tecnologie sono brave", tags: [subjunctive-use]}
+  - learner: "Per quanto queste tecnologie siano brave, hanno ancora bisogno di qualcuno che le controlli."
+  - tutor: "Va bene, ma quelli che controllano saranno pochi. Fammi un esempio concreto di un lavoro che l'intelligenza artificiale ha migliorato, invece di eliminarlo."
+    goals: [position]
+  - learner: "Nel mio studio legale la usiamo per leggere i contratti lunghi e trovare le clausole rischiose. Prima un praticante ci metteva due giorni, adesso due ore, e intanto si occupa dei clienti. La tecnologia gioca un ruolo di assistente, non di sostituto."
+    errors: [word-choice]
+  - tutor: "Quindi ha un ruolo di assistente, non di sostituto. Però ammetterai che uno studio che prima aveva bisogno di tre praticanti adesso ne prende uno solo."
+    recast: {text: "gioca un ruolo", fix: "ha un ruolo", tags: [word-choice]}
+    goals: [evidence]
+  - learner: "Questo è vero, non posso negarlo. Se fosse solo una questione di efficienza, molte aziende avevano già licenziato metà del personale."
+    errors: [hypothetical]
+  - tutor: "Vedi che ci arrivi anche tu? Però \"se fosse... avevano già licenziato\": la conseguenza dell'ipotesi è costruita bene?"
+    prompt: {text: "molte aziende avevano già licenziato", tags: [hypothetical]}
+  - learner: "Se fosse solo una questione di efficienza, molte aziende avrebbero già licenziato metà del personale."
+  - tutor: "Esatto. Quindi abbiamo ragione tutti e due?"
+    goals: [concede]
+  - learner: "Direi di sì: il rischio è reale, ma dipende da come si preparano le aziende e la scuola. Su una cosa siamo d'accordo: bisogna investire nella formazione, e subito."
+  - tutor: "Su questo brindo volentieri. Ma tra dieci anni ci rivediamo a questa tavola e vediamo chi aveva ragione!"
+    goals: [conclude]
+
+- scenario: notizie-attualita
+  level: C1
+  persona: es-m-worker
+  turns:
+  - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatto?"
+  - learner: "Sì, l'ho letta su tutti i periodici. In sintesi, chi affitta ai turisti dovrà registrarsi e non potrà superare novanta notti all'anno nel centro storico."
+    errors: [false-friend]
+  - tutor: "Era su tutti i giornali, infatti. Ma tu che ne pensi, ha senso?"
+    recast: {text: "periodici", fix: "giornali", tags: [false-friend]}
+    goals: [summarise]
+  - learner: "In parte sì. Il problema esiste: nel mio quartiere metà dei palazzi ormai è fatta di case vacanza. Però mi sembra una legge scritta di fretta, senza ascoltare i piccoli proprietari."
+  - tutor: "Di fretta, dici? Io non ne sono così sicuro. Hai notato come l'hanno raccontata i diversi giornali?"
+    goals: [opinion]
+  - learner: "Sì. Un quotidiano nazionale ha intervistato il ministro, che già a marzo aveva promesso che la legge riporterà i residenti nei centri storici. Un giornale locale, invece, scriveva che i proprietari erano pronti a fare ricorso."
+    errors: [conditional-form]
+  - tutor: "Due versioni opposte, tipico. Ma la promessa è di marzo: \"aveva promesso che riporterà\". Come si esprime un futuro visto da un momento del passato?"
+    prompt: {text: "aveva promesso che la legge riporterà", tags: [conditional-form]}
+  - learner: "Aveva promesso che la legge avrebbe riportato i residenti nei centri storici."
+  - tutor: "Esatto. E secondo te, alla fine, che cosa succederà davvero?"
+    goals: [sources]
+  - learner: "Non mi stupirebbe che i prezzi degli affitti lunghi salgono ancora, almeno all'inizio, perché tutti cercheranno casa nello stesso momento."
+    errors: [subjunctive-use]
+  - tutor: "Allora non sono l'unico a vedere nero! Però \"non mi stupirebbe che... salgono\": prova a ripetere la frase pensando a quel condizionale iniziale."
+    prompt: {text: "Non mi stupirebbe che i prezzi degli affitti lunghi salgono", tags: [subjunctive-use]}
+  - learner: "Non mi stupirebbe che i prezzi degli affitti lunghi salissero ancora."
+  - tutor: "Perfetto. Su questo siamo d'accordo: vedremo tra un anno. Andiamo, che la riunione comincia tra due minuti."
+    goals: [consequences]
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: en-m-heritage
+  history: [register]
+  turns:
+  - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+  - learner: "Ha fatto bene a venire, si accomodi. Capisco che sei arrabbiata: raccontami tutto con calma."
+    errors: [register]
+  - tutor: "Grazie. Però, scusi... \"sei arrabbiata\", \"raccontami\"? Finora ci siamo sempre dati del lei, in ufficio."
+    prompt: {text: "Capisco che sei arrabbiata", tags: [register]}
+  - learner: "Ha ragione, mi scusi: capisco che sia arrabbiata, mi racconti tutto con calma."
+  - tutor: "Ieri Giulia ha presentato il nuovo piano di marketing come se fosse un'idea sua. Ma quel piano l'abbiamo scritto insieme, e la parte sui social l'ho fatta io, da sola."
+  - learner: "Capisco che sia frustrante vedere il proprio lavoro presentato da un'altra persona. Prima di parlare con Giulia, però, vorrei capire una cosa: il documento finale chi l'ha mandato al direttore?"
+  - tutor: "L'ha mandato lei, dal suo indirizzo, e nel messaggio il mio nome non c'era da nessuna parte."
+    goals: [listen, clarify]
+  - learner: "Capisco. Sa, non escludo che Giulia ha dimenticato di metterla in copia per distrazione: era molto sotto pressione per la scadenza. Ma questo non giustifica quello che ha detto alla riunione."
+    errors: [subjunctive-use]
+  - tutor: "Distrazione, dice lei. Però \"non escludo che Giulia ha dimenticato\": dopo \"non escludo\", quel verbo va bene così?"
+    prompt: {text: "non escludo che Giulia ha dimenticato", tags: [subjunctive-use]}
+  - learner: "Non escludo che Giulia abbia dimenticato di metterla in copia per distrazione."
+  - tutor: "Può darsi, ma non mi basta. Che cosa intende fare?"
+    goals: [perspective]
+  - learner: "Propongo una riunione con tutti e tre domani mattina, per chiarire chi ha fatto che cosa. E d'ora in poi ogni documento uscirà con i nomi di tutti gli autori, senza eccezioni."
+  - tutor: "Mi sembra giusto, e la regola dei nomi mi piace. Va bene, domani alle nove: grazie per avermi ascoltata."
+    goals: [solution]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Abito in via Cavour e da settembre c'è un cantiere aperto davanti al portone. Le transenne sono state lasciate in mezzo al marciapiede e le buche non sono mai state coperto."
+    errors: [passive]
+  - tutor: "Capisco, deve essere difficile passare di lì ogni giorno. Ma ascolti di nuovo la fine: \"le buche non sono mai state coperto\". L'accordo regge?"
+    prompt: {text: "non sono mai state coperto", tags: [passive]}
+  - learner: "Le buche non sono mai state coperte, scusi."
+  - tutor: "Esatto. Ha già fatto una segnalazione al Comune?"
+    goals: [describe]
+  - learner: "Sì, due volte, per posta elettronica. Mi hanno risposto che i lavori si concluderanno presto, ma \"presto\" non vuol dire niente. Voglio che mi danno una data precisa."
+    errors: [subjunctive-use]
+  - tutor: "Ha ragione a chiedere una risposta precisa. Solo una cosa: dopo \"voglio che\", il verbo può restare così?"
+    prompt: {text: "Voglio che mi danno", tags: [subjunctive-use]}
+  - learner: "Voglio che mi diano una data precisa."
+  - tutor: "Perfetto. Purtroppo io una data non ce l'ho: dipende dall'impresa e dall'ufficio tecnico. Posso però registrare un reclamo formale, che deve ricevere una risposta scritta."
+    goals: [insist]
+  - learner: "Va bene, lo registri. E se la risposta non arriva, a chi mi posso rivolgere? Ho sentito dire che esiste un difensore civico."
+  - tutor: "Sì, può rivolgersi al difensore civico se entro trenta giorni non riceve risposta. Ecco il modulo del reclamo: lo firmi qui in basso."
+    goals: [rights]
+  - learner: "Fatto. Mi lascia anche il numero di protocollo, per favore? Così, se devo mandare un sollecito, posso citarlo."
+  - tutor: "Certo: protocollo numero 4127. Lo trova scritto anche sulla ricevuta, insieme al nome della persona che segue la pratica."
+    goals: [commitment]

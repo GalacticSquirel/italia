@@ -1,0 +1,232 @@
+# Correction-dense B2 dialogues: prompt, then self-repair or recast.
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno. È molto luminoso, mi piace. Potrebbe dirmi quanto costa l'affitto e se le spese sono incluse?"
+  - tutor: "Certo. L'affitto è di 950 euro al mese, comprese le spese di condominio. Il riscaldamento invece è a parte e lo paga lei."
+    goals: [rent]
+  - learner: "Capisco. Se io prenderei l'appartamento, quanto sarebbe la caparra?"
+    errors: [hypothetical]
+  - tutor: "Buona domanda. Però senta l'inizio: «se io prenderei»... dopo «se» quella forma non funziona. Come lo direbbe?"
+    prompt: {text: "Se io prenderei", tags: [hypothetical]}
+  - learner: "Se io prendessi l'appartamento, quanto sarebbe la caparra?"
+  - tutor: "Esatto. La caparra sarebbe di due mesi, e il contratto è il classico quattro anni più quattro."
+    goals: [contract]
+  - learner: "Va bene. E in che condizioni sono la cucina e il bagno? Vedo che la lavatrice sembra abbastanza vecchia."
+  - tutor: "La lavatrice ha qualche anno ma funziona bene. Il frigorifero e il forno invece sono stati cambiati l'anno scorso."
+    goals: [condition]
+  - learner: "Perfetto. E il quartiere com'è? Lavoro fino a tardi e cerco una zona che ci sono negozi aperti anche la sera."
+    errors: [relative-pronoun]
+  - tutor: "È un quartiere pieno di vita, glielo assicuro. Ma «una zona che ci sono negozi»: quel «che» da solo non basta. Vuole riprovare?"
+    prompt: {text: "una zona che ci sono negozi", tags: [relative-pronoun]}
+  - learner: "Una zona che ha... no, una zona che ci sono negozi e ristoranti aperti."
+    errors: [relative-pronoun]
+  - tutor: "Non si preoccupi, è una struttura difficile. Sì, è proprio una zona in cui ci sono negozi aperti fino a tardi, e la metro è a due minuti."
+    recast: {text: "una zona che ci sono", fix: "una zona in cui ci sono", tags: [relative-pronoun]}
+    goals: [neighbourhood]
+  - learner: "Allora mi interessa molto. Vorrei pensarci fino a domani, ma credo che lo prenderò."
+  - tutor: "Benissimo, ci pensi con calma. Mi chiami domani mattina e, se conferma, prepariamo il contratto."
+    goals: [decide]
+
+- scenario: arte-mostra
+  level: B2
+  persona: es-m-worker
+  history: [passive]
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi colpisce molto. Sembra una fotografia, ma c'è qualcosa di triste negli occhi della donna."
+  - tutor: "Anche a me fa quell'effetto. È un ritratto famoso, sai? Dimmi che cosa vedi, oltre agli occhi."
+    goals: [react]
+    new: [{lemma: ritratto, gloss: portrait}]
+  - learner: "Vedo una donna seduta vicino a una finestra. Il vestito è stato dipinto per il pittore con moltissimi dettagli, e lo sfondo è quasi nero."
+    errors: [passive]
+  - tutor: "Hai notato i dettagli, bravo. Però «dipinto per il pittore»? In questa frase, chi fa l'azione non si introduce con «per». Riprova."
+    prompt: {text: "dipinto per il pittore", tags: [passive]}
+    goals: [describe]
+  - learner: "Ah, già. Il vestito è stato dipinto dal pittore con moltissimi dettagli."
+  - tutor: "Proprio così. E secondo te perché la donna guarda fuori dalla finestra e non verso di noi?"
+  - learner: "Penso che lei aspetta qualcuno che non arriverà mai. Per questo la luce è così fredda."
+    errors: [subjunctive-use]
+  - tutor: "Che bella lettura! Ma «penso che lei aspetta»... dopo «penso che» ti ricordi quale modo serve?"
+    prompt: {text: "Penso che lei aspetta", tags: [subjunctive-use]}
+  - learner: "Penso che lei aspetta... non mi ricordo, scusa. In spagnolo diciamo così."
+    errors: [subjunctive-use]
+  - tutor: "Tranquillo, capita. Anch'io penso che aspetti qualcuno: quella luce fredda parla di un'attesa lunga. Ti ricorda qualche altra opera?"
+    recast: {text: "Penso che lei aspetta", fix: "penso che aspetti", tags: [subjunctive-use]}
+    goals: [interpret]
+  - learner: "Sì, mi ricorda i quadri del Rinascimento per la precisione, però lì i colori erano più caldi e la gente sembrava più serena."
+  - tutor: "Ottimo confronto: la stessa cura per i particolari, ma un'atmosfera del tutto diversa. Vieni, ti faccio vedere un'opera di quel periodo."
+    goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Stamattina ho avuto un incidente a un incrocio. Io stavo andando dritto quando una macchina è uscita da destra e mi ha colpito."
+  - tutor: "Mi dispiace. L'importante è che nessuno si sia fatto male. Chi aveva la precedenza, secondo lei?"
+    goals: [what]
+    new: [{lemma: precedenza, gloss: right of way}]
+  - learner: "La precedenza era mia, perché l'altro aveva lo stop. Quando sono sceso dalla macchina, lui ha già chiamato i vigili."
+    errors: [tense-aspect]
+  - tutor: "Bene, è un punto importante. Ma «lui ha già chiamato»: questa azione viene prima del momento in cui lei è sceso. Quale tempo ci vuole?"
+    prompt: {text: "lui ha già chiamato", tags: [tense-aspect]}
+  - learner: "Lui aveva già chiamato i vigili, mi scusi."
+  - tutor: "Perfetto. Quindi la responsabilità sembra dell'altro autista. Avete compilato insieme la constatazione amichevole?"
+    goals: [responsibility]
+  - learner: "Sì, l'abbiamo compilata e firmata tutti e due. Anche la targa dell'altra macchina è stato scritto sul modulo."
+    errors: [passive]
+  - tutor: "Ottimo. Solo un dettaglio: «la targa è stato scritto»? Guardi come finiscono le ultime due parole."
+    prompt: {text: "è stato scritto", tags: [passive]}
+  - learner: "La targa è stata scritta sul modulo, certo."
+  - tutor: "Esatto. Allora mi mandi una copia del modulo e qualche foto del danno, così apro la pratica."
+    goals: [documents]
+  - learner: "Gliele mando oggi stesso. E poi cosa succede? Devo aspettare molto per la riparazione?"
+  - tutor: "No, non molto. Entro cinque giorni la macchina verrà esaminata da un nostro tecnico per la perizia, e subito dopo potrà farla riparare. La franchigia, in questo caso, non le viene applicata."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-student
+  history: [register]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Senti, mi sono trasferita a Padova per l'università e devo fare la residenza. Puoi aiutarmi?"
+    errors: [register]
+  - tutor: "Certamente. Una cosa, però: in un ufficio, con una persona che non conosce, «senti» e «puoi aiutarmi» suonano troppo familiari. Come me lo chiederebbe?"
+    prompt: {text: "Puoi aiutarmi", tags: [register]}
+    goals: [request]
+  - learner: "Ha ragione, mi scusi. Senta, potrebbe aiutarmi con la residenza?"
+  - tutor: "Così va benissimo. Servono il modulo compilato, un documento valido e il contratto di affitto. Lei è cittadina europea?"
+  - learner: "No, sono inglese, quindi ho il permesso di soggiorno per studio. Il contratto ce l'ho, ma è stato firmato solo dal proprietario, non da me."
+  - tutor: "Il permesso va bene. Il contratto, invece, deve essere firmato da tutti e due e registrato, altrimenti la pratica non viene accettata."
+    goals: [documents]
+  - learner: "Oh no. Il proprietario è all'estero fino a fine mese. Non c'è un altro modo? È importante che ho la residenza prima di gennaio, per la borsa di studio."
+    errors: [subjunctive-use]
+  - tutor: "Capisco che ha fretta. Però «è importante che ho»... dopo «è importante che» serve un'altra forma del verbo. Ci prova?"
+    prompt: {text: "È importante che ho", tags: [subjunctive-use]}
+  - learner: "È importante che io abbia la residenza prima di gennaio."
+  - tutor: "Perfetto. Allora facciamo così: il proprietario può firmare una copia e mandargliela per posta elettronica. Intanto io le apro la pratica oggi."
+    goals: [problem]
+  - learner: "Grazie mille, gli scrivo subito. E dopo quanto tempo viene il controllo dei vigili?"
+  - tutor: "Di solito entro 45 giorni. I vigili passano a casa per verificare che lei abiti lì; poi la residenza vale dal giorno della domanda."
+    goals: [next]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno. Mi chiamo Lucía Romero, ho ventiquattro anni e sono laureata in design grafico a Siviglia. Da un anno vivo a Torino."
+  - tutor: "Benvenuta. Ho visto dal curriculum che ha già lavorato in Spagna. Che cosa faceva esattamente?"
+    goals: [intro]
+  - learner: "Per due anni ho lavorato in una piccola agenzia. Ogni settimana ho preparato le proposte per i clienti e seguivo i social di tre aziende."
+    errors: [tense-aspect]
+  - tutor: "Un'esperienza interessante. Senta però: «ogni settimana ho preparato»... per un'azione abituale, che si ripete, quale tempo usiamo?"
+    prompt: {text: "Ogni settimana ho preparato", tags: [tense-aspect]}
+  - learner: "Ogni settimana preparavo le proposte per i clienti."
+  - tutor: "Esatto. E in quel ruolo, quali erano i suoi punti di forza? C'è anche qualcosa che vorrebbe migliorare?"
+    goals: [experience]
+  - learner: "Sono molto creativa e lavoro bene in squadra. Il mio punto debole è che a volte voglio controllare tutto e mi costa delegare."
+  - tutor: "La capisco: all'inizio molti fanno fatica a delegare. E perché vorrebbe lavorare proprio nella nostra azienda?"
+    goals: [strengths]
+  - learner: "Perché i vostri progetti mi piacciono molto. Se io lavorerei qui, potrei imparare da persone con più esperienza."
+    errors: [hypothetical]
+  - tutor: "Mi fa piacere sentirlo. Attenzione all'inizio della frase, però: «se io lavorerei»... dopo «se» ci vuole un altro modo."
+    prompt: {text: "Se io lavorerei", tags: [hypothetical]}
+    goals: [why]
+  - learner: "Se io lavorerei... se io lavorarei qui?"
+    errors: [hypothetical]
+  - tutor: "Quasi! Se lei lavorasse qui, imparerebbe di sicuro, perché la squadra è molto unita. Ha qualche domanda sul ruolo?"
+    recast: {text: "Se io lavorerei", fix: "Se lei lavorasse", tags: [hypothetical]}
+  - learner: "Sì, una. Con chi lavorerei ogni giorno, e quante persone ci sono nella squadra?"
+  - tutor: "Lavorerebbe con due grafici e una responsabile di progetto: in tutto sareste in quattro. Le faremo sapere entro venerdì, grazie di essere venuta."
+    goals: [questions]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie. Vorrei parlare del mio ruolo. Quest'anno ho chiuso tre contratti importanti e i miei clienti sono cresciuti del venti per cento."
+  - tutor: "Sono risultati ottimi, li ho visti anch'io nella valutazione. Dove vuole arrivare?"
+    goals: [results]
+  - learner: "Penso che merito una promozione. Lavoro qui da cinque anni e faccio già il lavoro di un responsabile."
+    errors: [subjunctive-use]
+  - tutor: "Apprezzo che me lo dica in modo diretto. Ma «penso che merito»... dopo «penso che», quale forma del verbo ci vuole?"
+    prompt: {text: "Penso che merito", tags: [subjunctive-use]}
+    goals: [request]
+  - learner: "Penso di meritare... oppure: penso che io meriti una promozione."
+  - tutor: "Tutte e due le frasi vanno bene, bravo. Il problema è che il budget di quest'anno è già stato deciso."
+  - learner: "Lo capisco. Però se l'azienda avrebbe perso quei tre clienti, oggi il budget sarebbe molto più piccolo."
+    errors: [hypothetical]
+  - tutor: "È un buon argomento. Ma «se l'azienda avrebbe perso»: dopo «se» quella forma non va. Come diventa?"
+    prompt: {text: "se l'azienda avrebbe perso", tags: [hypothetical]}
+  - learner: "Se l'azienda avesse perso quei clienti, oggi il budget sarebbe più piccolo."
+  - tutor: "Esatto, e ha ragione. Facciamo così: le propongo un aumento da gennaio e la promozione a giugno, dopo la prossima valutazione."
+    goals: [handle]
+  - learner: "Mi sembra giusto. Potremmo fissare degli obiettivi chiari, così a giugno non ci sono dubbi?"
+  - tutor: "Volentieri. Le mando entro lunedì una lista di obiettivi e ci rivediamo tra due settimane per discuterli."
+    goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Io non sono d'accordo. Credo che il centro senza auto sia più bello e più sano per tutti."
+  - tutor: "È un'idea diffusa, lo so. Ma mi dia almeno due ragioni concrete, perché i commercianti hanno paura."
+    goals: [position]
+  - learner: "Primo, l'inquinamento: l'aria del centro è la peggiore della città. Secondo, conosco molte città che il centro è chiuso al traffico, e lì i negozi lavorano benissimo."
+    errors: [relative-pronoun]
+  - tutor: "Sul primo punto ha ragione. Sul secondo, un attimo: «molte città che il centro è chiuso»... qui «che» non basta. Come lo direbbe?"
+    prompt: {text: "molte città che il centro è chiuso", tags: [relative-pronoun]}
+  - learner: "Molte città in cui il centro è chiuso al traffico."
+  - tutor: "Giusto. Però chi abita fuori come arriva in centro? Gli anziani non possono fare un chilometro a piedi con la spesa."
+    goals: [argue]
+  - learner: "Per questo bisogna migliorare i mezzi pubblici. È necessario che il Comune mette più autobus, piccoli ed elettrici."
+    errors: [subjunctive-use]
+  - tutor: "Più autobus, d'accordo. Ma «è necessario che il Comune mette»? Dopo «è necessario che» il verbo cambia."
+    prompt: {text: "È necessario che il Comune mette", tags: [subjunctive-use]}
+  - learner: "È necessario che il Comune mette... metterà più autobus?"
+    errors: [subjunctive-use]
+  - tutor: "Ci era vicina. È necessario che il Comune metta più autobus, certo, ma costano, e intanto i negozi perdono clienti."
+    recast: {text: "È necessario che il Comune mette", fix: "È necessario che il Comune metta", tags: [subjunctive-use]}
+    goals: [counter]
+  - learner: "Su una cosa le do ragione: il parcheggio è un problema reale. Propongo di costruire un grande parcheggio fuori dal centro, con una navetta gratuita."
+  - tutor: "Questa è una proposta su cui possiamo discutere. Se il parcheggio si fa prima di chiudere il centro, forse anche i commercianti accetteranno."
+    goals: [concede]
+
+- scenario: film-libro
+  level: B2
+  persona: en-m-traveller
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Comincio io. Ho letto «Io non ho paura» di Niccolò Ammaniti. È la storia di un bambino che scopre un segreto terribile nel suo paese, durante un'estate caldissima."
+  - tutor: "Ottima scelta, è un romanzo che piace a molti. Senza dire troppo sulla trama, com'è il personaggio principale?"
+    goals: [summary]
+  - learner: "Si chiama Michele e ha nove anni. È un bambino coraggioso che gli piace andare in bicicletta con gli amici."
+    errors: [relative-pronoun]
+  - tutor: "È difficile dimenticarlo, vero? Però «un bambino che gli piace»... prova a cambiare «che gli» con una forma più precisa."
+    prompt: {text: "un bambino coraggioso che gli piace", tags: [relative-pronoun]}
+    goals: [characters]
+  - learner: "Un bambino coraggioso a cui piace andare in bicicletta."
+  - tutor: "Esatto! E il libro ti è piaciuto? Dimmi perché."
+  - learner: "Moltissimo. Mentre leggevo l'ultima parte, il mio cuore ha battuto fortissimo. L'autore scrive in modo semplice ma crea molta tensione."
+    errors: [tense-aspect]
+  - tutor: "Ti capisco! Ma «mentre leggevo, il mio cuore ha battuto»... le due azioni durano insieme: che tempo serve per la seconda?"
+    prompt: {text: "il mio cuore ha battuto", tags: [tense-aspect]}
+  - learner: "Il mio cuore batteva fortissimo."
+  - tutor: "Perfetto. Anche a me il finale ha fatto quell'effetto. A chi lo consiglieresti?"
+    goals: [opinion]
+  - learner: "Lo consiglierei a chi ama le storie emozionanti ma non troppo lunghe. Non a chi cerca un libro allegro, però."
+  - tutor: "D'accordo con te: emozionante sì, allegro proprio no. Grazie, hai fatto venire voglia a tutti di leggerlo."
+    goals: [recommend]

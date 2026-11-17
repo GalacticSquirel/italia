@@ -1,0 +1,231 @@
+- scenario: affittare-appartamento
+  level: B2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno. Bello, e anche la cucina mi sembra grande: per me è importante, faccio il cuoco. Quanto chiede di affitto, e le spese sono comprese?"
+  - tutor: "Per un cuoco è la casa giusta, allora! Chiedo 820 euro al mese; le spese di condominio sono 60 euro in più."
+    goals: [rent]
+  - learner: "Va bene. E il contratto? Quanti mesi di caparra vuole? Io posso dare due, non di più."
+    errors: [ci-ne]
+  - tutor: "Parliamone. Però «io posso dare due»... due di che cosa? Manca una piccola parola davanti al verbo."
+    prompt: {text: "Io posso dare due", tags: [ci-ne]}
+  - learner: "Ne posso dare due."
+  - tutor: "Esatto. Due mesi vanno bene. Il contratto dura quattro anni, e poi possiamo continuare per altri quattro."
+    goals: [contract]
+  - learner: "Perfetto. Il riscaldamento come funziona? E il forno è a gas o elettrico?"
+  - tutor: "Il riscaldamento è centrale, acceso da novembre a marzo. Il forno è elettrico ed è stato comprato due anni fa."
+    goals: [condition]
+  - learner: "Bene. E il quartiere com'è? Io torno dal ristorante dopo mezzanotte e la mattina vorrebbe dormire in pace."
+    errors: [conditional-form]
+  - tutor: "La mattina... «vorrebbe dormire»? Chi, lei? Controlli la persona del verbo."
+    prompt: {text: "vorrebbe dormire", tags: [conditional-form]}
+  - learner: "Sì, io. In spagnolo è uguale... io vorrebbe dormire, no?"
+    errors: [conditional-form]
+  - tutor: "In italiano c'è una differenza: per «io» si dice «vorrei dormire». E qui può farlo: la strada è tranquilla e il mercato coperto è a cinque minuti a piedi."
+    recast: {text: "vorrebbe dormire", fix: "vorrei dormire", tags: [conditional-form]}
+    goals: [neighbourhood]
+  - learner: "Allora mi interessa. Lo prendo, se posso entrare dal primo del mese."
+  - tutor: "Dal primo va benissimo. Le preparo il contratto e ci vediamo venerdì per le chiavi."
+    goals: [decide]
+
+- scenario: arte-mostra
+  level: B2
+  persona: en-f-student
+  history: [past-participle-form]
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi piace tantissimo! I colori sono così forti che il quadro sembra quasi muoversi."
+  - tutor: "Anche a me fa quell'effetto. Dimmi con calma che cosa vedi."
+    goals: [react]
+  - learner: "C'è un campo di grano sotto un cielo scuro. Il cielo è stato dipingiuto con linee corte e veloci, e ci sono degli uccelli neri."
+    errors: [past-participle-form]
+  - tutor: "Lo descrivi bene. Ma «dipingiuto»? Questo verbo non è regolare: ti ricordi la forma giusta?"
+    prompt: {text: "è stato dipingiuto", tags: [past-participle-form]}
+    goals: [describe]
+  - learner: "È stato dipinto, giusto?"
+  - tutor: "Giusto! Secondo te che cosa voleva dire il pittore con quel cielo?"
+  - learner: "Credo che il pittore stesse male in quel periodo. Il cielo scuro è la sua tristezza, e gli uccelli sono i pensieri brutti."
+  - tutor: "È un'idea che hanno in molti, e mi convince. Ti fa pensare a qualche altra opera?"
+    goals: [interpret]
+  - learner: "Sì, mi ricorda i quadri del Rinascimento che abbiamo studiato a scuola, ma è il contrario: benché quelli sono perfetti, non mi danno emozioni."
+    errors: [subjunctive-use]
+  - tutor: "Un confronto coraggioso! Però «benché quelli sono»: dopo «benché» serve sempre un altro modo del verbo."
+    prompt: {text: "benché quelli sono", tags: [subjunctive-use]}
+  - learner: "Benché quelli siano perfetti, non mi danno emozioni."
+  - tutor: "Brava. Non sono del tutto d'accordo, ma capisco: lì conta la prospettiva, qui il sentimento. Andiamo a vedere la prossima sala?"
+    goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-f-erasmus
+  history: [passive]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri sera ero ferma al semaforo rosso e una macchina mi ha colpito da dietro. Non andava veloce, per fortuna."
+  - tutor: "Capisco. Lei come sta? E che danni ha la macchina?"
+  - learner: "Io sto bene, grazie. Il paraurti è rotto e una luce non funziona. La macchina è stata portato dal meccanico stamattina."
+    errors: [passive]
+  - tutor: "Meno male che non si è fatta niente. Un attimo: «la macchina è stata portato»? L'ultima parola deve andare d'accordo con «macchina»."
+    prompt: {text: "è stata portato", tags: [passive]}
+    goals: [what]
+  - learner: "La macchina è stata portata dal meccanico."
+  - tutor: "Esatto. E la responsabilità, secondo lei, di chi è?"
+  - learner: "Dell'altro autista, è evidente. Lui ha ammesso che stava guardando il telefono e che non ha frenato in tempo."
+  - tutor: "Bene, questo rende tutto più semplice. Avete firmato la constatazione amichevole? E ha la targa dell'altra macchina?"
+    goals: [responsibility]
+  - learner: "Sì, l'abbiamo firmata tutti e due, e la targa è scritta lì. Ma c'è un problema: il modulo si ha bagnato con la pioggia e alcune parole non si leggono."
+    errors: [auxiliary-choice]
+  - tutor: "Capita spesso, non è grave. Ma «si ha bagnato»? Quando c'è «si», il verbo «avere» non va."
+    prompt: {text: "si ha bagnato", tags: [auxiliary-choice]}
+  - learner: "Il modulo si è bagnato con la pioggia."
+  - tutor: "Perfetto. Mi mandi comunque una foto del modulo: se serve, lo facciamo compilare di nuovo."
+    goals: [documents]
+  - learner: "D'accordo. E adesso cosa devo fare? Posso far riparare la macchina subito?"
+  - tutor: "Aspetti ancora qualche giorno. Prima il danno deve essere controllato dal nostro tecnico, poi le diciamo quando può farla riparare."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-m-traveller
+  history: [passive]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Vivo a Firenze da sei mesi e vorrei chiedere la residenza. Che cosa si deve fare?"
+  - tutor: "Buongiorno. Si deve compilare questo modulo e portare alcuni documenti. Lei di dov'è?"
+    goals: [request]
+  - learner: "Sono irlandese. Quali documenti si chiede? Ho il passaporto e il contratto di affitto."
+    errors: [subject-verb-agreement]
+  - tutor: "Bene, sono già due. Però «quali documenti si chiede»? «Documenti» è plurale: guardi il verbo."
+    prompt: {text: "Quali documenti si chiede", tags: [subject-verb-agreement]}
+  - learner: "Quali documenti si chiedono?"
+  - tutor: "Giusto. Si chiedono il passaporto, il contratto registrato e una prova che lei lavora o studia qui."
+    goals: [documents]
+  - learner: "Lavoro in un ostello, ma il mio contratto di lavoro è finito a settembre e il nuovo non è ancora firmato. È un problema?"
+  - tutor: "Un po' sì. Senza un contratto di lavoro valido, la pratica non può essere accettata. Quando firma quello nuovo?"
+  - learner: "La settimana prossima, credo. Il mio capo ha detto che il contratto sarà firmato per lui lunedì."
+    errors: [passive]
+  - tutor: "Allora non è grave. Senta però: «firmato per lui»? Chi fa l'azione si introduce con un'altra parola."
+    prompt: {text: "firmato per lui", tags: [passive]}
+  - learner: "Firmato per lui, sì. Non capisco cosa c'è di sbagliato."
+    errors: [passive]
+  - tutor: "Glielo dico io, non si preoccupi. Quando il contratto sarà firmato da lui, me ne porti una copia; intanto le tengo aperta la pratica per dieci giorni."
+    recast: {text: "Firmato per lui", fix: "firmato da lui", tags: [passive]}
+    goals: [problem]
+  - learner: "Grazie, gentilissimo. E dopo quanto tempo ricevo una risposta?"
+  - tutor: "Dopo la domanda passano i vigili a controllare l'indirizzo, di solito entro 45 giorni. Poi può venire a prendere il certificato."
+    goals: [next]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno, grazie per l'invito. Sono Karen Mills, vengo da Sydney e vivo a Milano da tre anni. Lavoro nel marketing da più di dieci anni."
+  - tutor: "Piacere. Mi racconti della sua ultima esperienza: di che cosa si occupava?"
+    goals: [intro]
+  - learner: "Ero responsabile di una squadra di sei persone. Ho introdotto una nuova strategia per i social che eventualmente ha aumentato le vendite del trenta per cento."
+    errors: [false-friend]
+  - tutor: "Un ottimo risultato: quindi alla fine le vendite sono aumentate del trenta per cento. Quali sono i suoi punti di forza? E un punto debole?"
+    recast: {text: "eventualmente", fix: "alla fine", tags: [false-friend]}
+    goals: [experience]
+  - learner: "So organizzare bene il lavoro e motivare le persone. Il mio punto debole è l'italiano scritto: quando scrivo una mail formale, faccio ancora errori."
+  - tutor: "Apprezzo che lo dica, e l'italiano scritto si migliora con il tempo. Perché le interessa questo ruolo?"
+    goals: [strengths]
+  - learner: "Perché la vostra azienda è piccola, e penso che qui le idee contano di più delle regole."
+    errors: [subjunctive-use]
+  - tutor: "È vero, siamo in pochi. Ma «penso che qui le idee contano»... dopo «penso che» quale forma serve?"
+    prompt: {text: "penso che qui le idee contano", tags: [subjunctive-use]}
+    goals: [why]
+  - learner: "Penso che qui le idee contino di più delle regole."
+  - tutor: "Esatto, ed è proprio così. Ha delle domande per me?"
+  - learner: "Sì. Vorrei sapere se è possibile lavorare da casa qualche giorno, e a chi dovrei rispondere."
+  - tutor: "Due giorni a settimana da casa sono possibili, e risponderebbe direttamente a me. La chiamiamo entro lunedì."
+    goals: [questions]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie. Lavoro qui da quattro anni come secondo cuoco. Quest'anno ho creato il nuovo menù e i clienti del pranzo sono quasi raddoppiati."
+  - tutor: "È vero, i risultati del pranzo sono molto buoni, e in gran parte è merito suo. Che cosa mi vuole chiedere?"
+    goals: [results]
+  - learner: "Vorrei chiederle un aumento. Credo che il mio stipendio non corrisponde più alle mie responsabilità."
+    errors: [subjunctive-use]
+  - tutor: "La ascolto. Però «credo che il mio stipendio non corrisponde»... dopo «credo che» il verbo cambia."
+    prompt: {text: "Credo che il mio stipendio non corrisponde", tags: [subjunctive-use]}
+  - learner: "Credo che non corrisponda più alle mie responsabilità."
+  - tutor: "Perfetto. Capisco la richiesta, ma il momento è difficile: quest'anno il budget è più basso."
+    goals: [request]
+  - learner: "Lo so. Ma se lei mi avesse detto prima che non c'erano soldi, io avrebbe cercato un altro posto. Invece sono rimasto e ho lavorato di più."
+    errors: [conditional-form]
+  - tutor: "Ha ragione a dirmelo. Solo una cosa sulla frase: «io avrebbe cercato»? Guardi la persona del verbo."
+    prompt: {text: "io avrebbe cercato", tags: [conditional-form]}
+  - learner: "Io avrei cercato un altro posto."
+  - tutor: "Esatto. E io non voglio perderla. Posso proporle un aumento del cinque per cento adesso e una nuova valutazione a settembre."
+    goals: [handle]
+  - learner: "Il cinque per cento è poco, ma lo accetto se a settembre parliamo anche del ruolo di capo cuoco. Me lo può scrivere?"
+  - tutor: "Certo, glielo scrivo oggi. Fissiamo due obiettivi per l'estate e a settembre ne parliamo di nuovo."
+  - learner: "Va bene, grazie. Allora aspetto la sua mail con gli obiettivi."
+  - tutor: "La riceverà domani. Grazie a lei per tutto il lavoro di quest'anno."
+    goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Buonasera. Io invece sono favorevole. Abito in centro da vent'anni e penso che il traffico sia diventato insopportabile."
+  - tutor: "Lei ci abita, ma i commercianti ci lavorano. Perché dovrebbero accettare? Mi dia delle ragioni."
+    goals: [position]
+  - learner: "La prima ragione è la salute: i bambini che la scuola è in centro respirano aria sporca ogni giorno. La seconda è il rumore."
+    errors: [relative-pronoun]
+  - tutor: "La salute è un argomento serio. Ma «i bambini che la scuola è in centro»... per dire che la scuola è «dei bambini», quale forma usiamo al posto di «che»?"
+    prompt: {text: "i bambini che la scuola è in centro", tags: [relative-pronoun]}
+  - learner: "I bambini la cui scuola è in centro."
+  - tutor: "Benissimo, non è una forma facile. Resta il fatto che senza auto molti clienti andranno al centro commerciale fuori città."
+    goals: [argue]
+  - learner: "Non credo. Chi viene in centro non viene per fare la spesa grande; viene per camminare, guardare le vetrine, bere un caffè. Con una zona pedonale lo farebbe di più."
+  - tutor: "Forse. Ma chi deve portare la merce ai negozi? E i residenti che hanno la macchina?"
+    goals: [counter]
+  - learner: "Su questo ha ragione, bisogna pensare a loro. Proporrei un permesso per i residenti e un orario al mattino per i furgoni. Se si farebbe così, nessuno perderebbe niente."
+    errors: [hypothetical]
+  - tutor: "Adesso ragioniamo. Solo l'ultima frase: «se si farebbe così»... dopo «se» quella forma non va."
+    prompt: {text: "Se si farebbe così", tags: [hypothetical]}
+  - learner: "Se si facesse così, nessuno perderebbe niente."
+  - tutor: "Esatto. Con i permessi e un orario per i furgoni, potrei essere d'accordo anch'io. Proponiamolo al Comune."
+    goals: [concede]
+
+- scenario: film-libro
+  level: B2
+  persona: es-f-teacher
+  history: [object-pronoun]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Io ho visto un film, se va bene: «La vita è bella». Racconta di un padre che, durante la guerra, fa credere a suo figlio che tutto sia un gioco."
+  - tutor: "Va benissimo, è un classico. E il padre che tipo è?"
+    goals: [summary]
+  - learner: "È un uomo allegro e pieno di fantasia. Ama moltissimo sua moglie: all'inizio la fa molte sorprese per conquistarla."
+    errors: [object-pronoun]
+  - tutor: "È impossibile non volergli bene. Ma «la fa molte sorprese»? Le sorprese si fanno «a» qualcuno: quale pronome serve?"
+    prompt: {text: "la fa molte sorprese", tags: [object-pronoun]}
+    goals: [characters]
+  - learner: "Le fa molte sorprese."
+  - tutor: "Esatto. E a te il film è piaciuto?"
+  - learner: "Tantissimo. La prima parte mi ha fatto ridere e la seconda piangere. Mi sembra incredibile che un film su un tema così duro è anche divertente."
+    errors: [subjunctive-use]
+  - tutor: "È proprio la sua forza. Però «un film su un tema così duro è»... dopo «mi sembra incredibile che» ci vuole un altro modo."
+    prompt: {text: "un film su un tema così duro è", tags: [subjunctive-use]}
+  - learner: "Mi sembra incredibile che è... che sarà divertente?"
+    errors: [subjunctive-use]
+  - tutor: "Tranquilla. Anche a me sembra incredibile che sia così divertente e così triste insieme. A chi lo consiglieresti?"
+    recast: {text: "che è", fix: "che sia", tags: [subjunctive-use]}
+    goals: [opinion]
+  - learner: "A tutti, ma soprattutto ai ragazzi, perché capiscano la storia senza annoiarsi."
+  - tutor: "Ottima idea: è un film che insegna molto senza fare la lezione. Grazie, sei stata chiarissima."
+    goals: [recommend]

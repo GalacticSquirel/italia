@@ -1,0 +1,217 @@
+# C1, correction-dense (continued): passivo, trapassato, verbi pronominali, futuro nel passato, ipercorrettismi.
+- scenario: arte-mostra
+  level: C1
+  persona: en-f-student
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi fa venire i brividi. È un po' inquietante: quella donna al centro sembra guardare proprio me, ovunque io mi sposti."
+  - tutor: "È l'effetto che fa a tutti, e non è un caso. Descrivimi quello che vedi: che cosa ti colpisce, oltre al suo sguardo?"
+    goals: [react]
+  - learner: "Prima di tutto la luce: viene da sinistra, da una finestra che non si vede, e illumina solo il viso e le mani. Lo sfondo invece è quasi nero. Sai se la tela è stata restaurato di recente? I colori sembrano freschissimi."
+    errors: [passive]
+  - tutor: "Hai un ottimo occhio, i colori sembrano davvero freschi. Ma riascolta \"la tela è stata restaurato\": chi deve mettersi d'accordo con chi, in questa frase?"
+    prompt: {text: "la tela è stata restaurato", tags: [passive]}
+  - learner: "Ah, giusto: la tela è stata restaurata."
+  - tutor: "Esatto, e sì, l'hanno restaurata due anni fa. Secondo te chi è questa donna, e che cosa ci vuole dire il pittore?"
+    goals: [describe]
+  - learner: "Ha un libro in mano, ma non lo legge: guarda fuori dal quadro, verso di noi. Non credo che il pittore voleva fare solo un ritratto; forse è un'allegoria della conoscenza, o della memoria."
+    errors: [subjunctive-use]
+  - tutor: "Lettura affascinante. Però \"non credo che il pittore voleva\": dopo un'opinione negata, quel verbo ti convince?"
+    prompt: {text: "Non credo che il pittore voleva", tags: [subjunctive-use]}
+  - learner: "No: non credo che il pittore volesse fare solo un ritratto."
+  - tutor: "Perfetto. E l'idea della memoria mi piace molto. Ti ricorda qualcos'altro che hai visto?"
+    goals: [interpret]
+  - learner: "Un po' Vermeer, per la luce che entra di lato e per il silenzio della scena. Però qui tutto è più drammatico, quasi teatrale, mentre Vermeer è più intimo."
+  - tutor: "Bella scelta: in tutti e due la luce entra di lato, ma l'atmosfera è completamente diversa. Vieni, nella sala accanto c'è un altro quadro di questo pittore che ti piacerà ancora di più."
+    goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Questa mattina, verso le otto, stavo entrando in una rotonda a Padova quando un'altra auto mi ha urtata sul lato destro. La portiera è stata ammaccata e lo specchietto si è staccato."
+  - tutor: "Mi dispiace. Lei sta bene? E secondo lei di chi è stata la responsabilità?"
+    goals: [what]
+  - learner: "Sto bene, grazie, solo un grande spavento. La colpa è dell'altro conducente: quando è entrato nella rotonda, io ci sono già stata dentro da qualche secondo, quindi avevo la precedenza."
+    errors: [tense-aspect]
+  - tutor: "Questo è un punto importante. Mi aiuti con l'ordine dei fatti: \"ci sono già stata\" racconta una cosa avvenuta prima del suo ingresso. Quale tempo usiamo per un passato che viene prima di un altro passato?"
+    prompt: {text: "io ci sono già stata dentro", tags: [tense-aspect]}
+  - learner: "Ah, certo: quando è entrato nella rotonda, io ci ero già dentro da qualche secondo."
+  - tutor: "Perfetto, ora è chiarissimo. Avete compilato insieme la constatazione amichevole?"
+    goals: [responsibility]
+  - learner: "Purtroppo no. Il signore ha rifiutato di firmarla: diceva che andavo troppo veloce. Però ho la sua targa e due testimoni che hanno visto tutto."
+    errors: [reflexive]
+  - tutor: "Capisco, succede. Un dettaglio: \"ha rifiutato di firmarla\"? Con questo significato il verbo vuole un pronome davanti, e cambia anche l'ausiliare."
+    prompt: {text: "ha rifiutato di firmarla", tags: [reflexive]}
+  - learner: "Si è rifiutato di firmarla, scusi."
+  - tutor: "Esatto. I testimoni sono preziosi: mi mandi i loro nomi e numeri di telefono, insieme alla targa dell'altro veicolo e a qualche foto del danno."
+    goals: [documents]
+  - learner: "Glieli mando oggi pomeriggio. E dopo, quanto tempo ci vuole per la perizia? Uso la macchina tutti i giorni per lavoro."
+  - tutor: "Il perito la chiamerà entro cinque giorni lavorativi. Nel frattempo, se le serve un'altra macchina per lavoro, l'assicurazione gliene mette a disposizione una."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Sono inglese, vivo a Lecce da quattro mesi e vorrei applicare per la residenza. Lavoro da remoto per un'azienda di Londra."
+    errors: [word-choice]
+  - tutor: "Benissimo, vuole fare domanda di residenza. Le servono un documento d'identità, il codice fiscale e il contratto d'affitto, o comunque un documento che dimostri dove abita. Li ha portati?"
+    recast: {text: "applicare per la residenza", fix: "fare domanda di residenza", tags: [word-choice]}
+    goals: [request]
+  - learner: "Ho il passaporto e il codice fiscale. Per la casa ho un contratto, ma è a nome della mia compagna, che è italiana. È necessario che io porto anche una sua dichiarazione?"
+    errors: [subjunctive-use]
+  - tutor: "Domanda giusta. Solo una cosa: \"è necessario che io porto\"? Dopo un'espressione di necessità il verbo cambia modo. Ci riprova?"
+    prompt: {text: "È necessario che io porto", tags: [subjunctive-use]}
+  - learner: "È necessario che io porti anche una sua dichiarazione?"
+  - tutor: "Perfetto. Sì, serve una dichiarazione in cui la sua compagna conferma che vivete insieme, con una copia del suo documento."
+    goals: [documents]
+  - learner: "Purtroppo lei è a Milano per lavoro fino a fine mese. Si può mandare i documenti per posta elettronica, o si devono consegnare a mano?"
+    errors: [passive]
+  - tutor: "Nessun problema, una soluzione c'è. Ma guardi l'inizio della domanda: \"si può mandare i documenti\". Con un oggetto plurale, il verbo resta così?"
+    prompt: {text: "Si può mandare i documenti", tags: [passive]}
+  - learner: "Si possono mandare i documenti per posta elettronica?"
+  - tutor: "Esatto. E sì, la dichiarazione firmata e scansionata va benissimo: la mandi all'indirizzo che trova sul sito del Comune."
+    goals: [problem]
+  - learner: "Ottimo. E dopo la domanda che cosa succede? Devo restare a casa ad aspettare il controllo dei vigili?"
+  - tutor: "Entro quarantacinque giorni passano i vigili per verificare che lei abiti davvero all'indirizzo indicato. Non è necessario che lei sia in casa ogni giorno: se non la trovano, lasciano un avviso e ripassano."
+    goals: [next]
+
+- scenario: club-lettura
+  level: C1
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+  - learner: "Sì, finito ieri notte! Mi è piaciuto tantissimo, anche se all'inizio mi sembrava un po' largo: le prime cento pagine sono solo descrizioni della campagna."
+    errors: [false-friend]
+  - tutor: "Un po' lungo, sì, te lo concedo: l'inizio è lento, ma prepara tutto il resto! E che ne pensi di Teresa, la madre?"
+    recast: {text: "un po' largo", fix: "un po' lungo", tags: [false-friend]}
+    goals: [impression]
+  - learner: "Teresa è il personaggio più forte del libro. Quando il marito torna dalla guerra, lei lo accoglie come se niente fosse. Io al suo posto non lo perdonerei mai, dopo tutto quello che le aveva fatto."
+    errors: [conditional-form]
+  - tutor: "Eh, Teresa è un osso duro. Però parli di una scelta che lei ha già fatto, nel passato: \"non lo perdonerei\" è nel tempo giusto?"
+    prompt: {text: "Io al suo posto non lo perdonerei mai", tags: [conditional-form]}
+  - learner: "Hai ragione: io al suo posto non l'avrei mai perdonato."
+  - tutor: "Ecco, così. Ma io la capisco: con tre figli e la fame del dopoguerra, il perdono era anche una scelta pratica. E lo stile dell'autrice, come ti è sembrato?"
+    goals: [character]
+  - learner: "Mi ha sorpreso molto. Non pensavo che un'autrice così giovane abbia scritto un romanzo così maturo: frasi lunghe, quasi senza dialoghi, ma mai pesanti."
+    errors: [subjunctive-use]
+  - tutor: "D'accordissimo sulle frasi. Fermati però su \"non pensavo che... abbia scritto\": con la principale al passato, quel congiuntivo è nel tempo giusto?"
+    prompt: {text: "Non pensavo che un'autrice così giovane abbia scritto", tags: [subjunctive-use]}
+  - learner: "Non pensavo che un'autrice così giovane avesse scritto un romanzo così maturo."
+  - tutor: "Perfetto. E a chi lo consiglieresti, allora?"
+    goals: [style]
+  - learner: "A chi ha pazienza e ama le saghe familiari. Non lo consiglierei a chi cerca azione: si annoierebbe dopo dieci pagine."
+  - tutor: "Giusto, non è un libro per tutti. Il mese prossimo però scegli tu, così vediamo se hai gusti migliori dei miei!"
+    goals: [recommend]
+
+- scenario: colloquio-lavoro
+  level: C1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno, grazie. Mi chiamo Lucía Herrera, sono di Siviglia e sono licenziata in Belle Arti. Da tre anni vivo a Torino e lavoro come illustratrice per alcune case editrici."
+    errors: [false-friend]
+  - tutor: "Quindi è laureata in Belle Arti: un'ottima base per noi. Mi racconti la sua esperienza prima dell'Italia."
+    recast: {text: "sono licenziata", fix: "è laureata", tags: [false-friend]}
+    goals: [intro]
+  - learner: "Per cinque anni insegnavo disegno in un liceo di Siviglia. Nello stesso periodo collaboravo con uno studio di grafica, e lì ho imparato a lavorare con i clienti."
+    errors: [tense-aspect]
+  - tutor: "Un'esperienza doppia, interessante. Però \"per cinque anni insegnavo\": se parla di un periodo chiuso e definito, quale tempo è più adatto?"
+    prompt: {text: "Per cinque anni insegnavo", tags: [tense-aspect]}
+  - learner: "Per cinque anni ho insegnato disegno in un liceo di Siviglia."
+  - tutor: "Esatto. E quali sono i suoi punti di forza? E un difetto, se vuole essere sincera."
+    goals: [experience]
+  - learner: "Sono creativa e molto precisa con le scadenze: non ho mai consegnato un lavoro in ritardo. Il mio difetto è che sono perfezionista, e a volte passo troppo tempo sui dettagli."
+  - tutor: "Una perfezionista che rispetta le scadenze: una combinazione rara. Perché vorrebbe lavorare proprio da noi?"
+    goals: [strengths]
+  - learner: "Ho visto i vostri progetti per i musei e mi hanno colpita molto. Mi piacerebbe lavorare in una squadra che unisce la grafica e la didattica, perché è proprio quello che ho fatto finora."
+  - tutor: "In effetti il suo profilo mette insieme proprio le due cose. Ha qualche domanda per me?"
+    goals: [why]
+  - learner: "Sì, due. Il ruolo prevede dei viaggi? E sarebbe possibile che lavoro da casa uno o due giorni alla settimana?"
+    errors: [subjunctive-use]
+  - tutor: "Domande legittime. Sulla seconda, però: \"sarebbe possibile che lavoro\"? Con quel condizionale davanti, il verbo che segue cambia modo e tempo."
+    prompt: {text: "sarebbe possibile che lavoro", tags: [subjunctive-use]}
+  - learner: "Sarebbe possibile che lavorassi da casa uno o due giorni alla settimana?"
+  - tutor: "Perfetto. Ci sono un paio di viaggi all'anno, per i musei, e il venerdì si lavora da casa. Le daremo una risposta entro dieci giorni."
+    goals: [questions]
+
+- scenario: colloquio-promozione
+  level: C1
+  persona: en-m-heritage
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie. A gennaio lei mi aveva detto che a settembre parleremmo della mia posizione. Siamo a ottobre, quindi ho pensato di prendere io l'iniziativa."
+    errors: [conditional-form]
+  - tutor: "Ha fatto bene. Però attenzione a \"parleremmo\": è un futuro visto dal passato, da gennaio. Quale forma ci vuole?"
+    prompt: {text: "parleremmo", tags: [conditional-form]}
+  - learner: "Mi aveva detto che a settembre ne avremmo parlato."
+  - tutor: "Esatto, e ha ragione: le chiedo scusa per il ritardo. Mi dica pure."
+  - learner: "Quest'anno ho chiuso tre contratti con clienti nuovi, per un valore di quasi due milioni, e ho formato i due colleghi arrivati a marzo. Per questo credo che una promozione a responsabile commerciale sia giustificata."
+  - tutor: "Sono risultati che nessuno mette in discussione. Il problema è un altro: la direzione teme che lei abbia poca esperienza nella gestione di una squadra."
+    goals: [results, request]
+  - learner: "Capisco il dubbio, ma la formazione dei nuovi colleghi l'ho seguita io dall'inizio alla fine. E comunque mi aspetto che l'azienda mi dà almeno la possibilità di dimostrarlo."
+    errors: [subjunctive-use]
+  - tutor: "Argomento valido. Ma \"mi aspetto che l'azienda mi dà\": dopo un verbo di aspettativa, il modo è quello giusto?"
+    prompt: {text: "mi aspetto che l'azienda mi dà", tags: [subjunctive-use]}
+  - learner: "Mi aspetto che l'azienda mi dia almeno la possibilità di dimostrarlo."
+  - tutor: "Perfetto, e il messaggio è chiaro. Le propongo questo: per sei mesi coordina lei il gruppo commerciale, come prova, con un aumento subito. A maggio decidiamo sulla promozione."
+    goals: [handle]
+  - learner: "Mi sembra una proposta equa, la accetto volentieri. Potremmo fissare già adesso la data della valutazione, così abbiamo entrambi un punto di riferimento?"
+  - tutor: "Certo: facciamo il 15 maggio. Le mando oggi stesso una mail di conferma con i dettagli dell'aumento."
+    goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: C1
+  persona: en-f-student
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Con tutto il rispetto, non sono d'accordo. Credo che una zona pedonale renda il centro più vivibile e, alla lunga, anche più attraente per chi fa acquisti."
+  - tutor: "Più attraente? Ne dubito. Mi dia almeno due argomenti concreti."
+    goals: [position]
+  - learner: "Il primo è la salute: l'inquinamento in via Garibaldi supera i limiti quasi ogni giorno. Il secondo è il parcheggio che parlava il sindaco, quello nuovo vicino alla stazione: da lì il centro si raggiunge a piedi in cinque minuti."
+    errors: [relative-pronoun]
+  - tutor: "Due argomenti chiari. Però \"il parcheggio che parlava il sindaco\" mi suona strano: il parcheggio, di sicuro, non parlava! Quale relativo ci vuole?"
+    prompt: {text: "il parcheggio che parlava il sindaco", tags: [relative-pronoun]}
+  - learner: "Ha ragione: il parcheggio di cui parlava il sindaco."
+  - tutor: "Ecco. Ma cinque minuti a piedi, con le borse della spesa e magari sotto la pioggia, sono tanti. Gli anziani come fanno?"
+    goals: [argue]
+  - learner: "Anche se sia vero che per gli anziani è più scomodo, si potrebbe organizzare una navetta elettrica gratuita, che passi ogni dieci minuti."
+    errors: [subjunctive-use]
+  - tutor: "Una navetta, interessante. Però attenzione all'inizio: \"anche se sia\". Questa congiunzione, a differenza di altre, non chiede il congiuntivo."
+    prompt: {text: "Anche se sia vero", tags: [subjunctive-use]}
+    new: [{lemma: congiuntivo, gloss: subjunctive}]
+  - learner: "Anche se è vero che per gli anziani è più scomodo, si potrebbe organizzare una navetta."
+  - tutor: "Esatto. E le concedo che la navetta potrebbe funzionare. Ma ammetterà che per i negozi i primi mesi saranno duri."
+    goals: [counter]
+  - learner: "Lo ammetto, all'inizio ci sarà un calo. Propongo quindi di partire con una prova di sei mesi, solo nei fine settimana, e di aiutare i commercianti con uno sconto sulle tasse locali."
+  - tutor: "Sei mesi di prova e uno sconto per i negozi: su questo potremmo trovarci d'accordo. Lo metta per iscritto e lo presentiamo insieme alla prossima assemblea."
+    goals: [concede]
+
+- scenario: film-libro
+  level: C1
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Inizio io, se va bene. Ho letto un romanzo che è salito l'anno scorso: la storia di un pescatore di Lampedusa che una notte trova una barca piena di migranti."
+    errors: [false-friend]
+  - tutor: "Ah, quello uscito l'anno scorso, se n'è parlato tanto! Senza raccontarci il finale: che tipo è il personaggio principale?"
+    recast: {text: "è salito", fix: "uscito", tags: [false-friend]}
+    goals: [summary]
+  - learner: "È un uomo di poche parole, burbero ma generoso. Da giovane voleva andarsene dall'isola, ma poi suo padre si è ammalato ed è rimasto. Lo che mi è piaciuto di più è che l'autore non lo trasforma mai in un eroe."
+    errors: [relative-pronoun]
+  - tutor: "Bel ritratto. Però \"lo che mi è piaciuto\": in spagnolo funziona, ma in italiano quel pronome si costruisce in un altro modo. Come lo diresti?"
+    prompt: {text: "Lo che mi è piaciuto", tags: [relative-pronoun]}
+  - learner: "Quello che mi è piaciuto di più è che l'autore non lo trasforma mai in un eroe."
+  - tutor: "Esatto. E a parte questo, il libro ti ha convinto fino in fondo?"
+    goals: [characters]
+  - learner: "Quasi. La prima parte è bellissima, ma verso la fine ci sono troppi personaggi secondari, e non si capisce bene a che cosa servano. Però l'ultima pagina mi ha fatto piangere."
+  - tutor: "Anche a te! Io ho pianto in treno, che figuraccia. E a chi lo consiglieresti?"
+    goals: [opinion]
+  - learner: "A tutti quelli che vogliono capire che cosa succede davvero nel Mediterraneo, ma senza leggere un saggio. Anche ai ragazzi del liceo, perché è scritto in modo semplice."
+  - tutor: "Ottimo consiglio, lo proporrò alla professoressa di mia figlia. Grazie, chi è il prossimo?"
+    goals: [recommend]

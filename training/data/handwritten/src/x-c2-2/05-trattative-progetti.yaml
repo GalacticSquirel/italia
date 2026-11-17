@@ -1,0 +1,165 @@
+# C2: trattative professionali (fornitori, affitti), presentazioni e richieste al capo.
+- scenario: trattativa-fornitore
+  level: C2
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno. Immagina bene. Capisco che i costi siano saliti, ma un quindici per cento da un mese all'altro, comunicato con una mail di tre righe, per un'azienda delle nostre dimensioni è difficile da assorbire. Vorrei capire con Lei se ci sono margini per ragionarne."
+  - tutor: "La mail era sbrigativa, glielo riconosco, e me ne scuso. Sui margini, però, devo essere franco: la carta è aumentata del venti e noi ne abbiamo ribaltato solo una parte. Di che cosa vorrebbe ragionare, esattamente?"
+    goals: [problem]
+  - learner: "Le propongo di guardare alla storia, prima che ai listini. Lavoriamo insieme da sette anni, non abbiamo mai saltato un pagamento e l'anno scorso abbiamo aumentato gli ordini del trenta per cento. Quando avete avuto quel ritardo nelle consegne a dicembre, non abbiamo chiesto penali. Credo che un rapporto così meriti un trattamento diverso da quello riservato a un cliente occasionale."
+  - tutor: "Il ritardo di dicembre non l'ho dimenticato, e nemmeno la vostra pazienza. Siete un cliente che non vorrei perdere, questo è fuori discussione. Ma la riconoscenza non paga la cellulosa: mi dia un numero."
+    goals: [argue]
+  - learner: "Il numero è questo: un aumento del sette per cento, in cambio di un impegno scritto da parte nostra su volumi minimi per ventiquattro mesi. Voi avreste la certezza degli ordini e potreste pianificare gli acquisti; noi avremmo un prezzo sostenibile. Qualora poi le materie prime dovessero scendere, chiederei che il listino venisse rivisto ogni sei mesi."
+  - tutor: "Il sette è basso, non glielo nascondo. L'impegno su due anni, invece, mi interessa molto. Potrei arrivare al nove, con la revisione semestrale che chiede e consegne garantite entro dieci giorni. Più giù non mi autorizzano."
+    goals: [counteroffer]
+  - learner: "Al nove posso arrivare anch'io, a patto che la revisione valga nei due sensi e sia agganciata a un indice pubblico, così nessuno dovrà discutere ogni volta. Se è d'accordo, Le riassumo: nove per cento dal primo marzo, volumi minimi per ventiquattro mesi, revisione ogni sei mesi su indice, consegna entro dieci giorni. Me lo conferma per iscritto?"
+  - tutor: "Confermo punto per punto, e l'indice pubblico è un'ottima idea: toglie di mezzo le discussioni. Le mando la bozza del contratto entro domani sera. È stato un piacere trattare con chi sa quello che vuole; buona giornata."
+    goals: [agreement]
+
+- scenario: trattativa-fornitore
+  level: C2
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno. Sì, La chiamo per quello, e vado dritto al punto: con il quindici per cento in più le vaschette mi costano più del margine che ho sul prodotto. Così com'è, il nuovo listino per noi non è sostenibile."
+  - tutor: "Apprezzo la franchezza, e Le rispondo con la stessa moneta: non è un aumento che abbiamo deciso a cuor leggero. La plastica alimentare è rincarata, l'energia pure. Che cosa si aspetta da noi?"
+    goals: [problem]
+  - learner: "Mi aspetto che teniate conto di chi siamo. Quando abbiamo cominciato, cinque anni fa, compravamo duemila pezzi al mese; oggi ne compriamo ventimila, sempre da voi, senza mai chiedere preventivi alla concorrenza. E vi abbiamo portato due clienti, la pasticceria e il caseificio. Un fornitore queste cose dovrebbe pesarle."
+  - tutor: "Le peso, mi creda, e i due clienti che ci avete presentato non li ho dimenticati. Proprio per questo sono qui a parlarne con Lei e non Le ho fatto rispondere dall'ufficio. Ha una cifra in mente?"
+    goals: [argue]
+  - learner: "Ce l'ho. Noi potremo accettare un otto per cento, se in cambio ci garantiste il prezzo bloccato per un anno. E sarei disposto a ordinare ogni tre mesi invece che ogni mese, così risparmiate sui trasporti."
+    errors: [conditional-form]
+  - tutor: "Ordini trimestrali: questo mi alleggerisce i costi e lo metto sul piatto volentieri. Un chiarimento, però, perché in una trattativa la differenza conta: «potremo accettare» è una promessa per il futuro o un'ipotesi legata alle condizioni?"
+    prompt: {text: "potremo accettare", tags: [conditional-form]}
+  - learner: "Un'ipotesi, certo: potremmo accettare l'otto per cento, a quelle condizioni. Con una emme sola sembrava che avessi già firmato."
+  - tutor: "Appunto, e io l'avrei presa in parola! Allora: l'otto bloccato per un anno non riesco a darlo. Posso fare il dieci, bloccato dodici mesi, con ordini trimestrali e trasporto a nostro carico. Che ne dice?"
+    goals: [counteroffer]
+  - learner: "Dico che ci avviciniamo. Facciamo il nove e mezzo, trasporto a vostro carico, e io Le firmo oggi stesso l'ordine per il primo trimestre. Di più non posso, altrimenti lavoro in perdita."
+  - tutor: "Nove e mezzo, prezzo bloccato un anno, ordini trimestrali, trasporto nostro: affare fatto. Le mando la conferma via mail entro un'ora e aspetto il suo ordine. Grazie della chiarezza, è così che i rapporti durano."
+    goals: [agreement]
+
+- scenario: trattativa-fornitore
+  level: C2
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno, ingegnere. Sì, è per il listino. Non contesto che i costi siano saliti; contesto la misura e i tempi. Il quindici per cento in un colpo solo, con i contratti dei nostri clienti già firmati, significa per noi lavorare sei mesi senza guadagno."
+  - tutor: "Comprendo, e Le assicuro che non è una decisione presa alla leggera. Ma anche noi abbiamo contratti firmati, con le cartiere, e a condizioni peggiori di un anno fa. Dove vede lo spazio per una soluzione?"
+    goals: [problem]
+  - learner: "Lo vedo nel rapporto che abbiamo costruito. In undici anni siamo passati da un ordine di prova a essere, credo, tra i vostri primi dieci clienti nella regione. Assumo che un cliente così vi costi meno di uno nuovo: nessun rischio di insoluti, nessun agente da pagare. Sarebbe un peccato costringerci a chiedere preventivi altrove, e glielo dico senza alcuna minaccia."
+    errors: [false-friend]
+  - tutor: "Anch'io suppongo che un cliente così ci costi meno di uno nuovo, anzi ne sono certo, ed è un argomento che ho già portato alla direzione. Apprezzo che non sia una minaccia. Mi dica che cosa aveva in mente."
+    goals: [argue]
+    recast: {text: "Assumo che", fix: "suppongo che", tags: [false-friend]}
+  - learner: "Suppongo, sì: da noi «assumere» si usa per tutto. Avevo in mente uno scaglionamento: otto per cento subito, e il resto tra sei mesi, soltanto se i prezzi della carta non saranno scesi nel frattempo. In più Le chiederei di portare i termini di pagamento da trenta a sessanta giorni, il che ci darebbe un po' di respiro."
+  - tutor: "Lo scaglionamento è ragionevole e posso difenderlo. Sui sessanta giorni, invece, la direzione non mi seguirebbe: Le propongo quarantacinque. Otto subito, il resto dell'aumento a settembre dopo la verifica sui prezzi, pagamento a quarantacinque giorni."
+    goals: [counteroffer]
+  - learner: "Quarantacinque giorni mi stanno bene. Chiederei soltanto che la verifica di settembre fosse fatta insieme, su dati che possiamo vedere entrambi, e non comunicata a cose fatte. Se siamo d'accordo, gradirei due righe scritte prima di venerdì, perché devo riferirne al nostro titolare."
+  - tutor: "Verifica congiunta a settembre, dati alla mano: mi sembra giusto e lo metto nero su bianco. Avrà la mia lettera entro giovedì. La ringrazio, è stata una trattativa da gentiluomini, e non capita tutti i giorni."
+    goals: [agreement]
+
+- scenario: trattativa-affitto
+  level: C2
+  persona: es-f-teacher
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Molto, non glielo nascondo: la luce del soggiorno vale da sola la visita. Sono interessata. Ho però una perplessità sugli infissi: quelli della camera sono vecchi e, con la strada sotto, temo il rumore e le bollette d'inverno."
+  - tutor: "Ha occhio, signora: gli infissi della camera sono in effetti gli originali, e il proprietario lo sa. Il canone richiesto è di novecentocinquanta euro al mese, spese condominiali escluse; a suo dire ne tiene già conto."
+    goals: [interest]
+  - learner: "A suo dire, appunto. Appartamenti simili nella stessa via, con i doppi vetri, si affittano a novecento. Io sarei disposta a firmare subito a ottocentocinquanta, oppure a novecento qualora il proprietario si impegnasse per iscritto a sostituire gli infissi entro l'autunno. Mi sembra che così ciascuno faccia la sua parte."
+  - tutor: "Ottocentocinquanta temo che non lo accetti. La seconda ipotesi, invece, gliela posso presentare con buone probabilità: novecento con l'impegno sugli infissi. E per la durata, a che cosa pensava? Il proprietario preferirebbe un quattro più quattro."
+    goals: [negotiate]
+  - learner: "Il quattro più quattro mi va bene, purché sia possibile recedere con un preavviso ragionevole. Sono insegnante, e se dovessi ottenere il trasferimento non vorrei restare legata. La legge parla di sei mesi; chiederei che fossero tre. In compenso accetto la cedolare secca senza obiezioni e offro una garanzia di tre mensilità."
+  - tutor: "Tre mesi di disdetta con tre mensilità di garanzia: è uno scambio che un proprietario prudente accetta volentieri. Glielo propongo così. Resta la provvigione dell'agenzia, una mensilità più IVA, come d'uso."
+    goals: [conditions]
+  - learner: "La provvigione è quella prevista e non la discuto. Allora, se il proprietario conferma novecento euro con la clausola sugli infissi e la disdetta a tre mesi, per me l'accordo c'è, e posso firmare la proposta anche domani. Se invece la clausola dovesse saltare, preferisco dirglielo ora: rinuncerei, con dispiacere."
+  - tutor: "Chiarissima, e trattare con chi dice subito dove si ferma semplifica il lavoro a tutti. Chiamo il proprietario nel pomeriggio e Le do conferma entro sera; sono fiducioso. Intanto Le preparo la proposta con le tre clausole."
+    goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: C2
+  persona: en-m-traveller
+  history: [object-pronoun]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Mi è piaciuto, sì, soprattutto la terrazza. Confermo l'interesse, ma con una riserva grossa: l'annuncio parlava di «ristrutturato», e in bagno c'è una macchia di umidità grande come un tavolo. Vorrei sapere da dove viene, prima di parlare di cifre."
+  - tutor: "È un'osservazione legittima. Si tratta di un'infiltrazione dal piano di sopra, già riparata; manca solo la tinteggiatura, che verrà fatta. Il canone è di milleduecento euro mensili, e a quella cifra ci sono altri interessati."
+    goals: [interest]
+  - learner: "Non dubito che ci siano. Ma milleduecento per sessanta metri quadri, con un bagno da sistemare, è sopra il mercato. Io arrivo a mille e cinquanta, e pago sei mesi anticipati, se serve a rassicurare qualcuno. Il proprietario l'ho telefonato ieri per presentarmi, e mi è parso una persona con cui si può ragionare."
+    errors: [object-pronoun]
+  - tutor: "Sei mesi anticipati sono un argomento che i proprietari ascoltano volentieri. Mi perdoni, però: «l'ho telefonato»? Con telefonare, la persona vuole un altro pronome. Come direbbe?"
+    goals: [negotiate]
+    prompt: {text: "l'ho telefonato", tags: [object-pronoun]}
+  - learner: "Gli ho telefonato, ha ragione. E comunque non per scavalcare l'agenzia, ci tengo a dirlo. Quanto al contratto: mi servirebbe un transitorio di diciotto mesi, perché il mio incarico a Torino finisce l'anno prossimo, con possibilità di disdetta a due mesi."
+  - tutor: "Esatto, gli ha telefonato; e nessun problema, anzi. Qui però devo deluderla: il proprietario vuole soltanto un quattro più quattro, disdetta a sei mesi, e sul canone non scende sotto i millecentocinquanta. Sono condizioni che ha ribadito anche stamattina."
+    goals: [conditions]
+  - learner: "Allora temo che non ci incontriamo, ed è meglio dirlo subito che perdere tempo in due. Un contratto di quattro anni per me non ha senso, e millecentocinquanta con quel bagno nemmeno. La ringrazio davvero per la disponibilità; se il proprietario dovesse ripensarci sul transitorio, ha il mio numero, e se ha altro in zona lo vedo volentieri."
+  - tutor: "La capisco, e apprezzo che me lo dica con questa franchezza e questo garbo. Tengo il suo numero in evidenza: in via Nizza si libera a breve un bilocale proprio con contratto transitorio. La chiamo in settimana, e buona giornata."
+    goals: [conclude]
+
+- scenario: presentazione-progetto
+  level: C2
+  persona: en-f-professional
+  turns:
+  - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+  - learner: "Me ne bastano cinque, direttore. Proponiamo di affiancare al servizio clienti telefonico un sistema di prenotazione delle richiamate. L'obiettivo è uno solo: azzerare le attese in linea, che oggi sono la prima causa di reclamo, senza assumere nuovo personale."
+  - tutor: "Azzerare è una parola che nelle presentazioni sento spesso e nei consuntivi mai. Mi dia dei numeri, e che siano verificabili."
+    goals: [pitch]
+  - learner: "Eccoli. Oggi l'attesa media è di undici minuti e perdiamo il diciotto per cento delle chiamate. Nel test di sei settimane sulla filiale di Brescia le chiamate perse sono scese al quattro per cento e i reclami si sono dimezzati. Rapportato a tutti i clienti, stimiamo trecentomila euro di fatturato all'anno che oggi se ne vanno alla concorrenza. L'investimento è di novantamila euro, una tantum."
+  - tutor: "Brescia è una filiale piccola e ordinata. Chi mi garantisce che a Milano, con il triplo dei volumi, il sistema regga? Se fallisce in piena stagione, il danno è ben superiore a novantamila euro."
+    goals: [benefits]
+  - learner: "Nessuno glielo può garantire a priori, e non glielo prometterei nemmeno se potessi. Per questo il piano prevede un avvio in parallelo: per i primi due mesi la linea tradizionale resta attiva, e se le chiamate perse dovessero superare la soglia attuale si torna indietro in ventiquattr'ore. Il rischio che corriamo, nel caso peggiore, è di aver speso la prima rata, cioè trentamila euro."
+  - tutor: "Un avvio in parallelo con una soglia di ritirata: questo cambia la natura del rischio, lo riconosco. Trentamila li posso autorizzare io; per gli altri sessanta serve il comitato. Come pensa di procedere?"
+    goals: [objection]
+  - learner: "Se Lei autorizza la prima rata, partiamo a Milano il primo del mese. Tra otto settimane Le porto i dati del parallelo, con gli stessi indicatori di Brescia, e con quelli andiamo insieme in comitato per il resto. Se i numeri non ci fossero, sarei io la prima a proporre di fermarci."
+  - tutor: "Mi piace che metta in conto anche l'ipotesi di fermarsi: di solito devo chiederlo io. Autorizzo i trentamila; mi mandi oggi il piano con la soglia e fissiamo la verifica tra otto settimane. Ha usato sette minuti, ne è valsa la pena."
+    goals: [next-steps]
+
+- scenario: presentazione-progetto
+  level: C2
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+  - learner: "Glielo dico in tre frasi, dottoressa. I forni del laboratorio hanno quindici anni e consumano il doppio dei modelli attuali. Propongo di sostituirli quest'estate, durante la chiusura. L'obiettivo è tagliare la bolletta e aumentare la produzione senza allargare i locali."
+  - tutor: "Tre frasi davvero, la ringrazio. Ma forni nuovi li chiedono tutti i reparti, ogni anno. Che cosa ci guadagna l'azienda, in cifre?"
+    goals: [pitch]
+  - learner: "In cifre: oggi spendiamo centoquarantamila euro l'anno di gas ed elettricità per la cottura. Con i forni nuovi il produttore certifica un risparmio del trentacinque per cento, quindi circa cinquantamila euro l'anno. Inoltre ogni forno cuoce due teglie in più per ciclo: è un dodici per cento di capacità. L'investimento è di centottantamila euro, e rientra in meno di quattro anni."
+  - tutor: "Quattro anni sono lunghi, con questi tassi. E l'aumento di capacità serve solo se qualcuno compra il prodotto in più. Se la domanda non cresce, ho speso centottantamila euro per risparmiare sul gas."
+    goals: [benefits]
+  - learner: "È giusto, e non Le dico che la domanda sia sicura. Tutto dipende del contratto con la catena di supermercati, che è in trattativa. Ma anche nell'ipotesi peggiore, senza un solo cliente nuovo, il risparmio di energia resta: cinquantamila l'anno. E c'è un contributo regionale del trenta per cento per chi riduce i consumi; con quello, il rientro scende sotto i tre anni."
+    errors: [articulated-preposition]
+  - tutor: "Il contributo regionale non lo conoscevo, e sposta i conti. Una precisazione, intanto: «dipende del contratto»? Con dipendere, in italiano, quale preposizione ci vuole?"
+    goals: [objection]
+    prompt: {text: "dipende del contratto", tags: [articulated-preposition]}
+  - learner: "Dipende dal contratto, mi scusi: è lo spagnolo che esce quando parlo di soldi. Dunque, il bando regionale scade il trenta giugno. Se Lei è d'accordo, preparo la domanda con l'ufficio amministrativo entro due settimane e chiedo tre preventivi, così a fine mese decidiamo con i numeri definitivi."
+  - tutor: "Dal contratto, bene. E il metodo mi convince: tre preventivi, domanda al bando, decisione a fine mese con i numeri in mano. Proceda, e mi metta in copia nelle comunicazioni con la Regione. Ora devo scappare, ma ha speso bene i suoi dieci minuti."
+    goals: [next-steps]
+
+- scenario: colloquio-promozione
+  level: C2
+  persona: en-m-heritage
+  history: [conditional-form]
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie di avermi ricevuto. Vorrei fare il punto sul mio anno e, se me lo consente, parlare del mio inquadramento. Parto dai fatti: il progetto di Verona l'abbiamo consegnato con tre settimane di anticipo e il cliente ha rinnovato per altri due anni. Inoltre da marzo coordino io i quattro colleghi nuovi, anche se non è scritto da nessuna parte."
+  - tutor: "Verona è stato un ottimo lavoro, l'ho detto anche in direzione. E so che i nuovi fanno riferimento a lei. Dove vuole arrivare, di preciso?"
+    goals: [results]
+  - learner: "Vorrei che quello che faccio di fatto venisse riconosciuto: il ruolo di responsabile di squadra, con il livello e la retribuzione corrispondenti. Un anno fa Lei mi aveva detto che ne parleremmo dopo Verona. Verona è chiusa, ed eccomi qui."
+    errors: [conditional-form]
+  - tutor: "Ha buona memoria, e io pure. Solo, mi aiuti a capire bene: «aveva detto che ne parleremmo»? Ripensi a quel verbo: è un futuro visto dal passato, e vuole la forma composta."
+    goals: [request]
+    prompt: {text: "che ne parleremmo", tags: [conditional-form]}
+  - learner: "Ah, la concordanza. Mi aveva detto che ne parleremo dopo Verona? No, non mi convince nemmeno così."
+    errors: [conditional-form]
+  - tutor: "Quasi: avevo detto che ne avremmo parlato dopo Verona, e mantengo la parola. I suoi risultati non si discutono. Il problema è il budget: le promozioni per quest'anno sono state chiuse a gennaio, e non ho margine per riaprirle."
+    recast: {text: "che ne parleremo", fix: "che ne avremmo parlato", tags: [conditional-form]}
+  - learner: "Ne avremmo parlato, ecco. Capisco il vincolo del budget, e non Le chiedo l'impossibile. Ma se il ruolo lo svolgo già, il costo per l'azienda del non riconoscerlo esiste lo stesso: è il rischio che io, o chi verrà dopo di me, smetta di farlo. Propongo di separare le due cose: la nomina adesso, l'adeguamento economico dal primo gennaio, messo per iscritto."
+  - tutor: "Separare la nomina dalla retribuzione è una strada che posso percorrere, e l'argomento sul costo del non riconoscere è corretto. Che cosa le servirebbe, in concreto, per considerarlo un impegno serio?"
+    goals: [handle]
+  - learner: "Una lettera con la nuova qualifica entro fine mese e, nella stessa lettera, la data e la fascia dell'aumento. E un incontro a settembre per verificare che sia stato inserito nel budget dell'anno prossimo. Così nessuno dei due dovrà fidarsi soltanto della memoria."
+  - tutor: "D'accordo: lettera con qualifica e decorrenza entro il trenta, e ci rivediamo la prima settimana di settembre con il budget sul tavolo. Se lo è meritato, e ha saputo chiederlo nel modo giusto. Buon lavoro."
+    goals: [next-steps]

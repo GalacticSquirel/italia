@@ -1,0 +1,196 @@
+# B1, complaints and negotiations: content first, few corrections.
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-professional
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, purtroppo. Nella mia camera, la 214, l'aria condizionata non funziona e fa un caldo terribile."
+    - tutor: "Mi dispiace molto, con questo caldo è davvero un problema. Da quando non funziona?"
+      goals: [problem]
+    - learner: "Da ieri sera. Ho chiamato la reception due volte, ma nessuno ha venuto a controllare."
+      errors: [auxiliary-choice]
+    - tutor: "Nessuno ha venuto? Provi a ripetere il verbo, per favore."
+      prompt: {text: "ha venuto", tags: [auxiliary-choice]}
+    - learner: "Scusi: nessuno è venuto a controllare."
+    - tutor: "Esatto. Mi scuso io per i colleghi, non doveva succedere. Che cosa posso fare per lei adesso?"
+      goals: [since]
+    - learner: "Vorrei cambiare camera stanotte, se è possibile. E mi aspetto anche uno sconto, onestamente."
+    - tutor: "Ha ragione. Le do subito la 305, che è più grande e più fresca. Per lo sconto, le va bene il venti per cento su questa notte?"
+      goals: [request]
+    - learner: "Il venti per cento di sconto mi sembra poco, dopo una notte senza dormire. Potrebbe aggiungere la colazione gratis per tutto il soggiorno?"
+    - tutor: "Va bene, mi sembra giusto: sconto del venti per cento e colazione gratis fino all'ultimo giorno. Ecco la chiave della 305."
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, c'è molto rumore nella camera accanto alla mia. Hanno la televisione altissima e non riesco a dormire."
+    - tutor: "Capisco, a quest'ora non va bene. Da quanto tempo va avanti questo rumore?"
+      goals: [problem]
+    - learner: "Da più di un'ora. Ho chiamato la reception dalla camera, ma nessuno contestava al telefono."
+      errors: [false-friend]
+    - tutor: "Mi scusi, ero al piano di sopra e per questo nessuno rispondeva al telefono. Come posso aiutarla?"
+      recast: {text: "contestava", fix: "rispondeva", tags: [false-friend]}
+      goals: [since]
+    - learner: "Potrebbe parlare con loro? Domani lavoro presto e devo alzarmi alle cinque."
+    - tutor: "Certo, salgo subito a parlare con i signori della 118. Se il rumore continua, le posso dare un'altra camera."
+      goals: [request]
+    - learner: "Grazie. Però se devo cambiare camera a mezzanotte, vorrei anche un piccolo rimborso."
+    - tutor: "È giusto. Se deve cambiare camera, non pagherà la colazione di domani. Va bene così?"
+    - learner: "Sì, va bene. Aspetto dieci minuti e poi, se serve, torno qui."
+    - tutor: "D'accordo, allora ci sentiamo tra dieci minuti. Mi scusi ancora per il rumore."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-retired
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie due settimane fa, ma non lavorano bene. Si sente solo da un lato."
+      errors: [word-choice]
+    - tutor: "Mi dispiace. Quindi le cuffie non funzionano bene e si sente solo da una parte. Ha con sé lo scontrino?"
+      recast: {text: "non lavorano bene", fix: "non funzionano bene", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Sì, eccolo. Le ho comprate il tre ottobre, in questo negozio."
+    - tutor: "Perfetto, sono ancora in garanzia. Che cosa preferisce fare?"
+      goals: [proof]
+    - learner: "Preferirei un rimborso, perché non mi fido più di questa marca."
+    - tutor: "La capisco. Purtroppo dopo sette giorni non possiamo più fare il rimborso. Possiamo però sostituirle con un altro modello."
+      goals: [request]
+    - learner: "Capisco. Allora posso scegliere un modello di un'altra marca? E se costa di più?"
+    - tutor: "Certo, può scegliere quello che vuole. Se costa di più, paga solo la differenza."
+    - learner: "Va bene. Prendo quelle nere lì, costano solo cinque euro in più."
+    - tutor: "Ottima scelta. Le preparo subito il nuovo scontrino, con la garanzia di due anni."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questo telefono qui un mese fa e la batteria dura solo due ore."
+    - tutor: "Solo due ore? Ha ragione, non è normale. Ha lo scontrino?"
+      goals: [problem]
+    - learner: "Sì, l'ho guardato nella scatola, eccolo. L'ho comprato il cinque settembre."
+      errors: [false-friend]
+    - tutor: "Ha fatto bene: l'ha conservato nella scatola, così non si perde. Il telefono è in garanzia, quindi possiamo ripararlo gratis."
+      recast: {text: "l'ho guardato", fix: "l'ha conservato", tags: [false-friend]}
+      new: [{lemma: conservare, gloss: to keep}]
+      goals: [proof]
+    - learner: "Riparare? Quanto tempo ci vuole? Io uso il telefono per studiare e non posso stare senza."
+    - tutor: "Di solito ci vogliono due settimane. Capisco che per lei è un problema."
+    - learner: "Due settimane sono troppe. Preferisco che mi date un telefono nuovo, o i soldi."
+      errors: [subjunctive-use]
+    - tutor: "Capisco. Solo una cosa: preferisco che mi... date? Provi di nuovo con il verbo."
+      prompt: {text: "che mi date", tags: [subjunctive-use]}
+    - learner: "Preferisco che mi diate un telefono nuovo."
+    - tutor: "Perfetto. Allora facciamo così: le do un telefono nuovo, uguale a questo. Le va bene?"
+      goals: [request]
+    - learner: "Sì, benissimo. Grazie per la pazienza!"
+    - tutor: "Grazie a lei. Ecco il telefono nuovo e il suo scontrino."
+      goals: [agree]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-f-student
+  history: [register]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, mi scusi per il disturbo. Sono Emma, abito al secondo piano, proprio sotto di lei."
+    - tutor: "Ah, piacere! Io sono qui da poco. Mi dica, è successo qualcosa?"
+      goals: [greet]
+    - learner: "Ecco, la sera sento molta musica dal suo appartamento. Ieri è andata avanti fino alle due e io avevo un esame stamattina."
+    - tutor: "Oh, mi dispiace davvero! Non pensavo che si sentisse così tanto."
+      goals: [problem]
+    - learner: "Sì, si sente tutto. Puoi abbassare il volume dopo le undici, per favore?"
+      errors: [register]
+    - tutor: "Puoi? Noi due ci conosciamo appena..."
+      prompt: {text: "Puoi", tags: [register]}
+    - learner: "Ha ragione, scusi. Potrebbe abbassare il volume dopo le undici?"
+    - tutor: "Certo, così va benissimo. Però il venerdì suono con il mio gruppo: possiamo fare fino a mezzanotte?"
+      goals: [request]
+    - learner: "Il venerdì va bene, non ho lezione il sabato. Ma gli altri giorni alle undici, d'accordo?"
+    - tutor: "D'accordo: venerdì fino a mezzanotte, gli altri giorni silenzio dalle undici. Grazie per avermelo detto in modo così gentile."
+      goals: [compromise]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera. Mi chiamo Daniel, sono il vicino del piano di sotto. Ha un minuto?"
+    - tutor: "Buonasera, certo. Mi dica pure."
+      goals: [greet]
+    - learner: "Ecco, la mattina presto sento dei rumori forti, come dei mobili che si muovono. Mia figlia è piccola e si sveglia ogni volta."
+    - tutor: "Ah, credo di sapere cos'è: mi alleno in casa alle sei, prima del lavoro. Non sapevo di disturbare."
+      goals: [problem]
+    - learner: "Capisco. Anche la signora del primo piano sente il rumore. Ieri la ho parlato e anche lei si sveglia."
+      errors: [object-pronoun]
+    - tutor: "Scusi, la ho parlato? Provi a dirlo in un altro modo."
+      prompt: {text: "la ho parlato", tags: [object-pronoun]}
+    - learner: "Scusi... lei ho parlato ieri."
+      errors: [object-pronoun]
+    - tutor: "Ah, le ha parlato ieri e anche lei si sveglia: mi dispiace per tutti e due. Che cosa posso fare?"
+      recast: {text: "lei ho parlato", fix: "le ha parlato", tags: [object-pronoun]}
+    - learner: "Potrebbe allenarsi un po' più tardi, per esempio dopo le sette e mezza?"
+    - tutor: "Alle sette e mezza devo già uscire, purtroppo. Però potrei mettere un tappeto sotto e iniziare alle sette."
+      new: [{lemma: tappeto, gloss: rug}]
+      goals: [request]
+    - learner: "Proviamo così. Se con il tappeto il rumore non si sente, per noi va bene."
+    - tutor: "Perfetto, domani compro il tappeto e inizio alle sette. Se sente ancora rumore, me lo dica subito."
+      goals: [compromise]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando freno, la macchina fa un rumore strano, molto acuto. E il volante trema un po'."
+    - tutor: "Capisco, un rumore quando frena. Probabilmente sono i freni. Quando è cominciato?"
+      goals: [describe]
+    - learner: "È cominciato la settimana scorsa. Guidavo in autostrada e all'improvviso sentivo questo rumore."
+      errors: [tense-aspect]
+    - tutor: "All'improvviso... sentivo? È successo una volta sola, in un momento preciso."
+      prompt: {text: "sentivo", tags: [tense-aspect]}
+    - learner: "Ah sì: all'improvviso ho sentito questo rumore."
+    - tutor: "Esatto. Ho guardato adesso: i freni davanti sono da cambiare."
+      goals: [when]
+    - learner: "Lo immaginavo. Quanto costerà la riparazione, più o meno?"
+    - tutor: "Tra pezzi e lavoro, circa 180 euro. Le faccio subito un preventivo, se vuole."
+      goals: [cost]
+    - learner: "Sì, grazie. È un po' caro per me... non c'è un modo per spendere meno?"
+    - tutor: "Posso usare pezzi meno cari, ma sempre buoni: così scendiamo a 140 euro."
+    - learner: "Meglio, facciamo così. E quando sarà pronta la macchina? Giovedì devo partire per Firenze."
+    - tutor: "Non si preoccupi: sarà pronta domani pomeriggio alle cinque. Così giovedì parte tranquillo."
+      goals: [time]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Da qualche giorno la macchina non parte bene la mattina. Devo provare tre o quattro volte."
+    - tutor: "Capisco. E succede solo la mattina, quando fa freddo?"
+      goals: [describe]
+    - learner: "Sì, soprattutto quando fa freddo. È cominciato lunedì, dopo il fine settimana in montagna."
+    - tutor: "Allora potrebbe essere la batteria. Quanti anni ha la macchina?"
+      new: [{lemma: batteria, gloss: battery}]
+      goals: [when]
+    - learner: "Ha sei anni e la batteria non l'ho mai cambiata. Se è la batteria, quanto verrà a costare?"
+    - tutor: "Una batteria nuova costa circa 110 euro, lavoro compreso. Prima però la controllo, e il controllo è gratis."
+      goals: [cost]
+    - learner: "Perfetto. E quando poderò ritirare la macchina? Mi serve per andare a scuola."
+      errors: [future-form]
+    - tutor: "Quando... poderò? Il futuro di questo verbo è un po' diverso."
+      prompt: {text: "poderò", tags: [future-form]}
+    - learner: "Quando potrò ritirare la macchina?"
+    - tutor: "Giusto! Potrà venire già oggi alle sei: per questo lavoro basta mezz'ora."
+      goals: [time]

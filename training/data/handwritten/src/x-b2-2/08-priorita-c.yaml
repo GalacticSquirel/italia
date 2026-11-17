@@ -1,0 +1,216 @@
+# B2, prioritising (third batch): turns with two errors where the tutor picks one (scenario
+# focus, then the learner's history), a failed repair followed by a recast, many clean turns.
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-heritage
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Buongiorno, dottore. Meglio di prima, ma non del tutto bene. Di notte, a volte, il cuore batte fortissimo, come dopo una corsa, anche se sono a letto."
+  - tutor: "Capisco. Quanto dura, più o meno? E succede anche di giorno?"
+  - learner: "Dura pochi minuti. Di giorno no, ma l'altra notte mi sono svegliato e ho uscito sul balcone perché non respiravo bene. La mia moglie voleva chiamare l'ambulanza."
+    errors: [auxiliary-choice, possessive]
+  - tutor: "Ha fatto bene a prendere aria. Ma «ho uscito sul balcone»? Con «uscire», quale ausiliare usiamo?"
+    prompt: {text: "ho uscito", tags: [auxiliary-choice]}
+    new: [{lemma: ausiliare, gloss: auxiliary verb}]
+  - learner: "Sono uscito sul balcone. Con i verbi di movimento è sempre «essere», giusto?"
+  - tutor: "Quasi sempre: «camminare», per esempio, vuole «avere». Ora mi dica: in famiglia qualcuno ha avuto problemi di cuore?"
+    goals: [symptoms]
+  - learner: "Mia madre ha la pressione alta da quando aveva quarant'anni, e suo fratello portava un pacemaker. Mio padre, invece, è sempre stato bene."
+  - tutor: "È utile saperlo. Gli esami mostrano che il battito, ogni tanto, diventa irregolare: si chiama aritmia, ed è abbastanza comune."
+    goals: [history]
+    new: [{lemma: aritmia, gloss: arrhythmia}, {lemma: irregolare, gloss: irregular}]
+  - learner: "È pericoloso? Non voglio che mia moglie si preoccupa più del necessario: è già molto ansiosa di natura."
+    errors: [subjunctive-use]
+  - tutor: "Non è pericoloso, se lo teniamo sotto controllo. Ma attenzione: «non voglio che mia moglie si preoccupa»... dopo «voglio che»?"
+    prompt: {text: "non voglio che mia moglie si preoccupa", tags: [subjunctive-use]}
+  - learner: "Non voglio che si preoccupi."
+  - tutor: "Perfetto. Allora le spieghi che è una cosa frequente e che si cura bene. Le do una pastiglia al giorno, da prendere la mattina."
+    goals: [understand]
+  - learner: "Ci sono effetti collaterali? Faccio il cuoco e sto in piedi tutto il giorno, vicino ai fornelli."
+  - tutor: "All'inizio può sentire un po' di stanchezza o le mani fredde, ma di solito passa in due settimane. Beva molta acqua in cucina, e ci rivediamo tra un mese per un controllo."
+    goals: [treatment]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-retired
+  history: [combined-pronouns]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Io ho settantadue anni e Marta ne ha sessantotto, quindi non vogliamo niente di troppo grande. Una cerimonia semplice in Comune, e poi una cena con i figli, i nipoti e pochi amici."
+  - tutor: "Che bella notizia, e che idea saggia. Quante persone, più o meno? E che budget avete in mente?"
+    goals: [vision]
+  - learner: "Una quarantina di persone. Pensavamo a ottomila euro, ma non siamo sicuri che è abbastanza. Ho sentito dire che i matrimoni in Italia costano una fortuna."
+    errors: [subjunctive-use]
+  - tutor: "Dipende da come si fanno. Ma «non siamo sicuri che è abbastanza»: con «non essere sicuri che», quale modo serve?"
+    prompt: {text: "non siamo sicuri che è abbastanza", tags: [subjunctive-use]}
+  - learner: "Non siamo sicuri che sia abbastanza."
+  - tutor: "Esatto. E non si preoccupi: con quaranta persone e una cena, ottomila euro bastano. Ho due proposte: una trattoria sul fiume o la terrazza di un hotel in centro."
+    goals: [budget]
+    new: [{lemma: trattoria, gloss: small family restaurant}, {lemma: terrazza, gloss: terrace}]
+  - learner: "La terrazza è elegante, ma Marta soffre di vertigini e non salirebbe mai sul tetto. La trattoria sul fiume è più adatta a noi, e i nipoti possono correre in giardino."
+  - tutor: "Allora la trattoria. Il proprietario cucina il pesce benissimo, ma se volete prepara anche la carne. Ha qualche condizione da darmi?"
+    goals: [choices]
+  - learner: "Sì, due. Primo, il menù lo decide mia moglie, perché io di cucina non capisco niente. Secondo, il preventivo ci lo mandi per email, per favore: al telefono dimentico tutto."
+    errors: [combined-pronouns]
+  - tutor: "Condizioni giustissime. Però «ci lo mandi»? Quando «ci» incontra «lo», cambia qualcosa."
+    prompt: {text: "ci lo mandi", tags: [combined-pronouns]}
+  - learner: "Ah, sì: ce lo mandi per email."
+  - tutor: "Proprio così. Ve lo mando entro lunedì, insieme ai due menù da provare. Saluti tanto Marta da parte mia!"
+    goals: [conditions]
+
+- scenario: politica-lavoro
+  level: B2
+  persona: es-f-teacher
+  history: [hypothetical]
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Mi sembra un po' esagerato, Riccardo. Metà dei lavori è tantissimo. Io sono maestra, e non credo che un computer possa calmare venti bambini dopo l'intervallo."
+  - tutor: "Ma nessuno parla di sostituire le maestre! Pensa a chi scrive, traduce, fa i conti: lì le macchine fanno già metà del lavoro. Che cosa succederebbe se sparissero quei lavori?"
+    goals: [opinion]
+  - learner: "Se spariscono tanti lavori nello stesso momento, ci saranno molti disoccupati. Però se lo Stato avrebbe un piano per la formazione, la gente potrebbe cambiare lavoro."
+    errors: [hypothetical]
+  - tutor: "Il piano per la formazione, d'accordo. Ma ripensaci: «se lo Stato avrebbe»... dopo «se», in una frase così, il condizionale non va."
+    prompt: {text: "se lo Stato avrebbe un piano", tags: [hypothetical]}
+  - learner: "Se lo Stato aveva un piano, la gente potrebbe cambiare lavoro?"
+    errors: [hypothetical]
+  - tutor: "Quasi: se lo Stato avesse un piano, la gente potrebbe cambiare lavoro, va bene. Ma chi paga? E hai un esempio vero, non solo teoria?"
+    goals: [hypothesis]
+    recast: {text: "Se lo Stato aveva un piano", fix: "se lo Stato avesse un piano", tags: [hypothetical]}
+  - learner: "Sì. Mia sorella faceva la cassiera in un supermercato di Siviglia. Quando hanno messo le casse automatiche, l'azienda le ha pagato un corso di logistica, e adesso organizza i camion. Guadagna di più e lavora meno di notte."
+  - tutor: "Va bene, tua sorella è stata fortunata. Ma per una che ce la fa, quante restano a casa?"
+    goals: [example]
+  - learner: "Non lo so, e hai ragione: non tutte le aziende sono così. Alla fine penso che la tecnologia non elimini il lavoro, ma lo trasformi. Il problema è se lasciamo sole le persone. Tu cosa faresti, se fossi il ministro?"
+  - tutor: "Se fossi ministro? Farei pagare una tassa alle aziende che usano le macchine, e con quei soldi pagherei i corsi. Vedi, alla fine non siamo così lontani."
+    goals: [conclude]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-professional
+  history: [conditional-form]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, mi dispiace disturbarla, ma purtroppo la cena è stata deludente. Abbiamo prenotato per festeggiare il compleanno di mia madre e abbiamo aspettato quasi un'ora per i primi."
+  - tutor: "Mi dispiace moltissimo, soprattutto in una serata così. Oltre all'attesa, c'è stato qualcos'altro?"
+    goals: [complain]
+  - learner: "Purtroppo sì. La bistecca di mio padre era quasi crudo, anche se l'aveva chiesto ben cotta, e il cameriere l'ha portata via senza dire niente."
+    errors: [adjective-agreement, participle-agreement]
+  - tutor: "Questo non doveva succedere. Mi scusi, la bistecca era... «quasi crudo»?"
+    prompt: {text: "quasi crudo", tags: [adjective-agreement]}
+  - learner: "Quasi cruda, scusi. E l'aveva chiesta ben cotta."
+  - tutor: "Ecco. Il cameriere avrebbe dovuto avvisare subito la cucina. Che cosa si aspettava, da noi, stasera?"
+    goals: [detail]
+  - learner: "Avevo letto ottime recensioni, quindi mi aspettavo che il servizio fosse attento e veloce. Se ci avessero detto subito che la cucina era in ritardo, avremmo ordinato qualcosa di più semplice."
+  - tutor: "Ha perfettamente ragione: avremmo dovuto avvisarvi. Per scusarci vorremmo offrirvi il dolce e uno sconto del venti per cento sul conto."
+    goals: [expectation]
+  - learner: "La ringrazio, è gentile. Il dolce lo accettiamo volentieri, ma più che lo sconto preferirei che mio padre avrebbe una bistecca cotta come si deve, anche se è tardi."
+    errors: [subjunctive-use]
+  - tutor: "Capisco benissimo. Ma «preferirei che mio padre avrebbe»... dopo «preferirei che», quale forma ci vuole?"
+    prompt: {text: "preferirei che mio padre avrebbe", tags: [subjunctive-use]}
+  - learner: "Preferirei che mio padre avesse una bistecca cotta bene."
+  - tutor: "Ma certo, gliela faccio rifare subito, ben cotta. E il dolce è offerto lo stesso: buon compleanno alla signora!"
+    goals: [resolve]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Bene, direi. Il nuovo sito per l'hotel è quasi pronto: la parte delle prenotazioni funziona, e ieri ho finito anche le pagine in inglese e in tedesco."
+  - tutor: "Ottimo, sei avanti rispetto al piano. E le foto delle camere sono arrivate?"
+    goals: [update]
+  - learner: "Ecco, questo è il problema. Il fotografo dell'hotel si è ammalato, e senza foto non possiamo pubblicare niente. Il direttore dice che arriveranno «presto», ma per lui presto può voler dire un mese."
+  - tutor: "Lo conosco, purtroppo: per lui «presto» vuol dire «quando capita». Tu che cosa proponi?"
+    goals: [problem]
+  - learner: "Ho due idee. O usiamo per adesso le foto vecchie del loro catalogo, che non sono bellissime ma vanno bene, oppure vado lì io e faccio le foto da solo. Io preferirei la seconda."
+  - tutor: "Interessante, ma sei sicuro? Il cliente si aspetta foto da professionista. Perché pensi che basti la tua macchina fotografica?"
+  - learner: "Perché per due anni ho lavorato per un'agenzia di viaggi, e le foto degli alberghi le prendevo io. Se ti piacciono i miei esempi, andarò all'hotel giovedì."
+    errors: [word-choice, future-form]
+  - tutor: "Ah, non lo sapevo! Però «andarò»? Prova a ripetere il verbo: il futuro di «andare» è un po' speciale."
+    prompt: {text: "andarò", tags: [future-form]}
+  - learner: "Andrò. Andrò all'hotel giovedì."
+  - tutor: "Esatto. Allora mandami gli esempi stasera, e se vanno bene giovedì ci vai tu."
+    goals: [proposal]
+  - learner: "Perfetto. Se faccio le foto giovedì, venerdì le sistemo e lunedì il sito potrebbe essere online. Diciamo martedì, per sicurezza?"
+  - tutor: "Martedì mi sembra giusto: lo dico io al direttore. Bel lavoro, davvero."
+    goals: [deadline]
+
+- scenario: smartworking
+  level: B2
+  persona: es-f-erasmus
+  history: [comparative]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Adesso faccio un tirocinio in una casa editrice, e vado in ufficio tre giorni alla settimana. Gli altri due lavoro dalla mia stanza, nell'appartamento che divido con altre tre studentesse."
+  - tutor: "Tre ragazze in casa e una scrivania in camera: dev'essere un'avventura! E come ti trovi in ufficio?"
+    goals: [situation]
+  - learner: "Benissimo. I colleghi sono simpatici e imparo tantissimo solo ascoltando le riunioni. E poi la mattina, prendere il treno insieme a tutti gli altri mi fa sentire parte della città."
+  - tutor: "Quindi per te l'ufficio ha più vantaggi che svantaggi. E a casa, invece, che cosa non funziona?"
+    goals: [pros]
+  - learner: "A casa è un disastro. Le altre ragazze fanno rumore, la connessione è più lenta che in ufficio, e la mia sedia è più scomoda di la sedia dell'ufficio. La sera ho sempre mal di schiena."
+    errors: [articulated-preposition]
+  - tutor: "Povera schiena! Ma «più scomoda di la sedia»? Pensa a che cosa succede quando «di» incontra «la»."
+    prompt: {text: "di la sedia", tags: [articulated-preposition]}
+  - learner: "Della sedia! Più scomoda della sedia dell'ufficio."
+  - tutor: "Brava. Allora, se potessi scegliere tu, come organizzeresti la settimana?"
+    goals: [cons]
+  - learner: "Se potessi scegliere, andrei in ufficio quattro giorni e starei a casa solo il venerdì. Il venerdì è più tranquillo, quindi a casa riesco a concentrarmi."
+  - tutor: "Solo il venerdì? Pensa a tutto il tempo che risparmi senza treno. Perché rinunci a un giorno in più a casa?"
+  - learner: "Perché per me il treno non è tempo perso: leggo, ascolto musica, mi sveglio piano piano. E poi a ventitré anni ho più bisogno di imparare che di riposare."
+  - tutor: "«Più bisogno di imparare che di riposare»: me lo scrivo, per la prossima volta che mi lamento del lunedì!"
+    goals: [preference]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, mi è piaciuto molto, soprattutto la cucina e il balcone. Però il canone è un po' alto per me: milleduecento euro sono quasi la metà del mio stipendio."
+  - tutor: "Capisco. È un appartamento appena rifatto, in una zona molto richiesta. Lei a quanto pensava?"
+    goals: [interest]
+  - learner: "Pensavo a mille. Se il proprietario accetterebbe mille euro, firmerei anche per quattro anni. E sono un inquilino tranquilo: lavoro in un ristorante e torno a casa solo per dormire."
+    errors: [hypothetical, spelling]
+  - tutor: "Posso parlarne con il proprietario. Però ripeta un attimo: «se il proprietario accetterebbe»... è la forma giusta, dopo «se»?"
+    prompt: {text: "Se il proprietario accetterebbe", tags: [hypothetical]}
+  - learner: "Se il proprietario accettasse mille euro, firmerei per quattro anni."
+  - tutor: "Così va benissimo. Mille è difficile, ma potrei proporre 1100 euro, con le spese comprese. Che ne dice?"
+  - learner: "Millecento con il condominio compreso mi sembra giusto. Però vorrei che nel contratto ci fosse una clausola: se cambio lavoro e devo trasferirmi, voglio poter dare la disdetta con tre mesi di anticipo, non sei."
+  - tutor: "È una richiesta ragionevole: quando il motivo è il lavoro, di solito i proprietari accettano tre mesi. La scrivo nella proposta."
+    goals: [negotiate, conditions]
+  - learner: "Perfetto. E la provvigione dell'agenzia, quant'è? Spero che non sia un altro mese di affitto."
+  - tutor: "Purtroppo sì, è un mese, ma su 1100 euro invece che su 1200. Se è d'accordo, mando la proposta al proprietario già oggi."
+  - learner: "D'accordo, la mandi pure. Speriamo che dica di sì!"
+  - tutor: "Lo spero anch'io. La chiamo domani mattina, appena ho una risposta."
+    goals: [conclude]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-f-student
+  history: [article-form]
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Grazie dell'invito. Sono arrivata a Bologna quattro anni fa per un Erasmus di sei mesi. Avevo già studiato un po' d'italiano a Manchester, ma non avevo mai vissuto all'estero. Alla fine, i sei mesi sono diventati quattro anni."
+  - tutor: "Sei mesi che diventano quattro anni: a Bologna succede spesso! Che cosa l'ha fatta restare?"
+    goals: [story]
+  - learner: "L'università, prima di tutto: qui ho trovato un dottorato in storia medievale. E poi ho conosciuto le persone giuste. Credo che sia stata la città a scegliere me, e non io la città."
+  - tutor: "Che bella frase. Ma immagino che non sia stato tutto facile: qual è stata la parte più difficile?"
+  - learner: "La burocrazia, senza dubbio. Per il permesso di soggiorno sono andata in questura sei volte, e ogni volta mi chiedevano un documento diverso. Una volta ho aspettato quattro ore, e poi la impiegata mi ha detto di tornare il giorno dopo."
+    errors: [article-form]
+  - tutor: "Quattro ore per niente, che pazienza! Solo un dettaglio: «la impiegata»? Davanti a «i», l'articolo..."
+    prompt: {text: "la impiegata", tags: [article-form]}
+  - learner: "L'impiegata, con l'apostrofo."
+  - tutor: "Esatto. E lei, in questi anni, com'è cambiata?"
+    goals: [difficulties]
+  - learner: "Sono diventata più paziente, appunto, e anche più flessibile. In Inghilterra organizzavo tutto, qui ho imparato a improvvisare. Però mi preoccupa che sono diventata anche un po' lamentona, come tutti!"
+    errors: [subjunctive-use]
+  - tutor: "Lamentarsi un po' fa parte della vita qui! Ma ripeta: «mi preoccupa che sono diventata»... dopo «mi preoccupa che»?"
+    prompt: {text: "mi preoccupa che sono diventata", tags: [subjunctive-use]}
+  - learner: "Mi preoccupa che io sia diventata un po' lamentona."
+  - tutor: "Perfetto. Per finire: che consiglio darebbe a un ascoltatore che vuole trasferirsi in Italia?"
+    goals: [change]
+  - learner: "Gli direi di imparare la lingua prima di partire, anche solo un po'. Se avessi parlato meglio l'italiano il primo anno, mi sarei sentita molto meno sola. E di portare tante copie di tutti i documenti!"
+  - tutor: "Consiglio prezioso, soprattutto quello delle copie. Grazie di essere stata con noi, e buona fortuna con i suoi studi!"
+    goals: [advice]

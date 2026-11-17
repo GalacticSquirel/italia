@@ -1,0 +1,166 @@
+- scenario: arte-mostra
+  level: C1
+  persona: en-m-retired
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Una strana calma. È una stanza vuota, con una finestra aperta e una tenda che si muove appena: non succede niente, eppure non riesco a staccare gli occhi."
+    - tutor: "Ti capisco, è l'effetto che fa a tutti. Descrivimelo come se io non lo vedessi: che cosa c'è, oltre alla finestra?"
+      goals: [react]
+    - learner: "Allora: in primo piano c'è un tavolo con una tazza e una lettera aperta. In fondo, quasi nascosta dall'ombra, c'è una donna seduta di spalle. Sembra che stii aspettando qualcuno, o forse che abbia appena letto la lettera."
+      errors: [subjunctive-form]
+      gold: {text: "stii", fix: "stia"}
+    - tutor: "Bella osservazione, la lettera cambia tutto. Ma «sembra che stii»? Pensa al congiuntivo di stare: non si forma così."
+      prompt: {text: "stii", tags: [subjunctive-form]}
+    - learner: "Ah, sì: sembra che stia aspettando qualcuno. Secondo me la lettera porta una cattiva notizia, e la finestra aperta è il mondo di fuori che entra nella sua solitudine."
+    - tutor: "Perfetto. E la tua lettura mi convince: il quadro fu dipinto subito dopo la guerra, quindi la lettera potrebbe parlare di un soldato che non torna. Ti ricorda qualcosa?"
+      goals: [describe, interpret]
+    - learner: "Mi ricorda Hopper, sinceramente: le stanze vuote, la luce che taglia il pavimento, le persone sole. Però in Hopper c'è una specie di freddezza americana, mentre qui la luce è calda, quasi affettuosa."
+    - tutor: "Hopper è il paragone giusto, e la differenza che noti è proprio quella che fanno i critici. Andiamo nella sala successiva? Ce n'è un altro dello stesso pittore."
+      goals: [compare]
+
+- scenario: notizie-attualita
+  level: C1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatta?"
+    - learner: "Sì, l'ho seguita, anche perché mi riguarda direttamente. Se ho capito bene, il governo vuole limitare gli affitti brevi nei centri storici: chi affitta ai turisti dovrà registrarsi e non potrà farlo per più di centoventi giorni all'anno."
+    - tutor: "Più o meno è così, anche se i dettagli cambiano da giornale a giornale. Ma tu che cosa ne pensi, al di là della notizia?"
+      goals: [summarise]
+    - learner: "Penso che sia una buona idea, ma che arrivi tardi. A Firenze trovare una stanza da studentessa è diventato quasi impossibile: ho visitato quindici appartamenti, e in dieci il proprietario mi ha detto che d'estate preferiva i turisti. Però non credo che centoventi giorni bastino a cambiare le cose."
+    - tutor: "Quindi giusta ma insufficiente. È lo stesso giudizio che ho letto stamattina, mentre altrove parlavano di un attacco alla proprietà privata. Tu dove l'hai letta?"
+      goals: [opinion]
+    - learner: "L'ho letta prima in un diario online spagnolo, che la presentava come un esempio da seguire, e poi in un quotidiano italiano di destra, dove sembrava quasi una catastrofe per i piccoli proprietari. Era difficile credere che parlassero della stessa legge."
+      errors: [false-friend]
+    - tutor: "Un giornale spagnolo che la loda e uno italiano che la critica senza pietà: classico! Secondo te, alla fine, che cosa succederà davvero?"
+      goals: [sources]
+      recast: {text: "diario", fix: "giornale", tags: [false-friend]}
+    - learner: "Temo che molti proprietari trovino il modo di aggirare la regola, magari dichiarando affitti per studenti che in realtà sono per turisti. Se i controlli fossero seri, qualche appartamento tornerebbe sul mercato; ma se nessuno controllasse, cambierebbe solo la burocrazia."
+    - tutor: "Ecco, i controlli: è lì che si vedrà se la legge ha i denti o no. Comunque, se trovi una stanza grazie a questa legge, il caffè lo offri tu!"
+      goals: [consequences]
+
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Sabato pomeriggio ero in un parcheggio a Salerno. Mentre ho fatto manovra per uscire, un'altra macchina è arrivata a velocità sostenuta e mi ha colpito la fiancata posteriore destra."
+      errors: [tense-aspect]
+      gold: {text: "ho fatto manovra", fix: "facevo manovra"}
+    - tutor: "Mi dispiace, spero che nessuno si sia fatto male. Prima di andare avanti, però: «mentre ho fatto manovra»? Era un'azione in corso: che tempo ci vuole?"
+      prompt: {text: "ho fatto manovra", tags: [tense-aspect]}
+    - learner: "Ha ragione: mentre facevo manovra. Per fortuna nessun ferito, solo un bello spavento e una portiera da cambiare."
+    - tutor: "Esatto, facevo. Quindi, se ho capito bene, la colpa è dell'altro guidatore, che andava troppo veloce?"
+      goals: [what]
+    - learner: "Sì, percorreva la corsia principale del parcheggio e intanto guardava il telefono: me l'ha confermato una signora che aveva visto tutto. Io ero quasi fermo, con le luci accese."
+    - tutor: "Una testimone è preziosa. Avete compilato il modulo di constatazione amichevole, e la signora le ha lasciato i suoi dati?"
+      goals: [responsibility]
+    - learner: "Il modulo sì, l'abbiamo firmato tutti e due, anche se lui all'inizio non voleva ammettere niente. La signora mi ha lasciato nome e numero di telefono, e ho fatto anche delle foto alle due macchine."
+    - tutor: "Perfetto, è tutto quello che serve. Mi mandi il modulo, le foto e il numero della testimone, e apriamo la pratica oggi stesso."
+      goals: [documents]
+    - learner: "Glieli mando entro stasera. E poi come funziona: devo portare la macchina da un carrozziere di vostra fiducia, o posso sceglierlo io?"
+    - tutor: "Può sceglierlo lei, ma con uno dei carrozzieri che lavorano con noi non deve pagare niente di tasca sua. Entro dieci giorni la chiamerà un nostro esperto per valutare il danno, e poi si passa alla riparazione."
+      goals: [next]
+
+- scenario: trattativa-fornitore
+  level: C1
+  persona: es-f-teacher
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, la chiamo per quello. Non metto in dubbio che i costi siano saliti, ma un aumento del dodici per cento sulla farina, comunicato con una semplice mail, ci ha messo in seria difficoltà: i nostri prezzi per i supermercati sono fissati fino a marzo."
+    - tutor: "Capisco il problema, e mi scuso per la forma della comunicazione. Purtroppo quest'anno il grano costa un terzo in più, e non possiamo assorbire tutto noi."
+      goals: [problem]
+    - learner: "Lo so. Però siamo vostri clienti da sei anni, abbiamo sempre pagato a trenta giorni e lo scorso inverno, quando avevate problemi con le consegne, abbiamo aspettato senza cambiare fornitore. Credo che questa fedeltà meriti qualcosa."
+    - tutor: "Ha perfettamente ragione, e non l'abbiamo dimenticato. Mi dica che cosa propone, e vediamo che cosa posso fare."
+      goals: [argue]
+    - learner: "Proporrei un aumento del sei per cento fino a marzo, quando rinegozieremo i prezzi con i supermercati, e poi il dodici pieno. In cambio, potremmo pagare a quindici giorni invece che a trenta. Se ci lo confermate per iscritto, firmiamo subito."
+      errors: [combined-pronouns]
+      gold: {text: "ci lo", fix: "ce lo"}
+    - tutor: "Un aumento in due tempi è un'idea sensata. Mi scusi, però: «se ci lo confermate»? Quando i due pronomi si incontrano, il primo cambia un po'."
+      prompt: {text: "ci lo", tags: [combined-pronouns]}
+    - learner: "Sì, certo: se ce lo confermate per iscritto. Mi scusi, quando parlo di numeri mi dimentico la grammatica."
+    - tutor: "Capita anche a me! Allora: il sei per cento fino a marzo è troppo poco, ma con il pagamento a quindici giorni posso arrivare all'otto. Da aprile, il dodici."
+      goals: [counteroffer]
+    - learner: "All'otto possiamo arrivare. Le chiedo solo che l'accordo valga anche per lo zucchero e il burro, che nel vostro listino salgono di meno, così da avere un unico documento."
+    - tutor: "D'accordo, mettiamo tutto in un unico documento. Glielo mando entro domani, e da lunedì valgono le nuove condizioni."
+      goals: [agreement]
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: en-m-retired
+  turns:
+    - tutor: "Abbiamo in linea un altro ascoltatore. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+    - learner: "Buongiorno. Sono inglese, ho settantadue anni e vengo a Venezia ogni anno da mezzo secolo. Sono a favore del ticket, ma lo considero un rimedio parziale: il vero problema sono le navi da crociera."
+    - tutor: "Mezzo secolo di Venezia: lei ha visto la città cambiare con i suoi occhi. Ma perché proprio le crociere?"
+      goals: [introduce]
+    - learner: "Perché in un'ora scendono cinquemila persone, tutte insieme, e vanno tutte negli stessi tre posti. Nel 1975 potevo bere un caffè in piazza San Marco in pace; oggi i passeggeri delle crociere fanno la piazza impraticabile dalle dieci alle quattro."
+      errors: [word-choice]
+    - tutor: "Passeggeri che rendono la piazza impraticabile per sei ore: l'ho visto anch'io, purtroppo. Però mi lasci fare l'avvocato del diavolo: le crociere danno lavoro al porto e a migliaia di famiglie. Non è un prezzo troppo alto?"
+      goals: [example]
+      recast: {text: "fanno", fix: "rendono", tags: [word-choice]}
+    - learner: "Il lavoro al porto è reale, non lo nego. Ma è un lavoro che si potrebbe spostare: le navi possono attraccare a Trieste o a Ravenna, e i passeggeri che vogliono davvero vedere Venezia ci arriverebbero in treno, a gruppi più piccoli. Così il porto non perderebbe tutto, e la città respirerebbe."
+    - tutor: "Spostare le navi in altri porti: una vecchia idea, ma lei la difende bene. E se dovesse proporre una sola misura al sindaco?"
+      goals: [rebut]
+    - learner: "Gli proporrei di vietare le navi sopra una certa stazza in tutta la laguna, e di usare gli incassi del ticket per collegamenti veloci con i porti vicini. Meglio pochi visitatori che restano che tanti che passano."
+    - tutor: "«Meglio pochi che restano che tanti che passano»: lo metto come titolo della puntata. Grazie della telefonata, e alla prossima visita!"
+      goals: [proposal]
+
+- scenario: vita-in-italia
+  level: C1
+  persona: en-m-traveller
+  turns:
+    - tutor: "Benvenute e benvenuti ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Grazie dell'invito. Il mio movimento in Italia è nato quasi per caso: facevo il cuoco a Toronto, sono venuto a Bologna per un corso di pasta fresca di due settimane e, alla fine del corso, il proprietario della scuola mi ha offerto un lavoro."
+      errors: [word-choice]
+    - tutor: "Un trasferimento nato da un corso di pasta fresca: una storia che ai nostri ascoltatori bolognesi piacerà moltissimo! E la parte più difficile, qual è stata?"
+      goals: [story]
+      recast: {text: "movimento", fix: "trasferimento", tags: [word-choice]}
+    - learner: "Sicuramente gli orari. In Canada si cena alle sei; qui, la prima volta che mi hanno invitato a cena alle nove, avevo così fame che ho mangiato un panino prima di uscire. E poi, in cucina, ho dovuto imparare che certe regole non si discutono: guai a mettere la panna nella carbonara."
+    - tutor: "Guai davvero, a Bologna rischiava l'espulsione! E in questi anni come è cambiato lei?"
+      goals: [difficulties]
+    - learner: "Sono diventato più paziente, e anche più legato alle stagioni. A Toronto trovavo tutto, sempre; qui ho imparato ad aspettare i carciofi a marzo e i fichi a settembre, e adesso, quando torno in Canada, le fragole a gennaio mi sembrano quasi tristi."
+    - tutor: "Le fragole tristi di gennaio: questa è poesia! E a chi sta pensando di trasferirsi, che cosa consiglierebbe?"
+      goals: [change]
+    - learner: "Di venire con la curiosità di chi impara, non con la presunzione di chi insegna. E di frequentare i mercati: si impara più lingua dal fruttivendolo che da un libro di grammatica."
+    - tutor: "Dal fruttivendolo più che dal libro: lo dico sempre anch'io. Grazie di essere stato con noi, e buon lavoro in cucina!"
+      goals: [advice]
+
+- scenario: riunione-lavoro
+  level: C1
+  persona: en-f-student
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene, direi. Sto preparando la newsletter per i clienti: i testi sono pronti, le immagini quasi. Ho anche analizzato le ultime sei newsletter, e ho scoperto che quelle con un titolo breve vengono aperte il doppio delle altre."
+    - tutor: "Il doppio? È un dato interessante, me lo segno. E problemi?"
+      goals: [update]
+    - learner: "Uno, sì. Il grafico che deve preparare il modello è in ferie fino al venti, e senza di lui non posso impaginare niente. Se aspettiamo, la newsletter esce a fine mese, insieme alla promozione di un nostro concorrente."
+    - tutor: "Uscire lo stesso giorno del concorrente sarebbe un peccato. Che cosa proponi?"
+      goals: [problem]
+    - learner: "Potrei usare uno dei modelli già pronti del programma: non sarebbe bello come uno fatto apposta, ma con i nostri colori e il logo farebbe la sua figura. Così la newsletter potrebbe uscire già la settimana prossima, e il modello nuovo lo useremmo dal numero successivo."
+    - tutor: "Mi sembra una soluzione furba, e anche sicura. Quando riesci a mandarmi una prima versione?"
+      goals: [proposal]
+    - learner: "Entro giovedì a mezzogiorno. Così hai il pomeriggio per i commenti, e venerdì la mandiamo in prova a una ventina di colleghi prima dell'invio vero."
+    - tutor: "Giovedì a mezzogiorno, perfetto. E ricordati il titolo breve, visto che ormai è scienza!"
+      goals: [deadline]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono spagnola e vivo in Italia da tre anni, ma finora ero residente a Padova. Adesso mi sono trasferita qui per lavoro e vorrei spostare la residenza."
+    - tutor: "Benissimo, si tratta di un cambio di residenza da un altro comune. Le servono un documento d'identità valido e il contratto della nuova casa."
+      goals: [request]
+    - learner: "Ho portato il contratto d'affitto, già registrato, e il passaporto. Il problema è che il passaporto scade la settimana prossima, e il carnet di identità spagnolo l'ho perso durante il trasloco."
+      errors: [false-friend]
+    - tutor: "Perdere la carta d'identità durante un trasloco capita più spesso di quanto si pensi. Il passaporto, finché è valido, va benissimo; ma è meglio che rinnovi subito almeno uno dei due documenti."
+      goals: [documents]
+      recast: {text: "carnet di identità", fix: "carta d'identità", tags: [false-friend]}
+    - learner: "Ho già chiesto un appuntamento al consolato, ma me l'hanno dato fra due mesi. Nel frattempo, la domanda di residenza si può presentare lo stesso, o rischio che venga respinta?"
+    - tutor: "Si può presentare oggi, con il passaporto ancora valido: conta la data della domanda. Le consiglio però di portarci una copia del nuovo documento appena l'avrà, così aggiorniamo la sua pratica."
+      goals: [problem]
+    - learner: "Perfetto, la ringrazio. E dopo che cosa succede? Devo aspettare qualche comunicazione a casa?"
+    - tutor: "Nei prossimi quarantacinque giorni passerà la polizia locale per verificare che lei abiti all'indirizzo indicato. Se è tutto in regola non riceverà nulla, e la residenza vale da oggi."
+      goals: [next]

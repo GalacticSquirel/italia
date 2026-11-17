@@ -1,0 +1,173 @@
+- scenario: recensione-ristorante
+  level: C1
+  persona: en-m-retired
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, purtroppo, e mi dispiace doverglielo dire, perché veniamo qui da anni. Stasera, però, la cena è stata deludente sotto più di un aspetto, e preferisco parlarne con lei piuttosto che scrivere una recensione arrabbiata."
+    - tutor: "La ringrazio di averlo fatto, e mi scuso fin d'ora. Mi dica esattamente che cosa non è andato, la prego."
+      goals: [complain]
+    - learner: "Abbiamo aspettato cinquanta minuti tra l'antipasto e il primo, senza che nessuno ci avvisasse. Quando il risotto è arrivato era tiepido e scotto. E quando l'ho fatto presente, il cameriere è stato piuttosto rude: ha alzato le spalle e ha detto che la cucina era piena."
+      errors: [false-friend]
+    - tutor: "Sono davvero dispiaciuto. L'attesa e la cottura sono colpa nostra, ma che un cameriere sia stato sgarbato con lei è la cosa che mi pesa di più: non è questo il servizio che vogliamo offrire."
+      goals: [detail]
+      recast: {text: "rude", fix: "sgarbato", tags: [false-friend]}
+    - learner: "Lo immagino, ed è proprio per questo che sono rimasto sorpreso. Non pretendevo la perfezione in una serata affollata; mi sarei aspettato, però, che qualcuno venisse a dirci del ritardo, e magari un bicchiere di vino nell'attesa. Sarebbe bastato poco."
+    - tutor: "Ha perfettamente ragione: sarebbe bastata una parola. Mi permetta di rimediare, per quanto possibile: stasera i primi e il vino li offre la casa, e vorrei invitarvi a cena la prossima settimana, come nostri ospiti."
+      goals: [expectation]
+    - learner: "Lo sconto di stasera lo accetto volentieri, e la ringrazio. Quanto all'invito, preferirei tornare come cliente normale: mi interessa di più sapere che la prossima volta andrà diversamente."
+    - tutor: "La capisco, e apprezzo la sua correttezza. Parlerò stasera stessa con il personale di sala, e quando tornerà chieda pure di me. Ancora le mie scuse, e buona serata."
+      goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: C1
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, e mi creda, non sono una che si lamenta facilmente. Ma stasera festeggiavamo l'anniversario dei miei genitori, e la cena non è stata all'altezza né dell'occasione né dei prezzi."
+    - tutor: "Mi dispiace molto, tanto più per un'occasione del genere. Mi racconti nel dettaglio, così capisco dove abbiamo sbagliato."
+      goals: [complain]
+    - learner: "Avevamo ordinato il menù di pesce. Il branzino di mio padre è arrivato quasi crudo al centro, e gliel'hanno riportato stracotto. Le porzioni dei secondi erano la metà di quelle in fotografia, e il dolce che avevo prenotato per telefono, con la candelina, non è mai arrivato."
+    - tutor: "Tre errori in una sera sola, e l'ultimo è il più grave: una prenotazione dimenticata non ha scuse. Che cosa si aspettava, quando ha chiamato?"
+      goals: [detail]
+    - learner: "Mi aspettavo che qualcuno si ricordava almeno della torta, visto che avevo telefonato due volte per confermare."
+      errors: [subjunctive-use]
+    - tutor: "E aveva tutto il diritto di aspettarselo. Una piccola cosa, se permette: «che qualcuno si ricordava»? Dopo «aspettarsi che» il verbo cambia modo."
+      prompt: {text: "che qualcuno si ricordava", tags: [subjunctive-use]}
+    - learner: "Mi aspettavo che qualcuno si ricordasse della torta, certo. E avrei voluto che, almeno dopo il primo errore, ci fosse stata un po' più di attenzione al nostro tavolo."
+    - tutor: "Detto benissimo, e purtroppo ha ragione su tutta la linea. Vorrei rimediare: tolgo dal conto i secondi e, se me lo permette, porto subito il dolce con la candelina, offerto da noi, insieme a una bottiglia per brindare."
+      goals: [expectation]
+    - learner: "Il dolce lo accetto di cuore, perché i miei ci tenevano. Per il conto, mi sembra una proposta onesta. Le chiedo solo di dirlo anche alla cucina: non per punire qualcuno, ma perché non capiti ad altri."
+    - tutor: "Lo farò stasera stessa, ha la mia parola. Vado a prendere la torta, e faccia i miei auguri ai suoi genitori."
+      goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: C1
+  persona: en-f-student
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, e la ringrazio di essere venuto. Non vorrei fare una scenata, ma ci sono state alcune cose che non posso far finta di non aver visto."
+    - tutor: "Ha fatto bene a chiamarmi, sono qui per questo. Di che cosa si tratta?"
+      goals: [complain]
+    - learner: "Avevo avvisato, al momento dell'ordine, di essere allergica alle noci, e il cameriere mi aveva assicurato che nel piatto non ce n'erano. Nell'insalata, invece, ne ho trovate diverse, tritate nel condimento. Per fortuna me ne sono accorta al primo boccone."
+    - tutor: "Questo è molto grave, e le chiedo scusa a nome di tutti. Prima di ogni altra cosa: come si sente? Ha bisogno di qualcosa?"
+    - learner: "Sto bene, grazie: ne ho mangiata pochissima e ho con me il farmaco, nel caso servisse. Ma capirà che mi sono spaventata. Quando l'ho detto al cameriere, mi ha risposto che «un po' di noci non hanno mai ucciso nessuno», il che, nel mio caso, non è esattamente vero."
+    - tutor: "È una risposta che non si può accettare, e non resterà senza conseguenze. Mi dica con sincerità che cosa si sarebbe aspettata da noi."
+      goals: [detail]
+    - learner: "Mi sarei aspettata che la mia richiesta venisse comunicata alla cucina, e che, in caso di dubbio, qualcuno me lo dicesse apertamente. Avrei preferito sentirmi dire «non possiamo garantirlo» piuttosto che ricevere una rassicurazione a vuoto."
+    - tutor: "È esattamente come dovrebbe funzionare. Naturalmente stasera lei e i suoi amici siete nostri ospiti, e da domani le allergie verranno scritte sull'ordine in rosso, non riferite a voce."
+      goals: [expectation]
+    - learner: "La cena offerta non era necessaria, ma la accetto, grazie. Mi importa soprattutto la seconda cosa. Se tornerò, e vorrei poterlo fare, mi piacerebbe non dover controllare ogni forchettata."
+    - tutor: "Ha la mia parola. Le lascio il mio biglietto: la prossima volta chieda di me, e seguirò il suo tavolo di persona. Grazie per la pazienza, e ancora mille scuse."
+      goals: [resolve]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: en-m-heritage
+  history: [passive]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Abito in via dei Mille, al numero dodici. Davanti a casa mia c'è un cantiere per rifare le tubature: la strada è stata aperta a inizio marzo, e da allora i lavori sono stati abbandonato. Non si vede un operaio da due mesi."
+      errors: [passive]
+    - tutor: "Capisco il disagio. Mi permetta solo una precisazione, visto che poi dovrà scriverlo: «sono stati abbandonato»? Guardi la fine del participio."
+      prompt: {text: "sono stati abbandonato", tags: [passive]}
+    - learner: "Ha ragione: i lavori sono stati abbandonati. E intanto la buca è lì, con le transenne spostate dal vento e senza illuminazione. La settimana scorsa una signora anziana ci è quasi caduta dentro."
+    - tutor: "Ora è chiaro, ed è una situazione che va segnalata. Purtroppo i cantieri dipendono dall'ufficio tecnico, che avrà sicuramente le sue ragioni. Le consiglio di avere ancora un po' di pazienza."
+      goals: [describe]
+    - learner: "Con tutto il rispetto, di pazienza ne ho avuta per due mesi. Non le chiedo di riaprire il cantiere oggi; le chiedo di dirmi chi è il responsabile e per quale motivo i lavori sono fermi. Mi sembra il minimo che un cittadino possa sapere."
+    - tutor: "Ha ragione, e non volevo chiudere il discorso così. Dal computer risulta che la ditta ha sospeso i lavori per un problema con il contratto. Più di questo, a voce, non sono in grado di dirle."
+      goals: [insist]
+    - learner: "La ringrazio, è già qualcosa. Allora mi spieghi come posso presentare un reclamo formale, e se il Comune è tenuto a rispondermi entro un certo termine."
+    - tutor: "Certamente. Si compila questo modulo, che viene registrato subito al protocollo; l'amministrazione ha trenta giorni per risponderle per iscritto. Se la risposta non arriva, può rivolgersi al difensore civico."
+      goals: [rights]
+      new: [{lemma: difensore civico, gloss: ombudsman}]
+    - learner: "Bene, lo compilo adesso. Potrebbe darmi il numero di protocollo e, se possibile, far mettere in sicurezza la buca nel frattempo? Quella non può aspettare trenta giorni."
+    - tutor: "Su questo ha ragione. Ecco la ricevuta con il numero di protocollo; segnalo subito la buca ai vigili come pericolo, e di solito intervengono entro due giorni. Tra una settimana può chiamare questo numero per sapere a che punto siamo."
+      goals: [commitment]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Vengo per un problema che ho già segnalato due volte per telefono. Nella mia via, via Garibaldi, il marciapiede è stato scavato a febbraio per posare dei cavi, e da allora è rimasto tutto com'era: terra, tubi e un cartello di lavori in corso."
+    - tutor: "Mi dispiace. Da febbraio, dice? In effetti sono passati più di due mesi. Che tipo di disagio le crea, in concreto?"
+    - learner: "Parecchi. I bambini della scuola di fronte devono camminare in mezzo alla strada, chi ha una carrozzina non passa, e quando piove il fango arriva fino ai portoni. Due mesi sono un periodo troppo largo per un lavoro che doveva durare dieci giorni."
+      errors: [false-friend]
+    - tutor: "Ha ragione, due mesi sono un periodo troppo lungo per dieci giorni di lavori. Prendo nota della segnalazione e la passo all'ufficio competente; vedrà che prima o poi qualcuno interverrà."
+      goals: [describe]
+      recast: {text: "largo", fix: "lungo", tags: [false-friend]}
+    - learner: "Mi perdoni, ma «prima o poi» è la stessa risposta che ho ricevuto al telefono a marzo e ad aprile. Vorrei sapere, se possibile, a quale ufficio viene passata la segnalazione, e chi posso contattare per conoscerne l'esito."
+    - tutor: "Capisco che la risposta le sembri vaga. La pratica va all'ufficio tecnico, settore strade. Un nome non glielo posso fare, ma posso darle il numero diretto della segreteria."
+      goals: [insist]
+    - learner: "Grazie, lo prendo volentieri. E mi dica: esiste un modo per mettere tutto per iscritto? Non vorrei che tra un mese ci ritrovassimo al punto di partenza. So che per i reclami scritti l'amministrazione ha l'obbligo di rispondere."
+    - tutor: "È così. Può presentare un reclamo scritto qui, adesso: viene registrato con data e numero, e la risposta è dovuta entro trenta giorni. Ha anche diritto di vedere i documenti del cantiere, se ne fa richiesta."
+      goals: [rights]
+    - learner: "Allora lo presento subito. E, visto che c'è di mezzo una scuola, chiederei che sul reclamo venga indicata l'urgenza. Mi può confermare che lo farà?"
+    - tutor: "Lo scrivo io stessa: «urgente, passaggio di bambini». Ecco la sua copia con il numero di protocollo; mi impegno a mandare oggi un sollecito all'ufficio tecnico e a richiamarla entro venerdì."
+      goals: [commitment]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: en-f-professional
+  history: [register]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Vorrei presentare un reclamo per il cantiere di via Verdi. La strada è chiusa a metà da dieci settimane, non c'è nessuno che lavori, e io, che ho lo studio lì, sto perdendo clienti perché non si riesce né a parcheggiare né a passare a piedi."
+    - tutor: "Capisco, e mi dispiace per il suo lavoro. Sa dirmi se sul posto c'è un cartello con il nome della ditta e la data di fine dei lavori?"
+    - learner: "C'è, e dice che i lavori sarebbero dovuti finire il quindici marzo. Siamo a metà maggio. Le transenne occupano anche l'ingresso del mio studio, tanto che ho dovuto mettere un cartello per spiegare da dove si entra."
+    - tutor: "La situazione è chiara. Purtroppo queste cose richiedono i loro tempi: le suggerisco di ripassare tra qualche settimana, quando forse ne sapremo di più."
+      goals: [describe]
+    - learner: "Scusa, ma tra qualche settimana avrò perso altri clienti. Non potrebbe almeno verificare adesso a che punto è la pratica?"
+      errors: [register]
+    - tutor: "Posso verificare, certo. Prima, però, mi permetta: «scusa»? Tra un ufficio pubblico e un cittadino ci si rivolge in un altro modo."
+      prompt: {text: "Scusa", tags: [register]}
+    - learner: "Ah, scusami, ha ragione. Sono un po' agitata."
+      errors: [register]
+    - tutor: "Non c'è problema, la capisco: la forma giusta è «mi scusi», ma è già dimenticato. Ho controllato: i lavori sono fermi perché la ditta aspetta un permesso che non è ancora stato firmato."
+      goals: [insist]
+      recast: {text: "scusami", fix: "mi scusi", tags: [register]}
+    - learner: "Mi scusi ancora, e grazie per aver controllato. A questo punto vorrei sapere quali sono i miei diritti: posso presentare un reclamo scritto? E ho diritto a un risarcimento per i danni all'attività?"
+    - tutor: "Il reclamo scritto può presentarlo subito, e riceverà risposta entro trenta giorni. Per il risarcimento esiste una domanda a parte, da inviare all'ufficio legale con le prove del danno; le do entrambi i moduli."
+      goals: [rights]
+    - learner: "Li compilo tutti e due. Mi servirebbe però un impegno preciso: un numero di protocollo e il nome di qualcuno a cui rivolgermi, perché non vorrei dover ricominciare da capo ogni volta."
+    - tutor: "È una richiesta giusta. Questo è il suo numero di protocollo, e la pratica la seguo io: chieda dello sportello tre. Oggi stesso mando un sollecito per quella firma."
+      goals: [commitment]
+
+- scenario: riunione-lavoro
+  level: C1
+  persona: es-m-worker
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Direi bene, tutto sommato. Il nuovo sito è pronto all'ottanta per cento: le pagine dei prodotti sono online in prova, e ieri abbiamo chiuso la parte dei pagamenti. Mancano solo le traduzioni e i testi legali."
+    - tutor: "Ottimo, siete più avanti di quanto pensassi. E quell'ottanta per cento è sicuro, o c'è qualcosa che ti toglie il sonno?"
+      goals: [update]
+    - learner: "Una cosa c'è. L'agenzia che fa le traduzioni tarda una settimana a rispondere a ogni mail, e ci ha già consegnato due testi pieni di errori. Di questo passo la scadenza del quindici la vedo male."
+      errors: [word-choice]
+    - tutor: "Se ci mette una settimana a rispondere a ogni mail, capisco che tu sia preoccupato: così non si va da nessuna parte. Hai già in mente come uscirne?"
+      goals: [problem]
+      recast: {text: "tarda una settimana a rispondere", fix: "ci mette una settimana a rispondere", tags: [word-choice]}
+    - learner: "Sì, avrei una proposta. Potremmo affidare le lingue principali, inglese e tedesco, a due traduttori esterni che conosco e di cui mi fido, e lasciare all'agenzia solo le altre. Costerebbe circa ottocento euro in più, ma risparmieremmo almeno dieci giorni."
+    - tutor: "Ottocento euro per dieci giorni mi sembra un buon affare, e i soldi li troviamo. Però a questo punto il quindici è ancora realistico? Preferisco una data vera a una data bella."
+      goals: [proposal]
+    - learner: "Onestamente, no. Con i nuovi traduttori direi il ventidue per le due lingue principali, e la fine del mese per tutto il resto. Se vuoi, al cliente lo dico io, spiegandogli il motivo."
+    - tutor: "Il ventidue va bene, e apprezzo che tu non mi abbia venduto fumo. Al cliente scriviamo insieme oggi pomeriggio; tu intanto senti i traduttori. Avanti il prossimo!"
+      goals: [deadline]
+      new: [{lemma: vendere fumo, gloss: to make empty promises}]
+
+- scenario: riunione-lavoro
+  level: C1
+  persona: en-f-professional
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Va avanti, anche se più lentamente del previsto. La ricerca sui clienti è finita: abbiamo fatto trenta interviste e i risultati sono piuttosto chiari. Quello che è indietro è il rapporto finale, che è ancora una bozza."
+    - tutor: "Trenta interviste sono un bel lavoro. Che cosa ti sta rallentando sul rapporto?"
+    - learner: "Il fatto che i dati di vendita, che dovrei confrontare con le interviste, non mi sono ancora arrivati. Li ho chiesti all'amministrazione tre settimane fa e continuano a dirmi «domani». Senza quelli, metà delle mie conclusioni resta campata in aria."
+    - tutor: "Tre settimane di «domani»: li conosco, purtroppo. Vuoi che intervenga io, o hai un'altra idea?"
+      goals: [update, problem]
+    - learner: "Se tu potessi fare una telefonata, non mi dispiacerebbe. Ma nel frattempo proporrei di consegnare il rapporto in due parti: subito quella sulle interviste, che è già solida, e in un secondo momento il confronto con le vendite. Così il cliente avrebbe qualcosa in mano prima della sua riunione di giovedì."
+    - tutor: "Mi piace: meglio mezzo rapporto buono oggi che uno intero in ritardo. La telefonata la faccio appena usciamo di qui. Per quando mi dai la prima parte?"
+      goals: [proposal]
+    - learner: "Per mercoledì a mezzogiorno, così hai il tempo di leggerla prima che parta. Per la seconda parte dipende dai dati: se arrivassero entro venerdì, ce la farei per la fine della settimana prossima."
+    - tutor: "Mercoledì a mezzogiorno, perfetto, e per la seconda ci aggiorniamo lunedì. Brava, hai trasformato un ritardo in un piano. Passiamo al punto successivo."
+      goals: [deadline]

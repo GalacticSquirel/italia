@@ -1,0 +1,191 @@
+- scenario: colloquio-lavoro
+  level: C1
+  persona: en-f-student
+  history: [register]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno, e grazie di avermi ricevuta. Mi sono laureata a Leeds in comunicazione visiva e da due anni vivo a Torino, dove ho lavorato come grafica per una piccola casa editrice."
+    - tutor: "Piacere di conoscerla. Una casa editrice è un'ottima scuola. Di che cosa si occupava, esattamente, e che cosa le ha lasciato quell'esperienza?"
+      goals: [intro]
+    - learner: "Curavo le copertine e l'impaginazione di una collana di saggi. Eravamo in quattro, quindi ognuno faceva un po' di tutto: ho imparato a trattare con gli autori, a rispettare le scadenze della tipografia e, soprattutto, a difendere un'idea senza impuntarmi."
+    - tutor: "Difendere un'idea senza diventare rigidi: non è da tutti, glielo assicuro. E visto che siamo in tema, quali direbbe che sono i suoi punti di forza, e dove invece sente di dover crescere?"
+      goals: [experience]
+    - learner: "Sono precisa e reggo bene la pressione. Il mio punto debole è che non sono molto confidente quando devo presentare un lavoro davanti a tante persone: preparo tutto nei minimi dettagli proprio per compensare."
+      errors: [false-friend]
+    - tutor: "Non è la sola a non sentirsi sicura di sé davanti a una sala piena, e prepararsi bene è già una buona risposta. Qui però le presentazioni ai clienti sono frequenti: la cosa la spaventa?"
+      goals: [strengths]
+      recast: {text: "confidente", fix: "sicura di sé", tags: [false-friend]}
+    - learner: "Un po' sì, ma è proprio uno dei motivi per cui sono qui. Come puoi vedere dal curriculum, finora ho lavorato dietro le quinte, e credo che sia arrivato il momento di espormi di più."
+      errors: [register]
+    - tutor: "Mi piace che la consideri un'occasione e non un ostacolo. Un momento, però: «come puoi vedere»? In un colloquio conviene mantenere una certa distanza."
+      prompt: {text: "Come puoi vedere", tags: [register]}
+    - learner: "Mi scusi, ha ragione: come può vedere dal curriculum. Dicevo che vorrei questo ruolo perché la vostra azienda lavora con clienti molto diversi, e io ho bisogno di uscire dal mondo dei libri per mettermi alla prova."
+    - tutor: "Niente di grave, e la motivazione mi sembra sincera. C'è qualcosa che vorrebbe chiedere lei a me, sul ruolo o sulla squadra?"
+      goals: [why]
+    - learner: "Sì, una cosa. Se venissi assunta, lavorerei fin da subito sui progetti dei clienti o è previsto un periodo di affiancamento?"
+    - tutor: "Bella domanda. Per il primo mese lavorerebbe accanto alla nostra responsabile creativa, poi le verrebbe affidato un progetto tutto suo. Le faremo sapere entro venerdì; intanto grazie di essere venuta."
+      goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: C1
+  persona: es-m-worker
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno, grazie. Ho trentaquattro anni e sono di Valencia. Sono arrivato in Italia sei anni fa per amore, e ci sono rimasto per lavoro: mi occupo di progettazione di interni."
+    - tutor: "Per amore e per lavoro: due ottime ragioni per restare! Mi racconti allora che cosa ha fatto in questi sei anni."
+      goals: [intro]
+    - learner: "Ho lavorato per quattro anni in uno studio di architettura a Padova, dove seguivo le ristrutturazioni di negozi e ristoranti. Poi mi sono messo in proprio, e l'anno scorso un mio progetto per una libreria ha avuto molto esito: ne hanno parlato due riviste di settore."
+      errors: [false-friend]
+    - tutor: "Complimenti: se il progetto ha avuto tanto successo da finire sulle riviste, deve esserne fiero. Mi incuriosisce, però: perché lasciare un'attività in proprio che funziona per tornare a fare il dipendente?"
+      goals: [experience]
+      recast: {text: "esito", fix: "successo", tags: [false-friend]}
+    - learner: "Domanda legittima. Lavorare da solo mi ha insegnato moltissimo, ma mi manca il confronto quotidiano con una squadra. Le idee migliori che ho avuto sono nate discutendo con qualcuno che non era d'accordo con me."
+    - tutor: "È una risposta che sento di rado, e mi fa piacere. Restiamo su di lei: quali considera i suoi punti di forza, e qual è invece un difetto con cui deve fare i conti?"
+      goals: [why]
+    - learner: "So ascoltare il cliente e tradurre richieste confuse in un progetto concreto. Il difetto è che tendo a voler controllare tutto: delegare mi costa fatica, anche se negli ultimi anni ho capito che, se non lo fai, alla lunga sei tu a rallentare gli altri."
+    - tutor: "Almeno ne è consapevole, che è già metà del lavoro. Qui dovrebbe affidare parecchie cose ai colleghi, glielo dico subito. Ha qualche domanda da farmi sul ruolo?"
+      goals: [strengths]
+    - learner: "Sì. Mi piacerebbe sapere quanta libertà avrei nella scelta dei materiali e dei fornitori, perché per me è una parte essenziale del progetto."
+    - tutor: "Molta libertà, a patto di rispettare la spesa concordata con il cliente. Con alcuni fornitori lavoriamo da anni, ma le proposte nuove sono benvenute. La ringrazio, le faremo sapere la prossima settimana."
+      goals: [questions]
+
+- scenario: colloquio-promozione
+  level: C1
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, dottoressa, grazie del tempo. Vorrei alzare una questione che mi sta a cuore da qualche mese: il mio ruolo in azienda e le sue prospettive."
+      errors: [word-choice]
+    - tutor: "Ha fatto bene a sollevare la questione direttamente con me, preferisco così. Mi dica pure: da dove vuole cominciare?"
+      recast: {text: "alzare una questione", fix: "sollevare la questione", tags: [word-choice]}
+    - learner: "Dai fatti. Quest'anno ho chiuso tre contratti nuovi, per un valore di quattrocentomila euro, e ho riorganizzato l'assistenza ai clienti, riducendo della metà i tempi di risposta. Tutti gli obiettivi della mia valutazione sono stati superati."
+    - tutor: "Sono risultati che conosco e che apprezzo, non lo nego. Immagino però che non sia venuto soltanto per ricordarmeli."
+      goals: [results]
+    - learner: "Infatti. Ritengo di meritare la promozione a responsabile commerciale, con un adeguamento dello stipendio. Di fatto svolgo già quelle funzioni da un anno, senza averne né il titolo né il compenso."
+    - tutor: "Capisco il ragionamento. Devo però essere sincera: il budget per il personale è stato chiuso a ottobre, e una promozione a metà anno creerebbe malumori tra i suoi colleghi più anziani."
+      goals: [request]
+    - learner: "Mi rendo conto che il momento non è l'ideale. Tuttavia credo che i malumori nascono più dall'incertezza che dalle promozioni: tutti sanno già chi coordina il gruppo."
+      errors: [subjunctive-use]
+    - tutor: "Su chi coordina il gruppo non le do torto. Prima di risponderle, però: «credo che i malumori nascono»? Controlli il verbo, che dopo «credo che» non sta in piedi."
+      prompt: {text: "credo che i malumori nascono", tags: [subjunctive-use]}
+    - learner: "Credo che i malumori nascano dall'incertezza, volevo dire. E quanto al budget, sarei disposto ad aspettare gennaio per l'aumento, purché il titolo venga riconosciuto subito."
+    - tutor: "Ora sì. Ed è una proposta sensata, che mi permette di muovermi: il titolo subito e lo stipendio da gennaio posso difenderli davanti alla direzione."
+      goals: [handle]
+    - learner: "La ringrazio. Possiamo fissare una data entro cui avere una risposta? Preferirei non restare in sospeso fino a Natale."
+    - tutor: "Mi sembra giusto. Ne parlo con la direzione lunedì e ci rivediamo venerdì prossimo con una risposta scritta. Nel frattempo mi prepari una pagina con i suoi numeri."
+      goals: [next-steps]
+
+- scenario: colloquio-promozione
+  level: C1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, direttore, la ringrazio di avermi ricevuta. Vorrei parlarle del mio percorso qui e, se me lo permette, anche del mio futuro."
+    - tutor: "Volentieri, anche perché di lei sento dire un gran bene. L'ascolto."
+    - learner: "Sono con voi da cinque anni. In questo periodo ho coordinato il passaggio ai corsi online, che oggi rappresentano un terzo delle iscrizioni, e ho formato sei nuovi insegnanti. L'ultima valutazione dei miei studenti è stata la più alta della sede."
+    - tutor: "Sono numeri che parlano da soli, e gliene do atto. Dove vuole arrivare?"
+      goals: [results]
+    - learner: "Vorrei che mi venisse affidata la direzione didattica, che è scoperta da marzo. So che state cercando una persona esterna, ma penso di avere sia l'esperienza sia la conoscenza della scuola necessarie."
+    - tutor: "Non le nascondo che il suo nome è stato fatto. Il dubbio, però, è questo: lei è un'ottima insegnante, ma dirigere significa anche dire dei no a colleghi che oggi sono suoi amici. Non la preoccupa?"
+      goals: [request]
+    - learner: "Non mi preoccupa in assoluto. Ho già dovuto dire dei no quando coordinavo i corsi online, e le amicizie hanno retto, perché le decisioni erano motivate e uguali per tutti."
+      errors: [false-friend]
+    - tutor: "Bene, se non la preoccupa affatto è già un punto a suo favore. Rimane la questione economica: quest'anno non posso offrirle lo stipendio che daremmo a una persona esterna."
+      recast: {text: "in assoluto", fix: "affatto", tags: [false-friend]}
+    - learner: "Lo immaginavo. Le proporrei allora un periodo di prova di sei mesi con un aumento parziale: se gli obiettivi saranno raggiunti, si passerà allo stipendio pieno. Mi pare che così il rischio sia diviso in modo equo."
+    - tutor: "È un compromesso che posso portare al consiglio a testa alta. Come vuole procedere?"
+      goals: [handle]
+    - learner: "Potrei prepararle entro lunedì una proposta scritta con gli obiettivi dei sei mesi, così il consiglio ha qualcosa di concreto su cui decidere."
+    - tutor: "Perfetto: lunedì la proposta, giovedì il consiglio, e venerdì ci rivediamo qui. E comunque vada, grazie per la chiarezza."
+      goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: C1
+  persona: en-m-retired
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Capisco la preoccupazione, ma sono di parere opposto. Credo che una zona pedonale, se fatta con criterio, sia l'unico modo per ridare vita a un centro che oggi è poco più di un parcheggio a cielo aperto."
+    - tutor: "«Ridare vita», dice lei. Ma la vita ai negozi la portano i clienti, e i clienti arrivano in macchina. Su che cosa fonda tanto ottimismo?"
+      goals: [position]
+    - learner: "Su due cose. La prima è l'inquinamento: in via Roma i valori sono fuori norma per metà dell'anno, e nessuno si ferma volentieri davanti alle vetrine respirando gas di scarico. La seconda è l'esperienza delle città in cui ho vissuto: dove il centro è stato chiuso al traffico, i commercianti che protestavano sono gli stessi che oggi non tornerebbero indietro."
+    - tutor: "Altre città, altri mezzi pubblici. Qui l'autobus passa ogni mezz'ora, quando passa. Come pensa che una signora di ottant'anni possa arrivare in farmacia a piedi con le borse?"
+      goals: [argue]
+    - learner: "È un'obiezione seria, e non voglio liquidarla. Ma proprio per questo la chiusura andrebbe accompagnata da navette frequenti e da permessi per i residenti e per chi ha difficoltà a camminare. Nessuno propone di alzare un muro: si tratta di togliere il traffico di passaggio, che ai negozi non porta un euro."
+    - tutor: "Sul traffico di passaggio, glielo concedo, ha ragione: chi attraversa il centro per andare altrove non compra niente. Resta il fatto che i parcheggi sono pochi e lontani."
+      goals: [counter]
+    - learner: "E qui devo darle ragione io: senza parcheggi comodi ai margini del centro, il progetto non sta in piedi. Proporrei quindi di procedere per gradi: chiudere solo il fine settimana per sei mesi, e intanto aprire il parcheggio dell'ex caserma. Poi si guardano i numeri insieme ai commercianti."
+    - tutor: "Una prova di sei mesi nel fine settimana, con i numeri alla mano: così posso starci anch'io. Vede che, discutendo, un punto d'incontro si trova? La proponga lei al presidente, io la appoggerò."
+      goals: [concede]
+
+- scenario: dibattito-ambiente
+  level: C1
+  persona: es-f-erasmus
+  history: [register]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Con tutto il rispetto, non sono d'accordo. Abito in centro da due anni e penso che chiuderlo alle auto sarebbe la cosa migliore che il Comune possa fare, per i residenti e, alla lunga, anche per i negozi."
+    - tutor: "Alla lunga, appunto. Nel frattempo i negozi chiudono. Mi dia almeno una buona ragione."
+      goals: [position]
+    - learner: "Gliene do due. Primo, il rumore e lo smog: sotto casa mia passano macchine fino alle due di notte, e questo molesta chi ci vive molto più di quanto si immagini. Secondo, lo spazio: una strada senza auto può ospitare tavolini, mercati, biciclette, cioè gente che si ferma e spende."
+      errors: [false-friend]
+    - tutor: "Che il traffico di notte dia fastidio a chi abita lì, non lo metto in dubbio. Ma tavolini e mercati non pagano l'affitto di un negozio di mobili: chi compra un armadio non lo porta a casa in bicicletta."
+      goals: [argue]
+      recast: {text: "molesta", fix: "dia fastidio a", tags: [false-friend]}
+    - learner: "Ha ragione, per certi negozi il problema esiste. Però ascolta: le consegne si possono organizzare in fasce orarie precise, come si fa già in tante città, e il cliente riceve l'armadio a casa senza muovere un dito."
+      errors: [register]
+    - tutor: "L'idea delle fasce orarie non è campata in aria. Mi scusi, però: «ascolta»? Ci conosciamo appena, e siamo in una riunione pubblica."
+      new: [{lemma: campato in aria, gloss: far-fetched}]
+      prompt: {text: "ascolta", tags: [register]}
+    - learner: "Mi perdoni, mi sono lasciata trascinare: senta, volevo dire. Le consegne in fasce orarie funzionano già a Bologna, per esempio."
+    - tutor: "Nessun problema, è il calore della discussione. Bologna però ha il triplo dei nostri autobus: lei è sicura che qui i mezzi pubblici reggerebbero?"
+      goals: [counter]
+    - learner: "No, non ne sono sicura, e su questo le do ragione: oggi i mezzi pubblici non bastano. Per questo proporrei un compromesso: chiudere il centro solo dalle dieci alle venti, lasciando libero l'accesso la mattina presto per le consegne e la sera per i residenti."
+    - tutor: "Una chiusura a orario, con le consegne garantite: detta così, perfino io potrei votarla. Presentiamola insieme, lei per i residenti e io per i commercianti."
+      goals: [concede]
+
+- scenario: film-libro
+  level: C1
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Comincio io, se nessuno si offende. Ho letto un romanzo ambientato in un paese della Sardegna negli anni Cinquanta: una sarta scopre un segreto sulla famiglia più potente del posto e deve decidere che cosa farne. Mi fermo qui, altrimenti rovino tutto."
+    - tutor: "Brava, ti sei fermata sul più bello, e adesso sono curioso! Parlaci della sarta, allora: che tipo è?"
+      goals: [summary]
+    - learner: "È una donna che il marito è emigrato in Belgio e non ha più dato notizie. Vive cucendo per le signore del paese e, proprio perché nessuno fa caso a lei, vede e sente tutto."
+      errors: [relative-pronoun]
+    - tutor: "Un personaggio invisibile che sa tutto: mi piace già. Solo una cosa: «una donna che il marito» non fila. Quale pronome ci vuole per dire che il marito è suo?"
+      prompt: {text: "una donna che il marito", tags: [relative-pronoun]}
+    - learner: "Ah, certo: è una donna il cui marito è emigrato in Belgio. Ed è testarda, orgogliosa, a tratti perfino antipatica, il che la rende molto più credibile."
+    - tutor: "Perfetto, «il cui» è proprio quello che ci voleva. Le protagoniste antipatiche sono le mie preferite, tra l'altro. E il libro nel complesso ti ha convinta?"
+      goals: [characters]
+    - learner: "Sì, ma non del tutto. La prima metà è magnifica, perché la tensione cresce senza che succeda quasi nulla. Nella seconda, invece, l'autrice ha fretta di chiudere e alcuni nodi si sciolgono in modo troppo comodo. Peccato, perché fino a lì era emozionante."
+    - tutor: "I finali tirati via sono il male del secolo, ne parliamo ogni mese! A chi lo consiglieresti, nonostante questo?"
+      goals: [opinion]
+    - learner: "A chi ama le storie in cui il paesaggio conta quanto i personaggi. Lo sconsiglierei a chi cerca l'azione: qui il momento più movimentato è una processione."
+    - tutor: "Una processione come colpo di scena, questa me la segno! Grazie, hai rotto il ghiaccio nel modo migliore. Chi è il prossimo?"
+      goals: [recommend]
+
+- scenario: film-libro
+  level: C1
+  persona: en-m-heritage
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io questo mese ho barato: invece di leggere un libro ho visto un film, ma tratto da un romanzo, quindi vale, no? È la storia di due fratelli che ereditano la trattoria del padre a Napoli e non sono d'accordo su niente."
+    - tutor: "Vale, vale, qui siamo di manica larga! Due fratelli e una trattoria: promette scintille. Chi dei due ti ha colpito di più?"
+      goals: [summary]
+      new: [{lemma: essere di manica larga, gloss: to be lenient}]
+    - learner: "Il maggiore, Salvatore. È uno che ha sempre fatto quello che voleva il padre e adesso, a cinquant'anni, non sa più che cosa vuole lui. Mi ha ricordato mio zio, che ha tenuto aperto il negozio del nonno per trent'anni senza che gli piacesse."
+    - tutor: "Povero zio! Sono i personaggi che fanno più male, quelli che somigliano a qualcuno di casa. E il film ti è piaciuto, o ti ha solo fatto pensare alla famiglia?"
+      goals: [characters]
+    - learner: "Mi è piaciuto tanto che poi ho comprato il romanzo e ho speso tre notti a leggerlo. E devo dire che il libro è meglio: nel film la moglie di Salvatore è quasi una comparsa, mentre sulla pagina è lei che tiene in piedi tutto."
+      errors: [word-choice]
+    - tutor: "Se hai passato tre notti a leggerlo, ti ha preso davvero! Capita spesso, del resto, che il cinema sacrifichi proprio i personaggi più sottili. Ma secondo te è un difetto del regista, o un film non può fare altrimenti?"
+      recast: {text: "speso tre notti", fix: "passato tre notti", tags: [word-choice]}
+    - learner: "Un po' tutte e due le cose. In due ore qualcosa devi tagliare, però tagliare lei è stata una scelta pigra. Bastavano due scene in cucina per farci capire chi comanda davvero."
+    - tutor: "Due scene in cucina: il film dovresti scriverlo tu! E a chi diresti di leggerlo, o di vederlo?"
+      goals: [opinion]
+    - learner: "Il film lo consiglierei a tutti, per una serata leggera. Il romanzo a chi ha un fratello o una sorella con cui litiga: finirebbe per telefonargli."
+    - tutor: "Un libro che fa fare pace in famiglia non ha prezzo. Grazie, e la prossima volta porta il romanzo, che lo facciamo girare."
+      goals: [recommend]

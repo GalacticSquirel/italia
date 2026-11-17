@@ -1,0 +1,171 @@
+- scenario: intelligenza-artificiale
+  level: C1
+  persona: en-m-traveller
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Metà mi sembra un'esagerazione, dai. Non nego che alcuni mestieri spariranno, ma è successo con ogni rivoluzione tecnologica, ed eventualmente ne sono sempre nati di nuovi. Il punto, semmai, è quanto dura la fase di passaggio."
+      errors: [false-friend]
+    - tutor: "Che alla fine ne nascano di nuovi lo dicono tutti, ma intanto chi ha cinquant'anni e perde il posto che cosa fa, torna a scuola? Il tuo mi sembra un ottimismo da salotto."
+      goals: [position]
+      recast: {text: "eventualmente", fix: "alla fine", tags: [false-friend]}
+    - learner: "Non è ottimismo, è memoria. Pensa ai bancomat: quando sono arrivati, tutti davano per spacciati gli impiegati di banca. Invece le banche hanno aperto più filiali, e quegli impiegati si sono messi a fare consulenza invece di contare banconote."
+    - tutor: "Sì, ma un bancomat fa una cosa sola. Questi programmi scrivono, traducono, disegnano: stavolta non tocca agli operai, tocca a noi. Non ti pare una differenza di sostanza?"
+      goals: [evidence]
+    - learner: "Su questo hai ragione, ed è l'aspetto che preoccupa anche me. Stavolta l'automazione colpisce il lavoro intellettuale, e chi pensava di essere al sicuro dietro una scrivania non lo è più. Se fossi un traduttore alle prime armi, non dormirei tranquillo."
+    - tutor: "Oh, finalmente lo ammetti! Allora siamo d'accordo che c'è poco da stare allegri."
+      goals: [concede]
+    - learner: "Fino a un certo punto. Siamo d'accordo sul rischio, non sulla conclusione. Io credo che tutto dipenda dalla formazione: se le aziende e lo Stato investissero sul serio nelle competenze, la tecnologia diventerebbe uno strumento e non una minaccia. Lasciata a sé stessa, invece, ti do ragione, farà danni."
+    - tutor: "Detta così la firmo anch'io: il guaio non è la macchina, è chi la lascia senza guida. Vedi che alla fine ci siamo trovati a metà strada? Dai, versami ancora un po' di vino, che di lavoro abbiamo parlato abbastanza."
+      goals: [conclude]
+
+- scenario: intelligenza-artificiale
+  level: C1
+  persona: es-f-teacher
+  history: [hypothetical]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Paura no, ma un po' di prudenza sì. Io la uso a scuola per preparare gli esercizi e mi fa risparmiare ore. Però non direi che metà di noi resterà a casa: direi piuttosto che metà di noi lavorerà in un altro modo."
+    - tutor: "«In un altro modo» è un bel giro di parole per dire che molti verranno pagati meno, però. Tu insegni: non hai paura che un giorno al tuo posto mettano uno schermo?"
+      goals: [position]
+    - learner: "Ci hanno già provato, durante la pandemia, e si è visto com'è finita. I ragazzi davanti a uno schermo imparavano la metà: quello che manca alla macchina è lo sguardo di chi capisce che oggi non è giornata. Questo, per ora, non si automatizza."
+    - tutor: "«Per ora», appunto. E comunque la scuola è un caso a parte. Pensa a chi risponde al telefono per un'azienda o tiene i conti: lì lo sguardo non serve a nessuno."
+      goals: [evidence]
+    - learner: "Lì è diverso, lo riconosco, e sarebbe disonesto negarlo. Se quelle aziende potrebbero sostituire tutti domani, lo farebbero senza pensarci."
+      errors: [hypothetical]
+    - tutor: "Ecco, vedi che in fondo la pensi come me! Solo, ascolta bene la tua frase: «se quelle aziende potrebbero»? Con il «se» quel verbo non regge."
+      goals: [concede]
+      prompt: {text: "Se quelle aziende potrebbero", tags: [hypothetical]}
+    - learner: "Se quelle aziende potevano... no, aspetta: se quelle aziende possano sostituire tutti?"
+      errors: [hypothetical]
+    - tutor: "Ci sei quasi: «se quelle aziende potessero sostituire tutti, lo farebbero». E purtroppo è vero. Quindi che cosa proponi, di arrenderci?"
+      recast: {text: "se quelle aziende possano", fix: "se quelle aziende potessero", tags: [hypothetical]}
+    - learner: "Niente affatto. Propongo di fare quello che si doveva fare da anni: formazione continua, pagata in parte dalle aziende che ci guadagnano. Chi perde un posto deve poter imparare un altro mestiere senza finire in miseria."
+    - tutor: "Su questo non posso darti torto: se la formazione ci fosse davvero, dormirei più tranquillo anch'io. Diciamo che tu speri e io temo, ma vogliamo la stessa cosa. Passami il pane, va'."
+      goals: [conclude]
+
+- scenario: intelligenza-artificiale
+  level: C1
+  persona: en-f-student
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Guarda, la paura la capisco, ma secondo me stiamo guardando il dito e non la luna. Non credo che sparirà metà dei posti di lavoro; credo che cambierà metà di ogni lavoro, che è una cosa ben diversa."
+    - tutor: "Bella frase, ma all'atto pratico? Se metà del mio lavoro lo fa un programma, al mio capo basta mezzo me. O no?"
+      goals: [position]
+    - learner: "Non necessariamente. Nel mio studio, da quando usiamo questi strumenti per le bozze, non hanno mandato via nessuno: abbiamo semplicemente accettato più clienti. Il tempo che prima passavo a impaginare ora lo passo a parlare con chi commissiona il lavoro."
+    - tutor: "Per adesso. Voi siete giovani e svelti, vi adattate. Ma mio cugino ha cinquantasei anni e fa il geometra: glielo spieghi tu, che deve inventarsi un altro mestiere?"
+      goals: [evidence]
+    - learner: "No, e hai ragione a tirarlo in ballo. Sarebbe ipocrita dire a tuo cugino che andrà tutto bene. Per chi è a dieci anni dalla pensione il rischio è concreto, e qualunque discorso sulle nuove opportunità suona come una presa in giro."
+    - tutor: "Meno male che qualcuno lo dice. Di solito voi entusiasti chiudete il discorso con due parole in inglese."
+      goals: [concede]
+    - learner: "Entusiasta non direi, però. Mettiamola così: tu temi che nessuno si occupi di chi resta indietro, io penso che la tecnologia in sé non sia il nemico. Se ci fossero regole serie e soldi per la formazione di persone come tuo cugino, saremmo entrambi più sereni, no?"
+    - tutor: "Così sì, ci sto. La macchina non mi piace più di prima, ma a regole e formazione brindo volentieri. E adesso assaggia il dolce, che l'ho fatto io e nessun programma lo sa fare."
+      goals: [conclude]
+
+- scenario: intervista-podcast
+  level: C1
+  persona: en-m-retired
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivato proprio in Italia?"
+    - learner: "Per colpa di un'opera lirica, pensa un po'. Trent'anni fa ho visto la Tosca a Londra e ho deciso che un giorno avrei vissuto nel paese dove si cantava così. Poi la vita ha fatto il suo corso, e ci sono arrivato solo da pensionato, quattro anni fa, a Lucca."
+    - tutor: "Per colpa di Puccini, e sei finito proprio a casa sua! Non potevi scegliere meglio. E l'arrivo com'è stato: amore a prima vista o doccia fredda?"
+      goals: [story]
+    - learner: "Un po' tutte e due. La città era come l'avevo sognata, ma io l'italiano l'avevo studiato sui libri, e al bar non capivo una parola. Per mesi ho preteso di capire tutto: annuivo e ridevo quando ridevano gli altri."
+      errors: [false-friend]
+    - tutor: "Quindi per mesi hai fatto finta di capire: all'estero lo facciamo tutti, tranquillo! E c'è un'abitudine degli italiani che ti ha davvero spiazzato?"
+      recast: {text: "preteso di capire", fix: "fatto finta di capire", tags: [false-friend]}
+    - learner: "Il rapporto con il tempo a tavola. Da noi il pranzo è una pausa; qui è un avvenimento. La prima domenica dai vicini pensavo che dopo il secondo fosse finita, e invece erano appena a metà. Ci avevo messo anni a imparare a mangiare in fretta, e ho dovuto disimparare tutto."
+    - tutor: "Dimenticare la fretta: dovremmo farne il titolo della puntata. Adesso però ti chiedo di essere sincero, senza offenderci troppo: che cosa proprio non ti va giù dell'Italia?"
+      goals: [culture-shock]
+    - learner: "Lo dico con affetto, perché ormai è anche casa mia. Trovo faticoso che, per ottenere qualsiasi cosa da un ufficio, serva conoscere qualcuno. La burocrazia c'è dappertutto, ma qui ho la sensazione che le regole valgano soprattutto per chi non ha un amico allo sportello."
+    - tutor: "Hai messo il dito nella piaga, e con molto garbo. Chiudiamo con un consiglio: che cosa diresti a chi sta pensando di trasferirsi?"
+      goals: [critique]
+      new: [{lemma: mettere il dito nella piaga, gloss: to touch a sore point}]
+    - learner: "Di venire prima per un inverno intero, non per una vacanza. L'Italia di luglio la amano tutti; bisogna vedere se ti piace quella di novembre, quando piove e i turisti sono andati via. E di imparare la lingua sul serio: senza quella resti un ospite, per quanto gentile sia l'accoglienza."
+    - tutor: "L'Italia di novembre: è il consiglio più onesto che abbia sentito in questo programma. Grazie di cuore, è stato un piacere averti con noi."
+      goals: [advice]
+
+- scenario: intervista-podcast
+  level: C1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivata proprio in Italia?"
+    - learner: "Ciao, grazie a voi dell'invito! Sono arrivata a Bologna con una borsa Erasmus: dovevano essere nove mesi. Poi mi sono innamorata della città, ho trovato un lavoro in una libreria e, insomma, porto cinque anni qui."
+      errors: [word-choice]
+    - tutor: "Nove mesi che sono diventati cinque anni: quindi sei qui da cinque anni, e Bologna ha colpito ancora! Da spagnola, immagino che tu non abbia trovato grandi differenze, o mi sbaglio?"
+      goals: [story]
+      recast: {text: "porto cinque anni qui", fix: "sei qui da cinque anni", tags: [word-choice]}
+    - learner: "Ti sbagli, eccome! È proprio lo stereotipo che mi faceva più ridere: «tanto siete uguali». La cosa che mi ha sorpresa di più sono gli orari. A Siviglia alle otto di sera si esce per l'aperitivo; qui alle otto, se non sei già a tavola, ti guardano come se fossi matta."
+    - tutor: "Vero, sugli orari siamo quasi svizzeri rispetto a voi. E c'è qualcosa che, dopo cinque anni, ancora ti fa storcere il naso? Puoi dirlo, siamo tra amici."
+      goals: [culture-shock]
+    - learner: "Posso? Allora dico la casa. Trovare una stanza a Bologna è stata un'impresa: annunci che sparivano in un'ora, proprietari che non volevano stranieri, contratti che non erano proprio contratti. Capisco che il problema sia complicato, ma mi è sembrato che ci si fosse rassegnati un po' troppo."
+    - tutor: "Hai ragione, e detto da te fa più effetto che detto da noi, che ci lamentiamo e basta. Che consiglio daresti a una ragazza che domani parte con la valigia come hai fatto tu?"
+      goals: [critique]
+    - learner: "Le direi di non frequentare solo altri stranieri, anche se è la cosa più facile. Io il primo anno stavo sempre con gli spagnoli e avevo nostalgia di casa ogni sera. Ho cominciato a integrarmi davvero quando mi sono iscritta a un coro: non capivo le battute, ma cantavo."
+    - tutor: "Iscriversi a un coro per sentirsi a casa: questo sì che è un consiglio pratico. Grazie mille, e torna a trovarci quando gli anni saranno dieci!"
+      goals: [advice]
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: en-f-professional
+  history: [register]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Non mi disturba affatto, anzi, ha fatto bene a venire. Si sieda e mi racconti con calma: vorrei capire bene come ha vissuto lei la riunione di ieri."
+    - tutor: "La ringrazio. Il fatto è che l'analisi presentata dal mio collega l'avevamo preparata insieme, per tre settimane. Lui ha parlato come se fosse tutta farina del suo sacco, e il mio nome non è comparso nemmeno in fondo all'ultima pagina."
+      new: [{lemma: farina del suo sacco, gloss: all his own work}]
+    - learner: "Capisco che le sia rimasto l'amaro in bocca: tre settimane di lavoro e nemmeno una parola di riconoscimento, chiunque ci resterebbe male. Mi aiuti però a ricostruire i fatti: vi eravate accordati su chi avrebbe presentato e in che modo?"
+    - tutor: "A dire il vero, no. Lui ha detto «parlo io, che ho più pratica», e io ho lasciato fare. Ma davo per scontato che avrebbe detto che il lavoro era di tutti e due."
+      goals: [listen]
+    - learner: "Quindi non c'era un accordo esplicito su come citare i contributi. E dopo la riunione ha avuto modo di dirgli qualcosa, o è la prima volta che ne parla con qualcuno?"
+    - tutor: "È la prima volta che ne parlo. Ieri ero troppo nervoso, avrei detto cose sbagliate, e ho preferito dormirci sopra."
+      goals: [clarify]
+    - learner: "Ha fatto bene ad aspettare. Senti, non voglio giustificarlo, ma è possibile che lui non si sia reso conto dell'effetto: in riunione aveva dieci minuti contati, e può darsi che abbia tagliato i ringraziamenti senza malizia."
+      errors: [register]
+    - tutor: "Può darsi, anche se faccio fatica a crederci. Mi permetta, però: «senti»? Finora mi aveva dato del lei, e in ufficio preferisco così."
+      goals: [perspective]
+      prompt: {text: "Senti", tags: [register]}
+    - learner: "Ha ragione, mi scusi: senta, volevo dire. Le proporrei di incontrarci tutti e tre domani: lui avrà modo di chiarire, e io manderò una nota alla direzione in cui risulti che l'analisi è frutto del lavoro di entrambi."
+    - tutor: "Non si preoccupi. Un chiarimento a tre e una nota scritta alla direzione: mi sembra una soluzione corretta. Domani ci sarò, e la ringrazio per avermi ascoltato."
+      goals: [solution]
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: es-m-worker
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Prego, entri pure e chiuda la porta, così parliamo tranquilli. Ieri mi sono dato conto che è uscita dalla riunione piuttosto scura in volto. Che cosa è successo?"
+      errors: [word-choice]
+    - tutor: "Se si è reso conto anche lei che ero scura in volto, allora si vedeva proprio. È successo che la mia collega ha presentato al cliente il piano di lancio come se l'avesse scritto da sola, mentre metà delle idee erano mie."
+      recast: {text: "dato conto", fix: "reso conto", tags: [word-choice]}
+    - learner: "Mi dispiace, e la capisco: vedere il proprio lavoro presentato da un altro senza essere nominati brucia. Posso chiederle quali parti del piano erano sue, in particolare?"
+    - tutor: "Tutta la sezione sui tempi e l'idea della campagna in due fasi. Ho ancora i messaggi con cui gliele ho mandate, se vuole vederli."
+      goals: [listen]
+    - learner: "Non ne dubito, ma se me li inoltra mi sarà utile. Un'altra cosa: prima della riunione avevate deciso insieme chi avrebbe parlato con il cliente?"
+    - tutor: "Sì, doveva parlare lei, perché il cliente lo conosce da anni. Su questo niente da dire. È quel continuo «io ho pensato, io ho deciso» che mi ha ferita."
+      goals: [clarify]
+    - learner: "È un punto importante, e lo terrò presente. Le dico come la vedo io, senza togliere nulla a quello che prova: conoscendo la sua collega, credo che abbia parlato in prima persona per sembrare sicura davanti al cliente, più che per prendersi il merito. Questo non la giustifica, ma forse non c'era cattiva intenzione."
+    - tutor: "Forse. Ammetto che con i clienti tende a fare la prima della classe, più per ansia che per cattiveria. Però il danno resta."
+      goals: [perspective]
+    - learner: "Resta, e va riparato. Le propongo due cose: un incontro a tre, in cui lei possa dirle con franchezza come si è sentita, e una mia comunicazione al cliente in cui il piano venga attribuito a entrambe. D'ora in poi, inoltre, i nomi degli autori compariranno sulla prima pagina di ogni documento."
+    - tutor: "I nomi sulla prima pagina: bastava così poco. Accetto volentieri l'incontro, e la ringrazio di aver preso la cosa sul serio."
+      goals: [solution]
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: en-m-heritage
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Nessun disturbo, la porta è aperta per questo. Ho notato anch'io che ieri è rimasto in silenzio per tutta la seconda parte. Mi dica che cosa non le è andato giù."
+    - tutor: "Il fatto che il collega del marketing abbia mostrato i miei grafici dicendo «ho preparato questi dati». Ci ho lavorato due fine settimana, e lui si è limitato a cambiare i colori."
+    - learner: "Capisco perfettamente che la cosa l'abbia amareggiata: due fine settimana non sono uno scherzo, e sentirsi cancellati davanti a tutti fa male. Per capire meglio: i grafici glieli aveva mandati lei, oppure li ha presi dalla cartella condivisa?"
+    - tutor: "Glieli avevo mandati io, su sua richiesta. Mi aveva scritto che gli servivano «come base». Non pensavo che la base sarebbe diventata tutta la presentazione."
+      goals: [listen]
+    - learner: "Quindi li ha chiesti apertamente, ma senza precisare l'uso che ne avrebbe fatto. Le risulta che abbia fatto lo stesso con altri, o è la prima volta che succede?"
+    - tutor: "Con me è la prima volta. Degli altri non saprei, e non voglio mettere in giro voci."
+      goals: [clarify]
+    - learner: "Lo apprezzo. Allora le dico che cosa penso, e mi corregga se sbaglio. È arrivato da noi tre mesi fa da un'azienda dove, mi dicono, si firmava tutto come gruppo; è possibile che non abbia colto che qui ci teniamo a riconoscere il lavoro di ciascuno. Non lo dico per assolverlo, ma un malinteso mi sembra più probabile della malafede."
+    - tutor: "Non ci avevo pensato. In effetti, quando gli ho mandato i grafici mi ha ringraziato tre volte: non sembrava uno che volesse approfittarsi di me."
+      goals: [perspective]
+    - learner: "Appunto. Proporrei di parlarne con lui domani, tutti e tre insieme e senza processi. Alla prossima riunione chiarirò io che l'analisi è sua, e chiederò a tutti di indicare sempre le fonti. Le sembra un modo equo di chiudere la questione?"
+    - tutor: "Mi sembra equo, sì. Mi basta che la cosa venga detta davanti alla squadra. Grazie: sono entrato arrabbiato ed esco più leggero."
+      goals: [solution]

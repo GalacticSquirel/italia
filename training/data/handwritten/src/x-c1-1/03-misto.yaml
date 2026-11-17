@@ -1,0 +1,215 @@
+- scenario: presentazione-progetto
+  level: C1
+  persona: es-m-worker
+  history: [hypothetical]
+  turns:
+  - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+  - learner: "Sarò breve, direttore. Proponiamo di aprire un servizio di consegna a domicilio per i pranzi aziendali. L'obiettivo è usare la cucina nelle ore in cui adesso resta ferma, cioè la mattina."
+  - tutor: "L'idea è chiara. Ma io ragiono sui numeri: quanto ci porta in cassa?"
+    goals: [pitch]
+  - learner: "Secondo le nostre stime, il fatturato aumenterebbe del quindici per cento nel primo anno. Abbiamo già tre clienti interessati, e uno di loro è disposto a firmare un contratto sempre e quando garantiamo la consegna entro le dodici e mezza."
+    errors: [word-choice]
+  - tutor: "Quindi un cliente firma a patto che garantiamo la consegna entro le dodici e mezza. Interessante, ma servono un furgone e due persone in più. Se i clienti non arrivano, chi copre l'investimento?"
+    recast: {text: "sempre e quando", fix: "a patto che", tags: [word-choice]}
+    goals: [benefits]
+  - learner: "È un rischio reale, non lo nego. Per questo propongo di cominciare con un furgone a noleggio e personale già interno. Se dopo sei mesi non avremmo raggiunto l'obiettivo, chiudiamo il servizio senza perdite importanti."
+    errors: [hypothetical]
+  - tutor: "Il noleggio mi convince di più. Un momento, però: \"se non avremmo raggiunto\"? Dopo \"se\" il condizionale non lo voglio sentire, neanche in riunione."
+    prompt: {text: "non avremmo raggiunto", tags: [hypothetical]}
+    new: [{lemma: condizionale, gloss: conditional}]
+  - learner: "Mi scusi: se dopo sei mesi non avremo raggiunto l'obiettivo, chiudiamo il servizio."
+  - tutor: "Così va bene, nella forma e nella sostanza. Sei mesi di prova posso accettarli. Che cosa le serve da me per partire?"
+    goals: [objection]
+  - learner: "Mi servirebbe la sua approvazione per un budget di ottomila euro e una scadenza chiara. Le mando il piano dettagliato entro mercoledì, così può esaminarlo con calma."
+  - tutor: "Mercoledì va bene. Se i conti tornano, partiamo il primo del mese e ci rivediamo dopo tre mesi per i primi risultati."
+    goals: [next-steps]
+
+- scenario: recensione-ristorante
+  level: C1
+  persona: en-m-retired
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, purtroppo. Non vorrei esagerare, ma la serata è stata deludente. Avevamo prenotato per festeggiare l'anniversario di matrimonio e quasi niente è andato come doveva."
+  - tutor: "Mi dispiace molto, soprattutto in una serata così importante. Mi dica esattamente che cosa non ha funzionato."
+    goals: [complain]
+  - learner: "Abbiamo aspettato cinquanta minuti per i primi. Poi il risotto di mia moglie era scotto, e la mia bistecca, che avevo chiesto al sangue, è arrivata ben cotta. Il cameriere, piuttosto rude, l'ha portata indietro senza neanche scusarsi."
+    errors: [false-friend]
+  - tutor: "Un'attesa così, due errori di cottura e un cameriere scortese: non è accettabile, e me ne scuso io. Che cosa si aspettava, venendo da noi?"
+    recast: {text: "rude", fix: "scortese", tags: [false-friend]}
+    new: [{lemma: scortese, gloss: rude}]
+    goals: [detail]
+  - learner: "Mi aspettavo un servizio all'altezza della vostra fama. Un amico ci aveva detto che questo era il miglior ristorante della zona. Avrei preferito che qualcuno ci avvisava del ritardo, almeno."
+    errors: [subjunctive-use]
+  - tutor: "Sulla sostanza ha perfettamente ragione. Mi permetta solo una nota: dopo \"avrei preferito che\" l'indicativo non basta. Quale forma ci vuole?"
+    prompt: {text: "che qualcuno ci avvisava", tags: [subjunctive-use]}
+    new: [{lemma: indicativo, gloss: indicative}]
+  - learner: "Avrei preferito che qualcuno ci avvisasse del ritardo."
+  - tutor: "Esatto, e avremmo dovuto farlo. Per scusarmi vorrei offrirvi la cena di stasera e invitarvi di nuovo, come nostri ospiti."
+    goals: [expectation]
+  - learner: "La ringrazio, è un gesto che apprezzo. Accetto volentieri l'invito, ma la cena di stasera preferisco pagarla, almeno i vini. Non sono venuto qui per ottenere uno sconto, solo per dirvi com'è andata."
+  - tutor: "Questo le fa onore. Allora stasera paga solo i vini, e la aspetto di persona la prossima volta. Le prometto una serata molto diversa."
+    goals: [resolve]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: en-f-student
+  history: [register]
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Vorrei fare un reclamo per il cantiere sotto casa mia, in via Garibaldi. I lavori cominciano alle sei di mattina, anche il sabato, e fanno un casino pazzesco."
+    errors: [register]
+  - tutor: "Via Garibaldi, ho capito. Mi scusi, ma \"un casino pazzesco\" non lo posso scrivere: come lo direbbe in un reclamo ufficiale?"
+    prompt: {text: "fanno un casino pazzesco", tags: [register]}
+  - learner: "Ha ragione, mi scusi. I lavori provocano un rumore insopportabile già dalle sei di mattina."
+  - tutor: "Così lo posso registrare. Guardi, i lavori sono autorizzati, e un po' di disagio purtroppo è inevitabile. La segnalazione verrà trasmessa all'ufficio tecnico."
+    goals: [describe]
+  - learner: "La ringrazio, ma \"verrà trasmessa\" mi sembra un po' vago. Mi è stato detto che i cantieri non possono iniziare prima delle sette e mezza. Quindi qui non si tratta di disagio, ma di una regola che non viene rispettata."
+  - tutor: "Sugli orari ha ragione, la regola parla delle sette e mezza. Posso chiedere anche un controllo della polizia locale."
+    goals: [insist]
+  - learner: "Sarebbe utile. Vorrei anche sapere qual è la procedura formale: ho diritto di una risposta scritta? Ed entro quanti giorni?"
+    errors: [preposition]
+  - tutor: "Sono domande legittime. Solo un attimo: \"diritto di una risposta\"? Davanti a un nome, questa parola vuole un'altra preposizione."
+    prompt: {text: "diritto di una risposta", tags: [preposition]}
+  - learner: "Ho diritto per una risposta scritta?"
+    errors: [preposition]
+  - tutor: "Sì, lei ha diritto a una risposta scritta entro trenta giorni dal protocollo. Deve solo compilare questo modulo e firmarlo."
+    recast: {text: "diritto per una risposta", fix: "diritto a una risposta", tags: [preposition]}
+    goals: [rights]
+  - learner: "Perfetto, lo compilo subito. Potrebbe darmi il numero di protocollo e dirmi quando verrà fatto il controllo sugli orari?"
+  - tutor: "Certo. Il numero di protocollo è 2231 e il controllo dei vigili sarà fatto entro questa settimana. Se tra trenta giorni non ha ricevuto risposta, può presentare un sollecito con lo stesso numero."
+    goals: [commitment]
+
+- scenario: riunione-lavoro
+  level: C1
+  persona: es-f-erasmus
+  history: [combined-pronouns]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Abbastanza bene. Ho finito l'analisi dei dati e la prima bozza della relazione è pronta. Mi mancano solo i grafici, che conto di chiudere entro domani."
+  - tutor: "Ottimo, sei avanti rispetto al programma. Tutto liscio, quindi?"
+    goals: [update]
+  - learner: "Non proprio. Il cliente ha cambiato idea due volte sugli obiettivi e ancora non ci ha mandato i dati di marzo. Se li ho chiesti tre volte, ma niente."
+    errors: [combined-pronouns]
+  - tutor: "Eh, quel cliente lo conosciamo. Scusa, non ho capito bene: \"se li ho chiesti\"? Qui i pronomi sono due, e il primo in italiano non è quello."
+    prompt: {text: "Se li ho chiesti", tags: [combined-pronouns]}
+  - learner: "Scusa, è lo spagnolo: glieli ho chiesti tre volte."
+  - tutor: "Ecco, adesso sì. Senza i dati di marzo rischiamo un ritardo. Tu come la risolveresti?"
+    goals: [problem]
+  - learner: "Proporrei di fissare una riunione breve con loro, giovedì, per definire gli obiettivi una volta per tutte. E intanto potremmo consegnare la relazione con i dati fino a febbraio, così non restiamo fermi."
+  - tutor: "Mi sembra una buona proposta. Alla riunione vengo anch'io, così capiscono che è una cosa seria. Per quando pensi di avere la versione finale?"
+    goals: [proposal]
+  - learner: "Se i dati arrivano entro giovedì, la finirò per il venerdì della settimana prossima. Se no, rimanerò indietro di qualche giorno."
+    errors: [future-form]
+  - tutor: "Venerdì prossimo andrebbe benissimo. Occhio al futuro, però: \"rimanerò\"? Questo verbo è irregolare e perde un pezzo per strada."
+    prompt: {text: "rimanerò", tags: [future-form]}
+  - learner: "Rimarrò indietro di qualche giorno, volevo dire."
+  - tutor: "Perfetto. Allora facciamo così: scadenza venerdì prossimo, e giovedì mi dici se i dati sono arrivati. Buon lavoro!"
+    goals: [deadline]
+
+- scenario: smartworking
+  level: C1
+  persona: en-m-heritage
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Faccio metà e metà: tre giorni a casa e due in ufficio. All'inizio era strano, ma adesso mi sono abituato e non tornerei indietro."
+  - tutor: "Ah, un po' e un po'. E che cosa ci guadagni, a stare a casa?"
+    goals: [situation]
+  - learner: "Prima di tutto risparmio due ore di viaggio al giorno. E poi a casa mi concentro meglio che in ufficio, dove c'è sempre qualcuno che parla. Ho anche più tempo per i miei figli, ed è la cosa che conta di più."
+  - tutor: "Due ore al giorno sono tante, in effetti. Ma non ti manca niente? Io a casa da solo impazzirei."
+    goals: [pros]
+  - learner: "Qualcosa mi manca, sì. I colleghi, per esempio: certe idee nascono solo davanti alla macchinetta del caffè. E a casa lavoro più ore che in ufficio, perché non stacco mai. L'orario flessibile è più pericoloso che pensavo."
+    errors: [comparative]
+  - tutor: "Questa del caffè è verissima. Aspetta, però: \"più pericoloso che pensavo\"? Quando il secondo termine è una frase intera, \"che\" da solo non basta."
+    prompt: {text: "più pericoloso che pensavo", tags: [comparative]}
+  - learner: "Più pericoloso di quanto pensavo. O pensassi?"
+  - tutor: "Vanno bene tutti e due; \"pensassi\" è solo un po' più curato. Quindi, se potessi scegliere liberamente, che cosa preferiresti?"
+    goals: [cons]
+  - learner: "Preferirei continuare così, ma con regole più chiare: per esempio spegnere il computer alle sei. Se dovrei scegliere tra tutto ufficio o tutto casa, sceglierei casa, ma a malincuore."
+    errors: [hypothetical]
+  - tutor: "Le regole chiare servirebbero anche a me. Riguarda un attimo l'inizio dell'ultima frase: dopo \"se\" quel condizionale non funziona."
+    prompt: {text: "Se dovrei scegliere", tags: [hypothetical]}
+    new: [{lemma: condizionale, gloss: conditional}]
+  - learner: "Se dovessi scegliere tra tutto ufficio o tutto casa, sceglierei casa."
+  - tutor: "Proprio così. Allora siamo d'accordo quasi su tutto: metà e metà, e il computer spento alle sei. Sabato però il caffè ce lo prendiamo di persona!"
+    goals: [preference]
+
+- scenario: trattativa-affitto
+  level: C1
+  persona: en-f-professional
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, molto: è luminoso e la zona è comoda per il mio ufficio. Ho solo una preoccupazione: le finestre sono vecchie e temo che d'inverno faccia freddo."
+  - tutor: "Le finestre hanno i loro anni, è vero, ma il riscaldamento è nuovo. Il canone richiesto è di 1.400 euro al mese."
+    goals: [interest]
+  - learner: "Capisco, ma per un appartamento con quelle finestre mi sembra alto. Sarei disposta a firmare subito se il proprietario abbasserebbe il canone a 1.250."
+    errors: [hypothetical]
+  - tutor: "È una richiesta che posso riferire. Prima, però: \"se il proprietario abbasserebbe\"? In una trattativa la forma conta: che cosa va dopo \"se\"?"
+    prompt: {text: "se il proprietario abbasserebbe", tags: [hypothetical]}
+  - learner: "Se il proprietario abbassasse il canone a 1.250, firmerei subito."
+  - tutor: "Benissimo. Il canone è poco trattabile, ma a 1.300 credo che il proprietario possa accettare. Che durata di contratto aveva in mente?"
+    goals: [negotiate]
+  - learner: "Pensavo a un quattro più quattro. Però vorrei una clausola che mi permette di dare la disdetta con tre mesi di preavviso, perché la mia azienda potrebbe trasferirmi."
+    errors: [subjunctive-use]
+  - tutor: "Tre mesi sono una richiesta comune. Una finezza da contratto: la clausola per ora non esiste, la sta solo cercando. In una relativa così, il verbo \"permette\" resta all'indicativo?"
+    prompt: {text: "una clausola che mi permette", tags: [subjunctive-use]}
+    new: [{lemma: indicativo, gloss: indicative}]
+  - learner: "No: vorrei una clausola che mi permetta di dare la disdetta con tre mesi di preavviso."
+  - tutor: "Esatto. I tre mesi di preavviso si possono inserire senza problemi. Allora: 1.300 euro, quattro più quattro, disdetta a tre mesi. Che ne dice?"
+    goals: [conditions]
+  - learner: "Direi che ci siamo. A 1.300 accetto, purché la provvigione dell'agenzia resti di una mensilità, come mi aveva detto al telefono."
+  - tutor: "Confermo, una mensilità. Preparo la proposta e gliela mando domani, così la firmiamo entro la settimana. È stato un piacere trattare con lei."
+    goals: [conclude]
+
+- scenario: trattativa-fornitore
+  level: C1
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno. Sì, la chiamo per quello. Capisco che i costi siano saliti, ma un aumento del dodici per cento sull'olio è molto pesante per un'azienda piccola come la nostra. Così non ci resta nessun margine."
+  - tutor: "Me ne rendo conto, mi creda. Ma il listino è uguale per tutti i clienti, non posso fare eccezioni."
+    goals: [problem]
+  - learner: "Però noi non siamo un cliente qualunque. Portiamo otto anni lavorando con voi, paghiamo sempre puntuali e l'anno scorso abbiamo aumentato gli ordini del venti per cento."
+    errors: [word-choice]
+  - tutor: "È vero, lavoriamo insieme da otto anni e i vostri pagamenti sono sempre stati puntuali. Questo conta. Ma che cosa mi propone, in concreto?"
+    recast: {text: "Portiamo otto anni lavorando con voi", fix: "lavoriamo insieme da otto anni", tags: [word-choice]}
+    goals: [argue]
+  - learner: "Le propongo questo: accettiamo un aumento del sei per cento, e in cambio ci impegniamo a un ordine minimo più alto per tutto l'anno. Se voi ci verreste incontro, potremmo firmare il contratto anche oggi."
+    errors: [hypothetical]
+  - tutor: "Una proposta seria, la ascolto volentieri. Però \"se voi ci verreste incontro\"... dopo \"se\" che cosa ci vuole al posto del condizionale?"
+    prompt: {text: "Se voi ci verreste incontro", tags: [hypothetical]}
+    new: [{lemma: condizionale, gloss: conditional}]
+  - learner: "Se voi ci venireste incontro, potremmo firmare oggi."
+    errors: [hypothetical]
+  - tutor: "Ho capito: se noi vi venissimo incontro, firmereste oggi. Il sei per cento è poco, ma all'otto, con l'ordine minimo che dice, posso arrivare."
+    recast: {text: "Se voi ci venireste incontro", fix: "se noi vi venissimo incontro", tags: [hypothetical]}
+    goals: [counteroffer]
+  - learner: "Otto per cento... Va bene, ma a due condizioni: il prezzo resta bloccato per dodici mesi e la consegna rimane gratuita."
+  - tutor: "Prezzo bloccato per un anno e consegna gratuita: d'accordo. Le mando oggi il nuovo contratto con queste condizioni. Grazie per la fiducia, e a presto."
+    goals: [agreement]
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+  - learner: "Buongiorno, mi chiamo Pilar e vivo a Venezia da dodici anni. Sono a favore del ticket d'ingresso, benché non sia la soluzione perfetta. Qualcosa bisogna fare."
+  - tutor: "Benvenuta. A favore, dunque. Ma ci dia un esempio: che cosa vede lei, ogni giorno, sotto casa?"
+    goals: [introduce]
+  - learner: "Vedo che la mia strada è cambiata completamente. Dieci anni fa c'erano una panetteria, un ferramenta e una libreria. Oggi tutti i negozi sono stati sostituiti per bar e negozi di souvenir."
+    errors: [preposition]
+  - tutor: "Una storia che conosciamo bene. Solo una cosa: \"sostituiti per bar\"? In una frase passiva, chi compie l'azione vuole un'altra preposizione."
+    prompt: {text: "sostituiti per bar", tags: [preposition]}
+  - learner: "Sostituiti da bar e negozi di souvenir, certo."
+  - tutor: "Esatto. Ma qui faccio l'avvocato del diavolo: quei bar danno lavoro. Senza turisti, l'economia locale di che cosa vive?"
+    goals: [example]
+  - learner: "Nessuno vuole una città senza turisti. Il punto è l'equilibrio: un visitatore che resta tre notti lascia molto di più che dieci che arrivano con una crociera e ripartono la sera. Il ticket serve a scoraggiare proprio il turismo mordi e fuggi."
+    errors: [comparative]
+  - tutor: "Il ragionamento regge. Mi tolga però un dubbio di lingua: \"molto di più che dieci\"? Tra due nomi o due numeri, il paragone si costruisce in un altro modo."
+    prompt: {text: "molto di più che dieci", tags: [comparative]}
+  - learner: "Lascia molto di più di dieci che arrivano con una crociera."
+  - tutor: "Perfetto. Resta un'obiezione: cinque euro non fermano nessuno. Lei che cosa proporrebbe di realistico?"
+    goals: [rebut]
+  - learner: "Propongo che il ticket sia più alto nei giorni di maggior sovraffollamento e che il ricavato venga usato per i residenti: affitti più bassi, servizi, botteghe. Così chi visita contribuisce davvero alla città."
+  - tutor: "Una proposta chiara e concreta, la giriamo al sindaco. Grazie della telefonata, e buona giornata a lei e a Venezia!"
+    goals: [proposal]

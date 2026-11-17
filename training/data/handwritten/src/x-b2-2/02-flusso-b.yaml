@@ -1,0 +1,206 @@
+# B2, natural flow (second half of the scenarios): fluent learners, one or two slips each.
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-teacher
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Buongiorno, dottore. Meglio di prima, ma non del tutto bene. Due o tre volte alla settimana, soprattutto la sera, sento il cuore che batte molto veloce per qualche minuto, anche se sono seduta sul divano."
+  - tutor: "Capisco. E quando succede, ha anche dolore al petto o le manca il respiro? Mi descriva bene quei minuti."
+  - learner: "Dolore no. Però dopo mi sento molto stanca. E la settimana scorsa ero anche costipata, con tosse e naso chiuso, e il battito era peggio."
+    errors: [false-friend]
+  - tutor: "Se era raffreddata, è normale che il battito fosse più veloce: la febbre e la tosse stancano il cuore. In famiglia qualcuno ha avuto problemi simili?"
+    goals: [symptoms]
+    recast: {text: "costipata", fix: "raffreddata", tags: [false-friend]}
+    new: [{lemma: raffreddato, gloss: having a cold}]
+  - learner: "Sì, purtroppo. Mio padre ha avuto un infarto a cinquantotto anni, e mia nonna ha preso delle pastiglie per la pressione per tutta la vita. Per questo mi preoccupo tanto."
+  - tutor: "Ha fatto bene a dirmelo, è un'informazione importante. Però le do subito una buona notizia: i suoi esami sono buoni."
+    goals: [history]
+  - learner: "Meno male! Ma allora perché ho questi episodi? Vorrei che mi spiega cosa significano i risultati, perché sul foglio non ho capito niente."
+    errors: [subjunctive-use]
+  - tutor: "Ha ragione, quei fogli non li capisce nessuno. Ma «vorrei che mi spiega»... dopo «vorrei che» il verbo cambia. Ci riprova?"
+    prompt: {text: "Vorrei che mi spiega", tags: [subjunctive-use]}
+  - learner: "Vorrei che mi spiegasse i risultati, per favore."
+  - tutor: "Perfetto, e lo faccio volentieri. Il cuore è sano: ci sono solo dei battiti in più, legati soprattutto alla tensione e al caffè. La pressione, invece, è un po' alta."
+    goals: [understand]
+  - learner: "Ah, il caffè... ne bevo quattro al giorno, a scuola. E per la pressione devo cominciare una terapia? Gli effetti collaterali mi fanno un po' paura."
+  - tutor: "Per ora le propongo una pastiglia leggera, la mattina. All'inizio può sentirsi un po' stanca, ma di solito passa in due settimane. E di caffè, mi raccomando, non più di due!"
+    new: [{lemma: pastiglia, gloss: pill}]
+  - learner: "D'accordo, ci provo. Se la stanchezza non passa, la chiamo. Quando devo tornare per il controllo?"
+  - tutor: "Tra tre mesi, con la pressione misurata a casa ogni mattina. Vedrà che andrà meglio. Arrivederci, e saluti i suoi studenti!"
+    goals: [treatment]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! La mia fidanzata è di Lecce e io sono irlandese, quindi vorremmo una festa semplice ma allegra, all'aperto, con tanta musica. Niente di troppo elegante: preferiamo che gli invitati si divertano."
+  - tutor: "Che bella idea, un matrimonio tra Puglia e Irlanda! Quanti invitati pensate di avere, e in che periodo?"
+  - learner: "Circa ottanta persone, a giugno dell'anno prossimo. Metà della mia famiglia verrà da Dublino, e sono tutti molto eccitati di vedere il Sud Italia."
+    errors: [false-friend]
+  - tutor: "Immagino che siano emozionati: giugno in Puglia è bellissimo. Parliamo del budget: avete già in mente una cifra?"
+    goals: [vision]
+    recast: {text: "eccitati", fix: "emozionati", tags: [false-friend]}
+  - learner: "Sì, abbiamo circa ventimila euro in tutto. So che non è molto per ottanta persone, ma preferiamo spendere per il cibo e la musica più che per i fiori o il fotografo."
+  - tutor: "Con ventimila euro si può fare una bella festa, se scegliamo bene. Ho due proposte per la location: una masseria in campagna oppure una terrazza sul mare a Otranto. La masseria costa meno e ha più spazio."
+    goals: [budget]
+    new: [{lemma: masseria, gloss: country estate (Puglia)}, {lemma: terrazza, gloss: terrace}]
+  - learner: "La terrazza sul mare deve essere stupenda, ma penso che la masseria è meglio per noi: c'è spazio per ballare e i bambini possono correre. Ci può mandare il preventivo?"
+    errors: [subjunctive-use]
+  - tutor: "Ottima scelta, secondo me. Solo un attimo: «penso che la masseria è meglio»? Dopo «penso che» serve un'altra forma del verbo."
+    prompt: {text: "penso che la masseria è", tags: [subjunctive-use]}
+  - learner: "Penso che la masseria sia meglio per noi."
+  - tutor: "Esatto! Il preventivo ve lo mando domani mattina, con i prezzi del menù. C'è qualcosa a cui tenete in modo particolare?"
+    goals: [choices]
+  - learner: "Sì, due cose. Vorremmo che non ci fossero costi nascosti: il prezzo finale deve essere quello del preventivo. E per ogni decisione importante, la preghiamo di chiedercelo prima."
+  - tutor: "Giustissimo, e vi do la mia parola: nessuna sorpresa, e ogni scelta la prendiamo insieme. Allora ci sentiamo domani. Ancora tanti auguri a tutti e due!"
+    goals: [conditions]
+
+- scenario: politica-lavoro
+  level: B2
+  persona: en-f-professional
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Dico che esageri, come sempre. Alcuni lavori spariranno, certo, ma ne nasceranno altri che oggi non riusciamo nemmeno a immaginare. Vent'anni fa nessuno faceva il mio lavoro sui social."
+  - tutor: "Va bene, ma i lavori nuovi sono per chi ha studiato. Mettiamo che domani l'automazione arrivi nei supermercati: che fine fa chi lavora alla cassa?"
+    goals: [opinion]
+  - learner: "Se tutte le casse diventerebbero automatiche, molte persone perderebbero il posto, non lo nego. Però se lo Stato investisse nella formazione, potrebbero imparare un altro mestiere."
+    errors: [hypothetical]
+  - tutor: "Sulla formazione ti seguo. Ma aspetta: «se tutte le casse diventerebbero»? Dopo «se» quel tempo non funziona."
+    prompt: {text: "Se tutte le casse diventerebbero", tags: [hypothetical]}
+  - learner: "Hai ragione: se tutte le casse diventassero automatiche, molte persone perderebbero il posto."
+  - tutor: "Ecco! Però imparare un altro mestiere a cinquant'anni è più facile a dirsi che a farsi. Hai un esempio vero, o è solo una speranza?"
+    goals: [hypothesis]
+  - learner: "Ce l'ho. Nella mia azienda c'erano tre persone che rispondevano al telefono tutto il giorno. Quando è arrivato il programma automatico, il capo ha fatto la decisione di non licenziarle: ha pagato un corso, e adesso analizzano i dati dei clienti."
+    errors: [word-choice]
+  - tutor: "Bell'esempio, lo ammetto: il tuo capo ha preso la decisione giusta. Ma quanti capi farebbero lo stesso, potendo risparmiare tre stipendi?"
+    goals: [example]
+    recast: {text: "ha fatto la decisione", fix: "ha preso la decisione", tags: [word-choice]}
+  - learner: "Pochi, purtroppo, e qui ti do ragione. Per questo dico che la tecnologia in sé non è né un rischio né un'opportunità: dipende da chi decide. Insomma, io resto ottimista, ma con qualche condizione. E tu, dopo stasera, sei ancora così pessimista?"
+  - tutor: "Un po' meno, dai. Diciamo che resto pessimista sui capi e ottimista sulle persone. E adesso passami il vino, che discutere mette sete!"
+    goals: [conclude]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-retired
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera, grazie di essere venuto. Sì, purtroppo. Festeggiamo i quarant'anni di matrimonio, e la serata non è andata come speravamo. Preferisco dirglielo con calma, invece di fare un argomento davanti a tutti."
+    errors: [false-friend]
+  - tutor: "La ringrazio davvero: meglio parlarne con calma che fare una discussione davanti a tutti. E mi dispiace molto, in una sera così importante. Mi dica che cosa non ha funzionato."
+    goals: [complain]
+    recast: {text: "fare un argomento", fix: "fare una discussione", tags: [false-friend]}
+  - learner: "Abbiamo aspettato cinquanta minuti per i secondi. Poi il mio filetto, che avevo ordinato al sangue, è arrivato ben cotto e quasi freddo. E quando l'ho detto al cameriere, lui ha alzato le spalle e ha andato via senza dire niente."
+    errors: [auxiliary-choice]
+  - tutor: "Cinquanta minuti sono troppi, e quella risposta non va bene. Mi scusi solo un attimo: «ha andato via»? Con questo verbo «ha» non va bene."
+    prompt: {text: "ha andato via", tags: [auxiliary-choice]}
+  - learner: "È andato via, certo. È andato via senza dire una parola, e mia moglie ci è rimasta male."
+  - tutor: "Esatto. E capisco sua moglie: avrebbe dovuto scusarsi subito e riportare il piatto in cucina. Che cosa vi aspettavate da questa serata?"
+    goals: [detail]
+  - learner: "Non pretendevamo la perfezione. Ci aspettavamo solo un po' di attenzione: avevo spiegato al telefono che era un anniversario. Sarebbe bastato che qualcuno ci avvisasse del ritardo, e avremmo aspettato volentieri."
+  - tutor: "Ha perfettamente ragione: bastava una parola, e non l'abbiamo detta. Vorrei farmi perdonare. Stasera i secondi non li pagate, e vi offro il dolce e una bottiglia per festeggiare."
+    goals: [expectation]
+  - learner: "È molto gentile da parte sua, e accetto volentieri. Ma più dello sconto, mi fa piacere che ci abbia ascoltato. A questo punto, torneremo."
+  - tutor: "Ne sono felice, e la prossima volta chieda direttamente di me. Parlerò stasera stessa con il cameriere. Tanti auguri a lei e alla signora!"
+    goals: [resolve]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Abbastanza bene, direi. Ho finito la traduzione del sito in spagnolo e ieri ho mandato le prime venti pagine al cliente. Mi mancano solo le schede dei prodotti, che sono circa quaranta."
+  - tutor: "Ottimo, sei più avanti di quanto pensassi. E il cliente ha già detto qualcosa sulle prime pagine?"
+    goals: [update]
+  - learner: "Sì, e qui c'è un problema. Mi ha contestato stamattina: dice che vuole cambiare tutti i nomi dei prodotti, perché in Messico alcuni suonano male. Quindi devo rifare anche le pagine già finite."
+    errors: [false-friend]
+  - tutor: "Ah, quindi ti ha risposto stamattina con una bella sorpresa! Cambiare i nomi adesso significa perdere almeno una settimana. Tu come pensi di risolvere?"
+    goals: [problem]
+    recast: {text: "Mi ha contestato", fix: "ti ha risposto", tags: [false-friend]}
+  - learner: "Ho pensato a una soluzione. Invece di aspettare la sua lista completa, potrei proporre io i nuovi nomi entro domani, così lui deve solo dire sì o no. E per le schede, se Davide mi aiuterà, finiremo prima."
+  - tutor: "Mi piace: così i tempi li decidiamo noi e non lui. Davide è libero da giovedì, te lo presto volentieri. Quando pensi di poter consegnare tutto?"
+    goals: [proposal]
+  - learner: "Se tutto va bene, venerdì della settimana prossima. Io farò le pagine nuove e Davide farà le schede. Però non poterò lavorare lunedì, perché ho un esame all'università."
+    errors: [future-form]
+  - tutor: "Per l'esame nessun problema. Ma «non poterò»? Il futuro di questo verbo è particolare: perde una lettera."
+    prompt: {text: "non poterò", tags: [future-form]}
+  - learner: "Non potrò lavorare lunedì, scusa. Ma recupero martedì."
+  - tutor: "Perfetto. Allora facciamo venerdì 21 come scadenza, e mercoledì mi fai vedere a che punto siete. In bocca al lupo per l'esame!"
+    goals: [deadline]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-heritage
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Tutte e due le cose. Vado in ufficio il martedì e il giovedì, e gli altri giorni lavoro dalla cucina dei miei nonni, a Cosenza. L'azienda è a Toronto, quindi comincio alle due del pomeriggio e finisco alle dieci di sera."
+  - tutor: "Dalle due alle dieci di sera? Che orario strano! E i nonni che dicono, di avere un nipote che lavora in cucina?"
+    goals: [situation]
+  - learner: "Sono contentissimi, soprattutto la nonna, che mi porta il caffè ogni ora. Il vantaggio più grande è che ho le mattine libere: vado al mare, faccio la spesa al mercato. E qui salvo molti soldi, perché vivere a Cosenza è molto più economico che a Toronto."
+    errors: [word-choice]
+  - tutor: "Mare la mattina, caffè della nonna, e in più risparmi molti soldi: quasi quasi cambio lavoro anch'io. Ma ci sarà pure qualcosa che non va, no?"
+    goals: [pros]
+    recast: {text: "salvo molti soldi", fix: "risparmi molti soldi", tags: [word-choice]}
+  - learner: "Certo. La sera non esco mai, perché quando i miei amici vanno a mangiare la pizza io sono in riunione. E mi mancano i colleghi: su uno schermo è più difficile di capire se qualcuno è arrabbiato o scherza."
+    errors: [preposition]
+  - tutor: "Eh, la pizza persa fa male. Senti però: «è più difficile di capire»? Lì c'è una parola di troppo."
+    prompt: {text: "è più difficile di capire", tags: [preposition]}
+  - learner: "È più difficile capire se qualcuno scherza. L'inglese mi frega sempre!"
+  - tutor: "Ecco, adesso suona benissimo. E sugli schermi hai ragione: io litigo più per email che di persona. Se potessi scegliere, che cosa cambieresti?"
+    goals: [cons]
+  - learner: "Se potessi scegliere, terrei questo lavoro ma con l'orario italiano, almeno tre giorni alla settimana. Preferirei guadagnare un po' meno e cenare con la mia gente. Alla fine è per loro che sono venuto qui."
+  - tutor: "Mi sembra una scelta giusta: i soldi tornano, le cene con i nonni no. Prova a chiederlo al tuo capo, male che vada resti come sei. Alla salute!"
+    goals: [preference]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-m-worker
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, molto. È vicino al ristorante dove lavoro e la cucina è grande, cosa che per me conta. Però ho visto delle macchie di umidità nel bagno, e questo mi preoccupa un po'."
+  - tutor: "Ha l'occhio attento! È un vecchio problema, già risolto: il proprietario farà dipingere il bagno prima di consegnare le chiavi. Per il resto, il canone è di 850 euro al mese."
+    goals: [interest]
+  - learner: "Ottocentocinquanta mi sembra alto per due stanze in questa zona: ho visto appartamenti simili a settecentocinquanta. Se il proprietario abbasserebbe il canone a 780, io potrei firmare un contratto lungo."
+    errors: [hypothetical]
+  - tutor: "Un contratto lungo interessa sempre. Però «se il proprietario abbasserebbe»... dopo «se», in un'ipotesi, ci vuole un altro modo. Come lo direbbe?"
+    prompt: {text: "Se il proprietario abbasserebbe", tags: [hypothetical]}
+  - learner: "Se il proprietario abbassasse il canone a 780, firmerei subito."
+  - tutor: "Benissimo. Guardi, il canone è poco trattabile, ma posso proporre 800 euro con la cedolare secca: così non ci sono aumenti per tutta la durata del contratto."
+  - learner: "Ottocento va bene, se nel prezzo è compreso il posto per la moto in cortile. E quanto dura il contratto? Io pretendo restare almeno quattro anni."
+    errors: [false-friend]
+  - tutor: "Se intende restare almeno quattro anni, il contratto giusto è quello di quattro anni più quattro. Il posto per la moto glielo faccio scrivere nel contratto."
+    goals: [negotiate]
+    recast: {text: "pretendo restare", fix: "intende restare", tags: [false-friend]}
+  - learner: "Bene. E se un giorno dovessi tornare in Argentina, con quanto anticipo dovrei dare la disdetta? E la provvigione dell'agenzia quant'è?"
+  - tutor: "La disdetta va data per iscritto, sei mesi prima. La nostra provvigione è pari a un mese di canone. Che ne dice, andiamo avanti?"
+    goals: [conditions]
+  - learner: "Sei mesi sono tanti, ma capisco che sia la regola. D'accordo: 800 euro, posto per la moto e bagno dipinto. A queste condizioni firmo."
+  - tutor: "Affare fatto, allora. Preparo la proposta e la mando oggi al proprietario; credo che entro lunedì avremo la sua firma. È stato un piacere trattare con lei."
+    goals: [conclude]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-f-student
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Buongiorno, e grazie dell'invito. All'inizio non l'ho scelta io: sono venuta a Bologna per un anno di scambio con l'università. Poi mi sono innamorata della città, e di un bolognese, e sono rimasta."
+  - tutor: "Una storia classica, ma sempre bella: si viene per un anno e si resta per amore. Da quanto tempo vive qui, ormai?"
+  - learner: "Da quasi quattro anni. Ho finito gli studi qui e adesso lavoro in una libreria... no, scusi, in una biblioteca, quella dell'università."
+  - tutor: "Libreria e biblioteca: le confondono in tanti, e Lei si è corretta da sola! E qual è stata la cosa più difficile, in questi quattro anni?"
+    goals: [story]
+  - learner: "Senza dubbio la burocrazia. Per il permesso di soggiorno ho dovuto tornare in questura cinque volte, e ogni volta mancava un foglio diverso. Ma anche fare amicizia: gli italiani sono simpatici subito, però entrare davvero in un gruppo prende molto tempo."
+    errors: [word-choice]
+  - tutor: "È vero, ci vuole molto tempo: da noi gli amici sono spesso quelli dei tempi della scuola. E Lei, in questi anni, in che cosa è cambiata?"
+    goals: [difficulties]
+    recast: {text: "prende molto tempo", fix: "ci vuole molto tempo", tags: [word-choice]}
+  - learner: "Sono diventata più paziente e meno puntuale, direi. E ho imparato a mangiare con calma. Se non sarei venuta in Italia, penso che mangerei ancora un panino davanti al computer."
+    errors: [hypothetical]
+  - tutor: "Il panino davanti al computer, che cosa triste! Ma torniamo un attimo indietro: «se non sarei venuta»? Dopo «se» serve un'altra forma."
+    prompt: {text: "Se non sarei venuta", tags: [hypothetical]}
+  - learner: "Se non fossi venuta in Italia, mangerei ancora davanti al computer."
+  - tutor: "Ecco, benissimo. E i nostri ascoltatori Le danno ragione, ne sono sicuro. Per finire: che consiglio darebbe a chi vuole trasferirsi qui?"
+    goals: [change]
+  - learner: "Di imparare l'italiano prima di partire, almeno un po', e di non restare solo con altri stranieri. E poi di avere pazienza con gli uffici: alla fine tutto si risolve, anche se non si capisce mai come."
+  - tutor: "«Tutto si risolve, anche se non si capisce come»: non potevo trovare parole migliori per chiudere. Grazie di essere stata con noi, e buona fortuna!"
+    goals: [advice]

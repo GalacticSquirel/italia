@@ -1,0 +1,176 @@
+- scenario: organizzare-matrimonio
+  level: C1
+  persona: en-f-professional
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Immaginiamo una festa raccolta, una sessantina di invitati al massimo, in campagna e a fine settembre. Ci piacerebbe che gli ospiti si sentissero a una cena tra amici più che a una cerimonia ufficiale."
+    - tutor: "Una cena tra amici con sessanta persone: è un'idea che mi piace molto, e settembre in campagna è una garanzia. Avete già pensato a una cifra complessiva?"
+      goals: [vision]
+    - learner: "Vorremmo restare entro i venticinquemila euro, tutto compreso. Non ci interessa stupire nessuno: preferiamo spendere per il menù e per un buon fotografo, e risparmiare sui fiori. Insomma, cerchiamo un preventivo sensibile."
+      errors: [false-friend]
+    - tutor: "Con venticinquemila euro un preventivo ragionevole si costruisce senza difficoltà, soprattutto con queste idee chiare. Avrei due location da proporvi: una villa con giardino sulle colline, elegante ma lontana, oppure una cascina a venti minuti dalla città, più semplice e con la cucina interna."
+      goals: [budget]
+      recast: {text: "sensibile", fix: "ragionevole", tags: [false-friend]}
+      new: [{lemma: cascina, gloss: farmhouse}]
+    - learner: "La villa è una tentazione, ma temo che la distanza scoraggi gli invitati più anziani. Se la cascina ha la cucina interna, immagino che il menù ne guadagni. Sceglieremmo quella, purché in caso di pioggia ci sia uno spazio coperto."
+    - tutor: "C'è un vecchio fienile rimesso a nuovo che tiene comodamente ottanta persone, quindi la pioggia non vi rovinerebbe nulla. Direi che la scelta è fatta, e mi sembra quella giusta per voi."
+      goals: [choices]
+      new: [{lemma: fienile, gloss: barn}]
+    - learner: "Benissimo. Avremmo però due condizioni. Vorremmo che ogni spesa oltre i cinquecento euro ci venisse sottoposta prima di essere confermata, e che il preventivo definitivo ci arrivasse entro la fine del mese."
+    - tutor: "Sono condizioni più che giuste: nessuna spesa importante senza il vostro consenso, e il preventivo completo entro il trenta. Vi mando domani le date disponibili della cascina, così la fermiamo subito."
+      goals: [conditions]
+
+- scenario: organizzare-matrimonio
+  level: C1
+  persona: es-m-worker
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie mille. La mia fidanzata e io sogniamo una festa grande, all'aperto, con musica dal vivo fino a tardi. Lei è di Lecce e io di Malaga, quindi vorremmo che si sentissero a casa tutte e due le famiglie."
+    - tutor: "Lecce e Malaga insieme: sarà una festa che non finisce più! Per unire le due famiglie si può lavorare sul menù e sulla musica. Quanti invitati prevedete, e su quale cifra possiamo ragionare?"
+      goals: [vision]
+    - learner: "Circa centoventi invitati. Quanto ai soldi, non vogliamo tirare la casa dalla finestra, ma nemmeno fare brutta figura: diciamo quarantamila euro, con un piccolo margine."
+      errors: [word-choice]
+    - tutor: "Capisco: non volete fare le cose senza badare a spese, ma nemmeno fare brutta figura. Con quarantamila euro e centoventi persone ci stiamo bene. Vi propongo due location: una masseria vicino a Lecce, a due passi dal mare, oppure una villa in Toscana, più comoda per chi arriva dalla Spagna."
+      goals: [budget]
+      recast: {text: "tirare la casa dalla finestra", fix: "fare le cose senza badare a spese", tags: [word-choice]}
+      new: [{lemma: masseria, gloss: fortified farmhouse in Puglia}]
+    - learner: "Bella domanda. La masseria ci piace di più, non glielo nascondo, però metà degli invitati verrebbe dalla Spagna. C'è un aeroporto abbastanza vicino? Se così fosse, non avremmo dubbi."
+    - tutor: "L'aeroporto di Brindisi è a quaranta minuti, e in estate ci sono voli diretti da Malaga due volte alla settimana. Per gli ospiti posso organizzare un pullman."
+    - learner: "Allora è deciso: la masseria. Mia suocera sarà felicissima, e i miei scopriranno finalmente la Puglia."
+    - tutor: "Ottima scelta, vedrete che i vostri resteranno a bocca aperta. Prima che io cominci a chiedere i preventivi, c'è qualcosa a cui tenete in modo particolare?"
+      goals: [choices]
+    - learner: "Sì, due cose. La prima è che il fotografo lo scegliamo noi, perché è un amico. La seconda è che vorremmo ricevere un aggiornamento ogni due settimane, anche breve, in modo da non avere sorprese alla fine."
+    - tutor: "Nessun problema: il fotografo è vostro, e ogni due settimane vi mando un riepilogo con le spese fatte e quelle previste. Cominciamo dalla masseria: entro venerdì avrete le date libere."
+      goals: [conditions]
+
+- scenario: organizzare-matrimonio
+  level: C1
+  persona: en-m-heritage
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Guardi, le dico subito che siamo in disaccordo. Io vorrei qualcosa di semplice, in riva al lago; la mia compagna sogna una cerimonia in grande stile, con duecento invitati. Speriamo che lei ci aiuti a trovare una via di mezzo."
+    - tutor: "È il mio mestiere, non si preoccupi: le vie di mezzo sono la mia specialità. Si può fare una cerimonia intima sul lago e poi una festa più grande la sera. Ne avete già parlato con le famiglie?"
+      goals: [vision]
+    - learner: "Con i miei sì. Ai genitori di lei, invece, gli lo abbiamo detto solo ieri, e suo padre ha già una lista di ottanta nomi."
+      errors: [combined-pronouns]
+    - tutor: "Ottanta nomi in un giorno: un padre che non perde tempo! Solo una cosa: «gli lo abbiamo detto»? Quei due pronomi, quando stanno insieme, prendono un'altra forma."
+      prompt: {text: "gli lo abbiamo detto", tags: [combined-pronouns]}
+    - learner: "Vero: glielo abbiamo detto solo ieri. E a proposito di numeri, il nostro budget è di trentamila euro, e con duecento invitati temo che non basti."
+    - tutor: "Proprio così, «glielo». Sul budget ha visto giusto: con trentamila euro duecento persone a cena non ci stanno, ma centoventi sì, e bene. Bisognerà che il padre della sposa accorci la lista."
+      goals: [budget]
+    - learner: "Glielo dirà la mia compagna, io non ne ho il coraggio. E per il posto, che cosa ci consiglia?"
+    - tutor: "Ho due possibilità sul lago: un albergo storico con la terrazza, dove pensano a tutto loro, oppure una villa privata con il parco, più bella ma da preparare da zero. La villa costa meno d'affitto, però cucina e tavoli vanno portati da fuori."
+    - learner: "Se la villa ci lascia più libertà, direi la villa, purché il totale non superi quello dell'albergo. A me sta a cuore il parco, e a lei una scala per le fotografie: mi dica che c'è una scala."
+    - tutor: "C'è, ed è la più fotografata del lago. Allora villa, a patto di restare nella cifra: farò i conti con precisione. C'è altro che devo sapere prima di partire?"
+      goals: [choices]
+    - learner: "Una cosa sola, ma importante. Vorrei che tutte le decisioni passassero da tutti e due, non da uno solo: altrimenti finiamo per litigare, e lei si ritrova in mezzo."
+    - tutor: "Saggia decisione, ne ho viste di tutti i colori. Scriverò sempre a entrambi e non confermerò nulla senza due sì. Vi mando il primo preventivo lunedì."
+      goals: [conditions]
+
+- scenario: politica-lavoro
+  level: C1
+  persona: en-m-retired
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Dico che la stessa frase la sentivo già negli anni Ottanta, quando sono arrivati i primi computer in ufficio. Qualcosa cambierà, certo, ma «metà dei lavori» mi sembra una di quelle cifre che si dicono a cena per fare effetto."
+    - tutor: "Colpito! Però ammetterai che stavolta la tecnologia corre più veloce. Mettiamo che allora una macchina avesse saputo fare il tuo lavoro: che cosa sarebbe successo a te e ai tuoi colleghi?"
+      goals: [opinion]
+    - learner: "Se fosse capitato a metà della mia carriera, sarebbe stato un bel problema, non lo nego. Io valutavo i danni per un'assicurazione: se un programma l'avesse fatto al posto mio, l'azienda avrebbe tenuto i più giovani e mandato a casa quelli come me. E a cinquant'anni non ti reinventi dall'oggi al domani."
+    - tutor: "Ecco, lo vedi? È esattamente quello che dico io. E non mi venire a raccontare che la formazione sistema tutto."
+      goals: [hypothesis]
+    - learner: "Non tutto, ma parecchio. Ti faccio un esempio concreto: quando nella mia compagnia hanno introdotto le perizie con le fotografie digitali, metà dei colleghi gridava alla catastrofe. Ci hanno fatto un corso di tre mesi, e alla fine sbrigavamo il doppio delle pratiche con la metà dei viaggi. Nessuno ha perso il posto."
+    - tutor: "Un caso fortunato, con un'azienda che ha investito su di voi. Non tutte lo fanno, anzi."
+      goals: [example]
+    - learner: "Su questo ti do ragione. Riassumendo, io la vedo così: l'automazione sostituirà alcune mansioni più che interi mestieri, e il danno dipenderà da quanto si investe sulle persone. Ma tu, che sei così scettico, che cosa faresti se dipendesse da te?"
+    - tutor: "Io obbligherei le aziende a pagare la formazione di chi rischia il posto, altro che corsi a scelta. Quindi, vedi, alla fine non siamo poi così lontani. Passami il vino, che tutto questo futuro mi ha messo sete."
+      goals: [conclude]
+
+- scenario: politica-lavoro
+  level: C1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Dico che esageri, come sempre! Però un po' di verità c'è. Mio padre fa il tipografo, e il suo è un ufficio che sta sparendo: quando ha cominciato erano in dodici, adesso sono in tre."
+      errors: [false-friend]
+    - tutor: "Il tipografo, appunto: un mestiere che sta sparendo sotto i nostri occhi. Vedi che mi dai ragione? E se tra dieci anni toccasse anche al lavoro che stai studiando per fare tu?"
+      goals: [opinion]
+      recast: {text: "un ufficio", fix: "un mestiere", tags: [false-friend]}
+    - learner: "Io studio traduzione, quindi la domanda non è tanto ipotetica. Se le macchine traducessero bene quanto una persona, dovrei cambiare strada, è ovvio. Ma credo che ci sarebbe comunque bisogno di qualcuno che controlli, che conosca le due culture, che capisca quando un testo fa ridere e quando offende."
+    - tutor: "Qualcuno che controlli, d'accordo. Ma dove prima servivano dieci traduttori, ne basterà uno. E gli altri nove?"
+      goals: [hypothesis]
+    - learner: "Gli altri nove faranno altro, magari cose che oggi non esistono. Guarda mio padre: a cinquantacinque anni ha imparato a usare le stampanti digitali e adesso fa libri d'arte in poche copie, che dieci anni fa nessuno poteva permettersi. Guadagna meno, è vero, ma dice che non si è mai divertito tanto."
+    - tutor: "Tuo padre è in gamba, e gli faccio tanto di cappello. Ma per uno che ce la fa, quanti restano a piedi?"
+      goals: [example]
+      new: [{lemma: fare tanto di cappello, gloss: to take one's hat off to someone}]
+    - learner: "Tanti, se li lasciamo soli: su questo hai ragione tu. Quindi, per tirare le somme, io penso che l'automazione sia un rischio vero ma anche un'opportunità, e che la differenza la faccia la formazione. Tu invece, sotto sotto, credi davvero che finirà così male?"
+    - tutor: "Sotto sotto no, ma a tavola qualcuno deve pur fare il pessimista! Diciamo che spero che abbia ragione tu, e tuo padre con te. E adesso basta lavoro: chi vuole il dolce?"
+      goals: [conclude]
+
+- scenario: politica-lavoro
+  level: C1
+  persona: en-f-student
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Io dico che metà è troppo, ma un quarto non mi stupirebbe. Il problema, secondo me, non è tanto quanti lavori spariranno, quanto chi ci guadagnerà: se i profitti dell'automazione finiscono tutti in poche tasche, allora sì che c'è da preoccuparsi."
+    - tutor: "Oh, finalmente qualcuno che ragiona! Ma è proprio lì il punto: finiranno in poche tasche, come sempre. O tu immagini un mondo diverso?"
+      goals: [opinion]
+    - learner: "Lo immagino, almeno per ipotesi. Se le aziende dassero ai dipendenti una parte del tempo risparmiato, per esempio con la settimana di quattro giorni, l'automazione sarebbe un vantaggio per tutti."
+      errors: [subjunctive-form]
+    - tutor: "La settimana di quattro giorni, magari! Però aspetta: «se le aziende dassero»? Qui il verbo «dare» fa uno scherzo: prova a ridirlo."
+      prompt: {text: "Se le aziende dassero", tags: [subjunctive-form]}
+    - learner: "Ah, già: se le aziende dessero ai dipendenti una parte del tempo risparmiato. Questo verbo mi frega sempre."
+    - tutor: "Frega anche parecchi italiani, se ti consola! Bella ipotesi, comunque. Ma esiste un posto dove succede davvero, o è un sogno a occhi aperti?"
+      goals: [hypothesis]
+    - learner: "Succede, anche se in piccolo. In Inghilterra, due anni fa, una sessantina di aziende ha provato la settimana corta senza ridurre gli stipendi. Alla fine della prova quasi tutte l'hanno mantenuta, perché la gente lavorava meglio e si ammalava di meno."
+    - tutor: "Sessanta aziende su milioni: una goccia nel mare. Ma ammetto che è una goccia interessante."
+      goals: [example]
+    - learner: "Una goccia, d'accordo, però da qualche parte bisogna pur cominciare. Insomma, per me la tecnologia non decide niente da sola: decidiamo noi come dividerne i frutti. Tu, Riccardo, la firmeresti una legge sulla settimana corta?"
+    - tutor: "Domani mattina, guarda, e con due mani! Sul resto rimango scettico, ma sulla settimana corta mi hai convinto. Brindiamo a quella, allora."
+      goals: [conclude]
+
+- scenario: presentazione-progetto
+  level: C1
+  persona: en-f-professional
+  history: [register]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "La ringrazio, sarò breve. Proponiamo di aprire un canale di vendita diretta online per i clienti privati, che oggi raggiungiamo solo tramite i rivenditori. L'obiettivo è arrivare, entro due anni, al dieci per cento del fatturato con margini più alti."
+    - tutor: "L'idea non è nuova, ne parliamo da anni senza arrivare a nulla. Che cosa c'è di diverso stavolta, e soprattutto quali numeri mi porta?"
+      goals: [pitch]
+    - learner: "Stavolta abbiamo i dati di una prova. Per sei mesi abbiamo venduto online una sola linea di prodotti, e i risultati sono stati consistenti: ogni mese tra i quaranta e i quarantacinquemila euro, con un margine del trentotto per cento contro il ventidue dei rivenditori."
+      errors: [false-friend]
+    - tutor: "Risultati costanti per sei mesi e sedici punti di margine in più: questo mi interessa. Ma una linea sola non è l'intero catalogo. Quanto mi chiede, e che cosa rischio?"
+      goals: [benefits]
+      recast: {text: "consistenti", fix: "costanti", tags: [false-friend]}
+    - learner: "L'investimento è di duecentottantamila euro, di cui due terzi per la logistica. Il rischio principale è la reazione dei rivenditori, non te lo nascondo: qualcuno potrebbe sentirsi scavalcato."
+      errors: [register]
+    - tutor: "Ecco, è proprio il punto che mi preoccupa. Prima però: «non te lo nascondo»? In questa stanza, e ancora di più davanti al consiglio, serve un'altra forma."
+      prompt: {text: "non te lo nascondo", tags: [register]}
+    - learner: "Mi scusi: non glielo nascondo. Per ridurre quel rischio, online venderemmo a prezzo pieno, senza sconti, così da non fare concorrenza ai rivenditori; e a loro offriremmo il servizio di consegna per gli ordini che non hanno in magazzino."
+    - tutor: "Meglio. E l'idea di coinvolgerli nella consegna non è male: così chi poteva diventare un nemico lavora con noi. Resta la cifra, che per questi mesi è alta."
+      goals: [objection]
+    - learner: "Lo capisco. Potremmo dividere l'investimento in due fasi: centoventimila euro subito per le tre linee più vendute, e il resto solo se dopo sei mesi il fatturato avrà raggiunto la soglia concordata. Se lei è d'accordo, le preparo il piano dettagliato."
+    - tutor: "In due fasi posso portarlo al consiglio. Mi faccia avere il piano entro mercoledì, con la soglia scritta nero su bianco, e fissi una riunione con il direttore finanziario. Adesso devo proprio andare."
+      goals: [next-steps]
+
+- scenario: presentazione-progetto
+  level: C1
+  persona: en-m-traveller
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Grazie del tempo, direttore. In breve: vogliamo sostituire il vecchio sistema di prenotazione delle visite guidate con un'applicazione nostra. Oggi paghiamo a una società esterna il dodici per cento su ogni biglietto; con un sistema interno quella commissione resterebbe a noi."
+    - tutor: "Il dodici per cento non è poco, lo ammetto. Ma i progetti informatici partono come risparmi e finiscono come pozzi senza fondo. Mi dia delle cifre."
+      goals: [pitch]
+    - learner: "Volentieri. L'anno scorso abbiamo versato in commissioni centottantamila euro. L'applicazione costerebbe centocinquantamila euro di sviluppo e ventimila all'anno di manutenzione: dal secondo anno il risparmio netto sarebbe di circa centosessantamila euro, senza contare i dati dei clienti, che oggi non vediamo nemmeno."
+    - tutor: "Sulla carta i conti tornano. Il mio timore è un altro: la stagione comincia ad aprile. Se a marzo il sistema non funziona, perdiamo le prenotazioni di Pasqua, e lì non c'è risparmio che tenga."
+      goals: [benefits]
+    - learner: "È il rischio che abbiamo considerato per primo. Per questo il contratto con il fornitore attuale resterebbe attivo fino a giugno: se non riuscissimo a incontrare la scadenza di marzo, i clienti continuerebbero a prenotare come oggi, senza accorgersi di nulla."
+      errors: [word-choice]
+    - tutor: "Quindi, se non riuscite a rispettare la scadenza, il vecchio sistema resta in piedi fino a giugno. Così il rischio diventa accettabile, anche se per tre mesi pagheremmo il doppio."
+      goals: [objection]
+      recast: {text: "incontrare la scadenza", fix: "rispettare la scadenza", tags: [word-choice]}
+    - learner: "Esatto, sono circa quindicimila euro in più, che ho già inserito nel budget. Come preferisce procedere? Potrei presentarle la settimana prossima i tre preventivi che abbiamo raccolto."
+    - tutor: "Va bene. Giovedì alle nove mi porti i tre preventivi e un calendario con le tappe mese per mese. Se regge, a fine mese lo porto in direzione."
+      goals: [next-steps]

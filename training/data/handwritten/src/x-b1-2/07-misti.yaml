@@ -1,0 +1,196 @@
+# B1, mixed scenes: services and friends.
+- scenario: banca-conto
+  level: B1
+  persona: en-m-retired
+  history: [negation]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Mia moglie e io passiamo sei mesi all'anno in Italia, e vorremmo aprire un conto qui."
+    - tutor: "Con piacere. Avete una casa vostra qui in Italia?"
+      goals: [purpose]
+    - learner: "Sì, abbiamo comprato una piccola casa in Umbria. Ma ho niente documento italiano, solo il passaporto americano."
+      errors: [negation]
+    - tutor: "Che bella l'Umbria! Però aspetti: ho niente documento? In italiano manca una parola prima del verbo."
+      prompt: {text: "ho niente documento", tags: [negation]}
+    - learner: "Non ho nessun documento italiano."
+    - tutor: "Esatto. Non importa: bastano il passaporto e il codice fiscale. Quello ce l'ha?"
+      new: [{lemma: passaporto, gloss: passport}]
+      goals: [documents]
+    - learner: "Sì, il codice fiscale l'abbiamo fatto quando abbiamo comprato la casa. Quanto costa il conto?"
+    - tutor: "Per chi non vive in Italia tutto l'anno, il conto costa otto euro al mese."
+    - learner: "Otto euro mi sembrano tanti. Non c'è un conto meno caro, per chi lo usa poco?"
+    - tutor: "C'è un conto che costa tre euro, ma fate tutto dall'app e non qui in banca."
+      goals: [costs]
+    - learner: "Per me va bene, uso già un'app in America. E con questo conto abbiamo anche una carta per pagare?"
+    - tutor: "Sì, due carte, una per lei e una per sua moglie. Arrivano in dieci giorni a casa vostra in Umbria."
+      goals: [card]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-f-student
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno! Vorrei andare a Lecce sabato. Quanto tempo prende il viaggio da qui?"
+      errors: [word-choice]
+    - tutor: "Da Bologna a Lecce il viaggio dura circa sette ore con il treno diretto. Preferisce partire la mattina?"
+      recast: {text: "prende", fix: "dura", tags: [word-choice]}
+    - learner: "Sette ore! E c'è un treno di notte? Così non perdo la giornata."
+    - tutor: "Sì, c'è un treno che parte alle 22:15 e arriva alle 6:40. Andata e ritorno?"
+    - learner: "Prendo quello di notte, solo andata, perché torno in aereo."
+    - tutor: "Va bene, sabato alle 22:15, solo andata. Posto normale o cuccetta?"
+      new: [{lemma: cuccetta, gloss: couchette berth}]
+      goals: [destination, type]
+    - learner: "Che cos'è una cuccetta? Costa molto di più?"
+    - tutor: "È un letto piccolo in una stanza per quattro persone. Costa 25 euro in più, ma si dorme."
+    - learner: "Allora la cuccetta, grazie. Ma è possibile stare in una stanza solo per donne?"
+    - tutor: "Certo, la metto con altre tre donne. Sono 74 euro."
+      goals: [class]
+    - learner: "Perfetto. Da che binario parte? E devo arrivare molto prima?"
+    - tutor: "Di solito parte dal binario 8. Basta arrivare venti minuti prima. Buon viaggio e buon riposo!"
+      goals: [platform]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Avrei bisogno di una visita ortopedica: ho un dolore al ginocchio destro da quando ho ripreso a correre."
+    - tutor: "Capisco. Con lo specialista il primo posto libero è tra tre settimane, il 14 alle 11."
+      goals: [type]
+    - learner: "Tre settimane? È troppo tempo, il ginocchio mi fa male anche quando cammino. Non c'è niente prima?"
+    - tutor: "Vediamo... Se si libera un posto, posso chiamarla. Oppure c'è un altro medico giovedì alle 18."
+    - learner: "Giovedì alle 18 è perfetto, venirò direttamente dall'ufficio."
+      errors: [future-form]
+    - tutor: "Benissimo. Solo una cosa: venirò? Il futuro di questo verbo è un po' più corto."
+      prompt: {text: "venirò", tags: [future-form]}
+    - learner: "Verrò direttamente dall'ufficio."
+    - tutor: "Giusto! Allora giovedì alle 18 con il dottor Conti."
+      goals: [availability]
+    - learner: "Quanto costa la visita? E devo portare gli esami che ho già fatto?"
+    - tutor: "La visita costa 110 euro. Sì, porti tutti gli esami che ha, e un documento."
+      goals: [cost]
+    - learner: "Va bene. Ricapitolo: giovedì alle 18, dottor Conti, con esami e documento."
+    - tutor: "Esatto. A giovedì, e fino a quel giorno non corra!"
+      goals: [confirm]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: es-m-worker
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per sabato, per i miei colleghi del ristorante. È la nostra cena di fine anno."
+    - tutor: "Che bello, una cena tra colleghi! In quanti siete e a che ora?"
+      goals: [book]
+    - learner: "Siamo otto, e vorremmo venire alle nove della notte, dopo il lavoro."
+      errors: [word-choice]
+    - tutor: "Alle nove di sera purtroppo sabato siamo pieni. Potrei darvi un tavolo alle dieci, se non è troppo tardi."
+      recast: {text: "alle nove della notte", fix: "alle nove di sera", tags: [word-choice]}
+    - learner: "Le dieci va bene, noi mangiamo sempre tardi! Ma la cucina resta aperta?"
+    - tutor: "Per voi sì, fino alle undici e mezza. Allora sabato alle dieci, per otto."
+      goals: [details]
+    - learner: "Grazie. Una richiesta: potremmo avere un tavolo lontano dalla porta della cucina? Vogliamo dimenticare il lavoro!"
+    - tutor: "La capisco benissimo! Vi metto nella sala piccola, lontano dalla cucina."
+      goals: [special]
+    - learner: "Perfetto. Il nome è Morales, emme, o, erre, a, elle, e, esse."
+    - tutor: "Grazie, signor Morales: sabato alle dieci, otto persone, sala piccola. A sabato!"
+      goals: [name]
+
+- scenario: compleanno
+  level: B1
+  persona: en-f-student
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Ho già pensato a tutto! Sabato sera, a casa mia: una festa a sorpresa con musica e karaoke."
+    - tutor: "Il karaoke, lo sapevo! Va bene, sabato da te. E Sara come la portiamo lì senza dirle niente?"
+      goals: [date]
+    - learner: "Le dico che ho bisogno di aiuto per studiare. Lei viene sempre quando qualcuno ha bisogno."
+    - tutor: "Bella idea, funzionerà di sicuro! Chi invitiamo?"
+    - learner: "Tutti quelli del corso di teatro e le sue coinquiline. Una quindicina di persone, ma casa mia è piccola... porti tu qualche sedia?"
+    - tutor: "Certo, ne porto quattro. E da mangiare?"
+      goals: [guests]
+    - learner: "Ognuno porta qualcosa, così è più facile. La torta la ordino io, al limone."
+    - tutor: "Perfetto, il limone le piace. E il regalo chi lo compra?"
+      goals: [food]
+    - learner: "L'ho già comprato: un libro di fotografie della Sicilia. Lo le do sabato, davanti a tutti."
+      errors: [combined-pronouns]
+    - tutor: "Un libro sulla sua Sicilia, bellissimo! Ma... lo le do? Quei due pronomi diventano una parola sola."
+      prompt: {text: "Lo le do", tags: [combined-pronouns]}
+    - learner: "Le lo do sabato?"
+      errors: [combined-pronouns]
+    - tutor: "Si dice: glielo do sabato. E fai bene, davanti a tutti sarà ancora più bello!"
+      recast: {text: "Le lo do", fix: "glielo do", tags: [combined-pronouns]}
+    - learner: "Glielo do sabato, allora. Speriamo che non scopra niente prima!"
+    - tutor: "Tranquilla, io non dico una parola. A sabato!"
+      goals: [gift]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-m-retired
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Partiamo il dodici maggio, mia moglie e io, e restiamo una settimana. Abbiamo preso un appartamento vicino al porto."
+    - tutor: "Vicino al porto siete comodi per tutto. Avete già deciso cosa vedere?"
+      goals: [plans]
+    - learner: "Solo Pompei, per ora. Tu che sei di Napoli, cosa ci consigli? A noi piacciono l'arte e la buona cucina."
+    - tutor: "Allora andate a vedere il Cristo Velato, è un'opera incredibile. E provate la pasta e patate in una trattoria del centro!"
+      new: [{lemma: patata, gloss: potato}, {lemma: trattoria, gloss: simple family restaurant}]
+      goals: [advice]
+    - learner: "Pasta e patate insieme? Sembra pesante! Ma mi fido di te. E per andare a Pompei è meglio il treno o la macchina?"
+    - tutor: "Il treno, senza dubbio: non guidate a Napoli! C'è un treno ogni mezz'ora dalla stazione centrale."
+      goals: [transport]
+    - learner: "Bene, non avevo nessuna voglia di guidare. C'è qualcosa a cui dobbiamo stare attenti?"
+    - tutor: "Comprate i biglietti per Pompei solo sul sito, non per strada. E a pranzo evitate i ristoranti con le foto dei piatti fuori!"
+      goals: [warnings]
+    - learner: "Questa regola vale in tutto il mondo, credo! Grazie, Valentina, ci hai aiutato molto."
+    - tutor: "Figurati! Mandami una foto dei piatti che provate. Buon viaggio!"
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera facciamo la colazione irlandese per cena! Uova, salsicce, pancetta, pomodori, funghi e pane tostato."
+    - tutor: "La colazione a cena, mi piace già! Io prendo le uova: quante ne servono?"
+      goals: [ingredients]
+    - learner: "Metti quattro, due per ciascuno. Ma aspetta, prima cuociamo le salsicce, perché ci vuole più tempo."
+      errors: [ci-ne]
+    - tutor: "Va bene, prima le salsicce. Ma le uova: metti quattro? Manca una parola piccola per dire «di uova»."
+      prompt: {text: "Metti quattro", tags: [ci-ne]}
+    - learner: "Ne metti quattro!"
+    - tutor: "Esatto! Allora cominciamo con le salsicce. E poi?"
+      new: [{lemma: salsiccia, gloss: sausage}]
+    - learner: "Dopo dieci minuti aggiungi la pancetta e i funghi. I pomodori li tagli a metà e li cuoci per ultimi, con le uova."
+    - tutor: "Chiaro. E in tutto quanto tempo ci vuole?"
+      goals: [steps]
+    - learner: "Venti minuti, più o meno. Le uova solo tre minuti, altrimenti diventano dure."
+    - tutor: "Tre minuti, capito. E lo serviamo tutto in un piatto solo?"
+      goals: [time]
+    - learner: "Sì, tutto insieme in un piatto grande, con il pane e una tazza di tè forte. Niente vino stasera!"
+    - tutor: "Tè con le uova, a tavola come a Dublino! Sono curiosa, cominciamo."
+      goals: [serve]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: en-f-professional
+  history: [participle-agreement]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao! Sono andata in Sardegna con due amiche ad agosto e siamo rimasto dieci giorni in un paese sul mare."
+      errors: [participle-agreement]
+    - tutor: "La Sardegna ad agosto, che bello! Ma tu e le tue amiche... siamo rimasto?"
+      prompt: {text: "siamo rimasto", tags: [participle-agreement]}
+    - learner: "Siamo rimaste dieci giorni!"
+    - tutor: "Esatto. E il tempo com'era?"
+      goals: [where]
+    - learner: "Perfetto: sole tutti i giorni e un po' di vento. Solo una sera ha piovuto, ma è durato mezz'ora."
+    - tutor: "Il vento in Sardegna non manca mai! E come passavate le giornate?"
+      goals: [weather]
+    - learner: "La mattina in spiaggia, il pomeriggio a leggere. Un giorno abbiamo preso una barca e abbiamo visto i delfini!"
+    - tutor: "I delfini? Che fortuna, non succede spesso!"
+      goals: [activities]
+    - learner: "Lo so! Ma sai cosa mi è piaciuto di più? Non guardare il telefono per dieci giorni. Niente mail, niente riunioni."
+    - tutor: "Ti capisco benissimo, quella è la vera vacanza. Dovresti farlo più spesso!"
+      goals: [best]

@@ -1,0 +1,213 @@
+- scenario: intelligenza-artificiale
+  level: C1
+  persona: en-m-retired
+  history: [hypothetical]
+  turns:
+  - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+  - learner: "Capisco la paura, ma secondo me esageri. Certi lavori spariranno, è vero, però ne nasceranno altri che oggi non immaginiamo nemmeno. Dipende tutto di come ci prepariamo."
+    errors: [preposition]
+  - tutor: "Ne nasceranno altri, dici... sarà. Aspetta: \"dipende di come\"? Quel verbo vuole un'altra preposizione, lo sai bene."
+    prompt: {text: "Dipende tutto di come", tags: [preposition]}
+  - learner: "Dipende tutto da come ci prepariamo, certo."
+  - tutor: "Ecco. Ma prepararci come? Io vedo solo aziende che tagliano. Hai un esempio vero, o è solo una speranza?"
+    goals: [position]
+  - learner: "Un esempio ce l'ho in casa. Mia figlia è traduttrice e due anni fa pensava di dover cambiare mestiere. Invece ha seguito un corso di formazione: adesso usa l'automazione per i testi tecnici e si dedica a quelli letterari. Guadagna più di prima."
+  - tutor: "Tua figlia è brava, e ha avuto anche fortuna. Ma un operaio di cinquant'anni? A lui il corso chi lo paga?"
+    goals: [evidence]
+  - learner: "Qui hai ragione tu: per chi ha cinquant'anni il rischio è serio. Se lo Stato investirebbe di più nella formazione, il problema sarebbe meno grave."
+    errors: [hypothetical]
+  - tutor: "Finalmente mi dai ragione su qualcosa! Senti però quel \"se lo Stato investirebbe\": dopo \"se\", in un'ipotesi così, quale forma ci vuole?"
+    prompt: {text: "Se lo Stato investirebbe", tags: [hypothetical]}
+  - learner: "Se lo Stato investisse di più nella formazione, il problema sarebbe meno grave."
+  - tutor: "Proprio quella. E su questo siamo d'accordo: il punto non è la tecnologia, è chi resta indietro."
+    goals: [concede]
+  - learner: "Esatto. Quindi forse la pensiamo allo stesso modo: l'intelligenza artificiale non è né un mostro né un miracolo, e tutto sta a come la governiamo."
+  - tutor: "Detta così, la firmo anch'io. Resto un po' pessimista, ma meno di prima. Dai, il caffè oggi lo offro io."
+    goals: [conclude]
+
+- scenario: intervista-podcast
+  level: C1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivata proprio in Italia?"
+  - learner: "Grazie a voi dell'invito! Sono venuta sei anni fa con l'Erasmus, a Padova. Dovevo restare un semestre, ma mi sono innamorata della città e, lo ammetto, anche di un padovano. Alla fine sono rimasta."
+  - tutor: "Una storia che sentiamo spesso, e ci piace sempre! E nei primi tempi c'è stato qualcosa che ti ha sorpresa?"
+    goals: [story]
+  - learner: "Gli orari! In Spagna ceniamo alle dieci, qui alle sette e mezza erano già tutti a tavola. E poi la gente sono molto più formali di quanto pensassi: tutti quei \"dottore\" e \"ingegnere\"!"
+    errors: [subject-verb-agreement]
+  - tutor: "Ai titoli, è vero, ci teniamo tanto! Una cosa, però: \"la gente sono\"? In italiano \"gente\" è una parola singolare, anche se le persone sono tante."
+    prompt: {text: "la gente sono molto più formali", tags: [subject-verb-agreement]}
+  - learner: "È vero, mi confondo sempre: la gente è molto più formale di quanto pensassi."
+  - tutor: "Perfetto. Adesso la domanda scomoda: c'è qualcosa dell'Italia che proprio non ti va giù?"
+    goals: [culture-shock]
+  - learner: "Con tutto l'affetto: la burocrazia. Per rinnovare un documento ho perso tre mattine. Mi sarebbe piaciuto che qualcuno mi spieghi prima quali moduli servivano."
+    errors: [subjunctive-form]
+  - tutor: "Tre mattine, ti capisco benissimo. Un dettaglio sui tempi: con \"mi sarebbe piaciuto che\" il congiuntivo presente non basta. Che tempo ci vuole?"
+    prompt: {text: "che qualcuno mi spieghi", tags: [subjunctive-form]}
+    new: [{lemma: congiuntivo, gloss: subjunctive}]
+  - learner: "Mi sarebbe piaciuto che qualcuno mi spiegasse prima quali moduli servivano. O meglio ancora: che me l'avesse spiegato!"
+  - tutor: "Vanno bene tutte e due. E la critica è giusta, la burocrazia fa perdere la pazienza anche a noi. Per chiudere: che consiglio daresti a chi sta pensando di trasferirsi?"
+    goals: [critique]
+  - learner: "Di imparare la lingua prima di partire, almeno le basi, e di non frequentare solo altri stranieri. Integrarsi costa fatica, ma ne vale la pena."
+  - tutor: "Un consiglio prezioso. Grazie di cuore per essere stata con noi, e in bocca al lupo per tutto!"
+    goals: [advice]
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: en-f-professional
+  turns:
+  - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+  - learner: "Non mi disturba affatto, si sieda. Ho notato che ieri qualcosa non andava. Mi racconti con calma che cosa è successo dal suo punto di vista."
+  - tutor: "La ringrazio. Il fatto è che il progetto per il cliente tedesco l'ho preparato io, in tre settimane. Ieri Marini l'ha presentato come se fosse suo, e nessuno ha detto niente."
+  - learner: "Capisco che sia frustrante, e mi dispiace che si sia sentito messo da parte. Prima di tutto vorrei capire bene i fatti: Marini ha detto esplicitamente che il lavoro era suo, o semplicemente non ha citato lei?"
+  - tutor: "A dire il vero non ha detto \"è mio\". Però ha parlato sempre al singolare, e il mio nome non è mai uscito."
+    goals: [listen, clarify]
+  - learner: "Grazie, è una distinzione importante. Ieri sera Marini mi ha detto che era molto nervoso prima della riunione e che aveva improvvisato. Non credo che voleva prendersi il merito."
+    errors: [subjunctive-use]
+  - tutor: "Può darsi. Mi permetta, però: \"non credo che voleva\"? Dopo \"non credo che\" mi aspetterei un altro modo del verbo."
+    prompt: {text: "Non credo che voleva", tags: [subjunctive-use]}
+  - learner: "Ha ragione, grazie: non credo che volesse prendersi il merito."
+  - tutor: "Ecco. Sarà come dice lei, ma il risultato non cambia: per la direzione quel progetto è di Marini. E io che cosa ci guadagno?"
+    goals: [perspective]
+  - learner: "Ha ragione, e non intendo lasciar correre. Le propongo due cose: scriverò io alla direzione per fare chiaro chi ha preparato il progetto, e alla prossima riunione lo presenterà lei."
+    errors: [word-choice]
+  - tutor: "Se scrive alla direzione per chiarire chi ha preparato il progetto, per me è già molto. E con Marini come la mettiamo?"
+    recast: {text: "per fare chiaro", fix: "per chiarire", tags: [word-choice]}
+  - learner: "Con Marini proporrei un chiarimento a tre, domani mattina, con me presente. Sono sicura che si tratta di un malinteso, ma è giusto che glielo dica lei, di persona."
+  - tutor: "D'accordo, domani mattina va bene. La ringrazio per avermi ascoltato: ora so di poter contare su di lei."
+    goals: [solution]
+
+- scenario: medico-specialista
+  level: C1
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Buongiorno, dottoressa. Non tanto bene. Quando salgo le scale mi manca il fiato e sento il battito molto veloce. Mi succede soprattutto la sera, dopo il turno in cucina."
+  - tutor: "Capisco. E questo affaticamento c'era anche prima, o è comparso di colpo?"
+    goals: [symptoms]
+  - learner: "È comparso un mese fa. Prima facevo dodici ore in piedi senza problemi. Mi preoccupo perché mio padre ha sofferto un infarto a cinquantadue anni."
+    errors: [word-choice]
+  - tutor: "Suo padre ha avuto un infarto così giovane: è un dato importante, ha fatto bene a dirmelo. Ci sono altri casi in famiglia, per esempio di pressione alta?"
+    recast: {text: "ha sofferto un infarto", fix: "ha avuto un infarto", tags: [word-choice]}
+  - learner: "Mia madre prende le pastiglie per la pressione da vent'anni, e anche suo fratello. Dottoressa, gli esami cosa dicono? Devo preoccuparmi?"
+  - tutor: "No, non c'è motivo di spaventarsi. Il cuore è sano, ma la pressione è troppo alta per la sua età e va tenuta sotto controllo. Per questo si stanca sotto sforzo."
+    goals: [history, understand]
+  - learner: "Meno male. Allora che terapia mi consiglia? È necessario che prendo medicine per tutta la vita?"
+    errors: [subjunctive-use]
+  - tutor: "Una domanda che mi fanno tutti. Prima, però, guardi il verbo dopo \"è necessario che\": lì l'indicativo non va bene."
+    prompt: {text: "che prendo medicine", tags: [subjunctive-use]}
+    new: [{lemma: indicativo, gloss: indicative}]
+  - learner: "È necessario che prenderò medicine per tutta la vita?"
+    errors: [subjunctive-use]
+  - tutor: "Non è detto che lei prenda medicine per tutta la vita: dipende da come risponde il suo corpo. Cominciamo con una pastiglia al giorno e meno sale, e tra due mesi rifacciamo gli esami."
+    recast: {text: "che prenderò medicine", fix: "che lei prenda medicine", tags: [subjunctive-use]}
+  - learner: "D'accordo. E questa pastiglia ha effetti collaterali? In cucina non posso permettermi giramenti di testa."
+  - tutor: "All'inizio può dare un po' di stanchezza e, raramente, tosse. Se nota giramenti di testa mi chiami subito e cambiamo terapia. Ci vediamo tra due mesi per il controllo."
+    goals: [treatment]
+
+- scenario: modi-di-dire
+  level: C1
+  persona: en-f-student
+  turns:
+  - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+  - learner: "Un disastro dall'inizio alla fine. Stamattina avevo l'esame di linguistica e ho scoperto, davanti all'aula, che lo avevano spostato a ieri. Nessuno mi aveva avvisata, quindi ho perso l'appello."
+  - tutor: "Ma dai, che guaio! Sei proprio caduta dalle nuvole. E dopo, la giornata è migliorata?"
+  - learner: "Caduta dalle nuvole? Nel senso che non me l'aspettavo per niente? Allora sì, sono caduta dalle nuvole, e ho pure atterrato male: tornando a casa ho perso il portafoglio."
+    errors: [auxiliary-choice]
+  - tutor: "Vuol dire proprio quello, e la usi già benissimo! Solo una cosa: \"ho atterrato\"? Pensa a quale ausiliare vogliono i verbi di movimento come questo."
+    prompt: {text: "ho pure atterrato", tags: [auxiliary-choice]}
+    new: [{lemma: ausiliare, gloss: auxiliary verb}]
+  - learner: "Sono atterrata male, giusto. Comunque il portafoglio l'ho ritrovato: l'avevo lasciato al bar dell'università."
+  - tutor: "Meno male, almeno quello! Ma dimmi la verità: per l'esame la colpa di chi è? Dell'università o un pochino anche tua?"
+    goals: [tell, react]
+  - learner: "Un po' e un po'. La segreteria ha mandato l'avviso solo due giorni prima, e questo non è serio. Però, a essere onesta, io non guardo la posta dell'università da settimane. Avrei dovuto fare più attenzione."
+  - tutor: "Apprezzo l'onestà. Diciamo che loro hanno sbagliato, ma tu hai dormito un po' troppo tranquilla. E adesso, che lezione ne tiri fuori?"
+    goals: [blame]
+  - learner: "Che devo controllare la posta ogni giorno, anche se è una noia. E che non tutto il male viene per ferire: almeno ho due mesi in più per studiare!"
+    errors: [word-choice]
+  - tutor: "Brava: non tutto il male viene per nuocere! Due mesi in più non sono pochi. E la posta, la guarderai davvero?"
+    recast: {text: "viene per ferire", fix: "viene per nuocere", tags: [word-choice]}
+  - learner: "Giuro! Ho già messo un promemoria sul telefono, tutte le mattine alle otto. Stavolta non mi faccio fregare."
+  - tutor: "Allora sei a posto. Dai, per tirarti su ti offro un gelato: te lo sei meritato, dopo una giornata così."
+    goals: [moral]
+
+- scenario: notizie-attualita
+  level: C1
+  persona: en-m-heritage
+  history: [adjective-agreement]
+  turns:
+  - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatto?"
+  - learner: "L'ho seguita, sì. In pratica la nuova legge mette un limite al numero di notti e obbliga i proprietari a registrarsi. Il governo ha detto che i controlli partiranno a gennaio, se ho capito bene."
+  - tutor: "Hai capito bene, anche se i dettagli cambiano da un giornale all'altro. E tu da che parte stai?"
+    goals: [summarise]
+  - learner: "Sto nel mezzo. Da una parte è giusto proteggere chi cerca casa, perché in centro gli affitti sono impazziti. Dall'altra, molti famiglie arrotondano così lo stipendio, e non parliamo certo di speculatori."
+    errors: [adjective-agreement]
+  - tutor: "Una posizione ragionevole, mi piace. Ascolta di nuovo, però: \"molti famiglie\"? C'è qualcosa che non si accorda."
+    prompt: {text: "molti famiglie", tags: [adjective-agreement]}
+  - learner: "Molte famiglie, sì. Me lo diceva sempre anche mia nonna."
+  - tutor: "Tua nonna aveva ragione! Ma hai notato come ne parlano le varie testate? Sembra che raccontino tre leggi diverse."
+    goals: [opinion]
+  - learner: "Infatti. Un giornale titolava \"Stangata sui piccoli proprietari\", un altro \"Finalmente una casa per i residenti\". Solo un sito ha fatto un approfondimento con i numeri veri. Magari tutti i giornali citavano le fonti così!"
+    errors: [subjunctive-use]
+  - tutor: "I titoli, già, sono fatti per vendere. Attento a quel desiderio finale: con \"magari\", quando esprimi un augurio, che modo si usa?"
+    prompt: {text: "Magari tutti i giornali citavano", tags: [subjunctive-use]}
+  - learner: "Magari tutti i giornali citassero le fonti così!"
+  - tutor: "Magari, davvero! E secondo te, alla fine, questa legge che effetti avrà?"
+    goals: [sources]
+  - learner: "Credo che in centro qualche appartamento tornerà sul mercato normale, ma meno di quanto sperano. Se i controlli fossero seri, cambierebbe molto; se no, tra un anno saremo qui a parlarne di nuovo."
+  - tutor: "Temo che tu abbia ragione sui controlli. Va be', ne riparliamo tra un anno, allora. Intanto torniamo al lavoro, che la pausa è finita da un pezzo."
+    goals: [consequences]
+
+- scenario: organizzare-matrimonio
+  level: C1
+  persona: es-f-teacher
+  history: [possessive]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Immaginiamo una cerimonia semplice, in campagna, con un'ottantina di invitati. Vorremmo che la gente si diverta e che non sia una cosa troppo rigida."
+    errors: [subjunctive-form]
+  - tutor: "Semplice e in campagna: un'idea bellissima. Un'osservazione sulla frase: dopo \"vorremmo che\" il congiuntivo presente non va. Quale tempo si accorda con il condizionale?"
+    prompt: {text: "che la gente si diverta", tags: [subjunctive-form]}
+    new: [{lemma: congiuntivo, gloss: subjunctive}, {lemma: condizionale, gloss: conditional}]
+  - learner: "Vorremmo che la gente si divertisse e che non fosse una cosa troppo rigida."
+  - tutor: "Ora è perfetta. Parliamo di cifre, se permette: che budget avete in mente?"
+    goals: [vision]
+  - learner: "Non vorremmo superare i venticinquemila euro, tutto compreso. Se fosse possibile, preferiremmo spendere di più per il menù e meno per i fiori."
+  - tutor: "Con quella cifra si può fare molto. Vi propongo due location: una villa sul lago, elegante ma cara, oppure un agriturismo in collina, più alla mano. Quale vi attira di più?"
+    goals: [budget]
+    new: [{lemma: agriturismo, gloss: farm stay}]
+  - learner: "L'agriturismo, senza dubbio. Mio fidanzato è cresciuto in campagna e la villa gli sembrerebbe troppo fredda."
+    errors: [possessive]
+  - tutor: "Ottima scelta, in collina a giugno è uno spettacolo. Solo un particolare: \"mio fidanzato\"? Qui manca una piccola parola davanti al possessivo."
+    prompt: {text: "Mio fidanzato", tags: [possessive]}
+  - learner: "Il mio fidanzato, certo. In spagnolo non si mette e ogni tanto mi scappa."
+  - tutor: "Succede, non si preoccupi. Allora fisso una visita all'agriturismo. C'è qualcosa a cui tenete in modo particolare, prima che cominci a chiedere i preventivi?"
+    goals: [choices]
+  - learner: "Sì, due condizioni. Vorremmo approvare noi ogni spesa sopra i cinquecento euro, e il preventivo del fotografo deve mandarcelo prima di firmare qualsiasi cosa."
+  - tutor: "Mi sembra più che ragionevole. Ogni spesa importante ve la sottopongo prima, e il preventivo del fotografo ve lo mando entro lunedì. Vedrete che sarà una festa bellissima."
+    goals: [conditions]
+
+- scenario: politica-lavoro
+  level: C1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Mah, metà mi sembra tanto. Qualche settore cambierà di sicuro, ma la gente ha sempre trovato qualcosa da fare. Io sono più preoccupato per la qualità dei lavori che per la quantità."
+  - tutor: "La qualità, dici. Ma metti che domani le macchine sostituiscano tutti i camerieri e gli autisti: che cosa succederebbe?"
+    goals: [opinion]
+  - learner: "Se succedesse davvero, ci sarebbe una disoccupazione enorme per qualche anno. Però penso che nasceranno lavori nuovi, come è sempre stato. Il problema è che la formazione non tiene su con la tecnologia."
+    errors: [word-choice]
+  - tutor: "Su questo ci siamo: la formazione non tiene il passo con la tecnologia. Ma sono parole, le tue. Ce l'hai un esempio vero?"
+    recast: {text: "non tiene su con", fix: "non tiene il passo con", tags: [word-choice]}
+    goals: [hypothesis]
+  - learner: "Certo. A Dublino mio cugino faceva il cassiere in un supermercato. Quando hanno messo le casse automatiche, l'hanno formato e ora si occupa degli ordini online. Se l'azienda non avrebbe pagato il corso, sarebbe rimasto a casa."
+    errors: [hypothetical]
+  - tutor: "Bell'esempio, lo ammetto. Ma riascolta l'ultima frase: \"se l'azienda non avrebbe pagato\"? Dopo \"se\" quella forma non regge."
+    prompt: {text: "Se l'azienda non avrebbe pagato", tags: [hypothetical]}
+  - learner: "Se l'azienda non avesse pagato il corso, sarebbe rimasto a casa."
+  - tutor: "Così sì. Tuo cugino però ha trovato un'azienda seria, e non tutte lo sono."
+    goals: [example]
+  - learner: "Vero, non tutte. Quindi, per riassumere: la tecnologia è un rischio se ognuno si arrangia da solo, e un'opportunità se si investe nelle persone. Tu resti pessimista, Riccardo, o ti ho convinto almeno un po'?"
+  - tutor: "Un pochino, dai. Diciamo che adesso sono pessimista solo a metà. Passami il vino, che a queste cose è meglio pensare a stomaco pieno."
+    goals: [conclude]

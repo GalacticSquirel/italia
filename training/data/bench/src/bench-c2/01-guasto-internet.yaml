@@ -1,0 +1,175 @@
+- scenario: guasto-internet
+  level: C2
+  persona: en-f-professional
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno, Marta. Le spiego subito: dal temporale di martedì la fibra va a singhiozzo. Regge un quarto d'ora, poi crolla, e io, che traduco per lavoro e consegno tutto in rete, sono con l'acqua alla gola."
+    - tutor: "Capisco, e mi dispiace che la cosa la metta in difficoltà con le consegne. Dopo il temporale abbiamo avuto diversi guasti nella sua zona. Prima di chiamare, aveva già fatto qualche verifica per conto suo?"
+      goals: [describe]
+    - learner: "Altroché. Ho riavviato tutto, ho cambiato presa, ho perfino collegato il computer con il cavo. E quanto ai router, mi ne avete già sostituiti due dall'inizio dell'anno."
+      errors: [combined-pronouns]
+      gold: {text: "mi ne avete già sostituiti", fix: "me ne avete già sostituiti"}
+    - tutor: "Due in un anno sono troppi, ne convengo. Mi tolga però una curiosità: «mi ne avete già sostituiti»? Davanti a «ne», il primo pronome non resta com'è."
+      prompt: {text: "mi ne avete già sostituiti", tags: [combined-pronouns]}
+    - learner: "Me ne avete già sostituiti due, certo. Una svista."
+    - tutor: "Capita anche ai migliori. Le chiedo allora un'ultima verifica: guardi la scatoletta bianca della fibra, quella a cui è collegato il router, e mi dica di che colore è la spia in basso."
+      goals: [tried]
+    - learner: "È rossa, fissa. Attualmente, ora che ci penso, è rossa da martedì: credevo fosse normale."
+      errors: [false-friend]
+      gold: {text: "Attualmente", fix: "In realtà"}
+    - tutor: "Dunque, in realtà, è rossa fin da martedì: era proprio l'informazione che mi mancava. Vuol dire che il segnale non arriva fino a casa sua e che il guasto è sulla nostra rete, non sul suo impianto."
+      goals: [follow]
+      recast: {text: "Attualmente", fix: "in realtà", tags: [false-friend]}
+    - learner: "Allora gradirei che mandaste un tecnico quanto prima. E, visti i precedenti, mi aspetto un indennizzo: non un buono sconto, un rimborso vero."
+    - tutor: "Ha ragione su tutta la linea, è il caso di dirlo. Il tecnico uscirà domani entro mezzogiorno, e apro subito la pratica di rimborso per i giorni di guasto, da accreditare in bolletta e non sotto forma di buono."
+      goals: [escalate]
+
+- scenario: guasto-internet
+  level: C2
+  persona: es-m-worker
+  history: [word-order]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. Senta, ho una pizzeria e ieri sera, in pieno servizio, la linea ha saltato. Da allora niente cassa e niente ordini a domicilio."
+      errors: [auxiliary-choice]
+      gold: {text: "la linea ha saltato", fix: "la linea è saltata"}
+    - tutor: "In pieno servizio: il momento peggiore. Mi faccia capire bene, però: «la linea ha saltato»? Quando una cosa si interrompe di colpo, con questo verbo l'ausiliare è un altro."
+      prompt: {text: "la linea ha saltato", tags: [auxiliary-choice]}
+    - learner: "La linea si ha saltata, ecco."
+      errors: [auxiliary-choice]
+      gold: {text: "si ha saltata", fix: "è saltata"}
+    - tutor: "Senza «si» e con «essere»: la linea è saltata. E il router, da ieri sera, come si comporta? Vede qualche spia accesa?"
+      recast: {text: "si ha saltata", fix: "è saltata", tags: [auxiliary-choice]}
+    - learner: "Quella della corrente è verde. Quella di internet non si accende proprio, nemmeno dopo averlo riavviato due volte."
+    - tutor: "Dunque il router è vivo, ma non sente la linea. Facciamo un controllo insieme: segua il cavo sottile che va dal router al muro e verifichi che non sia schiacciato o staccato."
+      goals: [describe, tried]
+    - learner: "Un momento... no, è a posto, ben inserito da tutte e due le parti. E guardi che già ho pagato la bolletta, e la ricevuta ve l'ho mandato ieri."
+      errors: [word-order, participle-agreement]
+      gold: {text: "già ho pagato", fix: "ho già pagato"}
+    - tutor: "Non ne dubito, e infatti la linea non è sospesa: risulta guasta. Solo una nota: «già ho pagato»? In italiano quell'avverbio, con il passato prossimo, di norma non precede l'ausiliare."
+      goals: [follow]
+      prompt: {text: "già ho pagato", tags: [word-order]}
+    - learner: "Ho già pagato la bolletta. E proprio per questo voglio un tecnico oggi stesso, non fra una settimana, e che qualcuno mi risarcisca gli ordini persi."
+    - tutor: "Così va benissimo, e la richiesta è sacrosanta. Per le attività commerciali l'uscita è garantita in giornata: il tecnico sarà da lei entro le diciassette. Quanto al risarcimento, le invio il modulo: alleghi gli incassi di un sabato normale."
+      goals: [escalate]
+
+- scenario: guasto-internet
+  level: C2
+  persona: en-m-retired
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. La disturbo per un guasto che si trascina da una settimana: la sera, puntualmente verso le nove, la connessione rallenta fino a diventare inservibile."
+    - tutor: "Nessun disturbo, ci mancherebbe. Un rallentamento a orario fisso fa pensare a una linea sovraccarica, più che a un guasto vero e proprio. Ha avuto modo di fare qualche prova?"
+      goals: [describe]
+    - learner: "Più d'una. Ieri sera, quando ho chiamato il vostro numero, già riavviavo il router tre volte e avevo misurato la velocità."
+      errors: [tense-aspect]
+      gold: {text: "già riavviavo il router tre volte", fix: "avevo già riavviato il router tre volte"}
+    - tutor: "Ha lavorato con metodo, complimenti. Una sola osservazione: «già riavviavo il router tre volte»? Sono azioni concluse prima della telefonata: quale tempo le colloca lì?"
+      prompt: {text: "già riavviavo il router tre volte", tags: [tense-aspect]}
+    - learner: "Già ho riavviato il router tre volte, quando ho chiamato."
+      errors: [tense-aspect]
+      gold: {text: "Già ho riavviato il router tre volte", fix: "Avevo già riavviato il router tre volte"}
+    - tutor: "Qui serve il trapassato: «avevo già riavviato il router tre volte». E la velocità che aveva misurato, se la ricorda?"
+      recast: {text: "Già ho riavviato il router tre volte", fix: "avevo già riavviato il router tre volte", tags: [tense-aspect]}
+    - learner: "Due megabit scarsi, contro i cento del contratto. Francamente non è molto conveniente passare le serate a fare misure invece di guardare un film."
+      errors: [false-friend]
+      gold: {text: "non è molto conveniente", fix: "non è molto comodo"}
+    - tutor: "No, non è molto comodo, e non dovrebbe toccare a lei. Mi aiuti ancora una volta soltanto: stasera alle nove colleghi il computer al router con il cavo e ripeta la misura. Se la sente?"
+      goals: [tried]
+      recast: {text: "non è molto conveniente", fix: "non è molto comodo", tags: [false-friend]}
+    - learner: "Me la sento, ma gliel'anticipo: l'ho già fatto sabato, con il cavo, e il risultato era identico. Per questo chiedo che esca un tecnico, o che mi riduciate il canone."
+    - tutor: "Allora la prova è già fatta, e mi basta: se anche con il cavo la velocità crolla, il problema è a monte, sulla nostra rete. Le mando un tecnico giovedì e, finché il guasto non sarà risolto, il canone le verrà dimezzato."
+      goals: [follow, escalate]
+
+- scenario: guasto-internet
+  level: C2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. Le telefono perché da stamattina non funzionano né internet né il telefono fisso, e ho le pagelle da caricare entro domani."
+    - tutor: "Allora non perdiamo tempo. Mi descriva il router, per cortesia: quante spie vede accese, e di che colore?"
+    - learner: "Guardi, di spie accese vedo solo una, quella verde in alto. Le altre tre sono spente."
+      errors: [ci-ne]
+      gold: {text: "di spie accese vedo solo una", fix: "di spie accese ne vedo solo una"}
+    - tutor: "Una sola, bene. Ma riascolti la frase: «di spie accese vedo solo una»? Quando la quantità si riferisce a qualcosa di già nominato, davanti al verbo manca una particella."
+      prompt: {text: "di spie accese vedo solo una", tags: [ci-ne]}
+    - learner: "Ne vedo solo una, ha ragione."
+    - tutor: "Perfetto. Una sola spia verde significa che il router riceve corrente ma non il segnale. Aveva già provato a intervenire in qualche modo?"
+      goals: [describe]
+    - learner: "Sì, ho spento e riacceso tutto. Pensavo che il problema è del telefono, perché è vecchio, e l'ho staccato; ma non è cambiato niente."
+      errors: [subjunctive-use]
+      gold: {text: "Pensavo che il problema è", fix: "Pensavo che il problema fosse"}
+    - tutor: "Il ragionamento filava. Però: «pensavo che il problema è»? Dopo «pensavo che» il verbo cambia modo, e deve anche accordarsi con il passato."
+      prompt: {text: "Pensavo che il problema è", tags: [subjunctive-use]}
+    - learner: "Pensavo che il problema sia del telefono."
+      errors: [subjunctive-use]
+      gold: {text: "Pensavo che il problema sia", fix: "Pensavo che il problema fosse"}
+    - tutor: "Il modo è giusto, il tempo no: «pensavo che il problema fosse del telefono». In ogni caso il telefono non c'entra. Tenga premuto il tasto di accensione del router per cinque secondi e mi dica se le spie tornano."
+      goals: [tried]
+      recast: {text: "Pensavo che il problema sia", fix: "pensavo che il problema fosse", tags: [subjunctive-use]}
+    - learner: "Fatto: lampeggiano tutte per un attimo e poi resta la solita verde. A questo punto le chiedo un tecnico entro oggi, o almeno una soluzione provvisoria, perché quelle pagelle non possono aspettare."
+    - tutor: "Ha ragione, e ho una soluzione per entrambe le cose. Il tecnico verrà domattina alle otto; nel frattempo le attivo gratis, per una settimana, la connessione dal telefono cellulare, così stasera può caricare le pagelle."
+      goals: [follow, escalate]
+
+- scenario: guasto-internet
+  level: C2
+  persona: en-m-traveller
+  history: [register]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. Ho preso in affitto un monolocale per tre mesi e la linea è down da ieri: zero wifi, zero tutto."
+      errors: [word-choice]
+      gold: {text: "la linea è down", fix: "la linea è fuori uso"}
+    - tutor: "Mi dispiace. Se la linea è fuori uso da ieri, cerchiamo di capire dove si è interrotta. Il router ha qualche spia accesa, o è del tutto spento?"
+      recast: {text: "la linea è down", fix: "la linea è fuori uso", tags: [word-choice]}
+    - learner: "Acceso è acceso: la spia verde c'è, ma quella con il simbolo del mondo lampeggia in rosso. Ho già provato a staccarlo dalla corrente e a riattaccarlo, senza alcun risultato."
+    - tutor: "Chiarissimo: il router funziona, ma non riesce ad agganciare la rete. Mi serve il numero di serie, che trova stampato sotto l'apparecchio: me lo può leggere?"
+      goals: [describe, tried]
+    - learner: "Un attimo che lo giro... Mi scusa, è scritto piccolissimo e senza occhiali non ci vedo."
+      errors: [imperative-form]
+      gold: {text: "Mi scusa", fix: "Mi scusi"}
+    - tutor: "Faccia con comodo. E a proposito di «mi scusa»: quando si chiede scusa dando del lei, quel verbo vuole un'altra desinenza. Quale?"
+      prompt: {text: "Mi scusa", tags: [imperative-form]}
+    - learner: "Ah, giusto: scusami?"
+      errors: [imperative-form]
+      gold: {text: "scusami", fix: "mi scusi"}
+    - tutor: "Quella è la forma del tu: con il lei si dice «mi scusi». Ma non si preoccupi, il numero l'ho recuperato dal contratto. Ora tenga premuto il tasto sul retro finché la spia non diventa arancione."
+      recast: {text: "scusami", fix: "mi scusi", tags: [imperative-form]}
+    - learner: "Ecco, è diventata arancione... e adesso di nuovo rossa. Senta, io qui ci lavoro: potrebbe mandarmi qualcuno? E per i giorni persi mi aspetterei uno sconto."
+    - tutor: "Certamente. Il router ha fatto quello che doveva, quindi il guasto è sulla linea: le fisso l'uscita del tecnico per domani mattina. E lo sconto le spetta di diritto: i giorni senza servizio verranno tolti dalla prossima bolletta."
+      goals: [follow, escalate]
+
+- scenario: guasto-internet
+  level: C2
+  persona: es-f-erasmus
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. Chiamo da un appartamento per studenti in via Mazzini. Da tre giorni la connessione cade ogni volta che piove, e ormai piove sempre."
+    - tutor: "Una linea che teme la pioggia: purtroppo non è un caso raro, e di solito la causa si trova. Lei ha già provato a fare qualcosa?"
+      goals: [describe]
+    - learner: "Tutto quello che sapevo fare. Ho spegnuto il router per un'ora, ho cambiato il cavo e ho anche chiesto al padrone di casa."
+      errors: [past-participle-form]
+      gold: {text: "Ho spegnuto", fix: "Ho spento"}
+    - tutor: "Si è data da fare, non c'è che dire. Un dettaglio: «ho spegnuto»? Quel verbo ha un participio irregolare, più breve."
+      prompt: {text: "Ho spegnuto", tags: [past-participle-form]}
+    - learner: "Ho spento il router, è vero. E il padrone di casa dice che il cavo esterno è vecchissimo."
+    - tutor: "Informazione preziosa. Facciamo una verifica: sollevi il coperchio della scatola a muro da cui parte il cavo e guardi se dentro ci sono tracce di umidità."
+      goals: [tried]
+    - learner: "L'ho aperta: dentro è bagnata, e c'è perfino un po' di ruggine. Tra l'altro il prezzo è subito a gennaio, e per un servizio così mi pare troppo."
+      errors: [false-friend]
+      gold: {text: "il prezzo è subito", fix: "il prezzo è salito"}
+    - tutor: "Ecco la causa: l'acqua entra nella scatola. E capisco l'irritazione, visto che il prezzo è salito a gennaio proprio mentre il servizio peggiorava."
+      goals: [follow]
+      recast: {text: "il prezzo è subito", fix: "il prezzo è salito", tags: [false-friend]}
+    - learner: "Appunto. Se lo avrei saputo, non avrei rinnovato il contratto. Adesso voglio che venga un tecnico e che mi restituiate almeno un mese."
+      errors: [hypothetical]
+      gold: {text: "Se lo avrei saputo", fix: "Se lo avessi saputo"}
+    - tutor: "Richiesta legittima, e la annoto. Prima, però: «se lo avrei saputo»? Dopo «se», in un'ipotesi sul passato, il condizionale non regge."
+      prompt: {text: "Se lo avrei saputo", tags: [hypothetical]}
+    - learner: "Se lo avessi saputo, non avrei rinnovato. Allora, il tecnico e il rimborso?"
+    - tutor: "Ora è impeccabile, e ha la mia parola su entrambi. Il tecnico verrà dopodomani a sostituire scatola e cavo esterno, e sulla prossima bolletta troverà stornato un mese intero. Le mando subito la conferma scritta."
+      goals: [escalate]

@@ -1,0 +1,186 @@
+- scenario: colloquio-lavoro
+  level: C1
+  persona: en-m-traveller
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno, grazie. Sono australiano e ho trentun anni. Faccio il grafico, e da quattro anni vivo a Milano, dove mi sono trasferito dopo aver lavorato a Sydney per un'agenzia di pubblicità."
+    - tutor: "Da Sydney a Milano: un bel salto, e non solo di chilometri. Mi racconti che cosa faceva in agenzia e di che cosa si occupa adesso."
+      goals: [intro]
+    - learner: "In agenzia mi occupavo soprattutto di campagne per marchi di abbigliamento. Qui a Milano lavoro da tre anni come libero professionista per case editrici e piccoli marchi, e ho guadagnato molta esperienza nel disegno di copertine e di confezioni."
+      errors: [word-choice]
+    - tutor: "Copertine e confezioni: proprio quello che serve a noi. Lei ha acquisito molta esperienza in un settore che conosciamo bene. Qual è il suo punto di forza? E, se me lo permette, anche un punto debole."
+      goals: [experience]
+      recast: {text: "guadagnato", fix: "acquisito", tags: [word-choice]}
+    - learner: "Il mio punto di forza è che ascolto molto il cliente prima di disegnare: preferisco perdere un'ora in riunione piuttosto che una settimana a rifare un progetto. Il punto debole è che faccio fatica a dire di no, e a volte accetto più lavoro di quanto riesca a gestire."
+    - tutor: "Una debolezza sincera, e in un'azienda piccola non è del tutto un difetto. Ma perché vuole lasciare la libertà del libero professionista per un posto fisso da noi?"
+      goals: [strengths]
+    - learner: "Perché mi manca lavorare in squadra. Da solo decido tutto io, ma nessuno mi contraddice, e le idee migliori, almeno per me, nascono dal confronto. E poi conosco i vostri progetti per i musei, e mi piacerebbe molto farne parte."
+    - tutor: "Conosce i nostri progetti: questo fa sempre piacere. Ha qualche domanda da farmi sul ruolo?"
+      goals: [why]
+    - learner: "Sì, una. Nell'annuncio si parla di un ruolo che unisce grafica e rapporti con i clienti: in che proporzione, più o meno? Vorrei capire quanto tempo resterebbe per disegnare."
+    - tutor: "Domanda legittima. Direi un settanta per cento di progettazione e un trenta di rapporti con i clienti, almeno all'inizio. Le faremo sapere entro la fine della settimana; grazie di essere venuto."
+      goals: [questions]
+
+- scenario: intervista-podcast
+  level: C1
+  persona: en-f-professional
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivata proprio in Italia?"
+    - learner: "Grazie a voi! Per lavoro, in modo molto poco romantico: la mia azienda di Londra aveva aperto una sede a Torino e cercava qualcuno che parlasse un po' d'italiano. Io l'avevo studiato al liceo, ho alzato la mano e due mesi dopo ero qui."
+    - tutor: "Hai alzato la mano, e via? Che coraggio! E poi, com'è che sei rimasta?"
+    - learner: "Il contratto era di due anni. Quando il mio contratto ha scaduto, mi hanno offerto di tornare a Londra, ma ormai avevo una casa, degli amici e un fidanzato torinese, quindi ho trovato un altro lavoro qui."
+      errors: [auxiliary-choice]
+      gold: {text: "ha scaduto", fix: "è scaduto"}
+    - tutor: "Un fidanzato torinese, ecco la vera ragione! Aspetta però: il contratto «ha scaduto»? Con scadere, quale ausiliare ci vuole?"
+      prompt: {text: "ha scaduto", tags: [auxiliary-choice]}
+    - learner: "Giusto, è scaduto: scadere vuole essere. Comunque sì, la vera ragione era lui, anche se ai miei genitori ho raccontato che era per la carriera."
+    - tutor: "Esatto, è scaduto. Il tuo segreto è al sicuro con noi e con tutti i nostri ascoltatori! Dimmi: c'è stata una differenza culturale che ti ha spiazzata?"
+      goals: [story]
+    - learner: "Più di una, ma la prima è stata il pranzo della domenica a casa dei suoi. Pensavo di essere invitata a pranzo, e invece era un evento di cinque ore, con quattro portate, i cugini e una nonna che continuava a riempirmi il piatto anche quando dicevo di no."
+    - tutor: "Il «no» della fidanzata straniera non vale, lo sanno tutti! E c'è qualcosa dell'Italia che proprio non ti va giù? Puoi essere sincera, ma con garbo."
+      goals: [culture-shock]
+    - learner: "Con garbo, allora: direi la lentezza con cui si cambiano le cose. Al lavoro, per introdurre una procedura nuova servono sei riunioni e il consenso di tutti. È vero che alla fine le decisioni sono più condivise, ma a volte vorrei che qualcuno avesse il coraggio di decidere e basta."
+    - tutor: "Critica ricevuta, e anche giusta, purtroppo. Ultima domanda: che cosa diresti a chi sta pensando di trasferirsi qui?"
+      goals: [critique]
+    - learner: "Di non avere fretta. Le amicizie, la lingua, perfino la burocrazia: qui tutto chiede tempo, ma quello che costruisci dura. E di accettare sempre l'invito al pranzo della domenica, anche se dura cinque ore."
+    - tutor: "Il consiglio della nonna, praticamente! Grazie mille di essere stata con noi, è stata una chiacchierata bellissima."
+      goals: [advice]
+
+- scenario: presentazione-progetto
+  level: C1
+  persona: es-m-worker
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Grazie, direttore, sarò sintetico. Le propongo di installare pannelli solari sul tetto del magazzino di Novara. È una superficie di quattromila metri quadrati che oggi non usiamo, e che potrebbe coprire buona parte dei nostri consumi elettrici."
+    - tutor: "Il tetto inutilizzato è un buon argomento, ma i tetti non pagano le bollette. Mi dia i numeri."
+      goals: [pitch]
+    - learner: "Certo. L'inversione iniziale è di seicentomila euro. Con i prezzi attuali dell'energia risparmieremmo circa centoventimila euro all'anno, quindi in cinque anni il progetto si ripagherebbe, e i pannelli durano almeno venticinque anni."
+      errors: [false-friend]
+    - tutor: "Un investimento di seicentomila euro che si ripaga in cinque anni: detta così, sembra quasi troppo bella. Dove sta il rischio?"
+      goals: [benefits]
+      recast: {text: "inversione", fix: "investimento", tags: [false-friend]}
+    - learner: "Il rischio principale è che il prezzo dell'energia scenda, allungando i tempi di rientro. Per questo abbiamo calcolato anche lo scenario peggiore: anche se i prezzi tornassero ai livelli di tre anni fa, il progetto si ripagherebbe in otto anni."
+    - tutor: "Otto anni sono tanti, per un consiglio di amministrazione che ragiona a trimestri. E se non avessimo i soldi per pagarlo subito?"
+    - learner: "In quel caso ci sono due strade. La prima è un finanziamento agevolato della Regione, che coprirebbe il quaranta per cento della spesa. La seconda è un contratto di noleggio: una società installa i pannelli e noi paghiamo una rata mensile inferiore al risparmio in bolletta, quindi guadagniamo dal primo mese."
+    - tutor: "Il noleggio mi piace: rischio basso e nessuna spesa iniziale. Che cosa le serve da me?"
+      goals: [objection]
+    - learner: "Che lei autorizzi la richiesta dei preventivi, almeno tre, e che porti la proposta al prossimo consiglio. Io intanto preparerei il confronto tra acquisto e noleggio, con i numeri definitivi."
+    - tutor: "D'accordo: chieda i tre preventivi e mi mandi il confronto entro fine mese, così lo metto all'ordine del giorno. E stavolta i dieci minuti li ha usati bene."
+      goals: [next-steps]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: en-f-student
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono una studentessa americana, e da settembre faccio un master all'università. Mi hanno detto che, siccome resterò più di un anno, devo chiedere la residenza qui."
+    - tutor: "Esatto, se resta più di tre mesi è previsto. Ha con sé il passaporto, il permesso di soggiorno e il contratto d'affitto?"
+      goals: [request]
+    - learner: "Il passaporto e il permesso di soggiorno sì, eccoli. Il contratto ce l'ho, ma volevo chiederle una cosa: il proprietario mi ha detto che non è ancora stato registrato. È un problema?"
+    - tutor: "Purtroppo sì: per la residenza serve un contratto registrato, oppure una dichiarazione del proprietario che la ospita. Senza uno dei due, la domanda non può essere accettata."
+      goals: [documents]
+    - learner: "Capisco. Quindi è necessario che io torno quando il contratto sarà registrato, oppure posso lasciare intanto la domanda?"
+      errors: [subjunctive-use]
+      gold: {text: "io torno", fix: "io torni"}
+    - tutor: "Domanda giusta. Un attimo, però: dopo «è necessario che», il verbo come va?"
+      prompt: {text: "io torno", tags: [subjunctive-use]}
+    - learner: "Ah, sì, scusi: è necessario che io torni. Ci vuole il congiuntivo."
+    - tutor: "Perfetto. E la risposta è no: può lasciare la domanda oggi, con la dichiarazione del proprietario, e il contratto registrato lo porterà dopo. Gli faccia compilare questo modulo, con una copia del suo documento."
+      goals: [problem]
+    - learner: "Benissimo, glielo mando stasera stessa. E dopo che avrò consegnato tutto, quanto tempo ci vuole? Mi serve la residenza per scegliere il medico di base."
+    - tutor: "Entro quarantacinque giorni passerà qualcuno della polizia locale a verificare che lei abiti davvero all'indirizzo indicato; poi la residenza diventa definitiva. Per il medico, però, può già usare la ricevuta della domanda."
+      goals: [next]
+
+- scenario: film-libro
+  level: C1
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Inizio io. Ho letto un giallo ambientato a Trieste negli anni Settanta: un commissario in pensione riapre un caso che aveva chiuso trent'anni prima, perché riceve una lettera anonima. Non dico di più, perché il bello è tutto nella seconda metà."
+    - tutor: "Un commissario in pensione e una lettera anonima: comincia bene. Com'è questo commissario?"
+      goals: [summary]
+    - learner: "È un uomo stanco, un po' cinico, che vive da solo con un gatto e parla più con il gatto che con le persone. La persona a che scrive più spesso è sua figlia, che vive in Argentina e non gli risponde quasi mai."
+      errors: [relative-pronoun]
+      gold: {text: "a che", fix: "a cui"}
+    - tutor: "Che malinconia, questo commissario! Ma torna un attimo indietro: «la persona a che scrive»? Dopo una preposizione, quel pronome cambia."
+      prompt: {text: "a che", tags: [relative-pronoun]}
+    - learner: "Hai ragione: la persona a cui scrive più spesso. È proprio quel rapporto con la figlia che rende il personaggio umano, più del caso."
+    - tutor: "Giusto, a cui. E allora, ti è piaciuto o no? Dimmi la verità."
+      goals: [characters]
+    - learner: "Mi è piaciuto, ma non mi ha entusiasmato. L'atmosfera è splendida, la bora, il porto, i caffè: si sente l'odore della città. Il giallo, invece, si capisce troppo presto; a metà libro avevo già indovinato il colpevole, e da lì in poi ho letto più per la città che per la storia."
+    - tutor: "Un giallo in cui indovini il colpevole a metà è un giallo a metà, hai ragione. A chi lo consiglieresti, allora?"
+      goals: [opinion]
+    - learner: "A chi conosce Trieste o ci vuole andare: è quasi una guida, ma più poetica. A chi cerca un giallo pieno di colpi di scena, invece, direi di lasciar perdere."
+    - tutor: "Un giallo da leggere come una guida di viaggio: è una recensione originale. Grazie, l'hai presentato benissimo; chi è il prossimo?"
+      goals: [recommend]
+
+- scenario: riunione-lavoro
+  level: C1
+  persona: en-m-heritage
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Il nuovo programma per il magazzino è installato, e da lunedì lo usano i ragazzi del primo turno. I primi risultati sono positivi: le spedizioni partono in media mezz'ora prima."
+    - tutor: "Mezz'ora prima è un ottimo risultato. C'è un «ma», immagino?"
+      goals: [update]
+    - learner: "C'è, purtroppo. Il secondo turno non ha ancora fatto la formazione, e il fornitore ci ha detto che il prossimo corso libero è tra tre settimane. Nel frattempo metà del magazzino lavora con il sistema nuovo e metà con quello vecchio, e i dati non tornano."
+    - tutor: "Due sistemi insieme: la ricetta perfetta per il caos. Hai già un'idea per uscirne?"
+      goals: [problem]
+    - learner: "Sì. Potrebbiamo fare noi la formazione al secondo turno: io e Marco abbiamo seguito tutto il corso e conosciamo il programma. Basterebbero due pomeriggi."
+      errors: [conditional-form]
+      gold: {text: "Potrebbiamo", fix: "Potremmo"}
+    - tutor: "L'idea mi piace. Però, scusa: «potrebbiamo»? Ripensa a come si forma il condizionale di potere con noi."
+      prompt: {text: "Potrebbiamo", tags: [conditional-form]}
+    - learner: "Ah, giusto: potremmo. Potremmo farla noi, martedì e giovedì pomeriggio, quando il magazzino è più tranquillo."
+    - tutor: "Esatto. Ottima proposta, così risparmiamo anche il costo del corso. Entro quando pensi che lavoreranno tutti con il sistema nuovo?"
+      goals: [proposal]
+    - learner: "Se facciamo la formazione la settimana prossima, entro la fine del mese tutto il magazzino userà il sistema nuovo. Direi venerdì trenta, per avere un margine di qualche giorno in caso di problemi."
+    - tutor: "Venerdì trenta, allora, e lo scrivo nel verbale. Mandami un messaggio dopo il primo pomeriggio di formazione, così vediamo se i tempi reggono."
+      goals: [deadline]
+
+- scenario: colloquio-promozione
+  level: C1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie del tempo. Lavoro qui da tre anni nel servizio clienti, e vorrei parlarle dei risultati dell'ultimo anno, che secondo me meritano un po' di attenzione."
+    - tutor: "Certo, l'ascolto. Che cosa vorrebbe farmi notare?"
+    - learner: "Da quando gestisco io le richieste dei clienti spagnoli e sudamericani, i tempi di risposta si sono dimezzati e i reclami sono scesi del trenta per cento. In più ho preparato il manuale che adesso usano anche i nuovi colleghi."
+    - tutor: "Conosco il manuale, ed è fatto bene, glielo riconosco. Immagino che dietro questi numeri ci sia una richiesta."
+      goals: [results]
+    - learner: "Esatto. Con questi risultati credo di meritare un ascenso: vorrei diventare responsabile del gruppo internazionale, che al momento non ha un coordinatore."
+      errors: [false-friend]
+    - tutor: "Una promozione a responsabile del gruppo: è un'ambizione legittima, e i numeri la sostengono. Devo però essere franco: lei è qui da tre anni, e di solito quel ruolo va a chi ne ha almeno cinque."
+      goals: [request]
+      recast: {text: "un ascenso", fix: "una promozione", tags: [false-friend]}
+    - learner: "Lo capisco, ma mi permetto di osservare che l'esperienza non si misura solo in anni. Il gruppo internazionale l'ho di fatto coordinato io negli ultimi otto mesi, quando la collega responsabile era in maternità. Se i risultati fossero stati scarsi, capirei l'obiezione; ma sono stati i migliori dell'ufficio."
+    - tutor: "È un argomento a cui è difficile rispondere, lo ammetto. Allora le propongo questo: per sei mesi coordina il gruppo con un incarico a tempo, e poi ne parliamo di nuovo con i numeri in mano."
+      goals: [handle]
+    - learner: "Mi sembra una proposta equa. Vorrei solo che l'incarico fosse messo per iscritto, con un piccolo aumento dello stipendio per questi sei mesi, e che a giugno ci fosse già in calendario un colloquio di valutazione."
+    - tutor: "Per iscritto e con la data del colloquio, d'accordo; per lo stipendio devo sentire l'ufficio del personale, ma ci proverò. Le mando una mail entro venerdì."
+      goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: C1
+  persona: en-m-traveller
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Capisco il timore, ma io sono favorevole alla chiusura, purché sia graduale. Ho vissuto quattro anni a Lubiana, dove il centro è pedonale da più di dieci anni, e i negozi non sono spariti: sono cambiati."
+    - tutor: "Lubiana non è la nostra città, però. Perché dovrebbe funzionare anche qui?"
+      goals: [position]
+    - learner: "Per due motivi. Il primo è che la gente spende di più quando cammina: si ferma, guarda le vetrine, entra. Il secondo è che il centro è piccolo: di negozi ci sono quaranta in tutto, quasi tutti a cinque minuti a piedi dai parcheggi."
+      errors: [ci-ne]
+      gold: {text: "ci sono quaranta", fix: "ce ne sono quaranta"}
+    - tutor: "Il primo argomento lo sento spesso, il secondo meno. Ma ripeta: «di negozi ci sono quaranta»? Manca una parolina."
+      prompt: {text: "ci sono quaranta", tags: [ci-ne]}
+    - learner: "Ah, sì: ce ne sono quaranta. E i parcheggi sono tutti sul viale, appena fuori dalla zona che si vorrebbe chiudere."
+    - tutor: "Esatto. Però cinque minuti a piedi, per un anziano con la spesa o sotto la pioggia, sono un'eternità. Lei come risponde a chi non può camminare?"
+      goals: [argue]
+    - learner: "È un'obiezione seria, e non voglio liquidarla. Si potrebbe fare come in altre città: una navetta elettrica gratuita ogni dieci minuti, e permessi speciali per chi ha difficoltà a camminare o deve fare consegne."
+    - tutor: "Una navetta costa, e qualcuno dovrà pagarla. Ma lasciamo stare: c'è almeno un punto su cui mi dà ragione?"
+      goals: [counter]
+    - learner: "Sì: sulla velocità. Chiudere tutto da un giorno all'altro sarebbe un errore, e su questo ha ragione lei. Proporrei di cominciare con i fine settimana per sei mesi, misurando gli incassi dei negozi, e di decidere poi in base ai dati, non alle impressioni."
+    - tutor: "Una prova nei fine settimana, con i dati sul tavolo: su questo potrei firmare anch'io. Ne parliamo con l'assessore alla fine dell'incontro."
+      goals: [concede]
