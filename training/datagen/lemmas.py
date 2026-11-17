@@ -3,7 +3,17 @@
 The band checker answers: which words in a tutor reply are outside what a learner at this level
 knows? A content token is in band when its lemma's frequency rank in the seed lemma list is at or
 below the band's ceiling, or it is a closed-class word, a number, a proper noun, part of the
-scenario's key vocabulary, or a new word the reply declared in `newWords`.
+scenario's key vocabulary, or a new word the reply declared in `newWords`. Tokens that echo the
+learner (a word from the preceding learner turn, or the quoted `learnerText` of a prompt or
+recast) are not checked at all: a tutor quoting the learner's own erroneous form ("andarò?") is
+not using vocabulary above the band.
+
+Lemmatising goes beyond the dictionary for forms the band would otherwise reject wrongly:
+
+- elided forms (qualcos'altro, vent'anni, qualcos' altro) try the full form with each final vowel
+- adverbs in -mente count as their adjective (correttamente -> corretto, facilmente -> facile)
+- absolute superlatives count as their base (benissimo -> bene, lunghissimo -> lungo)
+- `data/cognates.txt` lists transparent cognates known from A1 (italiano, problema, telefono)
 """
 
 from __future__ import annotations
@@ -23,6 +33,7 @@ from spec.levels import LevelBand
 TRAINING_DIR = Path(__file__).resolve().parents[1]
 DEFAULT_LEMMA_FILE = TRAINING_DIR / "data" / "lemmas.seed-v1.tsv"
 DEFAULT_CORE_VOCAB_FILE = TRAINING_DIR / "data" / "core_vocab.tsv"
+DEFAULT_COGNATES_FILE = TRAINING_DIR / "data" / "cognates.txt"
 
 # A core-vocabulary lemma listed at level L gets this effective rank: inside L's band ceiling.
 _CORE_RANK = {"A1": 1, "A2": 501, "B1": 1001, "B2": 2001}
@@ -49,10 +60,96 @@ IRREGULAR_FORMS = {
     "persi": "perdere",
     "perse": "perdere",
     "po": "poco",
+    "benissimo": "bene",
+    "benissima": "bene",
+    "malissimo": "male",
+    "malissima": "male",
 }
-_SUPERLATIVE = re.compile(r"^(.{3,})issim[oaie]$")
+_SUPERLATIVE = re.compile(r"^(.{2,})issim[oaie]$")
+_ADVERB = re.compile(r"^(.{3,})mente$")
+# Spelled-out numbers ("trentacinque", "duecentocinquanta", "ventitré") are as easy as digits.
+_NUMBER_WORD = re.compile(
+    r"^(?:(?:un|due|tre|quattro|cinque|sei|sette|otto|nove)?cento|(?:due|tre|quattro|cinque|sei"
+    r"|sette|otto|nove|dieci)?mila|mille)?"
+    r"(?:venti?|trenta?|quaranta?|cinquanta?|sessanta?|settanta?|ottanta?|novanta?)?"
+    r"(?:uno|due|tré|tre|quattro|cinque|sei|sette|otto|nove|dieci|undici|dodici|tredici"
+    r"|quattordici|quindici|sedici|diciassette|diciotto|diciannove)?$"
+)
 
-_WORD = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]+(?:['\u2019][A-Za-zÀ-ÖØ-öø-ÿ]+)*|\d+(?:[.,]\d+)*")
+# Present-tense and imperative endings, longest first, with the infinitive endings they can come
+# from. The dictionary lemmatiser picks one reading of a homograph ("paga" the noun, "usa" the
+# country, "sveglio" the adjective), so verb readings are added as extra candidates; a guess
+# only counts when the lemma list knows that infinitive.
+_VERB_ENDINGS: tuple[tuple[str, tuple[str, ...]], ...] = (
+    ("iscono", ("ire",)),
+    ("iscano", ("ire",)),
+    ("iamo", ("are", "ere", "ire")),
+    ("iate", ("are", "ere", "ire")),
+    ("isco", ("ire",)),
+    ("isci", ("ire",)),
+    ("isce", ("ire",)),
+    ("isca", ("ire",)),
+    ("ano", ("are", "ere", "ire")),
+    ("ono", ("ere", "ire")),
+    ("ino", ("are",)),
+    ("ate", ("are",)),
+    ("ete", ("ere",)),
+    ("ite", ("ire",)),
+    ("o", ("are", "ere", "ire")),
+    ("i", ("are", "ere", "ire")),
+    ("a", ("are", "ere", "ire")),
+    ("e", ("are", "ere", "ire")),
+)
+
+
+_ACTION_NOUN = re.compile(r"^(.{3,})([ai])zion[ei]$")
+
+
+def action_noun_verbs(word: str) -> list[str]:
+    """The verb behind an action noun: `riparazione -> riparare`, `spedizione -> spedire`.
+
+    A tutor that may say "riparare" can say "la riparazione"; the guess only counts when the
+    verb is known or allowed.
+    """
+    match = _ACTION_NOUN.match(word)
+    if not match:
+        return []
+    stem, vowel = match.groups()
+    return [stem + "are"] if vowel == "a" else [stem + "ire", stem + "ere"]
+
+
+_SHORT_IMPERATIVE_VERBS = {"di": "dire", "fa": "fare", "da": "dare", "sta": "stare", "va": "andare"}
+_SHORT_IMPERATIVE = re.compile(r"^(di|fa|da|sta|va)(?:mm|tt|ll|cc|gl|nn)[a-z]*$")
+
+
+def is_number_word(word: str) -> bool:
+    """Whether `word` is a spelled-out cardinal number (`trentacinque`, `duemila`)."""
+    return bool(word) and _NUMBER_WORD.match(word) is not None
+
+
+def verb_guesses(word: str) -> list[str]:
+    """Infinitives a present-tense or imperative form could belong to (unchecked guesses).
+
+    `paga -> pagare`, `usi -> usare`, `svegli -> svegliare`, `paghi -> pagare`,
+    `capisci -> capire`. Most guesses are not words; callers keep the ones in their list.
+    """
+    out: list[str] = []
+    for ending, infinitives in _VERB_ENDINGS:
+        if not word.endswith(ending) or len(word) - len(ending) < 2:
+            continue
+        stem = word[: -len(ending)]
+        stems = [stem]
+        if stem.endswith(("ch", "gh")):  # paghi -> pagare, cerchi -> cercare
+            stems.append(stem[:-1])
+        if ending[0] == "i":  # studi, studiamo -> studiare (the stem keeps its i)
+            stems.append(stem + "i")
+        for st in stems:
+            out.extend(st + inf for inf in infinitives)
+    return out
+
+
+# A word may end in an apostrophe when it is elided before a space ("qualcos' altro").
+_WORD = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ]+(?:['\u2019][A-Za-zÀ-ÖØ-öø-ÿ]+)*['\u2019]?|\d+(?:[.,]\d+)*")
 _ELISION = re.compile(r"^([A-Za-zÀ-ÖØ-öø-ÿ]+)['\u2019]([A-Za-zÀ-ÖØ-öø-ÿ]+)$")
 _SENTENCE_END = re.compile(r"(?<=[.!?…])\s+")
 
@@ -299,17 +396,33 @@ def strip_accents(text: str) -> str:
     return "".join(c for c in unicodedata.normalize("NFD", text) if unicodedata.category(c) != "Mn")
 
 
-def tokenize(text: str) -> list[str]:
-    """Word tokens; elided forms (l'acqua, c'è) are split into two tokens."""
-    tokens: list[str] = []
+@dataclass(frozen=True)
+class Token:
+    """A word token; `elided` marks the first half of an elision (qualcos in qualcos'altro)."""
+
+    text: str
+    elided: bool = False
+
+
+def tokens(text: str) -> list[Token]:
+    """Word tokens with elision marked; elided forms (l'acqua, c'è) become two tokens."""
+    out: list[Token] = []
     for match in _WORD.finditer(text):
         word = match.group(0)
+        if word[-1] in "'\u2019":
+            out.append(Token(word[:-1], elided=True))
+            continue
         elided = _ELISION.match(word)
         if elided:
-            tokens.extend((elided.group(1), elided.group(2)))
+            out.extend((Token(elided.group(1), elided=True), Token(elided.group(2))))
         else:
-            tokens.append(word)
-    return tokens
+            out.append(Token(word))
+    return out
+
+
+def tokenize(text: str) -> list[str]:
+    """Word tokens; elided forms (l'acqua, c'è) are split into two tokens."""
+    return [t.text for t in tokens(text)]
 
 
 def split_sentences(text: str) -> list[str]:
@@ -329,6 +442,21 @@ class Lemmatizer(Protocol):
 class SimplemmaLemmatizer:
     """Dictionary lemmatiser (simplemma, MIT) with an enclitic-pronoun fallback."""
 
+    @staticmethod
+    def _verb_readings(word: str) -> list[str]:
+        """Verb guesses for a known Italian form only, so a learner's "sapo" stays unknown."""
+        import simplemma  # noqa: PLC0415 - heavy dictionary load only when used
+
+        if not simplemma.is_known(word, lang="it"):
+            return []
+        return verb_guesses(word) + action_noun_verbs(word)
+
+    @staticmethod
+    def _imperative_reading(word: str) -> list[str]:
+        """Short imperatives with a doubled clitic: dimmi, fammi, dallo, stammi, vacci."""
+        match = _SHORT_IMPERATIVE.match(word)
+        return [_SHORT_IMPERATIVE_VERBS[match.group(1)]] if match else []
+
     def lemmas(self, word: str) -> list[str]:
         import simplemma  # noqa: PLC0415 - heavy dictionary load only when used
 
@@ -340,12 +468,31 @@ class SimplemmaLemmatizer:
         if word in IRREGULAR_FORMS:
             candidates.insert(1, IRREGULAR_FORMS[word])
         superlative = _SUPERLATIVE.match(word)
-        if superlative:  # tantissimo -> tanto
-            candidates.append(lemma(superlative.group(1) + "o"))
+        if superlative:  # tantissimo -> tanto, grandissimo -> grande, lunghissimo -> lungo
+            stem = superlative.group(1)
+            if stem.endswith(("ch", "gh")):
+                stem = stem[:-1]
+            candidates.extend((lemma(stem + "o"), lemma(stem + "e")))
+        adverb = _ADVERB.match(word)
+        if adverb:  # correttamente -> corretto, velocemente -> veloce, facilmente -> facile
+            stem = adverb.group(1)
+            if stem.endswith("a"):
+                adjective = stem[:-1] + "o"
+            elif stem.endswith(("l", "r")):
+                adjective = stem + "e"
+            else:
+                adjective = stem
+            candidates.extend((adjective, lemma(adjective)))
         if len(word) > 4 and word[-1] in "aie":  # vista -> visto -> vedere
             candidates.append(lemma(word[:-1] + "o"))
+        candidates.extend(self._verb_readings(word))
+        candidates.extend(self._imperative_reading(word))
         for clitic in _CLITICS:
-            if word.endswith(clitic) and len(word) > len(clitic) + 3:
+            stem_len = len(word) - len(clitic)
+            # far-le, dar-ti, dir-gli: a three-letter infinitive stem ending in r is long enough.
+            if word.endswith(clitic) and (
+                stem_len > 3 or (stem_len == 3 and word[stem_len - 1] == "r")
+            ):
                 stem = word[: -len(clitic)]
                 candidates.append(lemma(stem))
                 if stem.endswith("r"):  # mangiar-lo -> mangiare
@@ -367,8 +514,10 @@ class LemmaList:
         cls,
         path: Path = DEFAULT_LEMMA_FILE,
         core_vocab: Path | None = DEFAULT_CORE_VOCAB_FILE,
+        cognates: Path | None = DEFAULT_COGNATES_FILE,
     ) -> LemmaList:
-        """Seed ranks, lowered for the curated core vocabulary (see `data/core_vocab.tsv`)."""
+        """Seed ranks, lowered for the curated core vocabulary (`data/core_vocab.tsv`) and the
+        transparent cognates (`data/cognates.txt`, known from A1)."""
         ranks: dict[str, int] = {}
 
         def add(lemma: str, rank: int) -> None:
@@ -388,6 +537,10 @@ class LemmaList:
             for row in csv.DictReader(lines, delimiter="\t"):
                 for word in row["lemma"].split():
                     add(word, _CORE_RANK[row["level"]])
+        if cognates is not None:
+            for line in cognates.read_text(encoding="utf-8").splitlines():
+                if line.strip() and not line.startswith("#"):
+                    add(line.strip(), _CORE_RANK["A1"])
         return cls(ranks)
 
     def rank(self, lemma: str) -> int | None:
@@ -432,6 +585,17 @@ class BandChecker:
         self._list = lemma_list
         self._lemmatizer = lemmatizer
 
+    def candidates(self, token: Token) -> list[str]:
+        """Candidate lemmas of a token; an elided stem also tries each restored final vowel."""
+        lower = token.text.lower()
+        found = self._lemmatizer.lemmas(lower)
+        if token.elided:
+            for vowel in "aeio":  # qualcos -> qualcosa, vent -> venti, quest -> questo
+                for c in self._lemmatizer.lemmas(lower + vowel):
+                    if c not in found:
+                        found.append(c)
+        return found
+
     def lemma_set(self, words: Iterable[str]) -> set[str]:
         """Every candidate lemma of every token in `words` (for allowed-vocabulary lists)."""
         out: set[str] = set()
@@ -445,26 +609,46 @@ class BandChecker:
         text: str,
         band: LevelBand,
         allowed: Sequence[str] = (),
+        echoed: Iterable[str] = (),
     ) -> BandReport:
+        """Out-of-band tokens of `text`.
+
+        `allowed` is extra vocabulary (key vocab, declared new words), matched by lemma.
+        `echoed` is text the tutor may quote back (the learner's turn, a feedback's
+        `learnerText`); any token form found in it is skipped, so a quoted error is not checked.
+        """
         allowed_lemmas = self.lemma_set(allowed)
+        echo = {t.lower() for phrase in echoed for t in tokenize(phrase)}
         out: list[OutOfBand] = []
         content = 0
         for sentence in split_sentences(text):
-            for index, token in enumerate(tokenize(sentence)):
+            for index, tok in enumerate(tokens(sentence)):
+                token = tok.text
                 lower = token.lower()
-                if token[0].isdigit() or lower in CLOSED_CLASS:
+                if (
+                    token[0].isdigit()
+                    or lower in CLOSED_CLASS
+                    or lower in echo
+                    or is_number_word(lower)
+                ):
                     continue
                 if index > 0 and token[0].isupper():
                     continue  # proper noun mid-sentence
                 content += 1
-                candidates = self._lemmatizer.lemmas(lower)
+                candidates = self.candidates(tok)
                 if allowed_lemmas.intersection(candidates):
                     continue
                 ranks = [r for r in (self._list.rank(c) for c in candidates) if r is not None]
                 best = min(ranks) if ranks else None
                 if best is not None and best <= band.lemma_ceiling:
                     continue
-                if index == 0 and best is None and token[0].isupper() and candidates == [lower]:
+                if (
+                    index == 0
+                    and best is None
+                    and token[0].isupper()
+                    and candidates == [lower]
+                    and not tok.elided
+                ):
                     continue  # sentence-initial word unknown to list and lemmatiser: a name
                 out.append(OutOfBand(token=token, lemma=candidates[-1], rank=best))
         return BandReport(

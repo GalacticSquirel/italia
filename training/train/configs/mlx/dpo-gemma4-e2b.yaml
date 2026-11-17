@@ -1,0 +1,30 @@
+# DPO (MLX) on judge-ranked pairs, LoRA on top of the fused SFT model. The reference
+# log-probabilities are computed once from the SFT model and cached, so only one model is in
+# memory: ~38 GB peak at micro-batch 1 (chosen + rejected are scored together).
+# After a full SFT run: --set policyModel=out/mlx/sft-gemma4-e2b-full/final
+extends: ../_gemma4-e2b-base.yaml
+name: mlx-dpo-gemma4-e2b
+backend: mlx
+policyModel: out/mlx/sft-gemma4-e2b-lora/final
+method: lora
+lora: {r: 32, alpha: 32, dropout: 0.0, targetModules: all-linear}
+pairsFile: work/dpo/pairs.jsonl
+valFraction: 0.03
+beta: 0.1
+lossType: sigmoid
+sftLossWeight: 0.2
+maxLength: 4096
+optim:
+  learningRate: 2.0e-5
+  epochs: 1
+  perDeviceBatchSize: 1
+  gradientAccumulationSteps: 16
+  warmupRatio: 0.1
+  lrScheduler: cosine
+  optimizer: adamw
+gradientCheckpointing: true
+loggingSteps: 5
+evalSteps: 100
+saveSteps: 50
+mlx: {keepCheckpoints: 3}
+outputDir: out/mlx/dpo-gemma4-e2b

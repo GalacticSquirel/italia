@@ -11,6 +11,9 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any, Literal
 
+from datagen.feedback_check import check_dialogue as check_feedback
+from datagen.feedback_check import scores_from as feedback_scores_from
+from datagen.grammar_check import CheckParseError, check_dialogue, grammaticality_score
 from datagen.jsonutil import JsonExtractError, extract_json_object
 from datagen.records import DialogueRecord, JudgeResult, JudgeScores
 from datagen.synthesis import dialogue_json
@@ -25,6 +28,9 @@ class JudgeParseError(ValueError):
 RUBRIC = """\
 Score each criterion from 1 (bad) to 5 (excellent):
 - grammaticality: the tutor's Italian is correct and natural (any mistake caps this at 2).
+  Check especially: c'è / ci sono agree with the first noun that follows ("c'è un balcone",
+  not "ci sono un balcone"); a preposition the verb needs goes before an interrogative or
+  relative pronoun ("A quale fermata deve scendere?", not "Quale fermata deve scendere?").
 - levelFit: vocabulary and sentence length suit the learner's level and the stated limits.
 - feedback: errors are handled prompt-first then recast, one error at a time, never correcting
   correct learner turns, never giving the answer away in a prompt.
@@ -32,7 +38,10 @@ Score each criterion from 1 (bad) to 5 (excellent):
   scenarioProgress are accurate.
 - scenario: the tutor stays in role, keeps the task moving towards its goals, one question at a
   time.
-- tone: warm, encouraging, brief; no lecturing."""
+- tone: warm, encouraging, brief; no lecturing.
+- promptWithholds: every prompt leaves the correction to the learner. A prompt that contains
+  the corrected form, or the correct alternative, scores 1 (after "cucina piccolo", the prompt
+  "Come si dice la cucina piccola?" gives the answer away). Score 5 when there is no prompt."""
 
 _DIALOGUE_PROMPT = """\
 You are an expert teacher of Italian as a foreign language, reviewing a dialogue between an
@@ -50,7 +59,8 @@ instructions:
 
 Reply with JSON only:
 {{"scores": {{"grammaticality": n, "levelFit": n, "feedback": n, "annotationAccuracy": n,
-"scenario": n, "tone": n}}, "issues": ["short description of each problem, with turn number"]}}
+"scenario": n, "tone": n, "promptWithholds": n}},
+"issues": ["short description of each problem, with turn number"]}}
 """
 
 _CANDIDATES_PROMPT = """\
@@ -73,7 +83,7 @@ The tutor's instructions:
 
 Score every candidate. Reply with JSON only:
 {{"candidates": [{{"id": "A", "scores": {{"grammaticality": n, "levelFit": n, "feedback": n,
-"annotationAccuracy": n, "scenario": n, "tone": n}}}}, ...]}}
+"annotationAccuracy": n, "scenario": n, "tone": n, "promptWithholds": n}}}}, ...]}}
 """
 
 _PAIRWISE_PROMPT = """\
@@ -126,7 +136,11 @@ def parse_scores(raw: Any) -> JudgeScores:
     missing = [k for k in _KEYS if k not in raw]
     if missing:
         raise JudgeParseError(f"missing scores: {missing}")
-    return JudgeScores(**{py: _clamp(raw[wire]) for wire, py in _KEYS.items()})
+    withholds = raw.get("promptWithholds")
+    return JudgeScores(
+        **{py: _clamp(raw[wire]) for wire, py in _KEYS.items()},
+        prompt_withholds=None if withholds is None else _clamp(withholds),
+    )
 
 
 def _extract(text: str) -> dict[str, Any]:
@@ -187,8 +201,17 @@ def _conversation_text(messages: Sequence[Mapping[str, str]]) -> str:
 
 
 def judge_dialogue(
-    record: DialogueRecord, client: ChatClient, *, max_tokens: int
+    record: DialogueRecord,
+    client: ChatClient,
+    *,
+    max_tokens: int,
+    grammar_check: bool = False,
+    feedback_check: bool = False,
 ) -> tuple[JudgeResult, Usage]:
+    """Score a dialogue on the rubric. With `grammar_check`, grammaticality comes from the
+    per-turn check in datagen.grammar_check, and with `feedback_check`, feedback and
+    promptWithholds come from datagen.feedback_check, instead of the rubric's own numbers, which
+    local judges set to 5 almost regardless of mistakes."""
     prompt = _DIALOGUE_PROMPT.format(
         level=record.level.value,
         system_prompt=render_system_prompt(record.context),
@@ -201,7 +224,35 @@ def judge_dialogue(
         max_tokens=max_tokens,
         json_output=True,
     )
-    return parse_dialogue_judgement(completion.text, client.name), completion.usage
+    result = parse_dialogue_judgement(completion.text, client.name)
+    usage = completion.usage
+    scores = result.scores
+    issues = list(result.issues)
+    update: dict[str, Any] = {}
+    try:
+        if grammar_check:
+            errors, cost = check_dialogue(record, client)
+            usage = usage + cost
+            scores = scores.model_copy(update={"grammaticality": grammaticality_score(len(errors))})
+            issues += [f"Turn {e.turn}: '{e.quote}' -> '{e.fix}'" for e in errors]
+            update["grammar_errors"] = errors
+        if feedback_check:
+            problems, cost = check_feedback(record, client)
+            usage = usage + cost
+            has_prompt = any(
+                t.output is not None and t.output.annotations.prompt for t in record.turns
+            )
+            new = feedback_scores_from(problems, has_prompt)
+            if new["prompt_withholds"] is None:
+                new["prompt_withholds"] = scores.prompt_withholds  # nothing to withhold
+            scores = scores.model_copy(update=new)
+            issues += [f"Turn {p.turn}: {p.kind}: '{p.quote}' ({p.note})" for p in problems]
+            update["feedback_problems"] = problems
+    except CheckParseError as err:
+        raise JudgeParseError(str(err)) from err
+    if not update:
+        return result, usage
+    return result.model_copy(update={**update, "scores": scores, "issues": issues}), usage
 
 
 def judge_candidates(

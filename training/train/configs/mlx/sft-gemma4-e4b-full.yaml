@@ -1,0 +1,28 @@
+# Full fine-tune of Gemma 4 E4B with MLX: needs 96 GB+ (about 72 GB peak at micro-batch 2).
+# The token and per-layer embeddings stay frozen (they are ~3.4B of the ~7.4B language-model
+# parameters and barely move in SFT); unfreezing them roughly doubles the optimizer memory.
+extends: ../_gemma4-e4b-base.yaml
+name: mlx-sft-gemma4-e4b-full
+method: full
+backend: mlx
+baseModel:
+  freezePatterns:
+    [vision_tower, audio_tower, embed_vision, embed_audio, multi_modal_projector, embed_tokens]
+trainFile: work/sft/sft.train.jsonl
+valFile: work/sft/sft.val.jsonl
+maxSeqLength: 4096
+optim:
+  learningRate: 1.0e-5
+  epochs: 2
+  perDeviceBatchSize: 2
+  gradientAccumulationSteps: 8
+  warmupRatio: 0.03
+  lrScheduler: cosine
+  optimizer: adamw
+  weightDecay: 0.01
+gradientCheckpointing: true
+loggingSteps: 10
+evalSteps: 250
+saveSteps: 100
+mlx: {keepCheckpoints: 2, clearCacheEvery: 50}
+outputDir: out/mlx/sft-gemma4-e4b-full

@@ -1,5 +1,8 @@
 """Direct preference optimisation on judge-ranked pairs, starting from the SFT model.
 
+    # Apple Silicon (MLX):
+    uv run python -m train.dpo -c train/configs/mlx/dpo-gemma4-e4b.yaml
+    # NVIDIA (TRL):
     uv run python -m train.dpo -c train/configs/dpo-gemma4-e4b.yaml
     uv run accelerate launch --config_file train/configs/accelerate-fsdp-8gpu.yaml \\
         -m train.dpo -c train/configs/dpo-gemma4-e4b.yaml
@@ -146,8 +149,22 @@ def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     parser = argparse.ArgumentParser(prog="python -m train.dpo")
     parser.add_argument("-c", "--config", required=True)
+    parser.add_argument("--no-resume", action="store_true", help="MLX: ignore checkpoints")
+    parser.add_argument(
+        "--set",
+        action="append",
+        default=[],
+        metavar="KEY=VALUE",
+        help="override a config value, e.g. optim.perDeviceBatchSize=4 (repeatable)",
+    )
     args = parser.parse_args(argv)
-    print(f"saved {run(load_dpo_config(Path(args.config)))}")
+    config = load_dpo_config(Path(args.config), args.set)
+    if config.backend == "mlx":
+        from train.mlx_dpo import run as run_mlx
+
+        print(f"saved {run_mlx(config, resume=not args.no_resume)}")
+    else:
+        print(f"saved {run(config)}")
     return 0
 
 

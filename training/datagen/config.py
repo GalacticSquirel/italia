@@ -12,6 +12,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from pydantic.alias_generators import to_camel
 
 from datagen.lemmas import TRAINING_DIR
+from datagen.records import JUDGE_CRITERIA, JudgeScores
 from datagen.teacher import ModelEndpoint
 from spec.levels import Level
 
@@ -89,6 +90,48 @@ class JudgeConfig(ConfigModel):
     temperature: float = 0.0
     max_tokens: int = 1200
     min_overall: float = Field(default=3.8, description="Dialogues below this are dropped.")
+    min_scores: dict[str, float] = Field(
+        default_factory=lambda: {"grammaticality": 4.0, "feedback": 4.0, "promptWithholds": 4.0},
+        description=(
+            "Per-criterion floors (wire names, e.g. grammaticality). The mean hides a single bad "
+            "criterion: grammaticality 2 with six 5s still averages 4.57."
+        ),
+    )
+    grammar_check: bool = Field(
+        default=True,
+        description=(
+            "Score grammaticality from a per-tutor-turn check (datagen.grammar_check) instead of "
+            "the rubric's number. About 1 + (tutor turns) + (flags) short judge calls per dialogue."
+        ),
+    )
+    feedback_check: bool = Field(
+        default=True,
+        description=(
+            "Score feedback and promptWithholds from a per-turn check of prompt and recast turns "
+            "(datagen.feedback_check) instead of the rubric's numbers."
+        ),
+    )
+
+    @model_validator(mode="after")
+    def _known_criteria(self) -> JudgeConfig:
+        unknown = set(self.min_scores) - set(JUDGE_CRITERIA)
+        if unknown:
+            raise ValueError(f"unknown judge criteria in minScores: {sorted(unknown)}")
+        return self
+
+    def accepts(self, scores: JudgeScores) -> bool:
+        """Whether a judgement passes the mean threshold and every per-criterion floor.
+
+        A criterion the judge did not score (promptWithholds without a prompt) has no floor.
+        """
+        if scores.overall < self.min_overall:
+            return False
+        values = scores.by_criterion()
+        for name, floor in self.min_scores.items():
+            value = values.get(name)
+            if value is not None and value < floor:
+                return False
+        return True
 
 
 class TokenEstimate(ConfigModel):
@@ -129,6 +172,11 @@ class DatagenConfig(ConfigModel):
     teacher_max_tokens: int = 8000
     revise_pass: bool = Field(default=True, description="Second teacher pass: critique and fix.")
     max_attempts: int = Field(default=3, ge=1)
+    repair_attempts: int = Field(
+        default=1,
+        ge=0,
+        description="Repair turns per draft: validation errors are sent back to the teacher.",
+    )
     learner: LearnerConfig = LearnerConfig()
     filters: FilterConfig = FilterConfig()
     language_tool: LanguageToolConfig = LanguageToolConfig()

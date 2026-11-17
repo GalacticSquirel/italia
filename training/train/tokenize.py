@@ -85,6 +85,32 @@ def tokenize_conversation(
     return example if example.trainable_tokens else None
 
 
+def tokenize_completion(
+    tokenizer: ChatTokenizer,
+    prompt: Sequence[Mapping[str, str]],
+    answer: Mapping[str, str],
+    *,
+    max_length: int,
+    template_kwargs: Mapping[str, Any] | None = None,
+) -> TokenizedExample | None:
+    """One answer after a multi-turn prompt, with loss only on that answer (DPO).
+
+    Earlier assistant turns in the prompt are context, not targets. Returns None when the whole
+    sequence does not fit: a preference pair with a truncated answer would compare halves.
+    """
+    kwargs = dict(template_kwargs or {})
+    start_ids = _ids(tokenizer, prompt, gen=True, template_kwargs=kwargs)
+    full = _ids(tokenizer, [*prompt, answer], gen=False, template_kwargs=kwargs)
+    if full[: len(start_ids)] != start_ids:
+        raise TemplateMismatchError(
+            "chat template is not prefix-stable; check the template's thinking options"
+        )
+    if len(full) > max_length or len(full) == len(start_ids):
+        return None
+    labels = [IGNORE_INDEX] * len(start_ids) + full[len(start_ids) :]
+    return TokenizedExample(input_ids=full, labels=labels)
+
+
 def pad_batch(
     examples: Sequence[TokenizedExample], pad_token_id: int
 ) -> dict[str, list[list[int]]]:

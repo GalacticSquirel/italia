@@ -7,6 +7,8 @@ Each check returns reasons (empty when it passes) and metrics. The checks are:
 - annotations: learnerText copied from the learner turn, valid tags and goal ids, newWords cap
 - policy: the tutor's feedback moves agree with the plan (prompt first, recast second, no
   over-correction)
+- prompt reveals correction: a prompt reply contains the correction it should leave to the
+  learner (see `prompt_reveal_reasons`)
 - band: share of out-of-band tokens per reply and sentence length, against the level band
 - language: replies are in Italian (A1 may carry a bracketed English gloss)
 - grammar: LanguageTool errors per 100 words in replies, and none in recast corrections
@@ -18,6 +20,7 @@ import json
 import re
 from collections.abc import Sequence
 from dataclasses import dataclass, field
+from difflib import SequenceMatcher
 from functools import cache
 from typing import Any
 
@@ -25,12 +28,13 @@ import jsonschema
 
 from datagen.config import FilterConfig
 from datagen.languagetool import GrammarChecker, errors_per_100_words
-from datagen.lemmas import BandChecker, tokenize
+from datagen.lemmas import CLOSED_CLASS, BandChecker, tokenize
 from datagen.records import DialogueRecord, FilterResult
 from spec.levels import Level, band_for
 from spec.models import Scenario, TutorOutput
 from spec.taxonomy import SPEC_DIR, error_tags
 
+# Common English words that are not also Italian words ("do" is "I give", "me" as in "a me").
 _ENGLISH = frozenset(
     [
         "the",
@@ -52,13 +56,11 @@ _ENGLISH = frozenset(
         "with",
         "have",
         "has",
-        "do",
         "does",
         "please",
         "thanks",
         "yes",
         "my",
-        "me",
         "we",
         "they",
         "would",
@@ -171,7 +173,9 @@ def check_tutor_turn(
         result.reasons.append("too many new words")
 
     allowed = [*scenario.key_vocab, *(w.lemma for w in ann.new_words)]
-    report = band_checker.check(output.reply, band, allowed)
+    echoed = [previous_learner or ""]
+    echoed.extend(f.learner_text for f in (ann.prompt, ann.recast) if f is not None)
+    report = band_checker.check(output.reply, band, allowed, echoed=echoed)
     result.out_of_band_ratio = report.ratio
     result.content_tokens = report.content_tokens
     result.out_of_band_tokens = len(report.out_of_band)
@@ -206,6 +210,64 @@ def policy_agreement(record: DialogueRecord) -> tuple[float, list[str]]:
         else:
             notes.append(f"turn {index}: expected {plan.expected_move}, got {ann.move}")
     return agree / len(record.plan), notes
+
+
+def _changed_tokens(wrong: str, right: str) -> set[str]:
+    """Tokens of `right` that correct a token of `wrong`: new, not closed-class, and a close
+    variant of a wrong token (piccolo -> piccola, andarò -> andrò)."""
+    wrong_tokens = {t.lower() for t in tokenize(wrong)}
+    out: set[str] = set()
+    for token in (t.lower() for t in tokenize(right)):
+        if token in wrong_tokens or token in CLOSED_CLASS or len(token) < 3:
+            continue
+        if any(SequenceMatcher(None, token, w).ratio() >= 0.75 for w in wrong_tokens):
+            out.add(token)
+    return out
+
+
+def reveals_correction(reply: str, learner_text: str, corrected_text: str) -> bool:
+    """Whether a prompt reply gives away the correction of `learner_text`.
+
+    True when the reply contains the whole corrected span, or any corrected token (a close
+    variant of a wrong token, such as piccola for piccolo).
+    """
+    reply_norm = _norm(reply)
+    corrected = _norm(corrected_text)
+    if corrected and corrected not in _norm(learner_text) and corrected in reply_norm:
+        return True
+    reply_tokens = {t.lower() for t in tokenize(reply)}
+    return bool(_changed_tokens(learner_text, corrected_text) & reply_tokens)
+
+
+def prompt_reveal_reasons(record: DialogueRecord) -> list[str]:
+    """Prompts whose reply contains the correction they should leave to the learner.
+
+    The correction a prompt withholds is known from what follows it: the next recast of the
+    same error (its correctedText), or the learner's next turn when it repairs the error.
+    """
+    reasons: list[str] = []
+    turns = record.turns
+    learner_index = -1
+    for index, turn in enumerate(turns):
+        if turn.output is None:
+            learner_index += 1
+            continue
+        prompt = turn.output.annotations.prompt
+        if prompt is None:
+            continue
+        corrections: list[str] = []
+        for later in turns[index + 1 :]:
+            recast = later.output.annotations.recast if later.output is not None else None
+            if recast is not None and set(recast.error_tags) & set(prompt.error_tags):
+                corrections.append(recast.corrected_text)
+                break
+        nxt = learner_index + 1
+        repairs = nxt < len(record.plan) and record.plan[nxt].kind == "repair-success"
+        if index + 1 < len(turns) and (repairs or not record.plan):
+            corrections.append(turns[index + 1].text)
+        if any(reveals_correction(turn.output.reply, prompt.learner_text, c) for c in corrections):
+            reasons.append(f"turn {index}: prompt reveals the correction")
+    return reasons
 
 
 def filter_dialogue(
@@ -245,6 +307,7 @@ def filter_dialogue(
         if turn.output.annotations.recast is not None:
             corrections.append(turn.output.annotations.recast.corrected_text)
 
+    reasons.extend(prompt_reveal_reasons(record))
     agreement, notes = policy_agreement(record)
     metrics["policy_agreement"] = agreement
     if agreement < config.min_policy_agreement:

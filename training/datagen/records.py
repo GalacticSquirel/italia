@@ -47,6 +47,17 @@ class FilterResult(WireModel):
     metrics: dict[str, float] = Field(default_factory=dict)
 
 
+JUDGE_CRITERIA = (
+    "grammaticality",
+    "levelFit",
+    "feedback",
+    "annotationAccuracy",
+    "scenario",
+    "tone",
+    "promptWithholds",
+)
+
+
 class JudgeScores(WireModel):
     grammaticality: float = Field(ge=1, le=5)
     level_fit: float = Field(ge=1, le=5)
@@ -54,6 +65,21 @@ class JudgeScores(WireModel):
     annotation_accuracy: float = Field(ge=1, le=5)
     scenario: float = Field(ge=1, le=5)
     tone: float = Field(ge=1, le=5)
+    prompt_withholds: float | None = Field(default=None, ge=1, le=5)
+    """Prompts leave the correction to the learner. None for judgements made before this
+    criterion existed (and for dialogues without a prompt, where it is not asked)."""
+
+    def by_criterion(self) -> dict[str, float | None]:
+        """Scores keyed by wire name (promptWithholds is None when it was not asked)."""
+        return {
+            "grammaticality": self.grammaticality,
+            "levelFit": self.level_fit,
+            "feedback": self.feedback,
+            "annotationAccuracy": self.annotation_accuracy,
+            "scenario": self.scenario,
+            "tone": self.tone,
+            "promptWithholds": self.prompt_withholds,
+        }
 
     @property
     def overall(self) -> float:
@@ -65,13 +91,45 @@ class JudgeScores(WireModel):
             self.scenario,
             self.tone,
         ]
+        if self.prompt_withholds is not None:
+            values.append(self.prompt_withholds)
         return sum(values) / len(values)
+
+
+class GrammarError(WireModel):
+    """A mistake in a tutor turn confirmed by the judge's per-turn grammar check."""
+
+    turn: int = Field(ge=0, description="Index into DialogueRecord.turns.")
+    quote: str
+    fix: str
+
+
+FeedbackKind = Literal["reveals", "corrects-correct", "multiple"]
+
+
+class FeedbackProblem(WireModel):
+    """A problem with a prompt or recast confirmed by the judge's per-turn feedback check."""
+
+    turn: int = Field(ge=0, description="Index into DialogueRecord.turns.")
+    kind: FeedbackKind
+    quote: str
+    note: str = ""
 
 
 class JudgeResult(WireModel):
     scores: JudgeScores
     issues: list[str] = Field(default_factory=list)
     judge: str = ""
+    feedback_problems: list[FeedbackProblem] = Field(
+        default_factory=list,
+        description="From datagen.feedback_check; feedback and promptWithholds are scored from "
+        "these when the check ran. Empty for judgements made without it.",
+    )
+    grammar_errors: list[GrammarError] = Field(
+        default_factory=list,
+        description="From datagen.grammar_check; grammaticality is scored from these when the "
+        "check ran. Empty for judgements made without it.",
+    )
 
     @property
     def overall(self) -> float:
@@ -91,6 +149,8 @@ class DialogueRecord(WireModel):
     teacher: str
     usage: Usage = Usage()
     revised: bool = False
+    repaired: bool = False
+    parse_notes: list[str] = Field(default_factory=list)
     filter: FilterResult | None = None
     judge: JudgeResult | None = None
 

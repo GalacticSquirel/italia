@@ -1,0 +1,53 @@
+# Local teacher and judge on the Mac Studio: an open-weight instruct model served by mlx-lm's
+# OpenAI-compatible server on the same machine. No API key, no per-token cost; the estimator
+# reports wall-clock hours from `teacher.throughput` (measure yours with `datagen bench`).
+#
+#   scripts/serve-teacher.sh mlx-community/Qwen3.5-122B-A10B-4bit
+#   uv run python -m datagen estimate -c datagen/configs/local-mac.yaml
+#   scripts/run-round.sh datagen/configs/local-mac.yaml 10000
+#
+# serve-teacher.sh sizes mlx_lm.server by memory. On 64 GB (Qwen3-Next-80B-A3B-Instruct-4bit) it
+# uses decode concurrency 8, prompt concurrency 2 and --prompt-cache-bytes 2 GiB; optionally
+# raise the GPU wired limit first: sudo sysctl iogpu.wired_limit_mb=57344. Keep maxConcurrency
+# (LOCAL_CONCURRENCY) equal to the decode concurrency.
+#
+# Round 1 is 10k jobs (TARGET_DIALOGUES). The job list is prefix-stable, so raising the target to
+# 57000 later resumes in the same output folder and only generates the remaining jobs.
+# Pick the model for your RAM from the table in training/README.md and set LOCAL_TEACHER_MODEL.
+extends: train.yaml
+name: local-v1
+outputDir: work/datagen/local-v1
+targetDialogues: ${TARGET_DIALOGUES:-10000}
+
+teacher:
+  protocol: openai
+  baseUrl: ${LOCAL_TEACHER_URL:-http://127.0.0.1:8080/v1}
+  model: ${LOCAL_TEACHER_MODEL:-mlx-community/Qwen3.5-122B-A10B-4bit}
+  apiKeyEnv: null
+  pricing: {inputPerMtok: 0, outputPerMtok: 0}
+  maxConcurrency: ${LOCAL_CONCURRENCY:-8}
+  timeoutS: 3600
+  maxRetries: 3
+  # Hybrid-thinking models (Qwen3.5) must answer directly; mlx-lm passes this to the template.
+  extraBody: {chat_template_kwargs: {enable_thinking: false}}
+  # Planning defaults for Qwen3.5-122B-A10B 4-bit on an M3 Ultra; replace with `datagen bench`.
+  throughput:
+    promptTokensPerSec: ${LOCAL_PROMPT_TPS:-400}
+    generationTokensPerSec: ${LOCAL_GEN_TPS:-150}
+# A local teacher is slower than an API; the revise pass costs ~45% of the time. Keep it for
+# quality unless the schedule is tight (REVISE=false).
+revisePass: ${REVISE:-true}
+
+judge:
+  endpoint:
+    protocol: openai
+    baseUrl: ${LOCAL_JUDGE_URL:-${LOCAL_TEACHER_URL:-http://127.0.0.1:8080/v1}}
+    model: ${LOCAL_JUDGE_MODEL:-${LOCAL_TEACHER_MODEL:-mlx-community/Qwen3.5-122B-A10B-4bit}}
+    apiKeyEnv: null
+    pricing: {inputPerMtok: 0, outputPerMtok: 0}
+    maxConcurrency: ${LOCAL_CONCURRENCY:-8}
+    timeoutS: 3600
+    extraBody: {chat_template_kwargs: {enable_thinking: false}}
+    throughput:
+      promptTokensPerSec: ${LOCAL_PROMPT_TPS:-400}
+      generationTokensPerSec: ${LOCAL_GEN_TPS:-150}
