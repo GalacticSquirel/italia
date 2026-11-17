@@ -73,8 +73,9 @@ Replies stay inside the level band: the lemma ceiling, the scenario vocabulary, 
 declared new words, and the sentence length and count limits in `spec/levels.py`. Error tags map
 to the content package's grammar point ids, so the app can turn conversation errors into reviews.
 
-After changing the models, run `uv run python -m spec export-schema`. A test fails while the
-committed schemas are stale. Bump `SPEC_VERSION` for any change to the output format or prompt.
+After changing the spec (models, prompt, levels, tags or scenarios), run
+`uv run python -m spec export-schema`. It writes every generated file, including the app's copy of
+the spec in `packages/core/src/tutor/spec.generated.ts`, and a test fails while any is stale. Bump `SPEC_VERSION` for any change to the output format or prompt.
 llama.rn enforces `spec/schema/tutor_output.v1.schema.json` as a grammar on the phone. The app
 must render the prompt from `spec/system_prompt.v1.txt` exactly as `render.py` does.
 

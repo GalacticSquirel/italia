@@ -34,9 +34,20 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
 
+      # The SDK's expected patch versions move with every Expo release, so checking them here
+      # would turn main red without a commit. They are reported by the next step instead.
       - name: expo-doctor
         working-directory: apps/mobile
+        env:
+          EXPO_DOCTOR_SKIP_DEPENDENCY_VERSION_CHECK: '1'
         run: npx expo-doctor
+
+      - name: Expo SDK patch versions (advisory)
+        working-directory: apps/mobile
+        continue-on-error: true
+        run: >-
+          npx expo install --check ||
+          { echo "::warning title=Expo patch releases::Run npx expo install --fix in apps/mobile"; exit 1; }
 
   training:
     name: Training pipeline (Python)

@@ -6,8 +6,7 @@ import jsonschema
 import pytest
 from pydantic import ValidationError
 
-from spec.__main__ import SCHEMA_DIR, dump, schemas
-from spec.bundle import GENERATED_DIR, generated_files, render_cases, scenario_bundle
+from spec.bundle import SCHEMA_DIR, render_cases, scenario_bundle, stale_outputs
 from spec.levels import BANDS, Level, band_for
 from spec.models import START_MESSAGE, ErrorHistoryItem, LearnerProfile, Turn, TutorContext
 from spec.policy import expected_move, pick_target_error, prompted_tags
@@ -17,18 +16,8 @@ from spec.taxonomy import error_tags, grammar_points, tags_for_level
 from tests.helpers import context, output
 
 
-def test_committed_schemas_match_models() -> None:
-    for name, schema in schemas().items():
-        assert (SCHEMA_DIR / name).read_text(encoding="utf-8") == dump(schema), (
-            f"{name} is stale: run `python -m spec export-schema`"
-        )
-
-
 def test_committed_generated_files_are_current() -> None:
-    for name, data in generated_files().items():
-        assert (GENERATED_DIR / name).read_text(encoding="utf-8") == dump(data), (
-            f"{name} is stale: run `python -m spec export-schema`"
-        )
+    assert stale_outputs() == [], "stale generated files: run `python -m spec export-schema`"
 
 
 def test_scenario_bundle_validates_against_scenario_schema() -> None:
