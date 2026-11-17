@@ -11,7 +11,7 @@ import {
   schedulerScheduledDaysMiddleware,
   schedulerStatsMiddleware,
 } from 'ts-fsrs';
-import { FSRS6_DEFAULT_WEIGHTS, FSRS6Model } from 'ts-fsrs/models/fsrs-6';
+import { FSRS6_DEFAULT_WEIGHTS, FSRS6Model, forgettingCurve } from 'ts-fsrs/models/fsrs-6';
 
 import type { CardSchedule, CardState, Rating, ReviewResult } from './types';
 
@@ -113,6 +113,23 @@ function copySchedule(card: CardSchedule): CardSchedule {
     due: new Date(card.due.getTime()),
     lastReview: card.lastReview === null ? null : new Date(card.lastReview.getTime()),
   };
+}
+
+/**
+ * Probability that the learner can recall a card at `now`, from the FSRS-6
+ * forgetting curve with default weights. Elapsed time is measured in
+ * fractional days since the last review.
+ *
+ * @returns a number in [0, 1]; 0 for a card that has never been reviewed
+ * @throws RangeError when `now` is not a valid date
+ */
+export function retrievability(card: CardSchedule, now: Date): number {
+  assertValidDate(now, 'now');
+  if (card.state === 'new' || card.lastReview === null || card.stability <= 0) {
+    return 0;
+  }
+  const elapsedDays = Math.max(0, (now.getTime() - card.lastReview.getTime()) / MS_PER_DAY);
+  return forgettingCurve(FSRS6_DEFAULT_WEIGHTS, elapsedDays, card.stability);
 }
 
 /**

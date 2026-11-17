@@ -284,6 +284,7 @@ def filter_dialogue(
     previous_learner: str | None = None
     ratios: list[float] = []
     replies: list[str] = []
+    answered: list[str | None] = []
     corrections: list[str] = []
     for index, turn in enumerate(record.turns):
         if turn.output is None:
@@ -304,6 +305,7 @@ def filter_dialogue(
         reasons.extend(f"turn {index}: {r}" for r in check.reasons)
         ratios.append(check.out_of_band_ratio)
         replies.append(turn.output.reply)
+        answered.append(previous_learner)
         if turn.output.annotations.recast is not None:
             corrections.append(turn.output.annotations.recast.corrected_text)
 
@@ -313,7 +315,7 @@ def filter_dialogue(
     if agreement < config.min_policy_agreement:
         reasons.append(f"policy agreement {agreement:.0%}: {'; '.join(notes[:3])}")
 
-    lt_rate = errors_per_100_words(grammar, replies)
+    lt_rate = errors_per_100_words(grammar, replies, answered)
     metrics["lt_errors_per_100_words"] = lt_rate
     if lt_rate > config.max_lt_errors_per_100_words:
         reasons.append(f"LanguageTool: {lt_rate:.1f} errors per 100 words")
