@@ -6,7 +6,7 @@ import { FIXTURE_SEED } from '@/testing/fixtureSeed';
 
 import { getContentIndex } from './content';
 import { buildCurriculum, frontierGrammar } from './curriculum';
-import { resolvePrompt } from './prompts';
+import { resolvePrompt, SPOKEN_PROMPT_MAX_WORDS, wordCount } from './prompts';
 
 let t: TestDatabase;
 
@@ -68,6 +68,33 @@ describe('curriculum', () => {
     expect([...kinds].some((k) => k === 'sentence_production' || k === 'dictation')).toBe(true);
     for (const c of second.candidates)
       expect(resolvePrompt({ ...c, reps: 0 }, content)).not.toBeNull();
+  });
+
+  it('adds short known sentences as spoken prompts, up to the speaking limit', () => {
+    const content = getContentIndex(createRepositories(t.db));
+    const recognised = content.lemmas.map((l) => introduced('recognition', l.id));
+    const frontier = buildCurriculum(content, recognised, { words: 0, practice: 1 });
+    const unlock = introduced('grammar_cloze', frontier.candidates[0]?.targetId ?? 0);
+    const words = [...recognised, unlock];
+    const none = buildCurriculum(content, words, { words: 0, practice: 0 });
+    expect(none.unlockedGrammarIds.size).toBeGreaterThan(0);
+    expect(none.candidates.some((c) => c.kind === 'spoken_prompt')).toBe(false);
+
+    const { candidates } = buildCurriculum(content, words, { words: 0, practice: 0, speaking: 2 });
+    const spoken = candidates.filter((c) => c.kind === 'spoken_prompt');
+    expect(spoken).toHaveLength(2);
+    for (const c of spoken) {
+      expect(c.id).toBe(`spoken_prompt:${String(c.targetId)}:spoken`);
+      const prompt = resolvePrompt({ ...c, reps: 0 }, content);
+      expect(prompt?.kind).toBe('spoken_prompt');
+      if (prompt?.kind !== 'spoken_prompt') continue;
+      expect(wordCount(prompt.sentence.it)).toBeLessThanOrEqual(SPOKEN_PROMPT_MAX_WORDS);
+      expect(c.grammarIds.every((g) => none.unlockedGrammarIds.has(g))).toBe(true);
+    }
+
+    // Words not yet introduced: no spoken prompts.
+    const fresh = buildCurriculum(content, [], { words: 0, practice: 0, speaking: 2 });
+    expect(fresh.candidates.some((c) => c.kind === 'spoken_prompt')).toBe(false);
   });
 
   it('puts frontier grammar first even when shorter practice sentences fill the limit', () => {

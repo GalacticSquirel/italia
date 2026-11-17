@@ -18,13 +18,24 @@
  *   whose main grammar point is unlocked (or is the frontier, for grammar
  *   cloze items, which is how points unlock). One practice item follows
  *   every two new words.
+ * - **Speaking** (`spoken_prompt`, Phase 4): short sentences (at most
+ *   {@link SPOKEN_PROMPT_MAX_WORDS} words) whose words have all been
+ *   introduced and whose grammar is unlocked become Pimsleur-style spoken
+ *   prompts, up to `limits.speaking` per day. The session builder gathers
+ *   them, with due spoken reviews, into one speaking block at the end.
  */
 import type { CardKind, NewCandidate } from '@italia/core';
 
 import { cardIdFor, type CardRow, type SentenceRow } from '@/data';
 
 import { grammarFocus, type ContentIndex } from './content';
-import { clozeSentences, grammarBlank } from './prompts';
+import {
+  clozeSentences,
+  grammarBlank,
+  promptModeFor,
+  SPOKEN_PROMPT_MAX_WORDS,
+  wordCount,
+} from './prompts';
 
 /** Items each new word adds: a recognition card and a cloze card. */
 export const ITEMS_PER_NEW_WORD = 2;
@@ -34,6 +45,9 @@ export const PRACTICE_ITEMS_PER_NEW_WORD = 0.5;
 
 /** Card kinds that introduce a new word, counted towards the daily new-word limit. */
 export const NEW_WORD_KIND: CardKind = 'recognition';
+
+/** New spoken prompts per day (the speaking block's new items). */
+export const SPOKEN_PROMPTS_PER_DAY = 3;
 
 /** Most grammar cloze items introduced for the frontier point per day. */
 const FRONTIER_ITEMS = 3;
@@ -64,11 +78,14 @@ export interface CurriculumLimits {
   words: number;
   /** Sentence-practice items still allowed today. */
   practice: number;
+  /** New spoken prompts still allowed today. Defaults to 0. */
+  speaking?: number;
 }
 
 function stateIndex(cards: readonly CardRow[]) {
   const byId = new Map(cards.map((c) => [c.id, c]));
-  const card = (kind: CardKind, targetId: number) => byId.get(cardIdFor(kind, targetId, 'typed'));
+  const card = (kind: CardKind, targetId: number) =>
+    byId.get(cardIdFor(kind, targetId, promptModeFor(kind)));
   /** Introduced: answered at least once. */
   const introduced = (kind: CardKind, targetId: number) => {
     const c = card(kind, targetId);
@@ -129,7 +146,7 @@ const candidate = (
   grammarIds: readonly number[],
   newWord = false,
 ): CurriculumCandidate => ({
-  id: cardIdFor(kind, targetId, 'typed'),
+  id: cardIdFor(kind, targetId, promptModeFor(kind)),
   kind,
   targetId,
   lemmaIds,
@@ -240,6 +257,17 @@ export function buildCurriculum(
   });
   if (pendingCloze) ordered.push(pendingCloze);
   ordered.push(...practiceQueue.slice(p));
+
+  // Speaking: short known sentences, shortest first.
+  const speakingLimit = limits.speaking ?? 0;
+  for (const s of content.sentencesByLength) {
+    if (ordered.filter((c) => c.kind === 'spoken_prompt').length >= speakingLimit) break;
+    if (!knows(s) || wordCount(s.it) > SPOKEN_PROMPT_MAX_WORDS) continue;
+    const focus = grammarFocus(s, content);
+    if (focus !== null && !unlocked.has(focus)) continue;
+    if (!open('spoken_prompt', s.id) || introduced('spoken_prompt', s.id)) continue;
+    ordered.push(candidate('spoken_prompt', s.id, s.lemmaIds, focus === null ? [] : [focus]));
+  }
 
   return {
     candidates: ordered,

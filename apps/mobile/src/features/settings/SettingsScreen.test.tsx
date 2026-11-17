@@ -11,6 +11,7 @@ jest.mock('expo-sharing', () => ({
 }));
 jest.mock('expo-document-picker', () => ({ getDocumentAsync: jest.fn() }));
 jest.mock('expo-file-system', () => ({ File: jest.fn(), Paths: { cache: 'cache' } }));
+jest.mock('expo-router', () => ({ router: { push: jest.fn() } }));
 
 let app: TestApp;
 
@@ -23,6 +24,13 @@ afterEach(() => {
 });
 
 describe('SettingsScreen', () => {
+  it('links to the on-device models', async () => {
+    const { router } = jest.requireMock<{ router: { push: jest.Mock } }>('expo-router');
+    await render(app.wrap(<SettingsScreen />));
+    await fireEvent.press(screen.getByLabelText(/On-device models/));
+    expect(router.push).toHaveBeenCalledWith('/models');
+  });
+
   it('persists daily limits, retention, speech rate and theme', async () => {
     const user = userEvent.setup();
     await render(app.wrap(<SettingsScreen />));

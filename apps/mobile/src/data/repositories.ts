@@ -12,6 +12,7 @@ import {
 import { createErrorRecordRepo, type ErrorRecordRepo } from './ErrorRecordRepo';
 import { newUuid, type IdGenerator } from './ids';
 import { createMetaRepo, type MetaRepo } from './MetaRepo';
+import { createModelFileRepo, type ModelFileRepo } from './ModelFileRepo';
 import { recordReview, type RecordReviewInput } from './recordReview';
 import { createReviewLogRepo, type ReviewLogRepo } from './ReviewLogRepo';
 import type { ReviewLogRow } from './rows';
@@ -33,6 +34,8 @@ export interface Repositories {
   settings: SettingsRepo;
   streak: StreakRepo;
   meta: MetaRepo;
+  /** Install state of on-device model files. */
+  modelFiles: ModelFileRepo;
   /** {@link recordReview} bound to this database. */
   recordReview(input: RecordReviewInput): ReviewLogRow;
 }
@@ -58,6 +61,7 @@ export function createRepositories(db: AppDatabase, options: RepositoryOptions =
     settings: createSettingsRepo(db),
     streak: createStreakRepo(db),
     meta: createMetaRepo(db, newId),
+    modelFiles: createModelFileRepo(db),
     recordReview: (input) => recordReview(db, input, newId),
   };
 }

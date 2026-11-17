@@ -1,8 +1,9 @@
 import { router } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, AppState, KeyboardAvoidingView, Platform, View } from 'react-native';
 
 import { useSettingsStore } from '@/features/settings/settingsStore';
+import type { Prompt, TypedPrompt } from '@/features/study/prompts';
 import { Button, EmptyState, ProgressBar, Screen, Text, useTheme } from '@/ui';
 
 import { AnswerInput } from './components/AnswerInput';
@@ -10,6 +11,7 @@ import { FeedbackPanel } from './components/FeedbackPanel';
 import { GrammarIntroCard } from './components/GrammarIntroCard';
 import { RecognitionCard } from './components/RecognitionCard';
 import { SessionSummaryView } from './components/SessionSummaryView';
+import { SpokenPromptCard } from './components/SpokenPromptCard';
 import { TypedPromptCard } from './components/TypedPromptCard';
 import { useSession, useSessionStore } from './SessionContext';
 
@@ -20,6 +22,13 @@ const ANSWER_LABELS = {
   sentence_production: 'Italian sentence',
   dictation: 'What you heard',
 } as const;
+
+/** A spoken prompt answered by typing is a sentence production. */
+function typedPrompt(prompt: Exclude<Prompt, { kind: 'recognition' }>): TypedPrompt {
+  return prompt.kind === 'spoken_prompt'
+    ? { kind: 'sentence_production', sentence: prompt.sentence, accepted: prompt.accepted }
+    : prompt;
+}
 
 function close() {
   if (router.canGoBack()) router.back();
@@ -62,6 +71,8 @@ export function SessionScreen() {
   const done = queue?.completed.length ?? 0;
   const left = queue?.pending.length ?? 0;
   const itemKey = entry ? `${entry.item.cardId}:${String(entry.attempt)}` : 'none';
+  // The learner chose to type this spoken prompt (or has no microphone).
+  const [typedKey, setTypedKey] = useState<string | null>(null);
 
   let body;
   switch (phase) {
@@ -115,17 +126,32 @@ export function SessionScreen() {
         );
         break;
       }
+      if (prompt.kind === 'spoken_prompt' && phase === 'prompt' && typedKey !== itemKey && entry) {
+        body = (
+          <SpokenPromptCard
+            key={itemKey}
+            cardId={entry.item.cardId}
+            prompt={prompt}
+            speechRate={speechRate}
+            onAnswered={actions.answerSpoken}
+            onTypeInstead={() => {
+              setTypedKey(itemKey);
+            }}
+          />
+        );
+        break;
+      }
       body = (
         <View key={itemKey} style={{ gap: spacing.lg }}>
           <TypedPromptCard
-            prompt={prompt}
+            prompt={typedPrompt(prompt)}
             speechRate={speechRate}
             autoPlay={autoPlay || prompt.kind === 'dictation'}
             answered={phase === 'feedback'}
           />
           {phase === 'feedback' && feedback ? (
             <FeedbackPanel
-              prompt={prompt}
+              prompt={typedPrompt(prompt)}
               feedback={feedback}
               speechRate={speechRate}
               autoPlay={autoPlay && prompt.kind !== 'dictation'}
@@ -134,8 +160,12 @@ export function SessionScreen() {
             />
           ) : (
             <AnswerInput
-              label={ANSWER_LABELS[prompt.kind]}
-              sentence={prompt.kind === 'sentence_production' || prompt.kind === 'dictation'}
+              label={ANSWER_LABELS[typedPrompt(prompt).kind]}
+              sentence={
+                prompt.kind === 'sentence_production' ||
+                prompt.kind === 'dictation' ||
+                prompt.kind === 'spoken_prompt'
+              }
               onSubmit={actions.submitTyped}
             />
           )}

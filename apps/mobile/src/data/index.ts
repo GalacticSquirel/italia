@@ -42,6 +42,12 @@ export {
 } from './ErrorRecordRepo';
 export { cardIdFor, newUuid, type IdGenerator } from './ids';
 export { createMetaRepo, META_KEYS, type MetaKey, type MetaRepo } from './MetaRepo';
+export {
+  createModelFileRepo,
+  type ModelFileRepo,
+  type ModelFileRow,
+  type ModelFileStatus,
+} from './ModelFileRepo';
 export { recordReview, type RecordReviewInput } from './recordReview';
 export { createRepositories, type Repositories, type RepositoryOptions } from './repositories';
 export {

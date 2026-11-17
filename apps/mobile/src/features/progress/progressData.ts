@@ -17,7 +17,7 @@ import { toSchedule, type CardRow, type Repositories } from '@/data';
 import { getContentIndex } from '@/features/study/content';
 import { unlockedGrammar } from '@/features/study/curriculum';
 import { schedulerFor } from '@/features/study/planning';
-import { isPhase1Kind } from '@/features/study/prompts';
+import { isShownKind } from '@/features/study/prompts';
 import { deviceLocalDate, startOfLocalDate } from '@/features/study/time';
 
 /** Days of history used to measure the learning rate. */
@@ -112,7 +112,7 @@ export function loadProgress(repos: Repositories, now: Date): ProgressData {
     days: FORECAST_DAYS,
     scheduler,
     cards: rows
-      .filter((r) => !r.suspended && r.kind !== 'recognition' && isPhase1Kind(r.kind))
+      .filter((r) => !r.suspended && r.kind !== 'recognition' && isShownKind(r.kind))
       .map((r) => ({ kind: r.kind, schedule: toSchedule(r) })),
   });
 

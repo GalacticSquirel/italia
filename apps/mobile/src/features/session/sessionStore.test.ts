@@ -1,9 +1,12 @@
+import { createScheduler } from '@italia/core';
+
 import { createRepositories, importSeedContent, type Repositories } from '@/data';
 import {
   createTestDatabase,
   sequentialIds,
   type TestDatabase,
 } from '@/db/testing/createTestDatabase';
+import { getContentIndex } from '@/features/study/content';
 import { planToday } from '@/features/study/planning';
 import { FIXTURE_SEED } from '@/testing/fixtureSeed';
 
@@ -48,6 +51,38 @@ function step(store: SessionStore, correct = true) {
 }
 
 describe('session store', () => {
+  it('ends with the speaking block and records a spoken answer with its transcript', () => {
+    repos.settings.set('dailyNewLimit', 1);
+    const scheduler = createScheduler();
+    const past = new Date(clock - 30 * 86_400_000);
+    const reviewed = scheduler.review(scheduler.newCard(past), 'good', past).card;
+    const sentenceId = getContentIndex(repos).sentencesByLength[0]?.id ?? 0;
+    repos.cards.createMany([
+      { kind: 'spoken_prompt', targetId: sentenceId, promptMode: 'spoken', schedule: reviewed },
+    ]);
+    const store = createSessionStore({ repos, now });
+    store.getState().start();
+    let guard = 0;
+    const atSpoken = () => {
+      const { phase, prompt } = store.getState();
+      return phase === 'prompt' && prompt?.kind === 'spoken_prompt';
+    };
+    while (!atSpoken() && guard++ < 100) step(store);
+    const s = store.getState();
+    expect(s.prompt?.kind).toBe('spoken_prompt');
+    // The speaking block comes after the rest of the plan.
+    expect(s.queue?.completed.length).toBeGreaterThan(0);
+    expect(s.queue?.completed.every((c) => c.item.kind !== 'spoken_prompt')).toBe(true);
+
+    tick(10_000);
+    s.answerSpoken({ rating: 'hard', transcript: 'detto così', latencyMs: 4200 });
+    const log = repos.reviewLogs.listRecent(1)[0];
+    expect(log?.cardId).toBe(`spoken_prompt:${String(sentenceId)}:spoken`);
+    expect(log?.rating).toBe('hard');
+    expect(log?.answer).toBe('detto così');
+    expect(log?.latencyMs).toBe(4200);
+  });
+
   it('runs a first session end to end and persists every review', () => {
     repos.settings.set('dailyNewLimit', 4);
     const store = createSessionStore({ repos, now });
