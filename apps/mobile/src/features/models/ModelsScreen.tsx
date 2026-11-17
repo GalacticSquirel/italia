@@ -150,6 +150,9 @@ export function ModelsScreen({ capability = deviceCapability() }: ModelsScreenPr
   const models = useModels();
   const manager = useModelManager();
   const ram = capability.totalMemoryBytes;
+  const audio = models.filter((model) => model.spec.kind === 'audio-pack');
+  // Engine builds download with the model that needs them.
+  const speech = models.filter((m) => m.spec.kind !== 'engine' && m.spec.kind !== 'audio-pack');
   return (
     <Screen edges={['left', 'right', 'bottom']}>
       <Card>
@@ -164,12 +167,26 @@ export function ModelsScreen({ capability = deviceCapability() }: ModelsScreenPr
           {`Models use ${formatBytes(manager.storageUsedBytes())} of storage. Downloads use Wi-Fi, resume if interrupted and are checked before use. Everything runs on this phone.`}
         </Text>
       </Card>
-      {models
-        // Engine builds download with the model that needs them.
-        .filter((model) => model.spec.kind !== 'engine')
-        .map((model) => (
-          <ModelCard key={model.spec.id} model={model} />
-        ))}
+      {audio.length > 0 ? (
+        <>
+          <Text variant="heading" accessibilityRole="header">
+            Recorded audio
+          </Text>
+          <Text color="textMuted">
+            Words, lesson sentences and stories read aloud, played without a connection once
+            downloaded. Words are said by native speakers where a recording exists.
+          </Text>
+          {audio.map((model) => (
+            <ModelCard key={model.spec.id} model={model} />
+          ))}
+          <Text variant="heading" accessibilityRole="header">
+            Speech and conversation
+          </Text>
+        </>
+      ) : null}
+      {speech.map((model) => (
+        <ModelCard key={model.spec.id} model={model} />
+      ))}
     </Screen>
   );
 }

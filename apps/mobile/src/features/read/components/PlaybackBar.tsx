@@ -34,12 +34,23 @@ function playLabel(state: PlaybackState): string {
 function voiceLine(state: PlaybackState): string | null {
   if (state.status === 'error') return `Playback stopped: ${state.error ?? 'unknown error'}`;
   if (state.voice === null) return null;
-  const voice = state.voice === 'neural' ? 'On-device neural voice' : 'Device voice';
+  const voice =
+    state.voice === 'recorded'
+      ? `Recorded audio${state.voiceName ? ` (${state.voiceName})` : ''}`
+      : state.voice === 'neural'
+        ? 'On-device neural voice'
+        : 'Device voice';
   const timing =
     state.timing === 'engine'
-      ? 'word highlighting from the voice'
+      ? state.voice === 'recorded'
+        ? 'words highlighted as they are said'
+        : 'word highlighting from the voice'
       : 'word highlighting estimated from text length';
-  return `${voice} · ${timing}`;
+  const hint =
+    state.voice === 'recorded'
+      ? ''
+      : ' · Download recorded audio in Settings, On-device models, for natural voices';
+  return `${voice} · ${timing}${hint}`;
 }
 
 /**

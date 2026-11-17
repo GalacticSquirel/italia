@@ -172,7 +172,9 @@ describe('reader', () => {
     await user.press(screen.getByRole('button', { name: 'Play sentence 2' }));
     expect(services.audio.spoken.map((s) => s.text)).toContain('La casa è molto bella.');
     expect(
-      await screen.findByText('Device voice · word highlighting estimated from text length'),
+      await screen.findByText(
+        /^Device voice · word highlighting estimated from text length · Download recorded audio/,
+      ),
     ).toBeOnTheScreen();
   });
 

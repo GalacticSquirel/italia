@@ -39,6 +39,19 @@ chooses.
   shared under CC BY-SA with attribution if it is ever distributed.
 - The app's attributions screen should list every source above.
 
+## Audio packs (built by `audio/`, downloaded by the app)
+
+| Source                                                                                                     | Used for                                                 | Licence                                     |
+| ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------- |
+| [Lingua Libre](https://lingualibre.org) recordings on Wikimedia Commons (`Lingua_Libre_pronunciation-ita`) | Native speakers saying single words (`audio-words`)      | Per file: CC BY-SA 4.0, CC BY 4.0 or CC0    |
+| [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) voices `if_sara`, `im_nicola`                      | Sentence and story audio (`audio-voice-sara`, `-nicola`) | Apache-2.0                                  |
+| [Piper](https://github.com/rhasspy/piper) voice `it_IT-serena-medium`                                      | Words without a native recording (`audio-words`)         | MIT (Piper); voice data CC BY 4.0           |
+| torchaudio MMS forced aligner                                                                              | Word timings for story audio (not shipped)               | CC BY-NC 4.0 model, used at build time only |
+
+Each native clip records its author, licence and Commons page in its shard index, and the app
+shows the speaker's name when it plays one. CC BY-SA recordings are redistributed unmodified
+apart from trimming silence, levelling loudness and re-encoding.
+
 ## Ear-training clips (built locally, not bundled yet)
 
 | Source                                                       | Version used                                            | Used for                                                                  | Licence |

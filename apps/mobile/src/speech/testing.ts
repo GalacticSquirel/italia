@@ -1,12 +1,15 @@
 /**
  * Test-only fakes of the speech services. Never import from app code.
  */
-import type { ProviderAvailability } from '@italia/core';
+import type { AudioClip, ProviderAvailability } from '@italia/core';
 import {
   createFakePronunciationScorer,
   createFakeSpeechToText,
   createFakeTextToSpeech,
 } from '@italia/core/testing';
+
+import type { Clip } from '@/audio/clipLibrary';
+import { createFakeClipLibrary } from '@/audio/testing';
 
 import type { AudioOut, SpeakOptions } from './audio/audioOut';
 import type { Recorder, Recording } from './audio/recorder';
@@ -48,18 +51,21 @@ export function createFakeRecorder(): Recorder & { starts: number } {
 export function createFakeAudioOut(voices = 2): AudioOut & {
   spoken: { text: string; options: SpeakOptions }[];
   played: number;
+  playedClips: { clip: AudioClip; rate: number }[];
   background: boolean;
 } {
   const fake = {
     spoken: [] as { text: string; options: SpeakOptions }[],
     played: 0,
+    playedClips: [] as { clip: AudioClip; rate: number }[],
     background: false,
     speak(text: string, options: SpeakOptions) {
       fake.spoken.push({ text, options });
       return Promise.resolve();
     },
-    play() {
+    play(clip: AudioClip, options?: { rate?: number }) {
       fake.played += 1;
+      fake.playedClips.push({ clip, rate: options?.rate ?? 1 });
       return Promise.resolve();
     },
     voices(language: string) {
@@ -92,6 +98,8 @@ export interface FakeSpeechOptions {
   mic?: MicStatus;
   /** Status after the learner answers the permission prompt. */
   micAfterRequest?: MicStatus;
+  /** Pre-recorded clips by text (none by default). */
+  clips?: Record<string, Partial<Clip>>;
 }
 
 /** Fake speech services built on the `@italia/core/testing` provider fakes. */
@@ -118,6 +126,7 @@ export function createFakeSpeechServices(options: FakeSpeechOptions = {}) {
     tts: createFakeTextToSpeech({ availability: options.ttsAvailability ?? 'needs_download' }),
     recorder: createFakeRecorder(),
     audio: createFakeAudioOut(),
+    clips: createFakeClipLibrary(options.clips),
     mic: {
       get: () => Promise.resolve(mic),
       request: () => {

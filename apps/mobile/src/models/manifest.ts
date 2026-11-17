@@ -24,7 +24,7 @@ const FileSchema = z.object({
   sha256: z.string().regex(/^[0-9a-f]{64}$/),
   sizeBytes: z.number().int().positive(),
   verification: z.enum(['downloaded', 'published', 'built']),
-  extract: z.literal('tar.bz2').optional(),
+  extract: z.enum(['tar.bz2', 'tar.zst']).optional(),
   available: z.boolean().optional(),
 });
 
@@ -64,6 +64,9 @@ export const ManifestSchema = z.object({
   version: z.literal(2),
   models: z.array(ModelSchema),
 });
+
+/** Archive formats a model file can be unpacked from. */
+export type ArchiveFormat = 'tar.bz2' | 'tar.zst';
 
 /** One file of a model. */
 export type ModelFileSpec = z.infer<typeof FileSchema>;

@@ -28,12 +28,14 @@ export interface PlaybackSentence {
 /** Where the word highlighting comes from. */
 export type TimingSource = 'engine' | 'estimated';
 
-/** Which voice is speaking. */
-export type VoiceKind = 'neural' | 'device';
+/** Which voice is speaking: a downloaded recording, the on-device voice, or the device's own. */
+export type VoiceKind = 'recorded' | 'neural' | 'device';
 
 /** A sentence ready to play. */
 export interface PreparedSpeech {
   voice: VoiceKind;
+  /** The speaker's name, when known (recorded audio). */
+  voiceName?: string;
   /**
    * Token timings from the start of playback, when known before playing
    * (from the engine, or estimated). Null when only live word events come.
@@ -88,6 +90,7 @@ export interface PlaybackState {
   /** Where word highlighting comes from, once known. */
   timing: TimingSource | null;
   voice: VoiceKind | null;
+  voiceName: string | null;
   error: string | null;
 }
 
@@ -153,6 +156,7 @@ export function createPlaybackController(options: PlaybackOptions): PlaybackCont
     rate: clampRate(options.rate ?? 1),
     timing: null,
     voice: null,
+    voiceName: null,
     error: null,
   };
   /** The running playback, if any; replaced (and aborted) on every change. */
@@ -212,7 +216,12 @@ export function createPlaybackController(options: PlaybackOptions): PlaybackCont
         return;
       }
       if (cancelled()) return;
-      set({ status: 'playing', voice: speech.voice, timing: speech.timing });
+      set({
+        status: 'playing',
+        voice: speech.voice,
+        voiceName: speech.voiceName ?? null,
+        timing: speech.timing,
+      });
       if (scope === 'story' && i + 1 < sentences.length) {
         prepared(i + 1).catch(() => undefined);
       }

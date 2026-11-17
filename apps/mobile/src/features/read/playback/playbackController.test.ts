@@ -1,5 +1,6 @@
 import { createFakeTextToSpeech } from '@italia/core/testing';
 
+import { createFakeClipLibrary } from '@/audio/testing';
 import { createFakeAudioOut } from '@/speech/testing';
 
 import {
@@ -11,7 +12,7 @@ import {
   type SentenceSpeaker,
 } from './playbackController';
 import { createStorySpeaker } from './speakers';
-import { estimateTimings, tokenAtChar, wordAt } from './timings';
+import { estimateTimings, recordedTimings, tokenAtChar, wordAt } from './timings';
 
 /** A sentence with one token per space-separated word. */
 function sentence(text: string): PlaybackSentence {
@@ -251,6 +252,7 @@ describe('story speaker', () => {
     const speaker = createStorySpeaker({
       tts: createFakeTextToSpeech({ availability: 'needs_download' }),
       audio,
+      clips: createFakeClipLibrary(),
     });
     const speech = await speaker.prepare(s, 1, new AbortController().signal);
     expect(speech).toMatchObject({ voice: 'device', timing: 'estimated' });
@@ -265,6 +267,7 @@ describe('story speaker', () => {
     const speaker = createStorySpeaker({
       tts: createFakeTextToSpeech({ availability: 'ready' }),
       audio,
+      clips: createFakeClipLibrary(),
     });
     const speech = await speaker.prepare(
       { text: 'Luca ha un lavoro', tokens: s.tokens },
@@ -275,5 +278,56 @@ describe('story speaker', () => {
     expect(speech.timings).toHaveLength(4);
     await speech.play(new AbortController().signal, () => undefined);
     expect(audio.played).toBe(1);
+  });
+
+  it('prefers a recorded clip, with aligned timings scaled to the speed', async () => {
+    const audio = createFakeAudioOut();
+    const clips = createFakeClipLibrary({
+      'Luca ha un lavoro.': {
+        durationMs: 2000,
+        voice: { id: 'kokoro-im_nicola', name: 'Nicola', gender: 'male', native: false },
+        timings: [
+          { charStart: 0, charEnd: 4, startMs: 100, endMs: 500 },
+          { charStart: 5, charEnd: 7, startMs: 600, endMs: 800 },
+          { charStart: 8, charEnd: 10, startMs: 900, endMs: 1000 },
+          { charStart: 11, charEnd: 17, startMs: 1100, endMs: 1800 },
+        ],
+      },
+    });
+    const speaker = createStorySpeaker(
+      { tts: createFakeTextToSpeech({ availability: 'ready' }), audio, clips },
+      { voiceSeed: 'story-1' },
+    );
+    const speech = await speaker.prepare(s, 0.5, new AbortController().signal);
+    expect(speech).toMatchObject({ voice: 'recorded', voiceName: 'Nicola', timing: 'engine' });
+    expect(speech.timings?.[0]).toEqual([200, 1000]);
+    expect(clips.lookups.at(-1)?.query).toEqual({ packId: 'audio-voice-sara' });
+    await speech.play(new AbortController().signal, () => undefined);
+    expect(audio.playedClips[0]?.rate).toBe(0.5);
+    expect(audio.spoken).toEqual([]);
+  });
+});
+
+describe('recorded timings', () => {
+  const tokens = [
+    { start: 0, end: 4 },
+    { start: 5, end: 6 },
+    { start: 7, end: 12 },
+  ];
+  it('maps aligned words to tokens and fills a gap from its neighbours', () => {
+    const words = [
+      { charStart: 0, charEnd: 4, startMs: 0, endMs: 300 },
+      { charStart: 7, charEnd: 12, startMs: 500, endMs: 900 },
+    ];
+    expect(recordedTimings(words, tokens, 1000)).toEqual([
+      [0, 300],
+      [300, 500],
+      [500, 900],
+    ]);
+  });
+  it('gives up when most tokens have no aligned word', () => {
+    expect(
+      recordedTimings([{ charStart: 7, charEnd: 12, startMs: 0, endMs: 1 }], tokens, 10),
+    ).toBeNull();
   });
 });

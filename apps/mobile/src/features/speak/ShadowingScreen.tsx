@@ -175,7 +175,9 @@ export function ShadowingScreen() {
               <Waveform samples={samplesOf(model)} label="Model" />
             ) : (
               <Text variant="caption" color="textMuted">
-                The model waveform needs the downloaded Italian voice (Settings, On-device models).
+                {model?.kind === 'file'
+                  ? 'Played from recorded audio, which has no waveform here: compare by ear.'
+                  : 'The model waveform needs the downloaded Italian voice (Settings, On-device models).'}
               </Text>
             )
           ) : null}
