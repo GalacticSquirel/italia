@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import type { SentenceToken } from '@/db/schema';
+
 // TODO(content): replace this local schema with the canonical seed schema exported by
 // `@italia/content` once that package publishes it. Field names here match the Drizzle insert
 // types of `lemma`, `sentence` and `grammar_point` in `@/db/schema`.
@@ -17,6 +19,15 @@ export const SeedLemmaSchema = z.object({
   audioRef: z.string().nullable().optional(),
 });
 
+/**
+ * A word token: `[start, end, ...refs]` with UTF-16 offsets into `it` (end
+ * exclusive). Under `extra.tokens` (as `@italia/content` writes them) each
+ * ref is an index into the sentence's `lemmaIds`; in a top-level `tokens`
+ * field each ref is a lemma id. {@link normaliseTokens} turns both into
+ * lemma ids.
+ */
+export const SeedTokenSchema = z.tuple([id, z.number().int().positive()]).rest(id);
+
 /** A sentence row in the seed. */
 export const SeedSentenceSchema = z.object({
   id,
@@ -26,7 +37,34 @@ export const SeedSentenceSchema = z.object({
   grammarIds: idList,
   source: z.string().min(1),
   licence: z.string().min(1),
+  /** Word tokens, at the top level or under `extra` as the content pipeline writes them. */
+  tokens: z.array(SeedTokenSchema).nullable().optional(),
+  extra: z.looseObject({ tokens: z.array(SeedTokenSchema).optional() }).optional(),
 });
+
+/**
+ * The sentence's tokens with every ref resolved to a lemma id, dropping
+ * tokens that fall outside the text and refs that resolve to nothing, or
+ * null when the sentence has none.
+ */
+export function normaliseTokens(
+  s: Pick<z.infer<typeof SeedSentenceSchema>, 'it' | 'lemmaIds' | 'tokens' | 'extra'>,
+): SentenceToken[] | null {
+  const byIndex = s.tokens === undefined || s.tokens === null;
+  const raw = byIndex ? s.extra?.tokens : s.tokens;
+  if (raw === undefined || raw === null) return null;
+  const known = new Set(s.lemmaIds);
+  const out: SentenceToken[] = [];
+  for (const [start, end, ...refs] of raw) {
+    if (start >= end || end > s.it.length) continue;
+    const ids = refs.flatMap((ref) => {
+      const id = byIndex ? s.lemmaIds[ref] : ref;
+      return id !== undefined && known.has(id) ? [id] : [];
+    });
+    out.push([start, end, ...ids]);
+  }
+  return out;
+}
 
 /** A grammar point row in the seed. */
 export const SeedGrammarPointSchema = z.object({

@@ -5,7 +5,13 @@ import type { AppDatabase } from '@/db/types';
 
 import { createMetaRepo, META_KEYS } from '../MetaRepo';
 import { chunk } from '../util';
-import { compareSeedVersions, SeedSchema, SeedVersionSchema, type SeedVersion } from './seedSchema';
+import {
+  compareSeedVersions,
+  normaliseTokens,
+  SeedSchema,
+  SeedVersionSchema,
+  type SeedVersion,
+} from './seedSchema';
 
 /** Content table being imported. */
 export type SeedTable = 'grammar_point' | 'lemma' | 'sentence';
@@ -148,7 +154,14 @@ export async function importSeed(
         .run();
     });
     await writeAll('sentence', parsed.sentences, (part) => {
-      db.insert(sentence).values(part).run();
+      db.insert(sentence)
+        .values(
+          part.map((s) => {
+            const { tokens: _tokens, extra: _extra, ...row } = s;
+            return { ...row, tokens: normaliseTokens(s) };
+          }),
+        )
+        .run();
     });
     const meta = createMetaRepo(db, () => '');
     meta.set(META_KEYS.seedVersion, JSON.stringify(parsed.version));

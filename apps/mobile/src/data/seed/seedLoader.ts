@@ -12,7 +12,9 @@ export type SeedLoader = () => Promise<unknown>;
  * Default loader: the seed bundled in the app binary.
  *
  * TODO(content): point this at the seed JSON produced by `packages/content`
- * (for example `assets/seed/seed.json`, copied in by the content build). Until
+ * (`@italia/content/seed.v1.json`). Pass the parsed JSON as is: do not run it
+ * through `toRows()` from `@italia/content`, which drops `extra`, where the
+ * sentence tokens that cloze cards need live; `importSeed` reads them. Until
  * then it loads an empty placeholder seed (version 0). For a large seed,
  * switch to reading the asset file with expo-asset and expo-file-system so it
  * is not parsed as part of the JS bundle.

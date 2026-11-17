@@ -47,8 +47,10 @@ describe('ReviewLogRepo', () => {
       [
         'append',
         'count',
+        'countCardsFirstReviewedBetween',
         'getById',
         'listForCard',
+        'listRecent',
         'listSince',
         'listUnsynced',
         'markSynced',
@@ -108,6 +110,43 @@ describe('ReviewLogRepo', () => {
     expect(repos.reviewLogs.getById(a.id)?.syncedAt).toEqual(at(10));
     expect(repos.reviewLogs.listUnsynced(10).map((r) => r.id)).toEqual([b.id]);
     expect(repos.reviewLogs.markSynced([], at(30))).toBe(0);
+  });
+});
+
+describe('ReviewLogRepo queries for planning', () => {
+  it('lists recent reviews newest first, optionally without some card kinds', () => {
+    const other = repos.cards.create({
+      kind: 'recognition',
+      targetId: 1,
+      promptMode: 'typed',
+      schedule: schedule(),
+    }).id;
+    repos.reviewLogs.append(review(1, 'a'));
+    repos.reviewLogs.append({ ...review(2, 'b'), cardId: other });
+    repos.reviewLogs.append(review(3, 'c'));
+    expect(repos.reviewLogs.listRecent(2).map((r) => r.id)).toEqual(['c', 'b']);
+    expect(
+      repos.reviewLogs.listRecent(5, { excludeKinds: ['recognition'] }).map((r) => r.id),
+    ).toEqual(['c', 'a']);
+  });
+
+  it('counts cards by the time of their first review', () => {
+    const other = repos.cards.create({
+      kind: 'dictation',
+      targetId: 2,
+      promptMode: 'typed',
+      schedule: schedule(),
+    }).id;
+    repos.reviewLogs.append(review(10, 'a'));
+    repos.reviewLogs.append(review(100, 'b'));
+    repos.reviewLogs.append({ ...review(60, 'c'), cardId: other });
+    expect(repos.reviewLogs.countCardsFirstReviewedBetween(at(0), at(50))).toBe(1);
+    expect(repos.reviewLogs.countCardsFirstReviewedBetween(at(50), at(200))).toBe(1);
+    expect(repos.reviewLogs.countCardsFirstReviewedBetween(at(0), at(200))).toBe(2);
+    expect(
+      repos.reviewLogs.countCardsFirstReviewedBetween(at(0), at(200), { kinds: ['dictation'] }),
+    ).toBe(1);
+    expect(repos.reviewLogs.countCardsFirstReviewedBetween(at(0), at(200), { kinds: [] })).toBe(0);
   });
 });
 
