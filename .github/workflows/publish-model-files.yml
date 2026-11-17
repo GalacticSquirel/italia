@@ -1,0 +1,99 @@
+name: Publish model files
+
+# Uploads every file the app downloads (models, voice, CPU-specific engine
+# builds) to the project's Hugging Face repository with
+# models/scripts/publish_files.py, then commits the manifest, pointed at that
+# repository's pinned revision, to the branch this runs on.
+#
+# Needs a repository secret HF_TOKEN or HF_WRITE (a Hugging Face write token) and a
+# repository variable HF_MODELS_REPO (for example OWNER/italia-models).
+# Files already uploaded are skipped, so re-running is cheap.
+
+on:
+  # Started by hand from the Actions tab (the workflow lives on main).
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Model ids to publish, space separated (empty: all)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: publish-model-files
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN || secrets.HF_WRITE }}
+      HF_MODELS_REPO: ${{ vars.HF_MODELS_REPO }}
+      HF_XET_HIGH_PERFORMANCE: '1'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check settings
+        run: |
+          echo "HF_MODELS_REPO=${HF_MODELS_REPO}"
+          if [ -z "$HF_TOKEN" ] || [ -z "$HF_MODELS_REPO" ]; then
+            echo "::error::Set the HF_TOKEN (or HF_WRITE) secret and the HF_MODELS_REPO variable first."
+            exit 1
+          fi
+
+      - name: Free disk space
+        # The largest model is 4.6 GB; files are uploaded one at a time.
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL
+          df -h /
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      # Installs llama.rn, whose postinstall fetches its pinned engine libraries.
+      - run: pnpm install --frozen-lockfile
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - run: pip install 'huggingface_hub[hf_xet]>=0.34'
+
+      - name: Upload files and update the manifest
+        env:
+          ONLY: ${{ inputs.only }}
+        run: |
+          only=()
+          for id in $ONLY; do only+=(--only "$id"); done
+          python -I models/scripts/publish_files.py \
+            --repo "$HF_MODELS_REPO" \
+            --local-dir node_modules/llama.rn/android/src/main/jniLibs \
+            --local-dir models/build \
+            "${only[@]}"
+          pnpm exec prettier --write models/manifest.json
+
+      - name: Commit the manifest
+        run: |
+          if git diff --quiet models/manifest.json; then
+            echo "Manifest unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898900+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Point the model manifest at ${HF_MODELS_REPO}" models/manifest.json
+          git push
+
+      # A push made with the workflow token starts no workflows, so ask for the
+      # APK build explicitly; it leaves the published engine builds out.
+      - name: Rebuild the APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run android-apk.yml --ref "${GITHUB_REF_NAME}" || echo "::warning::Start the Android APK workflow by hand."

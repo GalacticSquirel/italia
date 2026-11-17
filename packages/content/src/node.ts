@@ -1,0 +1,53 @@
+/**
+ * `@italia/content/node`: Node-only helpers (they use `node:fs`, so the app must
+ * not import this entry point; it uses `parseSeed` from the main entry instead).
+ *
+ * @packageDocumentation
+ */
+import { readFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import { parseSeed } from './loader';
+import { type Seed, SEED_VERSION } from './schema';
+import { parseStoriesFile } from './stories/loader';
+import { STORIES_VERSION, type StoriesFile } from './stories/schema';
+import { parseVariantSpellings } from './stories/tagger';
+
+const PACKAGE_DIR = join(dirname(fileURLToPath(import.meta.url)), '..');
+
+/** Absolute path of the committed seed file. */
+export const SEED_FILE = join(PACKAGE_DIR, 'seed', `seed.v${SEED_VERSION}.json`);
+
+/** Absolute path of the bundled stories file. */
+export const STORIES_FILE = join(PACKAGE_DIR, 'seed', `stories.v${STORIES_VERSION}.json`);
+
+/** Absolute path of `seed/manifest.json` (checksums of the bundled files). */
+export const MANIFEST_FILE = join(PACKAGE_DIR, 'seed', 'manifest.json');
+
+/** Absolute path of the story sources (`stories/<series>/<nn>.txt` and `.json`). */
+export const STORIES_DIR = join(PACKAGE_DIR, 'stories');
+
+/** Absolute path of `seed/build-report.json` (seed build statistics). */
+export const BUILD_REPORT_FILE = join(PACKAGE_DIR, 'seed', 'build-report.json');
+
+/**
+ * The variant spellings the seed build merged into base words (`ed` -> `e`,
+ * `po'` -> `poco`), for the story tagger.
+ */
+export async function loadVariantSpellings(): Promise<Map<string, string>> {
+  const report = JSON.parse(await readFile(BUILD_REPORT_FILE, 'utf8')) as {
+    lemmaPipeline?: { variantSpellings?: string[] };
+  };
+  return parseVariantSpellings(report.lemmaPipeline?.variantSpellings ?? []);
+}
+
+/** Read and validate a seed file (defaults to the committed seed). */
+export async function loadSeedFile(path: string = SEED_FILE): Promise<Seed> {
+  return parseSeed(JSON.parse(await readFile(path, 'utf8')));
+}
+
+/** Read and validate a stories file (defaults to the bundled one). */
+export async function loadStoriesFile(path: string = STORIES_FILE): Promise<StoriesFile> {
+  return parseStoriesFile(JSON.parse(await readFile(path, 'utf8')));
+}
