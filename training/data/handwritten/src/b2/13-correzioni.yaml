@@ -1,0 +1,396 @@
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-m-traveller
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno, grazie. È più grande di quello che pensavo. Quanto è l'affitto, e che cosa include esattamente?"
+  - tutor: "Sono 780 euro al mese, con le spese di condominio e il riscaldamento già dentro. Luce e gas invece sono a parte. L'appartamento è arredato, come vede."
+    goals: [rent]
+  - learner: "Bene. E il contratto quanto dura? Nell'ultimo appartamento che ho vissuto ho dovuto pagare tre mesi di caparra, ed erano troppi."
+    errors: [relative-pronoun]
+  - tutor: "Tre mesi sono tanti, è vero. Ma «l'appartamento che ho vissuto»... qui la parola «che» da sola non basta. Come lo direbbe?"
+    prompt: {text: "appartamento che ho vissuto", tags: [relative-pronoun]}
+    goals: [contract]
+  - learner: "Mi scusi, non vedo l'errore. L'appartamento che ho vissuto prima era a Bologna."
+    errors: [relative-pronoun]
+  - tutor: "Nessun problema. Nell'appartamento in cui viveva a Bologna le hanno chiesto troppo, secondo me. Qui la caparra è di due mesi e il contratto dura quattro anni, più altri quattro."
+    recast: {text: "appartamento che", fix: "appartamento in cui", tags: [relative-pronoun]}
+  - learner: "Due mesi va bene. E il riscaldamento funziona? Lavoro di notte e dormo di giorno: la camera che dormo deve essere calda e tranquilla."
+    errors: [relative-pronoun]
+  - tutor: "Capisco, con un lavoro di notte conta molto. Però «la camera che dormo»... è come prima: «che» da solo non basta."
+    prompt: {text: "la camera che dormo", tags: [relative-pronoun]}
+  - learner: "La camera in cui dormo, scusi."
+  - tutor: "Esatto, bravo. La camera dà sul cortile, quindi è tranquilla anche di giorno. Il riscaldamento è centrale e la cucina è stata cambiata da poco. Vuole sapere altro?"
+    goals: [condition]
+  - learner: "Sì, il quartiere com'è? Non lo conosco bene: sono venuto solo una volta, nella sera, e non ho visto molto."
+    errors: [ci-ne, preposition]
+  - tutor: "È una zona tranquilla, con il mercato e il tram sotto casa. Ma «sono venuto solo una volta»... dove? Manca una piccola parola prima di «sono»."
+    prompt: {text: "sono venuto solo una volta", tags: [ci-ne]}
+    goals: [neighbourhood]
+  - learner: "Ah, certo: ci sono venuto solo una volta. Allora mi interessa: vorrei prenderlo, ma ho un cane piccolo e tranquillo. Sarebbe un problema?"
+  - tutor: "Proprio così. Per il cane nessun problema, anche al piano di sopra ne hanno uno. Allora le preparo il contratto e ci vediamo giovedì per firmare."
+    goals: [decide]
+
+- scenario: arte-mostra
+  level: B2
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Sinceramente non mi piace molto. Mi sembra che il pittore ha avuto fretta: è tutto confuso."
+    errors: [subjunctive-use]
+  - tutor: "Ah, che giudizio duro! Però «mi sembra che il pittore ha avuto»... dopo «mi sembra che» ci vuole un'altra forma. Riprovi?"
+    prompt: {text: "Mi sembra che il pittore ha avuto", tags: [subjunctive-use]}
+    goals: [react]
+  - learner: "Sì, mi sembra che ha avuto molta fretta, non ha finito le figure."
+    errors: [subjunctive-use]
+  - tutor: "A me invece non sembra che abbia avuto fretta: voleva proprio questo effetto. Guarda meglio: che cosa vedi?"
+    recast: {text: "che ha avuto", fix: "che abbia avuto", tags: [subjunctive-use]}
+  - learner: "Vedo una città di notte, con molte luci gialle e rosse. Le persone sono dipinti con poche linee, quasi come ombre."
+    errors: [passive]
+  - tutor: "Hai guardato bene. Solo una cosa: «le persone sono dipinti»? Guarda bene l'ultima parola."
+    prompt: {text: "Le persone sono dipinti", tags: [passive]}
+    goals: [describe]
+  - learner: "Le persone sono dipinte con poche linee."
+  - tutor: "Perfetto. Sono quasi ombre, hai ragione, mentre la luce delle strade è fortissima. Secondo te perché l'ha fatto così?"
+  - learner: "Credo che vuole mostrare la velocità della città moderna. Le persone non contano, conta solo il movimiento."
+    errors: [subjunctive-use, spelling]
+  - tutor: "Mi piace molto questa idea! Ma ripeti l'inizio: «credo che vuole»... ti ricordi cosa succede dopo «credo che»?"
+    prompt: {text: "Credo che vuole", tags: [subjunctive-use]}
+    goals: [interpret]
+  - learner: "Credo che voglia mostrare la velocità. Mi ricorda i quadri del Rinascimento che abbiamo visto prima, ma al contrario: lì tutto era fermo e ordinato."
+  - tutor: "Brava, è proprio così: lì la prospettiva dava ordine, qui tutto si muove. Vedi che alla fine il quadro ti ha detto qualcosa? Vieni, nella prossima sala ce n'è uno ancora più strano."
+    goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-f-professional
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri pomeriggio ho lasciato la macchina nel parcheggio del supermercato. Quando ho tornato, il paraurti era rotto."
+    errors: [auxiliary-choice]
+  - tutor: "Mi dispiace. Solo un attimo: «quando ho tornato»? Con un movimento come questo, «ho» non va bene."
+    prompt: {text: "Quando ho tornato", tags: [auxiliary-choice]}
+  - learner: "Quando sono tornata, il paraurti era rotto e l'altra macchina non c'era più."
+  - tutor: "Chiaro, grazie. Quindi il danno è stato fatto mentre lei era dentro a fare la spesa. Sa chi è stato?"
+    goals: [what]
+  - learner: "Sì. Un signore vedeva tutto: un furgone ha fatto marcia indietro e ha colpito la mia macchina. Poi il furgone ha andato via, ma il signore mi ha dato la targa."
+    errors: [tense-aspect, auxiliary-choice]
+  - tutor: "Per fortuna c'era qualcuno. Ma «un signore vedeva tutto»... è un fatto preciso, successo una volta sola: come lo dice?"
+    prompt: {text: "Un signore vedeva tutto", tags: [tense-aspect]}
+  - learner: "Un signore ha visto tutto, e il furgone è andato via subito."
+  - tutor: "Perfetto. Allora la responsabilità è tutta dell'altro: lei non era nemmeno in macchina. Ha il nome di questo signore, oltre alla targa?"
+    goals: [responsibility]
+  - learner: "Sì, ho tutti e due. Però la constatazione amichevole non è stata compilato, perché l'altro autista non c'era."
+    errors: [passive]
+  - tutor: "Capisco, è normale in questi casi. Ma senta: «la constatazione non è stata compilato»? L'ultima parola non va d'accordo con il resto."
+    prompt: {text: "non è stata compilato", tags: [passive]}
+  - learner: "Voglio dire che non è stata compilato da nessuno, è ancora bianca."
+    errors: [passive]
+  - tutor: "Ho capito: non è stata compilata perché mancava l'altra persona. Non importa, bastano la targa, il nome di chi ha visto e alcune foto del danno. Può mandare tutto oggi?"
+    recast: {text: "non è stata compilato", fix: "non è stata compilata", tags: [passive]}
+    goals: [documents]
+  - learner: "Sì, mando tutto subito per mail. E dopo cosa succede? Devo pagare la franchigia anche se non è colpa mia?"
+  - tutor: "No, se la responsabilità è dell'altro lei non paga niente. Entro una settimana verrà fatta la perizia e poi potrà far riparare la macchina. La chiamiamo noi appena abbiamo una data."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Ho cambiato di casa in settembre e vorrei spostare la residenza qui a Bologna."
+    errors: [preposition]
+  - tutor: "Benvenuta a Bologna. Solo una cosa: «ho cambiato di casa»? In italiano qui c'è una parola di troppo."
+    prompt: {text: "Ho cambiato di casa", tags: [preposition]}
+    goals: [request]
+  - learner: "Ho cambiato casa, scusi. Adesso abito da un'amica, in via Roma."
+  - tutor: "Benissimo. Allora servono il modulo per il cambio di residenza, un documento e il permesso di soggiorno. Lei è cittadina europea?"
+  - learner: "Sì, sono spagnola, quindi non ho il permesso di soggiorno. Ma non ho nemmeno un contratto, perché la casa è della mia amica. È necessario che porto qualcos'altro?"
+    errors: [subjunctive-use]
+  - tutor: "Per lei il permesso non serve, infatti. Ma «è necessario che porto»... dopo «è necessario che» la forma cambia. Ci riprova?"
+    prompt: {text: "È necessario che porto", tags: [subjunctive-use]}
+    goals: [documents]
+  - learner: "Sì: è necessario che porto un altro documento, per la casa?"
+    errors: [subjunctive-use]
+  - tutor: "Sì, è necessario che porti una dichiarazione firmata dalla sua amica, con una copia del suo documento. Senza quella la pratica non può essere accettata. Ce l'ha con sé?"
+    recast: {text: "è necessario che porto", fix: "è necessario che porti", tags: [subjunctive-use]}
+  - learner: "No, non ce l'ho. La mia amica è a Madrid per lavoro e torna in due settimane. Posso lasciare oggi il modulo e portare la dichiarazione dopo?"
+    errors: [preposition]
+  - tutor: "Una soluzione c'è, non si preoccupi. Prima però: «torna in due settimane»? Per parlare del futuro quel «in» non funziona."
+    prompt: {text: "torna in due settimane", tags: [preposition]}
+  - learner: "Torna tra due settimane."
+  - tutor: "Giusto. Non serve aspettare: la dichiarazione può essere firmata e mandata per mail, con la copia del documento. Così presentiamo la pratica oggi. Le va bene?"
+    goals: [problem]
+  - learner: "Perfetto, le scrivo subito. E dopo quanto tempo arriva la residenza? Ho sentito che vengono i vigili a casa."
+  - tutor: "Sì, entro 45 giorni i vigili passano a controllare che lei abiti davvero lì. Se non trovano nessuno, lasciano un avviso e tornano. Dopo il controllo la residenza vale dal giorno della domanda."
+    goals: [next]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno. Mi chiamo Daniel Russo, ho trentaquattro anni e vengo da Boston, ma i miei nonni erano di Bari. Da due anni vivo a Milano e lavoro come grafico."
+  - tutor: "Piacere. Si sente, sa, che l'italiano l'ha imparato in famiglia. Che esperienza ha avuto prima di arrivare a Milano?"
+    goals: [intro]
+  - learner: "A Boston ho lavorato per sei anni in una piccola azienda di mobili. Quando ho cominciato ho avuto ventidue anni e disegnavo solo sedie; poi sono diventato responsabile di un progetto."
+    errors: [tense-aspect]
+  - tutor: "Interessante. Però «quando ho cominciato ho avuto ventidue anni»... per dire l'età in quel periodo, userebbe questa forma?"
+    prompt: {text: "ho avuto ventidue anni", tags: [tense-aspect]}
+  - learner: "Sì, ho avuto ventidue anni, ero molto giovane per quel ruolo."
+    errors: [tense-aspect]
+  - tutor: "La capisco: anch'io avevo ventidue anni quando ho cominciato qui. E diventare responsabile di un progetto così presto non è da tutti. Quali sono, secondo lei, i suoi punti di forza?"
+    recast: {text: "ho avuto ventidue anni", fix: "avevo ventidue anni", tags: [tense-aspect]}
+    goals: [experience]
+  - learner: "Sono preciso e lavoro bene in squadra. E poi so ascoltare i clienti: se vuoi, ti faccio vedere alcuni progetti nel mio curriculum."
+    errors: [register]
+  - tutor: "Volentieri, li guardo tra poco. Una piccola cosa, però: «se vuoi, ti faccio vedere»... in un colloquio, con una persona che non conosce, parlerebbe così?"
+    prompt: {text: "se vuoi, ti faccio vedere", tags: [register]}
+  - learner: "Mi scusi! Se vuole, le faccio vedere alcuni progetti. Il mio punto debole invece è che a volte sono lento, perché controllo tutto due volte."
+  - tutor: "Non si preoccupi, capita a tutti. Meglio lento e preciso che veloce e poco attento, almeno nel nostro lavoro. E perché vorrebbe venire proprio da noi?"
+    goals: [strengths]
+  - learner: "Perché fate mobili per spazi piccoli, e mi interessa molto. Se potrei scegliere, lavorerei solo su progetti così."
+    errors: [hypothetical]
+  - tutor: "Fa piacere sentirlo. Ma «se potrei scegliere»... dopo «se», quella forma non si usa. Come lo direbbe?"
+    prompt: {text: "Se potrei scegliere", tags: [hypothetical]}
+    goals: [why]
+  - learner: "Se potessi scegliere, lavorerei solo su progetti così. Posso chiederle una cosa? Con chi lavorerei, in questo ruolo?"
+  - tutor: "Giusto. Lavorerebbe con una squadra di quattro persone, e il primo progetto parte a marzo. Le faremo sapere entro venerdì. Grazie di essere venuto."
+    goals: [questions]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie. Volevo parlarle dei risultati del magazzino. Quest'anno abbiamo ridotto gli errori nelle consegne del trenta per cento, e anche i ritardi sono diminuiti."
+  - tutor: "Li ho visti, e sono numeri che si notano. So anche che molte idee sono venute da lei. Mi dica pure."
+    goals: [results]
+  - learner: "Ecco, da un anno faccio già il lavoro di un coordinatore e ho più responsabilità che prima. Penso che è il momento di avere una promozione."
+    errors: [subjunctive-use, comparative]
+  - tutor: "È vero, le sue responsabilità sono cresciute. Ma «penso che è il momento»... dopo «penso che», quel «è» non mi convince."
+    prompt: {text: "Penso che è il momento", tags: [subjunctive-use]}
+    goals: [request]
+  - learner: "Sì, penso che è il momento giusto, dopo tre anni."
+    errors: [subjunctive-use]
+  - tutor: "Anch'io penso che sia il momento giusto per questo discorso. Le dico però il mio dubbio: il coordinatore parla ogni giorno con i clienti tedeschi, e il suo inglese è ancora debole. Come pensa di fare?"
+    recast: {text: "penso che è il momento", fix: "penso che sia il momento", tags: [subjunctive-use]}
+  - learner: "Lo so, e ho già cominciato un corso di sera. Se l'azienda mi avrebbe pagato un corso l'anno scorso, oggi parlerei molto meglio."
+    errors: [hypothetical]
+  - tutor: "Su questo forse ha ragione. Però «se l'azienda mi avrebbe pagato»... dopo «se» quella forma non funziona. Vuole riprovare?"
+    prompt: {text: "Se l'azienda mi avrebbe pagato", tags: [hypothetical]}
+  - learner: "Se l'azienda mi avesse pagato un corso, oggi parlerei meglio. Comunque posso finirlo entro giugno, e nel frattempo un collega mi aiuta con le mail."
+  - tutor: "Bene, questa è una risposta seria. Allora le propongo sei mesi di prova nel nuovo ruolo, con il corso pagato da noi. L'aumento arriverebbe alla fine dei sei mesi. Che ne dice?"
+    goals: [handle]
+  - learner: "Mi sembra giusto. Però vorrei che questa proposta è scritta, con la data e la cifra dell'aumento."
+    errors: [subjunctive-use]
+  - tutor: "È una richiesta giusta. Ma senta: «vorrei che questa proposta è scritta»... con «vorrei che» torna il problema di prima. Come lo dice?"
+    prompt: {text: "vorrei che questa proposta è scritta", tags: [subjunctive-use]}
+  - learner: "Vorrei che questa proposta fosse scritta. Possiamo rivederci quando è pronta?"
+  - tutor: "Molto bene. La preparo entro lunedì e la firmiamo insieme martedì mattina. Sono contento di questa conversazione: la promozione se la merita."
+    goals: [next-steps]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-f-student
+  history: [future-form]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Abbastanza bene. Ho finito i testi del nuovo sito e domani cominciarò a caricare le pagine."
+    errors: [future-form]
+  - tutor: "Ottimo lavoro con i testi! Però ripeti la frase su domani: nella parola dopo «domani» c'è una lettera da cambiare."
+    prompt: {text: "cominciarò", tags: [future-form]}
+    goals: [update]
+  - learner: "Domani cominciarò con le pagine, sì. Però c'è un problema con il cliente."
+    errors: [future-form]
+  - tutor: "Va bene, allora domani comincerò anch'io a guardare le prime pagine. Che problema c'è con il cliente?"
+    recast: {text: "cominciarò", fix: "comincerò", tags: [future-form]}
+  - learner: "Il cliente doveva mandare le foto lunedì, ma non le ha mandato ancora. Gli ho scritto due volte e non risponde."
+    errors: [participle-agreement]
+  - tutor: "Ah, questo è un bel ritardo. Senti però: «non le ha mandato»... pensa a quel «le» davanti: l'ultima parola resta così?"
+    prompt: {text: "non le ha mandato", tags: [participle-agreement]}
+    goals: [problem]
+  - learner: "Non le ha mandate, giusto."
+  - tutor: "Esatto. Senza foto il sito non può uscire, e la scadenza è venerdì. Tu cosa faresti?"
+  - learner: "Io userei le foto vecchie per adesso, e le cambiarei quando arrivano quelle nuove. Posso anche telefonare al cliente invece di scrivere ancora."
+    errors: [conditional-form]
+  - tutor: "L'idea mi piace, e la telefonata ancora di più. Ma «le cambiarei»... è il piccolo problema di prima. Ci riprovi?"
+    prompt: {text: "le cambiarei", tags: [conditional-form]}
+    goals: [proposal]
+  - learner: "Le cambierei quando arrivano quelle nuove. Allora chiamo il cliente oggi pomeriggio. Entro quando deve essere pronto tutto?"
+  - tutor: "Brava. Il sito deve essere pronto venerdì a mezzogiorno. Se entro giovedì non arriva niente, usciamo con le foto vecchie. Ce la fai?"
+  - learner: "Sì, ce la faccio. Giovedì mattina ti farò sapere se le foto sono arrivate."
+  - tutor: "Perfetto, allora restiamo così: giovedì mi dici com'è andata e venerdì usciamo. Grazie, stai lavorando proprio bene."
+    goals: [deadline]
+
+- scenario: smartworking
+  level: B2
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Un po' e un po'. Faccio lezione a scuola due giorni, e gli altri tre lavoro da casa, con i corsi di spagnolo online."
+  - tutor: "Ah, non lo sapevo! Quindi niente ufficio, ma una classe dentro il computer. E come ti trovi?"
+    goals: [situation]
+  - learner: "Bene, in generale. Il vantaggio più grande è che i miei studenti online sono più motivati che i ragazzi della scuola."
+    errors: [comparative]
+  - tutor: "Ci credo, hanno scelto loro di studiare! Però «più motivati che i ragazzi»... quando metti a confronto due gruppi di persone, quel «che» non va."
+    prompt: {text: "più motivati che i ragazzi", tags: [comparative]}
+    goals: [pros]
+  - learner: "Più motivati dei ragazzi della scuola, scusa."
+  - tutor: "Ecco. E poi immagino che tu perda meno tempo per strada. Ma ci sarà anche qualche svantaggio, no?"
+  - learner: "Certo. Mi mancano i colleghi, e lavoro più ore che prima, perché gli studenti mi scrivono sempre. Ieri sono rimasta al computer fino a le dieci di sera."
+    errors: [comparative, articulated-preposition]
+  - tutor: "Fino a tardi, povera te! Ma senti: «più ore che prima»... è il punto di poco fa. Come lo sistemi?"
+    prompt: {text: "più ore che prima", tags: [comparative]}
+    goals: [cons]
+  - learner: "Lavoro più ore che prima... non so, a me sembra giusto."
+    errors: [comparative]
+  - tutor: "Quasi: lavori più ore di prima. Capita anche a me: da casa non si finisce mai davvero. Se potessi scegliere tu, cosa preferiresti?"
+    recast: {text: "più ore che prima", fix: "più ore di prima", tags: [comparative]}
+  - learner: "Preferirei continuare così, metà e metà. Però mi piacerebbe avere un orario chiaro: dopo le sette di sera non risponderia più a nessuno."
+    errors: [conditional-form]
+  - tutor: "Metà e metà mi sembra una buona scelta. Solo la parola prima di «più a nessuno»: quella forma viene dallo spagnolo, vero? Riprova."
+    prompt: {text: "risponderia", tags: [conditional-form]}
+  - learner: "Hai ragione! Non risponderei più a nessuno dopo le sette. Così avrei le sere libere e sarei meno stanca."
+  - tutor: "Giusto, e fai bene. Anch'io dovrei spegnere il telefono alle sette, ma non ci riesco mai. Dai, prendiamo un altro bicchiere e non parliamo più di lavoro!"
+    goals: [preference]
+
+- scenario: film-libro
+  level: B2
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Comincio io. Ho letto un romanzo di cui parla di una famiglia di Napoli. Nel 1910 partono per l'America con una nave."
+    errors: [relative-pronoun]
+  - tutor: "Bel tema, mi interessa già. Ma «un romanzo di cui parla di una famiglia»... lì c'è qualcosa di troppo. Come lo diresti?"
+    prompt: {text: "un romanzo di cui parla di una famiglia", tags: [relative-pronoun]}
+  - learner: "Un romanzo che parla di una famiglia di Napoli. Partono nel 1910, ma il viaggio è più difficile del previsto, e non dico altro."
+  - tutor: "Benissimo, e grazie di non aver raccontato il finale! Chi è il personaggio principale?"
+    goals: [summary]
+  - learner: "È la figlia più grande, Rosa, che ha sedici anni. All'inizio del libro lei è stata timida e non ha voluto partire."
+    errors: [tense-aspect]
+  - tutor: "Sedici anni, che età per un viaggio così! Ma «all'inizio lei è stata timida»... qui descrivi il suo carattere in quel periodo: useresti questa forma?"
+    prompt: {text: "lei è stata timida", tags: [tense-aspect]}
+  - learner: "Sì, lei è stata timida all'inizio, poi cambia molto durante il viaggio."
+    errors: [tense-aspect]
+  - tutor: "Ho capito: all'inizio era timida, e il viaggio la fa crescere. È il tipo di personaggio che piace anche a me. E il libro, in generale, ti è piaciuto?"
+    recast: {text: "è stata timida", fix: "era timida", tags: [tense-aspect]}
+    goals: [characters]
+  - learner: "Moltissimo. È emozionante ma mai triste, e l'autore scrive in modo semplice. La scena che penso ancora adesso è l'arrivo a New York, di notte."
+    errors: [relative-pronoun]
+  - tutor: "Quella scena deve essere bellissima. Però «la scena che penso»... si pensa «a» qualcosa, quindi «che» da solo non basta."
+    prompt: {text: "La scena che penso", tags: [relative-pronoun]}
+    goals: [opinion]
+  - learner: "La scena a cui penso ancora adesso, giusto. Comunque lo consiglio a tutti, e soprattutto a chi ha dei nonni che sono partiti per un altro paese."
+  - tutor: "Bravo, perfetto. E hai ragione: chi ha una storia così in famiglia lo leggerà con altri occhi. Grazie, lo metto nella lista del mese prossimo."
+    goals: [recommend]
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-traveller
+  history: [false-friend, tense-aspect]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Buongiorno, dottoressa. Non molto bene: di notte sento il battito molto veloce, e mi sveglio. Di giorno invece sono stanco anche dopo uno sforzo piccolo, per esempio le scale."
+  - tutor: "Capisco. Questo affaticamento c'era già prima, o è cominciato con la nuova terapia?"
+    goals: [symptoms]
+  - learner: "È cominciato circa un mese fa. Prima mi sono sentito bene, facevo anche lunghe passeggiate ogni domenica."
+    errors: [tense-aspect]
+  - tutor: "Un mese fa, bene, è un dato utile. Però «prima mi sono sentito bene»... parla di un periodo lungo, di come stava di solito: va bene quella forma?"
+    prompt: {text: "Prima mi sono sentito bene", tags: [tense-aspect]}
+  - learner: "Prima mi sentivo bene, mi scusi."
+  - tutor: "Esatto, grazie. Mi dica ancora una cosa: in famiglia qualcuno ha avuto problemi di cuore o di pressione?"
+  - learner: "Sì, i miei parenti hanno tutti e due la pressione alta, e mio padre ha avuto un infarto a sessant'anni."
+    errors: [false-friend]
+  - tutor: "Quindi tutti e due i suoi genitori, e per suo padre anche il cuore: è importante saperlo. I suoi esami, comunque, non sono brutti. Il cuore è sano, ma la pressione resta un po' alta."
+    recast: {text: "parenti", fix: "genitori", tags: [false-friend]}
+    goals: [history]
+  - learner: "Meno male. Ma allora perché ho questo battito di notte? Ho paura che è qualcosa di grave."
+    errors: [subjunctive-use]
+  - tutor: "La capisco, ma non si preoccupi. Intanto: «ho paura che è»... dopo «ho paura che», quel «è» deve cambiare. Come diventa?"
+    prompt: {text: "Ho paura che è", tags: [subjunctive-use]}
+  - learner: "Ho paura che è grave, dottoressa. Mio padre aveva gli stessi sintomi."
+    errors: [subjunctive-use]
+  - tutor: "Io invece non ho paura che sia grave, e glielo dico con sicurezza. Il battito veloce di notte è uno degli effetti collaterali della terapia. Succede a una persona su dieci."
+    recast: {text: "ho paura che è", fix: "ho paura che sia", tags: [subjunctive-use]}
+    goals: [understand]
+  - learner: "Ah, non lo sapevo. Allora devo cambiare medicina? Viaggio molto per lavoro e vorrei una terapia semplice, senza altri effetti collaterali."
+  - tutor: "Sì, la cambiamo con una più leggera, da prendere una volta al giorno, la mattina. All'inizio potrebbe dare un po' di mal di testa, ma passa presto. Ci rivediamo per un controllo tra un mese."
+    goals: [treatment]
+
+- scenario: politica-lavoro
+  level: B2
+  persona: en-m-heritage
+  history: [hypothetical]
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Secondo me esageri. Tanti lavori cambieranno, ma non spariranno. Ogni tecnologia nuova ha sempre creato anche opportunità."
+  - tutor: "Sarà, ma questa volta le macchine imparano da sole. Se domani un programma facesse il tuo lavoro, tu che cosa faresti?"
+    goals: [opinion]
+  - learner: "Se un programma farebbe il mio lavoro, io cercherei di imparare a usarlo meglio degli altri."
+    errors: [hypothetical]
+  - tutor: "Bella risposta, molto pratica. Però «se un programma farebbe»... dopo «se» ci vuole un'altra forma. Lo ripeti?"
+    prompt: {text: "Se un programma farebbe", tags: [hypothetical]}
+  - learner: "Se un programma farebbe il mio lavoro... sì, imparerei a usarlo."
+    errors: [hypothetical]
+  - tutor: "Ho capito: se un programma facesse il tuo lavoro, tu diventeresti il suo capo. Ma non tutti possono farlo. Conosci qualcuno che ha dovuto cambiare mestiere a cinquant'anni?"
+    recast: {text: "Se un programma farebbe", fix: "Se un programma facesse", tags: [hypothetical]}
+    goals: [hypothesis]
+  - learner: "Sì, mio padre. Aveva una piccola tipografia a Boston. Quando sono arrivati i computer ha fatto un corso e ha cominciato a stampare magliette. Se non avrebbe studiato, avrebbe perso tutto."
+    errors: [hypothetical]
+  - tutor: "Tuo padre è stato in gamba, davvero. Ma «se non avrebbe studiato»... è la stessa storia di prima: dopo «se» quella forma non va."
+    prompt: {text: "Se non avrebbe studiato", tags: [hypothetical]}
+    goals: [example]
+  - learner: "Se non avesse studiato, avrebbe perso tutto."
+  - tutor: "Ecco, perfetto. Però tuo padre aveva i soldi per un corso. Oggi chi paga la formazione a chi perde il posto?"
+  - learner: "Hai ragione, questo è il vero rischio. Bisognerebbe che lo Stato paga la formazione, insieme alle aziende."
+    errors: [subjunctive-use]
+  - tutor: "Su questo siamo d'accordo, finalmente! Ma «bisognerebbe che lo Stato paga»... dopo «bisognerebbe che», quella forma non basta."
+    prompt: {text: "Bisognerebbe che lo Stato paga", tags: [subjunctive-use]}
+  - learner: "Bisognerebbe che lo Stato pagasse la formazione. Insomma, per me l'automazione è un'opportunità, se aiutiamo le persone a cambiare. E tu, sei ancora così pessimista?"
+  - tutor: "Un po' meno, lo ammetto. Se tutti facessero come tuo padre, avrei meno paura. Ma resto dell'idea che il cambiamento sarà duro. Intanto, mi passi il vino?"
+    goals: [conclude]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, purtroppo. Sono qui con due clienti importanti e la cena è stata molto deludente. Non voglio essere rude, ma devo dirlo."
+    errors: [false-friend]
+  - tutor: "Non è affatto scortese: è giusto che me lo dica subito. Mi dispiace molto. Che cosa non è andato bene, di preciso?"
+    recast: {text: "rude", fix: "scortese", tags: [false-friend]}
+    goals: [complain]
+    new: [{lemma: scortese, gloss: rude}]
+  - learner: "Prima di tutto l'attesa: abbiamo aspettato quasi un'ora per i primi. E quando il risotto ha arrivato, era freddo e la cottura non era giusta."
+    errors: [auxiliary-choice]
+  - tutor: "Un'ora è davvero troppo, ha ragione. Solo un momento: «il risotto ha arrivato»? Guardi la piccola parola prima di «arrivato»."
+    prompt: {text: "il risotto ha arrivato", tags: [auxiliary-choice]}
+  - learner: "Il risotto è arrivato freddo, mi scusi. E avevo prenotato un tavolo tranquillo, invece siamo vicino alla porta della cucina."
+  - tutor: "Ha ragione anche su questo, e me ne scuso. Stasera abbiamo due persone in meno in cucina, ma non è una scusa. Lei che cosa si aspettava da noi?"
+    goals: [detail]
+  - learner: "Mi aspettavo che il servizio era più attento, perché avevo spiegato che era una cena di lavoro. Se mi avreste avvisato del ritardo, avrei scelto un altro posto."
+    errors: [subjunctive-use, hypothetical]
+  - tutor: "È giusto, e doveva andare così. Però ripeta l'inizio: «mi aspettavo che il servizio era»... dopo «mi aspettavo che», quel primo «era» deve cambiare."
+    prompt: {text: "Mi aspettavo che il servizio era", tags: [subjunctive-use]}
+    goals: [expectation]
+  - learner: "Mi aspettavo che il servizio era migliore, tutto qui."
+    errors: [subjunctive-use]
+  - tutor: "Anch'io mi aspettavo che il servizio fosse migliore, glielo dico sinceramente. Per scusarmi vorrei offrire a tutti i primi e il dolce, con uno sconto del 20 per cento sul resto. Può andare?"
+    recast: {text: "mi aspettavo che il servizio era", fix: "mi aspettavo che il servizio fosse", tags: [subjunctive-use]}
+  - learner: "La ringrazio, è un'offerta gentile. Accetto lo sconto, ma il dolce no: i miei clienti devono partire. Se l'avrei saputo prima, avrei ordinato solo un secondo."
+    errors: [hypothetical]
+  - tutor: "Capisco, non vi faccio perdere altro tempo. Una cosa sola: «se l'avrei saputo prima»... dopo «se» quella forma non si usa."
+    prompt: {text: "Se l'avrei saputo prima", tags: [hypothetical]}
+  - learner: "Se l'avessi saputo prima, avrei ordinato solo un secondo. Comunque grazie per la sua attenzione."
+  - tutor: "Esatto. Grazie a lei per la pazienza: il conto arriva subito, con lo sconto e i primi offerti dalla casa. Spero di rivederla in una serata migliore."
+    goals: [resolve]
