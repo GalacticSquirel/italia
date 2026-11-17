@@ -40,7 +40,15 @@ export function Screen({
       testID={testID}
     >
       {scroll ? (
-        <ScrollView contentContainerStyle={styles.scrollContent}>{content}</ScrollView>
+        // "handled": a tap on a button works while the keyboard is open,
+        // instead of only dismissing the keyboard (which made "Check" and
+        // "End" need two taps after typing an answer).
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+        >
+          {content}
+        </ScrollView>
       ) : (
         content
       )}

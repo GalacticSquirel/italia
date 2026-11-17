@@ -173,6 +173,7 @@ function Chat({
         ref={scroll}
         style={{ flex: 1 }}
         contentContainerStyle={{ gap: spacing.md, padding: spacing.lg }}
+        keyboardShouldPersistTaps="handled"
         onContentSizeChange={() => scroll.current?.scrollToEnd({ animated: true })}
         testID="chat"
       >

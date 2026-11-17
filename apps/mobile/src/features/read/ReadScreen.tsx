@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { View } from 'react-native';
 
-import { Button, Card, EmptyState, List, ListItem, Screen, Text, useTheme } from '@/ui';
+import { Button, Card, Chip, EmptyState, List, ListItem, Screen, Text, useTheme } from '@/ui';
 
 import { coveragePercent, FIT_LABELS, type LibraryEpisode, type LibrarySeries } from './library';
 import { estimateReadingMinutes } from './storyModel';
@@ -96,6 +97,13 @@ function SeriesCard({
 export function ReadScreen({ onOpenStory }: ReadScreenProps) {
   const library = useLibrary();
   const { spacing } = useTheme();
+  // The library holds dozens of series from A1 to C2: show one level at a
+  // time, starting with the level of the story the learner should read next.
+  const levels = [...new Set(library.series.map((s) => s.level))];
+  const startLevel = (library.upNext ?? library.closest)?.story.level ?? levels[0] ?? null;
+  const [pickedLevel, setLevel] = useState<string | null>(null);
+  const level = pickedLevel ?? startLevel;
+  const shown = library.series.filter((s) => level === null || s.level === level);
 
   if (library.series.length === 0) {
     return (
@@ -146,7 +154,27 @@ export function ReadScreen({ onOpenStory }: ReadScreenProps) {
       </Text>
       <View style={{ gap: spacing.lg }}>
         <Text variant="heading">Library</Text>
-        {library.series.map((s) => (
+        {levels.length > 1 ? (
+          <View
+            accessibilityRole="tablist"
+            accessibilityLabel="Level"
+            style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm }}
+          >
+            {levels.map((l) => (
+              <Chip
+                key={l}
+                role="tab"
+                label={l}
+                accessibilityLabel={`Level ${l}`}
+                selected={l === level}
+                onPress={() => {
+                  setLevel(l);
+                }}
+              />
+            ))}
+          </View>
+        ) : null}
+        {shown.map((s) => (
           <SeriesCard key={s.seriesId} series={s} onOpen={onOpenStory} />
         ))}
       </View>
