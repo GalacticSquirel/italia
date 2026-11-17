@@ -1,0 +1,56 @@
+- scenario: reclamo-comune
+  level: C2
+  persona: en-m-retired
+  history: [passive]
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Si tratta del cantiere in via dei Mille, davanti al civico dodici, dove abito. Due mesi fa la strada è stata aperta per sostituire una tubatura, e da allora i lavori sono fermi: lo scavo è lì, transennato alla meglio, e non si vede un operaio da settimane."
+  - tutor: "Capisco il disagio. Guardi, purtroppo i tempi dei cantieri dipendono dall'ufficio tecnico e dalla ditta che ha l'appalto, non da questo sportello. Io posso prendere nota, ma è probabile che i lavori riprendano quanto prima."
+    goals: [describe]
+    new: [{lemma: appalto, gloss: public works contract}, {lemma: sportello, gloss: counter, desk}]
+  - learner: "«Quanto prima» me lo sento dire da due mesi, con rispetto parlando. Al telefono sono stato detto che la ditta sarebbe tornata entro Pasqua, e Pasqua è passata da un pezzo. Avrei bisogno di una data, non di una speranza."
+    errors: [passive]
+  - tutor: "Fa bene a insistere, e non me la prendo. Mi permetta solo un'osservazione sulla forma, da impiegato pignolo: «sono stato detto che»? In italiano la persona a cui si parla non può fare da soggetto del passivo. Come lo girerebbe?"
+    goals: [insist]
+    prompt: {text: "sono stato detto che", tags: [passive]}
+    new: [{lemma: pignolo, gloss: fussy, pedantic}]
+  - learner: "Giusto, è un calco dall'inglese. Mi è stato detto che la ditta sarebbe tornata entro Pasqua. E siccome non è tornata, vorrei sapere quali strumenti ho a disposizione."
+  - tutor: "Perfetto. Per avere una risposta certa, lei deve presentare una segnalazione scritta: viene registrata al protocollo, e da quel momento l'amministrazione ha trenta giorni per risponderle. Vuole procedere in questo modo?"
+  - learner: "Sì, ma prima vorrei capire bene i miei diritti. Se entro trenta giorni non ricevo risposta, che cosa succede? Posso fare un sollecito, rivolgermi al difensore civico? E ho diritto di vedere gli atti del cantiere, per esempio il contratto con la ditta?"
+  - tutor: "Domande da manuale, complimenti. Trascorsi i trenta giorni può presentare un sollecito, e poi rivolgersi al difensore civico regionale. Quanto agli atti, basta una richiesta di accesso: il modulo è questo. Le confesso che pochi lo sanno, e ancora meno lo chiedono."
+    goals: [rights]
+    new: [{lemma: difensore civico, gloss: ombudsman}, {lemma: richiesta di accesso agli atti, gloss: freedom-of-information request}]
+  - learner: "Chi non chiede non ottiene, come si dice. Allora compilo subito sia la segnalazione sia la richiesta di accesso. Le chiederei però di darmi il numero di protocollo oggi stesso, e il nome del responsabile dell'ufficio tecnico a cui è assegnata la pratica."
+  - tutor: "Ecco fatto: protocollo numero 4127 di oggi, e la pratica va all'ingegner Ferri dell'ufficio tecnico. Le scrivo anche il numero diretto. Detto fra noi, una segnalazione scritta smuove le acque più di dieci telefonate. Buona giornata, e speriamo che la prossima Pasqua non ci trovi ancora qui."
+    goals: [commitment]
+    new: [{lemma: smuovere le acque, gloss: to stir things up}, {lemma: pratica, gloss: case file}]
+
+- scenario: reclamo-comune
+  level: C2
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Vengo per i lavori di via Garibaldi, all'altezza del numero trenta. A marzo hanno tolto il marciapiede per rifare la rete del gas, poi il cantiere è stato abbandonato: da due mesi c'è una buca aperta, le transenne sono cadute e di sera non c'è nemmeno una luce di segnalazione."
+  - tutor: "La ringrazio della precisione. Le dico subito che la competenza è dell'ufficio tecnico, a cui la questione risulta già nota. Si sta provvedendo, compatibilmente con le risorse disponibili."
+    goals: [describe]
+    new: [{lemma: provvedere, gloss: to take action, see to it}, {lemma: compatibilmente con, gloss: subject to, as far as ... allows}]
+  - learner: "Mi perdoni, ma «si sta provvedendo» non mi dice niente: chi provvede, e quando? Sotto casa mia c'è un casino da due mesi, e ieri una signora anziana è quasi caduta nella buca. Non posso accontentarmi di una formula."
+    errors: [register]
+  - tutor: "Sulla signora anziana ha tutte le ragioni, e me lo annoto. Però, se posso: «c'è un casino»? Allo sportello di un ufficio pubblico è una parola che stona parecchio, e a verbale non la potrei mettere. Con quale termine la sostituirebbe?"
+    goals: [insist]
+    prompt: {text: "c'è un casino", tags: [register]}
+    new: [{lemma: stonare, gloss: to sound out of place}, {lemma: mettere a verbale, gloss: to put on record}]
+  - learner: "Ha ragione, mi è sfuggito. Diciamo che sotto casa mia c'è una situazione di grave disagio, e anche di pericolo, da due mesi."
+  - tutor: "Ecco, «grave disagio e pericolo» lo scrivo volentieri, e pesa molto di più. Allora le consiglio di mettere tutto per iscritto: una segnalazione che viene registrata e trasmessa all'ufficio tecnico con richiesta di intervento urgente."
+  - learner: "D'accordo. In realtà due settimane fa ho già mandato un'applicazione per posta elettronica, ma non ho ricevuto nemmeno una conferma. Qual è la procedura corretta, e entro quanto tempo il Comune è tenuto a rispondermi?"
+    errors: [false-friend]
+  - tutor: "Se ha mandato una segnalazione a un indirizzo qualsiasi, temo sia finita nel dimenticatoio: fa fede solo la posta certificata o la consegna allo sportello. Dalla data di protocollo l'ufficio ha trenta giorni per risponderle, e lei può chiedere il nome del responsabile del procedimento."
+    goals: [rights]
+    recast: {text: "un'applicazione", fix: "una segnalazione", tags: [false-friend]}
+    new: [{lemma: finire nel dimenticatoio, gloss: to be forgotten about}, {lemma: fare fede, gloss: to count as proof}, {lemma: posta certificata, gloss: certified e-mail}]
+  - learner: "Trenta giorni per una risposta, capisco. Ma una buca senza luci non può aspettare un mese. Le chiedo quindi due cose: che la messa in sicurezza venga richiesta oggi stesso, e di uscire da qui con un numero di protocollo e un nome."
+  - tutor: "Mi pare una richiesta ragionevole. Registro la segnalazione adesso, protocollo numero 2318, e la segno come urgente per ragioni di sicurezza. Il responsabile è il geometra Colombo: entro domani faccio rimettere transenne e luci. Per il resto dei lavori, non le prometto la luna."
+    goals: [commitment]
+    new: [{lemma: geometra, gloss: surveyor}, {lemma: transenna, gloss: barrier}, {lemma: promettere la luna, gloss: to promise the moon}]
+  - learner: "Non le chiedo la luna, mi basta il marciapiede. La ringrazio: è la prima risposta concreta in due mesi. Tra trenta giorni, se la buca è ancora lì, torno con un sollecito e con la signora anziana."
+  - tutor: "Venga pure con la signora, che le offriamo una sedia. Scherzi a parte, ha fatto bene a insistere: qui le pratiche camminano quando qualcuno le spinge. Tenga la ricevuta del protocollo, è la sua carta migliore. Buona giornata."
