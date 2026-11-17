@@ -96,10 +96,23 @@ class JudgeScores(WireModel):
         return sum(values) / len(values)
 
 
+class GrammarError(WireModel):
+    """A mistake in a tutor turn confirmed by the judge's per-turn grammar check."""
+
+    turn: int = Field(ge=0, description="Index into DialogueRecord.turns.")
+    quote: str
+    fix: str
+
+
 class JudgeResult(WireModel):
     scores: JudgeScores
     issues: list[str] = Field(default_factory=list)
     judge: str = ""
+    grammar_errors: list[GrammarError] = Field(
+        default_factory=list,
+        description="From datagen.grammar_check; grammaticality is scored from these when the "
+        "check ran. Empty for judgements made without it.",
+    )
 
     @property
     def overall(self) -> float:
