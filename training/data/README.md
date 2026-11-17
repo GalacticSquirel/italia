@@ -1,6 +1,6 @@
 # data
 
-`lemmas.seed-v1.tsv`: the 3,000 most frequent Italian lemmas (rank, lemma, universal POS) from
+`lemmas.seed-v1.tsv`: the 10,000 most frequent Italian lemmas (rank, lemma, universal POS) from
 the content seed (`packages/content/seed/seed.v1.json`, seed version 1). The vocabulary-band
 checker uses the ranks as each level's known-lemma ceiling.
 
