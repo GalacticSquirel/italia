@@ -138,12 +138,9 @@ export function EarTrainingScreen({ rng = Math.random }: EarTrainingScreenProps)
   const contrast = trial.set.contrast;
   return (
     <Screen edges={['bottom', 'left', 'right']} testID="ear-training-screen">
-      <Card testID="limited-voices">
-        <Text variant="label">Limited voices</Text>
-        <Text variant="caption" color="textMuted">
-          {`Using ${voices.length > 0 ? String(voices.length) : "your phone's"} Italian voice${voices.length === 1 ? '' : 's'} on this phone. Recorded speakers are not installed, so open and closed vowel pairs are left out.`}
-        </Text>
-      </Card>
+      <Text variant="caption" color="textMuted" testID="limited-voices">
+        {`Spoken by ${voices.length > 0 ? `${String(voices.length)} Italian voice${voices.length === 1 ? '' : 's'}` : "your phone's Italian voice"} on this phone. Open and closed vowel pairs (pèsca, pésca) need recorded speakers, so they are left out.`}
+      </Text>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Text variant="caption" color="textMuted">{`Level ${String(trial.level)} of 3`}</Text>
         <Text variant="caption" color="textMuted">
@@ -169,7 +166,7 @@ export function EarTrainingScreen({ rng = Math.random }: EarTrainingScreenProps)
           return (
             <Button
               key={item.accented}
-              label={`${label} (${item.gloss})`}
+              label={`${label} · ${item.gloss}`}
               variant={answer?.chosen === item ? 'primary' : 'secondary'}
               accessibilityLabel={`${label}, ${item.gloss}`}
               disabled={answer !== null}
@@ -185,7 +182,7 @@ export function EarTrainingScreen({ rng = Math.random }: EarTrainingScreenProps)
           <Text variant="bodyStrong" color={answer.correct ? 'success' : 'danger'}>
             {answer.correct
               ? 'Right!'
-              : `It was ${choiceLabel(contrast, trial.target)} (${trial.target.gloss}).`}
+              : `It was ${choiceLabel(contrast, trial.target)}: ${trial.target.gloss}.`}
           </Text>
           {answer.levelChange === 1 ? <Text>Level up: faster speech and harder pairs.</Text> : null}
           {answer.levelChange === -1 ? <Text>Back a level to steady things.</Text> : null}
