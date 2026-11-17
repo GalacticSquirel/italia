@@ -164,9 +164,12 @@ export function ModelsScreen({ capability = deviceCapability() }: ModelsScreenPr
           {`Models use ${formatBytes(manager.storageUsedBytes())} of storage. Downloads use Wi-Fi, resume if interrupted and are checked before use. Everything runs on this phone.`}
         </Text>
       </Card>
-      {models.map((model) => (
-        <ModelCard key={model.spec.id} model={model} />
-      ))}
+      {models
+        // Engine builds download with the model that needs them.
+        .filter((model) => model.spec.kind !== 'engine')
+        .map((model) => (
+          <ModelCard key={model.spec.id} model={model} />
+        ))}
     </Screen>
   );
 }
