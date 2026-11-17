@@ -120,8 +120,9 @@ prompt mode, so two devices create the same card for the same item.
 - **CEFR estimate**: known lemmas, unlocked grammar and speaking results mapped to bands, shown as
   a range.
 - **Tutor contract**: the tutor's system prompt, output JSON schema, error tags, level bands and
-  scenarios are defined once in `training/spec` and generated into
-  `packages/core/src/tutor/spec.generated.ts` (a test fails if they drift). Every tutor reply is
+  scenarios are defined once in `training/spec`, and `python -m spec export-schema` generates
+  `packages/core/src/tutor/spec.generated.ts` from them (the training CI job fails if it is stale,
+  so a spec change cannot land without it). Every tutor reply is
   parsed and checked against the learner's message before its corrections are shown or saved.
 
 ## 6. Security and privacy
