@@ -36,12 +36,26 @@ class TurnRange(ConfigModel):
 
 class LearnerConfig(ConfigModel):
     error_rate: dict[Level, float] = Field(
-        default_factory=lambda: {Level.A1: 0.55, Level.A2: 0.5, Level.B1: 0.4, Level.B2: 0.3},
+        default_factory=lambda: {
+            Level.A1: 0.55,
+            Level.A2: 0.5,
+            Level.B1: 0.4,
+            Level.B2: 0.3,
+            Level.C1: 0.25,
+            Level.C2: 0.2,
+        },
         description="Probability that a learner turn contains an error, by level.",
     )
     second_error_rate: float = Field(default=0.15, ge=0, le=1)
     self_correct_rate: dict[Level, float] = Field(
-        default_factory=lambda: {Level.A1: 0.45, Level.A2: 0.5, Level.B1: 0.6, Level.B2: 0.65},
+        default_factory=lambda: {
+            Level.A1: 0.45,
+            Level.A2: 0.5,
+            Level.B1: 0.6,
+            Level.B2: 0.65,
+            Level.C1: 0.7,
+            Level.C2: 0.75,
+        },
         description="Probability the learner fixes an error after a prompt.",
     )
     tag_weights: dict[str, float] = Field(
@@ -123,10 +137,24 @@ class JudgeConfig(ConfigModel):
 class TokenEstimate(ConfigModel):
     chars_per_token: float = Field(default=3.4, gt=0)
     tutor_turn_tokens: dict[Level, int] = Field(
-        default_factory=lambda: {Level.A1: 110, Level.A2: 130, Level.B1: 160, Level.B2: 190}
+        default_factory=lambda: {
+            Level.A1: 110,
+            Level.A2: 130,
+            Level.B1: 160,
+            Level.B2: 190,
+            Level.C1: 220,
+            Level.C2: 250,
+        }
     )
     learner_turn_tokens: dict[Level, int] = Field(
-        default_factory=lambda: {Level.A1: 15, Level.A2: 22, Level.B1: 32, Level.B2: 45}
+        default_factory=lambda: {
+            Level.A1: 15,
+            Level.A2: 22,
+            Level.B1: 32,
+            Level.B2: 45,
+            Level.C1: 60,
+            Level.C2: 75,
+        }
     )
     judge_output_tokens: int = 350
     expected_pass_rate: float = Field(default=0.7, gt=0, le=1)

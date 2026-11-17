@@ -88,17 +88,22 @@ def test_manifest_entry_and_upsert(tmp_path: Path) -> None:
         url="https://models.example/italia-tutor-e4b-q4_0.gguf",
         licence="Apache-2.0",
     )
-    assert entry["sha256"] == hashlib.sha256(gguf.read_bytes()).hexdigest()
-    assert entry["sizeBytes"] == 1004
-    assert sha256_file(gguf, chunk_size=7) == entry["sha256"]
+    file = entry["files"][0]
+    assert file["sha256"] == hashlib.sha256(gguf.read_bytes()).hexdigest()
+    assert file["sizeBytes"] == 1004 and file["name"] == "m.gguf"
+    assert entry["kind"] == "llm" and entry["minRamBytes"] == 11 * 1024**3
+    assert sha256_file(gguf, chunk_size=7) == file["sha256"]
     manifest = tmp_path / "manifest.json"
     shutil.copy(MANIFEST, manifest)
     upsert_entry(entry, manifest, MANIFEST_SCHEMA)
-    upsert_entry({**entry, "sizeBytes": 5}, manifest, MANIFEST_SCHEMA)  # replaces by id
+    resized = {**entry, "files": [{**file, "sizeBytes": 5}]}
+    upsert_entry(resized, manifest, MANIFEST_SCHEMA)  # replaces by id
     data = json.loads(manifest.read_text())
-    assert [m["sizeBytes"] for m in data["models"]] == [5]
+    ours = [m for m in data["models"] if m["id"] == "italia-tutor-e4b-q4_0"]
+    assert [m["files"][0]["sizeBytes"] for m in ours] == [5]
+    insecure = {**entry, "files": [{**file, "url": "http://insecure"}]}
     with pytest.raises(jsonschema.ValidationError):
-        upsert_entry({**entry, "url": "http://insecure"}, manifest, MANIFEST_SCHEMA)
+        upsert_entry(insecure, manifest, MANIFEST_SCHEMA)
 
 
 def test_adapter_detection(tmp_path: Path) -> None:
