@@ -7,6 +7,7 @@ import json
 import sys
 from pathlib import Path
 
+from spec.bundle import GENERATED_DIR, generated_files
 from spec.levels import Level
 from spec.models import (
     SPEC_VERSION,
@@ -50,7 +51,7 @@ def dump(schema: dict[str, object]) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m spec")
     sub = parser.add_subparsers(dest="cmd", required=True)
-    sub.add_parser("export-schema", help="write spec/schema/*.json from the models")
+    sub.add_parser("export-schema", help="write spec/schema/*.json and spec/generated/*.json")
     sub.add_parser("check", help="validate the scenario library and schema files")
     render = sub.add_parser("render", help="print the system prompt for a scenario")
     render.add_argument("--scenario", required=True)
@@ -62,10 +63,15 @@ def main(argv: list[str] | None = None) -> int:
         for name, schema in schemas().items():
             (SCHEMA_DIR / name).write_text(dump(schema), encoding="utf-8")
             print(f"wrote {SCHEMA_DIR / name}")
+        GENERATED_DIR.mkdir(exist_ok=True)
+        for name, data in generated_files().items():
+            (GENERATED_DIR / name).write_text(dump(data), encoding="utf-8")
+            print(f"wrote {GENERATED_DIR / name}")
         return 0
     if args.cmd == "check":
         library = load_library()
         stale = [n for n, s in schemas().items() if not _same(SCHEMA_DIR / n, dump(s))]
+        stale += [n for n, d in generated_files().items() if not _same(GENERATED_DIR / n, dump(d))]
         print(f"{len(library)} scenarios OK")
         if stale:
             print(f"stale schema files (run export-schema): {stale}", file=sys.stderr)

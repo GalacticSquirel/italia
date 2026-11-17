@@ -1,6 +1,6 @@
 # Conventions for working in this repository
 
-Read `docs/architecture.md` (the plan) and `docs/adr/` before starting. These rules apply to every
+Read `docs/architecture.md` and `docs/adr/` before starting. These rules apply to every
 change.
 
 ## Architecture rules
@@ -21,8 +21,8 @@ change.
 - **Database changes** go through `apps/mobile/src/db/schema.ts` and
   `pnpm db:generate --name <change>` in `apps/mobile`. Commit the generated migration. Never edit a
   merged migration.
-- **Model weights are never committed.** Add models to `models/manifest.json` (id, url, sha256,
-  sizeBytes, licence).
+- **Model weights are never committed.** Add models to `models/manifest.json` (id, kind, licence,
+  and per file url, sha256, sizeBytes; see `models/README.md`).
 - **Content sources** must be listed with their licence in `packages/content/LICENSES.md`.
 - Packages ship TypeScript source (`exports` -> `src/index.ts`); there is no build step. Export
   public API only through each package's `src/index.ts` and document it with TSDoc.
