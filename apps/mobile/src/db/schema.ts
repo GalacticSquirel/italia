@@ -6,7 +6,9 @@
  * - Content tables (`lemma`, `sentence`, `grammar_point`) use integer ids
  *   assigned by the content pipeline, so seed updates keep ids stable.
  * - Learner tables use text UUIDs generated on the device, so rows from
- *   several devices can be merged without collisions.
+ *   several devices can be merged without collisions. The exception is
+ *   `card`, whose id is derived from `(kind, target_id, prompt_mode)` (see
+ *   `cardIdFor` in `@/data`) so every device names the same card alike.
  * - Times are stored as integer milliseconds since the Unix epoch.
  * - `review_log` is append-only: rows are inserted, never updated or deleted.
  */
@@ -15,6 +17,7 @@ import {
   check,
   index,
   integer,
+  primaryKey,
   real,
   sqliteTable,
   text,
@@ -28,6 +31,9 @@ const createdAt = () =>
   timestamp('created_at')
     .notNull()
     .$defaultFn(() => new Date());
+
+/** A word token in a sentence: `[start, end, ...lemmaIds]`, see `sentence.tokens`. */
+export type SentenceToken = [number, number, ...number[]];
 
 const tuple = <T extends string>(values: readonly T[]) => values as [T, ...T[]];
 
@@ -70,6 +76,12 @@ export const sentence = sqliteTable(
     en: text('en').notNull(),
     lemmaIds: text('lemma_ids', { mode: 'json' }).$type<number[]>().notNull(),
     grammarIds: text('grammar_ids', { mode: 'json' }).$type<number[]>().notNull(),
+    /**
+     * Word tokens of `it` as `[start, end, ...lemmaIds]` (UTF-16 offsets, end
+     * exclusive), or null when the seed has none. Used to blank a word form
+     * for cloze cards.
+     */
+    tokens: text('tokens', { mode: 'json' }).$type<SentenceToken[]>(),
     /** Corpus the sentence came from, e.g. "tatoeba:12345". */
     source: text('source').notNull(),
     /** SPDX-style licence id, e.g. "CC-BY-2.0-FR". */
@@ -118,11 +130,22 @@ export const card = sqliteTable(
     /** Suspended cards are never scheduled. */
     suspended: integer('suspended', { mode: 'boolean' }).notNull().default(false),
     createdAt: createdAt(),
+    // Sync of the card's flags (`suspended`), last-writer-wins by (flagUpdatedAt, flagDeviceId).
+    /** When `suspended` last changed, or null if never changed. */
+    flagUpdatedAt: timestamp('flag_updated_at'),
+    /** Device that made that change; null means this device. */
+    flagDeviceId: text('flag_device_id'),
+    /** When the current flags were pushed or pulled; null while a change is unsynced. */
+    flagSyncedAt: timestamp('flag_synced_at'),
   },
   (t) => [
     uniqueIndex('card_target_unique').on(t.kind, t.targetId, t.promptMode),
-    index('card_due_idx').on(t.suspended, t.due),
-    index('card_state_idx').on(t.state),
+    // Serves CardRepo.getDue: equality on suspended, range and order on (due, id).
+    index('card_due_order_idx').on(t.suspended, t.due, t.id),
+    // Serves CardRepo.getNew and counts by state.
+    index('card_state_new_idx').on(t.suspended, t.state, t.createdAt, t.id),
+    // Serves the sync push of changed flags.
+    index('card_flag_unsynced_idx').on(t.flagSyncedAt, t.flagUpdatedAt),
   ],
 );
 
@@ -144,7 +167,8 @@ export const reviewLog = sqliteTable(
   },
   (t) => [
     index('review_log_card_reviewed_idx').on(t.cardId, t.reviewedAt),
-    index('review_log_reviewed_idx').on(t.reviewedAt),
+    // Serves keyset paging by (reviewed_at, id) in ReviewLogRepo.listSince.
+    index('review_log_reviewed_id_idx').on(t.reviewedAt, t.id),
     index('review_log_unsynced_idx').on(t.syncedAt),
     check('review_log_latency_nonnegative', sql`${t.latencyMs} >= 0`),
   ],
@@ -173,6 +197,48 @@ export const story = sqliteTable(
   ],
 );
 
+/**
+ * The learner's reading of one story: where they are and whether they have
+ * finished it. Device-local for now (not synced; reading time itself syncs
+ * through `study_session`). Keyed by story id without a foreign key, so a
+ * content update that drops a story keeps the history.
+ */
+export const storyProgress = sqliteTable(
+  'story_progress',
+  {
+    storyId: text('story_id').primaryKey(),
+    startedAt: timestamp('started_at').notNull(),
+    /** First time the story was finished, or null while unread. */
+    completedAt: timestamp('completed_at'),
+    /** Times the story was finished. */
+    timesRead: integer('times_read').notNull().default(0),
+    /** Sentence (reading order) the learner was last on, to resume there. */
+    lastSentence: integer('last_sentence').notNull().default(0),
+    /** Words read across all finished readings. */
+    wordsRead: integer('words_read').notNull().default(0),
+    /** Latest comprehension check: items answered correctly, of `comprehensionTotal`. */
+    comprehensionCorrect: integer('comprehension_correct'),
+    comprehensionTotal: integer('comprehension_total'),
+    updatedAt: timestamp('updated_at').notNull(),
+  },
+  (t) => [index('story_progress_completed_idx').on(t.completedAt)],
+);
+
+/**
+ * How often the learner has met each lemma in stories they finished
+ * (incidental exposure). Device-local, like `story_progress`.
+ */
+export const lemmaExposure = sqliteTable(
+  'lemma_exposure',
+  {
+    lemmaId: integer('lemma_id').primaryKey(),
+    count: integer('count').notNull().default(0),
+    firstSeenAt: timestamp('first_seen_at').notNull(),
+    lastSeenAt: timestamp('last_seen_at').notNull(),
+  },
+  (t) => [check('lemma_exposure_count_nonnegative', sql`${t.count} >= 0`)],
+);
+
 export const errorRecord = sqliteTable(
   'error_record',
   {
@@ -183,10 +249,43 @@ export const errorRecord = sqliteTable(
     source: text('source', { enum: ERROR_SOURCES }).notNull(),
     cardId: text('card_id').references(() => card.id, { onDelete: 'set null' }),
     createdAt: createdAt(),
+    /** When this row was pushed to (or pulled from) the server; null until synced. */
+    syncedAt: timestamp('synced_at'),
   },
   (t) => [
     index('error_record_category_idx').on(t.category),
     index('error_record_card_idx').on(t.cardId),
+    index('error_record_unsynced_idx').on(t.syncedAt),
+  ],
+);
+
+/**
+ * Sentences the learner corrected in conversation, practised as
+ * `sentence_production` cards. They live apart from the seeded `sentence`
+ * table (which a seed update replaces) and use negative ids derived from the
+ * corrected text (see `learnerSentenceId` in `@/data`), so content ids never
+ * collide with them and two devices name the same sentence alike.
+ */
+export const learnerSentence = sqliteTable(
+  'learner_sentence',
+  {
+    id: integer('id').primaryKey(),
+    /** The corrected Italian sentence: the card's answer. */
+    it: text('it').notNull(),
+    /** What the learner wrote: the card's prompt. */
+    original: text('original').notNull(),
+    /** Error tags of the correction (tutor spec taxonomy). */
+    errorTags: text('error_tags', { mode: 'json' }).$type<string[]>().notNull(),
+    /** Content grammar point ids the errors are evidence about. */
+    grammarIds: text('grammar_ids', { mode: 'json' }).$type<number[]>().notNull(),
+    source: text('source', { enum: ERROR_SOURCES }).notNull(),
+    createdAt: createdAt(),
+    /** When this row was pushed to (or pulled from) the server; null until synced. */
+    syncedAt: timestamp('synced_at'),
+  },
+  (t) => [
+    check('learner_sentence_negative_id', sql`${t.id} < 0`),
+    index('learner_sentence_unsynced_idx').on(t.syncedAt),
   ],
 );
 
@@ -199,18 +298,33 @@ export const studySession = sqliteTable(
     minutesActive: real('minutes_active').notNull().default(0),
     /** Activity kinds completed in the session, in order. */
     activities: text('activities', { mode: 'json' }).$type<string[]>().notNull(),
+    /**
+     * When this session was pushed to (or pulled from) the server; null until
+     * synced. Sessions are pushed once, after they end, and never change after.
+     */
+    syncedAt: timestamp('synced_at'),
   },
-  (t) => [index('study_session_started_idx').on(t.startedAt)],
+  (t) => [
+    index('study_session_started_idx').on(t.startedAt),
+    index('study_session_unsynced_idx').on(t.syncedAt),
+  ],
 );
 
-/** Key-value settings; values are JSON. */
+/** Key-value settings; values are JSON. Synced last-writer-wins by (updatedAt, deviceId). */
 export const settings = sqliteTable('settings', {
   key: text('key').primaryKey(),
   value: text('value', { mode: 'json' }).$type<unknown>().notNull(),
   updatedAt: timestamp('updated_at').notNull(),
+  /** Device that wrote the value; null means this device. */
+  deviceId: text('device_id'),
+  /** When the current value was pushed or pulled; null while a change is unsynced. */
+  syncedAt: timestamp('synced_at'),
 });
 
-/** Single-row table holding the streak. */
+/**
+ * Single-row table holding the streak. Not synced: after a sync brings in
+ * study sessions from other devices, the streak is replayed from all sessions.
+ */
 export const streakState = sqliteTable(
   'streak_state',
   {
@@ -220,7 +334,68 @@ export const streakState = sqliteTable(
     /** Last local calendar day with real study, as YYYY-MM-DD. */
     lastStudyDate: text('last_study_date'),
     freezesAvailable: integer('freezes_available').notNull().default(0),
+    // Progress on the most recent local day with any study (`StreakState.day`
+    // in @italia/core). All three are null before the first study; StreakRepo
+    // writes them together.
+    /** That day, as YYYY-MM-DD. */
+    dayDate: text('day_date'),
+    /** Active minutes recorded on that day. */
+    dayActiveMinutes: real('day_active_minutes'),
+    /** Sessions completed on that day. */
+    dayCompletedSessions: integer('day_completed_sessions'),
+    // A missed day that can still be repaired (`StreakState.repair`); all
+    // three are null when there is none. StreakRepo writes them together.
+    /** The missed day, as YYYY-MM-DD. */
+    repairMissedDate: text('repair_missed_date'),
+    /** The streak before it broke. */
+    repairLostDays: integer('repair_lost_days'),
+    /** Freezes the repair will spend. */
+    repairFreezesNeeded: integer('repair_freezes_needed'),
     updatedAt: timestamp('updated_at').notNull(),
   },
   (t) => [check('streak_state_singleton', sql`${t.id} = 1`)],
+);
+
+/**
+ * Device-local key-value metadata (for example the imported seed version and
+ * this device's id). Never synced and never included in backups.
+ */
+export const appMeta = sqliteTable('app_meta', {
+  key: text('key').primaryKey(),
+  value: text('value').notNull(),
+  updatedAt: timestamp('updated_at').notNull(),
+});
+
+/** Download state of one model file, see `apps/mobile/src/models`. */
+export const MODEL_FILE_STATUSES = [
+  'downloading',
+  'paused',
+  'downloaded',
+  'verifying',
+  'installed',
+  'failed',
+] as const;
+
+/**
+ * Device-local install state of on-device model files (one row per file of
+ * `models/manifest.json`). Never synced and never included in backups. A file
+ * is usable only when `status` is `installed` and `sha256` still equals the
+ * manifest's checksum (a manifest update reinstalls the file).
+ */
+export const modelFile = sqliteTable(
+  'model_file',
+  {
+    modelId: text('model_id').notNull(),
+    name: text('name').notNull(),
+    /** The checksum this row was downloaded and verified against. */
+    sha256: text('sha256').notNull(),
+    status: text('status', { enum: tuple(MODEL_FILE_STATUSES) }).notNull(),
+    bytesDone: integer('bytes_done').notNull().default(0),
+    /** Opaque resume data of a paused download, if any. */
+    resumeData: text('resume_data'),
+    /** Last error message, when `status` is `failed`. */
+    error: text('error'),
+    updatedAt: timestamp('updated_at').notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.modelId, t.name] })],
 );

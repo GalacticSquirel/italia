@@ -4,6 +4,8 @@ const path = require('node:path');
 
 const { getDefaultConfig } = require('expo/metro-config');
 
+const { syncSeedAsset } = require('./scripts/sync-seed-asset');
+
 const projectRoot = __dirname;
 const workspaceRoot = path.resolve(projectRoot, '../..');
 
@@ -23,5 +25,10 @@ config.resolver.nodeModulesPaths = [
 
 // Drizzle migrations import .sql files (inlined by babel-plugin-inline-import).
 config.resolver.sourceExts.push('sql');
+
+// The content seed ships as an asset (`assets/seed/seed.v1.seed`, copied from
+// @italia/content) and is read at runtime, so it stays out of the JS bundle.
+config.resolver.assetExts.push('seed');
+syncSeedAsset();
 
 module.exports = config;
