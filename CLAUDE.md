@@ -1,6 +1,6 @@
 # Conventions for working in this repository
 
-Read `docs/architecture.md` (the plan) and `docs/adr/` before starting. These rules apply to every
+Read `docs/architecture.md` and `docs/adr/` before starting. These rules apply to every
 change.
 
 ## Architecture rules

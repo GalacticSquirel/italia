@@ -1,12 +1,4 @@
-/** 32-bit FNV-1a over UTF-16 code units. */
-function fnv1a(text: string): number {
-  let hash = 0x811c9dc5;
-  for (let i = 0; i < text.length; i++) {
-    hash ^= text.charCodeAt(i);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-  return hash >>> 0;
-}
+import { fnv1a32 } from '@italia/core';
 
 /**
  * Stable lemma id: a positive 31-bit hash of `lemma|POS`, so ids survive
@@ -14,5 +6,5 @@ function fnv1a(text: string): number {
  * collision rather than renumbering.
  */
 export function lemmaId(lemma: string, pos: string): number {
-  return fnv1a(`${lemma}|${pos}`) & 0x7fffffff || 1;
+  return fnv1a32(`${lemma}|${pos}`) & 0x7fffffff || 1;
 }

@@ -5,8 +5,6 @@ import type { LemmaRow } from '@/data';
 import { sayItalian, useSpeech } from '@/speech';
 import { Button, Card, Text, useTheme } from '@/ui';
 
-import { ReaderAction } from './ReaderAction';
-
 /** Props for {@link NewWordsPreview}. */
 export interface NewWordsPreviewProps {
   words: readonly LemmaRow[];
@@ -44,7 +42,9 @@ export function NewWordsPreview({ words, speechRate, onAddAll }: NewWordsPreview
                 <Text variant="bodyStrong">{w.lemma}</Text>
                 <Text color="textMuted">{w.glossEn}</Text>
               </View>
-              <ReaderAction
+              <Button
+                variant="secondary"
+                size="compact"
                 label="Listen"
                 accessibilityLabel={`Listen to ${w.lemma}`}
                 onPress={() => {
