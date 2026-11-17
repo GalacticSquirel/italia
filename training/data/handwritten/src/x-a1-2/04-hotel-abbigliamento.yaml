@@ -1,0 +1,230 @@
+- scenario: hotel-checkin
+  level: A1
+  persona: en-f-professional
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Buonasera. Sì, ho una prenotazione. Mi chiamo Kate Wilson.
+    - tutor: Sì, ecco. Una camera per due notti.
+      goals: [booking]
+    - learner: Esatto. Ecco il mio passaporto.
+    - tutor: Grazie mille. Va tutto bene.
+      goals: [document]
+    - learner: A che ora è la colazione?
+    - tutor: Dalle sette alle dieci, al primo piano.
+      goals: [breakfast]
+    - learner: Perfetto. E la mia camera dov'è?
+    - tutor: È la 12, al secondo piano. Ecco la chiave.
+      goals: [key]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: en-m-retired
+  history: [essere-avere]
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Buonasera. Sono una prenotazione. Il nome è Robert Miller.
+      errors: [essere-avere]
+    - tutor: Sono una prenotazione? Attenzione al verbo.
+      prompt: {text: Sono una prenotazione, tags: [essere-avere]}
+    - learner: Ho una prenotazione!
+    - tutor: Perfetto! Ha un documento, per favore?
+      goals: [booking]
+    - learner: Sì, ecco il passaporto.
+    - tutor: Grazie. La camera è la 7.
+      goals: [document]
+    - learner: A che ora è la colazione?
+    - tutor: La colazione è dalle sette e mezza.
+      goals: [breakfast]
+    - learner: Grazie. Può ripetere il numero della camera?
+    - tutor: Certo, è la 7. Ecco la chiave.
+      goals: [key]
+    - learner: Grazie, buonasera.
+    - tutor: Prego, buona notte!
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-m-worker
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Buonasera. Ho una prenotazione, mi chiamo Diego Ruiz.
+    - tutor: Buonasera! Ha un documento?
+      goals: [booking]
+    - learner: Sì, ecco.
+    - tutor: Grazie. Una camera per tre notti.
+      goals: [document]
+    - learner: A che ora è il desayuno?
+      errors: [word-choice]
+    - tutor: La colazione è dalle sette alle dieci.
+      goals: [breakfast]
+      recast: {text: il desayuno, fix: La colazione, tags: [word-choice]}
+    - learner: Ah, la colazione, grazie. La camera è a che piano?
+    - tutor: Al terzo piano, camera 31. Ecco la chiave.
+      goals: [key]
+    - learner: Grazie mille. Buonanotte!
+    - tutor: Buonanotte!
+
+- scenario: hotel-checkin
+  level: A1
+  persona: en-m-traveller
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Buonasera! Sì, ho un prenotazione per due notte.
+      errors: [noun-gender, noun-number]
+    - tutor: Un prenotazione? Prenotazione è femminile...
+      prompt: {text: un prenotazione, tags: [noun-gender]}
+    - learner: Una prenotazione, scusi! Il nome è Sean Kelly.
+    - tutor: Bene! Ecco, una camera per due notti.
+      goals: [booking]
+    - learner: Sì. Ecco il mio documento.
+    - tutor: Grazie. Va tutto bene.
+      goals: [document]
+    - learner: Quando è la colazione?
+    - tutor: Dalle sette alle nove e mezza.
+      goals: [breakfast]
+    - learner: E dov'è la mia camera?
+    - tutor: Al primo piano, numero 5. Ecco la chiave.
+      goals: [key]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-f-teacher
+  turns:
+    - tutor: Buonasera e benvenuti! Ha una prenotazione?
+    - learner: Buonasera. Ho una prenotazione a nome García.
+    - tutor: Buonasera! Sì, una camera singola.
+      goals: [booking]
+      new: [{lemma: singolo, gloss: single}]
+    - learner: Scusi, che cosa significa "singola"?
+    - tutor: È una camera per una persona sola.
+    - learner: Ah, sì, giusto. Ecco il mio documento.
+    - tutor: Grazie. Ecco la chiave, camera 9.
+      goals: [document, key]
+    - learner: Che ora è la colazione?
+      errors: [question-form]
+    - tutor: Che ora è la colazione? Manca una parola piccola all'inizio.
+      prompt: {text: Che ora è la colazione, tags: [question-form]}
+    - learner: A che ora è la colazione?
+    - tutor: Esatto! Dalle sette alle dieci.
+      goals: [breakfast]
+    - learner: Grazie mille. Buonanotte.
+    - tutor: Buonanotte!
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-f-student
+  turns:
+    - tutor: Buongiorno! Posso aiutarla?
+    - learner: Buongiorno. Cerco una bianca maglietta.
+      errors: [word-order]
+    - tutor: Una bianca maglietta? Guardi dove mette il colore...
+      prompt: {text: una bianca maglietta, tags: [word-order]}
+    - learner: Una maglietta bianca!
+    - tutor: Benissimo! Che taglia porta?
+      goals: [ask-item]
+    - learner: Porto la S.
+    - tutor: Ecco, taglia S.
+      goals: [size-colour]
+    - learner: Grazie. Posso provare la maglietta?
+    - tutor: Certo! Il camerino è lì a destra.
+      goals: [try]
+    - learner: Va bene, mi piace. Quanto costa?
+    - tutor: Costa quindici euro.
+    - learner: La prendo. Ecco la carta.
+    - tutor: Grazie mille! Buona giornata!
+      goals: [decide]
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-m-retired
+  history: [adjective-agreement]
+  turns:
+    - tutor: Buongiorno! Posso aiutarla?
+    - learner: Buongiorno. Vorrei una maglietta rosso, taglia L.
+      errors: [adjective-agreement]
+    - tutor: Una maglietta rosso? Maglietta è femminile...
+      prompt: {text: una maglietta rosso, tags: [adjective-agreement]}
+    - learner: Una maglietta rossa.
+    - tutor: Perfetto! Ecco, taglia L.
+      goals: [ask-item, size-colour]
+    - learner: Dov'è il camerino? Vorrei provare.
+    - tutor: È lì, a sinistra.
+      goals: [try]
+    - learner: È un po' piccola. Avete una XL?
+    - tutor: Sì, ecco la XL.
+    - learner: Questa va bene. Quanto costa?
+    - tutor: Venti euro. Oggi c'è lo sconto.
+    - learner: Bene, la prendo.
+    - tutor: Grazie! Ecco la maglietta. Arrivederci!
+      goals: [decide]
+
+- scenario: abbigliamento
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: Buongiorno! Posso aiutarla?
+    - learner: Buongiorno! Cerco una maglietta blu, taglia M.
+    - tutor: Buongiorno! Ecco, questa è molto bella.
+      goals: [ask-item, size-colour]
+    - learner: Quanto costa?
+    - tutor: Costa quaranta euro.
+    - learner: Oh! Avete una maglietta più barata?
+      errors: [word-choice]
+    - tutor: Più economica? Sì, questa costa quindici euro.
+      recast: {text: più barata, fix: Più economica, tags: [word-choice]}
+      new: [{lemma: economico, gloss: cheap}]
+    - learner: Meglio! Posso provare questa maglietta?
+    - tutor: Certo, il camerino è qui.
+      goals: [try]
+    - learner: Mi piace molto. La prendo.
+    - tutor: Benissimo! Sono quindici euro, grazie.
+      goals: [decide]
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-m-heritage
+  turns:
+    - tutor: Buongiorno! Posso aiutarla?
+    - learner: Buongiorno. Mi piace questo maglietta rosso.
+      errors: [demonstrative, adjective-agreement]
+    - tutor: Questo maglietta? Maglietta è femminile...
+      prompt: {text: questo maglietta, tags: [demonstrative]}
+    - learner: Questa maglietta!
+    - tutor: Esatto! Questa maglietta rossa è molto bella.
+      goals: [ask-item]
+    - learner: Avete la taglia M?
+    - tutor: Sì, ecco la M.
+      goals: [size-colour]
+    - learner: Posso provare?
+    - tutor: Certo, il camerino è lì.
+      goals: [try]
+    - learner: Va benissimo. Quanto costa?
+    - tutor: Venticinque euro.
+    - learner: Bene, la prendo. Grazie!
+    - tutor: Grazie a Lei! Arrivederci.
+      goals: [decide]
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-f-professional
+  turns:
+    - tutor: Buongiorno! Posso aiutarla?
+    - learner: Buongiorno. Cerco due magliette blu per le mie figlie.
+    - tutor: Certo. Che taglia portano?
+      goals: [ask-item]
+    - learner: Portano la S. Queste sono carino!
+      errors: [adjective-agreement]
+    - tutor: Sono carino? Le magliette sono due...
+      prompt: {text: sono carino, tags: [adjective-agreement]}
+    - learner: Sono carini?
+      errors: [adjective-agreement]
+    - tutor: Sì, sono carine! E costano poco.
+      goals: [size-colour]
+      recast: {text: Sono carini, fix: sono carine, tags: [adjective-agreement]}
+    - learner: Scusi, come si dice "fitting room" in italiano?
+    - tutor: Si dice camerino. È lì, a destra.
+    - learner: Grazie. Posso provare una maglietta nel camerino?
+    - tutor: Certo, prego!
+      goals: [try]
+    - learner: Va bene, prendo due magliette. Ecco la carta.
+    - tutor: Grazie mille! Buona giornata!
+      goals: [decide]

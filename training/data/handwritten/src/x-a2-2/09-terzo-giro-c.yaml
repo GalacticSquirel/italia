@@ -1,0 +1,203 @@
+- scenario: noleggio-bici
+  level: A2
+  persona: en-m-traveller
+  history: [word-order]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Buongiorno! Sì. Avete una elettrica bicicletta? Sono un po' pigro."
+      errors: [word-order]
+    - tutor: "Una elettrica bicicletta? Provi a cambiare il posto delle due parole."
+      prompt: {text: "una elettrica bicicletta", tags: [word-order]}
+    - learner: "Una bicicletta elettrica!"
+    - tutor: "Esatto! Sì, ne abbiamo due. Per quanto tempo la vuole?"
+      goals: [ask]
+    - learner: "Per tre ore, fino all'una. Quanto costa?"
+    - tutor: "Tre ore costano 18 euro, con il casco."
+      goals: [duration]
+    - learner: "Va bene. La bicicletta ha anche una serratura?"
+      errors: [word-choice]
+    - tutor: "Sì, c'è anche il lucchetto, non si paga."
+      recast: {text: "una serratura", fix: "il lucchetto", tags: [word-choice]}
+      goals: [price]
+    - learner: "Bene. Conosce un bel percorso, non troppo lungo?"
+    - tutor: "Sì, vada verso il castello: da lì si vede tutto il lago."
+      new: [{lemma: castello, gloss: castle}]
+    - learner: "Bellissimo, ci vado. Grazie mille!"
+    - tutor: "Prego, buon giro!"
+      goals: [route]
+
+- scenario: palestra
+  level: A2
+  persona: en-f-professional
+  history: [question-form]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Ciao! Sì, grazie. Lavoro qui vicino e vorrei venire prima dell'ufficio. Che è il prezzo?"
+      errors: [question-form]
+    - tutor: "Che è il prezzo? All'inizio serve un'altra parola per questa domanda."
+      prompt: {text: "Che è il prezzo", tags: [question-form]}
+    - learner: "Qual è il prezzo?"
+    - tutor: "Brava! Un mese costa 50 euro, un anno 420."
+      goals: [ask-membership]
+    - learner: "E con l'abbonamento posso fare anche i corsi?"
+    - tutor: "Sì, tutti i corsi, anche lo yoga."
+      goals: [classes]
+    - learner: "Perfetto. A che ora aprite la mattina?"
+    - tutor: "Apriamo alle sei e mezza, dal lunedì al sabato."
+      goals: [timetable]
+    - learner: "Ottimo. Scusa, cosa vuol dire spogliatoio? L'ho letto sulla porta."
+    - tutor: "È la stanza dove ti cambi i vestiti prima dello sport."
+    - learner: "Ah, certo! Va bene, faccio l'abbonamento di un anno."
+    - tutor: "Benissimo! Scrivi qui il tuo nome per l'iscrizione. Benvenuta!"
+      goals: [sign-up]
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-m-heritage
+  history: [register]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Solo un taglio, per favore. Ho un colloquio di lavoro domani."
+    - tutor: "Allora ci vuole un bel taglio. Quanto corti li vuole?"
+      goals: [book]
+    - learner: "Corti sui lati, ma sopra più lunghi. Puoi fare così?"
+      errors: [register]
+    - tutor: "Puoi? Io e lei non ci conosciamo ancora: quale forma usa?"
+      prompt: {text: "Puoi", tags: [register]}
+    - learner: "Scusi. Può fare così?"
+    - tutor: "Certo! Ho capito bene come li vuole."
+      goals: [length]
+    - learner: "Grazie. E la barba? Secondo lei la devo tagliare?"
+    - tutor: "Io la lascio, ma più corta. Le sta bene."
+    - learner: "Va bene, più corta. Mi fido."
+    - tutor: "Ecco fatto! Si guardi allo specchio."
+      goals: [style]
+    - learner: "Perfetto, sembro un'altra persona! Quanto pago?"
+    - tutor: "Sono 22 euro. Buona fortuna per domani!"
+      goals: [pay]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: en-f-student
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Voglio un tavolo per stasera."
+      errors: [conditional-form]
+    - tutor: "Voglio? Per chiedere in modo gentile c'è un'altra forma di volere."
+      prompt: {text: "Voglio", tags: [conditional-form]}
+    - learner: "Vorrei un tavolo per stasera, per favore."
+    - tutor: "Molto meglio! Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Per cinque persone, alle nove. È possibile?"
+    - tutor: "Alle nove siamo pieni. Va bene alle nove e mezza?"
+    - learner: "Sì, va bene lo stesso. Una mia amica è vegetariana: avete piatti senza carne?"
+    - tutor: "Certo, abbiamo molti piatti senza carne."
+      goals: [details, special]
+    - learner: "Perfetto. Il nome è Harris, con la acca."
+    - tutor: "Benissimo. Stasera alle nove e mezza, cinque persone. Confermato!"
+      goals: [name]
+    - learner: "Grazie mille, a più tardi!"
+    - tutor: "A più tardi!"
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Quando ero bambino ho abitato in una fattoria in Ohio, con molti animali."
+      errors: [tense-aspect]
+    - tutor: "Ho abitato? Parli di tanti anni, non di un momento. Quale tempo usi?"
+      prompt: {text: "ho abitato", tags: [tense-aspect]}
+    - learner: "Abitavo in una fattoria."
+    - tutor: "Giusto! Che bello, una fattoria. E cosa facevi lì?"
+      goals: [place]
+    - learner: "Aiutavo mio padre con le mucche e giocavo con il nostro cane."
+    - tutor: "Che bella vita! E la scuola era lontana?"
+      goals: [habits]
+    - learner: "Sì, dieci chilometri. Attendevo una scuola molto piccola, con trenta bambini."
+      errors: [false-friend]
+    - tutor: "Andavi in una scuola piccola, allora! Ti piaceva?"
+      recast: {text: "Attendevo una scuola", fix: "Andavi in una scuola", tags: [false-friend]}
+    - learner: "Sì, molto. Tutti i bambini erano amici."
+    - tutor: "Che fortuna! Ricordi un giorno speciale?"
+      goals: [school]
+    - learner: "Sì. Una notte è nato un piccolo cavallo e io ho visto tutto. Avevo sette anni."
+    - tutor: "Che bello! Una notte così non si dimentica."
+      goals: [event]
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: es-f-erasmus
+  history: [noun-gender]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Buongiorno! Siamo in quattro, ma due amici arrivano dopo."
+    - tutor: "Nessun problema. Prego, questo tavolo è per voi."
+      goals: [ask-table]
+    - learner: "Grazie. Io prendo solo un primo, pero non so quale. Cosa mi consiglia?"
+      errors: [word-choice]
+    - tutor: "Solo un primo, ma quale? Oggi consiglio la pasta con il pesce."
+      recast: {text: "pero", fix: "ma", tags: [word-choice]}
+    - learner: "Allora la pasta con il pesce. E da bere, acqua naturale."
+    - tutor: "Benissimo. Aspettiamo i suoi amici per gli altri piatti?"
+      goals: [order-food, order-drink]
+    - learner: "No, loro hanno già mangiato. Prendono solo un caffè."
+    - tutor: "Va bene, allora due caffè dopo."
+    - learner: "Abbiamo finito. Era tutto molto buono. La conto, per favore."
+      errors: [noun-gender]
+    - tutor: "La conto? Conto è una parola maschile. Come cambia?"
+      prompt: {text: "La conto", tags: [noun-gender]}
+      new: [{lemma: maschile, gloss: masculine}]
+    - learner: "Il conto, per favore!"
+    - tutor: "Ecco il conto. Grazie a tutti e a presto!"
+      goals: [ask-bill]
+
+- scenario: serata-cinema
+  level: A2
+  persona: en-f-student
+  history: [piacere]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì, ti prego! Sono molto noiosa oggi, non ho niente da fare."
+      errors: [word-choice]
+    - tutor: "Sei annoiata? Allora usciamo! Cosa vuoi fare?"
+      recast: {text: "Sono molto noiosa", fix: "Sei annoiata", tags: [word-choice]}
+      new: [{lemma: annoiato, gloss: bored}]
+    - learner: "Andiamo al cinema? Mi piace i film horror."
+      errors: [piacere]
+    - tutor: "Mi piace i film? I film sono tanti: come cambia piace?"
+      prompt: {text: "Mi piace i film", tags: [piacere]}
+      goals: [propose]
+    - learner: "Mi piacciono i film horror!"
+    - tutor: "Giusto! Io invece ho paura. C'è anche una commedia, alle otto."
+      goals: [genre]
+    - learner: "Va bene, la commedia. Ma la prossima volta scelgo io!"
+    - tutor: "D'accordo! Allora alle otto. Dove ci vediamo?"
+      goals: [choose]
+    - learner: "Alla fermata dell'autobus vicino a casa tua, alle sette e mezza?"
+    - tutor: "Perfetto, alle sette e mezza. A dopo!"
+      goals: [meet]
+
+- scenario: tempo-libero
+  level: A2
+  persona: es-f-teacher
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Mi incanta leggere. Leggo un libro ogni settimana."
+      errors: [word-choice]
+    - tutor: "Ti piace tantissimo leggere, che bello! Cosa leggi?"
+      recast: {text: "Mi incanta leggere", fix: "Ti piace tantissimo leggere", tags: [word-choice]}
+      goals: [hobby, frequency]
+    - learner: "Soprattutto romanzi storici. Adesso sto leggendo un libro in italiano!"
+    - tutor: "Brava! È difficile?"
+    - learner: "Un po', ma imparo molte parole. E tu, Sara? Che cosa ti piace fare?"
+    - tutor: "Io amo cucinare. La domenica preparo sempre una torta."
+      new: [{lemma: torta, gloss: cake}]
+      goals: [ask]
+    - learner: "Che buono! Io non sono brava in cucina. Mi puoi insegnare una ricetta?"
+    - tutor: "Certo! Vieni da me sabato e cuciniamo insieme."
+      goals: [propose]
+    - learner: "Perfetto! Porto io il caffè."
+    - tutor: "Benissimo, a sabato!"

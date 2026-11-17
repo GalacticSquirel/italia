@@ -1,0 +1,191 @@
+- scenario: cucina-ricetta
+  level: A2
+  persona: es-f-teacher
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera ti insegno una ricetta di mia nonna: il riso con il pollo."
+    - tutor: "Che buono! Cosa serve?"
+    - learner: "Riso, pollo, una cipolla, due pomodori, sale e aceto di oliva."
+      errors: [false-friend]
+    - tutor: "Ah, olio d'oliva! Ho tutto. Da dove cominciamo?"
+      recast: {text: "aceto di oliva", fix: "olio d'oliva", tags: [false-friend]}
+      goals: [ingredients]
+    - learner: "Prima taglia la cipolla e il pollo. Io metto l'olio nella pentola."
+    - tutor: "Fatto! E adesso? Li metto nella pentola?"
+      goals: [steps]
+    - learner: "Sì, mettili nella pentola. Dopo cinque minuti aggiungiamo il riso e l'acqua."
+    - tutor: "Va bene. Quanto tempo deve cuocere?"
+    - learner: "Venti minuti, più o meno. Non toccare il riso!"
+    - tutor: "D'accordo, non lo tocco! E poi come lo serviamo?"
+      goals: [time]
+    - learner: "Lo serviamo caldo, con un po' di limone sopra."
+    - tutor: "Benissimo, ho già fame. Tua nonna cucina proprio bene!"
+      goals: [serve]
+
+- scenario: famiglia
+  level: A2
+  persona: en-m-heritage
+  history: [possessive]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Questi sono i miei parenti, mia mamma e mio papà, a Toronto."
+      errors: [false-friend]
+    - tutor: "Ah, i tuoi genitori! Che belli. E il ragazzo vicino a loro?"
+      recast: {text: "i miei parenti", fix: "i tuoi genitori", tags: [false-friend]}
+      goals: [who]
+    - learner: "È il mio fratello Daniel. Lui è più giovane di me e molto alto."
+      errors: [possessive]
+    - tutor: "Il mio fratello? Con fratello c'è una parola di troppo."
+      prompt: {text: "il mio fratello", tags: [possessive]}
+    - learner: "Mio fratello Daniel!"
+    - tutor: "Giusto! Quanti anni ha tuo fratello?"
+      goals: [describe]
+    - learner: "Ha ventidue anni. Studia medicina. E tu, Marco, hai fratelli o sorelle?"
+    - tutor: "Ho una sorella più grande. Abita a Napoli con i suoi due figli."
+      goals: [ages, ask]
+    - learner: "Che bello, sei zio! Li vedi spesso?"
+    - tutor: "Sì, ogni mese. Sono due bambini bellissimi!"
+
+- scenario: giorno-tipico
+  level: A2
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Ciao Anna! Di solito mi levanto alle sette e mezza."
+      errors: [word-choice]
+    - tutor: "Ti alzi alle sette e mezza, presto! E poi cosa fai?"
+      recast: {text: "mi levanto", fix: "ti alzi", tags: [word-choice]}
+      goals: [wake]
+    - learner: "Faccio colazione e poi vado all'università. Ho lezione fino all'una."
+    - tutor: "E il pomeriggio? Studi a casa?"
+      goals: [work]
+    - learner: "No, studio in biblioteca. La sera ceno con i miei coinquilini e guardiamo una serie."
+    - tutor: "Che bello! Chi cucina di solito?"
+      goals: [evening]
+    - learner: "Cucino io, perché mi piace molto. E tu, Anna? A che ora ti svegli?"
+    - tutor: "Io mi sveglio alle sei, perché lavoro lontano. La sera sono sempre stanca!"
+      goals: [ask]
+    - learner: "Poverina! Allora stasera cucino io anche per te."
+    - tutor: "Grazie, sei molto gentile!"
+
+- scenario: hotel-checkin
+  level: A2
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, ho prenotato un'abitazione per due notti. Il nome è Morales."
+      errors: [false-friend]
+    - tutor: "Sì, ecco: una camera per due notti. Mi dà un documento?"
+      recast: {text: "un'abitazione", fix: "una camera", tags: [false-friend]}
+      goals: [booking]
+    - learner: "Certo, ecco il passaporto. La camera ha il bagno?"
+    - tutor: "Sì, certo, e si vede anche il mare."
+      goals: [document]
+    - learner: "Benissimo. A che ora è la colazione?"
+    - tutor: "Dalle sette e mezza alle dieci, al piano terra."
+      goals: [breakfast]
+    - learner: "Grazie. C'è un posto per la macchina?"
+    - tutor: "Sì, dietro l'albergo, e non si paga. Ecco la chiave: camera 21, secondo piano."
+      goals: [key]
+    - learner: "Perfetto, grazie mille. Buonasera!"
+    - tutor: "Buonasera a lei!"
+
+- scenario: lavanderia
+  level: A2
+  persona: en-f-student
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! Ho messo i vestiti dentro, ma la lavatrice non lavora."
+      errors: [word-choice]
+    - tutor: "Non funziona? Vediamo. Hai messo il gettone?"
+      recast: {text: "non lavora", fix: "non funziona", tags: [word-choice]}
+      goals: [problem]
+    - learner: "No! Che cos'è un gettone? Non lo conosco."
+    - tutor: "È come una moneta, ma solo per le lavatrici. Lo compri alla macchina lì."
+    - learner: "Ah, ho capito. Quanto costa un gettone?"
+    - tutor: "Quattro euro per la lavatrice. Per l'asciugatrice bastano due euro."
+      goals: [payment]
+    - learner: "Va bene. E poi come funziona? Quale programma devo scegliere?"
+    - tutor: "Metti il gettone e scegli il programma due. Poi parte da sola."
+      goals: [ask-how]
+    - learner: "Perfetto. E il detersivo? L'ho dimenticato a casa."
+    - tutor: "Non ti preoccupare, ne ho tanto. Prendi il mio!"
+    - learner: "Sei gentilissima, grazie mille!"
+    - tutor: "Di niente, è un piacere!"
+      goals: [thank]
+
+- scenario: medico-base
+  level: A2
+  persona: es-f-teacher
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho la tosse e mi duele molto la gola."
+      errors: [word-choice]
+    - tutor: "Le fa male la gola, capisco. Ha anche la febbre?"
+      recast: {text: "mi duele", fix: "Le fa male", tags: [word-choice]}
+      goals: [symptoms]
+    - learner: "Sì, ieri sera avevo trentotto e mezzo."
+    - tutor: "E da quando si sente così?"
+    - learner: "Da sabato. Ho stato a letto tutto il fine settimana."
+      errors: [auxiliary-choice]
+    - tutor: "Ho stato? Attenzione alla prima parola: con stato non usiamo avere."
+      prompt: {text: "Ho stato", tags: [auxiliary-choice]}
+    - learner: "Sono stata a letto tutto il fine settimana."
+    - tutor: "Esatto. È allergica a qualche medicina?"
+      goals: [since-when]
+    - learner: "No, a nessuna. Però prendo una medicina per la pressione ogni mattina."
+    - tutor: "Bene. Allora prenda questo sciroppo tre volte al giorno, per cinque giorni."
+      new: [{lemma: sciroppo, gloss: syrup}]
+      goals: [history]
+    - learner: "Tre volte al giorno, per cinque giorni. Posso andare a scuola domani?"
+    - tutor: "No, resti a casa ancora due giorni. Ecco la ricetta, arrivederci!"
+      goals: [instructions]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-f-professional
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Buongiorno! Sì, voglio di noleggiare due biciclette, per il mio marito e per me."
+      errors: [modal-infinitive, possessive]
+    - tutor: "Voglio di noleggiare? Dopo volere c'è una parola di troppo."
+      prompt: {text: "voglio di noleggiare", tags: [modal-infinitive]}
+    - learner: "Voglio noleggiare due biciclette."
+    - tutor: "Perfetto! Per quanto tempo le vuole?"
+      goals: [ask]
+    - learner: "Per tutta la giornata, fino alle sei di sera."
+    - tutor: "Benissimo. Sono 15 euro per bicicletta."
+      goals: [duration]
+    - learner: "Il casco è compreso nel prezzo?"
+    - tutor: "Sì, certo, e anche il lucchetto."
+      goals: [price]
+    - learner: "Bene. Ci può consigliare un bel percorso? Non siamo molto sportivi."
+    - tutor: "Certo! Il percorso intorno al lago è facile e molto bello."
+    - learner: "Quanti chilometri sono?"
+    - tutor: "Sono dodici chilometri, tutti vicino all'acqua. Buon giro!"
+      goals: [route]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Ciao! Sì, grazie. Quanto costa un mese?"
+    - tutor: "Un mese costa 45 euro. Tre mesi costano 110 euro."
+      goals: [ask-membership]
+    - learner: "Ok. Ci sono anche corsi? Mi piace lo yoga."
+    - tutor: "Sì, c'è yoga il lunedì e il giovedì alle sette di sera."
+      goals: [classes]
+    - learner: "Perfetto. Io voglio venire tre tempi alla settimana."
+      errors: [word-choice]
+    - tutor: "Tre volte alla settimana, bravo! Allora l'abbonamento di tre mesi va bene."
+      recast: {text: "tre tempi", fix: "tre volte", tags: [word-choice]}
+    - learner: "Sì. Qual è l'orario della palestra? È aperta la domenica?"
+    - tutor: "Siamo aperti tutti i giorni dalle sette alle ventidue."
+      goals: [timetable]
+    - learner: "Benissimo. Allora faccio l'iscrizione adesso. Cosa serve?"
+    - tutor: "Solo un documento e il tuo nome qui. Benvenuto!"
+      goals: [sign-up]

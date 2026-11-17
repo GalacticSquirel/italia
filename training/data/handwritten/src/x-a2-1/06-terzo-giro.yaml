@@ -1,0 +1,194 @@
+# x-a2-1, file 06: question forms, conditional, negation, prepositions, pronouns, verb forms.
+- scenario: autobus
+  level: A2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno! Vado al museo di arte moderna. Questo autobus passa di lì?"
+    - tutor: "Sì, passa proprio davanti al museo."
+      goals: [route]
+    - learner: "Bene! E dove compro il biglietto? Posso pagare qui?"
+    - tutor: "No, mi dispiace. Lo trova in tabaccheria, lì davanti."
+      goals: [ticket]
+    - learner: "Ecco, ho il biglietto. Che è la fermata per il museo?"
+      errors: [question-form]
+    - tutor: "Che è la fermata? Per scegliere tra tante fermate usiamo un'altra parola. Provi!"
+      prompt: {text: "Che è la fermata", tags: [question-form]}
+    - learner: "Qual è la fermata per il museo?"
+    - tutor: "Benissimo! Deve scendere tra tre fermate. E deve timbrare il biglietto!"
+      goals: [stop]
+    - learner: "Fatto. Grazie mille per l'aiuto!"
+    - tutor: "Prego! Buona giornata."
+      goals: [thank]
+
+- scenario: biglietto-treno
+  level: A2
+  persona: es-f-teacher
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Devo andare a Verona sabato mattina, verso le otto."
+    - tutor: "C'è un treno alle otto e venti. Va bene?"
+      goals: [destination]
+    - learner: "Sì, perfetto. Un biglietto di andata e ritorno, per favore."
+    - tutor: "Certo. Prima o seconda classe?"
+      goals: [type]
+    - learner: "Seconda. Poterei avere un posto vicino alla porta? Ho una valigia grande."
+      errors: [conditional-form]
+    - tutor: "Poterei? Quasi! Questa parola è più corta, perde una lettera. Provi ancora."
+      prompt: {text: "Poterei", tags: [conditional-form]}
+    - learner: "Potrei avere un posto vicino alla porta?"
+    - tutor: "Esatto! Certo, le do un posto vicino alla porta."
+      goals: [class]
+    - learner: "Grazie. Quanto costa? E da che binario parte?"
+    - tutor: "Sono ventiquattro euro. Il treno parte dal binario tre."
+      goals: [platform]
+    - learner: "Ecco a lei. Grazie mille e buona giornata!"
+    - tutor: "Grazie, ecco i biglietti. Buon viaggio!"
+
+- scenario: casa-mia
+  level: A2
+  persona: en-f-student
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Abito in un appartamento con tre ragazze. È vecchio ma carino."
+    - tutor: "Che bello, in quattro! Quante stanze avete?"
+      goals: [type]
+    - learner: "Ci sono quattro camere, un bagno e una cucina. La cucina è molto piccolo."
+      errors: [adjective-agreement]
+    - tutor: "La cucina è piccolo? Cucina finisce con a. E l'altra parola?"
+      prompt: {text: "La cucina è molto piccolo", tags: [adjective-agreement]}
+      goals: [rooms]
+    - learner: "La cucina è molto piccoli?"
+      errors: [adjective-agreement]
+    - tutor: "Quasi: la cucina è molto piccola. In quattro è difficile cucinare, vero?"
+      recast: {text: "piccoli", fix: "piccola", tags: [adjective-agreement]}
+    - learner: "Piccola, giusto! Sì, è difficile. Ma la mia camera è grande e ha un balcone. È la mia stanza preferita."
+    - tutor: "Con il balcone, che fortuna!"
+      goals: [favourite]
+    - learner: "Sì! E tu, Luca, abiti da solo?"
+    - tutor: "No, abito con mio fratello in una casa vicino al mare."
+      goals: [ask]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-m-heritage
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Buongiorno. Sì, l'ho visto. Cercate ancora qualcuno per il bar?"
+    - tutor: "Sì, cerchiamo una persona per l'estate. Ha esperienza?"
+      goals: [ask]
+    - learner: "Ho mai lavorato in un bar, ma ho lavorato in un negozio per due anni."
+      errors: [negation]
+    - tutor: "Ho mai lavorato? Allora sì o no? Con mai manca una parola piccola."
+      prompt: {text: "Ho mai lavorato", tags: [negation]}
+    - learner: "Scusi: non ho mai lavorato in un bar."
+    - tutor: "Adesso è chiaro! Va bene, il negozio è una buona esperienza."
+      goals: [experience]
+    - learner: "Grazie. Imparo in fretta. Posso lavorare tutti i giorni, ma non la domenica."
+    - tutor: "Va bene, la domenica siamo chiusi. Può cominciare lunedì?"
+      goals: [availability]
+    - learner: "Sì, lunedì va bene. Qual è lo stipendio?"
+    - tutor: "Mille euro al mese. Mi lascia un numero di telefono?"
+    - learner: "Certo: 339 220 4471. Mi chiamo Paul Rossi."
+    - tutor: "Grazie! A lunedì alle nove, allora."
+      goals: [contact]
+
+- scenario: chiedere-strada
+  level: A2
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Buongiorno, scusi. Cerco la stazione. È lontana di qui?"
+      errors: [preposition]
+    - tutor: "Lontana di qui? Dopo lontano usiamo un'altra parola piccola. Lontana...?"
+      prompt: {text: "di qui", tags: [preposition]}
+    - learner: "È lontana da qui?"
+    - tutor: "Perfetto! No, è vicina: dieci minuti a piedi."
+      goals: [get-attention, ask-place]
+    - learner: "Meno male. Devo andare dritto?"
+    - tutor: "Sì, dritto fino alla piazza. Poi giri a destra al semaforo."
+    - learner: "Dritto fino alla piazza e poi a destra al semaforo. Giusto?"
+    - tutor: "Proprio così! La stazione è lì, davanti a lei."
+      goals: [understand]
+    - learner: "Grazie mille, molto gentile."
+    - tutor: "Di niente, buona giornata!"
+      goals: [thank]
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: en-f-professional
+  history: [object-pronoun]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Facciamo la pasta al pomodoro di casa mia! Servono pomodori, aglio, olio, sale e basilico."
+    - tutor: "Semplice e buona! Io metto l'acqua nella pentola. E i pomodori?"
+      goals: [ingredients]
+    - learner: "Prendi i pomodori e la tagli a pezzi piccoli."
+      errors: [object-pronoun]
+    - tutor: "La tagli? Ma i pomodori sono tanti. Quale parola piccola va bene?"
+      prompt: {text: "la tagli", tags: [object-pronoun]}
+    - learner: "Ah... le tagli a pezzi piccoli?"
+      errors: [object-pronoun]
+    - tutor: "Quasi: i pomodori li tagli a pezzi piccoli. Fatto! E adesso?"
+      recast: {text: "le tagli", fix: "li tagli", tags: [object-pronoun]}
+    - learner: "Li tagli, certo. Adesso metti l'olio e l'aglio in una padella e aggiungi i pomodori."
+    - tutor: "Che profumo! Quanto devono cuocere?"
+      goals: [steps]
+    - learner: "Venti minuti, a fuoco basso. La pasta invece cuoce dieci minuti."
+    - tutor: "Perfetto. E alla fine?"
+      goals: [time]
+    - learner: "Alla fine aggiungi il basilico fresco e servi con un po' di formaggio."
+    - tutor: "Buonissima! Allora tutti a tavola."
+      goals: [serve]
+
+- scenario: famiglia
+  level: A2
+  persona: en-m-traveller
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "È il matrimonio di mia sorella! Qui ci sono mia sorella, suo marito e i miei genitori."
+    - tutor: "Che bel giorno! Com'è tua sorella?"
+      goals: [who]
+    - learner: "Mia sorella è alto e biondo, come mio padre."
+      errors: [adjective-agreement]
+    - tutor: "Alto e biondo? Parli di tua sorella, una donna. Come cambiano le parole?"
+      prompt: {text: "alto e biondo", tags: [adjective-agreement]}
+    - learner: "Mia sorella è alta e bionda."
+    - tutor: "Giusto! E si vede, è molto bella. Quanti anni ha?"
+      goals: [describe]
+    - learner: "Ha trentun anni, e suo marito ne ha trentatré."
+    - tutor: "Sono giovani! E i tuoi genitori sono contenti?"
+      goals: [ages]
+    - learner: "Sì, molto. E tu, Marco, hai una sorella?"
+    - tutor: "No, ho due fratelli più grandi. Uno è già nonno!"
+      goals: [ask]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: es-m-worker
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Ciao Anna! Mi sveglio presto, alle cinque e mezza, perché lavoro in un ristorante."
+    - tutor: "Alle cinque e mezza! E poi?"
+      goals: [wake]
+    - learner: "Faccio colazione e salgo di casa alle sei."
+      errors: [false-friend]
+    - tutor: "Anch'io esco di casa presto, ma non alle sei! E cosa fai la mattina?"
+      recast: {text: "salgo di casa", fix: "esco di casa", tags: [false-friend]}
+    - learner: "Esco di casa, giusto. La mattina preparo le verdure e la carne. Poi ando al mercato con il capo."
+      errors: [verb-form]
+    - tutor: "Ando? Andare cambia molto con io. Come dici?"
+      prompt: {text: "ando", tags: [verb-form]}
+      goals: [work]
+    - learner: "Vado al mercato con il capo."
+    - tutor: "Giusto! E la sera, dopo il lavoro?"
+    - learner: "Torno a casa alle quattro, dormo un po' e poi ceno con la mia ragazza."
+    - tutor: "Una giornata lunga!"
+      goals: [evening]
+    - learner: "Sì, molto. E tu, Anna? Lavori tanto?"
+    - tutor: "Abbastanza! Lavoro in ufficio fino alle sei, poi vado a correre."
+      goals: [ask]

@@ -1,0 +1,194 @@
+- scenario: meteo-piani
+  level: A2
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Domenica andiamo al lago? Che tempo farà?"
+    - learner: "Ho guardato le previsioni: domenica farà bello, con molto sole."
+    - tutor: "Che bello! Allora che cosa facciamo al lago?"
+      goals: [forecast]
+    - learner: "Possiamo fare una passeggiata e poi mangiaremo un panino."
+      errors: [future-form]
+      gold: {text: "mangiaremo", fix: "mangeremo"}
+    - tutor: "Mangiaremo? Attenta alla forma del futuro."
+      prompt: {text: "mangiaremo", tags: [future-form]}
+    - learner: "Mangeremo un panino!"
+    - tutor: "Brava! Buona idea. Ma se il tempo cambia?"
+      goals: [plan]
+    - learner: "Se piove, vederemo un film al cinema."
+      errors: [future-form]
+      gold: {text: "vederemo", fix: "vedremo"}
+    - tutor: "Vederemo? Il futuro di «vedere» è un po' speciale."
+      prompt: {text: "vederemo", tags: [future-form]}
+    - learner: "Vederemo un film, no?"
+      errors: [future-form]
+      gold: {text: "Vederemo", fix: "vedremo"}
+    - tutor: "Sì, vedremo un film. A che ora ci vediamo?"
+      goals: [backup]
+      recast: {text: "Vederemo", fix: "vedremo", tags: [future-form]}
+    - learner: "Alle nove a casa mia. Va bene?"
+    - tutor: "Va benissimo. A domenica!"
+      goals: [agree]
+
+- scenario: meteo-piani
+  level: A2
+  persona: es-m-worker
+  history: [stare-gerund]
+  turns:
+    - tutor: "Domenica andiamo al lago? Che tempo farà?"
+    - learner: "Non lo so. Adesso sta lloviendo molto."
+      errors: [word-choice]
+      gold: {text: "lloviendo", fix: "piovendo"}
+    - tutor: "Sì, sta piovendo molto anche qui. E domenica?"
+      recast: {text: "lloviendo", fix: "piovendo", tags: [word-choice]}
+    - learner: "Domenica ci sarà il sole, dice la tele. Possiamo fare una grigliata al lago."
+    - tutor: "Ottima idea! Io porto il pane. E se piove ancora?"
+      goals: [forecast, plan]
+    - learner: "Se piove, venirete a casa mia e cucinerò io."
+      errors: [future-form]
+      gold: {text: "venirete", fix: "verrete"}
+    - tutor: "Venirete? Il futuro di «venire» è irregolare."
+      prompt: {text: "venirete", tags: [future-form]}
+      new: [{lemma: irregolare, gloss: irregular}]
+    - learner: "Verrete a casa mia e cucinerò io."
+    - tutor: "Giusto! Che bella idea. A che ora partiamo domenica?"
+      goals: [backup]
+    - learner: "Saliamo alle otto, così non c'è traffico."
+      errors: [false-friend]
+      gold: {text: "Saliamo", fix: "Partiamo"}
+    - tutor: "Va bene, partiamo alle otto. Passo io da te?"
+      recast: {text: "Saliamo", fix: "partiamo", tags: [false-friend]}
+    - learner: "Sì, grazie. A domenica, Davide!"
+    - tutor: "A domenica! Ciao!"
+      goals: [agree]
+
+- scenario: meteo-piani
+  level: A2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Domenica andiamo al lago? Che tempo farà?"
+    - learner: "Guarda fuori: adesso è piovendo!"
+      errors: [stare-gerund]
+      gold: {text: "è piovendo", fix: "sta piovendo"}
+    - tutor: "È piovendo? Con il gerundio usiamo un altro verbo."
+      prompt: {text: "è piovendo", tags: [stare-gerund]}
+      new: [{lemma: gerundio, gloss: gerund}]
+    - learner: "Sta piovendo!"
+    - tutor: "Esatto! Ma domenica che tempo farà?"
+    - learner: "Il weather forecast dice sole."
+      errors: [word-choice]
+      gold: {text: "weather forecast", fix: "previsioni"}
+    - tutor: "Bene, le previsioni dicono sole! Allora che cosa facciamo?"
+      goals: [forecast]
+      recast: {text: "Il weather forecast", fix: "le previsioni", tags: [word-choice]}
+    - learner: "Facciamo una gita in bici intorno al lago."
+    - tutor: "Bella idea! E se il tempo è brutto?"
+      goals: [plan]
+    - learner: "Allora prendiamo un caffè in città. Sono eccitato per domenica!"
+      errors: [false-friend]
+      gold: {text: "eccitato", fix: "emozionato"}
+    - tutor: "Anch'io sono emozionato! A che ora ci troviamo?"
+      goals: [backup]
+      recast: {text: "eccitato", fix: "emozionato", tags: [false-friend]}
+      new: [{lemma: emozionato, gloss: excited}]
+    - learner: "Alle dieci alla stazione?"
+    - tutor: "Perfetto, alle dieci alla stazione. A domenica!"
+      goals: [agree]
+
+- scenario: meteo-piani
+  level: A2
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Domenica andiamo al lago? Che tempo farà?"
+    - learner: "Ho letto le previsioni. La mattina sarà nuvoloso, ma il pomeriggio uscirà il sole."
+    - tutor: "Meno male! Che cosa vuoi fare al lago?"
+      goals: [forecast]
+    - learner: "Faremo il bagno e dopo rimaneremo al sole fino alla sera."
+      errors: [future-form]
+      gold: {text: "rimaneremo", fix: "rimarremo"}
+    - tutor: "Rimaneremo? Il futuro di «rimanere» è irregolare."
+      prompt: {text: "rimaneremo", tags: [future-form]}
+      new: [{lemma: irregolare, gloss: irregular}]
+    - learner: "Rimarremo al sole fino alla sera!"
+    - tutor: "Esatto! Che bella idea. E se invece piove?"
+      goals: [plan]
+    - learner: "Se piove, potiamo vedere un film a casa mia."
+      errors: [verb-form]
+      gold: {text: "potiamo", fix: "possiamo"}
+    - tutor: "Potiamo? Guarda bene: «potere» cambia con «noi»."
+      prompt: {text: "potiamo", tags: [verb-form]}
+    - learner: "Potiamo... vedere un film, no?"
+      errors: [verb-form]
+      gold: {text: "Potiamo", fix: "possiamo"}
+    - tutor: "Sì, possiamo vedere un film. A che ora vengo da te?"
+      goals: [backup]
+      recast: {text: "Potiamo", fix: "possiamo", tags: [verb-form]}
+    - learner: "Alle undici va bene."
+    - tutor: "Perfetto, alle undici. A domenica!"
+      goals: [agree]
+
+- scenario: meteo-piani
+  level: A2
+  persona: en-m-retired
+  history: [preposition]
+  turns:
+    - tutor: "Domenica andiamo al lago? Che tempo farà?"
+    - learner: "Le previsioni dicono che domenica piove un po' la mattina."
+    - tutor: "Peccato. E dopo?"
+      goals: [forecast]
+    - learner: "Dopo farà bello. Noi andaremo in lago con la macchina."
+      errors: [future-form, preposition]
+      gold: {text: "andaremo", fix: "andremo"}
+    - tutor: "Andaremo? Guarda bene il futuro di «andare»."
+      prompt: {text: "andaremo", tags: [future-form]}
+    - learner: "Andremo! Andremo nel pomeriggio."
+    - tutor: "Bravo! Buona idea. E se piove tutto il giorno?"
+      goals: [plan]
+    - learner: "Allora possiamo giocare le carte a casa mia."
+      errors: [preposition]
+      gold: {text: "giocare le carte", fix: "giocare a carte"}
+    - tutor: "Giocare le carte? Dopo «giocare» serve una preposizione."
+      prompt: {text: "giocare le carte", tags: [preposition]}
+      new: [{lemma: preposizione, gloss: preposition}]
+    - learner: "Sì, giocare le carte. Ti piace?"
+      errors: [preposition]
+      gold: {text: "giocare le carte", fix: "giocare a carte"}
+    - tutor: "Sì, mi piace giocare a carte! A che ora vengo?"
+      goals: [backup]
+      recast: {text: "giocare le carte", fix: "giocare a carte", tags: [preposition]}
+    - learner: "Vieni alle tre. Mia moglie sta facendo una torta."
+    - tutor: "Che gentile! Allora alle tre da te. A domenica!"
+      goals: [agree]
+
+- scenario: meteo-piani
+  level: A2
+  persona: en-f-professional
+  history: [stare-gerund]
+  turns:
+    - tutor: "Domenica andiamo al lago? Che tempo farà?"
+    - learner: "Aspetta, sto leggiendo le previsioni adesso."
+      errors: [stare-gerund]
+      gold: {text: "sto leggiendo", fix: "sto leggendo"}
+    - tutor: "Sto leggiendo? Guarda bene la forma di «leggere»."
+      prompt: {text: "sto leggiendo", tags: [stare-gerund]}
+    - learner: "Sto leggendo! Dicono che domenica ci sarà il sole."
+    - tutor: "Brava! Fantastico. Che programma hai in mente?"
+      goals: [forecast]
+    - learner: "Vorrei fare un picnic sulla spiaggia del lago."
+    - tutor: "Mi piace! E se il tempo cambia?"
+      goals: [plan]
+    - learner: "Se piove, pranzeremo in un ristorante vicino a il lago."
+      errors: [articulated-preposition]
+      gold: {text: "a il lago", fix: "al lago"}
+    - tutor: "Vicino a il lago? Queste due parole diventano una sola."
+      prompt: {text: "a il lago", tags: [articulated-preposition]}
+    - learner: "Sì, vicino a il lago c'è un ristorante buono."
+      errors: [articulated-preposition]
+      gold: {text: "a il lago", fix: "al lago"}
+    - tutor: "Va bene, un ristorante vicino al lago. A che ora partiamo?"
+      goals: [backup]
+      recast: {text: "a il lago", fix: "al lago", tags: [articulated-preposition]}
+    - learner: "Partiamo alle nove e mezza. Passo io a prenderti."
+    - tutor: "Grazie! Allora a domenica alle nove e mezza."
+      goals: [agree]

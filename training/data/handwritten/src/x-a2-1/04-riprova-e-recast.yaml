@@ -1,0 +1,200 @@
+# x-a2-1, file 04: prompts, several followed by a failed repair and a recast.
+- scenario: abbigliamento
+  level: A2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno! Cerco una maglietta blu, taglia L."
+    - tutor: "Certo! Abbiamo queste blu, in taglia L. Le piacciono?"
+      goals: [ask-item, size-colour]
+    - learner: "Sì, belle. Mi piacciono anche quelli pantaloni grigi."
+      errors: [demonstrative]
+    - tutor: "Quelli pantaloni? Davanti a pantaloni la parola è più corta. Provi ancora!"
+      prompt: {text: "quelli pantaloni", tags: [demonstrative]}
+    - learner: "Quegli pantaloni grigi?"
+      errors: [demonstrative]
+    - tutor: "Quasi! Quei pantaloni grigi costano trenta euro. Vuole provarli?"
+      recast: {text: "Quegli pantaloni", fix: "Quei pantaloni", tags: [demonstrative]}
+    - learner: "Sì, grazie. Posso provare la maglietta e i pantaloni? Dov'è il camerino?"
+    - tutor: "Il camerino è lì in fondo, a sinistra."
+      goals: [try]
+    - learner: "La maglietta va bene, ma i pantaloni sono troppo lunghi. Prendo solo la maglietta."
+    - tutor: "Va bene! La maglietta costa diciotto euro."
+    - learner: "Ecco venti euro."
+    - tutor: "Grazie! Ecco il resto e buona giornata."
+      goals: [decide]
+
+- scenario: autobus
+  level: A2
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Devo andare a la stazione. Questo autobus va bene?"
+      errors: [articulated-preposition]
+    - tutor: "A la stazione? In italiano queste due parole stanno insieme. Come?"
+      prompt: {text: "a la stazione", tags: [articulated-preposition]}
+    - learner: "Devo andare a stazione?"
+      errors: [articulated-preposition]
+    - tutor: "Quasi: deve andare alla stazione. Sì, questo autobus ci va."
+      recast: {text: "a stazione", fix: "alla stazione", tags: [articulated-preposition]}
+      goals: [route]
+    - learner: "Alla stazione, grazie. Dove compro il biglietto?"
+    - tutor: "In tabaccheria o al bar. Io qui non vendo biglietti."
+      goals: [ticket]
+    - learner: "Ho già un biglietto di ieri. Va bene?"
+    - tutor: "Sì, se è ancora nuovo. Lo deve timbrare adesso."
+    - learner: "Va bene. E dove devo scendere?"
+    - tutor: "Scenda tra sei fermate, dopo la piazza grande. Glielo dico io."
+      goals: [stop]
+    - learner: "Grazie mille, molto gentile."
+    - tutor: "Prego! Si accomodi, partiamo subito."
+      goals: [thank]
+
+- scenario: bar-colazione
+  level: A2
+  persona: en-f-student
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Vorrei un cappuccino, per favore."
+    - tutor: "Certo! Lo beve qui al bancone?"
+      goals: [greet, order-drink]
+    - learner: "Sì, qui. Scusi, dov'è il zucchero?"
+      errors: [article-form]
+    - tutor: "Il zucchero? Davanti alla zeta la parola piccola cambia. Provi ancora!"
+      prompt: {text: "il zucchero", tags: [article-form]}
+      new: [{lemma: zeta, gloss: the letter z}]
+    - learner: "Ehm... l'zucchero?"
+      errors: [article-form]
+    - tutor: "Quasi! Lo zucchero è lì, vicino ai cornetti. Ne vuole uno?"
+      recast: {text: "l'zucchero", fix: "Lo zucchero", tags: [article-form]}
+    - learner: "Ah, lo zucchero, grazie. Sì, un cornetto al cioccolato."
+    - tutor: "Ecco il cornetto. Altro?"
+      goals: [order-food]
+    - learner: "No, basta così. Quant'è?"
+    - tutor: "Due euro e ottanta."
+    - learner: "Ecco. Grazie e arrivederci!"
+    - tutor: "Grazie a lei, ecco lo scontrino. Buona giornata!"
+      goals: [pay]
+
+- scenario: biglietto-treno
+  level: A2
+  persona: en-m-retired
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei un biglietto per Firenze, per domani mattina."
+    - tutor: "Certo. C'è un regionale alle nove e dieci. Solo andata?"
+      goals: [destination]
+    - learner: "Andata e ritorno, per favore. Torno domenica sera."
+    - tutor: "Va bene. Prima o seconda classe?"
+      goals: [type]
+    - learner: "Seconda classe. Posso avere un posto vicino a il finestrino?"
+      errors: [articulated-preposition]
+    - tutor: "Vicino a il? Metta insieme quelle due parole piccole. Vicino...?"
+      prompt: {text: "a il finestrino", tags: [articulated-preposition]}
+    - learner: "Vicino al finestrino."
+    - tutor: "Perfetto! Un posto vicino al finestrino, seconda classe. Sono ventotto euro."
+      goals: [class]
+      new: [{lemma: finestrino, gloss: train window}]
+    - learner: "Ecco. Da quale binario parte il treno?"
+    - tutor: "Parte dal binario sette. Buon viaggio!"
+      goals: [platform]
+
+- scenario: casa-mia
+  level: A2
+  persona: en-m-heritage
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Abito in una casa con i miei genitori, fuori Toronto."
+    - tutor: "Bello! È grande? Quante camere ha?"
+      goals: [type]
+    - learner: "Sì, è grande. Ci sono quattro camere e c'è due bagni."
+      errors: [ce-ci-sono]
+    - tutor: "C'è due bagni? I bagni sono due, quindi...?"
+      prompt: {text: "c'è due bagni", tags: [ce-ci-sono]}
+    - learner: "Ci sono due bagni!"
+    - tutor: "Esatto! E qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "La mia camera. È piccola ma tranquilla, con un letto grande e tanti libri."
+    - tutor: "Che bella! Io amo le camere con tanti libri."
+      goals: [favourite]
+    - learner: "E tu, Luca? Abiti in una casa o in un appartamento?"
+    - tutor: "In un appartamento piccolo, ma ha un bel balcone."
+      goals: [ask]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-f-student
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Buongiorno! Sì, cercate una cameriera? Che orario è?"
+    - tutor: "Sì! L'orario è dalle sei di sera alle undici. Ha esperienza?"
+      goals: [ask]
+    - learner: "Un po'. L'estate scorsa ho fatto la cameriera in un pub. Ho anche scrivuto il menù in inglese!"
+      errors: [past-participle-form]
+    - tutor: "Brava! Ma scrivuto? Scrivere al passato cambia molto. Ha...?"
+      prompt: {text: "scrivuto", tags: [past-participle-form]}
+    - learner: "Ho... scrivato il menù?"
+      errors: [past-participle-form]
+    - tutor: "Quasi: ha scritto il menù in inglese. Qui serve molto! Quando è disponibile?"
+      recast: {text: "scrivato", fix: "scritto", tags: [past-participle-form]}
+      new: [{lemma: scritto, gloss: written}]
+      goals: [experience]
+    - learner: "Ho scritto, ok! Sono disponibile da giugno a settembre, tutte le sere."
+    - tutor: "Perfetto. Lo stipendio è otto euro all'ora. Le va bene?"
+      goals: [availability]
+    - learner: "Sì, va bene. Le lascio il mio numero: 347 112 9080. Mi chiamo Emma."
+    - tutor: "Grazie, Emma. La chiamo questa settimana!"
+      goals: [contact]
+
+- scenario: famiglia
+  level: A2
+  persona: en-f-professional
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Sono i miei nonni con mio fratello, nel loro giardino a Sydney."
+    - tutor: "Che bei nonni! Com'è tuo nonno?"
+      goals: [who]
+    - learner: "È molto allegro e parla sempre. Mio nonno è ottantadue anni."
+      errors: [essere-avere]
+    - tutor: "È ottantadue anni? Con gli anni non usiamo essere. Tuo nonno...?"
+      prompt: {text: "è ottantadue anni", tags: [essere-avere]}
+      goals: [describe]
+    - learner: "Mio nonno sta ottantadue anni?"
+      errors: [essere-avere]
+    - tutor: "Quasi: tuo nonno ha ottantadue anni. Sembra più giovane! E tuo fratello?"
+      recast: {text: "sta ottantadue anni", fix: "ha ottantadue anni", tags: [essere-avere]}
+    - learner: "Ha ottantadue anni, giusto. Mio fratello ha ventinove anni e fa il cuoco."
+    - tutor: "Che bel lavoro! Allora cucina lui a Natale?"
+      goals: [ages]
+    - learner: "Sì, cucina sempre lui! E la tua famiglia, Marco? È grande?"
+    - tutor: "No, siamo in tre: mia madre, mio padre e io."
+      goals: [ask]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: en-m-retired
+  history: [reflexive]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Ciao Anna. Di solito io alzo alle sei, perché porto fuori il cane."
+      errors: [reflexive]
+    - tutor: "Alle sei, che presto! Ma io alzo... che cosa? Manca una parola piccola."
+      prompt: {text: "io alzo", tags: [reflexive]}
+    - learner: "Io alzo me alle sei?"
+      errors: [reflexive]
+    - tutor: "Quasi: mi alzo alle sei. Anch'io mi alzo presto! E poi cosa fai?"
+      recast: {text: "alzo me", fix: "mi alzo", tags: [reflexive]}
+      goals: [wake]
+    - learner: "Mi alzo, va bene! Poi faccio colazione e leggo il giornale. La mattina studio italiano."
+    - tutor: "Bravo, ogni mattina! E la sera?"
+      goals: [work]
+    - learner: "La sera preparo la cena con mia moglie e guardiamo un film."
+    - tutor: "Che bella serata tranquilla!"
+      goals: [evening]
+    - learner: "E tu, Anna? A che ora ti svegli?"
+    - tutor: "Mi sveglio alle sette e corro in ufficio. Torno a casa solo per cena!"
+      goals: [ask]

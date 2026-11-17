@@ -1,0 +1,197 @@
+# Correction-dense A1 dialogues (set x-a1-1), file 1.
+- scenario: bar-colazione
+  level: A1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Buongiorno! Cosa prende?"
+  - learner: "Buongiorno! Vorrei un tè caldo, per favore."
+  - tutor: "Certo, un tè caldo. Vuole anche qualcosa da mangiare?"
+    goals: [greet, order-drink]
+  - learner: "Sì, grazie. Avete un cornetto alla crema?"
+  - tutor: "Sì, sono ancora caldi. Ecco il cornetto."
+    goals: [order-food]
+  - learner: "Che buono! Posso avere anche un po' di zucchero?"
+  - tutor: "Certo, lo zucchero è qui sul bancone."
+  - learner: "Grazie. Quanto pago?"
+  - tutor: "Sono due euro e ottanta in tutto."
+  - learner: "Ecco tre euro."
+  - tutor: "Grazie! Ecco il resto e lo scontrino. Buona giornata!"
+    goals: [pay]
+
+- scenario: casa-mia
+  level: A1
+  persona: en-m-retired
+  turns:
+  - tutor: "Allora, com'è la tua casa?"
+  - learner: "Abito in una casa a Columbus. Non è molto grande."
+  - tutor: "Una casa, che bello! Quante camere ci sono?"
+    goals: [type]
+  - learner: "Ci sono tre camere e è due bagni."
+    errors: [ce-ci-sono]
+  - tutor: "È due bagni? Con due cose il verbo cambia."
+    prompt: {text: "è due bagni", tags: [ce-ci-sono]}
+  - learner: "Ah, ci sono due bagni."
+  - tutor: "Esatto! E qual è la tua stanza preferita?"
+    goals: [rooms]
+  - learner: "La cucina. È grande e molto luminoso."
+    errors: [adjective-agreement]
+  - tutor: "La cucina è luminoso? Attenzione alla fine della parola."
+    prompt: {text: "luminoso", tags: [adjective-agreement]}
+  - learner: "Sì, molto luminoso, con due finestre."
+    errors: [adjective-agreement]
+  - tutor: "Ah, è luminosa, con due finestre! Che bella cucina."
+    goals: [favourite]
+    recast: {text: "luminoso", fix: "luminosa", tags: [adjective-agreement]}
+    new: [{lemma: "luminoso", gloss: "bright"}]
+  - learner: "Grazie! E tu, abiti in un appartamento?"
+  - tutor: "Sì, in un appartamento piccolo a Torino. Ha un bel balcone!"
+    goals: [ask]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: en-f-student
+  turns:
+  - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+  - learner: "Ciao, scusa! Dov'è la stazione?"
+    errors: [register]
+  - tutor: "Ciao, scusa? Con una persona nuova usiamo il Lei."
+    prompt: {text: "Ciao, scusa", tags: [register]}
+  - learner: "Ah, sì. Buongiorno, scusi! Dov'è la stazione?"
+  - tutor: "Benissimo! La stazione è qui vicino, in piazza Roma."
+    goals: [get-attention, ask-place]
+  - learner: "Vado a destra o a sinistra?"
+  - tutor: "Vada dritto fino al semaforo, poi a sinistra."
+  - learner: "Dritto, poi al semaforo a sinistra. È lontano di qui?"
+    errors: [preposition]
+  - tutor: "Lontano di qui? Con lontano usiamo un'altra piccola parola."
+    prompt: {text: "lontano di qui", tags: [preposition]}
+  - learner: "È lontano da qui?"
+  - tutor: "Esatto! No, sono cinque minuti a piedi."
+    goals: [understand]
+  - learner: "Perfetto. Grazie mille, arrivederci!"
+  - tutor: "Prego! Arrivederci e buona giornata."
+    goals: [thank]
+
+- scenario: famiglia
+  level: A1
+  persona: es-m-worker
+  history: [possessive]
+  turns:
+  - tutor: "Che bella foto! Chi sono queste persone?"
+  - learner: "Sono la mia sorella e i miei genitori."
+    errors: [possessive]
+  - tutor: "La mia sorella? Con una sorella serve l'articolo?"
+    prompt: {text: "la mia sorella", tags: [possessive]}
+    new: [{lemma: "articolo", gloss: "article"}]
+  - learner: "No! Sono mia sorella e i miei genitori."
+  - tutor: "Giusto! Che bella famiglia. Com'è tua sorella?"
+    goals: [who]
+  - learner: "È alta e molto simpatica. Lavora in un albergo."
+  - tutor: "Che bello! E quanti anni ha?"
+    goals: [describe]
+  - learner: "Tiene ventisei anni."
+    errors: [word-choice]
+  - tutor: "Ah, ha ventisei anni! È giovane."
+    goals: [ages]
+    recast: {text: "Tiene ventisei anni", fix: "ha ventisei anni", tags: [word-choice]}
+  - learner: "Sì. E tu, hai fratelli o sorelle?"
+  - tutor: "Ho un fratello, si chiama Pietro. Vive a Napoli."
+    goals: [ask]
+
+- scenario: giorno-tipico
+  level: A1
+  persona: en-f-professional
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata di solito?"
+  - learner: "Ciao Anna! Io sveglio alle sei e mezza."
+    errors: [reflexive]
+  - tutor: "Io sveglio? Qui manca una piccola parola."
+    prompt: {text: "Io sveglio", tags: [reflexive]}
+  - learner: "Io sveglio presto, alle sei e mezza?"
+    errors: [reflexive]
+  - tutor: "Anch'io mi sveglio alle sei e mezza! E poi cosa fai?"
+    goals: [wake]
+    recast: {text: "Io sveglio", fix: "mi sveglio", tags: [reflexive]}
+  - learner: "Faccio colazione e poi vado in ufficio. Lavoro fino alle cinque."
+  - tutor: "Una giornata lunga! E la sera cosa fai?"
+    goals: [work]
+  - learner: "La sera io e mio marito guarda un film."
+    errors: [subject-verb-agreement]
+  - tutor: "Io e mio marito guarda? Siete due persone: attenzione al verbo."
+    prompt: {text: "io e mio marito guarda", tags: [subject-verb-agreement]}
+  - learner: "Io e mio marito guardiamo un film."
+  - tutor: "Perfetto! Che bello, un film insieme."
+    goals: [evening]
+  - learner: "E tu, Anna? A che ora torni a casa?"
+  - tutor: "Torno alle sette e faccio la cena. Poi dormo!"
+    goals: [ask]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+  - learner: "Buonasera! Sì, ho una prenotazione. Mi chiamo Sean Murphy."
+  - tutor: "Benvenuto, signor Murphy. Una camera per tre notti, vero?"
+    goals: [booking]
+  - learner: "Sì, tre notti. Ecco il mio passaporto."
+  - tutor: "Grazie mille. La sua camera è la 12, al primo piano."
+    goals: [document]
+  - learner: "Benissimo. A che ora è la colazione?"
+  - tutor: "Dalle sette alle dieci, qui al piano terra."
+    goals: [breakfast]
+  - learner: "Perfetto. C'è il wifi in camera?"
+  - tutor: "Sì, è gratis. Ecco la chiave della camera 12."
+    goals: [key]
+    new: [{lemma: "gratis", gloss: "free"}]
+  - learner: "Grazie mille. Buona serata!"
+  - tutor: "Grazie, buona serata anche a Lei!"
+
+- scenario: mercato-frutta
+  level: A1
+  persona: en-m-heritage
+  turns:
+  - tutor: "Ciao! Cosa ti do oggi?"
+  - learner: "Ciao! Quanto costa le arance?"
+    errors: [subject-verb-agreement]
+  - tutor: "Quanto costa le arance? Le arance sono tante: e il verbo?"
+    prompt: {text: "Quanto costa le arance", tags: [subject-verb-agreement]}
+  - learner: "Quanto costano le arance?"
+  - tutor: "Bravo! Costano due euro al chilo. Sono molto fresche."
+    goals: [ask-price]
+  - learner: "Bene. Prendo due chilo, per favore."
+    errors: [noun-number]
+  - tutor: "Due chilo? Con due, la parola cambia."
+    prompt: {text: "due chilo", tags: [noun-number]}
+  - learner: "Due chili!"
+  - tutor: "Esatto, due chili di arance. Ecco qui. Vuoi altro?"
+    goals: [buy-quantity]
+  - learner: "Sì, anche mezzo chilo di pomodori."
+  - tutor: "Ecco i pomodori. Sono cinque euro in tutto."
+    goals: [ask-other]
+  - learner: "Ecco cinque euro. Grazie, ciao!"
+  - tutor: "Grazie a te! Buona giornata."
+    goals: [pay]
+
+- scenario: numero-telefono
+  level: A1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "È stata una bella lezione, vero?"
+  - learner: "Sì, molto bella! Vuoi cucinare insieme otra volta?"
+    errors: [word-choice]
+  - tutor: "Un'altra volta? Sì, con piacere! Mi dai il tuo numero?"
+    goals: [propose]
+    recast: {text: "otra volta", fix: "un'altra volta", tags: [word-choice]}
+  - learner: "Certo. Il mio numero è 347 552 1908."
+  - tutor: "Grazie! Ti mando un messaggio. Quando sei libera?"
+    goals: [number]
+  - learner: "Sono libera sabato a le sei."
+    errors: [articulated-preposition]
+  - tutor: "A le sei? Queste due parole vanno insieme."
+    prompt: {text: "a le sei", tags: [articulated-preposition]}
+  - learner: "Ah, sabato alle sei!"
+  - tutor: "Perfetto! Allora sabato alle sei a casa mia."
+    goals: [when]
+  - learner: "Va bene. A sabato, Paolo!"
+  - tutor: "A sabato! Ciao ciao."

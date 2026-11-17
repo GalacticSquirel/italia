@@ -1,0 +1,204 @@
+# Correction-dense A1 dialogues (set x-a1-1), file 4.
+- scenario: orari-negozio
+  level: A1
+  persona: en-m-heritage
+  turns:
+  - tutor: "Pronto, negozio Bianchi, buongiorno!"
+  - learner: "Buongiorno. Chiamo per un'informazione. A che ora apri oggi?"
+    errors: [register]
+  - tutor: "A che ora apri? Al telefono con un negozio usiamo voi."
+    prompt: {text: "A che ora apri", tags: [register]}
+  - learner: "Scusi! A che ora aprite oggi?"
+  - tutor: "Benissimo! Oggi apriamo alle nove e mezza."
+    goals: [greet]
+  - learner: "E a che ora voi chiude?"
+    errors: [subject-verb-agreement]
+  - tutor: "Voi chiude? Attenzione alla fine del verbo con voi."
+    prompt: {text: "voi chiude", tags: [subject-verb-agreement]}
+  - learner: "A che ora voi chiude la sera?"
+    errors: [subject-verb-agreement]
+  - tutor: "A che ora chiudete? Chiudiamo alle otto di sera."
+    goals: [ask-hours]
+    recast: {text: "voi chiude", fix: "chiudete", tags: [subject-verb-agreement]}
+  - learner: "Grazie. E siete aperti la domenica?"
+  - tutor: "Sì, ma solo la mattina, fino all'una."
+    goals: [ask-day]
+  - learner: "Perfetto, grazie mille. Arrivederci!"
+  - tutor: "Grazie a Lei, arrivederci!"
+    goals: [goodbye]
+
+- scenario: panetteria
+  level: A1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Buongiorno! Mi dica."
+  - learner: "Buongiorno! Vorrei un chilo di pane, per favore."
+  - tutor: "Certo. Questo pane è ancora caldo."
+    goals: [greet, order-bread]
+  - learner: "Che buono! Avete anche i grissini?"
+  - tutor: "Sì, ecco i grissini. Un sacchetto o due?"
+  - learner: "Un sacchetto, grazie. E due etti di pizza rossa."
+  - tutor: "Ecco la pizza. Altro?"
+    goals: [order-extra]
+  - learner: "No, basta così, grazie. Quant'è?"
+  - tutor: "Sono sette euro e venti."
+  - learner: "Ecco dieci euro."
+  - tutor: "Grazie! Ecco il resto: due euro e ottanta."
+  - learner: "Grazie, arrivederci!"
+  - tutor: "Arrivederci e buona giornata!"
+    goals: [pay]
+
+- scenario: presentarsi
+  level: A1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+  - learner: "Ciao! Mi chiamo Lucía. Piacere!"
+  - tutor: "Piacere, Lucía! Di dove sei?"
+    goals: [say-name]
+  - learner: "Sono di Siviglia, nel sud di Spagna."
+    errors: [article-use]
+  - tutor: "Di Spagna? Prima di Spagna manca una piccola parola."
+    prompt: {text: "di Spagna", tags: [article-use]}
+  - learner: "Nel sud della Spagna!"
+  - tutor: "Brava! Che bella città, Siviglia. E cosa fai?"
+    goals: [say-origin]
+  - learner: "Sono studentessa. Studio medicina in la università."
+    errors: [articulated-preposition]
+  - tutor: "In la università? Con università usiamo un'altra parola, tutta insieme."
+    prompt: {text: "in la università", tags: [articulated-preposition]}
+  - learner: "Studio medicina all'università."
+  - tutor: "Perfetto! Medicina, che brava."
+    goals: [say-job]
+  - learner: "Grazie! E tu, cosa studi?"
+  - tutor: "Io studio inglese. Mi piace molto!"
+    goals: [ask-back]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-m-retired
+  turns:
+  - tutor: "Buongiorno, benvenuti! Quanti siete?"
+  - learner: "Buongiorno. Siamo due persone."
+  - tutor: "Benissimo, questo tavolo è libero. Ecco il menù."
+    goals: [ask-table]
+  - learner: "Grazie. Io vorrei le lasagne e mia moglie il pesce."
+  - tutor: "Lasagne e pesce, benissimo. E da bere?"
+    goals: [order-food]
+  - learner: "Due bicchiere di vino rosso, per favore."
+    errors: [noun-number]
+  - tutor: "Due bicchiere? Con due, la parola cambia alla fine."
+    prompt: {text: "Due bicchiere", tags: [noun-number]}
+  - learner: "Due bicchieri di vino rosso."
+  - tutor: "Esatto! Arrivano subito."
+    goals: [order-drink]
+  - learner: "Scusi! Possiamo avere lo conto?"
+    errors: [article-form]
+  - tutor: "Lo conto? Attenzione all'articolo: lo non va bene qui."
+    prompt: {text: "lo conto", tags: [article-form]}
+  - learner: "Possiamo avere il conto?"
+  - tutor: "Certo! Ecco il conto: sono trentadue euro."
+    goals: [ask-bill]
+  - learner: "Ecco. Grazie, arrivederci!"
+  - tutor: "Grazie a voi! Arrivederci."
+
+- scenario: supermercato
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno, cerca qualcosa?"
+  - learner: "Buongiorno. Sì, cerco l'aceto di oliva."
+    errors: [false-friend]
+  - tutor: "Ah, l'olio di oliva! È nel reparto due."
+    goals: [ask-product]
+    recast: {text: "l'aceto di oliva", fix: "l'olio di oliva", tags: [false-friend]}
+    new: [{lemma: "olio", gloss: "oil"}]
+  - learner: "Grazie. E il latte è vicino a la cassa?"
+    errors: [articulated-preposition]
+  - tutor: "Vicino a la cassa? A e la vanno insieme."
+    prompt: {text: "a la cassa", tags: [articulated-preposition]}
+  - learner: "Vicino alla cassa?"
+  - tutor: "Esatto! Sì, il latte è vicino alla cassa."
+    goals: [ask-other]
+  - learner: "Perfetto. C'è anche la pasta lì?"
+  - tutor: "No, la pasta è sullo scaffale in fondo."
+  - learner: "Va bene. Grazie mille!"
+  - tutor: "Prego, buona giornata!"
+    goals: [thank]
+
+- scenario: taxi
+  level: A1
+  persona: en-f-student
+  turns:
+  - tutor: "Buongiorno! Dove la porto?"
+  - learner: "Buongiorno. In via Dante 15, per favore."
+  - tutor: "Via Dante, va bene. Ha una valigia?"
+    goals: [destination]
+  - learner: "Sì, ho un valigia grande."
+    errors: [noun-gender]
+  - tutor: "Un valigia? Valigia è una parola femminile."
+    prompt: {text: "un valigia", tags: [noun-gender]}
+  - learner: "Una valigia grande!"
+  - tutor: "Esatto. La metto io in macchina."
+  - learner: "Grazie. Quanto lungo è il viaggio?"
+    errors: [question-form]
+  - tutor: "Quanto lungo? In italiano chiediamo con la parola tempo."
+    prompt: {text: "Quanto lungo è il viaggio", tags: [question-form]}
+  - learner: "Quanto tempo è il viaggio?"
+    errors: [question-form]
+  - tutor: "Quanto tempo ci vuole? Venti minuti."
+    goals: [ask-time]
+    recast: {text: "Quanto tempo è il viaggio", fix: "Quanto tempo ci vuole", tags: [question-form]}
+  - learner: "Bene. E quanto costa?"
+  - tutor: "Costa diciotto euro."
+    goals: [ask-price]
+  - learner: "Ecco venti euro. Grazie, arrivederci!"
+  - tutor: "Grazie! Ecco il resto. Arrivederci."
+    goals: [pay]
+
+- scenario: tempo-libero
+  level: A1
+  persona: en-f-professional
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  - learner: "Mi piace leggere e ascoltare musica."
+  - tutor: "Che bello! Leggi spesso?"
+    goals: [hobby]
+  - learner: "Sì, leggo sempre la sera. E il sabato vado al cinema."
+  - tutor: "Ogni sabato? Ti piace molto il cinema!"
+    goals: [frequency]
+  - learner: "Sì, molto. E tu, Sara, cosa fai nel tempo libero?"
+  - tutor: "Io faccio sport. Corro al parco la domenica mattina."
+    goals: [ask]
+  - learner: "Io non corro mai! Però mi piace camminare."
+  - tutor: "Anche camminare è sport!"
+  - learner: "Andiamo al parco insieme domenica?"
+  - tutor: "Sì, volentieri! Domenica alle dieci?"
+    goals: [propose]
+    new: [{lemma: "volentieri", gloss: "gladly"}]
+
+- scenario: abbigliamento
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Buongiorno. Cerco una camiseta per il lavoro."
+    errors: [word-choice]
+  - tutor: "Una maglietta? Certo! Di che colore?"
+    goals: [ask-item]
+    recast: {text: "una camiseta", fix: "Una maglietta", tags: [word-choice]}
+  - learner: "Nera, per favore. La taglia è la L."
+  - tutor: "Ecco una maglietta nera, taglia L."
+    goals: [size-colour]
+  - learner: "Grazie. E quanto costa quello maglietta rossa?"
+    errors: [demonstrative]
+  - tutor: "Quello maglietta? Maglietta è femminile. E quello?"
+    prompt: {text: "quello maglietta", tags: [demonstrative]}
+  - learner: "Quanto costa quella maglietta rossa?"
+  - tutor: "Bravo! Costa dodici euro. C'è lo sconto oggi."
+  - learner: "Bene. Posso provare la maglietta nera?"
+  - tutor: "Certo, il camerino è qui a sinistra."
+    goals: [try]
+  - learner: "Va benissimo. Prendo la nera e pago in contanti."
+  - tutor: "Perfetto! Sono dodici euro. Grazie e arrivederci!"
+    goals: [decide]

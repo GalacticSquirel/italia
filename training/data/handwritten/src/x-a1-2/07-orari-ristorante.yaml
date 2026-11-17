@@ -1,0 +1,222 @@
+- scenario: orari-negozio
+  level: A1
+  persona: en-f-student
+  history: [negation]
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Buongiorno! Vorrei un'informazione. A che ora aprite oggi?
+    - tutor: Buongiorno! Oggi apriamo alle nove.
+      goals: [greet]
+    - learner: E a che ora chiudete?
+    - tutor: Chiudiamo alle sette di sera.
+      goals: [ask-hours]
+    - learner: E domenica? Il negozio è non aperto?
+      errors: [negation]
+    - tutor: È non aperto? Dove mettiamo la parola non?
+      prompt: {text: è non aperto, tags: [negation]}
+    - learner: Non è aperto?
+    - tutor: Esatto! No, la domenica non è aperto.
+      goals: [ask-day]
+    - learner: Ho capito. Grazie mille, arrivederci!
+    - tutor: Grazie a Lei, arrivederci!
+      goals: [goodbye]
+
+- scenario: orari-negozio
+  level: A1
+  persona: en-m-retired
+  history: [verb-form]
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Buongiorno. A che ora il negozio aprire?
+      errors: [verb-form]
+    - tutor: Buongiorno! Il negozio aprire? Attenzione al verbo.
+      goals: [greet]
+      prompt: {text: il negozio aprire, tags: [verb-form]}
+    - learner: A che ora apre il negozio?
+    - tutor: Bravo! Apre alle otto e mezza.
+    - learner: E quando chiude?
+    - tutor: Chiude alle sette e mezza.
+      goals: [ask-hours]
+    - learner: Domenica è aperto?
+    - tutor: Sì, ma solo la mattina.
+      goals: [ask-day]
+    - learner: Scusi, può ripetere?
+    - tutor: Certo. Domenica siamo aperti solo la mattina.
+    - learner: Grazie. Arrivederci.
+    - tutor: Arrivederci, buona giornata!
+      goals: [goodbye]
+
+- scenario: orari-negozio
+  level: A1
+  persona: es-m-worker
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Buongiorno. Una domanda. A che ora chiudete oggi?
+    - tutor: Buongiorno! Oggi chiudiamo alle otto.
+      goals: [greet]
+    - learner: E domani a che ora aprite?
+    - tutor: Domani apriamo alle nove.
+      goals: [ask-hours]
+    - learner: Siete aperti il domingo?
+      errors: [word-choice]
+    - tutor: La domenica? Sì, ma solo la mattina.
+      goals: [ask-day]
+      recast: {text: il domingo, fix: La domenica, tags: [word-choice]}
+    - learner: Ah, la domenica mattina. Fino a che ora?
+    - tutor: Fino all'una.
+    - learner: Perfetto, grazie. Arrivederci!
+    - tutor: Arrivederci!
+      goals: [goodbye]
+
+- scenario: orari-negozio
+  level: A1
+  persona: en-f-professional
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Buongiorno. Voi apre in sabato?
+      errors: [subject-verb-agreement, preposition]
+    - tutor: Buongiorno! Voi apre? Attenzione al verbo con voi...
+      goals: [greet]
+      prompt: {text: Voi apre, tags: [subject-verb-agreement]}
+    - learner: Voi aprite il sabato?
+    - tutor: Perfetto! Sì, il sabato apriamo alle dieci.
+    - learner: E a che ora chiudete?
+    - tutor: Chiudiamo alle sei.
+      goals: [ask-hours]
+    - learner: E la domenica?
+    - tutor: La domenica il negozio è chiuso.
+      goals: [ask-day]
+    - learner: Va bene. Grazie e buona giornata!
+    - tutor: Grazie, anche a Lei!
+      goals: [goodbye]
+
+- scenario: orari-negozio
+  level: A1
+  persona: es-f-teacher
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Buongiorno. Chiamo per sapere gli orari del negozio.
+    - tutor: Buongiorno! Siamo aperti dalle nove alle sette.
+      goals: [greet, ask-hours]
+    - learner: Chiudete per il pranzo?
+    - tutor: No, facciamo orario continuato.
+      new: [{lemma: orario continuato, gloss: open all day}]
+    - learner: Scusi, che cosa significa "orario continuato"?
+    - tutor: Significa che non chiudiamo a pranzo.
+    - learner: Ah, ho capito! E la domenica siete aperti?
+    - tutor: Solo il pomeriggio, dalle tre.
+      goals: [ask-day]
+    - learner: Molte grazie. Buona giornata!
+    - tutor: Grazie, arrivederci!
+      goals: [goodbye]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-m-traveller
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Buongiorno! Siamo in due.
+    - tutor: Bene, questo tavolo è libero. Ecco il menù.
+      goals: [ask-table]
+    - learner: Grazie. Scusi, che cosa sono le "tagliatelle"?
+    - tutor: È una pasta lunga. È molto buona!
+    - learner: Allora prendo le tagliatelle al ragù.
+    - tutor: Benissimo. E da bere?
+      goals: [order-food]
+    - learner: Una bottiglia di acqua e un bicchiere di vino rosso.
+    - tutor: Arrivano subito!
+      goals: [order-drink]
+    - learner: Era tutto buono. Il conto, per favore.
+    - tutor: Grazie! Ecco il conto.
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-f-student
+  history: [modal-infinitive]
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Buongiorno. Un tavolo per tre, per favore.
+    - tutor: Prego, da questa parte.
+      goals: [ask-table]
+    - learner: Grazie. Io voglio a prendere la lasagna.
+      errors: [modal-infinitive]
+    - tutor: Voglio a prendere? C'è una parola in più.
+      prompt: {text: voglio a prendere, tags: [modal-infinitive]}
+    - learner: Voglio prendere la lasagna.
+    - tutor: Perfetto! E da bere?
+      goals: [order-food]
+    - learner: Acqua naturale per tutti.
+    - tutor: Bene. Arriva subito.
+      goals: [order-drink]
+    - learner: Scusi, possiamo avere il conto?
+    - tutor: Certo, ecco il conto.
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Buongiorno. Siamo due persone.
+    - tutor: Prego, ecco il tavolo e il menù.
+      goals: [ask-table]
+    - learner: Grazie. Vorrei la pasta con le gambas.
+      errors: [word-choice]
+    - tutor: La pasta con i gamberi, benissimo! E da bere?
+      goals: [order-food]
+      recast: {text: le gambas, fix: i gamberi, tags: [word-choice]}
+      new: [{lemma: gambero, gloss: prawn}]
+    - learner: Acqua frizzante, per favore.
+    - tutor: Arriva subito.
+      goals: [order-drink]
+    - learner: Scusi, c'è il pane?
+    - tutor: Sì, ecco il pane.
+    - learner: Tutto molto buono! Mi porta il conto?
+    - tutor: Certo. Ecco a Lei.
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-m-retired
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Buongiorno. Siamo in due, mia moglie e io.
+    - tutor: Benvenuti! Prego, questo tavolo.
+      goals: [ask-table]
+    - learner: Io prendo i spaghetti e voglio di bere vino rosso.
+      errors: [article-form, modal-infinitive]
+    - tutor: Voglio di bere? Dopo voglio c'è subito il verbo.
+      prompt: {text: voglio di bere, tags: [modal-infinitive]}
+    - learner: Voglio bere vino rosso.
+    - tutor: Benissimo, vino rosso. La pasta arriva subito.
+      goals: [order-food, order-drink]
+    - learner: Grazie. C'è anche il pane?
+    - tutor: Sì, lo porto subito.
+    - learner: Il conto, per favore.
+    - tutor: Ecco il conto. Grazie!
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-m-heritage
+  turns:
+    - tutor: Buongiorno, benvenuti! Quanti siete?
+    - learner: Buongiorno. Sono solo.
+    - tutor: Va bene. Prego, questo tavolo.
+      goals: [ask-table]
+    - learner: Grazie. Prendo il gnocchi.
+      errors: [article-form]
+    - tutor: Il gnocchi? Attenzione all'articolo, è plurale.
+      prompt: {text: il gnocchi, tags: [article-form]}
+    - learner: Ah... lo gnocchi?
+      errors: [article-form]
+    - tutor: Gli gnocchi, benissimo! E da bere?
+      goals: [order-food]
+      recast: {text: lo gnocchi, fix: Gli gnocchi, tags: [article-form]}
+    - learner: Gli gnocchi, grazie. E mezzo litro di vino bianco.
+    - tutor: Arriva subito.
+      goals: [order-drink]
+    - learner: Buonissimi! Il conto, per favore.
+    - tutor: Grazie! Ecco il conto.
+      goals: [ask-bill]

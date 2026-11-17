@@ -1,0 +1,197 @@
+# x-a2-1, file 07: gender, agreement, articulated prepositions, questions, pronouns, ne.
+- scenario: hotel-checkin
+  level: A2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera! Sì, a nome O'Brien, per tre notti."
+    - tutor: "Sì, ecco: una camera per una persona. Mi dà un documento?"
+      goals: [booking]
+    - learner: "Ecco il passaporto. La camera ha il wifi?"
+    - tutor: "Grazie. Sì, il wifi è libero in tutte le camere."
+      goals: [document]
+    - learner: "Perfetto. E a che ora è la colazione domani?"
+    - tutor: "Dalle sette e mezza alle dieci, qui al piano terra."
+      goals: [breakfast]
+    - learner: "Bene. Posso avere il chiave adesso? Sono molto stanco."
+      errors: [noun-gender]
+    - tutor: "Il chiave? Mmm, chiave è come notte o come piano?"
+      prompt: {text: "il chiave", tags: [noun-gender]}
+    - learner: "Ah, come notte! Posso avere la chiave?"
+    - tutor: "Esatto! Ecco la chiave: camera 12, al primo piano. Buona notte!"
+      goals: [key]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: en-f-student
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera! Sì, io e la mia amica ha una prenotazione, a nome Clarke."
+      errors: [subject-verb-agreement]
+    - tutor: "Benvenute! Ma io e la mia amica... ha? Siete in due, quindi noi...?"
+      prompt: {text: "io e la mia amica ha", tags: [subject-verb-agreement]}
+    - learner: "Noi abbiamo una prenotazione, a nome Clarke."
+    - tutor: "Perfetto, eccola: due notti. Avete i documenti?"
+      goals: [booking]
+    - learner: "Sì, ecco le nostre carte d'identità."
+    - tutor: "Grazie. La vostra camera è la 31, al terzo piano."
+      goals: [document]
+    - learner: "C'è l'ascensore? Abbiamo due valigie pesanti."
+    - tutor: "Sì, l'ascensore è lì a destra."
+      new: [{lemma: ascensore, gloss: lift}]
+    - learner: "Meno male! E la colazione a che ora è?"
+    - tutor: "Dalle sette alle dieci, al piano terra."
+      goals: [breakfast]
+    - learner: "Grazie. Ci dà la chiave?"
+    - tutor: "Certo, ecco la chiave. Buona serata!"
+      goals: [key]
+
+- scenario: palestra
+  level: A2
+  persona: es-f-erasmus
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Ciao! Sì, grazie. Quanto costa al mese?"
+    - tutor: "Trentacinque euro al mese, con tutti i corsi."
+      goals: [ask-membership]
+    - learner: "Non è caro! Avete un corso di yoga o di pilates?"
+    - tutor: "Sì, tutti e due. Yoga il martedì, pilates il venerdì."
+      goals: [classes]
+    - learner: "Il corso di yoga è a le sette di sera? Io finisco le lezioni tardi."
+      errors: [articulated-preposition]
+    - tutor: "A le sette? Con le ore le due parole diventano una. Come?"
+      prompt: {text: "a le sette", tags: [articulated-preposition]}
+    - learner: "Alle sette!"
+    - tutor: "Brava! Sì, yoga è alle sette e finisce alle otto."
+      goals: [timetable]
+    - learner: "Perfetto. Allora mi iscrivo per un mese. Cosa devo fare?"
+    - tutor: "Scrivi qui nome e telefono. L'iscrizione costa dieci euro."
+    - learner: "Ecco fatto. Pago con la carta. Dov'è lo spogliatoio?"
+    - tutor: "In fondo a sinistra. Benvenuta tra noi!"
+      goals: [sign-up]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-retired
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Buongiorno. Sì, vorrei sapere i prezzi. Sono in pensione e ho molto tempo libero."
+    - tutor: "Benissimo! Un mese costa quaranta euro, un anno trecento."
+      goals: [ask-membership]
+    - learner: "Capisco. Cosa giorni è aperta la palestra?"
+      errors: [question-form]
+    - tutor: "Cosa giorni? Per chiedere dei giorni serve un'altra parola. Prova con qua..."
+      prompt: {text: "Cosa giorni", tags: [question-form]}
+    - learner: "Quali giorni è aperta la palestra?"
+    - tutor: "Ecco! È aperta tutti i giorni, dalle sette alle dieci di sera."
+      goals: [timetable]
+    - learner: "Ottimo. Ci sono corsi per persone della mia età?"
+    - tutor: "Certo! C'è yoga la mattina, è un corso tranquillo."
+      goals: [classes]
+    - learner: "Lo yoga mi interessa. Mi iscrivo per un mese, per provare."
+    - tutor: "Perfetto! Scrivi qui il tuo nome. Ti aspetto lunedì!"
+      goals: [sign-up]
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Vorrei solo un taglio, non troppo corto."
+    - tutor: "Va bene. Quanto taglio?"
+      goals: [book]
+    - learner: "Due centimetri. Ai lati più corti, ma sopra lunghi."
+    - tutor: "Capito. Prima laviamo i capelli?"
+      goals: [length]
+    - learner: "No, grazie, i capelli la ho lavato stamattina."
+      errors: [object-pronoun, participle-agreement]
+    - tutor: "La ho lavato? I capelli sono tanti. Quale parola piccola usa?"
+      prompt: {text: "la ho lavato", tags: [object-pronoun]}
+    - learner: "I capelli lo ho lavato stamattina?"
+      errors: [object-pronoun, participle-agreement]
+    - tutor: "Quasi: i capelli li ho lavati stamattina. Bene, allora taglio subito!"
+      recast: {text: "lo ho lavato", fix: "li ho lavati", tags: [object-pronoun]}
+    - learner: "Li ho lavati, capito!"
+    - tutor: "Bravo. Senta, tagliamo anche la barba? Le sta bene più corta."
+      new: [{lemma: barba, gloss: beard}]
+    - learner: "Buona idea, sì. Ma non troppo corta, per favore."
+    - tutor: "Ecco fatto! Si guardi allo specchio."
+      goals: [style]
+    - learner: "Molto bene, grazie. Quanto pago?"
+    - tutor: "Venti euro in tutto."
+    - learner: "Ecco. Grazie e arrivederci."
+    - tutor: "Grazie a lei, a presto!"
+      goals: [pay]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: en-f-student
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Vorrei prenotare un tavolo per venerdì sera."
+    - tutor: "Certo. A che ora e per quante persone?"
+      goals: [book]
+    - learner: "Alle otto, per quattro persona."
+      errors: [noun-number]
+    - tutor: "Quattro persona? Siete in quattro, quindi la parola cambia. Quattro...?"
+      prompt: {text: "quattro persona", tags: [noun-number]}
+    - learner: "Quattro persone, scusi!"
+    - tutor: "Perfetto: venerdì alle otto, in quattro."
+      goals: [details]
+    - learner: "Una mia amica non mangia carne. Avete piatti senza carne?"
+    - tutor: "Certo, abbiamo molti piatti di verdure e di pesce."
+      goals: [special]
+    - learner: "Benissimo. Il nome è Hannah. H-A-N-N-A-H."
+    - tutor: "Grazie, è tutto confermato. A venerdì!"
+      goals: [name]
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Abitavo a Toronto, ma ogni estate sono andato in Calabria dai nonni."
+      errors: [tense-aspect]
+    - tutor: "Ogni estate sono andato? Era un'abitudine, tutte le estati. Allora...?"
+      prompt: {text: "ogni estate sono andato", tags: [tense-aspect]}
+      new: [{lemma: abitudine, gloss: habit}]
+    - learner: "Ogni estate ho andato in Calabria?"
+      errors: [tense-aspect, auxiliary-choice]
+    - tutor: "Quasi: ogni estate andavo in Calabria, si dice. Che fortuna! E cosa facevi lì?"
+      recast: {text: "ho andato", fix: "andavo", tags: [tense-aspect]}
+      goals: [place]
+    - learner: "Andavo, giusto! Giocavo a calcio in piazza con i miei cugini e mangiavo tanto gelato."
+    - tutor: "Che bello! E a scuola, a Toronto, ti piaceva?"
+      goals: [habits]
+    - learner: "Così così. Ero bravo in matematica, ma parlavo troppo in classe."
+    - tutor: "Anch'io parlavo sempre! Hai un ricordo speciale di quegli anni?"
+      goals: [school]
+    - learner: "Sì. Un giorno mio nonno mi ha insegnato a fare il pane. Avevo otto anni."
+    - tutor: "Che bel ricordo! Un giorno voglio provare quel pane."
+      goals: [event]
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: es-f-teacher
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Buongiorno. Siamo in tre. Abbiamo prenotato a nome García."
+    - tutor: "Sì, prego, questo è il vostro tavolo. Ecco il menù."
+      goals: [ask-table]
+    - learner: "Grazie. Per me il pesce del giorno, e per loro due pizze margherita."
+    - tutor: "Benissimo. E da bere? Acqua grande o piccola?"
+      goals: [order-food]
+    - learner: "Acqua naturale, grande. Vogliamo due, per favore."
+      errors: [ci-ne]
+    - tutor: "Vogliamo due? Due di che cosa? Manca una parola piccola all'inizio."
+      prompt: {text: "Vogliamo due", tags: [ci-ne]}
+    - learner: "Ne vogliamo due, per favore."
+    - tutor: "Esatto! Due acque grandi, arrivano subito."
+      goals: [order-drink]
+    - learner: "Grazie. Era tutto molto buono. Ci porta il conto?"
+    - tutor: "Certo, ecco il conto. Grazie e a presto!"
+      goals: [ask-bill]

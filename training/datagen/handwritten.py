@@ -375,7 +375,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--source-dir", help="default data/handwritten/src (data/bench/src)")
     parser.add_argument("--out-dir", help="default data/handwritten (data/bench)")
-    args = parser.parse_args(argv)
+    args = parser.parse_intermixed_args(argv)
     split: Split = "eval" if args.bench else "train"
     source_dir = Path(args.source_dir or (BENCH_SOURCE_DIR if args.bench else SOURCE_DIR))
     out_dir = Path(args.out_dir or (BENCH_DIR if args.bench else HANDWRITTEN_DIR))

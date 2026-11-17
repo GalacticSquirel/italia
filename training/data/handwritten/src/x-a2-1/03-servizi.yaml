@@ -1,0 +1,194 @@
+# x-a2-1, file 03: service encounters with one prompted error each.
+- scenario: hotel-checkin
+  level: A2
+  persona: en-m-retired
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, ho una prenotazione per due notti. Il nome è Miller."
+    - tutor: "Sì, eccola: una camera per due persone. Ha un documento, per favore?"
+      goals: [booking]
+    - learner: "Certo, ecco il mio passaporto."
+    - tutor: "Grazie mille. È tutto a posto."
+      goals: [document]
+    - learner: "Che ora è la colazione?"
+      errors: [question-form]
+    - tutor: "Che ora è? Sono le sette di sera! Ma per la colazione, come chiede?"
+      prompt: {text: "Che ora è la colazione", tags: [question-form]}
+    - learner: "Ah, capisco! A che ora è la colazione?"
+    - tutor: "Perfetto! La colazione è dalle sette alle dieci, al primo piano."
+      goals: [breakfast]
+    - learner: "Benissimo. E la nostra camera dov'è?"
+    - tutor: "È la camera 204, al secondo piano. Ecco la chiave."
+      goals: [key]
+    - learner: "Grazie. Buona serata!"
+    - tutor: "Grazie a lei! Buona serata."
+
+- scenario: lavanderia
+  level: A2
+  persona: en-f-student
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! Questa lavatrice non funziona. Non lo capisco."
+      errors: [object-pronoun]
+    - tutor: "Non lo capisco? Parli della lavatrice, vero? Che parola piccola usi?"
+      prompt: {text: "Non lo capisco", tags: [object-pronoun]}
+    - learner: "Ah, sì: non la capisco!"
+    - tutor: "Ecco! Non è difficile. Hai già messo il detersivo?"
+      goals: [problem]
+    - learner: "Sì, l'ho messo. Ma come funziona? Quale programma scelgo?"
+    - tutor: "Scegli il programma due e chiudi bene. Poi parte da sola."
+      goals: [ask-how]
+    - learner: "Va bene. E come si paga? Con le monete?"
+    - tutor: "No, con il gettone. Lo compri lì, alla macchina: costa quattro euro."
+      goals: [payment]
+    - learner: "Perfetto, ho quattro euro. Grazie mille, sei molto gentile!"
+    - tutor: "Di niente! Se hai bisogno, sono qui."
+      goals: [thank]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Buongiorno. Sì, vorrei noleggiare due biciclette, per me e per mio marito."
+    - tutor: "Benissimo! Per quanto tempo?"
+      goals: [ask]
+    - learner: "Per tutta la giornata. Mio marito venirà tra dieci minuti."
+      errors: [future-form]
+    - tutor: "Venirà? Attenzione, il futuro di venire è un po' diverso. Suo marito...?"
+      prompt: {text: "venirà", tags: [future-form]}
+    - learner: "Mio marito... verrà tra dieci minuti."
+    - tutor: "Esatto, bravissima! La giornata costa quindici euro per bicicletta."
+      goals: [duration]
+    - learner: "Va bene. Il casco è compreso nel prezzo?"
+    - tutor: "Sì, nel prezzo ci sono anche il casco e il lucchetto."
+      goals: [price]
+    - learner: "Perfetto. Può consigliarci un bel percorso?"
+    - tutor: "Certo! Il percorso del lago è facile e molto bello."
+    - learner: "Benissimo, faremo il giro del lago. Grazie!"
+    - tutor: "Buon giro! Le aspetto qui prima delle sette."
+      goals: [route]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Ciao! Sì, quanto costa l'abbonamento per un mese?"
+    - tutor: "Un mese costa quaranta euro. Tre mesi costano cento euro."
+      goals: [ask-membership]
+    - learner: "Buono! Questa palestra è più economica che la mia vecchia palestra."
+      errors: [comparative]
+    - tutor: "Più economica che...? Tra due cose, dopo più usiamo un'altra parola piccola."
+      prompt: {text: "che la mia vecchia palestra", tags: [comparative]}
+    - learner: "Più economica della mia vecchia palestra!"
+    - tutor: "Giusto! E qui ci sono anche tanti corsi."
+    - learner: "Che corsi ci sono? Mi interessa lo yoga."
+    - tutor: "Sì, c'è yoga! Abbiamo anche corsi di sera per chi lavora."
+      goals: [classes]
+    - learner: "E a che ora è il corso di yoga?"
+    - tutor: "Il lunedì e il giovedì alle sette di sera."
+      goals: [timetable]
+    - learner: "Perfetto per me. Voglio fare l'iscrizione per tre mesi."
+    - tutor: "Benissimo! Scrivi qui il tuo nome. Lo spogliatoio è a sinistra."
+      goals: [sign-up]
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-f-professional
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Vorrei tagliare i capelli, sono troppo lunghi."
+    - tutor: "Va bene. Quanto li tagliamo?"
+      goals: [book]
+    - learner: "Vorrei i capelli corto, fino alle spalle."
+      errors: [adjective-agreement]
+    - tutor: "I capelli corto? I capelli sono tanti: come finisce la parola?"
+      prompt: {text: "i capelli corto", tags: [adjective-agreement]}
+    - learner: "Giusto: vorrei i capelli corti, fino alle spalle."
+    - tutor: "Perfetto, fino alle spalle. Facciamo anche la frangia? Le sta bene."
+      goals: [length]
+    - learner: "Mmm, la frangia no, grazie. Non mi piace sul mio viso."
+    - tutor: "D'accordo, niente frangia. Prima li laviamo, poi tagliamo."
+      goals: [style]
+    - learner: "Va bene, grazie."
+    - tutor: "Ecco fatto! Si guardi allo specchio. Le piace?"
+    - learner: "Sì, mi piace molto! Quanto pago?"
+    - tutor: "Sono venticinque euro."
+    - learner: "Ecco a lei. Arrivederci!"
+    - tutor: "Grazie, arrivederci e a presto!"
+      goals: [pay]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Io vorrebbe prenotare un tavolo per stasera."
+      errors: [conditional-form]
+    - tutor: "Buonasera! Io vorrebbe? Vorrebbe va bene per lui o lei. E per io?"
+      prompt: {text: "Io vorrebbe", tags: [conditional-form]}
+    - learner: "Io vorrei prenotare un tavolo per stasera."
+    - tutor: "Benissimo! Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Siamo in sei, alle otto e mezza."
+    - tutor: "Sei persone alle otto e mezza: va bene."
+      goals: [details]
+    - learner: "È possibile avere un tavolo fuori? È il compleanno di mia moglie."
+    - tutor: "Certo, fuori c'è posto. Tanti auguri a sua moglie! A che nome?"
+      goals: [special]
+      new: [{lemma: augurio, gloss: best wishes}]
+    - learner: "Ramos. R-A-M-O-S."
+    - tutor: "Perfetto, è tutto confermato. A stasera!"
+      goals: [name]
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: en-m-heritage
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Buongiorno! Siamo in due. C'è un tavolo vicino alla finestra?"
+    - tutor: "Certo, prego. Ecco il menù. Cosa prendete?"
+      goals: [ask-table]
+    - learner: "Per me i spaghetti al pomodoro, e per mia madre il risotto."
+      errors: [article-form]
+    - tutor: "I spaghetti? Pensi alla parola studenti: quale parola piccola va prima?"
+      prompt: {text: "i spaghetti", tags: [article-form]}
+    - learner: "Ah, gli spaghetti! Gli spaghetti al pomodoro, per favore."
+    - tutor: "Esatto! Gli spaghetti per lei. E da bere?"
+      goals: [order-food]
+    - learner: "Una bottiglia d'acqua naturale e un bicchiere di vino rosso."
+    - tutor: "Ecco l'acqua, il vino e i vostri piatti. Buon appetito!"
+      goals: [order-drink]
+    - learner: "Grazie, è tutto buonissimo! Dopo ci porta il conto, per favore?"
+    - tutor: "Certo, dopo porto il conto. Buon pranzo!"
+      goals: [ask-bill]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Vorrei spedire questo pacco a Spagna, a mia madre."
+      errors: [preposition]
+    - tutor: "A Spagna? Con i paesi usiamo un'altra parola piccola. Lo spedisce...?"
+      prompt: {text: "a Spagna", tags: [preposition]}
+    - learner: "Lo spedisco in Spagna, a Siviglia."
+    - tutor: "Perfetto! Normale o veloce? Quello veloce arriva in tre giorni."
+      goals: [send]
+    - learner: "Quanto costa quello veloce?"
+    - tutor: "Costa venti euro. Quello normale dodici, ma arriva in dieci giorni."
+    - learner: "Allora quello normale, non ho fretta."
+    - tutor: "Va bene. Scriva qui l'indirizzo e che cosa c'è nel pacco."
+      goals: [speed]
+    - learner: "Ecco il modulo. Dentro ci sono libri e una sciarpa."
+    - tutor: "Grazie, il modulo è a posto. Sono dodici euro."
+      goals: [form]
+    - learner: "Ecco. Mi dà la ricevuta, per favore?"
+    - tutor: "Certo, ecco la ricevuta. Buona giornata!"
+      goals: [pay]
+      new: [{lemma: ricevuta, gloss: receipt}]

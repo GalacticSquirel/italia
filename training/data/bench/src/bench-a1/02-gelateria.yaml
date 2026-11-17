@@ -1,0 +1,240 @@
+- scenario: gelateria
+  level: A1
+  persona: en-m-retired
+  history: [noun-gender]
+  turns:
+    - tutor: "Buonasera! Cono o coppetta?"
+    - learner: "Buonasera. Vorrei una cono piccolo, per favore."
+      errors: [noun-gender]
+      gold: {text: "una cono", fix: "un cono"}
+    - tutor: "Una cono? Cono è una parola maschile."
+      prompt: {text: "una cono", tags: [noun-gender]}
+      new: [{lemma: maschile, gloss: masculine}]
+    - learner: "Ah, un cono! Un cono piccolo."
+    - tutor: "Bravo! Che gusti vuole?"
+      goals: [choose-size]
+    - learner: "Vorrei due gusto: cioccolato e fragola."
+      errors: [noun-number]
+      gold: {text: "due gusto", fix: "due gusti"}
+    - tutor: "Due gusto? Sono due, non uno."
+      prompt: {text: "due gusto", tags: [noun-number]}
+    - learner: "Due gusto: cioccolato e fragola."
+      errors: [noun-number]
+      gold: {text: "Due gusto", fix: "Due gusti"}
+    - tutor: "Due gusti, benissimo: cioccolato e fragola."
+      goals: [choose-flavours]
+      recast: {text: "Due gusto", fix: "Due gusti", tags: [noun-number]}
+    - learner: "Grazie. Quanto costa? Ho solo dieci euro."
+    - tutor: "Costa due euro e cinquanta. Ecco il resto. Arrivederci!"
+      goals: [pay]
+
+- scenario: gelateria
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Buonasera! Cono o coppetta?"
+    - learner: "Buonasera! Una coppetta mediana, per favore."
+      errors: [word-choice]
+      gold: {text: "mediana", fix: "media"}
+    - tutor: "Una coppetta media, benissimo. Che gusti vuole?"
+      goals: [choose-size]
+      recast: {text: "mediana", fix: "media", tags: [word-choice]}
+      new: [{lemma: medio, gloss: medium}]
+    - learner: "Limone e fresa."
+      errors: [word-choice]
+      gold: {text: "fresa", fix: "fragola"}
+    - tutor: "Limone e fragola, ecco."
+      goals: [choose-flavours]
+      recast: {text: "fresa", fix: "fragola", tags: [word-choice]}
+    - learner: "Grazie! Vorrei anche due cucchiaino."
+      errors: [noun-number]
+      gold: {text: "due cucchiaino", fix: "due cucchiaini"}
+    - tutor: "Due cucchiaino? Con «due» la parola cambia."
+      prompt: {text: "due cucchiaino", tags: [noun-number]}
+    - learner: "Due cucchiaini! Quanto costa il gelato?"
+    - tutor: "Brava! Ecco due cucchiaini. Il gelato costa tre euro."
+    - learner: "Ecco tre euro. Buonasera!"
+    - tutor: "Grazie! Arrivederci e a presto!"
+      goals: [pay]
+
+- scenario: gelateria
+  level: A1
+  persona: en-f-student
+  history: [article-form]
+  turns:
+    - tutor: "Buonasera! Cono o coppetta?"
+    - learner: "Buonasera! Un coppetta piccola, per favore."
+      errors: [noun-gender]
+      gold: {text: "Un coppetta", fix: "Una coppetta"}
+    - tutor: "Un coppetta? Coppetta finisce con la a."
+      prompt: {text: "Un coppetta", tags: [noun-gender]}
+    - learner: "Una coppetta piccola!"
+    - tutor: "Esatto! Che gusti vuole?"
+      goals: [choose-size]
+    - learner: "Fragola e cioccolato. E un acqua, per favore."
+      errors: [article-form]
+      gold: {text: "un acqua", fix: "un'acqua"}
+    - tutor: "Un acqua? Acqua comincia con la a."
+      prompt: {text: "un acqua", tags: [article-form]}
+    - learner: "Sì, un acqua. Ho sete!"
+      errors: [article-form]
+      gold: {text: "un acqua", fix: "un'acqua"}
+    - tutor: "Certo. Ecco la coppetta e un'acqua."
+      goals: [choose-flavours]
+      recast: {text: "un acqua", fix: "un'acqua", tags: [article-form]}
+    - learner: "Grazie. Ecco cinque euro."
+    - tutor: "Grazie! Sono tre euro e cinquanta. Ecco il resto."
+      goals: [pay]
+
+- scenario: gelateria
+  level: A1
+  persona: es-m-worker
+  history: [noun-number]
+  turns:
+    - tutor: "Buonasera! Cono o coppetta?"
+    - learner: "Buonasera. Una cono grande con due gusto."
+      errors: [noun-gender, noun-number]
+      gold: {text: "due gusto", fix: "due gusti"}
+    - tutor: "Due gusto? Con «due» la parola cambia."
+      prompt: {text: "due gusto", tags: [noun-number]}
+    - learner: "Due gusti!"
+    - tutor: "Esatto! Quali gusti vuole?"
+      goals: [choose-size]
+    - learner: "Cioccolato e limone."
+    - tutor: "Ecco il gelato. Vuole anche la panna?"
+      goals: [choose-flavours]
+    - learner: "No mi piace la panna, grazie."
+      errors: [negation]
+      gold: {text: "No mi piace", fix: "Non mi piace"}
+    - tutor: "No mi piace? Guardi bene la prima parola."
+      prompt: {text: "No mi piace", tags: [negation]}
+    - learner: "No mi piace la panna."
+      errors: [negation]
+      gold: {text: "No mi piace", fix: "Non"}
+    - tutor: "Va bene, non le piace la panna. Sono tre euro."
+      recast: {text: "No mi piace", fix: "non le piace", tags: [negation]}
+    - learner: "Ecco tre euro. Grazie!"
+    - tutor: "Grazie a Lei! Buonasera!"
+      goals: [pay]
+
+- scenario: gelateria
+  level: A1
+  persona: en-m-traveller
+  turns:
+    - tutor: "Buonasera! Cono o coppetta?"
+    - learner: "Buonasera! Un cup piccolo, per favore."
+      errors: [word-choice]
+      gold: {text: "cup", fix: "coppetta"}
+    - tutor: "Una coppetta piccola, certo! Che gusti vuole?"
+      goals: [choose-size]
+      recast: {text: "Un cup piccolo", fix: "Una coppetta piccola", tags: [word-choice]}
+    - learner: "Pistacchio e... strawberry?"
+      errors: [word-choice]
+      gold: {text: "strawberry", fix: "fragola"}
+    - tutor: "Pistacchio e fragola, benissimo. Ecco!"
+      goals: [choose-flavours]
+      recast: {text: "strawberry", fix: "fragola", tags: [word-choice]}
+    - learner: "Grazie mille. Quanto costa questa gelato?"
+      errors: [noun-gender]
+      gold: {text: "questa gelato", fix: "questo gelato"}
+    - tutor: "Questa gelato? Gelato è una parola maschile."
+      prompt: {text: "questa gelato", tags: [noun-gender]}
+      new: [{lemma: maschile, gloss: masculine}]
+    - learner: "Questo gelato! Quanto costa?"
+    - tutor: "Bravo! Costa due euro."
+    - learner: "Ho solo venti euro. Va bene?"
+    - tutor: "Nessun problema. Ecco diciotto euro di resto."
+      goals: [pay]
+
+- scenario: gelateria
+  level: A1
+  persona: en-f-professional
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Buonasera! Cono o coppetta?"
+    - learner: "Buonasera. Vorrei una coppetta grande."
+    - tutor: "Certo. Che gusti vuole?"
+      goals: [choose-size]
+    - learner: "Mi piace i gusti alla frutta. Limone e fragola."
+      errors: [piacere]
+      gold: {text: "Mi piace i gusti", fix: "Mi piacciono i gusti"}
+    - tutor: "Mi piace i gusti? I gusti sono più di uno."
+      prompt: {text: "Mi piace i gusti", tags: [piacere]}
+    - learner: "Mi piacciono i gusti alla frutta!"
+    - tutor: "Brava! Ecco limone e fragola."
+      goals: [choose-flavours]
+    - learner: "Grazie. La fragola è molto buono!"
+      errors: [adjective-agreement]
+      gold: {text: "è molto buono", fix: "è molto buona"}
+    - tutor: "Molto buono? Fragola è una parola femminile."
+      prompt: {text: "molto buono", tags: [adjective-agreement]}
+      new: [{lemma: femminile, gloss: feminine}]
+    - learner: "Sì, è molto buono."
+      errors: [adjective-agreement]
+      gold: {text: "è molto buono", fix: "è molto buona"}
+    - tutor: "Grazie! Sì, la fragola è molto buona. Sono tre euro."
+      recast: {text: "è molto buono", fix: "è molto buona", tags: [adjective-agreement]}
+    - learner: "Ecco tre euro."
+    - tutor: "Grazie a Lei! Arrivederci!"
+      goals: [pay]
+
+- scenario: gelateria
+  level: A1
+  persona: en-m-heritage
+  history: [article-use]
+  turns:
+    - tutor: "Buonasera! Cono o coppetta?"
+    - learner: "Buonasera. Cono, per favore. Piccolo."
+    - tutor: "Un cono piccolo. Che gusti vuole?"
+      goals: [choose-size]
+    - learner: "Mi piace cioccolato. E limone."
+      errors: [article-use]
+      gold: {text: "Mi piace cioccolato", fix: "Mi piace il cioccolato"}
+    - tutor: "Mi piace cioccolato? Manca una piccola parola."
+      prompt: {text: "Mi piace cioccolato", tags: [article-use]}
+    - learner: "Sì, mi piace cioccolato."
+      errors: [article-use]
+      gold: {text: "piace cioccolato", fix: "piace il cioccolato"}
+    - tutor: "Anche a me piace il cioccolato! Vuole la panna?"
+      goals: [choose-flavours]
+      recast: {text: "mi piace cioccolato", fix: "piace il cioccolato", tags: [article-use]}
+    - learner: "Niente panna, grazie. Quanti soldi è?"
+      errors: [question-form]
+      gold: {text: "Quanti soldi è", fix: "Quanto costa"}
+    - tutor: "Quanti soldi è? Come chiediamo il prezzo in italiano?"
+      prompt: {text: "Quanti soldi è", tags: [question-form]}
+      new: [{lemma: prezzo, gloss: price}]
+    - learner: "Quanto costa? Ecco cinque euro."
+    - tutor: "Esatto! Costa due euro. Ecco il resto, a presto!"
+      goals: [pay]
+
+- scenario: gelateria
+  level: A1
+  persona: es-f-teacher
+  history: [noun-gender]
+  turns:
+    - tutor: "Buonasera! Cono o coppetta?"
+    - learner: "Buonasera. Per me una coppetta piccola e per la bambina un cono."
+    - tutor: "Benissimo. Che gusti vuole Lei?"
+      goals: [choose-size]
+    - learner: "Limone e fragola. C'è la latte nel limone?"
+      errors: [noun-gender]
+      gold: {text: "la latte", fix: "il latte"}
+    - tutor: "La latte? Latte è una parola maschile."
+      prompt: {text: "la latte", tags: [noun-gender]}
+      new: [{lemma: maschile, gloss: masculine}]
+    - learner: "Sì, la latte. C'è?"
+      errors: [noun-gender]
+      gold: {text: "la latte", fix: "il latte"}
+    - tutor: "No, nel limone non c'è il latte."
+      recast: {text: "la latte", fix: "il latte", tags: [noun-gender]}
+    - learner: "Bene. Per la bambina, due bolas di cioccolato."
+      errors: [word-choice]
+      gold: {text: "bolas", fix: "palline"}
+    - tutor: "Due palline di cioccolato, certo. Ecco i gelati."
+      goals: [choose-flavours]
+      recast: {text: "bolas", fix: "palline", tags: [word-choice]}
+      new: [{lemma: pallina, gloss: scoop}]
+    - learner: "Grazie. Ecco dieci euro."
+    - tutor: "Grazie! Sono cinque euro: ecco il resto."
+      goals: [pay]

@@ -1,0 +1,190 @@
+# A2, natural flow: many error-free learner turns, false friends recast at once, learner questions.
+- scenario: abbigliamento
+  level: A2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Sì, cerco una maglietta semplice per me."
+    - tutor: "Certo. Di che colore la vuole?"
+      goals: [ask-item]
+    - learner: "Blu, per favore. Porto la taglia M."
+    - tutor: "Ecco, questa maglietta blu è molto bella."
+      goals: [size-colour]
+    - learner: "Mi piace, ma è un po' corta. Ne ha una più larga?"
+      errors: [false-friend]
+    - tutor: "Una più lunga? Sì, guardi: questa è più lunga."
+      recast: {text: "più larga", fix: "più lunga", tags: [false-friend]}
+    - learner: "Perfetto. Posso provarla?"
+    - tutor: "Certo, il camerino è lì a sinistra."
+      goals: [try]
+    - learner: "Mi sta bene. Quanto costa?"
+    - tutor: "Costa 18 euro."
+    - learner: "Va bene, la prendo. Pago con la carta."
+    - tutor: "Benissimo. Grazie e buona giornata!"
+      goals: [decide]
+
+- scenario: autobus
+  level: A2
+  persona: en-m-traveller
+  history: [pronoun-position]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Questo autobus va al museo di arte moderna?"
+    - tutor: "Sì, questa linea passa davanti al museo."
+      goals: [route]
+    - learner: "Bene! Non ho il biglietto. Dove posso lo comprare?"
+      errors: [pronoun-position]
+    - tutor: "Posso lo comprare? Attenzione al posto di lo."
+      prompt: {text: "posso lo comprare", tags: [pronoun-position]}
+    - learner: "Dove posso comprarlo?"
+    - tutor: "Esatto! In tabaccheria, lì di fronte. Poi deve timbrare il biglietto."
+      goals: [ticket]
+    - learner: "Scusi, cosa vuol dire timbrare?"
+    - tutor: "Vuol dire mettere il biglietto nella macchina gialla, qui sull'autobus."
+    - learner: "Ah, ho capito, grazie. E a quale fermata devo scendere?"
+    - tutor: "Scende alla quarta fermata, dopo la piazza grande. Glielo dico io."
+      goals: [stop]
+    - learner: "Molto gentile, grazie mille!"
+    - tutor: "Prego! Salga pure, partiamo subito."
+      goals: [thank]
+
+- scenario: bar-colazione
+  level: A2
+  persona: en-f-professional
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Vorrei un latte, per favore."
+      errors: [false-friend]
+    - tutor: "Un latte macchiato, con un po' di caffè? Subito! E da mangiare?"
+      recast: {text: "un latte", fix: "un latte macchiato", tags: [false-friend]}
+      new: [{lemma: macchiato, gloss: with a drop of coffee}]
+      goals: [greet, order-drink]
+    - learner: "Sì, esatto, con il caffè! E poi un cornetto alla crema."
+    - tutor: "Ecco il latte macchiato e il cornetto."
+      new: [{lemma: macchiato, gloss: with a drop of coffee}]
+      goals: [order-food]
+    - learner: "Grazie. Posso sedermi a quel tavolo vicino alla finestra?"
+    - tutor: "Certo! Al tavolo però costa un po' di più."
+    - learner: "Ah, allora resto qui al bancone. Quant'è?"
+    - tutor: "Sono 3 euro e 20. Ecco lo scontrino."
+      goals: [pay]
+    - learner: "Ecco a lei. Buona giornata!"
+    - tutor: "Grazie, anche a lei!"
+
+- scenario: biglietto-treno
+  level: A2
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei due biglietto per Firenze, domani a le nove."
+      errors: [noun-number, articulated-preposition]
+    - tutor: "A le nove? Attenzione: a e le insieme cambiano."
+      prompt: {text: "a le nove", tags: [articulated-preposition]}
+    - learner: "Alle nove!"
+    - tutor: "Bene! Solo andata o andata e ritorno?"
+      goals: [destination]
+    - learner: "Andata e ritorno. Torniamo domenica sera."
+    - tutor: "Perfetto. Prima o seconda classe?"
+      goals: [type]
+    - learner: "Seconda classe. Quanto costa?"
+    - tutor: "Sono 44 euro in tutto, per due persone."
+      goals: [class]
+    - learner: "Va bene. Da quale binario parte il treno?"
+    - tutor: "Dal binario 6. Ecco i biglietti, buon viaggio!"
+      goals: [platform]
+
+- scenario: casa-mia
+  level: A2
+  persona: en-f-student
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Abito in un appartamento con due amiche. È piccolo ma carino."
+    - tutor: "Che bello! Quante camere ci sono?"
+      goals: [type]
+    - learner: "Ci sono tre camere, una cucina e un bagno. Non c'è il balcone, purtroppo."
+    - tutor: "Peccato! E qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "La mia camera, perché è molto luminoso e tranquillo."
+      errors: [adjective-agreement]
+    - tutor: "La camera è luminoso? Pensa alla fine delle due parole."
+      prompt: {text: "luminoso e tranquillo", tags: [adjective-agreement]}
+    - learner: "È luminosa e tranquilla!"
+    - tutor: "Brava! Sembra proprio una bella camera."
+      goals: [favourite]
+    - learner: "Sì! E tu, Luca? Abiti in una casa o in un appartamento?"
+    - tutor: "Io abito in una casa vecchia con un piccolo giardino. Vieni a vederla!"
+      new: [{lemma: giardino, gloss: garden}]
+      goals: [ask]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Buongiorno. Sì, cerco un lavoro per l'estate. Che lavoro è?"
+    - tutor: "Cerchiamo una persona per servire ai tavoli, la sera."
+      goals: [ask]
+    - learner: "Bene. L'anno scorso ho lavorato come camarera in un bar di Siviglia."
+      errors: [word-choice]
+    - tutor: "Ah, ha lavorato come cameriera! Molto bene. Quando è disponibile?"
+      recast: {text: "camarera", fix: "cameriera", tags: [word-choice]}
+      goals: [experience]
+    - learner: "Sono disponibile da giugno a settembre, anche il fine settimana."
+    - tutor: "Perfetto. L'orario è dalle sei alle undici."
+      goals: [availability]
+    - learner: "Va bene. Scusi, come si dice sueldo in italiano? I soldi per il lavoro."
+    - tutor: "Si dice stipendio. Lo stipendio è di 9 euro all'ora."
+    - learner: "Grazie, mi va bene. Le lascio il mio numero: 347 55 12 908."
+    - tutor: "Grazie mille. La chiamo domani mattina!"
+      goals: [contact]
+
+- scenario: chiedere-strada
+  level: A2
+  persona: en-m-retired
+  history: [preposition]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Buongiorno, scusi. Sì, cerco la stazione. È lontana da qui?"
+    - tutor: "No, è vicina. Vada dritto fino al semaforo e poi giri a destra."
+      goals: [get-attention, ask-place]
+    - learner: "Allora vado dritto e al semaforo giro a sinistra?"
+    - tutor: "No, a destra! Poi vede la stazione alla fine della strada."
+    - learner: "Ah, a destra, ho capito. Quanto tempo ci vuole a piedi?"
+    - tutor: "Ci vogliono cinque minuti, non di più."
+      goals: [understand]
+    - learner: "Benissimo, perché il mio treno parte in dieci minuti."
+      errors: [preposition]
+    - tutor: "Parte in dieci minuti? Per dire fra quanto tempo non usiamo in."
+      prompt: {text: "in dieci minuti", tags: [preposition]}
+    - learner: "Parte tra dieci minuti!"
+    - tutor: "Esatto! Allora deve camminare veloce."
+    - learner: "Sì, vado subito. Grazie mille, molto gentile!"
+    - tutor: "Prego, buon viaggio!"
+      goals: [thank]
+
+- scenario: compleanno
+  level: A2
+  persona: es-m-worker
+  history: [object-pronoun]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa! Sabato sera, nel mio ristorante."
+    - tutor: "Che bella idea! E chi invitiamo?"
+      goals: [date]
+    - learner: "Invitiamo i suoi amici dell'università e anche sua sorella. Dieci personas in tutto."
+      errors: [word-choice]
+    - tutor: "Dieci persone, perfetto! E cosa mangiamo?"
+      recast: {text: "personas", fix: "persone", tags: [word-choice]}
+      goals: [guests]
+    - learner: "Cucino io! Farò le lasagne e poi una torta al cioccolato."
+    - tutor: "Buonissimo! E per il regalo, hai un'idea?"
+      goals: [food]
+    - learner: "Sara ama la musica. La compriamo due biglietti per un concerto?"
+      errors: [object-pronoun]
+    - tutor: "La compriamo? Compriamo i biglietti a Sara: quale parola usi?"
+      prompt: {text: "La compriamo", tags: [object-pronoun]}
+    - learner: "Le compriamo due biglietti!"
+    - tutor: "Esatto! È un regalo bellissimo. Allora a sabato!"
+      goals: [gift]

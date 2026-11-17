@@ -1,0 +1,199 @@
+# B1: one clean dialogue (no corrections), then ne, di + infinito, congiuntivo, periodo ipotetico, piacere.
+- scenario: compleanno
+  level: B1
+  persona: es-m-worker
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Io posso cucinare! Facciamo una cena a casa tua, domenica, perché il mio ristorante è chiuso."
+    - tutor: "Fantastico, cucini tu! Domenica a casa mia, allora. Chi viene?"
+      goals: [date]
+    - learner: "Invitiamo i suoi amici del corso di teatro e i vicini. Però non diciamo niente a lei, deve essere una sorpresa."
+    - tutor: "Certo. Gli scrivo io stasera. E cosa prepari di buono?"
+      goals: [guests]
+    - learner: "Preparo la carne alla griglia e, come dolce, una torta al cioccolato. Ne faccio due, perché saremo in tanti."
+    - tutor: "Mamma mia, che fame! Resta solo il regalo."
+      goals: [food]
+    - learner: "A Sara piacciono le piante. Potremmo regalarle un albero di limoni per il balcone."
+    - tutor: "Che bella idea! Glielo compriamo insieme sabato mattina, va bene?"
+      goals: [gift]
+    - learner: "Va bene. Ci vediamo sabato alle dieci davanti al negozio."
+    - tutor: "Perfetto, a sabato!"
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto giovedì con due amiche dell'Erasmus. Abbiamo quattro giorni e penso andare anche a Capri."
+      errors: [preposition]
+    - tutor: "Che bel programma! Ma 'penso andare'? Tra i due verbi manca una piccola parola..."
+      prompt: {text: "penso andare", tags: [preposition]}
+    - learner: "Penso di andare anche a Capri."
+    - tutor: "Esatto! Per Capri prendete il traghetto la mattina presto."
+      goals: [plans]
+    - learner: "Va bene. E a Napoli cosa dobbiamo vedere? Abbiamo pochi soldi, siamo studentesse!"
+    - tutor: "Nessun problema: camminate nel centro e lungo il mare, non costa niente. E mangiate la pizza per strada, costa due euro!"
+      goals: [advice]
+    - learner: "Due euro, perfetto! E come ci muoviamo? La metro funziona bene?"
+    - tutor: "Sì, e c'è anche la funicolare per salire in alto: da lì si vede tutta la città."
+      goals: [transport]
+      new: [{lemma: funicolare, gloss: funicular railway}]
+    - learner: "Che bello. E c'è qualcosa da evitare?"
+    - tutor: "Non lasciate la borsa aperta sui mezzi e non comprate niente per strada vicino al porto. Per il resto, divertitevi!"
+      goals: [warnings]
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Una tortilla di patate, come la fa mia madre. Servono patate, uova, una cipolla, olio e sale."
+    - tutor: "Finalmente la vera tortilla! Quante uova servono?"
+      goals: [ingredients]
+    - learner: "Per quattro persone, metti sei."
+      errors: [ci-ne]
+    - tutor: "'Metti sei'... sei che cosa? Con i numeri, senza il nome, serve una piccola parola attaccata al verbo."
+      prompt: {text: "metti sei", tags: [ci-ne]}
+    - learner: "Mettine sei!"
+    - tutor: "Brava! Sei uova, eccole. E adesso cosa faccio?"
+    - learner: "Adesso prendi le patate: tagliale a fette sottili e cuocile piano nell'olio con la cipolla, per venti minuti. Non devono diventare scure."
+    - tutor: "Va bene, fuoco basso. E poi?"
+      goals: [steps]
+    - learner: "Poi unisci le patate alle uova con il sale, e rimetti tutto sul fuoco. Cuoci cinque minuti per lato."
+    - tutor: "Cinque minuti per lato, d'accordo. Il momento difficile è girarla!"
+      goals: [time]
+    - learner: "Sì! Usa un piatto grande. Si serve tiepida, tagliata a pezzi, con un po' di pane."
+    - tutor: "Eccola, è perfetta! Tua madre sarebbe contenta."
+      goals: [serve]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-heritage
+  history: [subjunctive-use, register]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Ho due problemi. Il primo: la macchina tira a destra quando guido. Credo che una gomma ha un buco."
+      errors: [subjunctive-use]
+    - tutor: "Può darsi. Ma 'credo che una gomma ha'? Dopo 'credo che' attenzione al verbo..."
+      prompt: {text: "che una gomma ha", tags: [subjunctive-use]}
+    - learner: "Credo che una gomma... avrà un buco?"
+      errors: [subjunctive-use]
+    - tutor: "Quasi: credo che una gomma abbia un buco. La controllo subito. E il secondo problema?"
+      recast: {text: "avrà", fix: "abbia", tags: [subjunctive-use]}
+    - learner: "Il secondo è un rumore dai freni. L'ho sentito ieri per la prima volta, mentre scendevo dal garage."
+    - tutor: "Va bene, guardo anche i freni."
+      goals: [describe, when]
+    - learner: "Grazie. Puoi dirmi quanto costa, prima di cominciare?"
+      errors: [register]
+    - tutor: "Scusi, 'puoi'? Con una persona che non conosce, quale forma è più adatta?"
+      prompt: {text: "Puoi dirmi", tags: [register]}
+    - learner: "Mi scusi: può dirmi quanto costa?"
+    - tutor: "Certo. Per la gomma sono 25 euro; per i freni le faccio un preventivo tra un'ora."
+      goals: [cost]
+    - learner: "Perfetto. E quando sarà pronta?"
+    - tutor: "Se i pezzi arrivano oggi, domani alle dodici. La chiamo io."
+      goals: [time]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-m-traveller
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno, grazie. Bello! E la camera che dormirei, dov'è?"
+      errors: [relative-pronoun]
+    - tutor: "Da questa parte. Ma la camera 'che' dormirei? Si dorme in una camera: come cambia il pronome?"
+      prompt: {text: "che dormirei", tags: [relative-pronoun]}
+    - learner: "La camera in cui dormirei?"
+    - tutor: "Esatto! Eccola: è grande e dà sul giardino."
+    - learner: "Mi piace. Quanto costa l'affitto? Internet è incluso?"
+    - tutor: "Sono 600 euro al mese, con internet e condominio. Luce e gas sono a parte."
+      goals: [rent]
+    - learner: "Capisco. Io resto a Firenze solo otto mesi. È possibile un contratto breve? E la caparra?"
+    - tutor: "Posso fare un contratto di un anno, e lei può andare via prima se me lo dice tre mesi prima. La caparra è di un mese."
+      goals: [contract]
+    - learner: "Bene. Il riscaldamento funziona bene? Ho sentito che le case vecchie sono fredde."
+    - tutor: "Funziona benissimo, l'ho cambiato due anni fa. E qui intorno ci sono bar, un mercato e la fermata dell'autobus."
+      goals: [condition, neighbourhood]
+    - learner: "Allora mi interessa molto. Posso confermare domani mattina?"
+    - tutor: "Certo, aspetto la sua telefonata."
+      goals: [decide]
+
+- scenario: banca-conto
+  level: B1
+  persona: en-f-student
+  history: [hypothetical]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Sono una studentessa inglese e vorrei aprire un conto. Adesso pago una commissione ogni volta che prendo soldi."
+    - tutor: "Capisco, con un conto italiano non succede."
+      goals: [purpose]
+    - learner: "Infatti! Se avrei un conto italiano, risparmierei molto."
+      errors: [hypothetical]
+    - tutor: "È vero. Ma 'se avrei'? Dopo 'se' il condizionale non va bene: che forma ci vuole?"
+      prompt: {text: "Se avrei", tags: [hypothetical]}
+    - learner: "Se... avevo un conto italiano?"
+      errors: [hypothetical]
+    - tutor: "Si sente spesso, ma la forma giusta è 'se avessi un conto italiano'. Allora apriamolo! Ha un documento?"
+      recast: {text: "Se... avevo", fix: "se avessi", tags: [hypothetical]}
+    - learner: "Sì, ho il passaporto. Servono altri documenti?"
+    - tutor: "Il codice fiscale e un documento dell'università."
+      goals: [documents]
+    - learner: "Ho tutto. Ci sono costi mensili?"
+    - tutor: "Per gli studenti sotto i 26 anni il conto non costa niente."
+      goals: [costs]
+    - learner: "Fantastico. E posso avere una carta e usare l'app per i bonifici?"
+    - tutor: "Sì, la carta è pronta in cinque giorni e l'app può usarla da subito. Firmi qui, per favore."
+      goals: [card]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: es-m-worker
+  history: [article-use]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Devo andare a Roma. Parto il lunedì, di mattina presto."
+      errors: [article-use]
+    - tutor: "Scusi, 'il lunedì'? Parte tutti i lunedì o solo lunedì prossimo?"
+      prompt: {text: "il lunedì", tags: [article-use]}
+    - learner: "Ah no, solo una volta: parto lunedì prossimo."
+    - tutor: "Perfetto, adesso è chiaro. Lunedì c'è un treno alle 6:40 e uno alle 7:10."
+    - learner: "Quello delle 7:10. Vorrei andata e ritorno: torno mercoledì sera, dopo le sei."
+    - tutor: "Bene: andata lunedì alle 7:10, ritorno mercoledì alle 18:35."
+      goals: [destination, type]
+    - learner: "Sì. In seconda classe, per favore. Preferirei un posto nel corridoio, se c'è."
+    - tutor: "C'è: posto 8, corridoio. In tutto sono 79 euro."
+      goals: [class]
+    - learner: "Ecco la carta. Da quale binario parte lunedì?"
+    - tutor: "Di solito dal binario 12. Buon viaggio e buon lavoro a Roma!"
+      goals: [platform]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-student
+  history: [piacere]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Emma, ho ventitré anni e studio design a Leeds. Quest'anno sono a Milano per l'Erasmus."
+    - tutor: "Benvenuta. Ha già qualche esperienza di lavoro?"
+      goals: [intro]
+    - learner: "Sì. L'estate scorsa ho lavorato tre mesi in uno studio di grafica. Preparavo i materiali per i social e ho anche disegnato due loghi."
+    - tutor: "Molto bene. Quali sono i suoi punti forti? E un punto debole?"
+      goals: [experience]
+    - learner: "Sono creativa e imparo in fretta. Il punto debole: non sono molto confidente quando parlo in pubblico."
+      errors: [false-friend]
+    - tutor: "Capisco: non è molto sicura di sé davanti al pubblico. Con il tempo si migliora. Perché vorrebbe lavorare da noi?"
+      recast: {text: "confidente", fix: "sicura di sé", tags: [false-friend]}
+      goals: [strengths]
+    - learner: "Perché seguo i vostri progetti da molto tempo. Mi piacerei lavorare con una squadra così giovane."
+      errors: [piacere]
+    - tutor: "Grazie! Ma 'mi piacerei'? Con questo verbo la forma non segue 'io'... Come cambia?"
+      prompt: {text: "Mi piacerei", tags: [piacere]}
+    - learner: "Mi piacerebbe lavorare con una squadra così giovane."
+    - tutor: "Esatto. Ha qualche domanda sul ruolo?"
+      goals: [why]
+    - learner: "Sì: quante ore alla settimana sarebbero? Perché la mattina ho lezione."
+    - tutor: "Sarebbero venti ore, sempre di pomeriggio. Le faremo sapere entro venerdì, grazie!"
+      goals: [questions]

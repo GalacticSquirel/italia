@@ -1,0 +1,205 @@
+- scenario: palestra
+  level: A2
+  persona: es-f-erasmus
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Ciao! Sì. Sono una studentessa Erasmus e resto qui sei mesi. Quanto costa?"
+    - tutor: "Sei mesi costano 180 euro. Un mese solo costa 40."
+      goals: [ask-membership]
+    - learner: "Allora sei mesi è più barato. Ci sono corsi di yoga o di pilates?"
+      errors: [word-choice]
+    - tutor: "Sì, sei mesi è più economico! Abbiamo yoga e pilates."
+      new: [{lemma: economico, gloss: cheap}]
+      recast: {text: "più barato", fix: "più economico", tags: [word-choice]}
+      goals: [classes]
+    - learner: "Che bello! Lo yoga è più tranquillo che il pilates?"
+      errors: [comparative]
+    - tutor: "Più tranquillo che il pilates? Tra due cose non usiamo che."
+      prompt: {text: "più tranquillo che il pilates", tags: [comparative]}
+    - learner: "Lo yoga è più tranquillo del pilates?"
+    - tutor: "Brava! Sì, lo yoga è più tranquillo. Il pilates è più difficile."
+    - learner: "Allora preferisco lo yoga. Quando c'è?"
+    - tutor: "Il martedì e il venerdì alle sei e mezza di sera."
+      goals: [timetable]
+    - learner: "Perfetto, dopo le lezioni. Mi iscrivo oggi!"
+    - tutor: "Benissimo! Scrivi qui il tuo nome e il tuo numero. Benvenuta!"
+      goals: [sign-up]
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-f-student
+  history: [noun-gender]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno! Vorrei tagliare le capelli e cambiare colore."
+      errors: [noun-gender]
+    - tutor: "Le capelli? Attenzione alla parola piccola prima di capelli."
+      prompt: {text: "le capelli", tags: [noun-gender]}
+    - learner: "I capelli, scusi!"
+    - tutor: "Bene! Taglio e colore, allora. Che colore vuole?"
+      goals: [book]
+    - learner: "Vorrei un biondo più luce, naturale."
+      errors: [word-choice]
+    - tutor: "Un biondo più chiaro, bellissimo. E quanto li tagliamo?"
+      recast: {text: "più luce", fix: "più chiaro", tags: [word-choice]}
+    - learner: "Solo due o tre centimetri. Mi piacciono lunghi."
+    - tutor: "Va bene, li lasciamo lunghi. Vuole provare anche una frangia?"
+      goals: [length]
+    - learner: "No, grazie. La frangia non mi sta bene, ho il viso troppo rotondo."
+    - tutor: "Come preferisce. Allora niente frangia."
+      goals: [style]
+    - learner: "Che bel colore! Sono molto contenta. Quanto pago?"
+    - tutor: "Sono 65 euro, taglio e colore. Grazie!"
+      goals: [pay]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: es-f-teacher
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per domani sera, se è possibile."
+    - tutor: "Certo, signora. Per quante persone?"
+      goals: [book]
+    - learner: "Siamo in sei, alle otto e mezza."
+    - tutor: "Domani alle otto e mezza, sei persone. Va bene."
+      goals: [details]
+    - learner: "Una cosa: è il compleanno di mio marito. Potete preparare una torta?"
+    - tutor: "Con piacere! Portiamo la torta alla fine della cena."
+      goals: [special]
+    - learner: "Grazie, che gentili. Lui non sa niente, è una sorpresa."
+    - tutor: "Certo, non diciamo niente. A che nome?"
+    - learner: "Ferrer. Le lascio anche il mio numero?"
+    - tutor: "Sì, grazie, così la chiamo se c'è un problema."
+    - learner: "È il 320 44 18 765."
+    - tutor: "Perfetto, è tutto confermato. A domani!"
+      goals: [name]
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: es-m-worker
+  history: [imperfetto-form]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Abitavo in un pueblo piccolo vicino a Buenos Aires."
+      errors: [word-choice]
+    - tutor: "In un paese piccolo, che bello! E cosa facevi tutto il giorno?"
+      recast: {text: "un pueblo piccolo", fix: "un paese piccolo", tags: [word-choice]}
+      goals: [place]
+    - learner: "Giocaba a calcio in strada con i miei cugini, sempre."
+      errors: [imperfetto-form]
+    - tutor: "Giocaba? In italiano la fine è un po' diversa. Io...?"
+      prompt: {text: "Giocaba", tags: [imperfetto-form]}
+    - learner: "Io giocavo a calcio!"
+    - tutor: "Esatto! E a scuola eri bravo?"
+      goals: [habits]
+    - learner: "Non molto. Mi piaceva solo la matematica. Tu eri bravo?"
+    - tutor: "Io sì, ma parlavo troppo in classe! Ricordi un giorno speciale?"
+      goals: [school]
+    - learner: "Sì. A dieci anni ho cucinato per la prima volta con mia nonna. Abbiamo fatto il pane."
+    - tutor: "Che bello! Allora oggi cucini grazie a tua nonna."
+      goals: [event]
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: en-f-student
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Buongiorno! Siamo in due. Possiamo sederci fuori?"
+    - tutor: "Certo, prego. Ecco il menù."
+      goals: [ask-table]
+    - learner: "Grazie. Io prendo il spaghetti alle vongole e la mia amica prende il risotto."
+      errors: [article-form]
+    - tutor: "Il spaghetti? Prima di spaghetti serve un'altra parola piccola."
+      prompt: {text: "il spaghetti", tags: [article-form]}
+    - learner: "Gli spaghetti alle vongole!"
+    - tutor: "Perfetto! E da bere?"
+      goals: [order-food]
+    - learner: "Mezzo litro di vino bianco della casa e una bottiglia d'acqua naturale."
+    - tutor: "Benissimo, arrivo subito."
+      goals: [order-drink]
+    - learner: "Era tutto buonissimo! Possiamo avere il bill, per favore?"
+      errors: [word-choice]
+    - tutor: "Grazie! Vi porto subito il conto. Volete un caffè?"
+      recast: {text: "il bill", fix: "il conto", tags: [word-choice]}
+      goals: [ask-bill]
+    - learner: "No, grazie, va bene così."
+    - tutor: "Va bene. Ecco a voi, e buona giornata!"
+
+- scenario: serata-cinema
+  level: A2
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Perché non andiamo al cinema? C'è un film nuovo con Penélope Cruz."
+    - tutor: "Buona idea! Che film è? Una commedia?"
+      goals: [propose]
+    - learner: "No, è una película romantica. A me piacciono molto i film d'amore."
+      errors: [word-choice]
+    - tutor: "Un film romantico, bene! Piacciono anche a me. A che ora andiamo?"
+      recast: {text: "una película romantica", fix: "Un film romantico", tags: [word-choice]}
+      new: [{lemma: romantico, gloss: romantic}]
+      goals: [genre]
+    - learner: "C'è uno spettacolo alle sei e uno alle nove. Quello delle sei è più meglio per me."
+      errors: [comparative]
+    - tutor: "Più meglio? Una delle due parole basta."
+      prompt: {text: "più meglio", tags: [comparative]}
+    - learner: "Quello delle sei è meglio per me."
+    - tutor: "Giusto! Va bene anche per me. Prendo io i biglietti."
+      goals: [choose]
+    - learner: "Grazie! Dove ci vediamo? Davanti al cinema alle cinque e mezza?"
+    - tutor: "Perfetto, davanti al cinema. A dopo!"
+      goals: [meet]
+
+- scenario: tempo-libero
+  level: A2
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Lavoro quasi sempre, purtroppo. Ma il lunedì sono libero e vado a correre."
+    - tutor: "Bravo! Corri spesso?"
+      goals: [hobby]
+    - learner: "Sì, corro tre volte per settimana in il parco vicino a casa."
+      errors: [preposition, articulated-preposition]
+    - tutor: "In il parco? In e il insieme diventano una parola sola."
+      prompt: {text: "in il parco", tags: [articulated-preposition]}
+    - learner: "Nel parco vicino a casa!"
+    - tutor: "Esatto! Tre volte alla settimana, sei bravo."
+      goals: [frequency]
+    - learner: "Grazie. E tu, Sara? Fai sport?"
+    - tutor: "Poco! Preferisco leggere e ascoltare musica."
+      goals: [ask]
+    - learner: "Anche a me piace la musica. Lunedì c'è un concerto jazz in piazza. Vieni con me?"
+    - tutor: "Sì, che bello! Lunedì sera sono libera. A che ora?"
+    - learner: "Alle nove. Prima possiamo mangiare una pizza."
+    - tutor: "Perfetto, pizza e musica. Ci vediamo lunedì!"
+      goals: [propose]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-m-retired
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Vorrei spedire questo pacco a Canada, a mio nipote."
+      errors: [preposition]
+    - tutor: "A Canada? Con i paesi usiamo un'altra parola piccola."
+      prompt: {text: "a Canada", tags: [preposition]}
+    - learner: "Vorrei spedirlo in Canada."
+    - tutor: "Perfetto! Posta normale o veloce?"
+      goals: [send]
+    - learner: "Qual è la differenza di prezzo?"
+    - tutor: "La normale costa 22 euro, la veloce 38. Ma arriva in cinque giorni."
+    - learner: "Prendo la veloce, perché è per il suo compleanno."
+    - tutor: "Va bene. Scriva qui l'indirizzo e che cosa c'è dentro."
+      goals: [speed]
+    - learner: "Ecco fatto. Ci sono un maglione e un libro. Devo scrivere anche il mio indirizzo?"
+    - tutor: "Sì, qui sotto, grazie. Così il modulo è pronto."
+      goals: [form]
+    - learner: "Fatto. Pago con la carta, se posso."
+    - tutor: "Certo. Ecco la ricevuta, con il numero del pacco."
+      new: [{lemma: ricevuta, gloss: receipt}]
+      goals: [pay]

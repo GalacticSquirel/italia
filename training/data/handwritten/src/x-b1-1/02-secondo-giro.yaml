@@ -1,0 +1,188 @@
+# B1, correction-dense: prompts with repairs and failed repairs, plus a few lexical recasts.
+- scenario: film-libro
+  level: B1
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Comincio io. Ho letto 'Io non ho paura' di Niccolò Ammaniti. È la storia di un bambino che scopre un segreto terribile nel suo paese."
+    - tutor: "Lo conosco, è un romanzo forte. Com'è il bambino, il personaggio principale?"
+      goals: [summary]
+    - learner: "Si chiama Michele ed è un bambino coraggioso. È un personaggio di che mi ricorderò per molto tempo."
+      errors: [relative-pronoun]
+    - tutor: "Un personaggio 'di che'? Dopo una preposizione questo pronome cambia..."
+      prompt: {text: "di che", tags: [relative-pronoun]}
+    - learner: "Ah, sì: è un personaggio di cui mi ricorderò per molto tempo."
+    - tutor: "Esatto! Anche a me è rimasto nel cuore. E cosa pensi del libro in generale?"
+      goals: [characters]
+    - learner: "Mi è piaciuto moltissimo, perché la trama è emozionante e lo stile è semplice. L'ho letto in due giorni."
+    - tutor: "Due giorni soltanto! E il finale ti ha convinta?"
+      goals: [opinion]
+    - learner: "Sì, anche se è molto triste. Lo consiglierei ai ragazzi delle superiori, perché parla di coraggio e di amicizia."
+    - tutor: "Sono d'accordo, è perfetto per i ragazzi. Grazie, ci hai fatto venire voglia di leggerlo!"
+      goals: [recommend]
+
+- scenario: medico-base
+  level: B1
+  persona: en-f-student
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e una tosse forte. Di notte non riesco a dormire."
+    - tutor: "Mi dispiace. Da quanto tempo sta così?"
+      goals: [symptoms]
+    - learner: "Da quattro giorni. Ieri ho avuto anche la febbre, trentotto e mezzo, e ho prenduto un'aspirina."
+      errors: [past-participle-form]
+    - tutor: "Ho capito. Scusi, 'ho prenduto'? Questo verbo al passato ha una forma speciale..."
+      prompt: {text: "ho prenduto", tags: [past-participle-form]}
+    - learner: "Ah... ho prendato un'aspirina?"
+      errors: [past-participle-form]
+    - tutor: "Si dice 'ho preso'. Quindi ha preso un'aspirina, bene. È allergica a qualche medicina?"
+      recast: {text: "ho prendato", fix: "ho preso", tags: [past-participle-form]}
+      goals: [since-when]
+    - learner: "Ho preso, giusto. Sì, sono allergica alla penicillina. Per il resto non prendo niente."
+    - tutor: "Va bene, lo scrivo. Le do uno sciroppo per la tosse: un cucchiaio tre volte al giorno, dopo mangiato."
+      goals: [history]
+      new: [{lemma: sciroppo, gloss: syrup}, {lemma: cucchiaio, gloss: spoon}]
+    - learner: "Allora, un cucchiaio di sciroppo tre volte al giorno dopo mangiato. Devo restare a casa?"
+    - tutor: "Esatto. Sì, resti a casa due o tre giorni e beva molta acqua. Se la febbre torna, mi chiami."
+      goals: [instructions]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-m-traveller
+  history: [register]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Vorrei prenotare un tavolo per sabato sera. Hai posto per sei persone?"
+      errors: [register]
+    - tutor: "Buonasera! 'Hai posto'? Noi due non ci conosciamo ancora... Come si chiede a una persona che non si conosce?"
+      prompt: {text: "Hai posto", tags: [register]}
+    - learner: "Oh, mi scusi! Ha posto per sei persone sabato sera?"
+    - tutor: "Molto meglio, grazie. Sì, sabato c'è posto. A che ora volete venire?"
+      goals: [book]
+    - learner: "Alle otto e mezza. Se possibile, vorremmo un tavolo fuori, perché due amici fumano."
+    - tutor: "Alle otto e mezza per sei persone, fuori: va benissimo, in giardino si sta bene."
+      goals: [details, special]
+    - learner: "Perfetto. Il nome è Connor. Devo lasciare anche il mio numero di telefono?"
+    - tutor: "Sì, grazie, così la chiamo se cambia qualcosa."
+    - learner: "È il 333 456 7890. Allora confermo: sabato alle otto e mezza, sei persone, fuori."
+    - tutor: "Tutto confermato. Vi aspettiamo sabato sera, arrivederci!"
+      goals: [name]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Avrei bisogno di una visita con un dermatologo, perché ho una macchia sulla schiena da un mese."
+    - tutor: "Certo. Il dottor Rossi ha disponibilità giovedì alle 10 oppure lunedì prossimo alle 17."
+      goals: [type]
+    - learner: "Giovedì lavoro tutto il giorno. Lunedì invece poterò venire, finisco alle quattro."
+      errors: [future-form]
+    - tutor: "Scusi, lunedì...? Non ho capito bene il verbo."
+      prompt: {text: "poterò", tags: [future-form]}
+    - learner: "Lunedì potrò venire, volevo dire."
+    - tutor: "Perfetto, allora lunedì alle 17 con il dottor Rossi."
+      goals: [availability]
+    - learner: "Quanto costa la visita? Devo portare qualche documento?"
+    - tutor: "La visita costa 90 euro. Porti un documento e, se ce l'ha, l'impegnativa del suo medico."
+      goals: [cost]
+    - learner: "L'impegnativa non ce l'ho, pagherò la visita completa. Allora confermo: lunedì alle 17, dermatologo, 90 euro."
+    - tutor: "Esatto, è tutto confermato. Arrivi dieci minuti prima, per favore. A lunedì!"
+      goals: [confirm]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, purtroppo: nella mia camera, la 214, l'aria condizionata non funziona e fa molto caldo."
+    - tutor: "Mi dispiace molto. Da quando non funziona?"
+      goals: [problem]
+    - learner: "Da quando sono arrivata, alle sei. Ho provato tante volte ad accenderla, ma eventualmente ho rinunciato."
+      errors: [false-friend]
+    - tutor: "Capisco, alla fine ha rinunciato: ha fatto bene a venire qui. A quest'ora purtroppo non c'è nessuno che possa ripararla."
+      recast: {text: "eventualmente", fix: "alla fine", tags: [false-friend]}
+      goals: [since]
+    - learner: "Allora poterei cambiare camera? Domani ho una riunione importante e devo dormire."
+      errors: [conditional-form]
+    - tutor: "'Poterei'? Al condizionale questo verbo perde una lettera... Come diventa?"
+      prompt: {text: "poterei", tags: [conditional-form]}
+    - learner: "Potrei cambiare camera, per favore?"
+    - tutor: "Certamente. Le do la 310, al terzo piano: è più grande e l'aria condizionata funziona bene."
+      goals: [request]
+    - learner: "Grazie, va benissimo. Mi può aiutare qualcuno con la valigia?"
+    - tutor: "Sì, gliela porto io subito. E domani la colazione è offerta da noi, per scusarci."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-retired
+  history: [participle-agreement]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho un problema con queste cuffie: si sente solo da un lato, il destro."
+    - tutor: "Mi dispiace. Quando le ha prese? Ha lo scontrino?"
+      goals: [problem]
+    - learner: "Sì, ecco lo scontrino. Le ho comprato dieci giorni fa in questo negozio."
+      errors: [participle-agreement]
+    - tutor: "Grazie. 'Le ho comprato'? Con il pronome 'le' davanti, l'ultima lettera del verbo cambia..."
+      prompt: {text: "Le ho comprato", tags: [participle-agreement]}
+    - learner: "Ah, giusto: le ho comprate dieci giorni fa."
+    - tutor: "Perfetto. Sono ancora in garanzia, quindi possiamo sostituirle oppure farle un rimborso."
+      goals: [proof]
+    - learner: "Preferirei delle cuffie nuove dello stesso modello, se le avete."
+    - tutor: "Controllo subito... Purtroppo quel modello è finito. Arriva venerdì, oppure ce n'è uno simile che costa dieci euro in più."
+      goals: [request]
+    - learner: "Allora aspetto venerdì. Mi potete chiamare quando arrivano?"
+    - tutor: "Certo, la chiamiamo noi venerdì mattina. Tenga lo scontrino, le servirà."
+      goals: [agree]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-m-heritage
+  history: [imperfetto-form]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Abitavo a Toronto, ma ogni estate venivo qui, nel paese dei miei nonni."
+    - tutor: "Che fortuna! E cosa facevi tutto il giorno?"
+      goals: [place]
+    - learner: "Giocavo a calcio in piazza con i miei cugini. E la nonna faciva la pasta a mano ogni domenica."
+      errors: [imperfetto-form]
+    - tutor: "Che bei ricordi! Ma 'faciva'? Prova ancora: la nonna...?"
+      prompt: {text: "faciva", tags: [imperfetto-form]}
+    - learner: "La nonna faceva la pasta a mano!"
+    - tutor: "Ecco! Anche la mia, ed era buonissima. E a scuola, a Toronto, com'era?"
+      goals: [habits]
+    - learner: "Mi piaceva, soprattutto la matematica. Il sabato andavo anche alla scuola di italiano, ma non studiavo molto."
+    - tutor: "Però oggi parli bene! Hai un ricordo speciale di quelle estati?"
+      goals: [school]
+    - learner: "Sì. Una volta mio nonno mi ha portato a pescare al lago e ho preso un pesce enorme. Ero felicissimo."
+    - tutor: "Che bel ricordo! Sono sicuro che la nonna l'ha cucinato subito."
+      goals: [event]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Ho finito la prima parte della presentazione e ieri l'ho mandata al cliente."
+    - tutor: "Ottimo. Ci sono problemi?"
+      goals: [update]
+    - learner: "Sì, uno. Il cliente non ha ancora mandato le foto dei prodotti. Mi sembra che loro sono in ritardo con tutto."
+      errors: [subjunctive-use]
+    - tutor: "Eh, succede. Però dopo 'mi sembra che' il verbo cambia modo: come lo dici?"
+      prompt: {text: "che loro sono", tags: [subjunctive-use]}
+    - learner: "Mi sembra che loro siano in ritardo con tutto."
+    - tutor: "Brava. E cosa proponi di fare?"
+      goals: [problem]
+    - learner: "Propongo di chiamarli oggi e di usare, per ora, le foto dell'anno scorso."
+    - tutor: "Buona proposta, così non perdiamo tempo. Quando pensi di finire tutto?"
+      goals: [proposal]
+    - learner: "Se le foto arrivano entro mercoledì, finirò venerdì. Va bene come scadenza?"
+    - tutor: "Va benissimo: venerdì è la scadenza. Se hai bisogno di aiuto, dimmelo."
+      goals: [deadline]

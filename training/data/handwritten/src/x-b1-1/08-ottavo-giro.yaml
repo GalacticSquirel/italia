@@ -1,0 +1,195 @@
+# B1, correction-dense: two prompts in one dialogue, lexical recasts, irregular plurals and participles.
+- scenario: film-libro
+  level: B1
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io! Ho letto 'Le otto montagne' di Paolo Cognetti. Parla di due ragazzi che diventano amici in montagna, poi si perdono e si ritrovano."
+    - tutor: "Un romanzo molto amato. E com'è Pietro, il personaggio principale?"
+      goals: [summary]
+    - learner: "Pietro è un ragazzo di città, silenzioso. È un personaggio quale cambia molto durante la storia."
+      errors: [relative-pronoun]
+    - tutor: "Vero! Ma un personaggio 'quale' cambia? Qui il pronome è più semplice, una parola molto corta..."
+      prompt: {text: "quale cambia", tags: [relative-pronoun]}
+    - learner: "Un personaggio che cambia molto."
+    - tutor: "Esatto. E a te il libro è piaciuto?"
+      goals: [characters]
+    - learner: "All'inizio ero un po' noiosa, perché non succede molto. Ma poi il finale mi ha fatto piangere."
+      errors: [word-choice]
+    - tutor: "Ah, all'inizio eri un po' annoiata, capisco: è una storia lenta. E cosa ti ha colpita di più?"
+      recast: {text: "noiosa", fix: "annoiata", tags: [word-choice]}
+      new: [{lemma: annoiato, gloss: bored}]
+    - learner: "Il modo in cui l'autore descrive la montagna. Secondo me è emozionante perché sembra di essere lì."
+    - tutor: "Anch'io l'ho sentita così. A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A chi ama la natura e non ha fretta. Non lo consiglierei a chi cerca molta azione."
+    - tutor: "Ottimo consiglio. Grazie, sei stata chiarissima!"
+      goals: [recommend]
+
+- scenario: medico-base
+  level: B1
+  persona: en-m-retired
+  history: [pronoun-position]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho un dolore alla schiena, qui in basso. È peggio la mattina."
+    - tutor: "Capisco. Da quanto tempo ha questo dolore?"
+      goals: [symptoms]
+    - learner: "Da due settimane, da quando ho lavorato in giardino tutto il giorno."
+    - tutor: "Ah, ecco. Ha già preso qualcosa? È allergico a qualche medicina?"
+      goals: [since-when]
+    - learner: "Non sono allergico. In America il mio dottore ha dato me delle pastiglie per il dolore, ma sono finite."
+      errors: [pronoun-position]
+    - tutor: "Bene. Scusi, 'ha dato me'? In italiano qui il pronome è corto e va in un altro posto..."
+      prompt: {text: "ha dato me", tags: [pronoun-position]}
+    - learner: "Il mio dottore mi ha dato delle pastiglie."
+    - tutor: "Esatto. Gliene do anch'io: una la mattina e una la sera, dopo mangiato, per cinque giorni. E niente giardino!"
+      goals: [history]
+    - learner: "Dunque: una pastiglia la mattina e una la sera, dopo mangiato, per cinque giorni. Posso camminare?"
+    - tutor: "Sì, camminare le fa bene, ma non porti cose pesanti. Ecco la ricetta."
+      goals: [instructions]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-f-student
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Chiamo per prenotare un tavolo per domenica a pranzo. Siamo una famiglia grande!"
+    - tutor: "Con piacere. Quanti siete, e a che ora?"
+      goals: [book]
+    - learner: "Siamo nove: sette adulti e due bambini. Noi vorrebbe mangiare all'una."
+      errors: [conditional-form]
+    - tutor: "Nove persone, bene. Scusi, 'noi vorrebbe'? Con 'noi' la forma è un'altra..."
+      prompt: {text: "vorrebbe", tags: [conditional-form]}
+    - learner: "Noi vorremmo mangiare all'una."
+    - tutor: "Perfetto: domenica all'una per nove."
+      goals: [details]
+    - learner: "Uno dei bambini ha un anno. Avete un seggiolone? E mia madre non può mangiare glutine."
+    - tutor: "Sì, il seggiolone c'è. E per sua madre abbiamo pasta e dolci senza glutine."
+      goals: [special]
+    - learner: "Fantastico. Il nome è Walker. Le serve altro?"
+    - tutor: "No, basta così. Ripeto: domenica all'una, nove persone, a suo nome. Vi aspettiamo!"
+      goals: [name]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-m-heritage
+  history: [noun-number]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita ortopedica. Sono caduto in bici e non riesco a muovere bene due diti della mano destra."
+      errors: [noun-number]
+    - tutor: "Mi dispiace! Scusi, due...? Il plurale di questa parola è speciale."
+      prompt: {text: "due diti", tags: [noun-number]}
+    - learner: "Ah, due dita!"
+    - tutor: "Esatto, due dita. Allora una visita per la mano: questa settimana c'è posto mercoledì alle 9 o venerdì alle 16."
+      goals: [type]
+    - learner: "Mercoledì sono a Torino per lavoro. Venerdì alle 16 va bene."
+    - tutor: "Venerdì alle 16, perfetto."
+      goals: [availability]
+    - learner: "Quanto costa? E devo portare le radiografie che ho fatto in ospedale?"
+    - tutor: "La visita costa 100 euro. Sì, porti le radiografie e un documento."
+      goals: [cost]
+    - learner: "Bene. Allora ci vediamo venerdì alle 16 con radiografie e documento. Grazie."
+    - tutor: "Confermato, ci vediamo venerdì. Fino ad allora, si riposi!"
+      goals: [confirm]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-traveller
+  history: [past-participle-form, negation]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, nella mia camera non c'è acqua calda. Ho aprito la doccia e l'acqua era fredda come il ghiaccio!"
+      errors: [past-participle-form]
+    - tutor: "Mi dispiace molto! Scusi, 'ho aprito'? Questo verbo al passato ha una forma speciale..."
+      prompt: {text: "Ho aprito", tags: [past-participle-form]}
+    - learner: "Ho aperto la doccia, scusi."
+    - tutor: "Ecco. Da quanto tempo manca l'acqua calda?"
+      goals: [problem]
+    - learner: "Da stamattina. Sono sceso due volte per dirlo, ma ho trovato nessuno qui."
+      errors: [negation]
+    - tutor: "Ha ragione, mi scuso. Però 'ho trovato nessuno'? Con 'nessuno' dopo il verbo serve una piccola parola prima..."
+      prompt: {text: "ho trovato nessuno", tags: [negation]}
+    - learner: "Non ho trovato nessuno."
+    - tutor: "Giusto. Stamattina il collega era malato, mi dispiace davvero. Come posso aiutarla adesso?"
+      goals: [since]
+    - learner: "Vorrei un'altra camera con l'acqua calda, oppure un rimborso per questa notte."
+    - tutor: "Le do subito la camera 208, dove funziona tutto. E le tolgo metà del prezzo di stanotte."
+      goals: [request]
+    - learner: "D'accordo, mi sembra giusto. Grazie."
+    - tutor: "Grazie a lei per la pazienza. Ecco la chiave, buona notte!"
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-f-professional
+  history: [stare-gerund]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questo computer qui, ma ha un difetto: è facendo un rumore forte tutto il tempo."
+      errors: [stare-gerund]
+    - tutor: "Mi dispiace. Scusi, 'è facendo'? Per un'azione che succede proprio adesso, prima di 'facendo' usiamo un altro verbo..."
+      prompt: {text: "è facendo", tags: [stare-gerund]}
+    - learner: "Sta facendo un rumore forte."
+    - tutor: "Esatto. Lo sento anch'io, non è normale. Quando l'ha comprato?"
+      goals: [problem]
+    - learner: "Il 3 marzo, quindi due settimane fa. Ho lo scontrino sul telefono, va bene lo stesso?"
+    - tutor: "Sì, va benissimo. È difettoso ed è in garanzia: possiamo ripararlo o sostituirlo."
+      goals: [proof]
+    - learner: "Preferirei il rimborso, onestamente. Non mi fido più di questo modello."
+    - tutor: "La capisco. Però il rimborso è possibile solo nei primi dieci giorni. Posso darle un buono per il valore del prodotto."
+      goals: [request]
+      new: [{lemma: buono, gloss: voucher}]
+    - learner: "Un buono... Va bene, ma posso usarlo anche sul vostro sito?"
+    - tutor: "Sì, in negozio e sul sito, per un anno. Glielo preparo subito."
+      goals: [agree]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-f-student
+  history: [reflexive]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo in una casa con un giardino, in un paese vicino a Leeds. C'erano molte pecore!"
+    - tutor: "Che bello! E cosa facevi con gli altri bambini?"
+      goals: [place]
+    - learner: "Usavo giocare nei campi con i miei fratelli. Costruivamo case sugli alberi."
+      errors: [word-choice]
+    - tutor: "Ah, di solito giocavi nei campi: che fortuna! E a scuola com'era?"
+      recast: {text: "Usavo giocare", fix: "di solito giocavi", tags: [word-choice]}
+      goals: [habits]
+    - learner: "La scuola era piccola, con solo trenta bambini. Io divertivo molto, soprattutto durante le lezioni di musica."
+      errors: [reflexive]
+    - tutor: "Trenta bambini soltanto! Ma 'io divertivo'? A questo verbo manca una piccola parola davanti..."
+      prompt: {text: "Io divertivo", tags: [reflexive]}
+    - learner: "Io mi divertivo molto!"
+    - tutor: "Ecco! E hai un ricordo speciale di quegli anni?"
+      goals: [school]
+    - learner: "Sì. Un inverno ha nevicato tantissimo e la scuola è rimasta chiusa una settimana. Abbiamo fatto un pupazzo di neve alto due metri!"
+    - tutor: "Due metri! Dev'essere stata la settimana più bella dell'anno."
+      goals: [event]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene, direi. La campagna per il nuovo cliente è pronta all'ottanta per cento. Mancano solo i video."
+    - tutor: "Ottimo. Qualche problema?"
+      goals: [update]
+    - learner: "Sì. Ieri ho realizzato che nel preventivo manca il costo dei video."
+      errors: [false-friend]
+    - tutor: "Ah, quindi ieri ti sei accorta che manca un costo. Hai fatto bene a dirlo subito. Di quanto parliamo?"
+      recast: {text: "ho realizzato", fix: "ti sei accorta", tags: [false-friend]}
+      goals: [problem]
+      new: [{lemma: accorgersi, gloss: to realise}]
+    - learner: "Circa duemila euro. Propongo di parlarne con il cliente e di offrire due video invece di quattro."
+    - tutor: "Mi sembra giusto. Chi lo chiama?"
+      goals: [proposal]
+    - learner: "Lo chiamo io domani mattina. Se accetta, i video saranno pronti entro il 20."
+    - tutor: "Perfetto: scadenza il 20, e domani mi racconti com'è andata."
+      goals: [deadline]

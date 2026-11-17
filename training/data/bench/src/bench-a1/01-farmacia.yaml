@@ -1,0 +1,278 @@
+- scenario: farmacia-semplice
+  level: A1
+  persona: en-f-student
+  history: [essere-avere]
+  turns:
+    - tutor: "Buongiorno, come posso aiutarla?"
+    - learner: "Buongiorno. Sono mal di testa."
+      errors: [essere-avere]
+      gold: {text: "Sono mal di testa", fix: "Ho mal di testa"}
+    - tutor: "Sono mal di testa? Provi con un altro verbo."
+      prompt: {text: "Sono mal di testa", tags: [essere-avere]}
+    - learner: "Ho mal di testa."
+    - tutor: "Esatto! Mi dispiace. Ha anche la febbre?"
+      goals: [symptom]
+    - learner: "No, non ho la febbre. Ha qualcosa per la testa?"
+    - tutor: "Sì, ecco queste compresse."
+      goals: [ask-medicine]
+    - learner: "Grazie. Quante compresse devo di prendere?"
+      errors: [modal-infinitive]
+      gold: {text: "devo di prendere", fix: "devo prendere"}
+    - tutor: "Devo di prendere? C'è una parola in più."
+      prompt: {text: "devo di prendere", tags: [modal-infinitive]}
+    - learner: "Devo di prendere due compresse?"
+      errors: [modal-infinitive]
+      gold: {text: "di prendere", fix: "prendere"}
+    - tutor: "No, deve prendere una compressa due volte al giorno."
+      goals: [how-take]
+      recast: {text: "Devo di prendere", fix: "deve prendere", tags: [modal-infinitive]}
+    - learner: "Va bene. Ecco dieci euro."
+    - tutor: "Grazie. Sono sei euro, ecco il resto. Arrivederci!"
+      goals: [pay]
+
+- scenario: farmacia-semplice
+  level: A1
+  persona: es-m-worker
+  turns:
+    - tutor: "Buongiorno, come posso aiutarla?"
+    - learner: "Buongiorno. Sono costipato."
+      errors: [false-friend]
+      gold: {text: "costipato", fix: "raffreddato"}
+    - tutor: "Ah, è raffreddato! Ha anche la febbre?"
+      goals: [symptom]
+      recast: {text: "costipato", fix: "raffreddato", tags: [false-friend]}
+      new: [{lemma: raffreddato, gloss: having a cold}]
+    - learner: "Sì, ho un poco di febbre. Ha qualcosa?"
+    - tutor: "Sì. Ecco queste compresse per la febbre."
+      goals: [ask-medicine]
+    - learner: "Come devo tomare le compresse?"
+      errors: [word-choice]
+      gold: {text: "tomare", fix: "prendere"}
+    - tutor: "Deve prendere una compressa ogni otto ore."
+      goals: [how-take]
+      recast: {text: "tomare", fix: "prendere", tags: [word-choice]}
+    - learner: "Va bene. Posso pagare con tarjeta?"
+      errors: [word-choice]
+      gold: {text: "tarjeta", fix: "carta"}
+    - tutor: "Sì, può pagare con la carta. Sono sette euro."
+      recast: {text: "tarjeta", fix: "la carta", tags: [word-choice]}
+    - learner: "Ecco la carta. Grazie."
+    - tutor: "Grazie a Lei. Buona giornata!"
+      goals: [pay]
+
+- scenario: farmacia-semplice
+  level: A1
+  persona: en-m-retired
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buongiorno, come posso aiutarla?"
+    - learner: "Buongiorno. Ho un freddo e ho la tosse."
+      errors: [word-choice]
+      gold: {text: "un freddo", fix: "il raffreddore"}
+    - tutor: "Ha il raffreddore? Mi dispiace. Da quanti giorni?"
+      goals: [symptom]
+      recast: {text: "un freddo", fix: "il raffreddore", tags: [word-choice]}
+    - learner: "Da tre giorni. Posso avere uno sciroppo?"
+    - tutor: "Certo. Ecco uno sciroppo per la tosse."
+      goals: [ask-medicine]
+      new: [{lemma: tosse, gloss: cough}]
+    - learner: "Grazie. Quando devo a prendere lo sciroppo?"
+      errors: [modal-infinitive]
+      gold: {text: "devo a prendere", fix: "devo prendere"}
+    - tutor: "Devo a prendere? Guardi bene dopo «devo»."
+      prompt: {text: "devo a prendere", tags: [modal-infinitive]}
+    - learner: "Quando devo a prenderlo?"
+      errors: [modal-infinitive]
+      gold: {text: "a prenderlo", fix: "prenderlo"}
+    - tutor: "Deve prenderlo tre volte al giorno. Costa otto euro."
+      goals: [how-take]
+      recast: {text: "devo a prenderlo", fix: "Deve prenderlo", tags: [modal-infinitive]}
+    - learner: "Ecco dieci euro."
+    - tutor: "Grazie. Ecco due euro di resto. Arrivederci!"
+      goals: [pay]
+
+- scenario: farmacia-semplice
+  level: A1
+  persona: es-f-teacher
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buonasera, come posso aiutarla?"
+    - learner: "Buonasera. Mi duele la testa."
+      errors: [word-choice]
+      gold: {text: "duele", fix: "fa male"}
+    - tutor: "Le fa male la testa? Da quando?"
+      goals: [symptom]
+      recast: {text: "duele", fix: "fa male", tags: [word-choice]}
+    - learner: "Da ieri. Voglio di comprare delle compresse."
+      errors: [modal-infinitive]
+      gold: {text: "Voglio di comprare", fix: "Voglio comprare"}
+    - tutor: "Voglio di comprare? Tra i due verbi non serve niente."
+      prompt: {text: "Voglio di comprare", tags: [modal-infinitive]}
+    - learner: "Voglio comprare delle compresse."
+    - tutor: "Perfetto! Ecco le compresse per il mal di testa."
+      goals: [ask-medicine]
+    - learner: "Grazie. Quante volta al giorno?"
+      errors: [noun-number]
+      gold: {text: "Quante volta", fix: "Quante volte"}
+    - tutor: "Quante volta? Con «quante» la parola cambia."
+      prompt: {text: "Quante volta", tags: [noun-number]}
+    - learner: "Quante volte al giorno? Ecco dieci euro."
+    - tutor: "Esatto! Due volte al giorno. Sono cinque euro: ecco il resto."
+      goals: [how-take, pay]
+
+- scenario: farmacia-semplice
+  level: A1
+  persona: en-m-traveller
+  turns:
+    - tutor: "Buongiorno, come posso aiutarla?"
+    - learner: "Buongiorno! Ho un headache."
+      errors: [word-choice]
+      gold: {text: "un headache", fix: "mal di testa"}
+    - tutor: "Ah, ha mal di testa! Da quanto tempo?"
+      goals: [symptom]
+      recast: {text: "un headache", fix: "mal di testa", tags: [word-choice]}
+    - learner: "Da questa mattina. Tu hai qualcosa?"
+      errors: [register]
+      gold: {text: "Tu hai", fix: "Lei ha"}
+    - tutor: "Tu hai? In farmacia non usiamo «tu»."
+      prompt: {text: "Tu hai", tags: [register]}
+      new: [{lemma: farmacia, gloss: pharmacy}]
+    - learner: "Scusi! Lei ha qualcosa?"
+    - tutor: "Bravo! Sì, ecco queste compresse."
+      goals: [ask-medicine]
+    - learner: "Come prendo le compresse?"
+    - tutor: "Una compressa ogni sei ore, con acqua."
+      goals: [how-take]
+    - learner: "Ok, grazie. Posso pagare con card?"
+      errors: [word-choice]
+      gold: {text: "card", fix: "carta"}
+    - tutor: "Sì, può pagare con la carta. Sono sei euro."
+      recast: {text: "card", fix: "la carta", tags: [word-choice]}
+    - learner: "Ecco. Grazie mille!"
+    - tutor: "Grazie a Lei. Arrivederci!"
+      goals: [pay]
+
+- scenario: farmacia-semplice
+  level: A1
+  persona: en-f-professional
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Buongiorno, come posso aiutarla?"
+    - learner: "Buongiorno. Mio marito ha la febbre. Io non ha la febbre, ma ho la tosse."
+      errors: [subject-verb-agreement]
+      gold: {text: "Io non ha", fix: "Io non ho"}
+    - tutor: "Io non ha? Pensi al verbo con «io»."
+      prompt: {text: "Io non ha", tags: [subject-verb-agreement]}
+    - learner: "Io non ho la febbre."
+    - tutor: "Bene! Mi dispiace per voi. Che cosa vi serve?"
+      goals: [symptom]
+    - learner: "Vogliamo delle compresse e una sciroppo."
+      errors: [noun-gender]
+      gold: {text: "una sciroppo", fix: "uno sciroppo"}
+    - tutor: "Una sciroppo? Sciroppo è una parola maschile."
+      prompt: {text: "una sciroppo", tags: [noun-gender]}
+      new: [{lemma: maschile, gloss: masculine}]
+    - learner: "Sì, una sciroppo per la tosse."
+      errors: [noun-gender]
+      gold: {text: "una sciroppo", fix: "uno sciroppo"}
+    - tutor: "Certo: ecco le compresse e uno sciroppo."
+      goals: [ask-medicine]
+      recast: {text: "una sciroppo", fix: "uno sciroppo", tags: [noun-gender]}
+    - learner: "Come deve prendere le compresse mio marito?"
+    - tutor: "Una compressa tre volte al giorno."
+      goals: [how-take]
+    - learner: "Grazie. Ecco venti euro."
+    - tutor: "Grazie. Sono dodici euro: ecco il resto."
+      goals: [pay]
+
+- scenario: farmacia-semplice
+  level: A1
+  persona: en-m-heritage
+  history: [article-use]
+  turns:
+    - tutor: "Buongiorno, come posso aiutarla?"
+    - learner: "Buongiorno. Ho la febbre e mal di stomaco."
+    - tutor: "Mi dispiace. Da quando sta male?"
+      goals: [symptom]
+    - learner: "Da ieri sera. Voglio di prendere medicina."
+      errors: [modal-infinitive, article-use]
+      gold: {text: "Voglio di prendere", fix: "Voglio prendere"}
+    - tutor: "Voglio di prendere? Dopo «voglio» c'è una parola in più."
+      prompt: {text: "Voglio di prendere", tags: [modal-infinitive]}
+    - learner: "Voglio di prendere una medicina."
+      errors: [modal-infinitive]
+      gold: {text: "di prendere", fix: "prendere"}
+    - tutor: "Vuole prendere una medicina? Ecco delle compresse per lo stomaco."
+      goals: [ask-medicine]
+      recast: {text: "Voglio di prendere", fix: "Vuole prendere", tags: [modal-infinitive]}
+      new: [{lemma: stomaco, gloss: stomach}]
+    - learner: "Devo prenderle con acqua?"
+    - tutor: "Sì, una compressa prima dei pasti."
+      goals: [how-take]
+      new: [{lemma: pasto, gloss: meal}]
+    - learner: "Capito. Quanto costa le compresse?"
+      errors: [subject-verb-agreement]
+      gold: {text: "Quanto costa le compresse", fix: "Quanto costano le compresse"}
+    - tutor: "Quanto costa le compresse? Le compresse sono più di una."
+      prompt: {text: "Quanto costa le compresse", tags: [subject-verb-agreement]}
+    - learner: "Quanto costano? Ecco dieci euro."
+    - tutor: "Esatto! Costano nove euro. Ecco il resto, arrivederci!"
+      goals: [pay]
+
+- scenario: farmacia-semplice
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Buongiorno, come posso aiutarla?"
+    - learner: "Buongiorno. Ho la febbre e mi fa male la gola."
+    - tutor: "Mi dispiace. Ha anche la tosse?"
+      goals: [symptom]
+      new: [{lemma: tosse, gloss: cough}]
+    - learner: "Sì, un po'. Vorrei un jarabe, per favore."
+      errors: [word-choice]
+      gold: {text: "jarabe", fix: "sciroppo"}
+    - tutor: "Uno sciroppo? Certo, ecco."
+      goals: [ask-medicine]
+      recast: {text: "un jarabe", fix: "Uno sciroppo", tags: [word-choice]}
+    - learner: "Grazie. Quante volte al giorno lo devo prendo?"
+      errors: [modal-infinitive]
+      gold: {text: "devo prendo", fix: "devo prendere"}
+    - tutor: "Lo devo prendo? Dopo «devo» il verbo non cambia."
+      prompt: {text: "devo prendo", tags: [modal-infinitive]}
+    - learner: "Quante volte lo devo prendere?"
+    - tutor: "Brava! Tre volte al giorno, dopo i pasti."
+      goals: [how-take]
+      new: [{lemma: pasto, gloss: meal}]
+    - learner: "Va bene. Posso pagare con carta?"
+    - tutor: "Certo. Sono sette euro. Grazie e buona giornata!"
+      goals: [pay]
+
+- scenario: farmacia-semplice
+  level: A1
+  persona: en-f-student
+  history: [question-form]
+  turns:
+    - tutor: "Buonasera, come posso aiutarla?"
+    - learner: "Salve. Ho mal di testa e ho freddo."
+    - tutor: "Mi dispiace. Forse ha la febbre."
+      goals: [symptom]
+    - learner: "Hai qualcosa per il mal di testa?"
+      errors: [register]
+      gold: {text: "Hai", fix: "Ha"}
+    - tutor: "Hai? Con un farmacista non usiamo «tu»."
+      prompt: {text: "Hai", tags: [register]}
+      new: [{lemma: farmacista, gloss: pharmacist}]
+    - learner: "Non capisco. Hai qualcosa?"
+      errors: [register]
+      gold: {text: "Hai qualcosa", fix: "Ha qualcosa"}
+    - tutor: "Ha qualcosa? Sì, ecco queste compresse."
+      goals: [ask-medicine]
+      recast: {text: "Hai qualcosa", fix: "Ha qualcosa", tags: [register]}
+    - learner: "Grazie. Come prendo questo compresse?"
+      errors: [demonstrative]
+      gold: {text: "questo compresse", fix: "queste compresse"}
+    - tutor: "Questo compresse? Le compresse sono più di una."
+      prompt: {text: "questo compresse", tags: [demonstrative]}
+    - learner: "Queste compresse! Come le prendo? Ecco dieci euro."
+    - tutor: "Brava! Una ogni otto ore. Sono cinque euro: ecco il resto."
+      goals: [how-take, pay]

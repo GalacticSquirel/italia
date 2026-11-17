@@ -1,0 +1,197 @@
+- scenario: presentarsi
+  level: A1
+  persona: en-f-student
+  turns:
+    - tutor: Ciao! Io sono Giulia. E tu, come ti chiami?
+    - learner: Ciao Giulia! Mi chiamo Hannah. Piacere!
+    - tutor: Piacere, Hannah! Di dove sei?
+      goals: [say-name]
+    - learner: Sono inglese, di Leeds. E tu sei di qui?
+    - tutor: Sì, sono di Bologna. Cosa fai?
+      goals: [say-origin, ask-back]
+    - learner: Sono studentessa. Studio storia.
+    - tutor: Che bello! Anch'io studio, ma medicina.
+      goals: [say-job]
+      new: [{lemma: medicina, gloss: medicine}]
+    - learner: Davvero? È difficile?
+    - tutor: Sì, un po'. Ma mi piace molto!
+
+- scenario: presentarsi
+  level: A1
+  persona: en-m-retired
+  history: [reflexive]
+  turns:
+    - tutor: Ciao! Io sono Giulia. E tu, come ti chiami?
+    - learner: Buonasera. Io chiamo Robert.
+      errors: [reflexive]
+    - tutor: Io chiamo? Manca una parola piccola...
+      prompt: {text: Io chiamo, tags: [reflexive]}
+    - learner: Mi chiamo Robert.
+    - tutor: Piacere, Robert! Di dove sei?
+      goals: [say-name]
+    - learner: Sono americano, dell'Ohio.
+    - tutor: Che bello! E cosa fai?
+      goals: [say-origin]
+    - learner: Non lavoro più. Sono in pensione.
+    - tutor: Allora hai molto tempo libero!
+      goals: [say-job]
+    - learner: Sì! E tu, Giulia, lavori o studi?
+    - tutor: Studio inglese all'università.
+      goals: [ask-back]
+
+- scenario: presentarsi
+  level: A1
+  persona: es-m-worker
+  turns:
+    - tutor: Ciao! Io sono Giulia. E tu, come ti chiami?
+    - learner: Ciao, mi chiamo Mateo. Sono di Buenos Aires.
+    - tutor: Piacere, Mateo! Cosa fai qui a Bologna?
+      goals: [say-name, say-origin]
+    - learner: Sono cocinero in un ristorante.
+      errors: [word-choice]
+    - tutor: Un cuoco! Che bel lavoro.
+      goals: [say-job]
+      recast: {text: cocinero, fix: cuoco, tags: [word-choice]}
+      new: [{lemma: cuoco, gloss: cook}]
+    - learner: Sì, sono cuoco. Mi piace molto. E tu?
+    - tutor: Io studio ancora. E lavoro in un bar.
+      goals: [ask-back]
+    - learner: In un bar? Quale bar?
+    - tutor: Il bar vicino alla stazione.
+
+- scenario: presentarsi
+  level: A1
+  persona: en-m-traveller
+  turns:
+    - tutor: Ciao! Io sono Giulia. E tu, come ti chiami?
+    - learner: Mi chiamo Liam. Sono da Irlanda e sono ventisei anni.
+      errors: [preposition, essere-avere]
+    - tutor: Piacere! Sono ventisei anni? Attenzione al verbo.
+      goals: [say-name, say-origin]
+      prompt: {text: sono ventisei anni, tags: [essere-avere]}
+    - learner: Ho ventisei anni!
+    - tutor: Giusto! Io ho ventidue anni.
+    - learner: E tu di dove sei?
+    - tutor: Sono di Verona. Cosa fai nella vita?
+      goals: [ask-back]
+    - learner: Viaggio! E lavoro un po' in un pub.
+    - tutor: Bella vita! Buon viaggio, allora.
+      goals: [say-job]
+
+- scenario: presentarsi
+  level: A1
+  persona: es-f-teacher
+  turns:
+    - tutor: Ciao! Io sono Giulia. E tu, come ti chiami?
+    - learner: Ciao, sono Carmen. Sono spagnola, di Valencia.
+    - tutor: Piacere, Carmen! Cosa fai?
+      goals: [say-name, say-origin]
+    - learner: Sono insegnante di matematica. Come si dice "instituto" in italiano?
+    - tutor: Si dice liceo. Lavori in un liceo?
+      new: [{lemma: liceo, gloss: high school}]
+    - learner: Sì, lavoro in un liceo. E tu, cosa è il tuo lavoro?
+      errors: [question-form]
+    - tutor: Cosa è il tuo lavoro? Prova con il verbo fare.
+      goals: [say-job]
+      prompt: {text: cosa è il tuo lavoro, tags: [question-form]}
+    - learner: Che lavoro fai?
+    - tutor: Brava! Io studio ancora, all'università.
+      goals: [ask-back]
+    - learner: Che bello! Cosa studi?
+    - tutor: Studio storia. Mi piace molto!
+
+- scenario: numero-telefono
+  level: A1
+  persona: en-f-professional
+  turns:
+    - tutor: È stata una bella lezione, vero?
+    - learner: Sì, molto bella! Vuoi cucinare insieme un'altra volta?
+    - tutor: Sì, che bella idea! Quando sei libera?
+      goals: [propose]
+    - learner: Sono libera sabato prossimo. E tu?
+    - tutor: Sabato va bene. Mi dai il tuo numero?
+      goals: [when]
+    - learner: Certo. Il mio numero è 347 552 1908.
+    - tutor: Grazie! Ti mando un messaggio stasera.
+      goals: [number]
+    - learner: Perfetto. A sabato, allora!
+    - tutor: A sabato! Ciao!
+
+- scenario: numero-telefono
+  level: A1
+  persona: en-m-heritage
+  history: [modal-infinitive]
+  turns:
+    - tutor: È stata una bella lezione, vero?
+    - learner: Sì! Vuoi a mangiare una pizza insieme?
+      errors: [modal-infinitive]
+    - tutor: Vuoi a mangiare? C'è una parola in più...
+      prompt: {text: Vuoi a mangiare, tags: [modal-infinitive]}
+    - learner: Vuoi mangiare una pizza insieme?
+    - tutor: Sì, con piacere! Quando?
+      goals: [propose]
+    - learner: Lunedì sera sei libero?
+    - tutor: Lunedì no, lavoro. Martedì?
+    - learner: Martedì va bene.
+    - tutor: Perfetto! Qual è il tuo numero?
+      goals: [when]
+    - learner: È 339 418 2276.
+    - tutor: Grazie. Ti scrivo domani!
+      goals: [number]
+
+- scenario: numero-telefono
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: È stata una bella lezione, vero?
+    - learner: Sì, molto bella! Possiamo quedar sabato?
+      errors: [word-choice]
+    - tutor: Sì, possiamo vederci sabato!
+      goals: [propose, when]
+      recast: {text: quedar, fix: vederci, tags: [word-choice]}
+    - learner: Vederci, giusto! Sabato alle sei?
+    - tutor: Alle sei va bene. Mi dai il tuo numero?
+    - learner: Sì, è 320 771 4405.
+    - tutor: Grazie! Ecco il mio, 333 290 1164.
+      goals: [number]
+    - learner: Perfetto. Ti mando un messaggio.
+    - tutor: Va bene. A sabato!
+
+- scenario: numero-telefono
+  level: A1
+  persona: en-f-student
+  turns:
+    - tutor: È stata una bella lezione, vero?
+    - learner: Sì, bellissima! Posso avere tuo numero? Sono libero sabato.
+      errors: [article-use, adjective-agreement]
+    - tutor: Tuo numero? Qui manca una parola piccola.
+      prompt: {text: tuo numero, tags: [article-use]}
+    - learner: Il tuo numero!
+    - tutor: Esatto! È 348 665 0912. E il tuo?
+    - learner: Il mio è 351 204 7783. Ci vediamo sabato?
+    - tutor: Sì, sabato sono libero anch'io!
+      goals: [propose, number, when]
+    - learner: Bene! Dove?
+    - tutor: Al bar in piazza, alle cinque?
+    - learner: Perfetto. A sabato!
+    - tutor: A sabato, ciao!
+
+- scenario: numero-telefono
+  level: A1
+  persona: en-m-retired
+  turns:
+    - tutor: È stata una bella lezione, vero?
+    - learner: Sì, molto bella. Paolo, cosa è il tuo numero di telefono?
+      errors: [question-form]
+    - tutor: Cosa è il tuo numero? Qui non usiamo cosa...
+      prompt: {text: cosa è il tuo numero, tags: [question-form]}
+    - learner: Qual è il tuo numero?
+    - tutor: Bravo! Il mio numero è 340 118 5527.
+    - learner: Grazie. Il mio è 366 902 4410. Possiamo prendere un caffè insieme?
+    - tutor: Con piacere! Quando sei libero?
+      goals: [number, propose]
+    - learner: Domani no. Giovedì, forse?
+    - tutor: Giovedì va bene. Alle dieci?
+    - learner: Sì, alle dieci. Come si dice "see you" in italiano?
+    - tutor: Si dice ci vediamo. Ci vediamo giovedì!
+      goals: [when]

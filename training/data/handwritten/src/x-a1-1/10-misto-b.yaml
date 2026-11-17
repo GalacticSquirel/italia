@@ -1,0 +1,210 @@
+# Correction-dense A1 dialogues (set x-a1-1), file 10.
+- scenario: orari-negozio
+  level: A1
+  persona: en-m-retired
+  turns:
+  - tutor: "Pronto, negozio Bianchi, buongiorno!"
+  - learner: "Buongiorno. Vorrei un'informazione. Che tempo aprite la mattina?"
+    errors: [word-choice]
+  - tutor: "A che ora apriamo la mattina? Alle nove."
+    goals: [greet]
+    recast: {text: "Che tempo aprite", fix: "A che ora apriamo", tags: [word-choice]}
+  - learner: "Grazie. E siete aperti in pomeriggio?"
+    errors: [preposition]
+  - tutor: "In pomeriggio? Qui usiamo un'altra piccola parola, non in."
+    prompt: {text: "in pomeriggio", tags: [preposition]}
+  - learner: "Siete aperti di pomeriggio?"
+  - tutor: "Esatto! Sì, fino alle sette e mezza."
+    goals: [ask-hours]
+  - learner: "E la domenica?"
+  - tutor: "La domenica siamo chiusi."
+    goals: [ask-day]
+  - learner: "Va bene, vengo domani. Grazie, arrivederci."
+  - tutor: "A domani! Arrivederci."
+    goals: [goodbye]
+
+- scenario: panetteria
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno! Mi dica."
+  - learner: "Buongiorno. Dammi un chilo di pane."
+    errors: [register]
+  - tutor: "Dammi? In un negozio è più gentile un'altra parola."
+    prompt: {text: "Dammi", tags: [register]}
+  - learner: "Scusi. Vorrei un chilo di pane, per favore."
+  - tutor: "Benissimo! Ecco un chilo di pane."
+    goals: [greet, order-bread]
+  - learner: "Grazie. Avete focaccia con cebolla?"
+    errors: [word-choice]
+  - tutor: "Focaccia con la cipolla? Sì, è buonissima!"
+    recast: {text: "con cebolla", fix: "con la cipolla", tags: [word-choice]}
+    new: [{lemma: "cipolla", gloss: "onion"}]
+  - learner: "Allora due etti di focaccia con la cipolla."
+  - tutor: "Ecco due etti. Vuole un sacchetto?"
+    goals: [order-extra]
+  - learner: "Sì, grazie. Quant'è?"
+  - tutor: "Sono cinque euro e novanta."
+  - learner: "Ecco sei euro. Arrivederci!"
+  - tutor: "Grazie, ecco il resto. Arrivederci!"
+    goals: [pay]
+
+- scenario: presentarsi
+  level: A1
+  persona: en-f-professional
+  turns:
+  - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+  - learner: "Ciao Giulia, piacere! Io sono Megan e sono australiana."
+  - tutor: "Piacere, Megan! Di quale città sei?"
+    goals: [say-name]
+  - learner: "Sono di Sydney, ma adesso vivo a Milano."
+  - tutor: "Che bello! E che lavoro fai a Milano?"
+    goals: [say-origin]
+  - learner: "Lavoro per azienda di moda."
+    errors: [article-use]
+  - tutor: "Per azienda? Prima di azienda manca una piccola parola."
+    prompt: {text: "per azienda", tags: [article-use]}
+  - learner: "Lavoro per azienda grande, di moda."
+    errors: [article-use]
+  - tutor: "Ah, lavori per un'azienda di moda. Che bello!"
+    goals: [say-job]
+    recast: {text: "per azienda", fix: "per un'azienda", tags: [article-use]}
+  - learner: "Sì, mi piace molto. E tu è studentessa?"
+    errors: [subject-verb-agreement]
+  - tutor: "Tu è? Attenzione al verbo essere con tu."
+    prompt: {text: "tu è", tags: [subject-verb-agreement]}
+  - learner: "E tu sei studentessa?"
+  - tutor: "Giusto! Sì, studio inglese all'università."
+    goals: [ask-back]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-m-heritage
+  turns:
+  - tutor: "Buongiorno, benvenuti! Quanti siete?"
+  - learner: "Buongiorno. Siamo tre. I miei amici vuole un tavolo fuori."
+    errors: [subject-verb-agreement]
+  - tutor: "I miei amici vuole? Gli amici sono due: e il verbo?"
+    prompt: {text: "I miei amici vuole", tags: [subject-verb-agreement]}
+  - learner: "Sì, i miei amici vuole stare fuori."
+    errors: [subject-verb-agreement]
+  - tutor: "Ah, i suoi amici vogliono stare fuori. Certo, prego!"
+    goals: [ask-table]
+    recast: {text: "vuole stare fuori", fix: "vogliono stare fuori", tags: [subject-verb-agreement]}
+  - learner: "Grazie. Per me il carne, per favore."
+    errors: [noun-gender]
+  - tutor: "Il carne? Carne è una parola femminile."
+    prompt: {text: "il carne", tags: [noun-gender]}
+  - learner: "La carne, per favore."
+  - tutor: "Perfetto, la carne. E da bere?"
+    goals: [order-food]
+  - learner: "Una bottiglia di vino rosso e acqua."
+  - tutor: "Benissimo, arrivano subito."
+    goals: [order-drink]
+  - learner: "Scusi, il conto per favore!"
+  - tutor: "Ecco il conto. Grazie e arrivederci!"
+    goals: [ask-bill]
+
+- scenario: supermercato
+  level: A1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Buongiorno, cerca qualcosa?"
+  - learner: "Buongiorno. Sì, scusi, dove sono le uova?"
+  - tutor: "Le uova sono in fondo, sullo scaffale a destra."
+    goals: [ask-product]
+  - learner: "Grazie. E c'è il latte fresco?"
+  - tutor: "Sì, il latte è nel reparto vicino alle uova."
+    goals: [ask-other]
+  - learner: "Perfetto. Cerco anche la pasta."
+  - tutor: "La pasta è qui, sul secondo scaffale."
+  - learner: "Ah, sì, ecco! E dov'è la cassa?"
+  - tutor: "La cassa è lì, a sinistra."
+  - learner: "Grazie mille, Lei è molto gentile."
+  - tutor: "Prego! Buona giornata."
+    goals: [thank]
+
+- scenario: taxi
+  level: A1
+  persona: en-m-retired
+  turns:
+  - tutor: "Buongiorno! Dove la porto?"
+  - learner: "Buongiorno. Vado a stazione, per favore."
+    errors: [article-use]
+  - tutor: "A stazione? Prima di stazione manca qualcosa."
+    prompt: {text: "a stazione", tags: [article-use]}
+  - learner: "Vado alla stazione."
+  - tutor: "Esatto, alla stazione. Ha valigie?"
+    goals: [destination]
+  - learner: "Sì, ho due valigia."
+    errors: [noun-number]
+  - tutor: "Due valigia? Sono due: e la parola valigia?"
+    prompt: {text: "due valigia", tags: [noun-number]}
+  - learner: "Due valigia grandi."
+    errors: [noun-number]
+  - tutor: "Due valigie grandi, va bene. Le metto io in macchina."
+    recast: {text: "Due valigia grandi", fix: "Due valigie grandi", tags: [noun-number]}
+  - learner: "Grazie. Quanto tempo ci vuole?"
+  - tutor: "Ci vuole mezz'ora, più o meno."
+    goals: [ask-time]
+  - learner: "E quanto costa?"
+  - tutor: "Quaranta euro."
+    goals: [ask-price]
+  - learner: "Va bene. Ecco quaranta euro. Arrivederci!"
+  - tutor: "Grazie a Lei! Arrivederci."
+    goals: [pay]
+
+- scenario: tempo-libero
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  - learner: "Il sabato lavoro. La domenica gioco calcio."
+    errors: [preposition]
+  - tutor: "Gioco calcio? Dopo gioco manca una piccola parola."
+    prompt: {text: "gioco calcio", tags: [preposition]}
+  - learner: "Gioco a calcio con gli amici."
+  - tutor: "Bravo! Giochi ogni domenica?"
+    goals: [hobby]
+  - learner: "Sì, sempre. E a volte vado al campo con la mia ragazza."
+    errors: [false-friend]
+  - tutor: "In campagna? Che bello!"
+    goals: [frequency]
+    recast: {text: "al campo", fix: "In campagna", tags: [false-friend]}
+    new: [{lemma: "campagna", gloss: "countryside"}]
+  - learner: "Sì, in campagna. E tu, Sara, cosa fai la domenica?"
+  - tutor: "Dormo molto! Poi leggo o vado al cinema."
+    goals: [ask]
+  - learner: "Vuoi venire a vedere una partita domenica?"
+  - tutor: "Sì, che bella idea! A che ora?"
+    goals: [propose]
+  - learner: "Alle tre, al parco."
+  - tutor: "Perfetto, a domenica!"
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-f-student
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Buongiorno! Mi piace queste magliette. Quanto costano?"
+    errors: [piacere]
+  - tutor: "Mi piace queste magliette? Con tante cose, piace cambia."
+    prompt: {text: "Mi piace queste magliette", tags: [piacere]}
+  - learner: "Mi piacciono queste magliette!"
+  - tutor: "Benissimo! Costano dieci euro. Che colore preferisce?"
+    goals: [ask-item]
+  - learner: "Vorrei la maglietta verde, taglia S."
+  - tutor: "Ecco la maglietta verde, taglia S."
+    goals: [size-colour]
+  - learner: "Posso provarla?"
+  - tutor: "Certo, il camerino è qui."
+    goals: [try]
+  - learner: "Mmm, è troppo piccolo. Avete la M?"
+    errors: [adjective-agreement]
+  - tutor: "È troppo piccolo? Parliamo della maglietta: come finisce la parola?"
+    prompt: {text: "è troppo piccolo", tags: [adjective-agreement]}
+  - learner: "È troppo piccola."
+  - tutor: "Esatto! Ecco la taglia M."
+  - learner: "Perfetta! La prendo. Ecco dieci euro."
+  - tutor: "Grazie mille! Arrivederci e buona giornata."
+    goals: [decide]

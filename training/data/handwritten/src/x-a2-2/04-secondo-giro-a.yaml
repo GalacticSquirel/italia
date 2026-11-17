@@ -1,0 +1,204 @@
+- scenario: weekend-scorso
+  level: A2
+  persona: en-m-traveller
+  history: [participle-agreement]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Ciao Chiara! Benissimo. Ho speso il sabato a Bologna."
+      errors: [word-choice]
+    - tutor: "Hai passato il sabato a Bologna? Bella città! Cosa hai fatto?"
+      recast: {text: "Ho speso", fix: "Hai passato", tags: [word-choice]}
+      goals: [where]
+    - learner: "Ho camminato in centro e ho mangiato i tortellini. Buonissimi!"
+    - tutor: "Lo credo! Eri da solo?"
+      goals: [what]
+    - learner: "No, ero con due amici irlandesi. Loro sono arrivato venerdì."
+      errors: [participle-agreement]
+    - tutor: "Loro sono arrivato? Guarda la fine di arrivato: sono due persone."
+      prompt: {text: "sono arrivato", tags: [participle-agreement]}
+    - learner: "Loro sono arrivati venerdì."
+    - tutor: "Giusto! E vi siete divertiti?"
+      goals: [with-who]
+    - learner: "Sì, tantissimo! E tu? Cosa hai fatto di bello?"
+    - tutor: "Sabato sono andata al mare con mia sorella. Faceva già caldo!"
+      goals: [opinion]
+    - learner: "Che fortuna! La prossima volta vengo anch'io."
+    - tutor: "Certo, ti aspetto!"
+
+- scenario: abbigliamento
+  level: A2
+  persona: en-m-retired
+  history: [demonstrative]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Cerco un regalo per mia moglie. Forse una maglietta elegante."
+    - tutor: "Certo! Che colore le piace?"
+      goals: [ask-item]
+    - learner: "Le piace il rosso. Posso vedere quel maglietta lì in alto?"
+      errors: [demonstrative]
+    - tutor: "Quel maglietta? Maglietta è una parola femminile. Come cambia quel?"
+      prompt: {text: "quel maglietta", tags: [demonstrative]}
+      new: [{lemma: femminile, gloss: feminine}]
+    - learner: "Quella maglietta, mi scusi."
+    - tutor: "Esatto! Eccola. Che taglia porta sua moglie?"
+    - learner: "Porta la S. È piccola e magra."
+    - tutor: "Allora questa S rossa va bene."
+      goals: [size-colour]
+    - learner: "Se non va bene, mia moglie può venire qui a provarla?"
+    - tutor: "Certo, può provarla in camerino e cambiarla nei prossimi quindici giorni."
+      goals: [try]
+    - learner: "Perfetto. Quanto costa?"
+    - tutor: "Costa 35 euro, ma oggi c'è lo sconto: 28 euro."
+    - learner: "Ottimo, la prendo. Pago in contanti."
+    - tutor: "Benissimo, grazie. Sua moglie sarà contenta!"
+      goals: [decide]
+
+- scenario: autobus
+  level: A2
+  persona: es-f-teacher
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Devo andare all'ospedale. Va bene questo autobus?"
+    - tutor: "Sì, la linea 4 ci passa."
+      goals: [route]
+    - learner: "Meno male! Il biglietto si compra qui o in tabaccheria?"
+    - tutor: "In tabaccheria o al bar. Ma oggi può comprarlo anche qui, costa due euro."
+      goals: [ticket]
+    - learner: "Allora lo compro qui, grazie. Qual è la fermata del ospedale?"
+      errors: [articulated-preposition]
+    - tutor: "Del ospedale? Ospedale comincia con la lettera o. Come cambia del?"
+      prompt: {text: "del ospedale", tags: [articulated-preposition]}
+    - learner: "La fermata dell'ospedale!"
+    - tutor: "Perfetto! È la fermata numero sei, si chiama San Giovanni."
+      goals: [stop]
+    - learner: "Numero sei, San Giovanni. Devo timbrare il biglietto?"
+    - tutor: "Sì, lo timbri subito, nella macchina dietro di me."
+    - learner: "Fatto. Grazie mille per l'aiuto!"
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]
+
+- scenario: bar-colazione
+  level: A2
+  persona: es-m-worker
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Un caffè macchiato, per favore."
+    - tutor: "Subito! Qualcosa da mangiare?"
+      goals: [greet, order-drink]
+    - learner: "Sì. Che cosa c'è dentro questo cornetto?"
+    - tutor: "Quello è con la marmellata. Questi invece sono senza niente."
+      new: [{lemma: marmellata, gloss: jam}]
+    - learner: "Allora uno con la marmellata. E anche un zumo di arancia."
+      errors: [word-choice]
+    - tutor: "Un succo d'arancia, certo. Ecco tutto!"
+      recast: {text: "un zumo di arancia", fix: "Un succo d'arancia", tags: [word-choice]}
+      new: [{lemma: succo, gloss: juice}]
+      goals: [order-food]
+    - learner: "Grazie. Lo zucchero dov'è?"
+    - tutor: "È lì, sul bancone, vicino al latte."
+    - learner: "Ah, sì, lo vedo. Quanto pago?"
+    - tutor: "Sono 5 euro e 50. Ecco lo scontrino."
+      goals: [pay]
+    - learner: "Ecco. Arrivederci e buon lavoro!"
+    - tutor: "Grazie, arrivederci!"
+
+- scenario: biglietto-treno
+  level: A2
+  persona: en-f-student
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Io vorrebbe un biglietto per Venezia, oggi pomeriggio."
+      errors: [conditional-form]
+    - tutor: "Io vorrebbe? Con io la fine è diversa. Provi ancora!"
+      prompt: {text: "Io vorrebbe", tags: [conditional-form]}
+    - learner: "Io vorrei un biglietto per Venezia."
+    - tutor: "Molto bene. C'è un regionale alle tre e un treno veloce alle quattro."
+      goals: [destination]
+    - learner: "Scusi, cosa significa regionale?"
+    - tutor: "È un treno che ferma in tutte le stazioni, ma costa poco."
+    - learner: "Allora prendo il regionale. Solo andata, perché torno in autobus."
+    - tutor: "Va bene, solo andata. Sono 9 euro."
+      goals: [type]
+    - learner: "Ecco. Posso scegliere un posto vicino al finestrino?"
+    - tutor: "Sul regionale si siede dove vuole, i posti sono liberi."
+      goals: [class]
+    - learner: "Perfetto. E da quale binario parte?"
+    - tutor: "Dal binario 2, alle tre. Buon viaggio!"
+      goals: [platform]
+
+- scenario: casa-mia
+  level: A2
+  persona: es-m-worker
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Vivo in un appartamento in centro, vicino al ristorante dove lavoro."
+    - tutor: "Che bello, così vai a piedi! Ed è grande?"
+      goals: [type]
+    - learner: "No, è piccolo. Sono due camere, una cucina e un bagno."
+      errors: [ce-ci-sono]
+    - tutor: "Sono due camere? Prima di sono manca una parola piccola."
+      prompt: {text: "Sono due camere", tags: [ce-ci-sono]}
+    - learner: "Ci sono due camere, una cucina e un bagno."
+    - tutor: "Bravo! E qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "La cucina, ovviamente! Sono cuoco. È piccola ma ha una finestra grande."
+    - tutor: "Ah, certo! E cucini spesso a casa?"
+      goals: [favourite]
+    - learner: "Solo la domenica, per gli amici. E tu, Luca, vivi da solo?"
+    - tutor: "No, vivo con due amici in una casa con il balcone. Vieni a cena da noi!"
+      goals: [ask]
+    - learner: "Volentieri, ma cucino io!"
+    - tutor: "Perfetto, allora ti aspettiamo sabato!"
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-m-traveller
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Buongiorno! Sì, l'ho visto. Cercate ancora un cameriere?"
+    - tutor: "Sì, per luglio e agosto. Ha esperienza?"
+      goals: [ask]
+    - learner: "Sì, ho lavorato due anni in un pub a Dublino. Ho anche facciato i cocktail."
+      errors: [past-participle-form]
+    - tutor: "Ho facciato? Il passato di fare è più corto. Provi ancora!"
+      prompt: {text: "Ho anche facciato", tags: [past-participle-form]}
+    - learner: "Ho fatto i cocktail!"
+    - tutor: "Ecco, bene! Ci serve proprio. Quando può lavorare?"
+      goals: [experience]
+    - learner: "Sono disponibile tutti i giorni, ma non la domenica mattina."
+    - tutor: "Va bene. L'orario è dalle undici alle sette di sera."
+      goals: [availability]
+    - learner: "Perfetto. Posso chiedere quanto è lo stipendio?"
+    - tutor: "Sono 1200 euro al mese, più le mance."
+      new: [{lemma: mancia, gloss: tip}]
+    - learner: "Mi sembra giusto. Ecco la mia mail e il mio numero."
+    - tutor: "Grazie! Le scrivo stasera. A presto!"
+      goals: [contact]
+
+- scenario: chiedere-strada
+  level: A2
+  persona: es-f-erasmus
+  history: [register]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, grazie. Scusa, sai dov'è la stazione dei treni?"
+      errors: [register]
+    - tutor: "Scusa, sai? Non ci conosciamo: è meglio usare il Lei."
+      prompt: {text: "Scusa, sai", tags: [register]}
+    - learner: "Ha ragione. Scusi, sa dov'è la stazione?"
+    - tutor: "Benissimo! Sì, prenda questa strada e vada sempre dritto fino alla piazza."
+      goals: [get-attention, ask-place]
+    - learner: "Sempre dritto fino alla piazza. E poi? È cerca?"
+      errors: [word-choice]
+    - tutor: "Sì, è vicina. Dalla piazza giri a sinistra e la vede subito."
+      recast: {text: "È cerca", fix: "è vicina", tags: [word-choice]}
+    - learner: "Allora dritto, e dalla piazza a sinistra. Giusto?"
+    - tutor: "Giusto! Sono dieci minuti a piedi."
+      goals: [understand]
+    - learner: "Perfetto. Grazie mille, è stato molto gentile!"
+    - tutor: "Di niente. Buona giornata!"
+      goals: [thank]

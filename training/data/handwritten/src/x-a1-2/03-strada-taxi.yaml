@@ -1,0 +1,214 @@
+- scenario: chiedere-strada
+  level: A1
+  persona: en-m-traveller
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Sì, grazie. Scusi, dov'è la stazione?
+    - tutor: È vicino. Vada dritto e poi a destra.
+      goals: [get-attention, ask-place]
+    - learner: Scusi, può ripetere piano, per favore?
+    - tutor: Certo. Prima dritto. Poi a destra, al semaforo.
+    - learner: Allora dritto e poi a destra al semaforo?
+    - tutor: Esatto! La stazione è lì.
+      goals: [understand]
+    - learner: Grazie mille! Buona giornata.
+    - tutor: Prego, buona giornata anche a Lei!
+      goals: [thank]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Sì, scusi. La stazione è lontana di qui?
+      errors: [preposition]
+    - tutor: Lontana di qui? Attenzione alla preposizione.
+      goals: [get-attention]
+      prompt: {text: lontana di qui, tags: [preposition]}
+      new: [{lemma: preposizione, gloss: preposition}]
+    - learner: Lontana da qui?
+    - tutor: Perfetto! No, è vicino. Cinque minuti a piedi.
+      goals: [ask-place]
+    - learner: Bene. Vado a destra o a sinistra?
+    - tutor: A sinistra, poi sempre dritto.
+    - learner: A sinistra e poi dritto. Ho capito!
+    - tutor: Brava! La stazione è dopo la piazza.
+      goals: [understand]
+    - learner: Grazie, arrivederci!
+    - tutor: Arrivederci!
+      goals: [thank]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: es-m-worker
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Sì, scusi. Cerco la estación de trenes.
+      errors: [word-choice]
+    - tutor: La stazione? È qui vicino, a destra.
+      goals: [get-attention, ask-place]
+      recast: {text: la estación, fix: La stazione, tags: [word-choice]}
+    - learner: A destra? Dopo il semaforo?
+    - tutor: Sì, dopo il semaforo c'è una piazza.
+    - learner: E la stazione è nella piazza?
+    - tutor: Esatto, è proprio lì.
+      goals: [understand]
+    - learner: Molto bene. Grazie per l'aiuto!
+    - tutor: Di niente! Buona giornata.
+      goals: [thank]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: en-f-professional
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Sì, grazie. Scusi, è un autobus per il stazione?
+      errors: [ce-ci-sono, noun-gender]
+    - tutor: È un autobus? Qui manca una parola piccola...
+      goals: [get-attention]
+      prompt: {text: è un autobus, tags: [ce-ci-sono]}
+    - learner: C'è un autobus?
+    - tutor: Giusto! Sì, ma la stazione è vicino.
+      goals: [ask-place]
+    - learner: Ah, bene. Vado dritto?
+    - tutor: Sì, sempre dritto fino alla piazza.
+    - learner: Dritto fino alla piazza. E poi?
+    - tutor: Poi a sinistra. La stazione è lì.
+    - learner: Ho capito. Grazie mille!
+    - tutor: Prego! Buon viaggio!
+      goals: [understand, thank]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: es-f-teacher
+  history: [register]
+  turns:
+    - tutor: Sì, mi dica. Ha bisogno di aiuto?
+    - learner: Scusa, sai dov'è la stazione?
+      errors: [register]
+    - tutor: Scusa, sai? Noi due non ci conosciamo...
+      prompt: {text: 'Scusa, sai', tags: [register]}
+    - learner: Mi scusi! Sa dov'è la stazione?
+    - tutor: Benissimo! Sì, è a dieci minuti da qui.
+      goals: [get-attention, ask-place]
+    - learner: Vado dritto?
+    - tutor: Sì. Vada dritto fino al semaforo.
+    - learner: E al semaforo giro a destra?
+    - tutor: No, a sinistra. Poi vede la stazione.
+    - learner: A sinistra, va bene. Grazie mille, molto gentile.
+    - tutor: Di niente, arrivederci!
+      goals: [understand, thank]
+
+- scenario: taxi
+  level: A1
+  persona: en-m-heritage
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: Buongiorno. In via Dante 12, per favore.
+    - tutor: Via Dante, va bene. Andiamo!
+      goals: [destination]
+    - learner: Quanto tempo ci vuole?
+    - tutor: Più o meno venti minuti.
+      goals: [ask-time]
+    - learner: E quanto costa?
+    - tutor: Trenta euro, più o meno.
+      goals: [ask-price]
+    - learner: Va bene. Scusi, come si dice "receipt" in italiano?
+    - tutor: Si dice ricevuta. Vuole la ricevuta?
+      new: [{lemma: ricevuta, gloss: receipt}]
+    - learner: Sì, grazie. Ecco trenta euro.
+    - tutor: Grazie! Ecco a Lei. Arrivederci!
+      goals: [pay]
+
+- scenario: taxi
+  level: A1
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: Buongiorno! Devo andare in Pisa, in centro.
+      errors: [preposition]
+    - tutor: In Pisa? Con le città usiamo un'altra parola.
+      prompt: {text: in Pisa, tags: [preposition]}
+    - learner: A Pisa, in centro!
+    - tutor: Perfetto! Andiamo in centro.
+      goals: [destination]
+    - learner: Quanti minuti ci vogliono?
+    - tutor: Quindici minuti, non c'è traffico.
+      goals: [ask-time]
+      new: [{lemma: traffico, gloss: traffic}]
+    - learner: Bene! E quanto costa?
+    - tutor: Più o meno venti euro.
+      goals: [ask-price]
+    - learner: Posso pagare con la carta?
+    - tutor: Sì, certo.
+    - learner: Ecco la carta. Grazie, arrivederci!
+    - tutor: Grazie a Lei! Buona giornata!
+      goals: [pay]
+
+- scenario: taxi
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: All'albergo Centrale, per favore.
+    - tutor: Va bene. Ha una valigia?
+      goals: [destination]
+    - learner: Sì, una. È un viaggio molto largo?
+      errors: [false-friend]
+    - tutor: No, non è un viaggio lungo. Dieci minuti.
+      goals: [ask-time]
+      recast: {text: largo, fix: lungo, tags: [false-friend]}
+    - learner: Meno male! Quanto costa?
+    - tutor: Quindici euro.
+      goals: [ask-price]
+    - learner: Perfetto. Ecco quindici euro in contanti.
+    - tutor: Grazie mille! Buona giornata!
+      goals: [pay]
+
+- scenario: taxi
+  level: A1
+  persona: en-m-retired
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: Buongiorno. All'albergo Sole, in via Mazzini.
+    - tutor: Buongiorno! Albergo Sole, va bene.
+      goals: [destination]
+    - learner: Quanto minuti ci vuole?
+      errors: [adjective-agreement, subject-verb-agreement]
+    - tutor: Quanto minuti? I minuti sono tanti...
+      prompt: {text: Quanto minuti, tags: [adjective-agreement]}
+    - learner: Ah, quanti minuti?
+    - tutor: Bene! Ci vogliono venti minuti.
+      goals: [ask-time]
+    - learner: E quanto costa?
+    - tutor: Venticinque euro, più o meno.
+      goals: [ask-price]
+    - learner: Va bene. Ecco trenta euro.
+    - tutor: Grazie! Ecco il resto. Arrivederci!
+      goals: [pay]
+
+- scenario: taxi
+  level: A1
+  persona: en-f-professional
+  turns:
+    - tutor: Buongiorno! Dove la porto?
+    - learner: In via Roma 40, per favore. Ho una riunione.
+    - tutor: Va bene, andiamo subito.
+      goals: [destination]
+    - learner: Come lungo è il viaggio?
+      errors: [question-form]
+    - tutor: Come lungo? In italiano la domanda è diversa...
+      prompt: {text: Come lungo, tags: [question-form]}
+    - learner: Come lungo tempo?
+      errors: [question-form]
+    - tutor: Quanto tempo ci vuole? Dieci minuti.
+      goals: [ask-time]
+      recast: {text: Come lungo tempo, fix: Quanto tempo ci vuole, tags: [question-form]}
+    - learner: Ah, quanto tempo ci vuole! Grazie. E quanto costa?
+    - tutor: Costa dodici euro.
+      goals: [ask-price]
+    - learner: Ecco la carta.
+    - tutor: Grazie. Buon lavoro!
+      goals: [pay]
