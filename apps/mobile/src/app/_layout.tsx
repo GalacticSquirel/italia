@@ -57,6 +57,8 @@ function RootNavigator() {
                   }}
                 />
                 <Stack.Screen name="word/[id]" options={{ title: 'Word' }} />
+                <Stack.Screen name="grammar/index" options={{ title: 'Grammar guide' }} />
+                <Stack.Screen name="grammar/[id]" options={{ title: 'Grammar' }} />
                 <Stack.Screen name="auth-callback" options={{ headerShown: false }} />
               </Stack>
             </SpeechProvider>

@@ -7,7 +7,9 @@ import { useTheme } from './ThemeProvider';
 export type MarkdownBlock =
   | { type: 'heading'; text: string }
   | { type: 'paragraph'; text: string }
-  | { type: 'bullet'; text: string };
+  | { type: 'bullet'; text: string }
+  /** A table: the header row first, then the body rows. */
+  | { type: 'table'; rows: string[][] };
 
 /** An inline run of text with emphasis. */
 export interface MarkdownSpan {
@@ -18,17 +20,31 @@ export interface MarkdownSpan {
 
 /**
  * Parse the small Markdown subset grammar notes use: `#` headings, `-` or
- * `*` bullets, paragraphs, `**bold**` and `*italic*`.
+ * `*` bullets, paragraphs, `|` tables (a header row and a `|---|` separator),
+ * `**bold**` and `*italic*`.
  */
 export function parseMarkdown(source: string): MarkdownBlock[] {
   const blocks: MarkdownBlock[] = [];
   let paragraph: string[] = [];
+  let table: string[][] = [];
   const flush = () => {
     if (paragraph.length > 0) blocks.push({ type: 'paragraph', text: paragraph.join(' ') });
     paragraph = [];
+    if (table.length > 0) blocks.push({ type: 'table', rows: table });
+    table = [];
   };
   for (const raw of source.split(/\r?\n/)) {
     const line = raw.trim();
+    if (/^\|.*\|$/.test(line)) {
+      if (paragraph.length > 0) flush();
+      const cells = line
+        .slice(1, -1)
+        .split('|')
+        .map((c) => c.trim());
+      if (!cells.every((c) => /^:?-{3,}:?$/.test(c))) table.push(cells);
+      continue;
+    }
+    if (table.length > 0) flush();
     const heading = /^#{1,6}\s+(.*)$/.exec(line);
     const bullet = /^[-*]\s+(.*)$/.exec(line);
     if (line === '') flush();
@@ -74,6 +90,43 @@ function Inline({ text }: { text: string }) {
   ));
 }
 
+/** A small grid; the header row is bold, the first column reads as a label. */
+function Table({ rows }: { rows: string[][] }) {
+  const { colors, radii, spacing } = useTheme();
+  const columns = Math.max(...rows.map((r) => r.length));
+  return (
+    <View
+      style={{
+        borderWidth: 1,
+        borderColor: colors.border,
+        borderRadius: radii.md,
+        overflow: 'hidden',
+      }}
+    >
+      {rows.map((row, r) => (
+        <View
+          key={r}
+          accessible
+          accessibilityLabel={row.map((c) => c.replace(/\*/g, '')).join(', ')}
+          style={{
+            flexDirection: 'row',
+            borderTopWidth: r === 0 ? 0 : 1,
+            borderColor: colors.border,
+          }}
+        >
+          {Array.from({ length: columns }, (_, c) => (
+            <View key={c} style={{ flex: 1, padding: spacing.xs }}>
+              <Text variant={r === 0 ? 'label' : 'body'}>
+                <Inline text={row[c] ?? ''} />
+              </Text>
+            </View>
+          ))}
+        </View>
+      ))}
+    </View>
+  );
+}
+
 /** Renders simple Markdown (grammar notes) with the design system's text styles. */
 export function Markdown({ source }: { source: string }) {
   const { spacing } = useTheme();
@@ -98,6 +151,8 @@ export function Markdown({ source }: { source: string }) {
                 </Text>
               </View>
             );
+          case 'table':
+            return <Table key={i} rows={block.rows} />;
           case 'paragraph':
             return (
               <Text key={i}>

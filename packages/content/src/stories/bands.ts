@@ -54,11 +54,10 @@ const order = (slug: string): number => {
  * | 750 | A2 | `indirect-object-pronouns` | reflexive verbs, object pronouns |
  * | 1000 | A2 | `passato-prossimo-vs-imperfetto` | imperfetto |
  * | 1500 | A2 | `comparatives` | future, stare + gerund, imperative, comparatives |
- * | 2000 | B1 | `conditional` | ci locative, ne partitive, conditional (all 38 points) |
- * | 3000 | B1 | `conditional` | (same) |
+ * | 2000 | B1 | `infinitive-past` | ci, ne, conditional, imperative with pronouns, double pronouns, relatives, trapassato, future perfect, past conditional, impersonal si, gerund clauses, past infinitive |
+ * | 3000 | B1 | `subjunctive-past` | all of B1: connectors, real if-clauses, the passive, present and past subjunctive |
  *
- * Subjunctive and passato remoto forms are outside the grammar graph and are not
- * allowed in any band.
+ * Bands above B1 (B2 to C2) use the later points of the syllabus.
  */
 export const BAND_RULES: Readonly<Record<StoryBand, BandRules>> = {
   150: rules(150, 'A1', 'piacere', [80, 140], 10),
@@ -67,8 +66,8 @@ export const BAND_RULES: Readonly<Record<StoryBand, BandRules>> = {
   750: rules(750, 'A2', 'indirect-object-pronouns', [150, 240], 16),
   1000: rules(1000, 'A2', 'passato-prossimo-vs-imperfetto', [170, 270], 18),
   1500: rules(1500, 'A2', 'comparatives', [200, 300], 20),
-  2000: rules(2000, 'B1', 'conditional', [230, 330], 24),
-  3000: rules(3000, 'B1', 'conditional', [250, 350], 28),
+  2000: rules(2000, 'B1', 'infinitive-past', [230, 330], 24),
+  3000: rules(3000, 'B1', 'subjunctive-past', [250, 350], 28),
 };
 
 function rules(

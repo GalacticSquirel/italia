@@ -16,9 +16,10 @@ import { createInterface } from 'node:readline';
 
 import { cachePath, ensureSources, PACKAGE_DIR, sourceById } from './cache';
 import { readMorphIt, run } from './morph-it';
+import { serialiseSeed } from './serialise-seed';
 import { SOURCES, type SourceId } from './sources';
-import { GRAMMAR_POINTS } from '../src/grammar/points';
 import { detectGrammar, usesOutOfScopeGrammar } from '../src/grammar/rules';
+import { grammarSeedRows } from '../src/grammar/seedRows';
 import {
   countLemmas,
   ghostLemmas,
@@ -561,18 +562,7 @@ async function main(): Promise<void> {
       };
     });
 
-  const grammarRows: SeedGrammarPoint[] = GRAMMAR_POINTS.map((p, i) => ({
-    id: p.id,
-    title: p.title,
-    order: i + 1,
-    prerequisiteIds: p.prerequisites.map((slug) => {
-      const pre = GRAMMAR_POINTS.find((q) => q.slug === slug);
-      if (!pre) throw new Error(`${p.slug}: unknown prerequisite ${slug}`);
-      return pre.id;
-    }),
-    noteMd: p.noteMd,
-    extra: { slug: p.slug, cefr: p.cefr },
-  }));
+  const grammarRows: SeedGrammarPoint[] = grammarSeedRows();
 
   const sources: SeedSource[] = SOURCES.map((s) => {
     const entry = lock[s.id];
@@ -704,23 +694,6 @@ function count<T>(set: ReadonlySet<T>, pred: (x: T) => boolean): number {
   return n;
 }
 
-/** One row per line: compact, but diffs stay readable. */
-function serialise(seed: Omit<Seed, 'generatedAt'> & { generatedAt: string }): string {
-  const rows = (items: readonly unknown[]) =>
-    items.length === 0
-      ? '[]'
-      : `[\n${items.map((x) => `    ${JSON.stringify(x)}`).join(',\n')}\n  ]`;
-  return [
-    '{',
-    `  "version": ${JSON.stringify(seed.version)},`,
-    `  "generatedAt": ${JSON.stringify(seed.generatedAt)},`,
-    `  "sources": ${rows(seed.sources)},`,
-    `  "lemmas": ${rows(seed.lemmas)},`,
-    `  "sentences": ${rows(seed.sentences)},`,
-    `  "grammarPoints": ${rows(seed.grammarPoints)}`,
-    '}',
-    '',
-  ].join('\n');
-}
+const serialise = serialiseSeed;
 
 await main();
