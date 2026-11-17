@@ -261,6 +261,7 @@ def run_judge(
                 judge,
                 max_tokens=config.judge.max_tokens,
                 grammar_check=config.judge.grammar_check,
+                feedback_check=config.judge.feedback_check,
             ): r
             for r in todo
         }

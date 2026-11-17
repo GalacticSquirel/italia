@@ -104,10 +104,27 @@ class GrammarError(WireModel):
     fix: str
 
 
+FeedbackKind = Literal["reveals", "corrects-correct", "multiple"]
+
+
+class FeedbackProblem(WireModel):
+    """A problem with a prompt or recast confirmed by the judge's per-turn feedback check."""
+
+    turn: int = Field(ge=0, description="Index into DialogueRecord.turns.")
+    kind: FeedbackKind
+    quote: str
+    note: str = ""
+
+
 class JudgeResult(WireModel):
     scores: JudgeScores
     issues: list[str] = Field(default_factory=list)
     judge: str = ""
+    feedback_problems: list[FeedbackProblem] = Field(
+        default_factory=list,
+        description="From datagen.feedback_check; feedback and promptWithholds are scored from "
+        "these when the check ran. Empty for judgements made without it.",
+    )
     grammar_errors: list[GrammarError] = Field(
         default_factory=list,
         description="From datagen.grammar_check; grammaticality is scored from these when the "
