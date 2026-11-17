@@ -1,20 +1,47 @@
 # Content sources and licences
 
-Intended sources for the content pipeline. Licences must be re-checked against each source's own
-terms before its data is added to the shipped seed.
+Every file the seed pipeline downloads is listed in `scripts/sources.ts`; its sha256, size and
+first download date are pinned in `sources.lock.json`, and copied into the seed's `sources[]`.
+Italia is a personal, non-commercial app, so share-alike and non-commercial sources are
+acceptable for now. **If the app is ever sold, the non-commercial sources below must be replaced
+or licensed.**
 
-| Source                                                 | Used for                       | Licence                          |
-| ------------------------------------------------------ | ------------------------------ | -------------------------------- |
-| Nuovo vocabolario di base della lingua italiana (NVdB) | Core vocabulary list           | Research use only                |
-| FrequencyWords (OpenSubtitles frequency lists)         | Word frequency ranks           | CC BY-SA 4.0                     |
-| wordfreq                                               | Word frequency ranks           | Data CC BY-SA 4.0                |
-| Tatoeba                                                | Italian-English sentence pairs | CC BY 2.0 FR                     |
-| Universal Dependencies Italian ISDT                    | Lemmas, part-of-speech tags    | Non-commercial (CC BY-NC-SA 3.0) |
+## Used in seed v1
+
+| Source (lock id)                                                                  | Version used                                                       | Used for                                                                  | Licence                                                     |
+| --------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| FrequencyWords, Italian `it_full.txt` by Hermit Dave (`frequencywords-it`)        | 2018 list from OpenSubtitles 2018; sha256 `b23b0c6a…`              | Word-form frequencies; lemma ranks after lemmatisation; coverage figures  | Data CC BY-SA 4.0 (code MIT)                                |
+| Morph-it! by Marco Baroni and Eros Zanchetta (`morph-it`)                         | 0.4.8 (`morph-it_048.txt`); sha256 `b137343d…`                     | Form to lemma, part of speech, noun gender, verb tense and person         | Dual CC BY-SA 2.0 or LGPL (we use it under CC BY-SA 2.0)    |
+| SUBTLEX-IT, Crepaldi, Amenta, Mandera, Keuleers and Brysbaert 2015 (`subtlex-it`) | OSF `zg7sc`, file `subtlex-it.csv`; sha256 `f6b47ece…`             | Part-of-speech split of ambiguous forms (no data is copied into the seed) | **CC BY-NC-SA** (non-commercial; per the OSF `license.txt`) |
+| Wiktionary Italian entries via Wiktextract / kaikki.org (`kaikki-it`)             | kaikki.org extract of 2026-10-30; sha256 `f112deb9…`               | English glosses (shortened)                                               | CC BY-SA 4.0 and GFDL (Wiktionary text)                     |
+| Tatoeba weekly export (`tatoeba-ita`, `tatoeba-eng`, `tatoeba-ita-eng-links`)     | Export of 2026-11-14 (per-language detailed files and it-en links) | Italian sentences and English translations                                | CC BY 2.0 FR                                                |
+| Tatoeba `user_languages` (`tatoeba-user-languages`)                               | Export of 2026-11-14                                               | Prefer sentences by native speakers (not copied into the seed)            | CC BY 2.0 FR                                                |
+
+Hand-written content in this package (grammar notes in `src/grammar/points.ts`, gloss overrides
+and corrections in `src/pipeline/overrides.ts`) is original to this project.
+
+## Attribution in the seed
+
+- Each sentence row keeps `source` = `tatoeba:<Italian sentence id>` and `licence` =
+  `CC-BY-2.0-FR`; `extra` keeps the English sentence id and both contributors' usernames. A
+  sentence's page is `https://tatoeba.org/en/sentences/show/<id>`.
+- Lemma glosses are derived from Wiktionary (CC BY-SA), and lemma ranks from FrequencyWords and
+  Morph-it! (CC BY-SA), so **the lemma list in the seed is a CC BY-SA derivative** and must be
+  shared under CC BY-SA with attribution if it is ever distributed.
+- The app's attributions screen should list every source above.
+
+## Not used (yet)
+
+| Source                                                 | Why not                                                                      | Licence                          |
+| ------------------------------------------------------ | ---------------------------------------------------------------------------- | -------------------------------- |
+| Nuovo vocabolario di base della lingua italiana (NVdB) | Planned for CEFR / "alta disponibilità" tagging in a later seed              | Research and personal use only   |
+| wordfreq                                               | FrequencyWords covers the same subtitle register; may be used to cross-check | Data CC BY-SA 4.0                |
+| Universal Dependencies Italian ISDT                    | Not needed: Morph-it! provides lemmas and tags                               | Non-commercial (CC BY-NC-SA 3.0) |
 
 ## Notes
 
-- Research-only and non-commercial sources cannot be shipped in a commercial app. If the app is
-  ever sold, NVdB and UD Italian ISDT data must be replaced or licensed.
-- CC BY-SA 4.0 data requires attribution, and derived datasets must be shared under the same
-  licence.
-- CC BY 2.0 FR requires attribution.
+- CC BY-SA data requires attribution, and derived datasets must be shared under the same licence.
+- CC BY 2.0 FR requires attribution (Tatoeba asks for a link to the sentence or its author).
+- SUBTLEX-IT is CC BY-NC-SA: it only influences how ambiguous form counts are split; none of
+  its rows are copied into the seed, but the derived ranks would still need review before any
+  commercial use.
