@@ -104,6 +104,13 @@ class JudgeConfig(ConfigModel):
             "the rubric's number. About 1 + (tutor turns) + (flags) short judge calls per dialogue."
         ),
     )
+    feedback_check: bool = Field(
+        default=True,
+        description=(
+            "Score feedback and promptWithholds from a per-turn check of prompt and recast turns "
+            "(datagen.feedback_check) instead of the rubric's numbers."
+        ),
+    )
 
     @model_validator(mode="after")
     def _known_criteria(self) -> JudgeConfig:
