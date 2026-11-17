@@ -40,15 +40,9 @@ For the official `supabase/docker` stack. Everything the app creates is in the `
 4. **Email sign-in.** Self-hosted auth only sends mail through your own SMTP server: set
    `SMTP_ADMIN_EMAIL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` and `SMTP_SENDER_NAME`,
    and keep `ENABLE_EMAIL_SIGNUP=true` (the first sign-in creates the account). The app signs in
-   with a six-digit code, and the default emails only carry a link. Save this template somewhere
-   the `auth` container can fetch over HTTP (a public Storage bucket works):
-
-   ```html
-   <p>Your Italia code: {{ .Token }}</p>
-   <p><a href="{{ .ConfirmationURL }}">Or open this link on your phone</a></p>
-   ```
-
-   Then add `GOTRUE_MAILER_TEMPLATES_MAGIC_LINK: <its URL>` and
+   with a six-digit code, and the default emails only carry a link. Upload
+   [`supabase/templates/sign-in-code.html`](../supabase/templates/sign-in-code.html) somewhere the
+   `auth` container can fetch over HTTP (a public Storage bucket works). Then add `GOTRUE_MAILER_TEMPLATES_MAGIC_LINK: <its URL>` and
    `GOTRUE_MAILER_TEMPLATES_CONFIRMATION: <its URL>` (first sign-ins get the confirmation email)
    under the `auth` service's `environment` in `docker-compose.yml`, and restart `auth`.
 
