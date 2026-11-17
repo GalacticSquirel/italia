@@ -1,0 +1,250 @@
+# Round 3, set y-lexical: false friends and word choice. B2 and C1, file 6.
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, purtroppo la serata è stata deludente. Abbiamo aspettato cinquanta minuti per gli starter."
+      errors: [word-choice]
+    - tutor: "Cinquanta minuti per gli antipasti? Mi dispiace molto, stasera abbiamo due camerieri in meno, ma non è una scusa. Che cosa è successo, esattamente?"
+      goals: [complain]
+      recast: {text: "gli starter", fix: "gli antipasti", tags: [word-choice]}
+    - learner: "Quando finalmente è arrivato, il cameriere ha pretenduto di non vederci per altri venti minuti."
+      errors: [false-friend, past-participle-form]
+    - tutor: "Ha fatto finta di non vedervi? Questo non doveva succedere, mi scuso a nome di tutto il ristorante."
+      goals: [detail]
+      recast: {text: "ha pretenduto", fix: "Ha fatto finta", tags: [false-friend]}
+    - learner: "E poi la cottura della carne era sbagliata: l'avevo chiesta rara ed è arrivata ben cotta."
+      errors: [false-friend]
+    - tutor: "La voleva al sangue ed è arrivata ben cotta? Un errore grave anche questo. Che cosa si sarebbe aspettato da un locale come il nostro?"
+      recast: {text: "rara", fix: "al sangue", tags: [false-friend]}
+    - learner: "Mi aspettavo che il servizio era più attento, visto i prezzi."
+      errors: [subjunctive-use]
+    - tutor: "Ha ragione. Solo una cosa: «mi aspettavo che il servizio era»? Dopo «mi aspettavo che», quale forma ci vuole?"
+      prompt: {text: "che il servizio era", tags: [subjunctive-use]}
+    - learner: "Mi aspettavo che il servizio fosse più attento, visti i prezzi."
+    - tutor: "Esatto, e ha perfettamente ragione. Posso offrirle il dolce e uno sconto del trenta per cento sul conto?"
+      goals: [expectation]
+    - learner: "Grazie, è un gesto gentile. Accetto lo sconto, ma il dolce no: ormai è tardi."
+    - tutor: "Come preferisce. Spero che vorrà darci un'altra possibilità."
+      goals: [resolve]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, molto. È luminoso e la posizione è perfetta. Però il canone mi sembra un po' alto."
+    - tutor: "È un prezzo in linea con la zona, ma è trattabile entro certi limiti."
+      goals: [interest]
+    - learner: "Potrei offrire 950 euro invece di 1050. E il riscaldamento è incluso o devo pagarlo extra?"
+      errors: [word-choice]
+    - tutor: "Il riscaldamento si paga a parte, purtroppo. Quanto ai 950 euro, posso parlarne con il proprietario, ma servirebbe una garanzia."
+      goals: [negotiate]
+      recast: {text: "extra", fix: "a parte", tags: [word-choice]}
+    - learner: "Posso darvi tre mesi di deposito e la pay slip di mio padre come garanzia."
+      errors: [word-choice]
+    - tutor: "La busta paga di suo padre è un'ottima garanzia, questo aiuta molto. Il proprietario chiede un contratto di quattro anni più quattro. Le va bene?"
+      recast: {text: "la pay slip", fix: "La busta paga", tags: [word-choice]}
+    - learner: "Se il contratto sarebbe più corto, firmerei subito: tra due anni forse torno in Inghilterra."
+      errors: [hypothetical]
+    - tutor: "«Se il contratto sarebbe»? Dopo quel «se», il condizionale non va: ci riprovi."
+      prompt: {text: "Se il contratto sarebbe", tags: [hypothetical]}
+    - learner: "Ah, sì: se il contratto fosse più corto, firmerei subito."
+    - tutor: "Perfetto. Allora le dico una cosa utile: la disdetta è possibile in qualsiasi momento, con sei mesi di preavviso."
+      goals: [conditions]
+      new: [{lemma: preavviso, gloss: notice}]
+    - learner: "Benissimo. Ultimamente è il proprietario che decide, giusto? Se accetta 950 euro, sono pronta a firmare."
+      errors: [false-friend]
+    - tutor: "In fin dei conti decide lui, sì. Lo chiamo stasera e le faccio sapere entro domani mattina."
+      goals: [conclude]
+      recast: {text: "Ultimamente", fix: "In fin dei conti", tags: [false-friend]}
+      new: [{lemma: in fin dei conti, gloss: ultimately}]
+    - learner: "Grazie mille, aspetto la sua chiamata."
+    - tutor: "A domani, allora. Buona serata!"
+
+- scenario: vita-in-italia
+  level: B2
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Grazie dell'invito. Sono venuto in Italia sei anni fa, perché volevo imparare la cucina italiana dai veri maestri."
+    - tutor: "Un motivo molto italiano! E qual è stata la parte più difficile?"
+      goals: [story]
+    - learner: "All'inizio la lingua: la gente parlava veloce, in dialetto, e io non intendevo niente."
+      errors: [false-friend]
+    - tutor: "Non capiva niente, e chi può darle torto: il bolognese stretto mette in difficoltà anche noi! E con la burocrazia com'è andata?"
+      recast: {text: "non intendevo", fix: "Non capiva", tags: [false-friend]}
+    - learner: "Un incubo. Prima che sono arrivato, nessuno mi aveva detto quanti documenti servivano."
+      errors: [subjunctive-use]
+    - tutor: "Ci credo. Ma «prima che sono arrivato»? Dopo «prima che», quel verbo va cambiato."
+      prompt: {text: "Prima che sono arrivato", tags: [subjunctive-use]}
+    - learner: "Giusto: prima che arrivassi, nessuno mi aveva detto quanti documenti servivano."
+    - tutor: "Esatto. Una storia che i nostri ascoltatori conoscono bene! E lei, in questi anni, come è cambiato?"
+      goals: [difficulties]
+    - learner: "Sono diventato più paziente. E adesso mangio la pasta al dente: prima la cocinavo troppo!"
+      errors: [word-choice]
+    - tutor: "Prima la cuoceva troppo? Allora sì che l'Italia l'ha cambiato!"
+      goals: [change]
+      recast: {text: "la cocinavo", fix: "la cuoceva", tags: [word-choice]}
+      new: [{lemma: cuocere, gloss: to cook}]
+    - learner: "Esatto! A chi vuole trasferirsi consiglio di imparare bene la lingua prima e di avere molta pazienza."
+    - tutor: "Un consiglio prezioso. Grazie di essere stato con noi!"
+      goals: [advice]
+
+- scenario: film-libro
+  level: B2
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io! Ho letto un romanzo ambientato in un piccolo paese di montagna, dove in un solo inverno spariscono tre bambini."
+    - tutor: "Che inizio inquietante! E chi è il personaggio principale?"
+      goals: [summary]
+    - learner: "È il medico del paese, un uomo solitario a che nessuno crede."
+      errors: [relative-pronoun]
+    - tutor: "«A che nessuno crede»? Dopo una preposizione, quel pronome non funziona."
+      prompt: {text: "a che nessuno crede", tags: [relative-pronoun]}
+    - learner: "Ah, sì: un uomo solitario a cui nessuno crede."
+    - tutor: "Esatto. Un medico che indaga da solo, mi piace già. E a te è piaciuto?"
+      goals: [characters]
+    - learner: "Sì, anche se l'autore ha una fascinazione un po' morbida per la morte: descrive ogni dettaglio dei corpi."
+      errors: [false-friend]
+    - tutor: "Una fascinazione morbosa, dici? Sì, certi autori di gialli esagerano con i dettagli."
+      recast: {text: "morbida", fix: "morbosa", tags: [false-friend]}
+      new: [{lemma: morboso, gloss: morbid}]
+    - learner: "Esatto. Però la trama era così avvincente che l'ho letto in una seduta."
+      errors: [word-choice]
+    - tutor: "L'hai letto tutto d'un fiato, quindi! Allora ti ha conquistato. A chi lo consiglieresti?"
+      goals: [opinion]
+      recast: {text: "in una seduta", fix: "tutto d'un fiato", tags: [word-choice]}
+    - learner: "Lo consiglierei a chi ama i gialli nordici, ma non a chi è sensibile: alcune scene sono forti."
+    - tutor: "Consiglio onesto. Grazie! Chi vuole continuare?"
+      goals: [recommend]
+
+- scenario: club-lettura
+  level: C1
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Sì, l'ho finito ieri notte. Nel complesso mi è piaciuto, anche se la prima parte mi è sembrata lentissima."
+    - tutor: "Lenta? Io la chiamerei «costruita con pazienza». Ma dimmi, che ne pensi delle scelte della protagonista?"
+      goals: [impression]
+    - learner: "Non capisco perché abbia fatto una decisione così drastica senza parlarne con il marito."
+      errors: [word-choice]
+    - tutor: "Perché abbia preso una decisione così drastica? Forse perché parlarne avrebbe significato restare."
+      recast: {text: "abbia fatto una decisione", fix: "abbia preso una decisione", tags: [word-choice]}
+    - learner: "Forse hai ragione. Ultimamente, è una donna che ha più paura di sé stessa che del marito."
+      errors: [false-friend]
+    - tutor: "In fin dei conti, sì: scappa da sé stessa più che da lui. È questo il bello del personaggio, no?"
+      goals: [character]
+      recast: {text: "Ultimamente", fix: "In fin dei conti", tags: [false-friend]}
+    - learner: "Sì. Quanto allo stile, frasi corte e quasi giornalistiche. Io avrei preferito che l'autrice usava qualche descrizione in più."
+      errors: [subjunctive-use]
+    - tutor: "Gusti tuoi, ma «avrei preferito che l'autrice usava»? Dopo questa espressione, quel modo non suona bene."
+      prompt: {text: "che l'autrice usava", tags: [subjunctive-use]}
+    - learner: "Hai ragione: avrei preferito che l'autrice usasse qualche descrizione in più."
+    - tutor: "Perfetto. Io invece trovo che quello stile asciutto sia proprio la sua forza. Lo consiglieresti?"
+      goals: [style]
+    - learner: "Lo consiglierei a chi ama i romanzi psicologici. Chi cerca azione, invece, si annoierebbe a morte."
+    - tutor: "Su questo siamo d'accordo. Ma la prossima volta il libro lo scelgo io!"
+      goals: [recommend]
+
+- scenario: intelligenza-artificiale
+  level: C1
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Capisco la paura, ma secondo me è esagerata. Molti lavori cambieranno, certo, ma ne nasceranno anche di nuovi."
+    - tutor: "Belle parole. Ma dammi un esempio concreto, perché io vedo solo licenziamenti."
+      goals: [position]
+    - learner: "Pensa agli ATM: quando sono arrivati, tutti pensavano che i cassieri sarebbero spariti, e invece le banche hanno aperto più filiali."
+      errors: [word-choice]
+    - tutor: "I bancomat, esempio classico: te lo concedo. Ma l'intelligenza artificiale non sostituisce un gesto, sostituisce il pensiero."
+      recast: {text: "ATM", fix: "bancomat", tags: [word-choice]}
+      goals: [evidence]
+    - learner: "Questo è vero, e molte aziende non realizzano i rischi: usano questi strumenti senza nessun controllo."
+      errors: [false-friend]
+    - tutor: "Non si rendono conto dei rischi, appunto! E quando l'algoritmo sbaglia, chi paga? Il dipendente, non certo il programma."
+      recast: {text: "non realizzano i rischi", fix: "Non si rendono conto dei rischi", tags: [false-friend]}
+    - learner: "Su questo hai ragione, lo ammetto. Se le aziende investirebbero nella formazione, però, il rischio sarebbe minore."
+      errors: [hypothetical]
+    - tutor: "«Se le aziende investirebbero»? Dopo quel «se», il condizionale proprio non ci sta."
+      prompt: {text: "Se le aziende investirebbero", tags: [hypothetical]}
+    - learner: "Hai ragione: se le aziende investissero nella formazione, il rischio sarebbe minore."
+    - tutor: "Così sì. E su questo, devo ammetterlo, ti do ragione anch'io."
+      goals: [concede]
+    - learner: "Allora vorrei chiederti una domanda: su cosa siamo d'accordo, alla fine?"
+      errors: [word-choice]
+    - tutor: "Vuoi farmi una domanda? Ti anticipo la risposta: senza formazione, a rischio saremo tutti; con la formazione, molti meno."
+      goals: [conclude]
+      recast: {text: "chiederti una domanda", fix: "farmi una domanda", tags: [word-choice]}
+    - learner: "Esatto, su questo nessun dubbio. Per festeggiare, il caffè lo offro io!"
+    - tutor: "Ecco una cosa che nessuna macchina potrà mai fare al posto tuo!"
+
+- scenario: intervista-podcast
+  level: C1
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivato proprio in Italia?"
+    - learner: "Grazie a voi. Sono arrivato nel 2017: lavoravo in un ristorante a Buenos Aires e lo chef, che aveva lavorato a Bologna, mi ha convinto a partire."
+    - tutor: "Galeotto fu lo chef, insomma! E una volta qui, che cosa ti ha sorpreso di più?"
+      goals: [story]
+    - learner: "Il rapporto con il cibo. In Argentina mangiamo tardi e tanto; qui invece ci sono regole sacre: il cappuccino dopo pranzo è quasi un delitto!"
+    - tutor: "Altroché, rischi l'arresto! E c'è qualcosa che proprio non ti va giù dell'Italia?"
+      goals: [culture-shock]
+    - learner: "Sì, la burocrazia. Per il permesso di soggiorno nessuno rispondeva alle email, e ogni ufficio mi chiedeva papeles diversi."
+      errors: [word-choice]
+    - tutor: "Documenti diversi a ogni sportello, il grande classico! E come ne sei uscito vivo?"
+      goals: [critique]
+      recast: {text: "papeles", fix: "Documenti", tags: [word-choice]}
+    - learner: "Con pazienza! Se avrei saputo prima come funzionava, mi sarei portato un libro da leggere in fila."
+      errors: [hypothetical]
+    - tutor: "Che immagine! Però ricostruisci quel «se avrei saputo»: lì ci vuole un altro tempo."
+      prompt: {text: "Se avrei saputo", tags: [hypothetical]}
+    - learner: "Giusto: se avessi saputo prima come funzionava, mi sarei portato un libro."
+    - tutor: "Perfetto. E adesso, dopo tutto questo, ti trovi bene?"
+    - learner: "Benissimo. Ho imparato a disfrutare le cose semplici: un caffè al bancone, due chiacchiere con il vicino."
+      errors: [word-choice]
+    - tutor: "Imparare a godersi le cose semplici: forse è questa la vera lezione italiana. Che consiglio daresti a chi vuole trasferirsi?"
+      recast: {text: "disfrutare le cose semplici", fix: "godersi le cose semplici", tags: [word-choice]}
+    - learner: "Di imparare la lingua prima di partire e di non prendere niente sul personale: la burocrazia è lenta con tutti, non solo con gli stranieri."
+    - tutor: "Saggezza pura. Grazie mille, è stato un piacere averti qui!"
+      goals: [advice]
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: es-f-teacher
+  history: [word-choice]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Si sieda, per favore. Mi racconti con calma cosa è successo: voglio capire bene il suo punto di vista."
+    - tutor: "Ieri Paolo ha presentato al cliente il progetto come se fosse tutto merito suo. L'analisi dei dati l'ho fatta io, e nessuno l'ha detto."
+    - learner: "Capisco perfettamente che si sia sentito messo da parte: sarebbe stato giusto riconoscere il suo contributo."
+    - tutor: "Esatto, mi sono sentito invisibile. E non è la prima volta."
+      goals: [listen]
+    - learner: "Prima di parlare con Paolo, vorrei chiarire una cosa: è possibile che lui non ha ricevuto i suoi grafici?"
+      errors: [subjunctive-use]
+    - tutor: "«È possibile che lui non ha ricevuto»? Mi perdoni, ma dopo «è possibile che» l'indicativo suona male."
+      prompt: {text: "che lui non ha ricevuto", tags: [subjunctive-use]}
+    - learner: "Ha ragione: è possibile che non abbia ricevuto i suoi grafici?"
+    - tutor: "No, glieli avevo mandati il giorno prima, con il mio nome bene in vista."
+      goals: [clarify]
+    - learner: "Conoscendo Paolo, credo che non l'abbia fatto con cattiveria: era molto nervoso e forse ha semplicemente dimenticato di nombrarlo."
+      errors: [word-choice]
+    - tutor: "Forse ha dimenticato di nominarmi, d'accordo, ma il risultato non cambia: il cliente pensa che il lavoro sia tutto suo."
+      goals: [perspective]
+      recast: {text: "nombrarlo", fix: "nominarmi", tags: [word-choice]}
+    - learner: "Ha ragione, e bisogna prendere misure. Propongo di scrivere al cliente presentando tutto il gruppo, con il suo nome in evidenza."
+      errors: [word-choice]
+    - tutor: "Prendere provvedimenti, sì, e una mail al cliente mi sembra un buon inizio. E con Paolo, ne parlerà lei?"
+      recast: {text: "prendere misure", fix: "Prendere provvedimenti", tags: [word-choice]}
+    - learner: "Sì, gli parlerò oggi stesso, e dalla prossima riunione ognuno presenterà la propria parte."
+    - tutor: "Mi sembra giusto. La ringrazio per avermi ascoltato."
+      goals: [solution]

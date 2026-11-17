@@ -1,0 +1,307 @@
+# B1, a personal trainer and working from home: comparatives, future, ci/ne, prepositions.
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Allora, sono in pensione da due anni. Cammino ogni mattina, ma mangio troppi dolci."
+    - tutor: "Camminare ogni mattina è già un'ottima abitudine! E i dolci, quanti ne mangi?"
+    - learner: "Mangio tre o quattro al giorno, soprattutto biscotti."
+      errors: [ci-ne]
+      gold: {text: "Mangio tre o quattro", fix: "Ne mangio tre o quattro"}
+    - tutor: "Mangio tre o quattro... cosa? Manca la parola che sostituisce «dolci»."
+      prompt: {text: "Mangio tre o quattro", tags: [ci-ne]}
+    - learner: "Mangio tre o quattro, sì... con il caffè."
+      errors: [ci-ne]
+    - tutor: "Ne mangi tre o quattro con il caffè? Allora lì possiamo migliorare. Qual è il tuo obiettivo?"
+      recast: {text: "Mangio tre o quattro", fix: "Ne mangi tre o quattro", tags: [ci-ne]}
+      goals: [habits]
+    - learner: "Voglio avere più respiro. Mia figlia corre e la domenica vorrei correre con lei."
+      errors: [word-choice]
+      gold: {text: "più respiro", fix: "più fiato"}
+    - tutor: "Più fiato per correre con tua figlia: che bell'obiettivo! Cosa ti ha fermato finora?"
+      recast: {text: "più respiro", fix: "Più fiato", tags: [word-choice]}
+      new: [{lemma: fiato, gloss: breath}]
+      goals: [goal]
+    - learner: "Il ginocchio mi fa male quando piove. E poi sono più pigro che mia moglie."
+      errors: [comparative]
+      gold: {text: "più pigro che mia moglie", fix: "più pigro di mia moglie"}
+    - tutor: "Più pigro che tua moglie? Nel confronto tra due persone, quale parola usiamo?"
+      prompt: {text: "più pigro che mia moglie", tags: [comparative]}
+    - learner: "Più pigro di mia moglie! Lei va in piscina tre volte a settimana."
+    - tutor: "Brava lei! Allora il piano: camminata veloce il lunedì e il giovedì, e la domenica corsa leggera. Che ne dici?"
+      goals: [obstacles]
+    - learner: "Va bene. Domani comprerò delle scarpe nuove e lunedì cominciarò."
+      errors: [future-form]
+      gold: {text: "cominciarò", fix: "comincerò"}
+    - tutor: "Lunedì... cominciarò? Prova di nuovo con quel futuro."
+      prompt: {text: "cominciarò", tags: [future-form]}
+    - learner: "Lunedì comincerò!"
+    - tutor: "Perfetto! Lunedì alle otto al parco, ti aspetto."
+      goals: [plan]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Lavoro in un cantiere, quindi mi muovo tutto il giorno. Ma la sera mangio tardi, a le dieci."
+      errors: [articulated-preposition]
+      gold: {text: "a le dieci", fix: "alle dieci"}
+    - tutor: "A le dieci? Prova a unire le due parole."
+      prompt: {text: "a le dieci", tags: [articulated-preposition]}
+    - learner: "A le dieci, quando torno a casa."
+      errors: [articulated-preposition]
+    - tutor: "Alle dieci è un po' tardi per una cena grande. Qual è il tuo obiettivo?"
+      recast: {text: "A le dieci", fix: "Alle dieci", tags: [articulated-preposition]}
+      goals: [habits]
+    - learner: "Voglio perdere la pancia. Il medico mi ha detto che devo perdere dieci chili."
+    - tutor: "Dieci chili si possono perdere, con calma. Cosa ti rende difficile cambiare?"
+      goals: [goal]
+    - learner: "La sera sono molto cansado e non ho voglia di cucinare."
+      errors: [word-choice]
+      gold: {text: "cansado", fix: "stanco"}
+    - tutor: "Se la sera sei molto stanco, capisco che non hai voglia di cucinare. Che cosa mangi, allora?"
+      recast: {text: "cansado", fix: "stanco", tags: [word-choice]}
+    - learner: "Pizza o panini. E il sabato esco con gli amici e bevo più birra che acqua."
+    - tutor: "Più birra che acqua, eh? Ecco un altro punto. Facciamo un piano?"
+      goals: [obstacles]
+    - learner: "Sì. Potrei venire in palestra per le sette di mattina, prima del lavoro."
+      errors: [preposition]
+      gold: {text: "per le sette", fix: "alle sette"}
+    - tutor: "Per le sette? Per un'ora precisa, che preposizione usiamo?"
+      prompt: {text: "per le sette", tags: [preposition]}
+    - learner: "Alle sette di mattina, il martedì e il giovedì."
+    - tutor: "Perfetto: martedì e giovedì alle sette, e la sera una cena leggera. E il sabato una birra sola!"
+      goals: [plan]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-f-student
+  history: [word-choice]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Sono una studentessa, quindi sto seduta tutto il giorno. E bevo cinque tazze di caffè per giorno."
+      errors: [preposition]
+      gold: {text: "per giorno", fix: "al giorno"}
+    - tutor: "Per giorno? Per dire quante volte in una giornata, cosa usiamo?"
+      prompt: {text: "per giorno", tags: [preposition]}
+    - learner: "Per giorno, sì, cinque o sei."
+      errors: [preposition]
+    - tutor: "Cinque o sei al giorno? Sono tanti! Qual è il tuo obiettivo?"
+      recast: {text: "Per giorno", fix: "al giorno", tags: [preposition]}
+      goals: [habits]
+    - learner: "Voglio sentirmi più energetica e dormire meglio. Adesso sono sempre stanca."
+      errors: [word-choice]
+      gold: {text: "energetica", fix: "energica"}
+    - tutor: "Sentirti più energica e dormire meglio: ottimo obiettivo. Che cosa ti blocca?"
+      recast: {text: "energetica", fix: "energica", tags: [word-choice]}
+      new: [{lemma: energico, gloss: energetic}]
+      goals: [goal]
+    - learner: "Gli esami. In quei periodi studio fino a tardi e salto sempre la palestra."
+    - tutor: "Capisco, durante gli esami è più difficile. Facciamo un piano semplice?"
+      goals: [obstacles]
+    - learner: "Sì! Penso che tre volte a settimana è possibile, anche con gli esami."
+      errors: [subjunctive-use]
+      gold: {text: "che tre volte a settimana è possibile", fix: "che tre volte a settimana sia possibile"}
+    - tutor: "Penso che... è possibile? Dopo «penso che» il verbo cambia modo."
+      prompt: {text: "che tre volte a settimana è possibile", tags: [subjunctive-use]}
+    - learner: "Penso che sia possibile."
+    - tutor: "Esatto. Allora: tre allenamenti da quaranta minuti, e massimo tre caffè al giorno. Ce la farai?"
+    - learner: "Ce la farò! Ma i caffè... lo ridurrò a tre, promesso."
+      errors: [object-pronoun]
+      gold: {text: "lo ridurrò", fix: "li ridurrò"}
+    - tutor: "Lo ridurrò? Parliamo dei caffè, quindi il pronome...?"
+      prompt: {text: "lo ridurrò", tags: [object-pronoun]}
+    - learner: "Li ridurrò a tre!"
+    - tutor: "Perfetto, allora il piano è fatto. Ci vediamo lunedì alle sei!"
+      goals: [plan]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Allora, sono professoressa in un collegio, quindi corro tutto il giorno, ma non faccio sport vero."
+      errors: [false-friend]
+      gold: {text: "in un collegio", fix: "in una scuola"}
+    - tutor: "Ah, insegni in una scuola! Allora ti muovi tanto, ma sport vero niente?"
+      recast: {text: "in un collegio", fix: "in una scuola", tags: [false-friend]}
+    - learner: "Niente. Prima nuotavo, ma da quando ho cambiato casa no nuoto più."
+      errors: [negation]
+      gold: {text: "no nuoto", fix: "non nuoto"}
+    - tutor: "No nuoto più? In italiano la negazione davanti al verbo è un po' diversa."
+      prompt: {text: "no nuoto", tags: [negation]}
+    - learner: "Non nuoto più, perché la piscina è lontana."
+    - tutor: "Esatto. E qual è il tuo obiettivo?"
+      goals: [habits]
+    - learner: "Voglio tornare a nuotare. Così starò meglio che adesso."
+      errors: [comparative]
+      gold: {text: "meglio che adesso", fix: "meglio di adesso"}
+    - tutor: "Meglio che adesso? Nel confronto con «adesso», quale parola serve?"
+      prompt: {text: "meglio che adesso", tags: [comparative]}
+    - learner: "Meglio che adesso, sì, più in forma."
+      errors: [comparative]
+    - tutor: "Starai meglio di adesso, sicuramente. Cosa ti impedisce di andare in piscina?"
+      recast: {text: "meglio che adesso", fix: "meglio di adesso", tags: [comparative]}
+      goals: [goal]
+    - learner: "Non ho la macchina, e l'autobus per la piscina passa solo ogni ora."
+    - tutor: "Capisco. E se andassi in bicicletta?"
+      goals: [obstacles]
+    - learner: "Buona idea! Comprarò una bicicletta il mese prossimo."
+      errors: [future-form]
+      gold: {text: "Comprarò", fix: "Comprerò"}
+    - tutor: "Comprarò? Pensa al futuro di comprare."
+      prompt: {text: "Comprarò", tags: [future-form]}
+    - learner: "Comprerò una bicicletta, allora. Il martedì e il venerdì in piscina, va bene?"
+    - tutor: "Perfetto, e il sabato vieni da me in palestra. Ci vediamo sabato!"
+      goals: [plan]
+
+- scenario: smartworking
+  level: B1
+  persona: en-f-professional
+  history: [preposition]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Lavoro da casa tre giorni a settimana e vado in ufficio il martedì e il giovedì."
+    - tutor: "Ah, un po' e un po'! E come ti trovi?"
+      goals: [situation]
+    - learner: "Bene. Il vantaggio più grande è che non perdo tempo in il traffico."
+      errors: [articulated-preposition]
+      gold: {text: "in il traffico", fix: "nel traffico"}
+    - tutor: "In il traffico? Unisci le due parole."
+      prompt: {text: "in il traffico", tags: [articulated-preposition]}
+    - learner: "Nel traffico, sì. Prima ci mettevo un'ora per arrivare."
+    - tutor: "Un'ora, che pazienza! E gli svantaggi?"
+      goals: [pros]
+    - learner: "Lo svantaggio è che dipendo di internet: quando non funziona, non posso fare niente."
+      errors: [preposition]
+      gold: {text: "dipendo di internet", fix: "dipendo da internet"}
+    - tutor: "Dipendo di internet? Con dipendere, quale preposizione usiamo?"
+      prompt: {text: "dipendo di internet", tags: [preposition]}
+    - learner: "Dipendo da internet. E poi a volte mi sento un po' sola."
+    - tutor: "Ti capisco, anch'io. E se potessi scegliere, cosa faresti?"
+      goals: [cons]
+    - learner: "Preferirei lavorare a casa quattro giorni, perché lì sono più concentrata di in ufficio."
+      errors: [comparative]
+      gold: {text: "di in ufficio", fix: "che in ufficio"}
+    - tutor: "Più concentrata di in ufficio? Quando confronti due luoghi, la parola cambia."
+      prompt: {text: "di in ufficio", tags: [comparative]}
+    - learner: "Più concentrata di in ufficio... non so."
+      errors: [comparative]
+    - tutor: "Ah, sei più concentrata a casa che in ufficio? Ti capisco benissimo."
+      recast: {text: "di in ufficio", fix: "che in ufficio", tags: [comparative]}
+      goals: [preference]
+    - learner: "Sì! Ma il mio capo deve essere d'accordo, e non è facile."
+    - tutor: "Prova a chiederglielo, magari ti dice di sì. Ti auguro buona fortuna!"
+
+- scenario: smartworking
+  level: B1
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Io vado in ufficio tutti i giorni. Il mio capo pensa che la gente lavora meno da casa."
+      errors: [subjunctive-use]
+      gold: {text: "che la gente lavora", fix: "che la gente lavori"}
+    - tutor: "Pensa che la gente... lavora? Dopo «pensa che» quale modo ci vuole?"
+      prompt: {text: "che la gente lavora", tags: [subjunctive-use]}
+    - learner: "Pensa che la gente lavora meno, sì."
+      errors: [subjunctive-use]
+    - tutor: "Ah, pensa che la gente lavori meno da casa? Che idea vecchia!"
+      recast: {text: "che la gente lavora", fix: "che la gente lavori", tags: [subjunctive-use]}
+      goals: [situation]
+    - learner: "Però l'ufficio ha cose buone: vedo i colleghi e il caffè è gratis!"
+    - tutor: "Il caffè gratis è un bel vantaggio! E gli svantaggi?"
+      goals: [pros]
+    - learner: "Il viaggio è molto largo: un'ora e mezza in autobus ogni mattina."
+      errors: [false-friend]
+      gold: {text: "largo", fix: "lungo"}
+    - tutor: "Un viaggio lungo, un'ora e mezza? Povero te! E cosa preferiresti?"
+      recast: {text: "largo", fix: "lungo", tags: [false-friend]}
+      goals: [cons]
+    - learner: "Io preferirebbe lavorare da casa due giorni a settimana."
+      errors: [conditional-form]
+      gold: {text: "Io preferirebbe", fix: "Io preferirei"}
+    - tutor: "Io preferirebbe? Controlla la persona del verbo."
+      prompt: {text: "Io preferirebbe", tags: [conditional-form]}
+    - learner: "Io preferirei lavorare da casa due giorni, così dormirei di più."
+    - tutor: "Ha senso! Perché non lo chiedi al tuo capo?"
+      goals: [preference]
+    - learner: "Forse lo chiederò la settimana prossima, quando sarà di buon umore."
+    - tutor: "Ottima idea: aspetta il momento giusto. In bocca al lupo!"
+
+- scenario: smartworking
+  level: B1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Lavoro da casa da tre anni. Faccio il traduttore, e a volte lavoro anche dal treno."
+    - tutor: "Dal treno, che libertà! Ti piace?"
+      goals: [situation]
+    - learner: "Molto! Organizzo i miei orari come voglio, e ho più tempo per mia famiglia."
+      errors: [possessive]
+      gold: {text: "per mia famiglia", fix: "per la mia famiglia"}
+    - tutor: "Per mia famiglia? Con «famiglia» manca qualcosa."
+      prompt: {text: "per mia famiglia", tags: [possessive]}
+    - learner: "Per la mia famiglia, giusto."
+    - tutor: "Esatto. E c'è qualcosa che non ti piace?"
+      goals: [pros]
+    - learner: "Mi sento solo. Per fortuna c'è un bar sotto casa e vado ogni mattina per parlare con qualcuno."
+      errors: [ci-ne]
+      gold: {text: "e vado ogni mattina", fix: "e ci vado ogni mattina"}
+    - tutor: "E vado ogni mattina... dove? Manca una piccola parola."
+      prompt: {text: "e vado ogni mattina", tags: [ci-ne]}
+    - learner: "Sì, vado ogni mattina, prima di lavorare."
+      errors: [ci-ne]
+    - tutor: "Ah, ci vai ogni mattina prima di lavorare: è il tuo secondo ufficio!"
+      recast: {text: "vado ogni mattina", fix: "ci vai ogni mattina", tags: [ci-ne]}
+      goals: [cons]
+    - learner: "Esatto! Se potrei scegliere, lavorerei in un ufficio con altri traduttori."
+      errors: [hypothetical]
+      gold: {text: "Se potrei", fix: "Se potessi"}
+    - tutor: "Se potrei? Dopo «se» il verbo cambia."
+      prompt: {text: "Se potrei", tags: [hypothetical]}
+    - learner: "Se potessi scegliere, sì. Non a casa, ma neanche in un ufficio normale."
+    - tutor: "Bella idea! Ce n'è uno nuovo vicino alla stazione: se vuoi, ci andiamo insieme a vederlo."
+      goals: [preference]
+
+- scenario: smartworking
+  level: B1
+  persona: es-f-erasmus
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Io faccio un tirocinio in un'agenzia e vado in ufficio tutti i giorni."
+    - tutor: "Tutti i giorni? E ti piace?"
+      goals: [situation]
+    - learner: "Sì, in ufficio imparo di più, perché posso fare domande ai colleghi. Sono molto simpatici."
+    - tutor: "È un grande vantaggio, soprattutto all'inizio. E gli svantaggi?"
+      goals: [pros]
+    - learner: "Il mio capo è molto esigente e la sera non riesco a desconnettermi."
+      errors: [word-choice]
+      gold: {text: "desconnettermi", fix: "staccare"}
+    - tutor: "Capisco, se non riesci a staccare neanche la sera è pesante. E per il futuro cosa preferiresti?"
+      recast: {text: "desconnettermi", fix: "staccare", tags: [word-choice]}
+      goals: [cons]
+    - learner: "Preferirei un lavoro più flessibile che il mio tirocinio di adesso."
+      errors: [comparative]
+      gold: {text: "che il mio tirocinio", fix: "del mio tirocinio"}
+    - tutor: "Più flessibile che il mio tirocinio? Davanti a un nome, il confronto usa un'altra parola."
+      prompt: {text: "che il mio tirocinio", tags: [comparative]}
+    - learner: "Più flessibile che il mio tirocinio... sì, con un po' di lavoro da casa."
+      errors: [comparative]
+    - tutor: "Certo, un lavoro più flessibile del tuo tirocinio, con qualche giorno a casa. Ha senso."
+      recast: {text: "che il mio tirocinio", fix: "del tuo tirocinio", tags: [comparative]}
+      goals: [preference]
+    - learner: "Ma per adesso sono contenta. Ho imparato molte cose di che non sapevo niente."
+      errors: [relative-pronoun]
+      gold: {text: "di che", fix: "di cui"}
+    - tutor: "Cose di che...? Dopo «di» quale pronome serve?"
+      prompt: {text: "di che", tags: [relative-pronoun]}
+    - learner: "Cose di cui non sapevo niente!"
+    - tutor: "Esatto! Allora alla tua salute, e a tutto quello che imparerai."

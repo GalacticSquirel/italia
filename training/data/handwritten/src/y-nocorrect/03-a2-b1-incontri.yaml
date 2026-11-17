@@ -1,0 +1,217 @@
+# Set y-nocorrect, file 3: A2 (hairdresser, cinema, post, weekend, birthday, clothes) and B1.
+- scenario: parrucchiere
+  level: A2
+  persona: en-f-professional
+  history: [object-pronoun]
+  turns:
+  - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+  - learner: "Buongiorno. Ho un appuntamento alle tre, a nome Kelly. Vorrei tagliare i capelli."
+  - tutor: "Sì, eccola, alle tre. Prima li laviamo, va bene?"
+    goals: [book]
+  - learner: "Va bene. I capelli li vorrei un po' più corti, ma non troppo."
+  - tutor: "Allora fino alle spalle, così?"
+  - learner: "Sì, alle spalle è perfetto. E la frangia? Può tagliarlo un po'?"
+    errors: [object-pronoun]
+  - tutor: "Tagliarlo? Ma parliamo della frangia, no?"
+    goals: [length]
+    prompt: {text: "tagliarlo", tags: [object-pronoun]}
+  - learner: "Sì, può tagliarlo un po', non troppo?"
+    errors: [object-pronoun]
+  - tutor: "Certo, posso tagliarla appena. E il taglio lo vuole classico o più moderno?"
+    recast: {text: "tagliarlo", fix: "tagliarla", tags: [object-pronoun]}
+  - learner: "Più moderno, ma semplice. La mattina non ho mai tempo."
+  - tutor: "Capisco, facciamo una cosa veloce da pettinare. Ecco, si guardi allo specchio."
+    goals: [style]
+    new: [{lemma: pettinare, gloss: to comb}]
+  - learner: "Mi piace tantissimo! Quanto le devo?"
+  - tutor: "Sono trentacinque euro. Grazie a lei!"
+    goals: [pay]
+
+- scenario: serata-cinema
+  level: A2
+  persona: es-m-worker
+  turns:
+  - tutor: "Stasera sono libera. Facciamo qualcosa?"
+  - learner: "Sì! Ti va di andare al cinema?"
+  - tutor: "Bella idea! Che film vuoi vedere?"
+    goals: [propose]
+  - learner: "Le commedie mi piacciono di più. I film d'azione no, non li sopporto."
+  - tutor: "Anch'io preferisco le commedie. Al cinema in centro c'è una commedia nuova."
+    goals: [genre]
+  - learner: "Sì, la conosco. Ho letto che è un po' larga, quasi tre ore."
+    errors: [false-friend]
+  - tutor: "Sì, è un po' lunga, ma dicono che è divertentissima. La vediamo?"
+    recast: {text: "larga", fix: "lunga", tags: [false-friend]}
+  - learner: "Va bene, la vediamo. Comincia alle nove, ci vediamo alle otto e mezza?"
+  - tutor: "Perfetto. E i biglietti? Li compro io?"
+    goals: [choose]
+  - learner: "No, ce li ho già: li ho comprati stamattina!"
+  - tutor: "Che bravo! Allora alle otto e mezza davanti al cinema."
+    goals: [meet]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-m-heritage
+  history: [preposition]
+  turns:
+  - tutor: "Buongiorno, mi dica."
+  - learner: "Buongiorno. Devo spedire questo pacco a mia zia. Abita in Toronto."
+    errors: [preposition]
+  - tutor: "In Toronto? Con il nome di una città, quale parola usiamo?"
+    prompt: {text: "in Toronto", tags: [preposition]}
+  - learner: "A Toronto, in Canada."
+  - tutor: "Esatto! Allora mettiamo qui il pacco."
+    goals: [send]
+  - learner: "Dentro ci sono due libri e un po' di caffè."
+  - tutor: "Bene. Vuole la spedizione normale o veloce?"
+  - learner: "Quanto ci mette quella normale?"
+  - tutor: "Due settimane. Quella veloce ci mette cinque giorni, ma costa di più."
+    goals: [speed]
+  - learner: "Allora la veloce. Il compleanno di mia zia è in dieci giorni."
+    errors: [preposition]
+  - tutor: "In dieci giorni? Per parlare del futuro, quale piccola parola usiamo?"
+    prompt: {text: "in dieci giorni", tags: [preposition]}
+  - learner: "Ah, tra dieci giorni. Il compleanno è tra dieci giorni."
+  - tutor: "Va bene. Compili questo modulo con l'indirizzo, per favore."
+  - learner: "Ecco fatto. L'ho scritto in stampatello."
+  - tutor: "Perfetto, si legge benissimo. Sono trentadue euro."
+    goals: [form]
+  - learner: "Posso pagare con la carta?"
+  - tutor: "Certo, prego. Ecco la ricevuta, e buon compleanno alla zia!"
+    goals: [pay]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: en-f-student
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Ciao! Com'è andato il fine settimana?"
+  - learner: "Benissimo! Sabato sono andata a Verona."
+  - tutor: "A Verona, che bello! Cosa hai visto?"
+    goals: [where]
+  - learner: "Il centro e il balcone di Giulietta. L'Arena l'abbiamo vista solo da fuori."
+  - tutor: "Peccato, dentro è bellissima! Con chi sei andata?"
+    goals: [what]
+  - learner: "Con Tom, il mio ragazzo. È piovuto tutto il giorno, ma ci siamo divertiti lo stesso."
+  - tutor: "Bravi, la pioggia non vi ha fermato! E domenica?"
+    goals: [with-who]
+  - learner: "Domenica ho rimasto a casa. Ero stanchissima."
+    errors: [auxiliary-choice]
+  - tutor: "Ho rimasto? Pensa al verbo: avere o essere?"
+    prompt: {text: "ho rimasto", tags: [auxiliary-choice]}
+  - learner: "Ah, sono rimasta a casa."
+  - tutor: "Esatto! Ogni tanto ci vuole. Allora, ti è piaciuta Verona?"
+  - learner: "Sì, tantissimo. Ci torno di sicuro in estate."
+  - tutor: "Fai bene! In estate Verona è ancora più bella."
+    goals: [opinion]
+
+- scenario: compleanno
+  level: A2
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+  - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+  - learner: "Le facciamo una festa a sorpresa! Il compleanno è sabato, no?"
+  - tutor: "Sì, sabato quindici. Ma lei è libera?"
+  - learner: "Sì, è libera: gliel'ho chiesto ieri, senza dire niente."
+  - tutor: "Brava! Allora sabato sera, a casa mia. Chi invitiamo?"
+    goals: [date]
+  - learner: "Gli amici dell'università. Gli scrivo io stasera. Saremo quindici, più o meno."
+  - tutor: "Perfetto, la casa è grande. E da mangiare?"
+    goals: [guests]
+  - learner: "Io comprarò la torta al cioccolato. Sara la adora."
+    errors: [future-form]
+  - tutor: "Comprarò? Ripeti con calma il futuro di comprare."
+    prompt: {text: "comprarò", tags: [future-form]}
+  - learner: "Comprerò la torta al cioccolato."
+  - tutor: "Giusto! Io preparo la pizza e qualcosa da bere."
+    goals: [food]
+  - learner: "E il regalo? Le regaliamo un libro? Le piace tanto leggere."
+  - tutor: "Ottima idea! Facciamo un regalo insieme, dieci euro a testa."
+    goals: [gift]
+
+- scenario: abbigliamento
+  level: A2
+  persona: en-m-traveller
+  history: [adjective-agreement]
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Sì, grazie. Cerco una maglietta. Quella blu in vetrina ce l'avete nella M?"
+  - tutor: "Vediamo... sì, eccola, taglia M."
+    goals: [ask-item]
+  - learner: "Grazie. Ci sono anche altri colori?"
+  - tutor: "Sì, la stessa maglietta c'è anche in rosso e in bianco."
+  - learner: "Allora prendo anche due magliette rossi per mio fratello."
+    errors: [adjective-agreement]
+  - tutor: "Due magliette rossi? Pensi alla parola magliette."
+    prompt: {text: "magliette rossi", tags: [adjective-agreement]}
+  - learner: "Sì, due magliette rossi, taglia L."
+    errors: [adjective-agreement]
+  - tutor: "Allora due magliette rosse, taglia L. Ecco qua."
+    goals: [size-colour]
+    recast: {text: "magliette rossi", fix: "magliette rosse", tags: [adjective-agreement]}
+  - learner: "Questa blu la posso provare?"
+  - tutor: "Certo, il camerino è in fondo a destra."
+    goals: [try]
+  - learner: "Mi sta benissimo! E quegli stivali in vetrina quanto costano?"
+  - tutor: "Novanta euro, ma oggi c'è lo sconto del venti per cento."
+  - learner: "No, oggi solo le magliette. Quant'è in tutto?"
+  - tutor: "Sono quarantacinque euro. Grazie, ecco lo scontrino!"
+    goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno. Però! È più grande di quanto pensavo. E molto luminoso."
+  - tutor: "Sì, le finestre danno a sud, quindi c'è sole fino a sera."
+  - learner: "Bene. L'affitto quant'è, spese comprese?"
+  - tutor: "Ottocento euro al mese, più cinquanta di spese di condominio."
+    goals: [rent]
+  - learner: "E il contratto? Quanto dura, e quanto si paga di caparra?"
+  - tutor: "È un contratto di quattro anni, con due mesi di caparra."
+    goals: [contract]
+  - learner: "Va bene. Il riscaldamento è autonomo? Lo chiedo perché d'inverno qui fa freddo."
+  - tutor: "Sì, è autonomo, e funziona benissimo: l'abbiamo cambiato l'anno scorso."
+    goals: [condition]
+  - learner: "Ottimo. Il quartiere in che abitiamo adesso è molto rumoroso, per questo cerchiamo casa."
+    errors: [relative-pronoun]
+  - tutor: "Capisco. Solo una cosa: «il quartiere in che abitiamo»? Dopo una preposizione, quale parola serve al posto di «che»?"
+    prompt: {text: "in che", tags: [relative-pronoun]}
+  - learner: "Giusto: il quartiere in cui abitiamo adesso."
+  - tutor: "Esatto. Qui invece è tranquillo: c'è un parco a due passi e il supermercato è sotto casa."
+    goals: [neighbourhood]
+  - learner: "Mi piace molto. Ne parlo con mia moglie stasera e domani le do una risposta."
+  - tutor: "Benissimo, aspetto la sua telefonata. Se volete, potete tornare a vederlo insieme."
+    goals: [decide]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-m-worker
+  history: [modal-infinitive]
+  turns:
+  - tutor: "Buongiorno, come posso esserle utile?"
+  - learner: "Buongiorno. Vorrei aprire un conto corrente. Lavoro in un ristorante e lo stipendio me lo pagano con bonifico."
+  - tutor: "Certo, apriamo un conto per lo stipendio. Ha con sé un documento?"
+    goals: [purpose]
+  - learner: "Sì, ecco la carta d'identità. Il codice fiscale ce l'ho qui sul telefono."
+  - tutor: "Perfetto, va benissimo anche sul telefono."
+  - learner: "Devo di portare qualcos'altro, per esempio il contratto di lavoro?"
+    errors: [modal-infinitive]
+  - tutor: "Ripeta un attimo: «devo di portare»? Dopo dovere ci vuole quella piccola parola?"
+    prompt: {text: "Devo di portare", tags: [modal-infinitive]}
+  - learner: "Sì, devo di portare il contratto?"
+    errors: [modal-infinitive]
+  - tutor: "No, non deve portare nient'altro: bastano questi due documenti."
+    goals: [documents]
+    recast: {text: "devo di portare", fix: "deve portare", tags: [modal-infinitive]}
+  - learner: "Bene. Non so se c'è un costo mensile. Me lo può spiegare?"
+  - tutor: "Il conto costa due euro al mese, ma per i primi sei mesi non paga niente."
+    goals: [costs]
+  - learner: "Allora va bene. Mi servirebbe anche una carta per pagare nei negozi."
+  - tutor: "Certo, le diamo una carta di debito: arriva a casa in una settimana. Firmi qui, per favore."
+    goals: [card]
+  - learner: "Ecco fatto. Grazie mille, è stata molto gentile."
+  - tutor: "Si figuri, è stato un piacere. Benvenuto tra i nostri clienti!"

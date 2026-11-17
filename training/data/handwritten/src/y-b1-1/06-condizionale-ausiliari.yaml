@@ -1,0 +1,275 @@
+# B1, round 3: conditional forms (vorrei, sarebbe, potremmo) and the choice of auxiliary.
+- scenario: banca-conto
+  level: B1
+  persona: en-m-retired
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrebbi aprire un conto corrente. Mi sono trasferito qui con mia moglie."
+      errors: [conditional-form]
+      gold: {text: "Vorrebbi", fix: "Vorrei"}
+    - tutor: "Benvenuto! Ma «vorrebbi»? Il condizionale di «volere» con «io» è più breve."
+      prompt: {text: "Vorrebbi", tags: [conditional-form]}
+    - learner: "Volerei aprire un conto."
+      errors: [conditional-form]
+    - tutor: "Certo. Vorrei solo vedere un suo documento, e lo apriamo subito."
+      recast: {text: "Volerei", fix: "Vorrei", tags: [conditional-form]}
+      goals: [purpose]
+    - learner: "Ecco il passaporto. Quali altri documenti servono?"
+    - tutor: "Il codice fiscale e un indirizzo in Italia."
+      goals: [documents]
+    - learner: "Il codice fiscale ce l'ho. Quanto costerebbe un conto per me e mia sposa?"
+      errors: [false-friend]
+      gold: {text: "sposa", fix: "moglie"}
+    - tutor: "Un conto per lei e sua moglie costa quattro euro al mese. Le servono anche le carte?"
+      recast: {text: "sposa", fix: "moglie", tags: [false-friend]}
+      goals: [costs]
+    - learner: "Sì, due carte. Eventualmente compreremo una casa qui: fate anche i mutui?"
+      errors: [false-friend]
+      gold: {text: "Eventualmente", fix: "Prima o poi"}
+    - tutor: "Prima o poi una casa, che bello! Sì, facciamo anche i mutui. Adesso le preparo le due carte e l'app per il telefono."
+      recast: {text: "Eventualmente", fix: "Prima o poi", tags: [false-friend]}
+      goals: [card]
+      new: [{lemma: mutuo, gloss: mortgage}]
+    - learner: "Grazie mille, è molto gentile."
+    - tutor: "Si figuri! Le carte arrivano a casa entro una settimana."
+
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-m-heritage
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per stasera, se avete posto."
+    - tutor: "Certo. Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Siamo in tre, alle otto e mezza. Saremmo possibile un tavolo fuori?"
+      errors: [conditional-form]
+      gold: {text: "Saremmo possibile", fix: "Sarebbe possibile"}
+    - tutor: "«Saremmo possibile»? Ci pensi: chi è possibile, voi o il tavolo?"
+      prompt: {text: "Saremmo possibile", tags: [conditional-form]}
+    - learner: "Sarebbe possibile un tavolo fuori?"
+    - tutor: "Esatto. Sì, ce n'è ancora uno in giardino."
+      goals: [details]
+    - learner: "Mio padre ha ottant'anni e cammina male. Lui non poterebbe fare le scale."
+      errors: [conditional-form]
+      gold: {text: "poterebbe", fix: "potrebbe"}
+    - tutor: "Capisco. Ma «poterebbe»? Il condizionale di «potere» perde una lettera."
+      prompt: {text: "poterebbe", tags: [conditional-form]}
+    - learner: "Lui non poterebbe salire?"
+      errors: [conditional-form]
+    - tutor: "Nessun problema: il giardino è al piano terra, quindi potrebbe entrare senza scale."
+      recast: {text: "poterebbe", fix: "potrebbe", tags: [conditional-form]}
+      goals: [special]
+    - learner: "Perfetto, grazie. Prenoto a nome Ricci."
+    - tutor: "Benissimo, signor Ricci: stasera alle otto e mezza, tre persone in giardino. A dopo!"
+      goals: [name]
+
+- scenario: medico-base
+  level: B1
+  persona: es-m-worker
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Mi fa male la espalda, qui in basso."
+      errors: [word-choice]
+      gold: {text: "la espalda", fix: "la schiena"}
+    - tutor: "Le fa male la schiena, capisco. Da quando ha questo dolore?"
+      recast: {text: "la espalda", fix: "la schiena", tags: [word-choice]}
+      goals: [symptoms]
+    - learner: "Da lunedì. Ho caduto in cucina, al lavoro: il pavimento era bagnato."
+      errors: [auxiliary-choice]
+      gold: {text: "Ho caduto", fix: "Sono caduto"}
+    - tutor: "«Ho caduto»? Con «cadere», il passato si fa con «avere»?"
+      prompt: {text: "Ho caduto", tags: [auxiliary-choice]}
+    - learner: "Sono caduto in cucina, al lavoro."
+    - tutor: "Giusto. Ha preso qualcosa per il dolore?"
+      goals: [since-when]
+    - learner: "Sì, delle pastiglie, ma il dolore non ha passato. Anzi, ieri ha peggiorato."
+      errors: [auxiliary-choice]
+      gold: {text: "non ha passato", fix: "non è passato"}
+    - tutor: "«Il dolore non ha passato»? Anche qui il verbo vuole un altro aiuto, non «avere»."
+      prompt: {text: "non ha passato", tags: [auxiliary-choice]}
+    - learner: "Il dolore non è passato, e ieri ha peggiorato."
+      errors: [auxiliary-choice]
+    - tutor: "Se ieri è peggiorato, le do qualcosa di più forte. È allergico a qualche medicina?"
+      recast: {text: "ha peggiorato", fix: "è peggiorato", tags: [auxiliary-choice]}
+    - learner: "No. Ma la settimana scorsa ero costipato, con tosse e naso chiuso."
+      errors: [false-friend]
+      gold: {text: "costipato", fix: "raffreddato"}
+    - tutor: "Ah, era raffreddato, va bene. Allora: una crema due volte al giorno e niente lavori pesanti per una settimana. Mi ripete?"
+      recast: {text: "costipato", fix: "raffreddato", tags: [false-friend]}
+      goals: [history]
+      new: [{lemma: raffreddato, gloss: having a cold}, {lemma: crema, gloss: cream}]
+    - learner: "La crema due volte al giorno e una settimana senza lavori pesanti."
+    - tutor: "Perfetto. Se tra una settimana fa ancora male, torni da me."
+      goals: [instructions]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: en-f-student
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ho stata in Sicilia con due amiche, per dieci giorni!"
+      errors: [auxiliary-choice]
+      gold: {text: "Ho stata", fix: "Sono stata"}
+    - tutor: "In Sicilia, che bello! Ma «ho stata»? Ripeti, attenzione alla prima parola del verbo."
+      prompt: {text: "Ho stata", tags: [auxiliary-choice]}
+    - learner: "Sono stata in Sicilia con due amiche!"
+    - tutor: "Esatto. E che tempo faceva?"
+      goals: [where]
+    - learner: "Faceva caldissimo, trentacinque gradi ogni giorno. Una sera ha piovuto, ma solo per un'ora."
+    - tutor: "Che caldo! E che cosa avete fatto?"
+      goals: [weather]
+    - learner: "Abbiamo visitato Palermo e Siracusa, e un giorno abbiamo salito sull'Etna!"
+      errors: [auxiliary-choice]
+      gold: {text: "abbiamo salito", fix: "siamo salite"}
+    - tutor: "Anche sull'Etna! Ma «abbiamo salito»: quando sali su un posto, come cambia il verbo?"
+      prompt: {text: "abbiamo salito", tags: [auxiliary-choice]}
+    - learner: "Siamo salite sull'Etna! Era bellissimo."
+    - tutor: "Brave! E che cosa ti è piaciuto di più?"
+      goals: [activities]
+    - learner: "Il mare a Siracusa, l'acqua era trasparente. Abbiamo preso tantissime foto."
+      errors: [word-choice]
+      gold: {text: "preso tantissime foto", fix: "fatto tantissime foto"}
+    - tutor: "Avete fatto tantissime foto? Allora me le devi far vedere tutte!"
+      recast: {text: "preso tantissime foto", fix: "fatto tantissime foto", tags: [word-choice]}
+      goals: [best]
+    - learner: "Certo, te le mando stasera!"
+    - tutor: "Non vedo l'ora! Che bella vacanza."
+
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-f-teacher
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Carmen, sono messicana e insegno spagnolo da otto anni. Ora vorrei cambiare lavoro."
+    - tutor: "Interessante! E che esperienza ha nel nostro lavoro?"
+      goals: [intro]
+    - learner: "Ho fatto un corso di grafica di due anni. Ho portato una carpeta con i miei lavori, vuole vederla?"
+      errors: [word-choice]
+      gold: {text: "una carpeta", fix: "una cartella"}
+    - tutor: "Sì, grazie, mi dia pure la cartella. Oh, sono lavori molto belli! Quali sono i suoi punti forti?"
+      recast: {text: "una carpeta", fix: "la cartella", tags: [word-choice]}
+      goals: [experience]
+      new: [{lemma: cartella, gloss: folder}]
+    - learner: "Sono paziente e so spiegare bene le cose. Con i clienti difficili saria molto brava."
+      errors: [conditional-form]
+      gold: {text: "saria", fix: "sarei"}
+    - tutor: "«Saria»? Questo sembra spagnolo! Il condizionale di «essere» con «io»?"
+      prompt: {text: "saria", tags: [conditional-form]}
+    - learner: "Serei molto brava con i clienti difficili."
+      errors: [conditional-form]
+    - tutor: "Ci credo, la pazienza è importante! Io invece non sarei così calma. Perché vuole lavorare da noi?"
+      recast: {text: "Serei", fix: "sarei", tags: [conditional-form]}
+      goals: [strengths]
+    - learner: "Perché fate molti progetti per le scuole, e io conosco bene quel mondo."
+    - tutor: "È un buon motivo. Ha qualche domanda?"
+      goals: [why]
+    - learner: "Sì: dovrei viaggiare per lavoro? Ho due figli piccoli."
+    - tutor: "Solo un paio di volte all'anno, e sempre in Italia. Le faremo sapere presto."
+      goals: [questions]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-heritage
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì: nella mia camera l'acqua calda ha finito dopo due minuti di doccia."
+      errors: [auxiliary-choice]
+      gold: {text: "ha finito", fix: "è finita"}
+    - tutor: "Mi dispiace! Ma «l'acqua ha finito»? Qui l'acqua finisce da sola: come diventa il verbo?"
+      prompt: {text: "ha finito", tags: [auxiliary-choice]}
+    - learner: "L'acqua ha finita dopo due minuti."
+      errors: [auxiliary-choice]
+    - tutor: "Capisco, l'acqua è finita subito. È terribile! Da quando succede?"
+      recast: {text: "ha finita", fix: "è finita", tags: [auxiliary-choice]}
+      goals: [problem]
+    - learner: "Da ieri sera. Ho chiamato due volte, ma nessuno è venuto."
+    - tutor: "Mi scusi davvero. Che cosa posso fare per lei?"
+      goals: [since]
+    - learner: "Vorrei cambiare camera. E mi piacerebbi avere uno sconto, se possibile."
+      errors: [conditional-form]
+      gold: {text: "mi piacerebbi", fix: "mi piacerebbe"}
+    - tutor: "È giusto. Ma «mi piacerebbi»? Ci pensi: che cosa le piace?"
+      prompt: {text: "mi piacerebbi", tags: [conditional-form]}
+    - learner: "Mi piacerebbe avere uno sconto."
+    - tutor: "Esatto. Le do la camera 210 e il quindici per cento di sconto sulla notte."
+      goals: [request]
+    - learner: "Va bene, accetto. Grazie per l'aiuto."
+    - tutor: "Grazie a lei per la pazienza. Ecco la chiave della 210."
+      goals: [agree]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-student
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! È bellissimo. Quanto sarebbe la renta al mese?"
+      errors: [word-choice]
+      gold: {text: "la renta", fix: "l'affitto"}
+    - tutor: "L'affitto è di 600 euro al mese, più ottanta euro di spese."
+      recast: {text: "la renta", fix: "l'affitto", tags: [word-choice]}
+      goals: [rent]
+    - learner: "Io vivrei qui con un'amica. Poteremmo fare il contratto in due? E la caparra?"
+      errors: [conditional-form]
+      gold: {text: "Poteremmo", fix: "Potremmo"}
+    - tutor: "«Poteremmo»? Il condizionale di «potere» perde una lettera."
+      prompt: {text: "Poteremmo", tags: [conditional-form]}
+    - learner: "Potremmo fare il contratto in due?"
+    - tutor: "Sì, certo. La caparra è di due mesi."
+      goals: [contract]
+    - learner: "Il riscaldamento funziona bene? La mia camera attuale è freddissima."
+    - tutor: "Funziona benissimo, e potete accenderlo quando volete."
+      goals: [condition]
+    - learner: "Ottimo. E il quartiere? Mi piacerebbe avere una libreria vicino per studiare."
+      errors: [false-friend]
+      gold: {text: "una libreria", fix: "una biblioteca"}
+    - tutor: "C'è una biblioteca a cinque minuti, aperta fino alle otto di sera."
+      recast: {text: "una libreria", fix: "una biblioteca", tags: [false-friend]}
+      new: [{lemma: biblioteca, gloss: library}]
+      goals: [neighbourhood]
+    - learner: "Perfetto! Sarebbi molto interessata. Posso tornare domani con la mia amica?"
+      errors: [conditional-form]
+      gold: {text: "Sarebbi", fix: "Sarei"}
+    - tutor: "Con piacere. Solo una cosa: «sarebbi»? Con «io» la fine cambia."
+      prompt: {text: "Sarebbi", tags: [conditional-form]}
+    - learner: "Sarei molto interessata!"
+    - tutor: "Perfetto! Allora vi aspetto domani alle cinque."
+      goals: [decide]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: es-f-erasmus
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorria un biglietto per Roma per domani mattina."
+      errors: [conditional-form]
+      gold: {text: "Vorria", fix: "Vorrei"}
+    - tutor: "«Vorria»? È quasi giusto, ma in italiano la fine è diversa."
+      prompt: {text: "Vorria", tags: [conditional-form]}
+    - learner: "Vorrei un biglietto per Roma, per domani."
+    - tutor: "Perfetto. C'è un treno alle 10:20. Solo andata?"
+      goals: [destination]
+    - learner: "Andata e ritorno. Torno domenica, con il treno de la sera."
+      errors: [articulated-preposition]
+      gold: {text: "de la sera", fix: "della sera"}
+    - tutor: "Il treno «de la sera»? In italiano queste due parole si uniscono."
+      prompt: {text: "de la sera", tags: [articulated-preposition]}
+    - learner: "Del la sera?"
+      errors: [articulated-preposition]
+    - tutor: "Va bene, il treno della sera parte alle 19:15. Lo prendo per lei?"
+      recast: {text: "Del la sera", fix: "della sera", tags: [articulated-preposition]}
+    - learner: "Sì, grazie. Sarebbe possibile un posto vicino al finestrino?"
+    - tutor: "Certo, all'andata e al ritorno. Sono 72 euro in tutto."
+      goals: [type, class]
+    - learner: "Ecco la carta. Il treno di domani da quale binario parte?"
+    - tutor: "Dal binario 8. Buon viaggio a Roma!"
+      goals: [platform]

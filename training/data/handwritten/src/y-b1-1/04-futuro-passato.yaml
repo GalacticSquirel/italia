@@ -1,0 +1,286 @@
+# B1, round 3: future forms (costerà, sarà, potrai) and passato prossimo vs imperfetto.
+- scenario: dal-meccanico
+  level: B1
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. La macchina fa un ruido forte quando giro a destra."
+      errors: [word-choice]
+      gold: {text: "un ruido forte", fix: "un rumore forte"}
+    - tutor: "Un rumore forte quando gira... Da quando lo fa?"
+      recast: {text: "un ruido forte", fix: "un rumore forte", tags: [word-choice]}
+      goals: [describe]
+    - learner: "Da ieri. Ho guidato in autostrada e all'improvviso ho sentito un colpo."
+      errors: [tense-aspect]
+      gold: {text: "Ho guidato in autostrada", fix: "Guidavo in autostrada"}
+    - tutor: "«Ho guidato», poi «ho sentito»... Cosa stava succedendo in quel momento? Quale tempo usiamo per la situazione?"
+      prompt: {text: "Ho guidato in autostrada", tags: [tense-aspect]}
+    - learner: "Guidavo in autostrada e ho sentito un colpo."
+    - tutor: "Esatto. Forse ha preso una buca: capita spesso in questo periodo."
+      goals: [when]
+      new: [{lemma: buca, gloss: pothole}]
+    - learner: "Possibile. Mi può fare un presupposto prima di cominciare?"
+      errors: [false-friend]
+      gold: {text: "un presupposto", fix: "un preventivo"}
+    - tutor: "Certo, le faccio subito un preventivo: tra pezzi e lavoro sono circa 200 euro."
+      recast: {text: "un presupposto", fix: "un preventivo", tags: [false-friend]}
+      goals: [cost]
+    - learner: "Va bene. Quando sarà pronta? Domani la poterò prendere?"
+      errors: [future-form]
+      gold: {text: "la poterò", fix: "la potrò"}
+    - tutor: "«La poterò»? Il futuro di «potere» è più corto. Provi ancora?"
+      prompt: {text: "la poterò", tags: [future-form]}
+    - learner: "Domani la potrò prendere?"
+    - tutor: "Sì, domani dopo le cinque sarà pronta. Le mando un messaggio."
+      goals: [time]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. La macchina non comincia bene la mattina, fa fatica."
+      errors: [word-choice]
+      gold: {text: "non comincia", fix: "non parte"}
+    - tutor: "Capisco, la mattina non parte bene. Da quanto tempo succede?"
+      recast: {text: "non comincia", fix: "non parte", tags: [word-choice]}
+      goals: [describe]
+    - learner: "Da due settimane. Ogni mattina ho girato la chiave tre o quattro volte."
+      errors: [tense-aspect]
+      gold: {text: "ho girato", fix: "giravo"}
+    - tutor: "«Ogni mattina ho girato»? Succedeva sempre: quale tempo serve?"
+      prompt: {text: "ho girato", tags: [tense-aspect]}
+    - learner: "Ogni mattina giravo la chiave tre o quattro volte."
+    - tutor: "Perfetto. Allora sarà la batteria. Quanti anni ha la macchina?"
+      goals: [when]
+      new: [{lemma: batteria, gloss: battery}]
+    - learner: "Ha sei anni. Se cambiate la batteria, quanto costa?"
+    - tutor: "Una batteria nuova costa 120 euro, con il lavoro compreso."
+      goals: [cost]
+    - learner: "Va bene. Giovedì parto per Roma. La macchina essarà pronta mercoledì?"
+      errors: [future-form]
+      gold: {text: "essarà", fix: "sarà"}
+    - tutor: "«Essarà»? Il futuro di «essere» è speciale, e più corto."
+      prompt: {text: "essarà", tags: [future-form]}
+    - learner: "Serà pronta mercoledì?"
+      errors: [future-form]
+    - tutor: "Sì, sarà pronta mercoledì mattina, non si preoccupi. Così giovedì parte tranquilla."
+      recast: {text: "Serà", fix: "sarà", tags: [future-form]}
+      goals: [time]
+    - learner: "Grazie, allora vengo mercoledì mattina."
+    - tutor: "Perfetto, a mercoledì!"
+
+
+- scenario: film-libro
+  level: B1
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io! Ho letto un giallo italiano, ambientato a Bologna negli anni Settanta."
+    - tutor: "Un giallo, che bello! Raccontaci un po' la trama."
+    - learner: "Una sera d'inverno, un professore è tornato a casa. Ha piovuto molto e le strade sono state vuote."
+      errors: [tense-aspect]
+      gold: {text: "Ha piovuto molto", fix: "Pioveva molto"}
+    - tutor: "Bell'inizio! Ma qui descrivi la scena: la pioggia, le strade vuote. Quale tempo usiamo per descrivere?"
+      prompt: {text: "Ha piovuto molto", tags: [tense-aspect]}
+    - learner: "Pioveva molto e le strade erano vuote. Sotto la porta c'era una lettera... non vi dico di più!"
+    - tutor: "Perfetto, si vede già la scena. E com'è il professore?"
+      goals: [summary]
+    - learner: "È un uomo molto educato: ha studiato a Oxford e legge sempre libri difficili."
+      errors: [false-friend]
+      gold: {text: "educato", fix: "colto"}
+    - tutor: "Ah, un uomo colto, che ha studiato tanto. Un professore perfetto per un giallo! E ti è piaciuto?"
+      recast: {text: "educato", fix: "colto", tags: [false-friend]}
+      goals: [characters]
+      new: [{lemma: colto, gloss: well-educated}]
+    - learner: "Moltissimo. Quando ho letto l'ultimo capitolo, è stata mezzanotte!"
+      errors: [tense-aspect]
+      gold: {text: "è stata mezzanotte", fix: "era mezzanotte"}
+    - tutor: "Che bello! Però «è stata mezzanotte»: qui dici che ora era. Quale tempo serve?"
+      prompt: {text: "è stata mezzanotte", tags: [tense-aspect]}
+    - learner: "È stato mezzanotte?"
+      errors: [tense-aspect]
+    - tutor: "Era mezzanotte e non riuscivi a smettere, quindi! Si capisce che ti è piaciuto. A chi lo consiglieresti?"
+      recast: {text: "È stato mezzanotte", fix: "Era mezzanotte", tags: [tense-aspect]}
+      goals: [opinion]
+    - learner: "Lo consiglierei a chi ama i gialli classici e le città italiane."
+    - tutor: "Ottimo consiglio, lo leggerò anch'io. Grazie! Chi continua?"
+      goals: [recommend]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Lucía, sono di Siviglia e ho studiato design a Milano con l'Erasmus."
+    - tutor: "Piacere. Che esperienza di lavoro ha?"
+      goals: [intro]
+    - learner: "L'anno scorso ho fatto uno stage in uno studio. Ogni giorno ho disegnato loghi per piccoli negozi."
+      errors: [tense-aspect]
+      gold: {text: "ho disegnato", fix: "disegnavo"}
+    - tutor: "«Ogni giorno ho disegnato»... È un'azione che si ripeteva, quindi il verbo cambia. Come lo direbbe?"
+      prompt: {text: "ho disegnato", tags: [tense-aspect]}
+    - learner: "Ogni giorno disegnavo loghi per piccoli negozi."
+    - tutor: "Molto bene. Quali sono i suoi punti forti? E un punto debole?"
+      goals: [experience]
+    - learner: "Sono creativa e lavoro bene in squadra. Il mio difetto è che sono un po' desordenata."
+      errors: [word-choice]
+      gold: {text: "desordenata", fix: "disordinata"}
+    - tutor: "Un po' disordinata? Succede a molte persone con tante idee! Perché vuole lavorare proprio da noi?"
+      recast: {text: "desordenata", fix: "disordinata", tags: [word-choice]}
+      goals: [strengths]
+      new: [{lemma: disordinato, gloss: messy}]
+    - learner: "Perché l'anno scorso vedevo una vostra mostra e mi è piaciuta tantissimo."
+      errors: [tense-aspect]
+      gold: {text: "vedevo una vostra mostra", fix: "ho visto una vostra mostra"}
+    - tutor: "Mi fa piacere! Ma «vedevo una vostra mostra»: è successo una volta sola, giusto? Allora?"
+      prompt: {text: "vedevo una vostra mostra", tags: [tense-aspect]}
+    - learner: "L'anno scorso ho visto una vostra mostra."
+    - tutor: "Esatto, quella dell'anno scorso a Milano. Ha qualche domanda per me?"
+      goals: [why]
+    - learner: "Sì: si lavora solo in ufficio o anche da casa?"
+    - tutor: "Il venerdì si può lavorare da casa. Le faremo sapere entro la prossima settimana."
+      goals: [questions]
+
+- scenario: compleanno
+  level: B1
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Ho un'idea: facciamo una cena a sorpresa da me sabato prossimo!"
+    - tutor: "Perfetto! Ma come la portiamo da te senza dirle niente?"
+      goals: [date]
+    - learner: "Le dirò che cucinarò una paella solo per noi due."
+      errors: [future-form]
+      gold: {text: "cucinarò", fix: "cucinerò"}
+    - tutor: "«Cucinarò»? Pensa al futuro di «parlare»: una lettera cambia."
+      prompt: {text: "cucinarò", tags: [future-form]}
+    - learner: "Le dirò che cucinerò una paella solo per lei. Invitiamo anche i suoi colleghi e i vicini?"
+    - tutor: "Bravissima, e furba! Sì, scrivo io ai colleghi e ai vicini: saremo più o meno dodici."
+      goals: [guests]
+    - learner: "Mia sorella farà la torta. E tu poterai portare le bevande?"
+      errors: [future-form]
+      gold: {text: "poterai", fix: "potrai"}
+    - tutor: "Certo! Ma «poterai»: anche «potere» al futuro perde una lettera."
+      prompt: {text: "poterai", tags: [future-form]}
+    - learner: "Poterrai portare le bevande?"
+      errors: [future-form]
+    - tutor: "Sì, potrai contare su di me: porto io le bevande! E il regalo?"
+      recast: {text: "Poterrai", fix: "potrai", tags: [future-form]}
+      goals: [food]
+    - learner: "Pensavo a un curso di cucina, perché a Sara piace tanto cucinare."
+      errors: [word-choice]
+      gold: {text: "un curso", fix: "un corso"}
+    - tutor: "Un corso di cucina, bellissima idea! Le piacerà di sicuro."
+      recast: {text: "un curso", fix: "un corso", tags: [word-choice]}
+      goals: [gift]
+    - learner: "Allora domani lo prenoto io su internet."
+    - tutor: "Perfetto, e io penso al vino. Sarà una bellissima festa!"
+
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Abitavo in una piccola città dell'Ohio, vicino a una riviera."
+      errors: [false-friend]
+      gold: {text: "una riviera", fix: "un fiume"}
+    - tutor: "Che bello, vicino a un fiume! E cosa facevi d'estate?"
+      recast: {text: "una riviera", fix: "un fiume", tags: [false-friend]}
+      goals: [place]
+    - learner: "D'estate sono andato a pescare con mio padre ogni sabato."
+      errors: [tense-aspect]
+      gold: {text: "sono andato", fix: "andavo"}
+    - tutor: "Ogni sabato... succedeva sempre. Allora, «sono andato» va bene?"
+      prompt: {text: "sono andato", tags: [tense-aspect]}
+    - learner: "Ogni sabato andavo a pescare con mio padre."
+    - tutor: "Che bel ricordo! E la scuola com'era?"
+      goals: [habits]
+    - learner: "Era lontana da casa. Ogni mattina prendavo un pulmino giallo con i miei amici."
+      errors: [imperfetto-form]
+      gold: {text: "prendavo", fix: "prendevo"}
+    - tutor: "«Prendavo»? Pensa all'infinito, «prendere»: quale lettera resta?"
+      prompt: {text: "prendavo", tags: [imperfetto-form]}
+    - learner: "Prendivo il pulmino?"
+      errors: [imperfetto-form]
+    - tutor: "Anch'io prendevo il pulmino, ma il mio era blu! C'è un ricordo speciale che non dimentichi?"
+      recast: {text: "Prendivo", fix: "prendevo", tags: [imperfetto-form]}
+      goals: [school]
+      new: [{lemma: pulmino, gloss: school bus}]
+    - learner: "Sì. Quando avevo dieci anni c'era una grande tempesta e la nostra casa perdeva il tetto."
+      errors: [tense-aspect]
+      gold: {text: "perdeva il tetto", fix: "ha perso il tetto"}
+    - tutor: "Che paura! Ma «perdeva il tetto»: è successo una volta, in un momento preciso. Come lo dici?"
+      prompt: {text: "perdeva il tetto", tags: [tense-aspect]}
+    - learner: "La nostra casa ha perso il tetto. Abbiamo dormito dai nonni per un mese."
+    - tutor: "Esatto. Che storia per un bambino di dieci anni!"
+      goals: [event]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Ho finito il website del cliente, ma mancano ancora le foto."
+      errors: [word-choice]
+      gold: {text: "il website", fix: "il sito"}
+    - tutor: "Ottimo, il sito è finito! E le foto quando arrivano?"
+      recast: {text: "il website", fix: "il sito", tags: [word-choice]}
+      goals: [update]
+    - learner: "Questo è il problema: il fotografo è malato e mandrà le foto solo lunedì."
+      errors: [future-form]
+      gold: {text: "mandrà", fix: "manderà"}
+    - tutor: "«Mandrà»? Manca un pezzo: pensa all'infinito «mandare»."
+      prompt: {text: "mandrà", tags: [future-form]}
+    - learner: "Il fotografo manderà le foto lunedì."
+    - tutor: "Giusto. Allora siamo in ritardo di tre giorni. Cosa proponi?"
+      goals: [problem]
+    - learner: "Potrebbiamo usare delle foto vecchie per adesso."
+      errors: [conditional-form]
+      gold: {text: "Potrebbiamo", fix: "Potremmo"}
+    - tutor: "«Potrebbiamo»? Il condizionale con «noi» ha una forma diversa. Prova ancora."
+      prompt: {text: "Potrebbiamo", tags: [conditional-form]}
+    - learner: "Potrebbemo usare le foto vecchie?"
+      errors: [conditional-form]
+    - tutor: "Sì, potremmo usare le foto vecchie per qualche giorno, è una buona idea. Quando finirai tutto?"
+      recast: {text: "Potrebbemo", fix: "potremmo", tags: [conditional-form]}
+      goals: [proposal]
+    - learner: "Finirò entro mercoledì, e giovedì farò vedere il sito al cliente."
+    - tutor: "Perfetto, allora la scadenza è giovedì. Grazie!"
+      goals: [deadline]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita con un dermatologo."
+    - tutor: "Certo. È la prima visita?"
+      goals: [type]
+    - learner: "Sì. Giovedì non posso, ma venerdì sarò libero dopo le tre. Averete un posto?"
+      errors: [future-form]
+      gold: {text: "Averete", fix: "Avrete"}
+    - tutor: "Controllo subito. Ma «averete»: il futuro di «avere» perde una lettera."
+      prompt: {text: "Averete", tags: [future-form]}
+    - learner: "Avrete un posto venerdì?"
+    - tutor: "Esatto. Sì, venerdì 15 alle 16 c'è un posto libero."
+      goals: [availability]
+    - learner: "Perfetto. Quanto costa la consulta? Devo portare qualche documento?"
+      errors: [false-friend]
+      gold: {text: "la consulta", fix: "la visita"}
+    - tutor: "La visita costa 90 euro. Porti la tessera sanitaria e, se ce l'ha, l'impegnativa del medico."
+      recast: {text: "la consulta", fix: "la visita", tags: [false-friend]}
+      goals: [cost]
+      new: [{lemma: tessera sanitaria, gloss: health card}]
+    - learner: "Va bene. Allora venerdì 15 alle 16 dal dermatologo, con la tessera e l'impegnativa."
+    - tutor: "Perfetto, è tutto confermato. Arrivi dieci minuti prima, per favore."
+      goals: [confirm]

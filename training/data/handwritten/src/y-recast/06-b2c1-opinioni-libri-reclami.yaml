@@ -1,0 +1,233 @@
+# B2 and C1, recast-focused: prompt, failed repair, recast carrying the exact corrected span
+# early in a reply that keeps the role-play moving; lexical recasts at once.
+- scenario: politica-lavoro
+  level: B2
+  persona: en-m-traveller
+  history: [hypothetical]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Secondo me esageri un po'. Alcuni lavori spariranno, ma ne nasceranno altri."
+    - tutor: "Sei molto positivo! E se invece ne sparissero più di quanti ne nascono?"
+      goals: [opinion]
+    - learner: "Se i robot farebbero tutto, nessuno potrebbe comprare niente."
+      errors: [hypothetical]
+    - tutor: "Idea interessante. Ma «se i robot farebbero»: dopo «se», in una frase così, che tempo ci vuole?"
+      prompt: {text: "farebbero", tags: [hypothetical]}
+    - learner: "Giusto... se i robot farebbero tutto il lavoro, l'economia si fermerebbe."
+      errors: [hypothetical]
+    - tutor: "Appunto, se i robot facessero tutto il lavoro, chi comprerebbe i prodotti? Fammi un esempio preciso di un lavoro che secondo te resterà."
+      goals: [hypothesis]
+      recast: {text: "farebbero", fix: "facessero", tags: [hypothetical]}
+    - learner: "Per esempio i plumber: nessuna macchina può riparare un tubo in una casa vecchia."
+      errors: [word-choice]
+    - tutor: "Gli idraulici, certo! Hai ragione, con le case vecchie ci vuole fantasia."
+      goals: [example]
+      recast: {text: "plumber", fix: "idraulici", tags: [word-choice]}
+      new: [{lemma: idraulico, gloss: plumber}]
+    - learner: "Esatto, e anche chi si occupa degli anziani: serve una persona, non un robot."
+    - tutor: "Su questo hai ragione. Quindi, per concludere?"
+    - learner: "Quindi i lavori cambieranno, ma non spariranno. Tu alla fine cosa ne pensi?"
+    - tutor: "Mi hai quasi convinto. Diciamo che l'importante sarà continuare a imparare."
+      goals: [conclude]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-student
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Sì, purtroppo. Abbiamo aspettato un'ora per i secondi e il pesce era freddo."
+    - tutor: "Mi dispiace davvero, non è il nostro stile. Mi racconta meglio cos'è successo?"
+      goals: [complain]
+    - learner: "Quando l'ho detto al cameriere, è stato molto rude con me."
+      errors: [false-friend]
+    - tutor: "Maleducato con lei? Questo non va bene per niente, ne parlerò con lui personalmente."
+      goals: [detail]
+      recast: {text: "rude", fix: "Maleducato", tags: [false-friend]}
+      new: [{lemma: maleducato, gloss: rude}]
+    - learner: "Grazie. Speravo che la cucina stasse più attenta, visto che è un ristorante così famoso."
+      errors: [subjunctive-form]
+    - tutor: "Ha ragione. Solo una cosa: «stasse» non è la forma giusta del congiuntivo di «stare». Ci riprova?"
+      prompt: {text: "stasse", tags: [subjunctive-form]}
+    - learner: "Ah... speravo che stasse più attenta, sì."
+      errors: [subjunctive-form]
+    - tutor: "Anch'io avrei voluto che stesse più attenta, mi creda. Per scusarci, posso offrirle la cena di stasera?"
+      goals: [expectation]
+      recast: {text: "stasse", fix: "stesse", tags: [subjunctive-form]}
+    - learner: "È molto gentile, accetto volentieri. Spero che la prossima volta vada meglio."
+    - tutor: "Glielo garantisco. E la prossima volta il dolce lo offriamo noi."
+      goals: [resolve]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, molto, è luminoso e vicino all'università. Però ho una preoccupazione: in camera non ci sono armari."
+      errors: [word-choice]
+    - tutor: "Gli armadi si possono aggiungere, il proprietario è disponibile. Altre preoccupazioni?"
+      goals: [interest]
+      recast: {text: "armari", fix: "armadi", tags: [word-choice]}
+    - learner: "Sì, l'affitto: settecento euro sono troppi per me. Potrei pagare seicentocinquanta, a condizione che il proprietario abbassa anche le spese."
+      errors: [subjunctive-use]
+    - tutor: "Ne possiamo parlare. Ma «a condizione che il proprietario abbassa»: dopo «a condizione che», quale modo serve?"
+      prompt: {text: "abbassa", tags: [subjunctive-use]}
+    - learner: "Ah... a condizione che abbassa le spese, sì."
+      errors: [subjunctive-use]
+    - tutor: "A condizione che abbassi le spese: proverò a chiederglielo, ma non prometto niente. Se accetta, firmerebbe per quattro anni?"
+      goals: [negotiate]
+      recast: {text: "abbassa", fix: "abbassi", tags: [subjunctive-use]}
+    - learner: "Preferirei un contratto di tre anni più due, con un preavviso di tre mesi."
+    - tutor: "Si può fare. Il proprietario chiede però due mesi di deposito."
+      goals: [conditions]
+    - learner: "Va bene. Se accetta seicentocinquanta, firmo anche domani."
+    - tutor: "Perfetto, lo chiamo oggi stesso e la richiamo in serata."
+      goals: [conclude]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Per la cucina, ovviamente! Sono cuoco, e mio nonno era di Bologna."
+    - tutor: "Un ritorno alle origini, allora! Qual è stata la cosa più difficile all'inizio?"
+      goals: [story]
+    - learner: "La burocrazia. Per il permesso di soggiorno facevo ore di cola davanti alla questura."
+      errors: [word-choice]
+    - tutor: "Ore di fila davanti alla questura: un classico, purtroppo! Si sentiva un po' giù?"
+      goals: [difficulties]
+      recast: {text: "cola", fix: "fila", tags: [word-choice]}
+    - learner: "Sì, un po'. Ma adesso va meglio. Penso che l'Italia ha cambiato il mio modo di cucinare."
+      errors: [subjunctive-use]
+    - tutor: "Che bello sentirlo. Ma «penso che l'Italia ha cambiato»: dopo «penso che» ci vuole un altro modo."
+      prompt: {text: "ha cambiato", tags: [subjunctive-use]}
+    - learner: "Sì, penso che ha cambiato tutto: uso meno carne e più verdure."
+      errors: [subjunctive-use]
+    - tutor: "Non mi stupisce che l'Italia abbia cambiato il suo modo di cucinare: qui la verdura è sacra! E lei come persona è cambiato?"
+      recast: {text: "ha cambiato", fix: "abbia cambiato", tags: [subjunctive-use]}
+    - learner: "Sì, sono più paziente. E parlo con le mani!"
+    - tutor: "Allora è diventato italiano davvero! Un consiglio per chi vuole trasferirsi?"
+      goals: [change]
+    - learner: "Imparare la lingua prima di partire, e portare tanta pazienza."
+    - tutor: "Consiglio prezioso. Grazie di essere stato con noi!"
+      goals: [advice]
+
+- scenario: club-lettura
+  level: C1
+  persona: en-f-professional
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Sì, finito domenica! Nel complesso mi è piaciuto, anche se la seconda parte mi è sembrata più lenta."
+    - tutor: "La seconda parte divide sempre, è vero. E Marta? Ti ha convinto la sua scelta di partire?"
+      goals: [impression]
+    - learner: "Sì, secondo me la sua decisione era molto sensibile: in quel paese non aveva nessun futuro."
+      errors: [false-friend]
+    - tutor: "Sensata, sì, ma anche crudele verso la madre, non trovi? Io l'ho capita solo a metà."
+      recast: {text: "sensibile", fix: "Sensata", tags: [false-friend]}
+    - learner: "Capisco, ma al suo posto chiunque avrebbe partito, anche lasciando la famiglia."
+      errors: [auxiliary-choice]
+    - tutor: "Può darsi. Però «avrebbe partito» suona male: con «partire» si usa davvero «avere»?"
+      goals: [character]
+      prompt: {text: "avrebbe partito", tags: [auxiliary-choice]}
+    - learner: "Giusto... chiunque avrebbe partito, ne sono convinta."
+      errors: [auxiliary-choice]
+    - tutor: "Chiunque sarebbe partito, forse, ma non tutti l'avrebbero fatto di notte, senza salutare nessuno. E lo stile, come l'hai trovato?"
+      recast: {text: "avrebbe partito", fix: "sarebbe partito", tags: [auxiliary-choice]}
+    - learner: "Asciutto, quasi giornalistico, con frasi brevissime. All'inizio mi irritava, poi l'ho trovato ipnotico."
+    - tutor: "Ipnotico è la parola giusta. A chi lo consiglieresti?"
+      goals: [style]
+    - learner: "A chi ama i romanzi di formazione, ma non a chi cerca una trama piena di colpi di scena."
+    - tutor: "Sottoscrivo ogni parola. Il mese prossimo però la scelta tocca a te!"
+      goals: [recommend]
+
+- scenario: intervista-podcast
+  level: C1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivato proprio in Italia?"
+    - learner: "Grazie a voi! Sono arrivato sei anni fa per lavorare un'estate in un ostello a Firenze, e non sono più ripartito."
+    - tutor: "Il classico lavoretto estivo diventato una vita! C'è stata una differenza culturale che ti ha spiazzato all'inizio?"
+      goals: [story]
+    - learner: "Sì, gli orari. La prima volta che ho invitato amici a cena, alle undici nessuno si è andato: sono rimasti fino alle due!"
+      errors: [ci-ne]
+    - tutor: "Ah, le cene infinite! Ma «nessuno si è andato»... a quel verbo manca un pezzetto. Quale?"
+      prompt: {text: "si è andato", tags: [ci-ne]}
+    - learner: "Sì, nessuno si è andato via, e io avevo sonno!"
+      errors: [ci-ne]
+    - tutor: "Nessuno se n'è andato prima delle due, e tu crollavi dal sonno: scena da film! C'è qualcosa che invece ti fa davvero arrabbiare dell'Italia?"
+      goals: [culture-shock]
+      recast: {text: "si è andato", fix: "se n'è andato", tags: [ci-ne]}
+    - learner: "La burocrazia, senza dubbio: per rinnovare il permesso servono mesi, e ogni ufficio ti chiede un documento diverso."
+    - tutor: "Una critica che sottoscriverebbero anche molti italiani, credimi. E a chi sta pensando di trasferirsi qui, cosa diresti?"
+      goals: [critique]
+    - learner: "Di fare la decisione con calma, e di imparare l'italiano prima di partire."
+      errors: [word-choice]
+    - tutor: "Prendere la decisione con calma e imparare la lingua prima: due consigli d'oro. Qualcos'altro?"
+      goals: [advice]
+      recast: {text: "fare la decisione", fix: "Prendere la decisione", tags: [word-choice]}
+    - learner: "Sì: non aspettatevi che tutto funzioni come a casa vostra, e godetevi le cene lunghe!"
+    - tutor: "Messaggio ricevuto. Grazie di cuore per questa chiacchierata, alla prossima puntata!"
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: en-m-heritage
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Certo, si sieda pure. Mi racconti con calma che cosa non è andato."
+    - tutor: "Ieri Luca ha presentato al direttore il progetto che seguo da tre mesi, e non mi ha nemmeno citato."
+      goals: [listen]
+    - learner: "Capisco, dev'essere stato frustrante. Lei pensa che l'abbia fatto apposta?"
+    - tutor: "Non lo so. Forse sì. Da quando è arrivato, si prende sempre tutti i meriti."
+      goals: [clarify]
+    - learner: "Ho parlato con Luca stamattina. Mi ha detto che ha assunto che lei fosse d'accordo."
+      errors: [false-friend]
+    - tutor: "Ha dato per scontato che fossi d'accordo? Ma nessuno me l'ha chiesto!"
+      recast: {text: "assunto", fix: "dato per scontato", tags: [false-friend]}
+    - learner: "Ha ragione, avrebbe dovuto chiederglielo. Ma Luca dice anche che il progetto a che lavorate insieme era quasi finito, e il direttore aveva fretta."
+      errors: [relative-pronoun]
+    - tutor: "«Il progetto a che lavoriamo»? Mi scusi, ma con la preposizione davanti quel «che» non funziona."
+      goals: [perspective]
+      prompt: {text: "a che lavorate", tags: [relative-pronoun]}
+    - learner: "Ah, sì... il progetto a che lavorate da mesi, insomma."
+      errors: [relative-pronoun]
+    - tutor: "Sì, il progetto a cui lavoriamo da mesi... va bene, forse il direttore aveva davvero fretta. Ma allora che cosa propone?"
+      recast: {text: "a che", fix: "a cui", tags: [relative-pronoun]}
+    - learner: "Propongo che alla prossima riunione presentiate insieme i risultati, e che nella mail al direttore compaiano tutti e due i nomi."
+    - tutor: "Mi sembra giusto. Se Luca è d'accordo, per me la questione è chiusa."
+      goals: [solution]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: es-f-teacher
+  history: [passive]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Vorrei presentare un reclamo formale: la mia strada, via dei Mille, è piena di baches da almeno sei mesi."
+      errors: [word-choice]
+    - tutor: "Le buche di via dei Mille, sì, ci sono già state altre segnalazioni. Ha subito danni, per caso?"
+      goals: [describe]
+      recast: {text: "baches", fix: "buche", tags: [word-choice]}
+    - learner: "Mia figlia è caduta in bicicletta la settimana scorsa, per fortuna senza conseguenze gravi."
+    - tutor: "Mi dispiace per sua figlia. I lavori sono effettivamente in programma, ma non le so dire la data."
+    - learner: "Mi scusi, ma questa risposta non mi basta. Da mesi si promette lavori che poi non si fanno mai."
+      errors: [passive]
+    - tutor: "Ha tutto il diritto di insistere. Solo un dettaglio: in «si promette lavori», il verbo con che cosa si accorda?"
+      goals: [insist]
+      prompt: {text: "si promette lavori", tags: [passive]}
+    - learner: "Sì, si promette lavori da mesi, appunto, e nessuno li fa."
+      errors: [passive]
+    - tutor: "Ha ragione, si promettono lavori da mesi e la gente è stanca. Posso spiegarle la procedura formale: può protocollare un esposto."
+      recast: {text: "si promette lavori", fix: "si promettono lavori", tags: [passive]}
+      new: [{lemma: esposto, gloss: formal complaint}, {lemma: protocollare, gloss: to file officially}]
+    - learner: "E se mia figlia si fosse fatta male davvero? Quali sarebbero i miei diritti?"
+    - tutor: "In quel caso potrebbe chiedere un risarcimento al Comune, presentando il certificato medico e alcune foto della buca."
+      goals: [rights]
+      new: [{lemma: risarcimento, gloss: compensation}]
+    - learner: "Bene. Allora protocolliamo l'esposto adesso. Mi darà un numero di riferimento?"
+    - tutor: "Certo: il suo numero di protocollo è 4512. Entro trenta giorni riceverà una risposta scritta, glielo garantisco."
+      goals: [commitment]

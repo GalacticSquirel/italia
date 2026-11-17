@@ -1,0 +1,237 @@
+# B1 and B2, recast-focused: prompt, failed repair, recast; lexical recasts at once.
+- scenario: smartworking
+  level: B1
+  persona: en-f-professional
+  history: [preposition]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Tutte e due: tre giorni da casa e due in ufficio."
+    - tutor: "Ah, una via di mezzo! E come ti trovi?"
+      goals: [situation]
+    - learner: "Bene. Lavorare da casa è molto conveniente, non perdo tempo nel traffico."
+      errors: [false-friend]
+    - tutor: "È molto comodo, sì, e risparmi un sacco di tempo. Ci sono anche dei lati negativi?"
+      goals: [pros]
+      recast: {text: "conveniente", fix: "comodo", tags: [false-friend]}
+    - learner: "Sì, a volte mi sento sola e lavoro troppe ore."
+    - tutor: "Succede a tanti. Se potessi scegliere, cosa faresti?"
+      goals: [cons]
+    - learner: "Dipende sul periodo, ma forse preferirei quattro giorni in ufficio."
+      errors: [preposition]
+    - tutor: "Interessante! Ma «dipende sul periodo»? Il verbo «dipendere» vuole un'altra preposizione. Quale?"
+      goals: [preference]
+      prompt: {text: "Dipende sul periodo", tags: [preposition]}
+    - learner: "Ah sì: dipende sul periodo e sui progetti."
+      errors: [preposition]
+    - tutor: "Certo, dipende dal periodo e dai progetti. Io invece starei a casa sempre!"
+      recast: {text: "dipende sul periodo", fix: "dipende dal periodo", tags: [preposition]}
+    - learner: "Davvero? Io in ufficio sono più concentrata."
+    - tutor: "Che fortuna! A casa mia c'è il gatto che cammina sul computer tutto il giorno."
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! È molto luminoso. Quanto costa l'affitto e cosa comprende?"
+    - tutor: "Sono 850 euro al mese, spese comprese. Il riscaldamento invece lo paga a parte."
+      goals: [rent]
+    - learner: "Capisco. Per il contratto, devo pagare una fianza?"
+      errors: [word-choice]
+    - tutor: "Sì, la cauzione è di tre mesi, e il contratto è di quattro anni più quattro. Se vuole, le spiego i dettagli."
+      goals: [contract]
+      recast: {text: "fianza", fix: "cauzione", tags: [word-choice]}
+      new: [{lemma: cauzione, gloss: security deposit}]
+    - learner: "Va bene. Gli elettrodomestici sono nuovi? E la caldaia funziona bene?"
+    - tutor: "La cucina è stata rifatta due anni fa, e la caldaia l'abbiamo cambiata a ottobre. Conosce già il quartiere?"
+      goals: [condition]
+    - learner: "Sì, un po'. Ho un'amica che vive da tre anni e dice che è molto tranquillo."
+      errors: [ci-ne]
+    - tutor: "Ottimo. Però «un'amica che vive da tre anni»... vive dove? Manca una piccola parola che indica il luogo."
+      prompt: {text: "che vive da tre anni", tags: [ci-ne]}
+    - learner: "Sì, sì, la mia amica vive da tre anni, è contentissima."
+      errors: [ci-ne]
+    - tutor: "Se la sua amica ci vive da tre anni ed è contenta, è un ottimo segno! Allora, le interessa?"
+      goals: [neighbourhood]
+      recast: {text: "vive da tre anni", fix: "ci vive da tre anni", tags: [ci-ne]}
+    - learner: "Sì, mi interessa molto. Posso darle una risposta entro venerdì?"
+    - tutor: "Certo, aspetto la sua chiamata entro venerdì. Arrivederci!"
+      goals: [decide]
+
+- scenario: arte-mostra
+  level: B2
+  persona: en-m-heritage
+  history: [passive]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Mi colpisce subito la luce: sembra che venga da dentro la tela."
+    - tutor: "Vero? È una luce quasi da teatro. Cosa vedi, esattamente?"
+      goals: [react]
+    - learner: "Vedo una donna che legge una lettera vicino alla finestra. Qual è l'argomento del quadro, secondo te?"
+      errors: [word-choice]
+    - tutor: "Il soggetto sembra semplice, una donna che legge, ma dietro c'è tutta una storia. Secondo te cosa dice la lettera?"
+      goals: [describe]
+      recast: {text: "argomento", fix: "soggetto", tags: [word-choice]}
+    - learner: "Forse è una lettera d'amore: il suo viso è triste ma anche pieno di speranza."
+    - tutor: "Mi piace questa lettura. Sai di che epoca è?"
+      goals: [interpret]
+    - learner: "Credo che questa tela è stato dipinto nel Seicento, in Olanda."
+      errors: [passive, subjunctive-use]
+    - tutor: "Bella idea! Ma «questa tela è stato dipinto»: la tela è femminile, quindi tutto il verbo...?"
+      prompt: {text: "è stato dipinto", tags: [passive]}
+    - learner: "Sì, la tela è stato dipinto in Olanda, verso il 1660."
+      errors: [passive]
+    - tutor: "Sì, la tela è stata dipinta in Olanda proprio in quegli anni: ricorda molto Vermeer. Ti sembra simile ad altri quadri che conosci?"
+      recast: {text: "è stato dipinto", fix: "è stata dipinta", tags: [passive]}
+    - learner: "Sì, mi ricorda «La ragazza con l'orecchino di perla», ma è meno famoso."
+    - tutor: "Meno famoso, ma secondo me bello quanto quello. Andiamo a vedere la sala successiva?"
+      goals: [compare]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: en-f-professional
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Quest'anno il mio team ha superato gli obiettivi di vendita del venti per cento."
+    - tutor: "Lo so, sono ottimi risultati, brava. Che cosa mi vuole proporre?"
+      goals: [results]
+    - learner: "Mi piacerebbe ottenere una promozione. Eventualmente vorrei diventare responsabile di area."
+      errors: [false-friend]
+    - tutor: "Diventare responsabile di area prima o poi è un obiettivo giusto. Ma perché proprio adesso?"
+      goals: [request]
+      recast: {text: "Eventualmente", fix: "prima o poi", tags: [false-friend]}
+    - learner: "Perché da un anno faccio già quel lavoro, e mi aspetto che l'azienda lo riconoschi."
+      errors: [subjunctive-form]
+    - tutor: "Capisco. Ma «che l'azienda lo riconoschi»: il congiuntivo di «riconoscere» non finisce così. Ci riprova?"
+      prompt: {text: "riconoschi", tags: [subjunctive-form]}
+    - learner: "Sì, mi aspetto che lo riconoschi in modo concreto."
+      errors: [subjunctive-form]
+    - tutor: "Capisco che lei si aspetti che l'azienda lo riconosca in modo concreto. Il problema è che il budget di quest'anno è già chiuso."
+      recast: {text: "riconoschi", fix: "riconosca", tags: [subjunctive-form]}
+    - learner: "Capisco, ma potrebbe essere una promozione senza aumento fino a gennaio, e poi rivedere lo stipendio?"
+    - tutor: "È una proposta ragionevole. Ne parlo con la direzione e le do una risposta entro fine mese."
+      goals: [handle]
+    - learner: "Perfetto, la ringrazio. Allora ci risentiamo a fine mese."
+    - tutor: "D'accordo, segno l'appuntamento per il 28. Grazie a lei."
+      goals: [next-steps]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri sera ho avuto un incidente in via Marconi, vicino al supermercato."
+    - tutor: "Mi dispiace. Lei sta bene? Mi descriva com'è andata."
+    - learner: "Sì, sto bene. Io ero fermo al semaforo; l'altra macchina usciva dal parcheggio e tamponava la mia."
+      errors: [tense-aspect]
+    - tutor: "Capisco. Però «tamponava»: è un'azione che durava o un fatto preciso, successo una volta?"
+      goals: [what]
+      prompt: {text: "tamponava", tags: [tense-aspect]}
+    - learner: "Un fatto preciso... la macchina tamponava forte, dietro."
+      errors: [tense-aspect]
+    - tutor: "Quindi ha tamponato forte la parte posteriore, mentre lei era fermo. Di chi è la colpa, secondo lei?"
+      recast: {text: "tamponava", fix: "ha tamponato", tags: [tense-aspect]}
+    - learner: "Del conductor dell'altra macchina: guardava il telefono, non la strada."
+      errors: [word-choice]
+    - tutor: "Se il conducente guardava il telefono, la responsabilità è chiaramente sua. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+      recast: {text: "conductor", fix: "conducente", tags: [word-choice]}
+      new: [{lemma: conducente, gloss: driver}, {lemma: constatazione, gloss: accident report}]
+    - learner: "Sì, l'abbiamo firmata tutti e due, e ho fatto anche delle foto."
+    - tutor: "Perfetto, me la mandi per email insieme alle foto."
+      goals: [documents]
+    - learner: "Va bene. E adesso cosa succede? Quanto tempo ci vuole per la riparazione?"
+    - tutor: "Entro una settimana un nostro esperto controllerà i danni, poi potrà portare l'auto a riparare."
+      goals: [next]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: es-f-erasmus
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Lo immaginiamo semplice, con pochi invitati, nel campo, all'aperto."
+      errors: [false-friend]
+    - tutor: "Un matrimonio in campagna, all'aperto: che bello! Quanti invitati avete in mente?"
+      goals: [vision]
+      recast: {text: "nel campo", fix: "in campagna", tags: [false-friend]}
+    - learner: "Circa sessanta persone. Il nostro budget è di quindicimila euro, non di più."
+    - tutor: "Con quindicimila euro per sessanta persone si può fare qualcosa di molto curato. Ho due proposte: un agriturismo vicino a Siena o una villa sul lago."
+      goals: [budget]
+    - learner: "L'agriturismo mi sembra più adatto a noi. Quanto costa?"
+    - tutor: "Ottima scelta: l'affitto è di quattromila euro, cena compresa. Ci sono esigenze particolari per il menù?"
+      goals: [choices]
+    - learner: "Sì, il mio fidanzato è vegetariano. Al catering, gli lo diciamo noi?"
+      errors: [combined-pronouns]
+    - tutor: "Buono a sapersi. Ma «gli lo diciamo»: quando i due pronomi si incontrano, cambiano forma. Come?"
+      prompt: {text: "gli lo", tags: [combined-pronouns]}
+    - learner: "Allora... al catering gli lo spieghiamo noi, va bene?"
+      errors: [combined-pronouns]
+    - tutor: "Non si preoccupi, glielo spiego io: è il mio lavoro! Ci sono altre condizioni per me?"
+      recast: {text: "gli lo", fix: "glielo", tags: [combined-pronouns]}
+    - learner: "Sì, una sola: niente sorprese sui costi. Ogni spesa extra dobbiamo approvarla prima noi."
+    - tutor: "Giustissimo, lo scriviamo nel contratto. Vi mando tutto entro venerdì."
+      goals: [conditions]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Non sono d'accordo. Credo che un centro senza auto sia più vivibile e anche più attraente."
+    - tutor: "Più vivibile forse, ma la gente come ci arriva? I clienti vogliono parcheggiare davanti al negozio."
+      goals: [position]
+    - learner: "Con mezzi pubblici efficienti non serve la macchina. Io ho vissuto a Friburgo, una città la quale centro è chiuso alle auto da anni."
+      errors: [relative-pronoun]
+    - tutor: "Esempio interessante. Ma «una città la quale centro»: per dire di chi è il centro, quale pronome usiamo?"
+      prompt: {text: "la quale centro", tags: [relative-pronoun]}
+    - learner: "Ah... una città la quale il centro è chiuso, e funziona benissimo."
+      errors: [relative-pronoun]
+    - tutor: "Una città il cui centro è chiuso da anni e funziona: va bene, ma Friburgo non è Bologna. E i commercianti?"
+      goals: [argue]
+      recast: {text: "la quale il centro", fix: "il cui centro", tags: [relative-pronoun]}
+    - learner: "Attualmente, i commercianti di Friburgo hanno guadagnato di più, perché la gente passeggia e si ferma nei negozi."
+      errors: [false-friend]
+    - tutor: "In realtà hanno guadagnato di più? Ammetto che non lo sapevo. Però qui molti negozianti temono di perdere i clienti anziani."
+      goals: [counter]
+      recast: {text: "Attualmente", fix: "In realtà", tags: [false-friend]}
+    - learner: "Su questo ha ragione: gli anziani vanno aiutati. Si potrebbe offrire una navetta gratuita e lasciare alcuni parcheggi per i disabili."
+    - tutor: "Una navetta gratuita... Mi sembra una buona soluzione. La proponiamo insieme alla riunione di giovedì?"
+      goals: [concede]
+    - learner: "Volentieri, prepariamo la proposta."
+    - tutor: "Perfetto, allora ci vediamo giovedì alla riunione."
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-teacher
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Non molto bene. Mi sento sempre cansata, anche quando dormo otto ore."
+      errors: [word-choice]
+    - tutor: "Sempre stanca, anche dopo otto ore di sonno... Le capita anche di sentire il cuore che batte forte?"
+      recast: {text: "cansata", fix: "stanca", tags: [word-choice]}
+    - learner: "Sì, a volte il cuore batte fortissimo quando salgo le scale."
+    - tutor: "Capisco. In famiglia ci sono stati problemi di cuore?"
+      goals: [symptoms]
+    - learner: "Sì, mio padre ha avuto un infarto, e mio fratello ha diventato iperteso a trent'anni."
+      errors: [auxiliary-choice]
+    - tutor: "Grazie, è un'informazione importante. Ma «ha diventato»: con «diventare» va bene «ha»?"
+      prompt: {text: "ha diventato", tags: [auxiliary-choice]}
+    - learner: "Ah sì... mio fratello ha diventato iperteso molto giovane."
+      errors: [auxiliary-choice]
+    - tutor: "È diventato iperteso molto giovane, quindi in famiglia c'è una certa tendenza. Per questo è importante capire bene i suoi esami."
+      goals: [history]
+      recast: {text: "ha diventato", fix: "È diventato", tags: [auxiliary-choice]}
+    - learner: "Appunto: cosa dicono gli esami? È grave?"
+    - tutor: "Non è grave, ma la pressione è alta e anche il colesterolo. È bene che lei cominci una terapia leggera."
+      goals: [understand]
+      new: [{lemma: colesterolo, gloss: cholesterol}]
+    - learner: "Che tipo di terapia? Ci sono effetti collaterali?"
+    - tutor: "Una pastiglia al giorno: all'inizio può farla sentire un po' stanca, ma di solito passa in due settimane."
+      new: [{lemma: pastiglia, gloss: tablet}]
+      goals: [treatment]

@@ -1,0 +1,229 @@
+# A1 and A2, recast-focused: failed repair after a prompt, then a natural recast; lexical
+# errors that block meaning recast at once.
+- scenario: orari-negozio
+  level: A1
+  persona: en-f-student
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Pronto, negozio Bianchi, buongiorno!"
+    - learner: "Buongiorno! Chiamo per sapere gli orari del negozio."
+    - tutor: "Certo, nessun problema. Cosa vuole sapere?"
+      goals: [greet]
+    - learner: "A che ora aprite in the morning?"
+      errors: [word-choice]
+    - tutor: "La mattina apriamo alle nove. La sera chiudiamo alle sette e mezza."
+      goals: [ask-hours]
+      recast: {text: "in the morning", fix: "La mattina", tags: [word-choice]}
+    - learner: "Perfetto. E la domenica siete aperto?"
+      errors: [adjective-agreement]
+    - tutor: "«Siete aperto»? Attenzione: con «voi» la parola cambia. Come?"
+      prompt: {text: "aperto", tags: [adjective-agreement]}
+    - learner: "Ah, sì... siete aperto la domenica?"
+      errors: [adjective-agreement]
+    - tutor: "Sì, siamo aperti la domenica, ma solo la mattina."
+      goals: [ask-day]
+      recast: {text: "aperto", fix: "aperti", tags: [adjective-agreement]}
+    - learner: "Va bene, allora vengo domenica. Grazie, arrivederci!"
+    - tutor: "Grazie a lei, a domenica! Arrivederci."
+      goals: [goodbye]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: es-f-erasmus
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Buongiorno! Siamo due. C'è un tavolo vicino alla finestra?"
+    - tutor: "Sì, prego, da questa parte. Ecco il menù."
+      goals: [ask-table]
+    - learner: "Grazie. Per me i spaghetti al pomodoro."
+      errors: [article-form]
+    - tutor: "«I spaghetti»? L'articolo non va bene. Ci pensa un momento?"
+      prompt: {text: "i spaghetti", tags: [article-form]}
+    - learner: "Mmm... il spaghetti?"
+      errors: [article-form]
+    - tutor: "Gli spaghetti al pomodoro, perfetto! E da bere?"
+      goals: [order-food]
+      recast: {text: "il spaghetti", fix: "Gli spaghetti", tags: [article-form]}
+    - learner: "Una botella di acqua naturale, per favore."
+      errors: [word-choice]
+    - tutor: "Una bottiglia di acqua naturale, subito!"
+      goals: [order-drink]
+      recast: {text: "botella", fix: "bottiglia", tags: [word-choice]}
+      new: [{lemma: bottiglia, gloss: bottle}]
+    - learner: "Grazie. Scusi, il conto, per favore."
+    - tutor: "Certo, arriva subito. Sono ventidue euro."
+      goals: [ask-bill]
+    - learner: "Ecco. Tutto buonissimo, grazie!"
+    - tutor: "Grazie a voi, arrivederci!"
+
+- scenario: chiedere-strada
+  level: A1
+  persona: en-m-heritage
+  history: [question-form]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, scusi! Cerco la stazione. Che è la strada più facile?"
+      errors: [question-form]
+    - tutor: "Certo! Ma «che è la strada»? La domanda comincia con un'altra parola."
+      goals: [get-attention, ask-place]
+      prompt: {text: "Che è la strada", tags: [question-form]}
+    - learner: "Ehm... che è la strada per la stazione?"
+      errors: [question-form]
+    - tutor: "Qual è la strada? È facile: vada dritto e poi giri a destra."
+      recast: {text: "che è la strada", fix: "Qual è la strada", tags: [question-form]}
+    - learner: "È lontano? Ho una valigia molto heavy."
+      errors: [word-choice]
+    - tutor: "Con una valigia pesante sono dieci minuti. C'è anche l'autobus."
+      recast: {text: "heavy", fix: "pesante", tags: [word-choice]}
+      new: [{lemma: pesante, gloss: heavy}]
+    - learner: "Va bene, vado a piedi. Allora dritto, poi a destra?"
+    - tutor: "Sì, e la stazione è lì davanti."
+      goals: [understand]
+    - learner: "Grazie mille, lei è molto gentile!"
+    - tutor: "Di niente, buon viaggio!"
+      goals: [thank]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: en-m-retired
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Bene, grazie! Sabato i miei nipoti hanno venuti a casa nostra."
+      errors: [auxiliary-choice]
+    - tutor: "Che bello! Ma «hanno venuti»: con «venire» va bene «hanno»?"
+      prompt: {text: "hanno venuti", tags: [auxiliary-choice]}
+    - learner: "Ah, sì... i miei nipoti hanno venuti sabato mattina."
+      errors: [auxiliary-choice]
+    - tutor: "Sono venuti sabato mattina, che bella sorpresa! E cosa avete fatto insieme?"
+      goals: [with-who]
+      recast: {text: "hanno venuti", fix: "Sono venuti", tags: [auxiliary-choice]}
+    - learner: "Siamo andati al lago e abbiamo fatto un picnic."
+    - tutor: "Con questo sole, perfetto! C'era tanta gente al lago?"
+      goals: [where, what]
+    - learner: "Sì, molta. Domenica invece abbiamo visitato i miei relativi a Varese."
+      errors: [word-choice]
+    - tutor: "Ah, i tuoi parenti di Varese! Abitano lontano?"
+      recast: {text: "relativi", fix: "parenti", tags: [word-choice]}
+      new: [{lemma: parente, gloss: relative}]
+    - learner: "No, solo un'ora in macchina. È stato un weekend bellissimo. E il tuo?"
+    - tutor: "Il mio è stato tranquillo: ho letto e ho dormito tanto!"
+      goals: [opinion]
+
+- scenario: vacanze-passate
+  level: A2
+  persona: es-f-erasmus
+  history: [participle-agreement]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Sono stata in Puglia, a Lecce, per dieci giorni."
+    - tutor: "In Puglia, che bello! Con chi sei andata?"
+      goals: [where]
+    - learner: "Prima da sola, poi le mie amiche sono arrivato da Madrid."
+      errors: [participle-agreement]
+    - tutor: "Le tue amiche «sono arrivato»? Guarda la fine della parola: sono ragazze, e sono tante."
+      prompt: {text: "sono arrivato", tags: [participle-agreement]}
+    - learner: "Ah... le mie amiche sono arrivata?"
+      errors: [participle-agreement]
+    - tutor: "Ah, sono arrivate da Madrid, che bello! Che tempo avete trovato?"
+      recast: {text: "sono arrivata", fix: "sono arrivate", tags: [participle-agreement]}
+    - learner: "Faceva caldissimo, trentacinque gradi ogni giorno."
+    - tutor: "Che caldo! E cosa avete fatto?"
+      goals: [weather]
+    - learner: "Mare, mare e ancora mare! Ma il viaggio in autobus fino a Lecce è stato molto largo."
+      errors: [false-friend]
+    - tutor: "Un viaggio lungo, immagino! Qual è stata la cosa più bella?"
+      goals: [activities]
+      recast: {text: "largo", fix: "lungo", tags: [false-friend]}
+    - learner: "La cosa più bella è stata il centro di Lecce di sera, con tutte le luci."
+    - tutor: "Lecce di sera è bellissima! Hai fatto bene ad andarci."
+      goals: [best]
+
+- scenario: compleanno
+  level: A2
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa sabato sera a casa mia?"
+    - tutor: "Sì, ottima idea! Ma sabato lei lavora, no?"
+    - learner: "Sì, sabato Sara doverà lavorare fino alle sette."
+      errors: [future-form]
+    - tutor: "«Doverà»? Il futuro di questo verbo è un po' più corto. Prova!"
+      prompt: {text: "doverà", tags: [future-form]}
+    - learner: "Dovverà? Lei doverà lavorare, quindi la festa alle nove."
+      errors: [future-form]
+    - tutor: "Dovrà lavorare, è vero, allora alle nove va benissimo. Chi invitiamo?"
+      goals: [date]
+      recast: {text: "doverà", fix: "Dovrà", tags: [future-form]}
+    - learner: "Invitiamo i suoi colleghi e le amiche della palestra."
+    - tutor: "Perfetto, saremo quindici persone. Io preparo le pizze, e il dolce?"
+      goals: [guests]
+    - learner: "Compro io una torta al cioccolato, le piace tantissimo."
+    - tutor: "Brava, la adora! E cosa le compriamo?"
+      goals: [food]
+    - learner: "Per il presente, compriamo un libro di cucina?"
+      errors: [false-friend]
+    - tutor: "Un libro di cucina come regalo è perfetto, ama cucinare! Lo compro io domani."
+      goals: [gift]
+      recast: {text: "presente", fix: "regalo", tags: [false-friend]}
+    - learner: "Grazie! Allora a sabato!"
+    - tutor: "A sabato! Sarà una bella festa."
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: es-m-worker
+  history: [object-pronoun]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Facciamo un ragù argentino. Servono carne, cipolla, pomodori e vino rosso."
+    - tutor: "Mmm, buonissimo! Da dove cominciamo?"
+      goals: [ingredients]
+    - learner: "Prima tagliamo la cipolla e la mettiamo nella olla con l'olio."
+      errors: [word-choice]
+    - tutor: "Ecco la pentola grande! Metto io l'olio e la cipolla."
+      recast: {text: "olla", fix: "pentola", tags: [word-choice]}
+    - learner: "Poi aggiungiamo la carne e il sugo di pomodoro. Il sugo, la cuciniamo due ore."
+      errors: [object-pronoun]
+    - tutor: "Due ore, che lavoro! Ma «il sugo, la cuciniamo»: il sugo è maschile, quindi?"
+      goals: [steps]
+      prompt: {text: "la cuciniamo", tags: [object-pronoun]}
+    - learner: "Sì... il sugo, la cuciniamo piano piano."
+      errors: [object-pronoun]
+    - tutor: "Lo cuciniamo piano piano per due ore, perfetto. E poi come lo serviamo?"
+      goals: [time]
+      recast: {text: "la cuciniamo", fix: "Lo cuciniamo", tags: [object-pronoun]}
+    - learner: "Con la polenta o con la pasta fresca, e un buon vino."
+    - tutor: "Con la polenta, allora! Io apro il vino."
+      goals: [serve]
+
+- scenario: autobus
+  level: A2
+  persona: en-f-professional
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Questo autobus va al Duomo?"
+    - tutor: "Sì, passa proprio davanti al Duomo."
+      goals: [route]
+    - learner: "Perfetto. Dove posso comprare un ticket?"
+      errors: [word-choice]
+    - tutor: "Il biglietto lo compra al bar o in edicola, lì davanti."
+      recast: {text: "ticket", fix: "biglietto", tags: [word-choice]}
+      new: [{lemma: edicola, gloss: newsstand}]
+    - learner: "Ah, ma l'autobus parte adesso. Posso pagare su l'autobus?"
+      errors: [articulated-preposition]
+    - tutor: "Mmm, «su l'autobus»? Le due parole diventano una. Come?"
+      prompt: {text: "su l'autobus", tags: [articulated-preposition]}
+    - learner: "Su... su l'autobus, con la carta?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, sull'autobus può pagare con la carta: costa due euro. Salga pure!"
+      goals: [ticket]
+      recast: {text: "su l'autobus", fix: "sull'autobus", tags: [articulated-preposition]}
+    - learner: "Grazie. A quale fermata devo scendere per il Duomo?"
+    - tutor: "Alla quarta fermata, piazza Duomo. La chiamo io quando arriviamo."
+      goals: [stop]
+    - learner: "Grazie mille, molto gentile!"
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]

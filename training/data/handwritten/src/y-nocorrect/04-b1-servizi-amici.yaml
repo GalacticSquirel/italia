@@ -1,0 +1,222 @@
+# Set y-nocorrect, file 4: B1. Correct but less common forms left alone (ce l'ho, ci tengo,
+# "lo so che", present for future, "più importante che" + infinitive, imperfetto + passato).
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [word-choice]
+  turns:
+  - tutor: "Allora, quando parti per Napoli?"
+  - learner: "Parto venerdì prossimo e ci resto una settimana. Ci vado con due amiche dell'università."
+  - tutor: "Una settimana è perfetta! Avete già un programma?"
+  - learner: "Più o meno. Il museo archeologico me l'hanno consigliato tutti, e poi vorremmo andare in Capri un giorno."
+    errors: [preposition]
+  - tutor: "Ottimo programma! Solo una cosa: «andare in Capri»? Per una piccola isola, quale preposizione usiamo?"
+    goals: [plans]
+    prompt: {text: "in Capri", tags: [preposition]}
+  - learner: "Ah, a Capri, come per le città."
+  - tutor: "Esatto! Il mio consiglio: andateci in settimana, perché nel fine settimana è pienissima. E non perdete i Quartieri Spagnoli."
+    goals: [advice]
+  - learner: "Ci teniamo tantissimo a vederli! E per muoverci in città, conviene la metro o l'autobus?"
+  - tutor: "La metro, senza dubbio: alcune stazioni sono bellissime. Per Capri invece prendete il traghetto al porto."
+    goals: [transport]
+  - learner: "Perfetto. Allora voglio prendere tantissime foto delle stazioni!"
+    errors: [word-choice]
+  - tutor: "Sì, devi fare tantissime foto, sono vere opere d'arte! Però attenzione al telefono in metro, quando c'è tanta gente."
+    goals: [warnings]
+    recast: {text: "prendere tantissime foto", fix: "fare tantissime foto", tags: [word-choice]}
+  - learner: "Va bene, starò attenta. So che anche il traffico è caotico, quindi a piedi farò attenzione."
+  - tutor: "Brava, a Napoli le moto arrivano da tutte le parti! Vedrai, ti innamorerai della città."
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno! Che problema ha la macchina?"
+  - learner: "Buongiorno. Da qualche giorno fa un rumore strano quando freno."
+  - tutor: "Un rumore quando frena, capisco. Che tipo di rumore? Forte, leggero, continuo?"
+  - learner: "Forte, come di metallo. All'inizio era leggero, adesso si sente sempre."
+  - tutor: "Va bene. E quando l'ha sentito la prima volta?"
+    goals: [describe]
+  - learner: "Lunedì. Quando sono stata in autostrada, ho sentito un colpo e poi è cominciato il rumore."
+    errors: [tense-aspect]
+  - tutor: "«Quando sono stata in autostrada»: è un fatto concluso o la situazione in cui si trovava in quel momento?"
+    prompt: {text: "Quando sono stata in autostrada", tags: [tense-aspect]}
+  - learner: "Ah, la situazione: quando ero in autostrada, ho sentito un colpo."
+  - tutor: "Esatto. Probabilmente sono i freni davanti: forse va cambiato un pezzo."
+    goals: [when]
+  - learner: "Me la può controllare oggi? Quanto mi verrà a costare, più o meno?"
+  - tutor: "Oggi la guardo io. Se è solo un pezzo dei freni, saranno circa centoventi euro, tutto compreso."
+    goals: [cost]
+  - learner: "Va bene. La macchina mi serve venerdì per un viaggio largo. Ce la fa per giovedì sera?"
+    errors: [false-friend]
+  - tutor: "Per un viaggio lungo i freni devono essere perfetti, certo. Sì, ce la faccio: gliela preparo per giovedì pomeriggio."
+    recast: {text: "largo", fix: "lungo", tags: [false-friend]}
+    goals: [time]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-m-heritage
+  history: [conditional-form]
+  turns:
+  - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+  - learner: "Buongiorno. Vorrei prenotare una visita dal dermatologo, per una macchia sulla pelle."
+  - tutor: "Certo. Ha l'impegnativa del suo medico, o la visita la paga lei?"
+    goals: [type]
+  - learner: "Ce l'ho, l'impegnativa: me l'ha fatta il mio medico ieri."
+  - tutor: "Perfetto. Il primo posto libero è giovedì prossimo alle tre del pomeriggio."
+  - learner: "Giovedì pomeriggio lavoro. Mi poterebbe dare un appuntamento la mattina?"
+    errors: [conditional-form]
+  - tutor: "«Mi poterebbe»? Il condizionale di potere è un po' più corto."
+    prompt: {text: "poterebbe", tags: [conditional-form]}
+  - learner: "Mi poterebbe dare un appuntamento la mattina, per favore?"
+    errors: [conditional-form]
+  - tutor: "Sì, la dottoressa potrebbe vederla martedì alle nove. Le va bene?"
+    goals: [availability]
+    recast: {text: "poterebbe", fix: "potrebbe", tags: [conditional-form]}
+  - learner: "Martedì alle nove va benissimo. Quanto costa la visita con l'impegnativa?"
+  - tutor: "Con l'impegnativa paga solo trentasei euro."
+    goals: [cost]
+  - learner: "Bene. Allora vengo martedì alle nove. Devo portare qualcosa?"
+  - tutor: "Porti l'impegnativa e un documento. Mi dice il suo nome, per favore?"
+  - learner: "Michael Russo. Russo con due esse."
+  - tutor: "Perfetto, signor Russo: martedì alle nove, confermato. Le mando anche un messaggio. Arrivederci!"
+    goals: [confirm]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-m-worker
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+  - learner: "Sì, purtroppo. L'aria condizionata nella mia camera non funziona. Camera 214."
+  - tutor: "Mi dispiace molto. Ha provato con il telecomando?"
+    goals: [problem]
+    new: [{lemma: telecomando, gloss: remote control}]
+  - learner: "Sì, ci ho provato. L'ho accesa due ore fa e fa ancora caldo."
+  - tutor: "Capisco. Era già così quando è arrivato?"
+  - learner: "No, ieri sera andava bene. Il problema è cominciato oggi. Ho stato in camera tutto il pomeriggio con questo caldo."
+    errors: [auxiliary-choice]
+  - tutor: "«Ho stato»? Pensi al verbo stare: quale ausiliare prende?"
+    prompt: {text: "Ho stato", tags: [auxiliary-choice]}
+    new: [{lemma: ausiliare, gloss: auxiliary verb}]
+  - learner: "Sono stato in camera tutto il pomeriggio."
+  - tutor: "Esatto. E mi dispiace davvero, con questo caldo."
+    goals: [since]
+  - learner: "Sarebbe possibile cambiare camera stasera? Domani ho una riunione alle otto e devo dormire bene."
+  - tutor: "Certo. Ho una camera libera al quarto piano, più tranquilla e con l'aria condizionata nuova."
+    goals: [request]
+  - learner: "Va bene, la prendo. Mi aiuta qualcuno con le valigie?"
+  - tutor: "Sì, le mando subito un collega. E domani la colazione la offriamo noi, per il disturbo."
+    goals: [agree]
+  - learner: "Grazie, è molto gentile."
+  - tutor: "Si figuri. Buona notte e buon riposo!"
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-f-professional
+  history: [past-participle-form]
+  turns:
+  - tutor: "Buongiorno, mi dica pure."
+  - learner: "Buongiorno. Ho comprato queste cuffie la settimana scorsa e il lato sinistro non funziona più."
+  - tutor: "Mi dispiace. Le ha usate molto?"
+    goals: [problem]
+  - learner: "No, le ho usate solo tre volte. Ho anche leggiuto le istruzioni, ho fatto tutto bene."
+    errors: [past-participle-form]
+  - tutor: "Le istruzioni, lei ha...? Il participio di leggere è irregolare."
+    prompt: {text: "leggiuto", tags: [past-participle-form]}
+    new: [{lemma: participio, gloss: participle}, {lemma: irregolare, gloss: irregular}]
+  - learner: "Ho anche letto le istruzioni, sì."
+  - tutor: "Perfetto, allora non è un problema di uso. Ha lo scontrino?"
+  - learner: "Lo scontrino ce l'ho, eccolo. Le cuffie le ho pagate novanta euro."
+  - tutor: "Grazie. Sì, sono ancora in garanzia."
+    goals: [proof]
+  - learner: "Preferirei un rimborso. Se non è possibile, va bene anche sostituirle."
+  - tutor: "Il rimborso si può fare entro quattordici giorni, e lei è ancora in tempo. Glielo faccio subito sulla carta."
+    goals: [request]
+  - learner: "Perfetto, grazie. Quanto ci vuole per vedere i soldi sul conto?"
+  - tutor: "Di solito tre o quattro giorni. Ecco la ricevuta del rimborso."
+    goals: [agree]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+  - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+  - learner: "Mangio abbastanza bene, ma dormo poco: sei ore, a volte meno."
+  - tutor: "Sei ore sono poche. E lo sport?"
+  - learner: "Lo sport lo faccio solo il fine settimana. Durante la settimana studio e basta."
+  - tutor: "Capito. E qual è il tuo obiettivo?"
+    goals: [habits]
+  - learner: "Vorrei sentirmi meno cansata e perdere due o tre chili. Secondo te, dormire è più importante che mangiare bene?"
+    errors: [word-choice]
+  - tutor: "Meno stanca e due o tre chili in meno: si può fare. Sono importanti tutte e due le cose, ma senza sonno è difficile anche mangiare bene. Cosa ti impedisce di dormire di più?"
+    recast: {text: "cansata", fix: "stanca", tags: [word-choice]}
+    goals: [goal]
+  - learner: "Lo stress, soprattutto. Studio più di prima e la sera sto al telefono fino a tardi."
+  - tutor: "Ecco, il telefono la sera è un grande nemico del sonno."
+    goals: [obstacles]
+  - learner: "Lo so. Allora doverò cambiare tante abitudini."
+    errors: [future-form]
+  - tutor: "Doverò? Il futuro di dovere è più breve."
+    prompt: {text: "doverò", tags: [future-form]}
+  - learner: "Dovrò cambiare tante abitudini, hai ragione."
+  - tutor: "Esatto, ma piano piano. Facciamo un piano: tre allenamenti a settimana e niente telefono dopo le undici."
+    goals: [plan]
+  - learner: "Ci sto! Da lunedì comincio."
+  - tutor: "Perfetto, lunedì alle sette ti aspetto qui."
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+  - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+  - learner: "Anche da noi si mangia tanto! Si fa un grande pranzo con il tacchino e si mangiano tanti dolci."
+  - tutor: "Il tacchino, che bello! Da noi invece si mangia pasta al forno o pesce, dipende dalla zona."
+    goals: [compare]
+  - learner: "Quando ero piccolo, il giorno di Natale andavamo dai nonni in campagna. I regali li aprivamo la mattina presto."
+  - tutor: "Che bel ricordo! E chi cucinava?"
+  - learner: "Ogni anno mio padre ha preparato il tacchino, per ore e ore."
+    errors: [tense-aspect]
+  - tutor: "«Ogni anno ha preparato»? Era un'abitudine: quale tempo usiamo per le abitudini nel passato?"
+    prompt: {text: "ha preparato", tags: [tense-aspect]}
+    new: [{lemma: abitudine, gloss: habit}]
+  - learner: "Sì, ogni anno ha preparato il tacchino, e la nonna i dolci."
+    errors: [tense-aspect]
+  - tutor: "Che bello, tuo padre preparava il tacchino e la nonna i dolci: una vera squadra!"
+    goals: [past]
+    recast: {text: "ha preparato", fix: "preparava", tags: [tense-aspect]}
+  - learner: "E voi? A Natale c'è un dolce speciale?"
+  - tutor: "Sì, il panettone e il pandoro. E da noi si discute sempre su quale sia più buono!"
+    goals: [ask]
+    new: [{lemma: panettone, gloss: Christmas cake}, {lemma: pandoro, gloss: Christmas sponge cake}]
+  - learner: "Allora quest'anno li assaggio tutti e due e vi dico io qual è il migliore!"
+  - tutor: "Ottima idea! Vieni da noi il venticinque, così li provi con tutta la famiglia."
+    goals: [plan]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-m-traveller
+  history: [object-pronoun]
+  turns:
+  - tutor: "Sì? Buonasera, posso aiutarla?"
+  - learner: "Buonasera, scusi il disturbo. Sono il vicino del piano di sotto, mi chiamo Liam."
+  - tutor: "Ah, piacere! Mi dica, c'è qualcosa che non va?"
+    goals: [greet]
+  - learner: "Ecco, ieri sera la musica si sentiva fino all'una, e anche stasera è molto alta."
+  - tutor: "Oh, mi dispiace, non pensavo che si sentisse così tanto."
+    goals: [problem]
+  - learner: "Non è un problema grave. La chiedo solo un favore."
+    errors: [object-pronoun]
+  - tutor: "Mi dica pure. Però, «la chiedo»? Si chiede qualcosa a qualcuno: quale pronome serve?"
+    prompt: {text: "La chiedo", tags: [object-pronoun]}
+  - learner: "Ah, giusto: le chiedo solo un favore. Dopo le undici, potrebbe abbassare il volume?"
+  - tutor: "Esatto. Certo, nessun problema: dopo le undici lo abbasso."
+    goals: [request]
+  - learner: "Grazie. Lo so che è sabato, ma domani lavoro presto."
+  - tutor: "Ha ragione, ognuno ha i suoi orari. Facciamo così: se è troppo alta, mi manda un messaggio e la musica finisce subito."
+    goals: [compromise]
+  - learner: "Perfetto, mi sembra giusto. Buona serata!"
+  - tutor: "Buona serata anche a lei, e scusi ancora."

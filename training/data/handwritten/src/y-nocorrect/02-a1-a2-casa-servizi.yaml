@@ -1,0 +1,206 @@
+# Set y-nocorrect, file 2: A1 (famiglia, giorno-tipico, tempo-libero) and A2 (services).
+- scenario: famiglia
+  level: A1
+  persona: en-f-student
+  history: [possessive]
+  turns:
+  - tutor: "Che bella foto! Chi sono queste persone?"
+  - learner: "Sono mia madre e mio padre, al mare. E questo è mio fratello."
+  - tutor: "Che bella famiglia! Tuo fratello è più grande?"
+    goals: [who]
+  - learner: "Sì, ha venticinque anni. È alto, simpatico, un po' pigro."
+  - tutor: "Ah, un po' pigro! E i tuoi genitori come sono?"
+  - learner: "Sono molto tranquilli. Mia madre la sento ogni giorno."
+  - tutor: "Che brava figlia! E chi è la signora qui?"
+    goals: [describe]
+  - learner: "È mia nonna. Lei è ottantadue anni."
+    errors: [essere-avere]
+  - tutor: "È ottantadue anni? Con gli anni, quale verbo usiamo?"
+    prompt: {text: "è ottantadue anni", tags: [essere-avere]}
+  - learner: "Ha ottantadue anni!"
+  - tutor: "Giusto! E sta bene, la nonna?"
+    goals: [ages]
+  - learner: "Sì, sta benissimo. E tu, hai fratelli?"
+  - tutor: "Sì, ho una sorella. Si chiama Paola e vive a Roma."
+    goals: [ask]
+
+- scenario: giorno-tipico
+  level: A1
+  persona: es-f-teacher
+  history: [reflexive]
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata di solito?"
+  - learner: "Ciao Anna! Io sveglio alle sei e mezza."
+    errors: [reflexive]
+  - tutor: "Tu svegli chi? Ascolta bene il verbo."
+    prompt: {text: "Io sveglio", tags: [reflexive]}
+  - learner: "Ah, mi sveglio alle sei e mezza."
+  - tutor: "Perfetto! Così presto? E poi?"
+    goals: [wake]
+  - learner: "La colazione la faccio al bar, poi vado a scuola. Insegno spagnolo."
+  - tutor: "Che bello! Fino a che ora lavori?"
+  - learner: "Fino alle due. Il pomeriggio correggo i compiti a casa."
+  - tutor: "Tanto lavoro! E la sera?"
+    goals: [work]
+  - learner: "La sera cucino e guardo un film. Vado a letto presto, verso le dieci."
+  - tutor: "Che bello, una sera tutta per te."
+    goals: [evening]
+  - learner: "E tu? A che ora ti alzi?"
+  - tutor: "Io alle otto, ma la sera dormo tardi!"
+    goals: [ask]
+
+- scenario: tempo-libero
+  level: A1
+  persona: en-m-traveller
+  history: [piacere]
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  - learner: "Di solito vado in montagna. Ci vado quasi ogni sabato."
+  - tutor: "Che bello, la montagna! Vai da solo?"
+    goals: [hobby]
+  - learner: "No, con due amici. Ci divertiamo molto."
+  - tutor: "E la domenica?"
+    goals: [frequency]
+  - learner: "La domenica leggo. Mi piace i libri gialli."
+    errors: [piacere]
+  - tutor: "Mi piace i libri? Sono tanti libri."
+    prompt: {text: "Mi piace i libri", tags: [piacere]}
+  - learner: "Sì, mi piace i libri gialli italiani."
+    errors: [piacere]
+  - tutor: "Ah, ti piacciono i libri gialli italiani! Anche a me."
+    recast: {text: "mi piace i libri", fix: "ti piacciono i libri", tags: [piacere]}
+  - learner: "E tu, cosa fai?"
+  - tutor: "Io vado al cinema, quasi sempre il sabato."
+    goals: [ask]
+  - learner: "Bello! Sabato prossimo vengo con te, se vuoi."
+  - tutor: "Sì, certo! Ci vediamo alle otto davanti al cinema."
+    goals: [propose]
+
+- scenario: autobus
+  level: A2
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno! Dove deve andare?"
+  - learner: "Buongiorno. Al Duomo. Questo autobus ci va?"
+  - tutor: "Sì, ci va. Sono circa venti minuti."
+    goals: [route]
+  - learner: "Bene. Il biglietto ce l'ho, ma non so dove si timbra."
+  - tutor: "Si timbra lì, vicino alla porta. È facile."
+    goals: [ticket]
+  - learner: "Fatto. E dove scendo? Devo scendere a la fermata del Duomo?"
+    errors: [articulated-preposition]
+  - tutor: "A la fermata? Quelle due parole, in italiano, diventano una."
+    prompt: {text: "a la fermata", tags: [articulated-preposition]}
+  - learner: "Sì: alla fermata del Duomo."
+  - tutor: "Esatto. Ma è meglio scendere una fermata prima, in piazza Garibaldi. È più vicina all'entrata."
+    goals: [stop]
+  - learner: "D'accordo, scendo in piazza Garibaldi. Me lo dice lei quando ci arriviamo?"
+  - tutor: "Certo, glielo dico io. Si sieda pure."
+  - learner: "Grazie mille, è molto gentile."
+  - tutor: "Prego! Buona visita al Duomo."
+    goals: [thank]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Buongiorno! Ha visto il cartello?"
+  - learner: "Sì, l'ho visto stamattina. Cercate ancora un cameriere?"
+  - tutor: "Sì, per l'estate. È interessata?"
+    goals: [ask]
+  - learner: "Molto. Ho lavorato come cameriera due estati, a Siviglia."
+  - tutor: "Ottimo. E perché ha smesso?"
+    goals: [experience]
+  - learner: "A settembre sono dovuta tornare all'università. Ma adesso ho più tempo."
+  - tutor: "Capisco. Che giorni può lavorare?"
+  - learner: "Tutti i giorni. Solo il lunedì posso salire dall'università all'una."
+    errors: [false-friend]
+  - tutor: "Va bene: se può uscire dall'università all'una, il lunedì comincia alle due."
+    recast: {text: "salire", fix: "uscire", tags: [false-friend]}
+    goals: [availability]
+  - learner: "Perfetto. E lo stipendio quant'è, più o meno?"
+  - tutor: "Sono novecento euro al mese, più le mance."
+  - learner: "Va bene. Le lascio il mio numero?"
+  - tutor: "Sì, lo scriva qui. La chiamo domani per una prova."
+    goals: [contact]
+
+- scenario: lavanderia
+  level: A2
+  persona: en-f-student
+  history: [pronoun-position]
+  turns:
+  - tutor: "Tutto bene? Hai bisogno di una mano?"
+  - learner: "Sì, grazie! Questa lavatrice non la capisco proprio."
+  - tutor: "Tranquilla, è facile. Hai già il detersivo?"
+  - learner: "Sì, il detersivo ce l'ho. Qual è il problema?"
+  - tutor: "Non è rotta: devi solo scegliere il programma. Per i colori, il quaranta va bene."
+    goals: [problem]
+  - learner: "Ok, quaranta. E poi? Posso usare la adesso?"
+    errors: [pronoun-position]
+  - tutor: "Posso usare la? Ascolta: il pronome dove va, con l'infinito?"
+    prompt: {text: "usare la", tags: [pronoun-position]}
+  - learner: "Ah, posso usarla adesso?"
+  - tutor: "Esatto! Sì, metti i vestiti e chiudi bene la porta."
+    goals: [ask-how]
+  - learner: "Fatto. I gettoni dove li compro?"
+  - tutor: "Li vendono al bar qui vicino. Ne servono due."
+  - learner: "Ah, aspetta: ne ho comprati tre ieri! Eccoli, nella borsa."
+  - tutor: "Perfetto, allora sei a posto. Metti due gettoni qui e la lavatrice parte."
+    goals: [payment]
+  - learner: "Funziona! Grazie mille, sei gentilissima."
+  - tutor: "Di niente! Ci vediamo tra un'ora."
+    goals: [thank]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+  - tutor: "Buongiorno! Vuole una bicicletta?"
+  - learner: "Buongiorno. Sì, domani faccio il giro del lago."
+  - tutor: "Bella idea! Per quanto tempo la vuole?"
+    goals: [ask]
+  - learner: "Per tutta la giornata. Saremo in due: mia moglie venirà con me."
+    errors: [future-form]
+  - tutor: "Venirà? Il futuro di questo verbo è un po' speciale."
+    prompt: {text: "venirà", tags: [future-form]}
+  - learner: "Ah, giusto: verrà con me."
+  - tutor: "Perfetto! Allora due biciclette per tutta la giornata."
+    goals: [duration]
+  - learner: "Quanto costa la giornata intera?"
+  - tutor: "Quindici euro a bicicletta, con casco e lucchetto."
+    goals: [price]
+  - learner: "Bene. Il casco me lo dà adesso o domani?"
+  - tutor: "Domani, insieme alla bicicletta. Apriamo alle otto."
+  - learner: "E il percorso? Lo fanno anche i principianti?"
+  - tutor: "Sì, è tutto piano. Le do una cartina con il percorso."
+    goals: [route]
+    new: [{lemma: cartina, gloss: map}]
+
+- scenario: palestra
+  level: A2
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+  - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+  - learner: "Sì, grazie. Quanto viene al mese?"
+  - tutor: "Quaranta euro al mese, o cento per tre mesi."
+    goals: [ask-membership]
+  - learner: "Allora conviene quello di tre mesi. Ci sono anche corsi?"
+  - tutor: "Sì, yoga, ballo e nuoto. Sono tutti nel prezzo."
+    goals: [classes]
+  - learner: "Lo yoga lo fate anche la sera? La mattina lavoro."
+  - tutor: "Sì, il martedì e il giovedì alle sette."
+    goals: [timetable]
+  - learner: "Il corso della sera è più pieno che quello della mattina?"
+    errors: [comparative]
+  - tutor: "Più pieno che quello? Attenzione alla parola dopo più."
+    prompt: {text: "più pieno che quello", tags: [comparative]}
+  - learner: "Più pieno che quello della mattina, sì?"
+    errors: [comparative]
+  - tutor: "Sì, è più pieno di quello della mattina, ma c'è sempre posto."
+    recast: {text: "più pieno che quello", fix: "più pieno di quello", tags: [comparative]}
+  - learner: "Va bene. Mi iscrivo oggi, così comincio martedì."
+  - tutor: "Perfetto! Compila questo modulo, ci vuole un minuto."
+    goals: [sign-up]

@@ -1,0 +1,222 @@
+# Round 3, set y-lexical: false friends and word choice. A1, file 1.
+- scenario: bar-colazione
+  level: A1
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Un cappuccino, per favore."
+    - tutor: "Subito! Vuole anche qualcosa da mangiare?"
+      goals: [greet, order-drink]
+    - learner: "Sì, un cornetto con mantequilla, per favore."
+      errors: [word-choice]
+    - tutor: "Ah, con il burro! Ecco il cornetto, è ancora caldo."
+      goals: [order-food]
+      recast: {text: "mantequilla", fix: "burro", tags: [word-choice]}
+      new: [{lemma: burro, gloss: butter}]
+    - learner: "Grazie. E un vaso d'acqua, per favore."
+      errors: [false-friend]
+    - tutor: "Un bicchiere d'acqua, certo! Ecco qui."
+      recast: {text: "un vaso d'acqua", fix: "un bicchiere d'acqua", tags: [false-friend]}
+      new: [{lemma: bicchiere, gloss: glass}]
+    - learner: "Grazie! Posso paga con la carta?"
+      errors: [modal-infinitive]
+    - tutor: "Posso... paga? Dopo «posso», come va il verbo?"
+      prompt: {text: "Posso paga", tags: [modal-infinitive]}
+    - learner: "Ah, sì: posso pagare con la carta?"
+    - tutor: "Esatto! Certo, sono tre euro e venti."
+    - learner: "Ecco la carta. Grazie e buona giornata!"
+    - tutor: "Grazie a lei! Ecco lo scontrino. Buona giornata!"
+      goals: [pay]
+
+- scenario: famiglia
+  level: A1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Sono mio padre, mia madre e mio primo Lucas."
+      errors: [false-friend]
+    - tutor: "Ah, tuo cugino Lucas! Che bella foto."
+      goals: [who]
+      recast: {text: "mio primo", fix: "tuo cugino", tags: [false-friend]}
+      new: [{lemma: cugino, gloss: cousin}]
+    - learner: "Sì, è molto simpatico. È alto e ha il pelo nero."
+      errors: [false-friend]
+    - tutor: "Ha i capelli neri, come te! Il pelo ce l'hanno i cani. Quanti anni ha tua madre?"
+      recast: {text: "il pelo nero", fix: "i capelli neri", tags: [false-friend]}
+      new: [{lemma: capelli, gloss: hair}]
+      goals: [describe]
+    - learner: "Mia madre è cinquantotto anni."
+      errors: [essere-avere]
+    - tutor: "Tua madre «è» cinquantotto anni? Per l'età, quale verbo usiamo?"
+      prompt: {text: "è cinquantotto anni", tags: [essere-avere]}
+    - learner: "Ah, giusto: mia madre ha cinquantotto anni."
+    - tutor: "Esatto! È una mamma giovane. E questa donna chi è?"
+      goals: [ages]
+    - learner: "È la mia esposa, Carla."
+      errors: [word-choice]
+    - tutor: "Tua moglie? Che bello! Da quanto tempo siete sposati?"
+      recast: {text: "la mia esposa", fix: "tua moglie", tags: [word-choice]}
+    - learner: "Da cinque anni. E tu? Hai fratelli o sorelle?"
+    - tutor: "Ho una sorella, Anna. Vive a Torino con suo marito."
+      goals: [ask]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-m-traveller
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Buongiorno! Siamo in due, io e un amico."
+    - tutor: "Ecco un tavolo vicino alla finestra. Ecco il menù."
+      goals: [ask-table]
+    - learner: "Grazie. Vorrei una pizza ai peperoni. Mi piace la carne piccante!"
+      errors: [false-friend]
+    - tutor: "Allora vuole la pizza con il salame piccante! I peperoni qui sono verdura."
+      goals: [order-food]
+      recast: {text: "ai peperoni", fix: "con il salame piccante", tags: [false-friend]}
+      new: [{lemma: salame, gloss: salami}]
+    - learner: "Ah, sì, il salame! E da bere, una birra media."
+    - tutor: "Perfetto, una birra media. Arriva subito!"
+      goals: [order-drink]
+    - learner: "La pizza è buonissima! Posso avere il check, per favore?"
+      errors: [word-choice]
+    - tutor: "Grazie! Le porto subito il conto."
+      recast: {text: "il check", fix: "il conto", tags: [word-choice]}
+    - learner: "Grazie mille. Ecco la carta."
+    - tutor: "Grazie a lei, arrivederci!"
+      goals: [ask-bill]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, ho una prenotazione a nome Ruiz."
+    - tutor: "Sì, eccola: due notti, camera singola. Ha un documento?"
+      goals: [booking]
+    - learner: "Sì, tengo il passaporto."
+      errors: [word-choice]
+    - tutor: "Perfetto, se ha il passaporto va benissimo. Posso vederlo?"
+      recast: {text: "tengo il passaporto", fix: "ha il passaporto", tags: [word-choice]}
+    - learner: "Ecco. A che ora è la colazione?"
+    - tutor: "Grazie. La colazione è dalle sette alle dieci, al primo piano."
+      goals: [document, breakfast]
+    - learner: "Perfetto. Domani esco presto: posso guardare la valigia qui?"
+      errors: [false-friend]
+    - tutor: "Certo, può lasciare la valigia qui. La guardo io!"
+      recast: {text: "guardare la valigia", fix: "lasciare la valigia", tags: [false-friend]}
+    - learner: "Grazie. E la llave? Qual è la mia camera?"
+      errors: [word-choice]
+    - tutor: "Ecco la chiave: camera 25, secondo piano. Buona notte!"
+      recast: {text: "la llave", fix: "la chiave", tags: [word-choice]}
+      goals: [key]
+
+- scenario: presentarsi
+  level: A1
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+    - learner: "Ciao Giulia! Mi chiamo Emma."
+    - tutor: "Piacere, Emma! Di dove sei?"
+      goals: [say-name]
+    - learner: "Sono australiana, di Sydney. Ma ora abito in Milano."
+      errors: [preposition]
+    - tutor: "Abiti «in» Milano? Attenzione: con le città usiamo un'altra parola."
+      prompt: {text: "in Milano", tags: [preposition]}
+    - learner: "Ah, abito a Milano."
+    - tutor: "Esatto! Sydney e Milano, che belle città. E che lavoro fai?"
+      goals: [say-origin]
+    - learner: "Lavoro nel marketing per una fattoria di biciclette."
+      errors: [false-friend]
+    - tutor: "Ah, per una fabbrica di biciclette! In una fattoria ci sono gli animali."
+      goals: [say-job]
+      recast: {text: "per una fattoria", fix: "per una fabbrica", tags: [false-friend]}
+      new: [{lemma: fabbrica, gloss: factory}]
+    - learner: "Ah, sì! Niente animali. E tu, Giulia, cosa fai?"
+    - tutor: "Io studio inglese all'università."
+      goals: [ask-back]
+    - learner: "Davvero? Allora parliamo anche in inglese insieme!"
+    - tutor: "Sì, certo! Ma prima l'italiano."
+
+- scenario: tempo-libero
+  level: A1
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Il sabato studio sempre nella libreria dell'università."
+      errors: [false-friend]
+    - tutor: "In biblioteca anche il sabato? Brava! E la domenica?"
+      recast: {text: "nella libreria", fix: "in biblioteca", tags: [false-friend]}
+      new: [{lemma: biblioteca, gloss: library}]
+    - learner: "La domenica gioco la chitarra."
+      errors: [word-choice]
+    - tutor: "Suoni la chitarra? Che bello! Quanto suoni?"
+      goals: [hobby]
+      recast: {text: "gioco la chitarra", fix: "Suoni la chitarra", tags: [word-choice]}
+      new: [{lemma: suonare, gloss: to play (an instrument)}]
+    - learner: "Suono tutte le domeniche, per due ore. E tu?"
+    - tutor: "Io vado spesso al cinema, il venerdì sera."
+      goals: [frequency, ask]
+    - learner: "Io piace il cinema! Andiamo insieme venerdì?"
+      errors: [piacere]
+    - tutor: "«Io piace»? Con piacere, quale parola usiamo all'inizio?"
+      prompt: {text: "Io piace", tags: [piacere]}
+    - learner: "Ah, mi piace il cinema! Andiamo insieme venerdì?"
+    - tutor: "Esatto! Sì, ci vediamo alle otto davanti al cinema."
+      goals: [propose]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Scusi, buongiorno! Dov'è la stazione, per favore?"
+    - tutor: "La stazione non è lontana. Vada dritto e poi a destra."
+      goals: [get-attention, ask-place]
+    - learner: "Dritto e poi a destra. Dopo il semaforo?"
+    - tutor: "Sì, dopo il semaforo, a destra. Poi c'è una grande piazza."
+      goals: [understand]
+    - learner: "Grazie. Ma ora sono in questo parco: come posso salire di qui?"
+      errors: [false-friend]
+    - tutor: "Vuole uscire dal parco? L'uscita è lì, a sinistra."
+      recast: {text: "salire", fix: "uscire", tags: [false-friend]}
+    - learner: "Ah, sì. Quanto tempo a piedi?"
+    - tutor: "Dieci minuti, più o meno."
+    - learner: "Mille grazie! È molto amable."
+      errors: [word-choice]
+    - tutor: "Prego, gentile lei! Buon viaggio."
+      goals: [thank]
+      recast: {text: "amable", fix: "gentile", tags: [word-choice]}
+
+- scenario: supermercato
+  level: A1
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, cerca qualcosa?"
+    - learner: "Sì, buongiorno. Dov'è la leche?"
+      errors: [word-choice]
+    - tutor: "Il latte è in fondo, a destra."
+      recast: {text: "la leche", fix: "Il latte", tags: [word-choice]}
+      goals: [ask-product]
+    - learner: "Grazie. E avete caldo di pollo?"
+      errors: [false-friend]
+    - tutor: "Il brodo di pollo? Sì, è allo scaffale sei, vicino alla pasta."
+      goals: [ask-other]
+      recast: {text: "caldo di pollo", fix: "brodo di pollo", tags: [false-friend]}
+      new: [{lemma: brodo, gloss: broth}]
+    - learner: "Perfetto. E le uova? Sono vicino il latte?"
+      errors: [articulated-preposition]
+    - tutor: "Vicino... il latte? Lì manca una piccola parola."
+      prompt: {text: "vicino il latte", tags: [articulated-preposition]}
+    - learner: "Ah, vicino al latte?"
+    - tutor: "Giusto! Sì, le uova sono vicino al latte."
+    - learner: "Grazie mille, è molto gentile."
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]

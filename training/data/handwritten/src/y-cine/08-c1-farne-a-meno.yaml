@@ -1,0 +1,265 @@
+# y-cine, file 08 (C1): ne va di, farne a meno, farci caso, ci vogliono, andarsene, farcela.
+- scenario: trattativa-fornitore
+  level: C1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, la chiamo proprio per questo. Lavoriamo con voi da otto anni e non abbiamo mai avuto un problema, ma un aumento del quindici per cento è troppo: siamo molto molesti."
+      errors: [false-friend]
+    - tutor: "Capisco che siate seccati, ma non dipende da noi: la farina ci costa il trenta per cento in più."
+      recast: {text: "molesti", fix: "seccati", tags: [false-friend]}
+      goals: [problem]
+    - learner: "Lo so, ma pensi anche a noi: siamo una piccola azienda e con questi prezzi il margine sparisce. Va della nostra sopravvivenza."
+      errors: [ci-ne]
+      gold: {text: "Va della nostra sopravvivenza", fix: "Ne va della nostra sopravvivenza"}
+    - tutor: "Addirittura. Però «va della nostra sopravvivenza»: all'espressione manca la particella iniziale, senza la quale il senso si perde."
+      prompt: {text: "Va della nostra sopravvivenza", tags: [ci-ne]}
+    - learner: "Sì, va della sopravvivenza dell'azienda, non esagero."
+      errors: [ci-ne]
+    - tutor: "Se ne va della sopravvivenza dell'azienda, capisco la sua preoccupazione. Ma lei che cosa propone?"
+      recast: {text: "va della sopravvivenza", fix: "ne va della sopravvivenza", tags: [ci-ne]}
+      goals: [argue]
+    - learner: "Se lei accetterebbe un aumento del cinque per cento, noi raddoppieremmo gli ordini per un anno."
+      errors: [hypothetical]
+    - tutor: "Interessante. Ma «se lei accetterebbe»: nella frase con «se», il condizionale non regge. Che forma ci vuole?"
+      prompt: {text: "accetterebbe", tags: [hypothetical]}
+    - learner: "Se lei accetterebbe... no, scusi, mi confondo sempre."
+      errors: [hypothetical]
+    - tutor: "Se il mio direttore accettasse il cinque per cento, voi raddoppiereste davvero gli ordini? Me lo garantisce per iscritto?"
+      recast: {text: "accetterebbe", fix: "accettasse", tags: [hypothetical]}
+      goals: [counteroffer]
+    - learner: "Glielo garantisco. Per la qualità dei vostri prodotti, ne vale la pena."
+    - tutor: "Allora facciamo l'otto per cento, con ordini raddoppiati per dodici mesi. Le va bene?"
+    - learner: "L'otto per cento... D'accordo, ci sto. Mi mandi la proposta per email e la firmiamo entro venerdì."
+    - tutor: "Perfetto, gliela mando oggi pomeriggio. È stato un piacere trattare con lei."
+      goals: [agreement]
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+    - learner: "Buongiorno! Mi chiamo Emma, studio a Venezia da quattro anni e sono a favore, anche se ho alcune reservazioni."
+      errors: [word-choice]
+    - tutor: "A favore, ma con qualche riserva: ci spieghi perché."
+      recast: {text: "alcune reservazioni", fix: "qualche riserva", tags: [word-choice]}
+      goals: [introduce]
+    - learner: "Perché la città non regge più. Ad agosto, per andare da casa mia a Rialto, a piedi vogliono quaranta minuti invece di dieci."
+      errors: [ci-ne]
+      gold: {text: "vogliono quaranta minuti", fix: "ci vogliono quaranta minuti"}
+    - tutor: "Quaranta minuti! Però «a piedi vogliono quaranta minuti»: chi vuole che cosa? Per il tempo necessario, al verbo serve un appoggio."
+      prompt: {text: "vogliono quaranta minuti", tags: [ci-ne]}
+    - learner: "Sì, vogliono quaranta minuti, con tutta quella gente."
+      errors: [ci-ne]
+    - tutor: "Ci vogliono quaranta minuti invece di dieci: un dato che fa riflettere. Ma il ticket non risolve niente: chi vuole venire paga cinque euro e viene lo stesso."
+      recast: {text: "vogliono quaranta minuti", fix: "Ci vogliono quaranta minuti", tags: [ci-ne]}
+      goals: [example]
+    - learner: "Cinque euro sono pochi, d'accordo, ma il ticket serve soprattutto a contare i visitatori: oggi nessuno sa quanti ce ne sono davvero."
+    - tutor: "Contarli serve a poco, se poi non si fa nulla per limitarli."
+      goals: [rebut]
+    - learner: "Appunto: propongo che si fissa un numero massimo di visitatori al giorno, con prenotazione obbligatoria."
+      errors: [subjunctive-use]
+    - tutor: "Proposta coraggiosa. Ma «propongo che si fissa»: dopo «propongo che», quale modo ci aspettiamo?"
+      prompt: {text: "propongo che si fissa", tags: [subjunctive-use]}
+    - learner: "Propongo che si fissi un numero massimo, con prenotazione obbligatoria."
+    - tutor: "Chiaro e concreto. Grazie, Emma, e buona giornata a lei e a tutti gli ascoltatori!"
+      goals: [proposal]
+
+- scenario: arte-mostra
+  level: C1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Onestamente? Non ci capisco niente. Sono solo macchie di colore: un bambino potrebbe farlo."
+    - tutor: "Il classico commento! Ma guarda meglio: cosa vedi, oltre alle macchie?"
+      goals: [react]
+    - learner: "Vedo tre rettangoli rossi, uno sopra l'altro. Il pittore ha usato tanti rossi diversi: ho contato almeno sei."
+      errors: [ci-ne]
+      gold: {text: "ho contato almeno sei", fix: "ne ho contati almeno sei"}
+    - tutor: "Vedi che l'occhio si allena? Però «ho contato almeno sei»: sei di che cosa? Ti manca la particella che riprende i rossi."
+      prompt: {text: "ho contato almeno sei", tags: [ci-ne]}
+    - learner: "Ne ho contati almeno sei, dal rosa al marrone."
+    - tutor: "Esatto, anche l'accordo è giusto. E secondo te che cosa vuole comunicare?"
+      goals: [describe]
+    - learner: "Forse un'emozione forte, come la rabbia. Ma non sono sicuro che l'artista pensava a questo."
+      errors: [subjunctive-use]
+    - tutor: "Ipotesi interessante. Però «non sono sicuro che l'artista pensava»: dopo un'espressione di dubbio, che modo usiamo?"
+      prompt: {text: "l'artista pensava", tags: [subjunctive-use]}
+    - learner: "Non sono sicuro che l'artista pensava alla rabbia, ecco."
+      errors: [subjunctive-use]
+    - tutor: "Infatti non è detto che l'artista pensasse alla rabbia: lui diceva di dipingere il silenzio. E rispetto a un quadro rinascimentale?"
+      recast: {text: "l'artista pensava", fix: "l'artista pensasse", tags: [subjunctive-use]}
+      goals: [interpret]
+    - learner: "È l'opposto: lì c'è sempre una storia da raccontare, qui ce n'è nessuna."
+      errors: [negation]
+    - tutor: "Bel confronto. Ma «qui ce n'è nessuna»: con «nessuna» dopo il verbo, cosa serve prima?"
+      prompt: {text: "qui ce n'è nessuna", tags: [negation]}
+    - learner: "Qui non ce n'è nessuna: c'è solo il colore."
+    - tutor: "Perfetto. E forse è proprio questo il punto: niente storia, solo colore e silenzio."
+      goals: [compare]
+
+- scenario: medico-specialista
+  level: C1
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Non molto bene. Di notte mi sveglio con il cuore che batte fortissimo, e per calmarmi vogliono almeno venti minuti."
+      errors: [ci-ne]
+      gold: {text: "vogliono almeno venti minuti", fix: "ci vogliono almeno venti minuti"}
+    - tutor: "Capisco. Ma «per calmarmi vogliono»: il tempo necessario si esprime con una particella davanti al verbo. Riprova."
+      prompt: {text: "vogliono almeno venti minuti", tags: [ci-ne]}
+    - learner: "Per calmarmi vogliono almeno venti minuti, a volte mezz'ora."
+      errors: [ci-ne]
+    - tutor: "Ci vogliono almeno venti minuti per calmarsi? È un tempo lungo, va approfondito. Nella sua famiglia ci sono stati problemi di cuore?"
+      recast: {text: "vogliono almeno venti minuti", fix: "Ci vogliono almeno venti minuti", tags: [ci-ne]}
+      goals: [symptoms]
+    - learner: "Mia madre soffriva di aritmia, ma non ne so molto: in famiglia non se ne parlava."
+    - tutor: "Ha fatto bene a dirmelo. Gli esami mostrano un'aritmia lieve, con ogni probabilità ereditaria."
+      goals: [history]
+    - learner: "Cosa significa, in concreto? Glielo chiedo perché sono imbarazzata da tre mesi."
+      errors: [false-friend]
+    - tutor: "È incinta da tre mesi? Allora è un'informazione fondamentale. Significa che il cuore ogni tanto perde il ritmo: è fastidioso, ma non pericoloso."
+      recast: {text: "imbarazzata", fix: "incinta", tags: [false-friend]}
+      goals: [understand]
+    - learner: "Ci sono medicine sicure in gravidanza? Ne ho bisogno davvero, o posso fare a meno di esse?"
+      errors: [ci-ne]
+    - tutor: "Domanda giusta. Ma «fare a meno di esse» è pesante: la particella si può attaccare all'infinito. Come diventa?"
+      prompt: {text: "fare a meno di esse", tags: [ci-ne]}
+    - learner: "Posso fare a meno di loro?"
+      errors: [ci-ne]
+    - tutor: "Per ora può farne a meno: iniziamo con riposo, niente caffè e un controllo tra un mese. Se i disturbi aumentano, valuteremo un farmaco sicuro."
+      recast: {text: "fare a meno di loro", fix: "farne a meno", tags: [ci-ne]}
+      goals: [treatment]
+
+- scenario: organizzare-matrimonio
+  level: C1
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Lo immaginiamo semplice ma elegante: una cerimonia in un chiostro e poi una recezione per una sessantina di invitati."
+      errors: [word-choice]
+    - tutor: "Bellissimo: una cerimonia nel chiostro e poi un ricevimento per sessanta persone. E il budget?"
+      recast: {text: "una recezione", fix: "un ricevimento", tags: [word-choice]}
+      goals: [vision]
+    - learner: "Diciamo venticinquemila euro. I genitori della mia fidanzata vorrebbero contribuire, ma lei non ci vuole sentire parlare."
+      errors: [ci-ne]
+      gold: {text: "non ci vuole sentire parlare", fix: "non ne vuole sentire parlare"}
+    - tutor: "Una sposa indipendente! Però «non ci vuole sentire parlare»: si parla «di» qualcosa, quindi quale particella serve?"
+      prompt: {text: "non ci vuole sentire parlare", tags: [ci-ne]}
+    - learner: "Sì, lei non ci vuole sentire parlare, insiste."
+      errors: [ci-ne]
+    - tutor: "Se lei non ne vuole sentire parlare, rispettiamo la sua scelta e restiamo sui venticinquemila. Le propongo due posti: un chiostro in centro o una villa fuori città."
+      recast: {text: "non ci vuole sentire parlare", fix: "non ne vuole sentire parlare", tags: [ci-ne]}
+      goals: [budget]
+    - learner: "Il chiostro è più suggestivo, ma ci starebbero tutti gli invitati?"
+    - tutor: "Ce ne stanno fino a ottanta, quindi nessun problema."
+    - learner: "Allora scegliamo il chiostro. Ma ho una condizione: voglio che lei mi manda un preventivo dettagliato prima di firmare."
+      errors: [subjunctive-use]
+    - tutor: "Ottima scelta. Però «voglio che lei mi manda»: dopo «voglio che» il verbo cambia modo."
+      prompt: {text: "manda", tags: [subjunctive-use]}
+      goals: [choices]
+    - learner: "Voglio che lei mi manda... mi invia un preventivo, ecco."
+      errors: [subjunctive-use]
+    - tutor: "Ma certo: che le mandi un preventivo dettagliato è il minimo. Glielo preparo entro lunedì."
+      recast: {text: "manda", fix: "mandi", tags: [subjunctive-use]}
+      goals: [conditions]
+
+- scenario: recensione-ristorante
+  level: C1
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Sì, purtroppo. Avevamo prenotato per il compleanno di mio marito chiedendo un tavolo tranquillo, e ci avete messi accanto alla porta della cucina."
+    - tutor: "Mi dispiace molto. Mi racconti tutto nel dettaglio, per favore."
+      goals: [complain]
+    - learner: "I primi sono arrivati dopo cinquanta minuti. Avevamo ordinato due bottiglie di vino rosso e il cameriere ha portato solo una."
+      errors: [ci-ne]
+      gold: {text: "ha portato solo una", fix: "ne ha portata solo una"}
+    - tutor: "Cinquanta minuti, è davvero troppo. Però «ha portato solo una»: una di che cosa? Manca la particella che riprende le bottiglie."
+      prompt: {text: "ha portato solo una", tags: [ci-ne]}
+    - learner: "Sì, ha portato solo una, e anche calda."
+      errors: [ci-ne]
+    - tutor: "Ne ha portata solo una, e per giunta calda? Inaccettabile, me ne scuso."
+      recast: {text: "ha portato solo una", fix: "Ne ha portata solo una", tags: [ci-ne]}
+      goals: [detail]
+    - learner: "Mi aspettavo che, almeno per un compleanno, il personale fosse più attento. Non ci teniamo a fare polemica, ma a quella serata ci tenevamo molto."
+    - tutor: "Ha perfettamente ragione. Posso offrirvi una cena per due, la sera che preferite?"
+      goals: [expectation]
+    - learner: "Accetto, ma a una condizione: che il tavolo sia lontano della cucina."
+      errors: [preposition]
+    - tutor: "Giustissimo. Ma «lontano della cucina»: con «lontano», quale preposizione regge il nome?"
+      prompt: {text: "lontano della cucina", tags: [preposition]}
+    - learner: "Lontano della... no, non sono sicura."
+      errors: [preposition]
+    - tutor: "Il tavolo sarà lontano dalla cucina, glielo garantisco io: le riservo quello vicino alla finestra."
+      recast: {text: "lontano della", fix: "lontano dalla", tags: [preposition]}
+      goals: [resolve]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Mi serve un certificato di residenza per un nuovo contratto di lavoro, ma online non ci sono riuscita a scaricarlo."
+      errors: [ci-ne]
+      gold: {text: "non ci sono riuscita a scaricarlo", fix: "non sono riuscita a scaricarlo"}
+    - tutor: "Capita spesso. Però «non ci sono riuscita a scaricarlo»: c'è un elemento di troppo, visto che dopo dice già che cosa."
+      prompt: {text: "non ci sono riuscita a scaricarlo", tags: [ci-ne]}
+    - learner: "Ah, giusto: non sono riuscita a scaricarlo dal sito."
+    - tutor: "Esatto. Il sistema è lento, glielo faccio io. Ha un documento d'identità?"
+      goals: [request]
+    - learner: "Sì, la carta d'identità. Ma vedo adesso che è scaduta il mese scorso: non ho fatto caso a essa."
+      errors: [ci-ne]
+    - tutor: "Ahi. E poi «non ho fatto caso a essa» suona da modulo: con «fare caso a», c'è una particella più naturale."
+      prompt: {text: "non ho fatto caso a essa", tags: [ci-ne]}
+    - learner: "Non ho fatto caso a lei, cioè alla data."
+      errors: [ci-ne]
+    - tutor: "Nemmeno io ci ho fatto caso, l'anno scorso, e mi è successa la stessa cosa! Purtroppo con un documento scaduto non posso rilasciare il certificato."
+      recast: {text: "ho fatto caso a lei", fix: "ci ho fatto caso", tags: [ci-ne]}
+      goals: [documents]
+    - learner: "E adesso come faccio? Il contratto va firmato entro venerdì, e ci ho messo sei mesi a trovare questo lavoro."
+    - tutor: "Niente panico: può usare il passaporto, se ce l'ha, oppure prenotare il rinnovo della carta."
+      goals: [problem]
+    - learner: "Il passaporto ce l'ho, ma è a casa. Se torno domani, quanto tempo ci vuole perché il certificato venga rilasciato?"
+    - tutor: "Con il passaporto glielo rilasciamo in cinque minuti. E per la carta d'identità prenoti online: di solito ci vogliono due settimane."
+      goals: [next]
+
+- scenario: trattativa-affitto
+  level: C1
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Molto, soprattutto la terrazza. Però c'è una cosa che mi preoccupa: non c'è l'ascensore, e io non sono più un ragazzo. Quattro piani a piedi... non so se la faccio."
+      errors: [ci-ne]
+      gold: {text: "non so se la faccio", fix: "non so se ce la faccio"}
+    - tutor: "Preoccupazione comprensibile. Ma «non so se la faccio»: all'espressione manca una particella. Riprovi?"
+      prompt: {text: "non so se la faccio", tags: [ci-ne]}
+    - learner: "Non so se ce la faccio, ogni giorno, con la spesa."
+    - tutor: "Esatto. Però il condominio sta valutando di installare l'ascensore l'anno prossimo."
+      goals: [interest]
+    - learner: "Se lo installassero, l'affitto aumenterebbe? I 1200 euro richiesti mi sembrano già alti: in questa via ho visto due appartamenti simili a mille."
+    - tutor: "Il proprietario potrebbe scendere a 1100, ma non oltre."
+    - learner: "Se il proprietario scenderebbe a 1050, firmerei subito, anche per quattro anni."
+      errors: [hypothetical]
+    - tutor: "Proposta allettante. Ma «se il proprietario scenderebbe»: dopo «se», che modo serve?"
+      prompt: {text: "se il proprietario scenderebbe", tags: [hypothetical]}
+    - learner: "Se il proprietario scenderebbe... ah, non mi ricordo la forma."
+      errors: [hypothetical]
+    - tutor: "Se il proprietario scendesse a 1050, lei firmerebbe per quattro anni: glielo propongo oggi stesso. Il contratto prevede sei mesi di preavviso, però."
+      recast: {text: "Se il proprietario scenderebbe", fix: "Se il proprietario scendesse", tags: [hypothetical]}
+      goals: [negotiate]
+    - learner: "Sei mesi vanno bene. Ma vorrei una clausola: se l'ascensore non viene installato entro due anni, posso andarmi con tre mesi di preavviso."
+      errors: [ci-ne]
+    - tutor: "Ragionevole. Ma «posso andarmi»: con «andare via», al pronome manca un rinforzo."
+      prompt: {text: "posso andarmi", tags: [ci-ne]}
+    - learner: "Posso andarmene con tre mesi di preavviso."
+    - tutor: "Mi sembra una clausola equa: ne parlo con il proprietario e la richiamo domani."
+      goals: [conditions, conclude]

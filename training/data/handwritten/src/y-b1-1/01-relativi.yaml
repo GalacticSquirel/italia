@@ -1,0 +1,239 @@
+# B1, round 3: relative pronouns (cui, che, il quale) at the heart of each dialogue.
+- scenario: film-libro
+  level: B1
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Inizio io! Ho letto «La casa sul lago», un romanzo di una scrittrice giovane."
+    - tutor: "Bella scelta, ne ho sentito parlare. Di cosa parla, senza dirci il finale?"
+    - learner: "Parla di una famiglia che passa ogni estate in una vecchia casa vicino a un lago. È un libro molto largo, quasi seicento pagine."
+      errors: [false-friend]
+      gold: {text: "molto largo", fix: "molto lungo"}
+    - tutor: "Un libro molto lungo, allora! E chi è il personaggio principale?"
+      recast: {text: "molto largo", fix: "molto lungo", tags: [false-friend]}
+      goals: [summary]
+    - learner: "Il personaggio di che parlo sempre è la nonna, Lucia. È una donna forte ma misteriosa."
+      errors: [relative-pronoun]
+      gold: {text: "di che", fix: "di cui"}
+    - tutor: "«Il personaggio di che parlo»... Dopo una preposizione, «che» non va bene. Come diresti?"
+      prompt: {text: "di che", tags: [relative-pronoun]}
+    - learner: "Ah, giusto: il personaggio di cui parlo sempre è la nonna."
+    - tutor: "Esatto! Una nonna con un segreto, mi piace già. Allora, ti è piaciuto il romanzo?"
+      goals: [characters]
+    - learner: "Sì, molto. All'inizio è un po' lento, però il finale è emozionante e non me lo aspettavo."
+    - tutor: "Un finale a sorpresa, ottimo. A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "Lo consiglierei a chi ama le storie di famiglia e non ha fretta quando legge."
+    - tutor: "Perfetto, lo metto nella lista del prossimo mese. Grazie! Chi vuole continuare?"
+      goals: [recommend]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È molto grande. Quanto costa l'affitto al mese?"
+    - tutor: "Sono 680 euro al mese, più 50 euro di spese di condominio."
+      goals: [rent]
+    - learner: "Va bene. E la camera in che dormirei è quella con il balcone?"
+      errors: [relative-pronoun]
+      gold: {text: "in che", fix: "in cui"}
+    - tutor: "Scusi, «la camera in che»? Ci pensi un attimo: dopo «in», «che» non funziona."
+      prompt: {text: "in che", tags: [relative-pronoun]}
+    - learner: "La camera in quale dormirei?"
+      errors: [relative-pronoun]
+    - tutor: "Sì, la camera in cui dormirebbe è proprio quella con il balcone. Al mattino prende il sole."
+      recast: {text: "in quale", fix: "in cui", tags: [relative-pronoun]}
+    - learner: "Bellissima. Il riscaldamento è autonomo o centralizzato?"
+    - tutor: "È autonomo, e la caldaia è nuova. In cucina ci sono anche la lavatrice e il frigorifero."
+      goals: [condition]
+      new: [{lemma: caldaia, gloss: boiler}]
+    - learner: "Bene. Quanto dura il contratto, e c'è un deposito?"
+      errors: [word-choice]
+      gold: {text: "un deposito", fix: "una caparra"}
+    - tutor: "È un contratto di quattro anni più quattro, con una caparra di due mensilità."
+      recast: {text: "un deposito", fix: "una caparra", tags: [word-choice]}
+      goals: [contract]
+      new: [{lemma: mensilità, gloss: monthly payment}]
+    - learner: "D'accordo. Il quartiere è tranquillo di sera? Io vado a letto presto."
+    - tutor: "Molto tranquillo: ci sono soprattutto famiglie e un parco qui dietro. Che ne pensa?"
+      goals: [neighbourhood]
+    - learner: "Mi piace molto. Sono interessato, posso firmare la settimana prossima?"
+    - tutor: "Certo, preparo i documenti per lunedì. Allora a presto!"
+      goals: [decide]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-professional
+  history: [relative-pronoun, tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Emma, sono australiana e vivo a Milano da tre anni. Mi occupo di marketing."
+    - tutor: "Piacere, Emma. Dove ha lavorato finora?"
+      goals: [intro]
+    - learner: "Prima lavoravo a Sydney, in un'agenzia per che ho seguito clienti molto importanti."
+      errors: [relative-pronoun]
+      gold: {text: "per che", fix: "per cui"}
+    - tutor: "Interessante. Ma «un'agenzia per che»... dopo «per» quella parola non va. Provi di nuovo?"
+      prompt: {text: "per che", tags: [relative-pronoun]}
+    - learner: "Un'agenzia per cui ho seguito clienti molto importanti."
+    - tutor: "Perfetto. E quali sono i suoi punti forti?"
+      goals: [experience]
+    - learner: "Sono creativa e organizzata. Un mio difetto è che a volte domando troppo ai colleghi."
+      errors: [false-friend]
+      gold: {text: "domando troppo", fix: "pretendo troppo"}
+    - tutor: "È una risposta onesta: anch'io a volte pretendo troppo dagli altri. Perché vorrebbe lavorare da noi?"
+      recast: {text: "domando troppo", fix: "pretendo troppo", tags: [false-friend]}
+      new: [{lemma: pretendere, gloss: to demand}]
+      goals: [strengths]
+    - learner: "Perché mi piacciono i vostri progetti, soprattutto quelli che avete fatto per i musei."
+    - tutor: "Grazie, ne siamo molto orgogliosi. Ha qualche domanda per me?"
+      goals: [why]
+    - learner: "Sì: la squadra con cui lavorerei è grande?"
+    - tutor: "No, sono cinque persone giovani e molto unite. Le faremo sapere entro venerdì."
+      goals: [questions]
+
+- scenario: volontariato
+  level: B1
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Ciao. Sì, voglio aiutare le persone del mio quartiere. Qui ho trovato tanta gente gentile."
+    - tutor: "Che bel motivo. E che cosa sai fare? Abbiamo tante attività diverse."
+      goals: [motivation]
+    - learner: "Faccio il cuoco. I ragazzi con che lavoro dicono che sono molto veloce."
+      errors: [relative-pronoun]
+      gold: {text: "con che", fix: "con cui"}
+    - tutor: "Un cuoco veloce, perfetto! Però «i ragazzi con che lavoro»: dopo «con», quale parola usiamo al posto di «che»?"
+      prompt: {text: "con che", tags: [relative-pronoun]}
+    - learner: "I ragazzi con i quali lavoro."
+    - tutor: "Giusto, anche così va benissimo. Allora in cucina ci saresti molto utile. Quanto tempo hai?"
+      goals: [skills]
+    - learner: "Sono disponibile il lunedì sera e la domenica mattina, perché il ristorante è chiuso."
+    - tutor: "Ottimo. La domenica prepariamo il pranzo per gli anziani, il lunedì invece facciamo la spesa per le famiglie."
+      goals: [time]
+    - learner: "Preferisco il pranzo della domenica, così posso cucinare."
+    - tutor: "Benissimo, ti aspettiamo domenica alle nove. Gli anziani saranno contenti!"
+      goals: [choose]
+
+- scenario: medico-base
+  level: B1
+  persona: en-m-heritage
+  history: [relative-pronoun, auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e una tosse forte, soprattutto di notte."
+    - tutor: "Mi dispiace. Ha anche la febbre?"
+      goals: [symptoms]
+    - learner: "Sì, ieri sera avevo trentotto. Sto male da sabato, dopo un gioco di calcio sotto la pioggia."
+      errors: [word-choice]
+      gold: {text: "un gioco di calcio", fix: "una partita di calcio"}
+    - tutor: "Una partita di calcio sotto la pioggia, ecco perché! Prende già qualche medicina?"
+      recast: {text: "un gioco di calcio", fix: "una partita di calcio", tags: [word-choice]}
+      goals: [since-when]
+    - learner: "Solo uno sciroppo. Il farmacista a che l'ho chiesto ha detto che va bene per la tosse."
+      errors: [relative-pronoun]
+      gold: {text: "a che", fix: "a cui"}
+    - tutor: "Va bene. Solo una cosa: «il farmacista a che l'ho chiesto»... Dopo «a», «che» non funziona. Come diventa?"
+      prompt: {text: "a che", tags: [relative-pronoun]}
+    - learner: "Il farmacista a cui l'ho chiesto."
+    - tutor: "Esatto. E ha qualche allergia alle medicine?"
+    - learner: "No, non sono allergico a niente."
+    - tutor: "Bene. Allora le scrivo un antibiotico: una pastiglia la mattina e una la sera, per sei giorni. Mi ripete?"
+      goals: [history]
+      new: [{lemma: antibiotico, gloss: antibiotic}, {lemma: pastiglia, gloss: tablet}]
+    - learner: "Una pastiglia la mattina e una la sera, per sei giorni. E devo bere molta acqua, giusto?"
+    - tutor: "Giusto, e riposi qualche giorno. Se la febbre non passa, torni venerdì."
+      goals: [instructions]
+
+- scenario: film-libro
+  level: B1
+  persona: en-m-traveller
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Ciao a tutti! Ho letto un romanzo irlandese tradotto in italiano, si chiama «Il porto»."
+    - tutor: "Un autore del tuo paese, che bello! Di cosa parla?"
+    - learner: "Racconta la storia di un piccolo paese che il protagonista è nato e dove torna dopo trent'anni."
+      errors: [relative-pronoun]
+      gold: {text: "che il protagonista è nato", fix: "in cui il protagonista è nato"}
+    - tutor: "Una bella idea. Ma «un paese che il protagonista è nato»... manca qualcosa prima di «che». Prova di nuovo?"
+      prompt: {text: "che il protagonista è nato", tags: [relative-pronoun]}
+    - learner: "Un piccolo paese dove che il protagonista è nato?"
+      errors: [relative-pronoun]
+    - tutor: "Ah, un paese in cui il protagonista è nato, cioè il suo paese. E torna dopo tanti anni: perché?"
+      recast: {text: "dove che il protagonista è nato", fix: "in cui il protagonista è nato", tags: [relative-pronoun]}
+      goals: [summary]
+    - learner: "Torna per vendere la casa di suo padre. È un uomo triste e lonely, ma molto ironico."
+      errors: [word-choice]
+      gold: {text: "lonely", fix: "solo"}
+    - tutor: "Un uomo triste e solo, ma ironico: un personaggio interessante. E a te è piaciuto?"
+      recast: {text: "lonely", fix: "solo", tags: [word-choice]}
+      goals: [characters]
+    - learner: "Attualmente non mi è piaciuto molto. La storia è bella, ma il finale è troppo lento."
+      errors: [false-friend]
+      gold: {text: "Attualmente", fix: "In realtà"}
+    - tutor: "In realtà non ti ha convinto, quindi. Capita! A chi lo consiglieresti?"
+      recast: {text: "Attualmente", fix: "In realtà", tags: [false-friend]}
+      goals: [opinion]
+    - learner: "Lo consiglierei a chi ama i paesaggi e le storie tranquille."
+    - tutor: "Va bene, grazie per la tua opinione sincera! Chi è il prossimo?"
+      goals: [recommend]
+
+- scenario: smartworking
+  level: B1
+  persona: es-f-erasmus
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Lavoro da casa tre giorni alla settimana e due giorni vado all'officina."
+      errors: [false-friend]
+      gold: {text: "all'officina", fix: "in ufficio"}
+    - tutor: "Ah, tre giorni a casa e due in ufficio. E come ti trovi?"
+      recast: {text: "all'officina", fix: "in ufficio", tags: [false-friend]}
+      goals: [situation]
+    - learner: "Bene. A casa mi concentro di più e non perdo un'ora sull'autobus."
+    - tutor: "È un grande vantaggio, hai ragione. E gli svantaggi?"
+      goals: [pros]
+    - learner: "Mi manca la mia collega a la que racconto sempre tutto. A casa sono un po' sola."
+      errors: [relative-pronoun]
+      gold: {text: "a la que", fix: "alla quale"}
+    - tutor: "Ti capisco. Però «la collega a la que»... questa forma è spagnola! In italiano?"
+      prompt: {text: "a la que", tags: [relative-pronoun]}
+    - learner: "La collega alla quale racconto tutto!"
+    - tutor: "Brava, perfetto! E se potessi scegliere, cosa preferiresti?"
+      goals: [cons]
+    - learner: "Preferirei lavorare da casa solo due giorni, perché in ufficio rido di più."
+    - tutor: "Mi sembra una scelta molto giusta. Anch'io farei così!"
+      goals: [preference]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! Che bello, è molto luminoso. L'affitto include anche le spese?"
+    - tutor: "Sì, sono 720 euro al mese con le spese di condominio. La luce e il gas invece li paga lei."
+      goals: [rent]
+    - learner: "Capisco. Ho una macchina: c'è un garage? Ho davvero bisogno."
+      errors: [ci-ne]
+      gold: {text: "Ho davvero bisogno", fix: "Ne ho davvero bisogno"}
+    - tutor: "Ha davvero bisogno... di che cosa? Manca una parola piccola ma importante."
+      prompt: {text: "Ho davvero bisogno", tags: [ci-ne]}
+    - learner: "Ne ho davvero bisogno, del garage."
+    - tutor: "Esatto! C'è un posto auto in cortile, compreso nel prezzo. Altre domande?"
+    - learner: "Sì. Il riscaldamento funziona bene? L'inverno qui è molto freddo."
+    - tutor: "Funziona benissimo, l'abbiamo cambiato l'anno scorso."
+      goals: [condition]
+    - learner: "Perfetto. E il contratto? Quanti mesi di caparra devo pagare?"
+    - tutor: "Il contratto è di quattro anni. Di caparra chiedo tre mesi."
+      goals: [contract]
+    - learner: "Tre mesi? Sono molti, ma ne posso pagare due adesso e uno il mese prossimo?"
+    - tutor: "Va bene, si può fare. Le piace la zona?"
+    - learner: "Sì, ci sono passata ieri: c'è un mercato bellissimo. Sono molto interessata."
+    - tutor: "Il mercato del sabato è famoso, sì. Allora le preparo il contratto per giovedì."
+      goals: [neighbourhood, decide]

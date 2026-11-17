@@ -1,0 +1,207 @@
+# Set y-nocorrect, file 5: B1 (volontariato) and B2. Correct forms a weak tutor might flag:
+# "non so se è", "è vero che" + indicative, "non credo che" + future, ce lo, me la cavo.
+- scenario: volontariato
+  level: B1
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+  - learner: "Sì, molto! Ne ho sentito parlare da una collega e mi sono informata sul vostro sito."
+  - tutor: "Che bello! E perché vuoi fare volontariato?"
+  - learner: "Sono in Italia da un anno e voglio fare qualcosa di utile. Mi piacerebbe aiutare gli anziani: ci tengo molto."
+  - tutor: "È un'ottima ragione. Hai già fatto esperienze simili?"
+    goals: [motivation]
+  - learner: "Sì, in Spagna. L'associazione con quale ho lavorato organizzava attività per bambini."
+    errors: [relative-pronoun]
+  - tutor: "Interessante! Però, «con quale ho lavorato»: non manca qualcosa prima di quale?"
+    prompt: {text: "con quale", tags: [relative-pronoun]}
+  - learner: "Sì, l'associazione con quale lavoravo era molto grande."
+    errors: [relative-pronoun]
+  - tutor: "Ah, l'associazione con la quale lavoravi era grande! Quindi con le persone te la cavi bene."
+    recast: {text: "con quale", fix: "con la quale", tags: [relative-pronoun]}
+  - learner: "Sì, me la cavo. Sono insegnante, quindi sono abituata a parlare e ad ascoltare."
+  - tutor: "Ottimo, è proprio quello che serve. Quanto tempo puoi darci?"
+    goals: [skills]
+  - learner: "Il martedì e il giovedì pomeriggio sono libera. Tre ore alla volta, più o meno."
+  - tutor: "Perfetto. Abbiamo due attività: leggere ad alta voce agli anziani o fare la spesa per chi vive da solo. Quale preferisci?"
+    goals: [time]
+  - learner: "La lettura, senza dubbio. Mi piace tanto leggere ad alta voce."
+  - tutor: "Benissimo, allora ti segno per la lettura. Ci vediamo martedì alle tre!"
+    goals: [choose]
+
+- scenario: arte-mostra
+  level: B2
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi colpisce subito la luce. Non so se è voluto, ma sembra che venga da fuori del quadro."
+  - tutor: "Hai occhio! È proprio voluto: il pittore mette la luce solo sui volti. Cosa vedi, esattamente?"
+    goals: [react]
+  - learner: "Vedo una donna seduta con un bambino in braccio e, sullo sfondo, un paesaggio di colline. Il paesaggio l'ha dipinto qualcun altro, no? Sembra più piatto."
+  - tutor: "Brava, è proprio così: lo sfondo è stato dipinto da un allievo. E secondo te, che cosa vuole dirci il pittore?"
+    goals: [describe]
+  - learner: "Credo che il pittore vuole mostrare una madre normale, non una Madonna."
+    errors: [subjunctive-use]
+  - tutor: "Lettura interessante. Ma ripeti la frase: dopo «credo che», il verbo va bene così?"
+    prompt: {text: "Credo che il pittore vuole", tags: [subjunctive-use]}
+  - learner: "Hai ragione: credo che il pittore voglia mostrare una madre normale."
+  - tutor: "Esatto. E in effetti nessuno dei due ha l'aureola: per l'epoca è una scelta coraggiosa."
+    goals: [interpret]
+    new: [{lemma: aureola, gloss: halo}]
+  - learner: "Rispetto ai quadri del Rinascimento che abbiamo visto prima, questo è più intimo. Lì era tutto perfetto, qui c'è più vita."
+  - tutor: "Sono d'accordo: la prospettiva è meno rigida e i colori sono più caldi. Vieni, nella sala accanto c'è il suo maestro: vediamo se la pensi ancora così."
+    goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-retired
+  history: [passive]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri pomeriggio stavo uscendo dal parcheggio del supermercato quando un furgone mi ha urtato la portiera."
+  - tutor: "Mi dispiace. Lei sta bene? Si è fatto male qualcuno?"
+    goals: [what]
+  - learner: "No, per fortuna nessuno. Il conducente è sceso subito e ha ammesso che stava facendo retromarcia senza guardare. È stato molto educato, devo dire."
+  - tutor: "Bene, così è tutto più facile. Avete compilato la constatazione amichevole?"
+    goals: [responsibility]
+  - learner: "Sì, l'abbiamo compilata sul posto e l'abbiamo firmata tutti e due. Le foto le ho fatte con il telefono."
+  - tutor: "Perfetto. Me le può mandare per email, insieme al modulo?"
+    goals: [documents]
+  - learner: "Certo, gliele mando oggi. La mia macchina è stato portata dal carrozziere stamattina."
+    errors: [passive]
+  - tutor: "Benissimo. Una cosa sola: «la mia macchina è stato portata»? Controlli l'accordo con macchina."
+    prompt: {text: "è stato portata", tags: [passive]}
+  - learner: "Sì, è stato portata dal carrozziere, quello vicino a casa mia."
+    errors: [passive]
+  - tutor: "Va bene: visto che è stata portata dal carrozziere, mandiamo lì un nostro tecnico entro tre giorni. Poi, se è tutto in regola, riceverà il rimborso."
+    goals: [next]
+    recast: {text: "è stato portata", fix: "è stata portata", tags: [passive]}
+  - learner: "Perfetto. Quindi la franchigia non la pago io, visto che la colpa è dell'altro?"
+  - tutor: "Esatto: se la responsabilità è tutta dell'altro, lei non paga nessuna franchigia. Le faremo sapere tutto noi."
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-m-worker
+  history: [subjunctive-form]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno, sì, il 47 è il mio. Abito qui da due mesi e vorrei chiedere la residenza."
+  - tutor: "Va bene. Ha già compilato il modulo di richiesta?"
+    goals: [request]
+  - learner: "Sì, eccolo. Il contratto d'affitto ce l'ho qui, e anche il permesso di soggiorno."
+  - tutor: "Perfetto, faccio una copia di tutti e due."
+    goals: [documents]
+  - learner: "C'è un problema, però: sul contratto il mio cognome è scritto male, manca una lettera."
+  - tutor: "Vediamo... sì, è un semplice errore. Non si preoccupi: basta che il proprietario firmi una breve dichiarazione con il nome corretto."
+    goals: [problem]
+  - learner: "Va bene, gli scrivo oggi stesso. E poi? Mi hanno detto che passano i vigili a controllare."
+  - tutor: "Esatto: entro quarantacinque giorni i vigili verranno a casa sua per verificare che lei abiti lì."
+  - learner: "Spero che venghino presto, perché mi serve il certificato per il lavoro."
+    errors: [subjunctive-form]
+  - tutor: "Capisco la fretta. Però, «spero che venghino»? Pensi a come si forma il congiuntivo di venire."
+    prompt: {text: "venghino", tags: [subjunctive-form]}
+  - learner: "Sì, spero che venghino presto, davvero."
+    errors: [subjunctive-form]
+  - tutor: "Speriamo che vengano presto anche per lei. Di solito passano entro due o tre settimane, e poi il certificato si può scaricare anche da casa."
+    recast: {text: "venghino", fix: "vengano", tags: [subjunctive-form]}
+    goals: [next]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: en-f-professional
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie del tempo. Volevo parlarle del mio ruolo. Quest'anno ho portato due clienti nuovi e il fatturato del mio gruppo è cresciuto del quindici per cento."
+  - tutor: "Lo so, e sono risultati che abbiamo notato tutti. Dove vuole arrivare?"
+    goals: [results]
+  - learner: "Il posto di responsabile del marketing è libero. Vorrei applicare per quella posizione."
+    errors: [word-choice]
+  - tutor: "Vuole candidarsi per quella posizione, quindi. È una richiesta giusta, ma deve sapere che c'è anche un candidato esterno."
+    goals: [request]
+    new: [{lemma: candidarsi, gloss: to apply for a job}]
+    recast: {text: "applicare per quella posizione", fix: "candidarsi per quella posizione", tags: [word-choice]}
+  - learner: "Me ne rendo conto. Ma io conosco già i clienti e la squadra: secondo me è un vantaggio importante."
+  - tutor: "Su questo ha ragione. Il problema è il budget: quest'anno un aumento è difficile."
+  - learner: "So che il budget è limitato. Potremmo cominciare con il nuovo ruolo e parlare dell'aumento fra sei mesi, dopo una valutazione."
+  - tutor: "È una proposta ragionevole, e mi fa piacere che lei capisca la situazione."
+    goals: [handle]
+  - learner: "Allora quali sono i prossimi passi?"
+  - tutor: "Ne parlo con la direzione questa settimana e ci rivediamo lunedì. Nel frattempo, mi prepari un breve piano per i primi sei mesi."
+    goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Io la penso diversamente. È vero che i commercianti hanno paura, ma secondo me la zona pedonale porterebbe più persone in centro, non meno."
+  - tutor: "Più persone? Ma se la gente non può arrivare in macchina, come ci arriva?"
+    goals: [position]
+  - learner: "Con i mezzi pubblici o in bici. A Pontevedra, in Spagna, l'hanno fatto vent'anni fa e i negozi ci sono ancora, anzi sono aumentati."
+  - tutor: "Sì, ma noi non siamo in Spagna: qui gli autobus passano ogni mezz'ora."
+    goals: [argue]
+  - learner: "Appunto. Bisogna che il comune migliora i mezzi pubblici prima di chiudere il centro."
+    errors: [subjunctive-use]
+  - tutor: "Su questo potremmo trovarci d'accordo. Ma ripeta: «bisogna che il comune migliora»? Dopo «bisogna che», quale modo ci vuole?"
+    prompt: {text: "Bisogna che il comune migliora", tags: [subjunctive-use]}
+  - learner: "Sì, bisogna che il comune migliora gli autobus, almeno all'inizio."
+    errors: [subjunctive-use]
+  - tutor: "Quindi bisogna che il comune migliori gli autobus. E chi paga? Se le tasse le pagano i residenti, rischiamo che nessuno sia contento."
+    goals: [counter]
+    recast: {text: "bisogna che il comune migliora", fix: "bisogna che il comune migliori", tags: [subjunctive-use]}
+  - learner: "Non credo che i residenti dovranno pagare di più: ci sono fondi europei per questo. Però ammetto che lei abbia ragione su un punto: senza parcheggi fuori dal centro non funziona."
+  - tutor: "Ecco, almeno su questo siamo d'accordo. Parcheggi fuori, autobus frequenti e poi, forse, la zona pedonale."
+    goals: [concede]
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Meglio, grazie. Però ogni tanto mi sento stanca, soprattutto la sera."
+  - tutor: "Un po' di affaticamento è normale con questa terapia, almeno all'inizio. Ha notato altro?"
+  - learner: "Sì, mi è capitato due volte di avere il battito accelerato mentre salivo le scale."
+  - tutor: "Capisco. Ha avuto altri problemi di salute di recente?"
+    goals: [symptoms]
+  - learner: "Solo la settimana scorsa ero costipata: avevo il naso chiuso e un po' di febbre."
+    errors: [false-friend]
+  - tutor: "Ah, era raffreddata, quindi. Con la febbre è normale che il battito sia più veloce. Le medicine per la pressione le ha prese regolarmente?"
+    goals: [history]
+    recast: {text: "costipata", fix: "raffreddata", tags: [false-friend]}
+  - learner: "Sì, le prendo ogni mattina, come mi ha detto. Non so se è normale, ma a volte mi gira un po' la testa."
+  - tutor: "Può succedere: vuol dire che la pressione scende un po' troppo. Forse la dose attuale è un po' alta per lei."
+  - learner: "Quindi è per questo che sono stanca? Me lo può riassumere, per essere sicura di aver capito?"
+  - tutor: "Certo: gli esami sono buoni e il cuore sta bene, ma la medicina è un po' troppo forte."
+    goals: [understand]
+  - learner: "Allora che cosa facciamo? Devo cambiare medicina?"
+  - tutor: "No, ne prenda solo metà ogni mattina e torni per un controllo tra un mese."
+    goals: [treatment]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-traveller
+  history: [combined-pronouns]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Ce lo immaginiamo semplice: all'aperto, in campagna, con pochi invitati."
+  - tutor: "Che bella idea. Quanti invitati, più o meno?"
+    goals: [vision]
+  - learner: "Saremo ottanta, contando i bambini. Il budget non è altissimo: diciamo ventimila euro, non di più."
+  - tutor: "Con ottanta invitati è un budget ragionevole, se scegliamo bene."
+    goals: [budget]
+  - learner: "Per il menù preferiremmo una cosa leggera, con molto pesce. Il fotografo invece ce l'abbiamo già: è un amico della mia fidanzata."
+  - tutor: "Perfetto, uno in meno da cercare. Per la location le propongo un agriturismo vicino a Siena, oppure una villa sul lago."
+    new: [{lemma: agriturismo, gloss: farm stay}]
+  - learner: "L'agriturismo, senz'altro. Ci lo può mandare, il preventivo, entro venerdì?"
+    errors: [combined-pronouns]
+  - tutor: "Volentieri. Solo una cosa: «ci lo può mandare»? Quando ci e lo stanno insieme, la prima parola cambia un po'."
+    goals: [choices]
+    prompt: {text: "Ci lo", tags: [combined-pronouns]}
+  - learner: "Ah, sì: ce lo può mandare entro venerdì?"
+  - tutor: "Esatto! Sì, glielo mando giovedì. Le ricordo solo che per confermare serve un anticipo del trenta per cento."
+    goals: [conditions]
+  - learner: "Va bene, nessun problema. Se l'agriturismo ci piace, firmiamo subito."
+  - tutor: "Benissimo. Allora aspetto la vostra risposta dopo il preventivo, e ancora congratulazioni!"

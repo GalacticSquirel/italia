@@ -1,0 +1,243 @@
+# B1, hotel complaints and returns: relative pronouns, clitics, ci/ne, aspect.
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, nella mia camera il Wi-Fi non funziona, e devo finire un lavoro per l'università."
+    - tutor: "Mi dispiace. Ha provato a spegnere e accendere di nuovo il telefono?"
+      goals: [problem]
+    - learner: "Sì, due volte. Il ragazzo con che ho parlato oggi pomeriggio mi ha detto di aspettare, ma non funziona da stamattina."
+      errors: [relative-pronoun]
+      gold: {text: "con che", fix: "con cui"}
+    - tutor: "Il ragazzo con che...? Dopo una preposizione, quale pronome usiamo?"
+      prompt: {text: "con che", tags: [relative-pronoun]}
+    - learner: "Il ragazzo con che ho parlato... è alto, con gli occhiali."
+      errors: [relative-pronoun]
+    - tutor: "Ah, il ragazzo con cui ha parlato è Luca, il mio collega. Quindi è senza internet da stamattina: mi dispiace davvero."
+      recast: {text: "con che", fix: "con cui", tags: [relative-pronoun]}
+      goals: [since]
+    - learner: "Potrebbe darmi una camera dove il Wi-Fi funziona? O almeno un posto dove posso lavorare?"
+    - tutor: "La sala al primo piano ha un ottimo segnale ed è aperta tutta la notte. Domani mattina, se vuole, le cambio la camera."
+      goals: [request]
+    - learner: "Va bene, grazie. Ma per la notte di oggi vorrei un ritorno dei soldi, almeno di una parte."
+      errors: [word-choice]
+      gold: {text: "un ritorno dei soldi", fix: "un rimborso"}
+    - tutor: "Ha ragione, un rimborso è giusto: le togliamo il trenta per cento dal conto di stanotte. Le va bene?"
+      recast: {text: "un ritorno dei soldi", fix: "un rimborso", tags: [word-choice]}
+    - learner: "Sì, mi va bene. Grazie per l'aiuto."
+    - tutor: "Si figuri. La sala è in fondo al corridoio, a destra. Buon lavoro!"
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-m-worker
+  history: [pronoun-position]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Il letto della 305 è rotto: da una parte è più basso e non si può dormire."
+    - tutor: "Oh, mi dispiace! Ne ha già parlato con qualcuno?"
+      goals: [problem]
+    - learner: "Sì, ho detto lo alla sua collega ieri sera, ma nessuno è venuto."
+      errors: [pronoun-position]
+      gold: {text: "ho detto lo", fix: "l'ho detto"}
+    - tutor: "Ho detto lo? Con il passato prossimo, dove mettiamo il pronome?"
+      prompt: {text: "ho detto lo", tags: [pronoun-position]}
+    - learner: "L'ho detto alla sua collega ieri sera."
+    - tutor: "Giusto. Quindi il problema c'è da ieri: le chiedo scusa a nome dell'albergo."
+      goals: [since]
+    - learner: "Grazie. E poi, quando sono arrivato, anche il bagno è stato sporco."
+      errors: [tense-aspect]
+      gold: {text: "è stato sporco", fix: "era sporco"}
+    - tutor: "Anche il bagno è stato sporco? Parla di una situazione, non di un fatto: che tempo usiamo?"
+      prompt: {text: "è stato sporco", tags: [tense-aspect]}
+    - learner: "Il bagno è stato... sì, è stato sporco anche lui."
+      errors: [tense-aspect]
+    - tutor: "Se anche il bagno era sporco, è davvero troppo. Cosa preferisce che facciamo?"
+      recast: {text: "è stato sporco", fix: "era sporco", tags: [tense-aspect]}
+    - learner: "Vorrei un'altra camera, pulita, e con un letto normale."
+    - tutor: "Certo. Le do subito la 210, appena pulita, e stanotte non paga la camera."
+      goals: [request]
+    - learner: "Perfetto, accetto. Grazie per la gentilezza."
+    - tutor: "Grazie a lei per la pazienza. Ecco la chiave, buonanotte."
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, il problema è il bar qui sotto. La musica è altissima e la mia camera è proprio sopra."
+    - tutor: "Ah, la musica del bar. È la 102, giusto? Da quanto tempo la sente?"
+      goals: [problem]
+    - learner: "Dalle nove, quindi da più di due ore. Sono stanco e non la faccio più."
+      errors: [ci-ne]
+      gold: {text: "non la faccio più", fix: "non ce la faccio più"}
+    - tutor: "Non la faccio più? Manca una piccola parola prima di «la»."
+      prompt: {text: "non la faccio più", tags: [ci-ne]}
+    - learner: "Ah, sì: non ce la faccio più."
+    - tutor: "La capisco benissimo, a quest'ora è normale essere stanchi."
+      goals: [since]
+    - learner: "Voglio che lei parla con il bar, per favore. O mi può dare un'altra camera?"
+      errors: [subjunctive-use]
+      gold: {text: "che lei parla", fix: "che lei parli"}
+    - tutor: "Voglio che lei... parla? Dopo «voglio che» il verbo cambia forma."
+      prompt: {text: "che lei parla", tags: [subjunctive-use]}
+    - learner: "Voglio che lei parli con il bar."
+    - tutor: "Perfetto. Il bar chiude a mezzanotte, ma posso darle subito una camera al quarto piano, dal lato del parco."
+      goals: [request]
+      new: [{lemma: mezzanotte, gloss: midnight}]
+    - learner: "Al quarto piano va benissimo. Mi può aiutare con la valigia? È pesante."
+    - tutor: "Certo, gliela porto io. Ecco la chiave della 408: lì non si sente niente."
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. L'aria condizionata nella mia camera è rotta. Fa un caldo incredibile."
+    - tutor: "Mi dispiace molto. Da quando non funziona?"
+      goals: [problem]
+    - learner: "Dalle sei, quando sono tornata. Ieri notte non ho preso nessun sonno, perché anche ieri faceva caldo."
+      errors: [word-choice]
+      gold: {text: "non ho preso nessun sonno", fix: "non ho chiuso occhio"}
+    - tutor: "Capisco, se non ha chiuso occhio è davvero grave. Allora il problema c'era già da ieri?"
+      recast: {text: "preso nessun sonno", fix: "chiuso occhio", tags: [word-choice]}
+      goals: [since]
+    - learner: "Sì, ma ieri pensavo che era normale. Domani doverò alzarmi alle sei per una riunione."
+      errors: [future-form]
+      gold: {text: "doverò", fix: "dovrò"}
+    - tutor: "Domani... doverò? Provi di nuovo con il futuro di dovere."
+      prompt: {text: "doverò", tags: [future-form]}
+    - learner: "Dovrò alzarmi alle sei."
+    - tutor: "Esatto. Allora le serve una camera fresca subito. Cosa le andrebbe bene?"
+    - learner: "Potrebbe darmi un'altra camera? Anche più piccola, non importa."
+    - tutor: "Ho una singola al terzo piano, molto tranquilla. Per il disturbo, le offriamo anche la cena di domani."
+      goals: [request]
+    - learner: "Va benissimo, grazie. Cambio camera adesso."
+    - tutor: "Perfetto, le mando subito qualcuno per le valigie. Buonanotte, e buona riunione domani!"
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-f-erasmus
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questa macchina del caffè qui la settimana scorsa, ma fa un rumore molto raro."
+      errors: [false-friend]
+      gold: {text: "molto raro", fix: "molto strano"}
+    - tutor: "Un rumore molto strano? Mi faccia sentire, la accendo un attimo."
+      recast: {text: "molto raro", fix: "molto strano", tags: [false-friend]}
+    - learner: "Ecco, sente? E poi il caffè esce freddo. Ieri ho telefonato al negozio e li ho detto del problema."
+      errors: [object-pronoun]
+      gold: {text: "li ho detto", fix: "gli ho detto"}
+    - tutor: "Li ho detto? Ha detto qualcosa a loro: che pronome serve?"
+      prompt: {text: "li ho detto", tags: [object-pronoun]}
+      goals: [problem]
+    - learner: "Li ho detto del problema, sì, e mi hanno risposto di venire qui."
+      errors: [object-pronoun]
+    - tutor: "Ha fatto bene: gli ha detto del problema e adesso lo risolviamo noi. Ha con sé lo scontrino?"
+      recast: {text: "Li ho detto", fix: "gli ha detto", tags: [object-pronoun]}
+    - learner: "Sì, eccolo. L'ho pagata il due marzo, con la carta."
+    - tutor: "Benissimo, è in garanzia. Come preferisce risolvere?"
+      goals: [proof]
+    - learner: "Preferirei avere un'altra macchina uguale, perché mi piace molto il modello."
+    - tutor: "Certo, la sostituiamo subito con una nuova. Vuole provarla qui prima di andare via?"
+      goals: [request]
+    - learner: "Sì, grazie, così sono più tranquilla."
+    - tutor: "Ottima idea. Ecco la nuova macchina: la proviamo insieme e poi le faccio il documento del cambio."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-traveller
+  history: [pronoun-position]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie tre giorni fa, ma non si collegano al mio telefono."
+    - tutor: "Mi dispiace. Ha provato a spegnerle e ad accenderle di nuovo?"
+      goals: [problem]
+    - learner: "Sì, e ho anche letto le istruzioni. Ecco lo scontrino, le ho prese qui sabato."
+    - tutor: "Perfetto, sabato scorso. Allora sono ancora in garanzia."
+      goals: [proof]
+    - learner: "Bene. Allora posso le cambiare con un altro modello?"
+      errors: [pronoun-position]
+      gold: {text: "le cambiare", fix: "cambiarle"}
+    - tutor: "Posso le cambiare? Il pronome è nel posto sbagliato. Provi a spostarlo."
+      prompt: {text: "le cambiare", tags: [pronoun-position]}
+    - learner: "Posso... le cambiare, sì, con un altro modello."
+      errors: [pronoun-position]
+    - tutor: "Certo, può cambiarle con qualsiasi modello che vede qui. Se costa di più, paga la differenza."
+      recast: {text: "le cambiare", fix: "cambiarle", tags: [pronoun-position]}
+      goals: [request]
+    - learner: "Queste nere costano venti euro in più. Va bene, le prendo."
+    - tutor: "Ottima scelta. Venti euro di differenza, allora: paga con la carta?"
+      goals: [agree]
+    - learner: "Sì, con la carta. Grazie mille."
+    - tutor: "Grazie a lei. Ecco le cuffie nuove, con il nuovo scontrino."
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho un problema con il computer portatile che ho comprato qui la settimana scorsa."
+    - tutor: "Mi dispiace. Che cosa succede, esattamente?"
+    - learner: "Quando l'ho acceso a casa, lo schermo è rimasto nero. Ho provato tutto quello che c'era nelle istruzioni."
+    - tutor: "Capisco, quindi non si accende proprio. Ha lo scontrino con sé?"
+      goals: [problem]
+    - learner: "Sì, eccolo. Il commesso a chi ho chiesto informazioni mi ha detto che era il modello migliore."
+      errors: [relative-pronoun]
+      gold: {text: "a chi", fix: "a cui"}
+    - tutor: "Il commesso a chi...? Attenzione al pronome dopo la preposizione."
+      prompt: {text: "a chi", tags: [relative-pronoun]}
+    - learner: "Il commesso a chi ho chiesto... sì, quel signore là."
+      errors: [relative-pronoun]
+    - tutor: "Ah, il commesso a cui ha chiesto informazioni è il nostro responsabile. Vedo dallo scontrino che l'ha preso il dieci: è in garanzia, naturalmente."
+      goals: [proof]
+      recast: {text: "a chi", fix: "a cui", tags: [relative-pronoun]}
+    - learner: "Allora vorrei i soldi indietro. Non ho più fiducia in questo modello."
+    - tutor: "La capisco. Entro quattordici giorni possiamo restituirle tutto: le faccio il rimborso sulla carta."
+      goals: [request]
+    - learner: "Perfetto, grazie. Quanto tempo ci vuole per vedere i soldi sulla carta?"
+    - tutor: "Di solito tre o quattro giorni. Ecco la ricevuta del rimborso, la tenga con cura."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questo televisore un mese fa, e da ieri si vede solo metà dello schermo."
+    - tutor: "Solo metà? Che strano. Mi fa vedere?"
+      goals: [problem]
+    - learner: "Sì, guardi qui. Penso che il problema è nello schermo, non nel cavo."
+      errors: [subjunctive-use]
+      gold: {text: "che il problema è", fix: "che il problema sia"}
+    - tutor: "Penso che il problema... è? Dopo «penso che» quale modo usiamo?"
+      prompt: {text: "che il problema è", tags: [subjunctive-use]}
+    - learner: "Penso che il problema è nello schermo... non sono sicuro."
+      errors: [subjunctive-use]
+    - tutor: "Anch'io credo che il problema sia nello schermo, purtroppo. Ha lo scontrino?"
+      recast: {text: "che il problema è", fix: "che il problema sia", tags: [subjunctive-use]}
+    - learner: "Sì, ecco. L'ho comprato il cinque ottobre, qui al negozio."
+    - tutor: "Va bene, è in garanzia. Possiamo ripararlo, ma ci vogliono circa dieci giorni."
+      goals: [proof]
+    - learner: "Dieci giorni senza televisione? No, ho solo uno a casa, e domenica c'è la partita."
+      errors: [ci-ne]
+      gold: {text: "ho solo uno", fix: "ne ho solo uno"}
+    - tutor: "Ha solo uno? Uno di che cosa? Provi a dirlo con la piccola parola giusta."
+      prompt: {text: "ho solo uno", tags: [ci-ne]}
+    - learner: "Ne ho solo uno a casa. Potete cambiarlo con uno nuovo?"
+    - tutor: "Va bene, per una volta possiamo cambiarlo subito. Le do lo stesso modello, nuovo."
+      goals: [request]
+    - learner: "Perfetto, grazie mille. Così domenica vedo la partita!"
+    - tutor: "Esatto, niente partita persa. Ecco la nuova televisione, e buona visione domenica!"
+      goals: [agree]

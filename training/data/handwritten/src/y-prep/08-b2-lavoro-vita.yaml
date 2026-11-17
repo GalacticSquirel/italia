@@ -1,0 +1,244 @@
+# y-prep, file 08: B2, pensare a, dipendere da, convincere a, sognare di, distances with da, articulated forms.
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-teacher
+  history: [preposition, articulated-preposition]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Abbastanza bene, ma quando salgo le scale resto senza fiato, e la sera sono molto stanca."
+    - tutor: "Capisco. Da quanto tempo ha questi sintomi?"
+      goals: [symptoms]
+    - learner: "Da circa un mese. Penso che dipenda dallo stress del lavoro."
+    - tutor: "Può darsi. Ci sono malattie del cuore in famiglia?"
+    - learner: "Sì, mio padre soffriva di pressione alta e mio nonno è morto per un problema a il cuore."
+      errors: [articulated-preposition]
+    - tutor: "Mi dispiace. «Un problema a il cuore»? Provi a dirlo meglio."
+      prompt: {text: "a il cuore", tags: [articulated-preposition]}
+    - learner: "Un problema al cuore."
+    - tutor: "Esatto. È un dato importante per capire i suoi esami."
+      goals: [history]
+    - learner: "Ho pensato molto in questi esami. Cosa significano i risultati?"
+      errors: [preposition]
+    - tutor: "La capisco. Però «ho pensato molto in questi esami»: con pensare, quale preposizione usiamo?"
+      prompt: {text: "pensato molto in", tags: [preposition]}
+    - learner: "Ho pensato molto su questi esami."
+      errors: [preposition]
+    - tutor: "È normale che abbia pensato a questi esami. I valori indicano una pressione un po' alta, ma niente di grave."
+      recast: {text: "su questi esami", fix: "a questi esami", tags: [preposition]}
+      goals: [understand]
+    - learner: "Devo prendere una terapia? Ci sono effetti collaterali?"
+    - tutor: "Le do una terapia leggera; all'inizio potrebbe sentirsi un po' stanca, ma passa in pochi giorni."
+      goals: [treatment]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-f-student
+  history: [preposition, articulated-preposition]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Immaginiamo un matrimonio piccolo, su una spiaggia in Puglia, a giugno."
+    - tutor: "Che sogno! Quanti invitati pensate di avere?"
+      goals: [vision]
+    - learner: "Circa ottanta. Il budget dipende su quanto costa la location."
+      errors: [preposition]
+    - tutor: "Ottanta, bene. «Dipende su quanto costa»? Ci pensi un attimo."
+      prompt: {text: "dipende su", tags: [preposition]}
+    - learner: "Dipende da quanto costa la location."
+    - tutor: "Esatto. Per ottanta persone, con il menù, servono almeno 25.000 euro."
+      goals: [budget]
+    - learner: "Va bene. Quali location ci propone?"
+    - tutor: "Ho due proposte: una masseria in campagna, a dieci minuti dal mare, oppure un lido direttamente sulla spiaggia."
+      new: [{lemma: masseria, gloss: farmhouse estate}]
+    - learner: "Preferisco la masseria, però il mio fidanzato pensa a il lido."
+      errors: [articulated-preposition]
+    - tutor: "Il suo fidanzato pensa... ? Ripeta l'ultima parte."
+      prompt: {text: "a il lido", tags: [articulated-preposition]}
+    - learner: "Pensa a lido."
+      errors: [articulated-preposition]
+    - tutor: "Allora lui pensa al lido e lei alla casa in campagna: potremmo visitarli insieme sabato."
+      recast: {text: "a lido", fix: "al lido", tags: [articulated-preposition]}
+    - learner: "Sì, ma credo che alla fine sceglieremo la masseria. E vorremmo un fotografo che non sia troppo presente."
+    - tutor: "Allora masseria! E per il fotografo, ne conosco uno che lavora senza farsi notare."
+      goals: [choices, conditions]
+
+- scenario: politica-lavoro
+  level: B2
+  persona: en-m-traveller
+  history: [preposition, articulated-preposition]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Non sono così pessimista. Secondo me molti lavori cambieranno, ma non spariranno."
+    - tutor: "Vedi il lato positivo! E se l'automazione arrivasse davvero ovunque?"
+      goals: [opinion]
+    - learner: "Se succedesse, dovremmo convincere i giovani di studiare materie tecniche."
+      errors: [preposition]
+    - tutor: "Interessante. «Convincere di studiare»? Con convincere, davanti a un verbo, ci vuole un'altra preposizione."
+      prompt: {text: "di studiare", tags: [preposition]}
+    - learner: "Convincere i giovani a studiare materie tecniche."
+    - tutor: "Esatto. Ma hai un esempio reale?"
+      goals: [hypothesis]
+    - learner: "Sì: mio cugino lavorava in una fabbrica in il Michigan. Quando hanno automatizzato la linea, ha fatto un corso e ora programma i robot."
+      errors: [articulated-preposition]
+    - tutor: "Bella storia. «In il Michigan»? Prova a dirlo in un'altra forma."
+      prompt: {text: "in il Michigan", tags: [articulated-preposition]}
+    - learner: "A il Michigan."
+      errors: [articulated-preposition]
+    - tutor: "Ah, nel Michigan! Quindi il lavoro non è finito, si è trasformato."
+      recast: {text: "A il Michigan", fix: "nel Michigan", tags: [articulated-preposition]}
+      goals: [example]
+    - learner: "Esatto. Per riassumere: la tecnologia è un rischio ma anche un'opportunità. E tu, cosa ne pensi davvero?"
+    - tutor: "Forse hai ragione tu: se ci fosse più formazione, avrei meno paura."
+      goals: [conclude]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-f-erasmus
+  history: [preposition, articulated-preposition]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, abbiamo aspettato un'ora per i secondi, e la carne è arrivata fredda."
+    - tutor: "Mi dispiace moltissimo. Mi può spiegare meglio?"
+      goals: [complain]
+    - learner: "Ho ordinato una tagliata a il sangue, ma era troppo cotta e senza sale."
+      errors: [articulated-preposition]
+    - tutor: "Capisco. Mi scusi, «a il sangue»? Lo dica di nuovo."
+      prompt: {text: "a il sangue", tags: [articulated-preposition]}
+    - learner: "Una tagliata al sangue."
+    - tutor: "Esatto, e doveva arrivare proprio così. Ha ragione."
+      goals: [detail]
+    - learner: "Mi aspettavo di più da un ristorante così famoso. Ero venuta qui per il compleanno di mia sorella."
+    - tutor: "La capisco: avreste dovuto passare una serata perfetta."
+      goals: [expectation]
+    - learner: "Non voglio litigare, ma non sono soddisfatta con il servizio."
+      errors: [preposition]
+    - tutor: "Ha tutto il diritto. «Soddisfatta con il servizio»? Con soddisfatto, ci pensi un attimo."
+      prompt: {text: "soddisfatta con il servizio", tags: [preposition]}
+    - learner: "Soddisfatta per il servizio."
+      errors: [preposition]
+    - tutor: "Capisco che non sia soddisfatta del servizio: le offro il dolce e uno sconto del trenta per cento."
+      recast: {text: "per il servizio", fix: "del servizio", tags: [preposition]}
+    - learner: "Va bene, accetto, grazie."
+    - tutor: "Grazie a lei, e mi scusi ancora per stasera."
+      goals: [resolve]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-f-student
+  history: [preposition, articulated-preposition]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Abbiamo finito la prima fase del sito e il cliente sembra contento."
+    - tutor: "Ottimo. Ci sono problemi?"
+      goals: [update]
+    - learner: "Purtroppo sì: il cliente ha cambiato idea su il design della home page."
+      errors: [articulated-preposition]
+    - tutor: "Ah. «Su il design»? Prova a dirlo in un altro modo."
+      prompt: {text: "su il design", tags: [articulated-preposition]}
+    - learner: "Ha cambiato idea sul design, e ora dobbiamo rifare tutta la home page."
+    - tutor: "Capisco, è un bel problema. Che cosa proponi?"
+      goals: [problem]
+    - learner: "Potremmo chiedere a Marta di aiutarci con la grafica per qualche giorno."
+    - tutor: "Mi sembra una buona idea, ne parlo io con lei. E la nuova data di consegna?"
+      goals: [proposal]
+    - learner: "Possiamo consegnare su il 15 marzo?"
+      errors: [preposition]
+    - tutor: "«Su il 15 marzo»? Mmm, con le date in italiano...?"
+      prompt: {text: "su il 15 marzo", tags: [preposition]}
+    - learner: "Al 15 marzo?"
+      errors: [preposition]
+    - tutor: "Il 15 marzo va bene, ma non un giorno di più!"
+      recast: {text: "Al 15 marzo", fix: "Il 15 marzo", tags: [preposition]}
+      goals: [deadline]
+    - learner: "Perfetto, grazie Federica!"
+    - tutor: "Grazie a te, buon lavoro!"
+
+- scenario: smartworking
+  level: B2
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Insegno spagnolo online, quindi lavoro da casa da tre anni."
+    - tutor: "Che fortuna! E ti trovi bene?"
+      goals: [situation]
+    - learner: "Sì, il vantaggio più grande è che non devo prendere il treno ogni mattina: abito a quaranta chilometri di Milano."
+      errors: [preposition]
+    - tutor: "Capisco. «A quaranta chilometri di Milano»? Ci pensi un attimo."
+      prompt: {text: "chilometri di Milano", tags: [preposition]}
+    - learner: "A quaranta chilometri da Milano."
+    - tutor: "Esatto. Quindi risparmi almeno due ore al giorno!"
+      goals: [pros]
+    - learner: "Sì, ma mi sento sola. Penso spesso in Marta, la mia vecchia collega."
+      errors: [preposition]
+    - tutor: "Ti capisco. «Penso in Marta»? Con pensare, in questo senso, che preposizione si usa?"
+      prompt: {text: "in Marta", tags: [preposition]}
+    - learner: "Penso spesso di Marta."
+      errors: [preposition]
+    - tutor: "Se pensi spesso a Marta, chiamala e prendete un caffè insieme! Comunque è un vero svantaggio."
+      recast: {text: "di Marta", fix: "a Marta", tags: [preposition]}
+      goals: [cons]
+    - learner: "Hai ragione. Se potessi scegliere, preferirei lavorare in un coworking due giorni alla settimana."
+    - tutor: "Ottima idea: conosceresti gente nuova senza perdere la tua libertà."
+      goals: [preference]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-m-retired
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, molto. Però il canone mi sembra un po' alto per un appartamento a il quarto piano senza ascensore."
+      errors: [articulated-preposition]
+    - tutor: "Capisco la sua preoccupazione. «A il quarto piano»? Provi a dirlo meglio."
+      prompt: {text: "a il quarto piano", tags: [articulated-preposition]}
+      goals: [interest]
+    - learner: "Al quarto piano senza ascensore."
+    - tutor: "Esatto. Il canone però è trattabile: che cifra aveva in mente?"
+    - learner: "Se la proprietaria accettasse 900 euro invece di 1.000, firmerei subito."
+    - tutor: "Posso chiederlo alla proprietaria. In quel caso il contratto sarebbe di quattro anni più quattro."
+      goals: [negotiate]
+    - learner: "Va bene. E se dovessi tornare in Inghilterra, con quanto preavviso potrei lasciare la casa?"
+    - tutor: "Con sei mesi di preavviso, comunicati per lettera."
+      goals: [conditions]
+    - learner: "Sei mesi mi sembrano ragionevoli. Allora aspetto la risposta per la fine di la settimana."
+      errors: [articulated-preposition]
+    - tutor: "Perfetto. «Di la settimana», però? Ci pensi."
+      prompt: {text: "di la settimana", tags: [articulated-preposition]}
+    - learner: "Per la fine di settimana."
+      errors: [articulated-preposition]
+    - tutor: "Sì, entro la fine della settimana le farò sapere."
+      recast: {text: "di settimana", fix: "della settimana", tags: [articulated-preposition]}
+      goals: [conclude]
+    - learner: "Grazie, arrivederci."
+    - tutor: "Arrivederci a lei, e buona giornata!"
+
+- scenario: vita-in-italia
+  level: B2
+  persona: es-m-worker
+  history: [preposition, articulated-preposition]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Grazie dell'invito. Sono arrivato in Italia nel 2015 per amore: mia moglie è di Bari."
+    - tutor: "Che bella storia! E qual è stata la parte più difficile?"
+      goals: [story]
+    - learner: "La burocrazia, sicuramente. E poi abituarmi a gli orari: in Spagna si cena alle dieci!"
+      errors: [articulated-preposition]
+    - tutor: "Ah, gli orari! «A gli orari», però: ci pensa un attimo?"
+      prompt: {text: "a gli orari", tags: [articulated-preposition]}
+    - learner: "Abituarmi ai orari."
+      errors: [articulated-preposition]
+    - tutor: "Abituarsi agli orari italiani non è facile, lo so! E in questi anni come è cambiato lei?"
+      recast: {text: "ai orari", fix: "agli orari", tags: [articulated-preposition]}
+      goals: [difficulties]
+    - learner: "Sono diventato più paziente. All'inizio sognavo con tornare in Spagna, ora non più."
+      errors: [preposition]
+    - tutor: "Che cambiamento! «Sognavo con tornare»? Con sognare, davanti a un verbo, ci vuole un'altra preposizione."
+      prompt: {text: "sognavo con tornare", tags: [preposition]}
+    - learner: "Sognavo a tornare in Spagna."
+      errors: [preposition]
+    - tutor: "Capisco, sognava di tornare in Spagna e oggi invece si sente a casa."
+      recast: {text: "a tornare", fix: "di tornare", tags: [preposition]}
+      goals: [change]
+    - learner: "Esatto. Ai vostri ascoltatori direi: imparate la lingua prima di partire e abbiate pazienza."
+    - tutor: "Un consiglio prezioso. Grazie di essere stato con noi!"
+      goals: [advice]

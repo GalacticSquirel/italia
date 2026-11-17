@@ -1,0 +1,250 @@
+# y-cine, file 01 (A2): ne partitive after quanti/quante, ce ne sono, ci vuole.
+- scenario: bar-colazione
+  level: A2
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Un cappuccino, per favore. Avete dei cornetti?"
+    - tutor: "Certo, sono buonissimi. Quanti ne vuole?"
+      goals: [greet, order-drink]
+    - learner: "Voglio due, alla crema."
+      errors: [ci-ne]
+      gold: {text: "Voglio due", fix: "Ne voglio due"}
+    - tutor: "Due cosa? Due cappuccini? Manca una piccola parola prima del verbo."
+      prompt: {text: "Voglio due", tags: [ci-ne]}
+    - learner: "Ah, sì! Ne voglio due, alla crema."
+    - tutor: "Esatto! Ecco il cappuccino e i due cornetti."
+      goals: [order-food]
+    - learner: "Grazie. Il cappuccino è perfetto. Quanto è il bill?"
+      errors: [word-choice]
+    - tutor: "Il conto? Sono quattro euro e sessanta."
+      recast: {text: "il bill", fix: "Il conto", tags: [word-choice]}
+    - learner: "Ecco cinque euro. Tenga lo resto!"
+      errors: [article-form]
+    - tutor: "Grazie! «Lo resto»? Attenzione all'articolo davanti a «resto»."
+      prompt: {text: "lo resto", tags: [article-form]}
+    - learner: "Ah, il resto! Tenga il resto."
+    - tutor: "Perfetto, grazie mille! Buona giornata e buono studio."
+      goals: [pay]
+
+- scenario: autobus
+  level: A2
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Questo autobus va in piazza Garibaldi?"
+    - tutor: "Sì, ci va. È la linea giusta."
+      goals: [route]
+    - learner: "Bene! Quanto tempo vuole per arrivare?"
+      errors: [ci-ne]
+      gold: {text: "Quanto tempo vuole", fix: "Quanto tempo ci vuole"}
+    - tutor: "Quanto tempo «vuole»? Il tempo non vuole niente! Con il tempo serve una piccola parola in più."
+      prompt: {text: "Quanto tempo vuole", tags: [ci-ne]}
+    - learner: "Ah, giusto: quanto tempo ci vuole?"
+    - tutor: "Bravo! Ci vogliono venti minuti, più o meno."
+    - learner: "E il ticket? Posso comprarlo da lei?"
+      errors: [word-choice]
+    - tutor: "Il biglietto? No, mi dispiace: lo compra al bar qui di fronte."
+      recast: {text: "ticket", fix: "biglietto", tags: [word-choice]}
+      goals: [ticket]
+    - learner: "Va bene, grazie. E dove scendo? Alla fermata di il museo?"
+      errors: [articulated-preposition]
+    - tutor: "Di il museo? Qui le due parole diventano una sola."
+      prompt: {text: "di il museo", tags: [articulated-preposition]}
+    - learner: "Ah... alla fermata di museo?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, alla fermata del museo: è la quinta. Le dico io quando scendere."
+      recast: {text: "di museo", fix: "del museo", tags: [articulated-preposition]}
+      goals: [stop]
+    - learner: "Grazie mille, è molto gentile!"
+    - tutor: "Prego! Si sieda pure qui davanti."
+      goals: [thank]
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Siamo quattro: io, mia moglie e due bambini."
+    - tutor: "Prego, accomodatevi qui. Ecco il menù."
+      goals: [ask-table]
+    - learner: "Grazie. Per i bambini due piatti di pasta al pomodoro, e per noi la lasagna."
+    - tutor: "Benissimo. E da bere? Volete dell'acqua?"
+      goals: [order-food]
+    - learner: "Sì, acqua naturale. Prendiamo due bottiglie... anzi no, prendiamo tre."
+      errors: [ci-ne]
+      gold: {text: "prendiamo tre", fix: "ne prendiamo tre"}
+    - tutor: "Tre cosa, scusi? Tre piatti? Provi a dirlo di nuovo, con una piccola parola in più."
+      prompt: {text: "prendiamo tre", tags: [ci-ne]}
+    - learner: "No, no! Ne prendiamo tre, di bottiglie."
+    - tutor: "Ah, ecco! Tre bottiglie di acqua naturale, arrivano subito."
+      goals: [order-drink]
+    - learner: "Alla fine vorremmo anche uno tiramisù per i bambini."
+      errors: [article-form]
+    - tutor: "Uno tiramisù? Ascolti bene l'articolo: è giusto così?"
+      prompt: {text: "uno tiramisù", tags: [article-form]}
+    - learner: "Un tiramisù, scusi. E poi il conto, per favore."
+    - tutor: "Certo, un tiramisù e il conto. Torno subito!"
+      goals: [ask-bill]
+
+- scenario: casa-mia
+  level: A2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Abito in un flat in centro, al terzo piano. È piccolo ma carino."
+      errors: [word-choice]
+    - tutor: "Un appartamento in centro, che bello! E quante stanze ci sono?"
+      recast: {text: "flat", fix: "appartamento", tags: [word-choice]}
+      goals: [type]
+    - learner: "Ci sono tre: la cucina, il soggiorno e la camera da letto."
+      errors: [ci-ne]
+      gold: {text: "Ci sono tre", fix: "Ce ne sono tre"}
+    - tutor: "«Ci sono tre»... Tre stanze, va bene, ma nella frase manca qualcosa!"
+      prompt: {text: "Ci sono tre", tags: [ci-ne]}
+    - learner: "Ah, sì: ce ne sono tre!"
+    - tutor: "Perfetto! E qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "Il soggiorno. Ci passo molto tempo, perché ci sono tanti libri."
+    - tutor: "Che bello! Anche libri in italiano? Quanti ne hai?"
+      goals: [favourite]
+    - learner: "Ho dieci, più o meno. Sono per imparare."
+      errors: [ci-ne]
+    - tutor: "Dieci? Ascolta la tua frase: «ho dieci». Dieci cosa?"
+      prompt: {text: "Ho dieci", tags: [ci-ne]}
+    - learner: "Ehm... ho dieci, più o meno."
+      errors: [ci-ne]
+    - tutor: "Ne ho dieci anch'io, che caso! Qualche volta leggiamo insieme?"
+      recast: {text: "ho dieci", fix: "Ne ho dieci", tags: [ci-ne]}
+    - learner: "Sì, volentieri! E tu dove abiti? La tua casa ha un giardino?"
+    - tutor: "Abito in una casa fuori città. Sì, c'è un piccolo giardino con due alberi."
+      goals: [ask]
+
+- scenario: famiglia
+  level: A2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Questa è la mia famiglia a Siviglia: i miei genitori, mia nonna e mia sorella."
+    - tutor: "Che bella famiglia! E la signora al centro è tua nonna?"
+      goals: [who]
+    - learner: "Sì, è la nonna Carmen. Lei ha tanti nipoti!"
+    - tutor: "Davvero? Quanti nipoti ha?"
+    - learner: "Ha dodici! È una famiglia molto grande."
+      errors: [ci-ne]
+      gold: {text: "Ha dodici", fix: "Ne ha dodici"}
+    - tutor: "Dodici! Ma ascolta la frase: «ha dodici»... Non manca niente?"
+      prompt: {text: "Ha dodici", tags: [ci-ne]}
+    - learner: "Ah, sì: ne ha dodici!"
+    - tutor: "Brava! Dodici nipoti, che bello. E tua sorella com'è?"
+    - learner: "Mia sorella è molto simpatica e tiene 25 anni."
+      errors: [word-choice]
+    - tutor: "Ah, ha 25 anni! Allora è più grande di te?"
+      recast: {text: "tiene 25 anni", fix: "ha 25 anni", tags: [word-choice]}
+      goals: [describe, ages]
+    - learner: "No, è più piccola. Io ho 27 anni. E tu hai fratelli o sorelle?"
+    - tutor: "Ho un fratello, Paolo. Lui vive a Torino con sua moglie."
+      goals: [ask]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Benissimo! Sono andato a Verona con mio cugino."
+    - tutor: "Che bello! Io ci sono stata l'anno scorso. Cosa avete fatto?"
+      goals: [where, with-who]
+    - learner: "Abbiamo visto l'Arena e abbiamo mangiato in un trattoria vicino al fiume."
+      errors: [noun-gender]
+    - tutor: "Che bello! Ma «un trattoria»? Trattoria è maschile o femminile?"
+      prompt: {text: "un trattoria", tags: [noun-gender]}
+    - learner: "Uno trattoria, giusto?"
+      errors: [noun-gender]
+    - tutor: "Ah, una trattoria! E cosa avete mangiato di buono?"
+      recast: {text: "Uno trattoria", fix: "una trattoria", tags: [noun-gender]}
+      goals: [what]
+    - learner: "Il risotto, buonissimo. Poi volevamo andare al lago di Garda."
+    - tutor: "Il lago è bellissimo! Siete andati anche lì?"
+    - learner: "No, non siamo andati. Pioveva troppo."
+      errors: [ci-ne]
+      gold: {text: "non siamo andati", fix: "non ci siamo andati"}
+    - tutor: "Non siete andati... dove? Per dire «al lago» c'è una piccola parola."
+      prompt: {text: "non siamo andati", tags: [ci-ne]}
+    - learner: "Ah, sì! No, non ci siamo andati. Ma mi è piaciuto tutto. E il tuo fine settimana?"
+    - tutor: "Peccato per la pioggia! Io sono rimasta a casa e ho letto un libro. Molto tranquillo!"
+      goals: [opinion]
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Facciamo la frittata di zucchine, la ricetta di mia madre!"
+    - tutor: "Che buona! Cosa serve?"
+    - learner: "Servono uova, zucchine, formaggio e un po' di sale."
+    - tutor: "Benissimo. E quante uova usiamo?"
+      goals: [ingredients]
+    - learner: "Usiamo sei."
+      errors: [ci-ne]
+      gold: {text: "Usiamo sei", fix: "Ne usiamo sei"}
+    - tutor: "Sei cosa? Prova di nuovo con una piccola parola prima del verbo."
+      prompt: {text: "Usiamo sei", tags: [ci-ne]}
+    - learner: "Ah: ne usiamo sei!"
+    - tutor: "Perfetto! E adesso cosa faccio con le zucchine?"
+      new: [{lemma: zucchina, gloss: courgette}]
+    - learner: "Tagli le zucchine e le metti in padella con un po' di olio."
+      errors: [imperative-form]
+    - tutor: "«Tagli»? Parli con me, un'amica: come dai un ordine con «tagliare»?"
+      prompt: {text: "Tagli le zucchine", tags: [imperative-form]}
+    - learner: "Taglia le zucchine e mettile in padella!"
+    - tutor: "Agli ordini! Le zucchine sono in padella. Quanto tempo ci vuole?"
+      goals: [steps]
+    - learner: "Vogliono dieci minuti, più o meno."
+      errors: [ci-ne]
+    - tutor: "«Vogliono»? Chi vuole qualcosa? Manca una piccola parola!"
+      prompt: {text: "Vogliono dieci minuti", tags: [ci-ne]}
+    - learner: "Eh... vuole dieci minuti?"
+      errors: [ci-ne]
+    - tutor: "Sì, ci vogliono dieci minuti. E io preparo la tavola."
+      recast: {text: "vuole dieci minuti", fix: "ci vogliono dieci minuti", tags: [ci-ne]}
+      goals: [time]
+    - learner: "Serviamo la frittata calda, con un'insalata e del pane."
+    - tutor: "Perfetto, che fame! Allora mangiamo."
+      goals: [serve]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Vorrei spedire questo pacco in Irlanda, a Dublino."
+    - tutor: "Certo. Normale o veloce? Il normale ci mette dieci giorni."
+      goals: [send]
+    - learner: "Dieci giorni? E il veloce, quanto mette?"
+      errors: [ci-ne]
+      gold: {text: "quanto mette", fix: "quanto ci mette"}
+    - tutor: "Quanto mette... cosa? Quando parliamo di tempo, il verbo vuole una piccola parola prima."
+      prompt: {text: "quanto mette", tags: [ci-ne]}
+    - learner: "Ah, giusto: quanto ci mette il veloce?"
+    - tutor: "Esatto! Ci mette tre giorni, ma costa venti euro."
+    - learner: "Va bene, prendo il veloce. È un present per il compleanno di mia sorella."
+      errors: [word-choice]
+    - tutor: "Che bel regalo! Allora compili questo modulo, per favore: indirizzo e contenuto."
+      recast: {text: "present", fix: "regalo", tags: [word-choice]}
+      new: [{lemma: contenuto, gloss: contents}]
+      goals: [speed]
+    - learner: "Fatto. Ho scritto il indirizzo di mia sorella e «libri e una maglia»."
+      errors: [article-form]
+    - tutor: "Grazie. «Il indirizzo»? Attenzione: la parola comincia con «i»."
+      prompt: {text: "il indirizzo", tags: [article-form]}
+    - learner: "Ah, l'indirizzo! Ho scritto l'indirizzo di mia sorella. Posso pagare con la carta?"
+    - tutor: "Perfetto. Sì, certo. Ecco la ricevuta: buona giornata!"
+      goals: [form, pay]

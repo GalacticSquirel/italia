@@ -1,0 +1,222 @@
+# y-future, file 08: C1, aspect and tense choice (bounded periods, sapere/conoscere, trapassato, present with da).
+- scenario: colloquio-lavoro
+  level: C1
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Sono un ingegnere civile, specializzato in ristrutturazioni antisismiche. Sono di Valencia, ma vivo a Perugia da tre anni."
+    - tutor: "Un profilo molto richiesto da queste parti. Mi racconti il suo percorso."
+      goals: [intro]
+    - learner: "Per dieci anni lavoravo in un'impresa edile spagnola, dove alla fine coordinavo una squadra di venti persone."
+      errors: [tense-aspect]
+      gold: {text: "lavoravo", fix: "ho lavorato"}
+    - tutor: "«Per dieci anni lavoravo»: è un periodo chiuso, con un inizio e una fine ben precisi. Che tempo richiede?"
+      prompt: {text: "lavoravo", tags: [tense-aspect]}
+    - learner: "Per dieci anni ho lavorato in un'impresa edile spagnola."
+    - tutor: "Esatto. E quali sono, secondo lei, i suoi punti di forza? E un limite?"
+      goals: [experience]
+    - learner: "So gestire cantieri complessi senza perdere la calma. Il mio limite è che faccio fatica a delegare le decisioni tecniche."
+    - tutor: "Lo apprezzo, è una risposta onesta. Perché proprio la nostra società?"
+      goals: [strengths]
+    - learner: "Perché vi occupate di recupero dei centri storici, che è esattamente ciò che vorrei fare nei prossimi anni."
+    - tutor: "Ottimo. Ha qualche domanda sul ruolo?"
+      goals: [why]
+    - learner: "Sì: il ruolo prevede trasferte frequenti, o si lavora soprattutto in oficina?"
+      errors: [word-choice]
+    - tutor: "Circa il quaranta per cento del tempo si passa nei cantieri della regione, il resto in ufficio. Le faremo sapere entro la fine della settimana."
+      goals: [questions]
+      recast: {text: "oficina", fix: "ufficio", tags: [word-choice]}
+
+- scenario: film-libro
+  level: C1
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Ho letto «La coscienza di Zeno» di Svevo. È il diario di un uomo che, su consiglio dello psicanalista, ripercorre la propria vita e le sue innumerevoli ultime sigarette."
+    - tutor: "Un classico dell'ironia. Che idea ti sei fatto di Zeno?"
+      goals: [summary]
+    - learner: "È un narratore del tutto inaffidabile. Quando sono arrivato all'ultima pagina, ho capito che mi ha preso in giro per tutto il romanzo."
+      errors: [tense-aspect]
+      gold: {text: "ha preso", fix: "aveva preso"}
+    - tutor: "«Ho capito che mi ha preso in giro»: la presa in giro viene prima della tua scoperta. Come esprimi questa anteriorità?"
+      prompt: {text: "ha preso", tags: [tense-aspect]}
+    - learner: "Ho capito che mi ha preso in giro dall'inizio."
+      errors: [tense-aspect]
+    - tutor: "Proprio così, Zeno ti aveva preso in giro fin dall'inizio, ed è questo il bello! E dello stile che ne pensi?"
+      goals: [characters]
+      recast: {text: "ha preso", fix: "aveva preso", tags: [tense-aspect]}
+    - learner: "Lo stile è volutamente piatto, quasi burocratico, e proprio per questo l'ironia risulta ancora più tagliente."
+    - tutor: "Osservazione acuta. A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A chi ha pazienza e ama i personaggi pieni di contraddizioni; lo sconsiglierei a chi cerca una trama eccitante."
+      errors: [false-friend]
+    - tutor: "Consiglio onesto: chi cerca una trama avvincente resterà deluso. Lo segno per il gruppo di lettura di primavera!"
+      goals: [recommend]
+      recast: {text: "eccitante", fix: "avvincente", tags: [false-friend]}
+
+- scenario: medico-specialista
+  level: C1
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Non benissimo, a dire il vero. Da circa un mese ho il fiato corto anche dopo uno sforzo minimo, tipo fare due rampe di scale. All'inizio pensavo che fosse stanchezza."
+    - tutor: "Ha fatto bene a venire. In famiglia ci sono precedenti di malattie cardiache?"
+      goals: [symptoms]
+    - learner: "Sì, mia madre aveva un problema a una valvola del cuore, ma lo sapevamo solo dopo un ricovero d'urgenza."
+      errors: [tense-aspect]
+      gold: {text: "lo sapevamo", fix: "l'abbiamo saputo"}
+    - tutor: "Lo sapevamo solo dopo? Sapere all'imperfetto indica una conoscenza già acquisita, mentre lei intende il momento della scoperta. Come lo direbbe?"
+      prompt: {text: "lo sapevamo", tags: [tense-aspect]}
+    - learner: "L'abbiamo saputo solo dopo un ricovero d'urgenza."
+    - tutor: "Esatto. È un'informazione importante, perché alcuni problemi delle valvole hanno una componente ereditaria."
+      goals: [history]
+    - learner: "Quindi che cosa dicono gli esami? C'è qualcosa di sbagliato con il mio cuore?"
+      errors: [word-choice]
+    - tutor: "Qualcosa che non va c'è, ma non è grave: l'ecografia mostra una lieve insufficienza della valvola. Niente di allarmante, ma va tenuta sotto controllo."
+      goals: [understand]
+      recast: {text: "qualcosa di sbagliato", fix: "qualcosa che non va", tags: [word-choice]}
+      new: [{lemma: insufficienza, gloss: insufficiency}, {lemma: allarmante, gloss: alarming}]
+    - learner: "E serve una terapia? Ho letto che alcune droghe per il cuore hanno effetti collaterali piuttosto pesanti."
+      errors: [false-friend]
+    - tutor: "Non si preoccupi: i farmaci che usiamo oggi sono ben tollerati, e per ora ne basta uno a basso dosaggio. Ci rivediamo tra sei mesi per un controllo."
+      goals: [treatment]
+      recast: {text: "droghe", fix: "farmaci", tags: [false-friend]}
+
+- scenario: vita-in-italia
+  level: C1
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Per amore, come nei film! Conoscevo mio marito a Siviglia, durante un convegno, e dopo un anno di aerei e videochiamate mi sono trasferita a Lecce."
+      errors: [tense-aspect]
+      gold: {text: "Conoscevo", fix: "Ho conosciuto"}
+    - tutor: "«Conoscevo mio marito durante un convegno»: lei parla del primo incontro, di un momento preciso. Quale tempo serve?"
+      prompt: {text: "Conoscevo", tags: [tense-aspect]}
+    - learner: "Ho conosciuto mio marito a Siviglia, durante un convegno."
+    - tutor: "Che storia romantica! E qual è stata la difficoltà più grande?"
+      goals: [story]
+    - learner: "Paradossalmente, non la lingua ma i ritmi: la pausa pranzo infinita, i negozi chiusi il pomeriggio... Tutto mi sembrava molto raro."
+      errors: [false-friend]
+    - tutor: "Strano, sì: è uno shock classico per chi viene da fuori! E lei, in che cosa è cambiata?"
+      goals: [difficulties]
+      recast: {text: "raro", fix: "strano", tags: [false-friend]}
+    - learner: "Ho imparato a godermi la lentezza. Oggi, quando torno in Spagna, sono io quella che dice: «Calma, c'è tempo!»."
+    - tutor: "Meraviglioso. Che consiglio darebbe a chi sta pensando di trasferirsi?"
+      goals: [change]
+    - learner: "Di non fare continui paragoni con il proprio paese: all'inizio è inevitabile, ma alla lunga impedisce di integrarsi davvero."
+    - tutor: "Un consiglio prezioso. Grazie davvero per essere stata con noi."
+      goals: [advice]
+
+- scenario: intervista-podcast
+  level: C1
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivata proprio in Italia?"
+    - learner: "Grazie a te! Nel 2015 la mia azienda mi ha proposto un trasferimento a Milano per due anni. Quando ero arrivata, non sapevo dire nemmeno «buongiorno»."
+      errors: [tense-aspect]
+      gold: {text: "ero arrivata", fix: "sono arrivata"}
+    - tutor: "«Quando ero arrivata»: qui non c'è un'azione ancora più lontana nel passato a cui riferirsi. Quale tempo basta?"
+      prompt: {text: "ero arrivata", tags: [tense-aspect]}
+    - learner: "Quando sono arrivata, non sapevo dire nemmeno «buongiorno»."
+    - tutor: "E invece guarda adesso! Che cosa ti ha spiazzata di più?"
+      goals: [story]
+    - learner: "Il concetto di puntualità. Alle riunioni arrivavo cinque minuti prima, leggevo l'agenda e restavo da sola per un quarto d'ora."
+      errors: [word-choice]
+    - tutor: "E l'ordine del giorno, scommetto, lo leggevi solo tu! Il famoso quarto d'ora accademico. E c'è qualcosa che criticheresti, con il dovuto tatto?"
+      goals: [culture-shock]
+      recast: {text: "l'agenda", fix: "l'ordine del giorno", tags: [word-choice]}
+    - learner: "Forse una certa resistenza al cambiamento: al lavoro ogni nuova idea veniva accolta con un «si è sempre fatto così»."
+    - tutor: "Una frase che conosciamo tutti, purtroppo. Un consiglio per chi vuole trasferirsi?"
+      goals: [critique]
+    - learner: "Di arrivare con curiosità e senza pregiudizi, e di accettare che ci vorrà tempo per sentirsi a casa."
+    - tutor: "Bellissimo. Grazie, è stata una chiacchierata preziosa!"
+      goals: [advice]
+
+- scenario: club-lettura
+  level: C1
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Sì, anch'io l'ho divorato in due sere. La notte che lo finivo non sono riuscita a dormire."
+      errors: [tense-aspect]
+      gold: {text: "lo finivo", fix: "l'ho finito"}
+    - tutor: "«La notte che lo finivo»? Quella notte il libro l'hai chiuso, punto. Come lo diresti?"
+      prompt: {text: "lo finivo", tags: [tense-aspect]}
+    - learner: "La notte che lo finivo non ho dormito."
+      errors: [tense-aspect]
+    - tutor: "Ti capisco, la notte che l'ho finito anch'io sono rimasta sveglia fino all'alba! Ma che impressione ti ha lasciato, nel complesso?"
+      recast: {text: "lo finivo", fix: "l'ho finito", tags: [tense-aspect]}
+    - learner: "Contrastante. La prima metà mi ha conquistata, la seconda mi è sembrata più forzata, come se l'autrice avesse pressa di chiudere."
+      errors: [word-choice]
+    - tutor: "Interessante, io invece non credo che avesse fretta: trovo il finale coraggioso. E la scelta della protagonista di partire, come la giudichi?"
+      goals: [impression]
+      recast: {text: "pressa", fix: "fretta", tags: [word-choice]}
+    - learner: "Credo che abbia fatto bene: restando, avrebbe tradito sé stessa. Però avrei voluto capire meglio che cosa provava per la sorella."
+    - tutor: "Giusto, quel rapporto resta un po' in ombra. E lo stile?"
+      goals: [character]
+    - learner: "Asciutto, quasi cinematografico: frasi brevi e pochissimi aggettivi. A tratti fin troppo freddo, per i miei gusti."
+    - tutor: "Su questo ti do ragione a metà! A chi lo consiglieresti?"
+      goals: [style]
+    - learner: "A chi ama le storie familiari e non ha bisogno di un lieto fine; non a chi cerca un romanzo leggero da spiaggia."
+    - tutor: "Perfetto, lo dirò alle altre del gruppo."
+      goals: [recommend]
+
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Martedì mattina stavo uscendo in retromarcia dal parcheggio del supermercato, quando un ciclista sbucava all'improvviso da dietro un furgone."
+      errors: [tense-aspect]
+      gold: {text: "sbucava", fix: "è sbucato"}
+    - tutor: "«Quando un ciclista sbucava»: dopo quel «quando» arriva l'evento improvviso che interrompe la scena. Quale tempo gli si addice?"
+      prompt: {text: "sbucava", tags: [tense-aspect]}
+    - learner: "Sì, il ciclista sbucava, e l'ho urtato leggermente con il paraurti."
+      errors: [tense-aspect]
+    - tutor: "Capisco, il ciclista è sbucato all'improvviso e lei l'ha urtato. Si è fatto male?"
+      recast: {text: "sbucava", fix: "è sbucato", tags: [tense-aspect]}
+      goals: [what]
+    - learner: "Per fortuna no, solo un graffio al ginocchio. Però, a essere onesti, la responsabilità è in parte mia: avrei dovuto fare più attenzione."
+    - tutor: "Apprezzo la franchezza; in casi del genere spesso la colpa viene divisa tra le parti. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, e abbiamo indicato entrambi che la visuale era coperta dal furgone parcheggiato in doppia fila."
+    - tutor: "Ottimo dettaglio, potrebbe ridurre la sua parte di responsabilità. Mi mandi anche le eventuali foto."
+      goals: [documents]
+    - learner: "Certo. E adesso cosa succede? Il premio della mia polizza aumenterà?"
+    - tutor: "Il perito valuterà i danni alla bicicletta; se la colpa è condivisa, l'aumento del premio sarà contenuto."
+      goals: [next]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Vorrei segnalare una buca enorme in via Garibaldi, all'altezza del civico 40. È stata lì da almeno tre mesi."
+      errors: [tense-aspect]
+      gold: {text: "È stata lì da", fix: "È lì da"}
+    - tutor: "«È stata lì da tre mesi»: la buca c'è ancora, giusto? Con «da» e una situazione che continua, quale tempo usiamo?"
+      prompt: {text: "È stata lì da", tags: [tense-aspect]}
+    - learner: "Sì, è stata lì da almeno tre mesi, e la settimana scorsa un motociclista ci è caduto dentro."
+      errors: [tense-aspect]
+    - tutor: "Capisco, una buca che è lì da tre mesi è una situazione seria. La segnalazione è già stata inoltrata all'ufficio tecnico, che la valuterà quanto prima."
+      goals: [describe]
+      recast: {text: "è stata lì da", fix: "è lì da", tags: [tense-aspect]}
+    - learner: "Con tutto il rispetto, «quanto prima» non mi basta: l'ho già reportata due volte, a giugno e a luglio, e nessuno è intervenuto."
+      errors: [word-choice]
+    - tutor: "Ha ragione a insistere, se l'ha già segnalata due volte. Purtroppo i lavori dipendono dai fondi dell'ufficio manutenzione, che quest'anno sono scarsi."
+      goals: [insist]
+      recast: {text: "reportata", fix: "segnalata", tags: [word-choice]}
+    - learner: "Allora le chiedo: qual è la procedura per un reclamo formale? Ed entro quanto tempo il Comune è tenuto a rispondere?"
+    - tutor: "Può presentare un reclamo scritto all'Ufficio Relazioni con il Pubblico: per legge, il Comune deve rispondere entro trenta giorni."
+      goals: [rights]
+    - learner: "Benissimo, lo presento subito. Mi può dare un numero di protocollo, così posso seguire la pratica?"
+    - tutor: "Certo, il suo numero è 2026/4815. Le invieremo anche una conferma per email."
+      goals: [commitment]

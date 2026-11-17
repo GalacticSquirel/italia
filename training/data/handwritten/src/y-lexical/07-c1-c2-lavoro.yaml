@@ -1,0 +1,247 @@
+# Round 3, set y-lexical: false friends, calques and collocations. C1 and C2, file 7.
+- scenario: notizie-attualita
+  level: C1
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatto?"
+    - learner: "Sì, l'ho seguita. In pratica il governo vuole limitare gli affitti brevi nei centri storici, soprattutto a Venezia e Firenze."
+    - tutor: "Più o meno, sì. E tu da che parte stai?"
+      goals: [summarise]
+    - learner: "Sono d'accordo in linea di principio, ma temo che la legge sia troppo vaga: non dice chi farà i controlli."
+    - tutor: "Vaga è dire poco. Ma hai letto come l'hanno raccontata i giornali? Sembrano due notizie diverse."
+      goals: [opinion]
+    - learner: "Sì! I quotidiani di destra parlano di «attacco alla proprietà», mentre i magazzini di attualità parlano di diritto alla casa."
+      errors: [false-friend]
+    - tutor: "E le riviste di attualità, appunto, hanno scelto titoli quasi militanti: stessa legge, due mondi paralleli."
+      goals: [sources]
+      recast: {text: "i magazzini di attualità", fix: "le riviste di attualità", tags: [false-friend]}
+    - learner: "In un'intervista, poi, sembrava che il ministro non sapeva bene cosa rispondere."
+      errors: [subjunctive-use]
+    - tutor: "Ah, l'ho vista anch'io. Ma «sembrava che non sapeva»? Dopo «sembrava che», ci vuole un altro modo."
+      prompt: {text: "che il ministro non sapeva", tags: [subjunctive-use]}
+    - learner: "Giusto: sembrava che il ministro non sapesse bene cosa rispondere."
+    - tutor: "Esatto, ed era imbarazzante. E secondo te, alla fine, cosa succederà?"
+    - learner: "Credo che i prezzi caleranno un po', ma eventualmente i proprietari troveranno un modo per aggirare la legge."
+      errors: [false-friend]
+    - tutor: "Prima o poi la aggireranno, ci scommetto: fatta la legge, trovato l'inganno."
+      goals: [consequences]
+      recast: {text: "eventualmente", fix: "Prima o poi", tags: [false-friend]}
+    - learner: "Proverbio perfetto! Speriamo almeno che qualcosa cambi davvero."
+    - tutor: "Speriamo. Intanto mi consolo con un caffè: vieni?"
+
+- scenario: presentazione-progetto
+  level: C1
+  persona: en-f-professional
+  history: [word-choice]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Certo. Il progetto prevede una piattaforma di ordini online per i nostri clienti all'ingrosso, che oggi ordinano ancora per telefono."
+    - tutor: "E perché dovrebbe interessarmi?"
+      goals: [pitch]
+    - learner: "Perché ci permetterà di salvare il venti per cento sui costi amministrativi e di ridurre gli errori negli ordini."
+      errors: [word-choice]
+    - tutor: "Risparmiare il venti per cento è una cifra che mi interessa, se è realistica. Su quale base l'avete calcolata?"
+      recast: {text: "salvare", fix: "Risparmiare", tags: [word-choice]}
+    - learner: "Sui dati dell'anno scorso: gli errori negli ordini ci sono costati circa ottantamila euro."
+    - tutor: "Va bene. Ma l'investimento iniziale è alto. E se il progetto fallisse?"
+      goals: [benefits]
+    - learner: "Se il progetto fallirebbe, perderemmo solo la prima fase, perché lo divideremmo in tre parti."
+      errors: [hypothetical]
+    - tutor: "«Se il progetto fallirebbe»? Ricontrolli quel «se», per favore: in una presentazione certi dettagli si notano."
+      prompt: {text: "Se il progetto fallirebbe", tags: [hypothetical]}
+    - learner: "Ha ragione: se il progetto fallisse, perderemmo solo la prima fase."
+    - tutor: "Così va meglio. E la suddivisione in fasi, lo ammetto, mi rassicura."
+      goals: [objection]
+    - learner: "Inoltre abbiamo già un fornitore pronto: possiamo cominciare a marzo, se ci date la luce verde."
+      errors: [word-choice]
+    - tutor: "Il via libera ve lo do, ma a una condizione: voglio un rapporto mensile sui costi, senza eccezioni."
+      recast: {text: "la luce verde", fix: "il via libera", tags: [word-choice]}
+    - learner: "Perfetto, le manderò il primo rapporto alla fine di marzo."
+    - tutor: "Bene. E ora mi scusi, ma la riunione mi aspetta."
+      goals: [next-steps]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Ho un ristorante in via Saragozza e da tre mesi c'è un cantiere davanti all'ingresso: la strada è piena di baches e i clienti non riescono ad arrivare."
+      errors: [word-choice]
+    - tutor: "Una strada piena di buche e clienti che non arrivano: capisco il disagio. Ha già fatto una segnalazione?"
+      goals: [describe]
+      recast: {text: "baches", fix: "buche", tags: [word-choice]}
+    - learner: "Sì, due volte, ma nessuno mi ha risposto. Vorrei sapere quando finiranno las obras."
+      errors: [word-choice]
+    - tutor: "Quando finiranno i lavori, purtroppo, non dipende da questo sportello: lo stabilisce l'ufficio tecnico. In teoria si dovrebbe finire entro l'estate."
+      recast: {text: "las obras", fix: "i lavori", tags: [word-choice]}
+    - learner: "«In teoria» non mi basta. I lavori dovevano finire a settembre e poi sono stato sospesi senza nessuna spiegazione."
+      errors: [passive]
+    - tutor: "Capisco. Ma «sono stato sospesi»? Ricontrolli l'accordo: di che cosa sta parlando?"
+      prompt: {text: "sono stato sospesi", tags: [passive]}
+    - learner: "Dei lavori: sono stati sospesi senza nessuna spiegazione."
+    - tutor: "Esatto. E ha ragione a chiederne conto: posso inviare un sollecito formale all'ufficio tecnico."
+      goals: [insist]
+    - learner: "Grazie. E per i danni al ristorante? Ho diritto a una indemnizzazione?"
+      errors: [word-choice]
+    - tutor: "Per un indennizzo deve presentare un reclamo formale tramite protocollo, allegando le prove dei danni subiti."
+      goals: [rights]
+      recast: {text: "una indemnizzazione", fix: "un indennizzo", tags: [word-choice]}
+      new: [{lemma: indennizzo, gloss: compensation}]
+    - learner: "Allora lo presento subito. Mi può dare un numero di riferimento?"
+    - tutor: "Certo: il numero di protocollo è 4512. Entro trenta giorni riceverà una risposta scritta, e intanto parte il sollecito."
+      goals: [commitment]
+
+- scenario: trattativa-fornitore
+  level: C1
+  persona: en-m-retired
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Capisco la situazione, ma un aumento del dodici per cento è difficile da accettare per un'azienda piccola come la nostra."
+    - tutor: "Me ne rendo conto, ma i nostri margini sono già ridotti all'osso."
+      goals: [problem]
+    - learner: "Lavoriamo insieme da otto anni e abbiamo sempre pagato puntualmente. Penso che questo rapporto merita un trattamento diverso."
+      errors: [subjunctive-use]
+    - tutor: "Argomento serio. Però «penso che questo rapporto merita»? Dopo un verbo di opinione, quel modo non va."
+      prompt: {text: "che questo rapporto merita", tags: [subjunctive-use]}
+    - learner: "Certo: penso che questo rapporto meriti un trattamento diverso."
+    - tutor: "Esatto. E non lo dimentico: siete tra i nostri clienti più affidabili."
+      goals: [argue]
+    - learner: "Allora le faccio una proposta: accettiamo un aumento del cinque per cento se ci garantite i prezzi per due anni."
+    - tutor: "Il cinque è troppo poco. Potrei scendere all'otto, con consegna garantita in quarantotto ore."
+      goals: [counteroffer]
+    - learner: "Posso arrivare al sette, ma è la mia ultima offerta; altrimenti dovremo guardare ad altri fornitori."
+      errors: [word-choice]
+    - tutor: "Valutare altri fornitori? Spero proprio di no. D'accordo, chiudiamo al sette per cento, con i prezzi bloccati per due anni."
+      recast: {text: "guardare ad altri fornitori", fix: "Valutare altri fornitori", tags: [word-choice]}
+    - learner: "Perfetto. Mi manda la conferma in scrittura? Così posso informare la direzione."
+      errors: [word-choice]
+    - tutor: "Gliela mando per iscritto entro oggi pomeriggio, con il nuovo listino allegato."
+      goals: [agreement]
+      recast: {text: "in scrittura", fix: "per iscritto", tags: [word-choice]}
+    - learner: "Grazie, è stato un piacere trattare con lei, come sempre."
+    - tutor: "Il piacere è mio. Alla prossima!"
+
+- scenario: medico-specialista
+  level: C1
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Meglio, grazie, anche se il nuovo farmaco mi dà un po' di affaticamento la mattina, e a volte mi gira la testa quando mi alzo."
+    - tutor: "È un effetto collaterale frequente all'inizio. Le capita anche sotto sforzo?"
+      goals: [symptoms]
+    - learner: "No, solo la mattina. Le dico anche che in famiglia ci sono precedenti: mio padre è morto d'infarto a sessant'anni e mio zio ha subito un bypass."
+    - tutor: "Grazie, è un'informazione importante. Gli esami, comunque, sono rassicuranti."
+      goals: [history]
+    - learner: "Meno male. Ma il colesterolo? Mangio molta carne, molto burro e la sera troppi postres."
+      errors: [word-choice]
+    - tutor: "Carne, burro e dolci vanno ridotti, sì, ma senza drammi: il colesterolo è appena sopra la norma, non le chiedo di diventare un asceta."
+      goals: [understand]
+      recast: {text: "postres", fix: "dolci", tags: [word-choice]}
+    - learner: "Sarà dura: faccio il cuoco! E la terapia? Bisogna che io prendo il farmaco per sempre?"
+      errors: [subjunctive-use]
+    - tutor: "Domanda legittima. Ma «bisogna che io prendo»? Dopo «bisogna che», quale modo si usa?"
+      prompt: {text: "Bisogna che io prendo", tags: [subjunctive-use]}
+    - learner: "Ah, sì: bisogna che io prenda il farmaco per sempre?"
+    - tutor: "Esatto. Non necessariamente: se la pressione si stabilizza, tra sei mesi possiamo ridurre la dose. Ma non lo sospenda mai di sua iniziativa."
+      goals: [treatment]
+    - learner: "Capito, nessuna iniziativa personale. Un'ultima cosa: posso tomare un caffè al giorno?"
+      errors: [word-choice]
+    - tutor: "Un caffè al giorno lo può prendere tranquillamente: a un cuoco italiano d'adozione non potrei mai toglierlo!"
+      recast: {text: "tomare", fix: "prendere", tags: [word-choice]}
+    - learner: "Questa sì che è una buona notizia! Grazie, dottore."
+    - tutor: "Si figuri. Ci vediamo tra sei mesi per il controllo."
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: en-m-traveller
+  history: [word-choice]
+  turns:
+    - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+    - learner: "Buongiorno! Vivo a Venezia da cinque anni e sono a favore del ticket, anche se non credo che basti."
+    - tutor: "Un favorevole con riserva, dunque. Ma ci faccia un esempio concreto del problema."
+      goals: [introduce]
+    - learner: "A maggio, per andare al lavoro, ci metto quaranta minuti invece di dieci: le calli sono intasate e i residenti non possono più affordare gli affitti."
+      errors: [word-choice]
+    - tutor: "E se i residenti non possono più permettersi gli affitti, la città si svuota, d'accordo. Ma il ticket risolve davvero questo?"
+      goals: [example]
+      recast: {text: "affordare", fix: "permettersi", tags: [word-choice]}
+    - learner: "Non da solo, certo. Ma con i soldi del ticket si potrebbero finanziare case per i residenti."
+    - tutor: "Bella teoria. Però molti sostengono che il ticket trasformi Venezia in un parco a tema. Lei cosa risponde?"
+    - learner: "Rispondo che è normale che la gente lo pensa, ma Venezia è già un parco a tema, purtroppo."
+      errors: [subjunctive-use]
+    - tutor: "Risposta tagliente. Ma «è normale che la gente lo pensa»? Dopo «è normale che», il verbo cambia modo."
+      prompt: {text: "che la gente lo pensa", tags: [subjunctive-use]}
+    - learner: "Giusto: è normale che la gente lo pensi, ma Venezia è già un parco a tema."
+    - tutor: "Esatto. E allora, che cosa propone di concreto?"
+      goals: [rebut]
+    - learner: "Un numero chiuso nei giorni di punta e incentivi per i landlord che affittano ai residenti invece che ai turisti."
+      errors: [word-choice]
+    - tutor: "Incentivi ai proprietari che affittano ai residenti: finalmente una proposta concreta."
+      goals: [proposal]
+      recast: {text: "landlord", fix: "proprietari", tags: [word-choice]}
+    - learner: "Grazie a voi per lo spazio, e buon lavoro!"
+    - tutor: "Grazie a lei per la telefonata. Passiamo subito alla prossima chiamata!"
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: en-m-heritage
+  history: [word-choice]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Sì, grazie. Non sono contrario al rifacimento della facciata in sé; dico solo che quest'anno, con il caro bollette, molte famiglie farebbero fatica a pagare la prima rata."
+    - tutor: "Posizione chiara, e detta con garbo. Però la signora del terzo piano sostiene, testualmente, che «chi vuole rimandare è sempre chi non vuole pagare». Come risponde?"
+      goals: [position]
+    - learner: "Con un sorriso: ho sempre pagato tutto, e spesso in anticipo. Vorrei piuttosto alzare una questione diversa: il preventivo è stato confrontato con quelli di altre ditte?"
+      errors: [word-choice]
+    - tutor: "Sollevare una questione del genere è più che legittimo, e la risposta, a onor del vero, è no: abbiamo un solo preventivo."
+      goals: [defuse]
+      recast: {text: "alzare una questione", fix: "Sollevare una questione", tags: [word-choice]}
+    - learner: "Allora propongo di chiederne almeno altri due e di rinviare la delibera. Se avremmo avuto più tempo, avremmo potuto farlo prima."
+      errors: [hypothetical]
+    - tutor: "Mi permetta, prima di mettere a verbale: «se avremmo avuto»? Dopo quel «se» il condizionale non regge."
+      prompt: {text: "Se avremmo avuto", tags: [hypothetical]}
+    - learner: "Ha ragione: se avessimo avuto più tempo, avremmo potuto farlo prima."
+    - tutor: "Ineccepibile. E la proposta dei due preventivi, devo dire, mi sembra sensata."
+      goals: [alternative]
+    - learner: "Allora chiedo che la proposta venga messa nei minuti: altri due preventivi entro febbraio e votazione a marzo."
+      errors: [word-choice]
+    - tutor: "Di minuti stasera ne abbiamo persi fin troppi, ma la proposta la metto subito a verbale. E per accontentare il terzo piano, aggiungerei che i ponteggi si montano comunque ad aprile. Le sta bene?"
+      recast: {text: "nei minuti", fix: "a verbale", tags: [word-choice]}
+    - learner: "Mi sembra un compromesso ragionevole: per me va bene."
+    - tutor: "Benissimo, allora lo mettiamo ai voti. E forse, miracolo, finiamo prima di mezzanotte."
+      goals: [compromise]
+
+- scenario: cena-suoceri
+  level: C2
+  persona: en-m-traveller
+  history: [false-friend]
+  turns:
+    - tutor: "Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+    - learner: "La ringrazio, ma le assicuro che sono in carne e ossa! E complimenti: la casa è accogliente, e dalla cucina arriva un profumo di arrosto delizioso."
+    - tutor: "Troppo gentile. L'arrosto è la specialità di mia moglie: guai a chi lo critica. Mia figlia dice che lei fa il giornalista... o era il fotografo?"
+      goals: [compliment]
+    - learner: "Il fotografo, in realtà. Lavoro per una rivista di viaggi e vorrei aprire uno studio mio. Ho già trovato un locale, ma i parenti di Sara non lo sanno ancora."
+      errors: [false-friend]
+    - tutor: "I genitori di Sara, cioè noi, a quanto pare lo scoprono adesso! Uno studio tutto suo, dunque: e i conti li ha fatti?"
+      goals: [background]
+      recast: {text: "i parenti di Sara", fix: "I genitori di Sara", tags: [false-friend]}
+    - learner: "Ops! Volevo dirlovi stasera, infatti. Non sono uno che si lancia senza paracadute: i conti li ho fatti."
+      errors: [combined-pronouns]
+    - tutor: "Apprezzo la sincerità. Ma «volevo dirlovi»? Provi a rimettere in ordine quei due pronomi."
+      prompt: {text: "dirlovi", tags: [combined-pronouns]}
+    - learner: "Certo: volevo dirvelo stasera."
+    - tutor: "Ecco, così sì. Anche se, detto tra noi, i fotografi che conosco i conti non li sanno proprio fare."
+    - learner: "Allora sarò l'eccezione che conferma la regola. E se proprio non ci riesco, ho una fidanzata commercialista!"
+    - tutor: "Touché! Senta, ormai è quasi di famiglia: che ne dice se ci diamo del tu?"
+      goals: [irony]
+    - learner: "Con piacere, mi fa onore. E allora vorrei proporre un toast alla famiglia!"
+      errors: [word-choice]
+    - tutor: "Un brindisi, volentieri: il pane tostato lo teniamo per domattina. Alla famiglia!"
+      goals: [tu-lei]
+      recast: {text: "un toast", fix: "Un brindisi", tags: [word-choice]}
+    - learner: "Alla famiglia! E grazie davvero per questa bellissima serata."
+    - tutor: "Grazie a te. E adesso, visto che sei di famiglia, i piatti li lavi tu!"

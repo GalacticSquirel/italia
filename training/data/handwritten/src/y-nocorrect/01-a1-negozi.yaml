@@ -1,0 +1,213 @@
+# Set y-nocorrect: mostly error-free learner turns with correct-but-unusual forms the tutor must
+# NOT correct (dislocations, ne/ci, short answers, present for future). A1, file 1.
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+  - tutor: "Buongiorno! Cosa prende?"
+  - learner: "Buongiorno! Un cappuccino, per favore."
+  - tutor: "Subito. Prende anche qualcosa da mangiare?"
+    goals: [greet, order-drink]
+  - learner: "Sì. Avete cornetti alla crema?"
+  - tutor: "Sì, sono appena arrivati. Quanti ne vuole?"
+  - learner: "Ne prendo due."
+  - tutor: "Ecco i due cornetti. Vuole lo zucchero?"
+    goals: [order-food]
+  - learner: "No, grazie. Il cappuccino lo bevo senza zucchero. E vorrei anche una acqua."
+    errors: [article-form]
+  - tutor: "Una acqua? Ascolti bene la parola acqua."
+    prompt: {text: "una acqua", tags: [article-form]}
+  - learner: "Sì, una acqua naturale, per favore."
+    errors: [article-form]
+  - tutor: "Ecco un'acqua naturale, bella fresca."
+    recast: {text: "una acqua", fix: "un'acqua", tags: [article-form]}
+  - learner: "Grazie. Quant'è?"
+  - tutor: "Sono cinque euro e dieci."
+  - learner: "Ecco a lei. Il resto lo lasci pure."
+  - tutor: "Grazie mille, molto gentile! Buona giornata."
+    goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Buongiorno! Mi dica."
+  - learner: "Buongiorno. Mi dà mezzo chilo di pane?"
+  - tutor: "Certo. Pane bianco o pane nero?"
+    goals: [greet, order-bread]
+  - learner: "Bianco, grazie."
+  - tutor: "Ecco il pane. Altro?"
+  - learner: "Sì. La focaccia è di oggi?"
+  - tutor: "Sì, è ancora calda. Ne vuole un pezzo?"
+  - learner: "Sì, ne prendo due etti. E anche una pizza piccolo."
+    errors: [adjective-agreement]
+  - tutor: "Una pizza piccolo? Pensi a pizza, maschile o femminile?"
+    prompt: {text: "una pizza piccolo", tags: [adjective-agreement]}
+  - learner: "Sì, una pizza piccolo, per favore."
+    errors: [adjective-agreement]
+  - tutor: "Va bene, una pizza piccola. Rossa o bianca?"
+    recast: {text: "una pizza piccolo", fix: "una pizza piccola", tags: [adjective-agreement]}
+    goals: [order-extra]
+  - learner: "Rossa. Quanto le devo?"
+  - tutor: "Sono sei euro e cinquanta."
+  - learner: "Ecco. Il sacchetto non serve, ce l'ho."
+  - tutor: "Brava, grazie! Arrivederci e buona giornata."
+    goals: [pay]
+
+- scenario: mercato-frutta
+  level: A1
+  persona: en-f-student
+  history: [noun-number]
+  turns:
+  - tutor: "Ciao! Cosa ti do oggi?"
+  - learner: "Ciao! Quanto costano le mele?"
+  - tutor: "Due euro al chilo. Sono molto fresche!"
+    goals: [ask-price]
+  - learner: "Allora un chilo. Le arance invece quanto vengono?"
+  - tutor: "Le arance vengono tre euro al chilo."
+  - learner: "Va bene, prendo anche due arancia."
+    errors: [noun-number]
+  - tutor: "Due arancia? Una arancia, due...?"
+    prompt: {text: "due arancia", tags: [noun-number]}
+  - learner: "Due arance!"
+  - tutor: "Giusto! Ecco un chilo di mele e due arance."
+    goals: [buy-quantity]
+  - learner: "Hai anche pomodori?"
+  - tutor: "Sì, guarda qui. Sono buonissimi oggi."
+    goals: [ask-other]
+  - learner: "Ne prendo mezzo chilo. Quant'è in tutto?"
+  - tutor: "Sono quattro euro in tutto."
+  - learner: "Ecco cinque euro."
+  - tutor: "Grazie, ecco un euro di resto. Ciao, a presto!"
+    goals: [pay]
+
+- scenario: orari-negozio
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Pronto, negozio Bianchi, buongiorno!"
+  - learner: "Buongiorno. Siete aperti oggi pomeriggio?"
+  - tutor: "Sì, il pomeriggio apriamo alle quattro."
+    goals: [greet]
+  - learner: "E a che ora chiudete?"
+  - tutor: "Chiudiamo alle sette e mezza."
+    goals: [ask-hours]
+  - learner: "Domani vengo con mia moglie. Siete aperti la domenica?"
+  - tutor: "No, la domenica siamo chiusi. Domani però siamo aperti."
+  - learner: "Bene. Domani mattina abrite alle nove?"
+    errors: [verb-form]
+  - tutor: "Abrite? Scusi, non ho capito il verbo."
+    prompt: {text: "abrite", tags: [verb-form]}
+  - learner: "Domani mattina aprite alle nove?"
+  - tutor: "Ah, sì! Alle nove in punto."
+    goals: [ask-day]
+  - learner: "Perfetto. Allora vengo alle dieci."
+  - tutor: "Benissimo, la aspettiamo. Arrivederci!"
+  - learner: "Grazie, arrivederci!"
+  - tutor: "Grazie a lei, buona giornata!"
+    goals: [goodbye]
+
+- scenario: presentarsi
+  level: A1
+  persona: en-m-heritage
+  history: [subject-verb-agreement]
+  turns:
+  - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+  - learner: "Ciao Giulia, mi chiamo Daniel. Piacere!"
+  - tutor: "Piacere, Daniel! Di dove sei?"
+    goals: [say-name]
+  - learner: "Sono canadese, di Toronto. Ma i miei nonni sono di Napoli."
+  - tutor: "Che bello! Allora a casa parli italiano?"
+    goals: [say-origin]
+  - learner: "No, a casa no. Lo capisco un po', ma non lo parlo bene."
+  - tutor: "Capisco. E che lavoro fai?"
+  - learner: "Lavoro in una banca. Io e mia sorella lavora insieme."
+    errors: [subject-verb-agreement]
+  - tutor: "Io e mia sorella lavora? Sono due persone."
+    prompt: {text: "Io e mia sorella lavora", tags: [subject-verb-agreement]}
+  - learner: "Io e mia sorella lavoriamo insieme."
+  - tutor: "Esatto! Che bello lavorare con la sorella."
+    goals: [say-job]
+  - learner: "Sì, è simpatica. E tu, che cosa fai?"
+  - tutor: "Io studio inglese a Bologna, all'ultimo anno."
+    goals: [ask-back]
+
+- scenario: taxi
+  level: A1
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno! Dove la porto?"
+  - learner: "Buongiorno. All'albergo Roma, in via Verdi, per favore."
+  - tutor: "Va bene. La valigia la metto dietro?"
+    goals: [destination]
+  - learner: "Sì, grazie. Quanto ci vuole?"
+  - tutor: "Quindici minuti, se la strada è libera."
+    goals: [ask-time]
+  - learner: "Bene. E quanto costa più o meno?"
+  - tutor: "Più o meno venti euro."
+    goals: [ask-price]
+  - learner: "Va bene. Posso pagare in carta?"
+    errors: [preposition]
+  - tutor: "In carta? Pensi alla piccola parola."
+    prompt: {text: "in carta", tags: [preposition]}
+  - learner: "In carta, sì. Ho solo la carta."
+    errors: [preposition]
+  - tutor: "Sì, può pagare con la carta, nessun problema."
+    recast: {text: "in carta", fix: "con la carta", tags: [preposition]}
+  - learner: "Perfetto. Ecco, siamo arrivati?"
+  - tutor: "Sì, siamo arrivati. Sono diciannove euro."
+  - learner: "Ecco la carta. Grazie e buona giornata!"
+  - tutor: "Grazie a lei, arrivederci!"
+    goals: [pay]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-f-teacher
+  history: [essere-avere]
+  turns:
+  - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+  - learner: "Buonasera. Sì, ce l'ho. A nome Lopez."
+  - tutor: "Ecco, signora. Una camera per due notti."
+    goals: [booking]
+  - learner: "Sì, esatto. Il documento lo vuole adesso?"
+  - tutor: "Sì, adesso, grazie."
+  - learner: "Ecco la carta d'identità."
+  - tutor: "Grazie, è tutto a posto."
+    goals: [document]
+  - learner: "A che ora è il colazione?"
+    errors: [noun-gender]
+  - tutor: "Il colazione? Ascolti bene la parola."
+    prompt: {text: "il colazione", tags: [noun-gender]}
+  - learner: "Scusi, la colazione. A che ora è?"
+  - tutor: "Esatto! Dalle sette alle dieci, al primo piano."
+    goals: [breakfast]
+  - learner: "Bene. Io domani ho fretta, parto alle otto."
+  - tutor: "Nessun problema, alle sette è già pronta."
+  - learner: "Perfetto. E la chiave?"
+  - tutor: "Ecco la chiave, camera trentadue. Buona notte!"
+    goals: [key]
+
+- scenario: numero-telefono
+  level: A1
+  persona: en-m-retired
+  history: [modal-infinitive]
+  turns:
+  - tutor: "È stata una bella lezione, vero?"
+  - learner: "Sì, molto bella. Vuoi studiare insieme?"
+  - tutor: "Sì, bella idea! Studiare da soli è difficile."
+    goals: [propose]
+  - learner: "Allora ci vediamo sabato?"
+  - tutor: "Sabato va bene. Mi dai il tuo numero?"
+  - learner: "Sì. Il numero è tre quattro sette, due due uno, otto otto zero."
+  - tutor: "Perfetto, ti mando un messaggio così hai il mio."
+    goals: [number]
+  - learner: "Grazie. Sabato io posso alle dieci. Tu può?"
+    errors: [subject-verb-agreement]
+  - tutor: "Tu può? Pensa bene: io posso, tu...?"
+    prompt: {text: "Tu può", tags: [subject-verb-agreement]}
+  - learner: "Ah, tu puoi?"
+  - tutor: "Sì, alle dieci sono libero. Dove ci vediamo?"
+  - learner: "Al bar della scuola. Lo conosci?"
+  - tutor: "Sì, lo conosco bene. Allora a sabato!"
+    goals: [when]

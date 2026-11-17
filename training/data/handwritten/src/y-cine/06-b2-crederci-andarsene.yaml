@@ -1,0 +1,251 @@
+# y-cine, file 06 (B2): volerci/metterci, crederci, andarsene, ce ne sono, "di esso".
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Mi sento stanco. Mio nipote sale tre piani in dieci secondi; a me vogliono cinque minuti!"
+      errors: [ci-ne]
+      gold: {text: "a me vogliono cinque minuti", fix: "a me ci vogliono cinque minuti"}
+    - tutor: "Cinque minuti, capisco. Ma «a me vogliono»: chi vuole che cosa? Quando parliamo del tempo necessario, il verbo non va da solo."
+      prompt: {text: "a me vogliono cinque minuti", tags: [ci-ne]}
+    - learner: "Sì, scusi: a me vogliono cinque minuti, e devo fermarmi due volte."
+      errors: [ci-ne]
+    - tutor: "Se a lei ci vogliono cinque minuti e deve fermarsi due volte, dobbiamo capire perché. Nella sua famiglia qualcuno ha avuto problemi di cuore?"
+      recast: {text: "vogliono cinque minuti", fix: "ci vogliono cinque minuti", tags: [ci-ne]}
+      goals: [symptoms]
+    - learner: "Sì, mio padre ha avuto un infarto a sessant'anni. Non ne ho mai parlato con nessun medico."
+    - tutor: "Ha fatto bene a parlarmene adesso. Gli esami mostrano una pressione un po' alta, ma niente di grave."
+      goals: [history]
+    - learner: "Cosa significa, in pratica? È necessario che prendo delle medicine?"
+      errors: [subjunctive-use]
+    - tutor: "Ora glielo spiego. Ma «è necessario che prendo»: dopo «è necessario che», quale modo usiamo?"
+      prompt: {text: "è necessario che prendo", tags: [subjunctive-use]}
+    - learner: "È necessario che prenda delle medicine?"
+    - tutor: "Esatto. Sì, una pastiglia al mattino: i primi giorni può dare un po' di stanchezza, poi passa."
+      goals: [understand]
+      new: [{lemma: pastiglia, gloss: tablet}]
+    - learner: "Va bene. E il caffè? Ne bevo quattro al giorno, ci tengo molto!"
+    - tutor: "Ne beva al massimo due, e cammini mezz'ora al giorno. Ci rivediamo tra tre mesi."
+      goals: [treatment]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Immaginiamo una festa in campagna, con tanti fiori e musica dal vivo. Siamo molto ilusionati!"
+      errors: [false-friend]
+    - tutor: "Che bello vedervi così emozionati! E quanti invitati avete in mente?"
+      recast: {text: "ilusionati", fix: "emozionati", tags: [false-friend]}
+      goals: [vision]
+    - learner: "Abbiamo duecento, più o meno. La mia famiglia è enorme!"
+      errors: [ci-ne]
+      gold: {text: "Abbiamo duecento", fix: "Ne abbiamo duecento"}
+    - tutor: "Duecento, accidenti! Ma «abbiamo duecento»: duecento che cosa? Alla frase manca un piccolo aiuto prima del verbo."
+      prompt: {text: "Abbiamo duecento", tags: [ci-ne]}
+    - learner: "Ah, ne abbiamo duecento! E vorremmo spendere al massimo trentamila euro: i miei genitori ci aiutano con una parte."
+    - tutor: "Perfetto, è un budget ragionevole. Allora ho due proposte: una villa sul lago o un agriturismo in collina."
+      new: [{lemma: agriturismo, gloss: farm stay}]
+      goals: [budget]
+    - learner: "La villa sul lago è bellissima! Io sono stata l'anno scorso, per il matrimonio di una cugina."
+      errors: [ci-ne]
+    - tutor: "Che coincidenza! Ma «io sono stata l'anno scorso»: stata dove? Manca la piccola parola che indica la villa."
+      prompt: {text: "Io sono stata l'anno scorso", tags: [ci-ne]}
+    - learner: "Ci sono stata l'anno scorso, ed era magnifica. Scegliamo la villa!"
+    - tutor: "Ottima scelta. E avete delle condizioni per me?"
+      goals: [choices]
+    - learner: "Sì: voglio che lei si occupa di tutto e che non ci sono sorprese nel prezzo."
+      errors: [subjunctive-use]
+    - tutor: "Richieste giustissime. Ma «voglio che lei si occupa»: dopo «voglio che», quale modo serve?"
+      prompt: {text: "voglio che lei si occupa", tags: [subjunctive-use]}
+    - learner: "Voglio che lei si occupi di tutto e che non ci siano sorprese."
+    - tutor: "Perfetto, promesso: nessuna sorpresa, a parte quelle belle!"
+      goals: [conditions]
+
+- scenario: politica-lavoro
+  level: B2
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Non ci credo per niente. Lo dicono da cinquant'anni, ma alla fine nascono sempre lavori nuovi."
+    - tutor: "Sì, ma stavolta è diverso: le macchine imparano da sole."
+      goals: [opinion]
+    - learner: "Ma se le macchine farebbero tutto, chi comprerebbe i prodotti?"
+      errors: [hypothetical]
+    - tutor: "Bella domanda. Però «se le macchine farebbero»: dopo «se», il condizionale non ci va. Che tempo serve?"
+      prompt: {text: "se le macchine farebbero", tags: [hypothetical]}
+    - learner: "Se le macchine farebbero tutto... no, aspetta, non sono sicuro."
+      errors: [hypothetical]
+    - tutor: "Appunto: se le macchine facessero tutto, nessuno avrebbe uno stipendio per comprare. Hai un esempio reale?"
+      recast: {text: "se le macchine farebbero", fix: "se le macchine facessero", tags: [hypothetical]}
+      goals: [hypothesis]
+    - learner: "Sì: mio cugino lavora in banca. Dieci anni fa nella sua filiale c'erano venti impiegati, ora ci sono otto."
+      errors: [ci-ne]
+      gold: {text: "ora ci sono otto", fix: "ora ce ne sono otto"}
+    - tutor: "Ecco, vedi? Ma «ora ci sono otto»: otto cosa? Riprendi «impiegati» senza ripeterlo."
+      prompt: {text: "ora ci sono otto", tags: [ci-ne]}
+    - learner: "Sì, sì, ora ci sono otto."
+      errors: [ci-ne]
+    - tutor: "Ora ce ne sono otto: mi stai dando ragione tu!"
+      recast: {text: "ci sono otto", fix: "ce ne sono otto", tags: [ci-ne]}
+    - learner: "No, perché gli altri dodici non sono disoccupati: ora fanno consulenza ai clienti. Il lavoro cambia, ma non sparisce. E tu cosa ne pensi, davvero?"
+    - tutor: "Penso che tu sia troppo positivo. Ma su una cosa hai ragione: il lavoro cambierà prima di sparire."
+      goals: [example, conclude]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Sì, purtroppo. Abbiamo aspettato un'ora per i secondi, che sono arrivati freddi, e il cameriere è stato anche rude."
+      errors: [false-friend]
+    - tutor: "Mi dispiace molto: un cameriere non deve mai essere maleducato. Che cosa avevate ordinato?"
+      recast: {text: "rude", fix: "maleducato", tags: [false-friend]}
+      new: [{lemma: maleducato, gloss: rude}]
+      goals: [complain]
+    - learner: "Due bistecche e un branzino. Il pesce era buono, ma abbiamo mandato indietro una bistecca perché era cruda. Anzi, abbiamo mandato indietro due!"
+      errors: [ci-ne]
+      gold: {text: "abbiamo mandato indietro due", fix: "ne abbiamo mandate indietro due"}
+    - tutor: "Tutte e due? Ma «abbiamo mandato indietro due»: due cosa? Manca la piccola parola che riprende le bistecche."
+      prompt: {text: "abbiamo mandato indietro due", tags: [ci-ne]}
+    - learner: "Ne abbiamo mandate indietro due, tutte e due crude."
+    - tutor: "Perfetto, anche l'accordo. Ha ragione, non doveva succedere. Cosa si aspettava, per una cena come questa?"
+      goals: [detail]
+    - learner: "Mi aspettavo almeno che il cameriere ci avvisava del ritardo. Bastava una parola."
+      errors: [subjunctive-use]
+    - tutor: "Capisco. Però «mi aspettavo che il cameriere ci avvisava»: dopo «mi aspettavo che», che forma ci vuole?"
+      prompt: {text: "avvisava", tags: [subjunctive-use]}
+    - learner: "Mi aspettavo che il cameriere ci avvisava, sì, proprio questo."
+      errors: [subjunctive-use]
+    - tutor: "Era giusto aspettarsi che il cameriere vi avvisasse. Per scusarci, vi offriamo i secondi e il dolce: le va bene?"
+      recast: {text: "avvisava", fix: "avvisasse", tags: [subjunctive-use]}
+      goals: [expectation]
+    - learner: "Accetto volentieri, grazie. Ci torneremo, ne sono sicuro."
+    - tutor: "Ne sono felice. Vi aspettiamo presto, e questa volta senza ritardi!"
+      goals: [resolve]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Domani cominciamo i test con gli utenti: servono venti volontari e per ora abbiamo trovato dodici."
+      errors: [ci-ne]
+      gold: {text: "abbiamo trovato dodici", fix: "ne abbiamo trovati dodici"}
+    - tutor: "Dodici, non male. Ma «abbiamo trovato dodici»: dodici di cosa? Ripensa alla piccola parola giusta."
+      prompt: {text: "abbiamo trovato dodici", tags: [ci-ne]}
+    - learner: "Abbiamo trovato dodici volontari, voglio dire."
+    - tutor: "Ah, ecco, così è chiaro. E gli altri otto?"
+      goals: [update]
+    - learner: "Questo è il problema. Ne ho parlato con Marco, ma lui non ne crede: dice che è impossibile."
+      errors: [ci-ne]
+    - tutor: "Mmm, «non ne crede»? Con il verbo «credere», quella piccola parola è quella giusta?"
+      prompt: {text: "non ne crede", tags: [ci-ne]}
+    - learner: "Sì, Marco non ne crede molto."
+      errors: [ci-ne]
+    - tutor: "Se Marco non ci crede, lo convinco io. Tu hai un'idea?"
+      recast: {text: "non ne crede", fix: "non ci crede", tags: [ci-ne]}
+      goals: [problem]
+    - learner: "Potremmo offrire un buono di dieci euro a chi partecipa. Me ne servono otto, cioè ottanta euro in tutto."
+    - tutor: "Ottima idea, approvata. Entro quando finirete i test?"
+      goals: [proposal]
+    - learner: "Li finiremo entro il quindici, se i volontari arrivano in tempo."
+    - tutor: "Perfetto: il quindici. Scrivimi se hai bisogno di una mano."
+      goals: [deadline]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Da casa, sempre. L'ufficio è a Bologna e io vivo a Modena: per arrivare ci vogliono cinquanta minuti di treno."
+    - tutor: "E ti trovi bene a casa?"
+      goals: [situation]
+    - learner: "Molto. La mia casa è più silenziosa che l'ufficio, e risparmio i soldi del treno."
+      errors: [comparative]
+    - tutor: "Lo immagino. Ma «più silenziosa che l'ufficio»: davanti a un nome, quale parola usiamo dopo «più»?"
+      prompt: {text: "più silenziosa che l'ufficio", tags: [comparative]}
+    - learner: "Più silenziosa dell'ufficio!"
+    - tutor: "Esatto. E non c'è niente che ti manca?"
+      goals: [pros]
+    - learner: "Sì, i colleghi. Quando ho un dubbio scrivo una mail, ma la risposta arriva dopo due ore. Io ho bisogno di essa subito!"
+      errors: [ci-ne]
+      gold: {text: "ho bisogno di essa", fix: "ne ho bisogno"}
+    - tutor: "«Ho bisogno di essa»? Si capisce, ma suona come una traduzione. Come lo direbbe un collega italiano?"
+      prompt: {text: "ho bisogno di essa", tags: [ci-ne]}
+    - learner: "Ho bisogno di lei subito, cioè della risposta."
+      errors: [ci-ne]
+    - tutor: "Ti capisco: quando ne ho bisogno subito, anch'io impazzisco. E allora cosa preferiresti?"
+      recast: {text: "Ho bisogno di lei", fix: "ne ho bisogno", tags: [ci-ne]}
+      goals: [cons]
+    - learner: "Preferirei due giorni in ufficio e tre a casa: sarebbe più equilibrato."
+    - tutor: "Mi sembra la soluzione giusta. Proponilo al tuo capo!"
+      goals: [preference]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, molto. Ma ho un dubbio: la cucina è piccola e io faccio il cuoco, ci passo molte ore."
+    - tutor: "Capisco. Che cosa le servirebbe?"
+      goals: [interest]
+    - learner: "Un forno più grande. Se il proprietario cambierebbe il forno, pagherei anche cinquanta euro in più."
+      errors: [hypothetical]
+    - tutor: "Interessante. Ma «se il proprietario cambierebbe»: dopo «se», che tempo ci vuole?"
+      prompt: {text: "se il proprietario cambierebbe", tags: [hypothetical]}
+    - learner: "Se il proprietario cambia... cambierebbe il forno, sì."
+      errors: [hypothetical]
+    - tutor: "Se il proprietario cambiasse il forno, lei accetterebbe 900 euro al mese? Posso chiederlo al proprietario."
+      recast: {text: "Se il proprietario cambia... cambierebbe", fix: "Se il proprietario cambiasse", tags: [hypothetical]}
+      goals: [negotiate]
+    - learner: "Sì, accetterei. Ma non voglio restare bloccato: se trovo lavoro in un'altra città, voglio potermi andare."
+      errors: [ci-ne]
+      gold: {text: "potermi andare", fix: "potermene andare"}
+    - tutor: "Giusto. Ma «potermi andare»: con «andare via», al pronome manca un pezzo."
+      prompt: {text: "potermi andare", tags: [ci-ne]}
+    - learner: "Voglio potermene andare, scusi."
+    - tutor: "Esatto. Il contratto è di quattro anni, ma lei può lasciare la casa con sei mesi di preavviso."
+      goals: [conditions]
+      new: [{lemma: preavviso, gloss: notice}]
+    - learner: "Sei mesi mi sembrano troppi. Ne proponiamo tre?"
+    - tutor: "Tre mesi mi sembrano ragionevoli: ne parlo con il proprietario e le mando il contratto domani."
+      goals: [conclude]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Ci sono venuta per l'Erasmus sei anni fa e non me ne sono più andata!"
+    - tutor: "Che bella storia! E qual è stata la parte più difficile?"
+      goals: [story]
+    - learner: "La burocrazia, senza dubbio. Per avere il permesso di soggiorno ho messo otto mesi!"
+      errors: [ci-ne]
+      gold: {text: "ho messo otto mesi", fix: "ci ho messo otto mesi"}
+    - tutor: "Otto mesi! Ma «ho messo otto mesi»: per indicare il tempo impiegato, al verbo serve una piccola parola."
+      prompt: {text: "ho messo otto mesi", tags: [ci-ne]}
+    - learner: "Ho messo otto mesi, davvero, non scherzo."
+      errors: [ci-ne]
+    - tutor: "Anch'io ci ho messo otto mesi per un documento, la capisco benissimo! E in che modo è cambiata in questi anni?"
+      recast: {text: "Ho messo otto mesi", fix: "ci ho messo otto mesi", tags: [ci-ne]}
+      goals: [difficulties]
+    - learner: "Sono più paziente. Prima mi arrabbiavo se l'autobus era in ritardo; ora non me ne importa niente."
+    - tutor: "Un cambiamento molto italiano! Un ultimo consiglio per chi vuole trasferirsi?"
+      goals: [change]
+    - learner: "Imparate la lingua prima di partire. Se avrei parlato italiano subito, sarebbe stato tutto più facile."
+      errors: [hypothetical]
+    - tutor: "Consiglio prezioso. Ma «se avrei parlato»: dopo «se», il condizionale non va bene. Come lo correggerebbe?"
+      prompt: {text: "Se avrei parlato", tags: [hypothetical]}
+    - learner: "Se avessi parlato italiano subito, sarebbe stato tutto più facile."
+    - tutor: "Perfetto. Grazie di essere stata con noi, e buona vita in Italia!"
+      goals: [advice]

@@ -1,0 +1,230 @@
+# y-future, file 04: B1, passato prossimo vs imperfetto, trapassato (and one clean dialogue).
+- scenario: tradizioni-feste
+  level: B1
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+    - learner: "In Inghilterra il pranzo di Natale è molto importante: tacchino, patate e un dolce speciale con la frutta secca."
+    - tutor: "Interessante! E da bambina come festeggiavi?"
+      goals: [compare]
+    - learner: "La mattina di Natale ci siamo svegliati sempre alle sei per aprire i regali."
+      errors: [tense-aspect]
+      gold: {text: "ci siamo svegliati sempre", fix: "ci svegliavamo sempre"}
+    - tutor: "Ci siamo svegliati sempre? Racconti una cosa che succedeva ogni anno. Prova con un altro tempo."
+      prompt: {text: "ci siamo svegliati sempre", tags: [tense-aspect]}
+    - learner: "Ci svegliammo sempre alle sei per aprire i regali!"
+      errors: [tense-aspect]
+    - tutor: "Che bello, anche noi ci svegliavamo sempre prestissimo! Però aprivamo i regali la sera della Vigilia."
+      goals: [past]
+      recast: {text: "ci svegliammo sempre", fix: "ci svegliavamo sempre", tags: [tense-aspect]}
+    - learner: "Davvero? E chi è la Befana? Una collega me ne ha parlato ieri."
+    - tutor: "È una vecchietta che il sei gennaio porta dolci ai bambini buoni e carbone a quelli cattivi."
+      goals: [ask]
+      new: [{lemma: vecchietta, gloss: little old woman}, {lemma: carbone, gloss: coal}]
+    - learner: "Che carina! Senti, per il pranzo di domani cosa posso portare? Non voglio sembrare rude."
+      errors: [false-friend]
+    - tutor: "Ma figurati, non sembri affatto maleducata! Porta un dolce del tuo paese, così lo proviamo tutti."
+      goals: [plan]
+      recast: {text: "rude", fix: "maleducata", tags: [false-friend]}
+      new: [{lemma: maleducato, gloss: rude}]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Abitavo in una fattoria nel Galles, con i miei genitori e quattro fratelli."
+    - tutor: "Una fattoria, che bello! Cosa facevi durante il giorno?"
+      goals: [place]
+    - learner: "Prima della scuola aiutavo mio padre con le pecore. Era faticoso, ma ero sempre molto eccitato."
+      errors: [false-friend]
+    - tutor: "Immagino che fossi emozionato, con tutti quegli animali! E la scuola?"
+      recast: {text: "eccitato", fix: "emozionato", tags: [false-friend]}
+      new: [{lemma: emozionato, gloss: excited}]
+      goals: [habits]
+    - learner: "La scuola è stata piccola, c'erano solo venti bambini."
+      errors: [tense-aspect]
+      gold: {text: "è stata", fix: "era"}
+    - tutor: "È stata piccola? Stai descrivendo la scuola di allora. Quale tempo usiamo per descrivere?"
+      prompt: {text: "è stata", tags: [tense-aspect]}
+    - learner: "La scuola era piccola, c'erano solo venti bambini."
+    - tutor: "Esatto! Venti bambini, quasi una famiglia. C'è un ricordo speciale?"
+      goals: [school]
+    - learner: "Sì. Un inverno nevicava tanto e la scuola chiudeva per una settimana."
+      errors: [tense-aspect]
+      gold: {text: "chiudeva", fix: "ha chiuso"}
+    - tutor: "Chiudeva? È successo una volta sola, quell'inverno. Come lo racconti?"
+      prompt: {text: "chiudeva", tags: [tense-aspect]}
+    - learner: "Sì, la scuola chiudeva e noi giocavamo nella neve tutto il giorno."
+      errors: [tense-aspect]
+    - tutor: "Che fortuna, la scuola ha chiuso per una settimana e voi giocavate nella neve! Il sogno di ogni bambino."
+      goals: [event]
+      recast: {text: "chiudeva", fix: "ha chiuso", tags: [tense-aspect]}
+
+- scenario: vacanze-passate
+  level: B1
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Sono stato in Sicilia con mia moglie, a Palermo e a Siracusa."
+    - tutor: "Che bello! Com'era il tempo?"
+      goals: [where]
+    - learner: "Faceva un caldo terribile, quaranta gradi, ma il mare era perfetto."
+    - tutor: "Quaranta gradi! E cosa avete fatto?"
+      goals: [weather]
+    - learner: "Il primo giorno abbiamo avuto un problema: quando siamo arrivati all'albergo, avevano dato la nostra camera a un'altra coppia."
+    - tutor: "Che brutta sorpresa! E come avete risolto?"
+    - learner: "Ci hanno dato una camera più grande con vista sul mare. Poi abbiamo visitato Siracusa e Noto."
+    - tutor: "Allora tutto è finito bene! Cosa vi è piaciuto di più?"
+      goals: [activities]
+    - learner: "Noto, senza dubbio. Non avevo mai visto chiese così belle."
+    - tutor: "Hai ragione, Noto è stupenda. Ci voglio tornare anch'io!"
+      goals: [best]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Ho ventotto anni e sono cuoco. Sono nato a Boston, ma la mia famiglia è di Napoli."
+    - tutor: "Piacere. Mi parli della sua esperienza."
+      goals: [intro]
+    - learner: "Per tre anni ho lavorato in un ristorante a Boston. Il proprietario era molto severo e ha voluto sempre la pasta fatta a mano."
+      errors: [tense-aspect]
+      gold: {text: "ha voluto sempre", fix: "voleva sempre"}
+    - tutor: "Ha voluto sempre? Parla di una cosa che il proprietario chiedeva ogni giorno. Quale tempo è più adatto?"
+      prompt: {text: "ha voluto sempre", tags: [tense-aspect]}
+    - learner: "Il proprietario volle sempre la pasta fatta a mano."
+      errors: [tense-aspect]
+    - tutor: "Capisco, il proprietario voleva sempre la pasta fatta a mano: un'ottima scuola. Quali sono i suoi punti di forza? E un difetto?"
+      recast: {text: "volle sempre", fix: "voleva sempre", tags: [tense-aspect]}
+      goals: [experience]
+      new: [{lemma: difetto, gloss: flaw}]
+    - learner: "Sono veloce e lavoro bene in squadra. Il mio difetto è che sono troppo preciso."
+    - tutor: "Una qualità utile in cucina! Perché vuole lavorare da noi?"
+      goals: [strengths]
+    - learner: "Perché usate prodotti locali, e io eventualmente vorrei aprire un ristorante mio."
+      errors: [false-friend]
+    - tutor: "Ah, un giorno vorrebbe aprire un ristorante suo: bel progetto! Ha qualche domanda per me?"
+      recast: {text: "eventualmente", fix: "un giorno", tags: [false-friend]}
+      goals: [why]
+    - learner: "Sì: quanti cuochi lavorano in cucina?"
+    - tutor: "Siamo in cinque, più il capo cuoco. Le faremo sapere entro venerdì."
+      goals: [questions]
+
+- scenario: film-libro
+  level: B1
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Ho letto «Il barone rampante» di Calvino. È la storia di un ragazzo che sale su un albero e non scende più."
+    - tutor: "Un classico! E com'è il personaggio principale?"
+      goals: [summary]
+    - learner: "Cosimo è testardo e libero. A dodici anni ha litigato con il padre e decideva di vivere sugli alberi."
+      errors: [tense-aspect]
+      gold: {text: "decideva", fix: "ha deciso"}
+    - tutor: "Decideva? È una scelta fatta in un momento preciso. Quale tempo serve?"
+      prompt: {text: "decideva", tags: [tense-aspect]}
+    - learner: "Ha deciso di vivere sugli alberi, per tutta la vita."
+    - tutor: "Esatto! E a te è piaciuto?"
+      goals: [characters]
+    - learner: "Moltissimo. Lo stile è ironico e l'argomento è molto originale."
+      errors: [false-friend]
+    - tutor: "Sì, la trama è davvero originale. A chi lo consiglieresti?"
+      recast: {text: "l'argomento", fix: "la trama", tags: [false-friend]}
+      goals: [opinion]
+    - learner: "A tutti, ma soprattutto ai ragazzi che si sentono diversi."
+    - tutor: "Perfetto, lo metto nella lista del mese prossimo!"
+      goals: [recommend]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, nella mia camera l'aria condizionata non funziona e fa molto caldo."
+    - tutor: "Mi dispiace molto. Da quando non funziona?"
+      goals: [problem]
+    - learner: "Ieri funzionava bene. Ma stanotte, mentre dormivo, si spegneva all'improvviso."
+      errors: [tense-aspect]
+      gold: {text: "si spegneva", fix: "si è spenta"}
+    - tutor: "Si spegneva all'improvviso? Un fatto improvviso, in un momento preciso... Quale tempo usiamo?"
+      prompt: {text: "si spegneva", tags: [tense-aspect]}
+    - learner: "Si spegneva e non è più ripartita."
+      errors: [tense-aspect]
+    - tutor: "Capisco, si è spenta stanotte e non è più ripartita. Che cosa posso fare per lei?"
+      goals: [since]
+      recast: {text: "Si spegneva", fix: "si è spenta", tags: [tense-aspect]}
+    - learner: "Vorrei cambiare camera, se è possibile. Oppure potete fissarla oggi?"
+      errors: [word-choice]
+    - tutor: "Purtroppo ripararla oggi è impossibile, chi se ne occupa arriva domani. Posso darle subito la camera 214, al piano di sopra."
+      recast: {text: "fissarla", fix: "ripararla", tags: [word-choice]}
+      goals: [request]
+    - learner: "Va bene, prendo la 214. Grazie mille."
+    - tutor: "Ecco la chiave. Le mando qualcuno per portare le valigie."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questo frullatore la settimana scorsa, ma non funziona più."
+    - tutor: "Mi dispiace. Cosa è successo esattamente?"
+      goals: [problem]
+    - learner: "Domenica mattina, mentre mia moglie ha fatto un frullato, il motore si è fermato."
+      errors: [tense-aspect]
+      gold: {text: "ha fatto", fix: "faceva"}
+    - tutor: "Mentre ha fatto? Era un'azione in corso quando il motore si è fermato. Quale tempo usiamo?"
+      prompt: {text: "ha fatto", tags: [tense-aspect]}
+    - learner: "Sì, mentre ha fatto il frullato, si è fermato e c'era odore di bruciato."
+      errors: [tense-aspect]
+    - tutor: "Capisco, mentre sua moglie faceva il frullato il motore si è fermato. Ha lo scontrino?"
+      recast: {text: "ha fatto", fix: "faceva", tags: [tense-aspect]}
+    - learner: "Sì, eccolo. L'ho comprato il cinque e ho pagato con la carta."
+    - tutor: "Perfetto, è ancora in garanzia. Preferisce il rimborso o un frullatore nuovo?"
+      goals: [proof]
+      new: [{lemma: frullatore, gloss: blender}]
+    - learner: "Preferisco il rimborso, perché anche prima non mi piaceva molto."
+    - tutor: "Va bene, nessun problema. Il rimborso arriverà sulla carta entro cinque giorni."
+      goals: [request, agree]
+
+- scenario: medico-base
+  level: B1
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Ho un forte dolore al tobillo. Sabato sono caduta mentre correvo al parco."
+      errors: [word-choice]
+    - tutor: "Mi dispiace, un dolore alla caviglia dopo una caduta. Riesce a camminare?"
+      recast: {text: "tobillo", fix: "caviglia", tags: [word-choice]}
+      new: [{lemma: caviglia, gloss: ankle}]
+      goals: [symptoms]
+    - learner: "Poco. Sabato la caviglia non era così gonfia, ma domenica mattina era enorme."
+    - tutor: "Quindi è peggiorata in un giorno. Ha preso qualcosa per il dolore?"
+      goals: [since-when]
+    - learner: "Sì, un antidolorifico. Mia coinquilina mi ha detto che ha già preso lo stesso per un problema simile."
+      errors: [possessive, tense-aspect]
+      gold: {text: "ha già preso", fix: "aveva già preso"}
+    - tutor: "Ha già preso? Lei l'ha preso prima del vostro discorso... Quale tempo usiamo per questo passato?"
+      prompt: {text: "ha già preso", tags: [tense-aspect]}
+    - learner: "Sì, mi ha detto che lo ha già preso."
+      errors: [tense-aspect]
+    - tutor: "Capisco, la sua coinquilina l'aveva già preso per un problema simile. Ed è allergica a qualche medicina?"
+      recast: {text: "lo ha già preso", fix: "l'aveva già preso", tags: [tense-aspect]}
+      new: [{lemma: coinquilina, gloss: flatmate}]
+    - learner: "No, non sono allergica a niente."
+    - tutor: "Bene. Allora ghiaccio due volte al giorno e riposo per una settimana."
+      goals: [history]
+    - learner: "Quindi ghiaccio due volte al giorno e niente corsa per una settimana."
+    - tutor: "Esatto, e se non migliora facciamo una radiografia."
+      goals: [instructions]
+      new: [{lemma: radiografia, gloss: X-ray}]

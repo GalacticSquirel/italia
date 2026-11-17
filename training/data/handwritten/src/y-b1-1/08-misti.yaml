@@ -1,0 +1,274 @@
+# B1, round 3: mixed weak spots (object pronouns, comparatives, modals, ci/ne, tense).
+- scenario: cucina-ricetta
+  level: B1
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera facciamo gli gnocchi di patate. Li faceva sempre mia nonna."
+    - tutor: "Gnocchi fatti in casa, che bello! Cosa ci serve, e come cominciamo?"
+    - learner: "Patate, farina, un uovo e sale. Prima cuoci le patate, poi schiaccia loro con la forchetta."
+      errors: [object-pronoun]
+      gold: {text: "schiaccia loro", fix: "schiacciale"}
+    - tutor: "«Schiaccia loro»? Per le patate usiamo un pronome piccolo, attaccato al verbo."
+      prompt: {text: "schiaccia loro", tags: [object-pronoun]}
+    - learner: "Schiacciale con la forchetta, e poi aggiungi la farina."
+    - tutor: "Perfetto, fatto! E quanto devono cuocere?"
+      goals: [ingredients, steps]
+    - learner: "Solo due minuti nell'acqua con il sale: quando vengono su, sono pronti."
+    - tutor: "Così poco! E come li serviamo?"
+      goals: [time]
+    - learner: "Con burro e salvia. Mia nonna gli serviva anche con il sugo di pomodoro."
+      errors: [object-pronoun]
+      gold: {text: "gli serviva", fix: "li serviva"}
+    - tutor: "«Gli serviva»? «Gli» va bene per una persona, non per il cibo. Quale pronome serve?"
+      prompt: {text: "gli serviva", tags: [object-pronoun]}
+    - learner: "Le serviva con il sugo."
+      errors: [object-pronoun]
+    - tutor: "Ah, li serviva anche con il sugo! Allora stasera facciamo metà e metà."
+      recast: {text: "Le serviva", fix: "li serviva", tags: [object-pronoun]}
+      goals: [serve]
+    - learner: "Ottima idea! Allora tu prepari il sugo e io il burro con la salvia."
+    - tutor: "Affare fatto! Mettiamoci al lavoro."
+
+
+- scenario: smartworking
+  level: B1
+  persona: en-m-traveller
+  history: [comparative, relative-pronoun]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Lavoro sempre da casa, anzi da dove voglio: il mese scorso ho lavorato da un coffee shop in Portogallo!"
+      errors: [word-choice]
+      gold: {text: "un coffee shop", fix: "un bar"}
+    - tutor: "Da un bar in Portogallo, che vita! E quali sono i vantaggi, secondo te?"
+      recast: {text: "un coffee shop", fix: "un bar", tags: [word-choice]}
+      goals: [situation]
+    - learner: "È più flessibile che l'ufficio, e posso viaggiare quando voglio."
+      errors: [comparative]
+      gold: {text: "più flessibile che l'ufficio", fix: "più flessibile dell'ufficio"}
+    - tutor: "«Più flessibile che l'ufficio»? Quando dopo «più flessibile» c'è un nome, cosa usiamo al posto di «che»?"
+      prompt: {text: "più flessibile che l'ufficio", tags: [comparative]}
+    - learner: "Più flessibile come l'ufficio."
+      errors: [comparative]
+    - tutor: "Certo, molto più flessibile dell'ufficio! E gli svantaggi?"
+      recast: {text: "come l'ufficio", fix: "dell'ufficio", tags: [comparative]}
+      goals: [pros]
+    - learner: "A volte mi sento solo, e nelle riunioni i colleghi parlano di cose in cui non so niente."
+      errors: [relative-pronoun]
+      gold: {text: "in cui non so niente", fix: "di cui non so niente"}
+    - tutor: "«Cose in cui non so niente»? Ci pensi: con «sapere niente» quale preposizione usiamo?"
+      prompt: {text: "in cui non so niente", tags: [relative-pronoun]}
+    - learner: "Parlano di cose di cui non so niente."
+    - tutor: "Esatto, e capisco che ti senti fuori. Allora, cosa preferiresti?"
+      goals: [cons]
+    - learner: "Preferirei lavorare in ufficio due giorni alla settimana, così vedo i colleghi."
+    - tutor: "Mi sembra perfetto: un po' di libertà e un po' di compagnia."
+      goals: [preference]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-m-worker
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Voglio di aprire un conto per il mio stipendio."
+      errors: [modal-infinitive]
+      gold: {text: "Voglio di aprire", fix: "Voglio aprire"}
+    - tutor: "«Voglio di aprire»? Dopo «voglio» c'è una parola di troppo."
+      prompt: {text: "Voglio di aprire", tags: [modal-infinitive]}
+    - learner: "Voglio aprire un conto, sì."
+    - tutor: "Bene. Ha con sé un documento e il codice fiscale?"
+      goals: [purpose]
+    - learner: "Ho il passaporto. Il codice fiscale devo lo portare domani?"
+      errors: [pronoun-position]
+      gold: {text: "devo lo portare", fix: "devo portarlo"}
+    - tutor: "«Devo lo portare»? Con «devo», il pronome va in un altro posto."
+      prompt: {text: "devo lo portare", tags: [pronoun-position]}
+    - learner: "Lo devo portare domani?"
+    - tutor: "Esatto. Sì, lo porti domani e finiamo tutto."
+      goals: [documents]
+    - learner: "Va bene. Quanto costa il conto? Non voglio pagare tante comisiones."
+      errors: [word-choice]
+      gold: {text: "comisiones", fix: "commissioni"}
+    - tutor: "Le commissioni sui bonifici sono zero, e il conto costa un euro al mese."
+      recast: {text: "comisiones", fix: "commissioni", tags: [word-choice]}
+      goals: [costs]
+      new: [{lemma: commissione, gloss: bank fee}]
+    - learner: "Bene. E posso avere la carta per pagare con il celular?"
+      errors: [word-choice]
+      gold: {text: "con il celular", fix: "con il telefono"}
+    - tutor: "Certo, la carta funziona anche con il telefono, e c'è l'app per controllare il conto."
+      recast: {text: "con il celular", fix: "con il telefono", tags: [word-choice]}
+      goals: [card]
+    - learner: "Perfetto. Allora domani porto il codice fiscale."
+    - tutor: "Benissimo, la aspetto domani mattina."
+
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Lavoro dieci ore al giorno, mangio davanti al computer e dormo cinque o sei ore."
+    - tutor: "Così non va bene! Qual è il tuo obiettivo?"
+      goals: [habits]
+    - learner: "Voglio avere più energia. Da lunedì andrò a letto prima e beverò più acqua."
+      errors: [future-form]
+      gold: {text: "beverò", fix: "berrò"}
+    - tutor: "Ottimo piano! Ma «beverò»? Il futuro di «bere» è speciale. Ti ricordi?"
+      prompt: {text: "beverò", tags: [future-form]}
+    - learner: "Berò più acqua?"
+      errors: [future-form]
+    - tutor: "Anch'io berrò più acqua, allora: facciamolo insieme! E che cosa ti ferma, di solito?"
+      recast: {text: "Berò", fix: "berrò", tags: [future-form]}
+      goals: [goal]
+    - learner: "Lo stress. Quando sono stressata, mangio più dolci che verdura."
+    - tutor: "Succede a molti. Allora facciamo un piano per la settimana?"
+      goals: [obstacles]
+    - learner: "Sì! Potrei venire in palestra il martedì e il giovedì mattina. Per me è più facile di la sera."
+      errors: [articulated-preposition]
+      gold: {text: "di la sera", fix: "della sera"}
+    - tutor: "«Di la sera»? Prova a unire le due parole."
+      prompt: {text: "di la sera", tags: [articulated-preposition]}
+    - learner: "È più facile della sera."
+    - tutor: "Perfetto: martedì e giovedì alle sette, e niente computer a tavola. Ci vediamo martedì!"
+      goals: [plan]
+
+- scenario: compleanno
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una cena da me, cucino io! Sabato sera va bene?"
+    - tutor: "Perfetto, con un cuoco come te! Chi invitiamo?"
+      goals: [date]
+    - learner: "Sara ha tanti amici, ma il mio tavolo è piccolo. Invitiamo solo otto."
+      errors: [ci-ne]
+      gold: {text: "Invitiamo solo otto", fix: "Ne invitiamo solo otto"}
+    - tutor: "Invitiamo solo otto... amici, giusto? Come lo dici senza ripetere «amici»?"
+      prompt: {text: "Invitiamo solo otto", tags: [ci-ne]}
+    - learner: "Ne invitiamo solo otto."
+    - tutor: "Esatto. E cosa cucini?"
+      goals: [guests]
+    - learner: "Faccio la lasagna e un'insalata. Per la torta, conosci una pasticceria buona? Io non ne conosco."
+    - tutor: "Sì, quella vicino a casa mia, ci vado sempre. La ordino io!"
+      goals: [food]
+    - learner: "Grazie. Per il regalo: Sara ama la musica, e ci sono ancora biglietti per un concerto. Compriamo due?"
+      errors: [ci-ne]
+      gold: {text: "Compriamo due", fix: "Ne compriamo due"}
+    - tutor: "Bella idea! Ma «compriamo due»: due biglietti, no? Manca la solita piccola parola."
+      prompt: {text: "Compriamo due", tags: [ci-ne]}
+    - learner: "Ci compriamo due?"
+      errors: [ci-ne]
+    - tutor: "Sì, ne compriamo due: uno per lei e uno per il suo ragazzo!"
+      recast: {text: "Ci compriamo due", fix: "ne compriamo due", tags: [ci-ne]}
+      goals: [gift]
+    - learner: "Perfetto, li compro io stasera su internet."
+    - tutor: "Grande! Sara sarà felicissima."
+
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-retired
+  history: [pronoun-position]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei due biglietti per Verona per domani, per me e mia moglie."
+    - tutor: "Ci sono treni alle nove e alle undici. Andata e ritorno?"
+      goals: [destination]
+    - learner: "Solo andata, torniamo in macchina con nostro figlio. Il treno di le undici è diretto?"
+      errors: [articulated-preposition]
+      gold: {text: "di le undici", fix: "delle undici"}
+    - tutor: "Il treno «di le» undici? Queste due parole diventano una sola."
+      prompt: {text: "di le undici", tags: [articulated-preposition]}
+    - learner: "Il treno delle undici. E vorremmo due posti vicini in prima classe."
+    - tutor: "Sì, è diretto. Ecco due posti vicini in prima, il 5 e il 6."
+      goals: [type, class]
+    - learner: "Grazie. Abbiamo una valigia molto grande. Possiamo la portare sul treno?"
+      errors: [pronoun-position]
+      gold: {text: "Possiamo la portare", fix: "Possiamo portarla"}
+    - tutor: "«Possiamo la portare»? Con «possiamo», dove va «la»?"
+      prompt: {text: "Possiamo la portare", tags: [pronoun-position]}
+    - learner: "Possiamo portare la sul treno?"
+      errors: [pronoun-position]
+    - tutor: "Sì, potete portarla: c'è spazio per le valigie vicino alla porta."
+      recast: {text: "portare la", fix: "portarla", tags: [pronoun-position]}
+    - learner: "Perfetto. Da quale binario parte il treno?"
+    - tutor: "Dal binario 2. Buon viaggio a lei e alla signora!"
+      goals: [platform]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: es-f-erasmus
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Vorrei prenotare per domani a cena. Siamo dieci estudianti Erasmus."
+      errors: [word-choice]
+      gold: {text: "estudianti", fix: "studenti"}
+    - tutor: "Dieci studenti, va bene! A che ora?"
+      recast: {text: "estudianti", fix: "studenti", tags: [word-choice]}
+      goals: [book]
+    - learner: "Alle nove. È possibile pagare separato? Ognuno paga per sé."
+      errors: [word-choice]
+      gold: {text: "pagare separato", fix: "pagare separatamente"}
+    - tutor: "Sì, potete pagare separatamente, nessun problema."
+      recast: {text: "pagare separato", fix: "pagare separatamente", tags: [word-choice]}
+      goals: [details]
+    - learner: "Perfetto. Una ragazza è vegana: avete piatti sin carne e senza latte?"
+      errors: [word-choice]
+      gold: {text: "sin carne", fix: "senza carne"}
+    - tutor: "Sì, abbiamo una pasta con le verdure e due secondi vegani, senza carne e senza latte."
+      recast: {text: "sin carne", fix: "senza carne", tags: [word-choice]}
+      goals: [special]
+      new: [{lemma: vegano, gloss: vegan}]
+    - learner: "Benissimo. Arriviamo in bicicletta: possiamo lasciare le biciclette in il cortile?"
+      errors: [articulated-preposition]
+      gold: {text: "in il cortile", fix: "nel cortile"}
+    - tutor: "Certo. Ma «in il cortile»? Le due parole si uniscono e cambiano."
+      prompt: {text: "in il cortile", tags: [articulated-preposition]}
+    - learner: "Ne il cortile?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, potete lasciarle nel cortile, dietro il ristorante. A che nome prenoto?"
+      recast: {text: "Ne il cortile", fix: "nel cortile", tags: [articulated-preposition]}
+    - learner: "A nome García. Grazie mille, a domani!"
+    - tutor: "Perfetto, domani alle nove per dieci. A domani!"
+      goals: [name]
+
+- scenario: film-libro
+  level: B1
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io! Ho letto «Il giardino dei Finzi-Contini». L'ho scelto perché anni fa ho visto il film."
+    - tutor: "Un classico! Di cosa parla, senza dire troppo?"
+    - learner: "Parla di un ragazzo a Ferrara negli anni Trenta. Ogni pomeriggio ha giocato a tennis nel giardino di una famiglia ricca."
+      errors: [tense-aspect]
+      gold: {text: "ha giocato", fix: "giocava"}
+    - tutor: "Aspetta: «ogni pomeriggio ha giocato»... con «ogni pomeriggio», che tempo ci vuole?"
+      prompt: {text: "ha giocato", tags: [tense-aspect]}
+    - learner: "Ogni pomeriggio giocava a tennis nel loro giardino."
+    - tutor: "Esatto. E il personaggio principale com'è?"
+      goals: [summary]
+    - learner: "È timido e romantico. Si innamora di una ragazza della famiglia, ma lei non lo ama indietro."
+      errors: [word-choice]
+      gold: {text: "non lo ama indietro", fix: "non lo ricambia"}
+    - tutor: "Ah, lei non lo ricambia: povero ragazzo! E a te è piaciuto?"
+      recast: {text: "non lo ama indietro", fix: "non lo ricambia", tags: [word-choice]}
+      goals: [characters]
+      new: [{lemma: ricambiare, gloss: to return (a feeling)}]
+    - learner: "Sì, molto. Ma quando l'ho finito, ero triste per tre giorni."
+      errors: [tense-aspect]
+      gold: {text: "ero triste per tre giorni", fix: "sono stata triste per tre giorni"}
+    - tutor: "Ti capisco! Però «ero triste per tre giorni»: è un periodo chiuso, con una fine. Quale tempo serve?"
+      prompt: {text: "ero triste per tre giorni", tags: [tense-aspect]}
+    - learner: "Sono stata triste per tre giorni."
+    - tutor: "Perfetto. Si vede che ti ha toccato. A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A chi ama le storie lente e un po' malinconiche, non a chi cerca azione."
+    - tutor: "Ottimo consiglio. Grazie, chi vuole continuare?"
+      goals: [recommend]

@@ -1,0 +1,230 @@
+# A1, recast-focused: a prompt the learner fails to repair, then a recast that carries the
+# corrected form early in a natural reply; plus a meaning-blocking lexical error recast at once.
+- scenario: mercato-frutta
+  level: A1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao! Cosa ti do oggi?"
+    - learner: "Ciao! Quanto costano le pesche?"
+    - tutor: "Due euro al chilo. Sono molto buone! Quante ne vuoi?"
+      goals: [ask-price]
+    - learner: "Posso prendere sei?"
+      errors: [ci-ne]
+    - tutor: "Sei, va bene. Ma «posso prendere sei»: manca una piccola parola. Quale?"
+      prompt: {text: "prendere sei", tags: [ci-ne]}
+    - learner: "Sì... posso prendere sei, grazie."
+      errors: [ci-ne]
+    - tutor: "Certo, puoi prenderne sei! Ecco, sono quasi un chilo."
+      goals: [buy-quantity]
+      recast: {text: "prendere sei", fix: "prenderne sei", tags: [ci-ne]}
+    - learner: "Perfetto. Hai anche le banane?"
+    - tutor: "Sì, sono qui. Quante ne vuoi?"
+    - learner: "Tre banane. E mi dai una bolsa, per favore?"
+      errors: [word-choice]
+    - tutor: "Ecco tre banane e un sacchetto. Sono quattro euro."
+      goals: [ask-other]
+      recast: {text: "una bolsa", fix: "un sacchetto", tags: [word-choice]}
+      new: [{lemma: sacchetto, gloss: bag}]
+    - learner: "Ecco cinque euro. Grazie, ciao!"
+    - tutor: "Ecco un euro di resto. Grazie a te, ciao!"
+      goals: [pay]
+
+- scenario: casa-mia
+  level: A1
+  persona: en-f-student
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Abito in un appartamento in centro. È piccolo ma bello."
+    - tutor: "Che bello, in centro! E quante stanze ha?"
+      goals: [type]
+    - learner: "È tre stanze e una cucina."
+      errors: [ce-ci-sono]
+    - tutor: "Mmm, «è tre stanze»? Non è proprio così. Prova a dirlo in un altro modo."
+      prompt: {text: "È tre stanze", tags: [ce-ci-sono]}
+    - learner: "Ah... sono tre stanze e una cucina."
+      errors: [ce-ci-sono]
+    - tutor: "Ah, ci sono tre stanze e una cucina! Qual è la tua stanza preferita?"
+      goals: [rooms]
+      recast: {text: "sono tre stanze", fix: "ci sono tre stanze", tags: [ce-ci-sono]}
+    - learner: "La mia stanza preferita è la cucina. È grande e gialla."
+    - tutor: "Una cucina gialla, che bella! Ti piace cucinare?"
+      goals: [favourite]
+    - learner: "Sì! Cucino con la mia roommate ogni sera."
+      errors: [word-choice]
+    - tutor: "Con la coinquilina, che bello! Cucinare insieme è più divertente."
+      recast: {text: "roommate", fix: "coinquilina", tags: [word-choice]}
+      new: [{lemma: coinquilina, gloss: flatmate}]
+    - learner: "Sì, è vero. E tu, Luca? Com'è la tua casa?"
+    - tutor: "Io abito in una piccola casa fuori città. Vieni a vederla!"
+      goals: [ask]
+
+- scenario: famiglia
+  level: A1
+  persona: en-m-retired
+  history: [essere-avere]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Questi sono i miei parenti, Tom e Mary."
+      errors: [false-friend]
+    - tutor: "Ah, i tuoi genitori! Sono molto belli."
+      goals: [who]
+      recast: {text: "parenti", fix: "genitori", tags: [false-friend]}
+    - learner: "Sì, sono molto simpatici. Mia madre è alta e bionda."
+    - tutor: "È molto bella. E quanti anni hanno?"
+      goals: [describe]
+    - learner: "Mio padre è ottantadue anni."
+      errors: [essere-avere]
+    - tutor: "Ottantadue? Bravo lui! Ma per l'età, quale verbo usiamo?"
+      prompt: {text: "è ottantadue anni", tags: [essere-avere]}
+    - learner: "Mio padre... è ottantadue anni, sì."
+      errors: [essere-avere]
+    - tutor: "Ha ottantadue anni, che bello! E tua madre?"
+      goals: [ages]
+      recast: {text: "è ottantadue anni", fix: "ha ottantadue anni", tags: [essere-avere]}
+    - learner: "Lei ha settantanove anni. Sta molto bene."
+    - tutor: "Che bello, una famiglia forte! Hai altre foto?"
+    - learner: "Sì, ma prima una domanda: e tu, Marco, hai fratelli?"
+    - tutor: "Sì, ho una sorella più grande. Si chiama Paola e vive a Bari."
+      goals: [ask]
+
+- scenario: presentarsi
+  level: A1
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+    - learner: "Ciao Giulia! Mi chiamo Lucía. Sono spagnola, di Siviglia."
+    - tutor: "Piacere, Lucía! E adesso dove abiti?"
+      goals: [say-name, say-origin]
+    - learner: "Adesso abito in Bologna, vicino al centro."
+      errors: [preposition]
+    - tutor: "In Bologna? Con le città non usiamo «in». Cosa usiamo?"
+      prompt: {text: "in Bologna", tags: [preposition]}
+    - learner: "Ah... in Bologna, sì, da settembre."
+      errors: [preposition]
+    - tutor: "Ah, a Bologna da settembre, bene! E cosa fai qui?"
+      recast: {text: "in Bologna", fix: "a Bologna", tags: [preposition]}
+    - learner: "Studio arte e lavoro come camarera in un bar."
+      errors: [word-choice]
+    - tutor: "Ah, fai la cameriera! È difficile?"
+      goals: [say-job]
+      recast: {text: "camarera", fix: "cameriera", tags: [word-choice]}
+      new: [{lemma: cameriera, gloss: waitress}]
+    - learner: "Un po', ma mi piace. E tu, Giulia, cosa studi?"
+    - tutor: "Io studio lingue: inglese e spagnolo! Possiamo parlare insieme qualche volta."
+      goals: [ask-back]
+
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-traveller
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Vorrei un latte, per favore."
+      errors: [false-friend]
+    - tutor: "Un caffellatte, certo! Lo vuole caldo?"
+      goals: [greet, order-drink]
+      recast: {text: "un latte", fix: "Un caffellatte", tags: [false-friend]}
+      new: [{lemma: caffellatte, gloss: milky coffee}]
+    - learner: "Sì, caldo. E poi vorrei uno cornetto alla crema."
+      errors: [article-form]
+    - tutor: "«Uno cornetto»? Senti bene l'articolo: è giusto?"
+      prompt: {text: "uno cornetto", tags: [article-form]}
+    - learner: "Ehm... uno cornetto, sì, alla crema."
+      errors: [article-form]
+    - tutor: "Ecco un cornetto alla crema, ancora caldo! Altro?"
+      goals: [order-food]
+      recast: {text: "uno cornetto", fix: "un cornetto", tags: [article-form]}
+    - learner: "No, basta così. Quanto pago?"
+    - tutor: "Sono tre euro e cinquanta."
+    - learner: "Ecco cinque euro. Grazie mille!"
+    - tutor: "Ecco il resto. Buona giornata!"
+      goals: [pay]
+
+- scenario: taxi
+  level: A1
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove la porto?"
+    - learner: "Buongiorno. A la stazione centrale, per favore."
+      errors: [articulated-preposition]
+    - tutor: "«A la stazione»? Qui «a» e «la» diventano una parola. Quale?"
+      prompt: {text: "A la stazione", tags: [articulated-preposition]}
+    - learner: "Sì, sì, a la stazione."
+      errors: [articulated-preposition]
+    - tutor: "Alla stazione, va bene. Andiamo!"
+      goals: [destination]
+      recast: {text: "a la stazione", fix: "Alla stazione", tags: [articulated-preposition]}
+    - learner: "Quanto tarda?"
+      errors: [word-choice]
+    - tutor: "Quanto ci vuole? Più o meno quindici minuti."
+      goals: [ask-time]
+      recast: {text: "Quanto tarda", fix: "Quanto ci vuole", tags: [word-choice]}
+    - learner: "Bene. E quanto costa più o meno?"
+    - tutor: "Sono dodici euro, più o meno."
+      goals: [ask-price]
+    - learner: "Va bene. Posso pagare con la carta?"
+    - tutor: "Sì, certo. Ecco, siamo arrivati."
+    - learner: "Ecco la carta. Grazie e arrivederci!"
+    - tutor: "Grazie a lei, buon viaggio! Arrivederci."
+      goals: [pay]
+
+- scenario: giorno-tipico
+  level: A1
+  persona: en-f-professional
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Mi sveglio alle sei e mezza e faccio colazione."
+    - tutor: "Presto! E poi vai al lavoro?"
+      goals: [wake]
+    - learner: "Sì, prendo la metro. Il mio lavoro comincio alle otto."
+      errors: [subject-verb-agreement]
+    - tutor: "Il tuo lavoro «comincio»? Ma «io» non c'è nella frase. Prova ancora."
+      prompt: {text: "comincio", tags: [subject-verb-agreement]}
+    - learner: "Ah... il mio lavoro comincio alle otto, sì."
+      errors: [subject-verb-agreement]
+    - tutor: "Comincia alle otto, quindi esci presto! E la sera cosa fai?"
+      goals: [work]
+      recast: {text: "comincio", fix: "Comincia", tags: [subject-verb-agreement]}
+    - learner: "La sera vado al gym con una collega."
+      errors: [word-choice]
+    - tutor: "In palestra, brava! Io invece la sera leggo."
+      goals: [evening]
+      recast: {text: "al gym", fix: "In palestra", tags: [word-choice]}
+      new: [{lemma: palestra, gloss: gym}]
+    - learner: "E tu, Anna? A che ora ti alzi?"
+    - tutor: "Io mi sveglio tardi, alle nove, perché lavoro da casa!"
+      goals: [ask]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: en-m-retired
+  history: [noun-gender]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, ho una reservazione. Mi chiamo Robert Hill."
+      errors: [word-choice]
+    - tutor: "Sì, ecco la sua prenotazione: una camera singola per due notti."
+      goals: [booking]
+      recast: {text: "reservazione", fix: "prenotazione", tags: [word-choice]}
+    - learner: "Perfetto. Ecco il mio passaporto."
+    - tutor: "Grazie. Va bene, ecco il passaporto."
+      goals: [document]
+    - learner: "A che ora è la colazione?"
+    - tutor: "Dalle sette alle dieci, al primo piano."
+      goals: [breakfast]
+    - learner: "Bene. Posso avere il chiave, per favore?"
+      errors: [noun-gender]
+    - tutor: "«Il chiave»? Chiave è maschile o femminile?"
+      prompt: {text: "il chiave", tags: [noun-gender]}
+    - learner: "Ah, è maschile... il chiave?"
+      errors: [noun-gender]
+    - tutor: "Ecco la chiave: camera 214, secondo piano."
+      goals: [key]
+      recast: {text: "il chiave", fix: "la chiave", tags: [noun-gender]}
+    - learner: "Grazie mille. Buona notte!"
+    - tutor: "Buona notte, a domani!"
