@@ -41,6 +41,10 @@ def _kept(text: str, word: str, rule: str = "MORFOLOGIK_RULE_IT_IT") -> list[str
         ("Questa parola finisce in -a, ma è un po' speciale.", "-a", "MORFOLOGIK_RULE_IT_IT"),
         ("Questa parola finisce in -a, ma è un po' speciale.", "a,", "MORFOLOGIK_RULE_IT_IT"),
         ("Vogliamo fare le cose senza badare a spese.", "a spese", "ER_01_001"),
+        ("Un finale a sorpresa, ottimo.", "a sorpresa", "ER_01_001"),
+        ("Manca un pronome piccolo piccolo.", "piccolo piccolo", "ITALIAN_WORD_REPEAT_RULE"),
+        ("Ah ah, due giorni a casa!", "Ah ah", "ITALIAN_WORD_REPEAT_RULE"),
+        ("Ci sono due secondi vegani, senza carne.", "vegani", "MORFOLOGIK_RULE_IT_IT"),
     ],
 )
 def test_mentions_loanwords_and_idioms_are_dropped(text: str, word: str, rule: str) -> None:
