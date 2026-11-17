@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import json
 from collections.abc import Callable, Sequence
 
@@ -73,18 +74,19 @@ def flag_on(text: str, quote: str, fix: str) -> Callable[[str], str]:
 
 def test_keep_flag_drops_echoes_mentions_and_non_corrections() -> None:
     reply = "Ho andato? Sei sicuro? Non si dice 'la arancia'. Ci sono un balcone."
-    kwargs = {
-        "reply": reply,
-        "learner_turns": ["Ieri io ho andato al bar."],
-        "annotated_spans": ["ho andato"],
-    }
-    assert keep_flag("Ci sono un balcone", "C'è un balcone", **kwargs)
-    assert not keep_flag("Ho andato", "Sono andato", **kwargs)  # learner echo / annotated span
-    assert not keep_flag("la arancia", "l'arancia", **kwargs)  # mention in quotes
+    keep = functools.partial(
+        keep_flag,
+        reply=reply,
+        learner_turns=["Ieri io ho andato al bar."],
+        annotated_spans=["ho andato"],
+    )
+    assert keep("Ci sono un balcone", "C'è un balcone")
+    assert not keep("Ho andato", "Sono andato")  # learner echo / annotated span
+    assert not keep("la arancia", "l'arancia")  # mention in quotes
     # judges usually quote the whole sentence, quote marks included
-    assert not keep_flag("Non si dice 'la arancia'.", "Non si dice 'l'arancia'.", **kwargs)
-    assert not keep_flag("un giardino", "il giardino", **kwargs)  # not in the reply
-    assert not keep_flag("Sei sicuro", "Sei sicuro", **kwargs)  # changes nothing
+    assert not keep("Non si dice 'la arancia'.", "Non si dice 'l'arancia'.")
+    assert not keep("un giardino", "il giardino")  # not in the reply
+    assert not keep("Sei sicuro", "Sei sicuro")  # changes nothing
 
 
 def test_quoted_spans_ignore_elisions() -> None:
