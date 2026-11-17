@@ -123,6 +123,9 @@ def test_not_number_words(word: str) -> None:
         ("L'affitto mensile è di 600 euro, con le bollette.", Level.A2),
         ("Compili il modulo, per favore. Il totale è 20 euro.", Level.A2),
         ("Ci sono latticini?", Level.A2),
+        ("Di che nazionalità sei? Sei francese o spagnola? Vivo in città con mia nonna.", Level.A1),
+        ("Oggi piove e c'è vento. Prendo la giacca e i pantaloni.", Level.A2),
+        ("Una camera singola o doppia? Ecco il passaporto e la valigia.", Level.A2),
     ],
 )
 def test_round_one_scenario_words(reply: str, level: Level, checker: BandChecker) -> None:
