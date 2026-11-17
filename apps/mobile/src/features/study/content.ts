@@ -1,4 +1,10 @@
-import type { GrammarPointRow, LemmaRow, Repositories, SentenceRow } from '@/data';
+import type {
+  GrammarPointRow,
+  LearnerSentenceRow,
+  LemmaRow,
+  Repositories,
+  SentenceRow,
+} from '@/data';
 
 /**
  * In-memory index of the seeded content (lemmas, sentences, grammar points).
@@ -21,6 +27,12 @@ export interface ContentIndex {
   /** Grammar points in acquisition order. */
   grammar: readonly GrammarPointRow[];
   grammarById: ReadonlyMap<number, GrammarPointRow>;
+  /**
+   * Sentences the learner corrected in conversation (negative ids), practised
+   * only as `sentence_production` cards. They are not in the other indexes, so
+   * they are never used as example or cloze material.
+   */
+  learnerSentenceById: ReadonlyMap<number, LearnerSentenceRow>;
 }
 
 const cache = new WeakMap<object, ContentIndex>();
@@ -30,6 +42,7 @@ export function buildContentIndex(
   lemmas: readonly LemmaRow[],
   sentences: readonly SentenceRow[],
   grammar: readonly GrammarPointRow[],
+  learnerSentences: readonly LearnerSentenceRow[] = [],
 ): ContentIndex {
   const byLength = [...sentences].sort((a, b) => a.it.length - b.it.length || a.id - b.id);
   const rank = new Map(lemmas.map((l) => [l.id, l.freqRank]));
@@ -62,6 +75,7 @@ export function buildContentIndex(
     sentencesByLength: byLength,
     grammar: sortedGrammar,
     grammarById: new Map(sortedGrammar.map((g) => [g.id, g])),
+    learnerSentenceById: new Map(learnerSentences.map((s) => [s.id, s])),
   };
 }
 
@@ -73,9 +87,15 @@ export function getContentIndex(repos: Repositories): ContentIndex {
     repos.lemmas.listByFrequency({ limit: Math.max(1, repos.lemmas.count()) }),
     repos.sentences.listAll(),
     repos.grammar.listInOrder(),
+    repos.learnerSentences.listAll(),
   );
   cache.set(repos, index);
   return index;
+}
+
+/** Drop the cached index, after learner sentences were added. */
+export function invalidateContentIndex(repos: Repositories): void {
+  cache.delete(repos);
 }
 
 /**

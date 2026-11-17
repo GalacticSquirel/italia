@@ -28,6 +28,7 @@ import type {
   TimedText,
   Voice,
 } from '../providers';
+import type { TutorAnnotations, TutorOutput } from '../tutor/types';
 
 /** An abort controller for tests, independent of DOM or Node typings. */
 export interface TestAbortController {
@@ -130,9 +131,33 @@ export function createFakeStoryGenerator(
 
 /** A scripted partner turn. */
 export interface ScriptedReply {
-  text: string;
+  /** The reply text; defaults to `output.reply`. */
+  text?: string;
   recast?: string | null;
   errors?: readonly LearnerError[];
+  /** A structured tutor turn, returned as the result's `output`. */
+  output?: TutorOutput;
+  /** End as if decoding failed (no `output`, `finishReason: 'length'`). */
+  truncated?: boolean;
+  /** Reject `result` with this error after streaming. */
+  fail?: string;
+}
+
+/** A tutor turn with empty annotations unless given (tests). */
+export function tutorOutput(
+  reply: string,
+  annotations: Partial<TutorAnnotations> = {},
+): TutorOutput {
+  return {
+    reply,
+    annotations: {
+      prompt: null,
+      recast: null,
+      newWords: [],
+      scenarioProgress: { goalsCompleted: [], done: false },
+      ...annotations,
+    },
+  };
 }
 
 /** Split text into word tokens, keeping leading spaces like an LLM tokenizer. */
@@ -155,6 +180,7 @@ export function createFakeConversationPartner(
     requests,
     reply(request, call?: CallOptions): ConversationReply {
       const script = replies[Math.min(requests.length, replies.length - 1)] ?? { text: '' };
+      const scriptText = script.text ?? script.output?.reply ?? '';
       requests.push(request);
       const signal = call?.signal;
       const aborted = () => signal?.aborted === true;
@@ -185,7 +211,7 @@ export function createFakeConversationPartner(
       // Generates one token ahead of the consumer, like a model with backpressure.
       const result = (async (): Promise<ConversationReplyResult> => {
         let text = '';
-        for (const token of tokensOf(script.text)) {
+        for (const token of tokensOf(scriptText)) {
           while (buffer.length > 0 && !aborted()) {
             await new Promise<void>((resolve) => {
               wakeProducer = resolve;
@@ -203,11 +229,16 @@ export function createFakeConversationPartner(
         done = true;
         signal?.removeEventListener('abort', onAbort);
         notifyConsumer();
+        if (script.fail !== undefined) throw new Error(script.fail);
+        if (script.truncated === true) {
+          return { text, recast: null, errors: [], finishReason: 'length' };
+        }
         return {
           text,
-          recast: script.recast ?? null,
+          recast: script.recast ?? script.output?.annotations.recast?.correctedText ?? null,
           errors: script.errors ?? [],
           finishReason: 'complete',
+          ...(script.output ? { output: script.output } : {}),
         };
       })();
 

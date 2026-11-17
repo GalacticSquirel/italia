@@ -32,7 +32,7 @@ export {
 } from './types';
 export { createRng, shuffle, type Rng } from './rng';
 export { normaliseAnswer } from './normalise';
-export { type DiffSegment, type DiffSegmentType } from './edit-distance';
+export { diffStrings, type DiffSegment, type DiffSegmentType } from './edit-distance';
 export {
   DEFAULT_CHARS_PER_TYPO,
   DEFAULT_EASY_LATENCY_MS,
@@ -195,3 +195,6 @@ export type {
   Voice,
   WordPronunciation,
 } from './providers';
+
+// The on-device tutor contract and conversation logic (see `./tutor`).
+export * from './tutor';

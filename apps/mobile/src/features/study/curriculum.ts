@@ -20,6 +20,10 @@
  *   whose main grammar point is unlocked (or is the frontier, for grammar
  *   cloze items, which is how points unlock). One practice item follows
  *   every two new words.
+ * - **Corrections** (Phase 5): sentences the learner corrected in
+ *   conversation become `sentence_production` cards ("write this sentence
+ *   correctly"), newest first, up to `limits.corrections`, ahead of
+ *   everything else: they target the learner's own errors.
  * - **Speaking** (`spoken_prompt`, Phase 4): short sentences (at most
  *   {@link SPOKEN_PROMPT_MAX_WORDS} words) whose words have all been
  *   introduced and whose grammar is unlocked become Pimsleur-style spoken
@@ -50,6 +54,9 @@ export const NEW_WORD_KIND: CardKind = 'recognition';
 
 /** New spoken prompts per day (the speaking block's new items). */
 export const SPOKEN_PROMPTS_PER_DAY = 3;
+
+/** Conversation corrections offered per session as new items. */
+export const CORRECTIONS_PER_SESSION = 3;
 
 /** Most grammar cloze items introduced for the frontier point per day. */
 const FRONTIER_ITEMS = 3;
@@ -82,6 +89,8 @@ export interface CurriculumLimits {
   practice: number;
   /** New spoken prompts still allowed today. Defaults to 0. */
   speaking?: number;
+  /** Conversation corrections to offer. Defaults to 0. */
+  corrections?: number;
 }
 
 function stateIndex(cards: readonly CardRow[]) {
@@ -277,6 +286,18 @@ export function buildCurriculum(
   });
   if (pendingCloze) ordered.push(pendingCloze);
   ordered.push(...practiceQueue.slice(p));
+
+  // Corrections from conversations, newest first, ahead of everything else.
+  const corrections: CurriculumCandidate[] = [];
+  const newestFirst = [...content.learnerSentenceById.values()].sort(
+    (a, b) => b.createdAt.getTime() - a.createdAt.getTime() || a.id - b.id,
+  );
+  for (const s of newestFirst) {
+    if (corrections.length >= (limits.corrections ?? 0)) break;
+    if (!open('sentence_production', s.id) || introduced('sentence_production', s.id)) continue;
+    corrections.push(candidate('sentence_production', s.id, [], [...s.grammarIds]));
+  }
+  ordered.unshift(...corrections);
 
   // Speaking: short known sentences, shortest first.
   const speakingLimit = limits.speaking ?? 0;

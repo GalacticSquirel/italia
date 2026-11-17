@@ -1,6 +1,6 @@
 import type { CardKind, PromptMode } from '@italia/core';
 
-import type { GrammarPointRow, LemmaRow, SentenceRow } from '@/data';
+import type { GrammarPointRow, LearnerSentenceRow, LemmaRow, SentenceRow } from '@/data';
 
 import { grammarFocus, type ContentIndex } from './content';
 
@@ -62,11 +62,16 @@ export interface GrammarClozePrompt {
   accepted: string[];
 }
 
-/** Translate an English sentence into Italian. */
+/**
+ * Translate an English sentence into Italian, or, for a sentence corrected in
+ * conversation (`correction` set), write the learner's sentence correctly.
+ */
 export interface SentenceProductionPrompt {
   kind: 'sentence_production';
   sentence: SentenceRow;
   accepted: string[];
+  /** For a correction card: what the learner wrote in conversation. */
+  correction?: { original: string; errorTags: readonly string[] };
 }
 
 /** Listen to an Italian sentence and type it. */
@@ -210,7 +215,21 @@ export function resolvePrompt(card: PromptCard, content: ContentIndex): Prompt |
         accepted: [found.blank.answer],
       };
     }
-    case 'sentence_production':
+    case 'sentence_production': {
+      if (card.targetId < 0) {
+        const learner = content.learnerSentenceById.get(card.targetId);
+        if (!learner) return null;
+        return {
+          kind: 'sentence_production',
+          sentence: learnerSentenceRow(learner),
+          accepted: [learner.it],
+          correction: { original: learner.original, errorTags: learner.errorTags },
+        };
+      }
+      const sentence = content.sentenceById.get(card.targetId);
+      if (!sentence) return null;
+      return { kind: card.kind, sentence, accepted: [sentence.it] };
+    }
     case 'dictation':
     case 'spoken_prompt': {
       const sentence = content.sentenceById.get(card.targetId);
@@ -220,6 +239,20 @@ export function resolvePrompt(card: PromptCard, content: ContentIndex): Prompt |
     case 'minimal_pair':
       return null;
   }
+}
+
+/** A learner sentence in the shape of a content sentence (no English, no lemma tags). */
+function learnerSentenceRow(row: LearnerSentenceRow): SentenceRow {
+  return {
+    id: row.id,
+    it: row.it,
+    en: '',
+    lemmaIds: [],
+    grammarIds: row.grammarIds,
+    tokens: null,
+    source: `conversation:${row.source}`,
+    licence: 'learner',
+  };
 }
 
 /** The lemmas a card practises (for known-word counts and interleaving). */
@@ -239,6 +272,8 @@ export function cardGrammarIds(
   content: ContentIndex,
 ): number[] {
   if (card.kind === 'recognition' || card.kind === 'cloze_production') return [];
+  if (card.targetId < 0)
+    return [...(content.learnerSentenceById.get(card.targetId)?.grammarIds ?? [])];
   const sentence = content.sentenceById.get(card.targetId);
   const focus = sentence ? grammarFocus(sentence, content) : null;
   return focus === null ? [] : [focus];

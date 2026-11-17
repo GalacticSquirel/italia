@@ -58,7 +58,8 @@ function confirmMobileData(title: string, size: string): Promise<boolean> {
   });
 }
 
-function ModelCard({ model }: { model: ModelView }) {
+/** One model with its download controls (also used by the conversation screen). */
+export function ModelCard({ model }: { model: ModelView }) {
   const manager = useModelManager();
   const { spacing } = useTheme();
   const [error, setError] = useState<string | null>(null);

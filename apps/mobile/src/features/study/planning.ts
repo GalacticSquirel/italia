@@ -18,6 +18,7 @@ import {
 import { getContentIndex, type ContentIndex } from './content';
 import {
   buildCurriculum,
+  CORRECTIONS_PER_SESSION,
   ITEMS_PER_NEW_WORD,
   NEW_WORD_KIND,
   PRACTICE_ITEMS_PER_NEW_WORD,
@@ -113,6 +114,7 @@ export function planToday(repos: Repositories, now: Date): StudyPlan {
     words: Math.max(0, settings.dailyNewLimit - wordsToday),
     practice: Math.max(0, practiceLimit - Math.max(0, practiceToday)),
     speaking: Math.max(0, speakingLimit - spokenToday),
+    corrections: CORRECTIONS_PER_SESSION,
   });
 
   const plan = buildSession({
@@ -120,7 +122,11 @@ export function planToday(repos: Repositories, now: Date): StudyPlan {
     cards: reviewable.map((r) => toSessionCard(r, content)),
     newCandidates: curriculum.candidates,
     settings: {
-      dailyNewLimit: settings.dailyNewLimit * ITEMS_PER_NEW_WORD + practiceLimit + speakingLimit,
+      dailyNewLimit:
+        settings.dailyNewLimit * ITEMS_PER_NEW_WORD +
+        practiceLimit +
+        speakingLimit +
+        curriculum.candidates.filter((c) => c.targetId < 0).length,
       minutesBudget: settings.minutesBudget,
       recentAccuracy: recentAccuracy(repos),
       alreadyIntroducedToday: itemsToday,

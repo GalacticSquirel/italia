@@ -42,6 +42,12 @@ export {
   type ErrorSource,
 } from './ErrorRecordRepo';
 export { cardIdFor, newUuid, type IdGenerator } from './ids';
+export {
+  createLearnerSentenceRepo,
+  learnerSentenceId,
+  type AddLearnerSentenceInput,
+  type LearnerSentenceRepo,
+} from './LearnerSentenceRepo';
 export { createMetaRepo, META_KEYS, type MetaKey, type MetaRepo } from './MetaRepo';
 export {
   createModelFileRepo,

@@ -101,6 +101,17 @@ export const BackupErrorRecordSchema = z.object({
   createdAt: ms,
 });
 
+/** A sentence corrected in conversation, in a backup. */
+export const BackupLearnerSentenceSchema = z.object({
+  id: z.number().int().negative(),
+  it: z.string().min(1),
+  original: z.string(),
+  errorTags: z.array(z.string()),
+  grammarIds: z.array(z.number().int()),
+  source: z.enum(ERROR_SOURCES),
+  createdAt: ms,
+});
+
 /** Reading progress on one story in a backup. */
 export const BackupStoryProgressSchema = z.object({
   storyId: z.string().min(1),
@@ -136,6 +147,8 @@ export const BackupFileSchema = z.object({
   streakState: BackupStreakSchema.nullable(),
   studySessions: z.array(BackupStudySessionSchema),
   errorRecords: z.array(BackupErrorRecordSchema),
+  /** Absent in backups made before conversations existed. */
+  learnerSentences: z.array(BackupLearnerSentenceSchema).optional(),
   /** Reading progress; absent in older backups. */
   storyProgress: z.array(BackupStoryProgressSchema).default([]),
   /** Words met in stories; absent in older backups. */

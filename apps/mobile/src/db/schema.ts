@@ -259,6 +259,31 @@ export const errorRecord = sqliteTable(
   ],
 );
 
+/**
+ * Sentences the learner corrected in conversation, practised as
+ * `sentence_production` cards. They live apart from the seeded `sentence`
+ * table (which a seed update replaces) and use negative ids derived from the
+ * corrected text (see `learnerSentenceId` in `@/data`), so content ids never
+ * collide with them and two devices name the same sentence alike.
+ */
+export const learnerSentence = sqliteTable(
+  'learner_sentence',
+  {
+    id: integer('id').primaryKey(),
+    /** The corrected Italian sentence: the card's answer. */
+    it: text('it').notNull(),
+    /** What the learner wrote: the card's prompt. */
+    original: text('original').notNull(),
+    /** Error tags of the correction (tutor spec taxonomy). */
+    errorTags: text('error_tags', { mode: 'json' }).$type<string[]>().notNull(),
+    /** Content grammar point ids the errors are evidence about. */
+    grammarIds: text('grammar_ids', { mode: 'json' }).$type<number[]>().notNull(),
+    source: text('source', { enum: ERROR_SOURCES }).notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [check('learner_sentence_negative_id', sql`${t.id} < 0`)],
+);
+
 export const studySession = sqliteTable(
   'study_session',
   {
