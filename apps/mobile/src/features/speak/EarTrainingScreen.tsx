@@ -6,6 +6,7 @@ import type { MinimalPairContrast, MinimalPairItem } from '@italia/speech';
 
 import { META_KEYS } from '@/data';
 import { useRepositories } from '@/db';
+import { usePracticeSession } from '@/features/study/usePracticeSession';
 import { ITALIAN, useSpeech } from '@/speech';
 import { Button, Card, Screen, Text, useTheme } from '@/ui';
 
@@ -39,6 +40,9 @@ function spokenForm(contrast: MinimalPairContrast, item: MinimalPairItem): strin
   return contrast === 'stress' ? item.accented : item.word;
 }
 
+/** Activity recorded on the study session (ear training has no end, so only its time counts). */
+const EAR_TRAINING_ACTIVITY = 'ear_training';
+
 export interface EarTrainingScreenProps {
   /** Random numbers (tests). */
   rng?: Rng;
@@ -62,6 +66,7 @@ export function EarTrainingScreen({ rng = Math.random }: EarTrainingScreenProps)
   const [answer, setAnswer] = useState<Answer>(null);
   const [count, setCount] = useState({ right: 0, total: 0 });
   const rngRef = useRef(rng);
+  const practice = usePracticeSession(EAR_TRAINING_ACTIVITY);
 
   useEffect(() => {
     let live = true;
@@ -114,6 +119,7 @@ export function EarTrainingScreen({ rng = Math.random }: EarTrainingScreenProps)
 
   const choose = (item: MinimalPairItem) => {
     if (!trial || answer) return;
+    practice.touch();
     const result = answerTrial(stats, trial, item);
     setStats(result.stats);
     repos.meta.set(META_KEYS.hvptStats, JSON.stringify(result.stats));

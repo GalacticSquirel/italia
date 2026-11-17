@@ -1,5 +1,7 @@
 import { asc, eq } from 'drizzle-orm';
 
+import { createScheduler } from '@italia/core';
+
 import {
   card,
   errorRecord,
@@ -13,9 +15,10 @@ import {
 } from '@/db/schema';
 import type { AppDatabase } from '@/db/types';
 
+import { rebuildAllCards } from '../cardState';
 import type { CardRow, NewCardRow, NewReviewLogRow } from '../rows';
 import { getImportedSeedVersion } from '../seed/importSeed';
-import { isSettingKey, SETTINGS_SCHEMA } from '../SettingsRepo';
+import { createSettingsRepo, isSettingKey, SETTINGS_SCHEMA } from '../SettingsRepo';
 import { streakFromColumns, streakToColumns } from '../StreakRepo';
 import { chunk, MAX_PARAMS_PER_STATEMENT } from '../util';
 import {
@@ -184,11 +187,11 @@ function toCardRow(c: BackupFile['cards'][number]): NewCardRow {
  *   promptMode)` (cards made before ids were deterministic); a backup card
  *   matched by target is folded into the device card and its logs and error
  *   records are re-pointed at the device card's id. When both sides have the
- *   card, the side with the later `lastReview` wins all FSRS fields and
- *   `suspended` (ties keep the device). A card's FSRS state is a cache of its
- *   logs, so after a merge it can be rebuilt by replaying the merged logs.
- *   TODO(core): replay merged cards with the log replay from `@italia/core`
- *   once it lands, instead of picking the most recently reviewed side.
+ *   card, the side with the later `lastReview` wins `suspended` (ties keep
+ *   the device). FSRS fields are then rebuilt by replaying the merged logs
+ *   (see below), so reviews made on both sides all count.
+ * - **card state**: after either strategy, every card with logs has its FSRS
+ *   state rebuilt by replaying its logs with the resulting desired retention.
  * - **settings**: last writer wins per key by `updatedAt` (ties keep the
  *   device). Unknown keys and values that fail validation are skipped.
  * - **streak_state**: the later `updatedAt` wins; `longestDays` is the
@@ -476,6 +479,16 @@ export function importBackup(
         .run();
       result.lemmaExposure.updated += 1;
     }
+
+    // Card states ------------------------------------------------------------
+    // A card's FSRS state is a cache of its logs. After a merge a card can
+    // have logs from both sides, so neither side's stored state is right:
+    // replay every card's logs with the (possibly imported) desired retention.
+    // A replaced backup is rebuilt too, so its states match this app's replay.
+    rebuildAllCards(
+      tx,
+      createScheduler({ desiredRetention: createSettingsRepo(tx).get('desiredRetention') }),
+    );
   });
 
   return result;

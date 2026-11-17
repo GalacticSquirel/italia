@@ -9,12 +9,19 @@ export interface ReplaySession {
   endedAt: Date | null;
   /** Active study minutes (idle time excluded). */
   minutesActive: number;
+  /**
+   * Activities completed in the session. When given, the session counts as
+   * a completed session only if it completed at least one activity (live
+   * study records a completed session only when a review session or story is
+   * finished, not when it is quit). When absent, every ended session counts.
+   */
+  activities?: readonly string[];
 }
 
 /**
  * Rebuild the streak from study sessions alone, by feeding them to
- * {@link recordStudy} in time order. An ended session counts as a completed
- * session at its end time; a running one contributes its minutes at its start
+ * {@link recordStudy} in time order. An ended session counts at its end time,
+ * as a completed session when it completed an activity; a running one contributes its minutes at its start
  * time. Deterministic: the same sessions in any order give the same state, so
  * devices that exchange sessions agree on the streak.
  */
@@ -31,7 +38,12 @@ export function replayStreak(
   for (const { s, at } of events) {
     state = recordStudy(
       state,
-      { at, activeMinutes: s.minutesActive, completedSession: s.endedAt !== null },
+      {
+        at,
+        activeMinutes: s.minutesActive,
+        completedSession:
+          s.endedAt !== null && (s.activities === undefined || s.activities.length > 0),
+      },
       config,
     ).state;
   }

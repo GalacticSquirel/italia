@@ -28,12 +28,12 @@ import {
 import {
   CARD_KINDS,
   PROMPT_MODES,
-  rebuildCardState,
   type CardKind,
   type PromptMode,
   type Scheduler,
 } from '@italia/core';
 
+import { cardsWithLogs, rebuildCards } from '@/data/cardState';
 import { cardIdFor } from '@/data/ids';
 import { isSettingKey, SETTINGS_SCHEMA } from '@/data/SettingsRepo';
 import { chunk, MAX_IDS_PER_QUERY } from '@/data/util';
@@ -88,7 +88,8 @@ export function isNewer(
 // Cards from deterministic ids
 // ---------------------------------------------------------------------------
 
-const CARD_ID_RE = /^([a-z_]+):(\d+):([a-z_]+)$/u;
+// Target ids are negative for learner sentences (see `learnerSentenceId`).
+const CARD_ID_RE = /^([a-z_]+):(-?\d+):([a-z_]+)$/u;
 
 /** The kind, target and prompt mode encoded in a card id from {@link cardIdFor}, or null. */
 export function parseCardId(
@@ -122,53 +123,7 @@ function ensureCard(tx: AppDatabase, id: string, at: Date, scheduler: Scheduler)
   return true;
 }
 
-/**
- * Rebuild the FSRS state of `cardIds` by replaying all their logs. Cards
- * without logs are left alone.
- *
- * @returns the number of cards rebuilt
- */
-export function rebuildCards(
-  tx: AppDatabase,
-  cardIds: Iterable<string>,
-  scheduler: Scheduler,
-): number {
-  let rebuilt = 0;
-  for (const part of chunk([...new Set(cardIds)], MAX_IDS_PER_QUERY)) {
-    const logs = tx
-      .select({
-        id: reviewLog.id,
-        cardId: reviewLog.cardId,
-        rating: reviewLog.rating,
-        reviewedAt: reviewLog.reviewedAt,
-      })
-      .from(reviewLog)
-      .where(inArray(reviewLog.cardId, part))
-      .all();
-    const byCard = new Map<string, typeof logs>();
-    for (const log of logs) {
-      const list = byCard.get(log.cardId);
-      if (list) list.push(log);
-      else byCard.set(log.cardId, [log]);
-    }
-    for (const [cardId, cardLogs] of byCard) {
-      // createdAt defaults to the first log, so every device gets the same state.
-      const schedule = rebuildCardState(cardLogs, { scheduler });
-      tx.update(card).set(schedule).where(eq(card.id, cardId)).run();
-      rebuilt += 1;
-    }
-  }
-  return rebuilt;
-}
-
-/** Ids of every card that has review logs. */
-export function cardsWithLogs(tx: AppDatabase): string[] {
-  return tx
-    .selectDistinct({ cardId: reviewLog.cardId })
-    .from(reviewLog)
-    .all()
-    .map((r) => r.cardId);
-}
+export { cardsWithLogs, rebuildCards };
 
 // ---------------------------------------------------------------------------
 // Reading unsynced rows

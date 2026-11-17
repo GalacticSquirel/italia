@@ -270,6 +270,68 @@ describe('SyncEngine', () => {
     );
   });
 
+  it('keeps the changing device in step with the others after a retention change', async () => {
+    const a = device('a');
+    const b = device('b');
+    const c1 = makeCard(a, 1, at(0));
+    review(a, c1, 'good', at(1));
+    review(a, c1, 'good', at(20));
+    review(a, c1, 'good', at(3 * 24 * 60));
+    expectOk(await a.engine.sync());
+    expectOk(await b.engine.sync());
+
+    // A changes the retention locally; its next plan aligns its own cards.
+    a.repos.settings.set('desiredRetention', 0.8, at(5));
+    const lower = createScheduler({ desiredRetention: 0.8 });
+    expect(a.repos.alignCardStates(lower)).toBe(1);
+    expect(a.repos.alignCardStates(lower)).toBe(0); // already aligned
+    expectOk(await a.engine.sync());
+    expectOk(await b.engine.sync());
+    expect(cardStates(a)).toEqual(cardStates(b));
+  });
+
+  it("applies a review older than the card's last one by replaying (clock skew)", async () => {
+    const a = device('a');
+    const b = device('b');
+    const c1 = makeCard(a, 1, at(0));
+    review(a, c1, 'good', at(60));
+    // A's clock runs a day ahead.
+    review(a, c1, 'good', at(2 * 24 * 60));
+    expectOk(await a.engine.sync());
+    expectOk(await b.engine.sync());
+    // B reviews "now" by its own clock, earlier than A's last review.
+    const { card: updated } = b.repos.reviewCard({
+      cardId: c1,
+      rating: 'again',
+      answer: null,
+      latencyMs: 1000,
+      reviewedAt: at(24 * 60),
+      deviceId: 'device-b',
+      scheduler,
+    });
+    const logs = b.repos.reviewLogs.listForCard(c1);
+    expect(logs.map((l) => l.rating)).toEqual(['good', 'again', 'good']);
+    expect(toSchedule(updated)).toEqual(rebuildCardState(logs));
+    expectOk(await b.engine.sync());
+    expectOk(await a.engine.sync());
+    expect(cardStates(a)).toEqual(cardStates(b));
+  });
+
+  it('syncs reviews of cards for sentences corrected in conversation', async () => {
+    const a = device('a');
+    const b = device('b');
+    const c1 = makeCard(a, -123_456, at(0), 'sentence_production');
+    review(a, c1, 'good', at(1));
+    expectOk(await a.engine.sync());
+    const result = expectOk(await b.engine.sync());
+    expect(result.applied).toBe(1);
+    expect(b.repos.cards.getById(c1)).toMatchObject({
+      kind: 'sentence_production',
+      targetId: -123_456,
+    });
+    expect(cardStates(b)).toEqual(cardStates(a));
+  });
+
   it('syncs study sessions once ended, error records, and replays the streak', async () => {
     const a = device('a');
     const b = device('b');
@@ -411,7 +473,13 @@ describe('parseCardId', () => {
       targetId: 42,
       promptMode: 'spoken',
     });
+    expect(parseCardId(cardIdFor('sentence_production', -77, 'typed'))).toEqual({
+      kind: 'sentence_production',
+      targetId: -77,
+      promptMode: 'typed',
+    });
     expect(parseCardId('dictation:042:spoken')).toBeNull();
+    expect(parseCardId('dictation:-0:spoken')).toBeNull();
     expect(parseCardId('unknown:1:typed')).toBeNull();
     expect(parseCardId('dictation:1:telepathic')).toBeNull();
     expect(parseCardId('card-1')).toBeNull();

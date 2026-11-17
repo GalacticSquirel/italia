@@ -21,6 +21,7 @@ describe('learner profile', () => {
   it('derives the lemma ceiling from known words within the band', () => {
     expect(lemmaCeilingFor('A1', 20)).toBe(300);
     expect(lemmaCeilingFor('A2', 742)).toBe(750);
+    expect(lemmaCeilingFor('A2', Number.NaN)).toBe(300);
     expect(lemmaCeilingFor('A2', 5000)).toBeNull();
   });
 

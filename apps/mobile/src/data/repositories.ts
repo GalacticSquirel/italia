@@ -1,6 +1,14 @@
+import type { Scheduler } from '@italia/core';
+
 import type { AppDatabase } from '@/db/types';
 
 import { createCardRepo, type CardRepo } from './CardRepo';
+import {
+  alignCardStates,
+  reviewCard,
+  type ReviewCardInput,
+  type ReviewCardResult,
+} from './cardState';
 import {
   createGrammarRepo,
   createLemmaRepo,
@@ -44,6 +52,10 @@ export interface Repositories {
   modelFiles: ModelFileRepo;
   /** {@link recordReview} bound to this database. */
   recordReview(input: RecordReviewInput): ReviewLogRow;
+  /** {@link reviewCard} bound to this database: the way screens record a review. */
+  reviewCard(input: ReviewCardInput): ReviewCardResult;
+  /** {@link alignCardStates} bound to this database. */
+  alignCardStates(scheduler: Scheduler, now?: Date): number;
 }
 
 /** Options for {@link createRepositories}. */
@@ -71,5 +83,7 @@ export function createRepositories(db: AppDatabase, options: RepositoryOptions =
     meta: createMetaRepo(db, newId),
     modelFiles: createModelFileRepo(db),
     recordReview: (input) => recordReview(db, input, newId),
+    reviewCard: (input) => reviewCard(db, input, newId),
+    alignCardStates: (scheduler, now) => alignCardStates(db, scheduler, now),
   };
 }

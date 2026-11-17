@@ -32,13 +32,15 @@ export interface PostValidated {
   dropped: string[];
 }
 
+const EDGE_PUNCTUATION = /^[\s.,!?;:«»"“”()-]+|[\s.,!?;:«»"“”()-]+$/gu;
+
 /** Lowercase, unify apostrophes, collapse spaces, strip edge punctuation. */
 export function normaliseItalian(text: string): string {
   return text
     .toLocaleLowerCase('it')
     .replace(/[’‘`´]/gu, "'")
     .replace(/\s+/gu, ' ')
-    .replace(/^[\s.,!?;:«»"“”()-]+|[\s.,!?;:«»"“”()-]+$/gu, '');
+    .replace(EDGE_PUNCTUATION, '');
 }
 
 /** Letters (any script), apostrophes, spaces and ordinary punctuation only. */
@@ -48,10 +50,36 @@ function cleanTags(tags: readonly string[]): string[] {
   return [...new Set(tags)].filter((t) => ERROR_TAG_BY_ID.has(t)).slice(0, 2);
 }
 
-/** Whether `span` occurs in `message` (after normalising both). */
-export function spanInMessage(span: string, message: string): boolean {
+const APOSTROPHES = "['’‘`´]";
+const WORD_CHAR = '[\\p{L}\\p{M}\\p{N}]';
+
+/**
+ * Where `span` occurs in `message` as whole words, matching the way
+ * {@link normaliseItalian} compares text (any case, any apostrophe, any run
+ * of spaces, edge punctuation ignored), as an offset and length into the
+ * original `message`. Null when it does not occur.
+ */
+export function findSpan(span: string, message: string): { index: number; length: number } | null {
   const s = normaliseItalian(span);
-  return s.length > 0 && normaliseItalian(message).includes(s);
+  if (s.length === 0) return null;
+  const body = Array.from(s)
+    .map((ch) => {
+      if (ch === "'") return APOSTROPHES;
+      if (ch === ' ') return '\\s+';
+      return ch.replace(/[.*+?^${}()|[\]\\/-]/gu, '\\$&');
+    })
+    .join('');
+  // A span may start or end inside an elided word ("dell'"), so the
+  // boundary is only required next to a letter of the span itself.
+  const start = s.startsWith("'") ? '' : `(?<!${WORD_CHAR})`;
+  const end = s.endsWith("'") ? '' : `(?!${WORD_CHAR})`;
+  const match = new RegExp(`${start}${body}${end}`, 'iu').exec(message);
+  return match === null ? null : { index: match.index, length: match[0].length };
+}
+
+/** Whether `span` occurs in `message` as whole words (after normalising both). */
+export function spanInMessage(span: string, message: string): boolean {
+  return findSpan(span, message) !== null;
 }
 
 function checkPrompt(
@@ -194,22 +222,22 @@ export function postValidate(output: TutorOutput, input: PostValidateInput): Pos
 /**
  * The learner's whole message with a recast's span corrected, for a review
  * card: "Ieri ho andato a Napoli." with `ho andato` → `sono andata` gives
- * "Ieri sono andata a Napoli.". Falls back to the corrected span when the
- * span cannot be found.
+ * "Ieri sono andata a Napoli.". Null when the span is not in the message
+ * (then there is no sentence to practise).
  */
-export function correctedSentence(learnerMessage: string, recast: TutorRecast): string {
-  const lower = learnerMessage.toLocaleLowerCase('it');
-  const span = recast.learnerText.trim();
-  const at = lower.indexOf(span.toLocaleLowerCase('it'));
-  if (at < 0) return recast.correctedText.trim();
-  let replacement = recast.correctedText.trim();
-  if (at === 0 && /^\p{Lu}/u.test(learnerMessage)) {
+export function correctedSentence(learnerMessage: string, recast: TutorRecast): string | null {
+  const found = findSpan(recast.learnerText, learnerMessage);
+  if (found === null) return null;
+  // The match leaves the message's own edge punctuation in place.
+  let replacement = recast.correctedText.replace(EDGE_PUNCTUATION, '');
+  if (replacement.length === 0) return null;
+  if (found.index === 0 && /^\p{Lu}/u.test(learnerMessage)) {
     replacement = replacement.charAt(0).toLocaleUpperCase('it') + replacement.slice(1);
   }
   return (
-    learnerMessage.slice(0, at) +
+    learnerMessage.slice(0, found.index) +
     replacement +
-    learnerMessage.slice(at + span.length)
+    learnerMessage.slice(found.index + found.length)
   ).trim();
 }
 

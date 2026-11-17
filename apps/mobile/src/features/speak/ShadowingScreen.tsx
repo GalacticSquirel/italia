@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { View } from 'react-native';
 
 import type { AudioClip } from '@italia/core';
@@ -7,6 +7,7 @@ import { useRepositories } from '@/db';
 import { useSettingsStore } from '@/features/settings/settingsStore';
 import { getContentIndex } from '@/features/study/content';
 import { SPOKEN_PROMPT_MAX_WORDS, wordCount } from '@/features/study/prompts';
+import { usePracticeSession } from '@/features/study/usePracticeSession';
 import {
   recordingClip,
   sayItalian,
@@ -51,6 +52,9 @@ export function ShadowingScreen() {
   const [scorerReady, setScorerReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const sentence = sentences[index];
+  // Bumped on "Next": playback, recording and scoring that finish after it are stale.
+  const turn = useRef(0);
+  const practice = usePracticeSession('shadowing');
 
   useEffect(() => {
     void services.scorer.availability().then((a) => {
@@ -71,15 +75,19 @@ export function ShadowingScreen() {
   }
 
   const listen = async () => {
+    practice.touch();
+    const mine = turn.current;
     setStep('playing');
     setError(null);
     const clip = await sayItalian(services, sentence.it, rate).catch(() => null);
+    if (mine !== turn.current) return;
     setModel(clip);
     setHeardModel(true);
     setStep(recording ? 'done' : 'idle');
   };
 
   const record = async () => {
+    practice.touch();
     setError(null);
     setAnalysis(null);
     try {
@@ -91,24 +99,29 @@ export function ShadowingScreen() {
   };
 
   const stop = async () => {
+    const mine = turn.current;
     try {
       const r = await services.recorder.stop();
+      if (mine !== turn.current) return;
       setRecording(r);
       setStep(scorerReady ? 'scoring' : 'done');
       if (scorerReady) {
         const result = await services.scorer
           .analyse({ audio: recordingClip(r), expectedText: sentence.it })
           .catch(() => null);
+        if (mine !== turn.current) return;
         setAnalysis(result);
         setStep('done');
       }
     } catch (e) {
+      if (mine !== turn.current) return;
       setError(e instanceof Error ? e.message : 'Recording failed.');
       setStep('idle');
     }
   };
 
   const next = () => {
+    turn.current += 1;
     services.audio.stop();
     services.recorder.cancel();
     setIndex((i) => (i + 1) % sentences.length);

@@ -146,7 +146,7 @@ export function useDrillRunner(options: DrillRunnerOptions): DrillRunner {
       if (reason === 'noSpeech') {
         services.recorder.cancel();
         if (callbacks.current.handsFree === true) safeDispatch({ type: 'skip' });
-        else safeDispatch({ type: 'failed', message: 'I did not hear anything.' });
+        else safeDispatch({ type: 'failed', message: 'I did not hear anything.', index, attempt });
         return;
       }
       const stoppedAt = now();
@@ -154,7 +154,7 @@ export function useDrillRunner(options: DrillRunnerOptions): DrillRunner {
       void (async () => {
         try {
           const recording = await services.recorder.stop();
-          safeDispatch({ type: 'recorded' });
+          safeDispatch({ type: 'recorded', index, attempt });
           const clip = recordingClip(recording);
           if (scorerReadyRef.current) {
             void services.scorer
@@ -167,11 +167,19 @@ export function useDrillRunner(options: DrillRunnerOptions): DrillRunner {
               .catch(() => undefined);
           }
           const transcript = await services.stt.transcribe(clip, { language: 'it' });
-          safeDispatch({ type: 'transcribed', transcript: transcript.text, latencyMs });
+          safeDispatch({
+            type: 'transcribed',
+            transcript: transcript.text,
+            latencyMs,
+            index,
+            attempt,
+          });
         } catch (e) {
           safeDispatch({
             type: 'failed',
             message: e instanceof Error ? e.message : 'Speech recognition failed.',
+            index,
+            attempt,
           });
         }
       })();
@@ -194,6 +202,8 @@ export function useDrillRunner(options: DrillRunnerOptions): DrillRunner {
         safeDispatch({
           type: 'failed',
           message: e instanceof Error ? e.message : 'The microphone could not start.',
+          index,
+          attempt,
         });
       });
     return () => {

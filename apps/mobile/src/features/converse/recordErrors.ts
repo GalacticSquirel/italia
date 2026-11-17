@@ -52,7 +52,10 @@ export function recordTutorTurn(
   if (recast !== null) {
     const sentence = correctedSentence(input.learnerMessage, recast);
     let card: CardRow | null = null;
-    if (normaliseItalian(sentence) !== normaliseItalian(input.learnerMessage)) {
+    if (
+      sentence !== null &&
+      normaliseItalian(sentence) !== normaliseItalian(input.learnerMessage)
+    ) {
       const row = repos.learnerSentences.add({
         it: sentence,
         original: input.learnerMessage,
