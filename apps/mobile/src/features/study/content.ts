@@ -10,7 +10,11 @@ export interface ContentIndex {
   lemmas: readonly LemmaRow[];
   lemmaById: ReadonlyMap<number, LemmaRow>;
   sentenceById: ReadonlyMap<number, SentenceRow>;
-  /** Sentences containing each lemma, shortest first. */
+  /**
+   * Sentences containing each lemma, easiest first: fewest words without a
+   * lemma (names), then by difficulty (the rarest word's frequency rank, so
+   * sentences made only of common words come first), then by length.
+   */
   sentencesByLemma: ReadonlyMap<number, readonly SentenceRow[]>;
   /** Sentences, shortest first, then by id. */
   sentencesByLength: readonly SentenceRow[];
@@ -28,8 +32,20 @@ export function buildContentIndex(
   grammar: readonly GrammarPointRow[],
 ): ContentIndex {
   const byLength = [...sentences].sort((a, b) => a.it.length - b.it.length || a.id - b.id);
+  const rank = new Map(lemmas.map((l) => [l.id, l.freqRank]));
+  const difficulty = new Map(
+    sentences.map((s) => [
+      s.id,
+      s.lemmaIds.reduce((max, id) => Math.max(max, rank.get(id) ?? Infinity), 0),
+    ]),
+  );
+  // Words without a lemma: names, and the odd word the content tagger missed.
+  const unknown = (s: SentenceRow) => s.tokens?.filter((t) => t.length === 2).length ?? 0;
+  const easiest = [...byLength].sort(
+    (a, b) => unknown(a) - unknown(b) || (difficulty.get(a.id) ?? 0) - (difficulty.get(b.id) ?? 0),
+  );
   const byLemma = new Map<number, SentenceRow[]>();
-  for (const s of byLength) {
+  for (const s of easiest) {
     for (const id of new Set(s.lemmaIds)) {
       const list = byLemma.get(id);
       if (list) list.push(s);

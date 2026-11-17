@@ -8,7 +8,6 @@ import { StatusBar } from 'expo-status-bar';
 import { useMemo } from 'react';
 
 import { DatabaseProvider } from '@/db';
-import { appSeedLoader } from '@/dev/devSeedLoader';
 import { SettingsHydrator } from '@/features/settings/SettingsHydrator';
 import { useSettingsStore } from '@/features/settings/settingsStore';
 import { ThemeProvider, useTheme } from '@/ui';
@@ -33,7 +32,7 @@ function RootNavigator() {
   return (
     <NavigationThemeProvider value={navigationTheme}>
       <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
-      <DatabaseProvider seedLoader={appSeedLoader}>
+      <DatabaseProvider>
         <SettingsHydrator />
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

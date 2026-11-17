@@ -52,16 +52,27 @@ export {
   type ReviewLogRepo,
 } from './ReviewLogRepo';
 export type * from './rows';
+export { ensureSeed, type EnsureSeedResult } from './seed/ensureSeed';
 export {
+  getImportedSeed,
   getImportedSeedVersion,
   importSeed,
+  importSeedContent,
   type ImportSeedOptions,
   type ImportSeedResult,
   type SeedImportProgress,
   type SeedTable,
 } from './seed/importSeed';
 export { bundledSeedLoader, type SeedLoader } from './seed/seedLoader';
-export { compareSeedVersions, SeedSchema, type Seed, type SeedVersion } from './seed/seedSchema';
+export {
+  compareSeeds,
+  compareSeedVersions,
+  resolveTokens,
+  seedToContent,
+  type SeedContent,
+  type SeedIdentity,
+  type SeedVersion,
+} from './seed/seedContent';
 export {
   createSettingsRepo,
   defaultSettings,

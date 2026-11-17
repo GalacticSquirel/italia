@@ -7,7 +7,7 @@ import {
 } from '@/db/testing/createTestDatabase';
 
 import { createRepositories, type Repositories } from './repositories';
-import { importSeed } from './seed/importSeed';
+import { importSeedContent } from './seed/importSeed';
 import { defaultSettings, type Settings } from './SettingsRepo';
 import { EMPTY_STREAK } from './StreakRepo';
 import { StudySessionNotActiveError } from './StudySessionRepo';
@@ -28,7 +28,9 @@ afterEach(() => {
 
 describe('content repos', () => {
   it('looks up lemmas and sentences by id lists of any size', async () => {
-    await importSeed(t.db, makeSeed(1, 2000), { yieldBetweenBatches: () => Promise.resolve() });
+    await importSeedContent(t.db, makeSeed(1, 2000), {
+      yieldBetweenBatches: () => Promise.resolve(),
+    });
     const ids = Array.from({ length: 1500 }, (_, i) => 1500 - i);
     const lemmas = repos.lemmas.getByIds([...ids, 1, 99999]);
     expect(lemmas).toHaveLength(1500);
@@ -45,7 +47,9 @@ describe('content repos', () => {
 
 describe('LemmaRepo.search', () => {
   it('matches headword prefixes and glosses, most frequent first', async () => {
-    await importSeed(t.db, makeSeed(1, 12), { yieldBetweenBatches: () => Promise.resolve() });
+    await importSeedContent(t.db, makeSeed(1, 12), {
+      yieldBetweenBatches: () => Promise.resolve(),
+    });
     expect(repos.lemmas.search('parola1', { limit: 10 }).map((l) => l.id)).toEqual([1, 10, 11, 12]);
     expect(repos.lemmas.search('WORD 7', { limit: 10 }).map((l) => l.id)).toEqual([7]);
     expect(repos.lemmas.search('  ', { limit: 10 })).toEqual([]);

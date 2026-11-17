@@ -4,15 +4,15 @@
  */
 import type { ReactElement, ReactNode } from 'react';
 
-import { createRepositories, importSeed, type Repositories } from '@/data';
+import { createRepositories, importSeedContent, type Repositories } from '@/data';
 import { RepositoryProvider } from '@/db';
 import {
   createTestDatabase,
   sequentialIds,
   type TestDatabase,
 } from '@/db/testing/createTestDatabase';
-import { DEV_FIXTURE_SEED } from '@/dev/fixtureSeed';
 import { useSettingsStore } from '@/features/settings/settingsStore';
+import { FIXTURE_SEED } from '@/testing/fixtureSeed';
 import { ThemeProvider } from '@/ui';
 
 /** A seeded in-memory database and its repositories. */
@@ -27,7 +27,7 @@ export interface TestApp {
 export async function createTestApp(): Promise<TestApp> {
   const t = createTestDatabase();
   const repos = createRepositories(t.db, { newId: sequentialIds() });
-  await importSeed(t.db, DEV_FIXTURE_SEED, { yieldBetweenBatches: () => Promise.resolve() });
+  await importSeedContent(t.db, FIXTURE_SEED, { yieldBetweenBatches: () => Promise.resolve() });
   useSettingsStore.getState().hydrate(repos);
   return {
     t,

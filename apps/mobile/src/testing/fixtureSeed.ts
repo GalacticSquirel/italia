@@ -1,20 +1,19 @@
 /**
- * DEVELOPMENT AND TEST FIXTURE ONLY. Never shipped as content.
+ * TEST FIXTURE ONLY. Never imported by app code or shipped as content.
  *
- * A tiny hand-written seed (33 lemmas, 30 sentences, 3 grammar points) so the
- * screens can be exercised before `packages/content` delivers the real seed.
- * Development builds load it only while the bundled seed is empty (see
- * `devSeedLoader`), and production bundles drop it entirely.
+ * A tiny hand-written seed (33 lemmas, 30 sentences, 3 grammar points),
+ * already mapped to app rows, so screen and curriculum tests have small,
+ * predictable content. The app itself imports the real seed from
+ * `@italia/content`.
  *
  * The sentences were written for this fixture (CC0); they are not taken from
  * any corpus.
  */
+import type { SeedContent } from '@/data/seed/seedContent';
 import type { SentenceToken } from '@/db/schema';
 
-import type { Seed } from '../data/seed/seedSchema';
-
 /** Version of the fixture seed: below any real seed version (1 and up). */
-export const DEV_FIXTURE_SEED_VERSION = '0.1';
+export const FIXTURE_SEED_VERSION = '0.1';
 
 type LemmaSpec = [id: number, lemma: string, pos: string, gloss: string];
 
@@ -391,7 +390,7 @@ const SENTENCES: SentenceSpec[] = [
   ],
 ];
 
-const GRAMMAR: Seed['grammarPoints'] = [
+const GRAMMAR: SeedContent['grammarPoints'] = [
   {
     id: 1,
     title: 'Essere (to be) in the present',
@@ -439,29 +438,21 @@ const GRAMMAR: Seed['grammarPoints'] = [
   },
 ];
 
-/**
- * Tokens in the `@italia/content` format: `[start, end, ...lemmaIndexes]`,
- * each index pointing into `lemmaIds`.
- */
-function tokensFor(
-  it: string,
-  words: SentenceSpec[2],
-  lemmaIds: readonly number[],
-): SentenceToken[] {
+/** Tokens in the `sentence.tokens` format: `[start, end, lemmaId]`. */
+function tokensFor(it: string, words: SentenceSpec[2]): SentenceToken[] {
   let cursor = 0;
   return words.map(([surface, lemmaId]) => {
     const start = it.indexOf(surface, cursor);
     if (start < 0) throw new Error(`fixture word "${surface}" not found in "${it}"`);
     cursor = start + surface.length;
-    return [start, cursor, lemmaIds.indexOf(lemmaId)];
+    return [start, cursor, lemmaId];
   });
 }
 
 /** The development fixture seed. */
-export const DEV_FIXTURE_SEED: Seed = {
-  version: DEV_FIXTURE_SEED_VERSION,
+export const FIXTURE_SEED: SeedContent = {
+  version: FIXTURE_SEED_VERSION,
   generatedAt: '2026-11-15T00:00:00.000Z',
-  sources: [{ id: 'dev-fixture', licence: 'CC0-1.0', note: 'Development fixture only' }],
   lemmas: LEMMAS.map(([id, lemma, pos, glossEn]) => ({
     id,
     lemma,
@@ -480,8 +471,7 @@ export const DEV_FIXTURE_SEED: Seed = {
       grammarIds,
       source: `dev-fixture:${String(i + 1)}`,
       licence: 'CC0-1.0',
-      // Same place and shape as the real seed: `extra.tokens` with lemma indexes.
-      extra: { tokens: tokensFor(it, words, lemmaIds) },
+      tokens: tokensFor(it, words),
     };
   }),
   grammarPoints: GRAMMAR,

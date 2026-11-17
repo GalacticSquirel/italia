@@ -10,7 +10,9 @@
  *   without a usable example sentence are skipped.
  * - **Grammar** unlocks in acquisition order. A point is unlocked once one of
  *   its `grammar_cloze` items has been answered; the next point to unlock
- *   (the frontier) is the first locked one whose prerequisites are unlocked.
+ *   (the frontier) is the first locked one with an item available whose
+ *   prerequisites are unlocked (a prerequisite with no item available yet
+ *   does not block it; see {@link frontierGrammar}).
  * - **Sentence practice** (`grammar_cloze`, `sentence_production`,
  *   `dictation`) uses sentences whose words have all been introduced and
  *   whose main grammar point is unlocked (or is the frontier, for grammar
@@ -92,10 +94,30 @@ export function unlockedGrammar(cards: readonly CardRow[], content: ContentIndex
   return unlocked;
 }
 
-/** The next grammar point to unlock, or null when all are unlocked or blocked. */
-export function frontierGrammar(unlocked: ReadonlySet<number>, content: ContentIndex) {
+/**
+ * The next grammar point to unlock, or null when all are unlocked or blocked:
+ * the first locked point, in acquisition order, whose prerequisites are
+ * satisfied.
+ *
+ * With `practisable` (the points that have a grammar cloze item the learner
+ * could do now), the frontier must be practisable, and a prerequisite that is
+ * not practisable yet counts as satisfied. Otherwise a point whose sentences
+ * all use words the learner has not met (common for the first points of the
+ * real seed, whose sentences mostly practise several points at once) would
+ * block every later point.
+ */
+export function frontierGrammar(
+  unlocked: ReadonlySet<number>,
+  content: ContentIndex,
+  practisable?: ReadonlySet<number>,
+): number | null {
+  const satisfied = (id: number) =>
+    unlocked.has(id) || (practisable !== undefined && !practisable.has(id));
   const next = content.grammar.find(
-    (g) => !unlocked.has(g.id) && g.prerequisiteIds.every((p) => unlocked.has(p)),
+    (g) =>
+      !unlocked.has(g.id) &&
+      (practisable === undefined || practisable.has(g.id)) &&
+      g.prerequisiteIds.every(satisfied),
   );
   return next?.id ?? null;
 }
@@ -137,7 +159,16 @@ export function buildCurriculum(
     content.lemmas.filter((l) => introduced('recognition', l.id)).map((l) => l.id),
   );
   const unlocked = unlockedGrammar(cards, content);
-  const frontier = frontierGrammar(unlocked, content);
+  const knows = (s: SentenceRow) => s.lemmaIds.every((id) => introducedLemmaIds.has(id));
+
+  // Points with a grammar cloze item available now (all words introduced).
+  const practisable = new Set<number>();
+  for (const s of content.sentencesByLength) {
+    const focus = grammarFocus(s, content);
+    if (focus === null || unlocked.has(focus) || practisable.has(focus)) continue;
+    if (knows(s) && open('grammar_cloze', s.id) && grammarBlank(s, content)) practisable.add(focus);
+  }
+  const frontier = frontierGrammar(unlocked, content, practisable);
 
   // New words: [recognition, cloze] per word, skipping parts already done.
   const words: CurriculumCandidate[][] = [];
@@ -160,14 +191,18 @@ export function buildCurriculum(
   const frontierItems: CurriculumCandidate[] = [];
   const practice: CurriculumCandidate[] = [];
   if (limits.practice > 0) {
+    // Frontier items and other practice are collected separately: frontier
+    // sentences are often longer than practice for points already unlocked,
+    // and must not be crowded out by them (that would stall grammar).
+    const frontierCap = frontier === null ? 0 : Math.min(FRONTIER_ITEMS, limits.practice);
     for (const s of content.sentencesByLength) {
-      if (frontierItems.length + practice.length >= limits.practice) break;
-      if (!s.lemmaIds.every((id) => introducedLemmaIds.has(id))) continue;
+      if (frontierItems.length >= frontierCap && practice.length >= limits.practice) break;
+      if (!knows(s)) continue;
       const focus = grammarFocus(s, content);
       const grammarIds = focus === null ? [] : [focus];
       if (focus !== null && focus === frontier) {
         if (
-          frontierItems.length < FRONTIER_ITEMS &&
+          frontierItems.length < frontierCap &&
           open('grammar_cloze', s.id) &&
           grammarBlank(s, content)
         ) {
@@ -176,6 +211,7 @@ export function buildCurriculum(
         continue;
       }
       if (focus !== null && !unlocked.has(focus)) continue;
+      if (practice.length >= limits.practice) continue;
       const kind = practiceKind(s, content);
       if (open(kind, s.id) && !introduced(kind, s.id)) {
         practice.push(candidate(kind, s.id, s.lemmaIds, grammarIds));

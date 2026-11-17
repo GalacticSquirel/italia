@@ -43,6 +43,10 @@ const { lemmas, sentences, grammarPoints } = toRows(seed); // rows without `extr
 
 In Node, `loadSeedFile()` from `@italia/content/node` reads and validates the committed file.
 
+The mobile app does not import the JSON into its JS bundle: `apps/mobile/scripts/sync-seed-asset.js`
+copies it to a `.seed` asset that the app reads and validates on first launch (see
+`apps/mobile/src/data/seed/`).
+
 ## Rebuilding
 
 Needs Node, network access, and the `tar` and `bzip2` commands.
