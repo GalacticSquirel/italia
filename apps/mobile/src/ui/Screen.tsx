@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView, type Edge } from 'react-native-safe-area-context';
 
 import { Text } from './Text';
@@ -39,19 +39,24 @@ export function Screen({
       style={[styles.root, { backgroundColor: colors.background }]}
       testID={testID}
     >
-      {scroll ? (
-        // "handled": a tap on a button works while the keyboard is open,
-        // instead of only dismissing the keyboard (which made "Check" and
-        // "End" need two taps after typing an answer).
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          keyboardShouldPersistTaps="handled"
-        >
-          {content}
-        </ScrollView>
-      ) : (
-        content
-      )}
+      {/* The app draws edge to edge, so Android no longer resizes the window
+          for the keyboard: pad for it here on both platforms, or text fields
+          near the bottom (sign-in, answers) end up under the keyboard. */}
+      <KeyboardAvoidingView style={styles.root} behavior="padding">
+        {scroll ? (
+          // "handled": a tap on a button works while the keyboard is open,
+          // instead of only dismissing the keyboard (which made "Check" and
+          // "End" need two taps after typing an answer).
+          <ScrollView
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
+          >
+            {content}
+          </ScrollView>
+        ) : (
+          content
+        )}
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

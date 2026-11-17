@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, AppState, KeyboardAvoidingView, Platform, View } from 'react-native';
+import { ActivityIndicator, AppState, View } from 'react-native';
 
 import { useSettingsStore } from '@/features/settings/settingsStore';
 import type { Prompt, TypedPrompt } from '@/features/study/prompts';
@@ -177,31 +177,26 @@ export function SessionScreen() {
 
   const running = phase === 'prompt' || phase === 'feedback' || phase === 'grammar_intro';
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
-      <Screen edges={['top', 'bottom', 'left', 'right']} testID="session-screen">
-        {running ? (
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
-            <View style={{ flex: 1, gap: spacing.xxs }}>
-              <ProgressBar
-                value={done / Math.max(1, done + left)}
-                label={`Session progress: ${String(done)} answered, ${String(left)} to go`}
-              />
-              <Text variant="caption" color="textMuted">{`${String(left)} to go`}</Text>
-            </View>
-            <Button
-              label="End"
-              variant="secondary"
-              accessibilityLabel="End session"
-              accessibilityHint="Saves your progress and closes the session"
-              onPress={close}
+    <Screen edges={['top', 'bottom', 'left', 'right']} testID="session-screen">
+      {running ? (
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
+          <View style={{ flex: 1, gap: spacing.xxs }}>
+            <ProgressBar
+              value={done / Math.max(1, done + left)}
+              label={`Session progress: ${String(done)} answered, ${String(left)} to go`}
             />
+            <Text variant="caption" color="textMuted">{`${String(left)} to go`}</Text>
           </View>
-        ) : null}
-        {body}
-      </Screen>
-    </KeyboardAvoidingView>
+          <Button
+            label="End"
+            variant="secondary"
+            accessibilityLabel="End session"
+            accessibilityHint="Saves your progress and closes the session"
+            onPress={close}
+          />
+        </View>
+      ) : null}
+      {body}
+    </Screen>
   );
 }

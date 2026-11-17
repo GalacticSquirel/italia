@@ -1,11 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  View,
-  type ScrollViewInstance,
-} from 'react-native';
+import { KeyboardAvoidingView, ScrollView, View, type ScrollViewInstance } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import {
@@ -137,10 +131,9 @@ function Chat({
   const goals = context.scenario.goals;
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
+    // Edge to edge, Android does not resize the window for the keyboard,
+    // so pad for it on both platforms to keep the message box visible.
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       <View
         style={{
           flexDirection: 'row',
