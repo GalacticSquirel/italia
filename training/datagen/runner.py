@@ -254,7 +254,16 @@ def run_judge(
     ):
         outage = _Outage((JudgeParseError, RuntimeError))
         task = outage.guard(judge_dialogue)
-        futures = {pool.submit(task, r, judge, max_tokens=config.judge.max_tokens): r for r in todo}
+        futures = {
+            pool.submit(
+                task,
+                r,
+                judge,
+                max_tokens=config.judge.max_tokens,
+                grammar_check=config.judge.grammar_check,
+            ): r
+            for r in todo
+        }
         outage.track(futures)
         for future in as_completed(futures):
             record = futures[future]

@@ -11,6 +11,7 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any, Literal
 
+from datagen.grammar_check import GrammarCheckError, check_dialogue, grammaticality_score
 from datagen.jsonutil import JsonExtractError, extract_json_object
 from datagen.records import DialogueRecord, JudgeResult, JudgeScores
 from datagen.synthesis import dialogue_json
@@ -198,8 +199,11 @@ def _conversation_text(messages: Sequence[Mapping[str, str]]) -> str:
 
 
 def judge_dialogue(
-    record: DialogueRecord, client: ChatClient, *, max_tokens: int
+    record: DialogueRecord, client: ChatClient, *, max_tokens: int, grammar_check: bool = False
 ) -> tuple[JudgeResult, Usage]:
+    """Score a dialogue on the rubric. With `grammar_check`, grammaticality comes from the
+    per-turn check in datagen.grammar_check instead of the rubric's own number, which local
+    judges set to 5 almost regardless of mistakes."""
     prompt = _DIALOGUE_PROMPT.format(
         level=record.level.value,
         system_prompt=render_system_prompt(record.context),
@@ -212,7 +216,20 @@ def judge_dialogue(
         max_tokens=max_tokens,
         json_output=True,
     )
-    return parse_dialogue_judgement(completion.text, client.name), completion.usage
+    result = parse_dialogue_judgement(completion.text, client.name)
+    usage = completion.usage
+    if not grammar_check:
+        return result, usage
+    try:
+        errors, cost = check_dialogue(record, client)
+    except GrammarCheckError as err:
+        raise JudgeParseError(str(err)) from err
+    scores = result.scores.model_copy(update={"grammaticality": grammaticality_score(len(errors))})
+    issues = [*result.issues, *(f"Turn {e.turn}: '{e.quote}' -> '{e.fix}'" for e in errors)]
+    result = result.model_copy(
+        update={"scores": scores, "issues": issues, "grammar_errors": errors}
+    )
+    return result, usage + cost
 
 
 def judge_candidates(
