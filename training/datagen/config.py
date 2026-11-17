@@ -83,6 +83,13 @@ class JudgeConfig(ConfigModel):
             "criterion: grammaticality 2 with six 5s still averages 4.57."
         ),
     )
+    grammar_check: bool = Field(
+        default=True,
+        description=(
+            "Score grammaticality from a per-tutor-turn check (datagen.grammar_check) instead of "
+            "the rubric's number. About 1 + (tutor turns) + (flags) short judge calls per dialogue."
+        ),
+    )
 
     @model_validator(mode="after")
     def _known_criteria(self) -> JudgeConfig:
