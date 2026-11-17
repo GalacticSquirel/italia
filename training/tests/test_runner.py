@@ -3,6 +3,8 @@ from __future__ import annotations
 from collections.abc import Sequence
 from pathlib import Path
 
+import pytest
+
 from datagen.jsonutil import JsonlAppender, extract_json_object, read_jsonl
 from datagen.languagetool import NullChecker
 from datagen.lemmas import BandChecker, SimplemmaLemmatizer, default_lemma_list
@@ -162,3 +164,38 @@ def test_jsonl_helpers(tmp_path: Path) -> None:
         fh.write('{"id": 2, "trunc')  # interrupted write
     assert list(read_jsonl(path)) == [{"id": 1}]
     assert extract_json_object('x {"a": "}"} y {"b": 1}') == {"a": "}"}
+
+
+def test_outage_stops_workers_before_the_consumer_cancels(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """The consumer loop cancels the queue only when it next wakes up; before `guard`, idle
+    workers kept calling the dead endpoint for queued items in that gap (seen as 21 calls on
+    CI for a queue of 60). A slow consumer makes the gap as wide as possible."""
+    import time
+
+    from datagen import runner
+    from datagen.jsonutil import write_jsonl
+    from datagen.teacher import TeacherUnavailableError
+
+    record = runner._Outage.record
+
+    def late_record(self: runner._Outage, err: Exception) -> None:
+        time.sleep(0.3)
+        record(self, err)
+
+    monkeypatch.setattr(runner._Outage, "record", late_record)
+    config = make_config(tmp_path, repairAttempts=0)
+    scenarios = select_scenarios(config, load_library())
+    run_generate(config, scenarios, plan_aware_teacher(tmp_path), limit=10)
+    rows = []
+    for copy in range(6):
+        for row in read_jsonl(RunPaths(tmp_path).raw):
+            row["id"] = str(row["id"]) + f"-{copy}"
+            row["filter"] = {"passed": True, "reasons": [], "metrics": {}}
+            rows.append(row)
+    write_jsonl(RunPaths(tmp_path).filtered, rows)
+    judge, calls = _outage_after(3, ScriptedClient(lambda m: JUDGE_OK))
+    with pytest.raises(TeacherUnavailableError):
+        run_judge(config, judge)
+    assert calls["n"] <= 3 + config.judge_endpoint.max_concurrency
