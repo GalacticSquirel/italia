@@ -1,0 +1,84 @@
+/** A tiny Morph-it!-format lexicon shared by the unit tests. */
+import { parseMorphIt } from './lexicon';
+
+const ROWS = `
+il	il	ART-M:s
+la	la	ART-F:s
+la	la	PRO-PERS-CLI-3-F-S
+l'	l'	ART-F:s
+l'	l'	ART-M:s
+l'	l'	PRO-PERS-CLI-3-M-S
+l'	l'	PRO-PERS-CLI-3-F-S
+i	il	ART-M:p
+le	la	ART-F:p
+le	le	PRO-PERS-CLI-3-F-P
+un	un	ART-M:s
+una	una	ART-F:s
+nel	nel	ARTPRE-M:s
+della	della	ARTPRE-F:s
+alla	alla	ARTPRE-F:s
+di	di	PRE
+a	a	PRE
+in	in	PRE
+con	con	PRE
+e	e	CON
+che	che	CON
+non	non	ADV
+già	già	ADV
+più	più	ADV
+mi	mi	PRO-PERS-CLI-1-M-S
+ti	ti	PRO-PERS-CLI-2-M-S
+si	si	PRO-PERS-CLI-3-M-S
+ci	ci	CI
+c'	c'	ADV
+lo	lo	PRO-PERS-CLI-3-M-S
+ne	ne	NE
+io	io	PRO-PERS-1-M-S
+lui	lui	PRO-PERS-3-M-S
+mio	mio	DET-POSS:m+s
+mia	mio	DET-POSS:f+s
+questa	questo	DET-DEMO:f+s
+è	essere	AUX:ind+pres+3+s
+è	essere	VER:ind+pres+3+s
+sono	essere	AUX:ind+pres+1+s
+sono	essere	VER:ind+pres+3+p
+siamo	essere	VER:ind+pres+1+p
+era	essere	VER:ind+impf+3+s
+ho	avere	AUX:ind+pres+1+s
+ho	avere	VER:ind+pres+1+s
+ha	avere	VER:ind+pres+3+s
+aveva	avere	VER:ind+impf+3+s
+mangiato	mangiare	VER:part+past+s+m
+mangiata	mangiare	VER:part+past+s+f
+mangio	mangiare	VER:ind+pres+1+s
+mangerò	mangiare	VER:ind+fut+1+s
+mangiarlo	mangiare	VER:inf+pres+lo
+andata	andare	VER:part+past+s+f
+vado	andare	VER:ind+pres+1+s
+alzo	alzare	VER:ind+pres+1+s
+alzata	alzare	VER:part+past+s+f
+fatto	fare	VER:part+past+s+m
+fatto	fatto	NOUN-M:s
+dimmi	dimmi	VER:impr+pres+2+s+mi
+porta	porta	NOUN-F:s
+porta	portare	VER:ind+pres+3+s
+porta	portare	VER:impr+pres+2+s
+casa	casa	NOUN-F:s
+libro	libro	NOUN-M:s
+mela	mela	NOUN-F:s
+rossa	rosso	ADJ:pos+f+s
+bella	bello	ADJ:pos+f+s
+bella	bella	NOUN-F:s
+piace	piacere	VER:ind+pres+3+s
+vuole	volere	MOD:ind+pres+3+s
+studiare	studiare	VER:inf+pres
+sta	stare	VER:ind+pres+3+s
+dormendo	dormire	VER:ger+pres
+glielo	glielo	PRO-PERS-CLI-COM
+po'	po'	PRO-INDEF-M-S
+perché	perché	WH
+Roma	Roma	NPR
+!	!	SENT
+`;
+
+export const testLexicon = () => parseMorphIt(ROWS);
