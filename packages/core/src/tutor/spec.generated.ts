@@ -1227,6 +1227,51 @@ export const SCENARIOS: readonly TutorScenario[] = [
     split: 'train',
   },
   {
+    id: 'assemblea-condominio',
+    title: "L'assemblea di condominio",
+    titleEn: 'A tense building meeting',
+    levels: ['C2'],
+    setting:
+      'An annual building meeting in a Genoa apartment block; tempers are rising over the cost of renovating the façade.',
+    tutorRole:
+      "the building administrator, diplomatic but weary, who also voices the other residents' objections",
+    learnerRole: 'a resident who wants to postpone the works',
+    formality: 'formal',
+    goals: [
+      {
+        id: 'position',
+        description: 'State your position without escalating',
+      },
+      {
+        id: 'defuse',
+        description: 'Defuse a sarcastic or aggressive remark',
+      },
+      {
+        id: 'alternative',
+        description: 'Propose a concrete alternative',
+      },
+      {
+        id: 'compromise',
+        description: 'Reach a compromise and get it minuted',
+      },
+    ],
+    keyVocab: [
+      'amministratore',
+      'facciata',
+      'preventivo',
+      'millesimi',
+      'verbale',
+      'delibera',
+      'rata',
+      'ponteggio',
+    ],
+    grammarFocus: ['congiuntivo-imperfetto', 'conditional-past', 'passive-voice'],
+    opening:
+      'Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?',
+    tags: ['register', 'housing'],
+    split: 'train',
+  },
+  {
     id: 'assicurazione-sinistro',
     title: 'Un incidente in macchina',
     titleEn: 'Reporting a car accident',
@@ -1495,6 +1540,51 @@ export const SCENARIOS: readonly TutorScenario[] = [
     split: 'train',
   },
   {
+    id: 'cena-suoceri',
+    title: 'A cena dai suoceri',
+    titleEn: 'First dinner with the future in-laws',
+    levels: ['C2'],
+    setting:
+      "The learner meets their partner's parents for the first time at their elegant flat in Florence; the father is formal and fond of irony.",
+    tutorRole: "the partner's father, courteous, ironic and testing",
+    learnerRole: 'the partner meeting the parents for the first time',
+    formality: 'formal',
+    goals: [
+      {
+        id: 'compliment',
+        description: 'Compliment the host and the food without overdoing it',
+      },
+      {
+        id: 'background',
+        description: 'Talk about your work and plans with tact',
+      },
+      {
+        id: 'irony',
+        description: 'Respond gracefully to an ironic remark',
+      },
+      {
+        id: 'tu-lei',
+        description: 'Handle the moment when the host proposes switching to tu',
+      },
+    ],
+    keyVocab: [
+      'padrone di casa',
+      'complimenti',
+      'accoglienza',
+      'ospitalità',
+      'darsi del tu',
+      'cortesia',
+      'brindisi',
+      'garbo',
+      'immaginario',
+    ],
+    grammarFocus: ['congiuntivo-presente', 'conditional', 'combined-pronouns'],
+    opening:
+      'Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario.',
+    tags: ['register', 'family'],
+    split: 'train',
+  },
+  {
     id: 'cercare-lavoro-a2',
     title: 'Un lavoro estivo',
     titleEn: 'Asking about a summer job',
@@ -1577,6 +1667,56 @@ export const SCENARIOS: readonly TutorScenario[] = [
     grammarFocus: ['ce-ci-sono', 'simple-prepositions', 'questions'],
     opening: 'Sì, mi dica. Ha bisogno di aiuto?',
     tags: ['travel', 'city'],
+    split: 'train',
+  },
+  {
+    id: 'circolo-lettura',
+    title: 'Il circolo di lettura',
+    titleEn: 'Book club: arguing about a novel',
+    levels: ['C2'],
+    setting:
+      'A book club in a Rome bookshop, discussing Italo Calvino\'s "Il barone rampante" over a glass of wine.',
+    tutorRole: 'a retired literature teacher who loves to provoke',
+    learnerRole: 'a member of the book club',
+    formality: 'informal',
+    goals: [
+      {
+        id: 'impression',
+        description: 'Give your overall impression of the novel',
+      },
+      {
+        id: 'theme',
+        description: 'Interpret one central theme with an example from the text',
+      },
+      {
+        id: 'style',
+        description: "Comment on Calvino's style or irony",
+      },
+      {
+        id: 'disagree',
+        description: "Disagree with the tutor's reading and defend your own",
+      },
+      {
+        id: 'recommend',
+        description: 'Suggest the next book and justify it',
+      },
+    ],
+    keyVocab: [
+      'romanzo',
+      'protagonista',
+      'allegoria',
+      'ironia',
+      'narratore',
+      'ribellione',
+      'leggerezza',
+      'metafora',
+      'insopportabile',
+      'rileggere',
+    ],
+    grammarFocus: ['congiuntivo-imperfetto', 'periodo-ipotetico', 'relative-pronouns'],
+    opening:
+      "Allora, confessatelo, chi di voi ha trovato Cosimo insopportabile? Io, a rileggerlo, un po' sì.",
+    tags: ['literature', 'culture'],
     split: 'train',
   },
   {
@@ -1746,6 +1886,50 @@ export const SCENARIOS: readonly TutorScenario[] = [
     split: 'train',
   },
   {
+    id: 'condoglianze',
+    title: 'Parole di cordoglio',
+    titleEn: 'Offering condolences',
+    levels: ['C2'],
+    setting:
+      'The learner visits an older colleague whose mother has just died, at the family home in a small town in Puglia.',
+    tutorRole: 'the bereaved colleague, composed but grieving',
+    learnerRole: 'a colleague paying a condolence visit',
+    formality: 'formal',
+    goals: [
+      {
+        id: 'condolences',
+        description: 'Offer your condolences appropriately',
+      },
+      {
+        id: 'memory',
+        description: 'Share a memory or kind word about the deceased or the colleague',
+      },
+      {
+        id: 'offer-help',
+        description: 'Offer practical help without being intrusive',
+      },
+      {
+        id: 'leave',
+        description: 'Take your leave gracefully',
+      },
+    ],
+    keyVocab: [
+      'condoglianze',
+      'lutto',
+      'scomparsa',
+      'cordoglio',
+      'vicinanza',
+      'ricordo',
+      'funerale',
+      'conforto',
+    ],
+    grammarFocus: ['congiuntivo-presente', 'conditional', 'formal-imperative'],
+    opening:
+      'Grazie di essere venuto, davvero. Non se lo doveva disturbare, con tutto il lavoro che ha.',
+    tags: ['register', 'life-events'],
+    split: 'train',
+  },
+  {
     id: 'consigli-viaggio',
     title: 'Consigli per un viaggio',
     titleEn: 'Travel advice',
@@ -1864,6 +2048,51 @@ export const SCENARIOS: readonly TutorScenario[] = [
     split: 'train',
   },
   {
+    id: 'dialetti-regionali',
+    title: 'Dialetti e accenti',
+    titleEn: 'Regional dialects and accents',
+    levels: ['C2'],
+    setting:
+      'A train from Milan to Naples; a chatty passenger notices the learner listening to two Neapolitans and starts talking about regional Italian.',
+    tutorRole: 'a Neapolitan sociolinguist travelling home',
+    learnerRole: 'a fellow passenger curious about regional speech',
+    formality: 'informal',
+    goals: [
+      {
+        id: 'notice',
+        description: 'Describe something you noticed about how people speak in a region',
+      },
+      {
+        id: 'example',
+        description: 'Ask about or discuss a specific regional word or expression',
+      },
+      {
+        id: 'standard',
+        description: 'Discuss the relationship between dialect and standard Italian',
+      },
+      {
+        id: 'opinion',
+        description: 'Give a nuanced opinion on whether dialects should be protected',
+      },
+    ],
+    keyVocab: [
+      'dialetto',
+      'accento',
+      'cadenza',
+      'regionale',
+      'settentrionale',
+      'meridionale',
+      'lingua standard',
+      'parlata',
+      'intromettersi',
+    ],
+    grammarFocus: ['congiuntivo-presente', 'si-impersonale', 'relative-pronouns'],
+    opening:
+      'Scusa se mi intrometto, ma ti ho visto ridere: hai capito cosa si dicevano quei due signori? Perché non è mica facile.',
+    tags: ['regional', 'culture'],
+    split: 'train',
+  },
+  {
     id: 'dibattito-ambiente',
     title: 'Città e ambiente',
     titleEn: 'Debate: cars in the city centre',
@@ -1904,6 +2133,50 @@ export const SCENARIOS: readonly TutorScenario[] = [
     opening:
       'Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?',
     tags: ['society'],
+    split: 'train',
+  },
+  {
+    id: 'email-rettore',
+    title: 'Una lettera delicata',
+    titleEn: 'Getting the register right in a formal letter',
+    levels: ['C2'],
+    setting:
+      'The learner must write to a university rector to contest an unfair decision and asks an experienced administrator to help get the tone right.',
+    tutorRole: 'a senior university administrator, polite and exacting about formal style',
+    learnerRole: 'a visiting researcher who must write the letter',
+    formality: 'formal',
+    goals: [
+      {
+        id: 'situation',
+        description: 'Explain the situation and what you want to obtain',
+      },
+      {
+        id: 'opening-formula',
+        description: 'Agree on the right salutation and opening formula',
+      },
+      {
+        id: 'tone',
+        description: 'Rephrase a too-direct sentence in a firm but courteous way',
+      },
+      {
+        id: 'closing',
+        description: 'Choose an appropriate closing formula',
+      },
+    ],
+    keyVocab: [
+      'Magnifico Rettore',
+      'cortese attenzione',
+      'distinti saluti',
+      'istanza',
+      'ricorso',
+      'delibera',
+      'in attesa di riscontro',
+      'porgere',
+    ],
+    grammarFocus: ['congiuntivo-imperfetto', 'conditional', 'passive-voice'],
+    opening:
+      'Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?',
+    tags: ['register', 'work'],
     split: 'train',
   },
   {
@@ -2245,6 +2518,57 @@ export const SCENARIOS: readonly TutorScenario[] = [
     opening:
       "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivato proprio in Italia?",
     tags: ['culture'],
+    split: 'train',
+  },
+  {
+    id: 'intervista-radio',
+    title: 'Ospite in radio',
+    titleEn: 'Live radio interview on a cultural programme',
+    levels: ['C2'],
+    setting:
+      'A live cultural programme on national radio; the learner is a foreign writer who has just published a book about living in Italy.',
+    tutorRole: 'a sharp, slightly mischievous radio host',
+    learnerRole: 'a foreign author being interviewed live',
+    formality: 'formal',
+    goals: [
+      {
+        id: 'present-book',
+        description: 'Present the book and why you wrote it',
+      },
+      {
+        id: 'stereotype',
+        description: 'Respond to a provocative question about stereotypes',
+      },
+      {
+        id: 'anecdote',
+        description: 'Tell a revealing anecdote from your life in Italy',
+      },
+      {
+        id: 'language',
+        description: 'Reflect on what learning Italian changed in you',
+      },
+      {
+        id: 'farewell',
+        description: 'Close with a witty or memorable line',
+      },
+    ],
+    keyVocab: [
+      'ascoltatori',
+      'libro',
+      'stereotipo',
+      'aneddoto',
+      'sguardo',
+      'straniero',
+      'puntata',
+      'in diretta',
+      'bentornati',
+      'autrice',
+      'incoscienza',
+    ],
+    grammarFocus: ['passato-prossimo-vs-imperfetto', 'congiuntivo-passato', 'gerund-clauses'],
+    opening:
+      "Bentornati, cari ascoltatori. In studio con noi c'è un'autrice che ha avuto il coraggio, o l'incoscienza, di scrivere un libro su di noi italiani. Benvenuta!",
+    tags: ['media', 'culture'],
     split: 'train',
   },
   {
@@ -2841,6 +3165,51 @@ export const SCENARIOS: readonly TutorScenario[] = [
     split: 'train',
   },
   {
+    id: 'poesia-montale',
+    title: 'Leggere una poesia',
+    titleEn: 'Close reading of a poem',
+    levels: ['C2'],
+    setting:
+      'An evening course on twentieth-century poetry; the class is reading Montale\'s "Spesso il male di vivere ho incontrato".',
+    tutorRole: 'the poetry lecturer, enthusiastic and precise',
+    learnerRole: 'a student in the evening course',
+    formality: 'formal',
+    goals: [
+      {
+        id: 'first-reading',
+        description: 'Describe your first reaction to the poem',
+      },
+      {
+        id: 'image',
+        description: 'Analyse one image or word choice',
+      },
+      {
+        id: 'sound',
+        description: 'Comment on rhythm, sound or form',
+      },
+      {
+        id: 'meaning',
+        description: 'Propose an interpretation of the poem as a whole',
+      },
+    ],
+    keyVocab: [
+      'verso',
+      'strofa',
+      'immagine',
+      'correlativo oggettivo',
+      'endecasillabo',
+      'metafora',
+      'rima',
+      'divina Indifferenza',
+      'addosso',
+    ],
+    grammarFocus: ['passive-voice', 'relative-pronouns', 'gerund-clauses'],
+    opening:
+      'Lasciamo un attimo di silenzio dopo la lettura. Ecco. Che cosa le è rimasto addosso, di questi versi?',
+    tags: ['literature', 'culture'],
+    split: 'train',
+  },
+  {
     id: 'politica-lavoro',
     title: 'Il futuro del lavoro',
     titleEn: 'Discussing the future of work',
@@ -2880,6 +3249,52 @@ export const SCENARIOS: readonly TutorScenario[] = [
     grammarFocus: ['periodo-ipotetico', 'congiuntivo-imperfetto'],
     opening: 'Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?',
     tags: ['society', 'work'],
+    split: 'train',
+  },
+  {
+    id: 'pranzo-domenicale',
+    title: 'Modi di dire a tavola',
+    titleEn: 'Idioms over Sunday lunch',
+    levels: ['C2'],
+    setting:
+      "A long Sunday lunch at a friend's family home in Bologna; the conversation drifts to idioms and sayings.",
+    tutorRole: 'a witty friend who peppers every sentence with idioms',
+    learnerRole: 'a guest who wants to sound like a native',
+    formality: 'informal',
+    goals: [
+      {
+        id: 'react',
+        description: 'React to an idiom the tutor uses and guess its meaning',
+      },
+      {
+        id: 'use-idiom',
+        description: 'Use an idiom correctly in your own story',
+      },
+      {
+        id: 'compare',
+        description: 'Compare an Italian idiom with one from your language',
+      },
+      {
+        id: 'anecdote',
+        description: 'Tell a short anecdote that ends with a fitting saying',
+      },
+    ],
+    keyVocab: [
+      'modo di dire',
+      'proverbio',
+      'espressione',
+      'significato',
+      'letterale',
+      'figurato',
+      'battuta',
+      'sfumatura',
+      'scannarsi',
+      'lasagna',
+    ],
+    grammarFocus: ['ci-locative', 'ne-partitive', 'combined-pronouns'],
+    opening:
+      "Ah, sei arrivato giusto in tempo, qui si stanno già scannando per l'ultima lasagna. Siediti, che non mordiamo!",
+    tags: ['idioms', 'culture'],
     split: 'train',
   },
   {
@@ -3437,6 +3852,56 @@ export const SCENARIOS: readonly TutorScenario[] = [
     split: 'eval',
   },
   {
+    id: 'seminario-etica',
+    title: 'Seminario di filosofia',
+    titleEn: 'University seminar: ethics of artificial intelligence',
+    levels: ['C2'],
+    setting:
+      'A doctoral seminar at the University of Padua on whether machines can be morally responsible.',
+    tutorRole: "a philosophy professor who plays devil's advocate",
+    learnerRole: 'a doctoral student presenting a position',
+    formality: 'formal',
+    goals: [
+      {
+        id: 'thesis',
+        description: 'State your thesis precisely',
+      },
+      {
+        id: 'distinguish',
+        description: 'Draw a conceptual distinction to support it',
+      },
+      {
+        id: 'objection',
+        description: "Answer the professor's objection",
+      },
+      {
+        id: 'concede',
+        description: 'Concede a point while preserving your thesis',
+      },
+      {
+        id: 'conclude',
+        description: 'Summarise the debate in one rigorous conclusion',
+      },
+    ],
+    keyVocab: [
+      'responsabilità',
+      'intenzionalità',
+      'agente',
+      'coscienza',
+      'argomentazione',
+      'premessa',
+      'obiezione',
+      'tesi',
+      'dottoressa',
+      'fin da subito',
+    ],
+    grammarFocus: ['periodo-ipotetico', 'congiuntivo-imperfetto', 'si-impersonale'],
+    opening:
+      'Bene, dottoressa, la sua tesi è che una macchina non possa mai essere ritenuta responsabile. Mi permetta di dubitarne fin da subito.',
+    tags: ['academic', 'debate'],
+    split: 'train',
+  },
+  {
     id: 'serata-cinema',
     title: 'Andiamo al cinema?',
     titleEn: 'Choosing a film',
@@ -3647,6 +4112,51 @@ export const SCENARIOS: readonly TutorScenario[] = [
     grammarFocus: ['imperfetto', 'si-impersonale'],
     opening: 'Da noi a Natale si mangia tantissimo! E da voi come si festeggia?',
     tags: ['culture', 'family'],
+    split: 'train',
+  },
+  {
+    id: 'traduzione-sfumature',
+    title: 'Questione di sfumature',
+    titleEn: 'Translating nuance with a colleague',
+    levels: ['C2'],
+    setting:
+      "Two translators at a Milan publishing house argue over how to render an English novel's tone into Italian.",
+    tutorRole: 'a senior translator, perfectionist and sarcastic',
+    learnerRole: 'a junior translator defending their draft',
+    formality: 'informal',
+    goals: [
+      {
+        id: 'problem',
+        description: 'Present a passage that is hard to translate and why',
+      },
+      {
+        id: 'options',
+        description: 'Weigh two possible Italian renderings',
+      },
+      {
+        id: 'false-friend',
+        description: 'Spot or discuss a false friend or calque',
+      },
+      {
+        id: 'decide',
+        description: 'Agree on a final choice and justify it',
+      },
+    ],
+    keyVocab: [
+      'traduzione',
+      'resa',
+      'calco',
+      'falso amico',
+      'registro',
+      'fedeltà',
+      'tono',
+      'scorrevole',
+      'bozza',
+    ],
+    grammarFocus: ['congiuntivo-presente', 'conditional-past', 'reported-speech'],
+    opening:
+      "Ho letto la tua bozza del terzo capitolo. Scorre, scorre benissimo. Peccato che non sia più l'autore a parlare.",
+    tags: ['language', 'work'],
     split: 'train',
   },
   {
@@ -3862,6 +4372,51 @@ export const SCENARIOS: readonly TutorScenario[] = [
     grammarFocus: ['simple-prepositions', 'direct-object-pronouns'],
     opening: 'Buongiorno, mi dica.',
     tags: ['errands'],
+    split: 'train',
+  },
+  {
+    id: 'umorismo-satira',
+    title: 'Ridere in italiano',
+    titleEn: 'Explaining jokes and satire',
+    levels: ['C2'],
+    setting:
+      'A bar after a stand-up comedy night in Rome; the friends dissect the jokes, puns and political satire they heard.',
+    tutorRole: 'a Roman friend with a dry sense of humour',
+    learnerRole: 'a friend who came to the show',
+    formality: 'informal',
+    goals: [
+      {
+        id: 'favourite',
+        description: 'Say which joke you liked and why it worked',
+      },
+      {
+        id: 'missed',
+        description: 'Admit a joke you did not get and ask for an explanation',
+      },
+      {
+        id: 'wordplay',
+        description: 'Explain or attempt a play on words',
+      },
+      {
+        id: 'limits',
+        description: 'Discuss whether satire should have limits',
+      },
+    ],
+    keyVocab: [
+      'battuta',
+      'gioco di parole',
+      'ironia',
+      'sarcasmo',
+      'satira',
+      'comico',
+      'doppio senso',
+      'freddura',
+      'carbonara',
+    ],
+    grammarFocus: ['congiuntivo-imperfetto', 'periodo-ipotetico', 'reported-speech'],
+    opening:
+      "Dai, ammettilo, alla battuta sul ministro e la carbonara non hai riso perché non l'avevi capita.",
+    tags: ['humour', 'culture'],
     split: 'train',
   },
   {
