@@ -1,0 +1,204 @@
+# B1, correction-dense: one prompt per dialogue, mostly self-repair.
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-professional
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno, grazie. È molto luminoso! Quant'è l'affitto, e che cosa include?"
+    - tutor: "Sono 750 euro al mese. Le spese di condominio sono comprese, il riscaldamento invece no."
+      goals: [rent]
+    - learner: "Capisco. Credo che il riscaldamento è caro in inverno, vero?"
+      errors: [subjunctive-use]
+    - tutor: "Dipende dai mesi. Ma attenzione: dopo «credo che» il verbo cambia modo. Come direbbe?"
+      prompt: {text: "che il riscaldamento è", tags: [subjunctive-use]}
+    - learner: "Ah sì: credo che il riscaldamento sia caro in inverno."
+    - tutor: "Perfetto. In realtà si spendono circa 60 euro al mese, perché la casa è piccola."
+    - learner: "Va bene. E il contratto quanto dura? Devo pagare una caparra?"
+    - tutor: "Il contratto dura quattro anni e la caparra è di due mesi."
+      goals: [contract]
+    - learner: "D'accordo. La lavatrice e il frigorifero funzionano bene? E com'è il quartiere?"
+    - tutor: "Sì, sono nuovi, li ho comprati l'anno scorso. Il quartiere è tranquillo e ci sono molti negozi qui vicino."
+      goals: [condition, neighbourhood]
+    - learner: "Mi piace molto. Sono interessata: potrei darle una risposta definitiva domani?"
+    - tutor: "Certo, mi chiami pure domani. Sono contento che l'appartamento le piaccia!"
+      goals: [decide]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-f-teacher
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Mi sono appena trasferita a Torino e volerei aprire un conto corrente."
+      errors: [conditional-form]
+    - tutor: "Benvenuta a Torino! Scusi, «volerei»? Il condizionale di questo verbo è un po' speciale: provi ancora."
+      prompt: {text: "volerei", tags: [conditional-form]}
+    - learner: "Ah, certo: vorrei aprire un conto corrente."
+    - tutor: "Esatto. Lo apriamo subito: è per lo stipendio o per le spese di ogni giorno?"
+      goals: [purpose]
+      new: [{lemma: stipendio, gloss: salary}]
+    - learner: "Per tutte e due le cose. Quali documenti servono?"
+    - tutor: "Bastano un documento con la foto e il codice fiscale."
+      goals: [documents]
+    - learner: "Li ho qui con me. E quanto costa al mese? Ho letto che alcuni conti sono gratuiti."
+    - tutor: "Il nostro conto costa 3 euro al mese, ma per i primi dodici mesi non paga niente."
+      goals: [costs]
+    - learner: "Bene. Potrei avere anche una carta? E c'è un'app per fare i bonifici?"
+    - tutor: "Certo: la carta arriva a casa in una settimana e con l'app può fare bonifici a qualsiasi ora. Mi serve solo una firma qui."
+      goals: [card]
+    - learner: "Ecco fatto. Grazie mille per l'aiuto."
+    - tutor: "Grazie a lei, e buona giornata!"
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-traveller
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei andare a Bologna domani mattina, verso le nove."
+    - tutor: "C'è un regionale alle 8:50 e un treno veloce alle 9:15. Solo andata o andata e ritorno?"
+      goals: [destination]
+    - learner: "Andata e ritorno con il treno veloce. Torno domenica sera, con il treno di le sette."
+      errors: [articulated-preposition]
+    - tutor: "Il treno «di le sette»? Qui la preposizione e l'articolo si uniscono in una parola sola: quale?"
+      prompt: {text: "di le sette", tags: [articulated-preposition]}
+    - learner: "Ah, delle sette! Torno con il treno delle sette."
+    - tutor: "Giusto! Allora andata domani alle 9:15 e ritorno domenica alle 19. Prima o seconda classe?"
+      goals: [type]
+    - learner: "Seconda va bene. È possibile avere un posto vicino al finestrino?"
+    - tutor: "Sì, le do il posto 42, vicino al finestrino. Sono 31 euro in tutto."
+      goals: [class]
+    - learner: "Perfetto, pago con la carta. Da quale binario parte il treno domani?"
+    - tutor: "Di solito parte dal binario 4, ma controlli sempre il tabellone prima della partenza. Buon viaggio!"
+      goals: [platform]
+      new: [{lemma: tabellone, gloss: departure board}]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Daniel, ho trentadue anni e sono un grafico. Vivo a Milano da due anni."
+    - tutor: "Piacere. E dove ha lavorato prima di arrivare in Italia?"
+      goals: [intro]
+    - learner: "A Toronto ho lavorato per cinque anni in un'agenzia. Ogni settimana ho preparato progetti per clienti diversi."
+      errors: [tense-aspect]
+    - tutor: "Interessante. «Ogni settimana ho preparato»? Lo faceva sempre: quale tempo usiamo per le azioni che si ripetono?"
+      prompt: {text: "ho preparato", tags: [tense-aspect]}
+    - learner: "Giusto: ogni settimana preparavo progetti per clienti diversi."
+    - tutor: "Bene. E quali sono i suoi punti forti? Ha anche un punto debole?"
+      goals: [experience]
+    - learner: "Sono preciso e lavoro bene in squadra. Il mio punto debole è che a volte parlo troppo poco nelle riunioni."
+    - tutor: "Grazie per la risposta sincera. Perché vorrebbe lavorare proprio nella nostra azienda?"
+      goals: [strengths]
+    - learner: "Perché i vostri progetti sono creativi e l'azienda è piccola. Penso che qui potrei imparare molto."
+    - tutor: "Mi fa piacere. Ha qualche domanda sul ruolo?"
+      goals: [why]
+    - learner: "Sì: con quante persone lavorerei? E sarebbe possibile lavorare da casa un giorno alla settimana?"
+    - tutor: "Lavorerebbe con quattro colleghi, e il venerdì si può lavorare da casa. La richiamiamo entro lunedì, grazie!"
+      goals: [questions]
+
+- scenario: compleanno
+  level: B1
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa! Sabato sera a casa mia, perché ho un soggiorno grande."
+    - tutor: "Ottima idea! E chi invitiamo?"
+      goals: [date]
+    - learner: "Invitiamo gli amici dell'università. Domani scriverò a tutti e loro venirano di sicuro."
+      errors: [future-form]
+    - tutor: "«Venirano»? Attenzione, il futuro di questo verbo non è regolare. Ti ricordi come fa?"
+      prompt: {text: "venirano", tags: [future-form]}
+    - learner: "Mmm... veniranno di sicuro?"
+      errors: [future-form]
+    - tutor: "Quasi: verranno di sicuro, Sara è simpatica a tutti! Saremo circa dieci, allora. E per mangiare?"
+      recast: {text: "veniranno", fix: "verranno", tags: [future-form]}
+      goals: [guests]
+    - learner: "Io preparo una tortilla e compriamo delle pizze. La torta la fa Marta, che è bravissima."
+    - tutor: "Perfetto, le chiedo io di farla al cioccolato. Ci manca solo il regalo!"
+      goals: [food]
+      new: [{lemma: cioccolato, gloss: chocolate}]
+    - learner: "A Sara piace leggere. Le possiamo regalare un libro e un biglietto per un concerto."
+    - tutor: "Bellissimo, le piacerà sicuramente. Allora sabato alle otto da te, e non diciamo niente a Sara!"
+      goals: [gift]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì prossimo e resto cinque giorni. È la mia prima volta a Napoli!"
+    - tutor: "Che bello! Cinque giorni sono giusti per vedere tanto. Sei mai stata a Pompei?"
+      goals: [plans]
+    - learner: "No, non sono mai stata, ma voglio andare sabato. Cos'altro devo vedere e mangiare?"
+      errors: [ci-ne]
+    - tutor: "Tante cose! Ma prima: «non sono mai stata»... dove? Manca una piccola parola prima del verbo."
+      prompt: {text: "non sono mai stata", tags: [ci-ne]}
+    - learner: "Giusto: non ci sono mai stata."
+    - tutor: "Esatto! Vacci di mattina presto. In città visita il centro storico e mangia una pizza fritta."
+      goals: [advice]
+      new: [{lemma: fritto, gloss: fried}, {lemma: storico, gloss: historic}]
+    - learner: "Che fame! E come mi muovo in città? Prendo la metro?"
+    - tutor: "Sì, la metro è comoda e le stazioni sono bellissime. Per le isole invece prendi il traghetto dal porto."
+      goals: [transport]
+    - learner: "Perfetto. C'è qualcosa che devo evitare?"
+    - tutor: "Evita di guidare in centro, c'è troppo traffico. E non tenere il telefono in mano vicino alla strada!"
+      goals: [warnings]
+    - learner: "Grazie dei consigli! Ti mando una foto da Pompei."
+    - tutor: "Sì, mandamela! Buon viaggio e divertiti."
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: es-m-worker
+  history: [object-pronoun]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera facciamo le empanadas argentine. Servono farina, carne, cipolle, uova e olive."
+    - tutor: "Buone! Io non le ho mai fatte. Da dove iniziamo?"
+      goals: [ingredients]
+    - learner: "Prima prendi le cipolle e gli tagli molto fini. Poi le metti in pentola con un po' d'olio."
+      errors: [object-pronoun]
+    - tutor: "Aspetta: «gli tagli»? Parli delle cipolle: quale pronome ci vuole?"
+      prompt: {text: "gli tagli", tags: [object-pronoun]}
+    - learner: "Ah sì, le tagli molto fini."
+    - tutor: "Ecco, così! Fatto, sono già in pentola. E adesso aggiungo la carne?"
+      goals: [steps]
+    - learner: "Sì, aggiungi la carne e il sale, e cuoci tutto per dieci minuti. Poi metti la carne dentro la pasta e chiudi bene."
+    - tutor: "Fatto, sono proprio carine! Quanto tempo devono cuocere in forno?"
+    - learner: "Venti minuti a duecento gradi. Devono diventare dorate."
+    - tutor: "Perfetto, le controllo io. E come le serviamo?"
+      goals: [time]
+    - learner: "Le serviamo calde, con una salsa piccante e un bicchiere di vino rosso."
+    - tutor: "Che buone, non vedo l'ora di assaggiarle! Apro subito il vino."
+      goals: [serve]
+      new: [{lemma: assaggiare, gloss: to taste}]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-retired
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando freno, la macchina fa un rumore strano, come un fischio."
+    - tutor: "Capisco, potrebbero essere i freni. Da quando sente questo rumore?"
+      goals: [describe]
+    - learner: "L'ho sentito per la prima volta la settimana scorsa. Lunedì ho andato in montagna e la strada era molto ripida."
+      errors: [auxiliary-choice]
+    - tutor: "«Ho andato»? Con i verbi di movimento ci vuole un altro ausiliare..."
+      prompt: {text: "ho andato", tags: [auxiliary-choice]}
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+    - learner: "Scusi, ha ragione: lunedì sono andato in montagna."
+    - tutor: "Benissimo. In montagna i freni lavorano molto, quindi probabilmente sono consumati. Li controllo subito."
+      goals: [when]
+      new: [{lemma: consumato, gloss: worn out}]
+    - learner: "Grazie. Quanto costerà la riparazione, più o meno?"
+    - tutor: "Se devo cambiare i freni davanti, il preventivo è di circa 180 euro, pezzi compresi."
+      goals: [cost]
+    - learner: "Va bene, li cambi pure. Quando sarà pronta la macchina?"
+    - tutor: "Sarà pronta domani pomeriggio, dopo le quattro. La chiamo io appena ho finito."
+      goals: [time]

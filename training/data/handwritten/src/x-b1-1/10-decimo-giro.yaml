@@ -1,0 +1,197 @@
+# B1: congiuntivo forms, agreement, tanto... quanto, nel/nella, avere sonno; one clean dialogue.
+- scenario: film-libro
+  level: B1
+  persona: en-m-retired
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Comincio io, se posso. Ho letto 'Il nome della rosa' di Umberto Eco. È un giallo ambientato in un monastero nel Medioevo."
+    - tutor: "Un grande classico! E chi è il personaggio principale?"
+      goals: [summary]
+    - learner: "Guglielmo, un frate inglese molto intelligente che cerca la verità con la logica. Mi ricorda un ingegnere!"
+    - tutor: "È vero! E il romanzo ti è piaciuto?"
+      goals: [characters]
+    - learner: "Sì, ma non è facile. Penso che la storia vadi troppo piano nella prima parte."
+      errors: [subjunctive-form]
+    - tutor: "Capisco. Bravo per il congiuntivo! Ma «vadi» non è la forma giusta: qual è?"
+      prompt: {text: "vadi", tags: [subjunctive-form]}
+    - learner: "Penso che la storia vada troppo piano."
+    - tutor: "Perfetto. E a chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A chi ama la storia e ha pazienza. Non lo consiglierei a chi vuole un libro per la spiaggia."
+    - tutor: "Sono d'accordo, non è un libro da spiaggia! Grazie mille."
+      goals: [recommend]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-f-student
+  history: [adjective-agreement, future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene! Ho finito le pagine del catalogo. Le prime venti sono pronto per la stampa."
+      errors: [adjective-agreement]
+    - tutor: "Ottimo! Ma le pagine sono «pronto»? Guarda la fine della parola..."
+      prompt: {text: "sono pronto", tags: [adjective-agreement]}
+    - learner: "Sono pronte, scusa!"
+    - tutor: "Brava. E le altre? C'è qualche problema?"
+      goals: [update]
+    - learner: "Sì, per le ultime dieci mancano i testi in inglese. Il traduttore è malato questa settimana."
+    - tutor: "Capisco. Hai una proposta?"
+      goals: [problem]
+    - learner: "Posso tradurre io i testi. Stasera rimanerò in ufficio fino a tardi."
+      errors: [future-form]
+    - tutor: "Grazie, sei gentile! Ma «rimanerò»? Questo futuro è speciale, come quello di venire..."
+      prompt: {text: "rimanerò", tags: [future-form]}
+    - learner: "Rimanrò?"
+      errors: [future-form]
+    - tutor: "Quasi: si dice «rimarrò». Ma non serve restare fino a tardi: quando pensi di finire, con calma?"
+      recast: {text: "Rimanrò", fix: "rimarrò", tags: [future-form]}
+      goals: [proposal]
+    - learner: "Con calma, mercoledì. Poi giovedì mandiamo tutto in stampa."
+    - tutor: "Perfetto, giovedì è la nostra scadenza. Grazie per l'aiuto!"
+      goals: [deadline]
+
+- scenario: smartworking
+  level: B1
+  persona: es-m-worker
+  history: [comparative]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Né l'uno né l'altro! Faccio il cuoco, lavoro in cucina. Non posso preparare la cena dei clienti a casa mia."
+    - tutor: "Giusto, che domanda! E com'è il tuo lavoro?"
+      goals: [situation]
+    - learner: "Bello ma duro. Tutto il mondo lavora da casa adesso, ma io sto in piedi dodici ore."
+      errors: [word-choice]
+    - tutor: "Eh sì, ormai tutti lavorano da casa, tranne te. Ci sono anche dei vantaggi?"
+      recast: {text: "Tutto il mondo lavora", fix: "tutti lavorano", tags: [word-choice]}
+    - learner: "Sì. Lavoro con una squadra che mi piace e vedo subito il risultato: i clienti contenti. E non porto mai il lavoro a casa."
+    - tutor: "Questo è un vantaggio enorme! E gli svantaggi?"
+      goals: [pros]
+    - learner: "Lavoro quando gli altri fanno festa. E il mio orario non è tanto flessibile come il tuo."
+      errors: [comparative]
+    - tutor: "È vero. Ma «tanto flessibile come»? Dopo «tanto», di solito, la seconda parola è un'altra..."
+      prompt: {text: "tanto flessibile come", tags: [comparative]}
+    - learner: "Non è tanto flessibile quanto il tuo."
+    - tutor: "Esatto. Se potessi scegliere, vorresti un lavoro da casa?"
+      goals: [cons]
+    - learner: "No, sinceramente. Preferirei avere un ristorante mio, con orari più umani. Ma sempre in cucina!"
+    - tutor: "Ti capisco. E quando lo apri, io vengo a mangiare la prima sera!"
+      goals: [preference]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-f-teacher
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, mi dispiace disturbarla. Nella mia camera fa freddissimo: la calefazione non funziona."
+      errors: [word-choice]
+    - tutor: "Mi dispiace! Quindi il riscaldamento non funziona. Da quando?"
+      recast: {text: "la calefazione", fix: "il riscaldamento", tags: [word-choice]}
+      goals: [problem]
+      new: [{lemma: riscaldamento, gloss: heating}]
+    - learner: "Da ieri sera. Ho dormito con il cappotto! E anche in il bagno non c'è acqua calda."
+      errors: [articulated-preposition]
+    - tutor: "Con il cappotto, mi scuso davvero! Ma «in il bagno»? Queste due parole si uniscono..."
+      prompt: {text: "in il bagno", tags: [articulated-preposition]}
+    - learner: "Nel bagno non c'è acqua calda."
+    - tutor: "Esatto. Allora è un problema di tutta la camera. Che cosa posso fare per lei?"
+      goals: [since]
+    - learner: "Vorrei cambiare camera stasera. E, visto che ho passato una notte al freddo, mi sembra giusto pagare meno."
+    - tutor: "Ha ragione. Le do una camera al secondo piano, calda, e la notte di ieri non la paga."
+      goals: [request]
+    - learner: "La ringrazio, è una soluzione corretta. Posso avere la chiave adesso?"
+    - tutor: "Eccola: camera 221. Le porto io le valigie tra cinque minuti."
+      goals: [agree]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-f-student
+  history: [essere-avere]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi il disturbo. Sono Emma, la studentessa del primo piano."
+    - tutor: "Ah, piacere! Mi dica."
+      goals: [greet]
+    - learner: "Domani mattina ho un esame importante. Ma dal suo appartamento arriva musica molto alta, e non riesco a studiare né a dormire."
+    - tutor: "Oh, mi dispiace! È la festa di mio figlio, compie diciotto anni."
+      goals: [problem]
+    - learner: "Auguri a lui! Ma è quasi mezzanotte e io sono molto sonno. Potrebbe abbassare il volume?"
+      errors: [essere-avere]
+    - tutor: "Grazie! Scusi, «sono molto sonno»? Con sonno e fame usiamo un altro verbo..."
+      prompt: {text: "sono molto sonno", tags: [essere-avere]}
+    - learner: "Ho molto sonno!"
+    - tutor: "Ecco, giusto. E ha ragione. La festa finisce all'una: va bene se abbassiamo subito la musica e chiudiamo le finestre?"
+      goals: [request]
+    - learner: "Sì, grazie. E dopo l'una silenzio, per favore?"
+    - tutor: "Certo: all'una tutti a casa. Buona fortuna per l'esame!"
+      goals: [compromise]
+
+- scenario: volontariato
+  level: B1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Ciao! Sì, mi interessa molto. Sono insegnante e quest'anno ho più tempo libero, perché lavoro solo la mattina."
+    - tutor: "Che bella notizia per noi! Perché vorresti fare volontariato?"
+    - learner: "Perché credo che una città funzioni meglio quando le persone si aiutano. E vorrei conoscere gente fuori dalla scuola."
+    - tutor: "Hai proprio ragione. E che cosa ti piacerebbe fare?"
+      goals: [motivation]
+    - learner: "So insegnare, naturalmente. Potrei dare lezioni di spagnolo, oppure aiutare gli stranieri che studiano l'italiano... anche se lo sto ancora imparando!"
+    - tutor: "Lo parli già benissimo. Quanto tempo potresti darci?"
+      goals: [skills]
+    - learner: "Due pomeriggi alla settimana, il lunedì e il mercoledì, dalle quattro alle sei."
+    - tutor: "Perfetto. In quei giorni ci sono due attività: i compiti con i ragazzi, oppure la compagnia agli anziani."
+      goals: [time]
+    - learner: "Scelgo i compiti con i ragazzi. È il lavoro che conosco meglio, e mi diverte."
+    - tutor: "Ottima scelta! Ti aspetto lunedì alle quattro, i ragazzi saranno contentissimi."
+      goals: [choose]
+
+- scenario: medico-base
+  level: B1
+  persona: en-m-traveller
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Ho un freddo da una settimana e adesso ho anche la tosse."
+      errors: [word-choice]
+    - tutor: "Capisco, ha il raffreddore da una settimana e ora la tosse. Ha anche febbre?"
+      recast: {text: "un freddo", fix: "il raffreddore", tags: [word-choice]}
+      goals: [symptoms, since-when]
+      new: [{lemma: raffreddore, gloss: a cold}]
+    - learner: "Un po', ieri sera avevo trentasette e otto. E mi fa male le orecchie quando mangio."
+      errors: [subject-verb-agreement]
+    - tutor: "Ho capito. Scusi, «mi fa male le orecchie»? Le orecchie sono due..."
+      prompt: {text: "mi fa male le orecchie", tags: [subject-verb-agreement]}
+    - learner: "Mi fanno male le orecchie."
+    - tutor: "Giusto. Adesso le guardo. Prende qualche medicina? È allergico a qualcosa?"
+    - learner: "Non prendo niente. Sono allergico solo ai gatti!"
+    - tutor: "Bene, qui gatti non ce ne sono. Ha una piccola infezione: prenda queste gocce, tre per orecchio, mattina e sera, per sei giorni."
+      goals: [history]
+      new: [{lemma: infezione, gloss: infection}, {lemma: goccia, gloss: drop}]
+    - learner: "Tre gocce per orecchio, mattina e sera, per sei giorni. Posso viaggiare? Sabato ho un treno per Venezia."
+    - tutor: "Sì, in treno può viaggiare. Ma per una settimana non faccia il bagno al mare!"
+      goals: [instructions]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-heritage
+  history: [noun-gender]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. C'è una problema con questo tablet: non si carica più."
+      errors: [noun-gender]
+    - tutor: "Mi dispiace. Scusi, «una problema»? Questa parola finisce in -a, ma è un po' speciale..."
+      prompt: {text: "una problema", tags: [noun-gender]}
+    - learner: "Un problema, è vero! Mio nonno me lo diceva sempre."
+    - tutor: "Suo nonno aveva ragione! Allora, non si carica: ha provato con un altro cavo?"
+      new: [{lemma: cavo, gloss: cable}]
+    - learner: "Sì, ne ho provati tre. Non funziona con nessuno."
+    - tutor: "Allora è difettoso. Quando l'ha comprato? Ha lo scontrino?"
+      goals: [problem]
+    - learner: "L'ho comprato a dicembre, per Natale. Lo scontrino eccolo qui."
+    - tutor: "Perfetto, è in garanzia. Glielo sostituiamo con uno nuovo, oppure preferisce un rimborso?"
+      goals: [proof]
+    - learner: "Preferisco sostituirlo, mi serve per lavorare. Ce l'avete dello stesso colore?"
+    - tutor: "Sì, abbiamo anche il suo colore. Glielo porto subito, così lo proviamo insieme."
+      goals: [request, agree]

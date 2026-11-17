@@ -28,6 +28,13 @@ gpu = [
   "unsloth==2026.11.4",
   "unsloth-zoo==2026.11.4",
 ]
+# Apple Silicon training and local inference (the primary path: a Mac Studio). On Linux the
+# same packages install MLX's CPU backend, which the test-suite uses with tiny models.
+mlx = [
+  "mlx==0.32.4; sys_platform == 'darwin'",
+  "mlx[cpu]==0.32.4; sys_platform == 'linux'",
+  "mlx-lm==0.32.2",
+]
 # Optional experiment tracking (off by default in every config).
 wandb = ["wandb==0.31.0"]
 # CPU smoke test of the exported GGUF (builds llama.cpp from source; needs a C++ toolchain).
@@ -35,6 +42,10 @@ export = ["llama-cpp-python==0.3.36"]
 
 [dependency-groups]
 dev = [
+  # MLX on CPU, so the MLX loss, LoRA and checkpoint code is tested on any Linux machine.
+  "mlx[cpu]==0.32.4; sys_platform == 'linux'",
+  "mlx==0.32.4; sys_platform == 'darwin'",
+  "mlx-lm==0.32.2",
   "mypy==2.4.1",
   "pytest==9.2.0",
   "ruff==0.17.5",
@@ -74,6 +85,13 @@ plugins = ["pydantic.mypy"]
 exclude = ["^\\.venv/", "^out/", "^work/"]
 
 [[tool.mypy.overrides]]
+# MLX ships partial stubs and mlx-lm is untyped; treat both as dynamic so mypy strict gives the
+# same answer on macOS and Linux.
+module = ["mlx", "mlx.*", "mlx_lm", "mlx_lm.*"]
+ignore_missing_imports = true
+follow_imports = "skip"
+
+[[tool.mypy.overrides]]
 # Optional heavy dependencies (extras `gpu`, `export`, `wandb`) are not installed in CI.
 module = [
   "accelerate.*",
@@ -85,8 +103,12 @@ module = [
   "trl.*",
   "unsloth.*",
   "wandb.*",
+  "huggingface_hub.*",
 ]
 ignore_missing_imports = true
+# mlx-lm pulls transformers into the dev environment; skip it so mypy sees the same thing
+# whether or not the heavy stacks are installed.
+follow_imports = "skip"
 
 [tool.pydantic-mypy]
 init_forbid_extra = true

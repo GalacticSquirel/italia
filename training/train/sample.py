@@ -3,6 +3,10 @@
     uv run python -m train.sample --model out/sft-gemma4-e4b-full/final \\
         --prompts work/dpo/prompts.jsonl --out work/dpo/candidates.jsonl -k 4
 
+    # Apple Silicon: an MLX training output (its lineage supplies the chat-template options)
+    uv run python -m train.sample --backend mlx --model out/mlx/sft-gemma4-e4b-lora/final \
+        --prompts work/dpo/prompts.jsonl --out work/dpo/candidates.jsonl -k 4
+
 Output rows: {"prompt": <DpoPrompt>, "samples": [str, ...]}; resumable by prompt id.
 For large runs, serve the model with vLLM and use `python -m eval predict` style sampling
 instead; this script keeps the dependency set small.
@@ -43,7 +47,10 @@ def main(argv: list[str] | None = None) -> int:
         default="causal-lm",
         help="Auto class (Gemma 4 checkpoints: the second)",
     )
+    parser.add_argument("--backend", choices=["transformers", "mlx"], default="transformers")
     args = parser.parse_args(argv)
+    if args.backend == "mlx":
+        return sample_mlx(args)
 
     import torch
     from transformers import AutoModelForCausalLM, AutoModelForImageTextToText, AutoTokenizer
@@ -89,6 +96,44 @@ def main(argv: list[str] | None = None) -> int:
             decoded = tokenizer.batch_decode(new_tokens, skip_special_tokens=True)
             for i, row in enumerate(batch):
                 samples = [s.strip() for s in decoded[i * args.k : (i + 1) * args.k]]
+                out.append({"prompt": row, "samples": samples})
+    print(f"sampled {len(todo)} prompts -> {out_path}")
+    return 0
+
+
+def sample_mlx(args: argparse.Namespace) -> int:
+    import mlx.core as mx
+    from mlx_lm import batch_generate
+    from mlx_lm.sample_utils import make_sampler
+
+    from train.common import prepare_messages
+    from train.mlx_core import hf_tokenizer, load_trained
+
+    mx.random.seed(args.seed)
+    model, tokenizer, base = load_trained(Path(args.model))
+    tok = hf_tokenizer(tokenizer)
+    sampler = make_sampler(temp=args.temperature, top_p=args.top_p)
+    out_path = Path(args.out)
+    done = {row["prompt"]["id"] for row in read_jsonl(out_path)}
+    todo = [r for r in read_jsonl(Path(args.prompts)) if r["id"] not in done]
+    with JsonlAppender(out_path) as out:
+        for batch in chunks(todo, args.batch_size):
+            prompts: list[list[int]] = []
+            for row in batch:
+                ids = tok.apply_chat_template(
+                    prepare_messages(row["messages"], base),
+                    tokenize=True,
+                    add_generation_prompt=True,
+                    **base.chat_template_kwargs,
+                )
+                if isinstance(ids, dict) or hasattr(ids, "keys"):
+                    ids = ids["input_ids"]
+                prompts.extend([list(ids)] * args.k)
+            result = batch_generate(
+                model, tokenizer, prompts, max_tokens=args.max_new_tokens, sampler=sampler
+            )
+            for i, row in enumerate(batch):
+                samples = [t.strip() for t in result.texts[i * args.k : (i + 1) * args.k]]
                 out.append({"prompt": row, "samples": samples})
     print(f"sampled {len(todo)} prompts -> {out_path}")
     return 0

@@ -1,0 +1,280 @@
+# B1 benchmark: lost property office (focus: passato prossimo, imperfetto).
+- scenario: oggetti-smarriti
+  level: B1
+  persona: en-m-retired
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Buongiorno. Sì, ho perso il mio zaino stamattina, sul treno da Firenze."
+    - tutor: "Mi dispiace. Com'è lo zaino? E che cosa c'era dentro?"
+      goals: [report]
+    - learner: "È blu scuro, abbastanza grande. Dentro c'erano il portafoglio e la mia camera, con tutte le foto del viaggio."
+      errors: [false-friend]
+      gold: {text: "la mia camera", fix: "la macchina fotografica"}
+    - tutor: "Quindi dentro c'erano il portafoglio e la macchina fotografica. E quando ha visto che lo zaino non c'era più?"
+      goals: [describe]
+      new: [{lemma: macchina fotografica, gloss: camera}]
+      recast: {text: "la mia camera", fix: "la macchina fotografica", tags: [false-friend]}
+    - learner: "Quando il treno ha arrivato a Bologna, lo zaino non era più sopra il mio posto."
+      errors: [auxiliary-choice]
+      gold: {text: "ha arrivato", fix: "è arrivato"}
+    - tutor: "«Il treno ha arrivato»? Ci pensi un attimo: con «arrivare» usiamo davvero «avere»?"
+      prompt: {text: "ha arrivato", tags: [auxiliary-choice]}
+    - learner: "No, scusi: quando il treno è arrivato a Bologna. Erano circa le dieci e mezza."
+    - tutor: "Esatto. Le dieci e mezza, allora. Mi lascia un numero di telefono, così la chiamiamo se lo troviamo?"
+      goals: [when]
+    - learner: "Certo. Il mio numero è 347 555 0182 e mi chiamo Robert Hayes."
+    - tutor: "Grazie. Ho messo tutto sul modulo: la chiamiamo appena troviamo lo zaino. Buona giornata!"
+      goals: [contact]
+
+- scenario: oggetti-smarriti
+  level: B1
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Buongiorno. Sì, ho perso una borsa qui in stazione, nella sala d'attesa vicino al binario tre."
+    - tutor: "Capisco. Mi può dire com'è fatta la borsa?"
+      goals: [report]
+    - learner: "È una borsa di pelle marrone, non molto grande. Dentro avevo il mobile e le chiavi di casa."
+      errors: [false-friend]
+      gold: {text: "il mobile", fix: "il cellulare"}
+    - tutor: "Una borsa marrone, con dentro il cellulare e le chiavi. Quando l'ha persa, più o meno?"
+      goals: [describe]
+      recast: {text: "il mobile", fix: "il cellulare", tags: [false-friend]}
+    - learner: "Ieri sera. La borsa è stata sulla sedia accanto a me mentre leggevo, e poi è sparita."
+      errors: [tense-aspect]
+      gold: {text: "è stata sulla sedia", fix: "era sulla sedia"}
+    - tutor: "«La borsa è stata sulla sedia»? Qui lei descrive una situazione, non un fatto finito: quale tempo ci vuole?"
+      prompt: {text: "è stata sulla sedia", tags: [tense-aspect]}
+    - learner: "Non capisco bene... La borsa è stata sulla sedia e io leggevo un libro."
+      errors: [tense-aspect]
+      gold: {text: "è stata sulla sedia", fix: "era sulla sedia"}
+    - tutor: "Ho capito: la borsa era sulla sedia mentre lei leggeva. Verso che ora è successo?"
+      recast: {text: "è stata sulla sedia", fix: "era sulla sedia", tags: [tense-aspect]}
+    - learner: "Verso le nove. Poi ho cercato dappertutto, ma non l'ho trovata."
+    - tutor: "Ieri sera alle nove, bene. Mi lascia il suo nome e un numero di telefono?"
+      goals: [when]
+    - learner: "Sì, mi chiamo Carmen Ruiz. Il mio numero è 320 555 0147."
+    - tutor: "Grazie. Se qualcuno porta qui la borsa, la chiamiamo subito. Arrivederci!"
+      goals: [contact]
+
+- scenario: oggetti-smarriti
+  level: B1
+  persona: en-f-student
+  history: [past-participle-form, articulated-preposition]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Sì! Ho perduto il mio zaino, credo sul treno per Milano."
+    - tutor: "Mi dispiace. Com'è questo zaino?"
+      goals: [report]
+    - learner: "È rosso e nero, con una tasca davanti. Dentro ho messo il computer e ho chiuduto tutto bene."
+      errors: [past-participle-form]
+      gold: {text: "ho chiuduto", fix: "ho chiuso"}
+    - tutor: "«Ho chiuduto»? La forma del passato di chiudere è particolare: se la ricorda?"
+      prompt: {text: "ho chiuduto", tags: [past-participle-form]}
+    - learner: "Ah sì: ho chiuso tutto bene. C'è anche il mio nome scritto dentro."
+    - tutor: "Giusto. Il nome dentro ci aiuta molto. Quando ha perso lo zaino?"
+      goals: [describe]
+    - learner: "Stamattina. Sono scesa a le otto e ho dimenticato lo zaino sotto il sedile."
+      errors: [articulated-preposition]
+      gold: {text: "a le otto", fix: "alle otto"}
+    - tutor: "«A le otto»? Qui la preposizione e l'articolo si uniscono in una parola sola."
+      prompt: {text: "a le otto", tags: [articulated-preposition]}
+    - learner: "Sì, a le otto, più o meno. Era il treno regionale da Torino."
+      errors: [articulated-preposition]
+      gold: {text: "a le otto", fix: "alle otto"}
+    - tutor: "Bene: stamattina alle otto, sul regionale da Torino. Mi dà un numero di telefono?"
+      goals: [when]
+      recast: {text: "a le otto", fix: "alle otto", tags: [articulated-preposition]}
+    - learner: "Certo: 333 555 0126. Mi chiamo Emma Clarke."
+    - tutor: "Grazie. La chiamiamo appena abbiamo notizie del suo zaino."
+      goals: [contact]
+
+- scenario: oggetti-smarriti
+  level: B1
+  persona: es-m-worker
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Buongiorno. Sì, ho perso il mio equipaggio sul treno da Napoli."
+      errors: [false-friend]
+      gold: {text: "equipaggio", fix: "bagaglio"}
+    - tutor: "Ha perso il suo bagaglio sul treno da Napoli, mi dispiace. Che cos'era: una valigia, uno zaino?"
+      goals: [report]
+      new: [{lemma: bagaglio, gloss: luggage}]
+      recast: {text: "equipaggio", fix: "bagaglio", tags: [false-friend]}
+    - learner: "Uno zaino verde. Non è nuovo, ha una tasca rotta."
+    - tutor: "Uno zaino verde con una tasca rotta. Che cosa c'era dentro?"
+    - learner: "C'erano i miei vestiti da lavoro e un portafoglio piccolo. Il portafoglio lo avevo guardato nella tasca dentro."
+      errors: [false-friend]
+      gold: {text: "guardato", fix: "messo"}
+    - tutor: "Ho capito: il portafoglio lo aveva messo nella tasca interna dello zaino. E quando ha perso tutto?"
+      goals: [describe]
+      recast: {text: "lo avevo guardato", fix: "lo aveva messo", tags: [false-friend]}
+    - learner: "Ieri pomeriggio. Ho sceso a Bologna alle cinque e lo zaino è rimasto sul treno."
+      errors: [auxiliary-choice]
+      gold: {text: "Ho sceso", fix: "Sono sceso"}
+    - tutor: "«Ho sceso a Bologna»? Quando scendere indica un movimento, con quale verbo facciamo il passato?"
+      prompt: {text: "Ho sceso", tags: [auxiliary-choice]}
+    - learner: "Ah, sono sceso a Bologna alle cinque."
+    - tutor: "Esatto. Ieri alle cinque, a Bologna. Come possiamo contattarla?"
+      goals: [when]
+    - learner: "Le lascio il mio numero: 351 555 0199. Mi chiamo Diego."
+    - tutor: "Grazie. Ho messo tutto sul modulo e la chiamiamo se troviamo lo zaino. Buona giornata!"
+      goals: [contact]
+
+- scenario: oggetti-smarriti
+  level: B1
+  persona: en-m-traveller
+  history: [noun-gender]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Buongiorno! Sì, una chitarra. L'ho lasciata un'ora fa sul treno da Venezia."
+    - tutor: "Una chitarra! Mi dica com'è, per favore, e dov'era sul treno."
+      goals: [report]
+    - learner: "È in una custodia nera con molti adesivi. Ho mettuto il chitarra sopra il mio posto."
+      errors: [past-participle-form, noun-gender]
+      gold: {text: "Ho mettuto", fix: "Ho messo"}
+    - tutor: "«Ho mettuto»? Anche mettere ha una forma particolare al passato. Ci pensi un attimo!"
+      prompt: {text: "Ho mettuto", tags: [past-participle-form]}
+    - learner: "Ho messo il chitarra sopra il mio posto, scusi."
+      errors: [noun-gender]
+      gold: {text: "il chitarra", fix: "la chitarra"}
+    - tutor: "Bene per il verbo! Ma «il chitarra»? Guardi di nuovo l'articolo."
+      prompt: {text: "il chitarra", tags: [noun-gender]}
+    - learner: "Hmm... il chitarra di mio nonno, sì. È molto vecchio."
+      errors: [noun-gender]
+      gold: {text: "il chitarra", fix: "la chitarra"}
+    - tutor: "Che bel ricordo, la chitarra del nonno! A che ora è sceso dal treno?"
+      goals: [describe]
+      recast: {text: "il chitarra", fix: "la chitarra", tags: [noun-gender]}
+    - learner: "Sono sceso alle undici circa. Ero molto stanco e ho dimenticato tutto!"
+    - tutor: "Capita. Ci lascia un numero di telefono?"
+      goals: [when]
+    - learner: "Sì, il mio numero è 339 555 0164. Mi chiamo Liam."
+    - tutor: "Grazie. Se arriva qui, la chiamo io personalmente. In bocca al lupo!"
+      goals: [contact]
+
+- scenario: oggetti-smarriti
+  level: B1
+  persona: es-f-teacher
+  history: [imperfetto-form]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Buongiorno. Sì, purtroppo ho perso una cartella qui in stazione, al bar."
+    - tutor: "Mi dispiace. Può descrivermi la cartella?"
+      goals: [report]
+    - learner: "È di pelle nera. Dentro c'erano i compiti dei miei studenti e le occhiali da lettura."
+      errors: [noun-gender]
+      gold: {text: "le occhiali", fix: "gli occhiali"}
+    - tutor: "«Le occhiali»? Attenzione al genere di questa parola."
+      prompt: {text: "le occhiali", tags: [noun-gender]}
+    - learner: "Sì, le occhiali da lettura, in una scatola rossa."
+      errors: [noun-gender]
+      gold: {text: "le occhiali", fix: "gli occhiali"}
+    - tutor: "Capito: i compiti e gli occhiali da lettura, in una scatola rossa. E quando è successo?"
+      goals: [describe]
+      recast: {text: "le occhiali", fix: "gli occhiali", tags: [noun-gender]}
+    - learner: "Ieri alle sei. Eramo al bar con una collega e la cartella era sotto il tavolo."
+      errors: [imperfetto-form]
+      gold: {text: "Eramo", fix: "Eravamo"}
+    - tutor: "«Eramo»? La forma di «noi» all'imperfetto di essere è un po' più lunga."
+      prompt: {text: "Eramo", tags: [imperfetto-form]}
+    - learner: "Ah, eravamo al bar. Quando ci siamo alzate, la cartella non c'era più."
+    - tutor: "Esatto. Ieri alle sei, al bar. Mi lascia un numero di telefono?"
+      goals: [when]
+    - learner: "Certo: 328 555 0190. Abito qui vicino, quindi posso tornare anche domani."
+    - tutor: "Benissimo. Se qualcuno la porta qui, la chiamo subito."
+      goals: [contact]
+
+- scenario: oggetti-smarriti
+  level: B1
+  persona: en-m-heritage
+  history: [auxiliary-choice, tense-aspect]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Buongiorno. Sì, il mio portafoglio ha caduto dalla tasca, credo sul binario due."
+      errors: [auxiliary-choice]
+      gold: {text: "ha caduto", fix: "è caduto"}
+    - tutor: "«Ha caduto»? Con cadere, il passato si fa con un altro verbo, ricorda?"
+      prompt: {text: "ha caduto", tags: [auxiliary-choice]}
+    - learner: "Hmm... sì, ha caduto ieri sera, quando correvo per prendere il treno."
+      errors: [auxiliary-choice]
+      gold: {text: "ha caduto", fix: "è caduto"}
+    - tutor: "Ho capito: è caduto ieri sera, mentre correva verso il treno. Com'è il portafoglio?"
+      goals: [report, when]
+      recast: {text: "ha caduto", fix: "è caduto", tags: [auxiliary-choice]}
+    - learner: "È piccolo, di pelle nera. Dentro c'erano la patente e cinquanta euro. Di solito ho messo il portafoglio nello zaino, ma ieri no."
+      errors: [tense-aspect]
+      gold: {text: "Di solito ho messo", fix: "Di solito mettevo"}
+    - tutor: "«Di solito ho messo»? Per una cosa che faceva sempre, nel passato, serve un altro tempo."
+      goals: [describe]
+      prompt: {text: "Di solito ho messo", tags: [tense-aspect]}
+    - learner: "Giusto: di solito mettevo il portafoglio nello zaino."
+    - tutor: "Perfetto. Mi lascia un numero di telefono?"
+    - learner: "Sì: 348 555 0111. Mi chiamo Marco, come mio nonno."
+    - tutor: "Grazie. Se lo troviamo, la chiamiamo subito."
+      goals: [contact]
+
+- scenario: oggetti-smarriti
+  level: B1
+  persona: en-f-professional
+  history: [possessive]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Buongiorno. Sì, ho perso una valigia piccola sul treno da Roma, stamattina."
+    - tutor: "Mi dispiace, signora. Com'è la valigia?"
+      goals: [report]
+    - learner: "È grigia, con le ruote. Attualmente non è mia, è della mia sorella."
+      errors: [false-friend, possessive]
+      gold: {text: "della mia sorella", fix: "di mia sorella"}
+    - tutor: "«Della mia sorella»? Con «sorella» al singolare, serve davvero l'articolo?"
+      prompt: {text: "della mia sorella", tags: [possessive]}
+    - learner: "Ah no: è di mia sorella. Dentro ci sono i suoi vestiti e due magazzini di moda."
+      errors: [false-friend]
+      gold: {text: "due magazzini", fix: "due riviste"}
+    - tutor: "Vestiti e due riviste di moda, ho capito. A che ora ha preso il treno?"
+      goals: [describe]
+      new: [{lemma: rivista, gloss: magazine}]
+      recast: {text: "due magazzini", fix: "due riviste", tags: [false-friend]}
+    - learner: "Ho preso il treno delle sette e sono arrivata qui alle dieci. Poi ho dovuto correre per prendere la mia connessione per Milano."
+      errors: [false-friend]
+      gold: {text: "connessione", fix: "coincidenza"}
+    - tutor: "Capisco: con la fretta di prendere la coincidenza, succede. Mi lascia un numero di telefono?"
+      goals: [when]
+      recast: {text: "la mia connessione", fix: "la coincidenza", tags: [false-friend]}
+      new: [{lemma: coincidenza, gloss: connecting train}]
+    - learner: "Certo. Il numero è 346 555 0173, e questo è il mio indirizzo di lavoro."
+    - tutor: "Grazie. Adesso compilo il modulo e la avvisiamo appena arriva qualcosa."
+      goals: [contact]
+
+- scenario: oggetti-smarriti
+  level: B1
+  persona: es-f-erasmus
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno. Ha perso qualcosa?"
+    - learner: "Buongiorno. Sì, ieri ho lasciato uno zaino sul treno da Pisa."
+    - tutor: "Vediamo se è arrivato qui. Com'è lo zaino?"
+      goals: [report]
+    - learner: "È giallo, con una tasca rotta. Il treno è stato molto pieno, per questo ho messo lo zaino lontano da me."
+      errors: [tense-aspect]
+      gold: {text: "è stato molto pieno", fix: "era molto pieno"}
+    - tutor: "«Il treno è stato molto pieno»? Qui lei descrive la situazione sul treno: provi con un altro tempo."
+      prompt: {text: "è stato molto pieno", tags: [tense-aspect]}
+    - learner: "Il treno... è stato molto pieno? Non sono sicura."
+      errors: [tense-aspect]
+      gold: {text: "è stato molto pieno", fix: "era molto pieno"}
+    - tutor: "Nessun problema: il treno era molto pieno, quindi lo zaino era lontano da lei. Che cosa c'era dentro?"
+      recast: {text: "è stato molto pieno", fix: "era molto pieno", tags: [tense-aspect]}
+    - learner: "C'erano i miei appunti e un portafoglio con pochi soldi. Ne avevo anche due libri della biblioteca."
+      errors: [ci-ne]
+      gold: {text: "Ne avevo anche due libri", fix: "Avevo anche due libri"}
+    - tutor: "«Ne avevo anche due libri»? Se dice già «libri», quella parola all'inizio serve ancora?"
+      prompt: {text: "Ne avevo anche due libri", tags: [ci-ne]}
+    - learner: "No, ha ragione: avevo anche due libri della biblioteca. Ho perso tutto ieri verso le quattro."
+    - tutor: "Esatto. Ieri verso le quattro, allora. Ha un numero di telefono?"
+      goals: [describe, when]
+    - learner: "Sì, 327 555 0138. Mi chiamo Rocío."
+    - tutor: "Grazie. La chiamiamo noi se lo zaino arriva. Buona giornata!"
+      goals: [contact]

@@ -1,0 +1,197 @@
+# B1, friends: birthday plans, travel tips, cooking, holidays.
+- scenario: compleanno
+  level: B1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Ho un'idea! Compie venticinque anni, quindi dobbiamo fare qualcosa di speciale. Potremmo salire a cena tutti insieme e poi andare a ballare."
+      errors: [false-friend]
+    - tutor: "Mi piace! Uscire a cena e poi ballare è perfetto per i venticinque anni. Che giorno facciamo, venerdì o sabato?"
+      recast: {text: "salire a cena", fix: "uscire a cena", tags: [false-friend]}
+    - learner: "Sabato, perché venerdì Sara lavora fino a tardi. Conosci un ristorante carino in centro?"
+    - tutor: "Sì, c'è un posto nuovo vicino al teatro, con un bel giardino. Sabato in centro, allora! Chi invitiamo?"
+      goals: [date]
+    - learner: "Le sue amiche dell'università e i colleghi più simpatici. Non più di dodici persone, altrimenti è troppo caro."
+    - tutor: "Giusto, dodici è il numero perfetto. E la torta?"
+      goals: [guests]
+    - learner: "La torta la faccio io! A Sara piace tantissimo il cioccolato. Al ristorante ordiniamo solo pizza e qualcosa da bere, così spendiamo poco."
+    - tutor: "Una torta al cioccolato fatta da te, che fortuna! Manca solo il regalo."
+      goals: [food]
+    - learner: "Io le regalerei un biglietto per un concerto. Ma tu la conosci meglio: che musica ascolta adesso?"
+    - tutor: "Ascolta sempre musica italiana degli anni Ottanta, e a maggio c'è un concerto perfetto per lei. Le prendiamo due biglietti!"
+      goals: [gift]
+
+- scenario: compleanno
+  level: B1
+  persona: en-m-retired
+  history: [object-pronoun]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Sinceramente non so se una festa a sorpresa è una buona idea. Sara è timida e non le piace stare al centro dell'attenzione."
+    - tutor: "Hai ragione, non ci avevo pensato. Allora niente sorpresa: cosa vuoi fare, invece?"
+    - learner: "Un pranzo tranquillo a casa mia, domenica. Ho un giardino grande e a maggio si sta bene fuori."
+    - tutor: "Un pranzo in giardino mi piace molto. Domenica da te, allora! In quanti siamo?"
+      goals: [date]
+    - learner: "Pochi: noi due, sua sorella e i tre amici del corso di pittura. Sei o sette persone."
+    - tutor: "Perfetto, pochi ma buoni. E cosa prepariamo da mangiare?"
+      goals: [guests]
+    - learner: "Io faccio la carne alla griglia e mia moglie prepara una torta di mele. Tu potresti portare il vino?"
+    - tutor: "Certo, il vino lo porto io! Resta il regalo: hai qualche idea?"
+      goals: [food]
+    - learner: "Sì. Sara dipinge molto, quindi la regaliamo dei colori nuovi e dei pennelli."
+      errors: [object-pronoun]
+    - tutor: "La regaliamo? Pensa: regaliamo qualcosa... a chi?"
+      prompt: {text: "la regaliamo", tags: [object-pronoun]}
+    - learner: "A Sara... quindi le regaliamo dei colori nuovi."
+    - tutor: "Esatto! È proprio il regalo giusto per lei, sarà felicissima."
+      goals: [gift]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto giovedì prossimo e resto cinque giorni. Viaggio con due amiche dell'università."
+    - tutor: "Cinque giorni sono perfetti! Avete già un programma?"
+    - learner: "Più o meno. Vogliamo vedere il centro, Pompei e forse un'isola. Tu cosa ci consigli di vedere e di mangiare?"
+    - tutor: "In centro visitate Spaccanapoli e il Museo Archeologico. E mangiate assolutamente la pizza da Michele! Siete mai state a Capri?"
+      goals: [plans, advice]
+    - learner: "No, non siamo mai state. È troppo cara?"
+      errors: [ci-ne]
+    - tutor: "Non... siamo mai state? Lì, a Capri: manca una parola piccola."
+      prompt: {text: "non siamo mai state", tags: [ci-ne]}
+    - learner: "Ah! Non ci siamo mai state."
+    - tutor: "Brava! Sì, Capri è un po' cara. Andate a Procida: è più tranquilla e costa meno."
+    - learner: "Buona idea. E come ci arriviamo? E in città è meglio la metro o l'autobus?"
+    - tutor: "Per Procida prendete il traghetto dal porto, ci mette quaranta minuti. In città usate la metro, perché gli autobus sono lenti."
+      goals: [transport]
+    - learner: "Perfetto. C'è qualcosa che dobbiamo evitare?"
+    - tutor: "Evitate i taxi senza prezzo fisso e non girate con la borsa aperta. Per il resto, divertitevi!"
+      goals: [warnings]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto il venerdì in la notte, dopo il lavoro. Ho solo due giorni liberi, ma voglio vedere tutto!"
+      errors: [article-use, preposition]
+    - tutor: "Due giorni soli, ma ce la facciamo! Aspetta però: venerdì... in la notte?"
+      prompt: {text: "in la notte", tags: [preposition]}
+    - learner: "Venerdì di notte, scusa. Arrivo verso le undici."
+    - tutor: "Perfetto, venerdì di notte. E cosa vuoi fare in questi due giorni?"
+      goals: [plans]
+    - learner: "Voglio mangiare bene, sono cuoco! Dove vado per la vera pizza? E cosa devo vedere?"
+    - tutor: "Per la pizza vai in via dei Tribunali, e prova anche il ragù della domenica. Poi visita il centro e sali al castello per la vista."
+      new: [{lemma: ragù, gloss: meat sauce}]
+      goals: [advice]
+    - learner: "Il ragù lo provo di sicuro. Per muovermi prendo la metro o vado a piedi?"
+    - tutor: "Il centro giralo a piedi, è il modo migliore. Per salire al castello prendi la funicolare, costa come la metro."
+      new: [{lemma: funicolare, gloss: cable railway}]
+      goals: [transport]
+    - learner: "Va bene. E ci sono zone dove è meglio non andare la notte?"
+    - tutor: "Di notte evita le strade vuote vicino alla stazione. E non lasciare mai il telefono sul tavolo del bar!"
+      goals: [warnings]
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: en-f-professional
+  history: [object-pronoun]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera ti insegno il risotto ai funghi, il mio piatto preferito da quando vivo a Milano!"
+    - tutor: "Che bello, finalmente lo imparo anch'io! Cosa ci serve?"
+    - learner: "Riso, funghi, due cipolle, burro, vino bianco, brodo e parmigiano. Hai tutto?"
+    - tutor: "Sì, ho tutto, e il brodo è già caldo. Da dove cominciamo?"
+      goals: [ingredients]
+    - learner: "Prima prendi le cipolle e lo tagli molto fine. Poi le metti nella pentola con il burro."
+      errors: [object-pronoun]
+    - tutor: "Lo tagli? Guarda quante sono le cipolle..."
+      prompt: {text: "lo tagli", tags: [object-pronoun]}
+    - learner: "Giusto, le tagli molto fine!"
+    - tutor: "Esatto. Ecco, sono pronte e sono già nella pentola. E adesso?"
+      goals: [steps]
+    - learner: "Adesso aggiungi il riso e lo giri per due minuti. Poi il vino, e dopo il brodo, un po' alla volta."
+    - tutor: "Che buon profumo con il vino! Quanto deve cuocere?"
+    - learner: "Circa diciotto minuti. Ma attenzione: non puoi andare via, devi girare sempre!"
+    - tutor: "Va bene, resto qui e giro. E alla fine come lo serviamo?"
+      goals: [time]
+    - learner: "Alla fine aggiungi il parmigiano e un po' di burro, aspetti due minuti e lo servi caldo."
+    - tutor: "Perfetto, io preparo la tavola. Non vedo l'ora di mangiare!"
+      goals: [serve]
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: es-m-worker
+  history: [imperative-form]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera cucino io: empanadas argentine, la ricetta di mia nonna. Tu mi aiuti."
+    - tutor: "Che fortuna avere un cuoco in casa! Dimmi cosa ci vuole."
+    - learner: "Per la pasta: farina, acqua, olio e sale. Dentro mettiamo carne, cipolla, uova e olive."
+    - tutor: "C'è tutto. Io cosa faccio per prima cosa?"
+      goals: [ingredients]
+    - learner: "Taglia la cipolla e cuocila piano con un po' di olio. Però non metti troppo sale, per favore!"
+      errors: [imperative-form]
+    - tutor: "Non metti? Mi stai dicendo di non farlo: come cambia il verbo?"
+      prompt: {text: "non metti", tags: [imperative-form]}
+    - learner: "Non... metta troppo sale?"
+      errors: [imperative-form]
+    - tutor: "Ho capito: «non mettere troppo sale». Tranquillo, ne metto pochissimo. E dopo?"
+      recast: {text: "Non... metta", fix: "non mettere", tags: [imperative-form]}
+    - learner: "Dopo aggiungi la carne e la cuoci per dieci minuti. Poi riempiamo la pasta e chiudiamo bene."
+    - tutor: "Fatto, la carne è pronta. Quanto tempo stanno in forno?"
+      goals: [steps]
+    - learner: "Venti minuti a duecento gradi, fino a quando prendono un bel colore."
+    - tutor: "Perfetto. E come si mangiano, con le mani?"
+      goals: [time]
+    - learner: "Certo, con le mani! Le serviamo calde, con un bicchiere di vino rosso."
+    - tutor: "Allora preparo i bicchieri. Stasera si mangia come a Buenos Aires!"
+      goals: [serve]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: en-m-heritage
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao! Sono stato in Calabria, nel paese dei miei nonni. Era la prima volta per me."
+    - tutor: "Che emozione, il paese dei nonni! E com'era il tempo?"
+      goals: [where]
+    - learner: "Caldissimo! C'erano quaranta gradi quasi ogni giorno, ma la sera era fresco perché il paese è in collina."
+    - tutor: "Quaranta gradi, mamma mia! E cosa hai fatto con quel caldo?"
+      goals: [weather]
+    - learner: "La mattina andavamo al mare. Un giorno i miei cugini e io abbiamo salito su una montagna e abbiamo visto tutta la costa."
+      errors: [auxiliary-choice]
+    - tutor: "Abbiamo salito? Pensa bene al verbo salire..."
+      prompt: {text: "abbiamo salito", tags: [auxiliary-choice]}
+    - learner: "Siamo saliti su una montagna!"
+    - tutor: "Esatto! Dev'essere stata una vista bellissima. E la cosa che ti è piaciuta di più?"
+      goals: [activities]
+    - learner: "La cena con tutta la famiglia, l'ultima sera. Eravamo trenta persone e mia zia ha cucinato per due giorni!"
+    - tutor: "Trenta persone a tavola, che bello! Ora capisco perché sei tornato così felice."
+      goals: [best]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao! Quest'anno sono andata in Norvegia con mio marito. Abbiamo fatto un viaggio in macchina di due settimane."
+    - tutor: "In Norvegia, che bella scelta! E il tempo com'era?"
+      goals: [where]
+    - learner: "Fresco, quasi freddo! Pioveva spesso, ma quando usciva il sole il paesaggio era incredibile."
+    - tutor: "Dopo il caldo di Valencia, un po' di fresco ci voleva! Cosa avete fatto?"
+      goals: [weather]
+    - learner: "Abbiamo camminato molto in montagna e abbiamo visto i fiordi in barca. Però il viaggio in macchina è stato troppo largo: più di tremila chilometri."
+      errors: [false-friend]
+    - tutor: "Tremila chilometri! Capisco, è stato un viaggio davvero lungo. Vi siete stancati?"
+      recast: {text: "largo", fix: "lungo", tags: [false-friend]}
+      goals: [activities]
+    - learner: "Un po', sì. La prossima volta prendiamo il treno. Ma ne è valsa la pena!"
+    - tutor: "Ci credo! E qual è stato il momento più bello?"
+    - learner: "Una notte abbiamo visto il sole a mezzanotte, seduti davanti al mare. Non lo dimenticherò mai."
+    - tutor: "Il sole a mezzanotte... che ricordo speciale! Mi hai fatto venire voglia di partire."
+      goals: [best]

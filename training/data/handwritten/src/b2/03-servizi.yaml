@@ -1,0 +1,318 @@
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Buongiorno, dottoressa. Non benissimo. Quando salgo le scale sento il battito molto veloce e devo fermarmi per respirare."
+  - tutor: "Capisco. E questo affaticamento arriva solo sotto sforzo, o anche quando è a riposo?"
+  - learner: "Soprattutto sotto sforzo. Però la settimana scorsa, mentre ho guardato la televisione, il cuore ha cominciato a battere forte all'improvviso."
+    errors: [tense-aspect]
+  - tutor: "«Mentre ho guardato la televisione»? Era un'azione che durava, in quel momento. Ci ripensi."
+    prompt: {text: "mentre ho guardato la televisione", tags: [tense-aspect]}
+  - learner: "Ha ragione: mentre guardavo la televisione, il cuore ha cominciato a battere forte. È durato circa dieci minuti."
+  - tutor: "Bene, è un dettaglio importante. In famiglia qualcuno ha avuto problemi di cuore?"
+    goals: [symptoms]
+  - learner: "Sì, mio padre ha avuto un infarto a 62 anni e mia sorella prende delle medicine per la pressione alta."
+  - tutor: "La ringrazio, ne terrò conto. Gli esami del sangue sono buoni, ma la pressione è un po' alta. Ha qualche domanda sui risultati?"
+    goals: [history]
+  - learner: "Sì. Che cosa significa esattamente il risultato dell'elettrocardiogramma? Ho paura che sia qualcosa di grave."
+  - tutor: "Non credo che sia grave. Il battito ogni tanto perde il ritmo, ma il cuore funziona bene. Le propongo una terapia leggera, una medicina ogni mattina. Che ne pensa?"
+    goals: [understand]
+  - learner: "Va bene, ma vorrei sapere se ci sono effetti collaterali. E posso continuare a fare le mie passeggiate in montagna?"
+  - tutor: "Nei primi giorni forse si sentirà un po' stanco, poi di solito passa. Le passeggiate vanno benissimo, basta che non faccia sforzi troppo grandi. Ci rivediamo tra un mese per un controllo."
+    goals: [treatment]
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Buongiorno, dottore. Un po' meglio, ma ho ancora delle palpitazioni, soprattutto la sera quando studio. A volte mi gira anche la testa."
+  - tutor: "Quanto dura ogni episodio, più o meno?"
+  - learner: "Pochi minuti. Succede da quando è iniziato il periodo degli esami all'università: dormo poco e prendo quattro o cinque caffè al giorno."
+  - tutor: "Cinque caffè sono tanti, ne parliamo ancora tra poco. Nella sua famiglia ci sono malattie di cuore?"
+    goals: [symptoms]
+  - learner: "Mia nonna è stata operata al cuore due anni fa, a Valencia. I miei genitori invece stanno bene, penso che non hanno problemi."
+    errors: [subjunctive-use]
+  - tutor: "«Penso che non hanno problemi»? Dopo «penso che» serve un'altra forma. Ci riprovi."
+    prompt: {text: "penso che non hanno problemi", tags: [subjunctive-use]}
+    goals: [history]
+  - learner: "Scusi... penso che non hanno problemi, almeno non me ne hanno mai parlato."
+    errors: [subjunctive-use]
+  - tutor: "Anch'io penso che non abbiano problemi, altrimenti lo saprebbe. Passiamo agli esami: sono tutti normali. Vuole che glieli spieghi?"
+    recast: {text: "penso che non hanno problemi", fix: "penso che non abbiano problemi", tags: [subjunctive-use]}
+  - learner: "Sì, per favore. Se gli esami sono normali, perché sento il battito così forte? Mi preoccupa che possa succedere durante un esame."
+  - tutor: "Il cuore è sano. Il battito veloce dipende quasi sicuramente dal poco sonno, dal caffè e dalla tensione. Dà fastidio, ma non è pericoloso. Per questo, per ora, non le darei medicine: è d'accordo?"
+    goals: [understand]
+  - learner: "Sono d'accordo, preferisco evitare le medicine. Ma se le palpitazioni non passano, esiste una terapia? E avrebbe effetti collaterali?"
+  - tutor: "Esiste, sì: una medicina che rende il battito più lento, ma può dare stanchezza e pressione bassa. Prima proviamo con due caffè al massimo e sette ore di sonno. Ci rivediamo dopo gli esami per un controllo, va bene?"
+    goals: [treatment]
+  - learner: "Va bene, ci proverò. Grazie mille, dottore, mi ha tranquillizzata."
+  - tutor: "Ne sono contento. In bocca al lupo per gli esami, e a presto."
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Buongiorno, dottore. A dire la verità, non bene. Da quando ho cominciato la nuova medicina ho una tosse secca continua e mi gira la testa quando mi alzo."
+  - tutor: "Mi dispiace. La tosse le dà fastidio anche di notte, o soprattutto durante il giorno?"
+    new: [{lemma: tosse, gloss: cough}]
+  - learner: "Anche di notte, non riesco a dormire. Infatti la settimana scorsa ho fermato la terapia per tre giorni, perché avevo una presentazione importante."
+    errors: [word-choice]
+  - tutor: "Capisco il motivo, ma ha interrotto la terapia e non me l'ha detto: così la pressione può salire in fretta. La prossima volta mi chiami. In famiglia qualcuno soffre di pressione alta?"
+    recast: {text: "fermato la terapia", fix: "interrotto la terapia", tags: [word-choice]}
+    goals: [symptoms]
+  - learner: "Sì, mia madre ce l'ha da sempre. E mio padre soffriva di cuore: quando ho avuto dieci anni, è stato operato a Londra."
+    errors: [tense-aspect]
+  - tutor: "«Quando ho avuto dieci anni»? Parliamo dell'età in un periodo del passato, non di un momento preciso. Ci ripensi."
+    prompt: {text: "quando ho avuto dieci anni", tags: [tense-aspect]}
+    goals: [history]
+  - learner: "Quando avevo dieci anni, scusi. Comunque, cosa dicono gli esami? La pressione è scesa almeno un po'?"
+  - tutor: "Esatto. Sì, è scesa da 160 a 135, quindi la medicina funziona, e anche il cuore è a posto. Il problema è la tosse, uno degli effetti collaterali più comuni. Vorrebbe cambiare medicina?"
+    goals: [understand]
+    new: [{lemma: tosse, gloss: cough}]
+  - learner: "Sì, vorrei cambiare. Non voglio che la terapia mi impedisca di lavorare. Quella nuova ha altri effetti collaterali?"
+  - tutor: "Di solito no. Qualche volta le gambe diventano un po' pesanti la sera, ma non succede spesso. La prenda ogni mattina e controlli la pressione due volte a settimana. Ci vediamo tra sei settimane per il controllo."
+    goals: [treatment]
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-heritage
+  history: [register]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Buongiorno, dottoressa. Molto meglio, grazie. Dopo l'intervento di sei mesi fa non ho più avuto dolore al petto, e ho ricominciato a camminare un'ora al giorno."
+  - tutor: "Mi fa piacere. E quando cammina in salita, sente affaticamento o le manca il respiro?"
+  - learner: "No, quasi mai. Solo una volta, in vacanza dai miei nonni in Calabria, faceva molto caldo e ho dovuto fermarmi. Tu cosa pensi, è normale?"
+    errors: [register]
+  - tutor: "«Tu cosa pensi»? Con un medico usiamo una forma più formale. Ci riprovi, per favore."
+    prompt: {text: "Tu cosa pensi", tags: [register]}
+    goals: [symptoms]
+  - learner: "Mi scusi, dottoressa: Lei cosa pensa, è normale? In famiglia parliamo sempre così."
+  - tutor: "Nessun problema. Sì, con quel caldo è normale. A proposito della sua famiglia: qualcuno ha avuto problemi di cuore?"
+  - learner: "Purtroppo sì. Mio nonno è morto d'infarto a 58 anni e mio padre ha avuto lo stesso intervento che ho fatto io. Le medicine però le ho sempre preso, non ho saltato un giorno."
+    errors: [participle-agreement]
+  - tutor: "È importante saperlo, grazie. Ma «le medicine le ho sempre preso»? Pensi a «le medicine» e guardi bene la fine dell'ultima parola."
+    prompt: {text: "le medicine però le ho sempre preso", tags: [participle-agreement]}
+    goals: [history]
+  - learner: "Ah... le ho sempre preso tutte, volevo dire. E gli esami come sono andati? Cosa significano quei numeri?"
+    errors: [participle-agreement]
+  - tutor: "Se le ha sempre prese, si vede: i grassi nel sangue sono scesi molto e la prova da sforzo è andata bene. Significa che il cuore riceve di nuovo abbastanza sangue. Vorrebbe cambiare qualcosa nella terapia?"
+    recast: {text: "sempre preso", fix: "sempre prese", tags: [participle-agreement]}
+    goals: [understand]
+  - learner: "Sì: mi chiedevo se fosse possibile ridurre le medicine, perché mi danno dolori ai muscoli. E vorrei tornare a giocare a calcio con gli amici."
+  - tutor: "Il calcio va bene, ma cominci piano. I dolori ai muscoli sono un effetto noto di quella medicina: ne prendiamo la metà e tra due mesi rifacciamo gli esami. Se i dolori non passano, mi chiami subito."
+    goals: [treatment]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: es-f-teacher
+  history: [combined-pronouns]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Il mio fidanzato ed io sogniamo un matrimonio piccolo, in campagna, con una sessantina di invitati. Vorrei una cerimonia non troppo larga, al massimo mezz'ora, e poi una grande cena all'aperto."
+    errors: [false-friend]
+  - tutor: "Una cerimonia non troppo lunga e una cena sotto le stelle: mi piace molto. Avete già pensato a quanto vorreste spendere?"
+    recast: {text: "non troppo larga", fix: "non troppo lunga", tags: [false-friend]}
+    goals: [vision]
+  - learner: "Abbiamo circa 25.000 euro in tutto. Mi piacerebbe che fossero compresi anche il fotografo e i fiori, se è possibile."
+  - tutor: "Con 60 invitati è una cifra ragionevole, se stiamo attenti al menù. Ho due proposte in Puglia: una masseria in campagna vicino a Lecce e una villa sul mare a Polignano. La villa costa 4.000 euro in più. Quale la attira di più?"
+    goals: [budget]
+    new: [{lemma: masseria, gloss: fortified farmhouse (Puglia)}]
+  - learner: "La masseria mi sembra perfetta per noi. Però devo parlarne con Andrea: se lo chiedo stasera e domani le do una risposta."
+    errors: [combined-pronouns]
+  - tutor: "«Se lo chiedo stasera»? Attenzione alle due piccole parole prima di «chiedo»: in italiano la prima cambia."
+    prompt: {text: "se lo chiedo stasera", tags: [combined-pronouns]}
+  - learner: "È vero, in spagnolo è diverso! Glielo chiedo stasera. Comunque sono quasi sicura che sceglieremo la masseria."
+  - tutor: "Benissimo. Allora tengo libera la masseria per una settimana, senza impegno. C'è qualcosa a cui tiene in modo particolare nel nostro lavoro insieme?"
+    goals: [choices]
+    new: [{lemma: masseria, gloss: fortified farmhouse (Puglia)}]
+  - learner: "Sì, due cose. Vorrei che mi mandasse ogni preventivo prima di confermare qualcosa, e che il menù fosse tutto di prodotti locali."
+  - tutor: "Mi sembra giusto: non confermerò nulla senza il suo permesso scritto. Per il menù conosco un cuoco di Lecce che lavora solo con prodotti della zona. Le mando il primo preventivo entro venerdì."
+    goals: [conditions]
+    new: [{lemma: cuoco, gloss: cook}]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie mille. La mia fidanzata ed io viviamo a Boston, ma ci siamo conosciuti in Italia, quindi vogliamo sposarci qui. Immaginiamo una festa grande, con 120 invitati e musica dal vivo fino a tardi."
+  - tutor: "Che bella storia! Una festa così richiede un posto con molto spazio e camere per dormire. Che budget avete in mente?"
+    goals: [vision]
+  - learner: "Pensavamo a 40.000 euro, ma non è una cifra fissa. Dipende sul prezzo della location e dei voli per i nostri parenti."
+    errors: [preposition]
+  - tutor: "«Dipende sul prezzo»? In italiano con «dipende» usiamo un'altra piccola parola. Quale?"
+    prompt: {text: "Dipende sul prezzo", tags: [preposition]}
+  - learner: "Giusto, dipende dal prezzo. Diciamo che possiamo arrivare a 50.000, ma non di più."
+  - tutor: "Perfetto, è una cifra con cui si lavora bene. Ho due proposte: una villa sul lago di Como, elegante ma con musica solo fino a mezzanotte, oppure un castello in Toscana, dove si balla tutta la notte. Quale preferirebbe?"
+    goals: [budget]
+  - learner: "Il lago è bellissimo, ma senza musica non è una festa. Scelgo il castello, anche perché gli invitati potrebbero dormire lì. Però ho alcune condizioni: voglio che tutto è scritto in un contratto, con i prezzi finali."
+    errors: [subjunctive-use]
+  - tutor: "Ottima scelta. Ma «voglio che tutto è scritto»? Dopo «voglio che» qualcosa cambia. Ci riprovi."
+    prompt: {text: "voglio che tutto è scritto", tags: [subjunctive-use]}
+    goals: [choices]
+  - learner: "Voglio che tutto è scritto bene nel contratto, senza sorprese alla fine. Per esempio, non voglio pagare di più per il fotografo."
+    errors: [subjunctive-use]
+  - tutor: "Certo: anch'io voglio che tutto sia scritto con chiarezza. Il fotografo sarà compreso nel preventivo, con un prezzo finale. Ha altre richieste?"
+    recast: {text: "Voglio che tutto è scritto", fix: "voglio che tutto sia scritto", tags: [subjunctive-use]}
+  - learner: "Sì, un'ultima cosa. Siccome siamo lontani, avrei bisogno di una videochiamata ogni due settimane per sapere come procede l'organizzazione."
+  - tutor: "Nessun problema, per me va benissimo il lunedì sera, ora italiana. Le mando il contratto e il preventivo completo entro dieci giorni. Vedrà, sarà una festa che non dimenticherete."
+    goals: [conditions]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-f-student
+  history: [conditional-form]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Noi siamo ancora studenti, quindi immaginiamo un matrimonio semplice e allegro: una trentina di invitati, niente abiti eleganti e tanto buon cibo. Mi piacerei anche evitare gli sprechi, per esempio i fiori di plastica."
+    errors: [conditional-form]
+  - tutor: "Un matrimonio semplice e allegro, che bello. Ma «mi piacerei»? La cosa che piace non è «io»: provi a cambiare la fine della parola."
+    prompt: {text: "Mi piacerei", tags: [conditional-form]}
+    goals: [vision]
+  - learner: "Ah, certo: mi piacerebbe evitare gli sprechi. Purtroppo il nostro budget è piccolo, abbiamo solo 8.000 euro. Lei pensa che siano sufficienti?"
+  - tutor: "Esatto. Per 30 persone possono bastare, se lasciamo perdere qualcosa: per esempio l'auto d'epoca, e il fotografo solo per poche ore. Sarebbe disposta a farlo?"
+    goals: [budget]
+  - learner: "Sì, assolutamente. L'auto non ci interessa, e per le foto potrebbe aiutarci un amico che studia fotografia."
+  - tutor: "Allora ci siamo. Le propongo due location: un agriturismo in Umbria, con cucina propria e camere, oppure una trattoria con giardino sui colli di Bologna, più economica. Quale sente più vicina a voi?"
+    new: [{lemma: agriturismo, gloss: farm stay}, {lemma: trattoria, gloss: informal family restaurant}]
+  - learner: "Preferisco l'agriturismo, sebbene costi di più. Così gli invitati che vengono dall'Inghilterra possono dormire lì, e il menù sarebbe a chilometro zero."
+  - tutor: "Ottima idea, e per i suoi ospiti sarà una piccola vacanza. Prima di cominciare, c'è qualcosa che vuole chiedermi sul mio modo di lavorare?"
+    goals: [choices]
+  - learner: "Sì. Accetto la sua proposta a condizione che il suo compenso sia compreso negli 8.000 euro. E vorrei decidere io i fornitori, purché rispettino il preventivo."
+  - tutor: "D'accordo su tutto: il mio compenso è fisso ed è già nel preventivo. I fornitori li sceglie Lei, io controllo solo i contratti. Ci sentiamo lunedì per fissare la visita in Umbria."
+    goals: [conditions]
+    new: [{lemma: compenso, gloss: fee}, {lemma: fornitore, gloss: supplier}]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: es-m-worker
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie. Ci sposiamo ad agosto nel paese della mia fidanzata, vicino a Siracusa. Abbiamo pensato in una cerimonia in chiesa e poi una festa molto grande, perché tra la mia famiglia e la sua saremo quasi 200."
+    errors: [preposition]
+  - tutor: "Quasi 200 invitati, una vera festa del Sud! Però «abbiamo pensato in una cerimonia»? Dopo «pensare» ci vuole un'altra piccola parola."
+    prompt: {text: "Abbiamo pensato in una cerimonia", tags: [preposition]}
+    goals: [vision]
+  - learner: "Abbiamo pensato a una cerimonia in chiesa, mi scusi. Per il budget, possiamo spendere 30.000 euro, non un euro di più."
+  - tutor: "Bene così. Devo essere sincera: per 200 persone, 30.000 euro sono pochi. Ci possiamo riuscire con un menù più semplice, oppure con meno invitati. Che cosa preferirebbe?"
+  - learner: "Gli invitati non si toccano, altrimenti le nostre madri non ci parlano più. Preferisco un menù più semplice: meno piatti, ma buoni."
+  - tutor: "Mi sembra la scelta giusta. Allora ho due proposte: un ristorante sul mare vicino a Siracusa, bello ma con soli 180 posti, e una grande tenuta in campagna con giardino. Lei quale sceglierebbe?"
+    goals: [budget]
+    new: [{lemma: tenuta, gloss: country estate}]
+  - learner: "La tenuta in campagna, senza dubbio. Siamo andati a vederla da fuori domenica scorsa e a Chiara ha piaciuto molto il giardino."
+    errors: [auxiliary-choice]
+  - tutor: "«A Chiara ha piaciuto»? Con «piacere», al passato, non usiamo «avere». Ci riprovi."
+    prompt: {text: "a Chiara ha piaciuto", tags: [auxiliary-choice]}
+    goals: [choices]
+  - learner: "Eh... a Chiara ha piaciuto molto, sì. Anche a me, però ho alcune condizioni prima di firmare."
+    errors: [auxiliary-choice]
+  - tutor: "Se a Chiara è piaciuto molto, siamo sulla strada giusta. Mi dica pure le sue condizioni."
+    recast: {text: "ha piaciuto molto", fix: "è piaciuto molto", tags: [auxiliary-choice]}
+  - learner: "Prima di tutto, vorrei pagare in tre rate. Poi ho bisogno che qualcuno del personale parli spagnolo, perché i miei nonni non capiscono l'italiano."
+  - tutor: "Le tre rate vanno bene: una alla firma, una a giugno e l'ultima dopo la festa. Per lo spagnolo conosco due camerieri di Siracusa che lo parlano benissimo. Le preparo il preventivo entro la settimana."
+    goals: [conditions]
+    new: [{lemma: rata, gloss: instalment}]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-retired
+  history: [hypothetical]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, purtroppo. Stasera festeggiamo quarant'anni di matrimonio e la cena è stata piuttosto deludente, mi dispiace dirlo."
+  - tutor: "Mi dispiace molto, soprattutto in una serata così importante. Che cosa è successo, esattamente?"
+    goals: [complain]
+  - learner: "Ho ordinato la bistecca alla fiorentina al sangue, ma è arrivata quasi bruciata. Inoltre abbiamo aspettato cinquanta minuti, e nessuno ci ha spiegato il motivo."
+  - tutor: "Ha ragione: la cottura era sbagliata e un'attesa così lunga non va bene. Stasera in cucina manca una persona, ma questo andava detto subito. Immagino che da noi si aspettasse ben altro."
+    goals: [detail]
+  - learner: "Ci aspettavamo molto di più, perché questo ristorante ci è stato consigliato da amici. Se avrei saputo dei problemi in cucina, avrei ordinato qualcosa di più semplice."
+    errors: [hypothetical]
+  - tutor: "Capisco. Ma «se avrei saputo»? Dopo «se» questa forma non va bene: come lo direbbe?"
+    prompt: {text: "Se avrei saputo", tags: [hypothetical]}
+  - learner: "Se avessi saputo dei problemi, avrei ordinato un piatto più semplice. E mi sarebbe piaciuto che il cameriere si scusasse."
+  - tutor: "Esatto, e ha ragione anche su questo. Le chiedo scusa io, a nome di tutti. Vorrei offrirvi la bistecca, il dolce e una bottiglia di vino per la vostra festa. Può andare bene?"
+    goals: [expectation]
+  - learner: "È molto gentile da parte sua. Accetto volentieri, e apprezzo che Lei sia venuto di persona a parlare con noi."
+  - tutor: "È il minimo. Vi porto subito il vino e parlo con il cameriere. Spero che ci darete un'altra possibilità, magari tra un anno, per la stessa festa."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, mi dispiace disturbarla, ma siamo qui per il mio compleanno e ci sono stati diversi problemi, sia con i piatti sia con il servizio."
+  - tutor: "Ha fatto bene a chiedere di me. Mi racconti tutto con calma: da dove cominciamo?"
+    goals: [complain]
+  - learner: "Il risotto ai frutti di mare è arrivato freddo, e quando l'ho detto al cameriere mi ha risposto che era colpa nostra, perché parlavamo troppo. E poi il conto è equivocato: c'è una bottiglia di vino che non abbiamo ordinato."
+    errors: [false-friend]
+  - tutor: "Se il conto è sbagliato, lo correggo subito, ci mancherebbe. E mi scuso per quella risposta: non è il modo in cui trattiamo i clienti. Lei che cosa si aspettava dalla serata?"
+    recast: {text: "il conto è equivocato", fix: "il conto è sbagliato", tags: [false-friend]}
+    goals: [detail]
+  - learner: "Niente di speciale: una cena tranquilla con le mie amiche. Mi aspettavo che il cameriere è più gentile, o almeno che ci portasse un altro risotto."
+    errors: [subjunctive-use]
+  - tutor: "«Mi aspettavo che il cameriere è»? Dopo «mi aspettavo che» ci vuole un'altra forma, al passato. Ci riprovi."
+    prompt: {text: "Mi aspettavo che il cameriere è più gentile", tags: [subjunctive-use]}
+    goals: [expectation]
+  - learner: "Mi aspettavo che il cameriere era più gentile. È il minimo, in un ristorante di questo livello, no?"
+    errors: [subjunctive-use]
+  - tutor: "Certo, anch'io mi aspettavo che il cameriere fosse più gentile, e gli parlerò stasera. Intanto tolgo il vino dal conto e vorrei offrire a tutte un dolce e un caffè. Accetta?"
+    recast: {text: "Mi aspettavo che il cameriere era più gentile", fix: "mi aspettavo che il cameriere fosse più gentile", tags: [subjunctive-use]}
+  - learner: "La ringrazio, ma il dolce non mi basta. Il risotto non l'abbiamo quasi toccato: preferirei che lo togliesse dal conto, invece di offrirci il dolce."
+  - tutor: "È una richiesta giusta. Tolgo dal conto sia il vino sia i due risotti, e il dolce lo offriamo comunque noi. Le auguro buon compleanno, nonostante tutto."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-professional
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, e purtroppo è un problema serio. Stasera sono qui con quattro clienti importanti e il servizio è stato davvero deludente."
+  - tutor: "Mi dispiace davvero. Mi può spiegare che cosa non ha funzionato?"
+    goals: [complain]
+  - learner: "Avevo fatto una riservazione per le otto, tre settimane fa. Siamo arrivati puntuali, ma il tavolo non era pronto e abbiamo aspettato in piedi per quaranta minuti."
+    errors: [false-friend]
+  - tutor: "Vedo che aveva fatto una prenotazione per le otto: l'errore è tutto nostro. Un'attesa di 40 minuti non ha scuse. C'è stato dell'altro?"
+    recast: {text: "una riservazione", fix: "una prenotazione", tags: [false-friend]}
+  - learner: "Sì. Alla fine siamo stati dato un tavolo accanto alla porta della cucina, con un rumore terribile. Non riuscivamo quasi a parlare."
+    errors: [passive]
+  - tutor: "«Siamo stati dato un tavolo»? Così in italiano non funziona: provi a partire da «il tavolo»."
+    prompt: {text: "siamo stati dato un tavolo", tags: [passive]}
+    goals: [detail]
+  - learner: "Mi scusi: il tavolo che ci è stato dato era accanto alla cucina. Da un ristorante con una stella mi sarei aspettata un posto tranquillo e, soprattutto, che qualcuno ci avvisasse del ritardo."
+  - tutor: "Proprio così, e sarebbe stato il minimo da parte nostra. Vorrei fare qualcosa per voi: le propongo uno sconto del 30% sul conto e una cena offerta per due, quando vorrà. Che ne dice?"
+    goals: [expectation]
+  - learner: "Accetto lo sconto, grazie. La cena invece no: sinceramente non credo che tornerò, almeno non con dei clienti."
+  - tutor: "La capisco, e rispetto la sua decisione. Faccio subito lo sconto e vi faccio portare il caffè in una sala più tranquilla. Mi scuso ancora, con Lei e con i suoi ospiti."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-traveller
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, riguarda il conto. Abbiamo mangiato bene, non lo nego, ma il prezzo finale non corrisponde a quello che c'era scritto sul menù."
+  - tutor: "Capisco. Mi faccia vedere il conto, per favore: quale piatto non le torna?"
+    goals: [complain]
+  - learner: "Il pesce alla griglia. Sul menù c'era scritto 8 euro, ma sul conto sono 96. Il pesce che il cameriere ci ha parlato era «il pesce del giorno», e nessuno ha detto il prezzo totale."
+    errors: [relative-pronoun]
+  - tutor: "Vedo. Ma «il pesce che il cameriere ci ha parlato»? Con «parlare», quel «che» da solo non basta. Ci riprovi."
+    prompt: {text: "Il pesce che il cameriere ci ha parlato", tags: [relative-pronoun]}
+  - learner: "Il pesce di cui il cameriere ci ha parlato, scusi. Comunque 8 euro era il prezzo per cento grammi, scritto molto piccolo. Pensavo che fosse il prezzo del piatto intero."
+  - tutor: "Esatto. Sì, il prezzo è all'etto, come in molti ristoranti di pesce, ed è scritto sul menù. Però capisco che per chi viene da fuori non sia chiaro. Lei che cosa si sarebbe aspettato?"
+    goals: [detail]
+    new: [{lemma: etto, gloss: 100 grams}]
+  - learner: "Mi sarei aspettato che il cameriere ci dicesse il peso e il prezzo prima di cucinarlo. Se l'avessimo saputo, avremmo scelto un pesce più piccolo."
+  - tutor: "Ha perfettamente ragione: il peso e il prezzo andavano detti prima. Le offro uno sconto del 20% sul pesce, e i dolci non li pagate. Le sembra corretto?"
+    goals: [expectation]
+  - learner: "Apprezzo l'offerta, ma il 20% mi sembra poco. Sarei disposto a pagare la metà del pesce, non di più; altrimenti preferisco scrivere una recensione su quello che è successo."
+  - tutor: "Va bene, non voglio che andiate via con un brutto ricordo: facciamo la metà, 48 euro, e i dolci li offriamo noi. Da domani chiederò ai camerieri di dire sempre il prezzo prima. Grazie di aver parlato chiaro con me."
+    goals: [resolve]

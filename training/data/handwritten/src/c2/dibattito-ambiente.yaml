@@ -1,0 +1,59 @@
+- scenario: dibattito-ambiente
+  level: C2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Con tutto il rispetto, la penso all'opposto. Sono favorevole alla zona pedonale, e anzi trovo che questa città ha aspettato fin troppo."
+      errors: [subjunctive-use]
+    - tutor: "Fin troppo, dice Lei. Prima di litigare sul merito, però, una cosa da vecchio brontolone: «trovo che questa città ha aspettato»? Dopo un «trovo che», io a scuola mi prendevo una bacchettata sulle dita. Vuole riprovare?"
+      prompt: {text: "trovo che questa città ha aspettato", tags: [subjunctive-use]}
+      new: [{lemma: brontolone, gloss: grumbler}, {lemma: bacchettata, gloss: rap with a cane}]
+    - learner: "Ha ragione: trovo che questa città abbia aspettato fin troppo. La bacchettata, se può, me la risparmi."
+    - tutor: "Risparmiata. Quanto al merito: io ho la ferramenta in via Roma da trent'anni, e i clienti li vedo scendere dalla macchina, non dal tram. Ma non voglio fare il bastian contrario per partito preso: mi dia due buone ragioni, e l'ascolto."
+      goals: [position]
+      new: [{lemma: ferramenta, gloss: hardware shop}, {lemma: bastian contrario, gloss: contrarian}, {lemma: per partito preso, gloss: out of sheer prejudice}]
+    - learner: "Gliene do due. La prima è la salute: l'aria del centro è irrespirabile, e i dati sull'inquinamento parlano chiaro. La seconda riguarda proprio i negozi: nelle città dove hanno pedonalizzato, la gente passeggia di più e attualmente compra di più."
+      errors: [false-friend]
+    - tutor: "Sulla salute non discuto, i polmoni li ho anch'io. Sul resto vado più cauto. Lei dice che chi passeggia in realtà compra di più: sarà vero per i gelati, non per una scala di tre metri. Chi me la porta a casa, il cliente, sul tram?"
+      goals: [argue]
+      recast: {text: "attualmente compra di più", fix: "in realtà compra di più", tags: [false-friend]}
+      new: [{lemma: cauto, gloss: cautious}, {lemma: polmone, gloss: lung}]
+    - learner: "Obiezione sensata, ma risolvibile. Nessuno propone di vietare il carico e lo scarico: basterebbero delle fasce orarie per le consegne e qualche parcheggio ai margini, collegato da una navetta. Benché capisca la Sua preoccupazione, il problema della scala non mi sembra insuperabile."
+    - tutor: "Le navette, già. Qui le promettono da dieci anni e non se n'è vista mezza: campa cavallo che l'erba cresce. Lei si fida del Comune più di me, evidentemente. Non c'è proprio niente, nel mio ragionamento, che Le sembri fondato?"
+      goals: [counter]
+      new: [{lemma: navetta, gloss: shuttle bus}, {lemma: campa cavallo che l'erba cresce, gloss: don't hold your breath (lit. live on, horse, the grass will grow)}]
+    - learner: "Sì, una cosa gliela concedo volentieri: senza mezzi pubblici degni di questo nome, la chiusura sarebbe una beffa. Per questo proporrei un compromesso: una prova di sei mesi, solo nei fine settimana, e si decide dopo aver visto gli incassi dei commercianti."
+    - tutor: "Sei mesi di prova, solo sabato e domenica, e conti alla mano prima di decidere: così ci posso stare. Vede che a parlarsi non ci si scanna? Lo proponga Lei all'assessore, però: se lo dico io, pensano che abbia battuto la testa."
+      goals: [concede]
+      new: [{lemma: assessore, gloss: city councillor}, {lemma: scannarsi, gloss: to tear each other apart}, {lemma: conti alla mano, gloss: with the figures in hand}]
+
+- scenario: dibattito-ambiente
+  level: C2
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Penso l'esatto contrario, mi dispiace. Anzi, io andrei oltre: chiuderei non solo il centro storico ma tutto l'anello dei viali, residenti compresi."
+    - tutor: "Residenti compresi! Lei non ci va giù leggera. Io abito in via dei Mille, ho settantadue anni e la spesa non me la porta su nessuno. Va bene l'ambiente, ma qui si butta via il bambino con l'acqua sporca. Su che cosa fonda tanta sicurezza?"
+      goals: [position]
+      new: [{lemma: buttare via il bambino con l'acqua sporca, gloss: to throw the baby out with the bathwater}, {lemma: andarci giù leggero, gloss: to go easy}]
+    - learner: "Su quello che ho visto con i miei occhi. Ho vissuto due anni in una città belga, che il centro è chiuso alle auto da tempo: i negozi non sono morti, anzi, e i bambini giocano per strada."
+      errors: [relative-pronoun]
+    - tutor: "Il Belgio è piatto come un biliardo, signorina, qui abbiamo le salite. Ma prima mi tolga una curiosità: «una città, che il centro è chiuso»? Lì ci vuole un relativo più elegante, di quelli che indicano possesso. Lo ritrova?"
+      prompt: {text: "che il centro è chiuso", tags: [relative-pronoun]}
+      new: [{lemma: piatto come un biliardo, gloss: flat as a billiard table}]
+    - learner: "Una città il cui centro è chiuso alle auto da tempo. E oltre all'esempio ho un secondo argomento, più semplice: non fa senso dedicare metà di una piazza medievale a delle lamiere ferme."
+      errors: [word-choice]
+    - tutor: "«Il cui centro», ecco. E Le do atto che non ha senso riempire di lamiere una piazza del Trecento: su questo sfonda una porta aperta. Ma risponda alla mia obiezione: una come me, con le borse e l'artrosi, come ci arriva a casa?"
+      goals: [argue]
+      recast: {text: "non fa senso", fix: "non ha senso", tags: [word-choice]}
+      new: [{lemma: lamiera, gloss: sheet metal}, {lemma: sfondare una porta aperta, gloss: to preach to the converted}, {lemma: dare atto, gloss: "to acknowledge, to grant"}]
+    - learner: "Ci arriva meglio di adesso, se la cosa è fatta bene. Per i residenti anziani si possono prevedere permessi, taxi a tariffa agevolata e consegne della spesa a domicilio. Oggi Lei il parcheggio sotto casa lo trova, per caso?"
+    - tutor: "Colpita: giro mezz'ora e poi lascio la macchina in divieto, lo confesso. Però i permessi Lei li aveva appena aboliti, «residenti compresi». Mi pare che stia facendo marcia indietro, e non me ne dispiace. O sbaglio?"
+      goals: [counter]
+      new: [{lemma: fare marcia indietro, gloss: to backtrack}, {lemma: divieto, gloss: no-parking zone; ban}]
+    - learner: "Non sbaglia, e glielo concedo: detta così, ero stata troppo drastica. Chi ha difficoltà a muoversi deve poter arrivare sotto casa. Le propongo un compromesso: centro chiuso, ma con permessi per anziani e disabili, e più mezzi pubblici prima di cominciare."
+    - tutor: "Così cominciamo a ragionare. Prima i mezzi, poi i divieti, e un occhio di riguardo per chi ha le ginocchia della mia età. Se lo mette per iscritto, firmo anch'io. E poi dicono che i vecchi non cambiano idea."
+      goals: [concede]
+      new: [{lemma: occhio di riguardo, gloss: special consideration}]

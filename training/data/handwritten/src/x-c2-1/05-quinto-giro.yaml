@@ -1,0 +1,207 @@
+- scenario: trattativa-affitto
+  level: C2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Allora, Le è piaciuto l'appartamento?"
+  - learner: "Sì, molto: è luminoso e la zona è perfetta per me. Mi interessa davvero. Ho però una preoccupazione: nel bagno ho visto delle macchie di umidità sul soffitto, e non vorrei scoprire a novembre che è un problema serio."
+  - tutor: "Ha buon occhio. È una vecchia perdita del piano di sopra, già riparata; il proprietario farà ridipingere prima della consegna. L'affitto richiesto è di novecento euro al mese."
+    goals: [interest]
+  - learner: "Novecento mi sembra alto per un bilocale senza ascensore. Ho visto due appartamenti simili nella stessa via a ottocento. Sarei disposta a firmare subito se il proprietario abbasserebbe a ottocentoventi."
+    errors: [hypothetical]
+  - tutor: "La richiesta è comprensibile, e gliela riferisco volentieri. Solo, «se il proprietario abbasserebbe»? Nella condizione, quel verbo non va al condizionale."
+    prompt: {text: "se il proprietario abbasserebbe", tags: [hypothetical]}
+  - learner: "Certo, scusi: firmerei subito se il proprietario abbassasse a ottocentoventi."
+  - tutor: "Benissimo. Credo che a ottocentocinquanta si possa chiudere, con le spese di condominio comprese. Quanto alla durata, il contratto proposto è il classico quattro più quattro."
+    goals: [negotiate]
+  - learner: "Ottocentocinquanta con le spese può andare. La durata invece mi preoccupa: io finisco il dottorado tra due anni e non so dove sarò dopo. Se devo andarmene prima, con quanto preavviso posso lasciare la casa?"
+    errors: [word-choice]
+  - tutor: "Capisco, con il dottorato che finisce tra due anni è giusto pensarci. Per legge può lasciare la casa con sei mesi di preavviso, ma posso chiedere al proprietario di ridurli a tre."
+    recast: {text: "dottorado", fix: "dottorato", tags: [word-choice]}
+  - learner: "Tre mesi sarebbe l'ideale. Chiederei anche che questo sia scritto nel contratto, insieme all'impegno a ridipingere il bagno prima della consegna. La cauzione di quanto è?"
+  - tutor: "Due mesi di affitto, restituiti alla fine se la casa è in ordine. Il preavviso di tre mesi e il bagno ridipinto li faccio mettere per iscritto."
+    goals: [conditions]
+  - learner: "Allora per me va bene: ottocentocinquanta, spese comprese, tre mesi di preavviso e due mesi di cauzione. Se il proprietario è d'accordo, posso firmare già questa settimana."
+  - tutor: "Lo sento oggi pomeriggio e sono fiducioso. Le mando la bozza del contratto entro domani, così la legge con calma prima di firmare. È stato un piacere trattare con Lei."
+    goals: [conclude]
+
+- scenario: trattativa-fornitore
+  level: C2
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno. Sì, La chiamo per quello. Un aumento del quindici per cento, da un mese all'altro, per noi è molto pesante. Siamo una ditta piccola: con questi prezzi il nostro margine sparisce."
+  - tutor: "La capisco, mi creda. Ma la carta e la plastica ci costano il venti per cento in più da gennaio: noi abbiamo passato ai clienti solo una parte dell'aumento."
+    goals: [problem]
+  - learner: "Non lo metto in dubbio. Però lavoriamo insieme da otto anni, abbiamo sempre pagato puntuale, e l'anno scorso abbiamo aumentato gli ordini del trenta per cento. Contavo con un trattamento diverso per un cliente così."
+    errors: [preposition]
+  - tutor: "Otto anni sono tanti, e li rispettiamo. Ma mi scusi, non ho capito bene: «contavo con un trattamento»? In italiano si conta con le dita; quando ci si aspetta qualcosa la preposizione è un'altra."
+    prompt: {text: "Contavo con un trattamento", tags: [preposition]}
+  - learner: "Ha ragione. Contavo su un trattamento diverso."
+  - tutor: "Ora è chiaro, e non ha tutti i torti: un cliente fedele merita attenzione. Lei che cosa avrebbe in mente?"
+    goals: [argue]
+  - learner: "Le faccio una proposta. Accettiamo un aumento del sei per cento, e in cambio firmiamo un contratto di due anni con un ordine minimo garantito. Così voi avete sicurezza e noi possiamo fare i conti."
+  - tutor: "Il sei è troppo poco, glielo dico con franchezza. Potrei scendere al dieci, con il contratto di due anni. Di più non mi è possibile."
+    goals: [counteroffer]
+  - learner: "Dieci è ancora tanto. Incontriamoci a metà: otto per cento, due anni di contratto, e pagamento a trenta giorni invece di sessanta. Se è d'accordo, La mando la conferma scritta oggi stesso."
+    errors: [object-pronoun]
+  - tutor: "L'otto per cento con pagamento a trenta giorni: su questo possiamo ragionare. Ma «La mando la conferma»? Così sembra che spedisca me: per la persona a cui si manda qualcosa il pronome è un altro."
+    prompt: {text: "La mando la conferma", tags: [object-pronoun]}
+  - learner: "Le mando la conferma. A Lei, non Lei per posta."
+  - tutor: "Meglio così, viaggio male nelle buste. Allora siamo d'accordo: otto per cento, contratto di due anni e pagamento a trenta giorni. Aspetto la Sua conferma scritta e Le preparo il contratto entro lunedì."
+    goals: [agreement]
+
+- scenario: turismo-di-massa
+  level: C2
+  persona: en-m-retired
+  turns:
+  - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+  - learner: "Buongiorno, grazie. Sono americano e vivo a Venezia da sei anni. Sono a favore del ticket, ma con una riserva: da solo non basta, e rischia di trasformare la città in un museo a pagamento."
+  - tutor: "A favore, ma con riserva: una posizione prudente. Ci faccia un esempio di quello che vede, da residente."
+    goals: [introduce]
+  - learner: "Volentieri. Nella mia calle c'erano un panettiere, un calzolaio e un negozio di ferramenta. Negli ultimi quattro anni hanno chiuso tutti e tre, e sono stati sostituiti da negozi di maschere fatte in Cina. Il ticket non cambia questo: chi paga cinque euro compra comunque la maschera."
+  - tutor: "Tre botteghe in quattro anni: è un dato che colpisce. Ma faccio l'avvocato del diavolo: il turismo dà lavoro a mezza città. Vuole forse mandare a casa camerieri e gondolieri?"
+    goals: [example]
+  - learner: "Per niente. Nessuno vuole eliminare il turismo: si tratta di governarlo. Oggi la maggior parte dei visitatori resta meno di un giorno e spende pochissimo, mentre i costi, dai rifiuti ai trasporti, sono pagati per i residenti. Non è un'economia, è un consumo."
+    errors: [preposition]
+  - tutor: "Un consumo e non un'economia: frase efficace. Mi aiuti però a capire: i costi sono pagati «per i residenti»? Vuol dire a loro favore, o sono loro a pagare? Perché allora la preposizione cambia."
+    prompt: {text: "pagati per i residenti", tags: [preposition]}
+  - learner: "Sono loro a pagare: i costi sono pagati dai residenti. Grazie, la differenza non è piccola."
+  - tutor: "Per niente piccola, e ora il ragionamento fila. Lei dunque non vuole meno turisti, ma turisti diversi. Come ci si arriva, in concreto?"
+    goals: [rebut]
+  - learner: "Con tre misure. Un numero massimo di ingressi al giorno, con prenotazione obbligatoria; un limite agli affitti brevi, perché le case tornino ai residenti; e i soldi del ticket usati per abbassare gli affitti delle botteghe artigiane. Così il ticket farebbe una differenza vera."
+    errors: [word-choice]
+  - tutor: "Così, dice Lei, il ticket farebbe davvero la differenza: ingressi limitati, case ai residenti, botteghe aiutate. È una proposta concreta. Vuole aggiungere un'ultima cosa, prima di salutarci?"
+    recast: {text: "farebbe una differenza vera", fix: "farebbe davvero la differenza", tags: [word-choice]}
+    goals: [proposal]
+  - learner: "Solo questo: Venezia non va salvata dai turisti, va salvata insieme a loro. Chi viene con rispetto è il benvenuto."
+  - tutor: "Salvata insieme a loro: è una bella chiusura. La Sua proposta la giriamo all'assessore che avremo ospite domani. Grazie della telefonata e buona giornata a Venezia."
+
+- scenario: umorismo-satira
+  level: C2
+  persona: en-m-heritage
+  turns:
+  - tutor: "Dai, ammettilo, alla battuta sul ministro e la carbonara non hai riso perché non l'avevi capita."
+  - learner: "Beccato. Ma quella dopo l'ho capita benissimo, quella del vigile che fa la multa all'ambulanza. Mi ha fatto morire perché era costruita bene: ti porta da una parte, e all'ultima parola gira tutto. E poi il comico non rideva mai, che è la cosa più difficile."
+  - tutor: "Quella era un piccolo capolavoro, e la faccia di pietra aiuta sempre. Però sulla carbonara ti vedo ancora perso."
+    goals: [favourite]
+  - learner: "Persissimo. Ha detto che il ministro 'ci ha messo la panna', e tutti a ridere. Mio cugino, seduto vicino a me, non l'ha capita, e anch'io non l'ho capita. Cosa c'entra la panna con la politica?"
+    errors: [negation]
+  - tutor: "Ah, quindi eravate in due! Ma «anch'io non l'ho capita»? Quando la frase è negativa, anche lascia il posto a un'altra parola."
+    prompt: {text: "anch'io non l'ho capita", tags: [negation]}
+  - learner: "Neanch'io l'ho capita. Va bene, ma adesso me la spieghi?"
+  - tutor: "Subito. Per un romano la panna nella carbonara è un delitto: dire che il ministro ce l'ha messa vuol dire che ha rovinato una cosa che funzionava. Più che politica, è religione."
+    goals: [missed]
+  - learner: "Ah! Adesso sì. Allora provo io con un gioco di parole: più che un ministro, quello è un 'minestro'. Mescola tutto, e alla fine è sempre la stessa minestra."
+  - tutor: "Il «minestro»! Guarda che questa è buona davvero: la solita minestra riscaldata, e pure con la panna. Te la rubo. Certo che stasera con i politici ci sono andati giù pesante."
+    goals: [wordplay]
+  - learner: "Sì, e per me va bene così. Se la satira non dasse fastidio a nessuno, non servirebbe a niente. Il limite, secondo me, è un altro: puoi colpire chi ha il potere, non chi sta già per terra."
+    errors: [subjunctive-form]
+  - tutor: "Colpire in alto e non in basso: sono d'accordo. Ma «se non dasse fastidio»? Lo dicono anche tanti italiani, però la forma giusta ha un'altra vocale."
+    prompt: {text: "non dasse fastidio", tags: [subjunctive-form]}
+  - learner: "Se non desse fastidio! Mia nonna diceva sempre così, adesso capisco da dove mi viene."
+  - tutor: "Tua nonna è in ottima compagnia, tranquillo. E sul limite hai detto la cosa giusta: il potente si può difendere, chi è per terra no. Dai, un altro giro, e brindiamo al minestro."
+    goals: [limits]
+
+- scenario: vita-in-italia
+  level: C2
+  persona: es-m-worker
+  turns:
+  - tutor: "Bentrovati, cari ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Buongiorno, grazie dell'invito. Sono arrivato per lavoro, fa dodici anni. Un amico di Buenos Aires aveva aperto un ristorante a Bologna e cercava un cuoco. Pensavo di restare un anno. Poi ho conosciuto mia moglie."
+    errors: [word-order]
+  - tutor: "Benvenuto. Una curiosità, prima di andare avanti: è arrivato «fa dodici anni»? In italiano quella parolina va da un'altra parte."
+    prompt: {text: "fa dodici anni", tags: [word-order]}
+  - learner: "Dodici anni fa, scusi. In spagnolo va prima."
+  - tutor: "Perfetto. E un anno è diventato dodici, per amore: succede spesso, in questa trasmissione. Qual è stata la parte più difficile?"
+    goals: [story]
+  - learner: "L'inizio. Non la lingua, quella si impara. Il difficile era la solitudine. Lavoravo dodici ore, tornavo a casa e non c'era nessuno. La domenica, quando tutti pranzavano in famiglia, io camminavo per la città vuota. Mi mancavano i miei, e mi dava vergogna dirlo."
+    errors: [word-choice]
+  - tutor: "Capisco bene che si vergognasse di dirlo: la solitudine della domenica è la più dura da confessare. E oggi, dopo dodici anni, in che cosa si sente cambiato?"
+    recast: {text: "mi dava vergogna dirlo", fix: "si vergognasse di dirlo", tags: [word-choice]}
+    goals: [difficulties]
+  - learner: "In molte cose. Sono più paziente. Ho imparato a discutere di cibo per un'ora senza arrabbiarmi. E la mia cucina ha cambiato: prima facevo solo carne alla griglia, adesso faccio i tortellini meglio di mia suocera. Ma questo non glielo dica."
+    errors: [auxiliary-choice]
+  - tutor: "Meglio della suocera: questo resta tra noi e qualche migliaio di ascoltatori. Ma la sua cucina «ha cambiato»? Che cosa ha cambiato? Se è lei a essere diversa, serve un altro ausiliare."
+    prompt: {text: "ha cambiato", tags: [auxiliary-choice]}
+  - learner: "È cambiata. La mia cucina è cambiata, e anch'io."
+  - tutor: "Ecco. E si sente, da come ne parla. Per chiudere: che cosa direbbe a chi ci ascolta e sta pensando di trasferirsi in Italia?"
+    goals: [change]
+  - learner: "Di venire con un mestiere in mano e senza fretta. I primi due anni sono duri. Se avessi mollato dopo il primo inverno, oggi non avrei né la famiglia né il ristorante. E di accettare gli inviti a pranzo: l'Italia si capisce a tavola."
+  - tutor: "«L'Italia si capisce a tavola»: detto da un cuoco vale doppio. Grazie di essere stato con noi, e buon lavoro in cucina, tortellini compresi."
+    goals: [advice]
+
+- scenario: arte-mostra
+  level: C2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi incanta. Non so spiegarlo bene, ma mi dà pace: tutta quell'acqua ferma, e la luce che sembra venire da dentro il quadro. Di chi è?"
+  - tutor: "È di un pittore veneziano del Settecento, uno dei meno famosi. La pace che senti è costruita con grande mestiere. Dimmi che cosa vedi, pezzo per pezzo."
+    goals: [react]
+  - learner: "In primo piano c'è un canale con due barche, quasi immobili. A sinistra dei palazzi rosa, a destra una chiesa bianca. Lo sfondo è un cielo enorme, che occupa più della metà del quadro. Le figure sono piccolissime: la gente sembrano formiche."
+    errors: [subject-verb-agreement]
+  - tutor: "Descrizione precisa, e il cielo che si prende mezzo quadro è la chiave. Solo l'ultima frase: «la gente sembrano»? In italiano la gente, anche se sono tanti, è una sola."
+    prompt: {text: "la gente sembrano", tags: [subject-verb-agreement]}
+  - learner: "La gente sembra una fila di formiche. In spagnolo è uguale, non ho scuse!"
+  - tutor: "Nessuna scusa necessaria. E perché, secondo te, il pittore le ha fatte così piccole, queste formiche?"
+    goals: [describe]
+  - learner: "Penso che voglia dirci che la città è più grande di chi la abita: gli uomini passano, Venezia resta. O forse è tutto così fermo che la città sembra già un ricordo, come se il quadro fosse stato dipinto per qualcuno che sapeva che tutto stava finendo."
+    errors: [preposition]
+  - tutor: "Una città che è già un ricordo: mi piace molto. Però aspetta: dipinto «per qualcuno»? Parli di chi l'ha comprato o di chi teneva il pennello? Perché cambia la preposizione."
+    prompt: {text: "dipinto per qualcuno", tags: [preposition]}
+  - learner: "Di chi teneva il pennello: dipinto da qualcuno che sapeva che tutto stava finendo."
+  - tutor: "Ecco, adesso l'idea è chiara ed è bella: la Repubblica era davvero al tramonto. E se lo metti accanto a qualcos'altro che conosci, a che cosa lo avvicini?"
+    goals: [interpret]
+  - learner: "A Canaletto, ovviamente, ma Canaletto è più preciso, quasi una fotografia: lì ogni finestra è al suo posto. Questo invece mi ricorda di più gli impressionisti, anche se arrivano un secolo dopo: gli interessa l'aria, non i mattoni."
+  - tutor: "Gli interessa l'aria, non i mattoni: lo scriverei sotto il quadro. E hai visto giusto, perché gli impressionisti questi veneziani li studiavano eccome. Andiamo avanti, che la sala dopo ti piacerà."
+    goals: [compare]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: en-f-professional
+  turns:
+  - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+  - learner: "Sì, grazie. Secondo me rifare la facciata quest'anno è una gran cavolata: il preventivo è molto alto e diverse famiglie non possono permetterselo. Chiedo di rimandare i lavori di un anno."
+    errors: [register]
+  - tutor: "La ascolto volentieri. Però «una gran cavolata», detto in assemblea e messo a verbale, rischia di accendere gli animi: me lo ridice in un modo più adatto alla sede?"
+    prompt: {text: "una gran cavolata", tags: [register]}
+  - learner: "Ha ragione, mi scuso. Secondo me rifare la facciata quest'anno è una scelta prematura."
+  - tutor: "Così lo posso scrivere, grazie. La signora del quarto piano però osserva che chi è arrivato da poco dovrebbe ascoltare, prima di dare lezioni."
+    goals: [position]
+  - learner: "Capisco che la signora conosca il palazzo meglio di me, e non voglio dare lezioni a nessuno. Pago però le stesse spese di tutti, quindi credo di avere lo stesso diritto di parola. Preferirei che parlassimo dei numeri, non delle persone."
+  - tutor: "Detto con molta misura, e la signora fa di sì con la testa, il che è già un successo. Veniamo ai numeri, allora: se non la facciata intera, che cosa propone?"
+    goals: [defuse]
+  - learner: "Proporrei di dividere i lavori in due fasi. Quest'anno solo il lato sulla strada, che è quello messo peggio; l'anno prossimo il cortile. Nel frattempo si potrebbe controllare se abbiamo diritto alle detrazioni fiscali, che abbasserebbe la spesa di un terzo."
+    errors: [subject-verb-agreement]
+  - tutor: "Due fasi e le detrazioni: è una proposta seria. Un dettaglio per il verbale: le detrazioni «che abbasserebbe» la spesa? Guardi bene chi è il soggetto di quel verbo."
+    prompt: {text: "che abbasserebbe", tags: [subject-verb-agreement]}
+  - learner: "Le detrazioni, plurale: che abbasserebbero la spesa di un terzo."
+  - tutor: "Precisamente. Alcuni però temono che dividere i lavori costi di più, tra i ponteggi da montare due volte e i prezzi che salgono."
+    goals: [alternative]
+  - learner: "È un timore fondato. Allora chiediamo alla ditta un prezzo bloccato per tutte e due le fasi, firmato adesso. Se accettano, votiamo le due fasi; se rifiutano, mi impegno a votare a favore dei lavori completi."
+  - tutor: "Mi sembra un compromesso leale, e vedo molte teste che dicono di sì. Metto a verbale: richiesta di prezzo bloccato per le due fasi e nuovo voto tra quindici giorni. Grazie, e per una volta chiudiamo senza feriti."
+    goals: [compromise]
+
+- scenario: assicurazione-sinistro
+  level: C2
+  persona: es-f-teacher
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri mattina avevo parcheggiato la macchina in via Garibaldi, regolarmente, sulle strisce blu. Quando sono tornata, dopo mezz'ora, ho trovato la portiera sinistra ammaccata e lo specchietto rotto. Chi mi ha urtata se n'era già andato."
+  - tutor: "Mi dispiace. Dunque un danno a macchina ferma, da parte di un veicolo che si è allontanato. Ha qualche elemento per capire chi sia stato?"
+    goals: [what]
+  - learner: "Per fortuna sì. Il titolare del bar di fronte ha visto tutto: un furgone bianco ha fatto marcia indietro senza guardare. Ha anche annotato la targa e me l'ha dato su un foglietto. La responsabilità è tutta del furgone, io non c'ero nemmeno."
+    errors: [participle-agreement]
+  - tutor: "Un testimone con la targa è una fortuna rara. Solo per precisione: la targa «me l'ha dato»? Pensi a che cosa si riferisce quel pronome."
+    prompt: {text: "me l'ha dato", tags: [participle-agreement]}
+  - learner: "Alla targa, femminile: me l'ha data su un foglietto."
+  - tutor: "Esatto. Con targa e testimone la responsabilità dell'altro veicolo è facile da dimostrare. Ha fatto denuncia o compilato qualche modulo?"
+    goals: [responsibility]
+  - learner: "Il modulo blu non ho potuto compilarlo, perché l'altro conducente non c'era. Però sono andata dai vigili e ho fatto la denuncia. Ho le fotografie, la dichiarazione firmata dal testimone, e ho guardato anche la ricevuta del parcheggio, che dimostra l'ora esatta."
+    errors: [false-friend]
+  - tutor: "Ha fatto benissimo: se ha conservato la ricevuta del parcheggio, abbiamo anche l'orario. Mi mandi tutto insieme alla copia della denuncia."
+    recast: {text: "ho guardato anche la ricevuta", fix: "ha conservato la ricevuta", tags: [false-friend]}
+    goals: [documents]
+  - learner: "Glielo mando oggi. E poi, che cosa succede? Devo anticipare io i soldi della riparazione, o posso aspettare il rimborso? La macchina mi serve per andare a scuola."
+  - tutor: "Non deve anticipare nulla. Noi contattiamo l'assicurazione del furgone; un perito vedrà la macchina entro dieci giorni, e la carrozzeria convenzionata verrà pagata direttamente. Se la riparazione dura più di tre giorni, ha diritto a un'auto sostitutiva."
+    goals: [next]

@@ -1,0 +1,219 @@
+# C1, correction-dense: concordanza, congiuntivo, reggenze, calchi, falsi amici, registro.
+- scenario: arte-mostra
+  level: C1
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi lascia senza parole, davvero. È come se la luce esce dal quadro invece di entrarci."
+    errors: [subjunctive-use]
+  - tutor: "Bella immagine, te la rubo per la prossima visita guidata! Però \"come se\" è esigente: dopo vuole un altro modo e un altro tempo. Ci riprovi?"
+    prompt: {text: "come se la luce esce", tags: [subjunctive-use]}
+  - learner: "È come se la luce uscisse dal quadro. E poi guarda lo sfondo: le colline sono appena accennate, quasi sciolte nella nebbia, mentre le figure in primo piano sono nitidissime."
+  - tutor: "Adesso suona benissimo. E hai colto il punto: quel contrasto tra lo sfondo sfumato e le figure nitide è voluto. Secondo te che cosa voleva dirci il pittore?"
+    goals: [react, describe]
+    new: [{lemma: sfumato, gloss: blurred}, {lemma: nitido, gloss: sharp}]
+  - learner: "Secondo me voleva suggerire che quei personaggi appartengono a un altro tempo: ci guardano, ma non ci vedono. È un'opera che è stata dipinta per una chiesa, vero?"
+  - tutor: "Sì, per una cappella privata, in pieno Rinascimento. Mi piace la tua lettura: ci guardano senza vederci. Ti ricorda qualche altra opera, o un altro stile?"
+    goals: [interpret]
+  - learner: "Mi ricorda ai ritratti fiamminghi che abbiamo visto a Bruges, anche se qui i colori sono più caldi e la prospettiva è meno rigida."
+    errors: [preposition]
+  - tutor: "Bruges, che viaggio! Aspetta, però: \"mi ricorda ai ritratti\"? In italiano questo verbo va dritto all'oggetto, senza passare da nessuna preposizione."
+    prompt: {text: "Mi ricorda ai ritratti", tags: [preposition]}
+  - learner: "Giusto, in spagnolo la preposizione ci va. Mi ricorda i ritratti fiamminghi."
+  - tutor: "Proprio così, è un classico per chi parla spagnolo. E il confronto regge: la stessa cura per i dettagli, ma qui c'è una luce tutta italiana. Vieni, nella prossima sala c'è un'opera che ti farà cambiare idea sui colori caldi."
+    goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: en-m-retired
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri mattina ero fermo al semaforo di viale Mazzini quando un furgone mi ha tamponato. Il paraurti posteriore è stato distrutto e il bagagliaio non si chiude più."
+  - tutor: "Mi dispiace, l'importante è che lei non si sia fatto male. Secondo lei perché il furgone non ha frenato? Mi serve capire di chi è la responsabilità."
+    goals: [what]
+  - learner: "Sto bene, grazie. La responsabilità è tutta sua, e l'ha riconosciuto subito: stava guardando il telefono. Quando sono sceso dalla macchina, lui ha già chiamato i vigili."
+    errors: [tense-aspect]
+  - tutor: "Bene, questo semplifica le cose. Un dubbio sulla sequenza, però: la telefonata ai vigili viene prima della sua discesa dall'auto, giusto? Allora \"ha già chiamato\" non rende l'ordine dei fatti: che tempo ci vuole?"
+    prompt: {text: "lui ha già chiamato", tags: [tense-aspect]}
+  - learner: "Certo, mi scusi: quando sono sceso, lui aveva già chiamato i vigili."
+  - tutor: "Perfetto, ora la sequenza è chiara. Avete compilato la constatazione amichevole? E mi sa dire la targa del furgone?"
+    goals: [responsibility]
+  - learner: "Sì, l'abbiamo compilata e firmata tutti e due. La targa è GH 482 LM. Ho anche fatto delle foto dei danni prima che spostavamo i veicoli."
+    errors: [subjunctive-use]
+  - tutor: "Ottimo, le foto aiutano molto. Solo una cosa sulla forma: \"prima che\" chiede un modo diverso dall'indicativo. Come lo direbbe?"
+    prompt: {text: "prima che spostavamo", tags: [subjunctive-use]}
+    new: [{lemma: indicativo, gloss: indicative}]
+  - learner: "Prima che abbiamo spostato i veicoli, intendevo."
+    errors: [subjunctive-use]
+  - tutor: "Ho capito: prima che spostaste i veicoli, quindi le foto mostrano la posizione originale. Me le mandi insieme alla constatazione firmata."
+    recast: {text: "Prima che abbiamo spostato", fix: "prima che spostaste", tags: [subjunctive-use]}
+    goals: [documents]
+  - learner: "Gliele mando oggi stesso. E adesso che cosa succede? Devo aspettare la perizia prima di far riparare la macchina?"
+  - tutor: "Sì, la perizia verrà fissata entro una settimana e il perito la chiamerà direttamente. Dato che la responsabilità è dell'altro conducente, non le verrà applicata nessuna franchigia. Per qualsiasi dubbio mi richiami pure."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Mi sono trasferito a Bologna tre mesi fa e avrei bisogno di chiedere la residenza. Mi hanno detto che senza residenza non posso neanche scegliere il medico di base."
+  - tutor: "È così, per il medico serve la residenza. Le occorrono il passaporto, il permesso di soggiorno e il contratto di affitto registrato. Li ha con sé?"
+    goals: [request]
+  - learner: "Ho il passaporto e il permesso di soggiorno. Il contratto me lo deve mandare il padrone di casa, però tarda molto in rispondere."
+    errors: [preposition]
+  - tutor: "Capisco, succede spesso. Scusi, \"tarda in rispondere\"? Con questo verbo, davanti all'infinito, in italiano usiamo un'altra preposizione."
+    prompt: {text: "tarda molto in rispondere", tags: [preposition]}
+  - learner: "Ah, sì: tarda molto a rispondere. Senza il contratto non posso presentare la domanda?"
+  - tutor: "Giusto. Purtroppo senza contratto la pratica non viene accettata. Può però presentare una dichiarazione firmata dal proprietario, purché sia allegata una copia del suo documento."
+    goals: [documents]
+  - learner: "Va bene, allora gli chiedo la dichiarazione. Il problema è che lui vive in Germania: basta che me la invii per posta elettronica, o si deve portare l'originale?"
+  - tutor: "Va bene anche una copia inviata per posta elettronica, se è firmata e leggibile. La porti stampata insieme al modulo, che trova qui o sul sito del Comune."
+    goals: [problem]
+  - learner: "Perfetto. E una volta consegnato tutto, quanto tempo ci vuole? Un mio collega mi ha detto che i vigili passarono a casa sua dopo un mese."
+    errors: [tense-aspect]
+  - tutor: "I tempi sono più o meno quelli. Mi tolga una curiosità: \"passarono\"? Per un fatto recente, raccontato a voce, quel tempo qui suona come un libro di storia."
+    prompt: {text: "passarono", tags: [tense-aspect]}
+  - learner: "Ha ragione, è l'abitudine dello spagnolo. I vigili sono passati a casa sua dopo un mese."
+  - tutor: "Ecco, così è naturale. I vigili passano entro 45 giorni per verificare che lei abiti davvero lì. Poi la residenza viene registrata a partire dal giorno della domanda, e il certificato si può richiedere subito dopo."
+    goals: [next]
+
+- scenario: club-lettura
+  level: C1
+  persona: en-f-student
+  turns:
+  - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+  - learner: "Ce l'ho fatta, ma per un pelo: l'ho finito stamattina sull'autobus. Onestamente mi aspettavo di più. La trama parte bene, però a metà si sgonfia e il finale mi è sembrato tirato via."
+  - tutor: "Tirato via? Ma se è la parte più bella! Quell'ultima scena alla stazione vale tutto il romanzo. Dimmi almeno che la protagonista ti ha convinta."
+    goals: [impression]
+  - learner: "Insomma. Non capisco perché torni dal marito dopo tutto quello che ha scoperto. Penso che l'autore ha avuto paura di un finale troppo amaro."
+    errors: [subjunctive-use]
+  - tutor: "Paura, lui? Mah. Intanto però senti come suona \"penso che l'autore ha avuto\": dopo un verbo di opinione ti aspetteresti proprio quel modo lì?"
+    prompt: {text: "Penso che l'autore ha avuto", tags: [subjunctive-use]}
+  - learner: "No, hai ragione: penso che l'autore abbia avuto paura di un finale troppo amaro."
+  - tutor: "Così sì. Ma non sono d'accordo: lei torna perché ha capito che andarsene sarebbe stata una fuga, non una scelta. E della scrittura che mi dici?"
+    goals: [character]
+  - learner: "Lo stile è la cosa che ho apprezzato di più: frasi brevi, niente fronzoli, e un narratore che non giudica mai. Certo, se avrebbe tagliato qualche descrizione, il libro sarebbe stato perfetto."
+    errors: [hypothetical]
+  - tutor: "Sul narratore mi trovi d'accordo, finalmente! Torna però un attimo sull'ipotesi: dopo \"se\" il condizionale non ci può stare. Che cosa ci metti?"
+    prompt: {text: "se avrebbe tagliato", tags: [hypothetical]}
+    new: [{lemma: condizionale, gloss: conditional}]
+  - learner: "Se avesse tagliato qualche descrizione, il libro sarebbe stato perfetto."
+  - tutor: "Brava, è proprio quella. Io le descrizioni le avrei tenute tutte, ma i gusti sono gusti. A chi lo consiglieresti, allora?"
+    goals: [style]
+  - learner: "Lo consiglierei a chi ama i romanzi lenti e d'atmosfera, come mia zia. A chi cerca colpi di scena direi di lasciar perdere."
+  - tutor: "Giudizio onesto, lo accetto. Allora la prossima volta porta tua zia: almeno avrò un'alleata!"
+    goals: [recommend]
+
+- scenario: colloquio-lavoro
+  level: C1
+  persona: en-f-professional
+  history: [word-choice]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno, grazie. Mi chiamo Claire Dawson, sono australiana e vivo a Milano da quattro anni. Mi occupo di marketing digitale e attualmente coordino una squadra di sei persone in un'azienda di cosmetici."
+  - tutor: "Piacere. Quattro anni a Milano, e si sente. Mi racconti la sua esperienza prima di questo ruolo."
+    goals: [intro]
+  - learner: "Prima lavoravo a Sydney, in un'agenzia di comunicazione, dove ho corso tre campagne internazionali. Poi mi hanno offerto una posizione a Milano e mi sono trasferita."
+    errors: [word-choice]
+  - tutor: "Dunque a Sydney ha gestito tre campagne internazionali: un bel banco di prova. Passiamo a lei come persona: quali sono i suoi punti di forza, e dove invece sente di dover migliorare?"
+    recast: {text: "ho corso tre campagne", fix: "ha gestito tre campagne", tags: [word-choice]}
+    goals: [experience]
+  - learner: "Il mio punto di forza è l'organizzazione, e so lavorare bene sotto pressione. Il mio punto debole, invece, è che faccio fatica a delegare, anche se ci sto lavorando."
+  - tutor: "Delegare è difficile per molti, apprezzo la franchezza. Perché vorrebbe lasciare il suo posto attuale per venire da noi?"
+    goals: [strengths]
+  - learner: "Perché la vostra azienda sta crescendo all'estero e vorrei contribuire con la mia esperienza internazionale. Inoltre sono molto interessata nel settore del design, che seguo da anni."
+    errors: [preposition]
+  - tutor: "Una buona ragione, bene. Solo un dettaglio: \"interessata nel settore\"? Questo aggettivo regge un'altra preposizione, ci pensi un attimo."
+    prompt: {text: "interessata nel settore", tags: [preposition]}
+  - learner: "Ha ragione: sono molto interessata al settore del design."
+  - tutor: "Esattamente. Siamo quasi alla fine: ha qualche domanda sul ruolo?"
+    goals: [why]
+  - learner: "Sì, una. Con chi lavorerei più da vicino? E vorrei sapere se c'è la possibilità di seguire progetti all'estero."
+  - tutor: "Lavorerebbe con il direttore commerciale e con due colleghi del reparto grafico. I progetti all'estero ci sono, e con il suo curriculum sarebbero una strada naturale. Le faremo sapere entro la prossima settimana."
+    goals: [questions]
+
+- scenario: colloquio-promozione
+  level: C1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie per avermi ricevuta. Vorrei fare il punto sui miei risultati: quest'anno ho coordinato il nuovo programma di formazione e abbiamo superato tutti gli obiettivi. Le iscrizioni sono aumentate del trenta per cento."
+  - tutor: "I numeri li ho visti, e sono notevoli. Dove vuole arrivare?"
+    goals: [results]
+  - learner: "Credo di meritare una promozione a responsabile di area. Ho accettato responsabilità nuove sempre che l'azienda me l'ha chiesto, senza che cambiasse il mio contratto."
+    errors: [word-choice]
+  - tutor: "È vero: ogni volta che l'azienda gliel'ha chiesto, lei c'è stata. Il problema è il budget: quest'anno non sono previste nuove posizioni di responsabile."
+    recast: {text: "sempre che", fix: "ogni volta che", tags: [word-choice]}
+    goals: [request]
+  - learner: "Capisco il limite del budget. Tuttavia, se mi avessero detto che non c'erano prospettive, non accetterei tanti incarichi in più."
+    errors: [hypothetical]
+  - tutor: "Un'obiezione legittima. Guardi però la seconda metà della frase: gli incarichi appartengono al passato, sono cosa fatta. Quel condizionale presente regge?"
+    prompt: {text: "non accetterei", tags: [hypothetical]}
+    new: [{lemma: condizionale, gloss: conditional}]
+  - learner: "No, infatti: non avrei accettato tanti incarichi in più."
+  - tutor: "Ora è impeccabile, e il messaggio arriva forte. Le propongo questo: un aumento subito e la promozione rivalutata a giugno, con il nuovo budget."
+    goals: [handle]
+  - learner: "È una proposta ragionevole, la ringrazio. Le chiederei solo di metterla per iscritto, con una data precisa per la valutazione di giugno."
+  - tutor: "Mi sembra giusto. Entro venerdì riceverà una lettera con l'aumento e la data della valutazione. Continui così: i risultati parlano per lei."
+    goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: C1
+  persona: en-m-heritage
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Io la penso diversamente. Sono convinto che una zona pedonale porti più gente in centro, non meno. Guardi le città in cui l'hanno già fatto: i negozi non hanno chiuso, anzi."
+  - tutor: "Sarà, ma i miei clienti arrivano in macchina e vogliono il parcheggio davanti. Su che cosa basa tanto ottimismo?"
+    goals: [position]
+  - learner: "Su due cose. Primo, l'inquinamento: in via Roma l'aria è irrespirabile, e i bambini che la scuola è lì accanto la respirano ogni giorno. Secondo, chi passeggia compra di più di chi cerca parcheggio."
+    errors: [relative-pronoun]
+  - tutor: "Sull'aria non le do torto. Mi sono perso però a metà frase: \"i bambini che la scuola è lì accanto\"? Per legare la scuola ai bambini serve un relativo diverso."
+    prompt: {text: "i bambini che la scuola", tags: [relative-pronoun]}
+    new: [{lemma: relativo, gloss: relative pronoun}]
+  - learner: "I bambini la cui scuola è lì accanto, volevo dire."
+  - tutor: "Ora ci siamo. Resta il fatto che i commercianti vivono di chi carica la spesa in macchina. Senza auto, chi viene a comprare un televisore?"
+    goals: [argue]
+  - learner: "Per gli acquisti ingombranti basterebbe permettere le consegne al mattino. E poi, con mezzi pubblici decenti, la gente verrebbe lo stesso. Il Comune deve fare un investimento serio, non si può cavare con due autobus in più."
+    errors: [reflexive]
+  - tutor: "Le consegne al mattino, questa non è male. Un attimo, però: \"non si può cavare\"? In quell'espressione manca un pezzetto, un pronome che il verbo si porta sempre dietro."
+    prompt: {text: "non si può cavare", tags: [reflexive]}
+  - learner: "Giusto: non se la può cavare con due autobus in più."
+  - tutor: "Esatto, e su questo siamo d'accordo: due autobus non bastano. Lei però ammetterà che per chi ha un negozio il rischio è reale."
+    goals: [counter]
+  - learner: "Lo ammetto, il rischio c'è, soprattutto nei primi mesi. Per questo proporrei un compromesso: chiudere il centro solo nel fine settimana per un anno e poi decidere con i dati in mano."
+  - tutor: "Un anno di prova nel fine settimana potrei accettarlo anch'io. Lo proponga pure all'assemblea: stavolta avrà il mio voto."
+    goals: [concede]
+
+- scenario: film-libro
+  level: C1
+  persona: en-m-traveller
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Comincio io. Ho letto un romanzo ambientato a Napoli negli anni Cinquanta: due amiche crescono nello stesso quartiere povero e prendono strade opposte. Non dico altro per non rovinare il finale."
+  - tutor: "Ottima scelta, e grazie per non averci rovinato il finale. Parlaci del personaggio principale: che tipo è?"
+    goals: [summary]
+  - learner: "È una ragazza brillante ma insicura, che vive all'ombra dell'amica. Tutto che fa, lo fa per dimostrare qualcosa a lei. Da bambina era la più brava della classe, eppure non si sentiva mai all'altezza."
+    errors: [relative-pronoun]
+  - tutor: "La descrivi molto bene. Aspetta, però: \"tutto che fa\"? Tra \"tutto\" e \"che\" in italiano ci vuole una piccola parola in mezzo."
+    prompt: {text: "Tutto che fa", tags: [relative-pronoun]}
+  - learner: "Tutto quello che fa, lo fa per dimostrare qualcosa all'amica."
+  - tutor: "Eccola. E il tuo giudizio sul libro, qual è?"
+    goals: [characters]
+  - learner: "Mi è piaciuto moltissimo, eventualmente. All'inizio facevo fatica con tutti quei nomi, ma dopo cento pagine non riuscivo più a smettere."
+    errors: [false-friend]
+  - tutor: "Quindi alla fine ti ha conquistato, nonostante i nomi! Che cosa ti ha tenuto incollato alle pagine?"
+    recast: {text: "eventualmente", fix: "alla fine", tags: [false-friend]}
+  - learner: "Il rapporto tra le due: si vogliono bene e si fanno del male allo stesso tempo, e l'autrice non prende mai le parti di nessuna. È emozionante senza essere sdolcinato."
+  - tutor: "Detto benissimo. A chi lo consiglieresti?"
+    goals: [opinion]
+  - learner: "A chiunque è cresciuto con un'amicizia complicata. Non lo consiglierei, invece, a chi cerca una lettura leggera per le vacanze."
+    errors: [subjunctive-use]
+  - tutor: "Quindi a mezza umanità! Solo una finezza: dopo \"chiunque\" il verbo di solito cambia modo. Riprovi?"
+    prompt: {text: "chiunque è cresciuto", tags: [subjunctive-use]}
+  - learner: "A chiunque sia cresciuto con un'amicizia complicata."
+  - tutor: "Perfetto, questa è da manuale. Lo metto nella lista del club per l'autunno; grazie per aver rotto il ghiaccio!"
+    goals: [recommend]

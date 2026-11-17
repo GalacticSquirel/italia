@@ -1,0 +1,331 @@
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno, grazie. È molto luminoso! Nell'annuncio ho letto 650 euro al mese: le spese di condominio sono comprese nell'affitto?"
+  - tutor: "Sì, nei 650 euro c'è anche il condominio. Luce e gas invece sono a parte, più o meno 60 euro al mese. Lei studia qui a Bologna?"
+    goals: [rent]
+  - learner: "Sì, frequento la magistrale in storia dell'arte. E per il contratto come funziona? Dovrei versare una caparra?"
+  - tutor: "Agli studenti faccio un contratto di 12 mesi, che poi si può rinnovare. Chiedo due mesi di caparra e li restituisco alla fine, se la casa è in ordine. Vuole vedere la cucina?"
+    goals: [contract]
+  - learner: "Volentieri. Il riscaldamento funziona bene? L'anno scorso abitavo in una casa gelida e non voglio tornare."
+    errors: [ci-ne]
+  - tutor: "La capisco! Ma «non voglio tornare»... in quella casa? Nella sua frase manca una piccola parola."
+    prompt: {text: "non voglio tornare", tags: [ci-ne]}
+  - learner: "Ah, certo: non ci voglio tornare! Per questo chiedo del riscaldamento, e anche degli elettrodomestici."
+  - tutor: "Proprio così. Non si preoccupi: il riscaldamento è indipendente e d'inverno la casa resta calda. La lavatrice e il frigorifero hanno solo due anni."
+    goals: [condition]
+    new: [{lemma: lavatrice, gloss: washing machine}, {lemma: frigorifero, gloss: fridge}]
+  - learner: "Perfetto. E il quartiere com'è? Di sera torno spesso tardi dalla biblioteca: è una zona sicura?"
+  - tutor: "È un quartiere tranquillo, pieno di studenti e di famiglie. Sotto casa passa l'autobus 27, che in dieci minuti la porta in centro. Che ne dice, le interessa?"
+    goals: [neighbourhood]
+  - learner: "Sì, mi interessa molto. Se per lei va bene, vorrei firmare il contratto già questa settimana."
+  - tutor: "Benissimo, mi fa piacere. Preparo il contratto e ci vediamo qui giovedì pomeriggio. Porti un documento e il codice fiscale."
+    goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-m-retired
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno, grazie. Che bella luce! Mia moglie ed io ci trasferiamo a Lucca per la pensione, e questo è il tipo di casa che abbiamo bisogno."
+    errors: [relative-pronoun]
+  - tutor: "Mi fa piacere! Però ripeta, per favore: «casa che abbiamo bisogno»? Si dice «avere bisogno di» qualcosa."
+    prompt: {text: "casa che abbiamo bisogno", tags: [relative-pronoun]}
+  - learner: "Ah, sì... il tipo di casa che ne abbiamo bisogno. Comunque, quant'è l'affitto, e che cosa comprende?"
+    errors: [relative-pronoun]
+  - tutor: "Una casa di cui abbiamo bisogno tutti, dopo una vita di lavoro! L'affitto è di 900 euro al mese, spese di condominio comprese."
+    recast: {text: "casa che ne abbiamo bisogno", fix: "casa di cui abbiamo bisogno", tags: [relative-pronoun]}
+    goals: [rent]
+  - learner: "Di cui, grazie. E il contratto quanto dura? Noi vorremmo restare a lungo, e immagino che ci sia una caparra."
+  - tutor: "Il contratto è di quattro anni, più altri quattro. La caparra è di due mesi d'affitto. Per chi vuole restare a lungo è la soluzione più sicura."
+    goals: [contract]
+  - learner: "Bene. L'appartamento è arredato con gusto, ma il riscaldamento com'è? E siamo al secondo piano: c'è l'ascensore?"
+  - tutor: "Il riscaldamento è autonomo, a gas, e funziona molto bene. L'ascensore purtroppo non c'è: il palazzo è del 1700. Le scale però sono larghe e comode."
+    goals: [condition]
+    new: [{lemma: ascensore, gloss: lift}, {lemma: autonomo, gloss: independent}]
+  - learner: "Capisco. E il quartiere? Ci piacerebbe fare la spesa a piedi, senza prendere sempre la macchina."
+  - tutor: "Qui siamo dentro le mura, quindi si fa tutto a piedi. A due passi trova il mercato, la farmacia e un ottimo forno. La sera il quartiere è silenzioso."
+    goals: [neighbourhood]
+  - learner: "Mi piace molto, glielo dico sinceramente. Però le scale mi preoccupano per mia moglie: vorrei tornare con lei sabato, prima di decidere."
+  - tutor: "Ha ragione, è giusto che la veda anche sua moglie. Sabato mattina sono qui dalle dieci. Fino a quel giorno non la mostro a nessun altro."
+    goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno, permesso. È più grande di come sembrava nelle foto. Mi può dire quanto viene l'affitto e quali spese sono comprese?"
+  - tutor: "Certo. Sono 580 euro al mese, più 40 di condominio. Nelle spese c'è anche l'acqua, mentre luce e gas li paga lei. Lavora qui a Modena?"
+    goals: [rent]
+  - learner: "Lavoro in una fabbrica di ceramica a Sassuolo e faccio i turni. Certi giorni non posso salire dal lavoro prima delle dieci di sera, quindi mi serve un posto tranquillo."
+    errors: [false-friend]
+  - tutor: "Se non può uscire dal lavoro prima delle dieci, qui riposa bene: le camere danno sul cortile. Ha un contratto di lavoro fisso?"
+    recast: {text: "salire dal lavoro", fix: "uscire dal lavoro", tags: [false-friend]}
+  - learner: "Sì, a tempo indeterminato, da due anni. A proposito: che tipo di contratto propone lei? Io poterei pagare la caparra subito, se serve."
+    errors: [conditional-form]
+  - tutor: "Buono a sapersi. Ma «io poterei»? Ci pensi un attimo: quella forma non esiste."
+    prompt: {text: "Io poterei", tags: [conditional-form]}
+  - learner: "Scusi: io potrei pagare la caparra subito. Di quanti mesi sarebbe?"
+  - tutor: "Giusto. La caparra è di due mesi e il contratto dura tre anni più due. È registrato, così lei può chiedere anche la residenza."
+    goals: [contract]
+  - learner: "Perfetto, la residenza mi serve. E la casa in che condizioni è? Vedo che è arredata, ma il riscaldamento e la lavatrice funzionano bene?"
+  - tutor: "Il riscaldamento è a gas, con una caldaia di tre anni fa. La lavatrice è nuova, l'ho cambiata quest'anno. I mobili sono semplici ma tenuti bene."
+    goals: [condition]
+    new: [{lemma: caldaia, gloss: boiler}, {lemma: lavatrice, gloss: washing machine}]
+  - learner: "Bene. Un'ultima domanda sul quartiere: c'è un supermercato vicino, e si trova parcheggio la sera tardi?"
+  - tutor: "Il supermercato è a 200 metri ed è aperto fino alle nove. Per la macchina c'è un posto nel cortile, compreso nell'affitto. È una zona di famiglie, molto tranquilla."
+    goals: [neighbourhood]
+  - learner: "Allora sono interessato, senza dubbio. Mi piacerebbe prenderlo dal primo del mese, se lei è d'accordo."
+  - tutor: "D'accordo, per me va benissimo. Mi mandi una copia del documento e dell'ultima busta paga. Poi fissiamo la firma per la settimana prossima."
+    goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno, grazie. Il soggiorno è carino, anche se è un po' buio. L'annuncio parlava di 700 euro: è tutto compreso o ci sono altre spese?"
+  - tutor: "I 700 euro sono solo l'affitto. Poi ci sono 80 euro di condominio, che comprendono il riscaldamento. Viene a Torino per lavoro?"
+    goals: [rent]
+  - learner: "Sì, insegno spagnolo in un liceo fino a giugno. Però ieri ho visto un appartamento a 650, quindi questo è più caro che l'altro. Che contratto farebbe?"
+    errors: [comparative]
+  - tutor: "Capisco. Ma ripeta, per favore: «più caro che l'altro»? Tra due cose diverse, in italiano, non si usa «che»."
+    prompt: {text: "più caro che l'altro", tags: [comparative]}
+  - learner: "Ha ragione: questo è più caro dell'altro. Le chiedevo del contratto, e anche della caparra."
+  - tutor: "Esatto. Per un anno di scuola le propongo un contratto di 10 mesi. La caparra è di tre mesi, perché la casa è arredata."
+    goals: [contract]
+  - learner: "Tre mesi sono tanti, sinceramente. E in che stato è la casa? Vicino alla finestra vedo una macchia scura sul muro, e la caldaia sembra vecchia."
+  - tutor: "La macchia è un po' di umidità, niente di grave. La caldaia serve solo per l'acqua calda, perché il riscaldamento è del condominio. Funziona, anche se ha i suoi anni."
+    goals: [condition]
+    new: [{lemma: umidità, gloss: damp}, {lemma: caldaia, gloss: boiler}]
+  - learner: "Mmm. E il quartiere com'è? La scuola dove lavoro è a San Salvario, e non vorrei metterci un'ora ogni mattina."
+  - tutor: "Da qui alla sua scuola ci vogliono 20 minuti con l'autobus 18. Il quartiere è popolare ma vivo, con il mercato tutte le mattine. Allora, che cosa ne pensa?"
+    goals: [neighbourhood]
+  - learner: "La ringrazio per il tempo, ma devo essere sincera: non fa per me. Tra l'umidità e la caparra di tre mesi, preferisco l'altro appartamento."
+  - tutor: "Peccato, ma apprezzo che me lo dica subito. Se cambia idea mi chiami pure: sulla caparra possiamo parlare. Buona giornata e buon lavoro a scuola."
+    goals: [decide]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, molto, soprattutto la cucina e la vista sul parco. L'unica cosa che mi frena è il canone: 1400 euro mi sembrano tanti per due stanze."
+  - tutor: "Capisco, ma per quella zona di Milano è un prezzo nella media. Il proprietario comunque mi ha detto che il canone è un po' trattabile. Lei a quanto pensava?"
+    goals: [interest]
+  - learner: "Pensavo a 1250. Se il proprietario abbasserebbe il canone, io firmerei anche domani."
+    errors: [hypothetical]
+  - tutor: "Bene a sapersi! Però «se il proprietario abbasserebbe»? Dopo «se» quella forma non va: provi di nuovo."
+    prompt: {text: "Se il proprietario abbasserebbe", tags: [hypothetical]}
+  - learner: "Giusto: se il proprietario abbassasse il canone, firmerei anche domani. E potrei offrire una garanzia in più."
+  - tutor: "Ecco, così è perfetto. A 1250 non credo che accetti, ma con una proposta seria posso provare. Che garanzia avrebbe in mente?"
+  - learner: "Ho un contratto a tempo indeterminato e posso mostrare le ultime tre buste paga. In cambio chiederei 1300 euro e nessun aumento per i primi due anni."
+  - tutor: "Questa è una proposta che posso presentare. Il contratto sarebbe di quattro anni più quattro, con cedolare secca, quindi senza aumenti. Le va bene una durata così lunga?"
+    goals: [negotiate]
+  - learner: "La durata va bene, ma vorrei una clausola per il mio lavoro: se l'azienda mi trasferisse, dovrei poter dare la disdetta con tre mesi di preavviso invece di sei."
+  - tutor: "È una richiesta ragionevole. Faccio scrivere nella clausola tre mesi di preavviso. Se il proprietario dice sì a 1300, chiudiamo?"
+    goals: [conditions]
+    new: [{lemma: preavviso, gloss: notice}]
+  - learner: "Sì, a 1300 con quella clausola accetto. Resta solo la provvigione dell'agenzia: a quanto ammonta?"
+  - tutor: "La provvigione è un mese di canone più IVA, da pagare alla firma. Chiamo il proprietario oggi pomeriggio e le faccio sapere entro stasera. Sono ottimista, vedrà."
+    goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, l'appartamento mi piace e sarei interessata. Però ho un dubbio: tre mesi di garanzia più la provvigione sono tanti soldi tutti insieme."
+  - tutor: "La capisco, all'inizio la spesa è importante. Il proprietario però chiede tre mesi a tutti. Che cosa proporrebbe lei?"
+    goals: [interest]
+  - learner: "Io proporrei due mesi di garanzia. E sulla provvigione, non credo che è giusto pagare il 15% del canone di un anno."
+    errors: [subjunctive-use]
+  - tutor: "Vediamo. Ma «non credo che è giusto»... Dopo «non credo che», ne è sicura?"
+    prompt: {text: "non credo che è giusto", tags: [subjunctive-use]}
+  - learner: "Sì, non credo che è giusto, perché altre agenzie chiedono solo un mese."
+    errors: [subjunctive-use]
+  - tutor: "Non credo che sia giusto fare questo confronto: noi seguiamo il cliente per tutto il contratto. Sui due mesi di garanzia posso sentire il proprietario. La provvigione, però, non è trattabile."
+    recast: {text: "non credo che è giusto", fix: "non credo che sia giusto", tags: [subjunctive-use]}
+    goals: [negotiate]
+  - learner: "Capisco. E il contratto quanto durerebbe? Io ho un lavoro fisso, ma se dovessi tornare in Spagna vorrei sapere come funziona la disdetta."
+  - tutor: "È un contratto di tre anni più due. Lei può dare la disdetta quando vuole, mandando una lettera sei mesi prima. Le va bene?"
+    goals: [conditions]
+  - learner: "Sei mesi sono lunghi, ma li potrei accettare. Il problema resta la provvigione: se fosse di un mese, firmerei subito."
+  - tutor: "Mi dispiace, ma su quel punto ho le mani legate: sono le condizioni dell'agenzia. Posso solo dividere il pagamento in due rate. Che ne dice?"
+  - learner: "La ringrazio, è gentile, ma così supero la cifra che mi ero data. Preferisco rinunciare e continuare a cercare."
+  - tutor: "Nessun problema, ha fatto bene a parlare chiaro. Se trovo qualcosa di più adatto a lei, la chiamo io. Buona fortuna con la ricerca!"
+    goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-m-heritage
+  history: [register]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, tanto! Mi ricorda la casa dei miei nonni a Bari. Ma senti, ho un cane, e nell'annuncio c'era scritto «niente animali»."
+    errors: [register]
+  - tutor: "Che bello, ha la famiglia di qui! Però «senti»? Ci conosciamo da poco: in agenzia sarebbe meglio un'altra forma."
+    prompt: {text: "senti", tags: [register]}
+  - learner: "Ha ragione, mi scusi. Senta, io ho un cane piccolo e molto tranquillo. Pensa che il proprietario possa fare un'eccezione?"
+  - tutor: "Così va benissimo. Il proprietario ha avuto problemi in passato, per questo ha messo quella clausola. Non è impossibile, ma lei dovrebbe offrire qualcosa in cambio."
+    goals: [interest]
+  - learner: "Potrei aumentare la garanzia da due a tre mesi. Ed è importante che il proprietario venghi a conoscere il cane, così vede che è educato."
+    errors: [subjunctive-form]
+  - tutor: "Buona idea, la garanzia in più aiuta. Ma «che il proprietario venghi»? Quella forma non è corretta: ci pensi un momento."
+    prompt: {text: "che il proprietario venghi", tags: [subjunctive-form]}
+  - learner: "È importante che il proprietario venghi, no? Mia nonna diceva sempre così."
+    errors: [subjunctive-form]
+  - tutor: "Lo dicono in tanti! Allora propongo che il proprietario venga sabato a conoscere il cane. Con tre mesi di garanzia credo che accetti."
+    recast: {text: "che il proprietario venghi", fix: "che il proprietario venga", tags: [subjunctive-form]}
+    goals: [negotiate]
+  - learner: "Venga, certo. Grazie! E il contratto? Vorrei sapere quanto dura e con quanto anticipo devo dare la disdetta, se un giorno tornassi in America."
+  - tutor: "È un contratto di quattro anni più quattro. Lei può andare via prima, con una disdetta scritta sei mesi prima. Il canone resta fermo a 850 euro, grazie alla cedolare secca."
+    goals: [conditions]
+  - learner: "Sei mesi vanno bene. Allora, se il proprietario accetta il cane, per me siamo d'accordo su tutto."
+  - tutor: "Ottimo. Lo sento stasera e fisso l'incontro di sabato. Porti anche il cane, mi raccomando: sarà lui a fare la differenza!"
+    goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, mi è piaciuto molto, è vicinissimo alla facoltà. Però c'è un problema: io resto a Padova solo nove mesi, e l'annuncio parla di un contratto di quattro anni."
+  - tutor: "Ah, capisco, lei è qui per l'Erasmus. In effetti il proprietario cercava qualcuno per un periodo lungo. Avrebbe una proposta da fare?"
+    goals: [interest]
+  - learner: "Sì. Vorrei un contratto per studenti fino a giugno. In cambio potrei pagare tre mesi in anticipo, ma tutto dipende dei miei genitori, che mi aiutano con i soldi."
+    errors: [articulated-preposition]
+  - tutor: "È una proposta interessante. Ma «dipende dei miei genitori»? Dopo «dipendere» ci vuole un'altra parola."
+    prompt: {text: "dipende dei miei genitori", tags: [articulated-preposition]}
+  - learner: "Ah, vero: dipende dai miei genitori. In spagnolo è diverso! Loro potrebbero anche firmare come garanzia."
+  - tutor: "Brava. Con la garanzia dei suoi genitori e tre mesi in anticipo, credo che il proprietario accetti. Sul canone di 520 euro è d'accordo?"
+  - learner: "Speravo in qualcosa di meno, perché a luglio e agosto la casa resterebbe vuota. Se il canone fosse di 480 euro, direi subito di sì."
+  - tutor: "A 480 la vedo difficile, ma posso proporre 500. In fondo lei paga in anticipo e offre una garanzia. E sulla disdetta, che cosa le serve?"
+    goals: [negotiate]
+  - learner: "Vorrei lasciare la casa a giugno senza problemi, e sapere con quanto anticipo devo avvisare se dovessi partire prima."
+  - tutor: "Nel contratto per studenti la data di fine è già scritta, quindi a giugno non deve fare niente. Se parte prima, basta una disdetta un mese prima. Le sembra chiaro?"
+    goals: [conditions]
+  - learner: "Chiarissimo, grazie. Allora a 500 euro e con queste condizioni accetto. Quando potrei firmare?"
+  - tutor: "Sento il proprietario oggi e, se conferma, firmiamo venerdì in agenzia. Chieda ai suoi genitori una copia del documento. A presto!"
+    goals: [conclude]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno, grazie. Mi chiamo Emily Carter, ho 24 anni e mi sono laureata in design della comunicazione a Leeds. Vivo a Firenze da un anno."
+  - tutor: "Piacere, Emily. Ho visto nel curriculum che ha già fatto qualcosa nel nostro campo. Che esperienza ha avuto finora?"
+    goals: [intro]
+  - learner: "L'anno scorso lavoravo per sei mesi in un piccolo studio grafico qui a Firenze. Mi occupavo dei social e ho disegnato il logo per un'azienda di vini."
+    errors: [tense-aspect]
+  - tutor: "Interessante! Però «lavoravo per sei mesi»? È un periodo chiuso, con un inizio e una fine. Come lo direbbe?"
+    prompt: {text: "lavoravo per sei mesi", tags: [tense-aspect]}
+  - learner: "Ah, sì: ho lavorato per sei mesi in quello studio. Era uno stage, ma seguivo progetti veri."
+  - tutor: "Perfetto. Un lavoro per un cliente vero è già una bella responsabilità. Mi dica i suoi punti di forza, e anche un suo difetto."
+    goals: [experience]
+    new: [{lemma: difetto, gloss: weakness}]
+  - learner: "Sono creativa e precisa, e imparo in fretta i programmi nuovi. Il mio difetto è che faccio fatica a dire di no, e a volte accetto troppi compiti."
+  - tutor: "Succede a molti, all'inizio. Qui siamo una squadra piccola, quindi dire le cose chiaramente è importante. Perché vorrebbe lavorare proprio con noi?"
+    goals: [strengths]
+  - learner: "Perché seguo i vostri progetti da tempo, soprattutto quelli per i musei. Mi piacerebbe crescere in un'azienda piccola, dove si impara da tutti."
+  - tutor: "Mi fa piacere che conosca il nostro lavoro. Prima di chiudere, ha qualche domanda sul ruolo?"
+    goals: [why]
+  - learner: "Sì, una: all'inizio lavorerei su un solo progetto o su diversi insieme? E ci sarebbe una persona che mi segue?"
+  - tutor: "All'inizio seguirebbe un solo progetto, accanto a Marta, la nostra responsabile. Le faremo sapere entro venerdì. Grazie di essere venuta, Emily."
+    goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: es-m-worker
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno. Mi chiamo Javier Moreno, ho 38 anni e sono di Valencia. Sono falegname e vivo a Treviso con la mia famiglia da quattro anni."
+  - tutor: "Piacere, signor Moreno. Cerchiamo proprio una persona per il laboratorio dove costruiamo i modelli. Mi racconti la sua esperienza."
+    goals: [intro]
+  - learner: "In Spagna ho rimasto dodici anni in un'azienda di mobili, dove costruivo i modelli per i designer. Qui in Italia ho lavorato in una fabbrica di cucine."
+    errors: [auxiliary-choice]
+  - tutor: "Dodici anni sono tanti! Ma «ho rimasto»? Ci pensi un attimo: ne è sicuro?"
+    prompt: {text: "ho rimasto", tags: [auxiliary-choice]}
+  - learner: "No, scusi: sono rimasto dodici anni in quell'azienda. Alla fine ero responsabile di tre persone."
+  - tutor: "Ecco. Quindi sa anche guidare una piccola squadra. Che tipo di progetti seguiva?"
+  - learner: "Soprattutto mobili su misura per alberghi. L'ultimo progetto è stato molto largo, quasi due anni, per un albergo di Madrid."
+    errors: [false-friend]
+  - tutor: "Un progetto molto lungo, allora: due anni richiedono pazienza. Quali sono i suoi punti di forza, e che cosa invece vorrebbe migliorare?"
+    recast: {text: "molto largo", fix: "molto lungo", tags: [false-friend]}
+    goals: [experience]
+  - learner: "Sono preciso con le mani e trovo soluzioni pratiche quando un disegno non funziona. Il mio punto debole è il computer: con i programmi 3D sono ancora lento."
+  - tutor: "Apprezzo la risposta sincera; per i programmi abbiamo un corso interno. E perché vorrebbe lasciare la fabbrica per venire da noi?"
+    goals: [strengths]
+  - learner: "Perché in fabbrica faccio sempre lo stesso pezzo. Mi manca costruire cose nuove, e in un'azienda di design ogni progetto sarebbe diverso."
+  - tutor: "La capisco bene. Qui in effetti non ci sono due giorni uguali. Ha qualche domanda sul ruolo?"
+    goals: [why]
+  - learner: "Sì. Vorrei sapere se lavorerei da solo in laboratorio o insieme ai designer, e quali sono gli orari."
+  - tutor: "Lavorerebbe ogni giorno insieme ai nostri designer, dalle 8 alle 17. La chiamo domani per fissare una giornata di prova. Grazie, signor Moreno."
+    goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno, grazie. Mi chiamo Tom Reid, sono australiano e ho 31 anni. Negli ultimi tre anni ho viaggiato molto, ma adesso vorrei fermarmi a Bologna."
+  - tutor: "Benvenuto, allora. Tre anni di viaggio sono una bella avventura. E prima, di che cosa si occupava?"
+    goals: [intro]
+  - learner: "La mia educazione è in architettura, ma dopo la laurea ho lavorato quattro anni a Melbourne come fotografo per studi di design."
+    errors: [false-friend]
+  - tutor: "Una formazione in architettura è utile per chi fa foto agli spazi. Nel curriculum però vedo un vuoto dal 2023. Che cosa ha fatto in quel periodo?"
+    recast: {text: "educazione", fix: "formazione", tags: [false-friend]}
+    new: [{lemma: formazione, gloss: training}]
+  - learner: "Ho continuato a lavorare mentre viaggiavo. Ho collaborato a distanza con due riviste e ho realizzato un progetto fotografico sulle botteghe artigiane in Italia."
+  - tutor: "Quindi non si è mai fermato davvero, bene. Mi dica ora un suo punto di forza e un suo punto debole."
+    goals: [experience]
+  - learner: "Mi adatto facilmente e so lavorare con persone molto diverse. Il punto debole è l'italiano scritto: parlo abbastanza bene, ma quando scrivo ho ancora bisogno di un controllo."
+  - tutor: "Abbiamo una collega che controlla tutto quello che scriviamo, quindi non mi preoccupa. Mi preoccupa di più un'altra cosa: resterebbe con noi a lungo?"
+    goals: [strengths]
+  - learner: "Capisco il dubbio. Ho viaggiato abbastanza e adesso cerco stabilità. Vorrei questo lavoro perché unisce fotografia e design, e perché Bologna è la città dove voglio vivere."
+  - tutor: "È una risposta onesta, la apprezzo. C'è qualcosa che vuole chiedere a me sul ruolo?"
+    goals: [why]
+  - learner: "Sì. Il contratto sarebbe a tempo determinato o indeterminato? E dovrei occuparmi solo delle foto o anche dei video?"
+  - tutor: "Si comincia con un anno, poi si passa al contratto fisso. All'inizio solo foto; i video arriveranno più avanti. La richiamo entro la settimana. Buona giornata!"
+    goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno. Sono Sarah Whitman, ho 42 anni e da quindici lavoro nella gestione di progetti. Mi sono trasferita a Torino due anni fa per seguire mio marito."
+  - tutor: "Piacere. Il suo curriculum è molto ricco, forse anche troppo per un'azienda di venti persone. Mi parli dell'esperienza che considera più importante."
+    goals: [intro]
+  - learner: "A Londra dirigevo una squadra di dodici persone in un'agenzia di comunicazione. Quando sono arrivata, la squadra è stata in crisi: tre persone si erano appena licenziate."
+    errors: [tense-aspect]
+  - tutor: "Una situazione difficile. Però «la squadra è stata in crisi»? Lei descrive la situazione che ha trovato: provi di nuovo."
+    prompt: {text: "la squadra è stata in crisi", tags: [tense-aspect]}
+  - learner: "Sì, esatto, la squadra è stata in crisi, e io ho dovuto riorganizzare tutto in poche settimane."
+    errors: [tense-aspect]
+  - tutor: "Capito: quando è arrivata, la squadra era in crisi e lei ha rimesso ordine. Come ci è riuscita?"
+    recast: {text: "la squadra è stata in crisi", fix: "la squadra era in crisi", tags: [tense-aspect]}
+  - learner: "Ho parlato con ogni persona, ho diviso meglio le responsabilità e in sei mesi abbiamo recuperato due clienti importanti."
+  - tutor: "Un bel risultato. Da questo capisco già un suo punto di forza. Me ne dica un altro, e poi un difetto vero."
+    goals: [experience]
+    new: [{lemma: difetto, gloss: weakness}]
+  - learner: "So mantenere la calma sotto pressione e ascolto prima di decidere. Il difetto vero è che controllo troppo: delegare mi costa fatica, anche se ci sto lavorando."
+  - tutor: "Almeno lo riconosce, e non è da tutti. Ma perché una piccola azienda come la nostra, dopo Londra?"
+    goals: [strengths]
+  - learner: "Perché nelle grandi agenzie passavo le giornate in riunione. Qui potrei seguire i progetti dall'idea alla consegna e stare vicino ai clienti."
+  - tutor: "Mi sembra un buon motivo. Ha delle domande per me?"
+    goals: [why]
+  - learner: "Sì, due. Quante persone dovrei coordinare? E vorrei capire se lo stipendio è trattabile, vista la mia esperienza."
+  - tutor: "Avrebbe una squadra di cinque persone. Sullo stipendio c'è un piccolo margine: ne parleremo nel secondo colloquio. La chiamo lunedì per fissare la data."
+    goals: [questions]

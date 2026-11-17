@@ -1,0 +1,183 @@
+# B1, doctor, restaurant bookings, train tickets (formal).
+- scenario: medico-base
+  level: B1
+  persona: en-f-professional
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e la tosse, e stanotte avevo un po' di febbre."
+    - tutor: "Mi dispiace. Da quando ha questi sintomi?"
+      goals: [symptoms]
+      new: [{lemma: sintomo, gloss: symptom}]
+    - learner: "Sto male da tre giorni. La tosse è peggiorata ieri sera."
+    - tutor: "Capisco. È allergica a qualche medicina, per esempio agli antibiotici?"
+      goals: [since-when]
+      new: [{lemma: antibiotico, gloss: antibiotic}]
+    - learner: "No, non sono allergica a niente. Ma prendo una pillola per la pressione."
+    - tutor: "Va bene, grazie. Non è niente di grave, è solo un brutto mal di gola. Le scrivo la ricetta per uno sciroppo."
+      goals: [history]
+      new: [{lemma: sciroppo, gloss: syrup}]
+    - learner: "Quante volte al giorno devo prenderlo?"
+    - tutor: "Lo prenda tre volte al giorno, dopo mangiato, per una settimana. E beva molta acqua."
+    - learner: "Allora, tre volte al giorno dopo mangiato, per sette giorni, e tanta acqua."
+    - tutor: "Esatto. Se tra cinque giorni sta ancora male, torni da me. Buona guarigione!"
+      goals: [instructions]
+      new: [{lemma: guarigione, gloss: recovery}]
+
+- scenario: medico-base
+  level: B1
+  persona: es-m-worker
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Mi fa male la schiena. Non posso stare in piedi molto tempo."
+    - tutor: "Capisco. Il dolore è forte? Le fa male anche quando sta seduto?"
+      goals: [symptoms]
+    - learner: "Sì, è forte. Da seduto va un po' meglio. Mi fa male dalla settimana scorsa, da quando ho sollevato una pentola enorme."
+    - tutor: "Ah, al lavoro, quindi. Prende già qualche medicina per il dolore?"
+      goals: [since-when]
+    - learner: "Sì, ho preso dell'ibuprofene, ma non mi ha fatto molto. Non ho allergie."
+    - tutor: "Va bene. Le prescrivo una medicina e una settimana di riposo. Non sollevi niente di pesante."
+      goals: [history]
+      new: [{lemma: prescrivere, gloss: to prescribe}]
+    - learner: "Una settimana senza lavoro? Ma il mio capo non sarà contento."
+    - tutor: "Le scrivo il certificato per il suo capo. La salute viene prima di tutto."
+      new: [{lemma: certificato, gloss: medical certificate}]
+    - learner: "Va bene. Quindi prendo la medicina, riposo una settimana e non sollevo cose pesanti."
+    - tutor: "Esatto, ha capito perfettamente. Se il dolore non passa, torni lunedì prossimo."
+      goals: [instructions]
+
+- scenario: medico-base
+  level: B1
+  persona: en-m-traveller
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Ho mal di stomaco da ieri sera e ho anche vomitato due volte."
+    - tutor: "Mi dispiace. Ha mangiato qualcosa di strano ieri?"
+      goals: [symptoms, since-when]
+    - learner: "Sì, ho mangiato i frutti di mare in un ristorante. Il mio amico ha mangiato la stessa cosa ed è stato male anche lui."
+    - tutor: "Allora è probabilmente un'intossicazione. Prende altre medicine? È allergico a qualcosa?"
+      new: [{lemma: intossicazione, gloss: food poisoning}]
+    - learner: "No, nessuna allergia. Ieri ho comprato una medicina per lo stomaco in una drogheria, ma non mi ha aiutato."
+      errors: [false-friend]
+    - tutor: "Ah, quindi l'ha comprata in farmacia. La drogheria in italiano è un negozio dove si compra da mangiare!"
+      goals: [history]
+      recast: {text: "drogheria", fix: "farmacia", tags: [false-friend]}
+      new: [{lemma: drogheria, gloss: grocer's shop}]
+    - learner: "Ah, giusto, in farmacia! La medicina si chiama Buscopan."
+    - tutor: "Non si preoccupi, succede spesso! Per lo stomaco, beva tanta acqua e mangi solo riso in bianco per due giorni."
+    - learner: "Va bene. Quindi molta acqua e solo riso in bianco per due giorni."
+    - tutor: "Esatto. E per oggi si riposi. Se domani sta peggio, mi chiami."
+      goals: [instructions]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-m-retired
+  history: [register]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per sabato sera, per favore."
+    - tutor: "Certo. Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Per sei persone, alle otto. Puoi darci un tavolo grande?"
+      errors: [register]
+    - tutor: "Sei persone alle otto, va bene. Puoi darci? Al telefono con il ristorante..."
+      goals: [details]
+      prompt: {text: "Puoi darci", tags: [register]}
+    - learner: "Ah, scusi: può darci un tavolo grande, per favore?"
+    - tutor: "Certo, nessun problema. Ha qualche altra richiesta?"
+      goals: [details]
+    - learner: "Sì. Sarebbe possibile mangiare fuori, in giardino? E serve un seggiolone per il mio nipotino."
+    - tutor: "Il tavolo fuori glielo preparo con piacere, se il tempo è bello. Il seggiolone ce l'abbiamo. A che nome prenoto?"
+      goals: [special]
+      new: [{lemma: seggiolone, gloss: high chair}]
+    - learner: "A nome Walker. Quindi sabato alle otto, sei persone, fuori e con un seggiolone."
+    - tutor: "Perfetto, signore, è tutto confermato. A sabato!"
+      goals: [name]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Vorrei prenotare un tavolo per stasera, se è possibile."
+    - tutor: "Stasera è un po' pieno, ma vediamo. Per quante persone?"
+      goals: [book]
+    - learner: "Siamo in quattro. Va bene alle nove e mezza?"
+    - tutor: "Alle nove e mezza ho un tavolo libero, sì. Avete qualche richiesta particolare?"
+      goals: [details]
+    - learner: "Sì, una mia amica è celiaca. Avete la pasta senza glutine?"
+    - tutor: "Sì, abbiamo pasta e pizza senza glutine, non si preoccupi. A che nome prenoto?"
+      goals: [special]
+      new: [{lemma: glutine, gloss: gluten}]
+    - learner: "A nome Martina. Allora, stasera alle nove e mezza, quattro persone, una senza glutine."
+    - tutor: "Perfetto, è tutto confermato. Ci vediamo stasera, buona serata!"
+      goals: [name]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-f-student
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Volevo prenotare un tavolo per domani, per il compleanno di un'amica."
+    - tutor: "Che bello! Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Per otto persone alle otto. Potrebbe essere un tavolo vicino alla finestra?"
+    - tutor: "Otto persone alle otto, va bene. Il tavolo vicino alla finestra è libero, glielo tengo."
+      goals: [details]
+    - learner: "Grazie! E poi, porteremo noi una torta. Potrete metterla in frigo fino al dolce?"
+      errors: [conditional-form]
+    - tutor: "Potrete? È una richiesta gentile, quindi..."
+      prompt: {text: "Potrete", tags: [conditional-form]}
+    - learner: "Potreste metterla in frigo fino al dolce?"
+    - tutor: "Esatto! Certo, la mettiamo in frigo e la portiamo con le candeline. A che nome prenoto?"
+      goals: [special]
+      new: [{lemma: candelina, gloss: birthday candle}]
+    - learner: "A nome Sophie. Domani alle otto, otto persone, e la torta in frigo."
+    - tutor: "Perfetto, è tutto confermato. A domani!"
+      goals: [name]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Devo andare a Firenze domani mattina, il prima possibile."
+    - tutor: "C'è un treno veloce alle 6:40 e un regionale alle 7:05. Il regionale è più lento ma costa meno."
+    - learner: "Prendo il treno delle 6:40. Vorrei un biglietto di andata e ritorno."
+    - tutor: "Va bene. Per quando è il ritorno?"
+      goals: [destination, type]
+    - learner: "Torno venerdì sera, verso le otto. Vorrei un posto vicino a il finestrino."
+      errors: [articulated-preposition]
+    - tutor: "Vicino a il finestrino? Le due parole a e il diventano una sola..."
+      prompt: {text: "vicino a il finestrino", tags: [articulated-preposition]}
+    - learner: "Vicino al finestrino, scusi. In seconda classe, per favore."
+    - tutor: "Perfetto, ho un posto vicino al finestrino in seconda classe, all'andata e al ritorno. Sono 78 euro."
+      goals: [class]
+    - learner: "Ecco la carta. Da quale binario parte il treno domani?"
+    - tutor: "Il binario lo vede sul tabellone venti minuti prima, ma di solito è il binario 8. Buon viaggio!"
+      goals: [platform]
+      new: [{lemma: tabellone, gloss: departures board}]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-f-professional
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei andare a Venezia sabato. Ci sono treni la mattina?"
+    - tutor: "Sì, ce ne sono molti. C'è un treno veloce alle 8:15 che arriva alle 10:40."
+    - learner: "Perfetto, quello delle 8:15. Ma solo andata, perché torno in macchina con un'amica."
+    - tutor: "Va bene, solo andata. Preferisce la prima o la seconda classe?"
+      goals: [destination, type]
+    - learner: "Quanto costa la prima classe?"
+    - tutor: "In prima sono 65 euro, in seconda 45. In prima c'è anche un caffè gratis."
+      new: [{lemma: gratis, gloss: free of charge}]
+    - learner: "Allora prendo la seconda. Il caffè lo prendo alla stazione!"
+    - tutor: "Ottima scelta! Ecco il biglietto. Ha bisogno di altro?"
+      goals: [class]
+    - learner: "Sì, da quale binario parte il treno?"
+    - tutor: "Di solito parte dal binario 3, ma controlli il tabellone prima di partire. Buon viaggio!"
+      goals: [platform]
+      new: [{lemma: tabellone, gloss: departures board}]

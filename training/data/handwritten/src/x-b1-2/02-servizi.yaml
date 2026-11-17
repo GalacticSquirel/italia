@@ -1,0 +1,189 @@
+# B1, services: bank, train tickets, clinic and restaurant bookings.
+- scenario: banca-conto
+  level: B1
+  persona: en-f-professional
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Mi sono trasferita a Milano il mese scorso e vorrei aprire un conto."
+    - tutor: "Benvenuta a Milano, allora! Certo, apriamo un conto. Lei lavora qui in Italia?"
+      goals: [purpose]
+    - learner: "Sì, lavoro per un'agenzia di marketing. Quali documenti devo di portare?"
+      errors: [modal-infinitive]
+    - tutor: "Devo di portare? Guardi bene che cosa c'è dopo il verbo dovere."
+      prompt: {text: "devo di portare", tags: [modal-infinitive]}
+    - learner: "Ah, quali documenti devo portare?"
+    - tutor: "Esatto. Servono un documento d'identità, il codice fiscale e il contratto di lavoro."
+      goals: [documents]
+    - learner: "Li ho tutti con me. E quanto costa il conto ogni mese? Ho visto che alcune banche non fanno pagare niente."
+    - tutor: "È vero, anche il nostro conto è gratis per il primo anno. Poi costa due euro al mese."
+      goals: [costs]
+    - learner: "Due euro va bene. La carta è compresa? E c'è un'app per fare i bonifici dal telefono?"
+    - tutor: "Sì, la carta è compresa e arriva a casa in una settimana. Con la nostra app può fare bonifici e controllare il conto quando vuole."
+      goals: [card]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-m-worker
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Ho bisogno di un conto in Italia, perché il ristorante mi paga solo con bonifico."
+    - tutor: "Capisco, allora apriamo un conto oggi. Ha già un conto in un'altra banca italiana?"
+      goals: [purpose]
+    - learner: "No, è il primo. Che documenti servono? Ho il passaporto e il permesso di soggiorno."
+    - tutor: "Vanno benissimo. Mi serve anche il codice fiscale: ce l'ha?"
+      goals: [documents]
+    - learner: "Sì. Ho ricevuto una carta dall'ufficio con il codice, ma l'ho lasciata a casa."
+      errors: [false-friend]
+    - tutor: "Nessun problema: se ha ricevuto una lettera con il codice, può portarla domani. Adesso iniziamo con gli altri documenti."
+      recast: {text: "una carta", fix: "una lettera", tags: [false-friend]}
+    - learner: "Va bene. Quanto si paga al mese per il conto? Io non guadagno molto."
+    - tutor: "Abbiamo un conto semplice che costa un euro al mese. I bonifici dall'app sono gratis."
+      goals: [costs]
+    - learner: "Perfetto. E posso avere una carta per pagare nei negozi? Non mi piace girare con i contanti."
+    - tutor: "Certo, la carta è compresa nel conto. Gliela mandiamo a casa in pochi giorni e può usarla subito."
+      goals: [card]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-traveller
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno! Devo andare a Verona domani mattina. C'è un treno verso le nove?"
+    - tutor: "Sì, c'è un regionale alle 9:12 e un treno veloce alle 9:40. Solo andata?"
+      goals: [destination]
+    - learner: "Andata e ritorno, torno domenica sera. Quanto costa il treno di le 9:40?"
+      errors: [articulated-preposition]
+    - tutor: "Il treno di le 9:40? Queste due parole piccole vanno insieme."
+      prompt: {text: "di le", tags: [articulated-preposition]}
+    - learner: "Giusto, il treno delle 9:40!"
+    - tutor: "Perfetto. Con il treno veloce, andata e ritorno costano 46 euro."
+      goals: [type]
+    - learner: "Mamma mia, è caro! E con il regionale quanto spendo?"
+    - tutor: "Con il regionale spende 19 euro, ma ci mette quaranta minuti in più."
+    - learner: "Allora prendo il regionale, ho tempo. Posso avere un posto vicino al finestrino?"
+    - tutor: "Sui regionali il posto è libero: si siede dove vuole. Di solito la mattina c'è posto."
+      goals: [class]
+    - learner: "Benissimo. Un'ultima cosa: da quale binario parte?"
+    - tutor: "Parte dal binario 3. Ecco i suoi biglietti, buon viaggio a Verona!"
+      goals: [platform]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei due biglietti per Torino per venerdì pomeriggio, per favore."
+    - tutor: "Certo. Venerdì ci sono treni alle 15:05 e alle 17:20. Quale preferisce?"
+    - learner: "Quello delle 15:05. Però ho letto che venerdì c'è uno sciopero dei treni. È vero?"
+    - tutor: "Sì, purtroppo c'è uno sciopero, ma solo dalle nove alle tredici. Il suo treno parte senza problemi."
+      goals: [destination]
+    - learner: "Meno male. Allora due biglietti di sola andata, torniamo in macchina con mia sorella."
+    - tutor: "Va bene, due biglietti di sola andata. Prima o seconda classe?"
+      goals: [type]
+    - learner: "In seconda. E se il treno ha molto ritardo, ci danno indietro i soldi?"
+    - tutor: "Sì: con più di un'ora di ritardo ha diritto a una parte del prezzo. Deve solo tenere i biglietti."
+      goals: [class]
+    - learner: "Perfetto, li tengo. Mi può dire anche il binario?"
+    - tutor: "Il binario si sa solo venti minuti prima: guardi il tabellone in stazione. Sono 58 euro in tutto."
+      new: [{lemma: tabellone, gloss: departures board}]
+      goals: [platform]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-m-retired
+  history: [noun-gender]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita con un dermatologo, per favore. Ho una problema alla pelle da un mese."
+      errors: [noun-gender]
+    - tutor: "Certo, la aiuto subito. Mi scusi, una problema? Questa parola finisce in -a, ma..."
+      prompt: {text: "una problema", tags: [noun-gender]}
+    - learner: "Ah, già: un problema alla pelle."
+    - tutor: "Esatto! Allora, per il dermatologo ho posto giovedì alle 10 o lunedì alle 16:30."
+      goals: [type]
+    - learner: "Giovedì non posso, ho già un impegno. Lunedì alle 16:30 andrebbe bene."
+    - tutor: "Perfetto, lunedì alle 16:30 con il nostro dermatologo."
+      goals: [availability]
+    - learner: "Quanto costa la visita? E devo portare qualcosa?"
+    - tutor: "La visita costa 90 euro. Porti un documento e, se ce l'ha, l'impegnativa del suo medico."
+      goals: [cost]
+    - learner: "Novanta euro! Non è poco. Con l'impegnativa pago meno?"
+    - tutor: "Sì, con l'impegnativa paga solo 36 euro. È meglio chiederla al suo medico prima di lunedì."
+    - learner: "Allora la chiedo domani. Quindi: lunedì alle 16:30, dermatologo, con documento e impegnativa."
+    - tutor: "Esattamente. La aspettiamo lunedì, buona giornata!"
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei una visita dall'oculista. Da qualche settimana vedo male da lontano e ho spesso mal di testa."
+    - tutor: "Capisco, è meglio controllare. Quando potrebbe venire?"
+      goals: [type]
+    - learner: "Posso venire martedì prossimo, ma solo dopo le quattro, perché esco dell'università alle tre e mezza."
+      errors: [preposition]
+    - tutor: "Scusi, come? Mi ripete l'ultima parte, per favore?"
+      prompt: {text: "esco dell'università", tags: [preposition]}
+    - learner: "Sì, esco di università alle tre e mezza."
+      errors: [preposition]
+    - tutor: "Ah, esce dall'università alle tre e mezza, ho capito. Martedì ho un posto alle 16:45, va bene?"
+      recast: {text: "esco di università", fix: "esce dall'università", tags: [preposition]}
+    - learner: "Sì, perfetto. Quanto costa? Sono studentessa, c'è un prezzo speciale?"
+    - tutor: "Per gli studenti la visita costa 55 euro invece di 80. Porti un documento e la carta dell'università."
+      goals: [availability, cost]
+    - learner: "Benissimo. Allora confermo: martedì alle 16:45 dall'oculista, con il documento e la carta dell'università."
+    - tutor: "Tutto giusto. A martedì, e buono studio!"
+      goals: [confirm]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-f-student
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Vorrei prenotare un tavolo per sabato sera, è possibile?"
+    - tutor: "Certo! Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Siamo in sei, verso le otto e mezza. È per il compleanno di una mia amica."
+    - tutor: "Che bello, tanti auguri alla sua amica! Sabato alle otto e mezza per sei va benissimo."
+      goals: [details]
+    - learner: "Grazie! Una domanda: nel gruppo c'è due persone vegetariane. Avete piatti senza carne?"
+      errors: [ce-ci-sono]
+    - tutor: "C'è due persone? Sono due, quindi..."
+      prompt: {text: "c'è due persone", tags: [ce-ci-sono]}
+    - learner: "Ci sono due persone vegetariane, scusi."
+    - tutor: "Esatto! Sì, abbiamo diversi piatti senza carne, anche tra i primi."
+    - learner: "Perfetto. E potremmo portare noi la torta? L'ha fatta sua madre."
+    - tutor: "Certo, portatela pure: la teniamo al fresco e la portiamo al tavolo alla fine."
+      goals: [special]
+    - learner: "Grazie mille! Il nome è Harris, acca, a, erre, erre, i, esse."
+    - tutor: "Perfetto, signora Harris: sabato alle otto e mezza, tavolo per sei. A sabato!"
+      goals: [name]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-m-heritage
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Chiamo per prenotare un tavolo per domani a pranzo, per quattro persone."
+    - tutor: "Con piacere! A che ora volete venire?"
+      goals: [book]
+    - learner: "All'una, se c'è posto. Vengono anche i miei nonni, che sono in visita dal Canada."
+    - tutor: "Che bello avere i nonni qui! All'una per quattro va bene."
+      goals: [details]
+    - learner: "Poterebbe darci un tavolo fuori? Mio nonno ama mangiare all'aperto."
+      errors: [conditional-form]
+    - tutor: "Poterebbe? Attenzione, questa forma del verbo è un po' diversa."
+      prompt: {text: "Poterebbe", tags: [conditional-form]}
+    - learner: "Potrebbe darci un tavolo fuori?"
+    - tutor: "Ecco, giusto! Fuori purtroppo è tutto pieno, ma ho un tavolo vicino alla finestra, con vista sul giardino."
+    - learner: "Peccato. Ma se un tavolo fuori si libera, ci può spostare?"
+    - tutor: "Certo: se si libera un tavolo fuori, vi sposto subito."
+      goals: [special]
+    - learner: "Grazie, molto gentile. Il nome è Rossi, come mia nonna."
+    - tutor: "Benissimo, signor Rossi: domani all'una, quattro persone. Vi aspettiamo!"
+      goals: [name]

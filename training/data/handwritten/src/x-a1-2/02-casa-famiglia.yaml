@@ -1,0 +1,211 @@
+- scenario: casa-mia
+  level: A1
+  persona: en-f-student
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Abito in un appartamento piccolo, in centro.
+    - tutor: Che bello, in centro! Quante stanze ci sono?
+      goals: [type]
+    - learner: Ci sono tre stanze. La cucina, la camera e il bagno.
+    - tutor: E qual è la tua stanza preferita?
+      goals: [rooms]
+    - learner: La cucina, perché è grande e mi piace cucinare.
+    - tutor: Anche a me piace cucinare!
+      goals: [favourite]
+    - learner: E tu, Luca? Abiti in una casa o in un appartamento?
+    - tutor: Abito in una casa piccola con il giardino.
+      goals: [ask]
+      new: [{lemma: giardino, gloss: garden}]
+
+- scenario: casa-mia
+  level: A1
+  persona: en-m-retired
+  history: [ce-ci-sono]
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Vivo in una casa con mia moglie.
+    - tutor: Bello! È una casa grande?
+      goals: [type]
+    - learner: Sì. Ci è tre camere e due bagni.
+      errors: [ce-ci-sono]
+    - tutor: Ci è tre camere? Attenzione, tre è plurale.
+      prompt: {text: Ci è tre camere, tags: [ce-ci-sono]}
+    - learner: Ci sono tre camere e due bagni.
+    - tutor: Esatto! E la tua stanza preferita?
+      goals: [rooms]
+    - learner: Il mio studio. È piccolo ma tranquillo.
+    - tutor: Uno studio tranquillo, che bello!
+      goals: [favourite]
+    - learner: E la tua casa, com'è?
+    - tutor: È un appartamento piccolo con un balcone.
+      goals: [ask]
+
+- scenario: casa-mia
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Vivo in un appartamento con due habitaciones.
+      errors: [word-choice]
+    - tutor: Due camere, bene! E c'è un balcone?
+      goals: [type, rooms]
+      recast: {text: habitaciones, fix: camere, tags: [word-choice]}
+    - learner: Sì, c'è un balcone piccolo.
+    - tutor: Che bello! Qual è la tua stanza preferita?
+    - learner: La mia camera. È molto luminosa. Si dice così?
+    - tutor: Sì, si dice proprio così. Brava!
+      goals: [favourite]
+    - learner: Grazie! E tu dove abiti?
+    - tutor: Abito in una casa vicino al mare.
+      goals: [ask]
+
+- scenario: casa-mia
+  level: A1
+  persona: en-m-traveller
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Vivo in una casa con quattro amico. La cucina è piccolo.
+      errors: [noun-number, adjective-agreement]
+    - tutor: La cucina è piccolo? Cucina è femminile...
+      goals: [type]
+      prompt: {text: La cucina è piccolo, tags: [adjective-agreement]}
+    - learner: La cucina è piccola.
+    - tutor: Giusto! E quante camere ci sono?
+    - learner: Ci sono quattro camere e un bagno.
+    - tutor: Solo un bagno! E la tua stanza preferita?
+      goals: [rooms]
+    - learner: Il salotto, perché c'è un divano comodo.
+    - tutor: Bello, un divano comodo!
+      goals: [favourite]
+    - learner: E tu? Hai una casa grande?
+    - tutor: No, ho un appartamento di due stanze.
+      goals: [ask]
+
+- scenario: casa-mia
+  level: A1
+  persona: es-f-teacher
+  turns:
+    - tutor: Allora, com'è la tua casa?
+    - learner: Vivo in un appartamento al terzo piano.
+    - tutor: Al terzo piano! Quante stanze ci sono?
+      goals: [type]
+    - learner: Ci sono quattro stanze. Nella mia camera c'è due finestre.
+      errors: [ce-ci-sono]
+    - tutor: C'è due finestre? Guarda, le finestre sono due...
+      goals: [rooms]
+      prompt: {text: c'è due finestre, tags: [ce-ci-sono]}
+    - learner: Ah... c'è due finestre grandi?
+      errors: [ce-ci-sono]
+    - tutor: Ci sono due finestre, sì. È la tua stanza preferita?
+      recast: {text: c'è due finestre, fix: Ci sono due finestre, tags: [ce-ci-sono]}
+    - learner: Sì, perché è grande e ci sono molti libri.
+    - tutor: Che bella camera!
+      goals: [favourite]
+    - learner: E tu, Luca, vivi in una casa?
+    - tutor: Sì, in una casa vecchia ma bella.
+      goals: [ask]
+
+- scenario: famiglia
+  level: A1
+  persona: en-f-professional
+  turns:
+    - tutor: Che bella foto! Chi sono queste persone?
+    - learner: Questa è mia sorella Emma con suo marito.
+    - tutor: Che belli! Com'è tua sorella?
+      goals: [who]
+    - learner: È simpatica e molto alta. Lavora in un ospedale.
+    - tutor: Che bello! Quanti anni ha?
+      goals: [describe]
+    - learner: Ha trentadue anni. Come si dice "nephew" in italiano?
+    - tutor: Si dice nipote. Hai un nipote?
+      goals: [ages]
+      new: [{lemma: nipote, gloss: nephew}]
+    - learner: Sì, ho un nipote piccolo. E tu hai fratelli?
+    - tutor: Sì, ho due sorelle più grandi.
+      goals: [ask]
+
+- scenario: famiglia
+  level: A1
+  persona: en-m-heritage
+  history: [essere-avere]
+  turns:
+    - tutor: Che bella foto! Chi sono queste persone?
+    - learner: Questo è il mio nonno. Lui è ottanta anni.
+      errors: [possessive, essere-avere]
+    - tutor: Lui è ottanta anni? Attenzione al verbo...
+      goals: [who]
+      prompt: {text: Lui è ottanta anni, tags: [essere-avere]}
+    - learner: Lui ha ottanta anni!
+    - tutor: Esatto! E com'è tuo nonno?
+      goals: [ages]
+    - learner: È molto simpatico. Parla sempre italiano con me.
+    - tutor: Che bello! Per questo parli bene.
+      goals: [describe]
+    - learner: Grazie! E i tuoi nonni dove vivono?
+    - tutor: Vivono a Napoli, vicino al mare.
+      goals: [ask]
+
+- scenario: famiglia
+  level: A1
+  persona: es-m-worker
+  turns:
+    - tutor: Che bella foto! Chi sono queste persone?
+    - learner: Questa è mia abuela con mio padre.
+      errors: [word-choice]
+    - tutor: Ah, tua nonna! Quanti anni ha?
+      goals: [who]
+      recast: {text: mia abuela, fix: tua nonna, tags: [word-choice]}
+    - learner: Mia nonna ha settantanove anni. Cucina molto bene.
+    - tutor: Che fortuna! E tuo padre com'è?
+      goals: [ages]
+    - learner: Mio padre è alto e tranquillo. Lavora molto.
+    - tutor: Anche mio padre lavora molto.
+      goals: [describe]
+    - learner: Tuo padre che lavoro fa?
+    - tutor: Fa il medico, qui a Bologna.
+      goals: [ask]
+
+- scenario: famiglia
+  level: A1
+  persona: en-f-student
+  history: [possessive]
+  turns:
+    - tutor: Che bella foto! Chi sono queste persone?
+    - learner: Sono i miei genitori e il mio fratello.
+      errors: [possessive]
+    - tutor: Il mio fratello? Con fratello c'è una parola in più.
+      prompt: {text: il mio fratello, tags: [possessive]}
+    - learner: Mio fratello, giusto?
+    - tutor: Giusto! Come si chiama tuo fratello?
+      goals: [who]
+    - learner: Si chiama Jack. Ha diciannove anni e studia a Londra.
+    - tutor: È giovane! E com'è?
+      goals: [ages]
+    - learner: È alto, biondo e un po' pazzo!
+    - tutor: Mi piace già! Io ho solo una sorella.
+      goals: [describe]
+    - learner: Davvero? Come si chiama tua sorella?
+    - tutor: Si chiama Elena e ha trent'anni.
+      goals: [ask]
+
+- scenario: famiglia
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: Che bella foto! Chi sono queste persone?
+    - learner: Questi sono i miei fratelli. Sono molto alto.
+      errors: [adjective-agreement]
+    - tutor: Sono molto alto? I fratelli sono più di uno...
+      goals: [who]
+      prompt: {text: Sono molto alto, tags: [adjective-agreement]}
+    - learner: Sì, due. Sono molto alto, come mio padre.
+      errors: [adjective-agreement]
+    - tutor: Ah, sono molto alti! E quanti anni hanno?
+      goals: [describe]
+      recast: {text: Sono molto alto, fix: sono molto alti, tags: [adjective-agreement]}
+    - learner: Pablo ha ventidue anni e Diego ha diciassette anni.
+    - tutor: Sono giovani! Vivono in Spagna?
+      goals: [ages]
+    - learner: Sì, a Siviglia. E la tua famiglia è grande?
+    - tutor: No, siamo solo in tre.
+      goals: [ask]

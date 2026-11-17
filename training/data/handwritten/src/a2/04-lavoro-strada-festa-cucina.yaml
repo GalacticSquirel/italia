@@ -1,0 +1,190 @@
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-f-erasmus
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Buongiorno! Sì, cercate un cameriere per l'estate?"
+    - tutor: "Sì, mi serve una persona per tutta l'estate. Ha già lavorato in un bar?"
+      goals: [ask]
+    - learner: "Sì, l'estate scorsa ho lavorato in un ristorante a Siviglia. Sono servito ai tavoli per tre mesi."
+      errors: [auxiliary-choice]
+    - tutor: "Sono servito ai tavoli? Servire qui vuole un altro ausiliare."
+      prompt: {text: "sono servito", tags: [auxiliary-choice]}
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+    - learner: "Ho servito ai tavoli per tre mesi."
+    - tutor: "Esatto! Allora ha esperienza. È disponibile anche la sera e il fine settimana?"
+      goals: [experience]
+    - learner: "Sì, sono disponibile tutti i giorni, ma il lunedì ho lezione fino alle due."
+    - tutor: "Va bene, il lunedì può cominciare alle tre. Lo stipendio è 1.200 euro al mese."
+      goals: [availability]
+    - learner: "Perfetto. Come posso darle il mio curriculum?"
+    - tutor: "Può mandarlo con un messaggio a questo numero."
+      goals: [contact]
+    - learner: "Grazie mille, lo mando stasera."
+    - tutor: "Benissimo, allora aspetto il suo messaggio. A presto!"
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-m-heritage
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì, buongiorno. Cercate ancora qualcuno per lavorare qui?"
+    - tutor: "Sì, mi serve un cameriere. Ha esperienza?"
+      goals: [ask]
+    - learner: "Un po'. Due anni fa ho aprito un piccolo bar con mio zio a Toronto."
+      errors: [past-participle-form]
+    - tutor: "Attenzione al passato di aprire, è una forma speciale. Come lo dice?"
+      prompt: {text: "ho aprito", tags: [past-participle-form]}
+    - learner: "Ho... ho apruto un piccolo bar?"
+      errors: [past-participle-form]
+    - tutor: "Ah, ha aperto un bar con suo zio! Allora conosce bene il lavoro."
+      recast: {text: "ho apruto", fix: "ha aperto", tags: [past-participle-form]}
+      goals: [experience]
+    - learner: "Sì, so fare il caffè e servire ai tavoli."
+    - tutor: "Ottimo. Quando è disponibile?"
+    - learner: "Sono disponibile da giugno a settembre, tutti i giorni."
+    - tutor: "Perfetto! Mi lascia il suo numero di telefono?"
+      goals: [availability]
+    - learner: "Certo, è 347 285 6614. Mi chiamo Daniel."
+    - tutor: "Grazie, Daniel. La chiamo domani per parlare dell'orario. Buona giornata!"
+      goals: [contact]
+
+- scenario: chiedere-strada
+  level: A2
+  persona: en-f-professional
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, scusi. Sto cercando la stazione dei treni. È lontana?"
+      goals: []
+    - tutor: "No, è abbastanza vicina, sono dieci minuti a piedi."
+      goals: [get-attention, ask-place]
+    - learner: "Ah, bene! Come ci arrivo?"
+    - tutor: "Deve andare dritto fino al semaforo, poi girare a sinistra. La stazione è in fondo alla strada."
+      new: [{lemma: girare, gloss: to turn}]
+    - learner: "Allora, dritto fino al semaforo e poi a sinistra. Giusto?"
+    - tutor: "Sì, giusto! Vede la piazza? La stazione è proprio dopo la piazza."
+      goals: [understand]
+    - learner: "Perfetto, ho capito. Grazie mille, è stata molto gentile."
+    - tutor: "Di niente! Buon viaggio."
+      goals: [thank]
+
+- scenario: chiedere-strada
+  level: A2
+  persona: en-m-traveller
+  history: [register]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, grazie. Scusa, sai dov'è la stazione?"
+      errors: [register]
+    - tutor: "Scusa, sai? Lei non mi conosce. Allora come mi chiede?"
+      prompt: {text: "scusa, sai", tags: [register]}
+    - learner: "Ah, sì! Scusi, sa dov'è la stazione?"
+    - tutor: "Esatto! Sì, la stazione non è lontana. Va dritto per questa strada."
+      goals: [get-attention, ask-place]
+    - learner: "Dritto. E poi?"
+    - tutor: "Poi al secondo semaforo va a destra. La stazione è lì, sulla piazza."
+    - learner: "Al secondo semaforo a destra. Quanto tempo ci vuole a piedi?"
+    - tutor: "Circa un quarto d'ora. Se è stanco, c'è anche l'autobus."
+      new: [{lemma: quarto, gloss: quarter}]
+      goals: [understand]
+    - learner: "No, cammino volentieri. Grazie mille!"
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]
+
+- scenario: compleanno
+  level: A2
+  persona: en-f-student
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa! Il suo compleanno è sabato prossimo, vero?"
+    - tutor: "Sì, sabato. Allora facciamo la festa sabato sera a casa mia?"
+      goals: [date]
+    - learner: "Perfetto! Chi invitiamo?"
+    - tutor: "Invitiamo i suoi amici dell'università e sua sorella. Le scrivi tu?"
+    - learner: "Sì, le scrivo io stasera. Inviterò anche Paolo e Giulia."
+    - tutor: "Ottimo! E da mangiare? Io preparo la pizza."
+      goals: [guests]
+    - learner: "Io porterò la torta. Sara ama il cioccolato."
+    - tutor: "Perfetto, una torta al cioccolato! E il regalo? Cosa le compriamo?"
+      new: [{lemma: cioccolato, gloss: chocolate}]
+      goals: [food]
+    - learner: "Le piace molto leggere. Possiamo comprarle un libro."
+    - tutor: "Bella idea! Domani andiamo a comprarlo insieme."
+      goals: [gift]
+
+- scenario: compleanno
+  level: A2
+  persona: es-m-worker
+  history: [object-pronoun]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Io la preparo una torta. Sono cuoco!"
+      errors: [object-pronoun]
+    - tutor: "La preparo una torta? A chi prepari la torta?"
+      prompt: {text: "la preparo", tags: [object-pronoun]}
+    - learner: "A Sara! Le preparo una torta."
+    - tutor: "Bravo! Che fortuna avere un amico cuoco. Facciamo la festa venerdì o sabato?"
+      new: [{lemma: cuoco, gloss: cook}]
+      goals: [food]
+    - learner: "Sabato, perché venerdì lavoro fino a tardi."
+    - tutor: "Va bene, sabato sera. Chi inviti tu?"
+      goals: [date]
+    - learner: "Invito i miei colleghi del ristorante. Loro conoscono bene Sara."
+    - tutor: "Perfetto, io invito la sua famiglia. E il regalo?"
+      goals: [guests]
+    - learner: "Le compriamo un vestito? Lei ama la moda."
+    - tutor: "Buona idea! Domani le compriamo un bel vestito insieme."
+      goals: [gift]
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: es-f-teacher
+  history: [imperative-form]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Cuciniamo una paella! È un piatto tipico di Valencia."
+    - tutor: "Che bello! Cosa ci serve?"
+    - learner: "Ci servono riso, pollo, verdure, olio e sale."
+    - tutor: "Ho tutto qui. Allora, cosa faccio prima?"
+      goals: [ingredients]
+    - learner: "Prima taglia il pollo. Poi metti l'olio nella pentola."
+    - tutor: "Va bene, lo faccio subito. E poi?"
+    - learner: "Poi aggiunge le verdure e il riso."
+      errors: [imperative-form]
+    - tutor: "Aggiunge? Sono un'amica, usa il tu!"
+      prompt: {text: "aggiunge", tags: [imperative-form]}
+    - learner: "Aggiungi le verdure e il riso!"
+      goals: []
+    - tutor: "Perfetto, li aggiungo. Quanto tempo deve cuocere?"
+      goals: [steps]
+    - learner: "Circa venti minuti, con l'acqua."
+    - tutor: "Va bene, venti minuti. Poi la mangiamo subito?"
+      goals: [time]
+    - learner: "Sì, ma prima aspettiamo cinque minuti. Mangiamola sul balcone!"
+    - tutor: "Che bella idea! Porto tutto fuori."
+      goals: [serve]
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: en-m-retired
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera facciamo la pasta al pomodoro, come la faceva mia nonna."
+    - tutor: "Che bello! Di cosa abbiamo bisogno?"
+    - learner: "Abbiamo bisogno di pasta, pomodori, olio, sale e un po' di basilico."
+    - tutor: "Benissimo, c'è tutto. Da dove cominciamo?"
+      goals: [ingredients]
+    - learner: "Prima metti l'acqua sul fuoco. Poi taglia i pomodori."
+    - tutor: "Fatto. E poi cosa faccio con i pomodori?"
+    - learner: "Mettili in una pentola con l'olio e cuocili piano."
+    - tutor: "Va bene, li cuocio piano. E la pasta, quanto tempo la cuociamo?"
+      goals: [steps]
+    - learner: "Dieci minuti. Poi la aggiungiamo ai pomodori."
+    - tutor: "Perfetto! Mangiamo in cucina o in salotto?"
+      new: [{lemma: salotto, gloss: living room}]
+      goals: [time]
+    - learner: "In salotto, così guardiamo il film dopo."
+    - tutor: "Ottimo, allora porto la pasta di là. Buona cena!"
+      goals: [serve]

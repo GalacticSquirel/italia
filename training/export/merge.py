@@ -17,6 +17,8 @@ def adapter_base(model_dir: Path) -> str:
 
 def merge(model_dir: Path, out_dir: Path, *, loader: str = "causal-lm") -> Path:
     """Write merged bf16 weights and tokenizer to `out_dir` (returns `model_dir` if no adapter)."""
+    if (model_dir / "italia-train.json").exists():
+        raise ValueError(f"{model_dir} is an MLX training output; use `python -m export mlx-fuse`")
     if not is_adapter(model_dir):
         return model_dir
     import torch

@@ -1,0 +1,288 @@
+- scenario: colloquio-promozione
+  level: B2
+  persona: en-f-professional
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie. Volevo parlarle del mio lavoro di quest'anno. Credo che i risultati sono stati molto buoni."
+    errors: [subjunctive-use]
+  - tutor: "Ripeta un attimo: dopo «credo che», le suona bene «sono stati»?"
+    prompt: {text: "Credo che i risultati sono stati", tags: [subjunctive-use]}
+  - learner: "Ah, scusi: credo che i risultati siano stati molto buoni. Abbiamo superato gli obiettivi del venti per cento."
+  - tutor: "Esatto. Venti per cento è un ottimo risultato, glielo riconosco. E quindi cosa voleva chiedermi?"
+    goals: [results]
+  - learner: "Penso di meritare una promozione. Mi piacerebbe diventare responsabile del team, con un aumento adeguato."
+  - tutor: "Capisco. Il suo lavoro è stato davvero prezioso, però quest'anno il budget è molto limitato. Non so se l'azienda possa permettersi un aumento adesso. Lei cosa propone?"
+    goals: [request]
+  - learner: "Capisco il problema. Se il budget non permette un aumento subito, potrei accettare la promozione adesso e l'aumento tra sei mesi."
+  - tutor: "È una proposta ragionevole. Ne parlerò con la direzione la settimana prossima. Nel frattempo, mi manderebbe un riassunto dei suoi risultati?"
+    goals: [handle]
+  - learner: "Certo, glielo mando entro venerdì. Possiamo fissare un nuovo incontro dopo la sua riunione con la direzione?"
+  - tutor: "Perfetto, fissiamo un incontro per lunedì 20. Avrei preferito darle una risposta oggi, ma così sarà più facile convincere tutti. Grazie e buon lavoro."
+    goals: [next-steps]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: es-m-worker
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì. Lavoro qui da tre anni e ho portato due clienti nuovi molto importanti."
+  - tutor: "Lo so, e la ringrazio. I clienti che ha portato valgono quasi un terzo del nostro fatturato. Mi dica pure."
+    goals: [results]
+    new: [{lemma: fatturato, gloss: turnover}]
+  - learner: "Allora, vorrei chiedere un aumento. Penso che lo merito, per i risultati che ho avuto."
+    errors: [subjunctive-use]
+  - tutor: "«Penso che lo merito»... Dopo «penso che», suona bene così?"
+    prompt: {text: "Penso che lo merito", tags: [subjunctive-use]}
+    goals: [request]
+  - learner: "Ehm... penso che lo merito, sì. Ho lavorato molto."
+    errors: [subjunctive-use]
+  - tutor: "Sì, penso che lo meriti anch'io, e su questo siamo d'accordo. Il problema è il budget: quest'anno non prevede aumenti. Come possiamo fare?"
+    recast: {text: "penso che lo merito", fix: "penso che lo meriti", tags: [subjunctive-use]}
+  - learner: "Forse l'azienda potrebbe darmi un premio alla fine dell'anno, invece di un aumento fisso."
+  - tutor: "Un premio legato agli obiettivi è un'idea interessante. Dovrei parlarne con l'amministrazione, ma credo che sia possibile. Quali obiettivi le sembrerebbero giusti?"
+    goals: [handle]
+  - learner: "Per esempio, due nuovi clienti entro dicembre. Possiamo rivederci tra un mese per decidere?"
+  - tutor: "D'accordo, ci rivediamo a metà mese con una proposta scritta. Se me ne avesse parlato prima, avrei potuto prevederlo nei conti, ma troveremo una soluzione. Grazie di avermelo detto chiaramente."
+    goals: [next-steps]
+    new: [{lemma: scritto, gloss: written}]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: en-m-heritage
+  history: [conditional-form]
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Buongiorno. Sì, volevo parlare della mia valutazione annuale. Ho raggiunto tutti gli obiettivi."
+  - tutor: "Sì, ho letto la valutazione ed è molto positiva. Ha gestito bene anche il progetto con Torino. Cosa vorrebbe discutere, esattamente?"
+    goals: [results]
+  - learner: "Vorrei una promozione, con più responsabilità. Se l'azienda mi avrebbe dato un ruolo più grande, avrei ottenuto risultati ancora migliori."
+    errors: [hypothetical]
+  - tutor: "Interessante. Ma ripeta: «se l'azienda mi avrebbe dato»? Dopo «se», quella forma non va bene."
+    prompt: {text: "Se l'azienda mi avrebbe dato", tags: [hypothetical]}
+    goals: [request]
+  - learner: "Ah, giusto: se l'azienda mi avesse dato un ruolo più grande, avrei ottenuto risultati migliori."
+  - tutor: "Esatto. Le dico la verità: una promozione adesso è difficile, perché la responsabile del team è appena arrivata. Lei cosa ne pensa?"
+  - learner: "Capisco. Però potrei guidare il nuovo progetto con i clienti tedeschi. Così avrei più responsabilità senza cambiare ruolo."
+  - tutor: "Mi sembra un'ottima soluzione. Bisogna però che anche la direzione sia d'accordo. Le andrebbe di preparare una breve proposta?"
+    goals: [handle]
+  - learner: "Volentieri. La preparo per la prossima settimana e poi ne parliamo insieme."
+  - tutor: "Perfetto. Ci vediamo giovedì prossimo alle dieci. E ancora bravo per i risultati di quest'anno."
+    goals: [next-steps]
+
+- scenario: arte-mostra
+  level: B2
+  persona: en-f-student
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Wow, mi piace molto! I colori sono così vivi, sembra quasi una fotografia."
+  - tutor: "Vero? Ed è stato dipinto più di 500 anni fa. Cosa vedi, esattamente?"
+    goals: [react]
+  - learner: "Al centro c'è una donna con un bambino. Sullo sfondo ci sono delle montagne e un fiume molto blu."
+  - tutor: "Esatto. E guarda la luce: viene da sinistra e cade proprio sul viso della donna. Secondo te perché il pittore l'ha voluta così?"
+    goals: [describe]
+  - learner: "Penso che il pittore vuole mostrare che lei è importante, quasi santa."
+    errors: [subjunctive-use]
+  - tutor: "Interessante! Ma «penso che il pittore vuole»... dopo «penso che», cosa ci va?"
+    prompt: {text: "Penso che il pittore vuole", tags: [subjunctive-use]}
+  - learner: "Ah sì: penso che il pittore voglia mostrare che lei è importante."
+  - tutor: "Brava. Molti critici la pensano come te. Hai visto altre opere del Rinascimento in questa mostra?"
+    goals: [interpret]
+    new: [{lemma: critico, gloss: critic}]
+  - learner: "Sì, quella nella sala prima. Era più scura e le persone sembravano più rigide."
+  - tutor: "Giusto, quella è di cinquant'anni prima, e la prospettiva era ancora meno precisa. Questa invece sembra viva. Andiamo a vedere la prossima sala?"
+    goals: [compare]
+
+- scenario: arte-mostra
+  level: B2
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi colpisce molto. È molto drammatico, con tutto quel nero intorno."
+  - tutor: "Sì, è proprio quello che volevo che notassi. Sai chi l'ha dipinto?"
+    goals: [react]
+  - learner: "Non sono sicura. Questo quadro è stata dipinta da Caravaggio?"
+    errors: [passive]
+  - tutor: "Quasi! Ma «il quadro è stata dipinta»? Pensa alla parola «quadro»: è maschile o femminile?"
+    prompt: {text: "Questo quadro è stata dipinta", tags: [passive]}
+  - learner: "Ah, è maschile: questo quadro è stato dipinto da Caravaggio?"
+  - tutor: "Esatto, ma non da lui: da un pittore della sua scuola. Il maestro usava la luce in modo simile. Che cosa vedi nella scena?"
+  - learner: "Vedo un uomo vecchio che legge una lettera, e una candela che illumina solo la sua faccia."
+  - tutor: "Proprio così. Tutto il resto rimane nel buio. Secondo te che cosa ci vuole dire il pittore?"
+    goals: [describe]
+  - learner: "Forse che la lettera porta una notizia importante, e che l'uomo è solo con i suoi pensieri."
+  - tutor: "Mi piace questa lettura. Ti ricorda qualcosa che abbiamo visto prima?"
+    goals: [interpret]
+    new: [{lemma: lettura, gloss: "reading, interpretation"}]
+  - learner: "Sì, il quadro con la donna e il bambino. Ma lì la luce era dappertutto e i colori erano più chiari."
+  - tutor: "Hai ragione: lì siamo ancora nel primo Rinascimento, qui c'è già un altro mondo. Hai proprio un buon occhio, sai?"
+    goals: [compare]
+
+- scenario: arte-mostra
+  level: B2
+  persona: en-m-retired
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Onestamente, la prima impressione è molto eccitante. Non avevo mai visto colori così forti."
+    errors: [false-friend]
+  - tutor: "Sì, è un'opera emozionante, sono d'accordo. Pensa che quel blu era il colore più caro di tutti. Cosa vedi nel quadro?"
+    recast: {text: "eccitante", fix: "emozionante", tags: [false-friend]}
+    goals: [react]
+  - learner: "Vedo un angelo a sinistra e una ragazza che legge a destra. Dietro di loro c'è un giardino con un muro."
+  - tutor: "Esatto, è un'Annunciazione. Nota che la scena è stata costruita con una prospettiva perfetta: tutte le linee portano verso lo sfondo. Che cosa ti suggerisce?"
+    goals: [describe]
+  - learner: "Mi sembra che il pittore voglia dare ordine e calma alla scena. Tutto è al suo posto."
+  - tutor: "Bella osservazione. È proprio l'idea di ordine del Rinascimento. Ti piace più di quello di Caravaggio che abbiamo visto prima?"
+    goals: [interpret]
+  - learner: "No, preferisco Caravaggio. Questo quadro è più calmo, ma quello mi ha colpito di più per la luce."
+  - tutor: "Capisco, Caravaggio fa sempre questo effetto. Andiamo a prendere un caffè e ne parliamo ancora?"
+    goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-traveller
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri mattina ero fermo al semaforo e una macchina mi ha tamponato da dietro."
+  - tutor: "Mi dispiace molto. Spero che lei non si sia fatto male. Il semaforo era rosso quando l'altra macchina è arrivata?"
+    goals: [what]
+  - learner: "Sì, era rosso. Secondo me l'altro guidatore guardava il telefono. Comunque ha detto subito che era colpa sua."
+  - tutor: "Bene, se ha ammesso la colpa la pratica sarà più semplice. Avete compilato la constatazione amichevole?"
+    goals: [responsibility]
+    new: [{lemma: compilare, gloss: to fill in}]
+  - learner: "Sì, l'abbiamo compilato insieme e l'abbiamo firmato tutti e due."
+    errors: [participle-agreement]
+  - tutor: "«L'abbiamo compilato»? Pensi un attimo alla parola «constatazione»."
+    prompt: {text: "l'abbiamo compilato", tags: [participle-agreement]}
+    new: [{lemma: compilare, gloss: to fill in}]
+  - learner: "Ah sì, l'abbiamo compilata insieme e l'abbiamo firmata tutti e due."
+  - tutor: "Esatto. Ha messo anche il numero di targa dell'altra macchina?"
+  - learner: "Sì, è scritto sul modulo, insieme ai dati della sua assicurazione."
+  - tutor: "Perfetto. E il danno riguarda solo il paraurti o anche altre parti della macchina?"
+    goals: [documents]
+  - learner: "Solo il paraurti, credo. Cosa succede adesso? Devo portare la macchina da un meccanico?"
+  - tutor: "Prima deve venire il nostro perito, che la chiamerà entro tre giorni. Dopo la perizia potrà portare la macchina dove preferisce. Visto che la colpa è dell'altro, non pagherà nessuna franchigia."
+    goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Venerdì sera, mentre ho guidato verso casa, una moto mi ha colpito sul lato destro."
+    errors: [tense-aspect]
+  - tutor: "Un momento: «mentre ho guidato»? L'azione era in corso in quel momento. Che tempo usiamo?"
+    prompt: {text: "mentre ho guidato", tags: [tense-aspect]}
+  - learner: "Ehm... mentre ho guidato piano, perché c'era traffico."
+    errors: [tense-aspect]
+  - tutor: "Ah, «mentre guidavo piano», c'era traffico: chiaro. E da dove veniva la moto?"
+    recast: {text: "mentre ho guidato", fix: "mentre guidavo", tags: [tense-aspect]}
+    goals: [what]
+  - learner: "È arrivata da una strada laterale e non si è fermata allo stop. Il motociclista non aveva visto il segnale."
+  - tutor: "Quindi aveva ragione lei. È stata chiamata la polizia?"
+    goals: [responsibility]
+  - learner: "Sì, sono venuti i vigili e hanno scritto un verbale. Ho anche due testimoni."
+  - tutor: "Ottimo, il verbale ci sarà molto utile. Me ne può mandare una copia per email?"
+  - learner: "Certo, gliela mando oggi pomeriggio. E poi cosa devo fare?"
+    errors: []
+  - tutor: "Niente, per ora. Appena riceviamo il documento dei vigili, apriamo la pratica e mandiamo un nostro tecnico. La contatteremo entro una settimana."
+    goals: [documents, next]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-f-student
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Stamattina ho parcheggiato la macchina davanti all'università e quando sono tornata, il paraurti era rotto."
+  - tutor: "Capisco. Quindi la macchina è stata danneggiata mentre era parcheggiata. Ha trovato un biglietto sul vetro?"
+    goals: [what]
+  - learner: "Sì, c'era un biglietto con un numero di telefono. Il signore che aveva colpito la mia macchina ha scritto che era colpa sua."
+  - tutor: "Che persona onesta! Allora ha ammesso la responsabilità. Avete già compilato la constatazione amichevole?"
+    goals: [responsibility]
+    new: [{lemma: compilare, gloss: to fill in}]
+  - learner: "Scusa, puoi ripetere? Non conosco questa parola."
+    errors: [register]
+  - tutor: "Certo. Ma attenzione: «scusa, puoi»... qui in ufficio, con me, come si dice?"
+    prompt: {text: "Scusa, puoi ripetere?", tags: [register]}
+  - learner: "Ah, mi scusi! Può ripetere, per favore?"
+  - tutor: "Nessun problema! La constatazione amichevole è un modulo che le due persone compilano e firmano insieme dopo un incidente. Ha già parlato con quel signore?"
+  - learner: "Sì, l'ho chiamato e domani ci vediamo per compilare il modulo insieme."
+  - tutor: "Perfetto. Si ricordi di scrivere le targhe di tutte e due le macchine e di firmare in fondo. Ha altre domande?"
+    goals: [documents]
+  - learner: "Sì: dopo, quanto tempo ci vuole per riparare la macchina?"
+  - tutor: "Dipende dalla perizia, ma di solito due o tre settimane. Quando avremo il modulo firmato, la chiameremo per fissare un appuntamento con il perito."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Vorrei chiedere la residenza. Vivo in Bologna da due anni ma non l'ho mai fatto."
+    errors: [preposition]
+  - tutor: "Certo, la aiuto. Ma «vivo in Bologna»? Con il nome di una città, si dice proprio così?"
+    prompt: {text: "Vivo in Bologna", tags: [preposition]}
+    goals: [request]
+  - learner: "Ah sì, scusi: vivo a Bologna da due anni."
+  - tutor: "Esatto. Allora, per la residenza servono un documento d'identità, il permesso di soggiorno e il contratto d'affitto. Ha tutto con sé?"
+  - learner: "Ho il passaporto e il contratto. Il permesso di soggiorno però è scaduto il mese scorso e ho fatto la domanda di rinnovo."
+  - tutor: "Non è un problema, se ha la ricevuta della domanda di rinnovo. Ce l'ha?"
+    goals: [documents]
+  - learner: "Sì, eccola. Me l'hanno data alla posta quando ho mandato la domanda."
+  - tutor: "Perfetto, questa basta. Allora compili questo modulo: poi la pratica viene inviata ai vigili per il controllo. Ha qualche domanda?"
+    goals: [problem]
+  - learner: "Quanto tempo ci vuole? E i vigili vengono a casa mia?"
+  - tutor: "Sì, entro 45 giorni un vigile passerà a casa sua per verificare che lei ci abiti davvero. Bisogna che il suo nome sia scritto sulla porta. Dopo il controllo, la residenza è confermata."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Mi sono trasferita a Milano per lavoro e devo prendere la residenza qui."
+  - tutor: "Benissimo. Si è trasferita dall'estero o da un altro comune italiano?"
+    goals: [request]
+  - learner: "Dall'estero, dall'Australia. Ho il passaporto, il permesso di soggiorno e il contratto di lavoro."
+  - tutor: "Bene, ma per la residenza si richiede anche il contratto d'affitto, o un documento che dimostri dove abita. Ce l'ha?"
+    goals: [documents]
+  - learner: "No, per ora vivo da una collega. Il mio appartamento è pronto solo da dicembre."
+  - tutor: "Allora la sua collega deve firmare una dichiarazione in cui scrive che lei vive a casa sua. Serve anche una copia del suo documento. Pensa che sia possibile?"
+  - learner: "Sì, penso di sì. Spero che la mia collega venghi qui con me domani."
+    errors: [subjunctive-form]
+  - tutor: "Speriamo! Ma «venghi»? Ci pensi bene: è la forma giusta?"
+    prompt: {text: "venghi", tags: [subjunctive-form]}
+    goals: [problem]
+  - learner: "Ah, giusto: spero che venga con me domani."
+  - tutor: "Esatto. Se viene, la dichiarazione si fa qui in cinque minuti. Ha altre domande?"
+  - learner: "Sì: dopo quanto tempo avrò il certificato di residenza?"
+  - tutor: "La residenza vale da subito, ma è confermata solo dopo il controllo dei vigili, entro 45 giorni. Il certificato lo può chiedere anche online, una volta finita la pratica."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-m-retired
+  history: [article-use]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Sono in pensione e sono venuto a vivere in Italia con mia moglie. Vorremmo fare la residenza tutti e due."
+  - tutor: "Benvenuti! Possiamo fare le due pratiche insieme. Ha portato i documenti di tutti e due?"
+    goals: [request]
+  - learner: "Sì, ho portato tutti documenti: passaporti, permessi e il contratto della casa."
+    errors: [article-use]
+  - tutor: "«Tutti documenti»? Manca qualcosa tra «tutti» e «documenti», non trova?"
+    prompt: {text: "tutti documenti", tags: [article-use]}
+  - learner: "Ehm... sì, tutti documenti sono qui, in questa cartella."
+    errors: [article-use]
+  - tutor: "Va bene, vediamo se ci sono tutti i documenti. Passaporti, permessi... ma il contratto della casa è a nome di chi?"
+    recast: {text: "tutti documenti", fix: "tutti i documenti", tags: [article-use]}
+    goals: [documents]
+  - learner: "È a nome di mia moglie. Io non sono nel contratto. È un problema?"
+  - tutor: "Un piccolo problema, sì. Bisogna che sua moglie firmi una dichiarazione in cui dice che abitate insieme. È qui con lei oggi?"
+  - learner: "Sì, mi aspetta fuori. La chiamo subito."
+  - tutor: "Perfetto, la faccia entrare. Così chiudiamo tutte e due le pratiche oggi."
+    goals: [problem]
+  - learner: "Grazie. E dopo, cosa succede? Dobbiamo tornare qui?"
+  - tutor: "No, non serve. Nelle prossime settimane un vigile verrà a casa vostra per un controllo. Se tutto è in regola, la residenza sarà confermata e riceverete una comunicazione."
+    goals: [next]

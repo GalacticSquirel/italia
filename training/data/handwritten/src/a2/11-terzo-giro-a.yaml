@@ -1,0 +1,179 @@
+- scenario: weekend-scorso
+  level: A2
+  persona: es-f-teacher
+  history: [participle-agreement]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Molto bene! Sabato sono andata al lago con mio marito."
+    - tutor: "Che bello! E cosa avete fatto al lago?"
+      goals: [where]
+    - learner: "Abbiamo camminato e poi abbiamo mangiato il pesce. Domenica mia figlia è venuto a pranzo."
+      errors: [participle-agreement]
+    - tutor: "Tua figlia è venuto? Attenzione alla fine di venuto."
+      prompt: {text: "è venuto", tags: [participle-agreement]}
+      goals: [what]
+    - learner: "Mia figlia è venuta a pranzo!"
+    - tutor: "Esatto! È venuta da sola?"
+    - learner: "No, con il suo ragazzo. Lui è molto simpatico, abbiamo parlato tanto."
+    - tutor: "Che bello! Allora è stato un bel fine settimana?"
+      goals: [with-who]
+    - learner: "Sì, bellissimo, ma troppo corto, come sempre!"
+    - tutor: "Hai ragione, è sempre troppo corto! Buon lunedì."
+      goals: [opinion]
+
+- scenario: vacanze-passate
+  level: A2
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Sono tornato in Argentina per tre settimane, a trovare la mia famiglia."
+    - tutor: "Che bello! E che tempo faceva? Lì adesso è inverno, no?"
+      goals: [where]
+    - learner: "Sì, faceva freddo e ha piovuto spesso."
+    - tutor: "Peccato! E cosa hai fatto con la tua famiglia?"
+      goals: [weather]
+    - learner: "Ogni domenica abbiamo fatto un grande asado con tutti i cugini."
+      errors: [tense-aspect]
+    - tutor: "Ogni domenica abbiamo fatto? Era un'abitudine. Come lo dici?"
+      prompt: {text: "ogni domenica abbiamo fatto", tags: [tense-aspect]}
+      new: [{lemma: abitudine, gloss: habit}]
+    - learner: "Ogni domenica facevamo un grande asado!"
+    - tutor: "Perfetto! E il momento più bello?"
+      goals: [activities]
+    - learner: "Il compleanno di mia madre. Ha compiuto settant'anni e abbiamo fatto una grande festa."
+    - tutor: "Che bello! Settant'anni, che festa!"
+      goals: [best]
+
+- scenario: bar-colazione
+  level: A2
+  persona: es-f-teacher
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno. Un cappuccino con latte di soia, per favore. Ce l'avete?"
+    - tutor: "Sì, certo. E da mangiare?"
+      goals: [greet, order-drink]
+    - learner: "Un cornetto alla marmellata, se c'è."
+    - tutor: "Mi dispiace, sono finiti. Ho cornetti vuoti o integrali."
+      new: [{lemma: integrale, gloss: wholemeal}]
+    - learner: "Allora un cornetto integrale."
+    - tutor: "Ecco a lei, il cappuccino e il cornetto."
+      goals: [order-food]
+    - learner: "Grazie. Quanto pago?"
+    - tutor: "Sono 3 euro. Ecco lo scontrino."
+      goals: [pay]
+    - learner: "Ecco. Buona giornata!"
+    - tutor: "Anche a lei, arrivederci!"
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: en-m-retired
+  history: [negation]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Buongiorno. Sono solo, un tavolo per una persona, per favore."
+    - tutor: "Certo, prego. Questo tavolo va bene? Ecco il menù."
+      goals: [ask-table]
+    - learner: "Grazie. Cosa mi consiglia per primo?"
+    - tutor: "Oggi la pasta al ragù è molto buona."
+      new: [{lemma: ragù, gloss: meat sauce}]
+    - learner: "Perfetto, la prendo. E per secondo, il pesce del giorno."
+    - tutor: "Ottimo. E da bere?"
+      goals: [order-food]
+    - learner: "Mezzo litro di vino bianco e una bottiglia d'acqua."
+    - tutor: "Benissimo. Arriva subito."
+      goals: [order-drink]
+    - learner: "Mi scusi, il conto, per favore. Ho mangiato benissimo."
+    - tutor: "Grazie mille! Ecco il conto. A presto!"
+      goals: [ask-bill]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, a nome Fernández, per una notte."
+    - tutor: "Sì, eccola. Mi dà un documento, per favore?"
+      goals: [booking]
+    - learner: "Ecco la carta d'identità. A che ora è la colazione?"
+    - tutor: "Grazie. La colazione è dalle sette alle dieci."
+      goals: [document, breakfast]
+    - learner: "Domani parto presto. Posso lasciare la chiave in la reception?"
+      errors: [articulated-preposition]
+    - tutor: "In la reception? Queste due parole diventano una."
+      prompt: {text: "in la reception", tags: [articulated-preposition]}
+    - learner: "Nella reception!"
+    - tutor: "Esatto, la può lasciare qui. Ecco la chiave, camera 8, primo piano."
+      goals: [key]
+    - learner: "Grazie, buonanotte."
+    - tutor: "Buonanotte!"
+
+- scenario: abbigliamento
+  level: A2
+  persona: en-f-professional
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Sì, grazie. Cerco un vestito per un matrimonio a giugno."
+    - tutor: "Certo! Ha già un'idea del colore?"
+      goals: [ask-item]
+    - learner: "Non lo so. Forse blu o verde. Ma non nero, è un matrimonio!"
+    - tutor: "Ha ragione. Questo blu è molto bello. Che taglia porta?"
+    - learner: "Di solito la 42. Posso provarlo?"
+      goals: []
+    - tutor: "Certo, il camerino è qui a destra."
+      goals: [size-colour]
+    - learner: "È bello, ma un po' lungo. Ha una taglia più piccola?"
+    - tutor: "Sì, ecco la 40. Questa è più corta."
+      goals: [try]
+    - learner: "Perfetto, questa va benissimo. La prendo!"
+    - tutor: "Ottima scelta! Sono 89 euro, con lo sconto."
+      goals: [decide]
+
+- scenario: autobus
+  level: A2
+  persona: en-m-retired
+  history: [word-order]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Devo andare alla vecchia chiesa, in centro."
+    - tutor: "Allora questo autobus va bene, la linea 9."
+      goals: [route]
+    - learner: "Bene. Ho comprato in tabaccheria un giornaliero biglietto."
+      errors: [word-order]
+    - tutor: "Un giornaliero biglietto? In italiano l'ordine è diverso."
+      prompt: {text: "un giornaliero biglietto", tags: [word-order]}
+    - learner: "Un biglietto giornaliero!"
+    - tutor: "Perfetto! Allora lo timbra solo la prima volta."
+      goals: [ticket]
+    - learner: "Capito. Mi può dire quando devo scendere?"
+    - tutor: "Certo. Scende alla fermata Duomo, la chiesa è proprio lì."
+      goals: [stop]
+    - learner: "Grazie, è molto gentile!"
+    - tutor: "Si figuri, buona giornata!"
+      new: [{lemma: figurarsi, gloss: not at all}]
+      goals: [thank]
+
+- scenario: biglietto-treno
+  level: A2
+  persona: en-f-student
+  history: [spelling]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei un biglietto per Pisa, per oggi pomeriggio."
+    - tutor: "Va bene. Solo andata?"
+      goals: [destination]
+    - learner: "Si, solo andata. Il treno più economico, per favore."
+      errors: [spelling]
+    - tutor: "Si? Attenzione, qui manca qualcosa sopra la i."
+      prompt: {text: "si", tags: [spelling]}
+    - learner: "Sì, solo andata. Il treno più economico, per favore."
+    - tutor: "Esatto! Allora prende il regionale delle 15:30. C'è solo la seconda classe."
+      goals: [type, class]
+    - learner: "Va bene. Il treno è veloce?"
+    - tutor: "Non molto, ci vuole un'ora e mezza."
+    - learner: "Non importa. Da quale binario parte?"
+    - tutor: "Parte dal binario 11. Ecco il biglietto, sono 9 euro."
+      goals: [platform]
+    - learner: "Grazie mille!"
+    - tutor: "Prego, buon viaggio!"

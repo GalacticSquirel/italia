@@ -131,6 +131,8 @@ def make_config(tmp: Path | None = None, **overrides: object) -> DatagenConfig:
         },
         "revisePass": False,
         "languageTool": {"enabled": False},
+        # scripted judges answer only the rubric; tests/test_grammar_check.py covers the check
+        "judge": {"grammarCheck": False, "feedbackCheck": False},
     }
     data.update(overrides)
     return DatagenConfig.model_validate(data)

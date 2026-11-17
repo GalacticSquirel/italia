@@ -1,0 +1,195 @@
+# Correction-dense A1 dialogues (set x-a1-1), file 6.
+- scenario: orari-negozio
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Pronto, negozio Bianchi, buongiorno!"
+  - learner: "Buongiorno. Chiamo per sapere a che ora aprite."
+  - tutor: "Buongiorno! Apriamo alle otto e mezza."
+    goals: [greet]
+  - learner: "Bene. E a che ora chiudete la sera?"
+  - tutor: "Chiudiamo alle sette."
+    goals: [ask-hours]
+  - learner: "Oggi no posso venire. Siete aperti il domenica?"
+    errors: [negation, noun-gender]
+  - tutor: "Il domenica? Domenica finisce in a: e l'articolo?"
+    prompt: {text: "il domenica", tags: [noun-gender]}
+  - learner: "Siete aperti la domenica?"
+  - tutor: "Bravo! Sì, la domenica mattina siamo aperti."
+    goals: [ask-day]
+  - learner: "Perfetto. Allora vengo domenica. Grazie!"
+  - tutor: "Benissimo, a domenica!"
+  - learner: "Arrivederci, buona giornata!"
+  - tutor: "Arrivederci, buona giornata anche a Lei!"
+    goals: [goodbye]
+
+- scenario: panetteria
+  level: A1
+  persona: en-f-student
+  turns:
+  - tutor: "Buongiorno! Mi dica."
+  - learner: "Ciao! Vorrei tre etti di pane."
+    errors: [register]
+  - tutor: "Ciao? In un negozio, come diciamo la mattina?"
+    prompt: {text: "Ciao", tags: [register]}
+  - learner: "Oh, buongiorno! Vorrei tre etti di pane, per favore."
+  - tutor: "Buongiorno! Ecco tre etti di pane. Altro?"
+    goals: [greet, order-bread]
+  - learner: "Sì, anche due focaccia."
+    errors: [noun-number]
+  - tutor: "Due focaccia? Sono due: come cambia la parola?"
+    prompt: {text: "due focaccia", tags: [noun-number]}
+  - learner: "Due focaccie?"
+    errors: [noun-number]
+  - tutor: "Quasi! Due focacce, ecco qui."
+    goals: [order-extra]
+    recast: {text: "Due focaccie", fix: "Due focacce", tags: [noun-number]}
+  - learner: "Grazie! Quanto pago?"
+  - tutor: "Sono cinque euro e sessanta."
+  - learner: "Ecco. Arrivederci!"
+  - tutor: "Grazie, arrivederci!"
+    goals: [pay]
+
+- scenario: presentarsi
+  level: A1
+  persona: en-f-student
+  turns:
+  - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+  - learner: "Ciao Giulia! Io sono Hannah. Piacere!"
+  - tutor: "Piacere, Hannah! Di dove sei?"
+    goals: [say-name]
+  - learner: "Sono inglese, di Leeds. È una città nel nord."
+  - tutor: "Che bello! E cosa fai qui in Italia?"
+    goals: [say-origin]
+  - learner: "Sono studentessa. Studio italiano e storia."
+  - tutor: "Brava! Parli già bene."
+    goals: [say-job]
+  - learner: "Grazie! E tu, sei di qui?"
+  - tutor: "Sì, sono di qui. Studio inglese all'università."
+    goals: [ask-back]
+  - learner: "Allora possiamo parlare inglese e italiano insieme!"
+  - tutor: "Sì, che bella idea!"
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-f-student
+  turns:
+  - tutor: "Buongiorno, benvenuti! Quanti siete?"
+  - learner: "Buongiorno! Siamo tre. C'è un tavolo libero?"
+  - tutor: "Sì, ecco un tavolo vicino alla finestra."
+    goals: [ask-table]
+  - learner: "Grazie. Io vorrei a mangiare il risotto."
+    errors: [modal-infinitive]
+  - tutor: "Vorrei a mangiare? Dopo vorrei, serve la a?"
+    prompt: {text: "vorrei a mangiare", tags: [modal-infinitive]}
+  - learner: "Vorrei mangiare il risotto."
+  - tutor: "Perfetto! Un risotto. E da bere?"
+    goals: [order-food]
+  - learner: "Una acqua naturale, per favore."
+    errors: [article-form]
+  - tutor: "Una acqua? Acqua comincia con a: come cambia l'articolo?"
+    prompt: {text: "Una acqua", tags: [article-form]}
+  - learner: "Un'acqua naturale!"
+  - tutor: "Esatto, un'acqua naturale. Arriva subito!"
+    goals: [order-drink]
+  - learner: "Grazie. E poi il conto, per favore."
+  - tutor: "Certo! Sono quattordici euro."
+    goals: [ask-bill]
+  - learner: "Ecco. Grazie e arrivederci!"
+  - tutor: "Grazie a Lei, arrivederci!"
+
+- scenario: supermercato
+  level: A1
+  persona: en-m-retired
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno, cerca qualcosa?"
+  - learner: "Buongiorno. Sì, dove posso trovare il latte?"
+  - tutor: "Il latte è in fondo, a sinistra."
+    goals: [ask-product]
+  - learner: "Grazie. E le uova sono su il scaffale?"
+    errors: [articulated-preposition]
+  - tutor: "Su il scaffale? Su e l'articolo vanno insieme."
+    prompt: {text: "su il scaffale", tags: [articulated-preposition]}
+  - learner: "Sono sul scaffale?"
+    errors: [articulated-preposition]
+  - tutor: "Quasi! Sì, sono sullo scaffale vicino al latte."
+    goals: [ask-other]
+    recast: {text: "sul scaffale", fix: "sullo scaffale", tags: [articulated-preposition]}
+  - learner: "Sullo scaffale, ho capito. E la cassa dov'è?"
+  - tutor: "La cassa è lì, vicino alla porta."
+  - learner: "Perfetto. Grazie mille per l'aiuto!"
+  - tutor: "Prego! Buona giornata."
+    goals: [thank]
+
+- scenario: taxi
+  level: A1
+  persona: en-m-heritage
+  turns:
+  - tutor: "Buongiorno! Dove la porto?"
+  - learner: "Buongiorno. Vado a centro, in piazza Verdi."
+    errors: [preposition]
+  - tutor: "A centro? Con centro usiamo un'altra piccola parola."
+    prompt: {text: "a centro", tags: [preposition]}
+  - learner: "Vado in centro!"
+  - tutor: "Perfetto, in piazza Verdi. Andiamo!"
+    goals: [destination]
+  - learner: "Sono fretta. Quanti minuti ci vogliono?"
+    errors: [essere-avere]
+  - tutor: "Sono fretta? Con fretta il verbo è un altro."
+    prompt: {text: "Sono fretta", tags: [essere-avere]}
+  - learner: "Ah, ho fretta!"
+  - tutor: "Giusto! Ci vogliono solo dieci minuti."
+    goals: [ask-time]
+  - learner: "Meno male. Quanto costa?"
+  - tutor: "Quindici euro. Paga con la carta?"
+    goals: [ask-price]
+  - learner: "No, in contanti. Ecco quindici euro. Arrivederci!"
+  - tutor: "Grazie mille. Arrivederci e buona giornata!"
+    goals: [pay]
+
+- scenario: tempo-libero
+  level: A1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  - learner: "Il sabato salgo con le mie amiche."
+    errors: [false-friend]
+  - tutor: "Anch'io il sabato esco con le amiche! Dove andate?"
+    recast: {text: "salgo", fix: "esco", tags: [false-friend]}
+  - learner: "Andiamo al cinema o in un bar. E gioco al tennis."
+    errors: [article-use]
+  - tutor: "Gioco al tennis? Con giocare e uno sport, serve l'articolo?"
+    prompt: {text: "gioco al tennis", tags: [article-use]}
+  - learner: "Gioco a tennis!"
+  - tutor: "Brava! Giochi spesso?"
+    goals: [hobby]
+  - learner: "Sì, due volte alla settimana."
+  - tutor: "Due volte, che brava!"
+    goals: [frequency]
+  - learner: "E tu, Sara? Fai sport?"
+  - tutor: "No, mai! Però mi piace molto la musica."
+    goals: [ask]
+  - learner: "Allora andiamo insieme a un concerto?"
+  - tutor: "Sì, che bello! Sabato sono libera."
+    goals: [propose]
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-m-retired
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Buongiorno. Cerco una maglietta bianca."
+  - tutor: "Certo. Che taglia porta?"
+    goals: [ask-item]
+  - learner: "La L. Avete anche il blu?"
+  - tutor: "Sì, ecco una maglietta bianca e una blu."
+    goals: [size-colour]
+  - learner: "Grazie. Posso provare la maglietta blu?"
+  - tutor: "Certo! Il camerino è lì, a destra."
+    goals: [try]
+  - learner: "Va bene, mi piace. Quanto costa?"
+  - tutor: "Costa venti euro. Con lo sconto, diciotto."
+  - learner: "Bene, la prendo. Ecco la carta."
+  - tutor: "Grazie mille! Arrivederci e buona giornata."
+    goals: [decide]

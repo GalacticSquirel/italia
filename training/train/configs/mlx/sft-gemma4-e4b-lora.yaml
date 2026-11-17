@@ -1,0 +1,27 @@
+# Primary Mac Studio run: LoRA SFT of Gemma 4 E4B with MLX. Fits every RAM tier from 64 GB
+# (`python -m train.memory`); on 128 GB+ raise the micro-batch, keeping 16 sequences per step:
+#   --set optim.perDeviceBatchSize=4 --set optim.gradientAccumulationSteps=4
+# DoRA instead of LoRA: --set lora.dora=true
+extends: ../_gemma4-e4b-base.yaml
+name: mlx-sft-gemma4-e4b-lora
+method: lora
+backend: mlx
+lora: {r: 64, alpha: 64, dropout: 0.0, targetModules: all-linear}
+trainFile: work/sft/sft.train.jsonl
+valFile: work/sft/sft.val.jsonl
+maxSeqLength: 4096
+optim:
+  learningRate: 2.0e-4
+  epochs: 2
+  perDeviceBatchSize: 2
+  gradientAccumulationSteps: 8
+  warmupRatio: 0.03
+  lrScheduler: cosine
+  optimizer: adamw
+  weightDecay: 0.0
+gradientCheckpointing: true
+loggingSteps: 10
+evalSteps: 250
+saveSteps: 100
+mlx: {keepCheckpoints: 3, clearCacheEvery: 50}
+outputDir: out/mlx/sft-gemma4-e4b-lora

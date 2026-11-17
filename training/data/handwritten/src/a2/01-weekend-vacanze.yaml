@@ -1,0 +1,71 @@
+- scenario: weekend-scorso
+  level: A2
+  persona: en-f-student
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Ciao Chiara! Bene, grazie. Sabato ho andato a Bologna."
+      errors: [auxiliary-choice]
+    - tutor: "Ho andato a Bologna? Sei sicura? Con andare non usiamo avere."
+      prompt: {text: "ho andato", tags: [auxiliary-choice]}
+    - learner: "Ah, sì! Sono andata a Bologna."
+    - tutor: "Esatto! E cosa hai fatto a Bologna?"
+      goals: [where]
+    - learner: "Ho visitato il centro e ho mangiato le tagliatelle."
+    - tutor: "Che buone! Con chi sei andata?"
+      goals: [what]
+    - learner: "Con due amiche dell'università. Abbiamo preso il treno insieme."
+    - tutor: "Che bello! E com'era la città? Ti è piaciuta?"
+      goals: [with-who]
+    - learner: "Sì, mi è piaciuta molto. È una città bellissima e viva."
+    - tutor: "Sono contenta! Allora la prossima volta vengo anche io. Buona settimana!"
+      goals: [opinion]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: es-m-worker
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Ciao. Sono restato a casa."
+    - tutor: "Ah, un fine settimana tranquillo! E cosa hai fatto a casa?"
+      goals: [where]
+    - learner: "Ho cucinato molto. Domenica ho faciuto le lasagne."
+      errors: [past-participle-form]
+    - tutor: "Attenzione, fare ha una forma speciale al passato. Come lo dici?"
+      prompt: {text: "ho faciuto", tags: [past-participle-form]}
+    - learner: "Ho fatto le lasagne."
+    - tutor: "Perfetto! E le hai mangiate da solo?"
+      goals: [what]
+    - learner: "No, sono venuti i miei amici. Abbiamo mangiato tutti insieme."
+    - tutor: "Che fortuna i tuoi amici! E com'erano?"
+      goals: [with-who]
+    - learner: "Erano molto buone, ma troppe per cinque persone!"
+    - tutor: "Allora domani porti il resto in ufficio, va bene? Buona giornata!"
+      goals: [opinion]
+
+- scenario: vacanze-passate
+  level: A2
+  persona: en-m-traveller
+  history: [participle-agreement]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao Elena! Sono stato in Sicilia per due settimane."
+    - tutor: "In Sicilia? Che bello! E che tempo faceva?"
+      goals: [where]
+    - learner: "Faceva molto caldo. Era sempre sole."
+      errors: [word-choice]
+    - tutor: "Ah, c'era sempre il sole! Sei andato spesso in spiaggia?"
+      recast: {text: "era sempre sole", fix: "c'era sempre il sole", tags: [word-choice]}
+      goals: [weather]
+    - learner: "Sì, ogni giorno. Mia sorella è venuto con me."
+      errors: [participle-agreement]
+    - tutor: "Tua sorella è venuto? Guarda la fine della parola."
+      prompt: {text: "è venuto", tags: [participle-agreement]}
+    - learner: "Mia sorella è venuta con me!"
+    - tutor: "Brava tua sorella! E cosa avete visitato?"
+    - learner: "Abbiamo visitato Palermo e Siracusa. Abbiamo mangiato tanti arancini."
+    - tutor: "Che fame! Qual è stato il momento più bello?"
+      goals: [activities]
+    - learner: "Il giorno sull'Etna. La vista era incredibile."
+    - tutor: "Che bello! Devi mostrarmi le foto, va bene?"
+      goals: [best]

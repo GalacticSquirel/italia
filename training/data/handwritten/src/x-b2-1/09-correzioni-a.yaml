@@ -1,0 +1,233 @@
+# Correction-dense B2 dialogues (continued): prompt, then self-repair or recast.
+- scenario: affittare-appartamento
+  level: B2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno. Che bello, è molto più grande di come sembrava nelle foto. Quanto è l'affitto, e che cosa comprende?"
+  - tutor: "Sono 800 euro al mese. Le spese di condominio sono comprese, il riscaldamento no: si paga a parte, in base al consumo."
+    goals: [rent]
+  - learner: "D'accordo. E per il contratto, quanti mesi di caparra chiede? Spero che non sono tre, perché in questo momento non li ho."
+    errors: [subjunctive-use]
+  - tutor: "«Spero che non sono tre»? Ripeta la frase con calma, guardando bene il verbo dopo «spero che»."
+    prompt: {text: "Spero che non sono tre", tags: [subjunctive-use]}
+  - learner: "Spero che non siano tre."
+  - tutor: "Esatto. E non si preoccupi: ne chiedo due. Il contratto è il classico quattro anni più quattro."
+    goals: [contract]
+  - learner: "Perfetto. L'appartamento è arredato, vedo. Gli elettrodomestici funzionano tutti? E la caldaia è nuova?"
+  - tutor: "La caldaia è stata cambiata due anni fa e la lavastoviglie è nuovissima. Il forno invece ha qualche anno, ma funziona bene."
+    goals: [condition]
+  - learner: "Bene. E il quartiere com'è? Ci sono scuole qui vicino? Ho figli."
+  - tutor: "È un quartiere tranquillo, con due scuole a cinque minuti a piedi. Quanti figli ha?"
+    goals: [neighbourhood]
+  - learner: "Ho due, un maschio e una femmina."
+    errors: [ci-ne]
+  - tutor: "Che bello! Però «ho due»... due che cosa? Manca una piccola parola prima del verbo, per non ripetere «figli»."
+    prompt: {text: "Ho due", tags: [ci-ne]}
+  - learner: "Sì, ho due, un maschio di otto anni e una femmina di cinque."
+    errors: [ci-ne]
+  - tutor: "Ah, ne ha due, e ancora piccoli: allora le scuole così vicine le saranno molto comode."
+    recast: {text: "ho due", fix: "ne ha due", tags: [ci-ne]}
+  - learner: "Allora sono molto interessato. Posso darle una risposta domani, dopo averne parlato con mia moglie?"
+  - tutor: "Certo, ci pensi con calma. Se domani mi conferma, preparo il contratto per la settimana prossima."
+    goals: [decide]
+
+- scenario: arte-mostra
+  level: B2
+  persona: en-f-student
+  history: [subjunctive-form]
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Accidenti, è enorme! Mi fa un po' paura, a dire la verità. Tutti quei colori scuri..."
+  - tutor: "Paura è la parola giusta, credo. Che cosa vedi, esattamente?"
+    goals: [react]
+  - learner: "C'è un uomo in mezzo, con le braccia aperte, e intorno tanti soldati. La luce viene da una lanterna per terra, e tutto lo sfondo è nero."
+  - tutor: "Descrizione precisa, brava. È stato dipinto durante una guerra. Secondo te, che cosa voleva dire il pittore?"
+    goals: [describe]
+  - learner: "Credo che il pittore vuola mostrare che la guerra è assurda. Quell'uomo sa che morirà, ma non ha paura."
+    errors: [subjunctive-form]
+  - tutor: "Interessante. Però «vuola»? Volere, al congiuntivo, ha una forma particolare: ci pensi un attimo?"
+    prompt: {text: "vuola", tags: [subjunctive-form]}
+  - learner: "Ah, sì: credo che il pittore voglia mostrare che la guerra è assurda."
+  - tutor: "Esatto. E sono d'accordo: con quella luce addosso, l'uomo sembra quasi un santo. Ti ricorda qualcos'altro?"
+    goals: [interpret]
+  - learner: "Sì, i quadri religiosi del Rinascimento: anche lì la luce indica la persona più importante. Ma questo quadro è stato dipingato in fretta, si vede."
+    errors: [past-participle-form]
+  - tutor: "Scusa, è stato... come? Non ho capito il verbo."
+    prompt: {text: "è stato dipingato", tags: [past-participle-form]}
+  - learner: "È stato dipinto in fretta, scusa."
+  - tutor: "Sì, si vede da come sono dati i colori. Ottimo confronto: anche qui una luce sacra, ma niente della calma del Rinascimento."
+    goals: [compare]
+  - learner: "Possiamo restare ancora un po'? Vorrei che mi raccontassi la storia di questo quadro."
+  - tutor: "Volentieri. Andiamo a sederci là in fondo, così te la racconto con calma."
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-f-teacher
+  history: [passive]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri sera stavo parcheggiando sotto casa, quando un furgone ha fatto retromarcia e ha colpito la mia macchina."
+  - tutor: "Capisco. Lei era ferma, quindi, o si stava ancora muovendo?"
+  - learner: "Ero quasi ferma. Il conducente ha detto che non mi aveva visto, e secondo me la colpa è tutta sua: non ha guardato dietro."
+  - tutor: "Sembra anche a me. Avete compilato la constatazione amichevole?"
+    goals: [what, responsibility]
+  - learner: "Sì, l'abbiamo compilata subito, e il modulo è stato firmato per tutti e due."
+    errors: [passive]
+  - tutor: "Bene. Ma «firmato per tutti e due»? Ci ripensi: per dire chi ha fatto l'azione, quale preposizione usiamo?"
+    prompt: {text: "firmato per tutti e due", tags: [passive]}
+  - learner: "Il modulo è stato firmato per... no, da tutti e due."
+  - tutor: "Esatto. C'erano anche dei testimoni?"
+  - learner: "Un signore anziano ha visto tutto. Ma quando ho preso la penna per scrivere il suo numero, lui è già andato via."
+    errors: [tense-aspect]
+  - tutor: "Peccato. Attenzione però: la sua partenza viene prima del momento in cui lei ha preso la penna. Quale tempo ci vuole?"
+    prompt: {text: "lui è già andato via", tags: [tense-aspect]}
+  - learner: "Lui è andato... lui andava già via?"
+    errors: [tense-aspect]
+  - tutor: "Quasi: era già andato via, quindi niente testimone. Non importa, con il modulo firmato da tutti e due basta."
+    recast: {text: "lui andava già via", fix: "era già andato via", tags: [tense-aspect]}
+    goals: [documents]
+  - learner: "Meno male. E adesso cosa devo fare? Posso portare la macchina dal mio meccanico?"
+  - tutor: "Prima la macchina deve essere vista dal nostro perito, che la chiamerà entro tre giorni. Dopo la perizia, potrà portarla dove vuole."
+    goals: [next]
+    new: [{lemma: perito, gloss: loss adjuster}]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-m-retired
+  history: [passive]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Sono americano, sono in pensione e mi sono trasferito qui a Lucca con mia moglie. Vorremmo chiedere la residenza."
+  - tutor: "Benvenuti! Quindi la domanda è per due persone. Avete già compilato il modulo?"
+    goals: [request]
+  - learner: "Non ancora. Quali documenti si deve portare?"
+    errors: [passive]
+  - tutor: "«Quali documenti si deve portare»? Guardi bene: di quanti documenti parliamo, uno o più di uno?"
+    prompt: {text: "Quali documenti si deve portare", tags: [passive]}
+  - learner: "Ah, più di uno: quali documenti si devono portare?"
+  - tutor: "Giusto. Si portano il passaporto, il contratto d'affitto o di acquisto e un'assicurazione medica valida per tutti e due."
+    goals: [documents]
+    new: [{lemma: acquisto, gloss: purchase}]
+  - learner: "Abbiamo tutto, tranne l'assicurazione: la nostra è scaduta il mese scorso. Ho paura che senza quella la pratica viene bloccata."
+    errors: [subjunctive-use]
+  - tutor: "Non si preoccupi, ne parliamo subito. Ma «ho paura che la pratica...»: come continua, con il verbo giusto?"
+    prompt: {text: "la pratica viene bloccata", tags: [subjunctive-use]}
+  - learner: "Ho paura che la pratica venga bloccata."
+  - tutor: "Perfetto. Può presentare la domanda oggi e portare l'assicurazione nuova entro trenta giorni: nel frattempo la pratica resta aperta."
+    goals: [problem]
+  - learner: "Ottimo. E dopo, che cosa succede? Bisogna che stiamo a casa per il controllo?"
+  - tutor: "Sì: entro quarantacinque giorni passano i vigili per verificare che abitiate lì. Conviene che ci sia almeno uno di voi in casa, la mattina."
+    goals: [next]
+  - learner: "Va bene, mia moglie è quasi sempre a casa. Grazie della pazienza!"
+  - tutor: "Si figuri. Ecco la ricevuta: la conservi, perché le servirà anche per scegliere il medico di base."
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-f-professional
+  history: [conditional-form]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno, grazie per l'invito. Sono un'ingegnera civile, ho trentadue anni e sono cresciuta a Sydney. Vivo a Bologna da tre anni."
+  - tutor: "Benvenuta. E che cosa ha fatto finora, dal punto di vista professionale?"
+    goals: [intro]
+  - learner: "Ho lavorato per sei anni in un'azienda di costruzioni. Mentre lavoravo lì, ho seguito un progetto molto grande: abbiamo costruito un ponte vicino a Sydney."
+  - tutor: "Un'esperienza importante. Quali sono i suoi punti di forza? E un punto debole?"
+    goals: [experience]
+  - learner: "Sono molto organizzata e so gestire le scadenze. Il mio punto debole è che sono troppo esigente: a volte vorrebbi che tutti lavorassero come me."
+    errors: [conditional-form]
+  - tutor: "Scusi, «vorrebbi»? Non sono sicura di aver capito il verbo."
+    prompt: {text: "vorrebbi", tags: [conditional-form]}
+  - learner: "Vorrei, scusi. A volte vorrei che tutti lavorassero come me."
+  - tutor: "Ecco. Almeno è sincera! E perché ha scelto proprio la nostra azienda?"
+    goals: [strengths]
+  - learner: "Perché fate progetti sostenibili, ed è proprio quello che cerco. Sono molto eccitata all'idea di lavorare su edifici a basso consumo."
+    errors: [false-friend]
+  - tutor: "Si vede che è entusiasta all'idea, e ci fa piacere. Ha qualche domanda per me?"
+    recast: {text: "Sono molto eccitata", fix: "è entusiasta", tags: [false-friend]}
+    goals: [why]
+  - learner: "Sì. Se mi assumeste, dovrei andare spesso nei cantieri?"
+  - tutor: "Due o tre giorni al mese, sempre in regione. Le faremo sapere entro la fine della settimana. Grazie di essere venuta."
+    goals: [questions]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie. Volevo parlarle dei risultati di quest'anno. Il mio reparto ha ridotto i costi del quindici per cento, e senza licenziare nessuno."
+  - tutor: "Lo so, ed è un ottimo risultato. Mi dica pure."
+    goals: [results]
+  - learner: "Per questo vorrei chiederle un aumento. Mi sembra che è il momento giusto, anche perché adesso ho più responsabilità di prima."
+    errors: [subjunctive-use]
+  - tutor: "Capisco. Ma attenzione a «mi sembra che è»: è un'opinione, quindi il verbo cambia modo."
+    prompt: {text: "Mi sembra che è", tags: [subjunctive-use]}
+    goals: [request]
+  - learner: "Mi sembra che sia il momento giusto."
+  - tutor: "Esatto. Il problema è che lei è responsabile da soli otto mesi. Di solito aspettiamo almeno un anno."
+  - learner: "Lo so, però nessuno mi aveva parlato di questa regola. Se l'avessi conosciuta, avrei aspettato."
+  - tutor: "Ha ragione, avremmo dovuto comunicarla meglio. Che cosa propone, allora?"
+    goals: [handle]
+  - learner: "Propongo che ne parleremo di nuovo a marzo, con la valutazione annuale."
+    errors: [subjunctive-use]
+  - tutor: "«Propongo che ne parleremo»? Mmh. Dopo «propongo che» vale la regola di prima."
+    prompt: {text: "Propongo che ne parleremo", tags: [subjunctive-use]}
+  - learner: "Propongo che ne parlassimo... no, che ne parliamo di nuovo a marzo."
+  - tutor: "Perfetto. Allora a marzo, con la valutazione sul tavolo, discutiamo l'aumento. Le mando un invito già oggi."
+    goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-m-heritage
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Io la vedo diversamente. Penso che una zona pedonale porterebbe più gente nei negozi, non meno."
+  - tutor: "Ne è proprio sicuro? Mi dia qualche argomento."
+    goals: [position]
+  - learner: "Prima di tutto, la gente compra di più quando cammina con calma. E poi mio zio ha un negozio in una via che è stata chiusa alle auto due anni fa, e i suoi guadagni sono aumentati."
+  - tutor: "Un caso solo non fa una regola. E i clienti che vengono da fuori, dove parcheggiano?"
+    goals: [argue]
+  - learner: "Si potrebbero costruire parcheggi fuori dal centro, con autobus gratuiti. Così anche i clienti di che parla lei arriverebbero facilmente."
+    errors: [relative-pronoun]
+  - tutor: "Interessante. Ma «i clienti di che parla lei»: dopo una preposizione, quale pronome serve?"
+    prompt: {text: "di che parla lei", tags: [relative-pronoun]}
+  - learner: "I clienti di cui parla lei."
+  - tutor: "Giusto. Ma anche gli autobus costano, e chi li paga? Il Comune ha già pochi soldi."
+    goals: [counter]
+  - learner: "Ha ragione, i soldi sono un problema. Allora propongo un compromesso: chiudiamo il centro solo il sabato e la domenica, a condizione che il Comune prova per un anno intero."
+    errors: [subjunctive-use]
+  - tutor: "Mi piace l'idea. Ma ripeta la fine: «a condizione che il Comune...» come?"
+    prompt: {text: "a condizione che il Comune prova", tags: [subjunctive-use]}
+  - learner: "A condizione che il Comune provi per un anno intero."
+  - tutor: "Così sì. E su questo, lo ammetto, potremmo trovarci d'accordo: un anno di prova, solo nel fine settimana."
+    goals: [concede]
+
+- scenario: film-libro
+  level: B2
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Inizio io! Ho letto un romanzo di una scrittrice napoletana. È la storia di due amiche che la loro amicizia dura tutta la vita."
+    errors: [relative-pronoun]
+  - tutor: "Ottima scelta. Però «due amiche che la loro amicizia»... c'è un modo più elegante di unire le due frasi, con un solo pronome."
+    prompt: {text: "due amiche che la loro amicizia dura", tags: [relative-pronoun]}
+  - learner: "Due amiche la cui amicizia dura tutta la vita. Crescono in un quartiere povero di Napoli, negli anni Cinquanta."
+  - tutor: "Perfetto. E senza dire troppo, com'è il personaggio principale?"
+    goals: [summary]
+  - learner: "È timida e studiosa, mentre l'amica è geniale ma ribelle. La protagonista ha sempre paura che l'altra sia migliore di lei."
+  - tutor: "Un rapporto difficile, insomma. E a te è piaciuto?"
+    goals: [characters]
+  - learner: "Moltissimo, anche se l'inizio è un po' lento. Quando ho cominciato a leggerlo, ci sono stati troppi personaggi e non capivo chi era chi."
+    errors: [tense-aspect]
+  - tutor: "«Ci sono stati troppi personaggi»? Stai descrivendo la situazione di quel momento: quale tempo serve?"
+    prompt: {text: "ci sono stati troppi personaggi", tags: [tense-aspect]}
+  - learner: "C'erano troppi personaggi, e non capivo chi era chi."
+  - tutor: "Esatto, e succede a tutti! Per fortuna all'inizio del libro c'è la lista dei personaggi. A chi lo consiglieresti?"
+    goals: [opinion]
+  - learner: "A chi ama le storie lunghe e i personaggi complicati. Non a chi cerca un libro d'azione!"
+  - tutor: "Giusto, grazie. Chi vuole continuare?"
+    goals: [recommend]

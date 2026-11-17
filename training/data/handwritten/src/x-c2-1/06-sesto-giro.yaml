@@ -1,0 +1,208 @@
+- scenario: burocrazia-residenza
+  level: C2
+  persona: en-m-retired
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno, sì, sono io. Mi sono trasferito a Lucca dall'Inghilterra a luglio, con mia moglie: siamo in pensione e abbiamo comprato una casa in centro. Vorremmo chiedere la residenza per tutti e due."
+  - tutor: "Benvenuti a Lucca, allora. Per la residenza mi servono i documenti di entrambi e l'atto di acquisto della casa. Li ha portati?"
+    goals: [request]
+  - learner: "Ho i passaporti, l'atto del notaio e i codici fiscali. Ho anche la tessera sanitaria inglese, che però credo sia inutile qui."
+  - tutor: "Infatti quella non ci serve. Per i cittadini britannici, però, dopo la Brexit serve anche il permesso di soggiorno, o almeno la ricevuta della domanda: ce l'ha?"
+    goals: [documents]
+  - learner: "Ecco il problema. Abbiamo fatto la domanda in questura a settembre, ma la ricevuta ce l'ha mia moglie, che oggi è rimasta a casa con la schiena bloccata. Pensavo che bastasse il numero della pratica: l'ho scritto qui."
+  - tutor: "Il numero purtroppo non basta: la ricevuta deve esserci in originale. Non si preoccupi, però: la domanda la registro oggi, e la ricevuta può portarla entro dieci giorni anche Sua moglie da sola."
+    goals: [problem]
+  - learner: "Perfetto, grazie. E dopo? Un amico mi ha raccontato che da lui eventualmente sono passati i vigili, a controllare che abitasse davvero lì. Succede a tutti?"
+    errors: [false-friend]
+  - tutor: "Sì, alla fine i vigili passano da tutti, di solito entro quarantacinque giorni, per verificare che abitiate davvero lì. Basta che qualcuno risponda al citofono."
+    recast: {text: "eventualmente", fix: "alla fine", tags: [false-friend]}
+  - learner: "E se quel giorno siamo fuori? Adesso che siamo in pensione andiamo spesso al mare. Non vorrei che la pratica si blocca per una gita a Viareggio."
+    errors: [subjunctive-use]
+  - tutor: "Una gita a Viareggio è più che legittima. Però, «non vorrei che la pratica si blocca»: dopo «vorrei che», quale modo prende il verbo?"
+    prompt: {text: "non vorrei che la pratica si blocca", tags: [subjunctive-use]}
+  - learner: "Ah, giusto: non vorrei che la pratica si bloccasse. Con «vorrei» ci vuole l'imperfetto."
+  - tutor: "Esatto. Se non vi trovano, lasciano un avviso e ripassano; in ogni caso, entro un paio di mesi riceverete la conferma della residenza."
+    goals: [next]
+
+- scenario: organizzare-matrimonio
+  level: C2
+  persona: es-f-teacher
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie mille! Ci sposiamo a giugno, io e Matteo. Lui è di Lecce e io di Granada, quindi immaginiamo una festa con due famiglie molto rumorose. Vorremmo una cerimonia civile in una masseria, all'aperto, con musica dal vivo."
+  - tutor: "Due famiglie del Sud e una masseria: si prospetta una festa memorabile. Quanti invitati pensate di avere?"
+    goals: [vision]
+  - learner: "Circa centoventi. Però attenzione: non vogliamo tirare la casa dalla finestra. Abbiamo un budget di venticinquemila euro, tutto compreso, e non un euro di più."
+    errors: [word-choice]
+  - tutor: "Capito, non volete buttare i soldi dalla finestra. Con venticinquemila euro per centoventi persone si può fare una bella festa, se stiamo attenti al menù, che è sempre la voce più pesante."
+    recast: {text: "tirare la casa dalla finestra", fix: "buttare i soldi dalla finestra", tags: [word-choice]}
+    goals: [budget]
+  - learner: "Abbiamo visto due posti. La Masseria degli Ulivi è bellissima ma lontana dal mare; Torre Bianca invece è sul mare ma più piccola, e se piove non c'è una sala abbastanza grande per tutti."
+  - tutor: "Il dubbio è giusto: a giugno in Puglia piove poco, ma quando piove non perdona. Io sceglierei gli Ulivi: la sala interna tiene centocinquanta persone e il prezzo è più basso. Che ne dite?"
+  - learner: "Mi ha convinta: gli Ulivi. Un'ultima cosa: abbiamo un amico fotografo che vuole lavorare gratis, come regalo. Il vostro pacchetto prevede un fotografo vostro, quindi bisogna dirlo all'agenzia. Se lo può dire Lei, per favore?"
+    errors: [combined-pronouns]
+  - tutor: "Gli Ulivi, allora: ottima scelta. Quanto all'amico, «se lo può dire Lei»? In italiano, quando un pronome indiretto si unisce a «lo», cambia forma: come diventa?"
+    prompt: {text: "Se lo può dire Lei", tags: [combined-pronouns]}
+    goals: [choices]
+  - learner: "Glielo può dire Lei? Così all'agenzia lo comunica direttamente Lei, che è più autorevole."
+  - tutor: "Perfetto, me ne occupo domani stesso. Ci sono altre condizioni che volete mettere per iscritto?"
+  - learner: "Sì: vorrei che ogni spesa extra ci fosse comunicata prima, per iscritto, e che nessun fornitore venisse confermato senza la nostra firma."
+  - tutor: "Condizioni ragionevolissime: le inserisco nel contratto, punto per punto. Vi mando la bozza entro venerdì e ci rivediamo per la firma."
+    goals: [conditions]
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: en-f-professional
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, e mi spiace dirlo, perché questo ristorante me l'avevano consigliato in tanti. Avevamo prenotato per le otto e mezza, ci siamo seduti puntuali, e il cameriere ci portò i primi solo alle dieci meno un quarto."
+    errors: [tense-aspect]
+  - tutor: "Mi dispiace molto, un'attesa così non è accettabile. Solo una cosa: «ci portò», per una cena di stasera? Nel racconto di oggi, quel tempo suona un po' da romanzo."
+    prompt: {text: "il cameriere ci portò", tags: [tense-aspect]}
+    goals: [complain]
+  - learner: "Ha ragione, è il tempo dei libri: il cameriere ci ha servito i primi alle dieci meno un quarto. E non è tutto: il risotto era scotto e quasi freddo."
+  - tutor: "Ecco, così è chiarissimo. Un risotto scotto e freddo dopo un'ora e un quarto: capisco la delusione. Mi dica del resto della cena."
+    goals: [detail]
+  - learner: "Il secondo era buono, lo ammetto. Ma da un locale con questi prezzi mi aspettavo che almeno il servizio era all'altezza. Per settanta euro a testa la cucina può sbagliare una volta; l'organizzazione no."
+    errors: [subjunctive-use]
+  - tutor: "Ha tutto il diritto di aspettarselo. Però mi permetta: «mi aspettavo che il servizio era»? Dopo un verbo di attesa, al passato, quale modo ci vuole?"
+    prompt: {text: "mi aspettavo che almeno il servizio era", tags: [subjunctive-use]}
+  - learner: "Mi aspettavo che il servizio fosse all'altezza. Lo so benissimo, ma quando sono arrabbiata la grammatica scappa."
+  - tutor: "Capita a tutti, anche agli italiani. Non posso cancellare la serata, ma vorrei offrirvi il dolce e il vino, e uno sconto del trenta per cento sul conto."
+    goals: [expectation]
+  - learner: "La ringrazio, è un gesto gentile. Il dolce no, abbiamo già aspettato abbastanza per stasera. Lo sconto lo accetto volentieri, e magari tra qualche mese vi do un'altra possibilità."
+  - tutor: "Lo spero davvero, e la prossima volta La accolgo io di persona. Le preparo subito il conto, e ancora mille scuse a Lei e ai Suoi ospiti."
+    goals: [resolve]
+
+- scenario: reclamo-comune
+  level: C2
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Abito in via Cavour, al numero 31. Da due mesi davanti al mio portone c'è un cantiere aperto: hanno scavato una buca enorme, l'hanno recintata e poi sono spariti. Non ci lavora nessuno da otto settimane."
+  - tutor: "Via Cavour 31, prendo nota. La buca impedisce il passaggio ai pedoni?"
+    goals: [describe]
+  - learner: "Sì. Il marciapiede è chiuso, quindi chi esce di casa deve camminare in mezzo alla strada. La mia vicina ha ottant'anni e usa il deambulatore. Ho mandato tre email all'ufficio tecnico, ma nessuno mi ha contestato."
+    errors: [false-friend]
+  - tutor: "Capisco: tre email e nessuno Le ha risposto, mentre una signora di ottant'anni deve camminare in mezzo alla strada. È un disagio serio, e lo segnalo subito all'ufficio tecnico."
+    recast: {text: "ha contestato", fix: "ha risposto", tags: [false-friend]}
+  - learner: "La ringrazio, ma «lo segnalo» è proprio quello che mi hanno detto a settembre. Vorrei sapere chi è responsabile e quando riprenderanno i lavori, non che il problema venga segnalato un'altra volta."
+  - tutor: "Ha ragione a insistere, e Le rispondo con franchezza: i lavori sono stati sospesi perché la ditta ha un contenzioso con il Comune. Una data, oggi, non sono in grado di dargliela."
+    goals: [insist]
+  - learner: "Allora vorrei presentare un reclamo formale. Le mie tre email sono state ignorato completamente, e credo di avere diritto a una risposta scritta. Qual è la procedura?"
+    errors: [passive]
+  - tutor: "È un Suo diritto, e la procedura è semplice. Ma un dettaglio: le email «sono state ignorato»? Guardi bene come finisce il participio."
+    prompt: {text: "sono state ignorato", tags: [passive]}
+  - learner: "Certo, le email sono state ignorate. Con il passivo il participio si accorda con il soggetto."
+  - tutor: "Esattamente. Compili questo modulo: il Comune è tenuto a rispondere per iscritto entro trenta giorni, altrimenti può rivolgersi al difensore civico."
+    goals: [rights]
+  - learner: "Benissimo. Me lo può protocollare subito, così ho un numero da citare quando sollecito?"
+  - tutor: "Certo, lo protocollo adesso. Ecco il numero, 4521: lo citi in ogni sollecito e, se fra trenta giorni non ha notizie, torni pure da me."
+    goals: [commitment]
+
+- scenario: assicurazione-sinistro
+  level: C2
+  persona: en-f-student
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Stamattina, verso le otto, ero ferma a uno stop in via Roma. Un furgone che faceva retromarcia per parcheggiare mi è venuto addosso e mi ha rotto il paraurti anteriore e un faro."
+  - tutor: "Mi dispiace. Lei sta bene? E il furgone l'ha urtata mentre era completamente ferma?"
+    goals: [what]
+  - learner: "Io sto bene, solo un po' scossa. Sì, ero ferma da almeno un minuto: il conducente non guardava gli specchietti. Quando sono scesa, è stato anche molto rude: diceva che era colpa mia perché ero troppo vicina."
+  - tutor: "Oltre al danno, anche la scortesia: che mattinata. Ma se Lei era ferma, la responsabilità è di chi faceva retromarcia, perché doveva dare la precedenza."
+    goals: [responsibility]
+  - learner: "Meno male. Abbiamo compilato la constatazione amichevole, e alla fine l'ha firmata anche lui, anche se nelle osservazioni ha scritto che io mi stavo muovendo. Non è vero."
+  - tutor: "La firma di entrambi è la cosa più importante. Sul modulo ha barrato la casella della retromarcia per il furgone? E c'erano testimoni?"
+  - learner: "Sì, la casella l'ho barrata. Un testimone c'era: un signore anziano ha visto tutto dal bar all'angolo. Se l'avrei saputo che era così importante, gli avrei chiesto il numero, ma quando ci ho pensato se n'era già andato."
+    errors: [hypothetical]
+  - tutor: "Peccato, un testimone fa sempre comodo. Però, «se l'avrei saputo»: in un'ipotesi che riguarda il passato, dopo «se» quel verbo va in un altro modo."
+    prompt: {text: "Se l'avrei saputo", tags: [hypothetical]}
+  - learner: "Se l'avessi saputo, gli avrei chiesto il numero. Però posso tornare al bar e chiedere al barista: magari lo conosce."
+  - tutor: "Ottima idea: se il barista lo conosce, ci mandi nome e recapito. Per il resto, la constatazione firmata da tutti e due basta."
+    goals: [documents]
+  - learner: "E adesso cosa succede? Devo portare la macchina da un meccanico di fiducia o aspettare il vostro perito?"
+  - tutor: "Aspetti il perito: La contatterà entro cinque giorni lavorativi per valutare il danno. Dopo la perizia può scegliere l'officina, e non pagherà nessuna franchigia, visto che la colpa non è Sua."
+    goals: [next]
+
+- scenario: medico-specialista
+  level: C2
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Buongiorno, dottoressa. Così così. Di giorno sto bene, ma quando salgo le scale con i sacchi di cemento, faccio il muratore, sento il cuore che batte fortissimo e mi manca l'aria. Due settimane fa ero anche molto costipato, con febbre e tosse, e da allora mi sento più stanco."
+    errors: [false-friend]
+  - tutor: "Quindi due settimane fa era molto raffreddato, con febbre e tosse, e da allora si sente più affaticato. Il fiato corto arriva ogni volta che sale le scale o solo con i carichi pesanti?"
+    recast: {text: "molto costipato", fix: "molto raffreddato", tags: [false-friend]}
+  - learner: "Solo con i carichi, e soprattutto la mattina presto. Dolore al petto invece mai, quello no."
+  - tutor: "Bene che non ci sia dolore. In famiglia qualcuno ha avuto problemi di cuore?"
+    goals: [symptoms]
+  - learner: "Sì, purtroppo. Mio padre ha avuto un infarto a cinquantadue anni, e mio nonno morì giovane, ma non sappiamo di che cosa: in paese non si facevano tanti esami. Io ne ho quarantotto, quindi ci penso spesso."
+  - tutor: "È giusto pensarci, ed è proprio per questo che La teniamo sotto controllo. Gli esami mostrano una pressione un po' alta e un battito irregolare sotto sforzo: niente di drammatico."
+    goals: [history]
+  - learner: "Niente di drammatico, va bene, ma è possibile che il mio cuore è già danneggiato? Mi spaventa l'idea di dover smettere di lavorare."
+    errors: [subjunctive-use]
+  - tutor: "Capisco la paura, e ne parliamo subito. Solo, «è possibile che il mio cuore è»? Dopo un'espressione di possibilità, il verbo cambia modo."
+    prompt: {text: "è possibile che il mio cuore è già danneggiato", tags: [subjunctive-use]}
+  - learner: "È possibile che il mio cuore sia già danneggiato? Scusi, quando sono in ansia mi confondo."
+  - tutor: "Domanda legittima, e la risposta è no: il muscolo è sano. Le prescrivo una pillola per la pressione, da prendere ogni mattina."
+    goals: [understand]
+  - learner: "Ha effetti collaterali? Lavoro sui ponteggi e non posso permettermi giramenti di testa a dieci metri d'altezza."
+  - tutor: "All'inizio può dare qualche capogiro, soprattutto se si alza di scatto: per i primi dieci giorni eviti i ponteggi, poi ci rivediamo per un controllo. Se va tutto bene, tornerà in cantiere senza problemi."
+    goals: [treatment]
+
+- scenario: vita-in-italia
+  level: C2
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+  - tutor: "Bentrovati, cari ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Buongiorno a tutti. A dire il vero, l'ho scelta per caso. Nel 2016 facevo il giro del mondo con lo zaino: sono sbarcato a Palermo per tre giorni e ci sono rimasto nove anni. Oggi faccio la guida turistica."
+  - tutor: "Tre giorni diventati nove anni: Palermo fa spesso questo effetto. Che cosa l'ha trattenuto?"
+    goals: [story]
+  - learner: "Prima di tutto la luce, e poi le persone. Quando sono arrivato non ho conosciuto nessuno, ma dopo una settimana il proprietario della pensione mi invitava già a cena con la sua famiglia."
+    errors: [tense-aspect]
+  - tutor: "Che accoglienza. Ma «quando sono arrivato non ho conosciuto nessuno»: intende che non ha fatto conoscenze, o descrive la situazione di partenza? Il tempo verbale cambia il senso."
+    prompt: {text: "non ho conosciuto nessuno", tags: [tense-aspect]}
+  - learner: "La situazione: quando sono arrivato non conoscevo nessuno. Detto come prima, sembrava che avessi evitato tutti."
+  - tutor: "Proprio così, sembrava un eremita. E la parte più difficile, qual è stata?"
+  - learner: "La burocrazia, senza dubbio. Per il permesso di soggiorno ho fatto la fila in questura sei volte: una volta mancava un timbro, un'altra una fotocopia. All'inizio ero furioso. Poi ho realizzato che il problema ero io: pretendevo che Palermo funzionasse come Londra."
+    errors: [false-friend]
+  - tutor: "«Poi mi sono reso conto che il problema ero io»: non sono in molti ad ammetterlo in diretta. Sei file per un timbro sono una bella scuola di pazienza."
+    recast: {text: "ho realizzato", fix: "mi sono reso conto", tags: [false-friend]}
+    goals: [difficulties]
+  - learner: "Sì, credo di essere diventato molto più paziente, e ho smesso di arrabbiarmi per i ritardi. Non credo che ho mai fatto un cambiamento così grande in vita mia."
+    errors: [subjunctive-use]
+  - tutor: "Più paziente e senza arrabbiarsi: a Palermo è quasi un titolo di studio. Però, «non credo che ho mai fatto»: dopo «non credo che», quale modo usiamo?"
+    prompt: {text: "Non credo che ho mai fatto", tags: [subjunctive-use]}
+    goals: [change]
+  - learner: "Non credo che abbia... no, aspetti. Non credo di aver mai fatto un cambiamento così grande. Il soggetto è lo stesso, quindi meglio l'infinito."
+  - tutor: "Bravissimo, e la seconda versione è anche la più elegante. Per chiudere: che consiglio darebbe a chi sta pensando di trasferirsi in Italia?"
+  - learner: "Di imparare la lingua prima di partire, non dopo, e di non giudicare niente nei primi sei mesi. E di portare sempre tre fotocopie di tutto."
+  - tutor: "Tre fotocopie di tutto: lo scriverei sulla porta di ogni questura. Grazie di essere stato con noi, e buon lavoro tra i turisti di Palermo."
+    goals: [advice]
+
+- scenario: cena-suoceri
+  level: C2
+  persona: es-f-teacher
+  turns:
+  - tutor: "Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+  - learner: "Reale, Le assicuro, anche se stasera un po' emozionata. Grazie dell'invito. Ho portato un vino della Rioja: spero che Le piace, Chiara mi ha detto che Lei se ne intende."
+    errors: [subjunctive-use]
+  - tutor: "Intendersene è una parola grossa: diciamo che bevo con convinzione. Ma «spero che Le piace»: con «spero che», il verbo resta proprio così?"
+    prompt: {text: "spero che Le piace", tags: [subjunctive-use]}
+  - learner: "Spero che Le piaccia, scusi: è l'emozione. Che profumo, comunque: ha cucinato Sua moglie?"
+  - tutor: "Mia moglie, sì, e il peposo è la sua specialità: lo cuoce per sei ore. Chiara ci dice che Lei insegna: di che cosa si occupa, esattamente?"
+    goals: [compliment]
+  - learner: "Insegno spagnolo in un liceo linguistico, qui a Firenze. Mi piace molto, anche se i ragazzi a volte mi fanno impazzire. Con Chiara pensiamo di restare in città; magari tra qualche anno apriremo una piccola scuola di lingue tutta nostra."
+  - tutor: "Una scuola di lingue in una città piena di stranieri: idea sensata. E se poi le studentesse Le scappano tutte a Madrid, come ha fatto Chiara per due anni?"
+    goals: [background]
+  - learner: "Allora le seguirò con il primo volo, come ho fatto con Chiara. Anche se credo che Lei mi stia prendendo il pelo."
+    errors: [word-choice]
+  - tutor: "La sto prendendo in giro, lo confesso, ma con affetto: in questa casa è un segno di stima. E la risposta era perfetta."
+    recast: {text: "prendendo il pelo", fix: "prendendo in giro", tags: [word-choice]}
+    goals: [irony]
+  - learner: "Allora lo prendo come un complimento. E il peposo è davvero squisito: chiederò la ricetta a Sua moglie, se me la vuole dare."
+  - tutor: "Gliela darà volentieri, ma a una condizione. Ormai siamo quasi parenti: che ne dice se ci diamo del tu? Io sono Paolo."
+  - learner: "Con piacere, Paolo. Però dovrai perdonarmi se ogni tanto mi scappa ancora il Lei: con te mi sembra quasi di mancare di rispetto."
+  - tutor: "Ti perdono fin da ora, purché a tavola il Lei sparisca. E adesso un brindisi: alla salute, e a Firenze!"
+    goals: [tu-lei]

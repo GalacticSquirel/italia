@@ -1,0 +1,182 @@
+- scenario: scuola-figli
+  level: C2
+  persona: en-m-heritage
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Buonasera, si accomodi. Parliamo un po' di Tommaso?"
+    - learner: "Buonasera, maestra, e grazie per il tempo che ci dedica. Sì, mi dica pure: com'è andato questo primo quadrimestre?"
+    - tutor: "Nel complesso bene: è curioso, partecipa, e in matematica è tra i più svelti della classe. Fatica invece con la lettura e la scrittura, dove commette ancora parecchi errori."
+      goals: [progress]
+    - learner: "È proprio di questo che volevo parlarle. Mia moglie ha paura che sia dislessico, perché confonde ancora la b e la d, e io temo che lei abbi ragione."
+      errors: [subjunctive-form]
+      gold: {text: "lei abbi ragione", fix: "lei abbia ragione"}
+    - tutor: "Non escluderei nulla, ma andiamo per gradi. Prima, però: «temo che lei abbi ragione»? Al congiuntivo presente, la terza persona di «avere» non finisce così."
+      goals: [concern]
+      prompt: {text: "lei abbi ragione", tags: [subjunctive-form]}
+    - learner: "Che lei abbia ragione, scusi. Allora, secondo lei, a chi dovremmo rivolgerci?"
+    - tutor: "Esatto. Il primo passo è una valutazione presso il servizio di neuropsichiatria infantile: la richiesta la fa il pediatra, e io posso allegare una relazione su quello che osservo in classe."
+      goals: [advice]
+      new: [{lemma: neuropsichiatria, gloss: neuropsychiatry}]
+    - learner: "Benissimo, domani stesso chiedo al pediatra la referenza. E nel frattempo, a casa, come possiamo aiutarlo senza che si senta sotto esame?"
+      errors: [false-friend]
+      gold: {text: "la referenza", fix: "l'impegnativa"}
+    - tutor: "Sì, si faccia fare l'impegnativa e me lo faccia sapere, così preparo la relazione. A casa, invece, leggete insieme a voce alta, una pagina a testa, scegliendo libri che gli piacciano davvero, anche fumetti."
+      recast: {text: "la referenza", fix: "l'impegnativa", tags: [false-friend]}
+      new: [{lemma: impegnativa, gloss: referral form}]
+    - learner: "Lo faremo. Anzi, pensavo di leggere io la prima pagina, così sente il ritmo, e poi tocca a lui. Le andrebbe bene se tra un mese ci rivedessimo per fare il punto?"
+    - tutor: "Benissimo: lei fa da modello e lui la segue, è il metodo migliore. Ci rivediamo a fine marzo, e ognuno porterà le proprie osservazioni."
+      goals: [plan]
+
+- scenario: scuola-figli
+  level: C2
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Buonasera, si accomodi. Parliamo un po' di Tommaso?"
+    - learner: "Buonasera. Sì, mi dica. Oggi sono venuto io perché mia moglie fa il turno di sera in ospedale."
+    - tutor: "Ha fatto bene, e la ringrazio. Tommaso va molto bene in tutte le materie, ma ultimamente disturba: finisce gli esercizi prima degli altri e poi chiacchiera con i compagni."
+      goals: [progress]
+    - learner: "Lo so, me l'ha detto anche lui, e infatti a casa è sempre molesto. Il problema è che si annoia: dice che le cose che spiegate le sa già."
+      errors: [false-friend]
+      gold: {text: "sempre molesto", fix: "sempre nervoso"}
+    - tutor: "Se anche a casa è sempre nervoso, la sua impressione è probabilmente giusta: si annoia. Impara tutto al volo, e quando ha finito non sa come riempire il tempo."
+      goals: [concern]
+      recast: {text: "sempre molesto", fix: "sempre nervoso", tags: [false-friend]}
+    - learner: "Esatto. Io credo che lui ha bisogno di più stimoli, non di più note sul diario. Lei cosa mi consiglia?"
+      errors: [subjunctive-use]
+      gold: {text: "credo che lui ha bisogno", fix: "credo che lui abbia bisogno"}
+    - tutor: "È possibile, e ne terrò conto. Ripeta però tra sé la frase: «credo che lui ha bisogno»? Dopo un verbo di opinione come «credere», quale modo ci vuole?"
+      prompt: {text: "credo che lui ha bisogno", tags: [subjunctive-use]}
+    - learner: "Credo che abbia bisogno di più stimoli, sì."
+    - tutor: "Ecco. Potrei affidargli qualche responsabilità, per esempio aiutare un compagno in difficoltà, e tenere da parte per lui problemi più impegnativi per quando finisce prima."
+      goals: [advice]
+    - learner: "Mi piace. Però ho paura di che i compagni lo vedano come il secchione della classe."
+      errors: [preposition]
+      gold: {text: "ho paura di che", fix: "ho paura che"}
+    - tutor: "È un timore comprensibile. Ma ascolti come suona: «ho paura di che i compagni lo vedano»? Davanti a «che», quella preposizione ci vuole davvero?"
+      prompt: {text: "ho paura di che", tags: [preposition]}
+    - learner: "Ho paura che lo vedano così, ecco. A casa, comunque, possiamo fare la nostra parte: il sabato lo porto con me al mercato e gli faccio fare i conti, visto che i numeri gli piacciono."
+    - tutor: "Ottima idea: matematica vera, e tempo con il papà. Io intanto preparo un piccolo progetto di classe in cui possa fare da tutor ai compagni, e ci aggiorniamo a febbraio."
+      goals: [plan]
+
+- scenario: scuola-figli
+  level: C2
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buonasera, si accomodi. Parliamo un po' di Tommaso?"
+    - learner: "Buonasera. Sì, grazie. Prima di tutto vorrei sapere come lo vede lei in classe in queste ultime settimane, perché a casa stiamo attraversando un periodo delicato."
+    - tutor: "Glielo dico con franchezza: il rendimento tiene, ma Tommaso è più silenzioso del solito e a volte si isola durante la ricreazione. Lei accennava a un periodo delicato?"
+      goals: [progress]
+    - learner: "Sì. Mio marito e io ci stiamo separando, ed è questo il motivo per il quale sono venuta oggi: non voglio che la scuola diventi un altro luogo dove si sente solo."
+    - tutor: "Grazie della fiducia, rimarrà tra noi. È normale che in un momento così un bambino si chiuda un po'; l'importante è che sappia di poterne parlare con qualcuno."
+      goals: [concern]
+    - learner: "Ecco, è proprio questo che mi preoccupa. Ha una compagna, Giulia, a che racconta tutto, ma con noi adulti non parla. Come posso aiutarlo ad aprirsi?"
+      errors: [relative-pronoun]
+      gold: {text: "a che racconta tutto", fix: "a cui racconta tutto"}
+    - tutor: "Che abbia una confidente è già un'ottima notizia. Ma torniamo un attimo su «una compagna a che racconta tutto»: dopo una preposizione, quel pronome relativo cambia forma."
+      prompt: {text: "a che racconta tutto", tags: [relative-pronoun]}
+    - learner: "Una compagna a chi racconta tutto?"
+      errors: [relative-pronoun]
+      gold: {text: "a chi racconta tutto", fix: "a cui racconta tutto"}
+    - tutor: "Si dice «una compagna a cui racconta tutto», oppure «alla quale». Quanto a lui, non lo forzi: gli offra occasioni di stare con lei senza domande, e lasci che sia lui a cominciare."
+      goals: [advice]
+      recast: {text: "a chi racconta tutto", fix: "a cui racconta tutto", tags: [relative-pronoun]}
+    - learner: "Mi sembra saggio. Pretendo di invitare Giulia a casa sabato pomeriggio, così Tommaso ha vicino qualcuno di cui si fida."
+      errors: [false-friend]
+      gold: {text: "Pretendo di invitare", fix: "Ho intenzione di invitare"}
+    - tutor: "Se ha intenzione di invitare Giulia, mi sembra un'ottima idea: con un'amica accanto gli sarà più facile parlare. Posso chiederle di avvisarmi se a casa nota qualcosa?"
+      recast: {text: "Pretendo di invitare", fix: "ha intenzione di invitare", tags: [false-friend]}
+    - learner: "Certo, e lo stesso vale per lei: se lo vede giù, mi scriva sul diario. Ci sentiamo tra un mese per fare il punto?"
+    - tutor: "D'accordo: ci scriviamo sul diario, e tra un mese ci rivediamo. Lei a casa lo lascia parlare quando se la sente, io a scuola tengo d'occhio la ricreazione."
+      goals: [plan]
+
+- scenario: scuola-figli
+  level: C2
+  persona: en-m-traveller
+  history: [register]
+  turns:
+    - tutor: "Buonasera, si accomodi. Parliamo un po' di Tommaso?"
+    - learner: "Buonasera! Sì, certo. Allora, dimmi tutto: come va il piccolo?"
+      errors: [register]
+      gold: {text: "dimmi tutto", fix: "mi dica tutto"}
+    - tutor: "Buonasera a lei. Volentieri, ma prima una piccola cosa: «dimmi tutto»? Siamo a un colloquio, e con l'insegnante di suo figlio di solito si usa un'altra forma."
+      prompt: {text: "dimmi tutto", tags: [register]}
+    - learner: "Ha ragione, scusi: mi dica tutto. Come va Tommaso?"
+    - tutor: "Bene, direi. Ha fatto progressi notevoli nello scritto, e i suoi temi sono tra i più fantasiosi della classe. Ma vedo che lei ha qualcosa in mente."
+      goals: [progress]
+    - learner: "Eh sì. Il problema è lo smartphone: dice che tutti i suoi compagni ne hanno uno e che senza si sente escluso. Non sono sicuro che sia vero."
+    - tutor: "In parte lo è: in quinta molti lo hanno già, e nella chat dei bambini si organizzano le partite al parco. Capisco quindi che si senta un po' tagliato fuori."
+      goals: [concern]
+    - learner: "Esatto. Lei cosa mi consiglia? Non voglio che passa tutto il pomeriggio a guardare video, but non voglio neanche che resti isolato."
+      errors: [subjunctive-use, word-choice]
+      gold: {text: "Non voglio che passa", fix: "Non voglio che passi"}
+    - tutor: "È il dilemma di tanti genitori. Prima però riascolti: «non voglio che passa»? Dopo «voglio che» il verbo non può restare all'indicativo."
+      prompt: {text: "Non voglio che passa", tags: [subjunctive-use]}
+    - learner: "Non voglio che passerebbe tutto il pomeriggio sui video?"
+      errors: [subjunctive-use]
+      gold: {text: "Non voglio che passerebbe", fix: "Non voglio che passi"}
+    - tutor: "Ci vuole il congiuntivo: «non voglio che passi tutto il pomeriggio sui video». Il mio consiglio è un telefono semplice, senza internet, e magari un tablet in salotto, con un'ora fissa dopo i compiti."
+      goals: [advice]
+      recast: {text: "Non voglio che passerebbe", fix: "non voglio che passi", tags: [subjunctive-use]}
+    - learner: "Mi convince. Facciamo così: telefono semplice da subito, tablet solo nel fine settimana, e la partita al parco gliela organizzo io con gli altri genitori."
+    - tutor: "Ottimo compromesso, e la partita al parco è un tocco geniale. Tra qualche settimana mi dica come va; se lo vedo più sereno in classe, glielo farò sapere anch'io."
+      goals: [plan]
+
+- scenario: scuola-figli
+  level: C2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Buonasera, si accomodi. Parliamo un po' di Tommaso?"
+    - learner: "Buonasera, maestra. Sì, ma prima vorrei sapere una cosa: come si comporta con i compagni? Perché ultimamente torna a casa molto arrabbiato."
+    - tutor: "Gliene parlo volentieri. In classe è vivace ma corretto; negli ultimi giorni, però, l'ho visto litigare più di una volta con un compagno, durante la ricreazione."
+      goals: [progress]
+    - learner: "Ecco, è quello che temevo. Ieri è tornato con un livido sul braccio, e quando gli ho chiesto chi è stato, ha detto solo un nome: Luca. Ho paura che lo prendano di mira."
+    - tutor: "Mi dispiace molto, e la ringrazio di avermelo detto subito. Domani parlerò con entrambi i bambini, separatamente, per capire che cosa sia successo davvero."
+      goals: [concern]
+    - learner: "Grazie. Però non vorrei che Luca venisse castigato senza che nessuno ascoltasse anche la versione di Tommaso, perché a volte è lui che comincia."
+    - tutor: "Ha perfettamente ragione: sentirò tutte e due le versioni prima di decidere qualsiasi cosa. Intanto, a casa, che cosa le racconta Tommaso di questo compagno?"
+    - learner: "Poco. Dice che Luca lo chiama «lo spagnolo» per l'accento, e lui si offende. Io non so se dirgli di ignorarlo o di contestargli a tono. Lei che cosa mi consiglia?"
+      errors: [false-friend]
+      gold: {text: "contestargli a tono", fix: "rispondergli a tono"}
+    - tutor: "Rispondergli a tono di solito peggiora le cose, e ignorarlo del tutto non è facile a quell'età. Gli insegni piuttosto a dire con calma «smettila, non mi piace» e, se non basta, a venire da me."
+      goals: [advice]
+      recast: {text: "contestargli a tono", fix: "Rispondergli a tono", tags: [false-friend]}
+    - learner: "Mi sembra un buon metodo. Lo proviamo a casa con un gioco: io faccio Luca e lui si allena a rispondere. E se succede di nuovo, mi avverti, per favore."
+      errors: [imperative-form]
+      gold: {text: "mi avverti", fix: "mi avverta"}
+    - tutor: "Il gioco di ruolo è un'idea eccellente. Solo una cosa: «mi avverti»? Rivolgendosi a me con il lei, l'imperativo ha un'altra desinenza."
+      prompt: {text: "mi avverti", tags: [imperative-form]}
+    - learner: "Mi avverta, certo. Allora siamo d'accordo?"
+    - tutor: "Siamo d'accordo: lei a casa lo allena con il gioco, io domani parlo con i due bambini e la avverto subito, qualunque cosa succeda."
+      goals: [plan]
+
+- scenario: scuola-figli
+  level: C2
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buonasera, si accomodi. Parliamo un po' di Tommaso?"
+    - learner: "Buonasera, maestra. Con piacere. Le confesso che sono venuto con una domanda precisa: come vanno le verifiche? A casa Tommaso studia per ore, ma i voti non arrivano mai."
+    - tutor: "Ha colto proprio il punto. Nelle interrogazioni Tommaso è preparato e sicuro, ma nelle verifiche scritte si blocca, e spesso consegna il foglio a metà."
+      goals: [progress]
+    - learner: "Lo sospettavo. La sera prima piange, non dorme e dice che farà una figuraccia. Eppure in terza, ogni volta che c'era una verifica, è andato a scuola contento."
+      errors: [tense-aspect]
+      gold: {text: "è andato a scuola contento", fix: "andava a scuola contento"}
+    - tutor: "Ne parleremo con attenzione, perché il cambiamento è evidente. Ma prima: «ogni volta che c'era una verifica, è andato a scuola contento»? È un'abitudine del passato: quale tempo la racconta?"
+      goals: [concern]
+      prompt: {text: "è andato a scuola contento", tags: [tense-aspect]}
+    - learner: "Andava a scuola contento, ha ragione. Quest'anno invece ogni verifica gli sembra una montagna. Che cosa possiamo fare, secondo lei?"
+    - tutor: "Esatto. Io gli lascerò qualche minuto in più e lo farò cominciare dagli esercizi più facili; lei, a casa, provi a fare con lui delle piccole verifiche per gioco, con il cronometro e senza voto."
+      goals: [advice]
+    - learner: "Un'idea eccellente. Temo però che io stesso abbia contribuito al problema: quando ha preso quel cinque in geografia, mi sono arrabbiato e gli ho tolto il tablet per una settimana."
+    - tutor: "Apprezzo molto la sua franchezza, non è da tutti. Forse vale la pena di dirglielo: sapere che anche il papà può sbagliare lo aiuterà a sdrammatizzare."
+    - learner: "Stasera stesso gli parlo. Del resto, lo ammetto, sono sempre stato un padre molto demandante, anche con sua sorella maggiore."
+      errors: [word-choice]
+      gold: {text: "molto demandante", fix: "molto esigente"}
+    - tutor: "Essere un padre molto esigente non è una colpa, se lo si è per affetto, e Tommaso questo lo sa. Le propongo allora di fissare insieme un piano per le prossime settimane."
+      recast: {text: "molto demandante", fix: "molto esigente", tags: [word-choice]}
+    - learner: "Volentieri. Io stasera gli parlo e da sabato facciamo le verifiche per gioco, con il cronometro; lei gli concede qualche minuto in più. Ci rivediamo a fine mese?"
+    - tutor: "Perfetto, a fine mese ci rivediamo e vediamo com'è andata la prima verifica. Sono sicura che, con un po' di serenità in più, i voti seguiranno."
+      goals: [plan]

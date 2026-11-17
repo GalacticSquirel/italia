@@ -1,0 +1,204 @@
+# B1, third mixed set.
+- scenario: prenotare-visita
+  level: B1
+  persona: es-m-worker
+  history: [question-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Ho bisogno di un dermatologo, ho una macchia sulla pelle che non mi piace."
+    - tutor: "Certo, le fissiamo una visita. Ha un'impegnativa del medico?"
+      goals: [type]
+    - learner: "No, non ce l'ho. Quanto costa la visita senza impegnativa?"
+      goals: [cost]
+    - tutor: "Senza impegnativa costa 100 euro. Quando sarebbe disponibile?"
+      goals: [cost]
+    - learner: "Lavoro tutti i giorni fino alle tre. Che ora avete libero il pomeriggio?"
+      errors: [question-form]
+    - tutor: "Che ora avete libero? Si chiede in un altro modo..."
+      prompt: {text: "Che ora avete libero", tags: [question-form]}
+    - learner: "A che ora avete un posto libero il pomeriggio?"
+    - tutor: "Esatto! Martedì alle 16:30 o giovedì alle 17. Quale preferisce?"
+    - learner: "Giovedì alle 17, per favore."
+      goals: [availability]
+    - tutor: "Perfetto. Allora giovedì alle 17 con il dermatologo, 100 euro. Mi dice il suo nome?"
+      goals: [availability]
+    - learner: "Javier Gómez. Giovedì alle 17, dermatologo, 100 euro. Grazie!"
+    - tutor: "Perfetto, è tutto confermato. Buona giornata!"
+      goals: [confirm]
+
+- scenario: film-libro
+  level: B1
+  persona: en-f-student
+  history: [participle-agreement]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io! Ho letto «Il barone rampante» di Calvino. È la storia di un ragazzo che va a vivere sugli alberi."
+    - tutor: "Sugli alberi, che idea originale! Perché ci va a vivere?"
+    - learner: "Perché litiga con suo padre a tavola e decide di non scendere più. Poi resta lì tutta la vita."
+      goals: [summary]
+    - tutor: "E com'è il personaggio principale?"
+      goals: [summary]
+    - learner: "È coraggioso e molto testardo. Le persone del paese lo considerano strano, ma lui è libero."
+      goals: [characters]
+    - tutor: "Lo descrivi molto bene. E a te è piaciuto?"
+      goals: [characters]
+    - learner: "Sì, tanto. Le pagine sugli alberi le ho letto due volte, perché sono bellissime."
+      errors: [participle-agreement]
+    - tutor: "Le pagine le ho letto? Guarda bene la fine..."
+      prompt: {text: "le ho letto", tags: [participle-agreement]}
+    - learner: "Le ho lette due volte!"
+      goals: [opinion]
+    - tutor: "Esatto! A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A chi ama le storie strane e un po' magiche. È anche abbastanza corto."
+    - tutor: "Ottimo consiglio, lo leggo anch'io! Chi vuole continuare?"
+      goals: [recommend]
+
+- scenario: smartworking
+  level: B1
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Io sono insegnante, quindi vado a scuola tutti i giorni. Ma durante la pandemia ho insegnato da casa."
+      goals: [situation]
+    - tutor: "Ah, è vero. E com'era insegnare da casa?"
+      goals: [situation]
+    - learner: "C'erano dei vantaggi: dormivo di più e non prendevo l'autobus."
+      goals: [pros]
+    - tutor: "E gli svantaggi?"
+      goals: [pros]
+    - learner: "Era difficile tenere l'attenzione dei ragazzi. Molti spegnevano la telecamera."
+      goals: [cons]
+    - tutor: "Ti credo! E oggi, se potessi scegliere?"
+      goals: [cons]
+    - learner: "Penso che la scuola in presenza è molto meglio per tutti."
+      errors: [subjunctive-use]
+    - tutor: "Penso che è? Dopo «penso che» ci vuole un'altra forma."
+      prompt: {text: "Penso che la scuola in presenza è", tags: [subjunctive-use]}
+    - learner: "Penso che la scuola in presenza sia molto meglio."
+    - tutor: "Esatto! E sono d'accordo con te: i ragazzi hanno bisogno di stare insieme."
+      goals: [preference]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-f-erasmus
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! È carino. Quanto costa l'affitto, con le spese?"
+    - tutor: "Sono 550 euro al mese, più 40 euro di spese di condominio."
+      goals: [rent]
+    - learner: "Va bene. E il contratto quanto dura? Io resto solo fino a luglio."
+    - tutor: "Per gli studenti facciamo un contratto di dieci mesi. La caparra è di un mese."
+      goals: [contract]
+    - learner: "Perfetto. Il riscaldamento funziona bene? Sono dei problemi con l'acqua calda?"
+      errors: [ce-ci-sono]
+    - tutor: "Sono dei problemi? Vuole sapere se esistono..."
+      prompt: {text: "Sono dei problemi", tags: [ce-ci-sono]}
+    - learner: "Ci sono dei problemi con l'acqua calda?"
+    - tutor: "Esatto. No, nessun problema: la caldaia è nuova e il riscaldamento funziona benissimo."
+      goals: [condition]
+      new: [{lemma: caldaia, gloss: boiler}]
+    - learner: "Ottimo. E il quartiere è tranquillo la sera?"
+    - tutor: "Sì, è molto tranquillo, e l'università è a dieci minuti in autobus."
+      goals: [neighbourhood]
+    - learner: "Allora sono interessata! Posso venire domani a firmare?"
+    - tutor: "Certo, domani alle 10 le preparo il contratto. A domani!"
+      goals: [decide]
+
+- scenario: compleanno
+  level: B1
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Sara compie settant'anni, quindi dobbiamo fare qualcosa di speciale. Che ne dici di un pranzo domenica?"
+    - tutor: "Un pranzo è perfetto! Dove lo facciamo?"
+    - learner: "In un ristorante in collina, con una bella vista. Lo prenoto io domani."
+      goals: [date]
+    - tutor: "Ottimo. E chi invitiamo?"
+      goals: [date]
+    - learner: "I figli, i nipoti e i suoi amici più cari. Saremo circa venticinque persone."
+      goals: [guests]
+    - tutor: "Che bella festa sarà! E per la torta?"
+      goals: [guests]
+    - learner: "La torta la ordinerò in pasticceria, con la frutta, come piace a lei."
+      goals: [food]
+    - tutor: "Perfetto. E il regalo?"
+      goals: [food]
+    - learner: "Le piacciono i viaggi. Potremmo regalarle un fine settimana a Venezia."
+    - tutor: "È un'idea bellissima, sarà felicissima!"
+      goals: [gift]
+
+- scenario: medico-base
+  level: B1
+  persona: en-f-student
+  history: [reflexive]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Ho un dolore forte al polso. Sono caduta in bicicletta ieri pomeriggio."
+    - tutor: "Mi dispiace. Mi fa vedere? Le fa male quando lo muove?"
+      goals: [symptoms, since-when]
+    - learner: "Sì, molto. E non riesco a scrivere. Ho fatto male anche al ginocchio."
+      errors: [reflexive]
+    - tutor: "Ho fatto male al ginocchio? Chi si è fatto male, lei?"
+      prompt: {text: "Ho fatto male", tags: [reflexive]}
+    - learner: "Mi sono fatta male anche al ginocchio!"
+    - tutor: "Esatto. Prende qualche medicina o è allergica a qualcosa?"
+    - learner: "No, nessuna medicina e nessuna allergia."
+      goals: [history]
+    - tutor: "Bene. Non sembra rotto, ma faccia una radiografia per sicurezza. Per ora, ghiaccio e riposo."
+      goals: [history]
+      new: [{lemma: radiografia, gloss: X-ray}, {lemma: ghiaccio, gloss: ice}]
+    - learner: "Quindi faccio una radiografia, metto il ghiaccio e riposo."
+    - tutor: "Esatto. Poi torni da me con la radiografia. Buona guarigione!"
+      goals: [instructions]
+      new: [{lemma: radiografia, gloss: X-ray}, {lemma: guarigione, gloss: recovery}]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto sabato con il treno. Resto solo un fine settimana."
+      goals: [plans]
+    - tutor: "Un fine settimana è poco, ma si può fare tanto! Cosa ti piacerebbe fare?"
+      goals: [plans]
+    - learner: "Voglio vedere i musei e mangiare la pizza. Quanti musei mi consigli di visitare?"
+    - tutor: "Te ne consiglio due: il museo archeologico e il Duomo. E la pizza mangiala dove vedi la fila!"
+      goals: [advice]
+      new: [{lemma: archeologico, gloss: archaeological}, {lemma: fila, gloss: queue}]
+    - learner: "Perfetto! Come si va al centro dalla stazione? Si va a piedi?"
+    - tutor: "Sì, ci vai a piedi in un quarto d'ora, oppure prendi la metro."
+      goals: [transport]
+    - learner: "E quali posti devo evitare? Ho sentito tante storie."
+    - tutor: "Non preoccuparti troppo. Di notte evita le strade vuote e tieni il telefono in tasca."
+      goals: [warnings]
+    - learner: "Va bene, grazie mille Valentina! Ti porto un regalo da Napoli... anzi no, tu sei di lì!"
+    - tutor: "Ah, che ridere! Portami solo tante foto. Buon viaggio!"
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-heritage
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando giro a destra, la macchina fa un rumore. E le gomme sembrano consumate."
+    - tutor: "Capisco. Da quanto tempo sente questo rumore?"
+      goals: [describe]
+    - learner: "Da un mese, più o meno. Ma questa settimana è più forte che prima."
+      errors: [comparative]
+    - tutor: "Più forte che prima? Prima è un momento, quindi..."
+      prompt: {text: "più forte che prima", tags: [comparative]}
+    - learner: "Più forte di prima!"
+      goals: [when]
+    - tutor: "Esatto. Probabilmente bisogna cambiare un pezzo e due gomme. Le faccio un preventivo?"
+      goals: [when]
+    - learner: "Sì, grazie. Quanto mi costerà?"
+    - tutor: "In tutto circa 300 euro: 180 per le gomme e il resto per il pezzo e il lavoro."
+      goals: [cost]
+    - learner: "Va bene. E quando potrò ritirare la macchina?"
+    - tutor: "Il pezzo arriva domani, quindi sarà pronta fra due giorni, alle 12."
+      goals: [time]

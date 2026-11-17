@@ -1,0 +1,238 @@
+# Correction-dense B2 dialogues (continued): prompt, then self-repair or recast.
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Buongiorno, dottore. Non molto bene: quando faccio le scale mi manca il respiro, e la sera ho le caviglie gonfie."
+  - tutor: "Da quanto tempo succede?"
+  - learner: "Da circa due mesi. Prima facevo le scale senza problemi, ma un giorno, mentre salivo al terzo piano, mi sono dovuta fermare."
+  - tutor: "Capisco. In famiglia qualcuno ha avuto problemi di cuore o di pressione?"
+    goals: [symptoms]
+  - learner: "Mia madre ha la pressione alta, e anche mia nonna. Ho paura che anche io ho lo stesso problema."
+    errors: [subjunctive-use]
+  - tutor: "Capisco la sua paura. Ho paura che anch'io... ? Finisca la frase con il verbo giusto."
+    prompt: {text: "Ho paura che anche io ho", tags: [subjunctive-use]}
+    goals: [history]
+  - learner: "Ho paura che anche io abbia lo stesso problema."
+  - tutor: "Esatto. E in parte ha ragione: la pressione è un po' alta e il cuore fa fatica. Niente di grave, ma va curato."
+  - learner: "Che cosa vuol dire esattamente che il cuore fa fatica? È pericoloso?"
+  - tutor: "Vuol dire che lavora più del normale. Adesso non è pericoloso, ma bisogna intervenire prima che la situazione peggiori."
+    goals: [understand]
+  - learner: "E la terapia? Una mia amica prende pillole per la pressione e dice che si sente sempre stancata."
+    errors: [word-choice]
+  - tutor: "È vero, all'inizio una persona può sentirsi un po' stanca, ma di solito passa in qualche settimana. Le prescrivo una pillola leggera, da prendere la mattina."
+    recast: {text: "stancata", fix: "stanca", tags: [word-choice]}
+  - learner: "Va bene. E il caffè? Posso continuare a berlo?"
+  - tutor: "Uno al giorno, non di più. E cerchi di camminare mezz'ora ogni giorno. Ci vediamo tra un mese per un controllo."
+    goals: [treatment]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-traveller
+  history: [combined-pronouns]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Io e la mia fidanzata vorremmo una cerimonia semplice in campagna, in Toscana, con una lunga cena all'aperto."
+  - tutor: "Che bello. Quanti invitati pensate di avere, e che budget avete in mente?"
+    goals: [vision]
+  - learner: "Circa ottanta invitati. Il budget è di venticinquemila euro, ma i miei genitori hanno detto che ci avrebbero aiutato, se ne avessimo avuto bisogno."
+  - tutor: "Con ottanta persone bastano, ma senza esagerare. Ho due proposte: un agriturismo con piscina o una villa con un grande giardino."
+    goals: [budget]
+    new: [{lemma: agriturismo, gloss: farm stay}]
+  - learner: "La villa mi sembra più elegante. Ha qualche foto? Se mi le manda, stasera le faccio vedere alla mia fidanzata."
+    errors: [combined-pronouns]
+  - tutor: "Certo. Però «se mi le manda»: quando due pronomi si incontrano, il primo cambia un po'. Come diventa?"
+    prompt: {text: "se mi le manda", tags: [combined-pronouns]}
+  - learner: "Se me le manda, stasera le faccio vedere alla mia fidanzata."
+  - tutor: "Perfetto. Gliele mando entro stasera. C'è anche una sala interna, in caso di pioggia."
+  - learner: "Allora scegliamo la villa. Però ho due condizioni: vorrei che il menù sia fatto solo con prodotti locali, e che il fotografo non disturbi durante la cerimonia."
+    errors: [subjunctive-use]
+  - tutor: "Condizioni ragionevoli. Attenzione, però: con «vorrei che», al condizionale, il congiuntivo presente non va."
+    prompt: {text: "vorrei che il menù sia", tags: [subjunctive-use]}
+    goals: [choices]
+  - learner: "Vorrei che il menù sia... che il menù era fatto con prodotti locali?"
+    errors: [subjunctive-use]
+  - tutor: "Ci siamo quasi: vorrei che il menù fosse fatto con prodotti locali. Ed è possibile, perché il cuoco della villa lavora proprio così. Il fotografo, poi, lo scelgo io tra quelli più discreti."
+    recast: {text: "Vorrei che il menù sia", fix: "vorrei che il menù fosse", tags: [subjunctive-use]}
+    goals: [conditions]
+  - learner: "Perfetto, allora possiamo andare avanti."
+  - tutor: "Benissimo. Le preparo il preventivo finale e lo guardiamo insieme giovedì."
+
+- scenario: politica-lavoro
+  level: B2
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Secondo me esageri. Certo, l'automazione cambierà molti settori, ma ogni rivoluzione tecnologica ha creato anche lavori nuovi."
+  - tutor: "Questa volta è diverso, però. Le macchine adesso scrivono, traducono, guidano..."
+    goals: [opinion]
+  - learner: "Immagina che domani tutti i camion andassero da soli: mille autisti perderebbero il lavoro, ma ci vorrebbero tecnici per controllarli."
+  - tutor: "Mille tecnici al posto di mille autisti? Non credo proprio."
+    goals: [hypothesis]
+  - learner: "No, meno, hai ragione. Ma se lo Stato avrebbe investito nella formazione dieci anni fa, oggi gli autisti potrebbero cambiare lavoro più facilmente."
+    errors: [hypothetical]
+  - tutor: "«Se lo Stato avrebbe investito»... sei sicura?"
+    prompt: {text: "se lo Stato avrebbe investito", tags: [hypothetical]}
+  - learner: "Ah, no: se lo Stato avesse investito nella formazione."
+  - tutor: "Brava. Ma fammi un esempio vero, non un'ipotesi."
+    new: [{lemma: ipotesi, gloss: hypothesis}]
+  - learner: "Nella mia città, in Australia, hanno chiuso una fabbrica di automobili. Molti operai hanno fatto un corso di informatica pagati dal Comune, e adesso lavorano in quel settore."
+    errors: [participle-agreement]
+  - tutor: "Interessante. Ma «un corso di informatica pagati dal Comune»: quella parola si riferisce al corso o agli operai?"
+    prompt: {text: "un corso di informatica pagati", tags: [participle-agreement]}
+    goals: [example]
+  - learner: "Il corso, quindi: un corso di informatica pagato dal Comune."
+  - tutor: "Esatto. Un caso interessante, lo ammetto. Allora, come la chiudiamo?"
+  - learner: "Riassumendo: non credo che le macchine ci rubino il lavoro, ma bisogna formare le persone. E tu, hai cambiato idea?"
+  - tutor: "Un pochino. Diciamo che adesso vedo nero al cinquanta per cento, invece che al cento!"
+    goals: [conclude]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-student
+  history: [register]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, guardi, abbiamo aspettato quasi un'ora per i primi, e il risotto è arrivato troppo cotto."
+  - tutor: "Un'ora è davvero troppo, mi scuso. Era solo il risotto, o anche gli altri piatti?"
+    goals: [complain]
+  - learner: "Anche il secondo: il pesce era salatissimo. E quando ce ne siamo lamentati, il cameriere non ci ha neanche chiesto scusa. Ma ti sembra normale?"
+    errors: [register]
+  - tutor: "Sul cameriere ha perfettamente ragione. Però «ti sembra normale»... qui siamo un po' più formali, non crede?"
+    prompt: {text: "ti sembra normale", tags: [register]}
+    goals: [detail]
+  - learner: "Ha ragione, mi scusi: le sembra normale?"
+  - tutor: "No, non lo è affatto. Che cosa si aspettava, stasera?"
+  - learner: "Era il compleanno di mio padre. Mi aspettavo che il servizio era più attento, visto che avevamo prenotato da due settimane."
+    errors: [subjunctive-use]
+  - tutor: "Mi dispiace molto. «Mi aspettavo che il servizio...»? Provi a finire la frase con il tempo giusto."
+    prompt: {text: "Mi aspettavo che il servizio era", tags: [subjunctive-use]}
+  - learner: "Mi aspettavo che il servizio fosse più attento."
+  - tutor: "Esatto, e aveva tutto il diritto di aspettarselo. Le propongo di non pagare i secondi e di offrirvi una torta per il compleanno."
+    goals: [expectation]
+  - learner: "È molto gentile. Accetto volentieri, mio padre ne sarà felice."
+  - tutor: "Ne sono contento. Porto subito la torta."
+    goals: [resolve]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-f-student
+  history: [future-form]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Abbastanza bene. Ho finito l'analisi dei dati del cliente, e stavo preparando la presentazione quando ho notato un problema."
+  - tutor: "Ah. Che problema?"
+    goals: [update]
+  - learner: "Nei dati di marzo mancano due settimane. Ho scritto al cliente, ma non mi ha ancora risposto. Senza quei dati, la presentazione sarebbe incompleta."
+  - tutor: "Brutta storia. E quindi, cosa proponi?"
+    goals: [problem]
+  - learner: "Potrei presentare febbraio e aprile, e spiegare che marzo arriverà dopo. Così la presentazione rimanerà pronta per giovedì."
+    errors: [future-form]
+  - tutor: "Scusa, «rimanerà»? Non sono sicura di aver capito."
+    prompt: {text: "rimanerà", tags: [future-form]}
+  - learner: "Rimarrà, scusa! Me lo dimentico sempre."
+  - tutor: "Succede. L'idea mi piace: meglio una presentazione con un buco spiegato bene che nessuna presentazione."
+    goals: [proposal]
+  - learner: "Allora la mando al cliente giovedì mattina? Oppure preferisci vederla prima tu?"
+  - tutor: "Preferisco vederla prima. Riesci a mandarmela entro mercoledì sera?"
+  - learner: "Sì, certo. Sono già preparando i grafici, quindi mercoledì alle sei è tutto pronto."
+    errors: [stare-gerund]
+  - tutor: "Ottimo. Ma «sono già preparando»: per un'azione in corso, quale verbo va al posto di «essere»?"
+    prompt: {text: "Sono già preparando", tags: [stare-gerund]}
+  - learner: "Sto già preparando i grafici."
+  - tutor: "Perfetto. Allora mercoledì sera la guardo e giovedì la mandiamo al cliente."
+    goals: [deadline]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-traveller
+  history: [comparative]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Tutti e due. Lavoro da casa tre giorni a settimana, e vado in ufficio il martedì e il giovedì."
+  - tutor: "Ah, un po' e un po'. E come ti trovi?"
+    goals: [situation]
+  - learner: "Benissimo. A casa sono più concentrato che in ufficio, e non perdo un'ora nel traffico."
+  - tutor: "L'ora nel traffico non è poco. Ci sono anche dei lati negativi?"
+    goals: [pros]
+  - learner: "Sì, a volte mi sento solo. I miei colleghi sono più simpatici che il mio gatto!"
+    errors: [comparative]
+  - tutor: "Povero gatto! Però «più simpatici che il mio gatto»... ripensa a quel «che»."
+    prompt: {text: "più simpatici che il mio gatto", tags: [comparative]}
+    goals: [cons]
+  - learner: "Più simpatici del mio gatto, almeno a pranzo."
+  - tutor: "Così va meglio, anche per il gatto. E se potessi scegliere, cosa faresti?"
+  - learner: "Se potrei scegliere, lavorerei da casa solo due giorni, così vedrei i colleghi più spesso."
+    errors: [hypothetical]
+  - tutor: "Ha senso. Ma «se potrei»: è proprio la forma che vuoi dopo «se»?"
+    prompt: {text: "Se potrei scegliere", tags: [hypothetical]}
+  - learner: "Se potrei... cioè, se io potrei scegliere?"
+    errors: [hypothetical]
+  - tutor: "Ti capisco: se potessi scegliere, anch'io farei così, metà e metà. Ne hai parlato con il tuo capo?"
+    recast: {text: "se io potrei scegliere", fix: "se potessi scegliere", tags: [hypothetical]}
+    goals: [preference]
+  - learner: "Non ancora, ma glielo chiederò la settimana prossima."
+  - tutor: "Fammi sapere com'è andata, allora. In bocca al lupo!"
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, molto. È luminoso e la posizione è perfetta per il mio lavoro. Però il canone mi sembra un po' alto per un bilocale."
+  - tutor: "Capisco. Il proprietario ha detto che il prezzo è trattabile, entro certi limiti."
+    goals: [interest]
+  - learner: "Se il proprietario accettasse 750 euro invece di 850, firmerei subito. E la provvigione dell'agenzia, quanto è?"
+  - tutor: "La provvigione è un mese di canone. A 800 il proprietario forse direbbe di sì; a 750 ne dubito."
+  - learner: "Va bene, 800. Ma in quel caso vorrei che il proprietario mi lascia un mese di tempo per pagare la caparra."
+    errors: [subjunctive-use]
+  - tutor: "Ci possiamo provare. Ma ripeta la seconda parte: «vorrei che il proprietario mi...»?"
+    prompt: {text: "vorrei che il proprietario mi lascia", tags: [subjunctive-use]}
+  - learner: "Vorrei che mi lasci un mese... no: vorrei che mi lasciasse un mese di tempo."
+  - tutor: "Esatto. Credo che accetterà. Il contratto sarebbe un quattro più quattro, con cedolare secca."
+    goals: [negotiate]
+  - learner: "E se dovessi trasferirmi per lavoro? Quanto tempo prima devo dare la disdetta?"
+  - tutor: "Sei mesi prima, con una raccomandata. È una clausola normale."
+    goals: [conditions]
+  - learner: "Sei mesi sono tanti, ma accetto. Il proprietario mi può contestare entro venerdì? Lunedì ho un'altra visita."
+    errors: [false-friend]
+  - tutor: "Certo, il proprietario le può rispondere entro venerdì: lo chiamo subito, così lei sa come regolarsi."
+    recast: {text: "mi può contestare", fix: "le può rispondere", tags: [false-friend]}
+  - learner: "Perfetto. Allora aspetto la sua telefonata. Grazie mille!"
+  - tutor: "Grazie a lei. Ci sentiamo venerdì, e spero con una buona notizia."
+    goals: [conclude]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: es-f-erasmus
+  history: [subjunctive-form]
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Grazie dell'invito! Sono venuta a Bologna sei anni fa per l'Erasmus e non sono più tornata in Spagna. Mi ero innamorata della città, e poi anche di un bolognese!"
+  - tutor: "Una storia romantica! Ma immagino che non sia stato tutto facile. Qual è stata la difficoltà più grande?"
+    goals: [story]
+  - learner: "La burocrazia, senza dubbio. Per il codice fiscale, il medico, la residenza... mi sembra che io abbi passato metà del primo anno negli uffici."
+    errors: [subjunctive-form]
+  - tutor: "Molti ascoltatori la capiranno! Ma «io abbi»? Al congiuntivo presente, avere ha una forma unica per le prime tre persone."
+    prompt: {text: "io abbi passato", tags: [subjunctive-form]}
+  - learner: "Mi sembra che io abbia passato metà del primo anno negli uffici!"
+  - tutor: "Esatto. E lei, come è cambiata in questi anni?"
+    goals: [difficulties]
+  - learner: "Sono diventata più paziente. E ho imparato a mangiare con calma: prima mangiavo davanti al computer, adesso mai!"
+  - tutor: "Il pranzo all'italiana l'ha conquistata! Ultima domanda: che consiglio darebbe a chi vuole trasferirsi qui?"
+    goals: [change]
+  - learner: "Di imparare la lingua prima di partire. Se io avrei studiato l'italiano in Spagna, i primi mesi sarebbero stati molto più facili."
+    errors: [hypothetical]
+  - tutor: "Un consiglio prezioso. Ma proviamo di nuovo l'inizio: se io... ?"
+    prompt: {text: "Se io avrei studiato", tags: [hypothetical]}
+  - learner: "Se io avevo studiato l'italiano in Spagna..."
+    errors: [hypothetical]
+  - tutor: "Certo: se avesse studiato l'italiano prima, tutto sarebbe stato più semplice. È un consiglio che vale per tutti i nostri ascoltatori."
+    recast: {text: "Se io avevo studiato", fix: "se avesse studiato", tags: [hypothetical]}
+    goals: [advice]
+  - learner: "Esatto! E di avere tanta pazienza con gli uffici."
+  - tutor: "Lingua e pazienza, allora. Grazie di essere stata con noi, e buona vita in Italia!"

@@ -1,0 +1,173 @@
+- scenario: arte-mostra
+  level: C1
+  persona: en-f-student
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Mi mette addosso una certa inquietudine, a dire il vero. Sarà per quella luce livida che arriva di lato, ma ho la sensazione che stia per succedere qualcosa di brutto."
+    - tutor: "Inquietudine è la parola giusta, e non sei la prima a provarla. Ma lasciamo un attimo le sensazioni: che cosa vedi, concretamente, sulla tela?"
+      goals: [react]
+    - learner: "In primo piano c'è una donna seduta di spalle, davanti a una finestra socchiusa. Lo sfondo è quasi tutto in ombra, tranne un vaso di fiori appassiti che è stato dipinto con una precisione maniacale."
+    - tutor: "Che occhio: quel vaso sfugge a quasi tutti! E secondo te perché il pittore ci ha messo tanta cura, mentre il resto lo lascia nel buio?"
+      goals: [describe]
+    - learner: "Credo che voglia suggerire il tempo che passa. I fiori appassiscono, la donna aspetta qualcuno che non arriva: è l'unico dettaglio nitido perché è l'unica cosa certa. È la stessa idea che ho ritrovato in tutta l'esibizione, del resto."
+      errors: [false-friend]
+    - tutor: "Bella lettura, e hai ragione: l'attesa è il filo rosso di tutta la mostra. Però ti provoco: e se i fiori fossero solo un esercizio di bravura? A che cosa ti fa pensare questo stile, rispetto a quello che abbiamo visto nella prima sala?"
+      goals: [interpret]
+      recast: {text: "l'esibizione", fix: "la mostra", tags: [false-friend]}
+    - learner: "All'esercizio di bravura non ci credo: è troppo malinconico. Rispetto ai quadri della prima sala, così luminosi e quasi rinascimentali nella prospettiva, qui mi sembra di essere più vicina a certi interni fiamminghi, dove la luce racconta più delle figure."
+    - tutor: "I fiamminghi, esatto: è proprio da lì che viene questa luce. Mi hai tolto le parole di bocca, e pensare che lo storico dell'arte sarei io! Andiamo avanti, che nella prossima sala c'è il pezzo forte."
+      goals: [compare]
+
+- scenario: arte-mostra
+  level: C1
+  persona: es-m-worker
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Sinceramente? Mi lascia freddo. Vedo che è fatto bene, ma mi sembra uno di quei quadri che piacciono più ai critici che alla gente."
+    - tutor: "Ah, questa è bella! Guarda che all'epoca il pittore fu fatto a pezzi proprio dai critici. Prima di dargli torto, però, dimmi che cosa c'è nel quadro, come se lo raccontassi a uno che non lo vede."
+      goals: [react]
+    - learner: "D'accordo. È una piazza di paese a mezzogiorno, completamente vuota. I colori sono pochi, ocra e un azzurro spento, e le ombre dei portici sono lunghissime: cosa strana, visto che il sole dovrebbe essere alto."
+    - tutor: "Ecco, ci sei arrivato da solo: le ombre non tornano. Secondo te è una svista, oppure il pittore l'ha fatto apposta?"
+      goals: [describe]
+    - learner: "Una svista non può essere, è troppo evidente. Penso che abbia voluto creare un tempo sospeso, né mattina né sera, come nei sogni in cui riconosci il posto ma qualcosa non quadra. Forse è per questo che mi dà fastidio."
+    - tutor: "Ti dà fastidio, quindi tanto freddo non ti lascia, o sbaglio? Il tempo sospeso è esattamente la chiave. Ti ricorda qualcosa che hai già visto, magari in un altro museo?"
+      goals: [interpret]
+    - learner: "Colpito e affondato. Mi ricorda un po' i paesaggi di certi surrealisti spagnoli, anche se lì l'effetto è più teatrale, quasi esagerato. Qui invece tutto è quieto, e proprio per questo inquieta di più."
+    - tutor: "Più quieto e più inquietante: non avrei saputo dirlo meglio. Vedi che, a furia di guardarla, l'opera che non ti diceva niente ti ha fatto parlare per dieci minuti? Dai, ti offro un caffè al bar del museo."
+      goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: en-f-professional
+  history: [register]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri sera, verso le sette, ero ferma al semaforo di via Mazzini quando sono stata tamponata da un furgone. Per fortuna nessuno si è fatto male, ma il paraurti posteriore è da buttare."
+    - tutor: "Mi dispiace per lo spavento, signora; l'importante è che stiate tutti bene. Quindi lei era ferma e il semaforo era rosso: il conducente del furgone ha riconosciuto di avere torto?"
+      goals: [what]
+    - learner: "Sì, l'ha ammesso subito: mi ha detto che si era distratto un attimo perché stava guardando il navigatore. Del resto, sai com'è, quando uno è fermo c'è poco da discutere."
+      errors: [register]
+    - tutor: "Su questo ha ragione, la dinamica è chiara. Mi permetto solo un appunto: «sai com'è»? Questa è una telefonata d'ufficio, forse vuole riformulare."
+      goals: [responsibility]
+      prompt: {text: "sai com'è", tags: [register]}
+    - learner: "Ha ragione, mi è scappato: sa com'è, volevo dire. Comunque abbiamo compilato insieme la constatazione amichevole e l'abbiamo firmata tutti e due."
+    - tutor: "Non si preoccupi, capita. Ottimo per la constatazione amichevole: mi serve sapere se sono state indicate la targa del furgone e la compagnia assicurativa dell'altro conducente."
+    - learner: "Sì, c'è tutto: targa, compagnia e numero di polizza. Ho anche fatto qualche fotografia sul posto, nel caso potessero servire."
+    - tutor: "Serviranno eccome, ha fatto benissimo. Allora la pratica è completa: mi mandi pure il modulo e le fotografie per posta elettronica."
+      goals: [documents]
+    - learner: "Glieli mando in giornata. E dopo che cosa succede? Devo portare la macchina in un'officina di vostra fiducia o posso sceglierla io?"
+    - tutor: "Può sceglierla liberamente. Entro una settimana verrà fissata la perizia e, trattandosi di un sinistro senza sua responsabilità, non le verrà applicata alcuna franchigia. La richiamo io appena ho la data."
+      goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: es-m-worker
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Stamattina, mentre salivo dal parcheggio del supermercato in retromarcia, ho urtato una macchina che stava passando dietro di me."
+      errors: [false-friend]
+    - tutor: "Capisco: quindi lei usciva dal parcheggio in retromarcia e ha urtato un'auto di passaggio. Ci sono stati feriti, oppure soltanto danni alle vetture?"
+      recast: {text: "salivo dal parcheggio", fix: "usciva dal parcheggio", tags: [false-friend]}
+    - learner: "Nessun ferito, per fortuna. La mia macchina ha solo un graffio, mentre l'altra ha la portiera ammaccata. Guardi, non voglio girarci intorno: la colpa è mia, perché non avevo visto che arrivava qualcuno."
+    - tutor: "Apprezzo la sincerità, che rende tutto più semplice. Per essere precisi le chiedo: l'altra macchina andava a velocità normale, o le è parso che andasse troppo forte per un parcheggio?"
+      goals: [what]
+    - learner: "Onestamente, andava piano. Mi piacerebbe poter dire il contrario, ma sarebbe una bugia. Semmai c'era un furgone parcheggiato male che mi toglieva la visuale, però non credo che cambi molto."
+    - tutor: "Lo annoto comunque, non si sa mai. Avete compilato la constatazione amichevole? E ricorda se è stata firmata da entrambi?"
+      goals: [responsibility]
+    - learner: "Sì, l'abbiamo compilata sul posto e firmata tutti e due. L'unica cosa è che nella fretta ho dimenticato di scrivere la targa dell'altra macchina; ho però il nome e il telefono della signora."
+    - tutor: "Nessun problema: la targa la recuperiamo noi tramite la compagnia della signora. Mi basta che lei mi invii una copia del modulo entro tre giorni."
+      goals: [documents]
+    - learner: "Va bene, la mando oggi stesso. Mi tolga una curiosità, però: questo incidente mi farà aumentare il premio l'anno prossimo?"
+    - tutor: "Purtroppo sì: essendo un sinistro con responsabilità, perderà due classi di merito. Il danno alla signora verrà comunque risarcito per intero da noi, e lei riceverà una lettera con il riepilogo entro un mese."
+      goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: en-m-retired
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Mi sono trasferito qui da Bristol il mese scorso e vorrei applicare per la residenza."
+      errors: [false-friend]
+    - tutor: "Benissimo, quindi vuole fare domanda di residenza: è lo sportello giusto. Abita in una casa di proprietà o in affitto?"
+      goals: [request]
+      recast: {text: "applicare per la residenza", fix: "fare domanda di residenza", tags: [false-friend]}
+    - learner: "In affitto, con un contratto di quattro anni regolarmente registrato. Ho portato il passaporto, il codice fiscale e una copia del contratto. Occorre altro?"
+    - tutor: "È già a buon punto. Trattandosi di un cittadino britannico, va presentato anche il permesso di soggiorno, oppure la ricevuta della richiesta. Ce l'ha con sé?"
+      goals: [documents]
+    - learner: "Ecco, temevo che me lo chiedesse. Il permesso l'ho richiesto tre settimane fa, ma la ricevuta è rimasta a casa, in mezzo a una montagna di carte. Non si potrebbe avviare comunque la pratica, e io gliela porto domani?"
+    - tutor: "La capisco, ma senza la ricevuta la domanda non può essere accettata. Posso però darle il modulo, così lo compila con calma e domani passa direttamente da me, senza prendere il numero."
+    - learner: "Mi sembra una soluzione ragionevole, la ringrazio. E una volta consegnato tutto, quanto tempo ci vuole prima che la residenza sia effettiva?"
+    - tutor: "La residenza vale dal giorno della domanda. Entro quarantacinque giorni passeranno i vigili per verificare che lei abiti davvero all'indirizzo dichiarato; se nessuno le scrive, la pratica si intende accolta."
+      goals: [problem]
+    - learner: "Quindi i vigili vengono senza avvisare? Lo chiedo perché la mattina sono spesso fuori, e non vorrei che pensassero che non abito lì."
+    - tutor: "Di solito non avvisano, ma se non trovano nessuno ripassano o lasciano un biglietto nella cassetta. Basta che sul campanello ci sia il suo cognome. A domani, allora, con la ricevuta."
+      goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Avrei bisogno di cambiare la residenza: mi sono trasferita da Bologna la settimana scorsa e mi hanno detto che la pratica va fatta entro venti giorni."
+    - tutor: "Le hanno detto bene. Per il cambio di residenza servono un documento d'identità, il codice fiscale e il titolo per cui occupa la casa, per esempio il contratto d'affitto. È cittadina italiana?"
+      goals: [request]
+    - learner: "No, spagnola, ma sono iscritta all'anagrafe di Bologna da sei anni. Il contratto ce l'ho, ed è intestato a me e al mio compagno. Deve venire anche lui, o posso fare la domanda per tutti e due?"
+    - tutor: "Può farla lei per entrambi, purché porti una copia del documento del suo compagno e il modulo firmato anche da lui. Il contratto è già stato registrato?"
+      goals: [documents]
+    - learner: "Ecco il problema: il proprietario mi ha assicurato che l'avrebbe registrato lui, però non mi ha tuttavia mandato la ricevuta. Gliel'ho chiesta due volte."
+      errors: [false-friend]
+    - tutor: "Capisco: se la ricevuta non è ancora arrivata, per ora il contratto non si può allegare. In casi come questo, però, si accetta una dichiarazione firmata dal proprietario, con la copia di un suo documento."
+      recast: {text: "tuttavia", fix: "ancora", tags: [false-friend]}
+    - learner: "Meno male, questo è fattibile: abita al piano di sopra. Se le porto la dichiarazione domani mattina, la domanda vale da domani o da oggi?"
+    - tutor: "Da domani, cioè dal giorno in cui la pratica è completa. Non si preoccupi per i venti giorni, è ampiamente nei termini."
+      goals: [problem]
+    - learner: "Perfetto. E dopo che cosa devo aspettarmi? A Bologna erano passati i vigili, ma ricordo che ci avevano messo quasi due mesi."
+    - tutor: "Anche qui passano i vigili, di norma entro quarantacinque giorni. Nel frattempo le rilascio una ricevuta con cui può già scegliere il medico di base e aggiornare la patente."
+      goals: [next]
+
+- scenario: club-lettura
+  level: C1
+  persona: en-m-traveller
+  history: [hypothetical]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Ce l'ho fatta per un pelo, ho letto le ultime pagine in tram venendo qui. Devo dire che è una novella che mi ha spiazzato: parte come una storia di famiglia qualunque e finisce per essere quasi un giallo."
+      errors: [false-friend]
+    - tutor: "È un romanzo che spiazza, sono d'accordo, ed è il suo bello! Anche se «giallo» mi pare una parola grossa: il segreto dello zio si intuisce da metà libro. O tu ci sei cascato fino alla fine?"
+      goals: [impression]
+      recast: {text: "una novella", fix: "un romanzo", tags: [false-friend]}
+    - learner: "Ci sono cascato in pieno, lo ammetto. Ma più dello zio mi ha colpito Nora. Quando scopre la verità potrebbe denunciarlo e invece brucia le lettere: secondo me lo fa non per proteggere lui, ma per proteggere l'idea che ha di suo padre."
+    - tutor: "Interessante, però non mi convince fino in fondo. Per me Nora brucia le lettere per puro calcolo: senza lo zio la bottega chiude, e lei torna a fare la serva. Non la stai rendendo più nobile di quello che è?"
+    - learner: "Può darsi, ma il calcolo non spiega perché poi se ne vada comunque. Se sarebbe rimasta per interesse, avrebbe avuto tutto da guadagnare."
+      errors: [hypothetical]
+    - tutor: "Argomento niente male, mi metti in difficoltà. Però torna un attimo su quel «se sarebbe rimasta»: dopo il «se» ci vuole un altro modo."
+      prompt: {text: "Se sarebbe rimasta", tags: [hypothetical]}
+    - learner: "Giusto: se fosse rimasta per interesse, avrebbe avuto tutto da guadagnare. Invece parte con una valigia sola."
+    - tutor: "Ecco, così fila. E va bene, la valigia sola te la concedo: forse un po' di cuore ce l'ha. Dello stile invece che mi dici?"
+      goals: [character]
+    - learner: "Lo stile mi è sembrato volutamente dimesso. Il narratore non alza mai la voce, nemmeno nelle scene più dure, e proprio per questo certe frasi arrivano come uno schiaffo. Solo i capitoli in dialetto mi hanno fatto sudare."
+    - tutor: "Lo schiaffo a voce bassa, è proprio così. Per il dialetto, la prossima volta ti faccio da interprete io. A chi lo daresti da leggere?"
+      goals: [style]
+    - learner: "A chiunque pensi che le saghe familiari siano roba da nonne. Non lo consiglierei, invece, a chi vuole un finale consolatorio: qui non si salva nessuno."
+    - tutor: "Nessuno, nemmeno il gatto! Bene, ormai sei dei nostri a tutti gli effetti. Il mese prossimo i biscotti li porti tu."
+      goals: [recommend]
+
+- scenario: club-lettura
+  level: C1
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Finito, sì, anche se ho dovuto tenere il dizionario sul comodino. Nel complesso mi è piaciuto, ma con riserva: ho avuto l'impressione che l'autore volesse metterci dentro troppa Storia con la maiuscola."
+    - tutor: "Troppa Storia? Ma è un romanzo sugli anni dopo la guerra, la Storia è la protagonista! Dimmi almeno dove ti è sembrata di troppo."
+    - learner: "Nei capitoli sulle elezioni del quarantotto, per esempio. I personaggi smettono di essere persone e diventano portavoce: il nonno comunista, la zia democristiana... Parlano come manifesti."
+    - tutor: "Sul nonno ti do ragione, è un comizio ambulante. La zia Ada invece no: a me sembra il personaggio più vero del libro. Tu come spieghi che alla fine voti contro il parere del marito?"
+      goals: [impression]
+    - learner: "Io credo che sia l'unico momento in cui decide qualcosa da sola. Non penso che l'abbia fatto per convinzione politica: l'ha fatto perché nella cabina, per una volta, nessuno la guardava. Se il marito l'avesse saputo, non gliel'avrebbe mai perdonato."
+    - tutor: "La cabina come unica stanza tutta per sé: che bella idea, non ci avevo pensato. Allora vedi che, quando vuole, questo autore le persone le sa scrivere! E della sua lingua che cosa pensi?"
+      goals: [character]
+    - learner: "Qui niente riserve. Ha un modo di descrivere gli oggetti, le pentole, i cappotti rivoltati, che ti dice tutto sulla miseria senza mai nominarla. È uno stile concreto, quasi da artigiano."
+    - tutor: "Da artigiano, sì: ogni frase sembra lavorata a mano. E a conti fatti lo consiglieresti?"
+      goals: [style]
+    - learner: "Ai miei compagni di corso sì, perché si impara più da qui che dal manuale di storia. A mia madre no: direbbe che c'è troppa politica e troppo poco amore."
+    - tutor: "Tua madre e mezzo club, allora: vedrai stasera che battaglia! Vieni, prendiamo posto prima che comincino."
+      goals: [recommend]

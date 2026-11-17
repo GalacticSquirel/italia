@@ -1,0 +1,288 @@
+# B2 benchmark: call to the internet provider's helpline (focus: combined pronouns).
+- scenario: guasto-internet
+  level: B2
+  persona: en-f-professional
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. Da ieri sera la connessione non funziona: sul router c'è una spia rossa che lampeggia."
+    - tutor: "Mi dispiace. Ha già provato a fare qualcosa?"
+      goals: [describe]
+    - learner: "Sì, ho riavviato il router due volte e ho controllato i cavi. Penso che il problema è la linea, non il router."
+      errors: [subjunctive-use]
+      gold: {text: "Penso che il problema è", fix: "Penso che il problema sia"}
+    - tutor: "«Penso che il problema è»... Dopo «penso che», quale modo del verbo ci vuole?"
+      goals: [tried]
+      prompt: {text: "Penso che il problema è", tags: [subjunctive-use]}
+    - learner: "Giusto: penso che il problema sia la linea."
+    - tutor: "Esatto, ed è possibile. Facciamo una prova: stacchi il cavo della linea, aspetti trenta secondi e lo colleghi di nuovo."
+    - learner: "Fatto, ma la spia è ancora rossa. Potete mandare un tecnico? Se il tecnico verrebbe domani, sarebbe perfetto."
+      errors: [hypothetical]
+      gold: {text: "Se il tecnico verrebbe", fix: "Se il tecnico venisse"}
+    - tutor: "«Se il tecnico verrebbe»? Dopo «se», in una frase così, il condizionale non va bene: che forma serve?"
+      goals: [follow]
+      prompt: {text: "Se il tecnico verrebbe", tags: [hypothetical]}
+    - learner: "Ah... se il tecnico verrebbe domani mattina? Lavoro da casa e senza internet perdo clienti."
+      errors: [hypothetical]
+      gold: {text: "se il tecnico verrebbe", fix: "se il tecnico venisse"}
+    - tutor: "Se il tecnico venisse domani mattina sarebbe meglio anche per noi, ma il primo posto libero è giovedì alle nove. Le va bene?"
+      goals: [escalate]
+      recast: {text: "se il tecnico verrebbe", fix: "se il tecnico venisse", tags: [hypothetical]}
+    - learner: "Giovedì alle nove va bene. La ringrazio."
+    - tutor: "Perfetto, appuntamento confermato. Buona giornata e buon lavoro!"
+
+- scenario: guasto-internet
+  level: B2
+  persona: es-m-worker
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. Chiamo dal ristorante dove lavoro: da stamattina non abbiamo linea e non possiamo accettare pagamenti con la carta."
+    - tutor: "Capisco, è urgente. Che cosa vede sul router?"
+      goals: [describe]
+    - learner: "La spia della linea è spenta. Ho chiamato anche ieri con il mio capo: lui voleva il numero della pratica, ma il suo collega non gli lo ha dato."
+      errors: [combined-pronouns]
+      gold: {text: "gli lo ha dato", fix: "glielo ha dato"}
+    - tutor: "«Non gli lo ha dato»? Quando questi due pronomi si incontrano, cambiano forma."
+      prompt: {text: "gli lo ha dato", tags: [combined-pronouns]}
+    - learner: "Sì, non gli lo ha dato, e il mio capo si è arrabbiato molto."
+      errors: [combined-pronouns]
+      gold: {text: "gli lo ha dato", fix: "glielo ha dato"}
+    - tutor: "Ha ragione: il collega non glielo ha dato, e mi scuso. Lo cerco io adesso. Avete già provato a riavviare il router?"
+      recast: {text: "gli lo ha dato", fix: "glielo ha dato", tags: [combined-pronouns]}
+    - learner: "Sì, l'ho riavviato e ho anche cambiato il cavo, ma niente."
+    - tutor: "Va bene. Provi a tenere premuto per dieci secondi il pulsante dietro il router."
+      goals: [tried]
+      new: [{lemma: pulsante, gloss: button}]
+    - learner: "Fatto: si sono accese due spie, ma quella della linea rimane spenta. Mi serve un tecnico oggi, e vorrei una devoluzione per questi giorni."
+      errors: [false-friend]
+      gold: {text: "una devoluzione", fix: "un rimborso"}
+    - tutor: "Allora è un guasto della linea: le mando un tecnico oggi e avrà un rimborso per i giorni senza servizio."
+      goals: [follow, escalate]
+      recast: {text: "una devoluzione", fix: "un rimborso", tags: [false-friend]}
+    - learner: "Grazie. A che ora arriva? A mezzogiorno il ristorante è pieno."
+    - tutor: "Entro le undici, glielo garantisco. Buon lavoro!"
+
+- scenario: guasto-internet
+  level: B2
+  persona: en-m-retired
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. Da una settimana la connessione è più lenta che una lumaca, e la sera cade ogni dieci minuti."
+      errors: [comparative]
+      gold: {text: "più lenta che una lumaca", fix: "più lenta di una lumaca"}
+    - tutor: "«Più lenta che una lumaca»? Tra due nomi, dopo «più», usiamo un'altra parola."
+      prompt: {text: "più lenta che una lumaca", tags: [comparative]}
+    - learner: "Più lenta che una lumaca, sì! Ho spento e riacceso il router molte volte, ma non cambia niente."
+      errors: [comparative]
+      gold: {text: "Più lenta che una lumaca", fix: "Più lenta di una lumaca"}
+    - tutor: "Più lenta di una lumaca: rende l'idea! Vedo che ha già riavviato il router. Di che colore sono le spie?"
+      goals: [describe, tried]
+      recast: {text: "Più lenta che una lumaca", fix: "Più lenta di una lumaca", tags: [comparative]}
+    - learner: "Sono tutte verdi. Mio nipote dice che devo cambiare il canale. Se sapessi come si fa, lo farebbi da solo!"
+      errors: [conditional-form]
+      gold: {text: "lo farebbi", fix: "lo farei"}
+    - tutor: "«Lo farebbi»? La forma di «io» al condizionale finisce in un altro modo."
+      prompt: {text: "lo farebbi", tags: [conditional-form]}
+    - learner: "Lo farei da solo, mi scusi."
+    - tutor: "Esatto! Per ora mi basta un'informazione: prenda il router e mi legga il codice scritto sotto."
+    - learner: "Ecco: il codice è RX-4471. C'è scritto anche «modello 2015»."
+    - tutor: "Grazie. È un modello molto vecchio: per questo la connessione cade. Bisogna sostituirlo."
+      goals: [follow]
+    - learner: "Capisco. Potrebbe mandarmi un tecnico per installare quello nuovo? E vorrei un rimborso per questo mese."
+    - tutor: "Certo. Il tecnico verrà lunedì mattina con il router nuovo, e questo mese non lo pagherà."
+      goals: [escalate]
+
+- scenario: guasto-internet
+  level: B2
+  persona: es-f-erasmus
+  history: [subjunctive-form, preposition]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. In casa siamo quattro studentesse e da tre giorni non c'è internet. Abbiamo esami la settimana prossima!"
+    - tutor: "Capisco, è urgente. Avete già fatto qualche tentativo?"
+      goals: [describe]
+    - learner: "Sì. Una mia coinquilina ha riavviato il router e ieri ha chiamato il vostro numero, ma nessuno ha contestato."
+      errors: [false-friend]
+      gold: {text: "contestato", fix: "risposto"}
+    - tutor: "Mi dispiace che ieri nessuno abbia risposto. Adesso proviamo insieme: quali spie sono accese?"
+      goals: [tried]
+      recast: {text: "nessuno ha contestato", fix: "nessuno abbia risposto", tags: [false-friend]}
+    - learner: "Solo quella rossa. Devo staccare il cavo? Ho paura a romperlo."
+      errors: [preposition]
+      gold: {text: "paura a romperlo", fix: "paura di romperlo"}
+    - tutor: "«Paura a romperlo»? Con «avere paura» ci vuole un'altra preposizione."
+      prompt: {text: "paura a romperlo", tags: [preposition]}
+    - learner: "Paura di romperlo. Va bene, lo stacco e lo collego di nuovo... Fatto, ma la spia è ancora rossa."
+    - tutor: "Giusto, e ha fatto tutto bene. Allora il guasto non dipende da voi: è sulla linea."
+      goals: [follow]
+    - learner: "Allora è necessario che venga un tecnico. Spero che possa venire domani, e che voi ci fate uno sconto."
+      errors: [subjunctive-use]
+      gold: {text: "che voi ci fate", fix: "che voi ci facciate"}
+    - tutor: "«Che voi ci fate»? Guardi i primi due verbi dopo «che»: e il terzo?"
+      prompt: {text: "che voi ci fate", tags: [subjunctive-use]}
+    - learner: "Spero che ci facciate uno sconto. L'ho detto bene?"
+    - tutor: "Benissimo! Il tecnico viene domani pomeriggio e vi togliamo una settimana dalla bolletta."
+      goals: [escalate]
+
+- scenario: guasto-internet
+  level: B2
+  persona: en-m-traveller
+  history: [register]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Ciao Marta! Senti, la mia connessione è morta da stamattina. Puoi aiutarmi?"
+      errors: [register]
+      gold: {text: "Puoi aiutarmi", fix: "Può aiutarmi"}
+    - tutor: "Buongiorno! Certo che la aiuto. Però una domanda: al telefono con un'azienda, quale forma usiamo di solito, «tu» o «lei»?"
+      prompt: {text: "Puoi aiutarmi", tags: [register]}
+    - learner: "Ah, scusi! Può aiutarmi, per favore? La connessione non funziona e la spia è arancione."
+    - tutor: "Perfetto, grazie. Ha già provato a fare qualcosa?"
+      goals: [describe]
+    - learner: "Ho riavviato il router due volte. Il mio vicino lavora con i computer, ma di router non lo sa niente."
+      errors: [ci-ne]
+      gold: {text: "non lo sa niente", fix: "non ne sa niente"}
+    - tutor: "«Non lo sa niente»? Per dire «di router» serve un altro pronome."
+      prompt: {text: "non lo sa niente", tags: [ci-ne]}
+    - learner: "Non lo sa niente, davvero! È bravo con i programmi, ma con i router no."
+      errors: [ci-ne]
+      gold: {text: "Non lo sa niente", fix: "Non ne sa niente"}
+    - tutor: "Capisco, di router non ne sa niente. Nessun problema, ci penso io: tenga premuto il pulsante dietro il router per cinque secondi."
+      goals: [tried]
+      new: [{lemma: pulsante, gloss: button}]
+      recast: {text: "Non lo sa niente", fix: "non ne sa niente", tags: [ci-ne]}
+    - learner: "Fatto. Adesso la spia è verde... ma dopo un minuto ritorna arancione."
+    - tutor: "Allora è un guasto della linea. Apro subito una richiesta di intervento."
+      goals: [follow]
+    - learner: "Grazie. Potrebbe mandare un tecnico prima di venerdì? Parto sabato."
+    - tutor: "Sì, il tecnico passa giovedì tra le quattordici e le sedici. Buona giornata!"
+      goals: [escalate]
+
+- scenario: guasto-internet
+  level: B2
+  persona: es-f-teacher
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. Ho un problema con la connessione: funziona al mattino, ma dal pomeriggio in poi si interrompe continuamente."
+    - tutor: "Da quanto tempo succede? E ha già provato qualcosa?"
+      goals: [describe]
+    - learner: "Da lunedì. Ho riavviato il router e ho seguito le istruzioni: me le ha mandate la vostra azienda per posta."
+    - tutor: "Bene. Ha un computer collegato con il cavo? Vorrei fare una prova di velocità."
+      goals: [tried]
+    - learner: "Sì. Mio figlio sa come si fa la prova: gli lo chiedo subito."
+      errors: [combined-pronouns]
+      gold: {text: "gli lo chiedo", fix: "glielo chiedo"}
+    - tutor: "«Gli lo chiedo»? Questi due pronomi, insieme, diventano una parola sola."
+      prompt: {text: "gli lo chiedo", tags: [combined-pronouns]}
+    - learner: "Sì, gli lo chiedo adesso, un momento."
+      errors: [combined-pronouns]
+      gold: {text: "gli lo", fix: "glielo"}
+    - tutor: "Benissimo, glielo chieda pure: io aspetto in linea."
+      recast: {text: "gli lo chiedo", fix: "glielo chieda", tags: [combined-pronouns]}
+    - learner: "Ecco: la velocità è due mega. Ma io pago per cento! Voglio che un tecnico viene e controlli il impianto."
+      errors: [subjunctive-use, article-form]
+      gold: {text: "il impianto", fix: "l'impianto"}
+    - tutor: "Ha ragione, due mega sono pochissimi. Solo un dettaglio: «il impianto»? Davanti a una vocale l'articolo cambia forma."
+      goals: [follow]
+      prompt: {text: "il impianto", tags: [article-form]}
+    - learner: "L'impianto, certo. Quindi: può mandarmi un tecnico che controlli l'impianto?"
+    - tutor: "Sì, giovedì alle dieci. E per questi giorni pagherà di meno sulla prossima bolletta."
+      goals: [escalate]
+
+- scenario: guasto-internet
+  level: B2
+  persona: en-f-student
+  history: [pronoun-position, object-pronoun]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. Nel nostro appartamento la connessione non lavora più da domenica."
+      errors: [word-choice]
+      gold: {text: "non lavora più", fix: "non funziona più"}
+    - tutor: "Mi dispiace. Se non funziona più da domenica, sono già quattro giorni. Che cosa avete già provato?"
+      goals: [describe]
+      recast: {text: "non lavora più", fix: "non funziona più", tags: [word-choice]}
+    - learner: "Abbiamo riavviato il router. Poi ho telefonato al proprietario e lo ho chiesto la password nuova, ma non funziona."
+      errors: [object-pronoun]
+      gold: {text: "lo ho chiesto", fix: "gli ho chiesto"}
+    - tutor: "«Lo ho chiesto la password»? Si chiede qualcosa a qualcuno: quale pronome serve?"
+      prompt: {text: "lo ho chiesto", tags: [object-pronoun]}
+    - learner: "Gli ho chiesto la password nuova. Ma la connessione non c'è lo stesso."
+    - tutor: "Esatto. Guardi il router: la spia con il simbolo del mondo è accesa?"
+      goals: [tried]
+    - learner: "No, è spenta. Devo lo riavviare di nuovo?"
+      errors: [pronoun-position]
+      gold: {text: "lo riavviare", fix: "riavviarlo"}
+    - tutor: "«Devo lo riavviare»? Il pronome non può stare lì in mezzo: dove lo mettiamo?"
+      prompt: {text: "Devo lo riavviare", tags: [pronoun-position]}
+    - learner: "Devo lo riavviare adesso? O aspetto?"
+      errors: [pronoun-position]
+      gold: {text: "lo riavviare", fix: "riavviarlo"}
+    - tutor: "No, per ora non deve riavviarlo: stacchi solo il cavo grigio e lo rimetta al suo posto."
+      recast: {text: "Devo lo riavviare", fix: "deve riavviarlo", tags: [pronoun-position]}
+    - learner: "Fatto... niente, la spia resta spenta. Potete mandare qualcuno? Seguiamo tutte le lezioni da casa."
+    - tutor: "Sì, apro una richiesta: il tecnico viene mercoledì mattina. Grazie per la pazienza!"
+      goals: [follow, escalate]
+
+- scenario: guasto-internet
+  level: B2
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. La settimana scorsa un vostro tecnico ha installato la fibra, ma la linea non è mai stato attivato."
+      errors: [passive]
+      gold: {text: "non è mai stato attivato", fix: "non è mai stata attivata"}
+    - tutor: "«La linea non è mai stato attivato»? Il soggetto è «la linea»: controlli le ultime due parole."
+      prompt: {text: "non è mai stato attivato", tags: [passive]}
+    - learner: "Eh... la linea non è mai stato attivato, punto. Il tecnico aveva detto «due giorni»."
+      errors: [passive]
+      gold: {text: "non è mai stato attivato", fix: "non è mai stata attivata"}
+    - tutor: "Ha ragione, vedo qui che la linea non è mai stata attivata. Nel frattempo ha provato a collegarsi?"
+      goals: [describe]
+      recast: {text: "non è mai stato attivato", fix: "non è mai stata attivata", tags: [passive]}
+    - learner: "Sì, ho provato con il computer e con il telefono. Avevo già preparato tutto prima che il tecnico andasse via."
+    - tutor: "Ottimo. Mi legge il numero scritto sotto il router? Così attivo la linea da qui."
+      goals: [tried]
+    - learner: "Ecco: 88-41-207. Quando il tecnico era qui, la spia era verde; dopo un'ora, all'improvviso, diventava rossa."
+      errors: [tense-aspect]
+      gold: {text: "diventava rossa", fix: "è diventata rossa"}
+    - tutor: "Grazie. Ma «dopo un'ora diventava rossa»? È un cambiamento preciso, successo una volta: che tempo ci vuole?"
+      goals: [follow]
+      prompt: {text: "diventava rossa", tags: [tense-aspect]}
+    - learner: "Dopo un'ora è diventata rossa. Comunque, è già una settimana che aspetto: vorrei parlare con un responsabile e avere un rimborso."
+    - tutor: "Esatto. Ha ragione: la linea sarà attiva entro domani, le passo il responsabile e segnalo già un rimborso di un mese."
+      goals: [escalate]
+
+- scenario: guasto-internet
+  level: B2
+  persona: es-m-worker
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, assistenza clienti, sono Marta. Come posso aiutarla?"
+    - learner: "Buongiorno. A casa mia internet va e viene: ieri sera la connessione ha caduto tre volte durante la partita."
+      errors: [auxiliary-choice]
+      gold: {text: "ha caduto", fix: "è caduta"}
+    - tutor: "«La connessione ha caduto»? Con cadere usiamo l'altro ausiliare, e poi attenzione all'accordo."
+      prompt: {text: "ha caduto", tags: [auxiliary-choice]}
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+    - learner: "La connessione è caduta tre volte. Ho riavviato il router, ma oggi è uguale."
+    - tutor: "Giusto. Mi dica: dove si trova il router?"
+      goals: [describe, tried]
+    - learner: "È dietro la televisione, dentro di un mobile chiuso."
+      errors: [preposition]
+      gold: {text: "dentro di un mobile", fix: "dentro un mobile"}
+    - tutor: "«Dentro di un mobile»? Qui c'è una preposizione di troppo."
+      prompt: {text: "dentro di un mobile", tags: [preposition]}
+    - learner: "Dentro un mobile chiuso, scusi. È un problema?"
+    - tutor: "Esatto, e sì: lì dentro il segnale è debole. Lo metta in un posto più alto e aperto."
+    - learner: "Fatto, l'ho messo sopra la libreria. Va un po' meglio, ma sono molto disgustato con il servizio: voglio che venga un tecnico."
+      errors: [false-friend]
+      gold: {text: "disgustato con il servizio", fix: "scontento del servizio"}
+    - tutor: "Capisco che sia scontento del servizio, e mi scuso. Le mando un tecnico domani mattina: va bene?"
+      goals: [follow, escalate]
+      recast: {text: "disgustato con il servizio", fix: "scontento del servizio", tags: [false-friend]}
+      new: [{lemma: scontento, gloss: unhappy, dissatisfied}]
+    - learner: "Domani mattina va bene. Grazie, signora."
+    - tutor: "Grazie a lei. Il tecnico la chiamerà prima di arrivare. Buona serata!"

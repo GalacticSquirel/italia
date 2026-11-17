@@ -1,0 +1,266 @@
+# B1 benchmark: phone call with a removal company (focus: future, ne).
+- scenario: trasloco
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Traslochi Rapidi, buongiorno!"
+    - learner: "Buongiorno. Chiamo perché il mese prossimo cambio casa: mi trasferisco da Milano a Bergamo."
+    - tutor: "Benissimo. Ha già una data precisa per il trasloco?"
+    - learner: "Sì, il trasloco esserà il 14 marzo, un sabato."
+      errors: [future-form]
+      gold: {text: "esserà", fix: "sarà"}
+    - tutor: "«Esserà»? Il futuro di essere ha una forma particolare: se la ricorda?"
+      prompt: {text: "esserà", tags: [future-form]}
+    - learner: "Hmm... sì, esserà sabato 14 marzo, la mattina."
+      errors: [future-form]
+      gold: {text: "esserà", fix: "sarà"}
+    - tutor: "D'accordo, il trasloco sarà sabato 14 marzo, di mattina. Che cosa dobbiamo portare?"
+      goals: [date]
+      recast: {text: "esserà", fix: "sarà", tags: [future-form]}
+    - learner: "Tutta la fornitura di un appartamento con due camere, e circa trenta scatole."
+      errors: [false-friend]
+      gold: {text: "Tutta la fornitura", fix: "Tutti i mobili"}
+    - tutor: "Tutti i mobili di un appartamento con due camere, più trenta scatole: bene. A che piano abita?"
+      goals: [items]
+      recast: {text: "Tutta la fornitura", fix: "Tutti i mobili", tags: [false-friend]}
+    - learner: "Al terzo piano, ma c'è l'ascensore. Le scatole le preparate voi? E c'è un'assicurazione?"
+    - tutor: "Possiamo prepararle noi, con un piccolo costo in più. L'assicurazione è già compresa nel prezzo."
+      goals: [extras]
+    - learner: "Perfetto. Allora vorrei un preventivo, per favore."
+    - tutor: "Glielo mando oggi. Grazie e a presto!"
+      goals: [quote]
+
+- scenario: trasloco
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Pronto, Traslochi Rapidi, buongiorno!"
+    - learner: "Buongiorno. Ho bisogno di un presupposto per un trasloco."
+      errors: [false-friend]
+      gold: {text: "un presupposto", fix: "un preventivo"}
+    - tutor: "Buongiorno! Certo, le preparo un preventivo. Quando e dove si trasferisce?"
+      goals: [quote]
+      recast: {text: "un presupposto", fix: "un preventivo", tags: [false-friend]}
+    - learner: "Mi trasferisco il 2 maggio. Vado da Bologna a Modena, in un appartamento più grande."
+    - tutor: "Bene. Che cosa c'è da portare? Quante scatole ci sono?"
+      goals: [date]
+    - learner: "Ci sono quindici, più o meno. Poi i mobili della cucina e un frigorifero grande."
+      errors: [ci-ne]
+      gold: {text: "Ci sono quindici", fix: "Ce ne sono quindici"}
+    - tutor: "«Ci sono quindici»? Manca una piccola parola che sta al posto di «scatole»."
+      prompt: {text: "Ci sono quindici", tags: [ci-ne]}
+    - learner: "Sì, sì, ci sono quindici. Sono tutte in cucina."
+      errors: [ci-ne]
+      gold: {text: "ci sono quindici", fix: "ce ne sono quindici"}
+    - tutor: "Ho capito: ce ne sono quindici, più i mobili della cucina e il frigorifero. A che piano abita adesso?"
+      goals: [items]
+      recast: {text: "ci sono quindici", fix: "ce ne sono quindici", tags: [ci-ne]}
+    - learner: "Al quarto, senza ascensore. Il furgone a che ora sale da Bologna?"
+      errors: [false-friend]
+      gold: {text: "sale", fix: "parte"}
+    - tutor: "Il furgone parte da Bologna verso le sette. Quattro piani a piedi: va bene, lo segno."
+      recast: {text: "sale da Bologna", fix: "parte da Bologna", tags: [false-friend]}
+    - learner: "Perfetto. Voi portate anche scatole vuote? E se si rompe qualcosa, chi paga?"
+    - tutor: "Sì, le scatole le portiamo noi. Per i danni c'è l'assicurazione, compresa nel preventivo."
+      goals: [extras]
+
+- scenario: trasloco
+  level: B1
+  persona: en-m-retired
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Pronto, Traslochi Rapidi, buongiorno!"
+    - learner: "Buongiorno. Mia moglie e io ci trasferiremo a Lucca in giugno. Vorrei alcune informazioni."
+    - tutor: "Con piacere. In che giorno di giugno, e da dove partite?"
+    - learner: "Partiremo da Pisa il 20 giugno. Mia moglie venirà due giorni dopo, perché lavora."
+      errors: [future-form]
+      gold: {text: "venirà", fix: "verrà"}
+    - tutor: "«Venirà»? Il futuro di venire ha una forma particolare: ci pensi un momento."
+      prompt: {text: "venirà", tags: [future-form]}
+    - learner: "Sì, lei venirà il 22, perché lavora fino al 21."
+      errors: [future-form]
+      gold: {text: "venirà", fix: "verrà"}
+    - tutor: "Ah, sua moglie verrà il 22. Che cosa avete da portare? Quante scatole?"
+      goals: [date]
+      recast: {text: "venirà", fix: "verrà", tags: [future-form]}
+    - learner: "Dieci mobili grandi e un pianoforte. Di scatole, abbiamo quaranta."
+      errors: [ci-ne]
+      gold: {text: "abbiamo quaranta", fix: "ne abbiamo quaranta"}
+    - tutor: "«Di scatole, abbiamo quaranta»? Prima del verbo manca una piccola parola."
+      prompt: {text: "abbiamo quaranta", tags: [ci-ne]}
+    - learner: "Di scatole ne abbiamo quaranta. Il pianoforte è un problema?"
+    - tutor: "Esatto. No, il pianoforte lo portiamo, ma costa un po' di più."
+      goals: [items]
+      new: [{lemma: pianoforte, gloss: piano}]
+    - learner: "Capisco. Le scatole le chiudete voi? E il pianoforte ha un'assicurazione? Vorrei anche un preventivo."
+    - tutor: "Sì, pensiamo noi alle scatole, e l'assicurazione vale anche per il pianoforte. Il preventivo arriva domani."
+      goals: [extras, quote]
+
+- scenario: trasloco
+  level: B1
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Traslochi Rapidi, buongiorno!"
+    - learner: "Buongiorno! Il 30 settembre lascerò la mia stanza e andrò a vivere con due amiche a Padova."
+    - tutor: "Buongiorno! E adesso dove abita?"
+    - learner: "Abito a Venezia, in un terzo piano senza ascensore."
+      errors: [preposition]
+      gold: {text: "in un terzo piano", fix: "al terzo piano"}
+    - tutor: "«In un terzo piano»? Con i piani di una casa usiamo un'altra preposizione."
+      prompt: {text: "in un terzo piano", tags: [preposition]}
+    - learner: "Sì, in un terzo piano, è molto alto."
+      errors: [preposition]
+      gold: {text: "in un terzo piano", fix: "al terzo piano"}
+    - tutor: "Capisco, al terzo piano senza ascensore. Che cosa deve portare a Padova?"
+      goals: [date]
+      recast: {text: "in un terzo piano", fix: "al terzo piano", tags: [preposition]}
+    - learner: "Un letto, una scrivania molto larga, quasi due metri, e dieci scatole."
+      errors: [false-friend]
+      gold: {text: "molto larga", fix: "molto lunga"}
+    - tutor: "Una scrivania molto lunga, quasi due metri: nessun problema. Altro?"
+      goals: [items]
+      recast: {text: "molto larga", fix: "molto lunga", tags: [false-friend]}
+    - learner: "Sì. Voi poterete portare anche la mia bicicletta? E pensate voi alle scatole e all'assicurazione?"
+      errors: [future-form]
+      gold: {text: "poterete", fix: "potrete"}
+    - tutor: "«Poterete»? Il futuro di potere perde una lettera."
+      prompt: {text: "poterete", tags: [future-form]}
+    - learner: "Potrete, scusi. Mi può mandare un preventivo? Sono una studentessa e non ho molti soldi."
+    - tutor: "Giusto. Sì: portiamo la bicicletta, le scatole le diamo noi e l'assicurazione è compresa. Le mando subito un preventivo per studenti."
+      goals: [extras, quote]
+
+- scenario: trasloco
+  level: B1
+  persona: en-m-traveller
+  history: [noun-number]
+  turns:
+    - tutor: "Pronto, Traslochi Rapidi, buongiorno!"
+    - learner: "Buongiorno! Tra due settimane vado a vivere a Firenze. Adesso abito a Roma, al quinto pavimento."
+      errors: [false-friend]
+      gold: {text: "pavimento", fix: "piano"}
+    - tutor: "Buongiorno! Quindi parte da Roma, dal quinto piano. Che cosa dobbiamo portare?"
+      goals: [date]
+      recast: {text: "quinto pavimento", fix: "quinto piano", tags: [false-friend]}
+    - learner: "Non ho molti mobili: due armadio, un letto e un divano."
+      errors: [noun-number]
+      gold: {text: "due armadio", fix: "due armadi"}
+    - tutor: "«Due armadio»? Sono due: come cambia la parola?"
+      prompt: {text: "due armadio", tags: [noun-number]}
+    - learner: "Due armadi! E poi ho tante scatole, forse venticinque."
+    - tutor: "Perfetto. Le scatole sono già pronte?"
+      goals: [items]
+    - learner: "No. Il vostro gruppo mi aiutarà a fare le scatole? E se qualcosa si rompe?"
+      errors: [future-form]
+      gold: {text: "aiutarà", fix: "aiuterà"}
+    - tutor: "«Aiutarà»? Nei verbi come aiutare, al futuro cambia una lettera."
+      prompt: {text: "aiutarà", tags: [future-form]}
+    - learner: "Mi aiutarà... no? Il gruppo aiutarà con le scatole."
+      errors: [future-form]
+      gold: {text: "aiutarà", fix: "aiuterà"}
+    - tutor: "Sì, la nostra squadra la aiuterà a preparare le scatole. E per i danni c'è l'assicurazione."
+      goals: [extras]
+      recast: {text: "aiutarà", fix: "aiuterà", tags: [future-form]}
+    - learner: "Fantastico. Mi manda un preventivo? Non ho molti soldi!"
+    - tutor: "Glielo mando oggi. Vedrà che il prezzo è onesto!"
+      goals: [quote]
+
+- scenario: trasloco
+  level: B1
+  persona: es-f-teacher
+  history: [article-form]
+  turns:
+    - tutor: "Pronto, Traslochi Rapidi, buongiorno!"
+    - learner: "Buongiorno. Vorrei informazioni per un trasloco da Verona a Trento. Sarà il primo agosto."
+    - tutor: "Bene. Che cosa dobbiamo portare?"
+      goals: [date]
+    - learner: "Abbiamo un appartamento con quattro abitazioni: due camere, il salone e lo studio."
+      errors: [false-friend]
+      gold: {text: "quattro abitazioni", fix: "quattro stanze"}
+    - tutor: "Quindi quattro stanze piene di mobili, immagino. E scatole, quante ne avrete?"
+      recast: {text: "quattro abitazioni", fix: "quattro stanze", tags: [false-friend]}
+    - learner: "Ne avremo circa cinquanta, perché ho molti libri. I libri pesano molto, lo so."
+    - tutor: "Nessun problema. Ha altre domande?"
+      goals: [items]
+    - learner: "Sì. Chi preparerà i piatti e i bicchieri? E i specchi grandi sono assicurati?"
+      errors: [article-form]
+      gold: {text: "i specchi", fix: "gli specchi"}
+    - tutor: "«I specchi»? Davanti a parole come «specchi» o «studenti», l'articolo cambia."
+      prompt: {text: "i specchi", tags: [article-form]}
+    - learner: "Sì, i specchi del salone. Sono due e sono molto grandi."
+      errors: [article-form]
+      gold: {text: "i specchi", fix: "gli specchi"}
+    - tutor: "Sì, gli specchi hanno l'assicurazione, e ai piatti e ai bicchieri pensiamo noi."
+      goals: [extras]
+      recast: {text: "i specchi", fix: "gli specchi", tags: [article-form]}
+    - learner: "Molto bene. Quando potrò avere un preventivo scritto?"
+    - tutor: "Lo riceverà domani mattina. Grazie per aver chiamato!"
+      goals: [quote]
+
+- scenario: trasloco
+  level: B1
+  persona: en-f-student
+  history: [ci-ne, article-use]
+  turns:
+    - tutor: "Pronto, Traslochi Rapidi, buongiorno!"
+    - learner: "Buongiorno. Io e due amiche lasciamo il nostro appartamento a fine giugno. Andiamo da Ferrara a Bologna."
+    - tutor: "Bene. Mi dice il giorno esatto?"
+    - learner: "Il 28 giugno. Ma una mia amica partirà prima e le sue cose rimaneranno in casa."
+      errors: [future-form]
+      gold: {text: "rimaneranno", fix: "rimarranno"}
+    - tutor: "«Rimaneranno»? Il futuro di rimanere ha una forma particolare: provi ancora."
+      prompt: {text: "rimaneranno", tags: [future-form]}
+    - learner: "Le sue cose... rimaneranno lì fino al 28?"
+      errors: [future-form]
+      gold: {text: "rimaneranno", fix: "rimarranno"}
+    - tutor: "Ho capito: le sue cose rimarranno in casa fino al 28 e le prendiamo noi. Che cosa c'è da portare?"
+      goals: [date]
+      recast: {text: "rimaneranno", fix: "rimarranno", tags: [future-form]}
+    - learner: "Tre letti, tre scrivanie e molte scatole. Di scatole vuote, servono ancora dieci."
+      errors: [ci-ne]
+      gold: {text: "servono ancora dieci", fix: "ne servono ancora dieci"}
+    - tutor: "«Di scatole vuote, servono ancora dieci»? Davanti al verbo manca una piccola parola."
+      goals: [items]
+      prompt: {text: "servono ancora dieci", tags: [ci-ne]}
+    - learner: "Ne servono ancora dieci. Le portate voi? E c'è un'assicurazione?"
+    - tutor: "Esatto. Sì, le scatole vuote le portiamo noi e l'assicurazione è compresa."
+      goals: [extras]
+    - learner: "Ottimo. Ci può fare un preventivo? Dividiamo il costo in tre."
+    - tutor: "Certo, ve lo mando stasera. A presto!"
+      goals: [quote]
+
+- scenario: trasloco
+  level: B1
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Traslochi Rapidi, buongiorno!"
+    - learner: "Buongiorno. Mia nonna deve lasciare la sua casa a Bari e vuole muovere vicino a mio zio, a Torino."
+      errors: [word-choice]
+      gold: {text: "muovere", fix: "trasferirsi"}
+    - tutor: "Capisco: sua nonna vuole trasferirsi a Torino, vicino allo zio. Quando vuole fare il trasloco?"
+      recast: {text: "muovere", fix: "trasferirsi", tags: [word-choice]}
+    - learner: "Il mese prossimo. La nonna doverà lasciare la casa prima del 15."
+      errors: [future-form]
+      gold: {text: "doverà", fix: "dovrà"}
+    - tutor: "«Doverà»? Al futuro, dovere perde una lettera."
+      prompt: {text: "doverà", tags: [future-form]}
+    - learner: "Dovrà lasciare la casa prima del 15, giusto?"
+    - tutor: "Giustissimo. Che cosa c'è da portare?"
+      goals: [date]
+    - learner: "La nonna ha molti mobili antichi e vuole portare tutti. Ma mio zio dice che la casa nuova è più piccolo."
+      errors: [object-pronoun, adjective-agreement]
+      gold: {text: "è più piccolo", fix: "è più piccola"}
+    - tutor: "«La casa nuova è più piccolo»? Guardi l'ultima lettera dell'aggettivo."
+      prompt: {text: "è più piccolo", tags: [adjective-agreement]}
+    - learner: "Sì, è più piccolo, ha solo due stanze."
+      errors: [adjective-agreement]
+      gold: {text: "è più piccolo", fix: "è più piccola"}
+    - tutor: "Capisco, la casa nuova è più piccola. Allora portiamo solo una parte dei mobili."
+      goals: [items]
+      recast: {text: "è più piccolo", fix: "è più piccola", tags: [adjective-agreement]}
+    - learner: "Va bene. Voi preparate anche i quadri? C'è un'assicurazione? E quanto costerà, più o meno?"
+    - tutor: "Sì, ai quadri pensiamo noi e l'assicurazione è compresa. Le mando un preventivo preciso entro stasera."
+      goals: [extras, quote]

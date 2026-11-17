@@ -1,0 +1,238 @@
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno, grazie. Che bella luce! Io e mia moglie cerchiamo un appartamento per un anno. Quanto viene al mese, e cosa è incluso?"
+  - tutor: "Sono 1.050 euro al mese. Nel prezzo ci sono le spese di condominio e l'acqua; luce e gas no."
+    goals: [rent]
+  - learner: "Capisco. E il contratto? Noi vorremmo restare un anno solo. C'è una caparra da pagare?"
+  - tutor: "Per un anno si può fare un contratto breve. La caparra è di due mesi, e gliela rendo alla fine se è tutto a posto."
+    goals: [contract]
+  - learner: "Bene. E questa è la camera che mi parlava al telefono, quella con il balcone? Il riscaldamento funziona bene anche lì?"
+    errors: [relative-pronoun]
+  - tutor: "Sì, è proprio questa. Però «la camera che mi parlava»... si parla «di» qualcosa: come cambia «che»?"
+    prompt: {text: "la camera che mi parlava", tags: [relative-pronoun]}
+  - learner: "La camera di cui mi parlava al telefono."
+  - tutor: "Esatto. Il riscaldamento è nuovo e lo controllate voi, stanza per stanza. Anche la cucina è stata cambiata da poco."
+    goals: [condition]
+  - learner: "Ottimo. E il quartiere è tranquillo? Mia moglie non dorme bene se c'è rumore. A noi piace camminare, quindi ci serve dei negozi vicini."
+    errors: [subject-verb-agreement]
+  - tutor: "È una zona molto tranquilla, soprattutto di notte. Ma «ci serve dei negozi»? «Negozi» è plurale: guardi il verbo."
+    prompt: {text: "ci serve dei negozi", tags: [subject-verb-agreement]}
+    goals: [neighbourhood]
+  - learner: "Ci servono dei negozi vicini."
+  - tutor: "Giusto. E ci sono: il supermercato, la farmacia e un buon bar sono tutti a cinque minuti a piedi."
+  - learner: "Allora siamo interessati. Ne parlo con mia moglie stasera e la richiamo domani, se per lei va bene."
+  - tutor: "Va benissimo. Aspetto la sua telefonata, e se volete potete tornare a vederlo insieme."
+    goals: [decide]
+
+- scenario: arte-mostra
+  level: B2
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Onestamente? Mi lascia un po' freddo. È bello, ma non capisco perché tutti si fermano qui davanti."
+  - tutor: "Almeno sei sincero! Allora guardiamolo meglio. Che cosa c'è nel quadro?"
+    goals: [react]
+  - learner: "C'è una piazza vuota con dei palazzi lunghi e delle ombre molto scure. In fondo si vede un treno. Non c'è nessuna persona, solo una statua."
+  - tutor: "Esatto, hai visto tutto. E quelle ombre così lunghe che cosa ti dicono?"
+    goals: [describe]
+  - learner: "Mi sembra che il tempo si è fermato. È come un sogno, o un ricordo. Forse il pittore voleva mostrare la solitudine."
+    errors: [subjunctive-use]
+  - tutor: "Ecco, vedi che qualcosa ti dice? Però «mi sembra che il tempo si è fermato»... dopo «mi sembra che» ci vuole un altro modo."
+    prompt: {text: "Mi sembra che il tempo si è fermato", tags: [subjunctive-use]}
+  - learner: "Mi sembra che il tempo si sia fermato."
+  - tutor: "Perfetto. È proprio l'effetto che cercava: una piazza dove non succede niente, e per questo fa un po' paura."
+    goals: [interpret]
+  - learner: "Adesso mi piace di più. È molto diverso dei quadri del Rinascimento: lì la prospettiva è precisa, qui sembra sbagliata."
+    errors: [preposition]
+  - tutor: "Bravo, hai notato la cosa più importante. Solo un dettaglio: «diverso dei quadri»? Con «diverso» la preposizione è un'altra."
+    prompt: {text: "diverso dei quadri", tags: [preposition]}
+  - learner: "Diverso dei quadri... non capisco cosa non va."
+    errors: [preposition]
+  - tutor: "Te lo dico io: è molto diverso dai quadri del Rinascimento, sì. Qui la prospettiva è sbagliata apposta, per farci sentire fuori posto."
+    recast: {text: "Diverso dei quadri", fix: "diverso dai quadri", tags: [preposition]}
+    goals: [compare]
+  - learner: "Apposta! Allora è più intelligente di quello che pensavo."
+  - tutor: "Succede spesso con l'arte moderna. Vieni, nella prossima sala ce n'è un altro di questo pittore."
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-f-student
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ho avuto un piccolo incidente con la macchina di mio padre. Stavo uscendo da un parcheggio e ho toccato un'altra macchina che era ferma."
+  - tutor: "Capisco. Quindi l'altra macchina era parcheggiata e non c'era nessuno dentro?"
+    goals: [what]
+  - learner: "Esatto, era vuota. È colpa mia, lo so: non ho guardato bene dietro. Ho lasciato un biglietto con il mio numero, e il proprietario mi ha chiamato dopo un'ora."
+  - tutor: "Ha fatto la cosa giusta. Avete compilato la constatazione amichevole?"
+    goals: [responsibility]
+  - learner: "Sì, ci abbiamo incontrato ieri e l'abbiamo compilata insieme."
+    errors: [auxiliary-choice]
+  - tutor: "Benissimo. Solo un momento: «ci abbiamo incontrato»? Con «ci», in questo caso, il verbo «avere» non funziona."
+    prompt: {text: "ci abbiamo incontrato", tags: [auxiliary-choice]}
+  - learner: "Ci siamo incontrati ieri."
+  - tutor: "Esatto. Che danni ci sono sulle due macchine?"
+  - learner: "Sulla nostra quasi niente, solo un segno sul paraurti. Sull'altra la porta è un po' rovinata. Ho fatto delle foto: se le vuole, li posso mandare subito."
+    errors: [object-pronoun]
+  - tutor: "Sì, le foto servono. Ma «li posso mandare»? Parliamo delle foto: il pronome deve essere femminile."
+    prompt: {text: "li posso mandare", tags: [object-pronoun]}
+  - learner: "Le posso mandare subito."
+  - tutor: "Giusto. Le mandi all'indirizzo che trova sul nostro sito, insieme al modulo."
+    goals: [documents]
+  - learner: "Va bene. E dopo? Mio padre pagherà di più l'anno prossimo?"
+  - tutor: "Purtroppo è probabile, perché la responsabilità è vostra. Intanto noi paghiamo il danno all'altro proprietario; le scriviamo quando la pratica è chiusa."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Ho bisogno il certificato di residenza per il mio nuovo lavoro, ma non sono ancora residente qui."
+    errors: [preposition]
+  - tutor: "Buongiorno, vediamo. Prima una cosa: «ho bisogno il certificato»? Dopo «ho bisogno» manca una piccola parola."
+    prompt: {text: "Ho bisogno il certificato", tags: [preposition]}
+    goals: [request]
+  - learner: "Ho bisogno del certificato di residenza."
+  - tutor: "Giusto. Allora prima deve chiedere la residenza. Da quanto tempo abita a Bologna, e ha un contratto di affitto?"
+  - learner: "Abito qui da marzo. Il contratto ce l'ho, ed è registrato. Ho anche il permesso di soggiorno, che scade tra due anni."
+  - tutor: "Perfetto, i documenti principali ci sono. Manca solo il modulo, che va compilato e firmato."
+    goals: [documents]
+  - learner: "Il modulo l'ho già compilato a casa. Però c'è un problema: nel contratto il mio cognome è scritto male, con una lettera sbagliata. Sarà accettato lo stesso?"
+  - tutor: "Purtroppo no: il nome deve essere uguale in tutti i documenti. Il contratto va corretto dal proprietario."
+  - learner: "Capisco. Il proprietario è gentile, lo farà. Ma io lavoro tutti i giorni fino alle tre. È possibile che un mio amico porta il contratto al posto mio?"
+    errors: [subjunctive-use]
+  - tutor: "Una soluzione si trova. Però «è possibile che un mio amico porta»... dopo «è possibile che» il verbo cambia."
+    prompt: {text: "È possibile che un mio amico porta", tags: [subjunctive-use]}
+  - learner: "È possibile che un mio amico porti il contratto?"
+  - tutor: "Esatto, e sì, è possibile: basta una sua delega firmata, con una copia del documento."
+    goals: [problem]
+    new: [{lemma: delega, gloss: written authorisation}]
+  - learner: "Benissimo, grazie. E poi quanto tempo ci vuole per avere il certificato?"
+  - tutor: "La residenza vale da subito, ma il certificato si può chiedere solo dopo il controllo dei vigili, cioè entro 45 giorni circa."
+    goals: [next]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno. Mi chiamo Sean, sono irlandese e ho ventinove anni. Ho studiato lingue a Dublino e da due anni vivo in Italia."
+  - tutor: "Benvenuto. Vedo che ha viaggiato molto. Di che cosa si è occupato finora?"
+    goals: [intro]
+  - learner: "Ho fatto molti lavori diversi. In Irlanda lavoravo in un'agenzia di viaggi per tre anni. Poi ho fatto la guida a Napoli."
+    errors: [tense-aspect]
+  - tutor: "Un bel percorso. Ma «lavoravo per tre anni»... quando diciamo quanto è durata una cosa finita, quale tempo usiamo?"
+    prompt: {text: "lavoravo in un'agenzia di viaggi per tre anni", tags: [tense-aspect]}
+    goals: [experience]
+  - learner: "Ho lavorato in un'agenzia di viaggi per tre anni."
+  - tutor: "Esatto. E in queste esperienze, che cosa ha imparato su di sé? Punti di forza, punti deboli?"
+  - learner: "Sono bravo con le persone: so ascoltare e risolvere i problemi con calma. Il mio punto debole è che non sono molto ordinato con i documenti. Ma sto migliorando."
+  - tutor: "Bene, saper ascoltare da noi è molto importante. E perché ha risposto proprio alla nostra offerta?"
+    goals: [strengths]
+  - learner: "Perché mi piace il design, anche se non sono designer. E voi cercate qualcuno per parlare con i clienti stranieri, giusto? Mi piacerebbe che il mio inglese è utile a una squadra creativa."
+    errors: [subjunctive-use]
+  - tutor: "Sì, cerchiamo proprio questo. Però «mi piacerebbe che il mio inglese è»... dopo «mi piacerebbe che» ci vuole un'altra forma."
+    prompt: {text: "Mi piacerebbe che il mio inglese è", tags: [subjunctive-use]}
+    goals: [why]
+  - learner: "Mi piacerebbe che il mio inglese è... sarà utile?"
+    errors: [subjunctive-use]
+  - tutor: "Ci è quasi. Anche a noi piacerebbe che il suo inglese fosse utile alla squadra, e credo che lo sarà. Ha qualche domanda sul ruolo?"
+    recast: {text: "che il mio inglese è", fix: "che il suo inglese fosse", tags: [subjunctive-use]}
+  - learner: "Sì. Dovrei viaggiare per incontrare i clienti, o il lavoro è tutto in ufficio?"
+  - tutor: "Soprattutto in ufficio, con due o tre viaggi all'anno. Grazie, la chiameremo la settimana prossima."
+    goals: [questions]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: en-f-professional
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie per il tempo. Vorrei parlare dei miei risultati e del mio futuro in azienda."
+  - tutor: "Volentieri. Cominciamo dai risultati: come valuta il suo anno?"
+  - learner: "Molto positivo. Ho raggiunto tutti gli obiettivi, e la campagna di primavera ha portato quaranta nuovi clienti. Inoltre ho formato due colleghi nuovi."
+  - tutor: "Sono d'accordo, è stato un anno molto buono. E che cosa si aspetta adesso?"
+    goals: [results]
+  - learner: "Vorrei diventare responsabile del marketing. Ho fatto questo lavoro per sei mesi senza il titolo, quando la mia responsabile era in maternità. Penso di meritarlo."
+  - tutor: "È vero, e l'ha fatto bene. Il mio dubbio è un altro: lei è con noi da soli due anni, e altri colleghi aspettano da più tempo."
+    goals: [request]
+  - learner: "Capisco, ma non credo che gli anni sono più importanti dei risultati."
+    errors: [subjunctive-use]
+  - tutor: "Non crede che gli anni... «sono»? Ci pensi un attimo: dopo «non credo che» quale forma serve?"
+    prompt: {text: "non credo che gli anni sono", tags: [subjunctive-use]}
+  - learner: "Non credo che gli anni siano più importanti dei risultati."
+  - tutor: "Esatto, e non ha torto. I risultati contano, ma devo pensare a tutta la squadra."
+  - learner: "Certo. Ma avrei potuto andare via l'anno scorso, quando un'altra azienda mi ha fatto un'offerta. Ho rimasta perché credo in questo progetto."
+    errors: [auxiliary-choice]
+  - tutor: "Questo non lo sapevo, e lo apprezzo. Ma «ho rimasta»? Con questo verbo «avere» non va."
+    prompt: {text: "Ho rimasta", tags: [auxiliary-choice]}
+  - learner: "Sono rimasta perché credo in questo progetto."
+  - tutor: "Perfetto. Mi ha convinto: propongo il suo nome alla direzione per il ruolo di responsabile."
+    goals: [handle]
+  - learner: "Grazie! Quali sono i prossimi passi, e quando avrò una risposta?"
+  - tutor: "Presento la proposta alla riunione del 15. Entro fine mese le do una risposta, con il nuovo stipendio."
+    goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-f-student
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Non sono d'accordo, mi dispiace. Sebbene capisco la paura dei commercianti, penso che il centro debba essere chiuso alle auto."
+    errors: [subjunctive-use]
+  - tutor: "Almeno capisce la nostra paura! Ma «sebbene capisco»: dopo «sebbene» ci vuole un'altra forma del verbo."
+    prompt: {text: "Sebbene capisco", tags: [subjunctive-use]}
+    goals: [position]
+  - learner: "Sebbene io capisca la paura dei commercianti."
+  - tutor: "Esatto. E adesso mi convinca: perché dovremmo chiudere?"
+  - learner: "Prima di tutto per l'inquinamento: in centro ci sono tre scuole. Poi per la sicurezza: l'anno scorso due ciclisti sono stati investiti in via Roma."
+  - tutor: "Sono cose serie, non lo nego. Ma i miei clienti vengono in macchina: senza parcheggio, vanno da un'altra parte."
+    goals: [argue]
+  - learner: "Però gli studi dicono che chi va a piedi o in bici entra nei negozi più spesso che chi guida. Chi guida parcheggia, compra una cosa e va via."
+    errors: [comparative]
+  - tutor: "Davvero? Non lo sapevo. Ma «più spesso che chi guida»? Tra due persone, dopo «più», ci vuole un'altra parola."
+    prompt: {text: "più spesso che chi guida", tags: [comparative]}
+  - learner: "Più spesso di chi guida."
+  - tutor: "Giusto. Va bene, forse i clienti a piedi comprano di più. Ma i residenti anziani come fanno?"
+    goals: [counter]
+  - learner: "Qui ha ragione lei: per gli anziani è un problema vero. Si potrebbe lasciare aperta una strada e dare un permesso ai residenti che hanno più di settant'anni."
+  - tutor: "Ecco, questa è una via di mezzo di cui si può parlare. Se lo scrive, la proposta la firmo anch'io."
+    goals: [concede]
+
+- scenario: film-libro
+  level: B2
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Posso cominciare io. Ho letto «Il nome della rosa» di Umberto Eco. È un giallo ambientato in un monastero del Medioevo, dove alcuni monaci muoiono in modo misterioso."
+  - tutor: "Un libro importante, bravo. E chi è il personaggio principale?"
+    goals: [summary]
+  - learner: "È Guglielmo, un frate inglese molto intelligente che arriva al monastero per fare delle indagini. Ragiona come un detective moderno, e mi ha piaciuto molto."
+    errors: [piacere]
+  - tutor: "È un personaggio bellissimo. Però «mi ha piaciuto»? Con «piacere», al passato, il verbo che aiuta è un altro."
+    prompt: {text: "mi ha piaciuto", tags: [piacere]}
+    goals: [characters]
+  - learner: "Mi è piaciuto molto."
+  - tutor: "Esatto. E il romanzo, in generale, che cosa ti ha lasciato?"
+  - learner: "È difficile ma affascinante. Ci sono molte pagine di storia e di filosofia che sono un po' noiose, lo ammetto. Ma la trama è geniale, e il finale non lo dimenticherò."
+  - tutor: "Ti capisco: quelle pagine hanno fermato molte persone. Lo hai letto in italiano?"
+    goals: [opinion]
+  - learner: "Sì, con il dizionario, in tre mesi. Ogni sera ho scritto le parole nuove in un quaderno, e alla fine ne avevo più di cinquecento."
+    errors: [tense-aspect]
+  - tutor: "Che pazienza! Ma «ogni sera ho scritto»... per un'abitudine che si ripete, quale tempo ci vuole?"
+    prompt: {text: "Ogni sera ho scritto", tags: [tense-aspect]}
+  - learner: "Ogni sera scrivevo le parole nuove."
+  - tutor: "Perfetto. E a chi consiglieresti questo romanzo?"
+  - learner: "A chi ama la storia e ha pazienza. Non lo consiglierei a chi vuole un giallo veloce da leggere in vacanza."
+  - tutor: "Sono d'accordo: è un libro che chiede tempo, ma ti dà molto in cambio. Grazie, è stato un piacere ascoltarti."
+    goals: [recommend]

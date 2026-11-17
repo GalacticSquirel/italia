@@ -1,0 +1,191 @@
+- scenario: critica-teatrale
+  level: C2
+  persona: en-m-retired
+  history: [register]
+  turns:
+    - tutor: "Allora, che ne pensi? A me il secondo atto non ha convinto del tutto."
+    - learner: "Lei ha ragione, il secondo atto si trascinava un po'. Ma nel complesso mi sono divertito: affidare Arlecchino a un'attrice mi è sembrata un'idea geniale."
+      errors: [register]
+      gold: {text: "Lei ha ragione", fix: "Hai ragione"}
+    - tutor: "Geniale, sì, su questo siamo d'accordo. Ma qui, tra noi che siamo usciti dalla stessa sala, perché mi dici «lei ha ragione»?"
+      goals: [impression]
+      prompt: {text: "Lei ha ragione", tags: [register]}
+    - learner: "Hai ragione, scusa: l'abitudine. Comunque l'attrice era straordinaria: si muoveva come un'acrobata, e la sua voce arrivava fino al loggione."
+    - tutor: "Verissimo, ha retto da sola tutta la parte acrobatica. Della regia, invece, che ne dici? A me certe trovate sono sembrate gratuite."
+    - learner: "Alcune sì. Il regista ha detto in un'intervista che voleva che lo spettacolo sembrasse un circo, ma secondo me ha esagerato: le luci stroboscopiche non c'entravano niente."
+    - tutor: "Hanno infastidito anche me, e non solo: in platea diversi si coprivano gli occhi. Hai mai visto altre messinscene di questa commedia?"
+      goals: [staging]
+    - learner: "Sì, quella storica del Piccolo, la quale l'ho vista a Milano negli anni Ottanta. Stasera, in più punti, il regista l'ha citata quasi alla lettera."
+      errors: [relative-pronoun]
+      gold: {text: "la quale l'ho vista", fix: "che ho visto"}
+    - tutor: "Che fortuna, averla vista dal vivo! Però ripeti la frase: «quella storica del Piccolo, la quale l'ho vista»? Il relativo e il pronome lì accanto fanno lo stesso lavoro due volte."
+      prompt: {text: "la quale l'ho vista", tags: [relative-pronoun]}
+    - learner: "Quella del Piccolo, che l'ho vista a Milano?"
+      errors: [relative-pronoun]
+      gold: {text: "che l'ho vista", fix: "che ho visto"}
+    - tutor: "Basta il relativo: «quella del Piccolo, che ho visto a Milano». E il confronto, a tuo parere, regge, o stasera mancava qualcosa?"
+      recast: {text: "che l'ho vista", fix: "che ho visto", tags: [relative-pronoun]}
+    - learner: "Regge solo in parte: a quella mancava l'energia, a questa la precisione. Comunque la consiglierei a chi non è mai stato a teatro: si diverte di sicuro, e magari poi ci torna."
+    - tutor: "Sottoscrivo: come porta d'ingresso al teatro è perfetta, e stasera i ragazzi in platea ridevano di gusto. Per i nostalgici come te, invece, meglio rivedere le registrazioni."
+      goals: [compare, recommend]
+
+- scenario: critica-teatrale
+  level: C2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Allora, che ne pensi? A me il secondo atto non ha convinto del tutto."
+    - learner: "A me invece il secondo atto è piaciuto più del primo. Quello che mi ha messo in difficoltà è il dialetto: senza i sopratitoli mi sarei persa metà delle battute."
+    - tutor: "Recitare in veneziano è stata una scelta coraggiosa, e per chi non è veneto un po' faticosa. Però dà alle battute un sapore che in italiano si perde. Gli attori, come ti sono sembrati?"
+      goals: [impression]
+    - learner: "Molto bravi, soprattutto la protagonista: ho l'impressione che il regista le abbia chiesto di recitare quasi senza muoversi, e funziona. Gli altri, invece, stavano un po' nervosi, almeno all'inizio."
+      errors: [word-choice]
+      gold: {text: "stavano un po' nervosi", fix: "erano un po' nervosi"}
+    - tutor: "Sì, gli altri erano un po' nervosi nel primo atto, ma a una prima è normale. Io, piuttosto, non ho capito il finale: perché farla uscire di scena prima di tutti?"
+      recast: {text: "stavano un po' nervosi", fix: "erano un po' nervosi", tags: [word-choice]}
+    - learner: "Credo che il regista voleva mostrare che lei è libera, che non ha bisogno di nessuno dei suoi pretendenti. Me l'ha spiegato anche la mia vicina, che conosceva il copione meglio di me."
+      errors: [subjunctive-use]
+      gold: {text: "Credo che il regista voleva", fix: "Credo che il regista volesse"}
+    - tutor: "Lettura interessante, ci rifletterò. Una cosa sola: «credo che il regista voleva»? Dopo «credo che» ci vuole un altro modo, e il tempo deve restare nel passato."
+      prompt: {text: "Credo che il regista voleva", tags: [subjunctive-use]}
+    - learner: "Credo che il regista abbia voluto mostrare che lei è libera."
+    - tutor: "Perfetto, anche così funziona benissimo. E tu l'avevi già vista, questa commedia, in un'altra edizione?"
+      goals: [staging]
+    - learner: "Sì, in Spagna, tradotta in castigliano. Lì la protagonista era quasi una caricatura, e il vestuario era pesantissimo; questa invece è una donna che sa esattamente cosa vuole."
+      errors: [word-choice]
+      gold: {text: "il vestuario era pesantissimo", fix: "i costumi erano pesantissimi"}
+    - tutor: "Capisco: se i costumi erano pesantissimi e la recitazione caricata, l'ironia del testo si perdeva per forza. E a chi la consiglieresti, questa edizione?"
+      goals: [compare]
+      recast: {text: "il vestuario era pesantissimo", fix: "i costumi erano pesantissimi", tags: [word-choice]}
+    - learner: "A tutti, ma soprattutto ai miei studenti delle superiori: vedere una donna del Settecento che decide da sola è una lezione più efficace di dieci pagine di manuale."
+    - tutor: "Ottima idea, e con i sopratitoli nessuno resta indietro. Se organizzi la gita, avvisami: ti segnalo io le repliche pomeridiane."
+      goals: [recommend]
+
+- scenario: critica-teatrale
+  level: C2
+  persona: en-f-professional
+  history: [object-pronoun]
+  turns:
+    - tutor: "Allora, che ne pensi? A me il secondo atto non ha convinto del tutto."
+    - learner: "Davvero? A me ha convinto proprio il secondo atto: solo quando la scena si è trasformata in un open space ho realizzato che i servitori erano diventati stagisti."
+      errors: [false-friend]
+      gold: {text: "ho realizzato", fix: "ho capito"}
+    - tutor: "Anch'io, quando ho capito che i servitori erano diventati stagisti, ho riso di gusto. Alla lunga, però, la trovata diventa ripetitiva: dopo la decima battuta sulle riunioni ho smesso di ridere. Gli attori ti hanno convinta?"
+      goals: [impression]
+      recast: {text: "ho realizzato", fix: "ho capito", tags: [false-friend]}
+    - learner: "Quasi tutti. Il protagonista mi è sembrato un po' sopra le righe, ma il pubblico l'adorava: ogni volta che entrava in scena, gli accoglievano con un applauso."
+      errors: [object-pronoun]
+      gold: {text: "gli accoglievano", fix: "lo accoglievano"}
+    - tutor: "Sopra le righe è dire poco. Ma fermati su «gli accoglievano»: con quel verbo, chi viene accolto è oggetto diretto o indiretto?"
+      prompt: {text: "gli accoglievano", tags: [object-pronoun]}
+    - learner: "Lo accoglievano con un applauso, giusto. Comunque la regia mi è piaciuta proprio perché ha preso un testo del Settecento e l'ha reso attualissimo."
+    - tutor: "Attuale sì, ma a che prezzo? Hanno tagliato metà delle battute originali, e tutta la parte dei due innamorati."
+      goals: [staging]
+    - learner: "Lo so, me l'ha fatto notare il signore che ho parlato con durante l'intervallo, che sa il copione a memoria. Secondo lui il regista ha tradito l'autore; secondo me l'ha solo alleggerito."
+      errors: [relative-pronoun]
+      gold: {text: "il signore che ho parlato con", fix: "il signore con cui ho parlato"}
+    - tutor: "Tradito o alleggerito: è proprio questo il punto. Ma riprendi «il signore che ho parlato con»: in italiano la preposizione non può restare in fondo, da sola."
+      prompt: {text: "il signore che ho parlato con", tags: [relative-pronoun]}
+    - learner: "Il signore con chi ho parlato?"
+      errors: [relative-pronoun]
+      gold: {text: "con chi ho parlato", fix: "con cui ho parlato"}
+    - tutor: "«Il signore con cui ho parlato»: dopo una preposizione, il relativo è «cui». Comunque sto con te, alleggerito e non tradito. L'avevi mai vista in un'altra edizione?"
+      recast: {text: "con chi ho parlato", fix: "con cui ho parlato", tags: [relative-pronoun]}
+    - learner: "Solo al cinema, nel film degli anni Sessanta, che era molto più fedele ma anche più noioso. Questa versione la consiglierei a chi lavora in ufficio: ci si riconosce in ogni scena."
+    - tutor: "Ecco il pubblico ideale: impiegati in cerca di vendetta. Il film, però, non lo boccerei così in fretta: il protagonista era una forza della natura."
+      goals: [compare, recommend]
+
+- scenario: critica-teatrale
+  level: C2
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Allora, che ne pensi? A me il secondo atto non ha convinto del tutto."
+    - learner: "Mah, a me è piaciuto. La scena del pranzo, poi, è la migliore che ho visto da anni."
+      errors: [subjunctive-use]
+      gold: {text: "la migliore che ho visto", fix: "la migliore che abbia visto"}
+    - tutor: "La scena del pranzo è un pezzo di bravura, d'accordo. Ma senti come suona: «la migliore che ho visto»? Dopo un superlativo, in un registro curato, il verbo cambia modo."
+      goals: [impression]
+      prompt: {text: "la migliore che ho visto", tags: [subjunctive-use]}
+    - learner: "La migliore che abbia visto, va bene. Io faccio il cuoco, e quei piatti che volavano da una parte all'altra del palco erano perfetti: neanche uno è caduto."
+    - tutor: "Detto da un cuoco vale doppio! E gli attori, a parte i piatti volanti, come ti sono sembrati?"
+    - learner: "Con le maschere è difficile dire. Arlecchino era bravissimo con il corpo, ma parlava basso, e dalla galleria si capiva poco. Infatti all'intervallo qualcuno è salito."
+      errors: [false-friend]
+      gold: {text: "qualcuno è salito", fix: "qualcuno è uscito"}
+    - tutor: "Se all'intervallo qualcuno è uscito, non mi stupisce: in galleria la voce arrivava a fatica, e le maschere non aiutano. E la regia, nel complesso?"
+      goals: [staging]
+      recast: {text: "qualcuno è salito", fix: "qualcuno è uscito", tags: [false-friend]}
+    - learner: "Tradizionale, ma pulita. Il regista ha detto alla radio che voleva fare uno spettacolo come quelli di una volta, e ce l'ha fatta."
+    - tutor: "Esatto, e non è poco. Ti è capitato di vedere altre versioni di questa commedia?"
+    - learner: "Una, a Buenos Aires, in uno teatro di quartiere: senza maschere, più comica e anche più volgare. Questa è più elegante."
+      errors: [article-form]
+      gold: {text: "in uno teatro", fix: "in un teatro"}
+    - tutor: "Più elegante, sì, forse anche troppo. Ma «in uno teatro»? Davanti a «teatro» l'articolo indeterminativo prende un'altra forma."
+      prompt: {text: "in uno teatro", tags: [article-form]}
+    - learner: "In un teatro, sì. Comunque io la consiglierei alle famiglie: i bambini ridevano più dei grandi."
+    - tutor: "Hai ragione, la fila davanti a me era piena di bambini entusiasti. Con le famiglie si va sul sicuro, e magari qualcuno di quei bambini, da grande, tornerà a teatro."
+      goals: [compare, recommend]
+
+- scenario: critica-teatrale
+  level: C2
+  persona: en-m-heritage
+  history: [past-participle-form]
+  turns:
+    - tutor: "Allora, che ne pensi? A me il secondo atto non ha convinto del tutto."
+    - learner: "Neanche a me, a dir la verità. Il primo atto mi ha divertito, poi hanno aggiunto tutte quelle canzoni e mi è sembrato di essere a un musical."
+    - tutor: "Esatto, la musica ha preso il sopravvento. Eppure i musicisti dal vivo erano bravissimi: è la regia che non ha saputo dosarli. Gli attori, invece, ti sono piaciuti?"
+      goals: [impression]
+    - learner: "Il vecchio Pantalone sì: ha rendito ogni battuta con una precisione incredibile. Gli altri, con tutte quelle canzoni, hanno un po' perduto il ritmo."
+      errors: [past-participle-form]
+      gold: {text: "ha rendito", fix: "ha reso"}
+    - tutor: "Pantalone è stato il migliore, senza dubbio. Ma «ha rendito»? Quel verbo ha un participio irregolare, come «prendere»."
+      prompt: {text: "ha rendito", tags: [past-participle-form]}
+    - learner: "Ha reso ogni battuta, ecco. Mi ricorda mia nonna: faceva teatro amatoriale in Calabria, e diceva sempre che una battuta, se non arriva in fondo alla sala, non esiste."
+    - tutor: "Tua nonna aveva capito tutto del teatro. L'avevi già vista, questa commedia, prima di stasera?"
+      goals: [staging]
+    - learner: "Sì, a Toronto, in una produzione della comunità italiana. Erano dilettanti, ma era la commedia che mia nonna era più affezionata."
+      errors: [relative-pronoun]
+      gold: {text: "la commedia che mia nonna era più affezionata", fix: "la commedia a cui mia nonna era più affezionata"}
+    - tutor: "Che bel ricordo. Riascolta però: «la commedia che mia nonna era più affezionata»? Si è affezionati a qualcosa, e il relativo deve tenerne conto."
+      prompt: {text: "la commedia che mia nonna era più affezionata", tags: [relative-pronoun]}
+    - learner: "La commedia a che mia nonna era più affezionata?"
+      errors: [relative-pronoun]
+      gold: {text: "a che mia nonna", fix: "a cui mia nonna"}
+    - tutor: "«La commedia a cui mia nonna era più affezionata», oppure «alla quale». E rispetto a quella, stasera, a chi la consiglieresti?"
+      goals: [compare]
+      recast: {text: "a che mia nonna", fix: "a cui mia nonna", tags: [relative-pronoun]}
+    - learner: "Agli amanti dei musical, sicuramente. A chi cerca il Goldoni puro, invece, direi di aspettare la prossima stagione: magari qualcuno lo metterà in scena senza tutte quelle chitarre."
+    - tutor: "Giudizio equilibrato: per i patiti del musical è una festa, per i puristi una mezza delusione. E le chitarre, ammettiamolo, erano suonate benissimo."
+      goals: [recommend]
+
+- scenario: critica-teatrale
+  level: C2
+  persona: es-f-erasmus
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Allora, che ne pensi? A me il secondo atto non ha convinto del tutto."
+    - learner: "Io invece l'ho adorato, anche il secondo atto! Forse perché mi hanno fatta salire sul palco: non me l'aspettavo per niente."
+    - tutor: "Ti ho vista, eri bravissima! Ma proprio per questo il secondo atto mi è sembrato più un gioco con il pubblico che una commedia. Tu come l'hai vissuto?"
+      goals: [impression]
+    - learner: "Benissimo, anche se avevo paura che l'attore mi facesse una domanda in dialetto. Penso che il regista volesse che il pubblico si sentesse parte della storia, come nella commedia dell'arte."
+      errors: [subjunctive-form]
+      gold: {text: "si sentesse", fix: "si sentisse"}
+    - tutor: "Un'idea che regge, in effetti. Ma «si sentesse»? Il congiuntivo imperfetto di «sentire» segue la coniugazione in -ire, non quella di «vedere»."
+      goals: [staging]
+      prompt: {text: "si sentesse", tags: [subjunctive-form]}
+    - learner: "Si sentisse, certo. E gli attori improvvisavano davvero: quando mi è squillato il telefono, Arlecchino me l'ha preso di mano e ha risposto lui!"
+    - tutor: "Esatto. E in quel momento è venuta giù la sala, me compresa. Ma dimmi: hai mai visto questa commedia in una versione più tradizionale?"
+    - learner: "Sì, a Siviglia, recitata in spagnolo. Era più fedele al testo, ma gli attori non parlavano mai con il pubblico, e io mi sono un po' aburrita."
+      errors: [word-choice]
+      gold: {text: "mi sono un po' aburrita", fix: "mi sono un po' annoiata"}
+    - tutor: "Capisco che tu ti sia un po' annoiata: senza il rapporto con il pubblico, la commedia dell'arte perde metà del suo fascino. A chi la consiglieresti, allora, questa versione?"
+      goals: [compare]
+      recast: {text: "aburrita", fix: "annoiata", tags: [word-choice]}
+    - learner: "A tutte le personas che pensano che il teatro è noioso. E le farei sedere nelle prime file, perché è lì che succede tutto."
+      errors: [word-choice, subjunctive-use]
+      gold: {text: "pensano che il teatro è noioso", fix: "pensano che il teatro sia noioso"}
+    - tutor: "Bel consiglio, e spiritoso. Ma «pensano che il teatro è noioso»? Dopo «pensare che», quale modo ci vuole?"
+      goals: [recommend]
+      prompt: {text: "pensano che il teatro è noioso", tags: [subjunctive-use]}
+    - learner: "Che il teatro sia noioso, sì: è solo un pregiudizio. Allora, la prossima volta vieni con me in prima fila?"
+    - tutor: "Volentieri, ma il telefono lo spengo prima: non vorrei che Arlecchino rispondesse anche al mio. Ci vediamo al prossimo debutto."

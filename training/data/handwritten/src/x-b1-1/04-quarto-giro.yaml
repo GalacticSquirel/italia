@@ -1,0 +1,194 @@
+# B1, correction-dense: mentre + imperfetto, reflexive auxiliaries, register, combined pronouns.
+- scenario: film-libro
+  level: B1
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io non ho letto un libro, ma ho visto un film: 'La vita è bella'. Racconta di un padre e un figlio durante la guerra."
+    - tutor: "Va benissimo anche un film! E com'è il padre, il personaggio principale?"
+      goals: [summary]
+    - learner: "Si chiama Guido ed è un uomo molto divertente. Mentre la guerra ha continuato, lui inventava giochi per proteggere il bambino."
+      errors: [tense-aspect]
+    - tutor: "Che personaggio! Ma «mentre la guerra ha continuato»? Dopo «mentre» quale tempo usiamo di solito?"
+      prompt: {text: "ha continuato", tags: [tense-aspect]}
+    - learner: "Mentre la guerra continuava, lui inventava giochi."
+    - tutor: "Proprio così. E il film ti è piaciuto?"
+      goals: [characters]
+    - learner: "Tantissimo. Secondo me è emozionante perché fa ridere e piangere nello stesso momento. Il finale è molto triste, ma non dico niente!"
+    - tutor: "Bravo, il finale non si racconta! A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "Lo consiglierei a tutti, ma non ai bambini piccoli. Ci sono scene troppo forti per loro."
+    - tutor: "Hai ragione. Grazie, la prossima volta lo guardiamo tutti insieme!"
+      goals: [recommend]
+
+- scenario: medico-base
+  level: B1
+  persona: es-f-erasmus
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Mi fa male lo stomaco e ho un po' di nausea."
+    - tutor: "Capisco. Da quando ha questo dolore?"
+      goals: [symptoms]
+    - learner: "Da ieri notte. Mi ho svegliata alle tre con un dolore forte e non ho più dormito."
+      errors: [auxiliary-choice]
+    - tutor: "«Mi ho svegliata»? Con i verbi come alzarsi o lavarsi usiamo un altro ausiliare..."
+      prompt: {text: "Mi ho svegliata", tags: [auxiliary-choice]}
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+    - learner: "Mi sono svegliata alle tre."
+    - tutor: "Giusto. E ieri sera che cosa ha mangiato? Prende qualche medicina?"
+      goals: [since-when]
+    - learner: "Ho mangiato pesce in un ristorante. Non prendo medicine e non sono allergica a niente."
+    - tutor: "Bene. Probabilmente è stato il pesce. Per due giorni mangi solo riso e beva tè caldo. Niente latte e niente caffè."
+      goals: [history]
+    - learner: "Allora: solo riso e tè caldo per due giorni, senza latte né caffè. E se il dolore continua?"
+    - tutor: "Esattamente. Se tra due giorni sta ancora male, torni da me e facciamo un controllo."
+      goals: [instructions]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per venerdì sera, per favore."
+    - tutor: "Certamente. Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Siamo in otto. Possiamo venire tardi? Saliamo dal teatro alle dieci."
+      errors: [false-friend]
+    - tutor: "Ah, uscite dal teatro alle dieci: nessun problema, la cucina è aperta fino alle undici."
+      recast: {text: "Saliamo", fix: "uscite", tags: [false-friend]}
+      goals: [details]
+    - learner: "Perfetto. Avrei anche una richiesta: con noi c'è una signora in sedia a rotelle. Sarebbe possibile avere un tavolo vicino all'ingresso?"
+    - tutor: "Certo, vi preparo il tavolo grande vicino all'ingresso, così è comodo per la signora."
+      goals: [special]
+    - learner: "Grazie mille. La prenotazione è a nome Ortega. Vuole che le do il mio numero di telefono?"
+      errors: [subjunctive-use]
+    - tutor: "Sì, grazie. Ma «vuole che le do»? Dopo «volere che» il verbo cambia modo..."
+      prompt: {text: "che le do", tags: [subjunctive-use]}
+    - learner: "Vuole che le dia il mio numero?"
+    - tutor: "Perfetto! Sì, me lo dica pure."
+    - learner: "347 112 2334. Quindi venerdì alle dieci e un quarto, otto persone."
+    - tutor: "Tutto confermato. A venerdì, e buono spettacolo!"
+      goals: [name]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-f-professional
+  history: [register]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Ho spesso mal di testa quando lavoro al computer, quindi vorrei prenotare una visita dall'oculista."
+    - tutor: "Va bene, una visita dall'oculista. Quando preferisce venire?"
+      goals: [type]
+    - learner: "Sono libera solo il pomeriggio. Puoi dirmi se c'è un posto questa settimana?"
+      errors: [register]
+    - tutor: "Scusi, «puoi»? Al telefono con un centro medico è meglio un'altra forma..."
+      prompt: {text: "Puoi dirmi", tags: [register]}
+    - learner: "Mi scusi: può dirmi se c'è un posto questa settimana?"
+    - tutor: "Certo. Abbiamo disponibilità giovedì alle 15:30 oppure venerdì alle 18."
+    - learner: "Giovedì alle 15:30 è perfetto. Quanto costa? E devo portare qualcosa?"
+    - tutor: "Giovedì alle 15:30, allora. La visita costa 110 euro. Porti gli occhiali, se li usa, e un documento."
+      goals: [availability, cost]
+    - learner: "D'accordo. Ripeto: giovedì alle 15:30, visita dall'oculista, 110 euro, con occhiali e documento."
+    - tutor: "Perfetto, è tutto giusto. L'aspettiamo giovedì, buona giornata!"
+      goals: [confirm]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-m-worker
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì: nella camera 105 c'è molto rumore. Sotto c'è il bar e la musica è altissima."
+    - tutor: "Mi dispiace. È così da molto?"
+      goals: [problem]
+    - learner: "Da due ore, più o meno. Ho chiamato due volte qui, ma non ha risposto nessuno."
+    - tutor: "Le chiedo scusa, ero al secondo piano per un altro cliente. Cosa posso fare per lei?"
+      goals: [since]
+    - learner: "Vorrei cambiare camera, per favore. Domani mi alzo alle sei per lavorare."
+    - tutor: "Certo. Ho una camera libera al quarto piano, lontano dal bar."
+      goals: [request]
+    - learner: "Benissimo. E le chiavi nuove, mi le dà adesso?"
+      errors: [combined-pronouns]
+    - tutor: "Subito. Ma «mi le dà»? Quando ci sono due pronomi insieme, il primo cambia un po'..."
+      prompt: {text: "mi le dà", tags: [combined-pronouns]}
+    - learner: "Ah, sì: me le dà adesso?"
+    - tutor: "Esatto! Eccole: camera 412. Per il disturbo le faccio anche uno sconto del venti per cento su questa notte."
+      new: [{lemma: sconto, gloss: discount}]
+    - learner: "Grazie, lo apprezzo molto. Allora prendo la 412."
+    - tutor: "Perfetto. Buona notte, e ancora scusi per il rumore."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-f-erasmus
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questo telefono qui, ma c'è un problema: il schermo si spegne da solo."
+      errors: [article-form]
+    - tutor: "Mi dispiace. Scusi, «il schermo»? Davanti a s + consonante quale articolo usiamo?"
+      prompt: {text: "il schermo", tags: [article-form]}
+      new: [{lemma: consonante, gloss: consonant}]
+    - learner: "Ah, lo schermo! Lo schermo si spegne da solo, anche con la batteria piena."
+    - tutor: "Esatto. Ha ragione, non è normale. Quando l'ha comprato? Ha lo scontrino?"
+      goals: [problem]
+    - learner: "L'ho comprato tre settimane fa. Ecco lo scontrino."
+    - tutor: "Grazie. È ancora in garanzia. Possiamo ripararlo in dieci giorni, oppure sostituirlo."
+      goals: [proof]
+    - learner: "Dieci giorni sono troppi, uso il telefono per l'università. Preferirei un telefono nuovo o un rimborso."
+    - tutor: "Capisco. Allora glielo sostituiamo subito con uno uguale. Va bene?"
+      goals: [request]
+    - learner: "Sì, perfetto. Grazie per la soluzione veloce."
+    - tutor: "Si figuri. Ecco il telefono nuovo: la garanzia parte di nuovo da oggi."
+      goals: [agree]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: es-f-teacher
+  history: [possessive]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo in un paese vicino a Valencia, con i miei genitori e la mia sorella."
+      errors: [possessive]
+    - tutor: "Vicino al mare, allora! Ma «la mia sorella»? Con una persona di famiglia, al singolare, c'è una parola di troppo..."
+      prompt: {text: "la mia sorella", tags: [possessive]}
+    - learner: "Certo: con i miei genitori e mia sorella."
+    - tutor: "Perfetto. E cosa facevate insieme?"
+      goals: [place]
+    - learner: "In estate andavamo in bicicletta fino alla spiaggia e giocavamo tutto il giorno. La sera aiutavamo la nonna in giardino."
+    - tutor: "Che bella vita! E la scuola ti piaceva?"
+      goals: [habits]
+    - learner: "Sì, molto. Avevo una maestra bravissima che ci leggeva una storia ogni venerdì. Per questo sono diventata insegnante."
+    - tutor: "Una maestra così non si dimentica! C'è un giorno che ricordi in modo speciale?"
+      goals: [school]
+    - learner: "Sì: il giorno in cui ho imparato a nuotare. Avevo sei anni, mio padre mi ha lasciata e ho nuotato da sola per la prima volta."
+    - tutor: "Che bel momento! Immagino che da quel giorno tu non sia più uscita dall'acqua."
+      goals: [event]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene, il sito nuovo è quasi pronto. Ho finito le pagine principali e il cliente le ha già viste."
+    - tutor: "Ottimo lavoro! Posso vedere anch'io le pagine?"
+      goals: [update]
+    - learner: "Certo, ti le mando dopo la riunione. C'è un problema, però: il cliente vuole cambiare tutti i colori."
+      errors: [combined-pronouns]
+    - tutor: "Ahi. Aspetta, «ti le mando»? Con due pronomi insieme il primo cambia..."
+      prompt: {text: "ti le mando", tags: [combined-pronouns]}
+    - learner: "Ti... le mando? Scusa, non lo so."
+      errors: [combined-pronouns]
+    - tutor: "Nessun problema: si dice «te le mando», con la e. Allora, il cliente vuole cambiare i colori: cosa proponi?"
+      recast: {text: "Ti... le mando", fix: "te le mando", tags: [combined-pronouns]}
+      goals: [problem]
+    - learner: "Propongo di fargli vedere due versioni: una con i colori nuovi e una con i nostri. Così sceglie lui."
+    - tutor: "Mi piace, è una proposta intelligente. Quanto tempo ti serve?"
+      goals: [proposal]
+    - learner: "Tre giorni per le due versioni. Potremo consegnare tutto giovedì prossimo."
+    - tutor: "D'accordo, giovedì prossimo è la nuova scadenza. Lo dico io al cliente."
+      goals: [deadline]

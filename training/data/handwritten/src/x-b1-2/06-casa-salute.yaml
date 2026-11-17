@@ -1,0 +1,199 @@
+# B1, flat viewing, the doctor, and more complaints.
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-professional
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno, grazie. È molto luminoso, mi piace! Quanto costa l'affitto al mese? E le spese sono comprese?"
+    - tutor: "L'affitto è di 950 euro al mese. Le spese di condominio sono comprese, luce e gas no."
+      goals: [rent]
+    - learner: "Capisco. E com'è il contratto? Devo pagare una caparra?"
+    - tutor: "Il contratto è di quattro anni, e chiedo due mesi di caparra."
+      goals: [contract]
+    - learner: "Due mesi va bene. Il riscaldamento funziona bene? E la lavatrice è nuova?"
+    - tutor: "Il riscaldamento è nuovo, l'ho cambiato l'anno scorso. La lavatrice ha cinque anni, ma va benissimo."
+      goals: [condition]
+    - learner: "Bene. E il quartiere è conveniente per chi lavora in centro? Io non ho la macchina."
+      errors: [false-friend]
+    - tutor: "Sì, è molto comodo per chi lavora in centro: la metro è a cinque minuti a piedi. E ci sono negozi e un mercato."
+      recast: {text: "conveniente", fix: "comodo", tags: [false-friend]}
+      goals: [neighbourhood]
+    - learner: "Perfetto. L'appartamento mi interessa molto, ma 950 euro sono un po' troppi per me. Potrebbe fare 900?"
+    - tutor: "Facciamo 920, se firma per quattro anni. È la mia ultima offerta!"
+    - learner: "D'accordo, 920 va bene. Lo prendo!"
+    - tutor: "Benissimo, sono contento. Le preparo il contratto per lunedì."
+      goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È più grande di come sembrava nelle foto. Potría vedere anche la cucina? Per me è la stanza più importante."
+      errors: [conditional-form]
+    - tutor: "Certo, la cucina è di là. Scusi, solo una cosa: potría? Come si dice in italiano?"
+      prompt: {text: "Potría", tags: [conditional-form]}
+    - learner: "Potrei vedere la cucina?"
+    - tutor: "Esatto, venga pure. È piccola, ma c'è tutto: forno, frigorifero e quattro fuochi."
+    - learner: "Va bene, il forno è buono. Quanto chiede di affitto? E che cosa è compreso?"
+    - tutor: "Chiedo 700 euro al mese, con le spese di condominio. Il riscaldamento si paga a parte."
+      goals: [rent]
+    - learner: "E in inverno quanto si spende di riscaldamento, più o meno? E c'è qualcosa che non funziona?"
+    - tutor: "Circa 80 euro al mese, da novembre a marzo. Funziona tutto, solo la finestra del bagno chiude male, ma la riparo io."
+      goals: [condition]
+    - learner: "Grazie per la sincerità. E il contratto di quanti anni è? Devo dare una caparra?"
+    - tutor: "Tre anni, con due mesi di caparra. Se un giorno deve partire, mi avvisa tre mesi prima."
+      goals: [contract]
+    - learner: "D'accordo. Com'è il quartiere di notte? Io torno dal lavoro dopo mezzanotte."
+    - tutor: "È un quartiere tranquillo e le strade hanno molta luce. C'è anche un autobus che passa tutta la notte."
+      goals: [neighbourhood]
+    - learner: "Allora mi interessa. Posso darle una risposta domani, dopo aver parlato con mia moglie?"
+    - tutor: "Certo, ci pensi con calma. Aspetto la sua telefonata domani!"
+      goals: [decide]
+
+- scenario: medico-base
+  level: B1
+  persona: en-m-traveller
+  history: [essere-avere]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho un mal di gola terribile e una tosse che non mi lascia dormire."
+    - tutor: "Mi dispiace. Ha anche la febbre?"
+    - learner: "Credo di sì. Ieri sera avevo 38, e la notte sono molto freddo, anche con due coperte."
+      errors: [essere-avere]
+    - tutor: "Trentotto non è poco. Scusi, la notte... sono molto freddo? Controlli il verbo."
+      prompt: {text: "sono molto freddo", tags: [essere-avere]}
+    - learner: "Ah, ho molto freddo la notte."
+    - tutor: "Esatto. Da quanti giorni sta così?"
+      goals: [symptoms]
+    - learner: "Da domenica, quindi quattro giorni. Ho viaggiato in treno tutta la notte con l'aria condizionata fortissima."
+    - tutor: "Ecco, può essere stato quello. È allergico a qualche medicina?"
+      goals: [since-when]
+    - learner: "No, a nessuna medicina. Solo ai gatti! E non prendo niente, a parte una pastiglia per dormire in aereo."
+    - tutor: "Bene. Le do uno sciroppo per la tosse, tre volte al giorno dopo mangiato. E resti a riposo per tre giorni."
+      new: [{lemma: sciroppo, gloss: syrup}]
+      goals: [history]
+    - learner: "Tre giorni? Ma sabato devo partire per la Sicilia! Posso viaggiare?"
+    - tutor: "Se sabato non ha più la febbre, sì. Ma fino a venerdì deve riposare davvero."
+    - learner: "Va bene. Allora: sciroppo tre volte al giorno dopo mangiato, e riposo fino a venerdì."
+    - tutor: "Perfetto, ha capito tutto. Ecco la ricetta, e buon viaggio in Sicilia!"
+      goals: [instructions]
+
+- scenario: medico-base
+  level: B1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottoressa. Sono molto costipata da una settimana: non respiro bene dal naso e ho perso la voce."
+      errors: [false-friend]
+    - tutor: "Capisco, è molto raffreddata e ha perso la voce. Per un'insegnante è un bel problema! Ha anche febbre o dolori?"
+      recast: {text: "costipata", fix: "raffreddata", tags: [false-friend]}
+      new: [{lemma: raffreddato, gloss: having a cold}]
+    - learner: "Febbre no, ma mi fa male la testa quando mi abbasso. E la sera ho un po' di tosse."
+    - tutor: "Va bene. E in questa settimana ha preso qualcosa?"
+      goals: [symptoms, since-when]
+    - learner: "Solo un'aspirina ogni sera. Ma devo dirle che sono allergica alla penicillina."
+    - tutor: "Ha fatto bene a dirmelo, lo scrivo subito. Le do delle gocce per il naso, mattina e sera. E deve bere molto e parlare poco."
+      new: [{lemma: goccia, gloss: drop}]
+      goals: [history]
+    - learner: "Parlare poco? Con trenta bambini in classe è impossibile! Non posso prendere qualcosa di più forte?"
+    - tutor: "La capisco, ma la voce ha bisogno solo di riposo. Le consiglio di stare a casa due giorni."
+    - learner: "Va bene, ha ragione. Quindi: le gocce mattina e sera, molta acqua e due giorni a casa senza parlare."
+    - tutor: "Esattamente. Se tra cinque giorni non sta meglio, torni da me."
+      goals: [instructions]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-retired
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, mi dispiace lamentarmi, ma nel bagno della nostra camera non c'è acqua calda."
+    - tutor: "Mi dispiace molto. Non c'è proprio, o arriva poco calda?"
+    - learner: "Arriva fredda. Ho aspettato dieci minuti con l'acqua aperta, ma non è cambiato niente."
+    - tutor: "Capisco. E da quando ha questo problema?"
+      goals: [problem]
+    - learner: "Da stamattina. Mia moglie ha fatto la doccia fredda alle sette, e adesso sono le dieci di sera."
+    - tutor: "Tutto il giorno, quindi. Avete fatto bene a venire. Che cosa preferite fare?"
+      goals: [since]
+    - learner: "Vorremmo un'altra camera, se ce n'è una libera. Altrimenti chiedo un rimborso per questa notte."
+    - tutor: "Ho una camera libera al terzo piano, ma ha due letti singoli invece del letto grande."
+      goals: [request]
+    - learner: "Due letti singoli non sono un problema per una notte. Ma domani potete riparare l'acqua nella nostra camera?"
+    - tutor: "Certo, il tecnico viene domani alle nove. Così domani sera tornate nella vostra camera, se volete."
+      new: [{lemma: tecnico, gloss: technician}]
+    - learner: "Va bene così. E per il disturbo, potrebbe offrirci qualcosa?"
+    - tutor: "Con piacere: stasera vi offro la cena al nostro ristorante. Vi porto subito la chiave nuova."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-f-student
+  history: [participle-agreement]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho un problema con queste cuffie senza fili. La destra non si carica più, anche se la lascio tutta la notte."
+    - tutor: "Capisco, è un problema che ogni tanto succede. Ha lo scontrino?"
+      goals: [problem]
+    - learner: "Sì, ecco lo scontrino. Le ho comprato tre settimane fa, per il mio compleanno."
+      errors: [participle-agreement]
+    - tutor: "Grazie. Le ho comprato? Guardi bene l'ultima lettera, con «le» davanti."
+      prompt: {text: "Le ho comprato", tags: [participle-agreement]}
+    - learner: "Le ho comprate tre settimane fa."
+    - tutor: "Perfetto. Sono in garanzia, quindi possiamo mandarle a riparare o sostituirle."
+      goals: [proof]
+    - learner: "Preferirei un paio nuovo, sinceramente. Se le riparate, quanto devo aspettare?"
+    - tutor: "Per ripararle ci vogliono venti giorni. Per sostituirle, invece, devo ordinarle: arrivano giovedì."
+      goals: [request]
+    - learner: "Allora aspetto fino a giovedì. Ma nel frattempo resto senza cuffie... potete darmi un paio in prestito?"
+    - tutor: "Purtroppo non abbiamo cuffie da dare in prestito. Posso però farle uno sconto del dieci per cento sulla prossima spesa."
+      new: [{lemma: sconto, gloss: discount}]
+    - learner: "Va bene, accetto lo sconto. Mi chiamate voi quando arrivano?"
+    - tutor: "Sì, le mandiamo un messaggio giovedì mattina. Grazie per la pazienza!"
+      goals: [agree]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: es-f-teacher
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, sono Carmen, la vicina del terzo piano. Non voglio molestarla, ma avrei bisogno di parlarle un momento."
+      errors: [false-friend]
+    - tutor: "Buonasera, piacere! Ma no, non deve aver paura di disturbarmi. Che cosa succede?"
+      recast: {text: "molestarla", fix: "disturbarmi", tags: [false-friend]}
+      goals: [greet]
+    - learner: "Ecco, i suoi bambini corrono e saltano fino a tardi, e io sento tutto. Mi alzo alle sei per andare a scuola."
+    - tutor: "Oh, mi dispiace! Hanno quattro e sei anni, e la sera sono pieni di energia."
+      goals: [problem]
+    - learner: "La capisco, sono insegnante e conosco i bambini! Ma potrebbero giocare a qualcosa di più tranquillo dopo le nove?"
+    - tutor: "Ha ragione, ci provo. Dopo le nove li metto a leggere o a disegnare."
+      goals: [request]
+    - learner: "Grazie. E magari potrebbe mettere un tappeto nella loro camera? Aiuterebbe molto."
+    - tutor: "Buona idea, ci avevo già pensato. Lo compro questo fine settimana."
+    - learner: "Perfetto. E se una sera c'è una festa di compleanno, nessun problema: basta avvisarmi prima."
+    - tutor: "Lei è davvero gentile. Allora siamo d'accordo: silenzio dopo le nove e tappeto nuovo. Buona serata!"
+      new: [{lemma: tappeto, gloss: rug}]
+      goals: [compromise]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-f-professional
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. La mia macchina fa un rumore divertente quando giro a sinistra. Non mi piace per niente."
+      errors: [word-choice]
+    - tutor: "Un rumore strano quando gira a sinistra... fa bene a non fidarsi. È un rumore forte o leggero?"
+      recast: {text: "un rumore divertente", fix: "un rumore strano", tags: [word-choice]}
+    - learner: "Forte, come un colpo. E ieri si è accesa anche una luce gialla."
+    - tutor: "Una luce gialla non è mai un buon segno. Da quando succede?"
+      goals: [describe]
+    - learner: "Il rumore è cominciato un mese fa, ma era leggero. La luce si è accesa ieri, mentre tornavo dal lavoro."
+    - tutor: "Ha aspettato un po' troppo, ma vediamo. Devo controllare le ruote davanti: mi serve un'ora."
+      goals: [when]
+      new: [{lemma: ruota, gloss: wheel}]
+    - learner: "Lo so, ha ragione. Ma prima di cominciare vorrei un preventivo. L'ultima volta ho pagato una fortuna!"
+    - tutor: "Giusto. Se è il pezzo che penso, sono circa 250 euro. Se è più grave, la chiamo prima di fare qualsiasi lavoro."
+      goals: [cost]
+    - learner: "D'accordo, mi chiami in ogni caso. E quando potrò riprendere la macchina?"
+    - tutor: "Se trovo il pezzo oggi, sarà pronta venerdì mattina. Le lascio un biglietto con il mio numero."
+      goals: [time]

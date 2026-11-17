@@ -1,0 +1,194 @@
+- scenario: abbigliamento
+  level: A2
+  persona: en-f-student
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Cerco una maglietta per l'estate."
+    - tutor: "Certo. Abbiamo queste magliette nuove. Quale colore le piace?"
+      goals: [ask-item]
+    - learner: "Mi piace molto quella maglietta rosso in vetrina."
+      errors: [adjective-agreement]
+    - tutor: "Quella maglietta rosso? Attenzione alla fine di rosso."
+      prompt: {text: "maglietta rosso", tags: [adjective-agreement]}
+    - learner: "Maglietta rossa! Quella maglietta rossa."
+    - tutor: "Brava! Che taglia porta?"
+    - learner: "Di solito porto la S, ma questa marca è piccola."
+    - tutor: "Allora le do la S e la M. Il camerino è lì in fondo."
+      goals: [size-colour]
+    - learner: "Grazie... Ecco, la M va bene. La S era troppo stretta."
+    - tutor: "Sono contenta. Allora, la prende?"
+      goals: [try]
+    - learner: "Sì, la prendo. C'è uno sconto?"
+    - tutor: "Sì, oggi c'è il venti per cento di sconto. Sono 16 euro."
+      goals: [decide]
+
+- scenario: abbigliamento
+  level: A2
+  persona: en-m-retired
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Ho bisogno di una giacca blu per una cena importante."
+    - tutor: "Certo. Ecco, queste sono tutte blu."
+      goals: [ask-item]
+    - learner: "Questi giacca è elegante. Quanto costa?"
+      errors: [demonstrative]
+    - tutor: "Questi giacca? Quante sono?"
+      prompt: {text: "questi giacca", tags: [demonstrative]}
+    - learner: "Una sola. Questa giacca! Quanto costa?"
+    - tutor: "Esatto. Questa costa 120 euro. Che taglia porta?"
+    - learner: "Porto la cinquantadue, credo."
+    - tutor: "Ecco la cinquantadue. Vuole provarla? Il camerino è a destra."
+      goals: [size-colour]
+    - learner: "Sì, la provo... È un po' grande. Ha una taglia più piccola?"
+    - tutor: "Sì, ecco una taglia in meno. Può provare anche questa."
+      goals: [try]
+    - learner: "Questa è perfetta. La prendo."
+    - tutor: "Ottima scelta! Può pagare alla cassa, prego."
+      new: [{lemma: cassa, gloss: till}]
+      goals: [decide]
+
+- scenario: autobus
+  level: A2
+  persona: es-f-erasmus
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno! Devo andare a la stazione centrale."
+      errors: [articulated-preposition]
+    - tutor: "A la stazione? In italiano queste due parole diventano una."
+      prompt: {text: "a la stazione", tags: [articulated-preposition]}
+    - learner: "Alla stazione!"
+    - tutor: "Esatto. Allora deve prendere la linea 4, questo autobus va bene."
+      goals: [route]
+    - learner: "Perfetto. Posso comprare il biglietto da lei?"
+    - tutor: "No, mi dispiace, qui non vendo biglietti. Li vende la tabaccheria all'angolo."
+      new: [{lemma: angolo, gloss: corner}]
+      goals: [ticket]
+    - learner: "Ah, va bene. E poi devo timbrarlo sull'autobus?"
+    - tutor: "Sì, lo timbra appena sale. Poi scende alla fermata Piazza Garibaldi."
+    - learner: "Quante fermate sono?"
+    - tutor: "Sono sei fermate, circa quindici minuti."
+      goals: [stop]
+    - learner: "Grazie mille, è molto gentile!"
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]
+
+- scenario: autobus
+  level: A2
+  persona: en-m-heritage
+  history: [question-form]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Vado all'ospedale. Questo autobus va lì?"
+    - tutor: "No, questo è il 12. Per l'ospedale deve prendere il 7."
+      goals: [route]
+    - learner: "Ah, grazie. Quale fermata parte il 7?"
+      errors: [question-form]
+    - tutor: "Quale fermata parte? Manca una piccola parola prima di quale."
+      prompt: {text: "quale fermata parte", tags: [question-form]}
+    - learner: "Da quale fermata parte il 7?"
+    - tutor: "Perfetto! Parte da questa fermata, ma dall'altra parte della strada."
+    - learner: "Capito. Ho già il biglietto. Devo timbrarlo?"
+    - tutor: "Sì, deve timbrarlo appena sale. La macchina è vicino alla porta."
+      goals: [ticket]
+    - learner: "E come so dove scendere?"
+    - tutor: "La fermata si chiama Ospedale Maggiore. L'autista la dice sempre."
+      new: [{lemma: autista, gloss: driver}]
+      goals: [stop]
+    - learner: "Grazie mille per l'aiuto!"
+    - tutor: "Di niente! Buona giornata."
+      goals: [thank]
+
+- scenario: biglietto-treno
+  level: A2
+  persona: en-f-professional
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Devo andare a Verona domani mattina."
+    - tutor: "Va bene. Vuole solo andata o andata e ritorno?"
+      goals: [destination]
+    - learner: "Andata e ritorno, per favore. Torno domenica sera."
+    - tutor: "Allora, c'è un regionale alle 8:10 e un treno veloce alle 8:45. Quale preferisce?"
+      goals: [type]
+    - learner: "Il regionale è più economico, vero? Prendo quello."
+    - tutor: "Sì, è più economico. Sul regionale c'è solo la seconda classe."
+      goals: [class]
+    - learner: "Va bene. Da quale binario parte?"
+    - tutor: "Il binario non lo so ancora, lo vede domani in stazione. Ecco i biglietti, sono 22 euro."
+      new: [{lemma: tabellone, gloss: departures board}]
+      goals: [platform]
+    - learner: "Perfetto, grazie. Buona giornata!"
+    - tutor: "Grazie a lei, buon viaggio!"
+
+- scenario: biglietto-treno
+  level: A2
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno, a Firenze. Partirò domani e tornarò venerdì."
+      errors: [future-form]
+    - tutor: "Attenzione al futuro di tornare. Come lo dice?"
+      prompt: {text: "tornarò", tags: [future-form]}
+    - learner: "Tornerò venerdì!"
+    - tutor: "Benissimo. Allora andata e ritorno. Preferisce il treno veloce o il regionale?"
+      goals: [destination]
+    - learner: "Il treno veloce, per favore. Devo arrivare presto."
+    - tutor: "C'è un treno alle sette. Vuole la prima o la seconda classe?"
+      goals: [type]
+    - learner: "La seconda classe va bene. Posso avere un posto vicino al finestrino?"
+    - tutor: "Sì, ecco: carrozza 5, posto 12, vicino al finestrino."
+      new: [{lemma: carrozza, gloss: carriage}]
+      goals: [class]
+    - learner: "Grazie. E il treno parte da quale binario?"
+    - tutor: "Di solito parte dal binario 8. Però è meglio controllare domani mattina."
+      goals: [platform]
+    - learner: "Va bene, grazie mille."
+    - tutor: "Prego, buon viaggio!"
+
+- scenario: casa-mia
+  level: A2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Abito in un appartamento a Dublino, vicino al centro."
+    - tutor: "Che bello! È grande?"
+      goals: [type]
+    - learner: "No, è piccolo. Ci sono due camere, una cucina e un bagno."
+    - tutor: "Ah, quindi vivi con qualcuno?"
+      goals: [rooms]
+    - learner: "Sì, vivo con il mio amico Ciaran. Lui ha la camera più grande!"
+    - tutor: "Che furbo il tuo amico! E qual è la tua stanza preferita?"
+      new: [{lemma: furbo, gloss: "clever, crafty"}]
+    - learner: "La cucina, perché ha un balcone. La mattina bevo il caffè fuori."
+    - tutor: "Che bello il caffè sul balcone! Vuoi sapere com'è la mia casa?"
+      goals: [favourite]
+    - learner: "Sì, certo! Com'è la tua casa?"
+    - tutor: "Io vivo con i miei genitori, in una casa vecchia con un giardino. Un giorno ti mostro tutto!"
+      new: [{lemma: giardino, gloss: garden}]
+      goals: [ask]
+
+- scenario: casa-mia
+  level: A2
+  persona: es-f-teacher
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Vivo in una casa a Valencia, con mio marito e i bambini."
+    - tutor: "Una casa, che bello! E com'è dentro?"
+      goals: [type]
+    - learner: "Ci sono tre camere. E c'è due bagni, per fortuna!"
+      errors: [ce-ci-sono]
+    - tutor: "C'è due bagni? Quanti bagni sono?"
+      prompt: {text: "c'è due bagni", tags: [ce-ci-sono]}
+    - learner: "Ci sono due bagni!"
+    - tutor: "Brava! Con i bambini, due bagni sono importanti. Qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "Il salotto. È grande e luminoso, e la sera leggiamo lì tutti insieme."
+    - tutor: "Che bella abitudine! E tu, vuoi sapere qualcosa della mia casa?"
+      new: [{lemma: abitudine, gloss: habit}]
+      goals: [favourite]
+    - learner: "Sì! Anche tu vivi in una casa?"
+    - tutor: "No, io vivo in un piccolo appartamento a Roma, all'ultimo piano. Però ho un balcone!"
+      goals: [ask]

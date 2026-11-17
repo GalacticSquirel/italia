@@ -1,0 +1,58 @@
+- scenario: colloquio-promozione
+  level: C2
+  persona: en-m-traveller
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, e vengo subito al dunque, perché so che ha poco tempo. Quest'anno il mio reparto ha chiuso con un venti per cento in più di fatturato e due clienti nuovi in Germania. Vorrei parlare di come questo si riflette sul mio ruolo."
+    - tutor: "Al dunque, bene: detesto chi mena il can per l'aia. I numeri li conosco e Le fanno onore; i tedeschi, poi, sono stati un colpo da maestro. «Come si riflette sul mio ruolo», però, è una formula un po' nebulosa. Che cosa mi sta chiedendo, esattamente?"
+      goals: [results]
+      new: [{lemma: menare il can per l'aia, gloss: to beat about the bush}, {lemma: colpo da maestro, gloss: masterstroke}, {lemma: nebuloso, gloss: "vague, hazy"}]
+    - learner: "Le sto chiedendo la promozione a responsabile commerciale, con l'aumento che il ruolo comporta. Credo di meritarla: il lavoro del responsabile, di fatto, lo svolgo già da un anno."
+    - tutor: "Ecco, adesso ci capiamo. Sul merito non ho nulla da ridire. Il guaio è un altro: il budget di quest'anno è chiuso, e la direzione ha il braccino corto. Se glielo propongo oggi, mi ridono in faccia. Come la mettiamo?"
+      goals: [request]
+      new: [{lemma: avere il braccino corto, gloss: to be tight-fisted}, {lemma: guaio, gloss: "trouble, snag"}]
+    - learner: "Capisco il vincolo, ma mi permetta di insistere. Se la direzione vedrebbe quanto costa sostituirmi, cambierebbe idea in fretta: formare un altro sui clienti tedeschi richiede almeno un anno."
+      errors: [hypothetical]
+    - tutor: "L'argomento è solido, e ci torno. Ma «se la direzione vedrebbe»? Così, ai piani alti, Le guarderebbero la grammatica invece dei numeri. Dopo quel «se» ci vuole ben altro: me lo riformula?"
+      prompt: {text: "Se la direzione vedrebbe", tags: [hypothetical]}
+      new: [{lemma: piani alti, gloss: "top management (lit. upper floors)"}, {lemma: riformulare, gloss: to rephrase}]
+    - learner: "Se la direzione vedesse quanto costa sostituirmi, cambierebbe idea. Mi scusi: quando mi scaldo, i congiuntivi sono i primi a saltare."
+    - tutor: "Succede anche a me, soprattutto in consiglio. E l'argomento regge: perdere Lei ci costerebbe più dell'aumento. Facciamo così: io non posso darle tutto subito, ma non voglio nemmeno tenerla a bagnomaria. Lei che cosa accetterebbe, come primo passo?"
+      goals: [handle]
+      new: [{lemma: tenere a bagnomaria, gloss: to keep someone hanging}]
+    - learner: "Accetterei il titolo da subito, anche a stipendio invariato, purché l'aumento sia messo nero su bianco con una data: diciamo da gennaio, con il nuovo budget. E vorrei una valutazione a metà strada, a settembre."
+    - tutor: "Titolo ora, aumento a gennaio per iscritto, valutazione a settembre: patti chiari, amicizia lunga. Mi sta bene. Preparo la proposta e venerdì la porto in direzione. E complimenti: ha trattato meglio con me che con i tedeschi."
+      goals: [next-steps]
+      new: [{lemma: "patti chiari, amicizia lunga", gloss: clear terms make long friendships}]
+
+- scenario: colloquio-promozione
+  level: C2
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, direttore, grazie di avermi ricevuta. Volevo fare con Lei un bilancio di questi tre anni. I corsi che mi occupo sono passati da quattro a nove, e le iscrizioni di spagnolo sono raddoppiate."
+      errors: [relative-pronoun]
+    - tutor: "Raddoppiate, lo so bene, e me ne compiaccio. Mi lasci però fare il pedante, visto che siamo tra insegnanti: «i corsi che mi occupo»? Ci si occupa di qualcosa, e quel «che» da solo non regge il peso. Come lo aggiusta?"
+      prompt: {text: "I corsi che mi occupo", tags: [relative-pronoun]}
+      new: [{lemma: pedante, gloss: pedant}, {lemma: compiacersi, gloss: to be pleased}]
+    - learner: "I corsi dei quali... no, i corsi che me ne occupo? Mi perdoni, con i relativi italiani mi confondo ancora."
+      errors: [relative-pronoun]
+    - tutor: "Niente di grave: «i corsi di cui mi occupo», e non ci pensiamo più. La sostanza è che quei corsi vanno a gonfie vele, glielo riconosco senza difficoltà. Ma un bilancio, di solito, prepara una richiesta. Sbaglio?"
+      goals: [results]
+      recast: {text: "i corsi che me ne occupo", fix: "i corsi di cui mi occupo", tags: [relative-pronoun]}
+      new: [{lemma: andare a gonfie vele, gloss: to go swimmingly}]
+    - learner: "Non sbaglia. Vorrei chiederLe di essere nominata coordinatrice del dipartimento di lingue, con un adeguamento dello stipendio. Con questo non pretendo offendere nessuno dei colleghi più anziani, ma il lavoro di coordinamento lo svolgo già io."
+      errors: [false-friend]
+    - tutor: "So che non intende offendere nessuno, e infatti l'ha detto con garbo. Però il punto è proprio quello: la professoressa Galli è qui da vent'anni e si aspetta quel posto. Se nomino Lei, mi ritrovo con una guerra in sala insegnanti. Che cosa mi risponde?"
+      goals: [request]
+      recast: {text: "non pretendo offendere nessuno", fix: "non intende offendere nessuno", tags: [false-friend]}
+      new: [{lemma: garbo, gloss: "tact, grace"}]
+    - learner: "Le rispondo che l'anzianità merita rispetto, ma non può essere l'unico criterio. Proporrei una soluzione che non umili nessuno: la professoressa Galli potrebbe avere un ruolo di rappresentanza, e io il coordinamento operativo."
+    - tutor: "Salvare capra e cavoli, insomma. Non è un'idea sciocca: alla Galli gli onori, a Lei gli oneri, e forse anche qualcosa in più. Resta il nodo dell'aumento, che dipende dal consiglio d'amministrazione. Come vuole procedere?"
+      goals: [handle]
+      new: [{lemma: salvare capra e cavoli, gloss: to satisfy both sides at once}, {lemma: onere, gloss: "burden, duty"}]
+    - learner: "Le preparo entro lunedì una pagina con i risultati e la proposta dei due ruoli, così ha qualcosa di scritto da portare al consiglio. E Le chiederei di fissare già oggi un nuovo incontro, dopo la riunione."
+    - tutor: "Lunedì la pagina, e ci rivediamo il venti, a consiglio fatto. Io nel frattempo sondo il terreno con la Galli, con i guanti di velluto. Non Le prometto la luna, ma la proposta la difenderò. Buon lavoro."
+      goals: [next-steps]
+      new: [{lemma: sondare il terreno, gloss: to test the waters}, {lemma: guanto di velluto, gloss: velvet glove}]

@@ -1,0 +1,209 @@
+# B1, mixed scenes with corrections.
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-retired
+  history: [register]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Mia moglie e io vogliamo andare a Bologna giovedì, nel pomeriggio."
+    - tutor: "Giovedì pomeriggio ci sono treni alle 14:10 e alle 16:25. Quale preferisce?"
+    - learner: "Quello delle 14:10, per favore. Andata e ritorno, torniamo domenica."
+      goals: [destination, type]
+    - tutor: "Va bene. Preferite la prima o la seconda classe?"
+      goals: [destination, type]
+    - learner: "La seconda va bene. Ma vorremmo due posti vicini, se è possibile."
+      goals: [class]
+    - tutor: "Certo, ho due posti vicini all'andata e al ritorno. In tutto sono 92 euro."
+      goals: [class]
+    - learner: "Perfetto. Sai da quale binario parte il treno?"
+      errors: [register]
+    - tutor: "Sai? Con una persona che non conosce..."
+      prompt: {text: "Sai", tags: [register]}
+    - learner: "Ah, scusi: sa da quale binario parte il treno?"
+    - tutor: "Nessun problema. Di solito parte dal binario 5, ma controlli sempre il tabellone. Buon viaggio!"
+      goals: [platform]
+      new: [{lemma: tabellone, gloss: departures board}]
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: es-f-teacher
+  history: [object-pronoun]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera facciamo la paella valenciana. Ci vogliono riso, pollo, fagioli verdi, pomodoro, olio e zafferano."
+    - tutor: "La vera paella di Valencia! Da dove cominciamo?"
+      goals: [ingredients]
+      new: [{lemma: zafferano, gloss: saffron}]
+    - learner: "Prima mettiamo l'olio nella pentola grande. Poi prendiamo il pollo e gli cuociamo per quindici minuti."
+      errors: [object-pronoun]
+    - tutor: "Gli cuociamo? Il pollo qui è l'oggetto..."
+      prompt: {text: "gli cuociamo", tags: [object-pronoun]}
+    - learner: "Lo cuociamo per quindici minuti!"
+    - tutor: "Esatto! Lo cuocio io, tu tagli il pomodoro?"
+      goals: [steps]
+    - learner: "Sì. Poi aggiungiamo l'acqua, il riso e lo zafferano, e non mescoliamo più."
+    - tutor: "Non si gira più? Interessante! E quanto tempo deve cuocere il riso?"
+    - learner: "Circa venti minuti, fino a quando l'acqua è finita."
+      goals: [time]
+    - tutor: "Perfetto. E come la serviamo?"
+      goals: [time]
+    - learner: "La mettiamo al centro del tavolo e ognuno mangia dalla pentola, come in Spagna."
+    - tutor: "Che bello! Allora stasera mangiamo tutti insieme dalla pentola."
+      goals: [serve]
+
+- scenario: compleanno
+  level: B1
+  persona: en-m-traveller
+  history: [object-pronoun]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa in spiaggia! Il suo compleanno è sabato e farà caldo."
+    - tutor: "Che bella idea! Sabato in spiaggia, allora. Chi invitiamo?"
+      goals: [date]
+    - learner: "Invitiamo tutti gli amici del corso. Io le mando un messaggio ai ragazzi stasera."
+      errors: [object-pronoun]
+    - tutor: "Le mando ai ragazzi? I ragazzi sono tanti..."
+      prompt: {text: "le mando un messaggio ai ragazzi", tags: [object-pronoun]}
+    - learner: "Ah, gli mando un messaggio stasera!"
+      goals: [guests]
+    - tutor: "Esatto! E da mangiare cosa portiamo?"
+      goals: [guests]
+    - learner: "Panini, frutta e tante bibite fresche. La torta la compra Marco."
+      goals: [food]
+    - tutor: "Perfetto. E il regalo? Hai qualche idea?"
+      goals: [food]
+    - learner: "Sara vuole imparare a fare surf. Le regaliamo una lezione di surf!"
+    - tutor: "È un regalo fantastico, le piacerà tantissimo!"
+      goals: [gift]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, la televisione nella mia camera è rotta e anche il Wi-Fi non funziona."
+    - tutor: "Mi dispiace. Da quando ha questi problemi?"
+      goals: [problem]
+    - learner: "La televisione non funzionava già quando sono arrivato, e il Wi-Fi si è fermato un'ora fa. Ho dovuto mandare un'email di lavoro."
+      goals: [since]
+    - tutor: "Capisco, è un problema serio se deve lavorare. Cosa possiamo fare per lei?"
+      goals: [since]
+    - learner: "Spero che qualcuno ripara il Wi-Fi stasera, se è possibile."
+      errors: [subjunctive-use]
+    - tutor: "Spero che qualcuno ripara? Dopo «spero che» la forma cambia."
+      prompt: {text: "Spero che qualcuno ripara", tags: [subjunctive-use]}
+    - learner: "Spero che qualcuno ripari il Wi-Fi stasera."
+      goals: [request]
+    - tutor: "Esatto. Il tecnico non c'è di notte, ma nella sala qui accanto il Wi-Fi funziona benissimo. Le va bene lavorare lì?"
+      goals: [request]
+      new: [{lemma: tecnico, gloss: technician}]
+    - learner: "Sì, va bene. E domani mattina il tecnico guarderà anche la televisione?"
+    - tutor: "Certo, alle 9 il tecnico sistema tutto. E stasera le offriamo un caffè. Buona serata!"
+      goals: [agree]
+      new: [{lemma: sistemare, gloss: to fix}]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Ciao! Vado in palestra una volta a settimana, ma mangio male perché lavoro fino a tardi."
+    - tutor: "Capisco. Cosa mangi di solito la sera?"
+      goals: [habits]
+    - learner: "Spesso ordino una pizza o mangio qualcosa di veloce. Lo so, non è sano."
+    - tutor: "Succede a tanti! E qual è il tuo obiettivo?"
+      goals: [habits]
+    - learner: "Vorrei sentirmi più forte e dormire meglio. Adesso dormo peggiore di prima."
+      errors: [comparative]
+    - tutor: "Dormo peggiore? Peggiore va con un nome..."
+      prompt: {text: "dormo peggiore", tags: [comparative]}
+    - learner: "Dormo peggio di prima!"
+      goals: [goal]
+    - tutor: "Esatto. E cosa ti impedisce di cambiare?"
+      goals: [goal]
+      new: [{lemma: impedire, gloss: to prevent}]
+    - learner: "Lo stress del lavoro. Quando torno a casa, non ho voglia di cucinare."
+      goals: [obstacles]
+    - tutor: "Allora facciamo così: la domenica prepari i pasti per tre giorni, e ci alleniamo insieme il martedì e il giovedì."
+      goals: [obstacles]
+      new: [{lemma: pasto, gloss: meal}]
+    - learner: "Mi sembra un buon piano. Proviamo per un mese!"
+    - tutor: "Perfetto! Ci vediamo martedì alle 7."
+      goals: [plan]
+
+- scenario: volontariato
+  level: B1
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Sì, sono in pensione e ho molto tempo libero. Voglio rendermi utile."
+      goals: [motivation]
+    - tutor: "Che bello! Che lavoro facevi prima?"
+      goals: [motivation]
+    - learner: "Ero ingegnere. So riparare quasi tutto: biciclette, mobili, computer vecchi."
+      goals: [skills]
+    - tutor: "Fantastico! Abbiamo un laboratorio dove ripariamo biciclette per i ragazzi. Quanto tempo hai?"
+      goals: [skills]
+      new: [{lemma: laboratorio, gloss: workshop}]
+    - learner: "Ho tempo tutte le mattine. Il laboratorio che mi parli è lontano da qui?"
+      errors: [relative-pronoun]
+    - tutor: "Il laboratorio che mi parli? Si parla di qualcosa..."
+      prompt: {text: "Il laboratorio che mi parli", tags: [relative-pronoun]}
+      new: [{lemma: laboratorio, gloss: workshop}]
+    - learner: "Il laboratorio di cui mi parli è lontano?"
+      goals: [time]
+    - tutor: "Esatto! No, è a dieci minuti a piedi. Vuoi lavorare lì, o preferisci un'altra attività?"
+      goals: [time]
+    - learner: "Il laboratorio è perfetto per me. Posso cominciare lunedì?"
+    - tutor: "Certo! Lunedì alle 9 ti presento i ragazzi. Benvenuto!"
+      goals: [choose]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. La macchina non parte bene la mattina. Il motore fa un rumore strano."
+    - tutor: "Che tipo di rumore? E succede tutte le mattine?"
+      goals: [describe]
+    - learner: "Sì, ogni mattina. Ha cominciato tre giorni fa, quando ho fatto un viaggio lungo."
+      errors: [auxiliary-choice]
+    - tutor: "Ha cominciato? Chi ha cominciato, il problema?"
+      prompt: {text: "Ha cominciato", tags: [auxiliary-choice]}
+    - learner: "Sì... il problema ha cominciato tre giorni fa."
+      errors: [auxiliary-choice]
+    - tutor: "Ah, quindi il problema è cominciato tre giorni fa, dopo il viaggio. Forse è la batteria."
+      goals: [when]
+      recast: {text: "il problema ha cominciato", fix: "il problema è cominciato", tags: [auxiliary-choice]}
+      new: [{lemma: batteria, gloss: battery}]
+    - learner: "Ah, la batteria. Quanto costa una batteria nuova?"
+    - tutor: "Circa 120 euro, compreso il lavoro."
+      goals: [cost]
+    - learner: "Va bene. Quando sarà pronta la macchina?"
+    - tutor: "Se mi lascia la macchina adesso, sarà pronta oggi pomeriggio alle 16."
+      goals: [time]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Volevo prenotare un tavolo per venerdì sera, per una cena di lavoro."
+    - tutor: "Certo. Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Dieci persone, alle nove. Avete una sala privata?"
+      goals: [details]
+    - tutor: "Abbiamo una piccola sala per 12 persone, perfetta per voi. Altre richieste?"
+      goals: [details]
+    - learner: "Sì. Due colleghi sono vegetariani. Potreste preparare qualcosa senza carne?"
+      goals: [special]
+    - tutor: "Certo, abbiamo diversi piatti vegetariani. A che nome prenoto?"
+      goals: [special]
+    - learner: "A nome Fernández. Allora venerdì alle nove, dieci persone, nella sala piccola."
+    - tutor: "Perfetto, è tutto confermato. Buona serata!"
+      goals: [name]

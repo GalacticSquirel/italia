@@ -1,0 +1,211 @@
+# B1, dialogues with several corrections each (prompts, repairs, recasts).
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-m-traveller
+  history: [register]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Ciao! Scusa, sono Liam, abito nell'appartamento sotto il tuo."
+      errors: [register]
+    - tutor: "Buonasera, piacere. Scusa? Ci conosciamo da un minuto..."
+      prompt: {text: "Scusa", tags: [register]}
+    - learner: "Ah, giusto: mi scusi! Sono il nuovo vicino del piano di sotto."
+      goals: [greet]
+    - tutor: "Nessun problema, piacere di conoscerla. Mi dica, cosa succede?"
+      goals: [greet]
+    - learner: "Ogni notte sento un rumore forte, come una lavatrice, alle due di notte. Non riesco a dormire."
+    - tutor: "Ah, ha ragione, è la mia lavatrice. Di giorno lavoro, quindi la uso di notte. Mi dispiace per il fastidio."
+      goals: [problem]
+    - learner: "Capisco. Sarebbe possibile usarla prima di mezzanotte? Sarei molto contento."
+      goals: [request]
+    - tutor: "Va bene, ma il lunedì torno a casa tardi. Le andrebbe bene un'eccezione il lunedì?"
+      goals: [request]
+      new: [{lemma: eccezione, gloss: exception}]
+    - learner: "Sì, il lunedì non è un problema. Grazie, lei è molto gentile."
+    - tutor: "Si figuri, grazie a lei per avermelo detto con gentilezza. Buona notte!"
+      goals: [compromise]
+      new: [{lemma: gentilezza, gloss: kindness}]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-heritage
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Vorrei restituire questa macchina del caffè. Non funziona, l'acqua non diventa calda."
+    - tutor: "Mi dispiace. Quando l'ha comprata?"
+      goals: [problem]
+    - learner: "L'ho comprata due settimane fa, ma è rotta da ieri. Ieri mattina ha arrivato mio fratello e voleva un caffè."
+      errors: [auxiliary-choice]
+    - tutor: "Ha arrivato? Ci pensi un attimo..."
+      prompt: {text: "ha arrivato", tags: [auxiliary-choice]}
+    - learner: "Ah, scusi: è arrivato mio fratello, e la macchina non andava."
+    - tutor: "Esatto. Ha lo scontrino, per favore?"
+    - learner: "Sì, eccolo. C'è anche la garanzia di due anni."
+      goals: [proof]
+    - tutor: "Benissimo. Allora possiamo sostituirla oppure le facciamo un rimborso. Cosa preferisce?"
+      goals: [proof]
+    - learner: "Vorrei un rimborso, per favore. Ne compro una di un'altra marca."
+      goals: [request]
+    - tutor: "Va bene. Il rimborso arriva sulla sua carta in pochi giorni. Mi firma qui, per favore?"
+      goals: [request]
+    - learner: "Certo, ecco. Grazie mille."
+    - tutor: "Grazie a lei, e buona giornata!"
+      goals: [agree]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire un conto. Lavoro in un ristorante e devo ricevere lo stipendio."
+    - tutor: "Certo. Ha con sé un documento e il codice fiscale?"
+      goals: [purpose]
+    - learner: "Sì, ho il passaporto e il codice fiscale. Devo portare altre cose?"
+      goals: [documents]
+    - tutor: "Ci serve anche il contratto di lavoro, oppure l'ultima busta paga."
+      goals: [documents]
+      new: [{lemma: busta paga, gloss: payslip}]
+    - learner: "Il contratto ce l'ho a casa. Lo posso mandare per email? Quanto costa il conto?"
+    - tutor: "Sì, può mandarlo per email. Il conto costa 2 euro al mese, ma il primo anno è gratis."
+      goals: [costs]
+      new: [{lemma: gratis, gloss: free of charge}]
+    - learner: "Va bene. E con la carta posso tirare soldi dal bancomat?"
+      errors: [false-friend]
+    - tutor: "Sì, con la carta può prelevare soldi da tutti i bancomat, e con l'app fa i bonifici."
+      goals: [card]
+      recast: {text: "tirare soldi", fix: "prelevare soldi", tags: [false-friend]}
+      new: [{lemma: prelevare, gloss: to withdraw (money)}]
+    - learner: "Ah, prelevare! Perfetto, allora apro il conto."
+    - tutor: "Benissimo. Firmi qui e qui, e la carta le arriva a casa in una settimana."
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Ho una gomma bucata. Stamattina ho preso un chiodo sulla strada."
+    - tutor: "Capisco. Vediamo... sì, c'è un chiodo. Le gomme le ha cambiate da poco?"
+      goals: [describe]
+    - learner: "No, sono vecchie. Quando le ho comprate, avevo ancora la macchina di mio padre."
+      goals: [when]
+    - tutor: "Allora le consiglio di cambiarle tutte e due davanti. Le preparo un preventivo?"
+      goals: [when]
+    - learner: "Sì, grazie. Quanto costerà, più o meno?"
+    - tutor: "Due gomme nuove costano circa 160 euro, compreso il lavoro."
+      goals: [cost]
+    - learner: "Va bene. E quando la macchina sarà pronta? Domani devrò andare al lavoro."
+      errors: [future-form]
+    - tutor: "Domani cosa? Prova di nuovo con dovere al futuro."
+      prompt: {text: "devrò", tags: [future-form]}
+    - learner: "Dovrò andare al lavoro domani mattina."
+    - tutor: "Perfetto. Allora la macchina sarà pronta stasera alle 18, così domani può usarla."
+      goals: [time]
+
+- scenario: volontariato
+  level: B1
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Ciao! Sì. In Spagna aiutavo in un'associazione per anziani e mi piaceva molto."
+    - tutor: "Che bello! Perché vuoi continuare qui in Italia?"
+    - learner: "Perché sono sola qui e voglio fare qualcosa di utile. E così parlo più italiano."
+      goals: [motivation]
+    - tutor: "Ottimi motivi. Che cosa sai fare?"
+      goals: [motivation]
+    - learner: "Sono molto paziente e so parlare con le persone anziane. Studio una carriera di psicologia."
+      errors: [false-friend]
+    - tutor: "Ah, studi psicologia all'università, fai il corso di laurea! Allora sei perfetta per ascoltare le persone."
+      goals: [skills]
+      recast: {text: "una carriera di psicologia", fix: "corso di laurea", tags: [false-friend]}
+      new: [{lemma: laurea, gloss: university degree}]
+    - learner: "Sì, faccio il corso di laurea in psicologia. Ho tempo il mercoledì e il sabato."
+      goals: [time]
+    - tutor: "Benissimo. Il mercoledì leggiamo i giornali con gli anziani e il sabato facciamo una passeggiata insieme. Cosa preferisci?"
+      goals: [time]
+      new: [{lemma: passeggiata, gloss: walk}]
+    - learner: "Il sabato, perché mi piace stare all'aria aperta."
+    - tutor: "Perfetto, allora ti segno per il sabato. Ci vediamo alle 10!"
+      goals: [choose]
+
+- scenario: smartworking
+  level: B1
+  persona: en-m-retired
+  history: [hypothetical]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Adesso sono in pensione, ma gli ultimi due anni ho lavorato da casa."
+    - tutor: "Ah, quindi conosci bene tutti e due i modi! Com'era lavorare da casa?"
+      goals: [situation]
+    - learner: "Mi piaceva perché non perdevo tempo in macchina. E potevo pranzare con mia moglie."
+      goals: [pros]
+    - tutor: "Che bello. E c'era qualcosa che non ti piaceva?"
+      goals: [pros]
+    - learner: "Sì, mi mancavano i colleghi. A casa ero da solo tutto il giorno."
+      goals: [cons]
+    - tutor: "Capisco. E se dovessi lavorare ancora, cosa sceglieresti?"
+      goals: [cons]
+    - learner: "Se lavorerei ancora, sceglierei due giorni a casa e tre in ufficio."
+      errors: [hypothetical]
+    - tutor: "Se lavorerei? Dopo se, in questa frase, ci vuole un'altra forma."
+      prompt: {text: "Se lavorerei", tags: [hypothetical]}
+    - learner: "Se lavorerei... no, non lo so."
+      errors: [hypothetical]
+    - tutor: "Ah, se lavorassi ancora, sceglieresti un po' e un po'. Perché proprio così?"
+      recast: {text: "Se lavorerei", fix: "se lavorassi", tags: [hypothetical]}
+    - learner: "Perché a casa sono più tranquillo, ma in ufficio posso parlare con i colleghi."
+    - tutor: "Ha senso, così hai i vantaggi di tutte e due le cose. Sono d'accordo con te!"
+      goals: [preference]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto il mese prossimo con il mio compagno. Restiamo una settimana e vogliamo anche andare in costiera."
+    - tutor: "Una settimana è perfetta! Cosa vorreste vedere?"
+      goals: [plans]
+    - learner: "Non lo so ancora. Cosa ci consigli? Siamo già stati a Roma, ma a Napoli mai."
+    - tutor: "Visitate il centro e il museo archeologico, e mangiate la pizza nei Quartieri Spagnoli. Vi piacerà moltissimo!"
+      goals: [advice]
+      new: [{lemma: archeologico, gloss: archaeological}]
+    - learner: "Perfetto. E per andare in costiera, come si va? Andiamoci in macchina?"
+      errors: [question-form]
+    - tutor: "Andiamoci in macchina? Stai facendo una domanda..."
+      prompt: {text: "Andiamoci in macchina", tags: [question-form]}
+    - learner: "Ci andiamo in macchina?"
+    - tutor: "Esatto! No, meglio il traghetto: in estate la strada è piena di traffico."
+      goals: [transport]
+    - learner: "Ah, d'accordo. C'è qualcosa che dobbiamo evitare?"
+    - tutor: "Evitate di cercare l'albergo all'ultimo minuto, costa molto di più. E non lasciate niente in macchina."
+      goals: [warnings]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-f-teacher
+  history: [reflexive]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Ciao. Lavoro molto e la sera sono stanca. Sveglio alle sei ogni giorno."
+      errors: [reflexive]
+    - tutor: "Sveglio alle sei? Chi svegli?"
+      prompt: {text: "Sveglio alle sei", tags: [reflexive]}
+    - learner: "Mi sveglio alle sei, scusa! E vado a letto tardi."
+      goals: [habits]
+    - tutor: "Esatto, quindi dormi poco. Qual è il tuo obiettivo?"
+      goals: [habits]
+    - learner: "Vorrei avere più energia e perdere qualche chilo per l'estate."
+      goals: [goal]
+    - tutor: "Ottimo. Cosa ti ha fermato finora?"
+      goals: [goal]
+    - learner: "Il lavoro, soprattutto. Correggo i compiti la sera e non ho tempo per lo sport."
+      goals: [obstacles]
+    - tutor: "Capisco. Allora proviamo con poco: venti minuti di allenamento la mattina, tre volte a settimana."
+      goals: [obstacles]
+    - learner: "Venti minuti posso farli. Ma devo svegliarmi ancora più presto?"
+    - tutor: "Solo un po', alle 5:40. Vedrai che dopo una settimana avrai più energia!"
+      goals: [plan]

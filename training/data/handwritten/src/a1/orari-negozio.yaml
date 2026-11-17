@@ -1,0 +1,161 @@
+- scenario: orari-negozio
+  level: A1
+  persona: en-f-student
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Buongiorno! Chiamo per chiedere gli orari del negozio.
+    - tutor: Certo! Cosa vuole sapere?
+      goals: [greet]
+    - learner: A che ora aprite la mattina?
+    - tutor: Apriamo alle nove e chiudiamo all'una.
+    - learner: E il pomeriggio?
+    - tutor: Il pomeriggio apriamo alle quattro e chiudiamo alle otto.
+      goals: [ask-hours]
+    - learner: E la domenica siete aperti?
+    - tutor: No, la domenica siamo chiusi.
+      goals: [ask-day]
+      new: [{lemma: chiuso, gloss: closed}]
+    - learner: Va bene, grazie mille. Arrivederci!
+    - tutor: Prego, arrivederci!
+      goals: [goodbye]
+
+- scenario: orari-negozio
+  level: A1
+  persona: en-m-retired
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Buongiorno. Scusi, a che ora apre il negozio oggi?
+    - tutor: Oggi apriamo alle dieci.
+      goals: [greet]
+    - learner: E a che ora chiudete?
+    - tutor: Chiudiamo alle sette e mezza.
+      goals: [ask-hours]
+    - learner: E domenica voi apre?
+      errors: [subject-verb-agreement]
+    - tutor: Voi apre? Pensi a voi...
+      prompt: {text: voi apre, tags: [subject-verb-agreement]}
+    - learner: Voi aprite domenica?
+    - tutor: Esatto! Sì, domenica apriamo solo la mattina.
+      goals: [ask-day]
+    - learner: Perfetto. Grazie, buona giornata.
+    - tutor: Grazie a Lei, arrivederci!
+      goals: [goodbye]
+
+- scenario: orari-negozio
+  level: A1
+  persona: es-f-erasmus
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Buongiorno! Il negozio è aperto oggi?
+    - tutor: Sì, oggi siamo aperti fino alle otto.
+      goals: [greet]
+      new: [{lemma: aperto, gloss: open}]
+    - learner: E a che ora aprite domani?
+    - tutor: Domani apriamo alle nove.
+      goals: [ask-hours]
+    - learner: Domani è domenica. Siete aperti la domenica?
+    - tutor: Sì, ma solo dalle dieci all'una.
+      goals: [ask-day]
+    - learner: Perfetto, allora vengo domani mattina. Grazie!
+    - tutor: Prego! A domani, arrivederci!
+      goals: [goodbye]
+
+- scenario: orari-negozio
+  level: A1
+  persona: en-m-traveller
+  history: [question-form]
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Ciao! Quando è aperto il negozio?
+      errors: [register]
+    - tutor: Ciao? Lei parla con un negozio, non con un amico...
+      prompt: {text: Ciao, tags: [register]}
+    - learner: Buongiorno! Quando è aperto il negozio?
+    - tutor: Perfetto! Siamo aperti dalle nove alle sette.
+      goals: [greet, ask-hours]
+      new: [{lemma: aperto, gloss: open}]
+    - learner: Anche la domenica?
+    - tutor: No, la domenica no. Solo dal lunedì al sabato.
+      goals: [ask-day]
+    - learner: Ok, grazie. Arrivederci!
+    - tutor: Arrivederci e buona giornata!
+      goals: [goodbye]
+
+- scenario: orari-negozio
+  level: A1
+  persona: en-f-professional
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Buongiorno! Vorrei sapere gli orari di oggi, per favore.
+    - tutor: Certo. Oggi siamo aperti fino alle sette.
+      goals: [greet]
+      new: [{lemma: aperto, gloss: open}]
+    - learner: E chiudete a pranzo?
+    - tutor: Sì, chiudiamo dall'una alle tre e mezza.
+      goals: [ask-hours]
+    - learner: Capisco. E domenica?
+    - tutor: Domenica il negozio è chiuso.
+      goals: [ask-day]
+      new: [{lemma: chiuso, gloss: closed}]
+    - learner: Va bene, allora vengo oggi pomeriggio. Grazie e arrivederci!
+    - tutor: Perfetto, arrivederci!
+      goals: [goodbye]
+
+- scenario: orari-negozio
+  level: A1
+  persona: es-m-worker
+  history: [verb-form]
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Buongiorno. A che ora chiudete oggi?
+    - tutor: Oggi chiudiamo alle otto.
+      goals: [greet]
+    - learner: E domani a che ora aprite?
+    - tutor: Domani apriamo alle nove.
+      goals: [ask-hours]
+    - learner: E la domenica? Voi lavorate?
+    - tutor: No, la domenica non lavoriamo.
+      goals: [ask-day]
+    - learner: Va bene. Grazie, arrivederci.
+    - tutor: Arrivederci!
+      goals: [goodbye]
+
+- scenario: orari-negozio
+  level: A1
+  persona: en-m-heritage
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Buongiorno! Sono un cliente. Chiamo per gli orari.
+    - tutor: Certo, mi dica!
+      goals: [greet]
+    - learner: A che ora aprite il sabato?
+    - tutor: Il sabato apriamo alle nove e chiudiamo alle sei.
+      goals: [ask-hours]
+    - learner: E la domenica è chiuso il negozio?
+    - tutor: Sì, la domenica è chiuso.
+      goals: [ask-day]
+    - learner: Grazie mille. Buona giornata!
+    - tutor: Grazie a Lei, buona giornata!
+      goals: [goodbye]
+
+- scenario: orari-negozio
+  level: A1
+  persona: es-f-teacher
+  history: [articulated-preposition]
+  turns:
+    - tutor: Pronto, negozio Bianchi, buongiorno!
+    - learner: Buongiorno! Il negozio apre a le nove?
+      errors: [articulated-preposition]
+    - tutor: A le nove? Qui a e le fanno una parola.
+      goals: [greet]
+      prompt: {text: a le nove, tags: [articulated-preposition]}
+    - learner: Il negozio apre alle nove?
+    - tutor: Esatto! Sì, apriamo alle nove e chiudiamo alle sette.
+      goals: [ask-hours]
+    - learner: E la domenica?
+    - tutor: La domenica apriamo solo il pomeriggio.
+      goals: [ask-day]
+    - learner: Perfetto, grazie. Arrivederci.
+    - tutor: Arrivederci!
+      goals: [goodbye]
