@@ -103,6 +103,7 @@ function story(
     paragraphs: [{ sentences }],
     targetLemmaIds,
     grammarIds: [],
+    questions: [],
     wordCount: sentences.reduce((n, s) => n + s.tokens.length, 0),
   };
 }

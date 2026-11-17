@@ -21,28 +21,41 @@ interface StoryOptions {
   perSentence?: number;
   grammarIds?: number[];
   targets?: number[];
+  /** Ranks of each question's prompt words; options are always ranks 1 and 2. */
+  questions?: Word[][];
 }
+
+/** A sentence whose tokens are the given ranks. */
+function sentence(words: Word[], grammarIds: number[] = []) {
+  let it = '';
+  const tokens: StoryToken[] = words.map((w, j) => {
+    const text = w === 'name' ? 'Sara' : w === 'unknown' ? 'boh' : `w${w}`;
+    const begin = it.length + (j > 0 ? 1 : 0);
+    it += `${j > 0 ? ' ' : ''}${text}`;
+    const base = { text, start: begin, end: begin + text.length };
+    if (w === 'name') return { ...base, lemmaId: null, isName: true as const };
+    if (w === 'unknown') return { ...base, lemmaId: null };
+    return { ...base, lemmaId: w };
+  });
+  return { it: `${it}.`, en: 'English.', tokens, grammarIds };
+}
+
+const threeQuestions: Word[][] = [[1, 2], [3, 'name'], [4]];
 
 /** A story whose tokens are the given ranks; sentences are split every `perSentence` words. */
 function story(
   words: Word[],
-  { band = 150, perSentence = 8, grammarIds = [], targets = [] }: StoryOptions = {},
+  {
+    band = 150,
+    perSentence = 8,
+    grammarIds = [],
+    targets = [],
+    questions = threeQuestions,
+  }: StoryOptions = {},
 ): Story {
   const sentences = [];
   for (let i = 0; i < words.length; i += perSentence) {
-    const chunk = words.slice(i, i + perSentence);
-    let it = '';
-    const tokens: StoryToken[] = chunk.map((w, j) => {
-      const text = w === 'name' ? 'Sara' : w === 'unknown' ? 'boh' : `w${w}`;
-      const start = it.length;
-      it += `${j > 0 ? ' ' : ''}${text}`;
-      const begin = j > 0 ? start + 1 : start;
-      const base = { text, start: begin, end: begin + text.length };
-      if (w === 'name') return { ...base, lemmaId: null, isName: true as const };
-      if (w === 'unknown') return { ...base, lemmaId: null };
-      return { ...base, lemmaId: w };
-    });
-    sentences.push({ it: `${it}.`, en: 'English.', tokens, grammarIds: i === 0 ? grammarIds : [] });
+    sentences.push(sentence(words.slice(i, i + perSentence), i === 0 ? grammarIds : []));
   }
   return StorySchema.parse({
     id: 'test-01',
@@ -54,6 +67,11 @@ function story(
     paragraphs: [{ sentences }],
     targetLemmaIds: targets,
     grammarIds,
+    questions: questions.map((q) => ({
+      prompt: sentence(q),
+      options: [sentence([1]), sentence([2])],
+      answer: 0,
+    })),
     wordCount: words.length,
   });
 }
@@ -127,6 +145,42 @@ describe('validateStory', () => {
     expect(ok(base(), { targets: [30, 40, 5] }).errors).toContain(
       'target w5 is not a repeated new word for band 150',
     );
+  });
+});
+
+describe('validateStory questions', () => {
+  it('needs 3 to 6 questions', () => {
+    expect(ok(base(), { questions: [[1], [2]] }).errors).toContain('2 questions (need 3-6)');
+    expect(ok(base(), { questions: Array<Word[]>(7).fill([1]) }).errors).toContain(
+      '7 questions (need 3-6)',
+    );
+  });
+
+  it('keeps question words within the next band and tagged', () => {
+    expect(ok(base(), { questions: [[1], [2], [300]] }).errors).toEqual([]);
+    expect(ok(base(), { questions: [[1], [2], [301]] }).errors).toContain(
+      'question 3: "w301" is above rank 300',
+    );
+    expect(ok(base(), { questions: [[1], ['unknown'], [2]] }).errors).toContain(
+      'question 2: untagged token boh',
+    );
+  });
+
+  it('rejects grammar above the band and repeated options', () => {
+    const passato = GRAMMAR_POINTS.find((p) => p.slug === 'passato-prossimo-avere')?.id ?? 0;
+    const s = story(base(), { targets });
+    const [first, ...rest] = s.questions;
+    if (!first) throw new Error('no question');
+    const bad = {
+      ...s,
+      questions: [
+        { ...first, prompt: sentence([1], [passato]), options: [sentence([1]), sentence([1])] },
+        ...rest,
+      ],
+    };
+    const errors = validateStory(bad, lemmas).errors;
+    expect(errors).toContain('question 1: grammar above band 150 in "w1."');
+    expect(errors).toContain('question 1: repeated option');
   });
 });
 

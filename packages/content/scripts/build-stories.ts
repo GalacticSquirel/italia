@@ -17,7 +17,14 @@ import { join } from 'node:path';
 
 import { cachePath, readLock, sha256File } from './cache';
 import { readMorphIt } from './morph-it';
-import { loadSeedFile, MANIFEST_FILE, SEED_FILE, STORIES_DIR, STORIES_FILE } from '../src/node';
+import {
+  loadSeedFile,
+  loadVariantSpellings,
+  MANIFEST_FILE,
+  SEED_FILE,
+  STORIES_DIR,
+  STORIES_FILE,
+} from '../src/node';
 import { parseSubtlex } from '../src/pipeline/frequency';
 import { applyFormReadings, parseMorphIt } from '../src/pipeline/lexicon';
 import { FORM_READINGS, LEXICON_SUPPLEMENT } from '../src/pipeline/overrides';
@@ -68,7 +75,12 @@ async function main(): Promise<void> {
   const seedText = await readFile(SEED_FILE, 'utf8');
   const seed = await loadSeedFile();
   const lemmaById = new Map(seed.lemmas.map((l) => [l.id, l]));
-  const tagger = createStoryTagger({ lexicon, subtlex, lemmas: seed.lemmas });
+  const tagger = createStoryTagger({
+    lexicon,
+    subtlex,
+    lemmas: seed.lemmas,
+    variants: await loadVariantSpellings(),
+  });
 
   const series: StorySeries[] = [];
   const stories: Story[] = [];
