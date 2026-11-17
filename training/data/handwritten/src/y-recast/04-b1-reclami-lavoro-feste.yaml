@@ -1,0 +1,238 @@
+# B1, recast-focused: prompt, failed repair, recast with the exact corrected form early in
+# the reply; meaning-blocking lexical errors recast at once.
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, la camera in che sono non ha acqua calda."
+      errors: [relative-pronoun]
+    - tutor: "Mi dispiace molto. Ma «la camera in che sono»: dopo una preposizione, quale pronome serve?"
+      goals: [problem]
+      prompt: {text: "in che", tags: [relative-pronoun]}
+    - learner: "Ah... la camera in che sto, la 305."
+      errors: [relative-pronoun]
+    - tutor: "La camera in cui sta, la 305, ha avuto lo stesso problema la settimana scorsa. Da quando non c'è acqua calda?"
+      recast: {text: "in che", fix: "in cui", tags: [relative-pronoun]}
+    - learner: "Da stamattina. Ho provato tre volte, ma niente."
+    - tutor: "Ha ragione ad arrabbiarsi. Cosa possiamo fare per lei?"
+      goals: [since]
+    - learner: "Vorrei cambiare camera, se possibile una più quieta, lontano dall'ascensore."
+      errors: [word-choice]
+    - tutor: "Una camera più tranquilla, certo: ho la 512, all'ultimo piano, lontana dall'ascensore."
+      goals: [request]
+      recast: {text: "quieta", fix: "tranquilla", tags: [word-choice]}
+    - learner: "Perfetto, grazie. Potrei anche avere la colazione in camera domani?"
+    - tutor: "Ma certo, gliela offriamo noi per scusarci. Ecco la chiave della 512."
+      goals: [agree]
+    - learner: "Molto gentile, grazie mille."
+    - tutor: "Si figuri. Buona notte e buon riposo!"
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: es-f-teacher
+  history: [conditional-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Abbiamo finito la prima parte del sito la settimana scorsa."
+    - tutor: "Ottimo lavoro! Ci sono problemi?"
+      goals: [update]
+    - learner: "Sì, uno: il cliente non ha contestato le mie email da dieci giorni."
+      errors: [false-friend]
+    - tutor: "Non ha risposto da dieci giorni? Strano, di solito è molto preciso."
+      goals: [problem]
+      recast: {text: "contestato", fix: "risposto", tags: [false-friend]}
+    - learner: "Esatto. Poteremmo chiamarlo direttamente, cosa ne pensi?"
+      errors: [conditional-form]
+    - tutor: "Buona idea. Però «poteremmo»: il condizionale di «potere» è più corto. Prova di nuovo?"
+      prompt: {text: "Poteremmo", tags: [conditional-form]}
+    - learner: "Sì... poteremmo chiamarlo domani mattina."
+      errors: [conditional-form]
+    - tutor: "Sì, potremmo chiamarlo domani mattina, insieme. Lo chiami tu o lo chiamo io?"
+      goals: [proposal]
+      recast: {text: "poteremmo", fix: "potremmo", tags: [conditional-form]}
+    - learner: "Lo chiamo io, lo conosco meglio. Per la consegna, va bene la fine del mese?"
+    - tutor: "La fine del mese è un po' presto. Diciamo il 5 del mese prossimo?"
+    - learner: "Va bene, il 5 è perfetto."
+    - tutor: "Allora siamo d'accordo: il 5. Grazie e buon lavoro!"
+      goals: [deadline]
+
+- scenario: film-libro
+  level: B1
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Comincio io! Ho letto una novela di Elena Ferrante, «L'amica geniale»."
+      errors: [false-friend]
+    - tutor: "Un romanzo della Ferrante, ottima scelta! Di cosa parla, senza raccontare il finale?"
+      recast: {text: "una novela", fix: "Un romanzo", tags: [false-friend]}
+    - learner: "Parla di due amiche, Lenù e Lila, che crescono in un quartiere povero di Napoli."
+    - tutor: "Che bello. E com'è Lila?"
+      goals: [summary]
+    - learner: "Lila è molto intelligente e coraggiosa. Un giorno, da bambina, buttava la bambola di Lenù in una cantina."
+      errors: [tense-aspect]
+    - tutor: "Che scena famosa! Ma «un giorno buttava»: è successo una volta o succedeva spesso?"
+      prompt: {text: "buttava", tags: [tense-aspect]}
+    - learner: "Ehm... un giorno lei buttava la bambola, e Lenù ha fatto lo stesso."
+      errors: [tense-aspect]
+    - tutor: "Sì, un giorno ha buttato la bambola, e Lenù ha fatto lo stesso: lì comincia tutto. Ti è piaciuto il libro?"
+      goals: [characters]
+      recast: {text: "buttava", fix: "ha buttato", tags: [tense-aspect]}
+    - learner: "Moltissimo! È scritto in modo semplice ma molto intenso."
+    - tutor: "Sono d'accordo. A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A chi ama le storie lunghe sull'amicizia, ma non a chi cerca un libro leggero."
+    - tutor: "Ottimo consiglio. Grazie, chi è il prossimo?"
+      goals: [recommend]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-heritage
+  history: [participle-agreement]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Queste cuffie non funzionano: si sente solo da una parte."
+    - tutor: "Che fastidio, mi dispiace. Ha lo scontrino?"
+      goals: [problem]
+    - learner: "Sì, eccolo. Le ho comprato sabato scorso."
+      errors: [participle-agreement]
+    - tutor: "Grazie. Ma «le ho comprato»: «le» sono le cuffie, quindi la fine della parola...?"
+      prompt: {text: "comprato", tags: [participle-agreement]}
+    - learner: "Sì, le ho comprato qui, in questo negozio."
+      errors: [participle-agreement]
+    - tutor: "Sì, le ha comprate qui sabato, è tutto in regola. Come vuole procedere?"
+      goals: [proof]
+      recast: {text: "comprato", fix: "comprate", tags: [participle-agreement]}
+    - learner: "Vorrei un refund, per favore."
+      errors: [word-choice]
+    - tutor: "Il rimborso è possibile solo come buono da usare in negozio. Oppure le cambio le cuffie con un paio nuovo."
+      goals: [request]
+      recast: {text: "refund", fix: "rimborso", tags: [word-choice]}
+      new: [{lemma: rimborso, gloss: refund}]
+    - learner: "Allora preferisco un paio nuovo, grazie."
+    - tutor: "Perfetto, ecco le cuffie nuove. Le provi pure qui."
+      goals: [agree]
+    - learner: "Funzionano benissimo. Grazie mille!"
+    - tutor: "Di niente, buona giornata!"
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: es-f-teacher
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+    - learner: "Anche da noi! Ma la festa più divertente è Capodanno: a mezzanotte si mangiano dodici uve."
+      errors: [word-choice]
+    - tutor: "Dodici chicchi d'uva a mezzanotte? Che tradizione simpatica! Perché proprio dodici?"
+      goals: [compare]
+      recast: {text: "dodici uve", fix: "dodici chicchi d'uva", tags: [word-choice]}
+      new: [{lemma: chicco, gloss: grain, single grape}]
+    - learner: "Uno per ogni mese dell'anno, per avere fortuna."
+    - tutor: "Bellissimo. E da bambina com'era il Natale a casa tua?"
+    - learner: "Era molto bello. La sera del 24 andavamo tutti a la messa di mezzanotte."
+      errors: [articulated-preposition]
+    - tutor: "Che bello! Ma «a la messa»: in italiano qui le due parole si uniscono. Come?"
+      prompt: {text: "a la messa", tags: [articulated-preposition]}
+    - learner: "Sì, andavamo a la messa con i nonni."
+      errors: [articulated-preposition]
+    - tutor: "Alla messa con i nonni, che bel ricordo! Anche qui molti vanno alla messa, ma prima c'è il cenone."
+      goals: [past]
+      recast: {text: "a la messa", fix: "Alla messa", tags: [articulated-preposition]}
+      new: [{lemma: cenone, gloss: big Christmas Eve dinner}]
+    - learner: "Il cenone? Che cosa si mangia?"
+    - tutor: "È la grande cena della sera del 24: da noi si mangia soprattutto pesce."
+      goals: [ask]
+    - learner: "Che buono! Per il pranzo di Natale cosa posso portare?"
+    - tutor: "Porta un dolce spagnolo, così facciamo un confronto!"
+      goals: [plan]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-f-student
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Non molto sane, onestamente. Mangio spesso panini al bar e non faccio sport."
+    - tutor: "Grazie per la risposta onesta, è il primo passo! Qual è il tuo obiettivo?"
+      goals: [habits]
+    - learner: "Voglio essere più fit prima dell'estate."
+      errors: [word-choice]
+    - tutor: "Vuoi essere più in forma prima dell'estate, ottimo obiettivo! Cosa ti ha fermato finora?"
+      goals: [goal]
+      recast: {text: "fit", fix: "in forma", tags: [word-choice]}
+    - learner: "Il tempo: studio tutto il giorno. E quando corro ho mal di schiena."
+    - tutor: "Capisco. Per la schiena potremmo provare il nuoto invece della corsa."
+      goals: [obstacles]
+    - learner: "Il nuoto è più buono della corsa per la schiena?"
+      errors: [comparative]
+    - tutor: "Bella domanda! Ma «più buono»: per dire che una cosa funziona meglio, c'è una parola speciale. Quale?"
+      prompt: {text: "più buono", tags: [comparative]}
+    - learner: "Ah... il nuoto è più buono, allora?"
+      errors: [comparative]
+    - tutor: "Sì, il nuoto è migliore per la schiena, perché il corpo è leggero nell'acqua. Ti propongo due volte a settimana in piscina e una in palestra."
+      recast: {text: "più buono", fix: "migliore", tags: [comparative]}
+    - learner: "Perfetto, ci provo! Martedì e giovedì posso andare in piscina."
+    - tutor: "Benissimo, e il sabato ci vediamo in palestra. Cominciamo questa settimana!"
+      goals: [plan]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-m-retired
+  history: [noun-gender]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi il disturbo. Sono il vicino del piano di sotto, mi chiamo Robert."
+    - tutor: "Piacere, Robert. Mi dica pure, c'è qualche problema?"
+      goals: [greet]
+    - learner: "Sì, ogni sera dopo le undici sento il rumore del televisione."
+      errors: [noun-gender]
+    - tutor: "Oh, mi dispiace. Ma «del televisione»: la parola «televisione» è maschile?"
+      prompt: {text: "del televisione", tags: [noun-gender]}
+    - learner: "Ah... sento il televisione molto forte, fino all'una."
+      errors: [noun-gender]
+    - tutor: "La televisione fino all'una, ha ragione: a volte mio marito si addormenta sul divano. Mi dispiace davvero."
+      goals: [problem]
+      recast: {text: "il televisione", fix: "La televisione", tags: [noun-gender]}
+    - learner: "Capisco, ma per me è molto annoiante, perché mi alzo alle sei."
+      errors: [word-choice]
+    - tutor: "È molto fastidioso, lo capisco bene. Cosa possiamo fare?"
+      recast: {text: "annoiante", fix: "fastidioso", tags: [word-choice]}
+      new: [{lemma: fastidioso, gloss: annoying}]
+    - learner: "Potreste abbassare il volume dopo le dieci e mezza?"
+    - tutor: "Certo. Facciamo così: dopo le dieci e mezza abbassiamo il volume e chiudiamo la porta del soggiorno. Va bene?"
+      goals: [request]
+    - learner: "Perfetto, grazie mille. È molto gentile."
+    - tutor: "Si figuri, e se c'è ancora rumore, suoni pure alla nostra porta!"
+      goals: [compromise]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita dal dermatologo, per una mancha sul braccio."
+      errors: [word-choice]
+    - tutor: "Per una macchia sul braccio, va bene. È la prima visita?"
+      goals: [type]
+      recast: {text: "mancha", fix: "macchia", tags: [word-choice]}
+      new: [{lemma: macchia, gloss: spot, mark}]
+    - learner: "Sì, è la prima. Quando sarebbe possibile?"
+    - tutor: "Il primo posto libero è martedì 14 alle dieci, oppure giovedì 16 alle tre."
+    - learner: "Giovedì alle tre è perfetto, perché la mattina ho lezione."
+    - tutor: "Benissimo, giovedì 16 alle quindici."
+      goals: [availability]
+    - learner: "Quanto costa? Spero che non costa troppo, sono studentessa."
+      errors: [subjunctive-use]
+    - tutor: "Capisco. Ma «spero che non costa»: dopo «spero che» il verbo cambia modo. Come?"
+      prompt: {text: "che non costa", tags: [subjunctive-use]}
+    - learner: "Ah... spero che non costa tanto, allora."
+      errors: [subjunctive-use]
+    - tutor: "Speriamo che non costi troppo, infatti: la prima visita costa ottanta euro. Porti un documento, per favore."
+      goals: [cost]
+      recast: {text: "che non costa", fix: "che non costi", tags: [subjunctive-use]}
+    - learner: "Va bene. Allora giovedì 16 alle tre, con il passaporto."
+    - tutor: "Esatto, è tutto confermato. A giovedì!"
+      goals: [confirm]

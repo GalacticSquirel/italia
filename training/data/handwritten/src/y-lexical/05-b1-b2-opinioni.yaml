@@ -1,0 +1,252 @@
+# Round 3, set y-lexical: false friends and word choice. B1 and B2, file 5.
+- scenario: smartworking
+  level: B1
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Attualmente lavoro da casa tre giorni a settimana e vado in ufficio il martedì e il giovedì."
+    - tutor: "Bella soluzione! E come ti trovi?"
+      goals: [situation]
+    - learner: "Bene. Lavoro per una grande firma di assicurazioni, e a casa sono più tranquillo."
+      errors: [false-friend]
+    - tutor: "Ah, per una grande azienda di assicurazioni! E a casa ti concentri meglio?"
+      recast: {text: "firma", fix: "azienda", tags: [false-friend]}
+    - learner: "Sì, a casa mi concentro più meglio, senza rumore."
+      errors: [comparative]
+    - tutor: "«Più meglio»? Ascolta bene: c'è una parola di troppo."
+      prompt: {text: "più meglio", tags: [comparative]}
+    - learner: "Ah, giusto: a casa mi concentro meglio."
+    - tutor: "Esatto! E poi risparmi il tempo del viaggio, no?"
+      goals: [pros]
+    - learner: "Sì, un'ora al giorno. Però è difficile: non c'è un bilancio tra lavoro e vita privata."
+      errors: [false-friend]
+    - tutor: "Già, trovare l'equilibrio tra lavoro e vita privata non è facile. Succede a tanti."
+      goals: [cons]
+      recast: {text: "un bilancio", fix: "equilibrio", tags: [false-friend]}
+      new: [{lemma: equilibrio, gloss: balance}]
+    - learner: "Per questo preferirei tre giorni in ufficio e due a casa. E tu come lavori?"
+    - tutor: "Io sono sempre in ufficio, quindi sei più fortunato di me!"
+      goals: [preference]
+
+- scenario: arte-mostra
+  level: B2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Mah, è molto raro. Non capisco cosa rappresenta: ci sono occhi dappertutto e un cavallo nel cielo."
+      errors: [false-friend]
+    - tutor: "Strano, sì, ed è proprio quello che voleva il pittore. Raro, invece, lo è davvero: ne esistono pochissimi così."
+      goals: [react]
+      recast: {text: "raro", fix: "Strano", tags: [false-friend]}
+    - learner: "Allora è surrealista? I colori sono molto vivi: c'è un blu fortissimo e il fondo è giallo."
+      errors: [word-choice]
+    - tutor: "Esatto, e quello sfondo giallo è tipico degli anni Trenta. Il quadro è stato dipinto a Parigi in pochi mesi. Secondo te, che cosa vuole dirci?"
+      recast: {text: "fondo", fix: "sfondo", tags: [word-choice]}
+      goals: [describe]
+    - learner: "Credo che il pittore vuole parlare dei sogni e della paura."
+      errors: [subjunctive-use]
+    - tutor: "Interessante! Ma ascolta bene: dopo «credo che», il verbo resta così?"
+      prompt: {text: "il pittore vuole", tags: [subjunctive-use]}
+    - learner: "Ah, no: credo che il pittore voglia parlare dei sogni e della paura."
+    - tutor: "Perfetto, e sono d'accordo con te. Tutti quegli occhi potrebbero essere la paura di essere guardati."
+      goals: [interpret]
+    - learner: "Sì! Mi ricorda un po' Dalí, ma questo è più semplice e più silenzioso."
+    - tutor: "Bel confronto: Dalí è più teatrale, qui c'è quasi un silenzio da sogno. Passiamo alla sala successiva?"
+      goals: [compare]
+    - learner: "Sì, ma prima voglio sacare una foto."
+      errors: [word-choice]
+    - tutor: "Puoi fare una foto, ma senza flash, mi raccomando! Ti aspetto di là."
+      recast: {text: "sacare una foto", fix: "fare una foto", tags: [word-choice]}
+      new: [{lemma: flash, gloss: flash}]
+    - learner: "Tranquillo, niente flash. Arrivo subito!"
+    - tutor: "Perfetto, ti aspetto vicino all'uscita."
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-traveller
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri sera ero fermo al semaforo rosso e una macchina mi ha colpito da dietro."
+    - tutor: "Mi dispiace. Lei sta bene? E chi guidava l'altra macchina?"
+      goals: [what]
+    - learner: "Io sto bene, grazie. Ma secondo me il conducente era intossicato: parlava male e non stava in piedi."
+      errors: [false-friend]
+    - tutor: "Se era ubriaco, è un elemento molto importante per la responsabilità. È intervenuta la polizia?"
+      goals: [responsibility]
+      recast: {text: "intossicato", fix: "ubriaco", tags: [false-friend]}
+    - learner: "Sì, la polizia è arrivata dopo venti minuti e gli ha fatto il test dell'alcol. Era positivo."
+    - tutor: "Allora la situazione è chiara. Avete compilato la constatazione amichevole?"
+    - learner: "Sì, il modulo è stato firmato da tutti e due, e la mia macchina è stato portato dal carrozziere."
+      errors: [passive]
+    - tutor: "Bene. Solo una cosa: «la mia macchina è stato portato»? Controlli bene: la macchina è femminile."
+      prompt: {text: "la mia macchina è stato portato", tags: [passive]}
+    - learner: "Ha ragione: la mia macchina è stata portata dal carrozziere."
+    - tutor: "Esatto. Allora ci servono una copia del modulo e le foto del paraurti."
+      goals: [documents]
+    - learner: "Le mando tutto per email oggi. E quando riceverò la compensazione?"
+      errors: [word-choice]
+    - tutor: "Per il risarcimento, prima un nostro perito deve vedere la macchina: di solito ci vogliono due o tre settimane."
+      goals: [next]
+      recast: {text: "la compensazione", fix: "il risarcimento", tags: [word-choice]}
+      new: [{lemma: risarcimento, gloss: compensation}, {lemma: perito, gloss: loss adjuster}]
+    - learner: "Perfetto. Grazie per il suo aiuto, è stata molto chiara."
+    - tutor: "Si figuri. Le mando subito il numero della pratica per email."
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-f-teacher
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Finalmente! Ho fatto la cola per due ore. Vorrei chiedere la residenza: mi sono trasferita a Bologna il mese scorso."
+      errors: [word-choice]
+    - tutor: "Due ore di coda, mi dispiace: il lunedì è sempre così. Per la residenza, ha portato i documenti?"
+      goals: [request]
+      recast: {text: "cola", fix: "coda", tags: [word-choice]}
+    - learner: "Sì, ho il passaporto, il contratto d'affitto e il permesso di soggiorno."
+    - tutor: "Benissimo. Serve anche il codice fiscale: ce l'ha?"
+      new: [{lemma: fiscale, gloss: tax (adj.)}]
+      goals: [documents]
+    - learner: "Sì, ho anche quello. Ma il contratto non è ancora stato registrato: potrei portare una dichiarazione del proprietario?"
+    - tutor: "Senza contratto registrato, di solito, la pratica si blocca. Però sì, basta che il proprietario firmi una dichiarazione e aggiunga una copia del suo documento."
+      goals: [problem]
+    - learner: "Perfetto. E dopo? Bisogna che io aspetto i vigili a casa?"
+      errors: [subjunctive-use]
+    - tutor: "«Bisogna che io aspetto»? Dopo «bisogna che», il verbo cambia modo."
+      prompt: {text: "Bisogna che io aspetto", tags: [subjunctive-use]}
+    - learner: "Ah, certo: bisogna che io aspetti i vigili a casa?"
+    - tutor: "Esatto. Entro quarantacinque giorni passano i vigili per un controllo, ma non deve stare a casa tutto il giorno: la avvisano prima."
+      goals: [next]
+    - learner: "Benissimo. Un'ultima domanda: il certificato si può pedire online?"
+      errors: [word-choice]
+    - tutor: "Sì, il certificato si può richiedere online, appena la residenza è registrata."
+      recast: {text: "pedire", fix: "richiedere", tags: [word-choice]}
+    - learner: "Grazie mille, è stato molto gentile."
+    - tutor: "Si figuri, buona giornata e benvenuta a Bologna!"
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Quest'anno il mio team ha superato tutti gli obiettivi: le vendite online sono cresciute del trenta per cento."
+    - tutor: "Lo so, i risultati sono ottimi. E quindi?"
+      goals: [results]
+    - learner: "Negli ultimi mesi ho realizzato che le mie responsabilità sono cambiate molto: adesso gestisco sei persone."
+      errors: [false-friend]
+    - tutor: "Si è resa conto che il suo ruolo è cresciuto, e non ha torto: sei persone sono tante."
+      recast: {text: "ho realizzato", fix: "Si è resa conto", tags: [false-friend]}
+    - learner: "Per questo vorrei una promozione a responsabile marketing e, eventualmente, un aumento."
+    - tutor: "Capisco. Il problema è che il budget di quest'anno è già chiuso. Per l'aumento dovrebbe aspettare."
+      goals: [request]
+    - learner: "Capisco, ma credo che il titolo è importante anche senza aumento."
+      errors: [subjunctive-use]
+    - tutor: "È un buon punto. Però «credo che il titolo è»: dopo un verbo di opinione, quale modo si usa?"
+      prompt: {text: "credo che il titolo è", tags: [subjunctive-use]}
+    - learner: "Ha ragione: credo che il titolo sia importante anche senza aumento. Possiamo rivederci a gennaio per l'aumento?"
+    - tutor: "Esatto. D'accordo: le cambio il titolo da subito, e a gennaio fissiamo un incontro con le risorse umane."
+      goals: [handle, next-steps]
+    - learner: "Perfetto. Le mando un follow-up per email domani."
+      errors: [word-choice]
+    - tutor: "Sì, mi mandi pure un'email di riepilogo: così non dimentichiamo niente."
+      recast: {text: "un follow-up", fix: "un'email di riepilogo", tags: [word-choice]}
+      new: [{lemma: riepilogo, gloss: summary}]
+    - learner: "Grazie mille, buona giornata."
+    - tutor: "Buona giornata a lei, e grazie ancora per l'ottimo lavoro."
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Non sono d'accordo. Penso che una zona pedonale sia una buona idea per la salute di tutti."
+    - tutor: "La salute, certo. Ma mi dia degli argomenti, non solo parole."
+      goals: [position]
+    - learner: "Primo, l'aria è molto inquinata: le fattorie qui vicino e il traffico producono tanto smog."
+      errors: [false-friend]
+    - tutor: "Le fabbriche qui vicino fanno molto smog, è vero, ma quelle non le chiudiamo con una zona pedonale. E il secondo argomento?"
+      recast: {text: "le fattorie", fix: "Le fabbriche", tags: [false-friend]}
+    - learner: "Secondo, le città che hanno chiuso il centro hanno più turisti. Per esempio Pontevedra, in Spagna."
+    - tutor: "Esempio interessante. Ma i commercianti dicono che senza parcheggio i clienti vanno al centro commerciale."
+      goals: [argue]
+    - learner: "Capisco la paura, ma i clienti di che parlano non vengono tutti in macchina: molti usano i mezzi pubblici."
+      errors: [relative-pronoun]
+    - tutor: "Un momento: «i clienti di che parlano»? Dopo «di», quella parola non funziona."
+      prompt: {text: "di che parlano", tags: [relative-pronoun]}
+    - learner: "Giusto: i clienti di cui parlano non vengono tutti in macchina."
+    - tutor: "Esatto. Può darsi, ma i mezzi pubblici qui sono lenti e passano poco."
+      goals: [counter]
+    - learner: "Su questo ha ragione, devo ammetterlo. Allora propongo di fare un trial nei weekend."
+      errors: [word-choice]
+    - tutor: "Una prova solo nei weekend, con più autobus: questo potrei accettarlo."
+      goals: [concede]
+      recast: {text: "un trial", fix: "Una prova", tags: [word-choice]}
+    - learner: "Allora siamo d'accordo, almeno su questo!"
+    - tutor: "Almeno su questo, sì. Lo proponiamo insieme al sindaco?"
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Abbastanza bene, ma quando subisco le scale mi manca il fiato e il cuore batte fortissimo."
+      errors: [false-friend]
+    - tutor: "Quando sale le scale le manca il fiato, capisco. Le succede anche con sforzi più leggeri?"
+      recast: {text: "subisco le scale", fix: "sale le scale", tags: [false-friend]}
+    - learner: "No, solo con le scale o quando corro per prendere l'autobus. E a volte mi sento molto cansada."
+      errors: [word-choice]
+    - tutor: "Anche stanca, quindi: questo affaticamento è un dato importante."
+      goals: [symptoms]
+      recast: {text: "cansada", fix: "stanca", tags: [word-choice]}
+    - learner: "Sì. Mio padre ha la pressione alta e mio nonno ha avuto un infarto a sessant'anni."
+    - tutor: "Grazie, è utile saperlo. Ha domande sugli esami?"
+      goals: [history]
+    - learner: "Sì: è possibile che il problema è ereditario?"
+      errors: [subjunctive-use]
+    - tutor: "Buona domanda. Ma «è possibile che il problema è»: dopo questa espressione ci vuole un altro modo."
+      prompt: {text: "che il problema è", tags: [subjunctive-use]}
+    - learner: "Ah, sì: è possibile che il problema sia ereditario?"
+    - tutor: "Esatto. Può darsi, ma gli esami non mostrano niente di grave: il battito è solo un po' veloce."
+      goals: [understand]
+    - learner: "Meno male. E la terapia? Ha effetti collaterali?"
+    - tutor: "Le consiglio un farmaco leggero; all'inizio può causare un po' di affaticamento. Ci rivediamo tra tre mesi per un controllo."
+      goals: [treatment]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! La mia novia e io vogliamo un matrimonio semplice, in campagna, con pochi invitati."
+      errors: [word-choice]
+    - tutor: "Un matrimonio semplice in campagna: la sua fidanzata ha buon gusto! Quanti invitati pensate di avere?"
+      goals: [vision]
+      recast: {text: "La mia novia", fix: "la sua fidanzata", tags: [word-choice]}
+    - learner: "Circa sessanta. Il presupuesto è di venticinquemila euro, tutto compreso."
+      errors: [word-choice]
+    - tutor: "Con sessanta invitati il budget è giusto. Ho due location da mostrarvi: una vecchia fattoria in collina o una villa sul lago."
+      recast: {text: "Il presupuesto", fix: "il budget", tags: [word-choice]}
+      goals: [budget]
+    - learner: "Preferisco la fattoria, perché sono cuoco e voglio un menù con prodotti locali."
+    - tutor: "Ottima scelta: in fattoria cucinano solo con prodotti della zona."
+      goals: [choices]
+    - learner: "Perfetto. Però vorrei che lei ci manda sempre un preventivo prima di ogni spesa."
+      errors: [subjunctive-use]
+    - tutor: "Giustissimo. Ma «vorrei che lei ci manda»? Dopo «vorrei che», quale modo e quale tempo ci vogliono?"
+      prompt: {text: "vorrei che lei ci manda", tags: [subjunctive-use]}
+    - learner: "Ah, sì: vorrei che lei ci mandasse sempre un preventivo."
+    - tutor: "Perfetto, e così sarà: nessuna spesa senza il vostro sì."
+      goals: [conditions]
+    - learner: "Grazie. E la cerimonia non deve essere troppo larga: i nostri nonni sono anziani."
+      errors: [false-friend]
+    - tutor: "Una cerimonia non troppo lunga, d'accordo: mezz'ora al massimo, e i nonni seduti in prima fila."
+      recast: {text: "troppo larga", fix: "troppo lunga", tags: [false-friend]}
+    - learner: "Perfetto. Allora aspettiamo il preventivo."
+    - tutor: "Ve lo mando entro venerdì. E ancora congratulazioni!"

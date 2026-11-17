@@ -1,0 +1,316 @@
+# B1, neighbours and a volunteering association: clitics, relative pronouns, future forms.
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-f-professional
+  history: [participle-agreement]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi il disturbo. Sono la vicina dell'appartamento accanto, mi sono trasferita la settimana scorsa."
+    - tutor: "Ah, benvenuta! Piacere. Come posso aiutarla?"
+      goals: [greet]
+    - learner: "Ecco, ogni sera i suoi figli giocano a pallone in corridoio. Ieri li ho sentito fino alle dieci."
+      errors: [participle-agreement]
+      gold: {text: "li ho sentito", fix: "li ho sentiti"}
+    - tutor: "Li ho sentito? Parla dei bambini: attenzione all'ultima lettera."
+      prompt: {text: "li ho sentito", tags: [participle-agreement]}
+    - learner: "Li ho sentito, sì, fino alle dieci di sera."
+      errors: [participle-agreement]
+    - tutor: "Li ha sentiti fino alle dieci? Mi dispiace, non lo sapevo."
+      recast: {text: "Li ho sentito", fix: "Li ha sentiti", tags: [participle-agreement]}
+      goals: [problem]
+    - learner: "Lavoro da casa e la sera faccio ancora delle chiamate. Potrebbe dirle di giocare in un'altra stanza?"
+      errors: [object-pronoun]
+      gold: {text: "dirle", fix: "dirgli"}
+    - tutor: "Dirle? Parliamo dei miei figli: quale pronome serve?"
+      prompt: {text: "dirle", tags: [object-pronoun]}
+    - learner: "Potrebbe dirgli di giocare in un'altra stanza?"
+    - tutor: "Certo, glielo dico stasera. Però sono bambini: va bene se giocano nella loro camera fino alle otto?"
+      goals: [request]
+    - learner: "Fino alle otto va benissimo. Domani porterò un dolce per loro, così non esseranno arrabbiati con me!"
+      errors: [future-form]
+      gold: {text: "esseranno", fix: "saranno"}
+    - tutor: "Non esseranno? Il futuro di essere è speciale."
+      prompt: {text: "esseranno", tags: [future-form]}
+    - learner: "Non saranno arrabbiati con me!"
+    - tutor: "Ma no, saranno felicissimi! Allora d'accordo: si gioca nella loro camera, e solo fino alle otto."
+      goals: [compromise]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-f-student
+  history: [pronoun-position]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi. Abito al piano di sotto, sono la studentessa dell'interno 4."
+    - tutor: "Ah sì, buonasera. Mi dica."
+      goals: [greet]
+    - learner: "Ieri sera c'era una festa da lei, vero? La musica era altissima fino a le tre."
+      errors: [articulated-preposition]
+      gold: {text: "fino a le tre", fix: "fino alle tre"}
+    - tutor: "Fino a le tre? Provi a unire le due parole."
+      prompt: {text: "a le tre", tags: [articulated-preposition]}
+    - learner: "Fino alle tre. E succede quasi ogni sabato."
+    - tutor: "Ha ragione, mi dispiace. Era il compleanno di mio marito."
+      goals: [problem]
+    - learner: "Capisco, ma lunedì avrò un esame importante e devo studiare duro anche il fine settimana."
+      errors: [word-choice]
+      gold: {text: "studiare duro", fix: "studiare sodo"}
+    - tutor: "Se deve studiare sodo anche il sabato, la capisco benissimo. Che cosa propone?"
+      recast: {text: "studiare duro", fix: "studiare sodo", tags: [word-choice]}
+      new: [{lemma: sodo, gloss: hard (studiare sodo, to study hard)}]
+    - learner: "La musica... potrebbe la abbassare dopo le undici, per favore?"
+      errors: [pronoun-position]
+      gold: {text: "potrebbe la abbassare", fix: "potrebbe abbassarla"}
+    - tutor: "Potrebbe la abbassare? Con l'infinito, dove mettiamo il pronome?"
+      prompt: {text: "potrebbe la abbassare", tags: [pronoun-position]}
+    - learner: "Sì, potrebbe la abbassare un po'?"
+      errors: [pronoun-position]
+    - tutor: "Certo, posso abbassarla dopo le undici, è giusto."
+      recast: {text: "la abbassare", fix: "abbassarla", tags: [pronoun-position]}
+      goals: [request]
+    - learner: "Grazie mille. E se c'è una festa speciale, mi lo dice prima?"
+      errors: [combined-pronouns]
+      gold: {text: "mi lo dice", fix: "me lo dice"}
+    - tutor: "Mi lo dice? Con due pronomi insieme, il primo cambia."
+      prompt: {text: "mi lo dice", tags: [combined-pronouns]}
+    - learner: "Me lo dice prima, così quella sera vado a dormire da un'amica."
+    - tutor: "D'accordo: musica bassa dopo le undici, e per le feste speciali la avviso qualche giorno prima."
+      goals: [compromise]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: es-m-worker
+  history: [object-pronoun]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera. Scusi la molestia, sono il vicino del primo piano, quello con la bicicletta."
+      errors: [false-friend]
+      gold: {text: "la molestia", fix: "il disturbo"}
+    - tutor: "Nessun disturbo, buonasera! Mi dica pure."
+      recast: {text: "molestia", fix: "disturbo", tags: [false-friend]}
+      goals: [greet]
+    - learner: "Il problema è la sua lavatrice. La usa sempre in la notte e il rumore passa nel muro."
+      errors: [preposition]
+      gold: {text: "in la notte", fix: "di notte"}
+    - tutor: "In la notte? Per dire quando, usiamo un'altra preposizione."
+      prompt: {text: "in la notte", tags: [preposition]}
+    - learner: "Di notte, scusi, verso mezzanotte."
+    - tutor: "Ah, la lavatrice! Di giorno lavoro, quindi la faccio partire la sera tardi."
+      goals: [problem]
+    - learner: "Capisco, ma io mi sveglio alle cinque per lavorare. Le potrebbe usare prima delle dieci?"
+      errors: [object-pronoun]
+      gold: {text: "Le potrebbe usare", fix: "La potrebbe usare"}
+    - tutor: "Le potrebbe usare? Parliamo della lavatrice: è una sola."
+      prompt: {text: "Le potrebbe usare", tags: [object-pronoun]}
+    - learner: "Le potrebbe usare prima, per favore?"
+      errors: [object-pronoun]
+    - tutor: "Sì, la potrei usare prima delle dieci, nessun problema."
+      recast: {text: "Le potrebbe usare", fix: "la potrei usare", tags: [object-pronoun]}
+      goals: [request]
+    - learner: "Grazie. Il sabato e la domenica invece può usarla quando vuole, perché non lavoro."
+    - tutor: "Perfetto: durante la settimana prima delle dieci, e nel fine settimana quando mi serve. Grazie a lei!"
+      goals: [compromise]
+
+- scenario: volontariato
+  level: B1
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Ciao! Sì, sono qui per sei mesi e vorrei restituire qualcosa alla città."
+      errors: [word-choice]
+      gold: {text: "restituire qualcosa", fix: "dare qualcosa"}
+    - tutor: "Dare qualcosa alla città, che bell'idea! Perché proprio il volontariato?"
+      recast: {text: "restituire qualcosa", fix: "Dare qualcosa", tags: [word-choice]}
+    - learner: "Perché la persona da che ho imparato di più nella vita è mia nonna, e vorrei aiutare gli anziani."
+      errors: [relative-pronoun]
+      gold: {text: "da che", fix: "da cui"}
+    - tutor: "La persona da che...? Dopo «da», quale pronome ci vuole?"
+      prompt: {text: "da che", tags: [relative-pronoun]}
+    - learner: "La persona da cui ho imparato di più è mia nonna."
+    - tutor: "Che bel motivo. E cosa sai fare?"
+      goals: [motivation]
+    - learner: "Parlo inglese e francese, e so suonare la chitarra. Poterei suonare per gli anziani."
+      errors: [conditional-form]
+      gold: {text: "Poterei", fix: "Potrei"}
+    - tutor: "Poterei? Il condizionale di potere è più corto."
+      prompt: {text: "Poterei", tags: [conditional-form]}
+    - learner: "Potrei suonare per loro."
+    - tutor: "Ottimo, la musica piace a tutti! Quanto tempo potresti darci?"
+      goals: [skills]
+    - learner: "Due pomeriggi a settimana, il martedì e il giovedì, ma no il fine settimana."
+      errors: [negation]
+      gold: {text: "ma no il fine settimana", fix: "ma non il fine settimana"}
+    - tutor: "Ma no il fine settimana? Qui ci vuole un'altra negazione."
+      prompt: {text: "ma no il fine settimana", tags: [negation]}
+    - learner: "Ma no il sabato e la domenica, ecco."
+      errors: [negation]
+    - tutor: "Va bene, ma non il sabato e la domenica: nessun problema. Ti consiglio il centro anziani, lì si parla, si gioca a carte e si canta."
+      recast: {text: "no il sabato", fix: "non il sabato", tags: [negation]}
+      goals: [time]
+    - learner: "Perfetto, scelgo il centro anziani! Porterò la chitarra già martedì."
+    - tutor: "Benissimo, allora a martedì. Gli anziani saranno contentissimi!"
+      goals: [choose]
+
+- scenario: volontariato
+  level: B1
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Ciao! Sì. Adesso lavoro solo la mattina, e il pomeriggio sto molto aburrito."
+      errors: [word-choice]
+      gold: {text: "sto molto aburrito", fix: "mi annoio molto"}
+    - tutor: "Ti annoi il pomeriggio? Allora sei nel posto giusto! Perché il volontariato?"
+      recast: {text: "sto molto aburrito", fix: "Ti annoi", tags: [word-choice]}
+    - learner: "Quando sono arrivato in Italia, un'associazione mi ha aiutato molto. Adesso voglio ritornare l'aiuto."
+      errors: [word-choice]
+      gold: {text: "ritornare l'aiuto", fix: "ricambiare l'aiuto"}
+    - tutor: "Vuoi ricambiare l'aiuto, che bel pensiero. Cosa sai fare?"
+      recast: {text: "ritornare l'aiuto", fix: "ricambiare l'aiuto", tags: [word-choice]}
+      goals: [motivation]
+      new: [{lemma: ricambiare, gloss: to return (a favour)}]
+    - learner: "Sono muratore, so riparare tante cose. E so cucinare bene: farei la paella per cinquanta persone!"
+    - tutor: "Fantastico, ci servono tutte e due le cose! Quanto tempo hai?"
+      goals: [skills]
+    - learner: "Potrei venire tre pomeriggi a settimana. Il sabato anche, se servirebbe."
+      errors: [hypothetical]
+      gold: {text: "se servirebbe", fix: "se serve"}
+    - tutor: "Se servirebbe? Dopo «se» il condizionale non va bene."
+      prompt: {text: "se servirebbe", tags: [hypothetical]}
+    - learner: "Se serve, vengo anche il sabato."
+    - tutor: "Perfetto. Abbiamo la cucina per le persone senza casa, oppure i lavori nella nostra sede. Cosa sceglieresti?"
+      goals: [time]
+    - learner: "Sceglierei la cucina: è il lavoro per che sono più bravo."
+      errors: [relative-pronoun]
+      gold: {text: "per che", fix: "per cui"}
+    - tutor: "Il lavoro per che...? Dopo «per», che pronome usiamo?"
+      prompt: {text: "per che", tags: [relative-pronoun]}
+    - learner: "Il lavoro per che sono più bravo, sì, cucinare."
+      errors: [relative-pronoun]
+    - tutor: "Sì, cucinare è il lavoro per cui sei più bravo: allora ti metto in cucina!"
+      recast: {text: "per che", fix: "per cui", tags: [relative-pronoun]}
+      goals: [choose]
+    - learner: "Grazie! Quando comincio?"
+    - tutor: "Lunedì alle undici. Ti aspettiamo con il grembiule!"
+      new: [{lemma: grembiule, gloss: apron}]
+
+- scenario: volontariato
+  level: B1
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Ciao. Sì, sono in pensione da un anno e cerco qualcosa di utile da fare."
+    - tutor: "Benvenuto! Perché hai pensato al volontariato?"
+    - learner: "Mia moglie faceva la volontaria in un ospedale per vent'anni. Diceva che era la cosa più bella della sua vita."
+      errors: [tense-aspect]
+      gold: {text: "faceva la volontaria in un ospedale per vent'anni", fix: "ha fatto la volontaria in un ospedale per vent'anni"}
+    - tutor: "Faceva la volontaria per vent'anni? Sono vent'anni finiti, chiusi: che tempo serve?"
+      prompt: {text: "faceva la volontaria", tags: [tense-aspect]}
+    - learner: "Ha fatto la volontaria per vent'anni. Adesso tocca a me."
+    - tutor: "Che bella storia. E cosa ti piace fare?"
+      goals: [motivation]
+    - learner: "Ero insegnante di matematica. Potrei aiutare i ragazzi che hanno problemi con i compiti."
+    - tutor: "Perfetto, ne abbiamo tanti! Quanto tempo hai?"
+      goals: [skills]
+    - learner: "Tutto il tempo che volete! Ma il mercoledì vado a pescare con un amico, quello con chi ho lavorato per vent'anni."
+      errors: [relative-pronoun]
+      gold: {text: "con chi", fix: "con cui"}
+    - tutor: "L'amico con chi...? Attenzione al pronome dopo «con»."
+      prompt: {text: "con chi", tags: [relative-pronoun]}
+    - learner: "Quello con chi ho lavorato, sì, alla scuola."
+      errors: [relative-pronoun]
+    - tutor: "Ah, l'amico con cui hai lavorato a scuola! Allora il mercoledì è per lui. Ti andrebbe il doposcuola, con i ragazzi e i compiti?"
+      recast: {text: "con chi", fix: "con cui", tags: [relative-pronoun]}
+      goals: [time]
+      new: [{lemma: doposcuola, gloss: after-school club}]
+    - learner: "Sì, il doposcuola, che ne ho sentito parlare anche in città."
+      errors: [relative-pronoun]
+      gold: {text: "che ne ho sentito parlare", fix: "di cui ho sentito parlare"}
+    - tutor: "Che ne ho sentito parlare? Si sente parlare «di» qualcosa: come uniamo le due frasi?"
+      prompt: {text: "che ne ho sentito parlare", tags: [relative-pronoun]}
+    - learner: "Il doposcuola, di cui ho sentito parlare."
+    - tutor: "Esatto! Allora ti aspettiamo al doposcuola dal lunedì al venerdì, tranne il mercoledì."
+      goals: [choose]
+
+- scenario: volontariato
+  level: B1
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Ciao! Sì, sono una studentessa Erasmus e sono qui per una stanza di sei mesi."
+      errors: [false-friend]
+      gold: {text: "una stanza di sei mesi", fix: "un soggiorno di sei mesi"}
+    - tutor: "Un soggiorno di sei mesi, perfetto! E perché il volontariato?"
+      recast: {text: "una stanza di sei mesi", fix: "Un soggiorno di sei mesi", tags: [false-friend]}
+    - learner: "Nel mio paese facevo volontariato con i bambini. Penso che è un modo bellissimo per imparare la lingua."
+      errors: [subjunctive-use]
+      gold: {text: "che è un modo", fix: "che sia un modo"}
+    - tutor: "Penso che... è un modo? Dopo «penso che», quale modo usiamo?"
+      prompt: {text: "che è un modo", tags: [subjunctive-use]}
+    - learner: "Penso che sia un modo bellissimo."
+    - tutor: "Hai ragione! Cosa sai fare?"
+      goals: [motivation]
+    - learner: "Sono molto brava con i bambini e so disegnare. Potrei organizzare dei laboratori di disegno."
+    - tutor: "Perfetto. Quanto tempo hai?"
+      goals: [skills]
+    - learner: "Il pomeriggio sono libera, ma solo fino a giugno, perché a luglio tornarò a Madrid."
+      errors: [future-form]
+      gold: {text: "tornarò", fix: "tornerò"}
+    - tutor: "A luglio tornarò? Prova di nuovo con il futuro di tornare."
+      prompt: {text: "tornarò", tags: [future-form]}
+    - learner: "Tornarò a Madrid, sì, a luglio."
+      errors: [future-form]
+    - tutor: "Ah, tornerai a Madrid a luglio, allora fino a giugno. Preferisci aiutare i bambini con i compiti o fare disegno in ospedale?"
+      recast: {text: "Tornarò", fix: "tornerai", tags: [future-form]}
+      goals: [time]
+    - learner: "Il disegno in ospedale! È l'attività che ho più voglia di fare."
+      errors: [relative-pronoun]
+      gold: {text: "che ho più voglia", fix: "di cui ho più voglia"}
+    - tutor: "L'attività che ho più voglia? Si ha voglia «di» qualcosa..."
+      prompt: {text: "che ho più voglia", tags: [relative-pronoun]}
+    - learner: "L'attività di cui ho più voglia!"
+    - tutor: "Perfetto, allora ti segno per il disegno in ospedale. I bambini ti aspettano!"
+      goals: [choose]
+
+- scenario: volontariato
+  level: B1
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Ciao! Sì, ho appena finito un viaggio di un anno e adesso resterò a Bologna per un po'."
+    - tutor: "Benvenuto! E perché vuoi fare volontariato?"
+    - learner: "Durante il viaggio molte persone mi hanno aiutato, anche persone che non conoscevo. Adesso tocca a me."
+    - tutor: "Che bel pensiero. Cosa sai fare?"
+      goals: [motivation]
+    - learner: "So fare belle fotografie. Potrei fare le foto alle vostre attività, per metterli sul sito."
+      errors: [object-pronoun]
+      gold: {text: "metterli", fix: "metterle"}
+    - tutor: "Per metterli? Parliamo delle foto: il pronome va bene?"
+      prompt: {text: "metterli", tags: [object-pronoun]}
+    - learner: "Per metterli sul sito, sì, e anche su internet."
+      errors: [object-pronoun]
+    - tutor: "Ottimo, potresti fare le foto e metterle sul sito, ci serve proprio! Quanto tempo hai?"
+      recast: {text: "metterli", fix: "metterle", tags: [object-pronoun]}
+      goals: [skills]
+    - learner: "A settembre comincerò un lavoro nuovo, ma fino ad allora venirò tutti i giorni."
+      errors: [future-form]
+      gold: {text: "venirò", fix: "verrò"}
+    - tutor: "Fino ad allora... venirò? Il futuro di venire è un po' diverso."
+      prompt: {text: "venirò", tags: [future-form]}
+    - learner: "Venirò tutti i giorni, sì, la mattina."
+      errors: [future-form]
+    - tutor: "Verrai tutti i giorni fino a settembre? Fantastico! Abbiamo la raccolta del cibo il sabato, e le foto per la festa di ottobre."
+      recast: {text: "Venirò", fix: "Verrai", tags: [future-form]}
+      goals: [time]
+    - learner: "Farò tutte e due! Ma prima la raccolta, che è la cosa di che c'è più bisogno."
+      errors: [relative-pronoun]
+      gold: {text: "di che", fix: "di cui"}
+    - tutor: "La cosa di che...? Pensa al pronome dopo «di»."
+      prompt: {text: "di che", tags: [relative-pronoun]}
+    - learner: "La cosa di cui c'è più bisogno."
+    - tutor: "Esatto! Allora sabato alle nove al supermercato: e non dimenticare di fare qualche foto!"
+      goals: [choose]

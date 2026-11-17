@@ -1,0 +1,241 @@
+# y-future, file 05: B2, future and futuro anteriore (avrò ricevuto, sapremo, vedrò, pagheranno).
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Direi bene. Abbiamo completato l'analisi dei dati e stiamo preparando la presentazione per il cliente."
+    - tutor: "Ottimo. Ci sono difficoltà?"
+      goals: [update]
+    - learner: "Purtroppo sì: il grafico principale dipende dai dati del marketing, che arrivano in ritardo. Appena li averò ricevuti, mi serviranno due giorni."
+      errors: [future-form]
+      gold: {text: "averò", fix: "avrò"}
+    - tutor: "«Appena li averò ricevuti»: la struttura va bene, ma controlla l'ausiliare. Com'è avere al futuro?"
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+      prompt: {text: "averò", tags: [future-form]}
+    - learner: "Appena li avrò ricevuti, mi serviranno due giorni."
+    - tutor: "Perfetto. Hai già un'idea per guadagnare tempo?"
+      goals: [problem]
+    - learner: "Sì: dobbiamo assumere che i dati arriveranno tardi, quindi chiederò al marketing una versione parziale entro mercoledì."
+      errors: [false-friend]
+    - tutor: "Giusto, meglio supporre il peggio. Mi sembra una buona idea. Allora quale scadenza diamo al cliente?"
+      recast: {text: "assumere", fix: "supporre", tags: [false-friend]}
+      goals: [proposal]
+    - learner: "Proporrei venerdì della settimana prossima: a quel punto avremo finito tutto e avremo anche un giorno di buffer."
+      errors: [word-choice]
+    - tutor: "D'accordo, venerdì prossimo, con un giorno di margine. Scrivo io al cliente oggi stesso."
+      goals: [deadline]
+      recast: {text: "buffer", fix: "margine", tags: [word-choice]}
+      new: [{lemma: margine, gloss: margin}]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Va avanti, ma più lentamente del previsto. Abbiamo finito il prototipo, ora mancano i test."
+    - tutor: "Capisco. E Giulia? Non la vedo, doveva presentare con te."
+    - learner: "Non so, sarà ancora in treno. Ieri mi ha detto che oggi tornava da Bologna."
+    - tutor: "Sarà in ritardo, come al solito! Qual è il problema principale con i test?"
+      goals: [update]
+    - learner: "Ci serve una macchina speciale, ma il laboratorio ce la presterà solo dal quindici. Fino a quel momento non saperemo se il prototipo funziona davvero."
+      errors: [future-form]
+      gold: {text: "saperemo", fix: "sapremo"}
+    - tutor: "Saperemo? Anche sapere, come avere e potere, ha un futuro contratto. Prova di nuovo."
+      prompt: {text: "saperemo", tags: [future-form]}
+    - learner: "Non sapremmo se funziona."
+      errors: [future-form]
+    - tutor: "Eh sì, finché non arriva la macchina non sapremo niente di sicuro. Cosa proponi?"
+      goals: [problem]
+      recast: {text: "sapremmo", fix: "sapremo", tags: [future-form]}
+    - learner: "Potremmo noleggiarne una per due settimane. Costa circa tremila euro: rientra nel presupposto?"
+      errors: [false-friend]
+    - tutor: "Rientra nel budget, anche se non è poco. Se la prendiamo per due settimane, quando finite?"
+      recast: {text: "presupposto", fix: "budget", tags: [false-friend]}
+      new: [{lemma: budget, gloss: budget}]
+      goals: [proposal]
+    - learner: "Se la macchina arriva lunedì, entro la fine del mese avremo completato tutti i test."
+    - tutor: "Va bene, fine del mese. Mandami i costi precisi entro domani."
+      goals: [deadline]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Per ora lavoro da casa quattro giorni su cinque, ma la mia compagnia ha deciso che dal mese prossimo dovremo andare in ufficio tre giorni a settimana. Mi mancherà lavorare da casa."
+      errors: [word-choice]
+    - tutor: "Ah, la tua azienda vi vuole in ufficio! Ti capisco. Che cosa ti mancherà di più?"
+      goals: [situation]
+      recast: {text: "compagnia", fix: "azienda", tags: [word-choice]}
+    - learner: "Non perdo tempo nel traffico e mi concentro meglio. Quando tornerò in ufficio, mi sveglierò un'ora prima e spenderò un sacco in gas."
+      errors: [word-choice]
+    - tutor: "Eh, la benzina costa! Però lavorare da casa ha anche degli svantaggi, no?"
+      goals: [pros]
+      recast: {text: "gas", fix: "benzina", tags: [word-choice]}
+    - learner: "Certo. A volte mi sento solo. Forse in ufficio vederò più spesso i colleghi e imparerò di più."
+      errors: [future-form]
+      gold: {text: "vederò", fix: "vedrò"}
+    - tutor: "Vederò? Pensa al futuro di vedere: perde una lettera, proprio come andare."
+      prompt: {text: "vederò", tags: [future-form]}
+    - learner: "Vedrò più spesso i colleghi."
+    - tutor: "Esatto. Quindi alla fine cosa preferiresti?"
+      goals: [cons]
+    - learner: "Preferirei due giorni in ufficio e tre a casa: sarebbe l'equilibrio perfetto."
+    - tutor: "Sono d'accordo, sarebbe l'ideale. Magari la tua azienda cambierà idea!"
+      goals: [preference]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! È molto luminoso. Quanto è l'affitto? Comprende le spese della comunità?"
+      errors: [word-choice]
+    - tutor: "Sono ottocento euro al mese, spese del condominio incluse. Le bollette sono a parte."
+      recast: {text: "della comunità", fix: "del condominio", tags: [word-choice]}
+      goals: [rent]
+    - learner: "Va bene. Che tipo di contratto è? E quanto sarà la fianza?"
+      errors: [word-choice]
+    - tutor: "È un quattro più quattro, con una cauzione di due mesi."
+      recast: {text: "fianza", fix: "cauzione", tags: [word-choice]}
+      new: [{lemma: cauzione, gloss: deposit}]
+      goals: [contract]
+    - learner: "Il riscaldamento funziona bene? L'inverno qui sarà freddo, immagino."
+    - tutor: "Sì, il riscaldamento è autonomo e la caldaia è nuova. Anche la cucina è stata rifatta l'anno scorso."
+      goals: [condition]
+      new: [{lemma: caldaia, gloss: boiler}]
+    - learner: "Perfetto. Com'è il quartiere? Mia figlia comincierà la scuola a settembre."
+      errors: [future-form]
+      gold: {text: "comincierà", fix: "comincerà"}
+    - tutor: "Comincierà? Guardi bene come si scrive il futuro di cominciare."
+      prompt: {text: "comincierà", tags: [future-form]}
+    - learner: "Cominciarà la scuola a settembre."
+      errors: [future-form]
+    - tutor: "Bene, se sua figlia comincerà la scuola a settembre, si troverà benissimo: la scuola è a dieci minuti a piedi e il quartiere è molto tranquillo."
+      recast: {text: "Cominciarà", fix: "comincerà", tags: [future-form]}
+      goals: [neighbourhood]
+    - learner: "Benissimo, mi interessa molto. Le farò sapere entro domani, va bene?"
+    - tutor: "Certo, aspetto la sua chiamata. Arrivederci!"
+      goals: [decide]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Vorremmo una cerimonia all'aperto, in campagna, con circa ottanta invitati."
+    - tutor: "Che bello. E quale budget avete in mente?"
+      goals: [vision]
+    - learner: "Non più di venticinquemila euro. I miei genitori pagaranno il ristorante, e il resto lo mettiamo noi."
+      errors: [future-form]
+      gold: {text: "pagaranno", fix: "pagheranno"}
+    - tutor: "Pagaranno? Al futuro, pagare cambia due cose: una lettera e un suono da conservare. Ci riprova?"
+      prompt: {text: "pagaranno", tags: [future-form]}
+    - learner: "Pageranno il ristorante."
+      errors: [future-form]
+    - tutor: "Quindi i suoi genitori pagheranno il ristorante: è già una bella parte del budget. Avete visto qualche posto?"
+      goals: [budget]
+      recast: {text: "Pageranno", fix: "pagheranno", tags: [future-form]}
+    - learner: "Sì, due: una villa sul lago e un agriturismo in collina. Lei cosa consiglia?"
+    - tutor: "La villa è più elegante, l'agriturismo costa il trenta per cento in meno. Dipende dalle vostre priorità."
+    - learner: "Scegliamo l'agriturismo: così risparmieremo per il viaggio di nozze."
+    - tutor: "Scelta saggia! Ha qualche richiesta particolare per me?"
+      goals: [choices]
+    - learner: "Sì: prima di prenotare qualsiasi cosa, vogliamo una quotazione dettagliata."
+      errors: [word-choice]
+    - tutor: "Senz'altro, riceverà un preventivo dettagliato per email entro venerdì."
+      goals: [conditions]
+      recast: {text: "una quotazione dettagliata", fix: "un preventivo dettagliato", tags: [word-choice]}
+      new: [{lemma: dettagliato, gloss: detailed}]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Mi sono mossa a Bologna il mese scorso e vorrei chiedere la residenza."
+      errors: [word-choice]
+    - tutor: "Va bene, se si è trasferita qui le serve la residenza. Ha portato un documento d'identità e il contratto d'affitto?"
+      recast: {text: "mossa", fix: "trasferita", tags: [word-choice]}
+      goals: [request]
+    - learner: "Ho il passaporto e il contratto. Mi serve altro?"
+    - tutor: "Serve anche il codice fiscale. Ce l'ha con sé?"
+      goals: [documents]
+      new: [{lemma: fiscale, gloss: tax (code)}]
+    - learner: "No, purtroppo l'ho lasciato a casa. Posso tornare domani? Domani mattina sarò libera."
+    - tutor: "Non serve tornare: può mandarlo per email. Poi un vigile verrà a casa sua per il controllo."
+      goals: [problem]
+    - learner: "E se il vigile viene quando non ci sono? La domanda rimanerà valida?"
+      errors: [future-form]
+      gold: {text: "rimanerà", fix: "rimarrà"}
+    - tutor: "Rimanerà? Il futuro di rimanere è particolare, un po' come quello di venire. Ci riprova?"
+      prompt: {text: "rimanerà", tags: [future-form]}
+    - learner: "Rimanrà valida?"
+      errors: [future-form]
+    - tutor: "Sì, la domanda rimarrà valida: il vigile lascia un avviso e torna un'altra volta. La pratica si chiude entro quarantacinque giorni."
+      goals: [next]
+      recast: {text: "Rimanrà", fix: "rimarrà", tags: [future-form]}
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Sono ingegnera gestionale, mi sono licenziata a Madrid e da due anni vivo a Torino."
+      errors: [false-friend]
+    - tutor: "Benissimo, si è laureata a Madrid. Che esperienza ha avuto finora?"
+      recast: {text: "licenziata", fix: "laureata", tags: [false-friend]}
+      new: [{lemma: laureare, gloss: to graduate}]
+      goals: [intro]
+    - learner: "Ho lavorato per un anno e mezzo in un'azienda di logistica, dove mi occupavo di organizzare le consegne."
+    - tutor: "Interessante. Quali sono i suoi punti di forza? E un punto debole?"
+      goals: [experience]
+    - learner: "Sono organizzata e so lavorare sotto pressione. Il mio punto debole è che a volte faccio tutto da sola."
+    - tutor: "Grazie della risposta sincera. E perché vuole lavorare proprio con noi?"
+      goals: [strengths]
+    - learner: "Perché siete un'azienda in crescita. Tra cinque anni mi vedo come responsabile di una squadra: averò più responsabilità e gestirò progetti più grandi."
+      errors: [future-form]
+      gold: {text: "averò", fix: "avrò"}
+    - tutor: "Averò? Attenzione a quel futuro: avere ha una forma più breve. Come si dice?"
+      prompt: {text: "averò", tags: [future-form]}
+    - learner: "Avrò più responsabilità."
+    - tutor: "Esatto. È un bell'obiettivo. Ha qualche domanda sul ruolo?"
+      goals: [why]
+    - learner: "Sì: come sarà organizzato il periodo di formazione?"
+    - tutor: "Per i primi tre mesi lavorerà accanto a un collega esperto. Le faremo sapere entro due settimane."
+      goals: [questions]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Sono venuto in Umbria sei anni fa, dopo il mio ritiro. Mia moglie e io sognavamo una vita più lenta."
+      errors: [false-friend]
+    - tutor: "Dopo la pensione, che bella scelta! Un sogno che molti condividono. Qual è stata la difficoltà più grande?"
+      goals: [story]
+      recast: {text: "il mio ritiro", fix: "la pensione", tags: [false-friend]}
+    - learner: "Senza dubbio la burocrazia. Per il permesso di soggiorno sono tornato in questura cinque volte!"
+    - tutor: "Cinque volte, che pazienza! E lei, come è cambiato in questi anni?"
+      goals: [difficulties]
+    - learner: "Sono più paziente e mangio molto meglio. E quando sarò finito il corso di italiano, parlerò come un vero umbro!"
+      errors: [future-form]
+      gold: {text: "sarò finito", fix: "avrò finito"}
+    - tutor: "Quando sarò finito il corso? È lei che finisce il corso: quale ausiliare ci vuole?"
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+      prompt: {text: "sarò finito", tags: [future-form]}
+    - learner: "Quando avrò finito il corso, parlerò come un vero umbro!"
+    - tutor: "Ne sono sicuro! Che consiglio darebbe a chi vuole trasferirsi qui?"
+      goals: [change]
+    - learner: "Di imparare la lingua prima di partire, e di avere molta pazienza con gli uffici."
+    - tutor: "Due consigli preziosi. Grazie di essere stato con noi!"
+      goals: [advice]

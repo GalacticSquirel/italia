@@ -1,0 +1,270 @@
+# y-cine, file 05 (B2): ne with past participle, ci with credere/contare/tenere, ce l'ho.
+- scenario: affittare-appartamento
+  level: B2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È luminoso, bello. Sto cercando da un mese: ho visto quattro solo questa settimana."
+      errors: [ci-ne]
+      gold: {text: "ho visto quattro", fix: "ne ho visti quattro"}
+    - tutor: "Quattro in una settimana, che corsa! Però «ho visto quattro» lascia l'oggetto per strada: come lo riprende senza ripetere «appartamenti»?"
+      prompt: {text: "ho visto quattro", tags: [ci-ne]}
+    - learner: "Ah, ne ho visto quattro solo questa settimana."
+      errors: [participle-agreement]
+    - tutor: "Ci siamo quasi! Ma se sono quattro appartamenti, la fine di «visto» può restare così?"
+      prompt: {text: "ne ho visto quattro", tags: [participle-agreement]}
+    - learner: "Giusto: ne ho visti quattro. E l'affitto quanto è, con le spese?"
+    - tutor: "Perfetto. Sono 850 euro, spese del palazzo comprese; le bollette invece sono a parte."
+      goals: [rent]
+      new: [{lemma: bolletta, gloss: utility bill}]
+    - learner: "Il contratto è di quattro anni? Non so se resto così tanto tempo in Bologna."
+      errors: [preposition]
+    - tutor: "Di solito sì, quattro più quattro. Ma «in Bologna»: con il nome di una città, che preposizione usiamo?"
+      prompt: {text: "in Bologna", tags: [preposition]}
+    - learner: "Sì, scusi, non so se resto tanto tempo in Bologna, magari due anni."
+      errors: [preposition]
+    - tutor: "Capisco: se non sa quanto resterà a Bologna, possiamo fare un contratto più breve, di diciotto mesi. La caparra è di due mesi di affitto."
+      recast: {text: "in Bologna", fix: "a Bologna", tags: [preposition]}
+      goals: [contract]
+    - learner: "Va bene. E il riscaldamento? D'inverno qui fa freddo e io ci tengo a stare al caldo."
+    - tutor: "È autonomo, con una caldaia nuova: la può regolare come vuole."
+      goals: [condition]
+      new: [{lemma: autonomo, gloss: independent}, {lemma: caldaia, gloss: boiler}]
+    - learner: "Ottimo. Com'è la zona di sera? C'è un parcheggio? Non ho trovato uno libero quando sono arrivato."
+      errors: [ci-ne]
+    - tutor: "Ah, «non ho trovato uno libero»: uno di che cosa? Ripensi alla piccola parola che riprende «parcheggio»."
+      prompt: {text: "non ho trovato uno libero", tags: [ci-ne]}
+    - learner: "Non ne ho trovato uno libero. Quindi è un problema?"
+    - tutor: "Esatto. Di sera è difficile, ma c'è un garage a cento metri. La zona è tranquilla: il bar sotto chiude alle nove."
+      goals: [neighbourhood]
+    - learner: "Mi piace molto. Ci penso stanotte e la chiamo domani mattina, va bene?"
+    - tutor: "Certo, ci pensi con calma. Aspetto la sua telefonata."
+      goals: [decide]
+
+- scenario: arte-mostra
+  level: B2
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Mi lascia un po' fredda, onestamente. Ci sono troppi dettagli e non capisco dove guardare."
+    - tutor: "Interessante, è la reazione di molti. Ma prova a descrivermi cosa vedi, partendo dal centro."
+      goals: [react]
+    - learner: "Al centro c'è una donna con un cesto di frutta. Intorno a lei ci sono animali: ho contato almeno dodici."
+      errors: [ci-ne]
+      gold: {text: "ho contato almeno dodici", fix: "ne ho contati almeno dodici"}
+    - tutor: "Dodici animali, hai l'occhio attento! Ma «ho contato almeno dodici»: dodici di che cosa? Manca la parola che li riprende."
+      prompt: {text: "ho contato almeno dodici", tags: [ci-ne]}
+    - learner: "Ne ho contati almeno dodici: cani, uccelli, perfino una lepre."
+    - tutor: "Perfetto, anche la forma di «contati»! Secondo te che cosa rappresentano?"
+      goals: [describe]
+      new: [{lemma: lepre, gloss: hare}]
+    - learner: "Forse l'abbondanza della natura. Ma io non credo in questa interpretazione troppo semplice: credo che c'è anche qualcosa di triste."
+      errors: [subjunctive-use]
+    - tutor: "Ah, vedi qualcosa di triste? Questa mi interessa. Però «credo che c'è»: dopo un verbo di opinione, quale modo ci vuole?"
+      prompt: {text: "credo che c'è", tags: [subjunctive-use]}
+    - learner: "Credo che ci sia anche qualcosa di triste: la donna non sorride, guarda lontano."
+    - tutor: "Bellissima osservazione. In effetti fu dipinto dopo una pestilenza, quindi la tua lettura regge."
+      goals: [interpret]
+    - learner: "Allora ci credo ancora di più! Mi ricorda un po' le nature morte fiamminghe, ma più cupe."
+    - tutor: "Il paragone è giusto: stessa cura dei dettagli, ma qui la luce è più fredda. Vieni, nella sala accanto ce ne sono due da vedere insieme."
+      goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Sabato ero in un parcheggio e una signora ha fatto retromarcia e mi ha colpito la portiera."
+    - tutor: "Mi dispiace. Lei era dentro la macchina in quel momento?"
+      new: [{lemma: portiera, gloss: car door}]
+    - learner: "Sì, ero appena salito. Non mi sono fatto niente, ma la portiera è tutta dentata."
+      errors: [word-choice]
+    - tutor: "Meno male che lei sta bene: una portiera ammaccata si ripara. E la signora ha riconosciuto la sua responsabilità?"
+      recast: {text: "dentata", fix: "ammaccata", tags: [word-choice]}
+      new: [{lemma: ammaccato, gloss: dented}]
+      goals: [what]
+    - learner: "Sì, lei ha detto subito che non mi aveva visto. Era molto dispiaciuta e ha scusato più volte."
+      errors: [reflexive]
+    - tutor: "Bene, questo aiuta. Ma «ha scusato più volte»: chi ha scusato chi? Manca qualcosa al verbo."
+      prompt: {text: "ha scusato", tags: [reflexive]}
+    - learner: "Sì, ha scusata più volte."
+      errors: [reflexive]
+    - tutor: "Bene, se si è scusata subito, la responsabilità è chiara. Avete compilato la constatazione amichevole? Ha una copia?"
+      recast: {text: "ha scusata", fix: "si è scusata", tags: [reflexive]}
+      goals: [responsibility]
+    - learner: "Sì, abbiamo compilato. Ma la copia non ho con me, è rimasta in macchina."
+      errors: [ci-ne]
+      gold: {text: "la copia non ho", fix: "la copia non ce l'ho"}
+    - tutor: "Nessun problema. Ma «la copia non ho»: con un oggetto già nominato, «avere» in italiano parlato chiede due piccole parole davanti."
+      prompt: {text: "la copia non ho", tags: [ci-ne]}
+    - learner: "Ah, giusto: la copia non ce l'ho con me."
+    - tutor: "Esatto. Allora me la mandi per email entro domani, insieme alle foto del danno."
+      goals: [documents]
+    - learner: "Perfetto. E adesso cosa succede? Quanto tempo ci vuole per il rimborso?"
+    - tutor: "Un perito valuterà il danno entro dieci giorni; dopo ci vogliono circa tre settimane per il pagamento."
+      goals: [next]
+      new: [{lemma: perito, gloss: loss adjuster}]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Mi sono trasferita a Milano a marzo e vorrei applicare per la residenza."
+      errors: [word-choice]
+    - tutor: "Certo, deve fare domanda di residenza: è proprio questo lo sportello. Ha con sé un documento e il contratto d'affitto?"
+      recast: {text: "applicare per la residenza", fix: "fare domanda di residenza", tags: [word-choice]}
+      goals: [request]
+    - learner: "Il passaporto sì, eccolo. Il contratto invece non l'ho portato: nessuno mi ha detto che c'era bisogno di esso."
+      errors: [ci-ne]
+      gold: {text: "c'era bisogno di esso", fix: "ce n'era bisogno"}
+    - tutor: "Grazie. Però «c'era bisogno di esso» è corretto solo sulla carta: nessuno lo direbbe così. Come lo dice in modo più breve?"
+      prompt: {text: "c'era bisogno di esso", tags: [ci-ne]}
+    - learner: "Mmm... nessuno mi ha detto che c'era bisogno di lui."
+      errors: [ci-ne]
+    - tutor: "Purtroppo ce n'era bisogno: senza contratto non posso registrare l'indirizzo. Ma non si preoccupi, si risolve."
+      recast: {text: "c'era bisogno di lui", fix: "ce n'era bisogno", tags: [ci-ne]}
+      goals: [documents]
+    - learner: "Meno male. Posso mandarlo per email o devo tornarci di persona?"
+    - tutor: "Lo può caricare sul portale del Comune entro dieci giorni: si fa tutto online."
+      goals: [problem]
+    - learner: "Perfetto. E dopo cosa succede? Ho letto che viene un vigile per controllare se abito veramente lì."
+    - tutor: "Esatto: entro quarantacinque giorni passa un vigile. Se la trova in casa, la residenza viene confermata."
+    - learner: "E se non sono a casa? Lavoro tutto il giorno, ma ci tengo a non perdere la visita."
+    - tutor: "Scriva il suo numero di telefono vicino al campanello: di solito chiamano prima di passare."
+      goals: [next]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Ana, sono spagnola e insegno idiomi da dodici anni. Da due anni vivo a Torino."
+      errors: [false-friend]
+    - tutor: "Benvenuta. Quindi insegna lingue da dodici anni: quali, esattamente?"
+      recast: {text: "idiomi", fix: "lingue", tags: [false-friend]}
+      goals: [intro]
+    - learner: "Spagnolo e inglese. A Valencia, oltre alla scuola, organizzavo corsi per aziende: ho fatto tanti, quasi trenta."
+      errors: [ci-ne]
+      gold: {text: "ho fatto tanti", fix: "ne ho fatti tanti"}
+    - tutor: "Trenta corsi! Ma «ho fatto tanti»: tanti cosa? Le manca la parola che riprende «corsi»."
+      prompt: {text: "ho fatto tanti", tags: [ci-ne]}
+    - learner: "Ah, sì: ne ho fatti tanti, quasi trenta."
+    - tutor: "Perfetto, anche l'accordo. Quali sono i suoi punti forti, e un punto debole?"
+      goals: [experience]
+    - learner: "Sono organizzata e paziente. Il mio punto debole è che ci metto troppo tempo a preparare le lezioni, perché voglio che sono perfette."
+      errors: [subjunctive-use]
+    - tutor: "Un problema che molti capi accetterebbero volentieri! Ma «voglio che sono»: dopo «volere che», quale modo serve?"
+      prompt: {text: "voglio che sono", tags: [subjunctive-use]}
+    - learner: "Voglio che siano perfette, giusto."
+    - tutor: "Giusto. E perché vorrebbe lavorare proprio con noi?"
+      goals: [strengths]
+    - learner: "Perché lavorate con adulti, e la formazione degli adulti mi appassiona: ci credo davvero."
+    - tutor: "Si sente. Ha qualche domanda per me?"
+      goals: [why]
+    - learner: "Sì: quanti corsi dovrei tenere al mese? E sarebbe possibile lavorare da casa il venerdì?"
+    - tutor: "Ne terrebbe circa sei al mese, e sì, il venerdì si lavora da casa. Le faremo sapere entro lunedì."
+      goals: [questions]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Lavoro in questa cucina da tre anni e vorrei parlare del mio futuro qui."
+    - tutor: "Certo. Mi dica prima cosa ha ottenuto quest'anno."
+    - learner: "Ho creato il menù di primavera e i clienti del pranzo sono aumentati. Ho anche formato i ragazzi nuovi: ho formato tre in sei mesi."
+      errors: [ci-ne]
+      gold: {text: "ho formato tre", fix: "ne ho formati tre"}
+    - tutor: "Ottimi risultati. Ma «ho formato tre»: tre di cosa? Con una piccola parola eviterebbe di ripetere «ragazzi»."
+      prompt: {text: "ho formato tre", tags: [ci-ne]}
+    - learner: "Ne ho formati tre, e adesso lavorano da soli."
+    - tutor: "Esatto. E quindi cosa mi chiede?"
+      goals: [results]
+    - learner: "Vorrei diventare responsabile della cucina del pranzo. Ci penso da molto tempo."
+    - tutor: "Capisco. Il problema è che quest'anno abbiamo pochi soldi per gli aumenti."
+      goals: [request]
+    - learner: "Lo so, non chiedo molto. Basta che il ristorante riconosce il mio lavoro."
+      errors: [subjunctive-use]
+    - tutor: "È una richiesta giusta. Ma «basta che il ristorante riconosce»: dopo «basta che» il verbo cambia modo."
+      prompt: {text: "il ristorante riconosce", tags: [subjunctive-use]}
+    - learner: "Sì... basta che il ristorante riconosce il mio lavoro, anche senza molti soldi."
+      errors: [subjunctive-use]
+    - tutor: "Va bene: basta che il ristorante riconosca il suo impegno, e su questo sono d'accordo. Facciamo così: ne riparliamo a settembre, con i dati dell'estate."
+      recast: {text: "il ristorante riconosce", fix: "il ristorante riconosca", tags: [subjunctive-use]}
+      goals: [handle]
+    - learner: "D'accordo. Ma posso contarci davvero?"
+    - tutor: "Ci può contare. Mettiamo tutto su carta oggi stesso."
+      goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Io sono a favore. In molte città europee il centro è chiuso alle auto e i negozi eventualmente hanno guadagnato di più."
+      errors: [false-friend]
+    - tutor: "Alla fine hanno guadagnato di più? Facile dirlo. Ma che argomenti ha, in pratica?"
+      recast: {text: "eventualmente", fix: "Alla fine", tags: [false-friend]}
+      goals: [position]
+    - learner: "Primo, l'aria più pulita. Secondo, più gente a piedi davanti alle vetrine. A Pontevedra, in Spagna, funziona benissimo: sono stato l'anno scorso."
+      errors: [ci-ne]
+      gold: {text: "sono stato l'anno scorso", fix: "ci sono stato l'anno scorso"}
+    - tutor: "Sarà. Ma «sono stato l'anno scorso»: stato dove? Manca la piccola parola che riprende la città."
+      prompt: {text: "sono stato l'anno scorso", tags: [ci-ne]}
+    - learner: "Ci sono stato l'anno scorso, e i negozi erano pieni."
+    - tutor: "D'accordo. Ma pensi agli anziani che abitano fuori: come arriverebbero in centro?"
+      goals: [argue]
+    - learner: "Servono più autobus e navette elettriche. Il Comune deve investire in esse."
+      errors: [ci-ne]
+    - tutor: "«Investire in esse»: suona molto pesante. Con una piccola parola attaccata al verbo diventa più naturale."
+      prompt: {text: "investire in esse", tags: [ci-ne]}
+    - learner: "Il Comune deve investire in loro, intendevo."
+      errors: [ci-ne]
+    - tutor: "Bisognerebbe investirci, d'accordo, ma con quali soldi? Il Comune ne ha già pochi."
+      recast: {text: "investire in loro", fix: "investirci", tags: [ci-ne]}
+      goals: [counter]
+    - learner: "Ha ragione, i soldi sono un problema, e ammetto che per i negozi i primi mesi sarebbero difficili. Proponiamo una prova di sei mesi?"
+    - tutor: "Una prova di sei mesi, con i dati alla mano... Su questo posso essere d'accordo."
+      goals: [concede]
+
+- scenario: film-libro
+  level: B2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Ho letto un giallo ambientato a Trieste. Ne ho sentito parlare alla radio e l'ho comprato subito."
+    - tutor: "Un giallo a Trieste, che bello! Di cosa parla, senza svelare troppo?"
+      new: [{lemma: svelare, gloss: to reveal}]
+    - learner: "Un commissario indaga sulla morte di un pescatore. Tutti nel paese sanno qualcosa, ma nessuno vuole parlare di essa."
+      errors: [ci-ne]
+      gold: {text: "parlare di essa", fix: "parlarne"}
+    - tutor: "Che atmosfera! Ma «parlare di essa» è un po' da libro di scuola: come lo diresti con una sola parola?"
+      prompt: {text: "parlare di essa", tags: [ci-ne]}
+    - learner: "Nessuno vuole parlarne!"
+    - tutor: "Perfetto. E il commissario com'è?"
+      goals: [summary]
+    - learner: "È un uomo solitario e un po' triste, che la moglie lo ha lasciato da poco."
+      errors: [relative-pronoun]
+    - tutor: "Povero commissario! Ma «che la moglie lo ha lasciato»: per dire «di lui», quale pronome serve?"
+      prompt: {text: "che la moglie lo ha lasciato", tags: [relative-pronoun]}
+    - learner: "Sì, un uomo che la sua moglie lo ha lasciato."
+      errors: [relative-pronoun, possessive]
+    - tutor: "Ecco, un uomo la cui moglie lo ha lasciato: per questo passa le notti in ufficio. E il libro ti è piaciuto?"
+      recast: {text: "che la sua moglie lo ha lasciato", fix: "la cui moglie lo ha lasciato", tags: [relative-pronoun]}
+      goals: [characters]
+    - learner: "Sì, ma il finale mi ha deluso: l'autore non ci è riuscito a chiudere bene la storia."
+      errors: [ci-ne]
+    - tutor: "Peccato! Ma ascolta: «non ci è riuscito a chiudere». Qui c'è una parola di troppo."
+      prompt: {text: "non ci è riuscito a chiudere", tags: [ci-ne]}
+    - learner: "Ah: l'autore non è riuscito a chiudere bene la storia. Comunque lo consiglio a chi ama i gialli lenti."
+    - tutor: "Esatto. Allora è perfetto per chi non ha fretta: lo aggiungo alla lista!"
+      goals: [opinion, recommend]

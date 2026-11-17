@@ -1,0 +1,233 @@
+# C1 and C2, recast-focused: prompt, failed repair, recast with the exact corrected span early
+# in the reply; meaning-blocking lexical errors (false friends, calques) recast at once.
+- scenario: notizie-attualita
+  level: C1
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatto?"
+    - learner: "Sì, l'ho seguita. In pratica il Comune vuole limitare gli appartamenti per turisti nel centro storico."
+    - tutor: "Esatto, riassunto perfetto. E tu sei d'accordo?"
+      goals: [summarise]
+    - learner: "In parte. Se il Comune avrebbe agito cinque anni fa, oggi gli affitti non sarebbero così alti."
+      errors: [hypothetical]
+    - tutor: "Su questo ti do ragione. Ma «se il Comune avrebbe agito»: dopo «se», il condizionale non ci sta. Che cosa serve?"
+      prompt: {text: "avrebbe agito", tags: [hypothetical]}
+    - learner: "Hai ragione... se il Comune avrebbe agito prima, insomma, adesso sarebbe diverso."
+      errors: [hypothetical]
+    - tutor: "Certo, se il Comune avesse agito prima, oggi parleremmo d'altro. Ma come l'hanno raccontata i giornali, secondo te?"
+      goals: [opinion]
+      recast: {text: "avrebbe agito", fix: "avesse agito", tags: [hypothetical]}
+    - learner: "Il Corriere mi è sembrato più balanced, mentre altri giornali parlavano solo dei proprietari arrabbiati."
+      errors: [word-choice]
+    - tutor: "Più equilibrato, sì, ha dato voce anche agli inquilini. Gli altri hanno cavalcato la polemica."
+      goals: [sources]
+      recast: {text: "balanced", fix: "equilibrato", tags: [word-choice]}
+    - learner: "E secondo te cosa succederà adesso? I proprietari faranno ricorso?"
+    - tutor: "Qualcuno farà sicuramente ricorso al tribunale amministrativo. Tu che conseguenze immagini?"
+    - learner: "Credo che all'inizio i prezzi scenderanno poco, ma che tra qualche anno il centro tornerà a essere abitato dai residenti."
+    - tutor: "Speriamo che tu abbia ragione. Sarebbe bello rivedere le finestre illuminate in centro, d'inverno."
+      goals: [consequences]
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+    - learner: "Buongiorno! Mi chiamo Carmen, sono una studentessa spagnola a Venezia, e sono a favore del ticket."
+    - tutor: "Benvenuta, Carmen! A favore, quindi. Ma non le sembra che trasformi Venezia in un parco giochi?"
+      goals: [introduce]
+    - learner: "No, perché senza limiti i turisti molestano i residenti: ieri un gruppo ha fatto un picnic sui gradini di casa mia."
+      errors: [false-friend]
+    - tutor: "Danno fastidio ai residenti, eccome: un picnic sui gradini di casa è un esempio perfetto. Ma cinque euro fermeranno davvero qualcuno?"
+      goals: [example]
+      recast: {text: "molestano", fix: "Danno fastidio", tags: [false-friend]}
+    - learner: "Forse cinque euro no, ma è un primo passo. Prima di tutto, bisogna pensare nei residenti."
+      errors: [preposition]
+    - tutor: "Bel principio. Ma riascolti «pensare nei residenti»: le torna quella preposizione?"
+      prompt: {text: "pensare nei residenti", tags: [preposition]}
+    - learner: "Sì, voglio dire che bisogna pensare nei residenti e nelle loro case."
+      errors: [preposition]
+    - tutor: "Pensare ai residenti, d'accordo. Ma l'economia di Venezia vive di turismo: senza turisti, chi paga gli stipendi?"
+      goals: [rebut]
+      recast: {text: "pensare nei residenti", fix: "Pensare ai residenti", tags: [preposition]}
+    - learner: "Non dico senza turisti, dico meno turisti e più consapevoli. Propongo una prenotazione obbligatoria nei giorni di punta, come per i musei."
+    - tutor: "Una prenotazione come per i musei... Non è un'idea assurda, anzi. Grazie, Carmen, è stata chiarissima!"
+      goals: [proposal]
+
+- scenario: presentazione-progetto
+  level: C1
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Certo. Proponiamo di automatizzare la gestione del magazzino con un software che prevede gli ordini."
+    - tutor: "Bene. Ma in concreto, che cosa ci guadagniamo?"
+      goals: [pitch]
+    - learner: "Secondo le nostre stime, il sistema riducerà gli sprechi del trenta per cento entro un anno."
+      errors: [future-form]
+    - tutor: "Trenta per cento è tanto. Ma «riducerà»: il futuro di «ridurre» è più breve. Ci riprova?"
+      prompt: {text: "riducerà", tags: [future-form]}
+    - learner: "Sì, riducerà gli sprechi e anche i tempi di consegna."
+      errors: [future-form]
+    - tutor: "Ridurrà gli sprechi e i tempi di consegna, d'accordo, ma su quali dati si basa?"
+      goals: [benefits]
+      recast: {text: "riducerà", fix: "Ridurrà", tags: [future-form]}
+    - learner: "Abbiamo fatto un test di tre mesi nel magazzino di Verona, e i risultati sono stati molto consistenti."
+      errors: [false-friend]
+    - tutor: "Risultati coerenti su tre mesi sono un buon inizio. Però il costo iniziale, centoventimila euro, mi preoccupa: e se il software non funzionasse su larga scala?"
+      recast: {text: "consistenti", fix: "coerenti", tags: [false-friend]}
+    - learner: "Per ridurre il rischio, possiamo partire con un solo magazzino e pagare il fornitore solo a risultati raggiunti."
+    - tutor: "Questa clausola mi piace. Mi prepari una proposta scritta entro venerdì, e la porto al consiglio di amministrazione."
+      goals: [objection]
+    - learner: "Perfetto, gliela mando giovedì sera."
+    - tutor: "Ottimo. Se i numeri reggono, partiamo a gennaio."
+      goals: [next-steps]
+
+- scenario: trattativa-fornitore
+  level: C1
+  persona: es-f-teacher
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, proprio per quello. Un aumento del dodici per cento per noi è un problema serio: non possiamo assumerlo."
+      errors: [false-friend]
+    - tutor: "Capisco che non possiate sostenerlo così com'è, ma i nostri margini sono già ridotti al minimo."
+      goals: [problem]
+      recast: {text: "assumerlo", fix: "sostenerlo", tags: [false-friend]}
+    - learner: "Lo capisco, ma lavoriamo insieme da dieci anni e abbiamo sempre pagato a trenta giorni, senza un ritardo."
+    - tutor: "È vero, siete tra i nostri clienti più affidabili, e lo apprezziamo."
+      goals: [argue]
+    - learner: "Inoltre, di aumenti ci ne sono già stati due quest'anno."
+      errors: [combined-pronouns]
+    - tutor: "Ha ragione sul numero. Però «ci ne sono»: quando «ci» incontra «ne», cambia forma. Ricorda come?"
+      prompt: {text: "ci ne sono", tags: [combined-pronouns]}
+    - learner: "Sì... ci ne sono stati due, a marzo e a luglio."
+      errors: [combined-pronouns]
+    - tutor: "Ce ne sono stati due, è vero, e me ne rendo conto. Che proposta mi fa, allora?"
+      recast: {text: "ci ne sono", fix: "Ce ne sono", tags: [combined-pronouns]}
+    - learner: "Accetteremmo un aumento del sei per cento, se ci garantiste i prezzi bloccati fino a dicembre del prossimo anno."
+    - tutor: "Sei per cento con i prezzi bloccati per diciotto mesi... Facciamo otto, e la garanzia ve la do."
+      goals: [counteroffer]
+    - learner: "Sette, e firmiamo oggi stesso."
+    - tutor: "Affare fatto: sette per cento, prezzi bloccati fino a dicembre del prossimo anno. Le mando il contratto entro sera."
+      goals: [agreement]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: en-f-student
+  history: [participle-agreement]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Mi serve un certificato di residenza per la mia applicazione a un master."
+      errors: [false-friend]
+    - tutor: "Per la domanda di iscrizione al master, va bene. Lei è già iscritta all'anagrafe di questo Comune?"
+      goals: [request]
+      recast: {text: "applicazione", fix: "domanda", tags: [false-friend]}
+    - learner: "Sì, da gennaio. Ho portato il passaporto e il permesso di soggiorno."
+    - tutor: "Perfetto. Però serve anche la ricevuta della dichiarazione di residenza che le è stata rilasciata a gennaio."
+      goals: [documents]
+    - learner: "Ah, la ricevuta... purtroppo l'ho perso durante il trasloco."
+      errors: [participle-agreement]
+    - tutor: "Capita. Ma «la ricevuta, l'ho perso»: l'ultima parola deve accordarsi con quel «l'». Come diventa?"
+      prompt: {text: "l'ho perso", tags: [participle-agreement]}
+    - learner: "Sì, scusi: l'ho perso, non la trovo più."
+      errors: [participle-agreement]
+    - tutor: "Se l'ha persa, nessun problema: si può chiedere un duplicato qui allo sportello. Ci vogliono cinque minuti."
+      goals: [problem]
+      recast: {text: "perso", fix: "persa", tags: [participle-agreement]}
+    - learner: "Che sollievo! E poi, quanto tempo ci vuole per il certificato?"
+    - tutor: "Con il duplicato, il certificato glielo stampo subito; servono solo sedici euro di marca da bollo."
+      goals: [next]
+      new: [{lemma: bollo, gloss: revenue stamp}]
+    - learner: "Perfetto, pago con la carta. Grazie mille per la pazienza!"
+    - tutor: "Si figuri, è il mio lavoro. Ecco a lei, e in bocca al lupo per il master!"
+
+- scenario: modi-di-dire
+  level: C1
+  persona: en-m-traveller
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Una giornata da dimenticare. Prima ho perso l'autobus, poi ha cominciato a piovere e non avevo l'ombrello."
+    - tutor: "Piove sempre sul bagnato, eh? E poi?"
+    - learner: "Poi volevo avvisare il capo, ma la batteria del telefono si ha scaricata."
+      errors: [auxiliary-choice]
+    - tutor: "Classico! Ma «si ha scaricata»: con i verbi riflessivi, quale ausiliare ci vuole?"
+      prompt: {text: "si ha scaricata", tags: [auxiliary-choice]}
+    - learner: "Ah, sì... la batteria si ha scaricato proprio in quel momento."
+      errors: [auxiliary-choice]
+    - tutor: "Si è scaricata proprio sul più bello, ovviamente! E quando sei arrivato in ufficio?"
+      goals: [tell]
+      recast: {text: "si ha scaricato", fix: "Si è scaricata", tags: [auxiliary-choice]}
+    - learner: "Il capo era furioso e mi ha dato una lettura davanti a tutti."
+      errors: [word-choice]
+    - tutor: "Ti ha fatto una ramanzina davanti a tutti? Una bella lavata di capo, insomma!"
+      recast: {text: "una lettura", fix: "una ramanzina", tags: [word-choice]}
+      new: [{lemma: ramanzina, gloss: telling-off}, {lemma: lavata, gloss: (lavata di capo) dressing-down}]
+    - learner: "Sì, una vera lavata di capo! Però è stata anche colpa mia: dovevo partire prima."
+    - tutor: "Beh, chi è causa del suo mal pianga se stesso! Ma il capo poteva risparmiarsi la scenata davanti a tutti. Che cosa impari da questa giornata?"
+      goals: [react, blame]
+    - learner: "Che domani esco mezz'ora prima e porto il caricabatterie. Meglio prevenire che curare!"
+    - tutor: "Ecco, così si parla! E stasera la pizza la offro io, per consolarti."
+      goals: [moral]
+
+- scenario: cena-suoceri
+  level: C2
+  persona: en-m-heritage
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+    - learner: "Eccomi qui, in carne e ossa! E vi assicuro che sono molto meno interessante di come mi ha descritto."
+    - tutor: "Modesto, anche: un punto a suo favore. Assaggi l'arrosto, è la specialità di mia moglie."
+      goals: [irony]
+    - learner: "È squisito, davvero, la carne si scioglie in bocca. Alla signora gli la chiedo dopo cena, la ricetta."
+      errors: [combined-pronouns]
+    - tutor: "Ne sarà lusingata. Però «gli la chiedo»: due pronomi così vicini, e per giunta riferiti a una signora... non suonano bene insieme, non trova?"
+      goals: [compliment]
+      prompt: {text: "gli la", tags: [combined-pronouns]}
+    - learner: "Ha ragione... allora gli la chiedo con molta discrezione."
+      errors: [combined-pronouns]
+    - tutor: "Gliela chieda pure, ma con scarse speranze: è un segreto custodito da tre generazioni. E lei, di che cosa si occupa esattamente?"
+      recast: {text: "gli la", fix: "Gliela", tags: [combined-pronouns]}
+    - learner: "Lavoro come editore in una casa editrice milanese, mi occupo soprattutto di saggistica."
+      errors: [false-friend]
+    - tutor: "Ah, fa il redattore! Per un attimo avevo sperato in un genero proprietario di una casa editrice. E per il futuro, che progetti ha?"
+      recast: {text: "editore", fix: "redattore", tags: [false-friend]}
+    - learner: "Vorrei aprire un piccolo studio editoriale tutto mio tra qualche anno, ma senza fretta: prima vorrei che la nostra vita a Milano fosse stabile."
+    - tutor: "Prudente, mi piace. Senta, dopo un arrosto così ci possiamo anche dare del tu, no? Io sono Franco."
+      goals: [background]
+    - learner: "Con piacere, Franco! Allora ti dico la verità: è il miglior arrosto che abbia mai mangiato."
+    - tutor: "Adulatore! Ma te la sei cavata benissimo, stasera. Un altro bicchiere di vino?"
+      goals: [tu-lei]
+
+- scenario: circolo-lettura
+  level: C2
+  persona: es-f-teacher
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Allora, confessatelo, chi di voi ha trovato Cosimo insopportabile? Io, a rileggerlo, un po' sì."
+    - learner: "Io no, anzi: l'ho trovato coerente fino all'eccesso, ma proprio per questo ammirevole. Nel complesso, un romanzo che mi ha divertita e commossa."
+    - tutor: "Coerente fino all'eccesso: bella formula. Ma restare tutta la vita su un albero non è anche una forma di fuga?"
+      goals: [impression]
+    - learner: "Non direi fuga. Il successo che apre tutto, il rifiuto delle lumache, è una ribellione contro l'autorità del padre."
+      errors: [false-friend]
+    - tutor: "L'episodio delle lumache, certo, il gran rifiuto a tavola! Ma ribellione o capriccio di un dodicenne?"
+      goals: [theme]
+      recast: {text: "successo", fix: "episodio", tags: [false-friend]}
+    - learner: "Ribellione, perché poi la mantiene per tutta la vita. E Calvino racconta tutto con un'ironia leggera, come se ci dasse una lezione senza farcela pesare."
+      errors: [subjunctive-form]
+    - tutor: "Ironia leggera, sottoscrivo. Ma quel «dasse» mi ha fatto sobbalzare: il congiuntivo imperfetto di «dare» è irregolare, ricordi?"
+      goals: [style]
+      prompt: {text: "dasse", tags: [subjunctive-form]}
+    - learner: "Sì, scusa: come se ci dasse una lezione, appunto, ma col sorriso."
+      errors: [subjunctive-form]
+    - tutor: "Come se ci desse una lezione col sorriso: è proprio il suo talento. Però io continuo a pensare che Cosimo sia un egoista meraviglioso. Mi convinci del contrario?"
+      recast: {text: "dasse", fix: "desse", tags: [subjunctive-form]}
+    - learner: "Non sono d'accordo che sia egoista: dagli alberi aiuta i contadini, combatte gli incendi, partecipa alla vita del paese più di chi sta a terra."
+    - tutor: "Colpita e affondata! Va bene, ritiro l'egoista, ma solo a metà. Per il prossimo incontro, che cosa proponi?"
+      goals: [disagree]
+    - learner: "Proporrei «Il cavaliere inesistente», per restare con Calvino e vedere un'altra faccia della sua ironia."
+    - tutor: "Proposta approvata, almeno da me. Ci vediamo tra un mese con l'armatura vuota!"
+      goals: [recommend]

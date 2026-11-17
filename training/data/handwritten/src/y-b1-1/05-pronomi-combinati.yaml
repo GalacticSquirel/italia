@@ -1,0 +1,269 @@
+# B1, round 3: combined pronouns (me l'ha, glielo, gliela, me li, ce l'ho).
+- scenario: cucina-ricetta
+  level: B1
+  persona: en-f-student
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Il risotto ai funghi di mia nonna! Lei mi l'ha insegnato quando avevo quindici anni."
+      errors: [combined-pronouns]
+      gold: {text: "mi l'ha insegnato", fix: "me l'ha insegnato"}
+    - tutor: "Che bello! Ma «mi l'ha insegnato»: quando «mi» sta prima di «lo», cambia un po'. Come?"
+      prompt: {text: "mi l'ha insegnato", tags: [combined-pronouns]}
+    - learner: "Me l'ha insegnato lei."
+    - tutor: "Esatto. Allora, che cosa ci serve e da dove cominciamo?"
+    - learner: "Riso, funghi, cipolla, burro e parmigiano. Prima taglia la cipolla e mettila nella pentola con il burro."
+    - tutor: "Fatto, la cipolla è già nella pentola. Quanto deve cuocere il riso?"
+      goals: [ingredients, steps]
+    - learner: "Diciotto minuti, e dobbiamo girarlo sempre. Dov'è il vino bianco? Dammelo, per favore."
+    - tutor: "Eccolo. Che profumo, ho già fame! Come lo serviamo?"
+      goals: [time]
+    - learner: "Con tanto parmigiano. Tuo fratello vuole assaggiarlo: gli lo porto io?"
+      errors: [combined-pronouns]
+      gold: {text: "gli lo porto", fix: "glielo porto"}
+    - tutor: "Certo! Ma «gli lo porto»? Quando «gli» e «lo» stanno insieme, diventano una parola sola."
+      prompt: {text: "gli lo porto", tags: [combined-pronouns]}
+    - learner: "Glie lo porto io?"
+      errors: [combined-pronouns]
+    - tutor: "No, glielo porto io, tu adesso metti il formaggio in tavola!"
+      recast: {text: "Glie lo", fix: "glielo", tags: [combined-pronouns]}
+      goals: [serve]
+    - learner: "Va bene, ecco il formaggio. Buon appetito!"
+    - tutor: "Buon appetito! È buonissimo, tua nonna sarebbe contenta."
+
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-f-erasmus
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questo frullatore dieci giorni fa e fa un rumore molto raro."
+      errors: [false-friend]
+      gold: {text: "raro", fix: "strano"}
+    - tutor: "Un rumore strano? Mi dispiace, non dovrebbe succedere. Ha lo scontrino?"
+      recast: {text: "raro", fix: "strano", tags: [false-friend]}
+      goals: [problem]
+      new: [{lemma: frullatore, gloss: blender}]
+    - learner: "Sì, ce lo ho qui nella borsa."
+      errors: [combined-pronouns]
+      gold: {text: "ce lo ho", fix: "ce l'ho"}
+    - tutor: "«Ce lo ho»? Ascolti bene: davanti a «ho» qualcosa cambia."
+      prompt: {text: "ce lo ho", tags: [combined-pronouns]}
+    - learner: "Ce l'ho, eccolo. L'ho comprato il dodici."
+    - tutor: "Perfetto, è ancora in garanzia. Preferisce un rimborso o un cambio?"
+      goals: [proof]
+    - learner: "Preferisco i soldi. Mi li può ridare in contanti? Ho pagato in contanti."
+      errors: [combined-pronouns]
+      gold: {text: "Mi li", fix: "Me li"}
+    - tutor: "«Mi li»? Anche qui, quando i due pronomi stanno insieme, il primo cambia."
+      prompt: {text: "Mi li", tags: [combined-pronouns]}
+    - learner: "Me li può ridare in contanti?"
+    - tutor: "Esatto. Purtroppo il rimborso lo facciamo solo con un buono. Oppure possiamo cambiarlo con un altro."
+      goals: [request]
+    - learner: "Allora lo cambio con quello rosso. Me lo può mettere in una scatola? È un regalo."
+    - tutor: "Certo, glielo preparo subito con la carta regalo."
+      goals: [agree]
+
+- scenario: medico-base
+  level: B1
+  persona: en-m-traveller
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Mi fa male l'orecchio destro da tre giorni, e sento poco."
+    - tutor: "Vediamo... sì, è un'infiammazione. Ha avuto la febbre?"
+      goals: [symptoms, since-when]
+      new: [{lemma: infiammazione, gloss: inflammation}]
+    - learner: "Sì, ieri sera avevo 38. Ho andato in farmacia e ho preso un'aspirina."
+      errors: [auxiliary-choice]
+      gold: {text: "Ho andato", fix: "Sono andato"}
+    - tutor: "«Ho andato»? Ma con «andare» il passato si fa con «avere»?"
+      prompt: {text: "Ho andato", tags: [auxiliary-choice]}
+    - learner: "Sono andato in farmacia."
+    - tutor: "Giusto. È allergico a qualche medicina?"
+    - learner: "No, a niente. Ma il mio amico è allergico a tutto, anche ai cats!"
+      errors: [word-choice]
+      gold: {text: "ai cats", fix: "ai gatti"}
+    - tutor: "Anche ai gatti, povero! Allora le do delle gocce: tre gocce, due volte al giorno. Ha capito bene?"
+      recast: {text: "ai cats", fix: "ai gatti", tags: [word-choice]}
+      goals: [history]
+      new: [{lemma: goccia, gloss: drop}]
+    - learner: "Sì, tre gocce due volte al giorno. La ricetta gli la do al farmacista?"
+      errors: [combined-pronouns]
+      gold: {text: "gli la do", fix: "gliela do"}
+    - tutor: "«Gli la do»? Quando «gli» incontra «la», le due parole cambiano e si uniscono."
+      prompt: {text: "gli la do", tags: [combined-pronouns]}
+    - learner: "Glie la do al farmacista?"
+      errors: [combined-pronouns]
+    - tutor: "Sì, gliela dà e lui le prepara la medicina. Torni da me tra una settimana."
+      recast: {text: "Glie la", fix: "gliela", tags: [combined-pronouns]}
+      goals: [instructions]
+    - learner: "Va bene, dottore. Grazie e arrivederci."
+    - tutor: "Arrivederci, e si riposi!"
+
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-f-professional
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, sono la vicina del secondo piano. Mi chiamo Kate, abito qui da un mese."
+    - tutor: "Piacere, signora. Mi dica pure."
+      goals: [greet]
+    - learner: "Ogni notte sento la musica molto alta fino all'una e non posso dormire."
+      errors: [word-choice]
+      gold: {text: "non posso dormire", fix: "non riesco a dormire"}
+    - tutor: "Oh, mi dispiace! Anch'io, quando c'è rumore, non riesco a dormire. È mio figlio, suona la chitarra."
+      recast: {text: "non posso dormire", fix: "non riesco a dormire", tags: [word-choice]}
+      goals: [problem]
+      new: [{lemma: chitarra, gloss: guitar}]
+    - learner: "Capisco. Potrebbe dirgli di suonare solo fino alle dieci? Se vuole, gli lo dico io."
+      errors: [combined-pronouns]
+      gold: {text: "gli lo dico", fix: "glielo dico"}
+    - tutor: "Scusi, come? «Gli lo dico»? Provi a unire meglio quelle due parole."
+      prompt: {text: "gli lo dico", tags: [combined-pronouns]}
+    - learner: "Glie lo dico io?"
+      errors: [combined-pronouns]
+    - tutor: "No, no, glielo dico io stasera, non si preoccupi. In settimana fino alle dieci, allora."
+      recast: {text: "Glie lo", fix: "glielo", tags: [combined-pronouns]}
+      goals: [request]
+    - learner: "Grazie. Il sabato, invece, per me andrebbe bene fino a mezzanotte."
+    - tutor: "È molto gentile. Allora fino alle dieci in settimana, e il sabato fino a mezzanotte."
+      goals: [compromise]
+
+- scenario: compleanno
+  level: B1
+  persona: en-m-retired
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa sabato pomeriggio nel mio giardino?"
+    - tutor: "Perfetto, il tuo giardino è bellissimo. Chi invitiamo?"
+      goals: [date]
+    - learner: "La famiglia di Sara e i suoi amici del coro. Hai i loro numeri? Mi li puoi mandare?"
+      errors: [combined-pronouns]
+      gold: {text: "Mi li", fix: "Me li"}
+    - tutor: "Certo! Però «mi li»: due pronomi insieme, e il primo cambia una lettera."
+      prompt: {text: "Mi li", tags: [combined-pronouns]}
+    - learner: "Me li puoi mandare stasera?"
+    - tutor: "Esatto. Sì, te li mando dopo cena."
+      goals: [guests]
+    - learner: "Per mangiare io faccio la carne alla griglia. La torta chi la porta?"
+    - tutor: "La porta sua sorella, la fa ogni anno al limone."
+      goals: [food]
+    - learner: "Bene. Per il regalo ho trovato un bel libro di cucina. Le lo diamo insieme?"
+      errors: [combined-pronouns]
+      gold: {text: "Le lo", fix: "Glielo"}
+    - tutor: "Bella idea! Ma «le lo»: con «lo» vicino, quel pronome cambia forma."
+      prompt: {text: "Le lo", tags: [combined-pronouns]}
+    - learner: "Gli lo diamo insieme?"
+      errors: [combined-pronouns]
+    - tutor: "Sì, glielo diamo insieme dopo la torta. Sarà contentissima!"
+      recast: {text: "Gli lo", fix: "glielo", tags: [combined-pronouns]}
+      goals: [gift]
+    - learner: "Perfetto. Allora domani compro il libro."
+    - tutor: "Ottimo, io scrivo agli invitati. Sarà una bella festa!"
+
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-m-worker
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È luminoso! Quanto costa l'affitto, e il contratto quanti anni dura?"
+    - tutor: "L'affitto è di 650 euro, spese comprese. Il contratto è di quattro anni, con due mesi di caparra."
+      goals: [rent, contract]
+    - learner: "Va bene. La caparra la pago con un bonifico. Il numero del conto mi lo scrive qui?"
+      errors: [combined-pronouns]
+      gold: {text: "mi lo scrive", fix: "me lo scrive"}
+    - tutor: "Sì, certo. Ma «mi lo scrive»? Ci pensi: prima di «lo», quel «mi» cambia."
+      prompt: {text: "mi lo scrive", tags: [combined-pronouns]}
+    - learner: "Me lo scrive qui, per favore?"
+    - tutor: "Ecco fatto. Ha altre domande?"
+    - learner: "Sì. La cucina ha un forno? Sono cocinero e cucino molto anche a casa."
+      errors: [word-choice]
+      gold: {text: "cocinero", fix: "cuoco"}
+    - tutor: "Ah, è cuoco! Sì, il forno è nuovo e c'è anche la lavastoviglie."
+      recast: {text: "cocinero", fix: "cuoco", tags: [word-choice]}
+      goals: [condition]
+      new: [{lemma: lavastoviglie, gloss: dishwasher}]
+    - learner: "Perfetto. E nel quartiere ci sono supermercados?"
+      errors: [word-choice]
+      gold: {text: "supermercados", fix: "supermercati"}
+    - tutor: "Sì, ci sono due supermercati qui vicino, e il mercato del mercoledì."
+      recast: {text: "supermercados", fix: "supermercati", tags: [word-choice]}
+      goals: [neighbourhood]
+    - learner: "Mi piace molto, lo prendo! Quando mi può dare le chiavi?"
+    - tutor: "Gliele do il primo del mese, quando firmiamo il contratto."
+      goals: [decide]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-retired
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste scarpe da montagna sabato, ma sono troppo piccole."
+    - tutor: "Mi dispiace. Le ha già usate fuori?"
+      goals: [problem]
+    - learner: "No, solo in casa. Le ho provato per un'ora sul tappeto."
+      errors: [participle-agreement]
+      gold: {text: "Le ho provato", fix: "Le ho provate"}
+    - tutor: "«Le ho provato»? Con «le» prima del verbo, la fine di «provato» cambia."
+      prompt: {text: "Le ho provato", tags: [participle-agreement]}
+    - learner: "Le ho provate solo in casa."
+    - tutor: "Benissimo, allora si possono cambiare. Ha lo scontrino?"
+    - learner: "Ce l'ha mia moglie in macchina. Gli lo vado a prendere?"
+      errors: [combined-pronouns]
+      gold: {text: "Gli lo vado", fix: "Glielo vado"}
+    - tutor: "Sì, grazie. Però «gli lo vado»: queste due parole insieme fanno una parola sola."
+      prompt: {text: "Gli lo vado", tags: [combined-pronouns]}
+    - learner: "Le lo vado a prendere?"
+      errors: [combined-pronouns]
+    - tutor: "Sì, se sua moglie glielo dà, facciamo subito il cambio. La aspetto qui."
+      recast: {text: "Le lo", fix: "glielo", tags: [combined-pronouns]}
+    - learner: "Ecco lo scontrino. Vorrei una taglia più grande, il 44."
+      errors: [word-choice]
+      gold: {text: "una taglia più grande", fix: "un numero più grande"}
+    - tutor: "Un numero più grande, certo. Il 44 c'è solo in nero. Le va bene lo stesso?"
+      recast: {text: "una taglia più grande", fix: "un numero più grande", tags: [word-choice]}
+      goals: [proof, request]
+    - learner: "Sì, il nero va bene. Grazie mille."
+    - tutor: "Prego! Ecco le scarpe nuove, buon divertimento in montagna."
+      goals: [agree]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: es-f-teacher
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei riservare un tavolo per venerdì sera alle nove, siamo in cinque."
+      errors: [word-choice]
+      gold: {text: "riservare", fix: "prenotare"}
+    - tutor: "Certo, posso prenotare un tavolo per venerdì alle nove, per cinque persone."
+      recast: {text: "riservare", fix: "prenotare", tags: [word-choice]}
+      goals: [book, details]
+    - learner: "Una mia amica è celiaca: avrebbero piatti senza glutine?"
+      errors: [conditional-form]
+      gold: {text: "avrebbero", fix: "avreste"}
+    - tutor: "«Avrebbero»? Sta parlando con noi del ristorante, quindi con «voi»..."
+      prompt: {text: "avrebbero", tags: [conditional-form]}
+    - learner: "Avreste piatti senza glutine?"
+    - tutor: "Sì, facciamo anche la pasta senza glutine."
+      goals: [special]
+    - learner: "Benissimo. Potreste preparare una torta? È il compleanno di mio marito, ma non gli lo dite!"
+      errors: [combined-pronouns]
+      gold: {text: "non gli lo dite", fix: "non glielo dite"}
+    - tutor: "Che bella sorpresa! Ma «gli lo dite»: come si uniscono queste due parole?"
+      prompt: {text: "non gli lo dite", tags: [combined-pronouns]}
+    - learner: "Non glie lo dite!"
+      errors: [combined-pronouns]
+    - tutor: "Tranquilla, non glielo diciamo! Che torta preferisce suo marito?"
+      recast: {text: "glie lo", fix: "glielo", tags: [combined-pronouns]}
+    - learner: "Al cioccolato, gli piace moltissimo. A nome Ruiz, per favore."
+    - tutor: "Perfetto, signora Ruiz: venerdì alle nove, cinque persone e una torta al cioccolato. A venerdì!"
+      goals: [name]

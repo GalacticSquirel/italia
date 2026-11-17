@@ -1,0 +1,238 @@
+# Round 3, set y-lexical: false friends and word choice. A1 and A2, file 2.
+- scenario: panetteria
+  level: A1
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno! Mi dica."
+    - learner: "Buongiorno! Vorrei mezzo chilo di pane, per favore."
+    - tutor: "Ecco mezzo chilo di pane. Altro?"
+      goals: [greet, order-bread]
+    - learner: "Sì. Questa focaccia ha preservativi?"
+      errors: [false-friend]
+    - tutor: "Conservanti? No, niente conservanti! È fresca di oggi."
+      recast: {text: "preservativi", fix: "conservanti", tags: [false-friend]}
+      new: [{lemma: conservante, gloss: preservative}]
+    - learner: "Ah, scusi! Allora prendo due etti di focaccia."
+    - tutor: "Nessun problema! Ecco due etti di focaccia."
+      goals: [order-extra]
+    - learner: "Grazie. Quanto costano tutto?"
+      errors: [subject-verb-agreement]
+    - tutor: "Quanto «costano» tutto? Tutto è uno: provi ancora."
+      prompt: {text: "costano tutto", tags: [subject-verb-agreement]}
+    - learner: "Quanto costa tutto?"
+    - tutor: "Perfetto! Sono quattro euro e dieci."
+    - learner: "Ecco cinque euro. Arrivederci!"
+    - tutor: "Grazie, ecco il resto. Arrivederci!"
+      goals: [pay]
+
+- scenario: orari-negozio
+  level: A1
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Pronto, negozio Bianchi, buongiorno!"
+    - learner: "Buongiorno! A che ora apre la tenda oggi?"
+      errors: [false-friend]
+    - tutor: "Il negozio? Oggi apre alle nove e chiude alle sette."
+      goals: [greet, ask-hours]
+      recast: {text: "la tenda", fix: "Il negozio", tags: [false-friend]}
+    - learner: "E la domenica è aperto?"
+    - tutor: "No, la domenica è chiuso. Il sabato apriamo solo la mattina."
+      goals: [ask-day]
+    - learner: "Ah! E il sabato chiudete al mediodía?"
+      errors: [word-choice]
+    - tutor: "Sì, il sabato chiudiamo a mezzogiorno."
+      recast: {text: "al mediodía", fix: "a mezzogiorno", tags: [word-choice]}
+      new: [{lemma: mezzogiorno, gloss: noon}]
+    - learner: "Va bene, allora vengo sabato. Grazie, ciao!"
+      errors: [register]
+    - tutor: "Ciao? Al telefono con un negozio, cosa diciamo alla fine?"
+      prompt: {text: "ciao", tags: [register]}
+    - learner: "Ah, scusi: arrivederci!"
+    - tutor: "Perfetto! Arrivederci, a sabato!"
+      goals: [goodbye]
+
+- scenario: mercato-frutta
+  level: A1
+  persona: en-m-heritage
+  history: [word-choice]
+  turns:
+    - tutor: "Ciao! Cosa ti do oggi?"
+    - learner: "Ciao! Quanto costano le arance?"
+    - tutor: "Le arance costano due euro al chilo. Sono freschissime!"
+      goals: [ask-price]
+    - learner: "Allora un chilo di arance, per favore."
+    - tutor: "Ecco un chilo di arance. Altro?"
+      goals: [buy-quantity]
+    - learner: "Sì, mezzo chilo di pomodori. Posso avere una borsa?"
+      errors: [word-choice]
+    - tutor: "Certo, ti do un sacchetto! Ecco i pomodori."
+      goals: [ask-other]
+      recast: {text: "una borsa", fix: "un sacchetto", tags: [word-choice]}
+      new: [{lemma: sacchetto, gloss: bag}]
+    - learner: "Grazie. Quanto pago?"
+    - tutor: "Sono tre euro e cinquanta."
+    - learner: "Ecco quattro euro. Tieni il cambio!"
+      errors: [word-choice]
+    - tutor: "Grazie, sei gentile! Allora tengo il resto."
+      recast: {text: "il cambio", fix: "il resto", tags: [word-choice]}
+    - learner: "Prego! A sabato prossimo."
+    - tutor: "Ciao, a sabato!"
+      goals: [pay]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Benissimo! Sabato sera sono salita con le mie amiche."
+      errors: [false-friend]
+    - tutor: "Ah, sei uscita con le amiche! E dove?"
+      goals: [with-who]
+      recast: {text: "sono salita", fix: "sei uscita", tags: [false-friend]}
+    - learner: "Siamo andato in un locale in centro e abbiamo ballato fino alle tre."
+      errors: [participle-agreement]
+    - tutor: "«Siamo andato»? Pensa a te e alle tue amiche: tutte ragazze!"
+      prompt: {text: "Siamo andato", tags: [participle-agreement]}
+    - learner: "Ah, sì: siamo andate in un locale in centro."
+    - tutor: "Brava! Fino alle tre, che bello! E domenica?"
+      goals: [where]
+    - learner: "Domenica ho fatto un giro in barca con il mio novio."
+      errors: [word-choice]
+    - tutor: "Con il tuo ragazzo, che bello! Com'era il mare?"
+      goals: [what]
+      recast: {text: "il mio novio", fix: "il tuo ragazzo", tags: [word-choice]}
+    - learner: "Il mare era bellissimo, ma ho preso troppo sole e adesso sono tutta rossa!"
+    - tutor: "Oh no, povera te! Ma allora ti è piaciuto il weekend?"
+    - learner: "Sì, moltissimo. E il tuo fine settimana com'è andato?"
+    - tutor: "Tranquillo: sono rimasta a casa a leggere. Il tuo è stato molto più divertente!"
+      goals: [opinion]
+
+- scenario: medico-base
+  level: A2
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho dolore di gola e un po' di tosse."
+      errors: [word-choice]
+    - tutor: "Mal di gola e tosse, capisco. Da quanti giorni?"
+      goals: [symptoms]
+      recast: {text: "dolore di gola", fix: "Mal di gola", tags: [word-choice]}
+    - learner: "Da tre giorni. La sera ho anche un po' di fiebre."
+      errors: [word-choice]
+    - tutor: "Un po' di febbre la sera, capisco. È allergica a qualche medicina?"
+      recast: {text: "fiebre", fix: "febbre", tags: [word-choice]}
+      goals: [since-when]
+    - learner: "No, non sono allergica. Ma attenzione, dottore: sono imbarazzata di quattro mesi."
+      errors: [false-friend]
+    - tutor: "Ah, è incinta! Che bella notizia! Allora scelgo una medicina sicura per il bambino."
+      goals: [history]
+      recast: {text: "imbarazzata", fix: "incinta", tags: [false-friend]}
+    - learner: "Grazie! Quante volte al giorno lo prendo?"
+      errors: [object-pronoun]
+    - tutor: "Lo prendo? Parliamo della medicina: è maschile o femminile?"
+      prompt: {text: "lo prendo", tags: [object-pronoun]}
+    - learner: "Ah, femminile: quante volte al giorno la prendo?"
+    - tutor: "Giusto. Due volte al giorno, dopo pranzo e dopo cena, per cinque giorni. E beva molta acqua."
+    - learner: "Allora due volte al giorno, dopo pranzo e dopo cena, per cinque giorni. E molta acqua."
+    - tutor: "Perfetto. Se tra tre giorni sta ancora male, torni da me."
+      goals: [instructions]
+
+- scenario: abbigliamento
+  level: A2
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Cerco una camisa per il lavoro."
+      errors: [word-choice]
+    - tutor: "Una camicia per il lavoro, certo! Che taglia e che colore?"
+      recast: {text: "una camisa", fix: "Una camicia", tags: [word-choice]}
+      new: [{lemma: camicia, gloss: shirt}]
+      goals: [ask-item]
+    - learner: "La taglia L, bianca o azzurro."
+      errors: [adjective-agreement]
+    - tutor: "Bianca o «azzurro»? Attenzione, è una camicia: com'è l'altro colore?"
+      prompt: {text: "azzurro", tags: [adjective-agreement]}
+      new: [{lemma: camicia, gloss: shirt}]
+    - learner: "Bianca o azzurra. Posso provarla?"
+    - tutor: "Giusto! Ecco la taglia L in bianco. Il camerino è lì in fondo."
+      goals: [size-colour, try]
+    - learner: "Mi sta bene, ma le maniche sono troppo larghe."
+      errors: [false-friend]
+    - tutor: "Le maniche sono troppo lunghe? Allora provi questa: ha le maniche più corte."
+      recast: {text: "larghe", fix: "lunghe", tags: [false-friend]}
+    - learner: "Questa va bene! Quanto costa? C'è descuento?"
+      errors: [word-choice]
+    - tutor: "Costa quaranta euro, ma oggi c'è uno sconto del venti per cento: trentadue euro."
+      recast: {text: "descuento", fix: "uno sconto", tags: [word-choice]}
+    - learner: "Perfetto, la prendo. Pago con tarjeta."
+      errors: [word-choice]
+    - tutor: "Benissimo, con la carta va bene. Ecco lo scontrino e buona giornata!"
+      goals: [decide]
+      recast: {text: "con tarjeta", fix: "con la carta", tags: [word-choice]}
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-f-professional
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Buongiorno! Sì, cercate un cameriere per l'estate?"
+    - tutor: "Esatto, per luglio e agosto. Ha esperienza?"
+      goals: [ask]
+    - learner: "Sì, attualmente lavoro in un bar a Milano, il sabato e la domenica."
+    - tutor: "Bene, allora conosce già il lavoro. E prima?"
+    - learner: "Prima ho fatto la cameriera per due estati a Sydney e ho apprenduto molto."
+      errors: [past-participle-form]
+    - tutor: "Ho «apprenduto»? Attenzione, questo verbo ha una forma speciale al passato."
+      prompt: {text: "apprenduto", tags: [past-participle-form]}
+    - learner: "Ah, sì: ho appreso molto."
+    - tutor: "Perfetto. Allora ha una bella esperienza! Quando è disponibile?"
+      goals: [experience]
+    - learner: "Sono disponibile dal primo luglio, full time."
+      errors: [word-choice]
+    - tutor: "A tempo pieno dal primo luglio, ottimo. Mi lascia un numero di telefono?"
+      recast: {text: "full time", fix: "A tempo pieno", tags: [word-choice]}
+      goals: [availability]
+    - learner: "Sì, ho già applicato online, ma le do anche il mio numero."
+      errors: [word-choice]
+    - tutor: "Ah, ha già fatto domanda online, benissimo! Scriva qui il numero, per favore."
+      recast: {text: "ho già applicato", fix: "ha già fatto domanda", tags: [word-choice]}
+    - learner: "Ecco fatto. Grazie mille e buona giornata!"
+    - tutor: "Grazie a lei! La chiamo entro venerdì."
+      goals: [contact]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Vorrei spedire questa carta in Argentina."
+      errors: [false-friend]
+    - tutor: "Questa lettera per l'Argentina? Certo, nessun problema."
+      goals: [send]
+      recast: {text: "questa carta", fix: "Questa lettera", tags: [false-friend]}
+    - learner: "Quanti giorni ci vogliono per arrivare in Buenos Aires?"
+      errors: [preposition]
+    - tutor: "«In» Buenos Aires? Con le città, che preposizione usiamo?"
+      prompt: {text: "in Buenos Aires", tags: [preposition]}
+    - learner: "Ah, giusto: per arrivare a Buenos Aires?"
+    - tutor: "Esatto. Con la posta normale circa due settimane, con la raccomandata una settimana."
+    - learner: "Allora la raccomandata, è importante."
+    - tutor: "Va bene. Deve compilare questo modulo con l'indirizzo."
+      goals: [speed]
+    - learner: "Devo scrivere anche la mia dirección?"
+      errors: [word-choice]
+    - tutor: "Sì, anche il suo indirizzo, qui in basso."
+      recast: {text: "la mia dirección", fix: "il suo indirizzo", tags: [word-choice]}
+    - learner: "Ecco fatto. Quanto pago?"
+    - tutor: "Sono nove euro e cinquanta."
+      goals: [form]
+    - learner: "Ecco dieci euro. Grazie, arrivederci!"
+    - tutor: "Grazie a lei! Ecco il resto e la ricevuta. Arrivederci!"
+      goals: [pay]

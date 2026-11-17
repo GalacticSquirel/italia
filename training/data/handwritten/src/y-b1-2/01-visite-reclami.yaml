@@ -1,0 +1,231 @@
+# B1, booking a medical visit and hotel complaints: future forms, prepositions, ci/ne.
+- scenario: prenotare-visita
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita da un cardiologo. Il mio medico mi ha detto di fare un controllo."
+    - tutor: "Certo. Ha un'impegnativa del suo medico, o paga lei la visita completa?"
+      goals: [type]
+    - learner: "La pago io, non c'è problema. Però questa settimana non posso, perché esserò a Torino per lavoro fino a venerdì."
+      errors: [future-form]
+      gold: {text: "esserò", fix: "sarò"}
+    - tutor: "Perché... esserò a Torino? Ci pensi un attimo: il futuro di essere è speciale."
+      prompt: {text: "esserò", tags: [future-form]}
+    - learner: "Ah, giusto: sarò a Torino fino a venerdì."
+    - tutor: "Perfetto. Allora le propongo lunedì prossimo alle nove e mezza, oppure martedì alle sedici."
+    - learner: "Martedì alle sedici è perfetto. Quanto costa la visita?"
+    - tutor: "La visita con l'elettrocardiogramma costa centoventi euro. Porti anche gli esami del sangue, se li ha."
+      goals: [availability, cost]
+      new: [{lemma: elettrocardiogramma, gloss: ECG}]
+    - learner: "Sì, li ho fatti il mese scorso, li porterò. Il centro è vicino della stazione, vero?"
+      errors: [articulated-preposition]
+      gold: {text: "vicino della stazione", fix: "vicino alla stazione"}
+    - tutor: "Vicino della stazione? Attenzione: dopo vicino quale preposizione usiamo?"
+      prompt: {text: "vicino della stazione", tags: [articulated-preposition]}
+    - learner: "Vicino della stazione... non sono sicura."
+      errors: [articulated-preposition]
+    - tutor: "Sì, è proprio vicino alla stazione, a cinque minuti a piedi. Mi ripete i dati della prenotazione?"
+      recast: {text: "della stazione", fix: "alla stazione", tags: [articulated-preposition]}
+    - learner: "Allora: martedì alle sedici, visita dal cardiologo, centoventi euro, e porto gli esami del sangue."
+    - tutor: "Tutto giusto. A martedì, e buona giornata!"
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Ho un forte dolore al ginocchio da tre settimane. Vorrei una visita con un ortopedico."
+    - tutor: "Mi dispiace. Il dottor Bassi riceve il mercoledì e il venerdì. Quando le farebbe comodo?"
+      goals: [type]
+    - learner: "Il venerdì lavoro fino alle sei. Il mercoledì invece potrei venire in mattina."
+      errors: [preposition]
+      gold: {text: "in mattina", fix: "di mattina"}
+    - tutor: "Mercoledì... in mattina? Provi con un'altra preposizione."
+      prompt: {text: "in mattina", tags: [preposition]}
+    - learner: "Mercoledì in mattina, sì. Verso le dieci."
+      errors: [preposition]
+    - tutor: "Allora mercoledì di mattina, alle dieci e un quarto: va bene?"
+      recast: {text: "in mattina", fix: "di mattina", tags: [preposition]}
+      goals: [availability]
+    - learner: "Va bene. Ho una radiografia dell'anno scorso. Devo portarla?"
+    - tutor: "Sì, la porti, al dottore sarà utile. La visita costa ottanta euro e si paga alla fine."
+      goals: [cost]
+    - learner: "Perfetto. Posso pagare con la carta o solo in effettivo?"
+      errors: [false-friend]
+      gold: {text: "in effettivo", fix: "in contanti"}
+    - tutor: "Può pagare in contanti o con la carta, come preferisce. Mi conferma l'orario?"
+      recast: {text: "in effettivo", fix: "in contanti", tags: [false-friend]}
+    - learner: "Sì: mercoledì alle dieci e un quarto, dall'ortopedico, con la radiografia."
+    - tutor: "Esatto. La aspettiamo mercoledì, buona giornata."
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno, signorina. Dovrei prenotare una visita dall'oculista. Non vedo più bene da vicino."
+    - tutor: "Va bene. È già stato da noi o è la prima volta?"
+      goals: [type]
+    - learner: "Sono già stato lì due anni fa, con mia moglie."
+    - tutor: "Benissimo, allora abbiamo già i suoi dati. La dottoressa Neri ha posto giovedì alle undici."
+    - learner: "Giovedì mattina ho il dentista. Avete altri appuntamenti? Mi serve uno nel pomeriggio."
+      errors: [ci-ne]
+      gold: {text: "Mi serve uno", fix: "Me ne serve uno"}
+    - tutor: "Mi serve uno? Manca una piccola parola, quella che sostituisce «appuntamenti»."
+      prompt: {text: "Mi serve uno", tags: [ci-ne]}
+    - learner: "Ah, sì: me ne serve uno nel pomeriggio."
+    - tutor: "Esatto. Allora venerdì alle quindici e trenta, le va bene?"
+      goals: [availability]
+    - learner: "Sì, benissimo. E quanto costerebbe la visita?"
+    - tutor: "Costa settanta euro, ma con l'impegnativa del suo medico paga molto meno, solo trenta euro."
+      goals: [cost]
+    - learner: "Ho l'impegnativa. Allora venerdì alle quindici e trenta, dalla dottoressa Neri."
+    - tutor: "Perfetto. Si ricordi di portare anche gli occhiali che usa adesso. Arrivederci!"
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Chiamo per mia figlia, che ha otto anni. Ha spesso il naso chiuso e preferisco che la vede un allergologo."
+      errors: [subjunctive-use]
+      gold: {text: "che la vede", fix: "che la veda"}
+    - tutor: "Certo, capisco. Preferisce che la... vede? Dopo «preferisco che» il verbo cambia."
+      prompt: {text: "che la vede", tags: [subjunctive-use]}
+    - learner: "Preferisco che la veda un allergologo."
+    - tutor: "Esatto. Abbiamo un allergologo che segue anche i bambini, il dottor Conti."
+      goals: [type]
+    - learner: "Perfetto. Quando ha disponibilità? Lei sale da scuola alle quattro."
+      errors: [false-friend]
+      gold: {text: "sale", fix: "esce"}
+    - tutor: "Esce alle quattro? Allora le propongo martedì 14 alle diciassette, con il dottor Conti."
+      recast: {text: "sale", fix: "esce", tags: [false-friend]}
+    - learner: "Va bene, il 14 alle cinque. Quanto costa? E devo portare i esami vecchi?"
+      errors: [article-form]
+      gold: {text: "i esami", fix: "gli esami"}
+    - tutor: "I esami? Guardi la prima lettera della parola."
+      prompt: {text: "i esami", tags: [article-form]}
+    - learner: "Gli esami vecchi, scusi."
+    - tutor: "Sì, se li ha, li porti. La visita costa novanta euro, e per i test ci vuole un'altra mezz'ora."
+      goals: [availability, cost]
+    - learner: "D'accordo. Ripeto: martedì 14 alle diciassette, dottor Conti, con gli esami."
+    - tutor: "Perfetto, è tutto prenotato. Arrivederci e a presto!"
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Avrei bisogno di una visita da un fisioterapista per la schiena."
+    - tutor: "Certo. È la prima volta che viene da noi?"
+      goals: [type]
+    - learner: "Sì, è la prima volta. Mi sono trasferito a Bologna il mese scorso."
+    - tutor: "Benvenuto, allora! Il primo posto libero è mercoledì alle diciotto."
+    - learner: "Mercoledì farò tardi al lavoro. Il sabato mattina è possibile? Anche mia moglie venirà, ha lo stesso problema."
+      errors: [future-form]
+      gold: {text: "venirà", fix: "verrà"}
+    - tutor: "Anche sua moglie... venirà? Il futuro di venire è un po' speciale."
+      prompt: {text: "venirà", tags: [future-form]}
+    - learner: "Mia moglie venerà... no, non sono sicuro."
+      errors: [future-form]
+    - tutor: "Nessun problema: se anche sua moglie verrà, prenoto sabato alle nove per lei e alle nove e mezza per sua moglie."
+      recast: {text: "venerà", fix: "verrà", tags: [future-form]}
+      goals: [availability]
+    - learner: "Alle nove va benissimo. Quanto costa una seduta?"
+    - tutor: "La prima seduta costa sessanta euro, le altre cinquanta. Porti dei vestiti comodi."
+      goals: [cost]
+    - learner: "Va bene. Allora sabato alle nove, prima seduta, sessanta euro."
+    - tutor: "Esatto, è tutto a posto. Buona giornata!"
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno! Sono una studentessa Erasmus. Ho bisogno di un dermatologo, ho un problema con la pelle."
+    - tutor: "Certo, la aiutiamo noi. Ha con sé la tessera sanitaria del suo paese?"
+      goals: [type]
+      new: [{lemma: tessera, gloss: card}, {lemma: sanitario, gloss: health (adjective)}]
+    - learner: "Sì, ce l'ho. Ma prima vorrei sapere: quanto vale una visita? Adesso ho pochi soldi."
+      errors: [word-choice]
+      gold: {text: "quanto vale", fix: "quanto costa"}
+    - tutor: "Quanto costa? Non si preoccupi: con quel documento paga solo una parte, circa trentacinque euro."
+      recast: {text: "quanto vale", fix: "Quanto costa", tags: [word-choice]}
+      goals: [cost]
+    - learner: "Ah, meno male! Quando potrei venire?"
+    - tutor: "La dottoressa Sala ha posto giovedì alle dieci o venerdì alle quattordici."
+    - learner: "Giovedì ho lezione all'università fino alle undici. Venerdì vado bene."
+      errors: [word-choice]
+      gold: {text: "Venerdì vado bene", fix: "Venerdì va bene"}
+    - tutor: "Venerdì va bene, allora: alle quattordici con la dottoressa Sala."
+      recast: {text: "Venerdì vado bene", fix: "Venerdì va bene", tags: [word-choice]}
+      goals: [availability]
+    - learner: "Grazie. Devo portare qualcosa oltre alla tessera?"
+    - tutor: "Solo un documento d'identità. Mi ripete l'appuntamento, per sicurezza?"
+    - learner: "Venerdì alle quattordici, con la dottoressa Sala, e porto la tessera e il passaporto."
+    - tutor: "Perfetto, è tutto giusto. Ci vediamo venerdì!"
+      goals: [confirm]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, sono nella camera 412. La doccia non ha acqua calda, solo fredda."
+    - tutor: "Oh, mi dispiace molto. Da quando ha questo problema?"
+      goals: [problem]
+    - learner: "Da stamattina. Ho provato tre volte, ma niente. Anche ieri sera ho provato, e c'era poca."
+      errors: [ci-ne]
+      gold: {text: "c'era poca", fix: "ce n'era poca"}
+    - tutor: "C'era poca? Di che cosa? Provi a dirlo in un altro modo."
+      prompt: {text: "c'era poca", tags: [ci-ne]}
+    - learner: "Sì, c'era poca, di acqua calda."
+      errors: [ci-ne]
+    - tutor: "Ah, ce n'era poca già ieri sera, allora. C'è un problema con l'acqua calda in tutto il quarto piano, purtroppo."
+      goals: [since]
+      recast: {text: "c'era poca", fix: "ce n'era poca", tags: [ci-ne]}
+    - learner: "E adesso cosa posso fare? Domani mattina ho una riunione importante e vorrei fare la doccia."
+    - tutor: "Le posso dare una camera al secondo piano, dove l'acqua calda funziona. Le andrebbe bene?"
+      goals: [request]
+    - learner: "Sì, grazie. Posso lasciare le valigie qui alla reception mentre cambio camera?"
+    - tutor: "Certo, gliele porta su il facchino. Ecco la chiave della 207, e la colazione di domani è offerta da noi."
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-f-teacher
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. La finestra della mia camera non si chiude bene e così entra molto freddo."
+    - tutor: "Mi dispiace, è una notte fredda. Da quando ha notato il problema?"
+      goals: [problem]
+    - learner: "Da quando sono arrivata, alle otto. Ho chiamato la reception, ma nessuno ha risposto."
+    - tutor: "Mi scusi, eravamo solo in due stasera. Che cosa possiamo fare per lei?"
+      goals: [since]
+    - learner: "Potrebbe mandarmi qualcuno a ripararla? Oppure vorrei un'altra camera, magari con la vista su il giardino."
+      errors: [articulated-preposition]
+      gold: {text: "su il giardino", fix: "sul giardino"}
+    - tutor: "Su il giardino? Provi a unire la preposizione e l'articolo."
+      prompt: {text: "su il giardino", tags: [articulated-preposition]}
+    - learner: "Sul giardino, scusi."
+    - tutor: "Perfetto. Sul giardino c'è la 118, che è libera e ha anche il balcone."
+      goals: [request]
+    - learner: "Mi piacerebbe vederla prima, se non è un problema."
+    - tutor: "Nessun problema, gliela faccio vedere subito. Se le piace, cambiamo stasera stessa."
+    - learner: "Va bene, grazie. Andiamo a vederla insieme."
+    - tutor: "Certo, la accompagno io. Mi segua, è proprio qui accanto all'ascensore."
+      goals: [agree]

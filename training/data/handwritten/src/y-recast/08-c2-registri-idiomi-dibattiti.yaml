@@ -1,0 +1,239 @@
+# C2, recast-focused: subtle errors that survive a prompt, then a recast woven into a
+# register-aware reply; false friends and calques recast at once.
+- scenario: condoglianze
+  level: C2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Grazie di essere venuto, davvero. Non se lo doveva disturbare, con tutto il lavoro che ha."
+    - learner: "Ci mancherebbe. Le sono vicino, sinceramente: mi dispiace moltissimo per sua madre."
+    - tutor: "Grazie. È stato tutto così rapido: una settimana in ospedale, e poi... Ancora non ci credo."
+      goals: [condolences]
+    - learner: "Mi auguro che almeno non ha sofferto troppo, in quei giorni."
+      errors: [subjunctive-use]
+    - tutor: "Grazie del pensiero. Solo una cosa, visto che mi chiede sempre di correggerla: dopo «mi auguro che», il verbo «ha sofferto» le suona bene?"
+      prompt: {text: "ha sofferto", tags: [subjunctive-use]}
+    - learner: "Ha ragione, scusi: mi auguro che non ha sofferto, ecco."
+      errors: [subjunctive-use]
+    - tutor: "Speriamo davvero che non abbia sofferto; i medici mi hanno rassicurato, almeno su questo. Lei la conosceva, vero?"
+      recast: {text: "ha sofferto", fix: "abbia sofferto", tags: [subjunctive-use]}
+    - learner: "Sì, l'ho incontrata alla festa di Natale dell'anno scorso: mi ha raccontato per mezz'ora dei suoi viaggi in Sicilia, con un entusiasmo contagioso."
+    - tutor: "La sua amata Sicilia... Era proprio così, instancabile. Mi fa piacere che lei la ricordi in quel modo."
+      goals: [memory]
+    - learner: "Se nei prossimi giorni ha bisogno, posso assistere con le pratiche dell'ufficio, così lei non deve pensarci."
+      errors: [false-friend]
+    - tutor: "Se volesse dare una mano con le pratiche dell'ufficio, mi toglierebbe davvero un peso, glielo confesso."
+      goals: [offer-help]
+      recast: {text: "assistere", fix: "dare una mano", tags: [false-friend]}
+    - learner: "Consideri la cosa fatta. Adesso la lascio riposare; mi chiami per qualunque cosa."
+    - tutor: "Grazie di cuore, davvero. La accompagno alla porta."
+      goals: [leave]
+
+- scenario: dialetti-regionali
+  level: C2
+  persona: es-f-erasmus
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Scusa se mi intrometto, ma ti ho visto ridere: hai capito cosa si dicevano quei due signori? Perché non è mica facile."
+    - learner: "Solo qualche parola! Ridevo perché parlavano molto alto e gesticolavano come in una commedia."
+      errors: [word-choice]
+    - tutor: "A voce molto alta, sì: a Napoli è quasi una forma di affetto. Hai notato anche qualcos'altro nel loro modo di parlare?"
+      recast: {text: "molto alto", fix: "A voce molto alta", tags: [word-choice]}
+    - learner: "Sì, la musicalità: le frasi salivano e scendevano, e tagliavano le ultime sillabe delle parole."
+    - tutor: "Ottimo orecchio, è proprio il troncamento tipico del napoletano. C'era qualche parola che ti ha incuriosita?"
+      goals: [notice]
+    - learner: "Sì, hanno usato tante parole che non conosco il significato, per esempio «scugnizzo»."
+      errors: [relative-pronoun]
+    - tutor: "«Scugnizzo» è bellissima. Però in «parole che non conosco il significato», quel «che» regge davvero tutta la frase? Prova a ricostruirla."
+      prompt: {text: "parole che", tags: [relative-pronoun]}
+    - learner: "Mmm... parole che il significato non conosco, come «scugnizzo»."
+      errors: [relative-pronoun]
+    - tutor: "Parole di cui non conosci il significato, certo, ed è normale: «scugnizzo» è il ragazzino di strada, furbo e simpatico. Secondo te, i dialetti ostacolano l'italiano standard?"
+      goals: [example]
+      recast: {text: "parole che", fix: "Parole di cui", tags: [relative-pronoun]}
+    - learner: "Non credo che lo ostacolino: anzi, chi parla bene un dialetto spesso è più sensibile alle sfumature."
+    - tutor: "Interessante, la penso come te. E andrebbero tutelati per legge, secondo te, o lasciati alla vita spontanea?"
+      goals: [standard]
+    - learner: "Forse una via di mezzo: insegnarli a scuola come patrimonio culturale, senza imporli. Se diventassero una materia obbligatoria, perderebbero la loro spontaneità."
+    - tutor: "Risposta saggia, quasi da sociolinguista! Siamo a Salerno, devo scendere: è stato un piacere."
+      goals: [opinion]
+
+- scenario: email-rettore
+  level: C2
+  persona: en-f-professional
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Sono una ricercatrice visitante nel dipartimento di Fisica, e il mio contratto scade a marzo. Vorrei chiedere una proroga di sei mesi per concludere il progetto."
+      errors: [word-choice]
+    - tutor: "Ricercatrice in visita, con un progetto da concludere: chiaro. Una richiesta del genere va motivata con cura. Come pensava di aprire la lettera?"
+      goals: [situation]
+      recast: {text: "visitante", fix: "in visita", tags: [word-choice]}
+    - learner: "Pensavo a «Caro Rettore»: è troppo informale?"
+    - tutor: "Decisamente. Per un Rettore si usa ancora «Magnifico Rettore»: formula antiquata, ma qui la apprezzano. E poi?"
+      goals: [opening-formula]
+    - learner: "Allora: «Magnifico Rettore, mi permetto di scriverLe...». E dopo pensavo: «Voglio sei mesi in più, perché il progetto non è finito»."
+    - tutor: "Ecco, qui il tono è troppo diretto: «voglio», in una lettera al Rettore, suona quasi come un ultimatum. Provi ad ammorbidire."
+    - learner: "Allora: «Le sarei molto grata se potessi concedermi una proroga di sei mesi»."
+      errors: [subjunctive-form]
+    - tutor: "Molto meglio come tono. Ma attenzione a «potessi»: così sembra che la proroga debba concedersela da sola! Chi è il soggetto?"
+      prompt: {text: "potessi", tags: [subjunctive-form]}
+    - learner: "Il Rettore, certo... «se Lei potessi concedermi una proroga»."
+      errors: [subjunctive-form]
+    - tutor: "Allora scriviamo: «Le sarei molto grata se potesse concedermi una proroga di sei mesi». Cortese ma ferma, come deve essere. Resta solo la chiusura."
+      goals: [tone]
+      recast: {text: "potessi", fix: "potesse", tags: [subjunctive-form]}
+    - learner: "Per chiudere, «Cordiali saluti» va bene, o serve qualcosa di più solenne?"
+    - tutor: "Meglio qualcosa di più solenne: «Con i più deferenti ossequi», seguito da nome e qualifica."
+    - learner: "Perfetto, allora «Con i più deferenti ossequi». Le mando la bozza domani mattina."
+    - tutor: "Benissimo, la rileggo volentieri. A domani!"
+      goals: [closing]
+
+- scenario: pranzo-domenicale
+  level: C2
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Ah, sei arrivato giusto in tempo, qui si stanno già scannando per l'ultima lasagna. Siediti, che non mordiamo!"
+    - learner: "«Non mordiamo»... Vuol dire che siete innocui, anche se litigate per la lasagna? Comunque, ne è rimasta un po' per me?"
+    - tutor: "Esatto, tanto fumo e niente arrosto! Te ne ho tenuto un pezzo da parte, ma non dirlo a nessuno."
+      goals: [react]
+    - learner: "Grazie! È buonissima. E di parmigiano, ci è ancora?"
+      errors: [ci-ne]
+    - tutor: "Il parmigiano non manca mai in questa casa! Ma «di parmigiano, ci è ancora»: con quel «di» davanti, manca un pezzetto. Quale?"
+      prompt: {text: "ci è ancora", tags: [ci-ne]}
+    - learner: "Ah... di parmigiano ci è ancora un po'?"
+      errors: [ci-ne]
+    - tutor: "Ce n'è ancora un chilo, tranquillo: mia zia lo compra a forme intere! Tu da quanto non mangiavi così?"
+      recast: {text: "ci è ancora", fix: "Ce n'è ancora", tags: [ci-ne]}
+    - learner: "Da mesi! Ho mangiato due porzioni, adesso sono completamente stuffed."
+      errors: [word-choice]
+    - tutor: "Pieno come un uovo, eh? Ma qui la frutta e il dolce non sono facoltativi. In inglese avete un modo di dire simile?"
+      recast: {text: "stuffed", fix: "Pieno come un uovo", tags: [word-choice]}
+    - learner: "Sì, «as full as a tick», pieno come una zecca... ma «pieno come un uovo» è più elegante, anche se la zecca fa più ridere."
+    - tutor: "La zecca a tavola, che immagine! Dai, raccontami una storia del tuo viaggio, e chiudila con un proverbio dei nostri."
+      goals: [compare]
+    - learner: "Una volta in Irlanda ho perso l'ultimo traghetto perché volevo finire la birra, e ho dormito al porto. Insomma, chi va piano va sano e va lontano... ma io sono rimasto a terra!"
+    - tutor: "Ahah, hai rovesciato il proverbio, complimenti! Ti sei guadagnato il secondo pezzo di tiramisù."
+      goals: [use-idiom, anecdote]
+
+- scenario: seminario-etica
+  level: C2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Bene, dottoressa, la sua tesi è che una macchina non possa mai essere ritenuta responsabile. Mi permetta di dubitarne fin da subito."
+    - learner: "Prego, professore. La mia tesi è contundente: la responsabilità richiede intenzionalità, e una macchina non ha intenzioni proprie."
+      errors: [false-friend]
+    - tutor: "Netta, la sua tesi, lo riconosco; ma l'intenzionalità è un criterio scivoloso. Che cosa intende esattamente con «intenzioni proprie»?"
+      goals: [thesis]
+      recast: {text: "contundente", fix: "Netta", tags: [false-friend]}
+    - learner: "Distinguo tra causare un evento ed esserne l'autore: la macchina è causa, ma l'autore è chi l'ha progettata o chi la usa."
+    - tutor: "Distinzione classica. Eppure i sistemi che apprendono producono comportamenti che nessuno ha progettato: di chi è la colpa, allora?"
+      goals: [distinguish]
+    - learner: "Ammettiamo che una macchina prende una decisione imprevedibile: resta comunque lo strumento di qualcuno che ha scelto di usarla."
+      errors: [subjunctive-use]
+    - tutor: "Argomento interessante, ma la forma tradisce la sostanza: «ammettiamo che una macchina prende» non regge, in un seminario. Che modo richiede «ammettiamo che»?"
+      goals: [objection]
+      prompt: {text: "prende", tags: [subjunctive-use]}
+    - learner: "Giusto: ammettiamo che prende una decisione imprevedibile; la responsabilità ricade su chi la impiega."
+      errors: [subjunctive-use]
+    - tutor: "Ammettiamo pure che prenda una decisione imprevedibile: ricadrebbe tutto sull'utente? Non le pare ingiusto verso chi non poteva prevederla?"
+      recast: {text: "prende", fix: "prenda", tags: [subjunctive-use]}
+    - learner: "Le concedo che la responsabilità possa essere distribuita fra progettista, produttore e utente. Ma resta umana: la macchina non è un soggetto morale."
+    - tutor: "Una concessione elegante, che salva la tesi. Mi riassuma il tutto in una conclusione rigorosa, se ci riesce."
+      goals: [concede]
+    - learner: "In conclusione: le macchine possono causare danni, ma la responsabilità, anche se condivisa, appartiene sempre a soggetti capaci di intenzioni, cioè agli esseri umani."
+    - tutor: "Rigorosa e difendibile. Non mi ha convinto del tutto, ma per oggi mi basta."
+      goals: [conclude]
+
+- scenario: traduzione-sfumature
+  level: C2
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Ho letto la tua bozza del terzo capitolo. Scorre, scorre benissimo. Peccato che non sia più l'autore a parlare."
+    - learner: "Lo so, ho semplificato. Il passaggio più difficile è il monologo finale: l'autore usa frasi spezzate, quasi senza verbi."
+    - tutor: "Ecco, e tu l'hai riempito di verbi come un tacchino ripieno. Perché?"
+      goals: [problem]
+    - learner: "Perché in italiano le frasi nominali mi sembravano troppo letterarie. E poi in quel punto il protagonista realizza che ha perso tutto."
+      errors: [false-friend]
+    - tutor: "Si rende conto di aver perso tutto, appunto, ed è proprio lì che la sintassi deve franare con lui. Quali sono le due soluzioni che hai considerato?"
+      recast: {text: "realizza", fix: "Si rende conto", tags: [false-friend]}
+    - learner: "O tengo le frasi nominali, rischiando un tono artificioso, o le sciolgo in subordinate, perdendo il ritmo. L'autore insiste in questa frammentazione per tutto il capitolo."
+      errors: [preposition]
+    - tutor: "Analisi lucida. Ma «insiste in questa frammentazione»: qui il verbo «insistere» vuole un'altra preposizione. Quale?"
+      goals: [options]
+      prompt: {text: "insiste in", tags: [preposition]}
+    - learner: "Ah... l'autore insiste in questa scelta fino all'ultima riga."
+      errors: [preposition]
+    - tutor: "Insiste su questa scelta fino all'ultima riga, quindi la frammentazione va rispettata. E nel resto della bozza, hai trovato trappole lessicali?"
+      recast: {text: "insiste in", fix: "Insiste su", tags: [preposition]}
+    - learner: "Sì, «eventually»: l'avevo tradotto con «eventualmente», ma in italiano significa «se mai», quindi l'ho cambiato in «alla fine»."
+    - tutor: "Brava, è il falso amico più insidioso di tutti. Allora, che cosa decidiamo per il monologo?"
+      goals: [false-friend]
+    - learner: "Tengo le frasi nominali, ma sfoltisco la punteggiatura perché non suonino troppo solenni."
+    - tutor: "Decisione che sottoscrivo. Rimandami il capitolo venerdì, e stavolta lascia parlare l'autore."
+      goals: [decide]
+
+- scenario: intervista-radio
+  level: C2
+  persona: en-f-professional
+  history: [participle-agreement]
+  turns:
+    - tutor: "Bentornati, cari ascoltatori. In studio con noi c'è un'autrice che ha avuto il coraggio, o l'incoscienza, di scrivere un libro su di noi italiani. Benvenuta!"
+    - learner: "Grazie! Più incoscienza che coraggio, credo. Il libro è una collezione di aneddoti, frutto di dieci anni di vita a Milano."
+      errors: [word-choice]
+    - tutor: "Una raccolta di aneddoti, quindi, e dieci anni sono tanti. Perché ha sentito il bisogno di metterli per iscritto?"
+      recast: {text: "collezione", fix: "raccolta", tags: [word-choice]}
+    - learner: "Perché di libri sugli italiani scritti da stranieri ne ho letto tantissimi, e quasi tutti parlavano di pizza e mandolino."
+      errors: [participle-agreement]
+    - tutor: "Pizza e mandolino, il nostro destino! Però «ne ho letto tantissimi»: quel «ne» si porta dietro qualcosa nel participio. Che cosa?"
+      goals: [present-book]
+      prompt: {text: "ne ho letto", tags: [participle-agreement]}
+    - learner: "Ah, sì: ne ho letto tantissimi, davvero, troppi."
+      errors: [participle-agreement]
+    - tutor: "Ne ha letti tantissimi, e tutti pieni di luoghi comuni: allora glielo chiedo senza pietà. Gli italiani sono davvero tutti mammoni?"
+      recast: {text: "letto", fix: "letti", tags: [participle-agreement]}
+    - learner: "Non tutti, ma molti! Scherzi a parte, il problema non sono i figli che restano a casa: è un mercato del lavoro che non permette loro di andarsene."
+    - tutor: "Risposta diplomatica, e un po' politica. Ci racconti un episodio che l'ha fatta sentire davvero a casa."
+      goals: [stereotype]
+    - learner: "Il giorno in cui la mia portinaia mi ha rimproverata perché uscivo con i capelli bagnati: lì ho capito che ormai facevo parte della famiglia."
+    - tutor: "Il colpo d'aria, il grande nemico nazionale! E imparare l'italiano, che cosa ha cambiato in lei?"
+      goals: [anecdote]
+    - learner: "Mi ha insegnato a dire le cose con più giri di parole... e a gesticolare anche al telefono."
+    - tutor: "Una conversione completa! Un'ultima battuta per i nostri ascoltatori?"
+      goals: [language]
+    - learner: "Leggete il mio libro: vi riconoscerete, anche se non lo ammetterete mai."
+    - tutor: "Chiusura perfetta. Grazie, e alla prossima puntata!"
+      goals: [farewell]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Sì, grazie. Non sono contrario ai lavori sulla facciata, ma vorrei che si rimandassero alla primavera, con calma."
+    - tutor: "Posizione chiara. Il signor Ferri, qui accanto, mormora che lei rimanda tutto da tre anni. Vuole rispondergli?"
+      goals: [position]
+    - learner: "Il signor Ferri ha la memoria lunga, e lo invidio! Ma stavolta il motivo è concreto: la ditta vuole essere pagata metà prima di cominciare, che a me sembra eccessivo."
+      errors: [relative-pronoun]
+    - tutor: "Battuta ben piazzata. Ma quel «che a me sembra eccessivo» a che cosa si riferisce? A tutta la frase precedente: e allora il relativo cambia."
+      goals: [defuse]
+      prompt: {text: "che a me sembra eccessivo", tags: [relative-pronoun]}
+    - learner: "Sì... la ditta vuole metà prima, che a me sembra davvero troppo."
+      errors: [relative-pronoun]
+    - tutor: "Vuole metà prima, il che effettivamente non è poco, lo ammetto anch'io. Che cosa propone, allora, in concreto?"
+      recast: {text: "metà prima, che", fix: "metà prima, il che", tags: [relative-pronoun]}
+    - learner: "Propongo di chiedere altri due estimati ad altre ditte e di votare a marzo, con i numeri in mano."
+      errors: [word-choice]
+    - tutor: "Altri due preventivi entro marzo: mi sembra ragionevole. Ma il geometra avverte che, se aspettiamo troppo, qualche pezzo di cornicione potrebbe cadere."
+      goals: [alternative]
+      recast: {text: "estimati", fix: "preventivi", tags: [word-choice]}
+      new: [{lemma: cornicione, gloss: cornice}]
+    - learner: "Allora facciamo subito la messa in sicurezza del cornicione, che è urgente, e rimandiamo il resto a marzo, dopo il confronto dei preventivi."
+    - tutor: "Mi pare un compromesso che può mettere d'accordo tutti, persino il signor Ferri. Lo metto a verbale: messa in sicurezza subito, voto sul resto a marzo."
+      goals: [compromise]
+    - learner: "Perfetto, grazie. E grazie anche al signor Ferri per la pazienza."
+    - tutor: "Verbalizzato anche il ringraziamento. Passiamo al punto successivo, signori!"

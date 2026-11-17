@@ -1,0 +1,225 @@
+# y-future, file 02: A2, passato prossimo vs imperfetto (habits, descriptions, single events).
+- scenario: ricordi-infanzia
+  level: A2
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo in un piccolo paese vicino a Manchester."
+    - tutor: "Ah, in Inghilterra! E cosa facevi d'estate?"
+      goals: [place]
+    - learner: "D'estate sono andata sempre dalla nonna, al mare."
+      errors: [tense-aspect]
+      gold: {text: "sono andata sempre", fix: "andavo sempre"}
+    - tutor: "Sono andata sempre? Era una cosa di ogni estate, molte volte. Quale tempo usiamo?"
+      prompt: {text: "sono andata sempre", tags: [tense-aspect]}
+    - learner: "Ah, andai sempre dalla nonna, al mare."
+      errors: [tense-aspect]
+    - tutor: "Che bello, anch'io andavo sempre dalla nonna d'estate! E la scuola ti piaceva?"
+      recast: {text: "andai sempre", fix: "andavo sempre", tags: [tense-aspect]}
+      goals: [habits]
+    - learner: "Sì, mi piaceva. La mia maestra era molto simpatica e ci leggeva tante storie nella libreria della scuola."
+      errors: [false-friend]
+    - tutor: "Nella biblioteca della scuola, che bello! E hai un ricordo speciale?"
+      recast: {text: "libreria", fix: "biblioteca", tags: [false-friend]}
+      new: [{lemma: biblioteca, gloss: library}]
+      goals: [school]
+    - learner: "Sì! Un giorno, mentre giocavo in spiaggia, ho trovato una moneta antica."
+    - tutor: "Una moneta antica, incredibile! Ce l'hai ancora?"
+      goals: [event]
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Abitavo a Valencia, in una casa vicino al porto."
+    - tutor: "Valencia, che bella città! E cosa facevi dopo la scuola?"
+      goals: [place]
+    - learner: "Giocavo a calcio con i miei amici. Ogni sabato mio padre mi ha portato al porto a vedere le barche."
+      errors: [tense-aspect]
+      gold: {text: "mi ha portato", fix: "mi portava"}
+    - tutor: "Ogni sabato mi ha portato? Succedeva tante volte... Prova con un altro tempo!"
+      prompt: {text: "mi ha portato", tags: [tense-aspect]}
+    - learner: "Ogni sabato mi portava al porto a vedere le barche."
+    - tutor: "Perfetto! Che bel ricordo. E a scuola com'eri?"
+      goals: [habits]
+    - learner: "Ero bravo in matematica, ma parlavo troppo in classe!"
+    - tutor: "Come tanti bambini! C'è un giorno speciale che ricordi?"
+      goals: [school]
+    - learner: "Sì. Un'estate siamo andati in Italia in macchina. Il viaggio durava due giorni."
+      errors: [tense-aspect]
+      gold: {text: "durava", fix: "è durato"}
+    - tutor: "Durava? Il viaggio è finito, è un fatto chiuso. Come lo dici?"
+      prompt: {text: "durava", tags: [tense-aspect]}
+    - learner: "Il viaggio durava due giorni, ma era bellissimo."
+      errors: [tense-aspect]
+    - tutor: "Due giorni in macchina! Il viaggio è durato tanto, ma che bel ricordo."
+      goals: [event]
+      new: [{lemma: durare, gloss: to last}]
+      recast: {text: "durava", fix: "è durato", tags: [tense-aspect]}
+
+- scenario: vacanze-passate
+  level: A2
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao Elena! Siamo stati due settimane in Puglia, mia moglie e io."
+    - tutor: "In Puglia, che bello! E che tempo faceva?"
+      goals: [where]
+    - learner: "Faceva molto calore, ma la sera c'era un bel vento."
+      errors: [word-choice]
+    - tutor: "Faceva molto caldo, ma con il vento la sera era perfetto! E cosa avete fatto?"
+      recast: {text: "molto calore", fix: "molto caldo", tags: [word-choice]}
+      goals: [weather]
+    - learner: "Ogni mattina abbiamo fatto colazione in piazza, poi andavamo in spiaggia."
+      errors: [tense-aspect]
+      gold: {text: "abbiamo fatto", fix: "facevamo"}
+    - tutor: "Ogni mattina abbiamo fatto? È una cosa che succedeva tutti i giorni. Come lo dici?"
+      prompt: {text: "abbiamo fatto", tags: [tense-aspect]}
+    - learner: "Ah, ogni mattina facevamo colazione in piazza."
+    - tutor: "Bravo! Che bella vita. Cosa ti è piaciuto di più?"
+      goals: [activities]
+    - learner: "Il cibo, soprattutto la pasta fatta in casa della signora dell'albergo."
+    - tutor: "Ah, la pasta fatta in casa è la migliore! Ci voglio andare anch'io."
+      goals: [best]
+
+- scenario: vacanze-passate
+  level: A2
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao! Raccontami: dove hai passato le vacanze?"
+    - learner: "Sono andata in montagna, in Trentino, con il mio ragazzo."
+    - tutor: "In montagna! E che tempo faceva?"
+      goals: [where]
+    - learner: "I primi giorni il tempo era miserabile, ma poi è uscito il sole."
+      errors: [false-friend]
+    - tutor: "Che peccato, un tempo bruttissimo! Meno male che poi è uscito il sole. E cosa avete fatto?"
+      recast: {text: "miserabile", fix: "bruttissimo", tags: [false-friend]}
+      goals: [weather]
+    - learner: "Abbiamo camminato molto. Un giorno, mentre salivamo, il mio ragazzo vedeva un'aquila!"
+      errors: [tense-aspect]
+      gold: {text: "vedeva", fix: "ha visto"}
+    - tutor: "Vedeva? È successo una volta sola, in un momento. Quale tempo usi?"
+      prompt: {text: "vedeva", tags: [tense-aspect]}
+    - learner: "Sì, vedeva un'aquila enorme sopra di noi!"
+      errors: [tense-aspect]
+    - tutor: "Che fortuna, ha visto un'aquila! Io non l'ho mai vista. Cosa ti è piaciuto di più?"
+      goals: [activities]
+      recast: {text: "vedeva", fix: "ha visto", tags: [tense-aspect]}
+      new: [{lemma: aquila, gloss: eagle}]
+    - learner: "Il silenzio e l'aria pulita. Mi sono riposata tanto."
+    - tutor: "Ti capisco, la montagna fa bene! La prossima volta vengo anch'io."
+      goals: [best]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Benissimo! Sabato sono andato a Bologna con due amici."
+    - tutor: "Bologna, che bella! Cosa avete fatto?"
+      goals: [where]
+    - learner: "Abbiamo mangiato le tagliatelle e abbiamo preso tante foto delle due torri."
+      errors: [word-choice]
+    - tutor: "Che bello! Avete fatto foto anche dall'alto? E chi erano i tuoi amici?"
+      recast: {text: "preso", fix: "fatto", tags: [word-choice]}
+      goals: [what]
+    - learner: "Marco e Luca, dell'università. Domenica Luca dormiva fino a mezzogiorno!"
+      errors: [tense-aspect]
+      gold: {text: "dormiva", fix: "ha dormito"}
+    - tutor: "Dormiva? Domenica, una volta sola... Come lo racconti?"
+      prompt: {text: "dormiva", tags: [tense-aspect]}
+    - learner: "Luca ha dormito fino a mezzogiorno!"
+    - tutor: "Ecco! Fino a mezzogiorno, che fortuna! E a te è piaciuta Bologna?"
+      goals: [with-who]
+    - learner: "Sì, moltissimo. E tu, cosa hai fatto nel fine settimana?"
+    - tutor: "Io sono rimasta a casa a leggere. La prossima volta vengo con voi!"
+      goals: [opinion]
+
+- scenario: medico-base
+  level: A2
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Ho mal di testa e ho la temperatura."
+      errors: [word-choice]
+    - tutor: "Mi dispiace. Da quando ha la febbre?"
+      recast: {text: "la temperatura", fix: "la febbre", tags: [word-choice]}
+      goals: [symptoms]
+    - learner: "Da ieri. Ieri mattina sono andata al lavoro, ma a mezzogiorno stavo male e sono tornata a casa."
+    - tutor: "Ha fatto bene a tornare a casa. Prende qualche medicina?"
+      goals: [since-when]
+    - learner: "Ieri sera prendevo un'aspirina, ma non è servita a niente."
+      errors: [tense-aspect]
+      gold: {text: "prendevo", fix: "ho preso"}
+    - tutor: "Prendevo? Ieri sera, una volta sola: quale tempo usiamo?"
+      prompt: {text: "prendevo", tags: [tense-aspect]}
+    - learner: "Ho preso un'aspirina, ma non è servita a niente."
+    - tutor: "Va bene. Allora resti a casa tre giorni e beva molta acqua."
+      goals: [history]
+    - learner: "Quindi resto a casa tre giorni e bevo tanta acqua."
+    - tutor: "Esatto. Se la febbre non passa, mi chiami."
+      goals: [instructions]
+
+- scenario: famiglia
+  level: A2
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Sono i miei nonni, quando erano giovani. La foto è del 1965."
+    - tutor: "Che belli! Dove abitavano?"
+      goals: [who]
+    - learner: "Abitavano in Calabria. Mio nonno faceva il pescatore e ogni mattina è uscito in barca."
+      errors: [tense-aspect]
+      gold: {text: "è uscito", fix: "usciva"}
+    - tutor: "Ogni mattina è uscito? Il nonno lo faceva sempre... Prova con un altro tempo."
+      prompt: {text: "è uscito", tags: [tense-aspect]}
+    - learner: "Sì, ogni mattina è uscito molto presto."
+      errors: [tense-aspect]
+    - tutor: "Ah, ogni mattina usciva molto presto! Che vita dura. E com'era tua nonna?"
+      recast: {text: "è uscito", fix: "usciva", tags: [tense-aspect]}
+    - learner: "Era piccola e molto allegra. Cantava sempre in cucina."
+    - tutor: "Che dolce! E quanti anni hanno adesso?"
+      goals: [describe]
+    - learner: "Il nonno ha novant'anni e la nonna ottantasette. E i tuoi grandi genitori?"
+      errors: [word-choice]
+    - tutor: "I miei nonni abitano a Torino. Hanno quasi novant'anni anche loro!"
+      goals: [ages, ask]
+      recast: {text: "grandi genitori", fix: "nonni", tags: [word-choice]}
+
+- scenario: casa-mia
+  level: A2
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Abito in un piso al terzo piano, in centro."
+      errors: [word-choice]
+    - tutor: "Un appartamento in centro, fantastico! Quante stanze ci sono?"
+      recast: {text: "un piso", fix: "Un appartamento", tags: [word-choice]}
+      goals: [type]
+    - learner: "Ci sono due camere, la cucina e il bagno. La mia casa di prima ha avuto un giardino."
+      errors: [tense-aspect]
+      gold: {text: "ha avuto", fix: "aveva"}
+    - tutor: "Ha avuto un giardino? Parli di come era la casa prima... Quale tempo serve?"
+      prompt: {text: "ha avuto", tags: [tense-aspect]}
+    - learner: "Ha avuto un giardino grande, con gli alberi."
+      errors: [tense-aspect]
+    - tutor: "Ah, la casa di prima aveva un giardino con gli alberi, che bello! E adesso qual è la tua stanza preferita?"
+      goals: [rooms]
+      recast: {text: "ha avuto", fix: "aveva", tags: [tense-aspect]}
+    - learner: "La cucina, perché è grande e ha una ventana sul parco."
+      errors: [word-choice]
+    - tutor: "Una cucina con una finestra sul parco, perfetta per cucinare!"
+      recast: {text: "una ventana", fix: "una finestra", tags: [word-choice]}
+      goals: [favourite]
+    - learner: "Sì! E la tua casa com'è?"
+    - tutor: "È piccola, ma ha un bel balcone con tanti fiori."
+      goals: [ask]

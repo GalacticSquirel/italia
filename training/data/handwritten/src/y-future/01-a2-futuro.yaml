@@ -1,0 +1,233 @@
+# y-future, file 01: A2, future forms (irregular stems, -are verbs, -care/-gare).
+- scenario: compleanno
+  level: A2
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa sabato da me? Ho un giardino grande."
+    - tutor: "Ottima idea, in giardino è perfetto! Chi invitiamo?"
+      goals: [date]
+    - learner: "I colleghi di Sara e la sua famiglia. Io telefonarò a sua madre stasera."
+      errors: [future-form]
+      gold: {text: "telefonarò", fix: "telefonerò"}
+    - tutor: "Telefonarò? Attenzione: nel futuro quella a cambia. Prova ancora!"
+      prompt: {text: "telefonarò", tags: [future-form]}
+    - learner: "Ah, sì: telefonerò a sua madre stasera."
+    - tutor: "Perfetto! E per mangiare? Chi fa la torta?"
+      goals: [guests]
+    - learner: "La torta la fa mia moglie. Io venirò presto per preparare i tavoli."
+      errors: [future-form]
+      gold: {text: "venirò", fix: "verrò"}
+    - tutor: "Venirò? Il futuro di venire è speciale, è più corto. Prova ancora!"
+      prompt: {text: "venirò", tags: [future-form]}
+    - learner: "Venerò presto per preparare i tavoli."
+      errors: [future-form]
+    - tutor: "Allora verrò presto anch'io e ti aiuto con i tavoli! E il regalo?"
+      goals: [food]
+      recast: {text: "Venerò", fix: "verrò", tags: [future-form]}
+    - learner: "Sara studia sempre in libreria. Le regaliamo un bel libro?"
+      errors: [false-friend]
+    - tutor: "Sì, in biblioteca la vedo sempre! Un libro è perfetto, sarà contentissima. Allora a sabato."
+      goals: [gift]
+      recast: {text: "libreria", fix: "biblioteca", tags: [false-friend]}
+      new: [{lemma: biblioteca, gloss: library}]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Buongiorno! Sì, vorrei noleggiare una bicicletta per me e una per il mio amico."
+    - tutor: "Certo! Per quanto tempo?"
+      goals: [ask]
+    - learner: "Per tutta la giornata. Tendremo le bici fino alle sei, va bene?"
+      errors: [future-form]
+      gold: {text: "Tendremo", fix: "Terremo"}
+    - tutor: "Tendremo? Sembra spagnolo! Il futuro di tenere è speciale. Come si dice in italiano?"
+      prompt: {text: "Tendremo", tags: [future-form]}
+    - learner: "Terremo le bici fino alle sei."
+    - tutor: "Esatto! Fino alle sei va benissimo."
+      goals: [duration]
+    - learner: "Quanto costa? E possiamo lasciare qui l'equipaggio?"
+      errors: [false-friend]
+    - tutor: "Sono quindici euro a bicicletta, con casco e lucchetto. E sì, i bagagli potete lasciarli qui."
+      goals: [price]
+      recast: {text: "l'equipaggio", fix: "i bagagli", tags: [false-friend]}
+      new: [{lemma: bagaglio, gloss: luggage}]
+    - learner: "Benissimo. Dopo pranzo andaremo al lago. C'è un bel percorso?"
+      errors: [future-form]
+      gold: {text: "andaremo", fix: "andremo"}
+    - tutor: "Andaremo? Quasi! Il futuro di andare perde una lettera. Prova ancora."
+      prompt: {text: "andaremo", tags: [future-form]}
+    - learner: "Andremo al lago. C'è un bel percorso?"
+    - tutor: "Brava! Sì, c'è un bel percorso lungo il lago, tutto in piano."
+      goals: [route]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Vorrei prenotare un tavolo per sabato sera."
+    - tutor: "Certo, signora. Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Saremo in sei, alle otto e mezza. Ci serve una tavola grande."
+      errors: [word-choice]
+    - tutor: "Va bene, un tavolo grande per sei persone, sabato alle otto e mezza."
+      goals: [details]
+      recast: {text: "una tavola grande", fix: "un tavolo grande", tags: [word-choice]}
+    - learner: "Possiamo mangiare fuori? Mio fratello portarà anche il cane."
+      errors: [future-form]
+      gold: {text: "portarà", fix: "porterà"}
+    - tutor: "Portarà? Attenzione alla a di portare nel futuro. Come si dice?"
+      prompt: {text: "portarà", tags: [future-form]}
+    - learner: "Portrà anche il cane. È un problema?"
+      errors: [future-form]
+    - tutor: "Se suo fratello porterà il cane, nessun problema: potete mangiare fuori. A che nome prenoto?"
+      goals: [special]
+      recast: {text: "Portrà", fix: "porterà", tags: [future-form]}
+    - learner: "A nome Rossi, è il cognome di mio marito. Pagheremo con la carta, va bene?"
+    - tutor: "Sì, certo. Allora a sabato, signora Rossi!"
+      goals: [name]
+
+- scenario: biglietto-treno
+  level: A2
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vado a Firenze domani mattina. Mia moglie venirà con me."
+      errors: [future-form]
+      gold: {text: "venirà", fix: "verrà"}
+    - tutor: "Venirà? Attenzione, venire ha un futuro speciale. Prova di nuovo!"
+      prompt: {text: "venirà", tags: [future-form]}
+    - learner: "Venerà con me."
+      errors: [future-form]
+    - tutor: "Ah, sua moglie verrà con lei, benissimo! Allora due biglietti. Solo andata?"
+      goals: [destination]
+      recast: {text: "Venerà", fix: "verrà", tags: [future-form]}
+    - learner: "No, andata e ritorno. Torneremo domenica sera."
+    - tutor: "Va bene. Prima o seconda classe?"
+      goals: [type]
+    - learner: "Seconda classe, grazie. Possiamo avere due sedie vicine?"
+      errors: [word-choice]
+    - tutor: "Sì, ecco due posti vicini al finestrino."
+      recast: {text: "due sedie vicine", fix: "due posti vicini", tags: [word-choice]}
+      goals: [class]
+      new: [{lemma: finestrino, gloss: train window}]
+    - learner: "Perfetto. Da quale binario partirà il treno?"
+    - tutor: "Partirà dal binario otto, alle nove e dieci. Buon viaggio!"
+      goals: [platform]
+
+- scenario: medico-base
+  level: A2
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e sono molto constipato."
+      errors: [false-friend]
+    - tutor: "Ah, è raffreddato! Mi dispiace. Da quando sta così? È allergico a qualche medicina?"
+      goals: [symptoms]
+      recast: {text: "constipato", fix: "raffreddato", tags: [false-friend]}
+      new: [{lemma: raffreddato, gloss: having a cold}]
+    - learner: "Da tre giorni. No, non sono allergico a niente."
+    - tutor: "Bene. Allora prenda questa medicina tre volte al giorno, per una settimana."
+      goals: [since-when, history]
+    - learner: "Va bene. E poterò andare al lavoro domani?"
+      errors: [future-form]
+      gold: {text: "poterò", fix: "potrò"}
+    - tutor: "Poterò? Il futuro di potere è più corto. Come si dice?"
+      prompt: {text: "poterò", tags: [future-form]}
+    - learner: "Potrò andare al lavoro domani?"
+    - tutor: "Sì, se non ha la febbre. Mi ripete cosa deve fare?"
+    - learner: "Prenderò la medicina tre volte al giorno, per una settimana."
+    - tutor: "Perfetto. Se tra una settimana sta ancora male, torni da me."
+      goals: [instructions]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì, buongiorno! Cercate una cameriera per l'estate?"
+    - tutor: "Sì, da giugno a settembre. Ha già esperienza?"
+      goals: [ask]
+    - learner: "Sì, l'anno scorso ho lavorato in un bar a Londra per sei mesi."
+    - tutor: "Molto bene! E quando è disponibile?"
+      goals: [experience]
+    - learner: "Gli esami finiscono a maggio. A giugno averò tutto il tempo libero."
+      errors: [future-form]
+      gold: {text: "averò", fix: "avrò"}
+    - tutor: "Averò? Quasi! Il futuro di avere è più corto. Provi ancora."
+      prompt: {text: "averò", tags: [future-form]}
+    - learner: "A giugno avrò tutto il tempo libero."
+    - tutor: "Ottimo! Può lavorare anche la sera?"
+    - learner: "Sì, la sera va bene. Il sabato mattina però devo attendere una lezione."
+      errors: [false-friend]
+    - tutor: "Nessun problema, se il sabato deve seguire una lezione lavora solo la sera. Mi lascia il suo numero?"
+      goals: [availability]
+      recast: {text: "attendere una lezione", fix: "seguire una lezione", tags: [false-friend]}
+    - learner: "Certo, è 347 112 5809. Mi chiamo Anna."
+    - tutor: "Grazie, Anna. La chiamo venerdì!"
+      goals: [contact]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Quanto costa un abbonamento per tre mesi?"
+    - tutor: "Costa centoventi euro. Per un anno costa trecento."
+      goals: [ask-membership]
+    - learner: "Avete corsi di yoga? Mia sorella venirà con me."
+      errors: [future-form]
+      gold: {text: "venirà", fix: "verrà"}
+    - tutor: "Venirà? Pensa al futuro di venire: è un po' speciale. Come si dice?"
+      prompt: {text: "venirà", tags: [future-form]}
+    - learner: "Vendrà con me."
+      errors: [future-form]
+    - tutor: "Che bello, tua sorella verrà con te! Lo yoga c'è il martedì e il giovedì."
+      goals: [classes]
+      recast: {text: "Vendrà", fix: "verrà", tags: [future-form]}
+    - learner: "Io lavoro fino alle sei. A che ora comincia il corso?"
+    - tutor: "Comincia alle sette, quindi hai tempo. Va bene?"
+      goals: [timetable]
+    - learner: "Perfetto. Faccio la sottoscrizione di tre mesi, posso pagare con la carta?"
+      errors: [word-choice]
+    - tutor: "Certo, l'abbonamento si può pagare con la carta! Ecco il modulo. Benvenuto in palestra!"
+      recast: {text: "la sottoscrizione", fix: "l'abbonamento", tags: [word-choice]}
+      goals: [sign-up]
+
+- scenario: serata-cinema
+  level: A2
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema? C'è un film nuovo di Moretti."
+    - tutor: "Bella idea! Ti piacciono i suoi film?"
+      goals: [propose]
+    - learner: "Sì, mi piacciono le commedie, sono molto divertite!"
+      errors: [false-friend]
+    - tutor: "Sì, le commedie sono divertenti, piacciono anche a me! Il film è alle otto o alle dieci."
+      recast: {text: "divertite", fix: "divertenti", tags: [false-friend]}
+      goals: [genre]
+    - learner: "Alle otto. Io cercarò i biglietti online adesso."
+      errors: [future-form]
+      gold: {text: "cercarò", fix: "cercherò"}
+    - tutor: "Cercarò? Attenzione: cercare nel futuro ha bisogno di una lettera in più. Prova ancora!"
+      prompt: {text: "cercarò", tags: [future-form]}
+    - learner: "Cercerò i biglietti online."
+      errors: [future-form]
+    - tutor: "Ah, cercherò anch'io sul telefono, così facciamo prima! Alle otto, allora."
+      goals: [choose]
+      recast: {text: "Cercerò", fix: "cercherò", tags: [future-form]}
+    - learner: "Ci vediamo davanti al cinema alle otto meno un quarto?"
+    - tutor: "Perfetto, a dopo!"
+      goals: [meet]

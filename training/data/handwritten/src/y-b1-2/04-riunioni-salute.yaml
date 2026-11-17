@@ -1,0 +1,305 @@
+# B1, team meetings and a first session with a trainer: future forms, prepositions, clitics.
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Ho finito la parte per il cliente di Milano e la settimana prossima cominciarò i test."
+      errors: [future-form]
+      gold: {text: "cominciarò", fix: "comincerò"}
+    - tutor: "Cominciarò? Attenzione: nel futuro di cominciare c'è una lettera diversa."
+      prompt: {text: "cominciarò", tags: [future-form]}
+    - learner: "Ah, comincerò i test lunedì."
+    - tutor: "Perfetto. E ci sono problemi?"
+      goals: [update]
+    - learner: "Sì, uno. Il cliente non ha ancora mandato i dati, e senza loro non posso fare niente."
+      errors: [preposition]
+      gold: {text: "senza loro", fix: "senza di loro"}
+    - tutor: "Senza loro? Con un pronome, dopo «senza» manca qualcosa."
+      prompt: {text: "senza loro", tags: [preposition]}
+    - learner: "Senza loro... non posso lavorare, ecco."
+      errors: [preposition]
+    - tutor: "Certo, senza di loro sei bloccata. Hai già chiamato il cliente?"
+      recast: {text: "senza loro", fix: "senza di loro", tags: [preposition]}
+      goals: [problem]
+    - learner: "Sì, ma non ha risposto al telefono. Penso che è in vacanza."
+      errors: [subjunctive-use]
+      gold: {text: "che è in vacanza", fix: "che sia in vacanza"}
+    - tutor: "Penso che... è? Dopo «penso che» quale modo usiamo?"
+      prompt: {text: "che è in vacanza", tags: [subjunctive-use]}
+    - learner: "Penso che sia in vacanza."
+    - tutor: "Può darsi, è agosto. Che cosa proponi di fare?"
+    - learner: "Potrei chiamare il suo collega, che conosco bene. Se ci manda i dati, finirò i test entro venerdì 20."
+    - tutor: "Ottima idea, chiamalo oggi stesso. Allora la nostra scadenza è venerdì 20?"
+      goals: [proposal]
+    - learner: "Sì, venerdì 20 va bene. Te lo scrivo anche in una mail."
+    - tutor: "Perfetto, grazie. Passiamo al prossimo punto."
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Va bene, ma sono un po' in ritardo con il rapporto, perché il cliente ha cambiato idea due volte."
+    - tutor: "Due volte? Che pazienza. Quanto tempo ti serve ancora?"
+      goals: [update]
+    - learner: "Per finire bene vogliono ancora tre giorni, almeno."
+      errors: [ci-ne]
+      gold: {text: "vogliono ancora tre giorni", fix: "ci vogliono ancora tre giorni"}
+    - tutor: "Vogliono tre giorni? Chi vuole? Manca una piccola parola davanti al verbo."
+      prompt: {text: "vogliono ancora tre giorni", tags: [ci-ne]}
+    - learner: "Ci vogliono ancora tre giorni."
+    - tutor: "Esatto. E qual è il problema principale?"
+    - learner: "Il cliente è molto esigente. Ogni giorno ci chiede cambi nuovi nel testo."
+      errors: [word-choice]
+      gold: {text: "cambi nuovi", fix: "modifiche nuove"}
+    - tutor: "Capisco, se ogni giorno chiede modifiche nuove è difficile chiudere. Cosa proponi?"
+      recast: {text: "cambi nuovi", fix: "modifiche nuove", tags: [word-choice]}
+      new: [{lemma: modifica, gloss: change / edit}]
+      goals: [problem]
+    - learner: "Propongo una riunione con il cliente lunedì, così fissamo tutto una volta per sempre."
+      errors: [verb-form, word-choice]
+      gold: {text: "fissamo", fix: "fissiamo"}
+    - tutor: "Così... fissamo? Controlla di nuovo il verbo con «noi»."
+      prompt: {text: "fissamo", tags: [verb-form]}
+    - learner: "Fissamo... no, scusa, non lo so."
+      errors: [verb-form]
+    - tutor: "Ottima idea: lunedì fissiamo tutto con il cliente, così non cambia più niente. Organizzi tu la riunione?"
+      recast: {text: "Fissamo", fix: "fissiamo", tags: [verb-form]}
+      goals: [proposal]
+    - learner: "Sì, la organizzo io. Dopo la riunione, la consegna sarà venerdì prossimo."
+    - tutor: "Perfetto, scrivo venerdì prossimo. Grazie, e buon lavoro con il cliente!"
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene. Ho lavorato tutta la settimana su il nuovo sito e sono quasi alla fine."
+      errors: [articulated-preposition]
+      gold: {text: "su il nuovo sito", fix: "sul nuovo sito"}
+    - tutor: "Su il nuovo sito? Unisci le due parole."
+      prompt: {text: "su il nuovo sito", tags: [articulated-preposition]}
+    - learner: "Su il sito, sì, quello del cliente di Torino."
+      errors: [articulated-preposition]
+    - tutor: "Ah, sul sito del cliente di Torino, perfetto. Ci sono problemi?"
+      recast: {text: "Su il sito", fix: "sul sito", tags: [articulated-preposition]}
+      goals: [update]
+    - learner: "Sì. Il cliente vuole aggiungere una pagina nuova, ma non ha detto per quando."
+    - tutor: "Questo cambia i tempi. Che cosa pensi di fare?"
+      goals: [problem]
+    - learner: "Penso di chiamarlo a domani mattina e chiedere più tempo."
+      errors: [preposition]
+      gold: {text: "a domani mattina", fix: "domani mattina"}
+    - tutor: "A domani mattina? Ascolta bene: c'è una parola di troppo."
+      prompt: {text: "a domani mattina", tags: [preposition]}
+    - learner: "Domani mattina, scusa. E potrei finire la pagina nuova in due giorni."
+    - tutor: "Mi sembra una buona proposta. Quindi quando finiresti tutto?"
+      goals: [proposal]
+    - learner: "Mercoledì prossimo, se il cliente mi manda i testi a tempo."
+      errors: [word-choice]
+      gold: {text: "a tempo", fix: "in tempo"}
+    - tutor: "Va bene, mercoledì prossimo, se i testi arrivano in tempo. Lo segno subito."
+      recast: {text: "a tempo", fix: "in tempo", tags: [word-choice]}
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene! Sto preparando l'analisi dei dati che il cliente ci ha mandato la settimana scorsa."
+    - tutor: "Brava. A che punto sei?"
+    - learner: "Ho finito la prima parte. Ma il collega da che ho ricevuto il file non ha messo tutti i numeri."
+      errors: [relative-pronoun]
+      gold: {text: "da che", fix: "da cui"}
+    - tutor: "Il collega da che...? Dopo «da», quale pronome ci vuole?"
+      prompt: {text: "da che", tags: [relative-pronoun]}
+    - learner: "Il collega da che... è Marco, dell'ufficio vendite."
+      errors: [relative-pronoun]
+    - tutor: "Ah, il collega da cui hai ricevuto il file è Marco? Allora parliamo con lui."
+      recast: {text: "da che", fix: "da cui", tags: [relative-pronoun]}
+      goals: [update]
+    - learner: "Sì. Il problema è che alcuni numeri sono sbagliati, e non so perché."
+    - tutor: "Questo è serio, il cliente lo vedrà subito. Cosa proponi?"
+      goals: [problem]
+    - learner: "È meglio che Marco mi spiega come ha fatto i calcoli."
+      errors: [subjunctive-use]
+      gold: {text: "che Marco mi spiega", fix: "che Marco mi spieghi"}
+    - tutor: "È meglio che Marco ti... spiega? Dopo «è meglio che» quale modo serve?"
+      prompt: {text: "che Marco mi spiega", tags: [subjunctive-use]}
+    - learner: "È meglio che Marco mi spieghi i calcoli."
+    - tutor: "Esatto, ottima idea. Organizzo io un incontro domani. E quando pensi di finire?"
+      goals: [proposal]
+    - learner: "Se domani Marco mi aiuta, finerò l'analisi lunedì."
+      errors: [future-form]
+      gold: {text: "finerò", fix: "finirò"}
+    - tutor: "Finerò? Pensa all'infinito del verbo."
+      prompt: {text: "finerò", tags: [future-form]}
+    - learner: "Finirò l'analisi lunedì."
+    - tutor: "Perfetto, allora lunedì è la nostra scadenza. Brava, continua così!"
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: es-f-teacher
+  history: [pronoun-position]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene. Ieri ho incontrato il cliente nuovo e li ho presentato il progetto."
+      errors: [object-pronoun]
+      gold: {text: "li ho presentato", fix: "gli ho presentato"}
+    - tutor: "Li ho presentato? Hai presentato il progetto a lui: che pronome serve?"
+      prompt: {text: "li ho presentato", tags: [object-pronoun]}
+    - learner: "Gli ho presentato il progetto, e gli è piaciuto."
+    - tutor: "Ottimo! E adesso qual è il prossimo passo?"
+    - learner: "Vuole il preventivo prima di firmare. Devo lo mandare entro giovedì."
+      errors: [pronoun-position]
+      gold: {text: "Devo lo mandare", fix: "Devo mandarlo"}
+    - tutor: "Devo lo mandare? Prova a spostare il pronome."
+      prompt: {text: "Devo lo mandare", tags: [pronoun-position]}
+    - learner: "Lo devo mandare entro giovedì."
+    - tutor: "Esatto. Ci sono problemi con i tempi?"
+      goals: [update]
+    - learner: "Sì: Giulia è malata, e lei è la persona che conosce meglio i numeri del cliente."
+    - tutor: "Ah, questo è un problema. Che cosa proponi?"
+      goals: [problem]
+    - learner: "Potriamo chiedere aiuto a Paolo, che ha già lavorato con questo cliente."
+      errors: [conditional-form]
+      gold: {text: "Potriamo", fix: "Potremmo"}
+    - tutor: "Potriamo? Controlla bene il condizionale di potere."
+      prompt: {text: "Potriamo", tags: [conditional-form]}
+    - learner: "Potriamo... potremo?"
+      errors: [conditional-form]
+    - tutor: "Sì, potremmo chiedere aiuto a Paolo: ottima idea, conosce già il cliente."
+      recast: {text: "Potriamo", fix: "potremmo", tags: [conditional-form]}
+      goals: [proposal]
+    - learner: "Con l'aiuto di Paolo, credo che il preventivo sarà pronto mercoledì sera."
+    - tutor: "Perfetto: mercoledì sera il preventivo è pronto e giovedì lo mandiamo. Grazie!"
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-m-traveller
+  history: [future-form, ci-ne]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene! Il nuovo programma è quasi pronto. La settimana prossima lo provaremo con due clienti."
+      errors: [future-form]
+      gold: {text: "provaremo", fix: "proveremo"}
+    - tutor: "Lo provaremo? Attenzione a una lettera nel futuro di provare."
+      prompt: {text: "provaremo", tags: [future-form]}
+    - learner: "Lo provaremo... sì, con due clienti di Napoli."
+      errors: [future-form]
+    - tutor: "Bene, allora lo proveremo prima con i clienti di Napoli. Ci sono problemi?"
+      recast: {text: "provaremo", fix: "proveremo", tags: [future-form]}
+      goals: [update]
+    - learner: "Sì, il server è lento. Se non facciamo niente, i clienti si lamenteranno."
+    - tutor: "Hai ragione, è un rischio. Cosa proponi?"
+      goals: [problem]
+    - learner: "Io proporrei di comprare un server nuovo. Costarebbe circa tremila euro."
+      errors: [conditional-form]
+      gold: {text: "Costarebbe", fix: "Costerebbe"}
+    - tutor: "Costarebbe? Anche qui, attenzione a quella lettera."
+      prompt: {text: "Costarebbe", tags: [conditional-form]}
+    - learner: "Costerebbe circa tremila euro."
+    - tutor: "Esatto. Tremila euro sono tanti: ne hai parlato con il direttore?"
+      goals: [proposal]
+    - learner: "Non ancora, ma posso parlare con lui domani. Ci credo che dirà di sì."
+      errors: [ci-ne]
+      gold: {text: "Ci credo che", fix: "Credo che"}
+    - tutor: "Ci credo che...? Guarda bene l'inizio della frase: c'è qualcosa di troppo."
+      prompt: {text: "Ci credo che", tags: [ci-ne]}
+    - learner: "Credo che dirà di sì."
+    - tutor: "Speriamo! E se dice di sì, quando sarà tutto pronto?"
+    - learner: "Il server arriverà tra due settimane, quindi sarà pronto per la fine del mese."
+    - tutor: "Perfetto, la scadenza è la fine del mese. Ottimo lavoro!"
+      goals: [deadline]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Allora, studio molto e dormo poco. Faccio sport solo una volta per settimana."
+      errors: [preposition]
+      gold: {text: "una volta per settimana", fix: "una volta a settimana"}
+    - tutor: "Una volta per settimana? Per dire quante volte, usiamo un'altra preposizione."
+      prompt: {text: "una volta per settimana", tags: [preposition]}
+    - learner: "Una volta a settimana, sì."
+    - tutor: "Esatto. E cosa mangi, di solito?"
+    - learner: "Mangio molto pasta, perché è economica e veloce."
+      errors: [adjective-agreement]
+      gold: {text: "molto pasta", fix: "molta pasta"}
+    - tutor: "Molto pasta? Pensa al genere di «pasta»."
+      prompt: {text: "molto pasta", tags: [adjective-agreement]}
+    - learner: "Molto pasta e anche pizza, la sera."
+      errors: [adjective-agreement]
+    - tutor: "Ok, molta pasta e pizza la sera, capito. E qual è il tuo obiettivo?"
+      recast: {text: "molto pasta", fix: "molta pasta", tags: [adjective-agreement]}
+      goals: [habits]
+    - learner: "Voglio essere più forte e avere più energia che prima."
+      errors: [comparative]
+      gold: {text: "più energia che prima", fix: "più energia di prima"}
+    - tutor: "Più energia che prima? Controlla la parola dopo «energia»."
+      prompt: {text: "più energia che prima", tags: [comparative]}
+    - learner: "Più energia di prima. Il problema è che la palestra è lontana e non vado quasi mai."
+      errors: [ci-ne]
+      gold: {text: "non vado quasi mai", fix: "non ci vado quasi mai"}
+    - tutor: "Bene il confronto. Ma non vado quasi mai... dove? Manca una piccola parola."
+      prompt: {text: "non vado quasi mai", tags: [ci-ne]}
+      goals: [goal]
+    - learner: "Non ci vado quasi mai."
+    - tutor: "Esatto. Allora facciamo un piano a casa: tre allenamenti di venti minuti a settimana. Ce la fai?"
+      goals: [obstacles]
+    - learner: "Sì, ce la farò! Comincerò lunedì."
+    - tutor: "Perfetto: lunedì, mercoledì e venerdì. Ti mando tutto stasera."
+      goals: [plan]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Lavoro in ufficio dieci ore al giorno e la sera sono troppo stanca per fare sport."
+    - tutor: "Dieci ore, sono tante! E come dormi?"
+    - learner: "Male. Mi sveglio spesso a le tre di notte e penso al lavoro."
+      errors: [articulated-preposition]
+      gold: {text: "a le tre", fix: "alle tre"}
+    - tutor: "A le tre? Le due parole si uniscono."
+      prompt: {text: "a le tre", tags: [articulated-preposition]}
+    - learner: "Alle tre, scusa. È lo stress, credo."
+    - tutor: "Sì, lo stress non aiuta a dormire. Qual è il tuo obiettivo con me?"
+      goals: [habits]
+    - learner: "Vorrei perdere cinque chili ed essere più in forma che l'anno scorso."
+      errors: [comparative]
+      gold: {text: "che l'anno scorso", fix: "dell'anno scorso"}
+    - tutor: "Più in forma che l'anno scorso? Controlla la parola dopo «più in forma»."
+      prompt: {text: "che l'anno scorso", tags: [comparative]}
+    - learner: "Più in forma che l'anno scorso, sì. L'anno scorso andavo a correre."
+      errors: [comparative]
+    - tutor: "Ok, quindi vuoi essere più in forma dell'anno scorso: si può fare! Cosa ti blocca, adesso?"
+      recast: {text: "che l'anno scorso", fix: "dell'anno scorso", tags: [comparative]}
+      goals: [goal]
+    - learner: "Il tempo. Non so come adattare lo sport nella mia giornata."
+      errors: [word-choice]
+      gold: {text: "adattare lo sport nella mia giornata", fix: "trovare spazio per lo sport nella mia giornata"}
+    - tutor: "Capisco, trovare spazio per lo sport non è facile con il tuo lavoro. A che ora ti alzi?"
+      recast: {text: "adattare lo sport", fix: "trovare spazio per lo sport", tags: [word-choice]}
+      goals: [obstacles]
+    - learner: "Alle sette. Se mi alzo alle sei, poterò correre mezz'ora prima del lavoro."
+      errors: [future-form]
+      gold: {text: "poterò", fix: "potrò"}
+    - tutor: "Poterò? Il futuro di potere è più corto."
+      prompt: {text: "poterò", tags: [future-form]}
+    - learner: "Potrò correre mezz'ora, tre volte a settimana."
+    - tutor: "Esatto! Allora il piano: corsa il lunedì, il mercoledì e il venerdì, e il sabato palestra con me. Ci vediamo sabato!"
+      goals: [plan]

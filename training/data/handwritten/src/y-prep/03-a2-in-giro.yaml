@@ -1,0 +1,235 @@
+# y-prep, file 03: A2, getting around: a/in/da with places and people, articulated forms.
+- scenario: autobus
+  level: A2
+  persona: en-f-student
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Questo autobus va a l'ospedale?"
+      errors: [articulated-preposition]
+    - tutor: "A l'ospedale? Queste due parole si dicono insieme. Provi!"
+      prompt: {text: "a l'ospedale", tags: [articulated-preposition]}
+    - learner: "All'ospedale?"
+    - tutor: "Esatto! Sì, ci va. È la linea giusta."
+      goals: [route]
+    - learner: "Dove compro il biglietto? Posso comprarlo su l'autobus?"
+      errors: [articulated-preposition]
+    - tutor: "Su l'autobus? Ci pensi ancora un momento."
+      prompt: {text: "su l'autobus", tags: [articulated-preposition]}
+    - learner: "Sul autobus?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, sull'autobus può comprarlo da me. Costa due euro."
+      recast: {text: "Sul autobus", fix: "sull'autobus", tags: [articulated-preposition]}
+      goals: [ticket]
+    - learner: "Ecco due euro. Ho un appuntamento con il medico. A quale fermata scendo?"
+    - tutor: "Scenda alla quinta fermata, proprio davanti all'ospedale."
+      goals: [stop]
+    - learner: "Perfetto, grazie mille!"
+    - tutor: "Prego, si accomodi!"
+      goals: [thank]
+
+- scenario: biglietto-treno
+  level: A2
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei un biglietto a Bologna per domani."
+      errors: [preposition]
+    - tutor: "Un biglietto a Bologna? Quasi, provi con un'altra parola piccola."
+      prompt: {text: "a Bologna", tags: [preposition]}
+    - learner: "Un biglietto per Bologna."
+    - tutor: "Bene. C'è un treno alle otto e un altro alle dieci."
+      goals: [destination]
+    - learner: "Alle dieci. Solo andata, per favore."
+    - tutor: "Solo andata, va bene. Prima o seconda classe?"
+      goals: [type]
+    - learner: "Seconda classe, vicino a la finestra se possibile."
+      errors: [articulated-preposition]
+    - tutor: "Scusi, vicino... dove?"
+      prompt: {text: "a la finestra", tags: [articulated-preposition]}
+    - learner: "Vicino a finestra."
+      errors: [articulated-preposition]
+    - tutor: "Ecco: posto 23, vicino alla finestra."
+      recast: {text: "a finestra", fix: "alla finestra", tags: [articulated-preposition]}
+      goals: [class]
+    - learner: "Grazie. Da quale binario parte il treno?"
+    - tutor: "Di solito dal binario 4, ma controlli l'orario in stazione."
+      goals: [platform]
+
+- scenario: chiedere-strada
+  level: A2
+  persona: en-m-retired
+  history: [preposition]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, grazie. Mi sono perso. Dov'è la stazione?"
+    - tutor: "Non si preoccupi. La stazione è qui vicino."
+      goals: [get-attention, ask-place]
+    - learner: "Posso andare su piedi?"
+      errors: [preposition]
+    - tutor: "Su piedi? Scusi, non ho capito."
+      prompt: {text: "su piedi", tags: [preposition]}
+    - learner: "Posso andare con i piedi?"
+      errors: [preposition]
+    - tutor: "Sì, a piedi ci vogliono dieci minuti. Vada dritto."
+      recast: {text: "con i piedi", fix: "a piedi", tags: [preposition]}
+    - learner: "Dritto e poi? Giro a destra a il semaforo?"
+      errors: [articulated-preposition]
+    - tutor: "A il semaforo? Provi a dire le due parole come una sola."
+      prompt: {text: "a il semaforo", tags: [articulated-preposition]}
+    - learner: "Al semaforo?"
+    - tutor: "Esatto! Al semaforo a destra, poi c'è la piazza."
+      goals: [understand]
+    - learner: "Grazie mille, è molto gentile."
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-m-traveller
+  history: [preposition, articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, vorrei noleggiare una bici per tutto il giorno. La riporto a le sei."
+      errors: [articulated-preposition]
+    - tutor: "Certo! A le sei? Attenzione, qui c'è un piccolo errore."
+      prompt: {text: "a le sei", tags: [articulated-preposition]}
+      goals: [ask]
+    - learner: "A la sei?"
+      errors: [articulated-preposition]
+    - tutor: "Va bene, alle sei! La giornata intera costa quindici euro."
+      recast: {text: "A la sei", fix: "alle sei", tags: [articulated-preposition]}
+      goals: [duration]
+    - learner: "Il casco è incluso? E il lucchetto?"
+    - tutor: "Sì, il casco e il lucchetto sono nel prezzo."
+      goals: [price]
+    - learner: "Perfetto. Voglio andare in lago. C'è un bel percorso?"
+      errors: [preposition]
+    - tutor: "Andare in lago? Mmm, in barca, forse?"
+      prompt: {text: "in lago", tags: [preposition]}
+    - learner: "No, no! Voglio andare al lago."
+    - tutor: "Ah, ecco! Allora prenda la strada intorno al lago. È bellissima."
+      goals: [route]
+    - learner: "Grazie! Ci vediamo alle sei."
+    - tutor: "A dopo, buon giro!"
+
+- scenario: weekend-scorso
+  level: A2
+  persona: en-m-heritage
+  history: [preposition]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Benissimo! Sabato sono andato a i miei nonni."
+      errors: [preposition]
+    - tutor: "A i tuoi nonni? Con le persone, la parola cambia."
+      prompt: {text: "a i miei nonni", tags: [preposition]}
+    - learner: "Dai miei nonni!"
+    - tutor: "Bravo! Dove abitano?"
+      goals: [where]
+    - learner: "Abitano in campagna, vicino a Lucca. Abbiamo mangiato tanto e giocato a carte."
+    - tutor: "Che bello! Chi c'era?"
+      goals: [what]
+    - learner: "C'erano anche i miei parenti, mia mamma e mio papà."
+      errors: [false-friend]
+    - tutor: "Ah, anche i tuoi genitori! Una bella festa di famiglia."
+      recast: {text: "parenti", fix: "genitori", tags: [false-friend]}
+      goals: [with-who]
+    - learner: "Sì, mi è piaciuto molto. E tu? Sei andata su la montagna?"
+      errors: [preposition]
+    - tutor: "Su la montagna? Ci pensi un attimo?"
+      prompt: {text: "su la montagna", tags: [preposition]}
+    - learner: "Sei andata a la montagna?"
+      errors: [preposition]
+    - tutor: "Sì, sono andata in montagna con il mio cane! Faceva freddo, ma era bellissimo."
+      recast: {text: "a la montagna", fix: "in montagna", tags: [preposition]}
+      goals: [opinion]
+
+- scenario: vacanze-passate
+  level: A2
+  persona: en-f-professional
+  history: [preposition]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao! Sono stata in Sicilia, in Catania e in Siracusa."
+      errors: [preposition]
+    - tutor: "Che bello! In Catania? Per le città, ricordi?"
+      prompt: {text: "in Catania", tags: [preposition]}
+    - learner: "A Catania e in Siracusa."
+      errors: [preposition]
+    - tutor: "Ah, a Catania e a Siracusa! Che fortuna. Che tempo faceva?"
+      recast: {text: "in Siracusa", fix: "a Siracusa", tags: [preposition]}
+      goals: [where]
+    - learner: "Faceva molto caldo, trentacinque gradi!"
+    - tutor: "Che caldo! E cosa hai fatto?"
+      goals: [weather]
+    - learner: "Ogni giorno andavo al mare. Abbiamo anche affittato una macchina per vedere l'isola."
+      errors: [word-choice]
+    - tutor: "Che bello, avete noleggiato una macchina! E cosa ti è piaciuto di più?"
+      recast: {text: "affittato", fix: "noleggiato", tags: [word-choice]}
+      new: [{lemma: noleggiare, gloss: to rent a vehicle}]
+      goals: [activities]
+    - learner: "Il cibo! Gli arancini a il ragù sono buonissimi."
+      errors: [articulated-preposition]
+    - tutor: "Gli arancini... come, scusa?"
+      prompt: {text: "a il ragù", tags: [articulated-preposition]}
+    - learner: "Gli arancini al ragù!"
+    - tutor: "Sì, sono anche i miei preferiti!"
+      goals: [best]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Vorrei spedire questo pacco a Argentina."
+      errors: [preposition]
+    - tutor: "A Argentina? Attenzione: l'Argentina è un paese, non una città."
+      prompt: {text: "a Argentina", tags: [preposition]}
+    - learner: "In Argentina."
+    - tutor: "Bene. Normale o veloce? Il pacco normale arriva in tre settimane."
+      goals: [send]
+    - learner: "Normale, non è urgente. Sono regali per il compleanno di mia sorella."
+    - tutor: "Va bene. Scriva qui l'indirizzo e cosa c'è dentro, per favore."
+      goals: [speed]
+    - learner: "Ci sono due libri e una sciarpa da lana."
+      errors: [preposition]
+    - tutor: "Una sciarpa da lana? Mmm, di che cosa è fatta?"
+      prompt: {text: "da lana", tags: [preposition]}
+    - learner: "Una sciarpa di lana!"
+    - tutor: "Perfetto. Allora sono ventotto euro."
+      goals: [form]
+    - learner: "Ecco trenta euro."
+    - tutor: "Ecco il resto e la ricevuta. Buona giornata!"
+      goals: [pay]
+      new: [{lemma: ricevuta, gloss: receipt}]
+
+- scenario: lavanderia
+  level: A2
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! La lavatrice non funziona. Ho messo la moneta in la macchina ma niente."
+      errors: [articulated-preposition]
+    - tutor: "Hai messo la moneta... dove, scusa?"
+      prompt: {text: "in la macchina", tags: [articulated-preposition]}
+    - learner: "Nella macchina, ma non parte."
+    - tutor: "Ah, capito. Qui non vanno le monete, servono i gettoni."
+      goals: [problem]
+    - learner: "Ah! E come funziona? Prima metto il detersivo?"
+    - tutor: "Sì, metti il detersivo qui sopra, poi scegli il programma."
+      goals: [ask-how]
+    - learner: "E i gettoni? Dove li compro?"
+    - tutor: "Da quella macchina vicino alla porta. Un gettone costa quattro euro."
+      goals: [payment]
+    - learner: "Grazie mille! Io abito a due minuti di qui."
+      errors: [preposition]
+    - tutor: "Di qui? Scusa, come?"
+      prompt: {text: "di qui", tags: [preposition]}
+    - learner: "A due minuti per qui."
+      errors: [preposition]
+    - tutor: "Ah, a due minuti da qui? Allora siamo vicine! Io abito qui sopra."
+      recast: {text: "per qui", fix: "da qui", tags: [preposition]}
+      goals: [thank]

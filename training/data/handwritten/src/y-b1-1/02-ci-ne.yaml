@@ -1,0 +1,280 @@
+# B1, round 3: the particles ci and ne (ci locative, ci vuole, ne partitive, pensarci).
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto il dieci maggio con mia moglie. Restiamo una settimana intera."
+    - tutor: "Una settimana, benissimo! Siete già stati a Napoli?"
+      goals: [plans]
+    - learner: "No, non siamo mai andati. È la prima volta per tutti e due."
+      errors: [ci-ne]
+      gold: {text: "non siamo mai andati", fix: "non ci siamo mai andati"}
+    - tutor: "Non siete mai andati... dove? Manca una piccola parola prima del verbo."
+      prompt: {text: "non siamo mai andati", tags: [ci-ne]}
+    - learner: "Non ne siamo mai andati."
+      errors: [ci-ne]
+    - tutor: "Ah, non ci siete mai stati! Allora vi aspetta una bella sorpresa."
+      recast: {text: "Non ne", fix: "Non ci", tags: [ci-ne]}
+    - learner: "Cosa ci consigli di vedere? E di mangiare, naturalmente!"
+    - tutor: "Visitate il centro e i musei. E mangiate tanta pizza: qui è la migliore del mondo!"
+      goals: [advice]
+    - learner: "La pizza, certo! E come ci muoviamo in città? Andiamo in piedi?"
+      errors: [preposition]
+      gold: {text: "in piedi", fix: "a piedi"}
+    - tutor: "«In piedi» vuol dire un'altra cosa, cioè non seduti. Per camminare come si dice?"
+      prompt: {text: "in piedi", tags: [preposition]}
+    - learner: "Ah, a piedi! Andiamo a piedi?"
+    - tutor: "Esatto! Il centro si gira bene a piedi, e per le zone lontane c'è la metro."
+      goals: [transport]
+    - learner: "Bene. C'è qualcosa che dobbiamo evitare?"
+    - tutor: "Evitate la macchina, il traffico è terribile. E tenete sempre d'occhio il portafoglio sull'autobus!"
+      goals: [warnings]
+      new: [{lemma: portafoglio, gloss: wallet}]
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Facciamo la pasta con i pomodori freschi, come la fa mia madre."
+    - tutor: "Che buona! Cosa ci serve? E quanti pomodori?"
+    - learner: "Aglio, olio, sale, basilico e pomodori. Uso quattro, perché sono grandi."
+      errors: [ci-ne]
+      gold: {text: "Uso quattro", fix: "Ne uso quattro"}
+    - tutor: "«Uso quattro»: quattro di cosa? Manca un pronome piccolo piccolo."
+      prompt: {text: "Uso quattro", tags: [ci-ne]}
+    - learner: "Ne uso quattro."
+    - tutor: "Esatto! Allora li taglio io. Poi cosa facciamo?"
+      goals: [ingredients]
+    - learner: "Metti l'olio nella pentola e aggiungi l'aglio. Quando è dorato, lo togli."
+    - tutor: "Fatto, l'aglio è già fuori. Adesso i pomodori? E quanto devono cuocere?"
+      goals: [steps]
+    - learner: "Quindici minuti. Se la salsa è troppo densa, aggiungi un po' di caldo."
+      errors: [false-friend]
+      gold: {text: "un po' di caldo", fix: "un po' di brodo"}
+    - tutor: "Un po' di brodo, va bene: ne ho una tazza già pronta. E come la serviamo?"
+      recast: {text: "un po' di caldo", fix: "un po' di brodo", tags: [false-friend]}
+      goals: [time]
+      new: [{lemma: brodo, gloss: broth}]
+    - learner: "Con il basilico fresco sopra e tanto parmigiano. È buonissima!"
+    - tutor: "Non vedo l'ora di mangiarla! Adesso preparo io la tavola."
+      goals: [serve]
+
+
+- scenario: banca-conto
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire un conto, sono una studentessa e resto a Bologna per un anno."
+    - tutor: "Benvenuta. Abbiamo un conto per studenti che costa molto poco."
+      goals: [purpose]
+    - learner: "Perfetto. Quali documenti servono? E quanto costa ogni mese?"
+    - tutor: "Basta un documento d'identità con il codice fiscale. Per gli studenti il conto è gratis."
+      goals: [documents, costs]
+    - learner: "Ottimo. Poterei avere anche una carta per pagare nei negozi?"
+      errors: [conditional-form]
+      gold: {text: "Poterei", fix: "Potrei"}
+    - tutor: "«Poterei»? Attenzione, il condizionale di «potere» è un po' speciale. Provi di nuovo?"
+      prompt: {text: "Poterei", tags: [conditional-form]}
+    - learner: "Potrei avere anche una carta?"
+    - tutor: "Certo, la carta di debito è compresa, e con la nostra app può fare anche i bonifici. Vuole anche una carta di credito?"
+      goals: [card]
+    - learner: "Non lo so, devo pensare. Stasera ne parlo con mio padre."
+      errors: [ci-ne]
+      gold: {text: "devo pensare", fix: "ci devo pensare"}
+    - tutor: "Deve pensare... a che cosa? Qui manca una parola piccola prima di «devo»."
+      prompt: {text: "devo pensare", tags: [ci-ne]}
+    - learner: "Ne devo pensare."
+      errors: [ci-ne]
+    - tutor: "Va bene, ci devo pensare anch'io prima di ogni spesa grande! Allora per ora firmi qui per il conto."
+      recast: {text: "Ne devo", fix: "ci devo", tags: [ci-ne]}
+    - learner: "D'accordo. Dove devo firmare?"
+    - tutor: "Qui in basso, grazie. Il conto è pronto da oggi!"
+
+
+- scenario: compleanno
+  level: B1
+  persona: es-f-erasmus
+  history: [ci-ne, future-form]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Organizziamo una cena al ristorante giapponese, a Sara piace tantissimo il sushi."
+    - tutor: "Ottima idea! Il suo compleanno è giovedì: facciamo giovedì o nel fine settimana?"
+    - learner: "Sabato sera, così nessuno lavora il giorno dopo. Conosco un ristorante in centro, sono andata il mese scorso."
+      errors: [ci-ne]
+      gold: {text: "sono andata", fix: "ci sono andata"}
+    - tutor: "Scusa, «sono andata»: in quel ristorante, giusto? Come lo dici senza ripetere il posto?"
+      prompt: {text: "sono andata", tags: [ci-ne]}
+    - learner: "Ci sono andata il mese scorso, e si mangia benissimo."
+    - tutor: "Brava! Allora sabato al giapponese. Chi invitiamo?"
+      goals: [date]
+    - learner: "I colleghi di Sara e le sue amiche dell'università. Saremmo dodici, credo."
+      errors: [future-form]
+      gold: {text: "Saremmo", fix: "Saremo"}
+    - tutor: "«Saremmo»? Stai immaginando o parli di un fatto di sabato prossimo? Pensa al tempo giusto."
+      prompt: {text: "Saremmo", tags: [future-form]}
+    - learner: "Ah, sarremo dodici?"
+      errors: [future-form]
+    - tutor: "Sì, saremo dodici: prenoto io il tavolo. E la torta? Al ristorante non la fanno."
+      recast: {text: "sarremo", fix: "saremo", tags: [future-form]}
+      goals: [guests]
+    - learner: "La compra Luca, conosce una pastelleria buonissima vicino a casa sua."
+      errors: [word-choice]
+      gold: {text: "pastelleria", fix: "pasticceria"}
+    - tutor: "Perfetto, quella pasticceria è famosa. Manca solo il regalo: hai qualche idea?"
+      recast: {text: "pastelleria", fix: "pasticceria", tags: [word-choice]}
+      new: [{lemma: pasticceria, gloss: pastry shop}]
+      goals: [food]
+    - learner: "Sara vuole una borsa nuova, me l'ha detto lei. Possiamo regalargliela tutti insieme."
+    - tutor: "Ottimo, dieci euro a testa. Stasera scrivo io a tutti!"
+      goals: [gift]
+
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-traveller
+  history: [ci-ne, preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno, devo andare in Firenze domani mattina."
+      errors: [preposition]
+      gold: {text: "in Firenze", fix: "a Firenze"}
+    - tutor: "In Firenze? Ci pensi: con i nomi delle città quale preposizione usiamo?"
+      prompt: {text: "in Firenze", tags: [preposition]}
+    - learner: "A Firenze, scusi!"
+    - tutor: "Giusto. C'è un treno alle 7:40 e uno alle 9:05. Quale preferisce?"
+      goals: [destination]
+    - learner: "Quanto tempo vuole per arrivare con il treno delle 9:05?"
+      errors: [ci-ne]
+      gold: {text: "Quanto tempo vuole", fix: "Quanto tempo ci vuole"}
+    - tutor: "«Quanto tempo vuole»? Il treno non vuole niente! Manca una piccola parola prima del verbo."
+      prompt: {text: "Quanto tempo vuole", tags: [ci-ne]}
+    - learner: "Quanto tempo ne vuole?"
+      errors: [ci-ne]
+    - tutor: "Ci vuole un'ora e mezza, è un regionale veloce. Solo andata o andata e ritorno?"
+      recast: {text: "ne vuole", fix: "ci vuole", tags: [ci-ne]}
+    - learner: "Solo andata, perché torno in macchina. In seconda classe, e vorrei un posto vicino alla finestra, se è possibile."
+      errors: [word-choice]
+      gold: {text: "vicino alla finestra", fix: "vicino al finestrino"}
+    - tutor: "Le do un posto vicino al finestrino, il 23, in seconda classe. Sono quattordici euro."
+      recast: {text: "vicino alla finestra", fix: "vicino al finestrino", tags: [word-choice]}
+      goals: [type, class]
+    - learner: "Ecco, pago in cash. Da che binario parte?"
+      errors: [word-choice]
+      gold: {text: "in cash", fix: "in contanti"}
+    - tutor: "Va bene, in contanti. Il treno parte dal binario 6. Buon viaggio!"
+      recast: {text: "in cash", fix: "in contanti", tags: [word-choice]}
+      goals: [platform]
+    - learner: "Grazie mille, arrivederci!"
+    - tutor: "Arrivederci, e buona giornata a Firenze!"
+
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei fare una riservazione per sabato sera, se è possibile."
+      errors: [word-choice]
+      gold: {text: "una riservazione", fix: "una prenotazione"}
+    - tutor: "Certo, facciamo subito una prenotazione. Per quante persone? Ci sono anche bambini?"
+      recast: {text: "una riservazione", fix: "una prenotazione", tags: [word-choice]}
+      goals: [book]
+    - learner: "Siamo in sei, e sì, abbiamo due. Il più piccolo ha solo un anno."
+      errors: [ci-ne]
+      gold: {text: "abbiamo due", fix: "ne abbiamo due"}
+    - tutor: "«Abbiamo due»: due di cosa? Senza ripetere «bambini», manca un pronome."
+      prompt: {text: "abbiamo due", tags: [ci-ne]}
+    - learner: "Ne abbiamo due."
+    - tutor: "Perfetto. E a che ora arrivate?"
+    - learner: "Verso le otto. Avrebbete anche un seggiolone per il più piccolo?"
+      errors: [conditional-form]
+      gold: {text: "Avrebbete", fix: "Avreste"}
+    - tutor: "«Avrebbete»? Provi ancora: il condizionale di «avere» con «voi»..."
+      prompt: {text: "Avrebbete", tags: [conditional-form]}
+    - learner: "Avreste un seggiolone?"
+    - tutor: "Sì, certo, ve lo prepariamo noi. Preferite un tavolo dentro o fuori?"
+      goals: [details, special]
+      new: [{lemma: seggiolone, gloss: high chair}]
+    - learner: "Fuori, grazie. Sabato è il compleanno di mio figlio, ed è molto eccitato."
+      errors: [false-friend]
+      gold: {text: "eccitato", fix: "emozionato"}
+    - tutor: "Che bello, se è così emozionato gli prepariamo una sorpresa con il dolce! A che nome prenoto?"
+      recast: {text: "eccitato", fix: "emozionato", tags: [false-friend]}
+      new: [{lemma: emozionato, gloss: excited}]
+    - learner: "A nome Taylor. Grazie mille!"
+    - tutor: "Grazie a lei, signora Taylor. Allora sabato alle otto, tavolo per sei fuori. A sabato!"
+      goals: [name]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-heritage
+  history: [ci-ne, future-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando freno, sento un rumore strano, come un fischio."
+    - tutor: "Un fischio quando frena... Da quando lo sente?"
+      goals: [describe]
+    - learner: "Da una settimana. Lunedì andavo al lavoro e ho sentito il rumore per la prima volta."
+    - tutor: "Capisco. Probabilmente sono da cambiare le pastiglie dei freni."
+      goals: [when]
+      new: [{lemma: pastiglia, gloss: brake pad}]
+    - learner: "Quanto costarà la riparazione? Questo mese non ho molti soldi."
+      errors: [future-form]
+      gold: {text: "costarà", fix: "costerà"}
+    - tutor: "«Costarà»? Attenzione: al futuro, «costare» cambia una lettera."
+      prompt: {text: "costarà", tags: [future-form]}
+    - learner: "Costarrà?"
+      errors: [future-form]
+    - tutor: "Costerà circa 150 euro, pezzi compresi. Non è una spesa grande, non si preoccupi."
+      recast: {text: "Costarrà", fix: "Costerà", tags: [future-form]}
+      goals: [cost]
+    - learner: "Meno male. E quanto tempo mette per ripararla?"
+      errors: [ci-ne]
+      gold: {text: "quanto tempo mette", fix: "quanto tempo ci mette"}
+    - tutor: "«Quanto tempo mette»... manca una piccola parola prima del verbo. Me lo richiede?"
+      prompt: {text: "quanto tempo mette", tags: [ci-ne]}
+    - learner: "Quanto tempo ci mette per ripararla?"
+    - tutor: "Esatto. Ci metto un giorno: se la lascia qui oggi, domani sera sarà pronta."
+      goals: [time]
+
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto il due giugno, in treno da Milano. Arrivo a Napoli a le tre del pomeriggio."
+      errors: [articulated-preposition]
+      gold: {text: "a le tre", fix: "alle tre"}
+    - tutor: "«A le tre»? In italiano queste due parole diventano una sola."
+      prompt: {text: "a le tre", tags: [articulated-preposition]}
+    - learner: "Arrivo alle tre del pomeriggio."
+    - tutor: "Perfetto, così hai tutta la sera libera. Quanti giorni resti?"
+    - learner: "Cinque giorni. Ho visto le foto di Procida e voglio andare assolutamente."
+      errors: [ci-ne]
+      gold: {text: "voglio andare assolutamente", fix: "voglio andarci assolutamente"}
+    - tutor: "Vuoi andare... dove? Di' la frase senza ripetere il nome dell'isola, ma con una parola in più."
+      prompt: {text: "voglio andare assolutamente", tags: [ci-ne]}
+    - learner: "Voglio andarci assolutamente!"
+    - tutor: "Fai benissimo, è un sogno. Cosa vuoi sapere su Napoli?"
+      goals: [plans]
+    - learner: "Cosa devo vedere e cosa devo mangiare? E per muovermi, prendo la metro o l'autobus?"
+    - tutor: "Visita il centro e prendi una sfogliatella a colazione: è il dolce di Napoli! Per muoverti usa la metro, l'autobus è sempre pieno."
+      goals: [advice, transport]
+      new: [{lemma: sfogliatella, gloss: Neapolitan pastry}]
+    - learner: "Va bene. Di sera posso salire da sola? Ho un po' di paura."
+      errors: [false-friend]
+      gold: {text: "salire", fix: "uscire"}
+    - tutor: "Certo, puoi uscire da sola tranquillamente. Evita solo le strade vuote e buie."
+      recast: {text: "salire", fix: "uscire", tags: [false-friend]}
+      goals: [warnings]
+    - learner: "Grazie mille, sei un tesoro! Ti mando le foto da Napoli."
+    - tutor: "Sì, mandami tante foto! E divertiti."

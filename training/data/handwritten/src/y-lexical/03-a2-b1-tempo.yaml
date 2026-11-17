@@ -1,0 +1,245 @@
+# Round 3, set y-lexical: false friends and word choice. A2 and B1, file 3.
+- scenario: compleanno
+  level: A2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa a casa mia, sabato sera!"
+    - tutor: "Ottima idea, a casa tua c'è spazio. Chi invitiamo?"
+      goals: [date]
+    - learner: "Invitiamo i suoi compagni di università e sua hermana."
+      errors: [word-choice]
+    - tutor: "Perfetto: i compagni di università e sua sorella. Allora siamo circa quindici persone. E da mangiare?"
+      recast: {text: "sua hermana", fix: "sua sorella", tags: [word-choice]}
+      goals: [guests]
+    - learner: "Io preparo le empanadas e tu compri un pastello al cioccolato."
+      errors: [false-friend]
+    - tutor: "Una torta al cioccolato, perfetto! La compro io. Il pastello lo lasciamo ai bambini!"
+      goals: [food]
+      recast: {text: "un pastello", fix: "Una torta", tags: [false-friend]}
+    - learner: "Ah, sì, una torta! E il regalo? A Sara piace molto leggere."
+    - tutor: "Allora le regaliamo un libro! Chi lo compra?"
+    - learner: "Lo comprarò io: conosco una libreria spagnola in centro."
+      errors: [future-form]
+    - tutor: "Lo «comprarò»? Attenzione: nel futuro di questo verbo cambia una lettera."
+      prompt: {text: "comprarò", tags: [future-form]}
+    - learner: "Ah, giusto: lo comprerò io!"
+    - tutor: "Esatto! Allora il libro lo scegli tu. Ci vediamo sabato!"
+      goals: [gift]
+
+- scenario: serata-cinema
+  level: A2
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo ai film stasera?"
+      errors: [word-choice]
+    - tutor: "Andiamo al cinema? Buona idea! Che film ti piacciono?"
+      recast: {text: "ai film", fix: "al cinema", tags: [word-choice]}
+      goals: [propose]
+    - learner: "Mi piacciono le commedie. Sono più divertenti che i film d'azione."
+      errors: [comparative]
+    - tutor: "Più divertenti «che» i film d'azione? Davanti a un nome, che parola usiamo?"
+      prompt: {text: "che i film", tags: [comparative]}
+    - learner: "Ah, sì: sono più divertenti dei film d'azione."
+    - tutor: "Esatto! Allora c'è una commedia nuova al cinema Odeon, alle otto o alle dieci."
+      goals: [genre]
+    - learner: "Alle otto, per favore. Ma all'Odeon la gente parla sempre durante il film, e mi annoia."
+      errors: [false-friend]
+    - tutor: "Ti dà fastidio la gente che parla? Anche a me! Ci sediamo davanti, così non la sentiamo."
+      goals: [choose]
+      recast: {text: "mi annoia", fix: "ti dà fastidio", tags: [false-friend]}
+      new: [{lemma: fastidio, gloss: annoyance}]
+    - learner: "Perfetto. Dove ci vediamo? Davanti il cinema?"
+      errors: [articulated-preposition]
+    - tutor: "Davanti... il cinema? Manca una piccola parola."
+      prompt: {text: "Davanti il cinema", tags: [articulated-preposition]}
+    - learner: "Davanti al cinema, alle sette e mezza?"
+    - tutor: "Giusto! Davanti al cinema alle sette e mezza. A stasera!"
+      goals: [meet]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: en-f-student
+  history: [word-choice]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Vorrei fare una riservazione per domani sera."
+      errors: [word-choice]
+    - tutor: "Certo, una prenotazione per domani sera. Per quante persone e a che ora?"
+      goals: [book]
+      recast: {text: "una riservazione", fix: "una prenotazione", tags: [word-choice]}
+    - learner: "Per sei persone, alle otto e mezza."
+    - tutor: "Sei persone alle otto e mezza, va bene."
+      goals: [details]
+    - learner: "E vorremo un tavolo fuori, se possibile."
+      errors: [conditional-form]
+    - tutor: "«Vorremo»? Quando chiediamo in modo gentile, la forma è un po' diversa: provi ancora."
+      prompt: {text: "vorremo", tags: [conditional-form]}
+    - learner: "Ah, sì: vorremmo un tavolo fuori, se possibile."
+    - tutor: "Esatto! Sì, le tengo un bel tavolo fuori."
+    - learner: "Grazie! Abbiamo anche un bambino piccolo. Avete una sedia alta?"
+      errors: [word-choice]
+    - tutor: "Sì, abbiamo un seggiolone, nessun problema."
+      goals: [special]
+      recast: {text: "una sedia alta", fix: "un seggiolone", tags: [word-choice]}
+      new: [{lemma: seggiolone, gloss: high chair}]
+    - learner: "Perfetto! Mi chiamo Hannah Brown."
+    - tutor: "Benissimo, signora Brown: domani alle otto e mezza, sei persone. A domani!"
+      goals: [name]
+
+- scenario: vacanze-passate
+  level: A2
+  persona: en-m-traveller
+  history: [word-choice]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao Elena! Ho stato in Sicilia per dieci giorni."
+      errors: [auxiliary-choice]
+    - tutor: "«Ho stato»? Attenzione al primo verbo: avere o essere?"
+      prompt: {text: "Ho stato", tags: [auxiliary-choice]}
+    - learner: "Ah, sono stato in Sicilia!"
+    - tutor: "Bravo! In Sicilia, che bello! Che tempo ha fatto?"
+      goals: [where]
+    - learner: "Ha fatto caldissimo, ma c'era sempre un po' di vento."
+    - tutor: "Che fortuna! E cosa hai fatto lì?"
+      goals: [weather]
+    - learner: "Ho speso tre giorni a Palermo e poi sono andato al mare."
+      errors: [word-choice]
+    - tutor: "Hai passato tre giorni a Palermo? Bellissimo! E il mare com'era?"
+      goals: [activities]
+      recast: {text: "Ho speso", fix: "Hai passato", tags: [word-choice]}
+    - learner: "Bellissimo. Ma il giorno migliore è stato a Siracusa: abbiamo avuto un tempo fantastico!"
+      errors: [word-choice]
+    - tutor: "Vi siete divertiti un sacco, si vede! Siracusa è un sogno."
+      goals: [best]
+      recast: {text: "abbiamo avuto un tempo fantastico", fix: "Vi siete divertiti un sacco", tags: [word-choice]}
+    - learner: "Sì! Devi andarci anche tu, è bellissima."
+    - tutor: "Hai ragione, l'anno prossimo ci vado anch'io!"
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Da piccolo abitavo a Buenos Aires, ma ogni estate andavo nel campo dai nonni."
+      errors: [false-friend]
+    - tutor: "In campagna dai nonni, che fortuna! Cosa facevi lì tutto il giorno?"
+      goals: [place]
+      recast: {text: "nel campo", fix: "In campagna", tags: [false-friend]}
+    - learner: "Ogni giorno ho giocato con i miei cugini e ho aiutato il nonno con gli animali."
+      errors: [tense-aspect]
+    - tutor: "Ogni giorno «ho giocato»? Lo facevi sempre: quale tempo usiamo?"
+      prompt: {text: "ho giocato", tags: [tense-aspect]}
+    - learner: "Ah, giusto: ogni giorno giocavo con i miei cugini e aiutavo il nonno."
+    - tutor: "Perfetto! Che bella vita. E la scuola ti piaceva?"
+      goals: [habits]
+    - learner: "Sì, mi piaceva, ma la maestra era molto severa."
+    - tutor: "Ah, una maestra severa! Hai un ricordo speciale di quegli anni?"
+      goals: [school]
+    - learner: "Sì, mi accordo bene di un giorno: il nonno mi ha regalato un cavallo!"
+      errors: [false-friend]
+    - tutor: "Ti ricordi bene quel giorno, eh? Un cavallo, che regalo!"
+      goals: [event]
+      recast: {text: "mi accordo", fix: "Ti ricordi", tags: [false-friend]}
+    - learner: "Sì, era bianco e si chiamava Luna. Andavo a trovarlo ogni mattina."
+    - tutor: "Che bel nome! Eri proprio un bambino fortunato."
+
+- scenario: autobus
+  level: A2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno! Questo autobus va all'ospedale?"
+    - tutor: "Sì, la linea 12 va all'ospedale."
+      goals: [route]
+    - learner: "Perfetto. Posso subire? Non ho il biglietto."
+      errors: [false-friend]
+    - tutor: "Certo, può salire! Il viaggio è corto, non deve subire niente. Ma il biglietto si compra in tabaccheria."
+      goals: [ticket]
+      recast: {text: "subire", fix: "salire", tags: [false-friend]}
+    - learner: "Oh no! C'è una tabaccheria cerca?"
+      errors: [word-choice]
+    - tutor: "Sì, ce n'è una qui vicino, a destra. L'aspetto due minuti."
+      recast: {text: "cerca", fix: "vicino", tags: [word-choice]}
+    - learner: "Grazie! Ecco il biglietto. Scendo a la fermata dell'ospedale?"
+      errors: [articulated-preposition]
+    - tutor: "«A la» fermata? Qui le due parole diventano una sola."
+      prompt: {text: "a la fermata", tags: [articulated-preposition]}
+    - learner: "Ah, alla fermata dell'ospedale?"
+    - tutor: "Esatto! È la quarta fermata. Si ricordi di timbrare il biglietto."
+      goals: [stop]
+    - learner: "Va bene. Grazie mille, lei è molto gentile!"
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! Che luminoso. Quant'è l'affitto al mese? Le utilities sono incluse?"
+      errors: [word-choice]
+    - tutor: "Sono 820 euro al mese, con le spese di condominio. Le bollette di luce e gas, invece, sono a parte."
+      recast: {text: "Le utilities", fix: "le bollette", tags: [word-choice]}
+      goals: [rent]
+    - learner: "Va bene. Il contratto è flessibile? Se trovo lavoro in un'altra città, posso rompere il contratto?"
+      errors: [word-choice]
+    - tutor: "Sì, può disdire il contratto con tre mesi di preavviso. La caparra è di due mesi."
+      goals: [contract]
+      recast: {text: "rompere il contratto", fix: "disdire il contratto", tags: [word-choice]}
+      new: [{lemma: disdire, gloss: to cancel (a contract)}, {lemma: preavviso, gloss: notice}]
+    - learner: "Capisco. Sono molto sensibile al rumore: la zona è tranquilla di notte?"
+    - tutor: "Molto tranquilla: la strada è chiusa al traffico e qui dietro c'è un parco."
+      goals: [neighbourhood]
+    - learner: "Perfetto. L'appartamento in che vivo adesso è freddissimo: il riscaldamento qui funziona bene?"
+      errors: [relative-pronoun]
+    - tutor: "La capisco. Ma «in che vivo»? Dopo una preposizione, «che» non va bene."
+      prompt: {text: "in che vivo", tags: [relative-pronoun]}
+    - learner: "Ah, sì: l'appartamento in cui vivo adesso."
+    - tutor: "Esatto. Qui non avrà freddo: il riscaldamento funziona benissimo e la caldaia è nuova."
+      goals: [condition]
+      new: [{lemma: caldaia, gloss: boiler}]
+    - learner: "Mi piace molto! Dalle foto non avevo realizzato che è così grande."
+      errors: [false-friend]
+    - tutor: "Dalle foto non si era resa conto di quanto fosse grande, vero? Dal vivo fa un altro effetto."
+      recast: {text: "non avevo realizzato", fix: "non si era resa conto", tags: [false-friend]}
+    - learner: "Proprio così. Sono molto interessata: posso darle una risposta domani mattina?"
+    - tutor: "Certo, mi chiami pure domani. Sono contento che le piaccia!"
+      goals: [decide]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire un conto: voglio guardare i miei risparmi in un posto sicuro."
+      errors: [false-friend]
+    - tutor: "Ottima idea: tenere i risparmi in banca è la scelta più sicura. E guardarli, poi, può farlo dall'app quando vuole!"
+      goals: [purpose]
+      recast: {text: "guardare", fix: "tenere", tags: [false-friend]}
+    - learner: "Perfetto. Quali documenti servono?"
+    - tutor: "Mi servono un documento d'identità e il codice fiscale."
+      goals: [documents]
+    - learner: "Ho il passaporto, ma il codice fiscale non ce l'ho qui. Posso portarlo domani?"
+    - tutor: "Certo, nessun problema: lo porti quando vuole."
+    - learner: "Quanto costa il conto al mese? In Argentina pago molte comisiones."
+      errors: [word-choice]
+    - tutor: "Qui le commissioni sono basse: il conto costa due euro al mese, e i bonifici dall'app sono gratis."
+      goals: [costs]
+      recast: {text: "comisiones", fix: "commissioni", tags: [word-choice]}
+    - learner: "Va bene. Mi date anche una carta per pagare nei negozi?"
+    - tutor: "Sì, la carta arriva a casa in pochi giorni, e con la nostra app può controllare tutto."
+      goals: [card]
+    - learner: "Benissimo. Devo di firmare qualcosa adesso?"
+      errors: [modal-infinitive]
+    - tutor: "«Devo di firmare»? Dopo «dovere», il verbo segue senza nient'altro in mezzo."
+      prompt: {text: "Devo di firmare", tags: [modal-infinitive]}
+    - learner: "Ah, certo: devo firmare qualcosa adesso?"
+    - tutor: "Esatto. Sì, una firma qui e una qui. Ecco fatto, benvenuto!"

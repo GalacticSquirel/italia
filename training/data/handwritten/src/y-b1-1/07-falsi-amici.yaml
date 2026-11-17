@@ -1,0 +1,271 @@
+# B1, round 3: false friends and word choice, mixed with relative pronouns and ci/ne.
+- scenario: film-libro
+  level: B1
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Ho letto un romanzo storico sulla guerra, che mi ha consigliato mia figlia."
+    - tutor: "Tua figlia ha buon gusto! Di cosa parla?"
+    - learner: "È la storia di due fratelli, la cui famiglia perde tutto durante la guerra."
+    - tutor: "Una storia forte. E chi è il personaggio principale?"
+      goals: [summary]
+    - learner: "È Pietro, il fratello più giovane. È un ragazzo molto sensibile: pensa sempre prima di agire."
+      errors: [false-friend]
+      gold: {text: "sensibile", fix: "ragionevole"}
+    - tutor: "Quindi Pietro è un ragazzo ragionevole, che pensa prima di agire. Mi piace! Ti è piaciuto il libro?"
+      recast: {text: "sensibile", fix: "ragionevole", tags: [false-friend]}
+      goals: [characters]
+      new: [{lemma: ragionevole, gloss: sensible}]
+    - learner: "Molto, ma l'ultimo capitolo, in che muore il padre, è molto triste."
+      errors: [relative-pronoun]
+      gold: {text: "in che", fix: "in cui"}
+    - tutor: "«In che muore il padre»? Ripeti questa parte, attenzione alla parola dopo «in»."
+      prompt: {text: "in che", tags: [relative-pronoun]}
+    - learner: "Il capitolo nel che muore il padre."
+      errors: [relative-pronoun]
+    - tutor: "Ah, il capitolo in cui muore il padre... sì, immagino che sia molto triste. A chi lo consiglieresti?"
+      recast: {text: "nel che", fix: "in cui", tags: [relative-pronoun]}
+      goals: [opinion]
+    - learner: "A chi ama la storia. Leggendo, ho realizzato quanto sono fortunato."
+      errors: [false-friend]
+      gold: {text: "ho realizzato", fix: "mi sono reso conto"}
+    - tutor: "È vero, anch'io con questi libri mi sono reso conto di tante cose. Grazie, lo leggerò!"
+      recast: {text: "ho realizzato", fix: "mi sono reso conto", tags: [false-friend]}
+      goals: [recommend]
+    - learner: "Grazie a te. Il mese prossimo porto un altro libro dello stesso autore."
+    - tutor: "Ottimo, ti aspettiamo! Chi continua?"
+
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Le lenticchie con il chorizo, come le faceva mia nonna in Messico."
+    - tutor: "Che buone! Cosa ci serve?"
+    - learner: "Lenticchie, una cipolla, due carote e il chorizo. Non tagli le carote troppo piccole!"
+      errors: [imperative-form]
+      gold: {text: "Non tagli", fix: "Non tagliare"}
+    - tutor: "«Non tagli»? Parli con me, un'amica: come si dice di no con «tu»?"
+      prompt: {text: "Non tagli", tags: [imperative-form]}
+    - learner: "Non tagliare le carote troppo piccole!"
+    - tutor: "Va bene, pezzi grandi! E poi che cosa facciamo?"
+      goals: [ingredients]
+    - learner: "Metti tutto nella pentola con l'acqua, e ogni tanto rimuovi le lenticchie."
+      errors: [false-friend]
+      gold: {text: "rimuovi", fix: "gira"}
+    - tutor: "Gira ogni tanto, dici? Va bene, lo faccio io con il cucchiaio."
+      recast: {text: "rimuovi", fix: "gira", tags: [false-friend]}
+      goals: [steps]
+      new: [{lemma: cucchiaio, gloss: spoon}]
+    - learner: "Cuociono quaranta minuti, più o meno. Se cominciamo adesso, ceniamo pronto."
+      errors: [false-friend]
+      gold: {text: "ceniamo pronto", fix: "ceniamo presto"}
+    - tutor: "Sì, così ceniamo presto e poi guardiamo un film! Come le serviamo?"
+      recast: {text: "ceniamo pronto", fix: "ceniamo presto", tags: [false-friend]}
+      goals: [time]
+    - learner: "Calde, con un po' di pane e un bicchiere di vino rosso."
+    - tutor: "Perfetto, il vino lo apro io!"
+      goals: [serve]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-f-erasmus
+  history: [false-friend, ci-ne]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Sono Paula, ho venticinque anni e ho studiato architettura a Valencia."
+    - tutor: "Piacere, Paula. Che esperienza di lavoro ha?"
+      goals: [intro]
+    - learner: "Per due anni ho lavorato in un'officina di architetti a Valencia."
+      errors: [false-friend]
+      gold: {text: "un'officina", fix: "uno studio"}
+    - tutor: "Ah, in uno studio di architetti. E che cosa faceva lì?"
+      recast: {text: "un'officina", fix: "uno studio", tags: [false-friend]}
+    - learner: "Facevo i planos dei progetti e parlavo con i clienti."
+      errors: [word-choice]
+      gold: {text: "i planos", fix: "i disegni"}
+    - tutor: "Molto bene, i disegni e i clienti. Quali sono i suoi punti forti, e i suoi punti deboli?"
+      recast: {text: "i planos", fix: "i disegni", tags: [word-choice]}
+      goals: [experience]
+    - learner: "Sono organizzata e imparo in fretta. Difetti? Ho uno: sono un po' impaziente."
+      errors: [ci-ne]
+      gold: {text: "Ho uno", fix: "Ne ho uno"}
+    - tutor: "«Ho uno»... uno di cosa? Senza ripetere «difetti», manca una parola."
+      prompt: {text: "Ho uno", tags: [ci-ne]}
+    - learner: "Ci ho uno: sono impaziente."
+      errors: [ci-ne]
+    - tutor: "Anch'io ne ho uno: sono troppo precisa! Perché vuole lavorare con noi?"
+      recast: {text: "Ci ho uno", fix: "Ne ho uno", tags: [ci-ne]}
+      goals: [strengths]
+    - learner: "Perché la vostra azienda è famosa e vorrei imparare a disegnare mobili. Posso fare una domanda? Quanto dura il contratto?"
+    - tutor: "Il primo contratto è di un anno, poi speriamo di continuare insieme. Le faremo sapere presto!"
+      goals: [why, questions]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-traveller
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno! È una macchina in affitto e fa un rumore strano dal motore."
+      errors: [word-choice]
+      gold: {text: "in affitto", fix: "a noleggio"}
+    - tutor: "Una macchina a noleggio, capisco. Che tipo di rumore?"
+      recast: {text: "in affitto", fix: "a noleggio", tags: [word-choice]}
+      new: [{lemma: noleggio, gloss: rental}]
+    - learner: "Un clic-clic continuo, anche quando la macchina è ferma."
+    - tutor: "Da quando lo sente?"
+      goals: [describe]
+    - learner: "Da stamattina. Mentre ho parcheggiato, si accendeva una luce rossa."
+      errors: [tense-aspect]
+      gold: {text: "Mentre ho parcheggiato, si accendeva", fix: "Mentre parcheggiavo, si è accesa"}
+    - tutor: "Aspetti: «mentre ho parcheggiato, si accendeva»... i due tempi sono al posto giusto?"
+      prompt: {text: "Mentre ho parcheggiato, si accendeva", tags: [tense-aspect]}
+    - learner: "Mentre parcheggiavo, si è accesa una luce rossa."
+    - tutor: "Esatto. È la luce dell'olio: probabilmente ne manca un po'."
+      goals: [when]
+    - learner: "Quanto costerà? E sarà pronta per domani? Devo ritornarla venerdì."
+      errors: [word-choice]
+      gold: {text: "ritornarla", fix: "restituirla"}
+    - tutor: "Deve restituirla venerdì? Tranquillo: costerà solo trenta euro e sarà pronta tra un'ora."
+      recast: {text: "ritornarla", fix: "restituirla", tags: [word-choice]}
+      goals: [cost, time]
+    - learner: "Fantastico, grazie mille! Aspetto qui al bar."
+    - tutor: "Perfetto, la chiamo io quando è pronta."
+
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Il venti luglio! Ci resto una settimana con il mio ragazzo."
+    - tutor: "Che bello, una settimana intera! Avete già un programma?"
+      goals: [plans]
+    - learner: "Vogliamo vedere anche Capri. Possiamo andare in traghetto?"
+      errors: [ci-ne]
+      gold: {text: "Possiamo andare in traghetto", fix: "Possiamo andarci in traghetto"}
+    - tutor: "Capri, bellissima! Ma «possiamo andare»: manca qualcosa per dire «a Capri» senza ripeterlo."
+      prompt: {text: "Possiamo andare in traghetto", tags: [ci-ne]}
+    - learner: "Possiamo andarne in traghetto?"
+      errors: [ci-ne]
+    - tutor: "Sì, potete andarci in traghetto: ne parte uno ogni ora dal porto."
+      recast: {text: "andarne", fix: "andarci", tags: [ci-ne]}
+      goals: [transport]
+    - learner: "Perfetto. Cosa mi consigli di mangiare? Ma non voglio spendere tutto il tempo nei ristoranti!"
+      errors: [word-choice]
+      gold: {text: "spendere tutto il tempo", fix: "passare tutto il tempo"}
+    - tutor: "Hai ragione, non devi passare tutto il tempo a tavola! Prendi una pizza da mangiare per strada: è veloce e buonissima."
+      recast: {text: "spendere tutto il tempo", fix: "passare tutto il tempo", tags: [word-choice]}
+      goals: [advice]
+    - learner: "Ottimo. E c'è qualcosa da evitare?"
+    - tutor: "Evita di guidare in centro, il traffico è pazzesco. E fai attenzione al telefono in metro!"
+      goals: [warnings]
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+    - learner: "In Argentina a Natale fa caldo, quindi facciamo la carne alla griglia in giardino con tutti i parientes."
+      errors: [word-choice]
+      gold: {text: "i parientes", fix: "i parenti"}
+    - tutor: "La griglia in giardino con tutti i parenti, che strano per noi! E da bambino come festeggiavi?"
+      recast: {text: "i parientes", fix: "i parenti", tags: [word-choice]}
+      goals: [compare]
+    - learner: "Andavamo da mia nonna, in campagna. La casa in che abitava era enorme."
+      errors: [relative-pronoun]
+      gold: {text: "in che", fix: "in cui"}
+    - tutor: "«La casa in che abitava»? Dopo «in», «che» non va bene. Come diventa?"
+      prompt: {text: "in che", tags: [relative-pronoun]}
+    - learner: "La casa in la quale abitava."
+      errors: [relative-pronoun]
+    - tutor: "Ah, la casa in cui abitava tua nonna era enorme! Chissà che feste."
+      recast: {text: "in la quale", fix: "in cui", tags: [relative-pronoun]}
+    - learner: "Sì! Eravamo trenta persone e ogni anno mio zio si è vestito da Babbo Natale."
+      errors: [tense-aspect]
+      gold: {text: "si è vestito", fix: "si vestiva"}
+    - tutor: "Che ridere! Ma ogni anno... succedeva sempre: «si è vestito» va bene?"
+      prompt: {text: "si è vestito", tags: [tense-aspect]}
+    - learner: "Ogni anno mio zio si vestiva da Babbo Natale."
+    - tutor: "Esatto! Hai qualche domanda sulle nostre feste?"
+      goals: [past]
+    - learner: "Sì: cos'è il panettone, esattamente? E domani per il pranzo cosa posso portare?"
+    - tutor: "È un dolce di Milano, con l'uvetta. Per domani porta il vino, al dolce pensa mia madre!"
+      goals: [ask, plan]
+      new: [{lemma: uvetta, gloss: raisins}]
+
+- scenario: volontariato
+  level: B1
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Sì! Lavoro nel marketing e attualmente ho più tempo libero. Vorrei fare qualcosa di utile."
+    - tutor: "Che bello. E che cosa sai fare?"
+      goals: [motivation]
+    - learner: "So organizzare eventi e usare i social. Ho un'amica il quale fa volontariato qui da un anno."
+      errors: [relative-pronoun]
+      gold: {text: "un'amica il quale", fix: "un'amica la quale"}
+    - tutor: "Ottimo! Ma «un'amica il quale»: guarda bene l'accordo con «amica»."
+      prompt: {text: "un'amica il quale", tags: [relative-pronoun]}
+    - learner: "Un'amica la quale fa volontariato qui."
+    - tutor: "Esatto. E quanto tempo hai?"
+      goals: [skills]
+    - learner: "Sono disposta due sere alla settimana, il martedì e il giovedì."
+      errors: [word-choice]
+      gold: {text: "disposta", fix: "disponibile"}
+    - tutor: "Perfetto, se sei disponibile il martedì e il giovedì abbiamo tante attività."
+      recast: {text: "disposta", fix: "disponibile", tags: [word-choice]}
+      goals: [time]
+    - learner: "Mi piacerebbe lavorare con i bambini. C'è un'attività che posso aiutarli con i compiti?"
+      errors: [relative-pronoun]
+      gold: {text: "un'attività che posso", fix: "un'attività in cui posso"}
+    - tutor: "Sì! Però «un'attività che posso aiutarli»... manca qualcosa prima di «che»."
+      prompt: {text: "un'attività che posso", tags: [relative-pronoun]}
+    - learner: "Un'attività dove che posso aiutarli?"
+      errors: [relative-pronoun]
+    - tutor: "Sì, il doposcuola è un'attività in cui puoi aiutarli con i compiti. Ti aspettiamo martedì!"
+      recast: {text: "dove che posso", fix: "in cui puoi", tags: [relative-pronoun]}
+      goals: [choose]
+      new: [{lemma: doposcuola, gloss: after-school club}]
+    - learner: "Perfetto, martedì ci sono! Grazie."
+    - tutor: "Grazie a te, a martedì!"
+
+
+- scenario: medico-base
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Domenica ho mangiato del pesce e lunedì ho stata male tutto il giorno."
+      errors: [auxiliary-choice]
+      gold: {text: "ho stata", fix: "sono stata"}
+    - tutor: "Mi dispiace. Ma «ho stata male»? Con «stare» il passato si fa con «avere»?"
+      prompt: {text: "ho stata", tags: [auxiliary-choice]}
+    - learner: "Sono stata male tutto il giorno, e ho ancora mal di stomaco."
+    - tutor: "Esatto. Quindi da tre giorni. Come si sente adesso?"
+      goals: [symptoms, since-when]
+    - learner: "Mi sento miserabile e sono sempre stanca."
+      errors: [false-friend]
+      gold: {text: "miserabile", fix: "giù"}
+    - tutor: "Si sente giù e stanca, capisco. È allergica a qualche medicina?"
+      recast: {text: "miserabile", fix: "giù", tags: [false-friend]}
+    - learner: "Sì, sono allergica all'aspirina."
+    - tutor: "Allora niente aspirina. Le do queste pastiglie: una prima di pranzo e una prima di cena, per cinque giorni. Mi ripete?"
+      goals: [history]
+      new: [{lemma: pastiglia, gloss: tablet}]
+    - learner: "Una prima di pranzo e una prima di cena. E se il dolore torna, posso prendere due insieme?"
+      errors: [ci-ne]
+      gold: {text: "posso prendere due insieme", fix: "ne posso prendere due insieme"}
+    - tutor: "Prendere due... due di cosa? Senza ripetere il nome, manca una parola."
+      prompt: {text: "posso prendere due insieme", tags: [ci-ne]}
+    - learner: "Ne posso prendere due insieme?"
+    - tutor: "No, mai due insieme, solo una alla volta. Se il dolore torna, mi chiami."
+      goals: [instructions]

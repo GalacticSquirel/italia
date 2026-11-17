@@ -1,0 +1,243 @@
+# A2 and B1, recast-focused: prompt, failed repair, recast; plus lexical recasts at once.
+- scenario: medico-base
+  level: A2
+  persona: es-f-teacher
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Sono molto costipata e ho mal di gola."
+      errors: [false-friend]
+    - tutor: "È raffreddata e ha mal di gola, capisco. Ha anche la febbre?"
+      goals: [symptoms]
+      recast: {text: "costipata", fix: "raffreddata", tags: [false-friend]}
+      new: [{lemma: raffreddato, gloss: with a cold}]
+    - learner: "Sì, un po' di febbre, trentotto. Da tre giorni."
+    - tutor: "Da tre giorni... E cosa ha fatto in questi giorni?"
+      goals: [since-when]
+    - learner: "Sono rimanuta a letto e ho bevuto molto tè."
+      errors: [past-participle-form]
+    - tutor: "Ha fatto bene. Ma «rimanuta»: il verbo «rimanere» qui è un po' speciale. Se lo ricorda?"
+      prompt: {text: "rimanuta", tags: [past-participle-form]}
+    - learner: "Ah, sì... sono rimanuta a letto due giorni."
+      errors: [past-participle-form]
+    - tutor: "È rimasta a letto due giorni, benissimo. Prende qualche medicina? È allergica a qualcosa?"
+      recast: {text: "rimanuta", fix: "rimasta", tags: [past-participle-form]}
+    - learner: "No, nessuna medicina e nessuna allergia."
+    - tutor: "Allora prenda questo sciroppo tre volte al giorno, dopo aver mangiato, per una settimana."
+      goals: [history]
+      new: [{lemma: sciroppo, gloss: syrup}]
+    - learner: "Va bene: tre volte al giorno, dopo aver mangiato, per una settimana."
+    - tutor: "Perfetto. E beva tanta acqua! Se tra cinque giorni non sta meglio, torni qui."
+      goals: [instructions]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-traveller
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie! Quanto costa un abbonamento al mese?"
+    - tutor: "Quaranta euro al mese, o cento euro per tre mesi."
+      goals: [ask-membership]
+    - learner: "Ok. Che corsi avete? Io voglio venire tre tempi alla settimana."
+      errors: [word-choice]
+    - tutor: "Tre volte alla settimana, ottimo! Abbiamo yoga, nuoto e calcio."
+      goals: [classes]
+      recast: {text: "tre tempi", fix: "tre volte", tags: [word-choice]}
+    - learner: "Lo yoga è più facile che il nuoto?"
+      errors: [comparative]
+    - tutor: "Bella domanda! Ma dopo «più facile», qui non va «che». Cosa va?"
+      prompt: {text: "che il nuoto", tags: [comparative]}
+    - learner: "Ah... è più facile che nuoto?"
+      errors: [comparative]
+    - tutor: "Sì, lo yoga è più facile del nuoto, è perfetto per cominciare. Vuoi sapere gli orari?"
+      recast: {text: "che nuoto", fix: "del nuoto", tags: [comparative]}
+    - learner: "Sì, a che ora c'è lo yoga?"
+    - tutor: "Il lunedì e il giovedì alle sette di sera."
+      goals: [timetable]
+    - learner: "Perfetto, mi iscrivo! Ecco i miei dati."
+    - tutor: "Benissimo, benvenuto! Ci vediamo lunedì."
+      goals: [sign-up]
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: en-m-heritage
+  history: [imperfetto-form]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Abitavo a Toronto, ma ogni estate andavo dai miei nonni in Calabria."
+    - tutor: "Dai nonni in Calabria, che fortuna! Com'era la loro casa?"
+      goals: [place]
+    - learner: "I miei nonni abitevano in una casa vicino al mare."
+      errors: [imperfetto-form]
+    - tutor: "Che bello! Però «abitevano»? Il verbo è «abitare»: com'è l'imperfetto?"
+      prompt: {text: "abitevano", tags: [imperfetto-form]}
+    - learner: "Sì, abitevano... vicino al mare, in un paese piccolo."
+      errors: [imperfetto-form]
+    - tutor: "Abitavano vicino al mare, quindi facevi il bagno ogni giorno? Cosa facevi?"
+      recast: {text: "abitevano", fix: "Abitavano", tags: [imperfetto-form]}
+    - learner: "Sì, ogni giorno! Giocavo a calcio con i miei cugini sulla spiaggia."
+    - tutor: "Che estati! E durante l'anno, a Toronto, ti piaceva la scuola?"
+      goals: [habits]
+    - learner: "Sì, abbastanza. Dopo la scuola andavo sempre alla libreria del quartiere a leggere."
+      errors: [false-friend]
+    - tutor: "In biblioteca, bravo! Hai un ricordo speciale di quegli anni?"
+      goals: [school]
+      recast: {text: "libreria", fix: "biblioteca", tags: [false-friend]}
+      new: [{lemma: biblioteca, gloss: library}]
+    - learner: "Sì: il giorno che mio nonno mi ha insegnato a pescare."
+    - tutor: "Che bel ricordo! Tuo nonno era molto paziente, allora."
+      goals: [event]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Vorrei spedire questo pacco in Spagna, a Valencia."
+    - tutor: "Certo. Normale o veloce? Il normale arriva in dieci giorni."
+      goals: [send]
+    - learner: "Normale va bene, non è urgente."
+    - tutor: "Perfetto. Allora scriva qui l'indirizzo e che cosa c'è nel pacco."
+      goals: [speed]
+    - learner: "Posso scrivere in matita? Non ho una penna."
+      errors: [preposition]
+    - tutor: "«In matita»? Con matita e penna usiamo un'altra preposizione. Quale?"
+      prompt: {text: "in matita", tags: [preposition]}
+    - learner: "Ah... allora scrivo in matita, va bene?"
+      errors: [preposition]
+    - tutor: "A matita no, mi dispiace: qui si scrive a penna. Ecco, usi la mia!"
+      recast: {text: "in matita", fix: "A matita", tags: [preposition]}
+      new: [{lemma: penna, gloss: pen}]
+    - learner: "Grazie. Nel pacco c'è ropa per mia figlia."
+      errors: [word-choice]
+    - tutor: "Vestiti per sua figlia, va bene. Sono dodici euro e cinquanta."
+      goals: [form]
+      recast: {text: "ropa", fix: "Vestiti", tags: [word-choice]}
+    - learner: "Ecco quindici euro. Mi dà la ricevuta, per favore?"
+    - tutor: "Ecco il resto e la ricevuta. Buona giornata!"
+      goals: [pay]
+
+- scenario: serata-cinema
+  level: A2
+  persona: es-m-worker
+  history: [piacere]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema?"
+    - tutor: "Sì, bella idea! Che genere di film ti piace?"
+      goals: [propose]
+    - learner: "A me piace i film d'azione, e anche le commedie."
+      errors: [piacere]
+    - tutor: "Ottimo! Ma «piace i film»: i film sono tanti... cosa cambia nel verbo?"
+      prompt: {text: "piace i film", tags: [piacere]}
+    - learner: "Sì... a me piace i film d'azione, sempre!"
+      errors: [piacere]
+    - tutor: "Anche a me piacciono i film d'azione! Ce n'è uno nuovo alle nove."
+      goals: [genre]
+      recast: {text: "piace i film", fix: "piacciono i film", tags: [piacere]}
+    - learner: "Perfetto, alle nove va bene."
+    - tutor: "Allora compro io i biglietti. Dove ci vediamo?"
+      goals: [choose]
+    - learner: "Ci vediamo alla salida della metro alle otto e mezza?"
+      errors: [word-choice]
+    - tutor: "All'uscita della metro, va bene! Alle otto e mezza."
+      goals: [meet]
+      recast: {text: "salida", fix: "uscita", tags: [word-choice]}
+    - learner: "Perfetto, a stasera!"
+    - tutor: "A stasera, ciao! Non vedo l'ora."
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, vorrei noleggiare due bici, per me e mio fratello. Lui arrivarà tra dieci minuti."
+      errors: [future-form]
+    - tutor: "Benissimo, due bici. Ma «arrivarà»? Si ricorda il futuro di verbi come «parlare»?"
+      goals: [ask]
+      prompt: {text: "arrivarà", tags: [future-form]}
+    - learner: "Sì, sì, mio fratello arrivarà presto."
+      errors: [future-form]
+    - tutor: "Arriverà presto, perfetto: preparo le due biciclette. Per quanto tempo le vuole?"
+      recast: {text: "arrivarà", fix: "Arriverà", tags: [future-form]}
+    - learner: "Per tutto il giorno, fino alle sei."
+    - tutor: "Allora sono quindici euro a bicicletta per tutto il giorno."
+      goals: [duration]
+    - learner: "Ok. Il prezzo include anche il helmet?"
+      errors: [word-choice]
+    - tutor: "Sì, il casco c'è, ed è nel prezzo."
+      goals: [price]
+      recast: {text: "helmet", fix: "casco", tags: [word-choice]}
+      new: [{lemma: casco, gloss: helmet}]
+    - learner: "Perfetto. C'è un bel giro da fare qui vicino?"
+    - tutor: "Sì, la strada vicino al lago: è facile e molto bella."
+      goals: [route]
+    - learner: "Grazie mille, è perfetto!"
+    - tutor: "Prego! Buona giornata, e attenzione alle macchine."
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì prossimo e resto una settimana. Voglio vedere anche Capri e Pompei."
+    - tutor: "Una settimana è perfetta! Cosa vuoi sapere?"
+      goals: [plans]
+    - learner: "Cosa devo mangiare assolutamente? E cosa devo vedere in città?"
+    - tutor: "Mangia la sfogliatella e la pizza, naturalmente! E non perdere Spaccanapoli, il cuore della città."
+      goals: [advice]
+      new: [{lemma: sfogliatella, gloss: Neapolitan pastry}]
+    - learner: "Bello! E per Capri, quanto vuole da Napoli in traghetto?"
+      errors: [ci-ne]
+    - tutor: "«Quanto vuole»? Sembra che il traghetto voglia qualcosa! Manca una piccola parola prima del verbo."
+      prompt: {text: "quanto vuole", tags: [ci-ne]}
+    - learner: "Ah, scusa: quanto vuole il traghetto per arrivare?"
+      errors: [ci-ne]
+    - tutor: "Quanto ci vuole? Circa un'ora, e i traghetti partono dal porto ogni mattina. Ti consiglio quello delle otto."
+      goals: [transport]
+      recast: {text: "quanto vuole", fix: "Quanto ci vuole", tags: [ci-ne]}
+    - learner: "Perfetto. E a Napoli come mi muovo? Prendo la macchina?"
+    - tutor: "No, lascia stare la macchina! Usa la metro e cammina: il traffico è terribile."
+    - learner: "Ok! Devo stare attento ai pickpockets?"
+      errors: [word-choice]
+    - tutor: "Sì, attento ai borseggiatori sugli autobus pieni e in stazione. Tieni sempre la borsa davanti."
+      goals: [warnings]
+      recast: {text: "pickpockets", fix: "borseggiatori", tags: [word-choice]}
+      new: [{lemma: borseggiatore, gloss: pickpocket}]
+    - learner: "Grazie mille, Valentina! Ti porto un regalo."
+    - tutor: "Portami una bella foto del Vesuvio! Buon viaggio."
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Il motore fa un rumore molto raro quando accelero."
+      errors: [false-friend]
+    - tutor: "Un rumore strano? Mi faccia sentire."
+      goals: [describe]
+      recast: {text: "raro", fix: "strano", tags: [false-friend]}
+    - learner: "Sì, e a volte si accende una luce rossa vicino al volante."
+    - tutor: "Capisco. E da quando succede?"
+    - learner: "È cominciato lunedì, mentre tornavo dal lavoro in autostrada."
+    - tutor: "Allora potrebbe essere la frizione. La controllo subito."
+      goals: [when]
+      new: [{lemma: frizione, gloss: clutch}]
+    - learner: "Va bene. Quanto costarà la riparazione, più o meno?"
+      errors: [future-form]
+    - tutor: "Domanda giusta, ma ascolti il verbo: «costarà»... è proprio così?"
+      prompt: {text: "costarà", tags: [future-form]}
+    - learner: "Ehm... costarà molto? Perché questo mese non ho tanti soldi."
+      errors: [future-form]
+    - tutor: "Costerà circa trecento euro. Le preparo un preventivo preciso."
+      goals: [cost]
+      recast: {text: "costarà", fix: "Costerà", tags: [future-form]}
+      new: [{lemma: preventivo, gloss: written estimate}]
+    - learner: "D'accordo. E quando sarà pronta? Mi serve per lavorare."
+    - tutor: "Sarà pronta giovedì pomeriggio. Le telefono appena ho finito."
+      goals: [time]

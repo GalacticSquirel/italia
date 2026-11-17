@@ -1,0 +1,240 @@
+# y-cine, file 03 (B1): ci with essere stato/pensare, ne with di, ce n'è / ce ne sono.
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì mattina e ci rimango cinque giorni. Vado con la mia amica Lucía."
+    - tutor: "Cinque giorni sono perfetti! Ma tu sei mai stata a Napoli?"
+      goals: [plans]
+    - learner: "No, non sono mai stata. È la prima volta nel sud d'Italia."
+      errors: [ci-ne]
+      gold: {text: "non sono mai stata", fix: "non ci sono mai stata"}
+    - tutor: "Non sei mai stata... dove? Senza la parola che indica il luogo, la frase resta a metà."
+      prompt: {text: "non sono mai stata", tags: [ci-ne]}
+    - learner: "Ah, certo: non ci sono mai stata! Allora, cosa devo vedere e cosa devo mangiare?"
+    - tutor: "Esatto! Allora: fai un giro nei Quartieri Spagnoli e assaggia la pizza fritta, è buonissima."
+      goals: [advice]
+      new: [{lemma: assaggiare, gloss: to taste}, {lemma: fritto, gloss: fried}]
+    - learner: "La pizza fritta? Non ne ho mai sentito parlare! E come ci muoviamo in città?"
+    - tutor: "Prendete la metro: è veloce e alcune stazioni sono bellissime. Per Capri, invece, c'è il traghetto."
+      goals: [transport]
+    - learner: "Ho letto su internet che in centro ci sono molti ladri. Tu cosa ci pensi?"
+      errors: [ci-ne]
+    - tutor: "Ladri? Un po' sì, come in tutte le grandi città. Ma «cosa ci pensi»: quando chiedi un'opinione su qualcosa, quella piccola parola è giusta?"
+      prompt: {text: "cosa ci pensi", tags: [ci-ne]}
+    - learner: "No, hai ragione: tu cosa ne pensi?"
+    - tutor: "Perfetto! Secondo me basta fare attenzione: tieni il telefono in tasca ed evita le strade vuote di notte."
+      goals: [warnings]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È molto brillante! Quanto costa l'affitto al mese?"
+      errors: [word-choice]
+    - tutor: "Sì, è luminoso: il sole entra tutto il giorno. Sono 680 euro, con le spese di condominio comprese."
+      recast: {text: "brillante", fix: "luminoso", tags: [word-choice]}
+      new: [{lemma: luminoso, gloss: bright}]
+      goals: [rent]
+    - learner: "E il riscaldamento? È autonomo? Ho bisogno di esso perché soffro molto il freddo."
+      errors: [ci-ne]
+      gold: {text: "Ho bisogno di esso", fix: "Ne ho bisogno"}
+    - tutor: "Sì, è autonomo. Ma «ho bisogno di esso» suona da libro antico: come lo direbbe in modo più naturale, con una sola piccola parola?"
+      prompt: {text: "Ho bisogno di esso", tags: [ci-ne]}
+    - learner: "Ah, ne ho bisogno perché soffro molto il freddo."
+    - tutor: "Perfetto. Allora qui starà bene: la caldaia è nuova, l'ho cambiata a marzo."
+      goals: [condition]
+      new: [{lemma: caldaia, gloss: boiler}]
+    - learner: "Bene. E il contratto? Quanto dura e quanto devo lasciare di deposito?"
+    - tutor: "È un contratto di quattro anni più quattro. Il deposito è di tre mesi di affitto."
+      goals: [contract]
+    - learner: "D'accordo. E nella zona ci sono negozi? Ci sono molti?"
+      errors: [ci-ne]
+    - tutor: "«Ci sono molti?» Molti cosa? Manca la parola che riprende «negozi»."
+      prompt: {text: "Ci sono molti", tags: [ci-ne]}
+    - learner: "Sì, scusi: ci sono molti?"
+      errors: [ci-ne]
+    - tutor: "Sì, ce ne sono molti: due supermercati, una farmacia e un bel mercato il sabato."
+      recast: {text: "ci sono molti", fix: "ce ne sono molti", tags: [ci-ne]}
+      goals: [neighbourhood]
+    - learner: "Perfetto. L'appartamento mi piace molto: sono interessato."
+    - tutor: "Mi fa piacere! Allora le preparo il contratto per la settimana prossima."
+      goals: [decide]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Il nuovo website è pronto, ma mancano ancora le traduzioni in tedesco."
+      errors: [word-choice]
+    - tutor: "Bene, il sito è pronto. E c'è qualche problema con le traduzioni?"
+      recast: {text: "website", fix: "sito", tags: [word-choice]}
+      goals: [update]
+    - learner: "Sì: per finire in tempo servono due traduttori, ma abbiamo solo uno."
+      errors: [ci-ne]
+      gold: {text: "abbiamo solo uno", fix: "ne abbiamo solo uno"}
+    - tutor: "Due traduttori, e «abbiamo solo uno»... Come la diresti senza ripetere «traduttori», ma in modo completo?"
+      prompt: {text: "abbiamo solo uno", tags: [ci-ne]}
+    - learner: "Eh... abbiamo solo uno, Paolo."
+      errors: [ci-ne]
+    - tutor: "Già, ne abbiamo solo uno, e Paolo è anche in vacanza la prossima settimana. Cosa proponi?"
+      recast: {text: "abbiamo solo uno", fix: "ne abbiamo solo uno", tags: [ci-ne]}
+      goals: [problem]
+    - learner: "Potrei chiedere aiuto a Marco: lui parla tedesco molto bene. Ci parlo io domani mattina?"
+    - tutor: "Sì, parlaci tu, è una buona idea. Allora per quando possiamo finire?"
+      goals: [proposal]
+    - learner: "Se Marco mi aiuta, finiremo entro il venti. Anzi, finiremo prima, ci scommetto!"
+    - tutor: "Perfetto, allora scrivo il venti come scadenza. Grazie, ottimo lavoro!"
+      goals: [deadline]
+      new: [{lemma: scadenza, gloss: deadline}]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Sono argentino, faccio il cuoco e vivo a Bologna da tre anni."
+    - tutor: "Benvenuto. Dove ha lavorato prima di venire qui?"
+      goals: [intro]
+    - learner: "A Buenos Aires ho lavorato in un ristorante per sei anni. Ogni sera ho cucinato per duecento persone."
+      errors: [tense-aspect]
+    - tutor: "Duecento persone, che lavoro! Ma «ogni sera ho cucinato»: succedeva sempre, giusto? Quale tempo usiamo per le azioni che si ripetono?"
+      prompt: {text: "ho cucinato", tags: [tense-aspect]}
+    - learner: "Giusto: ogni sera cucinavo per duecento persone."
+    - tutor: "Perfetto. E ha anche esperienza come capo di una squadra?"
+      goals: [experience]
+    - learner: "Sì, ho molta. A Buenos Aires coordinavo cinque persone."
+      errors: [ci-ne]
+      gold: {text: "ho molta", fix: "ne ho molta"}
+    - tutor: "«Ho molta»... molta cosa? Riprenda «esperienza» con una piccola parola."
+      prompt: {text: "ho molta", tags: [ci-ne]}
+    - learner: "Sì, ne ho molta."
+    - tutor: "Bene. E quali sono i suoi punti forti e un punto debole?"
+    - learner: "Sono veloce e preciso. Il mio punto debole è che a volte sono troppo serio in cucina."
+    - tutor: "Una risposta sincera, grazie. Perché vuole lavorare proprio da noi? Ha qualche domanda?"
+      goals: [strengths]
+    - learner: "Perché la vostra cucina usa prodotti del territorio. Vorrei sapere: quanti cuochi ci sono nella squadra?"
+    - tutor: "Ce ne sono quattro, più il capo. Le faremo sapere entro venerdì, grazie!"
+      goals: [why, questions]
+
+- scenario: film-libro
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io! Ho letto un romanzo su una famiglia di pescatori in Sicilia, negli anni Cinquanta."
+    - tutor: "Interessante! Di che cosa parla, senza svelare il finale?"
+      new: [{lemma: svelare, gloss: to reveal}]
+    - learner: "Parla di un ragazzo che vuole lasciare l'isola. L'autrice parla molto del mare: parla di esso in ogni capitolo."
+      errors: [ci-ne]
+      gold: {text: "parla di esso", fix: "ne parla"}
+    - tutor: "Che bello! Ma «parla di esso» è un po' pesante. Come puoi dirlo in modo più leggero, con una piccola parola prima del verbo?"
+      prompt: {text: "parla di esso", tags: [ci-ne]}
+    - learner: "Parla di lui in ogni capitolo?"
+      errors: [ci-ne]
+    - tutor: "Ah, ne parla in ogni capitolo: il mare quasi come un personaggio! E il ragazzo com'è?"
+      recast: {text: "parla di lui", fix: "ne parla", tags: [ci-ne]}
+      goals: [summary]
+    - learner: "È timido ma molto coraggioso. Il personaggio che mi è piaciuto di più è sua nonna, però."
+    - tutor: "Le nonne nei romanzi sono sempre le migliori! E a te è piaciuto il libro?"
+      goals: [characters]
+    - learner: "Sì, molto, anche se in alcuni punti è lento. Lo consiglio a chi ama le storie di famiglia."
+    - tutor: "Ottimo consiglio. Lo metto nella lista per il prossimo mese!"
+      goals: [opinion, recommend]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Fa un rumore strano quando uso i brakes, tipo un fischio."
+      errors: [word-choice]
+    - tutor: "Quando usa i freni? Capisco. E da quando lo sente?"
+      recast: {text: "brakes", fix: "freni", tags: [word-choice]}
+      goals: [describe]
+    - learner: "Da domenica. Mentre ho guidato in autostrada, ho sentito il primo rumore."
+      errors: [tense-aspect]
+    - tutor: "Ah, in autostrada. Ma «mentre ho guidato»: l'azione era in corso, no? Che tempo ci va?"
+      prompt: {text: "Mentre ho guidato", tags: [tense-aspect]}
+    - learner: "Mentre guidavo in autostrada, ho sentito il primo rumore."
+    - tutor: "Perfetto. Probabilmente sono i freni: vanno cambiati."
+      goals: [when]
+    - learner: "Quanto costerà la riparazione?"
+    - tutor: "Più o meno duecento euro, pezzi compresi."
+      goals: [cost]
+    - learner: "Va bene. E quanto tempo ci mette? Ho bisogno di essa per il lavoro."
+      errors: [ci-ne]
+      gold: {text: "Ho bisogno di essa", fix: "Ne ho bisogno"}
+    - tutor: "Ci metto due giorni. Ma «ho bisogno di essa»? Si capisce, però un italiano non lo dice mai. Provi ancora?"
+      prompt: {text: "Ho bisogno di essa", tags: [ci-ne]}
+    - learner: "Ne ho bisogno per il lavoro! Sarà pronta giovedì?"
+    - tutor: "Esatto. Sì, giovedì pomeriggio sarà pronta, glielo prometto."
+      goals: [time]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per sabato sera, per favore."
+    - tutor: "Certo! Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Siamo sei personas, quattro adulti e due bambini. Verso le otto, se è possibile."
+      errors: [word-choice]
+    - tutor: "Sabato alle otto, sei persone: va bene."
+      recast: {text: "sei personas", fix: "sei persone", tags: [word-choice]}
+      goals: [details]
+    - learner: "Avete tavoli fuori, in giardino? Ai bambini piace stare all'aperto."
+    - tutor: "Sì, ce ne sono quattro in giardino. Gliene tengo uno."
+    - learner: "Perfetto, grazie. Il piccolo ha due anni: avete un seggiolone? Ci serve uno."
+      errors: [ci-ne]
+      gold: {text: "Ci serve uno", fix: "Ce ne serve uno"}
+    - tutor: "Certo che lo abbiamo! Però attenzione a «ci serve uno»: uno di che cosa? Manca qualcosa."
+      prompt: {text: "Ci serve uno", tags: [ci-ne]}
+      new: [{lemma: seggiolone, gloss: high chair}]
+    - learner: "Ah, sì: ce ne serve uno."
+    - tutor: "Esatto, è tutto pronto. A che nome prenoto?"
+      goals: [special]
+    - learner: "A nome Martínez. Sabato alle otto, sei persone, in giardino."
+    - tutor: "Perfetto, signora Martínez: tutto confermato. A sabato!"
+      goals: [name]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sono nella camera 312. L'aria condizionata non funziona e fa molto caldo."
+    - tutor: "Mi dispiace molto. Da quando non funziona?"
+      goals: [problem]
+    - learner: "Da ieri sera. Ho chiamato la reception, ma nessuno è venuto."
+    - tutor: "Le chiedo scusa. C'è altro che non va nella camera?"
+      goals: [since]
+    - learner: "Sì, siamo in due, ma in bagno c'è solo uno asciugamano. Può darmi un altro?"
+      errors: [article-form]
+    - tutor: "Certo. Ma «uno asciugamano»? Ascolti bene il suono all'inizio della parola."
+      prompt: {text: "uno asciugamano", tags: [article-form]}
+    - learner: "Un asciugamano! C'è solo uno, e siamo in due."
+      errors: [ci-ne]
+    - tutor: "Perfetto l'articolo. Ma adesso «c'è solo uno»: uno cosa? Manca una parola."
+      prompt: {text: "C'è solo uno", tags: [ci-ne]}
+    - learner: "Sì... c'è solo uno, come ho detto."
+      errors: [ci-ne]
+    - tutor: "Certo, ce n'è solo uno: le faccio portare subito altri due asciugamani. Per l'aria condizionata, vuole cambiare camera?"
+      recast: {text: "c'è solo uno", fix: "ce n'è solo uno", tags: [ci-ne]}
+      new: [{lemma: asciugamano, gloss: towel}]
+      goals: [request]
+    - learner: "Sì, preferisco cambiare camera, se è possibile stasera."
+    - tutor: "Nessun problema: le do la 405, al quarto piano. Il ragazzo la aiuta con le valigie."
+      goals: [agree]

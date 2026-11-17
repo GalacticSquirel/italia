@@ -1,0 +1,224 @@
+# y-future, file 07: C1, irregular futures (proporrò, otterremo, manterrà, varrà, tradurrò) and futuro anteriore of probability.
+- scenario: riunione-lavoro
+  level: C1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Tutto sommato bene: abbiamo chiuso la fase di test con due giorni d'anticipo, il che non è poco."
+    - tutor: "Ottimo, è una bella notizia. Qualche intoppo all'orizzonte?"
+      goals: [update]
+    - learner: "Uno, purtroppo. Il cliente ha cambiato idea sul design dell'interfaccia e vuole rivedere metà degli schermi."
+      errors: [word-choice]
+    - tutor: "Un classico, e rivedere metà delle schermate non è uno scherzo. E come pensi di gestire la cosa senza sforare i tempi?"
+      goals: [problem]
+      recast: {text: "degli schermi", fix: "delle schermate", tags: [word-choice]}
+      new: [{lemma: schermata, gloss: screen (of an app)}, {lemma: sforare, gloss: to overrun}]
+    - learner: "Domani gli proponerò una soluzione intermedia: modifichiamo solo le schermate principali e rimandiamo il resto alla seconda versione."
+      errors: [future-form]
+      gold: {text: "proponerò", fix: "proporrò"}
+    - tutor: "Proponerò? Proporre si comporta come porre, che al futuro ha una forma contratta. Come diventa?"
+      new: [{lemma: porre, gloss: to put}, {lemma: contratto, gloss: contracted}]
+      prompt: {text: "proponerò", tags: [future-form]}
+    - learner: "Gli proporrò una soluzione intermedia."
+    - tutor: "Esatto. Mi sembra un compromesso sensato, sempre che il cliente lo accetti. In quel caso, che scadenza ci diamo?"
+      goals: [proposal]
+    - learner: "Se il cliente approva entro giovedì, per la fine del mese consegneremo già tutte le schermate principali."
+      errors: [future-form]
+      gold: {text: "consegneremo già", fix: "avremo già consegnato"}
+    - tutor: "«Per la fine del mese consegneremo già»: quel «già» indica un'azione compiuta prima di una scadenza futura. Quale tempo la esprime?"
+      prompt: {text: "consegneremo già", tags: [future-form]}
+    - learner: "Per la fine del mese avremo già consegnato tutte le schermate principali."
+    - tutor: "Esatto. Allora fine mese. Aggiornami appena avrai sentito il cliente."
+      goals: [deadline]
+
+- scenario: presentazione-progetto
+  level: C1
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Certo. Proponiamo di digitalizzare tutto l'archivio clienti, che oggi è ancora in gran parte cartaceo."
+    - tutor: "D'accordo, ma in concreto che cosa ci guadagniamo?"
+      goals: [pitch]
+    - learner: "Secondo le nostre stime, otteneremo un risparmio di circa centomila euro l'anno, soprattutto in ore di lavoro."
+      errors: [future-form]
+      gold: {text: "otteneremo", fix: "otterremo"}
+    - tutor: "Otteneremo? Ottenere segue tenere, e al futuro tenere non conserva quella e. Come diventa?"
+      prompt: {text: "otteneremo", tags: [future-form]}
+    - learner: "Ottenremo un risparmio di circa centomila euro l'anno."
+      errors: [future-form]
+    - tutor: "Se otterremo davvero centomila euro l'anno, la cifra è interessante. Ma mi parlano di un investimento iniziale di quasi trecentomila euro: non è un rischio eccessivo?"
+      goals: [benefits]
+      recast: {text: "Ottenremo", fix: "otterremo", tags: [future-form]}
+    - learner: "È un investimento importante, ma entro tre anni lo avremo recuperato per intero. E se non lo facessimo, resteremmo indietro rispetto alla competenza."
+      errors: [false-friend]
+    - tutor: "Il confronto con la concorrenza è un argomento convincente. Quali sarebbero i prossimi passi?"
+      recast: {text: "competenza", fix: "concorrenza", tags: [false-friend]}
+      goals: [objection]
+    - learner: "Le proporrei un progetto pilota di sei mesi su un solo reparto, così potrà valutare i risultati prima di decidere."
+    - tutor: "Mi piace. Mi mandi un piano dettagliato entro venerdì e ne riparliamo."
+      goals: [next-steps]
+
+- scenario: trattativa-fornitore
+  level: C1
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, e devo essere franco: un aumento del dodici per cento ci mette in seria difficoltà."
+    - tutor: "Lo capisco, ma non possiamo certo lavorare in perdita."
+      goals: [problem]
+    - learner: "Nessuno lo pretende. Però lavoriamo insieme da quindici anni e abbiamo sempre pagato puntualmente. Mi aspettavo un po' più di flessibilità."
+    - tutor: "Questo è vero, siete tra i nostri clienti più affidabili. Che cosa propone?"
+      goals: [argue]
+    - learner: "Se ci venite incontro con un aumento del sei per cento, la nostra azienda mantenerà gli stessi volumi per tutto il prossimo anno."
+      errors: [future-form]
+      gold: {text: "mantenerà", fix: "manterrà"}
+    - tutor: "Mantenerà? Mantenere ha lo stesso futuro particolare di tenere. Provi a ripetere la frase."
+      prompt: {text: "mantenerà", tags: [future-form]}
+    - learner: "Sì, mantenerrà gli stessi volumi per tutto l'anno."
+      errors: [future-form]
+    - tutor: "Se la vostra azienda manterrà gli stessi volumi per un anno intero, potrei arrivare all'otto per cento. Di più, onestamente, non posso."
+      goals: [counteroffer]
+      recast: {text: "mantenerrà", fix: "manterrà", tags: [future-form]}
+    - learner: "L'otto per cento... D'accordo, a patto di metterlo per iscritto oggi stesso."
+    - tutor: "Affare fatto: le mando il contratto aggiornato entro stasera."
+      goals: [agreement]
+
+- scenario: intervista-podcast
+  level: C1
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivata proprio in Italia?"
+    - learner: "Per puro caso! Dovevo fare l'Erasmus a Lisbona, ma all'ultimo momento hanno cancellato il posto e mi hanno offerto Bologna."
+    - tutor: "E da lì non te ne sei più andata!"
+    - learner: "Esatto. Avrà stato il destino, o forse la mortadella!"
+      errors: [future-form]
+      gold: {text: "Avrà stato", fix: "Sarà stato"}
+    - tutor: "Avrà stato il destino? Bella ipotesi, ma controlla bene l'ausiliare: il verbo è essere."
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+      prompt: {text: "Avrà stato", tags: [future-form]}
+    - learner: "Sì, avrà stato il destino!"
+      errors: [future-form]
+    - tutor: "Sarà stato il destino, chissà, o forse la mortadella! Che cosa ti ha sorpresa di più all'inizio?"
+      recast: {text: "avrà stato", fix: "Sarà stato", tags: [future-form]}
+      goals: [story]
+    - learner: "Il rapporto con il cibo. In Spagna si cena alle dieci, qui alle otto, e a pranzo si parla già di cosa si mangerà a cena."
+    - tutor: "Verissimo, è un'ossessione nazionale. E c'è qualcosa che proprio non sopporti?"
+      goals: [culture-shock]
+    - learner: "Mi molesta un po' la lentezza degli uffici pubblici. Non voglio sembrare ingrata, ma per il permesso di soggiorno ho perso mesi."
+      errors: [false-friend]
+    - tutor: "Una lentezza che dà fastidio a tutti: la tua è una critica giusta, e fatta con eleganza. Che consiglio daresti a chi sta pensando di trasferirsi?"
+      goals: [critique]
+      recast: {text: "Mi molesta", fix: "dà fastidio", tags: [false-friend]}
+    - learner: "Di armarsi di pazienza e di imparare la lingua sul serio: una volta imparata, si apriranno tutte le porte."
+    - tutor: "Consiglio d'oro. Grazie mille, è stato un piacere!"
+      goals: [advice]
+
+- scenario: modi-di-dire
+  level: C1
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Una giornata da dimenticare. Stamattina ho perso l'autobus, sono arrivato in ritardo alla riunione e il capo non mi ha nemmeno salutato."
+    - tutor: "Ahi, una giornata partita col piede sbagliato! E poi?"
+    - learner: "Poi ho scoperto che la presentazione non era più alle tre, ma a mezzogiorno. Nessuno mi aveva avvisato."
+    - tutor: "Che figuraccia! Ma come mai nessuno ti ha detto niente?"
+      goals: [tell]
+    - learner: "Boh, il capo si avrà dimenticato di mettermi in copia nella mail."
+      errors: [future-form]
+      gold: {text: "si avrà dimenticato", fix: "si sarà dimenticato"}
+    - tutor: "Si avrà dimenticato? Ipotesi sensata, ma con dimenticarsi quale ausiliare ci vuole?"
+      prompt: {text: "si avrà dimenticato", tags: [future-form]}
+    - learner: "Sì, si avrebbe dimenticato di mettermi in copia."
+      errors: [future-form]
+    - tutor: "Eh, si sarà dimenticato, e allora la colpa non è tua. Comunque non fasciarti la testa prima di essertela rotta: magari domani nessuno ci pensa più."
+      goals: [blame]
+      recast: {text: "si avrebbe dimenticato", fix: "si sarà dimenticato", tags: [future-form]}
+    - learner: "Hai ragione, inutile fasciarsi la testa. Anzi, la morale è: mai fidarsi ciecamente del calendario condiviso!"
+    - tutor: "Ben detto! E domani sveglia mezz'ora prima e occhio alla posta."
+      goals: [react, moral]
+
+- scenario: notizie-attualita
+  level: C1
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatta?"
+    - learner: "Sì: in sostanza il governo vuole limitare gli affitti turistici nei centri storici, con un numero massimo di notti all'anno."
+    - tutor: "Esatto, in sintesi è così. E tu che ne pensi?"
+      goals: [summarise]
+    - learner: "Mi sembra una misura sensibile ma tardiva: in certe città i residenti se ne sono andati da anni."
+      errors: [false-friend]
+    - tutor: "Sensata, sì, ma tardiva: concordo. Però i giornali l'hanno raccontata in modi molto diversi, non trovi?"
+      goals: [opinion]
+      recast: {text: "sensibile", fix: "sensata", tags: [false-friend]}
+    - learner: "Sì, alcuni quotidiani parlavano di attacco alla proprietà privata, mentre altri insistevano sul diritto alla casa."
+    - tutor: "Due narrazioni opposte. E secondo te, che cosa succederà adesso?"
+      goals: [sources]
+    - learner: "Probabilmente molti proprietari torneranno agli affitti lunghi, e una casa in centro valerà un po' meno come investimento."
+      errors: [future-form]
+      gold: {text: "valerà", fix: "varrà"}
+    - tutor: "Valerà? Valere ha un futuro contratto, simile a quello di volere. Come lo diresti?"
+      prompt: {text: "valerà", tags: [future-form]}
+    - learner: "Valrà un po' meno."
+      errors: [future-form]
+    - tutor: "Sì, è plausibile che una casa in centro varrà meno come investimento turistico, ma forse i residenti torneranno. Staremo a vedere."
+      goals: [consequences]
+      recast: {text: "Valrà", fix: "varrà", tags: [future-form]}
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Si figuri, ha fatto bene a venire. Mi racconti con calma: che cosa l'ha ferita di più?"
+    - tutor: "Marco ha presentato il mio lavoro come se fosse suo, davanti a tutto il reparto. Non ha nemmeno citato il mio nome."
+    - learner: "Capisco perfettamente la sua amarezza. Mi permetta una domanda: aveva condiviso con lui i file prima della riunione?"
+    - tutor: "Sì, glieli avevo mandati io il giorno prima, per gentilezza."
+      goals: [listen, clarify]
+    - learner: "Le credo. Però conosco Marco: non penso che l'abbia fatto a proposito, forse era agitato e ha semplificato troppo."
+      errors: [false-friend]
+    - tutor: "Può darsi che non l'abbia fatto apposta, ma il risultato non cambia: il direttore ora pensa che il merito sia suo."
+      goals: [perspective]
+      recast: {text: "a proposito", fix: "apposta", tags: [false-friend]}
+    - learner: "Ha ragione. Appena sarò parlato con Marco, organizzerò una breve riunione con il direttore per chiarire chi ha fatto cosa."
+      errors: [future-form]
+      gold: {text: "sarò parlato", fix: "avrò parlato"}
+    - tutor: "Sarò parlato? Mi perdoni se sono pignola, ma con parlare l'ausiliare non è essere."
+      new: [{lemma: ausiliare, gloss: auxiliary verb}, {lemma: pignolo, gloss: fussy}]
+      prompt: {text: "sarò parlato", tags: [future-form]}
+    - learner: "Appena avrò parlato con Marco, organizzerò la riunione."
+    - tutor: "Così mi sembra giusto. La ringrazio, mi sento già più tranquilla."
+      goals: [solution]
+
+- scenario: organizzare-matrimonio
+  level: C1
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Sogniamo qualcosa di intimo: una cinquantina di invitati in una masseria in Puglia, a fine settembre."
+    - tutor: "Una scelta splendida, a settembre la luce è magica. Avete già fissato un budget?"
+      goals: [vision]
+    - learner: "Più o meno trentamila euro, viaggi degli ospiti esclusi. La famiglia della mia fidanzata è larga, ma ci siamo imposti un limite."
+      errors: [false-friend]
+    - tutor: "Con una famiglia numerosa, imporsi un limite è saggio. Vi ho selezionato due masserie: una vicino al mare, più elegante, l'altra nell'entroterra, più semplice ma circondata dagli ulivi."
+      goals: [budget]
+      recast: {text: "larga", fix: "numerosa", tags: [false-friend]}
+      new: [{lemma: masseria, gloss: fortified farmhouse}, {lemma: entroterra, gloss: inland area}, {lemma: ulivo, gloss: olive tree}]
+    - learner: "Preferiamo quella nell'entroterra, è più nel nostro stile. Il rito sarà bilingue: io traducerò le promesse per i miei parenti inglesi."
+      errors: [future-form]
+      gold: {text: "traducerò", fix: "tradurrò"}
+    - tutor: "Traducerò? Tradurre si comporta come condurre e produrre: al futuro la forma si accorcia."
+      prompt: {text: "traducerò", tags: [future-form]}
+    - learner: "Tradurrò le promesse per i miei parenti."
+    - tutor: "Perfetto, sarà un tocco commovente. Avete delle condizioni particolari per me?"
+      goals: [choices]
+    - learner: "Sì, una sola: che ogni spesa sopra i cinquecento euro venga approvata prima da noi."
+    - tutor: "Assolutamente, lo metteremo nero su bianco nel contratto."
+      goals: [conditions]

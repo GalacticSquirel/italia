@@ -1,0 +1,236 @@
+# y-cine, file 02 (A2): ci locative (ci vado), ne vs ci, "di esso", metterci.
+- scenario: abbigliamento
+  level: A2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Cerco una camicia bianca per il lavoro."
+    - tutor: "Certo. Abbiamo queste. Che taglia porta?"
+      goals: [ask-item]
+    - learner: "La 42. Questa camicia è molto bello."
+      errors: [adjective-agreement]
+    - tutor: "Sì, mi piace. Ma la camicia è «bello»? Guardi bene la fine della parola."
+      prompt: {text: "molto bello", tags: [adjective-agreement]}
+    - learner: "Ah, è molto bella! Quanto costa?"
+    - tutor: "Bravo! Oggi è in offerta: due camicie a cinquanta euro."
+      goals: [size-colour]
+      new: [{lemma: camicia, gloss: shirt}]
+    - learner: "Va bene, allora ci prendo due!"
+      errors: [ci-ne]
+      gold: {text: "ci prendo due", fix: "ne prendo due"}
+    - tutor: "Ottimo! Ma «ci prendo due»? Per parlare di due cose, quella piccola parola va bene?"
+      prompt: {text: "ci prendo due", tags: [ci-ne]}
+    - learner: "No, è sbagliata: ne prendo due! Posso provarle?"
+    - tutor: "Esatto! Certo, il camerino è in fondo a destra."
+      goals: [try]
+    - learner: "Vanno benissimo tutte e due. Posso pagare con la tarjeta?"
+      errors: [word-choice]
+    - tutor: "Sì, certo, con la carta va benissimo. Sono cinquanta euro. Grazie e buona giornata!"
+      recast: {text: "la tarjeta", fix: "la carta", tags: [word-choice]}
+      goals: [decide]
+
+- scenario: compleanno
+  level: A2
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una cena a casa mia, sabato sera!"
+    - tutor: "Perfetto. E chi invitiamo? Quanti amici?"
+      goals: [date]
+    - learner: "Invitiamo otto, i suoi amici dell'università."
+      errors: [ci-ne]
+      gold: {text: "Invitiamo otto", fix: "Ne invitiamo otto"}
+    - tutor: "Otto... cosa? Otto torte? Prova a dirlo di nuovo."
+      prompt: {text: "Invitiamo otto", tags: [ci-ne]}
+    - learner: "Ah! Invitiamo otto amici dell'università."
+    - tutor: "Ecco, così è chiaro! Otto amici va bene."
+      goals: [guests]
+    - learner: "Io preparo le lasagne. E la torta? Sara ama il cioccolato."
+    - tutor: "Allora la torta al cioccolato la compro io. E il regalo? Le compriamo un libro?"
+      goals: [food]
+    - learner: "Un libro? Sara ha già tanti. Le compriamo una borsa?"
+      errors: [ci-ne]
+    - tutor: "Ha già tanti... tanti cosa? Qui manca la parola per «libri»."
+      prompt: {text: "ha già tanti", tags: [ci-ne]}
+    - learner: "Sì, ha già tanti, è vero."
+      errors: [ci-ne]
+    - tutor: "Hai ragione, ne ha già tanti. Allora una borsa: le piacerà di sicuro!"
+      recast: {text: "ha già tanti", fix: "ne ha già tanti", tags: [ci-ne]}
+      goals: [gift]
+
+- scenario: medico-base
+  level: A2
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di testa e mal di gola."
+    - tutor: "Mi dispiace. Da quando sta male?"
+      goals: [symptoms]
+    - learner: "Da tre giorni. Ieri ho avuto anche la temperatura."
+      errors: [word-choice]
+    - tutor: "Capisco, anche la febbre. Prende qualche medicina?"
+      recast: {text: "la temperatura", fix: "la febbre", tags: [word-choice]}
+      goals: [since-when]
+    - learner: "Sì, l'aspirina. Prendo tre al giorno."
+      errors: [ci-ne]
+      gold: {text: "Prendo tre", fix: "Ne prendo tre"}
+    - tutor: "Scusi, come? Prende tre... cosa?"
+      prompt: {text: "Prendo tre", tags: [ci-ne]}
+    - learner: "Tre aspirine. Ne prendo tre al giorno."
+    - tutor: "Va bene, ma sono troppe. È allergico a qualche medicina?"
+    - learner: "No, non sono allergico a niente."
+    - tutor: "Bene. Allora prenda questo sciroppo due volte al giorno e torni tra una settimana."
+      goals: [history]
+      new: [{lemma: sciroppo, gloss: syrup}]
+    - learner: "Va bene. Prendo lo sciroppo due volte al giorno e torno lunedì prossimo."
+    - tutor: "Perfetto. E beva molta acqua! Arrivederci."
+      goals: [instructions]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Buongiorno. Sì, vorrei noleggiare due biciclette per oggi pomeriggio."
+    - tutor: "Benissimo. Per quante ore?"
+      goals: [ask]
+    - learner: "Per quattro ore. Quanto costa?"
+    - tutor: "Cinque euro all'ora per bicicletta. Anche il casco è nel prezzo."
+      goals: [duration, price]
+      new: [{lemma: casco, gloss: helmet}]
+    - learner: "Perfetto. Vogliamo andare al lago. C'è una strada bonita?"
+      errors: [word-choice]
+    - tutor: "Sì, la strada vicino al fiume è molto bella. Al lago ci arrivate in un'ora."
+      recast: {text: "bonita", fix: "bella", tags: [word-choice]}
+      new: [{lemma: fiume, gloss: river}]
+    - learner: "Un'ora? Ma con i bambini quanto mettiamo?"
+      errors: [ci-ne]
+      gold: {text: "quanto mettiamo", fix: "quanto ci mettiamo"}
+    - tutor: "Con i bambini... quanto mettete? Mettete cosa? Pensi bene al verbo per il tempo."
+      prompt: {text: "quanto mettiamo", tags: [ci-ne]}
+    - learner: "Ah, sì: quanto ci mettiamo con i bambini?"
+    - tutor: "Brava! Ci mettete un'ora e mezza, più o meno."
+      goals: [route]
+    - learner: "Va bene. Possiamo lasciare le biciclette in la piazza del lago?"
+      errors: [articulated-preposition]
+    - tutor: "«In la piazza»? Le due parole qui diventano una."
+      prompt: {text: "in la piazza", tags: [articulated-preposition]}
+    - learner: "Nella piazza del lago, scusi."
+    - tutor: "Sì, nella piazza c'è un posto per le biciclette. Buon giro!"
+
+- scenario: palestra
+  level: A2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Quanto costa la membership?"
+      errors: [word-choice]
+    - tutor: "L'abbonamento costa quaranta euro al mese, o cento euro per tre mesi."
+      recast: {text: "la membership", fix: "L'abbonamento", tags: [word-choice]}
+      goals: [ask-membership]
+    - learner: "Allora l'abbonamento di tre mesi è più economico che quello mensile."
+      errors: [comparative]
+    - tutor: "Sì, conviene! Ma «più economico che quello»? Pensa bene alla parola dopo l'aggettivo."
+      prompt: {text: "più economico che quello", tags: [comparative]}
+      new: [{lemma: convenire, gloss: to be worth it}]
+    - learner: "Ah, più economico di quello mensile! E ci sono corsi di yoga?"
+    - tutor: "Esatto! Sì, ce ne sono tre: il lunedì, il mercoledì e il venerdì sera."
+      goals: [classes, timetable]
+    - learner: "Perfetto, il lunedì ci vengo sicuro. Avete anche una piscina?"
+    - tutor: "No, mi dispiace, la piscina non c'è."
+    - learner: "Peccato! Ho bisogno di essa per il mio ginocchio."
+      errors: [ci-ne]
+      gold: {text: "Ho bisogno di essa", fix: "Ne ho bisogno"}
+    - tutor: "«Ho bisogno di essa»? Si capisce, ma suona strano. Come lo dici in modo più semplice?"
+      prompt: {text: "Ho bisogno di essa", tags: [ci-ne]}
+    - learner: "Ah, giusto: ne ho bisogno per il ginocchio. Va bene, faccio l'abbonamento di tre mesi."
+    - tutor: "Perfetto! Per nuotare, ce n'è una in via Roma. Ecco il modulo da firmare."
+      goals: [sign-up]
+
+- scenario: serata-cinema
+  level: A2
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema? C'è un nuovo movie d'avventura."
+      errors: [word-choice]
+    - tutor: "Un film d'avventura, buona idea! Che film ti piacciono?"
+      recast: {text: "movie", fix: "film", tags: [word-choice]}
+      goals: [propose]
+    - learner: "Mi piace i film d'avventura e le commedie. E a te?"
+      errors: [piacere]
+    - tutor: "«Mi piace i film»? Sono tanti film... Il verbo va bene?"
+      prompt: {text: "Mi piace i film", tags: [piacere]}
+    - learner: "Mi piacciono i film d'avventura!"
+    - tutor: "Esatto! A me piacciono le commedie. Io al cinema ci vado ogni settimana."
+      goals: [genre]
+    - learner: "Davvero? Io vado poco, è caro in Irlanda."
+      errors: [ci-ne]
+      gold: {text: "Io vado poco", fix: "Io ci vado poco"}
+    - tutor: "Scusa, vai poco... dove? Al cinema? Nella frase manca una parola."
+      prompt: {text: "Io vado poco", tags: [ci-ne]}
+    - learner: "Ah, sì: io ci vado poco. Allora, la commedia alle nove?"
+    - tutor: "Perfetto, la commedia alle nove! Dove ci vediamo?"
+      goals: [choose]
+    - learner: "Ci vediamo davanti al cinema alle otto e mezza?"
+    - tutor: "Va bene, davanti al cinema alle otto e mezza. A stasera!"
+      goals: [meet]
+
+- scenario: vacanze-passate
+  level: A2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Sono stata in Sicilia, a Palermo, con due amiche."
+    - tutor: "Che bello! Com'era il tempo?"
+      goals: [where]
+    - learner: "Faceva caldissimo, trentacinque gradi tutti i giorni!"
+    - tutor: "Che caldo! E cosa avete fatto?"
+      goals: [weather]
+    - learner: "Siamo andate al mare e abbiamo mangiato tanti arancini."
+    - tutor: "Gli arancini! Quanti ne hai mangiati?"
+      goals: [activities]
+    - learner: "Ho mangiato venti, forse!"
+      errors: [ci-ne]
+      gold: {text: "Ho mangiato venti", fix: "Ne ho mangiati venti"}
+    - tutor: "Venti! Ma senti la frase: «ho mangiato venti». Non manca niente?"
+      prompt: {text: "Ho mangiato venti", tags: [ci-ne]}
+    - learner: "Mmm... sì, ho mangiato venti!"
+      errors: [ci-ne]
+    - tutor: "Anch'io l'anno scorso ne ho mangiati venti! Sono troppo buoni. E cosa ti è piaciuto di più?"
+      recast: {text: "ho mangiato venti", fix: "ne ho mangiati venti", tags: [ci-ne]}
+    - learner: "La gente: sono tutti molto simpatici. E il mercato di Palermo è fantastico!"
+    - tutor: "Che bello! Allora devi tornarci presto."
+      goals: [best]
+
+- scenario: tempo-libero
+  level: A2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Mi piace andare in montagna a camminare."
+    - tutor: "Che bello! Ci vai spesso?"
+      goals: [hobby]
+    - learner: "Sì, vado ogni domenica, se non piove."
+      errors: [ci-ne]
+      gold: {text: "vado ogni domenica", fix: "ci vado ogni domenica"}
+    - tutor: "Vai ogni domenica... dove? Per dire «in montagna» manca una parola."
+      prompt: {text: "vado ogni domenica", tags: [ci-ne]}
+    - learner: "Ah, ci vado ogni domenica! E tu? Cosa fai il sabato?"
+    - tutor: "Bravo! Il sabato vado al mercato e cucino per gli amici."
+      goals: [frequency, ask]
+    - learner: "Domenica vieni con me in montagna? È molto bello, ti piacere!"
+      errors: [verb-form]
+    - tutor: "«Ti piacere»? Il verbo è rimasto all'infinito!"
+      prompt: {text: "ti piacere", tags: [verb-form]}
+    - learner: "Ti piace, sicuro!"
+    - tutor: "Va bene, ci vengo con piacere! Ci vediamo domenica alle otto."
+      goals: [propose]

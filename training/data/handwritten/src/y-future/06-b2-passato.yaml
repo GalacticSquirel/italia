@@ -1,0 +1,233 @@
+# y-future, file 06: B2, tense and aspect in narration (imperfetto, passato prossimo, trapassato, concordance).
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri pomeriggio ero fermo al semaforo e una macchina mi è venuta addosso da dietro."
+    - tutor: "Mi dispiace. E chi guidava l'altra macchina ha ammesso di avere torto?"
+      goals: [what]
+    - learner: "Sì, subito. Ha detto che guardava il telefono. Quando ha alzato gli occhi, il semaforo è già diventato rosso da qualche secondo."
+      errors: [tense-aspect]
+      gold: {text: "è già diventato", fix: "era già diventato"}
+    - tutor: "«Il semaforo è già diventato rosso»: è successo prima che lui alzasse gli occhi. Quale tempo esprime questo passato più lontano?"
+      prompt: {text: "è già diventato", tags: [tense-aspect]}
+    - learner: "Il semaforo è diventato già rosso da qualche secondo."
+      errors: [tense-aspect]
+    - tutor: "Capisco, il semaforo era già diventato rosso: allora la responsabilità è chiaramente sua. Avete compilato la constatazione amichevole?"
+      recast: {text: "è diventato già", fix: "era già diventato", tags: [tense-aspect]}
+      goals: [responsibility]
+    - learner: "Sì, l'abbiamo firmata tutti e due sul posto. Ho anche fatto delle foto al bumper."
+      errors: [word-choice]
+    - tutor: "Perfetto, le foto del paraurti ci saranno utili. Me le mandi per email insieme alla constatazione."
+      goals: [documents]
+      recast: {text: "bumper", fix: "paraurti", tags: [word-choice]}
+    - learner: "Lo farò oggi stesso. E adesso cosa succede? Quanto tempo ci vorrà?"
+    - tutor: "Un perito valuterà il danno entro dieci giorni, poi riceverà il rimborso. Visto che non ha colpa, non pagherà la franchigia."
+      goals: [next]
+      new: [{lemma: perito, gloss: loss adjuster}]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Sabato sera tornavo a casa e pioveva molto. All'incrocio una moto non si è fermata allo stop: ho frenato, ma la strada era bagnata e la moto colpiva la mia portiera."
+      errors: [tense-aspect]
+      gold: {text: "colpiva", fix: "ha colpito"}
+    - tutor: "Colpiva? Era un'azione in corso o un colpo preciso, in un solo momento? Pensi al tempo del verbo."
+      prompt: {text: "colpiva", tags: [tense-aspect]}
+    - learner: "La moto colpiva la portiera e il motociclista è caduto."
+      errors: [tense-aspect]
+    - tutor: "Che spavento! Quindi la moto ha colpito la portiera e il motociclista è caduto. Si è fatto male?"
+      goals: [what]
+      recast: {text: "colpiva", fix: "ha colpito", tags: [tense-aspect]}
+    - learner: "No, per fortuna solo qualche graffio. Lui stesso ha ammesso che non aveva visto lo stop."
+    - tutor: "Allora la responsabilità sembra chiara. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, e c'erano anche due testimoni che ci hanno lasciato il loro numero."
+    - tutor: "Ottimo, i testimoni sono preziosi. Li indichi nel modulo e me lo mandi."
+      goals: [documents]
+    - learner: "Va bene. E quanto tempo tarderà la riparazione?"
+      errors: [word-choice]
+    - tutor: "Ci vorrà un po' di tempo: dopo la perizia, circa due settimane. La avviseremo noi quando potrà portare l'auto a riparare."
+      goals: [next]
+      recast: {text: "tarderà", fix: "ci vorrà", tags: [word-choice]}
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Abbastanza stanca. E qualche volta, quando salivo le scale, il cuore batteva fortissimo."
+    - tutor: "Capisco. Le è capitato anche di sentirsi male, di avere la testa che gira?"
+    - learner: "Una volta sì: martedì scorso, mentre correvo per prendere l'autobus, mi girava la testa e mi sedevo per terra."
+      errors: [tense-aspect]
+      gold: {text: "mi sedevo", fix: "mi sono seduta"}
+    - tutor: "Mi sedevo? Mi sta raccontando un singolo episodio, martedì scorso... Che tempo usa?"
+      prompt: {text: "mi sedevo", tags: [tense-aspect]}
+    - learner: "Mi sono seduta per terra per qualche minuto."
+    - tutor: "Ha fatto bene. In famiglia qualcuno ha avuto problemi di cuore?"
+      goals: [symptoms]
+    - learner: "Sì, mio padre aveva la pressione alta e a sessant'anni ha avuto un infarto."
+    - tutor: "È un dato importante. Ha domande sugli esami?"
+      goals: [history]
+    - learner: "Sì: che cosa significa che il battito è irregolare? È grave?"
+    - tutor: "Significa che a volte il cuore batte più veloce senza motivo. Non è grave, ma va tenuto sotto controllo."
+      goals: [understand]
+    - learner: "E che terapia mi consiglia? Spero che non sia una medicazione forte."
+      errors: [false-friend]
+    - tutor: "Non è un farmaco forte: una compressa al giorno, che all'inizio può dare un po' di affaticamento. Ci rivediamo tra tre mesi per un controllo."
+      goals: [treatment]
+      recast: {text: "una medicazione", fix: "un farmaco", tags: [false-friend]}
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Meglio, grazie. Il cuore batte più regolare, ma mi stanco ancora: sabato ho aiutato mio figlio con il trasloco e dopo un'ora ero molto cansato."
+      errors: [word-choice]
+    - tutor: "Si capisce, un trasloco lascia chiunque stanco. Prima faceva sport?"
+      goals: [symptoms]
+      recast: {text: "cansato", fix: "stanco", tags: [word-choice]}
+    - learner: "Sì, fino a due anni fa giocavo a calcio tutte le domeniche. Poi ho smesso per il lavoro."
+    - tutor: "Capisco. E in famiglia ci sono stati casi simili?"
+    - learner: "Mio nonno è morto giovane. Dopo, abbiamo scoperto che ha avuto problemi di cuore per anni senza dirlo a nessuno."
+      errors: [tense-aspect]
+      gold: {text: "ha avuto", fix: "aveva avuto"}
+    - tutor: "«Abbiamo scoperto che ha avuto»: i problemi del nonno vengono prima di quel momento. Quale tempo serve?"
+      prompt: {text: "ha avuto", tags: [tense-aspect]}
+    - learner: "Abbiamo scoperto che ha avuto problemi di cuore per anni."
+      errors: [tense-aspect]
+    - tutor: "Capisco, il nonno aveva avuto problemi per anni senza dirlo: per noi è un'informazione utile. Ha domande sugli esami?"
+      goals: [history]
+      recast: {text: "ha avuto", fix: "aveva avuto", tags: [tense-aspect]}
+    - learner: "Sì: il colesterolo è alto? Cosa vuol dire per me?"
+    - tutor: "È un po' alto, quindi il rischio aumenta. Mangiando in modo più sano possiamo abbassarlo."
+      goals: [understand]
+    - learner: "E la terapia di adesso va bene? A volte ho dolore di testa."
+      errors: [word-choice]
+    - tutor: "Il mal di testa è un effetto collaterale comune. Riduciamo la dose e ci rivediamo tra un mese."
+      goals: [treatment]
+      recast: {text: "dolore di testa", fix: "mal di testa", tags: [word-choice]}
+
+- scenario: film-libro
+  level: B2
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Ho letto «L'amica geniale». Racconta l'amicizia tra due ragazze in un quartiere povero di Napoli, negli anni Cinquanta."
+    - tutor: "Ottima scelta! Quale personaggio ti ha colpito di più?"
+      goals: [summary]
+    - learner: "Lila. Da bambina è stata la più brava della classe, ma i genitori non l'hanno mandata alle medie."
+      errors: [tense-aspect]
+      gold: {text: "è stata", fix: "era"}
+    - tutor: "Da bambina è stata la più brava? Stai descrivendo Lila in quel periodo: che tempo usiamo per descrivere?"
+      prompt: {text: "è stata", tags: [tense-aspect]}
+    - learner: "Da bambina era la più brava della classe."
+    - tutor: "Esatto. E che cosa ne pensi del libro?"
+      goals: [characters]
+    - learner: "L'ho trovato potente, anche se all'inizio i nomi dei caratteri mi confondevano."
+      errors: [false-friend]
+    - tutor: "Succede a molti, i personaggi sono tantissimi! A chi lo consiglieresti?"
+      goals: [opinion]
+      recast: {text: "caratteri", fix: "personaggi", tags: [false-friend]}
+    - learner: "A chi ama le storie lunghe, perché è la prima di quattro novelle."
+      errors: [false-friend]
+    - tutor: "Giusto avvisare, quattro romanzi non sono pochi! Allora il mese prossimo leggiamo il secondo."
+      goals: [recommend]
+      recast: {text: "novelle", fix: "romanzi", tags: [false-friend]}
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Ho venticinque anni e mi sono appena graduata in Economia a Bologna."
+      errors: [word-choice]
+    - tutor: "Congratulazioni, appena laureata! Ha già qualche esperienza di lavoro?"
+      goals: [intro]
+      recast: {text: "graduata", fix: "laureata", tags: [word-choice]}
+      new: [{lemma: laureare, gloss: to graduate}]
+    - learner: "Sì, l'anno scorso ho fatto uno stage di sei mesi in una banca. Ogni lunedì preparavo il rapporto settimanale per il direttore."
+    - tutor: "Bene. E com'è andato lo stage?"
+    - learner: "Molto bene. Un giorno il mio capo era malato e io presentavo i dati al consiglio al posto suo."
+      errors: [tense-aspect]
+      gold: {text: "presentavo", fix: "ho presentato"}
+    - tutor: "Presentavo? È stata un'occasione unica, un fatto concluso. Come lo racconterebbe?"
+      prompt: {text: "presentavo", tags: [tense-aspect]}
+    - learner: "Ho presentato i dati al posto suo. Ero molto nervosa!"
+    - tutor: "Immagino! Quali sono i suoi punti di forza?"
+      goals: [experience]
+    - learner: "Sono precisa e imparo in fretta. Il mio punto debole è che parlo troppo velocemente quando sono nervosa."
+    - tutor: "Almeno se ne rende conto. Perché ha scelto la nostra azienda?"
+      goals: [strengths]
+    - learner: "Perché lavorate con clienti internazionali e io parlo tre lingue."
+    - tutor: "Un bel vantaggio. Ha domande per me?"
+      goals: [why]
+    - learner: "Sì: è previsto un periodo di addestramento?"
+      errors: [word-choice]
+    - tutor: "Sì, la formazione dura un mese, con il responsabile del reparto. Le daremo una risposta entro lunedì."
+      goals: [questions]
+      recast: {text: "addestramento", fix: "formazione", tags: [word-choice]}
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, abbiamo aspettato cinquanta minuti per i primi, e quando sono arrivati erano freddi."
+    - tutor: "Mi dispiace davvero. Può darmi qualche dettaglio in più?"
+      goals: [complain]
+    - learner: "Il cameriere ci aveva detto che i piatti sono quasi pronti, ma poi è sparito."
+      errors: [tense-aspect]
+      gold: {text: "sono quasi pronti", fix: "erano quasi pronti"}
+    - tutor: "«Ci aveva detto che sono quasi pronti»? Il racconto è tutto al passato: come cambia quel verbo?"
+      prompt: {text: "sono quasi pronti", tags: [tense-aspect]}
+    - learner: "Ci aveva detto che i piatti sarebbero quasi pronti, ma poi è sparito."
+      errors: [tense-aspect]
+    - tutor: "Capisco: vi aveva detto che erano quasi pronti e poi è sparito. Non doveva succedere. Cosa si aspettava, esattamente?"
+      recast: {text: "sarebbero quasi pronti", fix: "erano quasi pronti", tags: [tense-aspect]}
+      goals: [detail]
+    - learner: "Pensavo che almeno ci avvisassero del ritardo. Eravamo qui per il compleanno di mia madre."
+    - tutor: "Ha perfettamente ragione. Posso offrirvi il dolce e uno sconto del trenta per cento sul conto?"
+      goals: [expectation]
+    - learner: "Va bene, accettiamo. Grazie per la comprensione."
+    - tutor: "Grazie a voi, e tanti auguri a sua madre!"
+      goals: [resolve]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Sono arrivato a Milano nel 2019 per un master. Volevo restare un anno, poi ho trovato lavoro e sono rimasto."
+    - tutor: "Una storia comune! Qual è stata la difficoltà più grande?"
+      goals: [story]
+    - learner: "All'inizio la lingua: non sapevo nemmeno ordinare un caffè. Ma il problema più grande è stato trovare casa."
+    - tutor: "Ah, gli affitti a Milano! Cosa è successo?"
+    - learner: "Io e la mia ragazza abbiamo visitato venti appartamenti. Ogni volta, quando lei ha chiamato, la casa era già affittata."
+      errors: [tense-aspect]
+      gold: {text: "ha chiamato", fix: "chiamava"}
+    - tutor: "Ogni volta, quando lei ha chiamato? Si ripeteva sempre... Quale tempo è più naturale?"
+      prompt: {text: "ha chiamato", tags: [tense-aspect]}
+    - learner: "Ogni volta, quando ha chiamato, era già affittata."
+      errors: [tense-aspect]
+    - tutor: "Ogni volta, quando la sua ragazza chiamava, la casa era già affittata: che fatica! E lei, come è cambiato in questi anni?"
+      recast: {text: "ha chiamato", fix: "chiamava", tags: [tense-aspect]}
+      goals: [difficulties]
+    - learner: "Sono diventato più flessibile. E adesso anch'io muovo le mani quando parlo!"
+    - tutor: "Ecco il segno che ormai è uno di noi! Cosa consiglierebbe a chi vuole trasferirsi?"
+      goals: [change]
+    - learner: "Di cercare casa prima di arrivare e di non arrendersi con la burocrazia."
+    - tutor: "Ottimi consigli. Grazie di essere stato con noi!"
+      goals: [advice]

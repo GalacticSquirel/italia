@@ -1,0 +1,259 @@
+# B1, returns and childhood memories: object pronouns, prepositions, imperfetto, ci/ne.
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questa macchina fotografica qui dieci giorni fa. La batteria finisce dopo pochi minuti."
+    - tutor: "Dopo pochi minuti? È strano. Ha caricato bene la batteria?"
+      goals: [problem]
+      new: [{lemma: batteria, gloss: battery}, {lemma: caricare, gloss: to charge}]
+    - learner: "Sì, lo carico sempre tutta la notte, ma la mattina è già quasi vuota."
+      errors: [object-pronoun]
+      gold: {text: "lo carico", fix: "la carico"}
+    - tutor: "Lo carico? Attenzione al pronome: di che cosa parliamo?"
+      prompt: {text: "lo carico", tags: [object-pronoun]}
+    - learner: "Ah, la carico. La batteria è femminile."
+    - tutor: "Esatto! Allora forse è la batteria difettosa. Ha lo scontrino?"
+    - learner: "Sì, è qui in la borsa, un attimo."
+      errors: [articulated-preposition]
+      gold: {text: "in la borsa", fix: "nella borsa"}
+    - tutor: "In la borsa? Provi a unire le due parole."
+      prompt: {text: "in la borsa", tags: [articulated-preposition]}
+    - learner: "Nella borsa, scusi. Ecco, l'ho comprata il sette maggio."
+    - tutor: "Benissimo, il sette maggio: è in garanzia. Come preferisce risolvere?"
+      goals: [proof]
+    - learner: "Mi basta una batteria nuova, la macchina mi piace molto."
+    - tutor: "Perfetto, allora le cambiamo solo la batteria, subito e senza costi."
+      goals: [request]
+    - learner: "Ottimo, grazie. Posso provarla qui prima di andare?"
+    - tutor: "Certo, la proviamo insieme adesso. Se c'è ancora un problema, sostituiamo tutta la macchina."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questo orologio digitale per mio marito, ma non conta i passi correttamente."
+    - tutor: "Ah, capisco. Ne conta troppi o troppo pochi?"
+      goals: [problem]
+    - learner: "Troppo pochi! Mio marito cammina un'ora e l'orologio dice cinquecento passi. Ho pensato in un rimborso."
+      errors: [preposition]
+      gold: {text: "pensato in", fix: "pensato a"}
+    - tutor: "Ha pensato in un rimborso? Con pensare, quale preposizione usiamo?"
+      prompt: {text: "pensato in", tags: [preposition]}
+    - learner: "Ho pensato a un rimborso, sì."
+    - tutor: "Perfetto. Ha lo scontrino o la ricevuta della carta?"
+    - learner: "Ho lo scontrino. L'ho comprato in un altro vostro negozio, quello di via Roma."
+    - tutor: "Va bene, lo scontrino vale in tutti i nostri negozi. Ma perché non è tornata là? È più vicino a casa sua?"
+      goals: [proof]
+    - learner: "No, non sono mai andata, perché è sempre pieno di gente."
+      errors: [ci-ne]
+      gold: {text: "non sono mai andata", fix: "non ci sono mai andata"}
+    - tutor: "Non sono mai andata... dove? Manca una piccola parola per il negozio."
+      prompt: {text: "non sono mai andata", tags: [ci-ne]}
+    - learner: "Non ci sono mai andata, scusi. Allora, posso avere i soldi indietro?"
+    - tutor: "Certo, sono passati solo dodici giorni: le faccio il rimborso completo."
+      goals: [request]
+    - learner: "Perfetto, grazie. Sulla carta va benissimo."
+    - tutor: "Fatto. Ecco la ricevuta: i soldi arrivano sulla carta in tre giorni."
+      goals: [agree]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Io abitavo in un piccolo paese di pescatori, sulla costa inglese. Era molto tranquillo."
+    - tutor: "Un paese di pescatori, che bello! E cosa facevi d'estate?"
+      goals: [place]
+    - learner: "Ogni estate sono andato da mia nonna, che aveva una casa vicino al porto."
+      errors: [tense-aspect]
+      gold: {text: "sono andato", fix: "andavo"}
+    - tutor: "Ogni estate sono andato? Lo facevi sempre, quindi quale tempo ci vuole?"
+      prompt: {text: "sono andato", tags: [tense-aspect]}
+    - learner: "Sì, ogni estate sono andato da lei, per tutto luglio."
+      errors: [tense-aspect]
+    - tutor: "Che bello, andavi dalla nonna ogni estate! E con lei cosa facevate tutto il giorno?"
+      recast: {text: "sono andato", fix: "andavi", tags: [tense-aspect]}
+    - learner: "Pescavamo con mio nonno e la sera giocavamo a carte. Mia nonna vinceva sempre."
+    - tutor: "Ah, la nonna era la campionessa! E la scuola ti piaceva?"
+      goals: [habits]
+    - learner: "Non molto. Il maestro era molto severo, e in inverno faceva freddo in classe."
+    - tutor: "Che brutto, al freddo! C'è un ricordo di quegli anni che non dimentichi?"
+      goals: [school]
+    - learner: "Sì: un giorno, quando avevo nove anni, ho preso il mio primo pesce grande. Mio nonno era così orgoglioso!"
+    - tutor: "Che bel ricordo! Scommetto che quella sera l'avete mangiato tutti insieme."
+      goals: [event]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: es-f-erasmus
+  history: [imperfetto-form]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo a Valencia, in un appartamento vicino al mercato centrale."
+    - tutor: "A Valencia! E cosa facevi dopo la scuola?"
+      goals: [place]
+    - learner: "Io e mia sorella eramo sempre in strada con gli amici del palazzo."
+      errors: [imperfetto-form]
+      gold: {text: "eramo", fix: "eravamo"}
+    - tutor: "Eramo? Attenzione: in italiano essere all'imperfetto è un po' più lungo."
+      prompt: {text: "eramo", tags: [imperfetto-form]}
+    - learner: "Ah, eravamo! Eravamo sempre in strada."
+    - tutor: "Perfetto. E a cosa giocavate?"
+    - learner: "Giocavamo a nascondino e mia nonna ci chiamava dalla finestra per la cena."
+    - tutor: "Che bella immagine! E a scuola com'eri, brava?"
+      goals: [habits]
+    - learner: "Sì, abbastanza. La mia maestra preferita insegnava musica. Ogni venerdì abbiamo cantato tutti insieme."
+      errors: [tense-aspect]
+      gold: {text: "abbiamo cantato", fix: "cantavamo"}
+    - tutor: "Ogni venerdì abbiamo cantato? Era una cosa che succedeva sempre..."
+      prompt: {text: "abbiamo cantato", tags: [tense-aspect]}
+    - learner: "Sì, ogni venerdì abbiamo cantato, anche canzoni italiane."
+      errors: [tense-aspect]
+    - tutor: "Che bello, cantavate anche canzoni italiane! E c'è un giorno speciale che ricordi bene?"
+      recast: {text: "abbiamo cantato", fix: "cantavate", tags: [tense-aspect]}
+      goals: [school]
+    - learner: "Sì, la prima volta che ho visto la grande festa di marzo, con i fuochi. Avevo sei anni e ho avuto un po' di paura del fuoco."
+    - tutor: "Ci credo, a sei anni tutto quel fuoco fa impressione! Ma che ricordo bellissimo."
+      goals: [event]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-f-student
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo in una piccola città vicino a Manchester, in una casa con un grande giardino."
+    - tutor: "Con il giardino, che fortuna! Passavi molto tempo fuori?"
+      goals: [place]
+    - learner: "Sì, sempre. Dopo la scuola giocavamo in il parco fino alla cena."
+      errors: [articulated-preposition]
+      gold: {text: "in il parco", fix: "nel parco"}
+    - tutor: "Giocavate in il parco? Prova a unire le due parole."
+      prompt: {text: "in il parco", tags: [articulated-preposition]}
+    - learner: "Nel parco! Giocavamo nel parco."
+    - tutor: "Bravissima. E la scuola dov'era?"
+      goals: [habits]
+    - learner: "La scuola era vicino a la chiesa, a dieci minuti da casa. Ci andavo a piedi con mio fratello."
+      errors: [articulated-preposition]
+      gold: {text: "a la chiesa", fix: "alla chiesa"}
+    - tutor: "Vicino a la chiesa? Anche qui le due parole si uniscono."
+      prompt: {text: "a la chiesa", tags: [articulated-preposition]}
+    - learner: "Vicino a la chiesa... non sono sicura."
+      errors: [articulated-preposition]
+    - tutor: "Ah, quindi la scuola era vicino alla chiesa, che comodo! E ti piaceva andarci?"
+      recast: {text: "a la chiesa", fix: "alla chiesa", tags: [articulated-preposition]}
+    - learner: "Sì, molto. Avevo una maestra molto dolce che ci leggeva una storia ogni giorno."
+    - tutor: "Che bello! E c'è un ricordo speciale di quegli anni?"
+      goals: [school]
+    - learner: "Il giorno in cui è nato mio fratello piccolo. Avevo sette anni ed ero felicissima."
+    - tutor: "Che bel giorno! Chissà che emozione, a sette anni!"
+      goals: [event]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Io abitavo in un paese in campagna, vicino a Siviglia. La casa in che abitavamo era dei miei nonni."
+      errors: [relative-pronoun]
+      gold: {text: "in che", fix: "in cui"}
+    - tutor: "La casa in che abitavate? Con «in» davanti, quale pronome serve?"
+      prompt: {text: "in che", tags: [relative-pronoun]}
+    - learner: "La casa in cui abitavamo era dei miei nonni."
+    - tutor: "Esatto! Una casa di famiglia, allora. Cosa facevate in campagna?"
+      goals: [place]
+    - learner: "Aiutavo mio padre con gli animali. Ogni mattina davo da mangiare alle galline."
+    - tutor: "Che bravo! E la scuola com'era?"
+      goals: [habits]
+    - learner: "Era una scuola piccola, con solo due classi. Il maestro che ci insegnava era anche il sindaco del paese."
+    - tutor: "Davvero? Allora non potevi fare il furbo! C'è una storia che ti ricordi di più?"
+      goals: [school]
+      new: [{lemma: furbo, gloss: clever / sly}]
+    - learner: "Sì. Un giorno un toro scappava dal campo e tutto il paese l'ha cercato fino alla notte."
+      errors: [tense-aspect]
+      gold: {text: "scappava", fix: "è scappato"}
+    - tutor: "Un giorno un toro scappava? È successo una volta sola: che tempo usiamo?"
+      prompt: {text: "scappava", tags: [tense-aspect]}
+    - learner: "Un giorno un toro è scappato dal campo."
+    - tutor: "Perfetto. Che giornata! E alla fine l'avete trovato?"
+      goals: [event]
+    - learner: "Sì, era nel giardino della chiesa e mangiava i fiori del prete!"
+    - tutor: "Che storia meravigliosa! Il prete sarà stato contentissimo, immagino."
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-m-heritage
+  history: [preposition]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Sono nato in Toronto, ma i miei genitori erano di un paese in Calabria."
+      errors: [preposition]
+      gold: {text: "in Toronto", fix: "a Toronto"}
+    - tutor: "Sei nato in Toronto? Con le città quale preposizione usiamo?"
+      prompt: {text: "in Toronto", tags: [preposition]}
+    - learner: "Sì, in Toronto, è una città molto grande."
+      errors: [preposition]
+    - tutor: "A Toronto, che bello, una città enorme! E in Calabria ci andavi qualche volta?"
+      recast: {text: "in Toronto", fix: "A Toronto", tags: [preposition]}
+      goals: [place]
+    - learner: "Sì, ogni estate andavamo dai nonni per due mesi. La sera mia nonna mi raccontava storie per farmi cadere addormentato."
+      errors: [word-choice]
+      gold: {text: "farmi cadere addormentato", fix: "farmi addormentare"}
+    - tutor: "Che dolce, ti raccontava le storie per farti addormentare! Ti ricordi qualche storia?"
+      recast: {text: "cadere addormentato", fix: "addormentare", tags: [word-choice]}
+      goals: [habits]
+    - learner: "Poche, purtroppo. Ma ricordo bene la scuola a Toronto: la sabato andavo anche a una scuola italiana."
+      errors: [noun-gender]
+      gold: {text: "la sabato", fix: "il sabato"}
+    - tutor: "La sabato? Pensa all'articolo: i giorni della settimana sono quasi tutti maschili."
+      prompt: {text: "la sabato", tags: [noun-gender]}
+    - learner: "Il sabato, scusa. Il sabato andavo a scuola di italiano."
+    - tutor: "Ecco perché parli così bene! E c'è un ricordo speciale di quelle estati?"
+      goals: [school]
+    - learner: "Sì, la festa del paese, con i fuochi d'artificio sul mare. Avevo otto anni e ho ballato tutta la notte."
+    - tutor: "Tutta la notte a otto anni! Allora la festa è diventata un ricordo per sempre."
+      goals: [event]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo a Edimburgo, in un quartiere vicino al castello."
+    - tutor: "Che posto! E ci torni ogni tanto?"
+      goals: [place]
+    - learner: "Sì, anche adesso vado ogni Natale, perché i miei genitori abitano ancora lì."
+      errors: [ci-ne]
+      gold: {text: "adesso vado", fix: "adesso ci vado"}
+    - tutor: "Anche adesso vai? Dove? Manca una piccola parola per dire «a Edimburgo»."
+      prompt: {text: "adesso vado", tags: [ci-ne]}
+    - learner: "Anche adesso ci vado ogni Natale."
+    - tutor: "Che bello! E da bambina cosa facevi il pomeriggio?"
+    - learner: "Prendevo lezioni di piano e giocavo con i miei fratelli. Abbiamo litigato sempre!"
+      errors: [tense-aspect]
+      gold: {text: "Abbiamo litigato sempre", fix: "Litigavamo sempre"}
+    - tutor: "Abbiamo litigato sempre? Con «sempre», quale tempo è più naturale?"
+      prompt: {text: "Abbiamo litigato sempre", tags: [tense-aspect]}
+    - learner: "Litigavamo sempre, soprattutto per la televisione."
+    - tutor: "Classico! Quanti fratelli hai, a proposito?"
+      goals: [habits]
+    - learner: "Ho due, più grandi di me. Andavamo tutti nella stessa scuola."
+      errors: [ci-ne]
+      gold: {text: "Ho due", fix: "Ne ho due"}
+    - tutor: "Ho due? Due di che cosa? Ricorda la piccola parola che sostituisce «fratelli»."
+      prompt: {text: "Ho due", tags: [ci-ne]}
+    - learner: "Ne ho due. Andavamo tutti nella stessa scuola."
+    - tutor: "Esatto. E c'è un ricordo di scuola che ti è rimasto in mente?"
+      goals: [school]
+    - learner: "Sì, una gita al lago quando avevo dieci anni. Abbiamo visto un cervo enorme vicino all'acqua."
+    - tutor: "Un cervo enorme, che emozione a dieci anni! Ecco perché ti piace così tanto la natura."
+      goals: [event]

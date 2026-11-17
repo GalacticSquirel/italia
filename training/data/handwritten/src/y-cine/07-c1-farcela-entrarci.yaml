@@ -1,0 +1,272 @@
+# y-cine, file 07 (C1): farcela, andarsene, entrarci, farne a meno, ne va di, ce ne sono.
+- scenario: club-lettura
+  level: C1
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Sì, la ho fatta, ma con fatica: le prime cento pagine sono un deserto."
+      errors: [ci-ne]
+      gold: {text: "la ho fatta", fix: "ce l'ho fatta"}
+    - tutor: "«La ho fatta»? Detto così sembra che tu abbia preparato una torta! All'espressione manca un pezzo: riprova."
+      prompt: {text: "la ho fatta", tags: [ci-ne]}
+    - learner: "Ah, certo: ce l'ho fatta, ma con fatica."
+    - tutor: "Ecco, così sì. Un deserto, dici? Eppure il finale ripaga di tutto. Che impressione ti ha lasciato, nel complesso?"
+    - learner: "Positiva, nel complesso. Ma l'autore avrebbe dovuto tagliare l'inizio: se l'avrebbe fatto, il romanzo sarebbe stato perfetto."
+      errors: [hypothetical]
+      gold: {text: "se l'avrebbe fatto", fix: "se l'avesse fatto"}
+    - tutor: "Su questo non ti do torto. Però «se l'avrebbe fatto»: nella parte con «se», il condizionale stona. Che tempo ci vuole?"
+      prompt: {text: "se l'avrebbe fatto", tags: [hypothetical]}
+    - learner: "Se l'avrebbe tagliato... no, non mi viene."
+      errors: [hypothetical]
+    - tutor: "Se l'avesse tagliato, forse l'avrei letto in due sere invece che in tre! E la protagonista? Io trovo coraggiosa la sua scelta finale."
+      recast: {text: "Se l'avrebbe tagliato", fix: "Se l'avesse tagliato", tags: [hypothetical]}
+      goals: [impression]
+    - learner: "Coraggiosa? Io ne dubito. Se ne va senza una parola e lascia la figlia con il padre: per me è puro egoismo."
+    - tutor: "Puro egoismo è un po' severo, visto che la figlia alla fine la perdona. E lo stile, invece?"
+      goals: [character]
+    - learner: "Lo stile è raffinato, ma l'autore abusa delle metafore: in ogni pagina ci sono almeno cinque."
+      errors: [ci-ne]
+    - tutor: "Addirittura cinque? Ma «ci sono almeno cinque» non funziona del tutto: cinque di che cosa?"
+      prompt: {text: "ci sono almeno cinque", tags: [ci-ne]}
+    - learner: "Sì, ci sono almeno cinque, le ho contate!"
+      errors: [ci-ne]
+    - tutor: "Ce ne sono almeno cinque, hai ragione, e alla lunga stancano. A chi lo consiglieresti, allora?"
+      recast: {text: "ci sono almeno cinque", fix: "Ce ne sono almeno cinque", tags: [ci-ne]}
+      goals: [style]
+    - learner: "A chi ha pazienza e ama le storie lente. A chi cerca un argomento veloce, no di certo."
+      errors: [false-friend]
+    - tutor: "A chi cerca una trama veloce, no di certo: giudizio giusto, sono d'accordo con te. Il prossimo, però, lo scegli tu!"
+      recast: {text: "un argomento veloce", fix: "una trama veloce", tags: [false-friend]}
+      goals: [recommend]
+
+- scenario: intelligenza-artificiale
+  level: C1
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Ti capisco, ma non sono così pessimista. Ogni rivoluzione tecnologica ha creato più lavori di quanti ne abbia distrutti."
+    - tutor: "Bella frase da convegno. Ma un esempio in carne e ossa?"
+      goals: [position]
+    - learner: "Mio nonno faceva il tipografo. Quando sono arrivati i computer, ha dovuto reinventarsi: ha messo due anni per imparare la grafica digitale."
+      errors: [ci-ne]
+      gold: {text: "ha messo due anni", fix: "ci ha messo due anni"}
+    - tutor: "Che storia. Però «ha messo due anni»: messo dove? Per il tempo impiegato, il verbo vuole un piccolo compagno."
+      prompt: {text: "ha messo due anni", tags: [ci-ne]}
+    - learner: "Ci ha messo due anni, ma poi ha aperto un'agenzia tutta sua."
+    - tutor: "Esatto. Tuo nonno era uno tosto, ma aveva tempo. Oggi tutto corre dieci volte più veloce."
+      goals: [evidence]
+    - learner: "Questo te lo concedo: se il cambiamento fosse più lento, ci adatteremmo tutti con meno fatica."
+    - tutor: "Almeno su questo siamo d'accordo. E allora, che si fa?"
+      goals: [concede]
+    - learner: "Si investe nella formazione continua. Se lo Stato non investisse in essa, saremmo davvero nei guai."
+      errors: [ci-ne]
+    - tutor: "Mmm, «investisse in essa» suona da verbale. Con una sola sillaba davanti al verbo verrebbe molto più naturale."
+      prompt: {text: "investisse in essa", tags: [ci-ne]}
+    - learner: "Se lo Stato non investisse in lei, volevo dire."
+      errors: [ci-ne]
+    - tutor: "Se lo Stato non ci investisse, saremmo nei guai, certo. Allora siamo d'accordo: la tecnologia non è il problema, lo è la politica."
+      recast: {text: "non investisse in lei", fix: "non ci investisse", tags: [ci-ne]}
+      goals: [conclude]
+
+- scenario: intervista-podcast
+  level: C1
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivata proprio in Italia?"
+    - learner: "Grazie a voi! Ci sono arrivata quasi per caso: la mia azienda mi ha mandata a Milano per sei mesi, e sono rimasta sette anni. All'inizio ero eccitatissima."
+      errors: [false-friend]
+    - tutor: "Emozionatissima, immagino: una città nuova, una lingua nuova! E cosa ti ha sorpreso di più, i primi tempi?"
+      recast: {text: "eccitatissima", fix: "Emozionatissima", tags: [false-friend]}
+      goals: [story]
+    - learner: "Il rapporto con il tempo. A Sydney, se una riunione è alle nove, si comincia alle nove. Qui, la prima volta, ho aspettato quaranta minuti e mi sono quasi andata."
+      errors: [ci-ne]
+      gold: {text: "mi sono quasi andata", fix: "me ne sono quasi andata"}
+    - tutor: "Quaranta minuti! Ma «mi sono quasi andata»: con «andare via», il pronome da solo non basta, ci vuole un rinforzo."
+      prompt: {text: "mi sono quasi andata", tags: [ci-ne]}
+    - learner: "Me ne sono quasi andata, infatti! Poi ho capito che era normale."
+    - tutor: "Benvenuta in Italia! E se dovessi criticare qualcosa, con garbo?"
+      goals: [culture-shock]
+    - learner: "La burocrazia. Per rinnovare un permesso sono tornata tre volte in Comune: ogni volta l'impiegata chiedeva un documento nuovo, ma la volta prima non aveva parlato di esso."
+      errors: [ci-ne]
+    - tutor: "Classico. Però «non aveva parlato di esso» suona da documento ufficiale: come lo diresti in una chiacchierata?"
+      prompt: {text: "non aveva parlato di esso", tags: [ci-ne]}
+    - learner: "Non aveva parlato di lui, di questo documento."
+      errors: [ci-ne]
+    - tutor: "Tipico: non ne aveva parlato prima, e tu hai perso un'altra mattina. È una critica che sento spesso, e mi pare giusta. Un consiglio per chi pensa di trasferirsi?"
+      recast: {text: "Non aveva parlato di lui", fix: "non ne aveva parlato", tags: [ci-ne]}
+      goals: [critique]
+    - learner: "Venite con pazienza e un po' di ironia. E non scoraggiatevi: se ce l'ho fatta io, ce la potete fare anche voi."
+    - tutor: "Parole sante. Grazie mille di essere stata con noi!"
+      goals: [advice]
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Si sieda pure, Giulia. Mi racconti con calma: voglio realizzare bene cosa è successo."
+      errors: [false-friend]
+    - tutor: "Grazie, è giusto che lei possa capire bene. Ho presentato la mia proposta e Marco mi ha interrotta tre volte. Poi l'ha ripresentata come se fosse farina del suo sacco!"
+      recast: {text: "realizzare", fix: "capire", tags: [false-friend]}
+    - learner: "Capisco che si sia sentita offesa. Io non sapevo niente: nessuno mi ha parlato di esso."
+      errors: [ci-ne]
+      gold: {text: "nessuno mi ha parlato di esso", fix: "nessuno me ne ha parlato"}
+    - tutor: "Non lo metto in dubbio. Ma «mi ha parlato di esso» suona proprio da traduzione: c'è una forma più compatta, con due piccoli pronomi."
+      prompt: {text: "nessuno mi ha parlato di esso", tags: [ci-ne]}
+    - learner: "Ah, sì: nessuno me ne ha parlato. Mi dispiace davvero."
+    - tutor: "Grazie, apprezzo che lei mi ascolti."
+      goals: [listen]
+    - learner: "Mi aiuti a capire una cosa: la proposta di Marco era identica alla sua, o ne ha aggiunto qualcosa?"
+      errors: [ci-ne]
+    - tutor: "Identica no. Ma «ne ha aggiunto qualcosa»: aggiunto alla proposta, cioè dove? Pensi a quale pronome indica il luogo."
+      prompt: {text: "ne ha aggiunto qualcosa", tags: [ci-ne]}
+    - learner: "Voglio dire: Marco ne ha aggiunto qualcosa di suo?"
+      errors: [ci-ne]
+    - tutor: "Sì, ci ha aggiunto due grafici, ma l'idea di fondo era mia, e lui lo sa benissimo."
+      recast: {text: "ne ha aggiunto", fix: "ci ha aggiunto", tags: [ci-ne]}
+      goals: [clarify]
+    - learner: "Ho parlato con Marco stamattina: dice che ci pensava anche lui da mesi. Onestamente non credo che lo ha fatto apposta."
+      errors: [subjunctive-use]
+    - tutor: "Lei è troppo buono. E poi «non credo che lo ha fatto»: dopo un verbo di opinione al negativo, quale modo serve?"
+      prompt: {text: "non credo che lo ha fatto", tags: [subjunctive-use]}
+    - learner: "Non credo che l'abbia fatto apposta. Forse avete avuto la stessa idea senza saperlo."
+    - tutor: "Può darsi. Ma io che cosa dovrei fare, secondo lei?"
+      goals: [perspective]
+    - learner: "Propongo questo: presentate il progetto al direttore insieme, ognuno con la sua parte. E d'ora in poi, prima delle riunioni, ne parliamo tra noi tre."
+    - tutor: "D'accordo, ci provo. Mi sembra una soluzione onesta per tutti."
+      goals: [solution]
+
+- scenario: modi-di-dire
+  level: C1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Una giornata da dimenticare! La sveglia non ha suonato, ho perso il treno e ho messo due ore per arrivare in ufficio."
+      errors: [ci-ne]
+      gold: {text: "ho messo due ore", fix: "ci ho messo due ore"}
+    - tutor: "Partenza col botto. Ma «ho messo due ore»: messo dove? Per dire quanto tempo è servito, al verbo manca un pezzo."
+      prompt: {text: "ho messo due ore", tags: [ci-ne]}
+    - learner: "Sì, ho messo due ore, con lo sciopero dei treni."
+      errors: [ci-ne]
+    - tutor: "Due ore! Una volta anch'io ci ho messo due ore per fare dieci chilometri, ti capisco. E poi?"
+      recast: {text: "ho messo due ore", fix: "ci ho messo due ore", tags: [ci-ne]}
+    - learner: "Quando sono arrivata, la riunione era già cominciata e il capo aveva presentato i miei dati. Lui era completamente ignorante della situazione."
+      errors: [word-choice]
+    - tutor: "Ah, quindi era all'oscuro della situazione! Piove sul bagnato, come si dice."
+      recast: {text: "ignorante della situazione", fix: "all'oscuro della situazione", tags: [word-choice]}
+      goals: [tell]
+      new: [{lemma: oscuro, gloss: dark}]
+    - learner: "Piove sul bagnato, esatto! E per finire ho rovesciato il caffè sul portatile. A quel punto non la facevo più."
+      errors: [ci-ne]
+    - tutor: "Il caffè sul portatile, poverina! Ma «non la facevo più»: in questa espressione c'è una particella che manca all'appello."
+      prompt: {text: "non la facevo più", tags: [ci-ne]}
+    - learner: "Non ce la facevo più!"
+    - tutor: "Esatto, e ti credo! Ma di chi è la colpa, secondo te?"
+      goals: [react]
+    - learner: "Un po' mia, lo ammetto: la sveglia l'avevo puntata male io. Ma il capo poteva aspettarmi, i dati erano miei."
+    - tutor: "Diciamo che la colpa è un po' di tutti e di nessuno. E la morale della favola?"
+      goals: [blame]
+    - learner: "Domani metto tre sveglie e il caffè lo bevo lontano dal computer. Non tutti i mali vengono per nuocere: almeno adesso ne rido."
+    - tutor: "Brava, così si fa: ridere delle disgrazie è il miglior rimedio!"
+      goals: [moral]
+
+- scenario: notizie-attualita
+  level: C1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatto?"
+    - learner: "Sì, ho letto. In sintesi, il governo vuole limitare gli affitti brevi nei centri storici, perché in alcune città ormai nel centro non ci abita quasi più nessuno."
+    - tutor: "Esatto, il riassunto è quello. E tu che ne pensi?"
+      goals: [summarise]
+    - learner: "Penso che è una misura giusta, ma tardiva."
+      errors: [subjunctive-use]
+    - tutor: "Tardiva, interessante. Ma «penso che è»: dopo un verbo di opinione, quale modo ci vuole? Prova di nuovo."
+      prompt: {text: "Penso che è", tags: [subjunctive-use]}
+    - learner: "Penso che sia giusta, ma arriva tardi. Nel mio palazzo, a Bologna, dieci anni fa c'erano dodici famiglie; oggi ci sono tre."
+      errors: [ci-ne]
+      gold: {text: "oggi ci sono tre", fix: "oggi ce ne sono tre"}
+    - tutor: "Sul congiuntivo, perfetto. Però «oggi ci sono tre»: tre cosa? Riprendi «famiglie» con una particella."
+      prompt: {text: "oggi ci sono tre", tags: [ci-ne]}
+    - learner: "Sì, oggi ci sono tre, le altre sono case per turisti."
+      errors: [ci-ne]
+    - tutor: "Oggi ce ne sono tre e il resto sono appartamenti per turisti: un esempio che vale più di mille statistiche. E i giornali come l'hanno raccontata?"
+      recast: {text: "oggi ci sono tre", fix: "oggi ce ne sono tre", tags: [ci-ne]}
+      goals: [opinion]
+    - learner: "In modo molto diverso. Un diario economico parlava di un danno per il turismo, mentre uno di sinistra la presentava come una vittoria dei residenti."
+      errors: [false-friend]
+    - tutor: "Un giornale economico contro uno di sinistra: ognuno tira l'acqua al suo mulino. E secondo te come andrà a finire?"
+      recast: {text: "diario", fix: "giornale", tags: [false-friend]}
+      goals: [sources]
+    - learner: "Molti proprietari venderanno o torneranno agli affitti lunghi, e i prezzi caleranno un po'. Ma i grandi investitori troveranno un modo per cavarsela, come sempre."
+    - tutor: "Temo che tu abbia ragione: chi ha i mezzi una scappatoia la trova sempre."
+      goals: [consequences]
+
+- scenario: presentazione-progetto
+  level: C1
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Gliene basteranno cinque. Proponiamo un'app con cui i clienti possono ordinare e pagare senza fare la fila."
+    - tutor: "Partiamo bene. E i benefici, in cifre?"
+      goals: [pitch]
+    - learner: "Oggi riceviamo circa duemila ordini al giorno per telefono. Con l'app, entro un anno, contiamo di ricevere quattromila."
+      errors: [ci-ne]
+      gold: {text: "contiamo di ricevere quattromila", fix: "contiamo di riceverne quattromila"}
+    - tutor: "Ambizioso. Ma «di ricevere quattromila»: quattromila che cosa? All'infinito manca una particella."
+      prompt: {text: "di ricevere quattromila", tags: [ci-ne]}
+    - learner: "Di ricevere quattromila ordini, sì, il doppio."
+    - tutor: "Ecco, così è chiaro. Il doppio è notevole: su quali dati si basa?"
+    - learner: "Su un test di tre mesi a Torino: abbiamo realizzato che gli ordini aumentavano del novanta per cento."
+      errors: [false-friend]
+    - tutor: "Avete notato un aumento del novanta per cento in tre mesi? Notevole. Ma il costo? E se i clienti non la usassero?"
+      recast: {text: "realizzato", fix: "notato", tags: [false-friend]}
+      goals: [benefits]
+    - learner: "Costa centoventimila euro. Se i clienti non la usassero, ci fermeremmo dopo sei mesi e perderemmo solo una parte. Secondo me il rischio vale la pena."
+      errors: [ci-ne]
+    - tutor: "«Il rischio vale la pena»? L'idea passa, ma l'espressione è zoppa: con «valere la pena», che cosa ci va davanti?"
+      prompt: {text: "il rischio vale la pena", tags: [ci-ne]}
+    - learner: "Ne vale la pena, secondo me: il rischio è limitato."
+    - tutor: "Mi ha quasi convinto. Cosa propone come prossimo passo?"
+      goals: [objection]
+    - learner: "Che approviate una fase pilota a Milano entro maggio. Se lei è d'accordo, le mando il piano dettagliato entro venerdì."
+    - tutor: "D'accordo per la fase pilota. Mi mandi il piano venerdì e ne riparliamo lunedì."
+      goals: [next-steps]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Abito in via dei Mille e da tre mesi il lampione davanti a casa mia è rotto. La sera la strada è completamente buia e non ci si vede niente."
+    - tutor: "Capisco. Ha già fatto una segnalazione?"
+      goals: [describe]
+    - learner: "Sì, ne ho fatto tre sul sito del Comune, ma nessuno mi ha mai risposto."
+      errors: [participle-agreement]
+    - tutor: "Tre, addirittura. Però «ne ho fatto tre»: tre segnalazioni, quindi il participio come deve accordarsi?"
+      prompt: {text: "ne ho fatto tre", tags: [participle-agreement]}
+    - learner: "Ne ho fatte tre, e non ho ricevuto nessuna risposta."
+    - tutor: "Esatto. Purtroppo le segnalazioni vengono esaminate in ordine di arrivo: deve avere un po' di pazienza."
+    - learner: "Con tutto il rispetto, la pazienza ce l'ho, ma tre mesi sono troppi. Lì davanti c'è una scuola e i bambini passano ogni sera: ne va della loro sicurezza."
+    - tutor: "Ha perfettamente ragione, ma la decisione non dipende da me."
+      goals: [insist]
+    - learner: "Allora vorrei presentare un reclamo formale. Quanto tempo vuole l'ufficio per rispondere?"
+      errors: [ci-ne]
+      gold: {text: "Quanto tempo vuole l'ufficio", fix: "Quanto tempo ci mette l'ufficio"}
+    - tutor: "Certo, è un suo diritto. Ma «quanto tempo vuole l'ufficio»: così sembra che l'ufficio desideri qualcosa! Con il tempo impiegato, che verbo e che particella usiamo?"
+      prompt: {text: "Quanto tempo vuole l'ufficio", tags: [ci-ne]}
+    - learner: "Quanto tempo vuole l'ufficio, cioè quanto aspetto?"
+      errors: [ci-ne]
+    - tutor: "Quanto tempo ci mette l'ufficio? Per legge, al massimo trenta giorni dalla data di protocollo."
+      recast: {text: "Quanto tempo vuole l'ufficio", fix: "Quanto tempo ci mette l'ufficio", tags: [ci-ne]}
+      goals: [rights]
+    - learner: "Perfetto. Allora presento il reclamo adesso, e vorrei il numero di protocollo, per favore."
+    - tutor: "Ecco a lei: protocollo numero 2381. Se entro trenta giorni non riceve risposta, può rivolgersi al difensore civico."
+      goals: [commitment]
