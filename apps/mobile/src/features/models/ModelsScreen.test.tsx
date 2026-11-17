@@ -1,4 +1,5 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
+import { Alert } from 'react-native';
 
 import { createModelFileRepo, createRepositories } from '@/data';
 import { RepositoryProvider } from '@/db';
@@ -103,10 +104,19 @@ describe('ModelsScreen', () => {
     });
     expect(await screen.findByText('Ready, works offline')).toBeOnTheScreen();
     expect(manager.installedDir('stt')).toBe('file:///models/stt');
+    // Deleting asks first; confirm with the dialog's destructive button.
+    const alert = jest.spyOn(Alert, 'alert').mockImplementation((_title, _message, buttons) => {
+      buttons?.find((b) => b.style === 'destructive')?.onPress?.();
+    });
     await act(async () => {
       await fireEvent.press(screen.getByLabelText('Delete Speech recognition'));
       await Promise.resolve();
     });
+    expect(alert).toHaveBeenCalledWith(
+      'Delete Speech recognition?',
+      expect.stringMatching(/download it again later/),
+      expect.any(Array),
+    );
     expect(await screen.findByText('Not downloaded')).toBeOnTheScreen();
   });
 

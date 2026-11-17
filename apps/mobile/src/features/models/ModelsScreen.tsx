@@ -27,6 +27,28 @@ const STATUS_TEXT: Record<ModelView['status'], string> = {
   unsupported: 'Needs a phone with more memory',
 };
 
+/** Ask before deleting a download; resolves true when the learner agrees. */
+function confirmDelete(title: string, size: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    Alert.alert(`Delete ${title}?`, `It frees ${size}. You can download it again later.`, [
+      {
+        text: 'Keep',
+        style: 'cancel',
+        onPress: () => {
+          resolve(false);
+        },
+      },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: () => {
+          resolve(true);
+        },
+      },
+    ]);
+  });
+}
+
 /** Ask before using mobile data; resolves true when the learner agrees. */
 function confirmMobileData(title: string, size: string): Promise<boolean> {
   return new Promise((resolve) => {
@@ -131,7 +153,11 @@ export function ModelCard({ model }: { model: ModelView }) {
             label="Delete"
             variant="secondary"
             accessibilityLabel={`Delete ${spec.title}`}
-            onPress={() => void manager.remove(spec.id)}
+            onPress={() => {
+              void confirmDelete(spec.title, size).then((yes) => {
+                if (yes) void manager.remove(spec.id);
+              });
+            }}
           />
         ) : null}
       </View>
