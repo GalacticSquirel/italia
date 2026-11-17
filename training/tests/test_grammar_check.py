@@ -13,9 +13,9 @@ from datagen.grammar_check import (
     check_dialogue,
     grammaticality_score,
     keep_flag,
-    quoted_spans,
 )
 from datagen.judge import JudgeParseError, judge_dialogue
+from datagen.quotes import quoted_spans
 from datagen.records import DialogueRecord, JudgeResult
 from datagen.teacher import ScriptedClient
 from spec.models import Turn

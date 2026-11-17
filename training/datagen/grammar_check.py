@@ -31,6 +31,7 @@ from collections.abc import Sequence
 from typing import Any
 
 from datagen.jsonutil import JsonExtractError, extract_json_object
+from datagen.quotes import quoted_spans
 from datagen.records import DialogueRecord, GrammarError
 from datagen.teacher import ChatClient, Usage
 
@@ -78,14 +79,10 @@ Answer with JSON only: {{"definitelyWrong": true}} or {{"definitelyWrong": false
 FIND_MAX_TOKENS = 400
 VERIFY_MAX_TOKENS = 40
 
+
 # A single-, double- or guillemet-quoted span, e.g. 'la arancia' or "ho visto lo". Single quotes
 # must open after a space or line start and close before punctuation or a space, so elisions
 # such as l'ho do not end a span.
-_QUOTED = re.compile(
-    r"(?:(?<=\s)|^)['\u2018](.+?)['\u2019](?=[\s.,;:!?)]|$)|[\"\u201c\u00ab](.+?)[\"\u201d\u00bb]"
-)
-
-
 class CheckParseError(ValueError):
     """A judge answer the checks could not read, even after one retry."""
 
@@ -101,11 +98,6 @@ def normalize(text: str) -> str:
 def word_set(text: str) -> set[str]:
     # keep elisions (l'arancia) but not quote marks around a word ('la arancia')
     return {w.strip("'") for w in normalize(text).split()} - {""}
-
-
-def quoted_spans(reply: str) -> list[str]:
-    """Text the reply puts in quotation marks (mentions, not uses)."""
-    return [a or b for a, b in _QUOTED.findall(reply)]
 
 
 def keep_flag(
