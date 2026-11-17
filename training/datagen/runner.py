@@ -16,11 +16,13 @@ drops judged rows of dialogues that no longer pass.
 from __future__ import annotations
 
 import logging
+import threading
 from collections import Counter
 from collections.abc import Callable, Iterable
 from concurrent.futures import CancelledError, Future, ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, TypeVar
 
 from datagen.config import DatagenConfig
 from datagen.dedupe import find_duplicates
@@ -34,6 +36,8 @@ from datagen.records import DialogueRecord, FilterResult, Job
 from datagen.synthesis import SynthesisError, parse_dialogue, prepare, synthesize
 from datagen.teacher import ChatClient, Usage
 from spec.models import SPEC_VERSION, Scenario
+
+T = TypeVar("T")
 
 log = logging.getLogger("datagen")
 
@@ -77,11 +81,34 @@ class _Outage:
     Leaving a `with ThreadPoolExecutor` block on an exception waits for every queued item to run,
     and their results are lost, so a dead teacher used to burn hours of queue. Instead the queue
     is cancelled, items already in flight are still collected, and the error is re-raised after.
+
+    Cancelling happens in the consumer loop, which may wake up late; meanwhile the workers keep
+    taking queued items. `guard` closes that gap: once any worker has seen an outage, items that
+    start afterwards are skipped without calling the teacher.
     """
 
-    def __init__(self, futures: Iterable[Future[object]]) -> None:
-        self._futures = list(futures)
+    def __init__(self, item_errors: tuple[type[Exception], ...]) -> None:
+        self._item_errors = item_errors
+        self._futures: list[Future[object]] = []
+        self._down = threading.Event()
         self.error: Exception | None = None
+
+    def guard(self, fn: Callable[..., T]) -> Callable[..., T]:
+        def run(*args: object, **kwargs: object) -> T:
+            if self._down.is_set():
+                raise CancelledError
+            try:
+                return fn(*args, **kwargs)
+            except self._item_errors:
+                raise
+            except Exception:
+                self._down.set()
+                raise
+
+        return run
+
+    def track(self, futures: Iterable[Future[Any]]) -> None:
+        self._futures = list(futures)
 
     def record(self, err: Exception) -> None:
         if self.error is None:
@@ -128,11 +155,12 @@ def run_generate(
         JsonlAppender(paths.failed) as failures,
         ThreadPoolExecutor(max_workers=config.teacher.max_concurrency) as pool,
     ):
+        outage = _Outage((SynthesisError, RuntimeError, ValueError))
+        task = outage.guard(synthesize)
         futures = {
-            pool.submit(synthesize, job, by_id[job.scenario_id], config, teacher): job
-            for job in jobs
+            pool.submit(task, job, by_id[job.scenario_id], config, teacher): job for job in jobs
         }
-        outage = _Outage(futures)  # type: ignore[arg-type]
+        outage.track(futures)
         for future in as_completed(futures):
             job = futures[future]
             try:
@@ -224,11 +252,10 @@ def run_judge(
         JsonlAppender(paths.judged) as out,
         ThreadPoolExecutor(max_workers=config.judge_endpoint.max_concurrency) as pool,
     ):
-        futures = {
-            pool.submit(judge_dialogue, r, judge, max_tokens=config.judge.max_tokens): r
-            for r in todo
-        }
-        outage = _Outage(futures)  # type: ignore[arg-type]
+        outage = _Outage((JudgeParseError, RuntimeError))
+        task = outage.guard(judge_dialogue)
+        futures = {pool.submit(task, r, judge, max_tokens=config.judge.max_tokens): r for r in todo}
+        outage.track(futures)
         for future in as_completed(futures):
             record = futures[future]
             try:
