@@ -109,6 +109,8 @@ export interface SessionDeps {
   repos: Repositories;
   /** Clock; defaults to the system clock. */
   now?: () => Date;
+  /** Called after a study session ends (finished or quit), for example to start a sync. */
+  onSessionEnded?: () => void;
 }
 
 const INITIAL: SessionState = {
@@ -125,7 +127,11 @@ const INITIAL: SessionState = {
 };
 
 /** Create the store for one study session. */
-export function createSessionStore({ repos, now = () => new Date() }: SessionDeps): SessionStore {
+export function createSessionStore({
+  repos,
+  now = () => new Date(),
+  onSessionEnded,
+}: SessionDeps): SessionStore {
   const timer = createActiveTimer();
   const events: StreakEvent[] = [];
   let plan: StudyPlan | null = null;
@@ -184,6 +190,7 @@ export function createSessionStore({ repos, now = () => new Date() }: SessionDep
         repos.studySessions.addActivity(studySessionId, REVIEW_SESSION_ACTIVITY);
         repos.studySessions.end(studySessionId, now());
         studySessionId = null;
+        onSessionEnded?.();
       }
       finished = true;
       set({ phase: 'summary', summary: summarise(queue), entry: null, prompt: null });
@@ -362,6 +369,7 @@ export function createSessionStore({ repos, now = () => new Date() }: SessionDep
           if (studySessionId !== null) {
             repos.studySessions.end(studySessionId, now());
             studySessionId = null;
+            onSessionEnded?.();
           }
         } catch (e) {
           fail(e);

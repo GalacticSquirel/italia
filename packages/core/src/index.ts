@@ -133,6 +133,7 @@ export {
   type StreakView,
   type StudyActivity,
 } from './streak';
+export { replayStreak, type ReplaySession } from './streak-replay';
 export {
   compareLogs,
   mergeLogs,

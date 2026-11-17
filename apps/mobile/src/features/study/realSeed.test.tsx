@@ -44,6 +44,9 @@ const answered = (kind: CardRow['kind'], targetId: number): CardRow => ({
   lastReview: new Date(0),
   suspended: false,
   createdAt: new Date(0),
+  flagUpdatedAt: null,
+  flagDeviceId: null,
+  flagSyncedAt: null,
 });
 
 describe('real seed: first items on a fresh install', () => {

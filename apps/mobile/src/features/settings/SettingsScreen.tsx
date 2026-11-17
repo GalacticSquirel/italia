@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Switch, View } from 'react-native';
 
 import { useDatabase, useRepositories } from '@/db';
+import { AccountSection } from '@/features/account/AccountSection';
 import { Button, Card, Screen, SegmentedControl, Stepper, Text, useTheme } from '@/ui';
 
 import { pickAndImportBackup, shareBackup } from './backupFiles';
@@ -169,6 +170,8 @@ export function SettingsScreen() {
           </Text>
         ) : null}
       </Card>
+
+      <AccountSection />
     </Screen>
   );
 }

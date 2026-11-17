@@ -15,6 +15,16 @@ export const META_KEYS = {
   seedFingerprint: 'seed.fingerprint',
   /** This installation's device id, recorded on every review. */
   deviceId: 'device.id',
+  /** Account whose data this device last synced; a different account resets the sync state. */
+  syncUserId: 'sync.userId',
+  /** When the last sync completed (ISO 8601). */
+  syncLastSuccessAt: 'sync.lastSuccessAt',
+  /** Pull cursors: the largest server_seq merged, per server table. */
+  syncCursorReviewLog: 'sync.cursor.review_log',
+  syncCursorCardFlag: 'sync.cursor.card_flag',
+  syncCursorSetting: 'sync.cursor.setting',
+  syncCursorStudySession: 'sync.cursor.study_session',
+  syncCursorErrorRecord: 'sync.cursor.error_record',
 } as const;
 
 /** A metadata key. */
@@ -26,6 +36,8 @@ export interface MetaRepo {
   get(key: MetaKey): string | null;
   /** Store `value` for `key`. */
   set(key: MetaKey, value: string, now?: Date): void;
+  /** Remove `key`. */
+  remove(key: MetaKey): void;
   /** This device's id, created on first use. */
   getOrCreateDeviceId(): string;
 }
@@ -44,6 +56,9 @@ export function createMetaRepo(db: AppDatabase, newId: IdGenerator): MetaRepo {
   return {
     get,
     set,
+    remove(key) {
+      db.delete(appMeta).where(eq(appMeta.key, key)).run();
+    },
     getOrCreateDeviceId() {
       const existing = get(META_KEYS.deviceId);
       if (existing !== null) return existing;

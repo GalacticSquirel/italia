@@ -2,6 +2,7 @@ import { createContext, useContext, useState, type ReactNode } from 'react';
 import { useStore } from 'zustand';
 
 import { useRepositories } from '@/db';
+import { useSync } from '@/sync';
 
 import {
   createSessionStore,
@@ -22,7 +23,10 @@ export interface SessionProviderProps {
 /** Holds the store of one study session for the screens inside it. */
 export function SessionProvider({ children, store }: SessionProviderProps) {
   const repos = useRepositories();
-  const [own] = useState(() => store ?? createSessionStore({ repos }));
+  const { notifySessionEnded } = useSync();
+  const [own] = useState(
+    () => store ?? createSessionStore({ repos, onSessionEnded: notifySessionEnded }),
+  );
   return <SessionContext value={own}>{children}</SessionContext>;
 }
 

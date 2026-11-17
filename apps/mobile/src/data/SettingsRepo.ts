@@ -74,7 +74,10 @@ export interface SettingsRepo {
    * @throws ZodError when `value` is invalid for `key`
    */
   set<K extends SettingKey>(key: K, value: Settings[K], now?: Date): void;
-  /** Remove a stored value so `key` reads as its default again. */
+  /**
+   * Remove a stored value so `key` reads as its default again. This is local
+   * only: to change the value on every device, `set` the default instead.
+   */
   reset(key: SettingKey): void;
 }
 
@@ -103,9 +106,11 @@ export function createSettingsRepo(db: AppDatabase): SettingsRepo {
     },
     set(key, value, now = new Date()) {
       const valid = SETTINGS_SCHEMA[key].parse(value);
+      // deviceId null = written on this device; syncedAt null = not yet pushed.
+      const row = { value: valid, updatedAt: now, deviceId: null, syncedAt: null };
       db.insert(settings)
-        .values({ key, value: valid, updatedAt: now })
-        .onConflictDoUpdate({ target: settings.key, set: { value: valid, updatedAt: now } })
+        .values({ key, ...row })
+        .onConflictDoUpdate({ target: settings.key, set: row })
         .run();
     },
     reset(key) {

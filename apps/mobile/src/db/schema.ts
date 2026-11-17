@@ -129,6 +129,13 @@ export const card = sqliteTable(
     /** Suspended cards are never scheduled. */
     suspended: integer('suspended', { mode: 'boolean' }).notNull().default(false),
     createdAt: createdAt(),
+    // Sync of the card's flags (`suspended`), last-writer-wins by (flagUpdatedAt, flagDeviceId).
+    /** When `suspended` last changed, or null if never changed. */
+    flagUpdatedAt: timestamp('flag_updated_at'),
+    /** Device that made that change; null means this device. */
+    flagDeviceId: text('flag_device_id'),
+    /** When the current flags were pushed or pulled; null while a change is unsynced. */
+    flagSyncedAt: timestamp('flag_synced_at'),
   },
   (t) => [
     uniqueIndex('card_target_unique').on(t.kind, t.targetId, t.promptMode),
@@ -136,6 +143,8 @@ export const card = sqliteTable(
     index('card_due_order_idx').on(t.suspended, t.due, t.id),
     // Serves CardRepo.getNew and counts by state.
     index('card_state_new_idx').on(t.suspended, t.state, t.createdAt, t.id),
+    // Serves the sync push of changed flags.
+    index('card_flag_unsynced_idx').on(t.flagSyncedAt, t.flagUpdatedAt),
   ],
 );
 
@@ -197,10 +206,13 @@ export const errorRecord = sqliteTable(
     source: text('source', { enum: ERROR_SOURCES }).notNull(),
     cardId: text('card_id').references(() => card.id, { onDelete: 'set null' }),
     createdAt: createdAt(),
+    /** When this row was pushed to (or pulled from) the server; null until synced. */
+    syncedAt: timestamp('synced_at'),
   },
   (t) => [
     index('error_record_category_idx').on(t.category),
     index('error_record_card_idx').on(t.cardId),
+    index('error_record_unsynced_idx').on(t.syncedAt),
   ],
 );
 
@@ -213,18 +225,33 @@ export const studySession = sqliteTable(
     minutesActive: real('minutes_active').notNull().default(0),
     /** Activity kinds completed in the session, in order. */
     activities: text('activities', { mode: 'json' }).$type<string[]>().notNull(),
+    /**
+     * When this session was pushed to (or pulled from) the server; null until
+     * synced. Sessions are pushed once, after they end, and never change after.
+     */
+    syncedAt: timestamp('synced_at'),
   },
-  (t) => [index('study_session_started_idx').on(t.startedAt)],
+  (t) => [
+    index('study_session_started_idx').on(t.startedAt),
+    index('study_session_unsynced_idx').on(t.syncedAt),
+  ],
 );
 
-/** Key-value settings; values are JSON. */
+/** Key-value settings; values are JSON. Synced last-writer-wins by (updatedAt, deviceId). */
 export const settings = sqliteTable('settings', {
   key: text('key').primaryKey(),
   value: text('value', { mode: 'json' }).$type<unknown>().notNull(),
   updatedAt: timestamp('updated_at').notNull(),
+  /** Device that wrote the value; null means this device. */
+  deviceId: text('device_id'),
+  /** When the current value was pushed or pulled; null while a change is unsynced. */
+  syncedAt: timestamp('synced_at'),
 });
 
-/** Single-row table holding the streak. */
+/**
+ * Single-row table holding the streak. Not synced: after a sync brings in
+ * study sessions from other devices, the streak is replayed from all sessions.
+ */
 export const streakState = sqliteTable(
   'streak_state',
   {

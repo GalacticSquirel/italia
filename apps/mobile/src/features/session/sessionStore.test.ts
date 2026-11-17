@@ -134,6 +134,17 @@ describe('session store', () => {
     expect(repos.streak.get().day?.activeMinutes).toBeCloseTo(2, 5);
   });
 
+  it('reports each ended session once, so sync can push it', () => {
+    repos.settings.set('dailyNewLimit', 1);
+    const onSessionEnded = jest.fn();
+    const store = createSessionStore({ repos, now, onSessionEnded });
+    store.getState().start();
+    tick(60_000);
+    store.getState().quit();
+    store.getState().quit();
+    expect(onSessionEnded).toHaveBeenCalledTimes(1);
+  });
+
   it('introduces a grammar point before its first item', () => {
     // Introduce every word so grammar practice becomes available.
     repos.settings.set('dailyNewLimit', 40);

@@ -270,12 +270,19 @@ export function importBackup(
         result.settings.skipped += 1;
         continue;
       }
-      const row = { key: s.key, value: s.value, updatedAt: date(s.updatedAt) };
+      // An applied value is pushed by the next sync like a local change.
+      const row = {
+        key: s.key,
+        value: s.value,
+        updatedAt: date(s.updatedAt),
+        deviceId: null,
+        syncedAt: null,
+      };
       tx.insert(settings)
         .values(row)
         .onConflictDoUpdate({
           target: settings.key,
-          set: { value: row.value, updatedAt: row.updatedAt },
+          set: { value: row.value, updatedAt: row.updatedAt, deviceId: null, syncedAt: null },
         })
         .run();
       result.settings.applied += 1;

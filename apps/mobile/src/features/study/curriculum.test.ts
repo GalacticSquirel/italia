@@ -29,6 +29,9 @@ const introduced = (kind: CardRow['kind'], targetId: number): CardRow => ({
   reps: 1,
   suspended: false,
   createdAt: new Date(0),
+  flagUpdatedAt: null,
+  flagDeviceId: null,
+  flagSyncedAt: null,
 });
 
 describe('curriculum', () => {
