@@ -12,6 +12,13 @@ export interface Candidate {
   readonly id: number;
   /** Normalised Italian text used to drop near-duplicates. */
   readonly norm: string;
+  /**
+   * Normalised English translation. Tatoeba often has one Italian sentence per
+   * person or gender with the same English ("Che mi ha fatto?", "Che mi hai
+   * fatto?", "Che mi avete fatto?"); a sentence whose English is already taken
+   * is used only when nothing else fills the slot.
+   */
+  readonly enNorm?: string;
   /** Distinct lemma ids. */
   readonly lemmaIds: readonly number[];
   /** Highest rank among the lemmas. */
@@ -42,33 +49,47 @@ const byQuality = (a: Candidate, b: Candidate) => b.score - a.score || a.id - b.
 const byEase = (a: Candidate, b: Candidate) =>
   a.difficulty - b.difficulty || b.score - a.score || a.id - b.id;
 
+interface Taken {
+  readonly norms: Set<string>;
+  readonly english: Set<string>;
+}
+
 function pick(
   pool: readonly Candidate[],
   lemmaId: number,
   limit: number,
   perForm: number,
-  taken: ReadonlySet<string>,
+  taken: Taken,
 ): Candidate[] {
   const chosen: Candidate[] = [];
   const norms = new Set<string>();
+  const english = new Set<string>();
   const formUse = new Map<string, number>();
+  const isNew = (c: Candidate) => !taken.norms.has(c.norm) && !norms.has(c.norm);
+  const newEnglish = (c: Candidate) =>
+    c.enNorm === undefined || (!taken.english.has(c.enNorm) && !english.has(c.enNorm));
+  const take = (c: Candidate) => {
+    chosen.push(c);
+    norms.add(c.norm);
+    if (c.enNorm !== undefined) english.add(c.enNorm);
+  };
   for (const c of pool) {
     if (chosen.length >= limit) break;
-    if (taken.has(c.norm) || norms.has(c.norm)) continue;
+    if (!isNew(c) || !newEnglish(c)) continue;
     const form = c.formOf.get(lemmaId) ?? '';
     const used = formUse.get(form) ?? 0;
     if (used >= perForm) continue;
-    chosen.push(c);
-    norms.add(c.norm);
+    take(c);
     formUse.set(form, used + 1);
   }
-  // If the per-form cap left room, fill it with the best remaining sentences.
-  if (chosen.length < limit) {
+  // If the per-form cap left room, fill it with the best remaining sentences,
+  // then, as a last resort, with ones that repeat an English translation.
+  for (const allowSameEnglish of [false, true]) {
     for (const c of pool) {
       if (chosen.length >= limit) break;
-      if (taken.has(c.norm) || norms.has(c.norm) || chosen.includes(c)) continue;
-      chosen.push(c);
-      norms.add(c.norm);
+      if (!isNew(c) || chosen.includes(c)) continue;
+      if (!allowSameEnglish && !newEnglish(c)) continue;
+      take(c);
     }
   }
   return chosen;
@@ -93,12 +114,16 @@ export function selectSentences(
     }
   }
   const selected = new Map<number, Selection>();
-  const taken = new Set<string>();
+  const taken: Taken = { norms: new Set(), english: new Set() };
+  const markTaken = (c: Candidate) => {
+    taken.norms.add(c.norm);
+    if (c.enNorm !== undefined) taken.english.add(c.enNorm);
+  };
   for (const lemmaId of lemmaIdsByRank) {
     const pool = (anchorsByLemma.get(lemmaId) ?? []).slice().sort(byQuality);
     for (const c of pick(pool, lemmaId, options.perLemma, options.perForm, taken)) {
       selected.set(c.id, { targetLemmaId: lemmaId, anchor: true });
-      taken.add(c.norm);
+      markTaken(c);
     }
   }
   const covered = new Set([...selected.values()].map((s) => s.targetLemmaId));
@@ -107,7 +132,7 @@ export function selectSentences(
     const pool = (containing.get(lemmaId) ?? []).slice().sort(byEase);
     for (const c of pick(pool, lemmaId, options.fallbackPerLemma, options.perForm, taken)) {
       selected.set(c.id, { targetLemmaId: lemmaId, anchor: false });
-      taken.add(c.norm);
+      markTaken(c);
     }
   }
   return selected;

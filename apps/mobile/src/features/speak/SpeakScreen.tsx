@@ -20,7 +20,7 @@ function conversationSubtitle(choice: TutorModelChoice): string {
     case 'ready':
       return 'Role-play everyday scenes with the on-device tutor';
     case 'needs_download':
-      return `Role-play with an on-device tutor (${formatBytes(choice.sizeBytes)} download)`;
+      return `Role-play with an on-device tutor (${formatBytes(choice.model.bytesTotal)} download)`;
     case 'unsupported':
       return 'Needs a phone with more memory';
     case 'unavailable':
