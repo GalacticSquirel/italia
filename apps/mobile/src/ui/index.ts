@@ -3,7 +3,7 @@ export { Button, type ButtonProps, type ButtonSize, type ButtonVariant } from '.
 export { Card } from './Card';
 export { Chip, type ChipProps } from './Chip';
 export { EmptyState, type EmptyStateProps } from './EmptyState';
-export { ListItem, type ListItemProps } from './ListItem';
+export { List, ListItem, type ListItemProps } from './ListItem';
 export {
   Markdown,
   parseInline,

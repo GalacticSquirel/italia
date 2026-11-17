@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 
-import { Card, ListItem, Screen, Text } from '@/ui';
+import { Card, List, ListItem, Screen, Text } from '@/ui';
 
 import { STATUS_TEXT } from './grammarGuide';
 import { useGrammarGuide } from './useGrammarGuide';
@@ -25,22 +25,24 @@ export function GrammarGuideScreen() {
               {`Opens once you have met ${String(level.wordsNeeded)} words.`}
             </Text>
           ) : null}
-          {level.points.map((p) => (
-            <ListItem
-              key={p.point.id}
-              title={p.point.title}
-              subtitle={
-                p.drillsTotal > 0
-                  ? `${String(p.drillsDone)} of ${String(p.drillsTotal)} exercises done`
-                  : undefined
-              }
-              detail={STATUS_TEXT[p.status]}
-              accessibilityHint="Opens the explanation"
-              onPress={() => {
-                router.push(`/grammar/${String(p.point.id)}`);
-              }}
-            />
-          ))}
+          <List>
+            {level.points.map((p) => (
+              <ListItem
+                key={p.point.id}
+                title={p.point.title}
+                subtitle={
+                  p.drillsTotal > 0
+                    ? `${String(p.drillsDone)} of ${String(p.drillsTotal)} exercises done`
+                    : undefined
+                }
+                detail={STATUS_TEXT[p.status]}
+                accessibilityHint="Opens the explanation"
+                onPress={() => {
+                  router.push(`/grammar/${String(p.point.id)}`);
+                }}
+              />
+            ))}
+          </List>
         </Card>
       ))}
     </Screen>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { View } from 'react-native';
 
 import { STATE_NAMES } from '@/features/study/format';
-import { Chip, EmptyState, ListItem, Screen, Text, TextField, useTheme } from '@/ui';
+import { Chip, EmptyState, List, ListItem, Screen, Text, TextField, useTheme } from '@/ui';
 
 import { BROWSE_FILTERS, useCardBrowser, type BrowseFilter } from './useCardBrowser';
 
@@ -38,17 +38,19 @@ export function ReviewScreen() {
           <Text variant="caption" color="textMuted" accessibilityLiveRegion="polite">
             {`${String(lemmas.length)} ${lemmas.length === 1 ? 'word' : 'words'} found`}
           </Text>
-          {lemmas.map((l) => (
-            <ListItem
-              key={l.id}
-              title={l.lemma}
-              subtitle={l.glossEn}
-              accessibilityHint="Opens the word"
-              onPress={() => {
-                openWord(l.id);
-              }}
-            />
-          ))}
+          <List>
+            {lemmas.map((l) => (
+              <ListItem
+                key={l.id}
+                title={l.lemma}
+                subtitle={l.glossEn}
+                accessibilityHint="Opens the word"
+                onPress={() => {
+                  openWord(l.id);
+                }}
+              />
+            ))}
+          </List>
         </View>
       ) : (
         <>
@@ -61,7 +63,7 @@ export function ReviewScreen() {
                 key={f}
                 role="tab"
                 label={`${FILTER_NAMES[f]} ${String(counts[f])}`}
-                accessibilityLabel={`${FILTER_NAMES[f]}, ${String(counts[f])} cards`}
+                accessibilityLabel={`${FILTER_NAMES[f]}, ${String(counts[f])} ${counts[f] === 1 ? 'card' : 'cards'}`}
                 selected={f === filter}
                 onPress={() => {
                   setFilter(f);
@@ -79,7 +81,7 @@ export function ReviewScreen() {
               }
             />
           ) : (
-            <View>
+            <List>
               {cards.map((c) => (
                 <ListItem
                   key={c.id}
@@ -106,7 +108,7 @@ export function ReviewScreen() {
                   }
                 />
               ))}
-            </View>
+            </List>
           )}
         </>
       )}

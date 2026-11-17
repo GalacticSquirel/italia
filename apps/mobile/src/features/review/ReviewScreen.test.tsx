@@ -51,14 +51,14 @@ describe('Review tab', () => {
   it('browses cards by state and suspends them', async () => {
     const user = userEvent.setup();
     await render(app.wrap(<ReviewScreen />));
-    expect(screen.getByRole('tab', { name: 'Review, 1 cards' })).toBeSelected();
+    expect(screen.getByRole('tab', { name: 'Review, 1 card' })).toBeSelected();
     expect(screen.getByText('casa')).toBeOnTheScreen();
     await user.press(screen.getByRole('button', { name: 'Suspend casa' }));
     expect(app.repos.cards.getById(cardIdFor('cloze_production', 11, 'typed'))?.suspended).toBe(
       true,
     );
     expect(screen.getByText('No review cards')).toBeOnTheScreen();
-    await user.press(screen.getByRole('tab', { name: 'Suspended, 1 cards' }));
+    await user.press(screen.getByRole('tab', { name: 'Suspended, 1 card' }));
     await user.press(screen.getByRole('button', { name: 'Resume casa' }));
     expect(app.repos.cards.getById(cardIdFor('cloze_production', 11, 'typed'))?.suspended).toBe(
       false,

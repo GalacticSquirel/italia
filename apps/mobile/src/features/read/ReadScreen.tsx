@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 
-import { Button, Card, EmptyState, ListItem, Screen, Text, useTheme } from '@/ui';
+import { Button, Card, EmptyState, List, ListItem, Screen, Text, useTheme } from '@/ui';
 
 import { coveragePercent, FIT_LABELS, type LibraryEpisode, type LibrarySeries } from './library';
 import { estimateReadingMinutes } from './storyModel';
@@ -68,7 +68,7 @@ function SeriesCard({
         {`${series.series.titleEn} · ${series.level} · ${String(series.readCount)} of ${String(series.episodes.length)} read`}
       </Text>
       <Text color="textMuted">{series.series.blurb}</Text>
-      <View>
+      <List>
         {series.episodes.map((e) => (
           <ListItem
             key={e.id}
@@ -84,7 +84,7 @@ function SeriesCard({
             accessibilityHint={e.locked ? undefined : 'Opens the story'}
           />
         ))}
-      </View>
+      </List>
     </Card>
   );
 }
