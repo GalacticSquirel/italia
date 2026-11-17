@@ -28,6 +28,7 @@ from __future__ import annotations
 import re
 import unicodedata
 from collections.abc import Sequence
+from typing import Any
 
 from datagen.jsonutil import JsonExtractError, extract_json_object
 from datagen.records import DialogueRecord, GrammarError
@@ -85,18 +86,21 @@ _QUOTED = re.compile(
 )
 
 
-class GrammarCheckError(ValueError):
-    """The judge's answer to the find step could not be read."""
+class CheckParseError(ValueError):
+    """A judge answer the checks could not read, even after one retry."""
 
 
-def _norm(text: str) -> str:
+GrammarCheckError = CheckParseError  # the name this module first had
+
+
+def normalize(text: str) -> str:
     text = unicodedata.normalize("NFC", text).lower().replace("\u2019", "'")
     return re.sub(r"\s+", " ", re.sub(r"[^\w' ]", " ", text)).strip()
 
 
-def _words(text: str) -> set[str]:
+def word_set(text: str) -> set[str]:
     # keep elisions (l'arancia) but not quote marks around a word ('la arancia')
-    return {w.strip("'") for w in _norm(text).split()} - {""}
+    return {w.strip("'") for w in normalize(text).split()} - {""}
 
 
 def quoted_spans(reply: str) -> list[str]:
@@ -113,18 +117,18 @@ def keep_flag(
     annotated_spans: Sequence[str],
 ) -> bool:
     """Whether a flag survives the deterministic cleanup (step 2 in the module docstring)."""
-    q = _norm(quote)
-    if not q or q not in _norm(reply):
+    q = normalize(quote)
+    if not q or q not in normalize(reply):
         return False  # not in the reply
-    if q == _norm(fix):
+    if q == normalize(fix):
         return False  # the "correction" changes nothing
-    if any(q in _norm(t) for t in learner_turns):
+    if any(q in normalize(t) for t in learner_turns):
         return False  # repeats the learner word for word
-    words = _words(quote)
+    words = word_set(quote)
     for span in annotated_spans:  # the turn's own prompt/recast says it echoes this span
-        if len(words & _words(span)) >= max(1, len(words) // 2):
+        if len(words & word_set(span)) >= max(1, len(words) // 2):
             return False
-    return not any(words & _words(span) for span in quoted_spans(reply))
+    return not any(words & word_set(span) for span in quoted_spans(reply))
 
 
 def grammaticality_score(n_errors: int) -> float:
@@ -132,7 +136,7 @@ def grammaticality_score(n_errors: int) -> float:
     return {0: 5.0, 1: 3.0, 2: 2.0}.get(n_errors, 1.0)
 
 
-def _scene(record: DialogueRecord) -> dict[str, str]:
+def scene(record: DialogueRecord) -> dict[str, str]:
     scenario = record.context.scenario
     female = record.persona.gender == "f"
     return {
@@ -149,25 +153,59 @@ def _scene(record: DialogueRecord) -> dict[str, str]:
     }
 
 
+RETRY_TEMPERATURE = 0.7
+RETRY_NOTE = (
+    "\n\nYour previous answer was not valid JSON ({problem}). Answer again with one valid JSON "
+    "object only: plain strings in double quotes, no arrows, comments or text outside it."
+)
+
+
+def ask_json(
+    client: ChatClient,
+    prompt: str,
+    *,
+    max_tokens: int,
+    what: str,
+    required: str,
+    kind: type = list,
+) -> tuple[dict[str, Any], Usage]:
+    """Ask for a JSON object whose `required` key holds a `kind`. A reply without one gets a
+    single retry at RETRY_TEMPERATURE that says what was wrong: at temperature 0 the same prompt
+    gives the same unusable answer every time (round 1 had one dialogue that could never be
+    judged; another answered "correctForm": "a" -> "b")."""
+    usage = Usage()
+    problem = ""
+    for temperature in (0.0, RETRY_TEMPERATURE):
+        text = prompt if not problem else prompt + RETRY_NOTE.format(problem=problem)
+        completion = client.complete(
+            [{"role": "user", "content": text}],
+            temperature=temperature,
+            max_tokens=max_tokens,
+            json_output=True,
+        )
+        usage = usage + completion.usage
+        try:
+            raw = extract_json_object(completion.text)
+        except JsonExtractError as err:
+            problem = str(err)
+            continue
+        if isinstance(raw.get(required), kind):
+            return raw, usage
+        problem = f"'{required}' is not a {kind.__name__}"
+    raise CheckParseError(f"{what}: {problem}")
+
+
 def _find(client: ChatClient, prompt: str) -> tuple[list[tuple[str, str]], Usage]:
-    completion = client.complete(
-        [{"role": "user", "content": prompt}],
-        temperature=0.0,
-        max_tokens=FIND_MAX_TOKENS,
-        json_output=True,
+    answer, usage = ask_json(
+        client, prompt, max_tokens=FIND_MAX_TOKENS, what="grammar check", required="errors"
     )
-    try:
-        raw = extract_json_object(completion.text).get("errors")
-    except JsonExtractError as err:
-        raise GrammarCheckError(f"grammar check: {err}") from err
-    if not isinstance(raw, list):
-        raise GrammarCheckError("grammar check: 'errors' is not a list")
+    raw = answer["errors"]
     flags = [
         (str(item.get("quote", "")), str(item.get("fix", "")))
         for item in raw
         if isinstance(item, dict)
     ]
-    return flags, completion.usage
+    return flags, usage
 
 
 def _confirmed(client: ChatClient, prompt: str) -> tuple[bool, Usage]:
@@ -186,7 +224,7 @@ def _confirmed(client: ChatClient, prompt: str) -> tuple[bool, Usage]:
 
 def check_dialogue(record: DialogueRecord, client: ChatClient) -> tuple[list[GrammarError], Usage]:
     """Confirmed grammar mistakes in the tutor's turns, with the judge usage they cost."""
-    scene = _scene(record)
+    ctx = scene(record)
     usage = Usage()
     errors: list[GrammarError] = []
     learner_so_far: list[str] = []
@@ -200,7 +238,7 @@ def check_dialogue(record: DialogueRecord, client: ChatClient) -> tuple[list[Gra
         flags, cost = _find(
             client,
             FIND_PROMPT.format(
-                **scene, learner="\n".join(learner_so_far) or "(nothing yet)", reply=reply
+                **ctx, learner="\n".join(learner_so_far) or "(nothing yet)", reply=reply
             ),
         )
         usage = usage + cost
@@ -216,8 +254,8 @@ def check_dialogue(record: DialogueRecord, client: ChatClient) -> tuple[list[Gra
             ok, cost = _confirmed(
                 client,
                 VERIFY_PROMPT.format(
-                    register=scene["register"].split(":")[0],
-                    gender=scene["gender"],
+                    register=ctx["register"].split(":")[0],
+                    gender=ctx["gender"],
                     reply=reply,
                     quote=quote,
                     fix=fix,
