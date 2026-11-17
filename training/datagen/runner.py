@@ -249,10 +249,10 @@ def run_judge(
 
 
 def accepted_records(config: DatagenConfig) -> Iterable[DialogueRecord]:
-    """Judged dialogues at or above the judge threshold."""
+    """Judged dialogues that pass the judge's mean threshold and per-criterion floors."""
     for row in read_jsonl(RunPaths(config.output_dir).judged):
         record = DialogueRecord.model_validate(row)
-        if record.judge is not None and record.judge.overall >= config.judge.min_overall:
+        if record.judge is not None and config.judge.accepts(record.judge.scores):
             yield record
 
 

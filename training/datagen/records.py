@@ -47,6 +47,17 @@ class FilterResult(WireModel):
     metrics: dict[str, float] = Field(default_factory=dict)
 
 
+JUDGE_CRITERIA = (
+    "grammaticality",
+    "levelFit",
+    "feedback",
+    "annotationAccuracy",
+    "scenario",
+    "tone",
+    "promptWithholds",
+)
+
+
 class JudgeScores(WireModel):
     grammaticality: float = Field(ge=1, le=5)
     level_fit: float = Field(ge=1, le=5)
@@ -57,6 +68,18 @@ class JudgeScores(WireModel):
     prompt_withholds: float | None = Field(default=None, ge=1, le=5)
     """Prompts leave the correction to the learner. None for judgements made before this
     criterion existed (and for dialogues without a prompt, where it is not asked)."""
+
+    def by_criterion(self) -> dict[str, float | None]:
+        """Scores keyed by wire name (promptWithholds is None when it was not asked)."""
+        return {
+            "grammaticality": self.grammaticality,
+            "levelFit": self.level_fit,
+            "feedback": self.feedback,
+            "annotationAccuracy": self.annotation_accuracy,
+            "scenario": self.scenario,
+            "tone": self.tone,
+            "promptWithholds": self.prompt_withholds,
+        }
 
     @property
     def overall(self) -> float:
