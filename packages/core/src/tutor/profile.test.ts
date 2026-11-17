@@ -15,7 +15,8 @@ describe('learner profile', () => {
   it('maps CEFR estimates onto tutor levels', () => {
     expect(tutorLevelFor('pre-A1')).toBe('A1');
     expect(tutorLevelFor('B1')).toBe('B1');
-    expect(tutorLevelFor('C2')).toBe('B2');
+    expect(tutorLevelFor('C1')).toBe('C1');
+    expect(tutorLevelFor('C2')).toBe('C2');
   });
 
   it('derives the lemma ceiling from known words within the band', () => {

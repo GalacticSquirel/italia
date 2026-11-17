@@ -3,11 +3,11 @@
  * Wire names are camelCase, exactly as the model reads and writes them.
  */
 
-/** CEFR levels the tutor supports (C1 and above are out of scope for v1). */
-export type TutorLevel = 'A1' | 'A2' | 'B1' | 'B2';
+/** CEFR levels the tutor supports, A1 through C2. */
+export type TutorLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 
 /** Tutor levels, lowest first. */
-export const TUTOR_LEVELS: readonly TutorLevel[] = ['A1', 'A2', 'B1', 'B2'];
+export const TUTOR_LEVELS: readonly TutorLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
 /** Limits for tutor replies at one level. */
 export interface LevelBand {
