@@ -1,0 +1,226 @@
+# A2-B1, recast-focused (z-recast): failed prompt then recast of the learner's own span;
+# a lexical error recast at once.
+- scenario: weekend-scorso
+  level: A2
+  persona: en-m-retired
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Bene, grazie! Sabato sono andato al lago con mio nipote."
+    - tutor: "Al lago, che bello! E cosa avete fatto?"
+      goals: [where]
+    - learner: "Abbiamo pescato tutto il giorno. Mia moglie ha rimasta a casa."
+      errors: [auxiliary-choice]
+    - tutor: "«Ha rimasta»? Attenzione: con «rimanere» usiamo «avere»?"
+      goals: [what]
+      prompt: {text: "ha rimasta a casa", tags: [auxiliary-choice]}
+    - learner: "Sì, ha rimasto a casa, era stanca."
+      errors: [auxiliary-choice]
+    - tutor: "Ah, è rimasta a casa. Ha fatto bene! E domenica?"
+      goals: [with-who]
+      recast: {text: "ha rimasto a casa", fix: "è rimasta a casa", tags: [auxiliary-choice]}
+    - learner: "Domenica abbiamo visto un film molto eccitante al cinema."
+      errors: [false-friend]
+    - tutor: "Molto emozionante? Bello! Che film era?"
+      recast: {text: "molto eccitante", fix: "molto emozionante", tags: [false-friend]}
+      new: [{lemma: emozionante, gloss: exciting}]
+    - learner: "Un film d'avventura. È piaciuto a me e anche a mio nipote."
+    - tutor: "Allora è stato un fine settimana perfetto!"
+      goals: [opinion]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, buongiorno! Vorrei noleggiare due biciclette per domani."
+    - tutor: "Certo! Per tutta la giornata?"
+      goals: [ask]
+    - learner: "Sì. Oggi sono sola: la mia amica venirà domani mattina."
+      errors: [future-form]
+    - tutor: "«Venirà»? Attenzione al futuro di «venire»: è un po' diverso."
+      prompt: {text: "venirà domani", tags: [future-form]}
+    - learner: "Ah... venerà domani, sì."
+      errors: [future-form]
+    - tutor: "Allora la sua amica verrà domani: preparo due biciclette per tutto il giorno."
+      goals: [duration]
+      recast: {text: "venerà domani", fix: "verrà domani", tags: [future-form]}
+    - learner: "Perfetto. Quanto costa?"
+    - tutor: "Quindici euro al giorno, con casco e lucchetto."
+      goals: [price]
+    - learner: "Va bene. Il cammino intorno al lago è facile?"
+      errors: [word-choice]
+    - tutor: "Il percorso intorno al lago è facile, quasi tutto in piano."
+      goals: [route]
+      recast: {text: "Il cammino", fix: "Il percorso", tags: [word-choice]}
+    - learner: "Che bello! Allora a domani, grazie."
+    - tutor: "A domani, buona giornata!"
+
+- scenario: palestra
+  level: A2
+  persona: en-m-heritage
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Quanto costa un abbonamento di un mese?"
+    - tutor: "Quaranta euro al mese, con tutti i corsi."
+      goals: [ask-membership]
+    - learner: "Ok. Posso chiedere una domanda sui corsi?"
+      errors: [word-choice]
+    - tutor: "Certo, puoi fare una domanda quando vuoi! Cosa ti interessa?"
+      recast: {text: "chiedere una domanda", fix: "fare una domanda", tags: [word-choice]}
+    - learner: "Lo yoga. È più facile che il corso di nuoto?"
+      errors: [comparative]
+    - tutor: "«Più facile che il corso»? Mmm, quella parola dopo «facile» non va bene."
+      goals: [classes]
+      prompt: {text: "più facile che il corso di nuoto", tags: [comparative]}
+    - learner: "Ehm... lo yoga è più facile che il nuoto?"
+      errors: [comparative]
+    - tutor: "Sì, per molti è più facile del nuoto, e più rilassante. Le lezioni sono il martedì e il giovedì alle sette."
+      goals: [timetable]
+      recast: {text: "più facile che il nuoto", fix: "più facile del nuoto", tags: [comparative]}
+    - learner: "Perfetto, mi va bene. Vorrei iscrivermi oggi."
+    - tutor: "Ottimo! Compila questo modulo e poi paghi qui."
+      goals: [sign-up]
+
+- scenario: autobus
+  level: A2
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Questo autobus va a l'ospedale?"
+      errors: [articulated-preposition]
+    - tutor: "«A l'ospedale»? Mmm, queste due parole si uniscono."
+      prompt: {text: "a l'ospedale", tags: [articulated-preposition]}
+    - learner: "Ah... va al ospedale?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, va all'ospedale: è la linea giusta."
+      goals: [route]
+      recast: {text: "al ospedale", fix: "all'ospedale", tags: [articulated-preposition]}
+    - learner: "Perfetto. Ma non ho il boleto."
+      errors: [word-choice]
+    - tutor: "Il biglietto lo vendo io: due euro. Poi lo timbri lì."
+      goals: [ticket]
+      recast: {text: "il boleto", fix: "Il biglietto", tags: [word-choice]}
+    - learner: "Ecco due euro. Dove devo scendere?"
+    - tutor: "All'ospedale c'è una fermata grande. Le dico io quando scendere."
+      goals: [stop]
+    - learner: "Grazie mille, molto gentile!"
+    - tutor: "Prego! Si sieda pure."
+      goals: [thank]
+
+- scenario: biglietto-treno
+  level: A2
+  persona: en-f-student
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno! A Firenze, domani mattina."
+    - tutor: "Bene. Solo andata o andata e ritorno?"
+      goals: [destination]
+    - learner: "Andata e ritorno. Quanto costarebbe in prima classe?"
+      errors: [conditional-form]
+    - tutor: "«Costarebbe»? Attenzione: il verbo è «costare», ma questa forma non va."
+      goals: [type]
+      prompt: {text: "costarebbe", tags: [conditional-form]}
+    - learner: "Ah... quanto costarebbe, scusi?"
+      errors: [conditional-form]
+    - tutor: "In prima classe costerebbe sessanta euro, in seconda quaranta."
+      recast: {text: "costarebbe", fix: "costerebbe", tags: [conditional-form]}
+    - learner: "Seconda classe, allora. Il treno fa molte stazioni?"
+      errors: [word-choice]
+    - tutor: "Non fa molte fermate: solo Bologna, poi Firenze."
+      goals: [class]
+      recast: {text: "molte stazioni", fix: "molte fermate", tags: [word-choice]}
+    - learner: "Perfetto. Da quale binario parte?"
+    - tutor: "Dal binario sei, alle nove e dieci."
+      goals: [platform]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Vorrei prenotare un tavolo per sabato sera, per sei persone."
+    - tutor: "Certo, sabato alle otto va bene?"
+      goals: [book]
+    - learner: "Sì, perfetto. È per il compleanno di mia madre. Lei conosce il ristorante: è stata l'anno scorso."
+      errors: [ci-ne]
+    - tutor: "Che bello! Ma «è stata l'anno scorso»... dove? Manca una piccola parola prima del verbo."
+      goals: [details]
+      prompt: {text: "è stata l'anno scorso", tags: [ci-ne]}
+    - learner: "Sì, lei è stata l'anno scorso, con mio padre."
+      errors: [ci-ne]
+    - tutor: "Ah, ci è stata l'anno scorso con suo padre? Allora vi aspettiamo di nuovo!"
+      recast: {text: "è stata l'anno scorso", fix: "ci è stata l'anno scorso", tags: [ci-ne]}
+    - learner: "Grazie! Possiamo avere una mesa vicino alla finestra?"
+      errors: [word-choice]
+    - tutor: "Sì, un tavolo vicino alla finestra, certo. Volete anche un dolce?"
+      goals: [special]
+      recast: {text: "una mesa", fix: "un tavolo", tags: [word-choice]}
+    - learner: "No, grazie, porto io il dolce."
+    - tutor: "Va bene. A che nome prenoto?"
+    - learner: "A nome Lopez."
+    - tutor: "Perfetto, signora Lopez: sabato alle otto, sei persone. A sabato!"
+      goals: [name]
+
+- scenario: medico-base
+  level: B1
+  persona: en-m-retired
+  history: [participle-agreement]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e la tosse, soprattutto di notte."
+    - tutor: "Capisco. Da quanti giorni?"
+      goals: [symptoms]
+    - learner: "Da cinque giorni. Ho comprato delle medicine in farmacia e le ho già preso."
+      errors: [participle-agreement]
+    - tutor: "«Le ho già preso»? Pensi a «le»: che cosa sostituisce?"
+      goals: [since-when]
+      prompt: {text: "già preso", tags: [participle-agreement]}
+    - learner: "Ah... sì, le ho già presi, tutte e due."
+      errors: [participle-agreement]
+    - tutor: "Le ha già prese tutte e due, va bene. È allergico a qualche medicina?"
+      recast: {text: "già presi", fix: "già prese", tags: [participle-agreement]}
+    - learner: "No, nessuna allergia. Ma prendo una medicina per la pressione: in America il mio dottore mi ha dato una prescrizione."
+      errors: [false-friend]
+    - tutor: "Allora le faccio una ricetta nuova anche per quella. Per la gola, prenda questo sciroppo tre volte al giorno."
+      goals: [history]
+      recast: {text: "una prescrizione", fix: "una ricetta", tags: [false-friend]}
+      new: [{lemma: sciroppo, gloss: syrup}]
+    - learner: "Tre volte al giorno, dopo i pasti?"
+    - tutor: "Sì, dopo i pasti, per una settimana. E beva molta acqua calda."
+      goals: [instructions]
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: es-f-erasmus
+  history: [imperative-form]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Facciamo la tortilla spagnola! Ci vogliono uova, patate, cipolle e olio."
+    - tutor: "Che buona! E da dove cominciamo?"
+      goals: [ingredients]
+    - learner: "Prima tagliamo le patate e le cipolle. Ma non tagli le cipolle troppo piccole."
+      errors: [imperative-form]
+    - tutor: "«Non tagli»? Mi dai del Lei, adesso? Con «tu» come si dice?"
+      prompt: {text: "non tagli le cipolle", tags: [imperative-form]}
+    - learner: "Ah, sì... non taglia le cipolle troppo piccole, va bene?"
+      errors: [imperative-form]
+    - tutor: "Va bene: non tagliare le cipolle troppo piccole. Così?"
+      goals: [steps]
+      recast: {text: "non taglia le cipolle", fix: "non tagliare le cipolle", tags: [imperative-form]}
+    - learner: "Perfetto! Adesso metti l'olio nella sartén."
+      errors: [word-choice]
+    - tutor: "Nella padella grande? Ecco, l'olio è già caldo."
+      recast: {text: "nella sartén", fix: "Nella padella", tags: [word-choice]}
+      new: [{lemma: padella, gloss: frying pan}]
+    - learner: "Sì. Cuociamo le patate per venti minuti, poi aggiungiamo le uova."
+    - tutor: "Venti minuti, d'accordo. E si mangia calda o fredda?"
+      goals: [time]
+    - learner: "Come vuoi! In Spagna la mangiamo anche fredda, con un po' di pane."
+    - tutor: "Allora la provo fredda, con il pane. Non vedo l'ora!"
+      goals: [serve]

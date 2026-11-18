@@ -1,0 +1,291 @@
+# z-cine-word, file 01 (A2): ne with quantities, metterci, volerci, parlarne.
+- scenario: lavanderia
+  level: A2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! Questa lavatrice non arranca e non capisco perché."
+      errors: [word-choice]
+    - tutor: "Ah, non parte perché funziona solo con i gettoni. Li hai già?"
+      recast: {text: "non arranca", fix: "non parte", tags: [word-choice]}
+      goals: [problem]
+    - learner: "No. Quante fichas servono per un lavaggio?"
+      errors: [word-choice]
+    - tutor: "Quanti gettoni? Ne servono due. Li compri alla macchina vicino alla porta."
+      recast: {text: "Quante fichas", fix: "Quanti gettoni", tags: [word-choice]}
+    - learner: "Un gettone costa due euro, giusto? Allora compro due."
+      errors: [ci-ne]
+      gold: {text: "compro due", fix: "ne compro due"}
+    - tutor: "«Compro due»... due cosa? Nella frase manca una piccola parola prima del verbo."
+      prompt: {text: "compro due", tags: [ci-ne]}
+    - learner: "Ah, sì: ne compro due!"
+    - tutor: "Perfetto. La macchina prende le monete e anche la carta."
+      goals: [payment]
+    - learner: "Bene. E poi metto il sapone qui sopra?"
+      errors: [word-choice]
+    - tutor: "Sì, il detersivo va proprio lì. Poi scegli il programma: per i colori va bene il numero tre."
+      recast: {text: "il sapone", fix: "il detersivo", tags: [word-choice]}
+      goals: [ask-how]
+    - learner: "Grazie. E quanto tempo mette il programma tre?"
+      errors: [ci-ne]
+      gold: {text: "quanto tempo mette", fix: "quanto tempo ci mette"}
+    - tutor: "Quanto tempo «mette»? Il verbo va bene, ma prima manca una parola."
+      prompt: {text: "quanto tempo mette", tags: [ci-ne]}
+    - learner: "Eh... quanto tempo mette?"
+      errors: [ci-ne]
+    - tutor: "Quanto tempo ci mette? Più o meno quaranta minuti. Puoi prendere un caffè al bar qui vicino!"
+      recast: {text: "quanto tempo mette", fix: "quanto tempo ci mette", tags: [ci-ne]}
+    - learner: "Ottima idea. Grazie mille, sei molto gentile!"
+    - tutor: "Di niente! Se hai bisogno, io sono qui."
+      goals: [thank]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Buonasera e benvenuta! Ha una prenotazione?"
+    - learner: "Buonasera! Sì, a nome Brown. Scusi il ritardo: il treno ha avuto un problema."
+    - tutor: "Nessun problema, signora. Sì, ecco: una camera singola per due notti."
+      goals: [booking]
+    - learner: "Perfetto. Ecco il passaporto. Ho una valigia molto pesante: c'è un lift?"
+      errors: [word-choice]
+    - tutor: "Sì, c'è un ascensore qui a destra. Grazie, ecco il passaporto."
+      recast: {text: "un lift", fix: "un ascensore", tags: [word-choice]}
+      new: [{lemma: ascensore, gloss: lift}]
+      goals: [document]
+    - learner: "Grazie. Ci sono cuscini in più in camera? Io uso sempre due."
+      errors: [ci-ne]
+      gold: {text: "uso sempre due", fix: "ne uso sempre due"}
+    - tutor: "Scusi, come? «Uso sempre due»: provi a ripetere con una piccola parola in più."
+      prompt: {text: "uso sempre due", tags: [ci-ne]}
+    - learner: "Ah, ne uso sempre due. Lo so, sono un po' strana!"
+    - tutor: "Ma no, è normale! Le porto un altro cuscino tra cinque minuti."
+      new: [{lemma: cuscino, gloss: pillow}]
+    - learner: "Grazie mille. A che ora è la colazione?"
+    - tutor: "Dalle sette alle dieci, nella sala al primo piano."
+      goals: [breakfast]
+    - learner: "Peccato, domani ho il volo alle otto. Per l'aeroporto vuole molto tempo?"
+      errors: [ci-ne]
+      gold: {text: "vuole molto tempo", fix: "ci vuole molto tempo"}
+    - tutor: "Chi vuole molto tempo, scusi? Ripeta la domanda, ma pensi al tempo del viaggio."
+      prompt: {text: "vuole molto tempo", tags: [ci-ne]}
+    - learner: "Sì... per l'aeroporto vuole molto tempo?"
+      errors: [ci-ne]
+    - tutor: "Ci vuole molto tempo? No, in taxi solo mezz'ora. Domani mattina le preparo un caffè prima di partire."
+      recast: {text: "vuole molto tempo", fix: "ci vuole molto tempo", tags: [ci-ne]}
+    - learner: "Che gentile! E la chiave della camera?"
+    - tutor: "Ecco la chiave: camera 214, al secondo piano. Buona notte!"
+      goals: [key]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì, buongiorno! Cercate un camarero per l'estate?"
+      errors: [word-choice]
+    - tutor: "Sì, cerchiamo un cameriere, o meglio due, da giugno a settembre. Ha già lavorato in un bar?"
+      recast: {text: "un camarero", fix: "un cameriere", tags: [word-choice]}
+      goals: [ask]
+    - learner: "Sì, a Valencia ho lavorato in un bar sulla playa per due estati."
+      errors: [word-choice]
+    - tutor: "Bene, un bar sulla spiaggia! E quanti caffè faceva in una mattina, più o meno?"
+      recast: {text: "sulla playa", fix: "sulla spiaggia", tags: [word-choice]}
+    - learner: "Facevo duecento, forse di più!"
+      errors: [ci-ne]
+      gold: {text: "Facevo duecento", fix: "Ne facevo duecento"}
+    - tutor: "Duecento! Ma ascolti la sua frase: «facevo duecento». Duecento cosa?"
+      prompt: {text: "Facevo duecento", tags: [ci-ne]}
+    - learner: "Ah, giusto: ne facevo duecento, il bar era sempre pieno."
+    - tutor: "Brava, è tanta esperienza. Lei è disponibile anche la sera?"
+      goals: [experience]
+    - learner: "Sì, la sera posso. Ma la domenica mattina vado a lezione di surf: ci tengo molto."
+    - tutor: "Va bene, la domenica mattina è libera. Il lavoro è dalle cinque all'una di notte."
+      goals: [availability]
+    - learner: "Perfetto. E lo stipendio? Non abbiamo ancora parlato di lui."
+      errors: [ci-ne]
+      gold: {text: "Non abbiamo ancora parlato di lui", fix: "Non ne abbiamo ancora parlato"}
+    - tutor: "Di lui? Lo stipendio non è una persona! Provi con una parola più corta, prima del verbo."
+      prompt: {text: "Non abbiamo ancora parlato di lui", tags: [ci-ne]}
+    - learner: "Ah, sì: non ne abbiamo ancora parlato!"
+    - tutor: "Giusto! Sono 1200 euro al mese. Mi lascia il suo numero di telefono?"
+    - learner: "Certo: 347 218 5590. Mi chiamo Lucía Ortega."
+    - tutor: "Grazie mille. La chiamo entro venerdì!"
+      goals: [contact]
+
+- scenario: chiedere-strada
+  level: A2
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, scusi! Ho mancato l'autobus e devo prendere un treno. Dov'è la stazione?"
+      errors: [word-choice]
+    - tutor: "Ha perso l'autobus? Che peccato! La stazione è un po' lontana da qui."
+      recast: {text: "mancato l'autobus", fix: "perso l'autobus", tags: [word-choice]}
+      goals: [get-attention, ask-place]
+    - learner: "Va bene, vado a piedi. Quanto ci metto, più o meno?"
+    - tutor: "Ci mette venti minuti. Vada dritto fino al semaforo, poi giri a sinistra."
+    - learner: "Dritto fino alla luce e poi a sinistra. E dopo?"
+      errors: [word-choice]
+    - tutor: "Sì, dritto fino al semaforo e poi a sinistra. Dopo c'è una piazza con una chiesa: la stazione è lì, sulla destra."
+      recast: {text: "alla luce", fix: "al semaforo", tags: [word-choice]}
+      goals: [understand]
+    - learner: "Grazie! E ci sono taxi alla stazione? Se sono stanco, prendo uno."
+      errors: [ci-ne]
+      gold: {text: "prendo uno", fix: "ne prendo uno"}
+    - tutor: "«Prendo uno»... uno di cosa? Nella frase manca una parola importante."
+      prompt: {text: "prendo uno", tags: [ci-ne]}
+    - learner: "Ah, certo: ne prendo uno!"
+    - tutor: "Esatto! I taxi sono proprio davanti all'entrata."
+    - learner: "Grazie mille, è molto gentile. Buona giornata!"
+    - tutor: "Prego, buon viaggio!"
+      goals: [thank]
+
+- scenario: parrucchiere
+  level: A2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno! Vorrei tagliare i capelli, solo un po'. Sabato c'è la boda di mia sorella."
+      errors: [word-choice]
+    - tutor: "Il matrimonio di sua sorella, che bello! Quanto tagliamo?"
+      recast: {text: "la boda", fix: "Il matrimonio", tags: [word-choice]}
+      goals: [book]
+    - learner: "Tre o quattro centimetri, non di più."
+    - tutor: "Va bene, tre centimetri. E la frangia? La facciamo?"
+      goals: [length]
+    - learner: "La frangia? No, grazie! Una volta ho fatto una e ho pianto per un mese."
+      errors: [ci-ne]
+      gold: {text: "ho fatto una", fix: "ne ho fatta una"}
+    - tutor: "«Ho fatto una»... una cosa? Manca una piccola parola, prima del verbo."
+      prompt: {text: "ho fatto una", tags: [ci-ne]}
+    - learner: "Ah: una volta ne ho fatta una e ho pianto per un mese!"
+    - tutor: "Allora niente frangia! Però le consiglio un taglio un po' più moderno, con i capelli mossi. Le piace?"
+      new: [{lemma: mosso, gloss: wavy}]
+    - learner: "Mmm... sì, proviamo. Ma ci vuole molto tempo? Alle undici ho una lezione."
+    - tutor: "No, ci vogliono quaranta minuti, anche per lavare i capelli."
+      goals: [style]
+    - learner: "Perfetto. Ah, vorrei anche questo prodotto per i capelli. Voglio comprare due, una bottiglia è per mia sorella."
+      errors: [ci-ne]
+      gold: {text: "Voglio comprare due", fix: "Voglio comprarne due"}
+    - tutor: "«Voglio comprare due»... due cosa, signora? Provi ad attaccare una piccola parola al verbo."
+      prompt: {text: "Voglio comprare due", tags: [ci-ne]}
+    - learner: "Sì, voglio comprare due."
+      errors: [ci-ne]
+    - tutor: "Ah, vuole comprarne due! Sono dodici euro l'una, quindi con il taglio fanno cinquantaquattro euro."
+      recast: {text: "voglio comprare due", fix: "comprarne due", tags: [ci-ne]}
+    - learner: "Va bene, pago con la carta. Grazie mille!"
+    - tutor: "Grazie a lei, e buona festa sabato!"
+      goals: [pay]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Mi sveglio alle sei e mezza, perché porto i bambini a scuola alle otto."
+    - tutor: "Alle sei e mezza? Presto! Quanti figli hai?"
+      goals: [wake]
+    - learner: "Ho tre: due maschi e una femmina."
+      errors: [ci-ne]
+      gold: {text: "Ho tre", fix: "Ne ho tre"}
+    - tutor: "Tre, che bello! Ma ripeti la frase: «ho tre»... non manca qualcosa davanti?"
+      prompt: {text: "Ho tre", tags: [ci-ne]}
+    - learner: "Ah, sì: ne ho tre, due maschi e una femmina."
+    - tutor: "Che bella famiglia! E dopo la scuola vai al lavoro?"
+    - learner: "Sì, lavoro in banca fino alle cinque. Ci vado in bici, perché è chiusa."
+      errors: [false-friend]
+    - tutor: "In bici, perché è vicina: bene! E la sera cosa fai?"
+      recast: {text: "è chiusa", fix: "è vicina", tags: [false-friend]}
+      goals: [work]
+    - learner: "Il martedì porto mio figlio a calcio. Il campo è lontano: ci voglio quaranta minuti in macchina."
+      errors: [ci-ne]
+      gold: {text: "ci voglio quaranta minuti", fix: "ci vogliono quaranta minuti"}
+    - tutor: "«Ci voglio»? Tu vuoi andare, certo, ma quando parliamo di tempo il verbo cambia un po'."
+      prompt: {text: "ci voglio quaranta minuti", tags: [ci-ne]}
+    - learner: "Eh... ci voglio quaranta minuti, sì."
+      errors: [ci-ne]
+    - tutor: "Ci vogliono quaranta minuti? Tanto tempo! E dopo il calcio cenate tutti insieme?"
+      recast: {text: "ci voglio quaranta minuti", fix: "Ci vogliono quaranta minuti", tags: [ci-ne]}
+      goals: [evening]
+    - learner: "Sì, ceniamo alle otto e mezza. E tu, Anna? Com'è la tua giornata?"
+    - tutor: "La mia è più tranquilla: lavoro da casa e la sera faccio sport."
+      goals: [ask]
+
+- scenario: biglietto-treno
+  level: A2
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Devo andare a Bologna, ma il mio treno delle dieci è cancellato."
+    - tutor: "Sì, mi dispiace, oggi c'è uno sciopero. Ma c'è un regionale alle dieci e quaranta. Quanti biglietti vuole?"
+      goals: [destination]
+      new: [{lemma: sciopero, gloss: strike}]
+    - learner: "Vorrei quattro: siamo io, mia moglie e i due nipoti."
+      errors: [ci-ne]
+      gold: {text: "Vorrei quattro", fix: "Ne vorrei quattro"}
+    - tutor: "«Vorrei quattro»... quattro cosa? Mi dica tutta la frase, con una parola in più."
+      prompt: {text: "Vorrei quattro", tags: [ci-ne]}
+    - learner: "Ne vorrei quattro, due adulti e due bambini."
+    - tutor: "Bene. Solo andata o andata e ritorno?"
+    - learner: "Un ritorno, per favore. Torniamo domenica sera."
+      errors: [word-choice]
+    - tutor: "Andata e ritorno, perfetto. Preferite la prima o la seconda classe?"
+      recast: {text: "Un ritorno", fix: "Andata e ritorno", tags: [word-choice]}
+      goals: [type]
+    - learner: "La seconda. Ma il regionale fa molte fermate? Quante fa?"
+      errors: [ci-ne]
+      gold: {text: "Quante fa", fix: "Quante ne fa"}
+    - tutor: "«Quante fa»... quante cosa? Nella domanda manca una piccola parola."
+      prompt: {text: "Quante fa", tags: [ci-ne]}
+    - learner: "Quante fa, più o meno?"
+      errors: [ci-ne]
+    - tutor: "Quante ne fa? Otto, ma arriva a Bologna in un'ora e mezza. Le do quattro posti vicini, con un tavolo."
+      recast: {text: "Quante fa", fix: "Quante ne fa", tags: [ci-ne]}
+      goals: [class]
+    - learner: "Perfetto, grazie. E da quale binario parte?"
+    - tutor: "Dal binario sei. Buon viaggio!"
+      goals: [platform]
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Abitavo in un paese vicino al mare, in Galles. Era piccolo ma molto bello."
+    - tutor: "Al mare, che fortuna! E cosa facevi d'estate?"
+      goals: [place]
+    - learner: "Nuotavo ogni giorno. Facevo anche delle corse di nuoto con la squadra della scuola."
+      errors: [word-choice]
+    - tutor: "Delle gare di nuoto? Fantastico! E vincevi qualche volta?"
+      recast: {text: "delle corse di nuoto", fix: "Delle gare di nuoto", tags: [word-choice]}
+      new: [{lemma: gara, gloss: race}]
+      goals: [habits]
+    - learner: "Sì, ho vinto cinque medaglie. Ma mio fratello ha vinto otto!"
+      errors: [ci-ne]
+      gold: {text: "ha vinto otto", fix: "ne ha vinte otto"}
+    - tutor: "Otto! Ma «ha vinto otto»... otto cosa? Manca una piccola parola."
+      prompt: {text: "ha vinto otto", tags: [ci-ne]}
+    - learner: "Sì, ha vinto otto. Era più bravo di me."
+      errors: [ci-ne]
+    - tutor: "Ne ha vinte otto? Allora tuo fratello era bravissimo! E a scuola com'eri?"
+      recast: {text: "ha vinto otto", fix: "ne ha vinte otto", tags: [ci-ne]}
+    - learner: "Ero buono in storia, ma non in matematica. La maestra era molto simpatica."
+      errors: [word-choice]
+    - tutor: "Bravo in storia, ma non in matematica? Come me, la matematica era un incubo! C'è un ricordo speciale di quegli anni?"
+      recast: {text: "buono in storia", fix: "bravo in storia", tags: [word-choice]}
+      goals: [school]
+      new: [{lemma: incubo, gloss: nightmare}]
+    - learner: "Sì: un'estate abbiamo fatto una gara contro la scuola di mio fratello, e ho vinto io!"
+    - tutor: "Che bel ricordo! E adesso nuoti ancora?"
+      goals: [event]
+    - learner: "Sì, vado in piscina ogni sabato. Ci vado con mio figlio."
+    - tutor: "Bravo! Allora una volta vengo anch'io con voi."

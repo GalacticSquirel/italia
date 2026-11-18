@@ -1,0 +1,225 @@
+# A1-A2, recast-focused (z-recast): failed prompt then recast of the learner's own span;
+# a lexical error recast at once.
+- scenario: mercato-frutta
+  level: A1
+  persona: en-f-professional
+  history: [noun-number]
+  turns:
+    - tutor: "Ciao! Cosa ti do oggi?"
+    - learner: "Ciao! Quanto costano le arance?"
+    - tutor: "Un euro e cinquanta al chilo. Sono freschissime!"
+      goals: [ask-price]
+    - learner: "Va bene, vorrei due chilo, per favore."
+      errors: [noun-number]
+    - tutor: "«Due chilo»? Ascolta bene la fine della parola."
+      prompt: {text: "due chilo", tags: [noun-number]}
+    - learner: "Due chilo... sì, due chilo di arance."
+      errors: [noun-number]
+    - tutor: "Ecco due chili di arance! Altro?"
+      goals: [buy-quantity]
+      recast: {text: "due chilo", fix: "due chili", tags: [noun-number]}
+    - learner: "Sì, quanto costa la watermelon?"
+      errors: [word-choice]
+    - tutor: "L'anguria? Costa un euro al chilo. È molto buona!"
+      goals: [ask-other]
+      recast: {text: "la watermelon", fix: "L'anguria", tags: [word-choice]}
+      new: [{lemma: anguria, gloss: watermelon}]
+    - learner: "Allora prendo mezza anguria. Ecco dieci euro."
+    - tutor: "Ecco il resto: cinque euro. Ciao, buona giornata!"
+      goals: [pay]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-m-heritage
+  history: [article-use]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Siamo due. C'è un tavolo vicino alla finestra?"
+    - tutor: "Sì, prego, da questa parte."
+      goals: [ask-table]
+    - learner: "Grazie. Posso vedere menù?"
+      errors: [article-use]
+    - tutor: "Vedere «menù»? Manca una piccola parola."
+      prompt: {text: "menù", tags: [article-use]}
+    - learner: "Ah... posso vedere menù, per favore?"
+      errors: [article-use]
+    - tutor: "Certo, ecco il menù! Oggi c'è il pesce."
+      recast: {text: "menù", fix: "il menù", tags: [article-use]}
+    - learner: "Allora per me il pesce e un'acqua naturale."
+    - tutor: "Perfetto, il pesce e un'acqua naturale."
+      goals: [order-food, order-drink]
+    - learner: "Buonissima! Il conto, per favore. E questo è un tip per lei."
+      errors: [word-choice]
+    - tutor: "Oh, una mancia? Grazie, molto gentile! Ecco il conto."
+      goals: [ask-bill]
+      recast: {text: "un tip", fix: "una mancia", tags: [word-choice]}
+      new: [{lemma: mancia, gloss: tip}]
+    - learner: "Grazie a lei, arrivederci!"
+    - tutor: "Arrivederci e buona giornata!"
+
+- scenario: chiedere-strada
+  level: A1
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, scusi! Dov'è la stazione?"
+    - tutor: "La stazione? È in piazza Garibaldi."
+      goals: [get-attention, ask-place]
+    - learner: "È lontano di qui?"
+      errors: [preposition]
+    - tutor: "Lontano «di» qui? Mmm, «di» non va bene."
+      prompt: {text: "lontano di qui", tags: [preposition]}
+    - learner: "Ah... lontano a qui?"
+      errors: [preposition]
+    - tutor: "No, non è lontano da qui: dieci minuti a piedi."
+      recast: {text: "lontano a qui", fix: "lontano da qui", tags: [preposition]}
+    - learner: "Perfetto. Prendo la calle a destra?"
+      errors: [word-choice]
+    - tutor: "Sì, la strada a destra, poi sempre dritto."
+      recast: {text: "la calle", fix: "la strada", tags: [word-choice]}
+    - learner: "Allora, a destra e poi dritto. Grazie mille!"
+    - tutor: "Esatto. Prego, buon viaggio!"
+      goals: [understand, thank]
+
+- scenario: lavanderia
+  level: A2
+  persona: en-m-traveller
+  history: [pronoun-position]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! La lavatrice non funziona. Ho messo i soldi ma niente."
+    - tutor: "Ah, prima devi scegliere il programma, qui."
+      goals: [problem]
+    - learner: "Ok. E il detersivo? Posso lo mettere adesso?"
+      errors: [pronoun-position]
+    - tutor: "«Posso lo mettere»? Attento alla posizione di «lo»."
+      prompt: {text: "lo mettere", tags: [pronoun-position]}
+    - learner: "Ah, sì... posso mettere lo adesso?"
+      errors: [pronoun-position]
+    - tutor: "Sì, puoi metterlo adesso, qui sopra. Poi chiudi bene."
+      goals: [ask-how]
+      recast: {text: "mettere lo", fix: "metterlo", tags: [pronoun-position]}
+    - learner: "Perfetto. E per l'asciugatrice? Ho solo un bill da dieci euro."
+      errors: [word-choice]
+    - tutor: "Una banconota da dieci? Nessun problema, lì c'è la macchina per i gettoni."
+      goals: [payment]
+      recast: {text: "un bill", fix: "Una banconota", tags: [word-choice]}
+      new: [{lemma: banconota, gloss: banknote}]
+    - learner: "Ah, grazie mille! Sei molto gentile."
+    - tutor: "Di niente! Se hai bisogno, sono qui."
+      goals: [thank]
+
+- scenario: parrucchiere
+  level: A2
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno! Ho un appuntamento alle tre per tagliare i capelli."
+    - tutor: "Sì, signora, eccola. Prego, si sieda qui."
+      goals: [book]
+    - learner: "Grazie. Vorrei un taglio più corto che questo, guardi la foto."
+      errors: [comparative]
+    - tutor: "«Più corto che questo»? Mmm, dopo «più corto» quale parola usiamo?"
+      prompt: {text: "più corto che questo", tags: [comparative]}
+    - learner: "Sì, più corto... più corto come questo."
+      errors: [comparative]
+    - tutor: "Più corto di questo, va bene: fino alle spalle?"
+      goals: [length]
+      recast: {text: "più corto come questo", fix: "Più corto di questo", tags: [comparative]}
+    - learner: "Sì, perfetto. E la frangia è molto larga, me la taglia un poco?"
+      errors: [false-friend]
+    - tutor: "Certo, è molto lunga: la taglio sopra gli occhi."
+      goals: [style]
+      recast: {text: "molto larga", fix: "molto lunga", tags: [false-friend]}
+    - learner: "Che bello! Mi piace molto. Quanto le devo?"
+    - tutor: "Sono trentacinque euro, grazie."
+      goals: [pay]
+
+- scenario: serata-cinema
+  level: A2
+  persona: en-f-student
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema?"
+    - tutor: "Buona idea! Che genere ti piace?"
+      goals: [propose]
+    - learner: "Mi piacciono le commedie. Le commedie italiane sono molto divertente."
+      errors: [adjective-agreement]
+    - tutor: "Molto «divertente»? Pensa: le commedie sono tante..."
+      prompt: {text: "molto divertente", tags: [adjective-agreement]}
+    - learner: "Sì, sono molto divertente, secondo me."
+      errors: [adjective-agreement]
+    - tutor: "Sono molto divertenti, hai ragione! Allora c'è una commedia nuova alle nove."
+      goals: [genre]
+      recast: {text: "molto divertente", fix: "molto divertenti", tags: [adjective-agreement]}
+    - learner: "Perfetto. Ma c'è anche un film drammatico su una storia attuale."
+      errors: [false-friend]
+    - tutor: "Su una storia vera? È più triste, però. Io preferisco la commedia."
+      recast: {text: "una storia attuale", fix: "una storia vera", tags: [false-friend]}
+    - learner: "Va bene, la commedia! Dove ci vediamo?"
+    - tutor: "Davanti al cinema alle otto e mezza?"
+      goals: [choose]
+    - learner: "Perfetto, a stasera!"
+    - tutor: "A stasera, ciao!"
+      goals: [meet]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-m-worker
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì, buongiorno! Cercate un cameriere per l'estate?"
+    - tutor: "Sì, esatto. Ha esperienza?"
+      goals: [ask]
+    - learner: "Sì, ho lavorato tre anni in un bar a Buenos Aires. Per un mese ho aprito il bar da solo."
+      errors: [past-participle-form]
+    - tutor: "«Ho aprito»? Aprire, io ho...? Ci pensi un attimo."
+      prompt: {text: "aprito il bar", tags: [past-participle-form]}
+    - learner: "Ah, sì... ho apruto il bar da solo."
+      errors: [past-participle-form]
+    - tutor: "Ha aperto il bar da solo? Allora è una persona responsabile!"
+      goals: [experience]
+      recast: {text: "apruto il bar da solo", fix: "aperto il bar da solo", tags: [past-participle-form]}
+    - learner: "Grazie. Parlo spagnolo e ho un buon nivel di inglese."
+      errors: [word-choice]
+    - tutor: "Un buon livello di inglese va benissimo per questo lavoro. Quando è disponibile?"
+      recast: {text: "un buon nivel", fix: "Un buon livello", tags: [word-choice]}
+    - learner: "Sono disponibile da giugno, anche la sera e il fine settimana."
+    - tutor: "Ottimo! Mi lascia il suo numero di telefono?"
+      goals: [availability]
+    - learner: "Certo, è tre quattro sette, cinque cinque due, uno otto nove."
+    - tutor: "Perfetto, la chiamo venerdì. Arrivederci!"
+      goals: [contact]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: es-f-erasmus
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno! Vorrei spedire questo pacco a Siviglia."
+    - tutor: "Va bene. Normale o veloce?"
+      goals: [send]
+    - learner: "Veloce, per favore. Posso spedirgli oggi?"
+      errors: [object-pronoun]
+    - tutor: "«Spedirgli»? Mmm, attenzione al pronome: parliamo del pacco."
+      prompt: {text: "spedirgli oggi", tags: [object-pronoun]}
+    - learner: "Sì... posso spedirgli oggi? È per il compleanno di mia madre."
+      errors: [object-pronoun]
+    - tutor: "Sì, può spedirlo oggi: con la posta veloce arriva in tre giorni."
+      goals: [speed]
+      recast: {text: "spedirgli oggi", fix: "spedirlo oggi", tags: [object-pronoun]}
+    - learner: "Perfetto. Devo scrivere la direzione anche sul modulo?"
+      errors: [false-friend]
+    - tutor: "Sì, scriva l'indirizzo anche qui, e la sua firma in basso."
+      goals: [form]
+      recast: {text: "la direzione", fix: "l'indirizzo", tags: [false-friend]}
+    - learner: "Ecco fatto. Quanto pago?"
+    - tutor: "Sono quindici euro. Paga con la carta?"
+    - learner: "Sì, con la carta. Grazie!"
+    - tutor: "Grazie a lei. Buona giornata!"
+      goals: [pay]

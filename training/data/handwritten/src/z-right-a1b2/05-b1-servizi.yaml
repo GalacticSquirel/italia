@@ -1,0 +1,221 @@
+# Set z-right-a1b2, file 5: B1 services; correct conditionals, clitics and relatives left alone.
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Che luminoso! Quanto costa l'affitto al mese?"
+  - tutor: "Settecento euro, più le spese di condominio."
+    goals: [rent]
+  - learner: "E le spese quanto sono, più o meno?"
+  - tutor: "Circa ottanta euro al mese, riscaldamento compreso."
+  - learner: "Va bene. E il contratto, per quanto anni è?"
+    errors: [adjective-agreement]
+  - tutor: "Per quanto anni? Attenzione: «anni» è plurale."
+    prompt: {text: "quanto anni", tags: [adjective-agreement]}
+  - learner: "Sì, per quanto anni?"
+    errors: [adjective-agreement]
+  - tutor: "Per quanti anni? Quattro più quattro, come al solito."
+    recast: {text: "quanto anni", fix: "quanti anni", tags: [adjective-agreement]}
+    goals: [contract]
+  - learner: "Ho sentito parlare bene di questa zona. È tranquilla, la sera? Ci sono molti locali?"
+  - tutor: "Ce ne sono un paio, ma chiudono presto. È un quartiere molto calmo."
+    goals: [neighbourhood]
+  - learner: "Perfetto. Posso tenere un gatto?"
+  - tutor: "Sì, nessun problema. Le chiedo solo due mesi di caparra."
+    goals: [condition]
+  - learner: "D'accordo. Ci penso stasera e la richiamo domani."
+  - tutor: "Benissimo, aspetto la sua telefonata."
+    goals: [decide]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+  - tutor: "Buongiorno, come posso esserle utile?"
+  - learner: "Buongiorno. Vorrei aprire un conto. Ho appena cominciato a lavorare qui."
+  - tutor: "Benvenuto. Le serve per lo stipendio?"
+    goals: [purpose]
+    new: [{lemma: "stipendio", gloss: "salary"}]
+  - learner: "Sì, l'azienda me l'ha chiesto."
+  - tutor: "Perfetto. Ha portato i documenti?"
+  - learner: "Ho il passaporto e il codice fiscale. Basta?"
+  - tutor: "Serve anche il contratto di lavoro. Ce l'ha con sé?"
+  - learner: "Sì, eccolo."
+  - tutor: "Grazie, è tutto in ordine."
+    goals: [documents]
+  - learner: "Quanto costa il conto? Ci sono comisiones?"
+    errors: [word-choice]
+  - tutor: "Le commissioni sono basse: tre euro al mese, e i bonifici con l'app sono gratis."
+    recast: {text: "comisiones", fix: "commissioni", tags: [word-choice]}
+    goals: [costs]
+  - learner: "Bene. Vorrebbi anche una carta per pagare nei negozi."
+    errors: [conditional-form]
+  - tutor: "Vorrebbi? Pensi al condizionale di «volere» con «io»."
+    prompt: {text: "Vorrebbi", tags: [conditional-form]}
+  - learner: "Vorrei anche una carta, scusi."
+  - tutor: "Certo. Gliela mandiamo a casa entro una settimana."
+    goals: [card]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Grazie. Mi chiamo Daniel, ho trent'anni e sono ingegnere."
+  - tutor: "Molto bene. Dove ha lavorato finora?"
+    goals: [intro]
+  - learner: "Per cinque anni ho lavorato a Manchester in un'azienda di energia. Mi occupavo di pannelli solari."
+  - tutor: "Interessante. Perché è tornato in Italia?"
+    goals: [experience]
+  - learner: "Mio padre è italiano e volevamo stare vicino alla famiglia."
+  - tutor: "Capisco. Quali sono i suoi punti di forza?"
+  - learner: "All'inizio ero timido con i clienti, ma eventualmente sono diventato più sicuro."
+    errors: [false-friend]
+  - tutor: "E alla fine è diventato più sicuro: è un bel passo avanti. E poi?"
+    recast: {text: "eventualmente", fix: "alla fine", tags: [false-friend]}
+  - learner: "Sono preciso e lavoro bene in squadra."
+  - tutor: "Ottimo. Perché le interessa la nostra azienda?"
+    goals: [strengths]
+  - learner: "Perché lavorate con le energie rinnovabili, ed è il mio settore."
+  - tutor: "Esatto. Ha qualche domanda per noi?"
+    goals: [why]
+  - learner: "Sì: quando comincerebbe il lavoro?"
+  - tutor: "Da settembre, se tutto va bene."
+    goals: [questions]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [imperative-form]
+  turns:
+  - tutor: "Allora, quando parti per Napoli?"
+  - learner: "Venerdì prossimo. Ci resto una settimana."
+  - tutor: "Che bello! Cosa vuoi vedere?"
+    goals: [plans]
+  - learner: "Il centro storico, Pompei e magari un'isola. Cosa mi consigli?"
+  - tutor: "Pompei assolutamente! Vai la mattina presto, così eviti il caldo."
+    goals: [advice]
+  - learner: "E per arrivare a Pompei, prendo il treno?"
+  - tutor: "Sì, c'è un treno locale dalla stazione centrale. Costa pochissimo."
+    goals: [transport]
+  - learner: "Ho letto che i borseggiatori sono tanti. Ci sono tanti davvero?"
+    errors: [ci-ne]
+  - tutor: "Ci sono tanti? Quando parli di un numero di cose, quale pronome aggiungi?"
+    prompt: {text: "Ci sono tanti", tags: [ci-ne]}
+  - learner: "Ah... sì, ci sono tanti?"
+    errors: [ci-ne]
+  - tutor: "Eh, ce ne sono tanti, soprattutto sugli autobus. Tieni lo zaino davanti!"
+    recast: {text: "ci sono tanti", fix: "ce ne sono tanti", tags: [ci-ne]}
+    goals: [warnings]
+  - learner: "Ok, starò attenta. Grazie dei consigli!"
+  - tutor: "Figurati! Mangia una pizza anche per me."
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+  - tutor: "Buongiorno! Che problema ha la macchina?"
+  - learner: "Buongiorno. Quando freno, sento un rumore strano."
+  - tutor: "Che tipo di rumore?"
+  - learner: "Un fischio. Prima era leggero, adesso è più forte."
+  - tutor: "Capisco, probabilmente sono i freni."
+    goals: [describe]
+  - learner: "È cominciato la settimana scorsa, dopo un viaggio in montagna."
+  - tutor: "Va bene, allora la controllo subito."
+    goals: [when]
+  - learner: "Grazie. Può guardare la macchina fino a domani? Stasera non la uso."
+    errors: [false-friend]
+  - tutor: "Sì, posso tenere la macchina qui stanotte, nessun problema."
+    recast: {text: "guardare la macchina", fix: "tenere la macchina", tags: [false-friend]}
+  - learner: "E quanto costerà, più o meno?"
+  - tutor: "Se sono solo i freni, sui centocinquanta euro."
+    goals: [cost]
+  - learner: "Va bene. Sarà pronta per domani pomeriggio?"
+  - tutor: "Sì, dopo le tre la può ritirare."
+    goals: [time]
+
+- scenario: film-libro
+  level: B1
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Comincio io. Ho letto un romanzo di Calvino, «Il barone rampante»."
+  - tutor: "Bel libro! Di che cosa parla?"
+  - learner: "Parla di un ragazzo che un giorno sale su un albero e non scende più."
+  - tutor: "Che idea strana! E com'è questo ragazzo?"
+    goals: [summary]
+  - learner: "È testardo, ma anche generoso. Il personaggio di cui mi ricordo di più è il fratello."
+  - tutor: "Ah, il fratello che racconta la storia!"
+    goals: [characters]
+  - learner: "Sì. Mi è piaciuto molto, anche se il finale è un po' triste."
+  - tutor: "Un finale triste, ma bellissimo."
+    goals: [opinion]
+  - learner: "Lo consiglio a tutti che amano la natura."
+    errors: [relative-pronoun]
+  - tutor: "A tutti che amano? Qui manca un pezzo prima di «che»."
+    prompt: {text: "a tutti che amano", tags: [relative-pronoun]}
+  - learner: "Sì, lo consiglio a tutti che amano la natura."
+    errors: [relative-pronoun]
+  - tutor: "Sì, a tutti quelli che amano la natura! Mi hai convinto: lo leggo."
+    recast: {text: "a tutti che amano", fix: "a tutti quelli che amano", tags: [relative-pronoun]}
+    goals: [recommend]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-m-retired
+  history: [conditional-form]
+  turns:
+  - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+  - learner: "Buongiorno, vorrei prenotare una visita dal dermatologo."
+  - tutor: "Certo. È la prima visita?"
+    goals: [type]
+  - learner: "Sì, la prima."
+  - tutor: "Il primo posto libero è giovedì prossimo alle undici."
+  - learner: "Giovedì non posso. Avreste qualcosa venerdì?"
+  - tutor: "Venerdì alle quattro del pomeriggio, va bene?"
+    goals: [availability]
+  - learner: "Sì, va bene. Quanto costa la visita?"
+  - tutor: "Centoventi euro, oppure meno con l'impegnativa del medico."
+    goals: [cost]
+  - learner: "Non ce l'ho. Allora venirò venerdì alle quattro."
+    errors: [future-form]
+  - tutor: "Venirò? Il futuro di «venire» è un po' speciale."
+    prompt: {text: "venirò", tags: [future-form]}
+  - learner: "Verrò venerdì alle quattro."
+  - tutor: "Perfetto, è confermato. Arrivi dieci minuti prima, per favore."
+    goals: [confirm]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-f-erasmus
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+  - learner: "Sì, purtroppo. Nella mia camera l'aria condizionata non funziona."
+  - tutor: "Mi dispiace molto. Da quando?"
+    goals: [problem]
+  - learner: "Da ieri sera. Ho provato a spegnerla e riaccenderla, ma niente."
+  - tutor: "Capisco. Ha chiamato qualcuno di noi?"
+    goals: [since]
+  - learner: "Sì, ho chiamato due volte, ma nessuno ha venuto."
+    errors: [auxiliary-choice]
+  - tutor: "Nessuno ha venuto? Con «venire», attenzione al primo verbo."
+    prompt: {text: "nessuno ha venuto", tags: [auxiliary-choice]}
+  - learner: "Sì, nessuno ha venuto."
+    errors: [auxiliary-choice]
+  - tutor: "Se nessuno è venuto, mi scusi davvero: non doveva succedere."
+    recast: {text: "nessuno ha venuto", fix: "nessuno è venuto", tags: [auxiliary-choice]}
+  - learner: "Vorrei cambiare camera, se è possibile."
+  - tutor: "Certo, le do subito la trecentocinque, al terzo piano."
+    goals: [request]
+  - learner: "Grazie. E per la notte scorsa? Avete uno sconto?"
+  - tutor: "Le togliamo la cena dal conto. Le va bene?"
+  - learner: "Sì, va bene così."
+  - tutor: "Ecco la nuova chiave. Buonanotte."
+    goals: [agree]

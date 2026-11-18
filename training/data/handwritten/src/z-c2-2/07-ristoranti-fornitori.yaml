@@ -1,0 +1,240 @@
+# C2: reclami al ristorante e trattative con i fornitori: registro, concordanze, ipotesi e collocazioni.
+- scenario: recensione-ristorante
+  level: C2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, purtroppo. Avevamo prenotato per le otto, ci siamo seduti alle otto e mezza e il primo piatto è arrivato alle nove e venti. Non è un'accusa al cameriere, che è stato gentilissimo, ma la serata ne ha risentito."
+  - tutor: "Mi dispiace davvero: stasera abbiamo avuto un problema in cucina, e l'abbiamo gestito male. Mi può dire che cosa avevate ordinato?"
+    goals: [complain]
+  - learner: "Mia moglie ha preso il risotto ai funghi, che però era scotto e quasi freddo. Io la tagliata, che avevo chiesto al sangue ed è arrivata troppo fatta, grigia fino al centro."
+    errors: [word-choice]
+  - tutor: "Una tagliata troppo cotta, dopo un'ora di attesa: capisco perfettamente la sua delusione. E un risotto scotto è un errore che non dovremmo mai fare."
+    goals: [detail]
+    recast: {text: "troppo fatta", fix: "troppo cotta", tags: [word-choice]}
+  - learner: "Esatto. Da un ristorante con le vostre recensioni mi aspettavo che almeno la cucina sia all'altezza, anche con il servizio lento."
+    errors: [subjunctive-use]
+    gold: {text: "che almeno la cucina sia all'altezza", fix: "che almeno la cucina fosse all'altezza"}
+  - tutor: "Ha tutto il diritto di aspettarselo. Mi permette però un'osservazione? «Mi aspettavo che la cucina sia all'altezza»… con aspettavo al passato, quel congiuntivo è nel tempo giusto?"
+    prompt: {text: "che almeno la cucina sia all'altezza", tags: [subjunctive-use]}
+  - learner: "Credo di sì: mi aspettavo che la cucina sia all'altezza, almeno quella."
+    errors: [subjunctive-use]
+  - tutor: "Che la cucina fosse all'altezza era il minimo, ha ragione. Per scusarci, vorrei offrirvi la cena di stasera e un invito per un'altra sera, a nostre spese."
+    goals: [expectation]
+    recast: {text: "che la cucina sia all'altezza", fix: "che la cucina fosse all'altezza", tags: [subjunctive-use]}
+  - learner: "La ringrazio, è un gesto che apprezzo. Accetto volentieri la cena di stasera; per l'invito, mi permetta di pensarci: dipende da quanto mia moglie sarà disposta a perdonarvi."
+  - tutor: "Allora farò in modo che la prossima volta lo chef cucini per voi personalmente. Vi porto subito il dolce, offerto naturalmente."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: es-m-worker
+  history: [register]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Guardi, gliela dico chiara: la pizza era una schifezza, bruciata sotto e cruda sopra. E per una margherita ci avete messo quaranta minuti."
+    errors: [register]
+    gold: {text: "la pizza era una schifezza", fix: "la pizza era immangiabile"}
+  - tutor: "Mi dispiace molto, e la ascolto. Però «una schifezza», detto così, rischia di far passare in secondo piano le sue ragioni: come la descriverebbe, con più precisione?"
+    goals: [complain]
+    prompt: {text: "la pizza era una schifezza", tags: [register]}
+  - learner: "Ha ragione, mi scusi, ero arrabbiato. La pizza era bruciata sotto e cruda al centro: non si poteva mangiare. E ci sono voluti quaranta minuti per una semplice margherita."
+  - tutor: "Bruciata sotto e cruda al centro: è un problema di forno, e me ne assumo la responsabilità. Il resto della cena com'è andato?"
+    goals: [detail]
+  - learner: "Il resto bene, l'antipasto era buonissimo. Ma da una pizzeria napoletana avrei aspettato una pizza perfetta, almeno quella."
+    errors: [word-choice]
+  - tutor: "Anch'io mi sarei aspettato una pizza perfetta, e mi vergogno un po'. Le propongo di rifargliela subito, con il pizzaiolo titolare, oppure di non farle pagare le pizze."
+    goals: [expectation]
+    recast: {text: "avrei aspettato", fix: "mi sarei aspettato", tags: [word-choice]}
+  - learner: "Mi sarei aspettato, giusto: «aspettare» è un'altra cosa. Accetto che mi la rifacciate, ma solo se la fa il titolare: voglio vedere com'è una vera margherita."
+    errors: [combined-pronouns]
+    gold: {text: "mi la rifacciate", fix: "me la rifacciate"}
+  - tutor: "Sfida accettata. Ma «accetto che mi la rifacciate»… quel mi, accanto a la, non cambia vocale?"
+    prompt: {text: "mi la rifacciate", tags: [combined-pronouns]}
+  - learner: "Cambia, sì: accetto che me la rifacciate, ma la voglio dal titolare."
+  - tutor: "Affare fatto: il titolare è già al forno. E per farmi perdonare, il limoncello lo offriamo noi."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: es-f-teacher
+  history: [conditional-form]
+  turns:
+  - tutor: "Buonasera, sono la responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, ed è un problema serio: al momento della prenotazione avevo avvisato che sono celiaca, e nel mio piatto di pesce c'era il pangrattato. Per fortuna me ne sono accorta al primo boccone."
+  - tutor: "È gravissimo, e le chiedo scusa. Sta bene? Ha bisogno di qualcosa?"
+    goals: [complain]
+  - learner: "Sto bene, grazie, ne ho mangiato pochissimo. Ma il cameriere, quando gliel'ho fatto notare, ha detto che un po' di pane non fa niente. Dovevate avvisarmi che il piatto conteneva glutine."
+    errors: [conditional-form]
+    gold: {text: "Dovevate avvisarmi", fix: "Avreste dovuto avvisarmi"}
+  - tutor: "Quella frase non andava detta, e ne parlerò con lui. Ma «dovevate avvisarmi»: per un rimprovero su qualcosa che non è successo, quale forma di dovere sarebbe più precisa?"
+    goals: [detail]
+    prompt: {text: "Dovevate avvisarmi", tags: [conditional-form]}
+  - learner: "Il condizionale passato: avreste dovuto avvisarmi. E soprattutto il cameriere non avrebbe dovuto minimizzare. Ho l'impressione che qui nessuno sa niente di allergie."
+    errors: [subjunctive-use]
+    gold: {text: "che qui nessuno sa niente", fix: "che qui nessuno sappia niente"}
+  - tutor: "Ha ragione su tutti e due i punti. Quanto all'impressione, però: «ho l'impressione che nessuno sa niente»… un'impressione regge davvero l'indicativo?"
+    prompt: {text: "che qui nessuno sa niente", tags: [subjunctive-use]}
+  - learner: "Sì, ho proprio l'impressione che nessuno sa niente di allergie, in questa cucina. In Spagna ci sono procedure precise: piatti segnati, utensili separati."
+    errors: [subjunctive-use]
+  - tutor: "Che nessuno sappia niente non è vero, ma stasera è sembrato così, e questo è anche peggio: una procedura c'è, ma non è stata seguita. Le offro la cena e, se vorrà tornare, un menù senza glutine studiato con lo chef."
+    goals: [expectation]
+    recast: {text: "che nessuno sa niente", fix: "che nessuno sappia niente", tags: [subjunctive-use]}
+  - learner: "La cena la accetto, ma il menù no, grazie: dopo stasera non mi sento sicura. Le chiedo però di fare una formazione al personale, perché il prossimo celiaco potrebbe essere meno fortunato."
+  - tutor: "Lo farò già questa settimana, ha la mia parola. E grazie per avercelo detto con tanta calma: non tutti l'avrebbero fatto."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Tre settimane fa ho prenotato il tavolo in terrazza per l'anniversario dei miei genitori, e ci avete messi dentro, accanto alla porta della cucina."
+  - tutor: "Mi dispiace molto. Stasera un gruppo ha sforato con l'orario e la terrazza non si è liberata: avrebbero dovuto spiegarvelo all'arrivo."
+    goals: [complain]
+  - learner: "Nessuno ci ha spiegato niente. E poi il vino che avevamo ordinato era finito: il cameriere ce ne ha portato un altro, più caro, senza dire niente, e l'abbiamo realizzato solo sul conto."
+    errors: [false-friend]
+  - tutor: "Un vino più caro scoperto solo sul conto: questo non doveva succedere, e la differenza, ovviamente, non la pagherete. Che cosa vi sareste aspettati, stasera?"
+    goals: [detail]
+    recast: {text: "realizzato", fix: "scoperto", tags: [false-friend]}
+  - learner: "Almeno una telefonata, per avvertirci che la terrazza non era disponibile: avremmo potuto scegliere se venire lo stesso o festeggiare altrove. Invece i miei genitori si sono sentiti molto disappuntati, in una sera così importante."
+    errors: [false-friend]
+  - tutor: "Capisco che i suoi genitori si siano sentiti delusi, e mi dispiace doppiamente in una sera così speciale. Per rimediare, vi offro il dolce e lo spumante, e la terrazza riservata per una cena a vostra scelta."
+    goals: [expectation]
+    recast: {text: "disappuntati", fix: "delusi", tags: [false-friend]}
+  - learner: "Lo spumante è un pensiero gentile, ma non cancella la serata. Accetterei la cena in terrazza, a condizione che ci sono anche i miei genitori e che sia tutto offerto, vino compreso."
+    errors: [subjunctive-use]
+    gold: {text: "a condizione che ci sono anche i miei genitori", fix: "a condizione che ci siano anche i miei genitori"}
+  - tutor: "Mi sembra giusto. Solo una cosa: «a condizione che ci sono anche i miei genitori»… dopo a condizione che, l'indicativo regge?"
+    prompt: {text: "a condizione che ci sono anche i miei genitori", tags: [subjunctive-use]}
+  - learner: "Sì, scusi: a condizione che ci sono anche loro, i miei genitori."
+    errors: [subjunctive-use]
+  - tutor: "A condizione che ci siano anche loro, certo: anzi, la cena la dedichiamo proprio a loro. Mi lascia il suo numero? La chiamo domani per fissare la data."
+    goals: [resolve]
+    recast: {text: "a condizione che ci sono anche loro", fix: "a condizione che ci siano anche loro", tags: [subjunctive-use]}
+  - learner: "Va bene, grazie. Ecco il mio biglietto da visita."
+  - tutor: "Grazie a lei. E faccia di nuovo gli auguri ai suoi genitori da parte di tutto il ristorante."
+
+- scenario: trattativa-fornitore
+  level: C2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno. Sì, la chiamo per quello. Capisco l'aumento delle materie prime, ma un quindici per cento da un mese all'altro, senza preavviso, per un'azienda delle nostre dimensioni è difficile da digerire."
+  - tutor: "Lo capisco, e mi dispiace che la comunicazione sia arrivata così tardi. Purtroppo il listino vale per tutti i clienti."
+    goals: [problem]
+  - learner: "Non tutti i clienti, però, lavorano con voi da dodici anni e pagano sempre puntualmente. L'anno scorso ne abbiamo ordinato più di trecentomila scatole: credo che questo conti qualcosa."
+    errors: [ci-ne]
+    gold: {text: "ne abbiamo ordinato più di trecentomila scatole", fix: "abbiamo ordinato più di trecentomila scatole"}
+  - tutor: "Conta, eccome. Ma «ne abbiamo ordinato più di trecentomila scatole»… se le scatole le nomina, quella particella le serve ancora?"
+    goals: [argue]
+    prompt: {text: "ne abbiamo ordinato più di trecentomila scatole", tags: [ci-ne]}
+  - learner: "No, è di troppo: abbiamo ordinato più di trecentomila scatole. Oppure: ne abbiamo ordinate più di trecentomila."
+  - tutor: "Esatto, tutte e due. E su questi numeri, che cosa mi propone?"
+  - learner: "Accettiamo un aumento del sette per cento, e in cambio ci impegniamo per un ordine annuale minimo di trecentocinquantamila pezzi. Se ce lo garantirebbe per due anni, firmeremmo anche domani."
+    errors: [hypothetical]
+    gold: {text: "Se ce lo garantirebbe", fix: "Se ce lo garantisse"}
+  - tutor: "Proposta interessante. Ma «se ce lo garantirebbe»… nell'ipotesi, quel condizionale è al posto giusto?"
+    prompt: {text: "Se ce lo garantirebbe", tags: [hypothetical]}
+  - learner: "Mi scusi: se ce lo garantirebbe per due anni, potremmo firmare subito."
+    errors: [hypothetical]
+  - tutor: "Se la nostra azienda glielo garantisse per due anni, al sette per cento ci perderemmo. Posso arrivare al dieci, con il contratto biennale."
+    goals: [counteroffer]
+    recast: {text: "garantirebbe", fix: "garantisse", tags: [hypothetical]}
+  - learner: "Dieci è ancora troppo. Facciamo nove, con consegne ogni quindici giorni invece che mensili, così riduciamo il magazzino. È la mia ultima offerta."
+  - tutor: "Nove per cento, consegne quindicinali e contratto di due anni: affare fatto. Le mando il contratto entro domani."
+    goals: [agreement]
+
+- scenario: trattativa-fornitore
+  level: C2
+  persona: es-f-erasmus
+  history: [register]
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno. Esatto, la chiamo per il listino, e mi permetta di dirle che siamo rimasti molto sorpresi: un quindici per cento senza alcun preavviso ci mette in una situazione difficile."
+  - tutor: "Capisco la sorpresa. Purtroppo il cartone è aumentato del venti per cento in sei mesi, e noi ne abbiamo assorbito una parte."
+    goals: [problem]
+  - learner: "Lo so, ma anche noi abbiamo i nostri problemi: i supermercati non ci lasciano aumentare i prezzi. Dai, siamo clienti da dieci anni, vienimi un po' incontro!"
+    errors: [register]
+    gold: {text: "vienimi un po' incontro", fix: "mi venga un po' incontro"}
+  - tutor: "Dieci anni sono tanti, è vero. Ma «dai, vienimi incontro»… mi pare che ci dessimo del Lei, o mi sbaglio?"
+    prompt: {text: "vienimi un po' incontro", tags: [register]}
+  - learner: "Mi scusi! Volevo dire: dai, mi vieni un po' incontro?"
+    errors: [register]
+  - tutor: "Volentieri: la nostra azienda le viene un po' incontro, e scendiamo al dodici per cento. Non è poco, mi creda."
+    goals: [argue]
+    recast: {text: "vieni un po' incontro", fix: "viene un po' incontro", tags: [register]}
+  - learner: "Il dodici è ancora troppo. Le faccio una controproposta: otto per cento, e in cambio paghiamo a trenta giorni invece che a sessanta. Per voi significa liquidità immediata."
+  - tutor: "La liquidità ci interessa, glielo concedo. Ma l'otto non copre nemmeno i nostri costi: posso arrivare al dieci, non oltre."
+    goals: [counteroffer]
+  - learner: "Dieci per cento, pagamento a trenta giorni e prezzo bloccato fino a dicembre dell'anno prossimo. Se mi conferma queste condizioni per iscritto, potremmo realizzare l'ordine già lunedì."
+    errors: [false-friend]
+  - tutor: "Confermo tutto, e potrete effettuare l'ordine già lunedì: le mando la proposta firmata entro stasera."
+    goals: [agreement]
+    recast: {text: "realizzare l'ordine", fix: "effettuare l'ordine", tags: [false-friend]}
+  - learner: "Perfetto, aspetto la proposta. Grazie della disponibilità."
+  - tutor: "Grazie a lei: è stato un piacere trattare con una cliente così preparata. A lunedì!"
+
+- scenario: trattativa-fornitore
+  level: C2
+  persona: en-m-traveller
+  history: [comparative]
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno. Sì, la chiamo per il listino. Prima di tutto vorrei capire: l'aumento è uguale per tutti i prodotti, o alcuni aumentano più che altri?"
+    errors: [comparative]
+    gold: {text: "più che altri", fix: "più di altri"}
+  - tutor: "Domanda legittima. Ma «alcuni aumentano più che altri»… davanti a un pronome come altri, il paragone vuole proprio che?"
+    prompt: {text: "più che altri", tags: [comparative]}
+  - learner: "Ah, vuole di: alcuni aumentano più di altri. Perché le nostre vaschette per la pasta fresca, secondo i miei calcoli, sono aumentate del diciotto per cento, non del quindici."
+  - tutor: "Ha ragione: le vaschette con il film protettivo hanno avuto un aumento maggiore, perché il film è salito di più. Avrebbero dovuto spiegarle la differenza."
+    goals: [problem]
+  - learner: "Esatto, e nessuno l'ha fatto. Compriamo da voi da sette anni e non abbiamo mai chiesto uno sconto, ma il nostro margine sulla pasta fresca è sottilissimo: con il diciotto per cento in più, lavoreremmo praticamente a pari."
+    errors: [word-choice]
+  - tutor: "Lavorare in pari per un anno intero non lo augurerei a nessuno, e sette anni di fiducia per me contano. Che cosa mi propone?"
+    goals: [argue]
+    recast: {text: "a pari", fix: "in pari", tags: [word-choice]}
+  - learner: "Il dieci per cento su tutto, vaschette comprese, e in cambio raddoppiamo l'ordine delle buste di carta, che oggi compriamo da un altro fornitore."
+  - tutor: "Raddoppiare le buste mi interessa molto. Potrei fare il dieci sulle vaschette e il dodici sul resto."
+    goals: [counteroffer]
+  - learner: "Mi sembra ragionevole, a patto che i prezzi rimanessero fermi per tutto l'anno prossimo."
+    errors: [subjunctive-use]
+    gold: {text: "a patto che i prezzi rimanessero fermi", fix: "a patto che i prezzi rimangano fermi"}
+  - tutor: "Quasi fatta. Ma «a patto che i prezzi rimanessero fermi»… per una condizione che riguarda il futuro, quell'imperfetto è il tempo giusto?"
+    prompt: {text: "a patto che i prezzi rimanessero fermi", tags: [subjunctive-use]}
+  - learner: "No, ci vuole il presente: a patto che i prezzi rimangano fermi per tutto l'anno prossimo."
+  - tutor: "Allora siamo d'accordo: dieci sulle vaschette, dodici sul resto, prezzi bloccati per un anno e doppio ordine di buste. Le mando il contratto stasera."
+    goals: [agreement]
+
+- scenario: trattativa-fornitore
+  level: C2
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno. Sì, ho visto il listino e, francamente, sono rimasto molto sorpreso. Siamo una compagnia piccola: un quindici per cento di aumento ci obbliga a rivedere tutti i nostri prezzi."
+    errors: [false-friend]
+  - tutor: "Capisco che per un'azienda piccola un aumento così pesi molto di più. Purtroppo il cartone ci costa il venti per cento in più da gennaio."
+    goals: [problem]
+    recast: {text: "una compagnia piccola", fix: "un'azienda piccola", tags: [false-friend]}
+  - learner: "Lo capisco, ma siamo clienti fedeli da nove anni, e paghiamo sempre a trenta giorni. Non pretendo che lei rinunci a tutto l'aumento, ma un trattamento di favore mi sembrerebbe giusto."
+  - tutor: "Nove anni di puntualità sono un argomento serio, e ne terrò conto. Che cosa avrebbe in mente?"
+    goals: [argue]
+  - learner: "Un aumento del sei per cento quest'anno e del sei il prossimo. Così il costo si distribuisce, e noi non dobbiamo alzare i prezzi ai supermercati tutto in una volta."
+  - tutor: "Distribuire l'aumento su due anni è un'idea intelligente. Ma il sei è poco: facciamo otto quest'anno e sette il prossimo?"
+    goals: [counteroffer]
+  - learner: "Otto e sette... Se me l'avrebbe proposto subito, avrei firmato senza discutere."
+    errors: [hypothetical]
+    gold: {text: "Se me l'avrebbe proposto", fix: "Se me l'avesse proposto"}
+  - tutor: "Lo prendo come un mezzo sì. Ma «se me l'avrebbe proposto»… nella frase con se, quel condizionale è al suo posto?"
+    prompt: {text: "Se me l'avrebbe proposto", tags: [hypothetical]}
+  - learner: "Voglio dire che se me lo avrebbe detto un mese fa, sarebbe stato tutto più semplice."
+    errors: [hypothetical]
+  - tutor: "Ha ragione: se il nostro ufficio gliel'avesse detto un mese fa, sarebbe stato tutto più semplice. Ma otto e sette è un'offerta onesta: la accetta?"
+    recast: {text: "avrebbe detto", fix: "avesse detto", tags: [hypothetical]}
+  - learner: "La accetto, con il contratto di due anni e il prezzo bloccato per tutta la durata."
+  - tutor: "Perfetto: otto per cento quest'anno, sette il prossimo, contratto biennale a prezzo bloccato. Le mando tutto per email entro stasera."
+    goals: [agreement]

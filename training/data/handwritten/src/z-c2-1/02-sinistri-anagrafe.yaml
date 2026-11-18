@@ -1,0 +1,232 @@
+# Round 4, set z-c2-1, file 2: insurance claims, the registry office, a first dinner.
+- scenario: assicurazione-sinistro
+  level: C2
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Stamattina, mentre uscivo in retromarcia da un parcheggio, un furgone che arrivava a forte velocità mi ha urtato la fiancata."
+    - tutor: "Mi dispiace. Lei sta bene? E il furgone procedeva nel senso di marcia corretto?"
+      goals: [what]
+    - learner: "Sto bene, grazie. Sì, ma andava molto oltre il limite: se andrebbe più piano, avrebbe potuto frenare senza problemi."
+      errors: [hypothetical]
+    - tutor: "Capisco. Mi ripeta però la seconda parte: «se andrebbe più piano»? Dopo quel se, il condizionale non regge."
+      prompt: {text: "se andrebbe più piano", tags: [hypothetical]}
+    - learner: "Certo: se andava più piano, avrebbe potuto frenare senza problemi. Ammetto però che io non l'avevo visto."
+      errors: [hypothetical]
+    - tutor: "Capisco: se fosse andato più piano, l'urto si sarebbe evitato. In casi del genere, però, la responsabilità viene spesso divisa, perché chi esce in retromarcia deve dare la precedenza. Avete compilato la constatazione amichevole?"
+      recast: {text: "se andava più piano", fix: "se fosse andato più piano", tags: [hypothetical]}
+      goals: [responsibility]
+    - learner: "Sì, il modulo è stato compilato da entrambi, ma la firma dell'altro conducente è venuta messa solo sulla seconda copia, quella che ha tenuto lui."
+      errors: [passive]
+    - tutor: "Questo è un dettaglio importante. Scusi, non ho capito bene: come è andata, con la firma?"
+      prompt: {text: "è venuta messa", tags: [passive]}
+    - learner: "Scusi: la firma è stato messo solo sulla seconda copia, quella che ha tenuto lui."
+      errors: [passive]
+    - tutor: "Chiaro: la firma è stata messa solo sulla copia dell'altro conducente. Ci mandi la Sua e, se l'ha fatta, una foto della sua: per noi è sufficiente. Ci sono testimoni?"
+      recast: {text: "è stato messo", fix: "è stata messa", tags: [passive]}
+      goals: [documents]
+    - learner: "Sì, un signore che aspettava l'autobus mi ha lasciato il suo numero. E adesso come si procede? Il perito viene a casa o devo portare la macchina da qualche parte?"
+    - tutor: "Il perito La contatterà entro cinque giorni lavorativi e potrà scegliere Lei se fare la perizia a casa o in carrozzeria. Le scriveremo noi appena la pratica sarà definita."
+      goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: C2
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri sera stavo aparcando sotto casa quando una moto mi ha colpito lo specchietto ed è scappata."
+      errors: [word-choice]
+    - tutor: "Mentre stava parcheggiando, dunque: che brutta sorpresa. È riuscito a vedere la targa?"
+      recast: {text: "aparcando", fix: "parcheggiando", tags: [word-choice]}
+      goals: [what]
+    - learner: "No, pioveva ed era già buio. Però una vicina ha fatto una foto dal balcone, e forse la matricola si legge."
+      errors: [false-friend]
+    - tutor: "Fortuna che c'era la vicina: se dalla foto si legge la targa, siamo a cavallo. E Lei, in quel momento, era fermo?"
+      recast: {text: "la matricola", fix: "la targa", tags: [false-friend]}
+    - learner: "Quasi fermo. Il motociclista superava la fila a destra, cosa che non si deve fare; quando ha toccato lo specchietto ha perso un attimo l'equilibrio, ma poi ripartiva subito."
+      errors: [tense-aspect]
+    - tutor: "Quindi la responsabilità è chiaramente sua. Solo una precisazione per il verbale: «poi ripartiva subito»? È un'azione puntuale e conclusa: quale tempo userebbe?"
+      prompt: {text: "poi ripartiva subito", tags: [tense-aspect]}
+      goals: [responsibility]
+    - learner: "Giusto: poi era ripartito subito, senza nemmeno voltarsi."
+      errors: [tense-aspect]
+    - tutor: "Quindi è ripartito subito, senza fermarsi. Senza targa certa non possiamo rivalerci su di lui, ma la foto potrebbe bastare. Ha già sporto denuncia ai carabinieri?"
+      recast: {text: "era ripartito subito", fix: "è ripartito subito", tags: [tense-aspect]}
+    - learner: "Non ancora. Pensavo che bastava chiamare voi."
+      errors: [subjunctive-use]
+    - tutor: "È un dubbio comune. Ma riascolti: «pensavo che bastava»? In un italiano curato, dopo pensare, quale modo ci aspettiamo?"
+      prompt: {text: "Pensavo che bastava", tags: [subjunctive-use]}
+    - learner: "Pensavo che basti chiamare voi. Quindi devo andare in caserma?"
+      errors: [subjunctive-use]
+    - tutor: "Lei pensava che bastasse chiamare noi, lo capisco, ma in caso di fuga la denuncia è indispensabile: ce ne mandi una copia insieme alla foto della vicina e alla descrizione del danno."
+      recast: {text: "che basti chiamare", fix: "che bastasse chiamare", tags: [subjunctive-use]}
+      goals: [documents]
+    - learner: "D'accordo, ci vado domattina. E dopo la denuncia, quanto tempo ci vuole per il risarcimento dello specchietto?"
+    - tutor: "Se dalla foto si identifica il veicolo, di solito un paio di mesi; altrimenti interviene il fondo per le vittime della strada, ma solo per danni più gravi. La terremo informata noi."
+      goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: C2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ho avuto un piccolo incidente al semaforo di via Roma: ero fermo al rosso e la macchina dietro di me mi ha tamponato."
+    - tutor: "Mi dispiace. Ci sono feriti? E l'altro conducente ha riconosciuto la propria responsabilità?"
+      goals: [what]
+    - learner: "Nessun ferito, per fortuna. Sì, l'ha ammessa subito: era distratto dal navigatore. Una persona molto educata, devo dire: si è scusato dieci volte."
+    - tutor: "Meglio così: un tamponamento con ammissione di colpa è il caso più semplice. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, e ho anche delle evidenze: ho fotografato i danni e la posizione delle due macchine prima di spostarle."
+      errors: [false-friend]
+    - tutor: "Benissimo, delle prove fotografiche ci saranno utilissime. Ce le alleghi alla constatazione, firmata da entrambi, e la pratica parte subito."
+      recast: {text: "delle evidenze", fix: "delle prove", tags: [false-friend]}
+      goals: [documents]
+    - learner: "Perfetto. C'è un carrozziere vicino a casa mia di cui mi fido e da cui porto la macchina da anni: posso andare da lui?"
+    - tutor: "Sì, può scegliere Lei l'officina, purché aspetti la perizia prima di far riparare il paraurti."
+    - learner: "Capito. E per il rimborso, quanto tempo vuole, più o meno?"
+      errors: [ci-ne]
+    - tutor: "Mi scusi: «quanto tempo vuole»? Detto così, sembra che il tempo abbia dei desideri tutti suoi."
+      prompt: {text: "quanto tempo vuole", tags: [ci-ne]}
+    - learner: "Ha ragione, che svista! Quanto tempo ci vuole per il rimborso?"
+    - tutor: "Di solito trenta giorni dalla perizia, e il perito La chiamerà entro la settimana. Le invieremo anche un messaggio con il numero della pratica."
+      goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C2
+  persona: es-f-erasmus
+  history: [register]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Devo fare il cambio di residenza: mi sono mudata da Bologna il mese scorso per un dottorato."
+      errors: [false-friend]
+    - tutor: "Trasferita da Bologna, quindi: si tratta di un cambio di residenza da un altro Comune. Ha con sé un documento?"
+      recast: {text: "mudata", fix: "trasferita", tags: [false-friend]}
+      goals: [request]
+    - learner: "Sì, ho la carta d'identità e il contratto d'affitto. Ma senti, serve anche quella roba del codice fiscale?"
+      errors: [register]
+    - tutor: "Il codice fiscale serve, sì. Però «senti» e «quella roba», qui allo sportello, suonano un po' troppo confidenziali: come lo chiederebbe a un funzionario?"
+      prompt: {text: "Ma senti, serve anche quella roba del codice fiscale", tags: [register]}
+    - learner: "Mi scusi, ha ragione. Volevo sapere se è necessario anche il codice fiscale."
+    - tutor: "Nessun problema. Sì, è necessario, insieme al documento e al contratto registrato. Ha gli estremi della registrazione?"
+      goals: [documents]
+    - learner: "Ecco, il problema è proprio questo: il proprietario dice che il contratto è stato registrato, ma io non ho la ricevuta, e lui è molto difficile da localizzare."
+      errors: [false-friend]
+    - tutor: "Se è difficile da rintracciare, non si preoccupi: la registrazione si verifica anche dal codice del contratto, che di solito è sulla prima pagina."
+      recast: {text: "difficile da localizzare", fix: "difficile da rintracciare", tags: [false-friend]}
+      goals: [problem]
+    - learner: "Eccolo, c'è. Che sollievo! E dopo, quanto tempo deve passare perché la residenza sia effettiva?"
+    - tutor: "La residenza decorre dalla data della domanda. Entro quarantacinque giorni passeranno i vigili a verificare che Lei abiti all'indirizzo dichiarato; se non La trovano, Le lasciano un avviso."
+      goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C2
+  persona: en-m-retired
+  history: [passive]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Mi sono trasferito qui dalla Scozia con mia moglie: siamo ritirati e vorremmo prendere la residenza."
+      errors: [false-friend]
+    - tutor: "Benvenuti, e buona pensione! In pensione e cittadini non comunitari, quindi: serve il permesso di soggiorno. Lo avete già?"
+      recast: {text: "ritirati", fix: "in pensione", tags: [false-friend]}
+      goals: [request]
+    - learner: "Sì, i permessi ci sono stati rilasciati a gennaio dalla Questura. Ho portato anche l'atto di acquisto della casa."
+    - tutor: "Perfetto. Servono allora il modulo, i passaporti, i permessi e una copia dell'atto. Il modulo, però, lo devono firmare tutti e due i richiedenti."
+      goals: [documents]
+    - learner: "Quindi il modulo va essere firmato anche da mia moglie? Oggi non è potuta venire."
+      errors: [passive]
+    - tutor: "Sì. Ma senta come l'ha detto: «va essere firmato»? Con andare, nel passivo, la costruzione è più snella di così."
+      prompt: {text: "va essere firmato", tags: [passive]}
+    - learner: "Giusto: il modulo va firmata anche da lei. Posso portarglielo a casa e riconsegnarlo domani?"
+      errors: [passive]
+    - tutor: "Sì, il modulo va firmato anche da Sua moglie, ma purtroppo davanti a me, oppure va spedito per posta certificata con una copia del suo documento. Le conviene la seconda strada."
+      recast: {text: "va firmata", fix: "va firmato", tags: [passive]}
+      goals: [problem]
+    - learner: "Allora lo spediamo stasera stessa. E dopo, la pratica quanto tempo prende?"
+      errors: [word-choice]
+    - tutor: "Quanto tempo richiede? Una quarantina di giorni, più o meno: i vigili passeranno a verificare che abitiate davvero lì, e poi riceverete una comunicazione."
+      recast: {text: "quanto tempo prende", fix: "quanto tempo richiede", tags: [word-choice]}
+      goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C2
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Vorrei chiedere la residenza, ma prima volevo sapere se si può fare anche senza contratto d'affitto, perché per ora abito da un amico."
+    - tutor: "Certo, si può. In quel caso serve una dichiarazione di ospitalità firmata dal Suo amico, con copia del suo documento. Lei ha il permesso di soggiorno?"
+      goals: [request]
+    - learner: "Sì, ce l'ho, ma scade tra un mese. Non so se il Comune accetta un permesso che scade così presto."
+    - tutor: "Lo accetta, purché Lei porti anche la ricevuta della richiesta di rinnovo. Ha già fatto domanda in Questura?"
+      goals: [documents]
+    - learner: "Non ancora. In Questura mi hanno detto che è necessario che il datore di lavoro firma una dichiarazione, e lui è in ferie fino a lunedì."
+      errors: [subjunctive-use]
+    - tutor: "Situazione frequente. Mi permetta, però: «è necessario che il datore di lavoro firma»? Dopo «è necessario che», quel verbo stona."
+      prompt: {text: "è necessario che il datore di lavoro firma", tags: [subjunctive-use]}
+    - learner: "Ah, sì... è necessario che il datore di lavoro firmerà la dichiarazione, quindi devo aspettare."
+      errors: [subjunctive-use]
+    - tutor: "Capisco: è necessario che il datore di lavoro firmi la dichiarazione, e fino a lunedì non si può. Nel frattempo, però, la ricevuta della prenotazione online basta per avviare la pratica."
+      recast: {text: "il datore di lavoro firmerà", fix: "il datore di lavoro firmi", tags: [subjunctive-use]}
+      goals: [problem]
+    - learner: "Ottimo. Se riesco a prenotare stasera, posso tornare domani con la ricevuta senza prendere un altro numero?"
+    - tutor: "Certo, venga direttamente a questo sportello. Poi, entro quarantacinque giorni, passeranno i vigili per l'accertamento, e la residenza decorrerà da domani."
+      goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C2
+  persona: en-f-student
+  history: [hypothetical]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono una dottoranda e devo iscrivermi all'anagrafe, perché senza residenza la banca non mi apre un account."
+      errors: [word-choice]
+    - tutor: "Capita spesso: senza residenza nessuna banca apre un conto. Lei è cittadina dell'Unione europea?"
+      recast: {text: "un account", fix: "un conto", tags: [word-choice]}
+      goals: [request]
+    - learner: "Sì, sono irlandese. Ho già riempito il modulo online, ma volevo essere sicura che fosse tutto in ordine prima di consegnarlo."
+      errors: [word-choice]
+    - tutor: "Ha fatto bene: vediamo se ha compilato il modulo correttamente. Sì, è tutto in regola; mi servono però il contratto e un attestato di iscrizione al dottorato."
+      recast: {text: "riempito il modulo", fix: "compilato il modulo", tags: [word-choice]}
+      goals: [documents]
+    - learner: "L'attestato ce l'ho. Il contratto d'affitto, invece, è nel nome della mia coinquilina, non nel mio."
+      errors: [word-choice]
+    - tutor: "Se il contratto è intestato alla Sua coinquilina, nessun problema: basta una sua dichiarazione che La autorizzi a fissare lì la residenza, con copia del suo documento."
+      recast: {text: "è nel nome della", fix: "è intestato alla", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Perfetto, gliela faccio firmare stasera. Una curiosità: se i vigili passerebbero quando non sono a casa, la pratica verrebbe respinta?"
+      errors: [hypothetical]
+    - tutor: "È la domanda che mi fanno tutti. Ma ripeta la prima parte: «se i vigili passerebbero»? Dopo se, il condizionale non funziona."
+      prompt: {text: "se i vigili passerebbero", tags: [hypothetical]}
+    - learner: "Giusto: se i vigili passassero quando non sono a casa, la pratica verrebbe respinta?"
+    - tutor: "Perfetto. No, non verrebbe respinta: Le lascerebbero un avviso con un numero da chiamare per fissare un nuovo controllo. Il tutto si chiude in quarantacinque giorni."
+      goals: [next]
+
+- scenario: cena-suoceri
+  level: C2
+  persona: es-f-teacher
+  history: [register]
+  turns:
+    - tutor: "Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+    - learner: "Spero di non deluderLa, allora. Grazie mille dell'invito: avete una casa splendida, e quei soffitti affrescati sono una meraviglia."
+    - tutor: "Gli affreschi sono del Settecento, e le crepe pure. Ma si accomodi: mia moglie ha preparato la ribollita."
+    - learner: "È buonissima, davvero. Ho una curiosità: Sua moglie la fa con il pane raffermo di casa o lo compra apposta?"
+    - tutor: "Raffermo di casa, guai a chi lo compra: glielo dirò, ne sarà lusingata. Ma mi parli di Lei: mia figlia dice che insegna, è così?"
+      goals: [compliment]
+    - learner: "Sì, insegno spagnolo in un liceo, ma vorrei aprire una scuola di lingue tutta mia. Ho già trovato una socia e sono molto illusa con questo progetto."
+      errors: [false-friend]
+    - tutor: "Mi fa piacere che sia molto entusiasta: detto «illusa», sembrava già prevedere il fallimento! Una scuola di lingue a Firenze, dove anche i piccioni parlano tre lingue: coraggio o incoscienza?"
+      recast: {text: "molto illusa", fix: "molto entusiasta", tags: [false-friend]}
+      goals: [background]
+    - learner: "Diciamo un coraggio ben informato. E poi, se i piccioni parlassero davvero tre lingue, avrei già trovato i primi insegnanti."
+    - tutor: "Questa me la segno. Senta, tra persone che si scambiano battute del genere il Lei mi pare ormai fuori luogo: che ne dice se ci diamo del tu?"
+      goals: [irony]
+    - learner: "Con piacere! Ma Lei deve avere pazienza con me se all'inizio mi scappa ancora il Lei."
+      errors: [register]
+    - tutor: "Ecco, appunto: hai detto «con piacere» e un secondo dopo eri già tornata indietro. Riproviamo?"
+      prompt: {text: "Lei deve avere pazienza con me", tags: [register]}
+    - learner: "Hai ragione! Devi avere pazienza con me: ci vorrà un po' di allenamento."
+    - tutor: "Ci alleneremo a ogni cena, allora. Alziamo i bicchieri: al tu, e alla scuola di lingue."
+      goals: [tu-lei]

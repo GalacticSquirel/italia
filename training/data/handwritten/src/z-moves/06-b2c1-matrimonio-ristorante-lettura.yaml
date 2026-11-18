@@ -1,0 +1,266 @@
+# z-moves, B2 and C1: within one conversation, a grammar error is prompted (and repaired or not,
+# then recast), a lexical error is recast at once, a mixed turn gets the grammar prompt, and
+# correct turns are simply answered.
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-f-student
+  history: [combined-pronouns, subjunctive-use]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Vorremmo una cerimonia all'aperto, semplice ma elegante, con circa ottanta invitati."
+    - tutor: "Bellissimo. E avete già pensato a un budget?"
+      goals: [vision]
+    - learner: "Circa ventimila euro. Ma il menù è un argomento continuo in famiglia: mia madre vuole il pesce."
+      errors: [false-friend]
+    - tutor: "Una discussione continua, capisco! Possiamo proporre un menù con pesce e carne, restando nel budget."
+      goals: [budget]
+      recast: {text: "argomento", fix: "discussione", tags: [false-friend]}
+    - learner: "Perfetto. Mio padre vuole vedere la villa. Gli la mostriamo sabato?"
+      errors: [combined-pronouns]
+    - tutor: "Gli la mostriamo? Quando «gli» incontra «la», cosa succede?"
+      prompt: {text: "Gli la mostriamo", tags: [combined-pronouns]}
+    - learner: "Sì, gli la mostriamo sabato mattina?"
+      errors: [combined-pronouns]
+    - tutor: "Certo, gliela mostriamo sabato mattina, così poi scegliete tra la villa e la casa di campagna."
+      recast: {text: "gli la mostriamo", fix: "gliela mostriamo", tags: [combined-pronouns]}
+    - learner: "Una condizione: è importante che il fotografo è discreto e che non ci siano speeches lunghi."
+      errors: [subjunctive-use, word-choice]
+    - tutor: "Che il fotografo è discreto? Dopo «è importante che», quale modo serve?"
+      prompt: {text: "il fotografo è discreto", tags: [subjunctive-use]}
+    - learner: "Ah, è importante che il fotografo sia discreto."
+    - tutor: "Esatto, e ci penso io: è una condizione chiarissima."
+      goals: [conditions]
+    - learner: "Allora, se a mio padre piace, scegliamo la villa. Ci manda il preventivo?"
+    - tutor: "Perfetto, la villa allora! Vi mando il preventivo entro venerdì."
+      goals: [choices]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-f-teacher
+  history: [hypothetical, subjunctive-form]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, purtroppo la serata è stata deludente."
+    - tutor: "Mi dispiace molto. Che cosa è successo, esattamente?"
+      goals: [complain]
+    - learner: "Abbiamo aspettato un'ora il secondo, e la bistecca era quemada."
+      errors: [word-choice]
+    - tutor: "Bruciata? Non doveva succedere, mi scuso a nome della cucina."
+      goals: [detail]
+      recast: {text: "quemada", fix: "bruciata", tags: [word-choice]}
+    - learner: "Se il cameriere ci avvisava del ritardo, avremmo ordinato un'altra cosa."
+      errors: [hypothetical]
+    - tutor: "Se il cameriere ci avvisava? Con «avremmo ordinato», quale tempo va dopo «se»?"
+      prompt: {text: "avvisava", tags: [hypothetical]}
+    - learner: "Sì, se ci avvisava, ordinavamo un'altra cosa."
+      errors: [hypothetical]
+    - tutor: "Ha ragione: se il cameriere vi avesse avvisato, avreste potuto scegliere altro."
+      goals: [expectation]
+      recast: {text: "avvisava", fix: "avesse avvisato", tags: [hypothetical]}
+    - learner: "Esatto. E speravo che il cuoco stasse più attento, perché qui si mangia sempre bene."
+      errors: [subjunctive-form]
+    - tutor: "Stasse? Il congiuntivo imperfetto di «stare» è un po' particolare."
+      prompt: {text: "stasse", tags: [subjunctive-form]}
+    - learner: "Ah, speravo che stesse più attento."
+    - tutor: "Esatto, e aveva tutto il diritto di aspettarselo. Per scusarci, vorrei offrirvi la cena."
+    - learner: "Lo apprezzo molto, accetto volentieri. Grazie per la gentilezza."
+    - tutor: "Grazie a voi della pazienza. Spero di rivedervi presto."
+      goals: [resolve]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-traveller
+  history: [comparative]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Lavoro da casa tre giorni a settimana e vado in ufficio il martedì e il giovedì."
+    - tutor: "Ah, metà e metà! E come ti trovi?"
+      goals: [situation]
+    - learner: "Benissimo. Per me è più tranquillo di lavorare in ufficio."
+      errors: [comparative]
+    - tutor: "Più tranquillo di lavorare? Quando confronti due verbi, quale parola serve?"
+      prompt: {text: "di lavorare in ufficio", tags: [comparative]}
+    - learner: "Sì, più tranquillo di lavorare in ufficio, con tutti i colleghi."
+      errors: [comparative]
+    - tutor: "Capisco, è più tranquillo che lavorare in ufficio con il rumore di tutti."
+      goals: [pros]
+      recast: {text: "di lavorare in ufficio", fix: "che lavorare in ufficio", tags: [comparative]}
+    - learner: "Lo svantaggio sono i bambini: fanno rumore e la sera sono sempre annoiato."
+      errors: [false-friend]
+    - tutor: "Irritato, immagino! Con i bambini in casa è dura concentrarsi."
+      goals: [cons]
+      recast: {text: "annoiato", fix: "irritato", tags: [false-friend]}
+      new: [{lemma: irritato, gloss: annoyed}]
+    - learner: "Esatto. Se potrei scegliere, farei due giorni da casa e tre in ufficio, per un buon balance."
+      errors: [hypothetical, word-choice]
+    - tutor: "Se potrei? Dopo «se», il condizionale ti convince?"
+      prompt: {text: "Se potrei", tags: [hypothetical]}
+    - learner: "Ah, se potessi scegliere, farei due giorni da casa e tre in ufficio."
+    - tutor: "Esatto! Mi sembra un'ottima soluzione."
+      goals: [preference]
+    - learner: "E tu? Preferisci l'ufficio?"
+    - tutor: "Io sì, ho bisogno delle persone intorno! Ma ti capisco benissimo."
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-m-worker
+  history: [hypothetical, ci-ne]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, molto, è luminoso e ben arredato. Però il canone mi sembra un po' alto per la zona."
+    - tutor: "Capisco. È trattabile, entro certi limiti. Ha visto altre case in zona?"
+      goals: [interest]
+    - learner: "Sì, ho visitato quattro questa settimana, e costavano meno."
+      errors: [ci-ne]
+    - tutor: "Ho visitato quattro? Quattro... che cosa? Manca un pronome."
+      prompt: {text: "ho visitato quattro", tags: [ci-ne]}
+    - learner: "Ah, ne ho visitati quattro questa settimana."
+    - tutor: "Esatto. E quanto costavano, più o meno?"
+    - learner: "Circa novecento euro. Se mi fate uno sconto, posso pagare tre mesi adelantados."
+      errors: [word-choice]
+    - tutor: "Tre mesi in anticipo? Questo potrebbe interessare al proprietario."
+      goals: [negotiate]
+      recast: {text: "adelantados", fix: "in anticipo", tags: [word-choice]}
+    - learner: "Se il proprietario accettava novecentocinquanta, sarebbe perfetto per me."
+      errors: [hypothetical]
+    - tutor: "Se il proprietario accettava? Con «sarebbe», quale tempo va dopo «se»?"
+      prompt: {text: "accettava", tags: [hypothetical]}
+    - learner: "Sì, se accettava novecentocinquanta euro."
+      errors: [hypothetical]
+    - tutor: "E se accettasse novecentocinquanta euro, lei firmerebbe un contratto di quattro anni più quattro?"
+      recast: {text: "accettava", fix: "accettasse", tags: [hypothetical]}
+    - learner: "Sì, va bene. E per la disdetta? Se è ragionevole, per me è fatta."
+    - tutor: "Bisogna avvisare sei mesi prima, con una raccomandata. Chiamo il proprietario e le confermo stasera."
+      goals: [conditions, conclude]
+
+- scenario: club-lettura
+  level: C1
+  persona: en-f-professional
+  history: [subjunctive-use, hypothetical]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Sì, l'ho finito domenica. Nel complesso mi è piaciuto, anche se la seconda metà mi è sembrata un po' tirata per le lunghe."
+    - tutor: "Tirata per le lunghe? Io invece l'ho trovata la parte più intensa. E della protagonista che ne pensi?"
+      goals: [impression]
+    - learner: "Non capisco perché abbia lasciato il marito così. Mi sembra che l'autrice non ha spiegato bene le sue ragioni."
+      errors: [subjunctive-use]
+    - tutor: "«Mi sembra che l'autrice non ha spiegato»: dopo «mi sembra che», ti torna quel modo verbale?"
+      prompt: {text: "non ha spiegato", tags: [subjunctive-use]}
+    - learner: "Sì, mi sembra che non ha spiegato abbastanza."
+      errors: [subjunctive-use]
+    - tutor: "Ti sembra che non abbia spiegato abbastanza, capisco. Io credo che fosse una scelta voluta: quel silenzio dice più di mille pagine."
+      goals: [character]
+      recast: {text: "non ha spiegato", fix: "non abbia spiegato", tags: [subjunctive-use]}
+    - learner: "Può darsi. Lo stile però è asciutto, con frasi brevi, e secondo me fa senso con la storia."
+      errors: [word-choice]
+    - tutor: "Ha senso, sì: quello stile asciutto rispecchia il carattere chiuso della protagonista."
+      goals: [style]
+      recast: {text: "fa senso", fix: "ha senso", tags: [word-choice]}
+    - learner: "Lo consiglierei a chi ama i romanzi psicologici. Se mio fratello l'avrebbe letto, l'avrebbe abbandonato subito: legge solo novelle gialle."
+      errors: [hypothetical, false-friend]
+    - tutor: "«Se mio fratello l'avrebbe letto»: dopo quel «se», ti convince il condizionale?"
+      prompt: {text: "l'avrebbe letto", tags: [hypothetical]}
+    - learner: "Ah, se mio fratello l'avesse letto, l'avrebbe abbandonato subito."
+    - tutor: "Esatto! E probabilmente hai ragione: non è un libro per tutti."
+      goals: [recommend]
+    - learner: "Comunque è stato un bel modo di passare tre sere. Il prossimo lo scegli tu?"
+    - tutor: "Volentieri! Ho già in mente un giallo, così accontentiamo anche tuo fratello."
+
+- scenario: intelligenza-artificiale
+  level: C1
+  persona: es-f-teacher
+  history: [hypothetical, subjunctive-use]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Capisco la tua paura, ma non sono così pessimista. Se l'automazione eliminerebbe tanti posti, ne creerebbe anche di nuovi."
+      errors: [hypothetical]
+    - tutor: "«Se l'automazione eliminerebbe»: dopo «se», il condizionale ti convince?"
+      prompt: {text: "eliminerebbe", tags: [hypothetical]}
+    - learner: "Ah, se l'automazione eliminasse tanti posti, ne creerebbe anche di nuovi."
+    - tutor: "Così va meglio. Ma chi perde il lavoro a cinquant'anni non diventa programmatore dall'oggi al domani."
+      goals: [position]
+    - learner: "Hai ragione, la transizione può essere molto dura per chi è più avanti con gli anni."
+    - tutor: "Appunto. E allora come la gestiamo, secondo te?"
+    - learner: "Con la formazione. Nel mio istituto abbiamo fatto un corso sull'IA per trenta docenti, e i risultati sono stati molto esitosi."
+      errors: [word-choice]
+    - tutor: "Ottimi, quindi? Se quasi tutti oggi la usano per preparare le lezioni, è un esempio che mi fa riflettere."
+      goals: [evidence]
+      recast: {text: "molto esitosi", fix: "ottimi", tags: [word-choice]}
+    - learner: "Esatto. Però ammetto una cosa: bisognerebbe che lo Stato regolava di più l'uso dell'IA nelle aziende."
+      errors: [subjunctive-use]
+    - tutor: "«Bisognerebbe che lo Stato regolava»: ti convince quel modo verbale?"
+      prompt: {text: "regolava", tags: [subjunctive-use]}
+    - learner: "Sì, bisognerebbe che regolava di più, con regole chiare."
+      errors: [subjunctive-use]
+    - tutor: "Su questo siamo d'accordo: bisognerebbe che lo Stato regolasse di più, con regole chiare e controlli seri."
+      goals: [concede]
+      recast: {text: "regolava", fix: "regolasse", tags: [subjunctive-use]}
+    - learner: "Quindi, in fondo, la tecnologia non è il nemico: va governata."
+    - tutor: "Diciamo che su questo ci siamo trovati. Però io resto un po' pessimista, lasciamelo dire!"
+      goals: [conclude]
+
+- scenario: intervista-podcast
+  level: C1
+  persona: en-m-heritage
+  history: [tense-aspect, subjunctive-use]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivato proprio in Italia?"
+    - learner: "Grazie a voi! Mio nonno era siciliano e da bambino mi raccontava sempre del suo paese. Quando ho perso il lavoro a Chicago, ho deciso di trasferirmi."
+    - tutor: "Una storia di radici, quindi. E appena arrivato, che cosa ti ha sorpreso di più?"
+      goals: [story]
+    - learner: "La burocrazia. Il primo giorno, all'anagrafe, l'impiegato mi diceva di tornare dopo una settimana."
+      errors: [tense-aspect]
+    - tutor: "«Mi diceva»: era un'abitudine, o è successo una volta sola?"
+      prompt: {text: "diceva", tags: [tense-aspect]}
+    - learner: "Sì, mi diceva di tornare dopo una settimana, e basta."
+      errors: [tense-aspect]
+    - tutor: "Ah, ti ha detto di tornare dopo una settimana, e basta! Un classico, purtroppo."
+      goals: [culture-shock]
+      recast: {text: "diceva", fix: "ha detto", tags: [tense-aspect]}
+    - learner: "Se devo criticare qualcosa, sono gli orari degli uffici: aprono solo la mattina, e non è molto conveniente per chi lavora."
+      errors: [false-friend]
+    - tutor: "Non è molto comodo, hai ragione, soprattutto per chi lavora tutto il giorno."
+      goals: [critique]
+      recast: {text: "conveniente", fix: "comodo", tags: [false-friend]}
+    - learner: "A chi vuole venire direi di imparare la lingua prima. Avrei voluto che qualcuno me lo diceva, eventualmente ci si abitua a tutto."
+      errors: [subjunctive-use, false-friend]
+    - tutor: "«Avrei voluto che qualcuno me lo diceva»: dopo «avrei voluto che», cosa ci vuole?"
+      prompt: {text: "me lo diceva", tags: [subjunctive-use]}
+    - learner: "Ah, avrei voluto che qualcuno me lo dicesse!"
+    - tutor: "Esatto. Un consiglio sincero, e molto utile per chi ci ascolta."
+      goals: [advice]
+    - learner: "Grazie a te, è stato un piacere chiacchierare."
+    - tutor: "Il piacere è stato nostro. Alla prossima, e in bocca al lupo!"
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: es-m-worker
+  history: [subjunctive-use, combined-pronouns]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Si sieda pure, ha fatto bene a venire. Mi racconti con calma cosa è successo."
+    - tutor: "Marco ha presentato il progetto come se fosse tutto merito suo, e io ci ho lavorato per tre mesi."
+    - learner: "Capisco, è una situazione molto molesta per lei."
+      errors: [false-friend]
+    - tutor: "Spiacevole è dire poco: davanti a tutti mi sono sentita invisibile."
+      goals: [listen]
+      recast: {text: "molesta", fix: "spiacevole", tags: [false-friend]}
+    - learner: "Vorrei capire bene. È possibile che lui non ha capito quanto lavoro c'era dietro?"
+      errors: [subjunctive-use]
+    - tutor: "«È possibile che lui non ha capito»: dopo «è possibile che», le sembra il modo giusto?"
+      prompt: {text: "non ha capito", tags: [subjunctive-use]}
+    - learner: "Ah, è possibile che non abbia capito quanto lavoro c'era dietro?"
+    - tutor: "La domanda è giusta, ma no: lo sapeva benissimo, gli avevo mandato tutto io."
+      goals: [clarify]
+    - learner: "Forse voleva solo semplificare la presentazione. Comunque è giusto dirlo gli chiaramente."
+      errors: [combined-pronouns]
+    - tutor: "«Dirlo gli»: come si uniscono questi due pronomi?"
+      prompt: {text: "dirlo gli", tags: [combined-pronouns]}
+    - learner: "Sì, è giusto dirlo gli insieme, domani."
+      errors: [combined-pronouns]
+    - tutor: "Va bene, dirglielo insieme mi sembra la cosa più giusta. Magari voleva davvero solo semplificare."
+      goals: [perspective]
+      recast: {text: "dirlo gli", fix: "dirglielo", tags: [combined-pronouns]}
+    - learner: "Domani alle nove, allora. E dalla prossima riunione ognuno presenterà la propria parte del progetto."
+    - tutor: "Mi sembra una soluzione giusta. La ringrazio per avermi ascoltata."
+      goals: [solution]

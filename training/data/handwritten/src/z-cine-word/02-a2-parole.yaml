@@ -1,0 +1,254 @@
+# z-cine-word, file 02 (A2): collocations (fare/prendere), calques, false friends, near-synonyms.
+- scenario: palestra
+  level: A2
+  persona: en-f-student
+  history: [word-choice]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, ciao! Quanto costa l'abbonamento per un mese?"
+    - tutor: "Un mese costa quaranta euro, tre mesi cento euro."
+      goals: [ask-membership]
+    - learner: "Avete corsi di yoga? Ho dolore di schiena e il mio dottore dice che lo yoga aiuta."
+      errors: [word-choice]
+    - tutor: "Sì, e per il mal di schiena lo yoga è perfetto: lunedì, mercoledì e venerdì."
+      recast: {text: "dolore di schiena", fix: "mal di schiena", tags: [word-choice]}
+      goals: [classes]
+    - learner: "A che ora? Lavoro fino alle sei."
+    - tutor: "Il lunedì e il mercoledì alle sette di sera, il venerdì alle sei e mezza."
+      goals: [timetable]
+    - learner: "Perfetto. E dopo la lezione posso prendere una doccia qui?"
+      errors: [word-choice]
+    - tutor: "Certo, puoi fare una doccia negli spogliatoi, al piano di sotto."
+      recast: {text: "prendere una doccia", fix: "fare una doccia", tags: [word-choice]}
+    - learner: "Bene. Allora vengo a palestra tre volte alla settimana, per tre mesi."
+      errors: [preposition]
+      gold: {text: "a palestra", fix: "in palestra"}
+    - tutor: "«A palestra»? Attenzione alla preposizione: con «palestra» quale usiamo?"
+      prompt: {text: "a palestra", tags: [preposition]}
+    - learner: "Ah, vengo in palestra tre volte alla settimana!"
+    - tutor: "Esatto! Allora facciamo l'iscrizione per tre mesi. Mi dai un documento?"
+    - learner: "Ecco la mia carta d'identità. Posso pagare adesso, con la carta?"
+    - tutor: "Sì, certo. Ecco fatto: benvenuta in palestra!"
+      goals: [sign-up]
+
+- scenario: tempo-libero
+  level: A2
+  persona: en-m-retired
+  history: [word-choice]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Domenica vado allo stadio! Sono un grande supporter del Torino."
+      errors: [word-choice]
+    - tutor: "Un grande tifoso del Torino, che bello! Vai spesso allo stadio?"
+      recast: {text: "supporter del Torino", fix: "tifoso del Torino", tags: [word-choice]}
+      new: [{lemma: tifoso, gloss: fan}]
+      goals: [hobby]
+    - learner: "Sì, ci vado ogni due settimane, quando la squadra gioca in casa."
+    - tutor: "Ogni due settimane, bravo! Io a vedere il calcio non ci vado mai."
+      goals: [frequency]
+    - learner: "Davvero? E tu cosa fai il sabato e la domenica?"
+    - tutor: "Io leggo molto, e la domenica mattina vado a correre al parco."
+      goals: [ask]
+    - learner: "Correre? Per me è troppo difficile. Io preferisco camminare."
+    - tutor: "Anche camminare fa bene! E poi si parla meglio."
+    - learner: "Senti, domenica vieni a vedere il gioco con me? Ho due biglietti."
+      errors: [word-choice]
+    - tutor: "A vedere la partita? Sì, vengo! Ma io sono della Juventus, va bene lo stesso?"
+      recast: {text: "il gioco", fix: "la partita", tags: [word-choice]}
+      goals: [propose]
+    - learner: "Ah ah, va bene! Ci vediamo davanti allo stadio alle due."
+    - tutor: "Perfetto, a domenica allora!"
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: es-f-erasmus
+  history: [word-choice, false-friend]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Una tortilla di patate, come in Spagna! Servono patate, uova, cebolla e olio."
+      errors: [word-choice]
+    - tutor: "Buona, con la cipolla! Quante uova servono?"
+      recast: {text: "cebolla", fix: "cipolla", tags: [word-choice]}
+      new: [{lemma: cipolla, gloss: onion}]
+      goals: [ingredients]
+    - learner: "Sei uova e un chilo patate."
+      errors: [preposition]
+      gold: {text: "un chilo patate", fix: "un chilo di patate"}
+    - tutor: "«Un chilo... patate»? Tra «chilo» e «patate» manca una piccola parola."
+      prompt: {text: "un chilo patate", tags: [preposition]}
+    - learner: "Ah, un chilo di patate, scusa."
+    - tutor: "Perfetto. Le patate le taglio io. E le bucce dove le metto?"
+      new: [{lemma: buccia, gloss: peel}]
+    - learner: "Dobbiamo tirare le bucce, non servono."
+      errors: [false-friend]
+    - tutor: "Sì, possiamo buttare le bucce qui. E dopo cosa facciamo?"
+      recast: {text: "tirare le bucce", fix: "buttare le bucce", tags: [false-friend]}
+    - learner: "Metto le patate nella sartén con molto olio, e poi aggiungo le uova."
+      errors: [word-choice]
+    - tutor: "Va bene, nella padella con molto olio. Quanto tempo deve cuocere?"
+      recast: {text: "nella sartén", fix: "nella padella", tags: [word-choice]}
+      new: [{lemma: padella, gloss: frying pan}]
+      goals: [steps]
+    - learner: "Dieci minuti per parte. Dopo cinque minuti bisogna darle la volta con un piatto."
+      errors: [word-choice]
+    - tutor: "Girarla con un piatto? Che paura! Lo fai tu, io guardo."
+      recast: {text: "darle la volta", fix: "girarla", tags: [word-choice]}
+      goals: [time]
+    - learner: "Sì, lo faccio io! La serviamo calda o fredda, come vuoi. In Spagna la mangiamo anche con il pane."
+    - tutor: "Allora calda, con il pane e un po' di formaggio. Che fame!"
+      goals: [serve]
+
+- scenario: medico-base
+  level: A2
+  persona: en-m-retired
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Da tre giorni ho un forte freddo e mi fa male la testa."
+      errors: [word-choice]
+    - tutor: "Un forte raffreddore? Mi dispiace. Ha anche la febbre?"
+      recast: {text: "un forte freddo", fix: "Un forte raffreddore", tags: [word-choice]}
+      goals: [symptoms, since-when]
+    - learner: "Sì, ieri sera avevo trentotto e mezzo."
+    - tutor: "Va bene. È allergico a qualche medicina?"
+    - learner: "No, non sono allergico. Ma prendo una pillola per la pressione ogni mattina."
+    - tutor: "D'accordo. Allora le scrivo una ricetta per la febbre: una medicina ogni otto ore."
+      goals: [history]
+    - learner: "Va bene. Devo restare nel letto tutto il giorno?"
+      errors: [preposition]
+      gold: {text: "nel letto", fix: "a letto"}
+    - tutor: "«Nel letto»? Quando uno sta male e non si alza, con «letto» usiamo un'altra preposizione."
+      prompt: {text: "nel letto", tags: [preposition]}
+    - learner: "Ah: devo restare a letto tutto il giorno?"
+    - tutor: "Sì, almeno per due giorni. E beva molta acqua."
+    - learner: "Sabato è il compleanno di mia nipote. Posso guardare la bambina, o è meglio di no?"
+      errors: [word-choice]
+    - tutor: "Può vedere la bambina, se non ha più la febbre. Ma niente baci, per favore!"
+      recast: {text: "guardare la bambina", fix: "vedere la bambina", tags: [word-choice]}
+    - learner: "Va bene: una medicina ogni otto ore, molta acqua e niente baci. Grazie, dottore!"
+    - tutor: "Perfetto, ha capito tutto. Buona guarigione!"
+      goals: [instructions]
+      new: [{lemma: guarigione, gloss: recovery}]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Devo mandare questi documenti a Madrid. Sono molto importanti per il mio lavoro."
+    - tutor: "Allora le consiglio una raccomandata. Arriva in quattro o cinque giorni."
+      goals: [send]
+    - learner: "C'è un servizio più veloce? L'oficina di Madrid li aspetta entro venerdì."
+      errors: [false-friend]
+    - tutor: "L'ufficio di Madrid li aspetta entro venerdì? Allora prenda il servizio veloce: arriva in due giorni."
+      recast: {text: "L'oficina di Madrid", fix: "L'ufficio di Madrid", tags: [false-friend]}
+      goals: [speed]
+    - learner: "Perfetto, prendo quello. Devo riempire un modulo?"
+      errors: [word-choice]
+    - tutor: "Sì, deve compilare un modulo con i due indirizzi. Eccolo."
+      recast: {text: "riempire un modulo", fix: "compilare un modulo", tags: [word-choice]}
+      new: [{lemma: compilare, gloss: to fill in}]
+    - learner: "Ecco, ho scritto tutto. Nel sobre ci sono un contratto e una lettera per il mio capo."
+      errors: [word-choice]
+    - tutor: "Bene: nella busta ci sono un contratto e una lettera. Sono dodici euro e cinquanta."
+      recast: {text: "Nel sobre", fix: "nella busta", tags: [word-choice]}
+      goals: [form]
+    - learner: "Posso pagare con carta?"
+      errors: [article-use]
+      gold: {text: "con carta", fix: "con la carta"}
+    - tutor: "«Con carta»? Davanti a «carta» manca una piccola parola."
+      prompt: {text: "con carta", tags: [article-use]}
+    - learner: "Posso pagare con la carta?"
+    - tutor: "Certo, ecco la macchina. Ed ecco la ricevuta: la tenga fino all'arrivo dei documenti."
+      new: [{lemma: ricevuta, gloss: receipt}]
+      goals: [pay]
+
+- scenario: casa-mia
+  level: A2
+  persona: es-f-teacher
+  history: [word-choice]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Vivo in un piso nuovo, al quinto piano. È piccolo ma molto luminoso."
+      errors: [word-choice]
+    - tutor: "Un appartamento nuovo, che bello! Quante stanze ci sono?"
+      recast: {text: "un piso nuovo", fix: "Un appartamento nuovo", tags: [word-choice]}
+      goals: [type]
+    - learner: "Ce ne sono tre: una camera, la cucina e il salone."
+      errors: [word-choice]
+    - tutor: "Una camera, la cucina e il soggiorno: perfetto per una persona! Qual è la tua stanza preferita?"
+      recast: {text: "il salone", fix: "il soggiorno", tags: [word-choice]}
+      goals: [rooms]
+    - learner: "Il soggiorno, perché c'è una grande ventana e la sera vedo tutta la città."
+      errors: [word-choice]
+    - tutor: "Una grande finestra, che bello! E come passi le serate lì?"
+      recast: {text: "una grande ventana", fix: "Una grande finestra", tags: [word-choice]}
+      goals: [favourite]
+    - learner: "Mi piace leggere e sentire musica. Ma il Wi-Fi in quella stanza non funziona bene."
+      errors: [word-choice]
+    - tutor: "Ascoltare musica con quella vista è il massimo! E il Wi-Fi? Hai chiamato qualcuno?"
+      recast: {text: "sentire musica", fix: "ascoltare musica", tags: [word-choice]}
+    - learner: "Non ancora. Mio fratello conosce come risolvere questi problemi: viene domenica."
+      errors: [word-choice]
+    - tutor: "Meno male che tuo fratello sa come risolvere questi problemi! Io con il computer non sono molto bravo."
+      recast: {text: "conosce come risolvere", fix: "sa come risolvere", tags: [word-choice]}
+    - learner: "Anch'io! E la tua casa, Luca? Hai un balcone?"
+    - tutor: "Sì, ho un piccolo balcone con tanti fiori. È la mia parte preferita della casa!"
+      goals: [ask]
+
+- scenario: compleanno
+  level: A2
+  persona: en-f-student
+  history: [word-choice, false-friend]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa sabato sera, a casa mia?"
+    - tutor: "Ottima idea! Chi invitiamo?"
+      goals: [date]
+    - learner: "I suoi amici dell'università e anche i suoi parenti, la madre e il padre."
+      errors: [false-friend]
+    - tutor: "Anche i suoi genitori? Bella idea, così è davvero una sorpresa! E per mangiare?"
+      recast: {text: "i suoi parenti", fix: "i suoi genitori", tags: [false-friend]}
+      goals: [guests]
+    - learner: "Pizza per tutti! Siamo in quindici: ordiniamo dieci pizze grandi?"
+    - tutor: "Sì, dieci grandi bastano. E la torta?"
+    - learner: "La torta la faccio io! Mia nonna mi ha insegnato una ricevuta al cioccolato."
+      errors: [word-choice]
+    - tutor: "Una ricetta al cioccolato? Brava, Sara lo adora! E il regalo?"
+      recast: {text: "una ricevuta", fix: "Una ricetta", tags: [word-choice]}
+      goals: [food]
+    - learner: "Possiamo comprare due biglietti per un concerto jazz, e prenderla con noi."
+      errors: [word-choice]
+    - tutor: "Sì, portarla con noi al concerto è perfetto! Quando c'è?"
+      recast: {text: "prenderla con noi", fix: "portarla con noi", tags: [word-choice]}
+      goals: [gift]
+    - learner: "Il mese prossimo, il venerdì sera. Lei ama il jazz!"
+    - tutor: "Perfetto, compro io i biglietti stasera!"
+
+- scenario: vacanze-passate
+  level: A2
+  persona: en-m-traveller
+  history: [word-choice, false-friend]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Sono stato in Sardegna per due settimane, con la mia ragazza."
+    - tutor: "La Sardegna, che bello! Che tempo ha fatto?"
+      goals: [where]
+    - learner: "Sempre sole e molto caldo. Ma il primo giorno la compagnia aerea ha perso le nostre valigie!"
+    - tutor: "No! E poi le avete trovate?"
+      goals: [weather]
+    - learner: "Sì, dopo tre giorni. Ma i primi giorni ero miserabile, senza vestiti!"
+      errors: [false-friend]
+    - tutor: "Eri triste, certo, che peccato! E poi cosa avete fatto?"
+      recast: {text: "miserabile", fix: "triste", tags: [false-friend]}
+    - learner: "Abbiamo visitato le spiagge del nord e abbiamo preso molte foto."
+      errors: [word-choice]
+    - tutor: "Avete fatto molte foto? Fammi vedere!"
+      recast: {text: "preso molte foto", fix: "fatto molte foto", tags: [word-choice]}
+      goals: [activities]
+    - learner: "Ecco, guarda questa: è la spiaggia più bella. L'acqua è così chiara!"
+    - tutor: "Bellissima! Cosa ti è piaciuto di più?"
+    - learner: "Il cibo, sicuramente: ho mangiato pesce ogni giorno! E tu, sei andata in vacanza?"
+    - tutor: "Sì, una settimana in montagna con mia sorella. È stato molto bello!"
+      goals: [best]

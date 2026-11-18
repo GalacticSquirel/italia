@@ -1,0 +1,221 @@
+# z-regress, file 01: A1-A2, article form (lo/gli/l'/un'/uno) in shops, bars and homes.
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-traveller
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Un caffè e uno cornetto, per favore."
+      errors: [article-form]
+    - tutor: "Uno cornetto? Pensi all'articolo davanti a «cornetto»."
+      goals: [greet]
+      prompt: {text: "uno cornetto", tags: [article-form]}
+    - learner: "Un cornetto, scusi."
+    - tutor: "Perfetto! Vuole lo zucchero nel caffè?"
+      goals: [order-drink, order-food]
+    - learner: "Sì, grazie. E anche un'acqua naturale."
+    - tutor: "Certo, ecco l'acqua. Altro?"
+    - learner: "No, basta così. Quanto pago?"
+    - tutor: "Sono tre euro e venti."
+    - learner: "Ecco cinque euro. Grazie, buona giornata!"
+    - tutor: "Grazie a Lei! Ecco il resto."
+      goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: es-f-erasmus
+  history: [article-form, noun-gender]
+  turns:
+    - tutor: "Buongiorno! Mi dica."
+    - learner: "Buongiorno! Vorrei un pane integrale, per favore."
+    - tutor: "Ecco il pane. È ancora caldo!"
+      goals: [greet, order-bread]
+    - learner: "Che bello! E vorrei anche il strudel di mele."
+      errors: [article-form]
+    - tutor: "Il strudel? Attenzione all'articolo."
+      prompt: {text: "il strudel", tags: [article-form]}
+    - learner: "Un strudel?"
+      errors: [article-form]
+    - tutor: "Ah, uno strudel di mele! Ecco qui."
+      recast: {text: "Un strudel", fix: "uno strudel", tags: [article-form]}
+      goals: [order-extra]
+    - learner: "Grazie. Ha anche gli biscotti al cioccolato?"
+      errors: [article-form]
+    - tutor: "Gli biscotti? Pensi bene all'articolo."
+      prompt: {text: "gli biscotti", tags: [article-form]}
+    - learner: "I biscotti al cioccolato."
+    - tutor: "Brava! Sì, li abbiamo. Quanti ne vuole?"
+    - learner: "Sei, per favore. Ecco dieci euro."
+    - tutor: "Grazie! Ecco tre euro di resto. Arrivederci!"
+      goals: [pay]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-f-student
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Siamo due. C'è un tavolo vicino alla finestra?"
+    - tutor: "Sì, prego, da questa parte."
+      goals: [ask-table]
+    - learner: "Grazie. Io prendo il spaghetti al pomodoro."
+      errors: [article-form]
+    - tutor: "Il spaghetti? Pensi all'articolo: spaghetti è plurale."
+      prompt: {text: "il spaghetti", tags: [article-form]}
+    - learner: "Gli spaghetti al pomodoro."
+    - tutor: "Ottimo! E da bere?"
+      goals: [order-food]
+    - learner: "Un'acqua frizzante e un succo d'arancia."
+    - tutor: "Benissimo, arrivano subito."
+      goals: [order-drink]
+    - learner: "Scusi, mi porta il conto, per favore?"
+    - tutor: "Certo, ecco il conto."
+      goals: [ask-bill]
+
+- scenario: supermercato
+  level: A1
+  persona: es-m-worker
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno, cerca qualcosa?"
+    - learner: "Sì, cerco il yogurt bianco."
+      errors: [article-form]
+    - tutor: "Il yogurt? Attenzione all'articolo prima di «yogurt»."
+      prompt: {text: "il yogurt", tags: [article-form]}
+    - learner: "Il yogurt... non so."
+      errors: [article-form]
+    - tutor: "Ah, lo yogurt! È in fondo, a destra."
+      recast: {text: "il yogurt", fix: "lo yogurt", tags: [article-form]}
+      goals: [ask-product]
+    - learner: "Grazie. E dove sono le uova?"
+    - tutor: "Le uova sono vicino al latte."
+    - learner: "E le espinacas? Ci sono?"
+      errors: [word-choice]
+    - tutor: "Gli spinaci? Sì, sono vicino alla frutta."
+      recast: {text: "le espinacas", fix: "gli spinaci", tags: [word-choice]}
+      new: [{lemma: spinaci, gloss: spinach}]
+      goals: [ask-other]
+    - learner: "Perfetto, grazie mille!"
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]
+
+- scenario: casa-mia
+  level: A1
+  persona: en-f-professional
+  history: [article-form]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "È un flat piccolo, al terzo piano."
+      errors: [word-choice]
+    - tutor: "Un appartamento piccolo, bello! Quante stanze ci sono?"
+      recast: {text: "un flat piccolo", fix: "un appartamento piccolo", tags: [word-choice]}
+      goals: [type]
+    - learner: "Ci sono una camera, la cucina e un studio."
+      errors: [article-form]
+    - tutor: "Un studio? Attenzione all'articolo!"
+      prompt: {text: "un studio", tags: [article-form]}
+    - learner: "Uno studio! Lavoro lì."
+    - tutor: "Esatto! E qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "La cucina. Ha un'ampia finestra e un balcone."
+    - tutor: "Che bello, un balcone!"
+      goals: [favourite]
+    - learner: "E tu, Luca? Com'è la tua casa?"
+    - tutor: "È grande, ma è lontana dal centro."
+      goals: [ask]
+
+- scenario: famiglia
+  level: A2
+  persona: es-f-teacher
+  history: [article-form, possessive]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Sono i zii di mia madre, a Siviglia, con i loro figli."
+      errors: [article-form]
+    - tutor: "I zii? Attenzione: davanti a «zii» l'articolo cambia."
+      prompt: {text: "i zii", tags: [article-form]}
+    - learner: "Sì, scusa: gli zii di mia madre."
+    - tutor: "Brava! Li vedi spesso?"
+      goals: [who]
+    - learner: "Sì, ogni estate. Mio zio è alto e un po' serio, ma è molto gentile."
+    - tutor: "E la ragazza con il vestito rosso?"
+      goals: [describe]
+    - learner: "È mia cugina Carmen. Ha ventotto anni e fa l'architetta."
+    - tutor: "Che bel lavoro! E il bambino quanti anni ha?"
+    - learner: "Ha sei anni. È il figlio di un'amico di famiglia."
+      errors: [article-form]
+    - tutor: "Un'amico? Attenzione: «amico» è maschile."
+      prompt: {text: "un'amico", tags: [article-form]}
+      goals: [ages]
+    - learner: "Sì, è il figlio di un'amico, Pablo."
+      errors: [article-form]
+    - tutor: "Ah, il figlio di un amico! È proprio un bel bambino."
+      recast: {text: "un'amico", fix: "un amico", tags: [article-form]}
+    - learner: "E tu, Marco, hai una famiglia grande?"
+    - tutor: "No, siamo in tre: io, mia madre e mio fratello."
+      goals: [ask]
+
+- scenario: abbigliamento
+  level: A2
+  persona: en-m-heritage
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Sì, grazie. Cerco un'abito elegante per un matrimonio."
+      errors: [article-form]
+    - tutor: "Un'abito? Attenzione: «abito» è maschile."
+      prompt: {text: "un'abito", tags: [article-form]}
+    - learner: "Un abito elegante, per un matrimonio a giugno."
+    - tutor: "Perfetto! Che taglia porta?"
+      goals: [ask-item]
+    - learner: "La cinquanta. E preferisco un colore oscuro, blu o grigio."
+      errors: [false-friend]
+    - tutor: "Ecco, un colore scuro: questo è blu, taglia cinquanta."
+      recast: {text: "colore oscuro", fix: "colore scuro", tags: [false-friend]}
+      new: [{lemma: scuro, gloss: dark}]
+      goals: [size-colour]
+    - learner: "Bello! Posso provarlo? Dov'è lo specchio?"
+    - tutor: "Certo, lo specchio è lì, a sinistra."
+      goals: [try]
+    - learner: "Mi sta bene. Quanto costa con il sconto?"
+      errors: [article-form]
+    - tutor: "Con il sconto? Ripeta con l'articolo giusto."
+      prompt: {text: "il sconto", tags: [article-form]}
+    - learner: "Con il sconto, sì. Quanto costa?"
+      errors: [article-form]
+    - tutor: "Con lo sconto costa centoventi euro. Lo prende?"
+      recast: {text: "il sconto", fix: "lo sconto", tags: [article-form]}
+    - learner: "Sì, lo prendo. Posso pagare con la carta?"
+    - tutor: "Certo, nessun problema. Ottima scelta!"
+      goals: [decide]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: es-m-worker
+  history: [article-form]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Sì, a nome Ruiz, per tre notti."
+    - tutor: "Perfetto, signor Ruiz. Mi dà un documento, per favore?"
+      goals: [booking]
+    - learner: "Ecco la mia carta d'identità."
+    - tutor: "Grazie, è tutto a posto."
+      goals: [document]
+    - learner: "A che ora è la colazione? C'è anche il yogurt?"
+      errors: [article-form]
+    - tutor: "Il yogurt? Attenzione all'articolo."
+      prompt: {text: "il yogurt", tags: [article-form]}
+    - learner: "Lo yogurt, scusi."
+    - tutor: "Esatto! Sì, c'è. La colazione è dalle sette alle dieci."
+      goals: [breakfast]
+    - learner: "Benissimo. In camera ci sono i asciugamani?"
+      errors: [article-form]
+    - tutor: "I asciugamani? Pensi bene all'articolo."
+      prompt: {text: "i asciugamani", tags: [article-form]}
+    - learner: "Li asciugamani?"
+      errors: [article-form]
+    - tutor: "Sì, gli asciugamani sono in bagno. Ecco la chiave: camera 214."
+      recast: {text: "Li asciugamani", fix: "gli asciugamani", tags: [article-form]}
+      goals: [key]
+    - learner: "Grazie mille, buonanotte!"
+    - tutor: "Prego, buonanotte!"

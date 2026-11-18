@@ -1,0 +1,266 @@
+# z-moves, B1: prompts with self-repair, prompts the learner fails followed by a recast,
+# immediate recasts of lexical errors, prompts on the grammar error of mixed turns, and correct
+# turns that get no correction.
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-professional
+  history: [relative-pronoun, ci-ne]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! È molto luminoso. Quant'è l'affitto al mese?"
+    - tutor: "Sono settecento euro al mese, più cinquanta euro di spese."
+      goals: [rent]
+    - learner: "È un po' caro. L'appartamento in che abito adesso costa meno."
+      errors: [relative-pronoun]
+    - tutor: "In che abito? Dopo «in», quale parola usiamo al posto di «che»?"
+      prompt: {text: "in che", tags: [relative-pronoun]}
+    - learner: "Ah, l'appartamento in cui abito adesso costa meno."
+    - tutor: "Esatto. Però qui il riscaldamento è compreso nelle spese."
+    - learner: "Capisco. Per la caparra, posso darle un check?"
+      errors: [word-choice]
+    - tutor: "Sì, sono due mesi di caparra: va bene anche un assegno. Il contratto è di quattro anni."
+      goals: [contract]
+      recast: {text: "un check", fix: "un assegno", tags: [word-choice]}
+      new: [{lemma: assegno, gloss: cheque}]
+    - learner: "Va bene. Vado al lavoro in bici: quanto tempo vuole per il centro?"
+      errors: [ci-ne]
+    - tutor: "Quanto tempo vuole? Così sembra che il tempo voglia qualcosa! Manca una piccola parola."
+      prompt: {text: "quanto tempo vuole", tags: [ci-ne]}
+    - learner: "Sì, quanto tempo vuole in bici?"
+      errors: [ci-ne]
+    - tutor: "In bici ci vuole un quarto d'ora. E il quartiere è molto tranquillo."
+      goals: [neighbourhood]
+      recast: {text: "vuole", fix: "ci vuole", tags: [ci-ne]}
+    - learner: "Perfetto. La lavatrice funziona bene? Se sì, sono molto interessata."
+    - tutor: "Sì, la lavatrice è nuova. Allora possiamo firmare lunedì mattina!"
+      goals: [condition, decide]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-m-worker
+  history: [modal-infinitive, object-pronoun]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire un conto corrente. Quali documenti servono?"
+    - tutor: "Benissimo. Mi servono un documento d'identità e il codice fiscale."
+      goals: [purpose, documents]
+    - learner: "Ho tutto qui. E quanto si deve di pagare di cuota ogni mese?"
+      errors: [modal-infinitive, word-choice]
+    - tutor: "Si deve di pagare? Dopo «deve», c'è una parola di troppo."
+      prompt: {text: "si deve di pagare", tags: [modal-infinitive]}
+    - learner: "Ah, quanto si deve pagare ogni mese?"
+    - tutor: "Esatto. Il conto base costa tre euro al mese, tutto compreso."
+      goals: [costs]
+    - learner: "Va bene. E posso avere una tarjeta per pagare nei negozi?"
+      errors: [word-choice]
+    - tutor: "Sì, con il conto le diamo anche una carta di debito, senza costi."
+      recast: {text: "una tarjeta", fix: "una carta", tags: [word-choice]}
+    - learner: "Perfetto. C'è anche un'app? Si può scaricarlo sul telefono?"
+      errors: [object-pronoun]
+    - tutor: "Scaricarlo? Parliamo dell'app: è maschile o femminile?"
+      prompt: {text: "scaricarlo", tags: [object-pronoun]}
+    - learner: "Sì, si può scaricarlo oggi?"
+      errors: [object-pronoun]
+    - tutor: "Sì, può scaricarla oggi stesso e fare i bonifici dal telefono."
+      goals: [card]
+      recast: {text: "scaricarlo", fix: "scaricarla", tags: [object-pronoun]}
+    - learner: "Benissimo, allora apriamo il conto."
+    - tutor: "Perfetto. Firmi qui, per favore, e il conto è aperto."
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-f-student
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno! Vorrei un biglietto singolo per Firenze, per domani mattina."
+      errors: [word-choice]
+    - tutor: "Un biglietto di sola andata per Firenze, va bene. C'è un regionale alle otto e dieci."
+      goals: [destination, type]
+      recast: {text: "un biglietto singolo", fix: "un biglietto di sola andata", tags: [word-choice]}
+    - learner: "Il regionale va bene. Quanto ci mette?"
+    - tutor: "Ci mette due ore e mezza. Preferisce la prima o la seconda classe?"
+    - learner: "Seconda classe. Vorrei un posto vicino a il finestrino."
+      errors: [articulated-preposition]
+    - tutor: "Vicino a il finestrino? Queste due parole si uniscono, vero?"
+      prompt: {text: "a il finestrino", tags: [articulated-preposition]}
+    - learner: "Ah, vicino al finestrino, per favore."
+    - tutor: "Perfetto, ecco il posto trentaquattro, vicino al finestrino."
+      goals: [class]
+    - learner: "Grazie. Devo timbrare il biglietto prima di salire su il treno?"
+      errors: [articulated-preposition]
+    - tutor: "Su il treno? Anche qui, due parole diventano una."
+      prompt: {text: "su il treno", tags: [articulated-preposition]}
+    - learner: "Sì, prima di salire su il treno?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, prima di salire sul treno. Il treno parte dal binario cinque."
+      goals: [platform]
+      recast: {text: "su il treno", fix: "sul treno", tags: [articulated-preposition]}
+    - learner: "Perfetto, grazie mille. Buona giornata!"
+    - tutor: "Grazie a lei, e buon viaggio!"
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-f-erasmus
+  history: [tense-aspect, conditional-form]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, l'aria condizionata nella mia camera non funziona."
+    - tutor: "Mi dispiace molto. Da quando non funziona?"
+      goals: [problem]
+    - learner: "Stamattina funzionava, ma alle sei faceva un rumore strano e poi si spegneva."
+      errors: [tense-aspect]
+    - tutor: "Si spegneva? È successo una volta sola, giusto? Quale tempo serve qui?"
+      prompt: {text: "si spegneva", tags: [tense-aspect]}
+    - learner: "Sì, poi si spegneva e basta."
+      errors: [tense-aspect]
+    - tutor: "Capisco, alle sei si è spenta all'improvviso. Mando subito qualcuno a controllare."
+      goals: [since]
+      recast: {text: "si spegneva", fix: "si è spenta", tags: [tense-aspect]}
+    - learner: "Grazie. Ma adesso fa molto calore e non posso dormire."
+      errors: [word-choice]
+    - tutor: "Ha ragione, stanotte fa molto caldo. Purtroppo la riparazione è possibile solo domani."
+      recast: {text: "calore", fix: "caldo", tags: [word-choice]}
+    - learner: "Allora prefererei cambiare camera, se è possibile."
+      errors: [conditional-form]
+    - tutor: "Prefererei? Il verbo è «preferire»: ci pensi un attimo."
+      prompt: {text: "prefererei", tags: [conditional-form]}
+    - learner: "Ah, preferirei cambiare camera, se è possibile."
+    - tutor: "Esatto. Ho una camera libera al terzo piano, con l'aria condizionata nuova."
+      goals: [request]
+    - learner: "Perfetto, la prendo. Grazie mille per l'aiuto!"
+    - tutor: "Si figuri. Le mando subito qualcuno per le valigie."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-heritage
+  history: [object-pronoun, past-participle-form]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie la settimana scorsa, ma non funzionano bene."
+    - tutor: "Mi dispiace. Che problema hanno?"
+    - learner: "Ho cambiato il cavo, ma attualmente il problema è la batteria: non si carica."
+      errors: [false-friend]
+    - tutor: "In realtà è la batteria, quindi? Allora sono difettose."
+      goals: [problem]
+      recast: {text: "attualmente", fix: "in realtà", tags: [false-friend]}
+    - learner: "Sì. Ecco lo scontrino. Ho apruto la scatola solo per provarle."
+      errors: [past-participle-form]
+    - tutor: "Apruto? Il verbo è «aprire», ma questa forma è speciale."
+      prompt: {text: "apruto", tags: [past-participle-form]}
+    - learner: "Ah, ho aperto la scatola solo per provarle."
+    - tutor: "Esatto. E lo scontrino è di otto giorni fa, quindi va benissimo."
+      goals: [proof]
+    - learner: "Allora posso cambiarli con un altro modello?"
+      errors: [object-pronoun]
+    - tutor: "Cambiarli? Pensi alle cuffie: sono maschili o femminili?"
+      prompt: {text: "cambiarli", tags: [object-pronoun]}
+    - learner: "Sì, posso cambiarli oggi?"
+      errors: [object-pronoun]
+    - tutor: "Sì, può cambiarle oggi stesso, oppure avere il rimborso."
+      goals: [request]
+      recast: {text: "cambiarli", fix: "cambiarle", tags: [object-pronoun]}
+    - learner: "Preferisco un altro modello, grazie."
+    - tutor: "Va bene, ecco le cuffie nuove. Buona giornata!"
+      goals: [agree]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: es-f-teacher
+  history: [tense-aspect, imperfetto-form]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo in un piccolo paese vicino a Granada, con i miei nonni."
+    - tutor: "Che bello, con i nonni! E cosa facevi di solito?"
+      goals: [place]
+    - learner: "Ogni estate sono andata al fiume con mia cugina."
+      errors: [tense-aspect]
+    - tutor: "Ogni estate sono andata? Lo facevi sempre: quale tempo usiamo?"
+      prompt: {text: "sono andata", tags: [tense-aspect]}
+    - learner: "Ah, ogni estate andavo al fiume con mia cugina."
+    - tutor: "Brava! Che bei ricordi. E la scuola com'era?"
+      goals: [habits]
+    - learner: "Era piccola. La maestra ci leggiva sempre storie divertidas."
+      errors: [imperfetto-form, word-choice]
+    - tutor: "Leggiva? Pensa bene al verbo «leggere»."
+      prompt: {text: "leggiva", tags: [imperfetto-form]}
+    - learner: "Sì, ci leggiva storie ogni giorno."
+      errors: [imperfetto-form]
+    - tutor: "Che bello, vi leggeva storie ogni giorno! Era brava, allora."
+      goals: [school]
+      recast: {text: "leggiva", fix: "leggeva", tags: [imperfetto-form]}
+    - learner: "Sì! Una volta sono salita sull'albero più alto del paese e non potevo bajar."
+      errors: [word-choice]
+    - tutor: "Non potevi scendere? Che paura! E chi ti ha aiutata?"
+      recast: {text: "bajar", fix: "scendere", tags: [word-choice]}
+    - learner: "Mio nonno è venuto con una scala. Tutto il paese rideva!"
+    - tutor: "Che storia! Tuo nonno è stato l'eroe del giorno."
+      goals: [event]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-m-retired
+  history: [object-pronoun, conditional-form]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi il disturbo. Sono il vicino del secondo piano."
+    - tutor: "Ah, piacere! Mi dica pure."
+      goals: [greet]
+    - learner: "Ogni notte sento la musica molto alta. È molto noioso per me."
+      errors: [false-friend]
+    - tutor: "Capisco, è molto fastidioso, mi dispiace. Non pensavo che si sentisse così tanto."
+      goals: [problem]
+      recast: {text: "noioso", fix: "fastidioso", tags: [false-friend]}
+      new: [{lemma: fastidioso, gloss: annoying}]
+    - learner: "Ieri ho incontrato sua figlia e ho detto lei di abbassare il volume."
+      errors: [object-pronoun]
+    - tutor: "Ho detto lei? Con «dire a qualcuno», quale pronome usiamo, e dove?"
+      prompt: {text: "ho detto lei", tags: [object-pronoun]}
+    - learner: "Ah, le ho detto di abbassare il volume. Potrebbe abbassarlo dopo le undici?"
+    - tutor: "Esatto. Va bene, dopo le undici lo abbassiamo. Ma il sabato possiamo fare più tardi?"
+      goals: [request]
+    - learner: "Il sabato, a mezzanotte andarebbe bene."
+      errors: [conditional-form]
+    - tutor: "Andarebbe? Il condizionale di questo verbo è un po' speciale."
+      prompt: {text: "andarebbe", tags: [conditional-form]}
+    - learner: "Sì, mezzanotte andarebbe bene per me."
+      errors: [conditional-form]
+    - tutor: "D'accordo, mezzanotte andrebbe bene anche per noi. Promesso!"
+      goals: [compromise]
+      recast: {text: "andarebbe", fix: "andrebbe", tags: [conditional-form]}
+    - learner: "Grazie mille, è molto gentile. Buonanotte!"
+    - tutor: "Grazie a lei, e scusi ancora. Buonanotte!"
+
+- scenario: volontariato
+  level: B1
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Sì! Me ne ha parlato un'amica, che fratello lavora qui. Sono molto eccitata!"
+      errors: [relative-pronoun, false-friend]
+    - tutor: "Che fratello lavora qui? Per dire «il fratello di lei», cosa usiamo al posto di «che»?"
+      prompt: {text: "che fratello", tags: [relative-pronoun]}
+    - learner: "Ah, un'amica il cui fratello lavora qui!"
+    - tutor: "Perfetto! Allora sai già chi siamo. Perché vuoi fare volontariato?"
+    - learner: "Mi piace aiutare gli altri e voglio conoscere meglio la città."
+    - tutor: "Bellissimo motivo. E cosa sai fare?"
+      goals: [motivation]
+    - learner: "Sono brava con i bambini e ho già fatto la volontaria in una libreria."
+      errors: [false-friend]
+    - tutor: "In una biblioteca? Ottimo! Abbiamo anche un'attività speciale per i bambini."
+      goals: [skills]
+      recast: {text: "in una libreria", fix: "in una biblioteca", tags: [false-friend]}
+      new: [{lemma: biblioteca, gloss: library}]
+    - learner: "Bello! Com'è l'attività che parlavi?"
+      errors: [relative-pronoun]
+    - tutor: "L'attività che parlavi? «Parlare» vuole una preposizione: cosa cambia?"
+      prompt: {text: "l'attività che", tags: [relative-pronoun]}
+    - learner: "Sì, l'attività che parlavi, per i bambini."
+      errors: [relative-pronoun]
+    - tutor: "L'attività di cui parlavo è un laboratorio di musica, due ore il sabato."
+      recast: {text: "l'attività che", fix: "l'attività di cui", tags: [relative-pronoun]}
+    - learner: "Perfetto, il sabato sono libera! Scelgo il laboratorio di musica."
+    - tutor: "Fantastico, allora ti aspettiamo sabato alle dieci!"
+      goals: [time, choose]

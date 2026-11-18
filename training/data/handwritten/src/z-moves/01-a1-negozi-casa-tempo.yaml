@@ -1,0 +1,266 @@
+# z-moves, A1: each dialogue contrasts the feedback moves in one conversation: prompt on a fresh
+# grammar error, praise after self-repair, recast after a failed repair, recast at once for a
+# lexical error, prompt on the grammar error of a mixed turn, nothing on correct turns.
+- scenario: panetteria
+  level: A1
+  persona: es-m-worker
+  history: [noun-number]
+  turns:
+    - tutor: "Buongiorno! Mi dica."
+    - learner: "Buongiorno! Vorrei mezzo chilo di pane, per favore."
+    - tutor: "Ecco mezzo chilo di pane. Vuole altro?"
+      goals: [greet, order-bread]
+    - learner: "Sì, una focaccia e due pizzetta."
+      errors: [noun-number]
+    - tutor: "Due pizzetta? Sono due: come finisce la parola?"
+      prompt: {text: "due pizzetta", tags: [noun-number]}
+    - learner: "Due pizzette, scusi."
+    - tutor: "Esatto! Ecco la focaccia e le due pizzette."
+      goals: [order-extra]
+    - learner: "Grazie. Avete anche galletas al cioccolato?"
+      errors: [word-choice]
+    - tutor: "Sì, abbiamo biscotti al cioccolato. Ne vuole un etto?"
+      recast: {text: "galletas", fix: "biscotti", tags: [word-choice]}
+      new: [{lemma: biscotto, gloss: biscuit}]
+    - learner: "Sì, un etto. E la focaccia, è salato?"
+      errors: [adjective-agreement]
+    - tutor: "La focaccia è salato? Pensi bene: focaccia è femminile."
+      prompt: {text: "salato", tags: [adjective-agreement]}
+    - learner: "Sì, è salato o dolce?"
+      errors: [adjective-agreement]
+    - tutor: "È salata, non dolce. È molto buona!"
+      recast: {text: "salato", fix: "salata", tags: [adjective-agreement]}
+      new: [{lemma: salato, gloss: salty}]
+    - learner: "Perfetto. Quanto pago? Ecco dieci euro."
+    - tutor: "Sono sette euro e cinquanta. Ecco il resto, buona giornata!"
+      goals: [pay]
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-f-student
+  history: [adjective-agreement, demonstrative]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Sì, grazie. Cerco una maglietta per mia sorella."
+    - tutor: "Certo! Che taglia porta sua sorella?"
+      goals: [ask-item]
+    - learner: "La taglia M. Vorrei una maglietta rosso."
+      errors: [adjective-agreement]
+    - tutor: "Una maglietta rosso? Attenzione, maglietta è femminile."
+      prompt: {text: "maglietta rosso", tags: [adjective-agreement]}
+    - learner: "Ah, sì: una maglietta rossa!"
+    - tutor: "Brava! Ecco, taglia M e colore rosso."
+      goals: [size-colour]
+    - learner: "È bella. Dov'è la stanza per provare?"
+      errors: [word-choice]
+    - tutor: "Sì, il camerino è lì, a destra. Prego!"
+      goals: [try]
+      recast: {text: "la stanza per provare", fix: "il camerino", tags: [word-choice]}
+    - learner: "Mi sta bene! Prendo questo maglietta."
+      errors: [demonstrative]
+    - tutor: "Questo maglietta? Guardi la fine della prima parola."
+      prompt: {text: "questo maglietta", tags: [demonstrative]}
+    - learner: "Sì, sì, prendo questo maglietta. Quanto costa?"
+      errors: [demonstrative]
+    - tutor: "Allora prende questa maglietta! Costa venti euro, con lo sconto."
+      recast: {text: "questo maglietta", fix: "questa maglietta", tags: [demonstrative]}
+    - learner: "Perfetto. Pago con la carta."
+    - tutor: "Va bene. Ecco a lei, grazie e buona giornata!"
+      goals: [decide]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-f-erasmus
+  history: [essere-avere, articulated-preposition]
+  turns:
+    - tutor: "Buonasera e benvenuta! Ha una prenotazione?"
+    - learner: "Sì, sono una prenotazione per due notti."
+      errors: [essere-avere]
+    - tutor: "Sono una prenotazione? Pensi al verbo giusto."
+      prompt: {text: "sono una prenotazione", tags: [essere-avere]}
+    - learner: "Ah, ho una prenotazione per due notti."
+    - tutor: "Perfetto! Ha un documento, per favore?"
+      goals: [booking]
+    - learner: "Sì, ecco il mio passaporto."
+    - tutor: "Grazie. La sua camera è al secondo piano."
+      goals: [document]
+    - learner: "Grazie. A che ora è il desayuno?"
+      errors: [word-choice]
+    - tutor: "La colazione è dalle sette alle dieci, al primo piano."
+      goals: [breakfast]
+      recast: {text: "il desayuno", fix: "la colazione", tags: [word-choice]}
+    - learner: "Va bene. Avete il Wi-Fi in le camere?"
+      errors: [articulated-preposition]
+    - tutor: "In le camere? Attenzione, qui due parole diventano una."
+      prompt: {text: "in le camere", tags: [articulated-preposition]}
+    - learner: "Ah... il Wi-Fi in le camere, sì?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, c'è il Wi-Fi nelle camere. Ecco la chiave!"
+      goals: [key]
+      recast: {text: "in le camere", fix: "nelle camere", tags: [articulated-preposition]}
+    - learner: "Grazie mille! Buonanotte."
+    - tutor: "Buonanotte! Se ha bisogno, sono qui."
+
+- scenario: taxi
+  level: A1
+  persona: en-m-traveller
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno! Dove la porto?"
+    - learner: "Buongiorno! All'albergo Milano, in via Garibaldi, per favore."
+    - tutor: "Va bene. È qui in vacanza?"
+      goals: [destination]
+    - learner: "Sì, sono in Roma per tre giorni."
+      errors: [preposition]
+    - tutor: "In Roma? Con le città usiamo un'altra parola."
+      prompt: {text: "in Roma", tags: [preposition]}
+    - learner: "Ah, sono a Roma per tre giorni. Quanti minuti ci vogliono per l'albergo?"
+    - tutor: "Bravo! Ci vogliono venti minuti, più o meno."
+      goals: [ask-time]
+    - learner: "Va bene. Quanto costa? Non ho cash."
+      errors: [word-choice]
+    - tutor: "Sono venticinque euro. Se non ha contanti, va bene la carta."
+      goals: [ask-price]
+      recast: {text: "cash", fix: "contanti", tags: [word-choice]}
+    - learner: "Perfetto. Mi lascia davanti a il bar, per favore?"
+      errors: [articulated-preposition]
+    - tutor: "A il bar? Diventa una parola sola, ricorda?"
+      prompt: {text: "a il bar", tags: [articulated-preposition]}
+    - learner: "Sì, davanti a il bar. Lì c'è l'albergo."
+      errors: [articulated-preposition]
+    - tutor: "Va bene, mi fermo davanti al bar. Ecco, siamo arrivati!"
+      recast: {text: "a il bar", fix: "al bar", tags: [articulated-preposition]}
+    - learner: "Grazie! Ecco la carta."
+    - tutor: "Grazie a lei! Buona giornata e buona vacanza."
+      goals: [pay]
+
+- scenario: giorno-tipico
+  level: A1
+  persona: es-f-teacher
+  history: [reflexive]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Io sveglio alle sette ogni mattina."
+      errors: [reflexive]
+    - tutor: "Io sveglio? Svegli chi? Manca una piccola parola."
+      prompt: {text: "Io sveglio", tags: [reflexive]}
+    - learner: "Ah, mi sveglio alle sette!"
+    - tutor: "Brava! E poi fai colazione?"
+      goals: [wake]
+    - learner: "Sì, prendo un caffè e vado a lavorare. Insegno in una scuola."
+    - tutor: "Che bello, sei insegnante! E la sera cosa fai?"
+      goals: [work]
+    - learner: "La sera vado a camminare con il mio perro."
+      errors: [word-choice]
+    - tutor: "Hai un cane? Che bello! Come si chiama?"
+      goals: [evening]
+      recast: {text: "perro", fix: "cane", tags: [word-choice]}
+    - learner: "Si chiama Toby. Lui dormire con me!"
+      errors: [verb-form]
+    - tutor: "Lui dormire? Con «lui», come cambia il verbo?"
+      prompt: {text: "dormire", tags: [verb-form]}
+    - learner: "Sì, lui dormire nel mio letto!"
+      errors: [verb-form]
+    - tutor: "Ah, dorme nel tuo letto? Anche il mio cane!"
+      recast: {text: "dormire", fix: "dorme", tags: [verb-form]}
+    - learner: "Sì! E tu, Anna, a che ora ti svegli?"
+    - tutor: "Io mi sveglio alle otto. Mi piace dormire!"
+      goals: [ask]
+
+- scenario: supermercato
+  level: A1
+  persona: en-m-retired
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Buongiorno, cerca qualcosa?"
+    - learner: "Sì, cerco il latte. È latte senza lattosio?"
+      errors: [ce-ci-sono]
+    - tutor: "È latte? Per chiedere se una cosa è qui, cosa diciamo?"
+      prompt: {text: "È latte", tags: [ce-ci-sono]}
+    - learner: "Ah! C'è latte senza lattosio?"
+    - tutor: "Esatto! Sì, è in fondo, a destra."
+      goals: [ask-product]
+    - learner: "Grazie. E le uova?"
+    - tutor: "Le uova sono lì, vicino al latte."
+    - learner: "Bene. Avete anche magazzini? Mi piace leggere."
+      errors: [false-friend]
+    - tutor: "Sì, le riviste sono vicino alla cassa."
+      goals: [ask-other]
+      recast: {text: "magazzini", fix: "riviste", tags: [false-friend]}
+      new: [{lemma: rivista, gloss: magazine}]
+    - learner: "Perfetto. E la pasta è su lo scaffale in alto?"
+      errors: [articulated-preposition]
+    - tutor: "Su lo scaffale? Queste due parole si uniscono."
+      prompt: {text: "su lo scaffale", tags: [articulated-preposition]}
+    - learner: "Sì, su lo scaffale in alto?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, la pasta è sullo scaffale in alto, a sinistra."
+      recast: {text: "su lo scaffale", fix: "sullo scaffale", tags: [articulated-preposition]}
+    - learner: "Grazie mille, è molto gentile."
+    - tutor: "Prego! Buona giornata!"
+      goals: [thank]
+
+- scenario: tempo-libero
+  level: A1
+  persona: es-m-worker
+  history: [piacere]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Il sabato gioco a calcio con i miei amici."
+    - tutor: "Che bello! Giochi ogni sabato?"
+      goals: [hobby]
+    - learner: "Sì, sempre. La domenica io piace la playa."
+      errors: [piacere, word-choice]
+    - tutor: "Io piace? Con questo verbo la frase cambia. Prova!"
+      prompt: {text: "io piace", tags: [piacere]}
+    - learner: "Ah, mi piace andare al mare!"
+    - tutor: "Bravo! Anche a me piace il mare."
+      goals: [frequency]
+    - learner: "E la sera guardo una película."
+      errors: [word-choice]
+    - tutor: "Guardi un film? Bello! Che film?"
+      recast: {text: "una película", fix: "un film", tags: [word-choice]}
+    - learner: "Mi piace i film comici."
+      errors: [piacere]
+    - tutor: "Mi piace i film? Sono tanti film: il verbo cambia."
+      prompt: {text: "piace i film comici", tags: [piacere]}
+    - learner: "Sì, mi piace i film comici e romantici."
+      errors: [piacere]
+    - tutor: "Ah, ti piacciono i film comici! Anche a me."
+      recast: {text: "piace i film comici", fix: "piacciono i film comici", tags: [piacere]}
+    - learner: "E tu cosa fai nel weekend? Andiamo al cinema sabato?"
+    - tutor: "Io leggo molto. Sì, andiamo al cinema sabato!"
+      goals: [ask, propose]
+
+- scenario: orari-negozio
+  level: A1
+  persona: en-f-professional
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Pronto, negozio Bianchi, buongiorno!"
+    - learner: "Buongiorno! A che ora aprite domani?"
+    - tutor: "Domani apriamo alle nove."
+      goals: [greet, ask-hours]
+    - learner: "E a che ora chiudete? Io finiscio il lavoro alle sei."
+      errors: [verb-form]
+    - tutor: "Finiscio? Attenzione a questo verbo."
+      prompt: {text: "finiscio", tags: [verb-form]}
+    - learner: "Ah, finisco il lavoro alle sei."
+    - tutor: "Esatto! Allora va bene: chiudiamo alle sette e mezza."
+    - learner: "Perfetto. Avete la sale questa settimana?"
+      errors: [false-friend]
+    - tutor: "Sì, ci sono i saldi fino a domenica!"
+      recast: {text: "la sale", fix: "i saldi", tags: [false-friend]}
+      new: [{lemma: saldi, gloss: sales}]
+    - learner: "E la domenica il negozio chiudi?"
+      errors: [subject-verb-agreement]
+    - tutor: "Il negozio chiudi? Attenzione: parliamo del negozio, non di te."
+      prompt: {text: "chiudi", tags: [subject-verb-agreement]}
+    - learner: "Sì, il negozio chiudi la domenica?"
+      errors: [subject-verb-agreement]
+    - tutor: "No, la domenica il negozio chiude alle due."
+      goals: [ask-day]
+      recast: {text: "chiudi", fix: "chiude", tags: [subject-verb-agreement]}
+    - learner: "Va bene, vengo sabato. Grazie e arrivederci!"
+    - tutor: "Grazie a lei, arrivederci!"
+      goals: [goodbye]

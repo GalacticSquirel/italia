@@ -1,0 +1,264 @@
+# z-moves, A2 and B1: the same conversation shows a prompt with self-repair, a prompt the
+# learner fails followed by a recast, an immediate recast of a lexical error, and correct turns
+# left alone.
+- scenario: ufficio-postale
+  level: A2
+  persona: en-m-retired
+  history: [preposition, object-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Devo spedire questo pacco in Londra."
+      errors: [preposition]
+    - tutor: "In Londra? Con le città, quale preposizione usiamo?"
+      prompt: {text: "in Londra", tags: [preposition]}
+    - learner: "Ah, a Londra! Devo spedirlo a Londra."
+    - tutor: "Perfetto! Lo vuole spedire normale o veloce?"
+      goals: [send]
+    - learner: "Veloce, per favore. È un regalo per mio nipote."
+    - tutor: "Allora arriva in tre giorni. Costa venti euro."
+      goals: [speed]
+    - learner: "Va bene. Devo riempire una forma?"
+      errors: [word-choice]
+    - tutor: "Sì, c'è un modulo da riempire con l'indirizzo. Eccolo."
+      recast: {text: "una forma", fix: "un modulo", tags: [word-choice]}
+    - learner: "Posso riempirlo qui e portarla subito allo sportello?"
+      errors: [object-pronoun]
+    - tutor: "Portarla? Pensi a cosa porta: il modulo."
+      prompt: {text: "portarla", tags: [object-pronoun]}
+    - learner: "Sì, portarla qui da lei."
+      errors: [object-pronoun]
+    - tutor: "Certo, può portarlo qui quando è pronto."
+      goals: [form]
+      recast: {text: "portarla", fix: "portarlo", tags: [object-pronoun]}
+    - learner: "Ecco il modulo. Pago con la carta."
+    - tutor: "Va bene. Ecco la ricevuta, arrivederci!"
+      goals: [pay]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: es-f-teacher
+  history: [auxiliary-choice, participle-agreement]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Benissimo! Sabato sono andata al mare con le mie amiche."
+    - tutor: "Al mare, che fortuna! Ha fatto bel tempo?"
+      goals: [where, with-who]
+    - learner: "Sì! Abbiamo stato tutto il giorno sulla playa."
+      errors: [auxiliary-choice, word-choice]
+    - tutor: "Abbiamo stato? Con «stare» il passato si fa con un altro verbo."
+      prompt: {text: "Abbiamo stato", tags: [auxiliary-choice]}
+    - learner: "Ah, siamo state tutto il giorno in spiaggia!"
+    - tutor: "Esatto! Che bello. E cosa avete fatto?"
+    - learner: "Abbiamo fatto il bagno. Poi Lucia è tornato a casa presto."
+      errors: [participle-agreement]
+    - tutor: "Lucia è tornato? Guarda bene la fine della parola."
+      prompt: {text: "è tornato", tags: [participle-agreement]}
+    - learner: "Sì, è tornato presto, era stanca."
+      errors: [participle-agreement]
+    - tutor: "Ah, è tornata presto perché era stanca. E voi?"
+      goals: [what]
+      recast: {text: "è tornato", fix: "è tornata", tags: [participle-agreement]}
+    - learner: "Noi siamo restate fino a sera. È stato un giorno molto divertido!"
+      errors: [word-choice]
+    - tutor: "Un giorno divertente, allora! Ci tornate anche il prossimo weekend?"
+      goals: [opinion]
+      recast: {text: "divertido", fix: "divertente", tags: [word-choice]}
+    - learner: "Sì, se fa bel tempo. E tu cosa hai fatto?"
+    - tutor: "Io sono rimasta a casa. Il prossimo weekend vengo con voi!"
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-m-worker
+  history: [past-participle-form, modal-infinitive]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì, buongiorno. Cercate un cameriere per l'estate?"
+    - tutor: "Sì, per luglio e agosto. Ha già esperienza?"
+      goals: [ask]
+    - learner: "Sì, ho lavorato in un bar a Siviglia. Ho rispondito ai clienti in tre lingue."
+      errors: [past-participle-form]
+    - tutor: "Rispondito? Attenzione, questo verbo è un po' speciale."
+      prompt: {text: "rispondito", tags: [past-participle-form]}
+    - learner: "Ah, ho risposto ai clienti in tre lingue!"
+    - tutor: "Perfetto! Qui tre lingue servono molto."
+      goals: [experience]
+    - learner: "Grazie. Non ho problemi con gli orari larghi."
+      errors: [false-friend]
+    - tutor: "Bene, perché qui gli orari sono lunghi, anche la sera."
+      goals: [availability]
+      recast: {text: "larghi", fix: "lunghi", tags: [false-friend]}
+    - learner: "Va bene. Quando devo di cominciare?"
+      errors: [modal-infinitive]
+    - tutor: "Devo di cominciare? Dopo «devo», guardi bene."
+      prompt: {text: "di cominciare", tags: [modal-infinitive]}
+    - learner: "Sì, quando devo di cominciare?"
+      errors: [modal-infinitive]
+    - tutor: "Può cominciare lunedì prossimo, alle sette."
+      recast: {text: "di cominciare", fix: "cominciare", tags: [modal-infinitive]}
+    - learner: "Perfetto! Le lascio il mio numero di telefono."
+    - tutor: "Grazie, la chiamo domani mattina."
+      goals: [contact]
+
+- scenario: compleanno
+  level: A2
+  persona: en-f-student
+  history: [future-form, object-pronoun]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa sabato!"
+    - tutor: "Ottima idea! Chi invitiamo?"
+      goals: [date]
+    - learner: "I suoi amici dell'università e anche i suoi parenti, sono molto simpatici."
+      errors: [false-friend]
+    - tutor: "I suoi genitori? Certo, invitiamo anche loro."
+      goals: [guests]
+      recast: {text: "parenti", fix: "genitori", tags: [false-friend]}
+    - learner: "Sì! E sua madre prepararà la torta al cioccolato."
+      errors: [future-form]
+    - tutor: "Prepararà? Ascolta bene questo futuro."
+      prompt: {text: "prepararà", tags: [future-form]}
+    - learner: "Sì, sua madre prepararà la torta, è bravissima."
+      errors: [future-form]
+    - tutor: "Perfetto, la torta la preparerà sua madre! E noi cosa portiamo?"
+      goals: [food]
+      recast: {text: "prepararà", fix: "preparerà", tags: [future-form]}
+    - learner: "Io porto le bibite. E il regalo? Cosa la regaliamo?"
+      errors: [object-pronoun]
+    - tutor: "Cosa la regaliamo? A Sara... quale pronome serve?"
+      prompt: {text: "Cosa la regaliamo", tags: [object-pronoun]}
+    - learner: "Ah, cosa le regaliamo?"
+    - tutor: "Esatto! Io pensavo a un libro di cucina."
+    - learner: "Ottima idea, le piace molto cucinare!"
+    - tutor: "Allora è deciso: libro di cucina e festa sabato!"
+      goals: [gift]
+
+- scenario: serata-cinema
+  level: A2
+  persona: en-m-heritage
+  history: [piacere, comparative]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema? C'è una commedia nuova."
+    - tutor: "Bella idea! Ti piacciono le commedie?"
+      goals: [propose]
+    - learner: "Sì, io piaccio molto le commedie."
+      errors: [piacere]
+    - tutor: "Io piaccio? Così sembra che piaci tu alle commedie!"
+      prompt: {text: "io piaccio", tags: [piacere]}
+    - learner: "Ah, mi piacciono molto le commedie!"
+    - tutor: "Ecco! Anche a me."
+      goals: [genre]
+    - learner: "Ho letto che questo film è molto eccitante."
+      errors: [false-friend]
+    - tutor: "Emozionante? Bene, allora lo vediamo!"
+      recast: {text: "eccitante", fix: "emozionante", tags: [false-friend]}
+      new: [{lemma: emozionante, gloss: exciting}]
+    - learner: "Sì, e dicono che è più divertente che l'altro film di questo attore."
+      errors: [comparative]
+    - tutor: "Più divertente che l'altro film? Pensa: come diciamo con due film?"
+      prompt: {text: "che l'altro film", tags: [comparative]}
+    - learner: "Sì, è più divertente che l'altro film."
+      errors: [comparative]
+    - tutor: "Ah, è più divertente dell'altro film? Allora scegliamo questo!"
+      goals: [choose]
+      recast: {text: "che l'altro film", fix: "dell'altro film", tags: [comparative]}
+    - learner: "Perfetto. Ci vediamo alle otto davanti al cinema?"
+    - tutor: "Va bene, alle otto davanti al cinema. A stasera!"
+      goals: [meet]
+
+- scenario: medico-base
+  level: A2
+  persona: es-f-erasmus
+  history: [preposition, false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e molta tosse."
+    - tutor: "Mi dispiace. Ha anche la febbre?"
+      goals: [symptoms]
+    - learner: "Sì, un po'. Sono malata da tre giorni e sono molto constipata."
+      errors: [false-friend]
+    - tutor: "Ah, è molto raffreddata da tre giorni. È allergica a qualche medicina?"
+      goals: [since-when]
+      recast: {text: "constipata", fix: "raffreddata", tags: [false-friend]}
+      new: [{lemma: raffreddato, gloss: having a cold}]
+    - learner: "No, ma sono allergica a il latte."
+      errors: [articulated-preposition]
+    - tutor: "A il latte? Le due parole diventano una sola."
+      prompt: {text: "a il latte", tags: [articulated-preposition]}
+    - learner: "Al latte, scusi! Sono allergica al latte."
+    - tutor: "Brava, grazie. Allora niente latte con la medicina."
+      goals: [history]
+    - learner: "Va bene. Quante volte devo prendere la medicina in giorno?"
+      errors: [preposition]
+    - tutor: "In giorno? Mmm, qui serve un'altra preposizione."
+      prompt: {text: "in giorno", tags: [preposition]}
+    - learner: "Sì... tre volte in giorno?"
+      errors: [preposition]
+    - tutor: "Sì, tre volte al giorno, dopo aver mangiato, per cinque giorni."
+      goals: [instructions]
+      recast: {text: "in giorno", fix: "al giorno", tags: [preposition]}
+    - learner: "Perfetto, grazie mille, dottore."
+    - tutor: "Prego. Ecco la ricetta, e torni se non sta meglio."
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-f-teacher
+  history: [tense-aspect, future-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando freno, la macchina fa un ruido molto strano."
+      errors: [word-choice]
+    - tutor: "Un rumore strano quando frena? Allora potrebbero essere i freni. Da quando lo sente?"
+      goals: [describe]
+      recast: {text: "ruido", fix: "rumore", tags: [word-choice]}
+    - learner: "Da una settimana. Ieri, mentre ho guidato verso casa, è diventato più forte."
+      errors: [tense-aspect]
+    - tutor: "Mentre ho guidato? Era un'azione in corso: quale tempo ci vuole?"
+      prompt: {text: "mentre ho guidato", tags: [tense-aspect]}
+    - learner: "Ah, mentre guidavo verso casa!"
+    - tutor: "Esatto. Allora devo controllare i freni e forse cambiare un pezzo."
+      goals: [when]
+    - learner: "Va bene. Quanto costarà la riparazione?"
+      errors: [future-form]
+    - tutor: "Costarà? Attenzione al futuro di questo verbo."
+      prompt: {text: "costarà", tags: [future-form]}
+    - learner: "Sì, quanto costarà più o meno?"
+      errors: [future-form]
+    - tutor: "Più o meno costerà centocinquanta euro, con il pezzo nuovo."
+      goals: [cost]
+      recast: {text: "costarà", fix: "costerà", tags: [future-form]}
+    - learner: "D'accordo. E quando sarà pronta la macchina?"
+    - tutor: "Sarà pronta domani pomeriggio, verso le cinque. Le telefono io."
+      goals: [time]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì! Non sono mai stato, quindi sono un po' nervoso."
+      errors: [ci-ne]
+    - tutor: "Non sono mai stato... dove? Manca una piccola parola importante."
+      prompt: {text: "Non sono mai stato", tags: [ci-ne]}
+    - learner: "Ah, non ci sono mai stato! Cosa devo assolutamente visitare?"
+    - tutor: "Esatto! Allora visita il centro e mangia la pizza: è buonissima."
+      goals: [plans, advice]
+    - learner: "Ottimo. Per andare a Capri prendo il ferry dal porto?"
+      errors: [word-choice]
+    - tutor: "Sì, il traghetto parte dal porto ogni ora. In città, invece, usa la metro."
+      goals: [transport]
+      recast: {text: "il ferry", fix: "il traghetto", tags: [word-choice]}
+    - learner: "Napoli ha tanti musei. Voglio visitare almeno tre, sono molto eccitato!"
+      errors: [ci-ne, false-friend]
+    - tutor: "Visitare almeno tre? Tre... di cosa? Manca qualcosa prima."
+      prompt: {text: "visitare almeno tre", tags: [ci-ne]}
+    - learner: "Sì, voglio visitare almeno tre in due giorni."
+      errors: [ci-ne]
+    - tutor: "Visitarne almeno tre in due giorni è possibile, sì! Comincia dai più famosi."
+      recast: {text: "visitare almeno tre", fix: "visitarne almeno tre", tags: [ci-ne]}
+    - learner: "Perfetto. C'è qualcosa che devo evitare?"
+    - tutor: "Non prendere il taxi senza chiedere prima il prezzo. E in metro attento alla borsa!"
+      goals: [warnings]
+    - learner: "Grazie mille, sei gentilissima! Ti porto un regalo da Capri."
+    - tutor: "Ma figurati! Divertiti e mandami qualche foto."

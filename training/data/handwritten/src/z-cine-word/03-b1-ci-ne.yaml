@@ -1,0 +1,291 @@
+# z-cine-word, file 03 (B1): metterci, pensarci, accorgersene, riuscirci, parlarne, ce ne sono.
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Lavoro tutto il giorno al computer e la sera sono troppo stanca per fare sport."
+    - tutor: "Capisco, succede a molti. E quanto dormi, di solito?"
+    - learner: "Poco, cinque o sei ore. E bevo tanti caffè: ne bevo almeno quattro al giorno."
+    - tutor: "Quattro caffè e poche ore di sonno: ecco perché sei stanca! Qual è il tuo obiettivo?"
+      goals: [habits]
+    - learner: "Vorrei correre una mezza maratona a ottobre. Mia sorella l'ha fatta l'anno scorso e ci è riuscita senza problemi."
+    - tutor: "Bellissimo obiettivo, e ottobre è lontano. Che cosa ti impedisce di allenarti adesso?"
+      goals: [goal]
+    - learner: "Il tempo, soprattutto. Per andare in palestra metto quasi un'ora, con il traffico."
+      errors: [ci-ne]
+      gold: {text: "metto quasi un'ora", fix: "ci metto quasi un'ora"}
+    - tutor: "Aspetta: «metto quasi un'ora»? Quando parli del tempo che serve per fare qualcosa, al verbo manca un piccolo pronome."
+      prompt: {text: "metto quasi un'ora", tags: [ci-ne]}
+    - learner: "Ah, giusto: ci metto quasi un'ora. E poi il lavoro mi stressa molto."
+    - tutor: "Allora la palestra non è la soluzione. Potresti correre vicino a casa, la mattina presto. Che ne dici?"
+      goals: [obstacles]
+    - learner: "Non lo so, la mattina sono un disastro. Devo pensarlo un po'."
+      errors: [ci-ne]
+      gold: {text: "pensarlo", fix: "pensarci"}
+    - tutor: "«Pensarlo»? Quando pensiamo a una proposta, a un'idea, il pronome è diverso. Prova di nuovo."
+      prompt: {text: "pensarlo", tags: [ci-ne]}
+    - learner: "Sì, devo pensarlo un po', scusa."
+      errors: [ci-ne]
+    - tutor: "Certo, devi pensarci con calma. Intanto ti propongo questo: tre corse brevi alla settimana, martedì, giovedì e sabato, e a letto entro le undici."
+      recast: {text: "pensarlo", fix: "pensarci", tags: [ci-ne]}
+    - learner: "Tre corse brevi... va bene, mi sembra possibile. Ci provo!"
+    - tutor: "Bravissima! Ci vediamo martedì alle sette, al parco."
+      goals: [plan]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Da qualche giorno, quando guido in autostrada, la macchina va verso destra."
+    - tutor: "Mmm, potrebbe essere un problema alle gomme. Quando è cominciato?"
+      goals: [describe]
+    - learner: "Lunedì. Sono passato su una buca enorme in città, ma sul momento non mi ho accorto."
+      errors: [ci-ne, auxiliary-choice]
+      gold: {text: "non mi ho accorto", fix: "non me ne sono accorto"}
+    - tutor: "Come, scusi? «Non mi ho accorto»... di che cosa? Della buca, certo: nella frase manca un pronome. Provi di nuovo."
+      prompt: {text: "non mi ho accorto", tags: [ci-ne]}
+    - learner: "Ah, sì: sul momento non me ne sono accorto."
+    - tutor: "Succede spesso, in città ce ne sono tante. Allora controllo bene le gomme."
+      goals: [when]
+    - learner: "Va bene. Quanto costerà la compostura, più o meno?"
+      errors: [false-friend]
+    - tutor: "Per la riparazione, se è solo un controllo, cinquanta euro. Se serve una gomma nuova, centoventi."
+      recast: {text: "la compostura", fix: "la riparazione", tags: [false-friend]}
+      goals: [cost]
+    - learner: "Speriamo di no. Avete gomme di questa misura? Un amico mi ha detto che non ci sono molte."
+      errors: [ci-ne]
+      gold: {text: "non ci sono molte", fix: "non ce ne sono molte"}
+    - tutor: "«Non ci sono molte»... molte cosa? Ripeta la frase con un piccolo pronome in più."
+      prompt: {text: "non ci sono molte", tags: [ci-ne]}
+    - learner: "Sì, il mio amico dice che non ci sono molte in giro."
+      errors: [ci-ne]
+    - tutor: "È vero, non ce ne sono molte in giro, ma noi ne abbiamo due in magazzino. Quando le serve la macchina?"
+      recast: {text: "non ci sono molte", fix: "non ce ne sono molte", tags: [ci-ne]}
+    - learner: "Domani mattina, per andare al lavoro. Quanto tempo ci mette per la riparazione?"
+    - tutor: "Ci metto un paio d'ore. Torni alle cinque e la trova pronta."
+      goals: [time]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare delle sedute di fisioterapia per il ginocchio."
+    - tutor: "Certo. Ha l'impegnativa del medico?"
+      goals: [type]
+    - learner: "Sì. Il medico ha scritto dieci sedute, ma per ora voglio fare solo cinque."
+      errors: [ci-ne]
+      gold: {text: "voglio fare solo cinque", fix: "voglio farne solo cinque"}
+    - tutor: "Solo cinque... cinque cosa? Nella frase manca un piccolo pronome."
+      prompt: {text: "voglio fare solo cinque", tags: [ci-ne]}
+    - learner: "Sì, per ora voglio fare solo cinque, poi vediamo."
+      errors: [ci-ne]
+    - tutor: "Va bene, se vuole farne solo cinque, le altre le prenota dopo. Le va bene il lunedì e il giovedì alle nove?"
+      recast: {text: "fare solo cinque", fix: "farne solo cinque", tags: [ci-ne]}
+    - learner: "Alle nove è un po' presto: per arrivare da voi ci vuole un'ora di autobus. Avete qualcosa nel pomeriggio?"
+    - tutor: "Sì, alle tre, sempre il lunedì e il giovedì."
+      goals: [availability]
+    - learner: "Perfetto. Quanto costa? Con la prescrizione pago meno, vero?"
+      errors: [false-friend]
+    - tutor: "Sì, con l'impegnativa paga solo una piccola parte: trentacinque euro per tutte le sedute."
+      recast: {text: "la prescrizione", fix: "l'impegnativa", tags: [false-friend]}
+      goals: [cost]
+    - learner: "Bene. Devo portare le lastre del ginocchio? Non so se ho ancora."
+      errors: [ci-ne]
+      gold: {text: "se ho ancora", fix: "se ce le ho ancora"}
+    - tutor: "«Se ho ancora»... ancora cosa? Le lastre, giusto? Provi di nuovo con i pronomi."
+      prompt: {text: "se ho ancora", tags: [ci-ne]}
+    - learner: "Ah: non so se ce le ho ancora."
+    - tutor: "Se le trova, le porti; altrimenti non importa. Porti però un documento. Mi ripete i dati?"
+    - learner: "Allora: cinque sedute, il lunedì e il giovedì alle tre, a partire dal 4 marzo. Porto un documento e, se le trovo, le lastre."
+    - tutor: "Perfetto, è tutto confermato. Arrivederci!"
+      goals: [confirm]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Giovedì prossimo, e questa volta voglio vedere anche le isole. Tu ne hai visitate tante?"
+    - tutor: "Tutte, sono cresciuta lì! Quanti giorni ti fermi?"
+    - learner: "Sei giorni: tre a Napoli e tre a Procida. Ma come si arriva all'isola? Si può andare in barco?"
+      errors: [word-choice]
+    - tutor: "Sì, ci si va in traghetto dal porto di Napoli: ci vuole un'ora. Ce ne sono parecchi ogni giorno."
+      recast: {text: "in barco", fix: "in traghetto", tags: [word-choice]}
+      goals: [plans, transport]
+    - learner: "Perfetto. E cosa mi consigli di mangiare? Sono vegetariana, è un problema?"
+    - tutor: "Nessun problema! Devi assolutamente provare la parmigiana di melanzane."
+      new: [{lemma: parmigiana, gloss: aubergine bake}, {lemma: melanzana, gloss: aubergine}]
+      goals: [advice]
+    - learner: "La parmigiana! In Spagna non c'è. Ho visto tante foto di piatti napoletani: ne voglio provare tutti."
+      errors: [ci-ne]
+      gold: {text: "ne voglio provare tutti", fix: "li voglio provare tutti"}
+    - tutor: "Brava! Però «ne voglio provare tutti»: con «tutti», quel pronome non va. Quale serve?"
+      prompt: {text: "ne voglio provare tutti", tags: [ci-ne]}
+    - learner: "Ah, certo: li voglio provare tutti!"
+    - tutor: "Ecco! Hai ragione, a Napoli bisogna mangiare tutto."
+    - learner: "E cosa devo evitare? Ho letto che in metro ci sono molti ladrones."
+      errors: [word-choice]
+    - tutor: "Sì, in metro ci sono molti ladri, ma basta tenere lo zaino davanti. Il vero problema è il ritorno: la mattina presto da Procida non ci sono traghetti. A che ora parte il tuo volo?"
+      recast: {text: "molti ladrones", fix: "molti ladri", tags: [word-choice]}
+      goals: [warnings]
+    - learner: "Alle sette di mattina! Non lo avevo pensato."
+      errors: [ci-ne]
+      gold: {text: "Non lo avevo pensato", fix: "Non ci avevo pensato"}
+    - tutor: "«Non lo avevo pensato»? Pensare a qualcosa... e allora quale pronome usiamo?"
+      prompt: {text: "Non lo avevo pensato", tags: [ci-ne]}
+    - learner: "Non ci avevo pensato! Allora l'ultima notte dormo a Napoli."
+    - tutor: "Brava, è la scelta giusta. Buon viaggio, e mandami tante foto!"
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie due settimane fa, ma il lato destro non funziona più."
+    - tutor: "Mi dispiace. Da quando ha questo problema?"
+      goals: [problem]
+    - learner: "Da ieri sera. Ho provato a caricarle e a collegarle a un altro telefono, ma niente."
+    - tutor: "Capisco. Ha lo scontrino?"
+    - learner: "Sì, eccolo. Le ho pagate novanta euro, quindi sono ancora in garanzia."
+    - tutor: "Esatto, sono in garanzia. Possiamo sostituirle o farle un rimborso."
+      goals: [proof]
+    - learner: "Preferisco cambiarle. Ma avete ancora questo modello? Ieri sul sito ho visto che ci sono solo due."
+      errors: [ci-ne]
+      gold: {text: "ci sono solo due", fix: "ce ne sono solo due"}
+    - tutor: "Solo due... due cosa? Ripeta la frase: manca un piccolo pronome."
+      prompt: {text: "ci sono solo due", tags: [ci-ne]}
+    - learner: "Sì, sul sito ci sono solo due."
+      errors: [ci-ne]
+    - tutor: "Sul sito ce ne sono solo due, è vero, ma qui in negozio ne abbiamo di più. Gliene porto un paio nuovo?"
+      recast: {text: "ci sono solo due", fix: "ce ne sono solo due", tags: [ci-ne]}
+      goals: [request]
+    - learner: "Sì, grazie. Però, se si rompono di nuovo?"
+    - tutor: "In quel caso le cambiamo un'altra volta, e la garanzia ricomincia da oggi."
+      goals: [agree]
+    - learner: "Perfetto. Il caricatore nuovo, invece, non lo prendo: non ho bisogno di lui."
+      errors: [ci-ne]
+      gold: {text: "non ho bisogno di lui", fix: "non ne ho bisogno"}
+    - tutor: "«Di lui»? Il caricatore non è una persona! Provi con un pronome più corto, prima del verbo."
+      prompt: {text: "non ho bisogno di lui", tags: [ci-ne]}
+    - learner: "Ah, sì: non ne ho bisogno."
+    - tutor: "Va benissimo. Ecco le cuffie nuove, e buona musica!"
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. L'app per i clienti è quasi lista, ma ci sono ancora alcuni errori."
+      errors: [false-friend]
+    - tutor: "Quasi pronta, bene. Quanti errori hai trovato nei test?"
+      recast: {text: "quasi lista", fix: "Quasi pronta", tags: [false-friend]}
+      goals: [update]
+    - learner: "Ho trovato dodici ieri, ma solo tre sono gravi."
+      errors: [ci-ne]
+      gold: {text: "Ho trovato dodici", fix: "Ne ho trovati dodici"}
+    - tutor: "Dodici... dodici cosa? Ricomincia la frase con un piccolo pronome."
+      prompt: {text: "Ho trovato dodici", tags: [ci-ne]}
+    - learner: "Ah: ne ho trovati dodici ieri, ma solo tre sono gravi."
+    - tutor: "Tre gravi non sono pochi. Qual è il problema principale?"
+    - learner: "Il pagamento con la carta non funziona sempre. Per risolverlo ci vuole almeno una settimana."
+    - tutor: "Una settimana? Il cliente aspetta la nuova versione per venerdì."
+      goals: [problem]
+    - learner: "Lo so. Ma Marta conosce bene il sistema dei pagamenti. Se lavoriamo in due, possiamo riuscire entro mercoledì."
+      errors: [ci-ne]
+      gold: {text: "riuscire", fix: "riuscirci"}
+    - tutor: "«Possiamo riuscire»... riuscire a fare che cosa? Al verbo manca qualcosa."
+      prompt: {text: "riuscire", tags: [ci-ne]}
+    - learner: "Sì, in due possiamo riuscire, sono sicuro."
+      errors: [ci-ne]
+    - tutor: "In due potete riuscirci, d'accordo: è una buona proposta. Parlo io con Marta oggi."
+      recast: {text: "riuscire", fix: "riuscirci", tags: [ci-ne]}
+      goals: [proposal]
+    - learner: "Grazie. Allora la nuova fecha per il cliente è mercoledì?"
+      errors: [word-choice]
+    - tutor: "La nuova data? Diciamo giovedì, così abbiamo un giorno per i test. Ne parlo io con il cliente."
+      recast: {text: "la nuova fecha", fix: "La nuova data", tags: [word-choice]}
+      goals: [deadline]
+    - learner: "Perfetto. Ti mando un aggiornamento martedì sera."
+    - tutor: "Ottimo, grazie. Passiamo al prossimo punto."
+
+- scenario: banca-conto
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire un conto corrente. Sono in Italia per lavoro da due mesi."
+    - tutor: "Certo. È la prima volta che apre un conto in Italia?"
+      goals: [purpose]
+    - learner: "Sì, è la prima volta. Quali documenti servono?"
+    - tutor: "Servono il passaporto, il codice fiscale e il contratto di lavoro."
+      goals: [documents]
+    - learner: "Il codice fiscale ce l'ho, ma il contratto no: il mio capo lo firma la settimana prossima. È un problema?"
+    - tutor: "No, possiamo aprire il conto lo stesso, ma con alcuni limiti."
+    - learner: "Quali limiti? Ce ne sono molti? E quanto costa il conto al mese?"
+    - tutor: "Solo uno: senza contratto non può chiedere un prestito. Il conto costa tre euro al mese, ma i primi sei mesi sono gratis."
+      goals: [costs]
+    - learner: "Bene. Ho bisogno anche di una carta per i negozi. Posso avere due? Una è per mia moglie."
+      errors: [ci-ne]
+      gold: {text: "Posso avere due", fix: "Posso averne due"}
+    - tutor: "«Posso avere due»... due cosa? Manca un piccolo pronome, attaccato al verbo."
+      prompt: {text: "Posso avere due", tags: [ci-ne]}
+    - learner: "Sì, scusi: posso avere due? Per me e per mia moglie."
+      errors: [ci-ne]
+    - tutor: "Certo, può averne due, ma sua moglie deve venire qui a firmare. E le serve anche l'app della banca?"
+      recast: {text: "avere due", fix: "averne due", tags: [ci-ne]}
+    - learner: "Sì, grazie. Con l'app posso fare trasferimenti?"
+      errors: [word-choice]
+    - tutor: "Sì, con l'app può fare bonifici e controllare le spese dal telefono."
+      recast: {text: "fare trasferimenti", fix: "fare bonifici", tags: [word-choice]}
+      goals: [card]
+    - learner: "Perfetto. Allora torno domani con mia moglie."
+    - tutor: "Benissimo, a domani!"
+
+- scenario: compleanno
+  level: B1
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Pensavo a un picnic al parco domenica, se non piove. Sara adora stare all'aria libera."
+      errors: [word-choice]
+    - tutor: "Bella idea, domenica al parco, all'aperto! E chi invitiamo?"
+      recast: {text: "all'aria libera", fix: "all'aperto", tags: [word-choice]}
+      goals: [date]
+    - learner: "I colleghi del suo ufficio e i suoi amici della squadra di pallavolo."
+    - tutor: "Va bene. Quante persone sono in tutto?"
+      goals: [guests]
+    - learner: "Diciotto, più o meno. Per il cibo, faccio io i panini: io preparo trenta e tu porti le bibite?"
+      errors: [ci-ne]
+      gold: {text: "io preparo trenta", fix: "io ne preparo trenta"}
+    - tutor: "Trenta va benissimo, ma la frase... trenta cosa? Ricomincia: «Io...»"
+      prompt: {text: "io preparo trenta", tags: [ci-ne]}
+    - learner: "Io ne preparo trenta, e tu porti le bibite!"
+    - tutor: "Perfetto, le bibite le compro io."
+    - learner: "Per la torta ci penso io: conosco una pasticceria buonissima vicino a casa mia."
+    - tutor: "Grande! Allora resta il regalo. Hai qualche idea?"
+      goals: [food]
+    - learner: "Sara vuole una bici nuova, ma costa almeno trecento euro. Possiamo comprarla tutti insieme?"
+    - tutor: "Siamo in diciotto, quindi meno di venti euro a testa. Ce la facciamo!"
+      goals: [gift]
+    - learner: "Sì! Ma Sara non deve sapere niente della festa: in ufficio dobbiamo stare attenti a non parlare di lei."
+      errors: [ci-ne]
+      gold: {text: "non parlare di lei", fix: "non parlarne"}
+    - tutor: "«Di lei»? Così sembra che parliamo di Sara! Per la festa c'è un pronome più corto."
+      prompt: {text: "non parlare di lei", tags: [ci-ne]}
+    - learner: "Sì, sì: non parlare di lei in ufficio, è importante."
+      errors: [ci-ne]
+    - tutor: "Giusto, meglio non parlarne in ufficio: Sara sente tutto! Ci sentiamo domani."
+      recast: {text: "non parlare di lei", fix: "non parlarne", tags: [ci-ne]}
+    - learner: "Perfetto, a domani!"
+    - tutor: "A domani, e acqua in bocca!"

@@ -1,0 +1,243 @@
+# z-regress, file 07: A1-A2, question forms (quale/che/quanto, a che ora), on the phone, in taxis and on buses.
+- scenario: orari-negozio
+  level: A1
+  persona: en-f-student
+  history: [question-form]
+  turns:
+    - tutor: "Pronto, negozio Bianchi, buongiorno!"
+    - learner: "Buongiorno! Il negozio è aperto oggi?"
+    - tutor: "Sì, siamo aperti."
+      goals: [greet]
+    - learner: "Cosa ora chiudete stasera?"
+      errors: [question-form]
+    - tutor: "Cosa ora? Scusi, come?"
+      prompt: {text: "Cosa ora", tags: [question-form]}
+    - learner: "A che ora chiudete stasera?"
+    - tutor: "Alle sette e mezza."
+      goals: [ask-hours]
+    - learner: "E cosa giorno siete chiusi?"
+      errors: [question-form]
+    - tutor: "Cosa giorno? Provi con un'altra parola."
+      prompt: {text: "cosa giorno", tags: [question-form]}
+    - learner: "Cosa giorno chiudete?"
+      errors: [question-form]
+    - tutor: "Che giorno chiudiamo? La domenica."
+      recast: {text: "Cosa giorno", fix: "Che giorno", tags: [question-form]}
+      goals: [ask-day]
+    - learner: "Grazie mille, arrivederci!"
+    - tutor: "Arrivederci, buona giornata!"
+      goals: [goodbye]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-f-teacher
+  history: [question-form]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Sì, a nome García."
+    - tutor: "Ecco, una camera per due notti."
+      goals: [booking]
+    - learner: "Perfetto. Vuole il passaporto?"
+    - tutor: "Sì, grazie. Ecco fatto."
+      goals: [document]
+    - learner: "Come ora è la colazione?"
+      errors: [question-form]
+    - tutor: "Come ora? Scusi, non capisco."
+      prompt: {text: "Come ora", tags: [question-form]}
+    - learner: "Come ora è la colazione?"
+      errors: [question-form]
+    - tutor: "A che ora è la colazione? Dalle sette alle dieci."
+      recast: {text: "Come ora", fix: "A che ora", tags: [question-form]}
+      goals: [breakfast]
+    - learner: "E cosa è il numero della camera?"
+      errors: [question-form]
+    - tutor: "Cosa è? Provi con un'altra parola."
+      prompt: {text: "cosa è", tags: [question-form]}
+    - learner: "Cosa è il numero?"
+      errors: [question-form]
+    - tutor: "Qual è il numero? È la 21. Ecco la chiave."
+      recast: {text: "Cosa è", fix: "Qual è", tags: [question-form]}
+      goals: [key]
+    - learner: "Grazie, buonanotte!"
+    - tutor: "Buonanotte!"
+
+- scenario: taxi
+  level: A1
+  persona: en-m-traveller
+  history: [question-form]
+  turns:
+    - tutor: "Buongiorno! Dove la porto?"
+    - learner: "Alla stazione centrale, per favore."
+    - tutor: "Va bene, partiamo."
+      goals: [destination]
+    - learner: "Quanto lungo è il viaggio?"
+      errors: [question-form]
+    - tutor: "Quanto lungo? Scusi, come?"
+      prompt: {text: "Quanto lungo è il viaggio", tags: [question-form]}
+    - learner: "Quanto dura il viaggio?"
+    - tutor: "Quindici minuti, più o meno."
+      goals: [ask-time]
+    - learner: "Come molto costa?"
+      errors: [question-form]
+    - tutor: "Come molto? Non capisco..."
+      prompt: {text: "Come molto costa", tags: [question-form]}
+    - learner: "Come molto costa, il viaggio?"
+      errors: [question-form]
+    - tutor: "Quanto costa? Più o meno venti euro."
+      recast: {text: "Come molto costa", fix: "Quanto costa", tags: [question-form]}
+      goals: [ask-price]
+    - learner: "Ecco venti euro. Grazie!"
+    - tutor: "Grazie a Lei, buon viaggio!"
+      goals: [pay]
+
+- scenario: presentarsi
+  level: A1
+  persona: es-m-worker
+  history: [question-form]
+  turns:
+    - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+    - learner: "Ciao! Mi chiamo Diego. Sono messicano."
+    - tutor: "Piacere, Diego! Di che città sei?"
+      goals: [say-name]
+    - learner: "Sono di Guadalajara. Lavoro in un ristorante, sono cocinero."
+      errors: [word-choice]
+    - tutor: "Che bello, un cuoco!"
+      recast: {text: "cocinero", fix: "cuoco", tags: [word-choice]}
+      new: [{lemma: cuoco, gloss: cook}]
+      goals: [say-origin, say-job]
+    - learner: "E tu, cosa è il tuo lavoro?"
+      errors: [question-form]
+    - tutor: "Cosa è? Prova con un'altra parola."
+      prompt: {text: "cosa è il tuo lavoro", tags: [question-form]}
+    - learner: "Qual è il tuo lavoro?"
+    - tutor: "Lavoro in un ospedale."
+      goals: [ask-back]
+    - learner: "E cosa anni hai?"
+      errors: [question-form]
+    - tutor: "Cosa anni? Scusa, come?"
+      prompt: {text: "cosa anni", tags: [question-form]}
+    - learner: "Cosa anni hai, Giulia?"
+      errors: [question-form]
+    - tutor: "Quanti anni? Ventitré!"
+      recast: {text: "Cosa anni", fix: "Quanti anni", tags: [question-form]}
+    - learner: "Io ho trent'anni."
+    - tutor: "Piacere di conoscerti, Diego!"
+
+- scenario: numero-telefono
+  level: A1
+  persona: en-f-professional
+  history: [question-form]
+  turns:
+    - tutor: "È stata una bella lezione, vero?"
+    - learner: "Sì, molto! Vuoi studiare insieme qualche volta?"
+    - tutor: "Sì, che bella idea!"
+      goals: [propose]
+    - learner: "Cosa è il tuo numero di telefono?"
+      errors: [question-form]
+    - tutor: "Cosa è? Prova con un'altra parola."
+      prompt: {text: "Cosa è il tuo numero", tags: [question-form]}
+    - learner: "Qual è il tuo numero di telefono?"
+    - tutor: "È 347 215 8890."
+      goals: [number]
+    - learner: "Grazie! Quando sei libera? Giovedì?"
+    - tutor: "Giovedì no. Venerdì pomeriggio?"
+    - learner: "Venerdì va bene. Che ora ci vediamo?"
+      errors: [question-form]
+    - tutor: "Che ora? Manca una parola, prima."
+      prompt: {text: "Che ora", tags: [question-form]}
+    - learner: "Che ora ci vediamo?"
+      errors: [question-form]
+    - tutor: "A che ora? Alle tre, qui a scuola."
+      recast: {text: "Che ora", fix: "A che ora", tags: [question-form]}
+      goals: [when]
+
+- scenario: autobus
+  level: A2
+  persona: en-m-retired
+  history: [question-form]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno, devo andare al museo archeologico. Cosa autobus devo prendere?"
+      errors: [question-form]
+    - tutor: "Cosa autobus? Mi scusi, come dice?"
+      prompt: {text: "Cosa autobus", tags: [question-form]}
+    - learner: "Quale autobus devo prendere?"
+    - tutor: "Questo va bene, il 12."
+      goals: [route]
+    - learner: "Perfetto. Dove si compra il ticket?"
+      errors: [word-choice]
+    - tutor: "Il biglietto lo può comprare qui da me: costa due euro."
+      recast: {text: "il ticket", fix: "il biglietto", tags: [word-choice]}
+      goals: [ticket]
+    - learner: "A cosa fermata devo scendere?"
+      errors: [question-form]
+    - tutor: "A cosa fermata? Provi con un'altra parola."
+      prompt: {text: "cosa fermata", tags: [question-form]}
+    - learner: "Sì, a cosa fermata scendo?"
+      errors: [question-form]
+    - tutor: "A quale fermata? Scenda in piazza Dante, è la quarta."
+      recast: {text: "cosa fermata", fix: "quale fermata", tags: [question-form]}
+      goals: [stop]
+    - learner: "Grazie mille, è molto gentile."
+    - tutor: "Prego, buona visita!"
+      goals: [thank]
+
+- scenario: lavanderia
+  level: A2
+  persona: es-f-teacher
+  history: [question-form]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie. Ho un problema: la macchina ha preso le mie monete ma non parte."
+    - tutor: "Ah, succede spesso. Hai chiuso bene la porta?"
+      goals: [problem]
+    - learner: "Sì, credo. Come la faccio partire?"
+    - tutor: "Devi chiudere la porta più forte. Ecco, ora parte!"
+      goals: [ask-how]
+    - learner: "Grazie! Quanto tempo dura il lavaggio?"
+    - tutor: "Più o meno un'ora."
+    - learner: "E l'asciugatrice, quanti costa?"
+      errors: [question-form]
+    - tutor: "Quanti costa? Ascolta bene la tua domanda."
+      prompt: {text: "quanti costa", tags: [question-form]}
+    - learner: "Quanti costa l'asciugatrice?"
+      errors: [question-form]
+    - tutor: "Quanto costa? Tre euro per mezz'ora."
+      recast: {text: "Quanti costa", fix: "Quanto costa", tags: [question-form]}
+      goals: [payment]
+    - learner: "Perfetto. Grazie per l'aiuto!"
+    - tutor: "Di niente, buona giornata!"
+      goals: [thank]
+
+- scenario: chiedere-strada
+  level: A2
+  persona: en-m-heritage
+  history: [question-form]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, scusi. Sa se c'è una drogheria qui vicino?"
+      errors: [false-friend]
+    - tutor: "Una farmacia? Sì, ce n'è una in via Garibaldi."
+      recast: {text: "una drogheria", fix: "una farmacia", tags: [false-friend]}
+      goals: [get-attention]
+    - learner: "Come lontano è?"
+      errors: [question-form]
+    - tutor: "Come lontano? Scusi, non ho capito."
+      prompt: {text: "Come lontano è", tags: [question-form]}
+    - learner: "Quanto è lontana?"
+    - tutor: "Cinque minuti a piedi: dritto e poi a sinistra."
+      goals: [ask-place]
+    - learner: "Dritto e poi a sinistra. E dopo?"
+    - tutor: "Dopo la vede subito, davanti alla chiesa."
+      goals: [understand]
+    - learner: "Lei sa cosa ora chiude?"
+      errors: [question-form]
+    - tutor: "Cosa ora? Mi scusi, come?"
+      prompt: {text: "cosa ora", tags: [question-form]}
+    - learner: "Sì, cosa ora chiude la farmacia?"
+      errors: [question-form]
+    - tutor: "A che ora chiude? Alle otto, credo."
+      recast: {text: "cosa ora", fix: "a che ora", tags: [question-form]}
+    - learner: "Grazie mille, molto gentile!"
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]

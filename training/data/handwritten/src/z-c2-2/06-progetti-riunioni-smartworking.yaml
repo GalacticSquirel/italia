@@ -1,0 +1,250 @@
+# C2: lavoro: presentazioni al direttore, riunioni di team e lavoro da casa.
+- scenario: presentazione-progetto
+  level: C2
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+  - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+  - learner: "Certamente. Il progetto consiste nel digitalizzare l'archivio clienti e collegarlo al CRM: oggi i nostri commerciali perdono in media due ore al giorno a cercare informazioni su carta."
+  - tutor: "Due ore al giorno: è un dato che mi interessa. Ma quanto ci costa, e quanto ci rende?"
+    goals: [pitch]
+  - learner: "Il costo è di centoventimila euro su otto mesi. Nell'ufficio pilota di Bergamo, in tre mesi, le offerte chiuse sono aumentate del dodici per cento, e i primi dati di Brescia sono consistenti con quelli di Bergamo."
+    errors: [false-friend]
+  - tutor: "Se i dati di Brescia sono coerenti con quelli di Bergamo, il dodici per cento non è un caso. Su un fatturato come il nostro, che cosa significa in euro?"
+    recast: {text: "consistenti con", fix: "coerenti con", tags: [false-friend]}
+  - learner: "Se l'aumento si confermasse su tutta la rete, stimiamo circa novecentomila euro di fatturato in più all'anno: l'investimento si ripagherebbe in meno di sei mesi."
+  - tutor: "Numeri interessanti. Ma il rischio? L'ultimo progetto informatico ci è costato il doppio del previsto e un anno di ritardo."
+    goals: [benefits]
+  - learner: "Lo so, e ne ho tenuto conto. Questa volta il fornitore lavora a prezzo fisso, con penali per ogni settimana di ritardo. E se il progetto non dava risultati dopo tre mesi, potremmo fermarlo perdendo solo il trenta per cento del budget."
+    errors: [hypothetical]
+    gold: {text: "se il progetto non dava risultati", fix: "se il progetto non desse risultati"}
+  - tutor: "Il prezzo fisso mi piace. Ma «se il progetto non dava risultati, potremmo fermarlo»… in un'ipotesi come questa, quel verbo la convince?"
+    prompt: {text: "se il progetto non dava risultati", tags: [hypothetical]}
+  - learner: "Volevo dire: se il progetto non dava risultati entro tre mesi, ci fermeremmo."
+    errors: [hypothetical]
+  - tutor: "Se il progetto non desse risultati entro tre mesi, ci fermeremmo con il settanta per cento del budget ancora in cassa: questo mi tranquillizza. Qual è il prossimo passo?"
+    goals: [objection]
+    recast: {text: "se il progetto non dava risultati", fix: "se il progetto non desse risultati", tags: [hypothetical]}
+  - learner: "Vorrei presentare il piano dettagliato al consiglio entro il quindici del mese prossimo, con il contratto del fornitore già negoziato. Le andrebbe bene se fissassimo prima una riunione con il direttore finanziario?"
+  - tutor: "Va bene: martedì alle dieci, con il direttore finanziario. Porti il contratto con le penali scritte. Mi ha convinto; ora deve convincere lui."
+    goals: [next-steps]
+
+- scenario: presentazione-progetto
+  level: C2
+  persona: es-m-worker
+  history: [register]
+  turns:
+  - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+  - learner: "Allora, in breve: è un'app per i nostri clienti, così possono ordinare i ricambi direttamente dal telefono, senza chiamare. Ti assicuro che è roba che funziona: la usano già i nostri concorrenti."
+    errors: [register]
+    gold: {text: "Ti assicuro che è roba che funziona", fix: "Le assicuro che è una soluzione che funziona"}
+  - tutor: "Dieci minuti, ho detto, e lei li usa bene. Ma «ti assicuro che è roba che funziona»… è così che presenterebbe il progetto al consiglio di amministrazione?"
+    prompt: {text: "Ti assicuro che è roba che funziona", tags: [register]}
+  - learner: "No, ha ragione, mi scusi: Le assicuro che è una soluzione collaudata, già adottata dai nostri principali concorrenti."
+  - tutor: "Molto meglio. E i benefici, in numeri?"
+    goals: [pitch]
+  - learner: "Oggi riceviamo circa quattrocento ordini al giorno per telefono, e ogni chiamata dura in media sei minuti. Con l'app, il centralino risparmierebbe quaranta ore al giorno, e gli ordini sbagliati diminuirebbero almeno della metà."
+  - tutor: "Quaranta ore al giorno non sono poche. Ma costi e tempi? Il budget dell'anno prossimo si chiude tra due mesi."
+    goals: [benefits]
+  - learner: "Il costo è di ottantamila euro e lo sviluppo dura cinque mesi. Se approvassimo il progetto entro dicembre, l'app sarebbe pronta a maggio, in tempo per la stagione alta. Però ci vuole due persone del nostro reparto informatico a tempo pieno."
+    errors: [subject-verb-agreement]
+    gold: {text: "ci vuole due persone", fix: "ci vogliono due persone"}
+  - tutor: "Il calendario mi piace. Ma «ci vuole due persone»… il verbo è d'accordo con quello che serve?"
+    prompt: {text: "ci vuole due persone", tags: [subject-verb-agreement]}
+  - learner: "Sì, credo: ci vuole due persone, un programmatore e una grafica."
+    errors: [subject-verb-agreement]
+  - tutor: "Ci vogliono due persone a tempo pieno per cinque mesi: è proprio questo che mi preoccupa, perché il reparto informatico è già sotto organico. Come pensa di risolvere?"
+    recast: {text: "ci vuole due persone", fix: "ci vogliono due persone", tags: [subject-verb-agreement]}
+  - learner: "Potremmo affidare la manutenzione ordinaria a un fornitore esterno per quei cinque mesi: costerebbe circa quindicimila euro, ma libererebbe le due persone per l'app."
+  - tutor: "Quindicimila euro in più, ma una soluzione concreta. Prepari un piano con tutti i costi, compreso il fornitore esterno, e lo presentiamo al consiglio di dicembre."
+    goals: [objection, next-steps]
+
+- scenario: presentazione-progetto
+  level: C2
+  persona: en-m-heritage
+  history: [article-use]
+  turns:
+  - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+  - learner: "Certo. Propongo di aprire uno showroom a Monaco di Baviera: la Germania è il nostro primo mercato estero, ma oggi la seguiamo da Milano, con due agenti. Una presenza fissa ci permetterebbe di crescere molto più in fretta."
+  - tutor: "La Germania la conosco bene, e so quanto è difficile. Quanto potremmo crescere, concretamente?"
+    goals: [pitch]
+  - learner: "Secondo le nostre stime, fatturato tedesco potrebbe passare da tre a cinque milioni in due anni. I clienti tedeschi vogliono vedere e toccare i prodotti: senza uno showroom, perdiamo le gare più grandi."
+    errors: [article-use]
+    gold: {text: "fatturato tedesco", fix: "il fatturato tedesco"}
+  - tutor: "Da tre a cinque milioni: ambizioso. Ripeta però l'inizio: «secondo le nostre stime, fatturato tedesco potrebbe passare»… al soggetto della frase non manca qualcosa?"
+    prompt: {text: "fatturato tedesco", tags: [article-use]}
+  - learner: "Forse un verbo? Secondo le nostre stime, fatturato in Germania passerebbe da tre a cinque milioni."
+    errors: [article-use]
+  - tutor: "Il fatturato in Germania passerebbe da tre a cinque milioni, d'accordo; ma lo showroom quanto costa? Monaco non è una città economica."
+    goals: [benefits]
+    recast: {text: "fatturato in Germania", fix: "il fatturato in Germania", tags: [article-use]}
+  - learner: "L'affitto è di sessantamila euro all'anno, più due persone. Con il personale arriviamo a duecentomila euro all'anno: meno della metà del margine aggiuntivo previsto."
+  - tutor: "E se le stime fossero sbagliate? Ho visto troppi business plan ottimisti."
+  - learner: "Ha ragione a dubitarne. Per questo propongo un affitto di due anni con clausola di uscita: se dopo dodici mesi il fatturato non è cresciuto almeno del venti per cento, chiudiamo e ne perdiamo al massimo duecentomila euro."
+    errors: [ci-ne]
+    gold: {text: "ne perdiamo al massimo duecentomila euro", fix: "perdiamo al massimo duecentomila euro"}
+  - tutor: "Un rischio misurato, lo riconosco. Ma «ne perdiamo al massimo duecentomila euro»… se la cifra la dice tutta, quella particella che cosa ci sta a fare?"
+    goals: [objection]
+    prompt: {text: "ne perdiamo al massimo duecentomila euro", tags: [ci-ne]}
+  - learner: "Niente, è di troppo: chiudiamo e perdiamo al massimo duecentomila euro. Come prossimo passo, vorrei andare a Monaco con il direttore commerciale entro fine mese, per visitare tre spazi e incontrare due clienti chiave."
+  - tutor: "D'accordo: organizzi la trasferta e mi mandi il programma. Se il piano regge, lo porto io al consiglio di gennaio."
+    goals: [next-steps]
+
+- scenario: riunione-lavoro
+  level: C2
+  persona: en-m-traveller
+  history: [preposition]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Abbastanza bene. Abbiamo chiuso la fase di analisi, e il cliente ha approvato il prototipo la settimana scorsa. Adesso stiamo sviluppando il cestino e i pagamenti."
+    errors: [word-choice]
+  - tutor: "Il carrello e i pagamenti: la parte più delicata di un negozio online. Qualche intoppo da segnalare?"
+    goals: [update]
+    recast: {text: "il cestino", fix: "il carrello", tags: [word-choice]}
+  - learner: "Sì, uno serio: il fornitore dei pagamenti ha cambiato le API senza avvisarci, e metà del lavoro va rifatta. Sto pensando di una soluzione, ma per ora perdiamo almeno una settimana."
+    errors: [preposition]
+    gold: {text: "Sto pensando di una soluzione", fix: "Sto pensando a una soluzione"}
+  - tutor: "Ahia, brutta sorpresa. Ma «sto pensando di una soluzione»… si pensa di qualcosa o si pensa a qualcosa?"
+    goals: [problem]
+    prompt: {text: "Sto pensando di una soluzione", tags: [preposition]}
+  - learner: "A qualcosa: sto pensando a una soluzione. L'idea sarebbe usare un modulo già pronto, che costa trecento euro al mese ma ci farebbe risparmiare dieci giorni di sviluppo."
+  - tutor: "Trecento al mese per dieci giorni di lavoro: conviene. Il cliente, però, va avvisato. Con questa soluzione, quando pensi di finire?"
+    goals: [proposal]
+  - learner: "Se il cliente approva il modulo entro lunedì, finiremo i pagamenti il venti e faremo i test prima di Natale. Se serve, rimanerò in ufficio anche il ventitré."
+    errors: [future-form]
+    gold: {text: "rimanerò", fix: "rimarrò"}
+  - tutor: "Generoso. Ma «rimanerò»… sicuro di quel futuro? Rimanere, al futuro, è un po' capriccioso."
+    prompt: {text: "rimanerò", tags: [future-form]}
+  - learner: "Sì, sì: rimanerò in ufficio anche il ventitré, non c'è problema."
+    errors: [future-form]
+  - tutor: "Rimarrò anch'io il ventitré, così i test non li fai da solo. Allora fissiamo la consegna al cliente per il ventisette dicembre?"
+    recast: {text: "rimanerò", fix: "rimarrò", tags: [future-form]}
+  - learner: "Il ventisette va bene, ma metterei il trenta come data di sicurezza: se qualcosa andasse storto nei test, avremmo tre giorni di margine."
+  - tutor: "Saggio. Allora consegna ufficiale il trenta dicembre, e al cliente scrivo io oggi pomeriggio per il modulo. Grazie, ottimo lavoro."
+    goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: C2
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Va, anche se siamo un po' in ritardo. Ho finito la ricerca di mercato, ma il report non è ancora pronto: mi mancano i dati della Spagna."
+  - tutor: "Quanto ti manca, più o meno?"
+    goals: [update]
+  - learner: "Due o tre giorni. Il problema è che il nostro contatto a Madrid non risponde alle email da una settimana, e senza i suoi dati non posso compiere la scadenza di venerdì."
+    errors: [word-choice]
+  - tutor: "Se non puoi rispettare la scadenza di venerdì, meglio saperlo adesso. Hai provato a chiamarlo, invece di scrivergli?"
+    goals: [problem]
+    recast: {text: "compiere la scadenza", fix: "rispettare la scadenza", tags: [word-choice]}
+  - learner: "Sì, due volte, ma non mi ha contestato. Proporrei di usare i dati pubblici dell'istituto di statistica spagnolo: sono meno dettagliati, ma basterebbero per una prima versione."
+    errors: [false-friend]
+  - tutor: "Se non ha risposto nemmeno al telefono, è inutile aspettarlo. I dati pubblici sono una buona idea, ma il cliente ha chiesto esplicitamente i dati per regione: quelli ci sono?"
+    goals: [proposal]
+    recast: {text: "contestato", fix: "risposto", tags: [false-friend]}
+  - learner: "Sì, anche se aggiornati all'anno scorso. Se il contatto di Madrid ci manderebbe i dati nuovi più avanti, potremmo aggiornare il report in una seconda versione."
+    errors: [hypothetical]
+    gold: {text: "Se il contatto di Madrid ci manderebbe", fix: "Se il contatto di Madrid ci mandasse"}
+  - tutor: "Un piano B sensato. Ma «se il contatto di Madrid ci manderebbe»… nell'ipotesi, quel condizionale ti suona bene?"
+    prompt: {text: "Se il contatto di Madrid ci manderebbe", tags: [hypothetical]}
+  - learner: "No: se il contatto di Madrid ci mandasse i dati nuovi, aggiorneremmo il report. Quindi la prima versione la consegno venerdì, e lunedì vederò se Madrid si è fatto vivo."
+    errors: [future-form]
+    gold: {text: "vederò", fix: "vedrò"}
+  - tutor: "Bene l'ipotesi. Ma quel «vederò»… il futuro di vedere perde qualcosa per strada, te lo ricordi?"
+    prompt: {text: "vederò", tags: [future-form]}
+  - learner: "Perde la e: lunedì vedrò se Madrid si è fatto vivo."
+  - tutor: "Esatto. Allora venerdì la prima versione con i dati pubblici, e la seconda entro fine mese, se Madrid risponde. Lo scrivo nel verbale."
+    goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: C2
+  persona: en-f-student
+  history: [register]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Buongiorno a tutti. Desidero informarLa che il mio progetto procede secondo i tempi previsti: ho completato la traduzione del catalogo in inglese e sto revisionando le schede tecniche."
+    errors: [register]
+    gold: {text: "Desidero informarLa che", fix: "Volevo dirti che"}
+  - tutor: "Grazie, ma qui ci diamo tutti del tu, anche con me! «Desidero informarLa» teniamolo per le lettere al ministero. Riprova, più rilassata?"
+    prompt: {text: "Desidero informarLa che", tags: [register]}
+  - learner: "Scusa, l'abitudine dell'università! Allora: il progetto va bene, ho finito la traduzione del catalogo e sto rivedendo le schede tecniche."
+  - tutor: "Molto meglio! E ci sono problemi?"
+    goals: [update]
+  - learner: "Uno: molte schede usano termini che non trovo in nessun dizionario, e il glossario aziendale ha dieci anni. Alcune parole non le sa tradurre nemmeno l'ingegnere, che conosce il prodotto meglio che nessuno."
+    errors: [comparative]
+    gold: {text: "meglio che nessuno", fix: "meglio di chiunque"}
+  - tutor: "Il glossario, eterno problema. Ma «conosce il prodotto meglio che nessuno»… dopo meglio, che paragone ci va, e con quale parola?"
+    goals: [problem]
+    prompt: {text: "meglio che nessuno", tags: [comparative]}
+  - learner: "Allora: conosce il prodotto meglio che tutti?"
+    errors: [comparative]
+  - tutor: "Meglio di tutti, sì, o meglio di chiunque. E allora come possiamo risolvere il problema del glossario?"
+    recast: {text: "meglio che tutti", fix: "meglio di tutti", tags: [comparative]}
+  - learner: "Proporrei di aggiornare il glossario insieme a lui: un'ora alla settimana, per un mese. Così diventerebbe uno strumento per tutto l'ufficio, non solo per me."
+  - tutor: "Ottima proposta, e utile a tutti. Quando pensi di consegnare le schede tecniche?"
+    goals: [proposal]
+  - learner: "Se partiamo con il glossario da lunedì, le schede saranno pronte entro la fine del mese, cioè tra tre settimane."
+  - tutor: "Allora fine mese per le schede, e da lunedì un'ora alla settimana con l'ingegnere. Gli scrivo io per fissare. Brava!"
+    goals: [deadline]
+
+- scenario: smartworking
+  level: C2
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Faccio metà e metà: lunedì e venerdì da casa, gli altri giorni in ufficio. Per me lavorare da casa è molto più comodo di andare in ufficio, soprattutto con un'ora di treno."
+    errors: [comparative]
+    gold: {text: "più comodo di andare in ufficio", fix: "più comodo che andare in ufficio"}
+  - tutor: "Un'ora di treno, ti capisco. Ma «più comodo di andare in ufficio»… quando confronti due azioni, due infiniti, ci va proprio di?"
+    goals: [situation]
+    prompt: {text: "più comodo di andare in ufficio", tags: [comparative]}
+  - learner: "No, con due infiniti ci va che: lavorare da casa è più comodo che andare in ufficio. Il vantaggio più grande è che mi concentro meglio: nessuno mi interrompe ogni cinque minuti."
+  - tutor: "Beata te! Io in ufficio ho un collega che mi racconta la sua vita mentre scrivo le email. Ma qualche svantaggio ci sarà, no?"
+    goals: [pros]
+  - learner: "Certo. A casa tendo a lavorare troppo: mi dimentico di prendere una pausa, e alle otto di sera sono ancora al computer."
+    errors: [word-choice]
+  - tutor: "Dimenticarsi di fare una pausa è il tranello classico del lavoro da casa! E poi?"
+    recast: {text: "prendere una pausa", fix: "fare una pausa", tags: [word-choice]}
+  - learner: "E poi mi mancano i colleghi, anche quelli logorroici. Il venerdì da casa mi sento più isolata di quanto pensavo."
+    errors: [comparative]
+    gold: {text: "più isolata di quanto pensavo", fix: "più isolata di quanto pensassi"}
+  - tutor: "Anche quelli logorroici? Allora è grave! Ma «più isolata di quanto pensavo»… in un paragone con un pensiero, che modo verbale si usa in un italiano curato?"
+    goals: [cons]
+    prompt: {text: "più isolata di quanto pensavo", tags: [comparative]}
+  - learner: "Il congiuntivo: più isolata di quanto pensassi. O anche «di quanto non pensassi», no?"
+  - tutor: "Esatto, tutte e due. E se potessi scegliere liberamente, che cosa faresti?"
+  - learner: "Farei tre giorni da casa e due in ufficio, ma con orari flessibili: preferirei arrivare alle dieci e andare via alle sei, piuttosto che correre per il treno delle sette."
+  - tutor: "Mi sembra il compromesso perfetto. Proponilo al tuo capo: al massimo ti dice di no, e intanto l'aperitivo lo offro io."
+    goals: [preference]
+
+- scenario: smartworking
+  level: C2
+  persona: es-f-erasmus
+  history: [comparative]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Ormai lavoro sempre da casa: la mia azienda ha chiuso l'ufficio di Milano l'anno scorso, e adesso siamo tutti in remoto. All'inizio mi sembrava un sogno."
+  - tutor: "All'inizio? Vuol dire che adesso non ti sembra più un sogno?"
+    goals: [situation]
+  - learner: "Diciamo che ha i suoi vantaggi: risparmio due ore di metro al giorno, posso cucinare a casa e la mia gatta è felicissima. E io sono molto più tranquilla che prima."
+    errors: [comparative]
+    gold: {text: "più tranquilla che prima", fix: "più tranquilla di prima"}
+  - tutor: "La gatta, soprattutto, ringrazia. Ma «più tranquilla che prima»… davanti a un avverbio come prima, il paragone che parolina vuole?"
+    prompt: {text: "più tranquilla che prima", tags: [comparative]}
+  - learner: "Vuole di: più tranquilla di prima."
+  - tutor: "Esatto. E gli svantaggi?"
+    goals: [pros]
+  - learner: "A volte mi sento sola, e il mio capo mi scrive a qualunque ora, anche la domenica. Lui pensa che chi lavora da casa è sempre disponibile."
+    errors: [subjunctive-use]
+    gold: {text: "chi lavora da casa è sempre disponibile", fix: "chi lavora da casa sia sempre disponibile"}
+  - tutor: "La domenica? Questo è grave. Ma «pensa che chi lavora da casa è sempre disponibile»… dopo pensare che, quale modo usiamo?"
+    goals: [cons]
+    prompt: {text: "chi lavora da casa è sempre disponibile", tags: [subjunctive-use]}
+  - learner: "Sì, esatto: pensa che chi lavora da casa è sempre reperibile, anche alle undici di sera."
+    errors: [subjunctive-use]
+  - tutor: "Pensare che chi lavora da casa sia sempre reperibile è il vizio di molti capi. Hai mai provato a mettere dei limiti?"
+    recast: {text: "chi lavora da casa è sempre reperibile", fix: "chi lavora da casa sia sempre reperibile", tags: [subjunctive-use]}
+  - learner: "Ancora no. Preferirei tornare in ufficio due giorni alla settimana, anche in uno spazio di coworking: almeno vedrei gente e separerei la casa dal lavoro. Se l'azienda pagasse il coworking, firmerei subito."
+  - tutor: "Mi sembra una richiesta più che ragionevole: proponila, magari con un preventivo. E intanto, la domenica, il telefono spegnilo!"
+    goals: [preference]

@@ -1,0 +1,223 @@
+# B1-B2, recast-focused (z-recast): failed prompt then recast of the learner's own span;
+# a lexical error recast at once. One failed repair adds a second, minor error outside the span.
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-f-teacher
+  history: [reflexive]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie la settimana scorsa, ma hanno rotto dopo due giorni."
+      errors: [reflexive]
+    - tutor: "«Hanno rotto»? Mmm, chi ha rotto che cosa? Manca una piccola parola."
+      prompt: {text: "hanno rotto", tags: [reflexive]}
+    - learner: "Sì, hanno rotto. Il suono non funziona più."
+      errors: [reflexive]
+    - tutor: "Si sono rotte dopo due giorni? Mi dispiace molto. Ha lo scontrino?"
+      goals: [problem]
+      recast: {text: "hanno rotto", fix: "Si sono rotte", tags: [reflexive]}
+    - learner: "Sì, eccolo. E ho anche la scatola."
+    - tutor: "Perfetto, sono ancora in garanzia. Come preferisce risolvere?"
+      goals: [proof]
+    - learner: "Non voglio altre cuffie uguali. Preferisco la devoluzione dei soldi."
+      errors: [word-choice]
+    - tutor: "Certo, il rimborso è possibile. Ha pagato con la carta?"
+      goals: [request]
+      recast: {text: "la devoluzione", fix: "il rimborso", tags: [word-choice]}
+    - learner: "Sì, con la carta di credito."
+    - tutor: "Allora firmi qui: tra tre giorni vede i soldi sul conto. Buona giornata!"
+      goals: [agree]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! È molto luminoso. Quant'è l'affitto al mese?"
+    - tutor: "Sono novecento euro al mese, più settanta di spese."
+      goals: [rent]
+    - learner: "Va bene. E il posto auto è incluso? Il mio compagno ha bisogno per lavoro."
+      errors: [ci-ne]
+    - tutor: "«Ha bisogno per lavoro»? Bisogno di che cosa? Manca un pronome."
+      prompt: {text: "ha bisogno per lavoro", tags: [ci-ne]}
+    - learner: "Sì, ha bisogno per lavoro, viaggia ogni giorni."
+      errors: [ci-ne, noun-number]
+    - tutor: "Capisco. Visto che ne ha bisogno per lavoro, c'è anche un garage in cortile, a cento euro in più."
+      recast: {text: "ha bisogno per lavoro", fix: "ne ha bisogno per lavoro", tags: [ci-ne]}
+    - learner: "Benissimo. Il contratto è di quattro anni? E l'appartamento è in buono stato?"
+    - tutor: "Sì, quattro più quattro, con due mesi di caparra. E la cucina e il bagno li abbiamo rifatti l'anno scorso."
+      goals: [contract, condition]
+    - learner: "La zona mi piace: è molto conveniente per il mio ufficio."
+      errors: [false-friend]
+    - tutor: "Sì, è molto comoda: la metropolitana è a due passi e ci sono negozi ovunque."
+      goals: [neighbourhood]
+      recast: {text: "molto conveniente", fix: "molto comoda", tags: [false-friend]}
+    - learner: "Allora mi interessa molto. Posso pensarci fino a domani?"
+    - tutor: "Certo, mi chiami entro domani sera e prepariamo il contratto."
+      goals: [decide]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-retired
+  history: [passive]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri ero fermo al semaforo e la mia macchina è stata colpito da un furgone."
+      errors: [passive]
+    - tutor: "Mi dispiace. Ma «è stata colpito»? Attenzione all'accordo: di che cosa parliamo?"
+      prompt: {text: "è stata colpito", tags: [passive]}
+    - learner: "Sì, la macchina è stato colpita dal furgone, da dietro."
+      errors: [passive]
+    - tutor: "Capisco: la sua macchina è stata colpita da dietro mentre era ferma. Ci sono danni gravi?"
+      goals: [what]
+      recast: {text: "è stato colpita", fix: "è stata colpita", tags: [passive]}
+    - learner: "Il paraurti è distrutto. L'altro conducente ha ammesso la colpa, e ho preso il suo numero di licenza."
+      errors: [false-friend]
+    - tutor: "Il numero di targa è molto importante, ottimo. Se ha ammesso la colpa, la responsabilità è chiara. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+      recast: {text: "numero di licenza", fix: "numero di targa", tags: [false-friend]}
+    - learner: "Sì, l'abbiamo firmata tutti e due. Ho anche le foto dell'incidente."
+    - tutor: "Perfetto. Mi mandi il modulo e le foto, così apriamo la pratica."
+      goals: [documents]
+    - learner: "Va bene, li mando oggi. E adesso cosa succede?"
+    - tutor: "Entro una settimana un perito verrà a vedere la macchina. Dopo la perizia potrà farla riparare."
+      goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Ho chiesto la residenza tre mesi fa, ma non ho ancora ricevuto niente."
+    - tutor: "Vediamo... ecco la sua pratica. Manca il contratto d'affitto, però."
+      goals: [request]
+    - learner: "Strano. Credo che il contratto è già nella pratica: l'ho portato a marzo."
+      errors: [subjunctive-use]
+    - tutor: "«Credo che il contratto è»? Attenzione: dopo «credo che», va bene questa forma?"
+      prompt: {text: "è già nella pratica", tags: [subjunctive-use]}
+    - learner: "Sì, credo che è già nella pratica, ne sono sicuro."
+      errors: [subjunctive-use]
+    - tutor: "Può darsi che sia già nella pratica, ma nel sistema non risulta. Ce l'ha con sé, per caso?"
+      goals: [documents]
+      recast: {text: "è già nella pratica", fix: "sia già nella pratica", tags: [subjunctive-use]}
+    - learner: "Sì, ecco una copia. Ma questo ritardo è molto inconveniente: senza residenza non posso cambiare la patente."
+      errors: [false-friend]
+    - tutor: "Capisco che sia molto scomodo, mi dispiace. Metto subito la copia nella pratica."
+      goals: [problem]
+      recast: {text: "molto inconveniente", fix: "molto scomodo", tags: [false-friend]}
+      new: [{lemma: scomodo, gloss: inconvenient}]
+    - learner: "Grazie. E adesso cosa devo fare?"
+    - tutor: "Entro quarantacinque giorni passeranno i vigili a casa sua per il controllo. Dopo si può chiedere il certificato."
+      goals: [next]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Sono spagnola, insegno da dieci anni e da due vivo a Bologna."
+    - tutor: "Molto bene. E qual è stata la sua esperienza più importante?"
+      goals: [intro]
+    - learner: "Ho diretto una piccola scuola di lingue a Valencia. Quando sono arrivata, la scuola è stata in crisi."
+      errors: [tense-aspect]
+    - tutor: "«La scuola è stata in crisi»? Descrive una situazione, non un fatto: quale tempo ci vuole?"
+      prompt: {text: "è stata in crisi", tags: [tense-aspect]}
+    - learner: "Sì, quando sono arrivata, la scuola è stata in crisi, perdeva studenti ogni anno."
+      errors: [tense-aspect]
+    - tutor: "Quindi la scuola era in crisi e perdeva studenti. E lei che cosa ha fatto?"
+      recast: {text: "è stata in crisi", fix: "era in crisi", tags: [tense-aspect]}
+    - learner: "Ho creato corsi online e un programma di scambi. Il progetto ha avuto molto esito."
+      errors: [false-friend]
+    - tutor: "Ha avuto molto successo, quindi: un risultato notevole! Quali sono i suoi punti di forza?"
+      goals: [experience]
+      recast: {text: "molto esito", fix: "molto successo", tags: [false-friend]}
+    - learner: "Sono organizzata e so lavorare in squadra. E vorrei lavorare da voi perché collaborate con scuole di tutta Europa."
+    - tutor: "Qualità preziose, e un motivo molto chiaro. Ha qualche domanda per me?"
+      goals: [strengths, why]
+    - learner: "Sì: quando potrei sapere il risultato del colloquio?"
+    - tutor: "Entro la fine della settimana. La ringrazio, è stato un piacere."
+      goals: [questions]
+
+- scenario: film-libro
+  level: B2
+  persona: en-m-traveller
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Comincio io! Ho letto «Il giardino dei Finzi-Contini» di Bassani. Racconta di una famiglia ebrea a Ferrara negli anni Trenta."
+    - tutor: "Un classico! E chi sono i personaggi principali?"
+      goals: [summary]
+    - learner: "Il narratore e Micòl, una ragazza misteriosa. La sua famiglia è molto educata e ricca."
+      errors: [false-friend]
+    - tutor: "Sì, una famiglia molto colta e ricca, che vive chiusa nel suo giardino. Micòl ti è piaciuta?"
+      goals: [characters]
+      recast: {text: "molto educata", fix: "molto colta", tags: [false-friend]}
+    - learner: "Moltissimo. Il finale mi ha fatto piangere: è un libro che consiglio a tutti."
+    - tutor: "Anche a me è piaciuto tanto. Qualcuno l'ha già letto? Vedo una faccia curiosa, lì in fondo."
+      goals: [opinion]
+    - learner: "Se alla ragazza in fondo interessa, posso prestarglilo."
+      errors: [combined-pronouns]
+    - tutor: "«Prestarglilo»? Mmm, quando i due pronomi si uniscono, la forma è un po' diversa."
+      prompt: {text: "prestarglilo", tags: [combined-pronouns]}
+    - learner: "Sì, sì, posso prestarlogli anche domani."
+      errors: [combined-pronouns]
+    - tutor: "Prestarglielo domani sarebbe perfetto, così ne parliamo il mese prossimo! Grazie del consiglio."
+      goals: [recommend]
+      recast: {text: "prestarlogli", fix: "Prestarglielo", tags: [combined-pronouns]}
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Non molto bene, dottore. Mi sento più stanca che prima."
+      errors: [comparative]
+    - tutor: "«Più stanca che prima»? Mmm, dopo «stanca» serve un'altra parola."
+      prompt: {text: "più stanca che prima", tags: [comparative]}
+    - learner: "Ah... molto più stanca che prima, soprattutto quando salgo le scale."
+      errors: [comparative]
+    - tutor: "Si sente molto più stanca di prima, anche con uno sforzo piccolo. Ha notato anche il battito più veloce?"
+      goals: [symptoms]
+      recast: {text: "più stanca che prima", fix: "più stanca di prima", tags: [comparative]}
+    - learner: "Sì, qualche volta di notte. Mia madre ha lo stesso problema da anni."
+    - tutor: "È importante saperlo. Lei prende già dei farmaci?"
+      goals: [history]
+    - learner: "Sì, prendo le pillole per la pressione, ma eventualmente vorrei smettere."
+      errors: [false-friend]
+    - tutor: "Capisco che prima o poi voglia smettere, ma per ora è meglio di no. Le è chiaro cosa dicono gli esami?"
+      recast: {text: "eventualmente", fix: "prima o poi", tags: [false-friend]}
+    - learner: "Sì, credo di sì: la pressione è ancora alta e il cuore fa troppa fatica."
+    - tutor: "Esatto. Le cambio la terapia e facciamo un controllo tra un mese."
+      goals: [understand, treatment]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: es-m-worker
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Vogliamo un matrimonio in campagna, in una masseria in Puglia, a giugno."
+    - tutor: "Che bello, una masseria! Quanti invitati pensate di avere, e qual è il vostro budget?"
+      goals: [vision]
+    - learner: "Circa ottanta invitati, e il budget è di ventimila euro, non di più."
+    - tutor: "È un budget ragionevole per ottanta persone. Cominciamo dal fotografo?"
+      goals: [budget]
+    - learner: "Sì. Spero che il fotografo venghi anche alla festa, non solo in chiesa."
+      errors: [subjunctive-form]
+    - tutor: "«Venghi»? Mmm, il congiuntivo di «venire» è un po' diverso."
+      prompt: {text: "il fotografo venghi", tags: [subjunctive-form]}
+    - learner: "Ah, sì: spero che il fotografo vienga anche alla festa."
+      errors: [subjunctive-form]
+    - tutor: "Nessun problema: è previsto che il fotografo venga anche alla festa, fino al taglio della torta."
+      goals: [choices]
+      recast: {text: "il fotografo vienga", fix: "il fotografo venga", tags: [subjunctive-form]}
+    - learner: "Perfetto. La mia novia vuole anche un menù di pesce."
+      errors: [word-choice]
+    - tutor: "La sua fidanzata ha ragione: in Puglia il pesce è eccezionale. Organizziamo una prova del menù?"
+      recast: {text: "novia", fix: "fidanzata", tags: [word-choice]}
+    - learner: "Sì! E quali sono le condizioni per il pagamento?"
+    - tutor: "Si paga il trenta per cento alla firma del contratto e il resto un mese prima del matrimonio."
+      goals: [conditions]
