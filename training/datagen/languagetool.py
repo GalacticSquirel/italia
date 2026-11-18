@@ -53,6 +53,9 @@ KNOWN_WORDS = frozenset(
         "mea",
         "culpa",
         "spritz",
+        "report",
+        "rap",
+        "montaliana",
         "showroom",
         "videochiamata",
         "videochiamate",
@@ -83,9 +86,15 @@ REDUPLICATED = frozenset(
     }
 )
 REPEAT_RULE = "ITALIAN_WORD_REPEAT_RULE"
-# Correct idioms a LanguageTool rule misreads ("senza badare a spese", "a tratti":
-# ER_01_001 wants "ha").
-KNOWN_PHRASES = ("badare a spese", "a sorpresa", "a tratti")
+# Correct phrases a LanguageTool rule misreads ("senza badare a spese", "a tratti":
+# ER_01_001 wants "ha"; "una pizza ai quattro formaggi", "vicino ai taxi": ER_01_002 wants "hai").
+KNOWN_PHRASES = (
+    "badare a spese",
+    "a sorpresa",
+    "a tratti",
+    "ai quattro formaggi",
+    "ai taxi",
+)
 
 
 @dataclass(frozen=True)
