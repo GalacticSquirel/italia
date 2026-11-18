@@ -26,7 +26,9 @@ from eval.__main__ import load_any_items
 from eval.__main__ import main as eval_main
 from eval.learner import (
     SCENARIO_ID,
+    accent_only,
     build_learner_items,
+    is_conversational,
     matches_native,
     render_learner_report,
     score_learner,
@@ -227,3 +229,13 @@ def test_held_out_sentences_never_appear_in_training() -> None:
     unique = pair("Vado al mare domani.", "Vado al mare domani.", n=2)
     got = keep_held_out_unseen([shared, train, unique])
     assert [p.split for p in got] == ["train", "train", "eval"]
+
+
+def test_learner_items_keep_only_conversational_sentences() -> None:
+    assert is_conversational("Siamo insieme 9 persone.")
+    assert not is_conversational("Cari amici, come state?")
+    assert not is_conversational("Cordiali saluti, Maria")
+    assert not is_conversational("SE CERCHERÒ QUALCOSA, TI CHIAMERÒ.")
+    assert not is_conversational("? Potreste mandarmi le informazioni")
+    assert accent_only(pair("Vado mercoledi.", "Vado mercoledì."))
+    assert not accent_only(pair("Vado al Roma.", "Vado a Roma."))

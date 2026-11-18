@@ -377,7 +377,8 @@ row of the parity table is on par.
 learner. `data/learner/merlin-it.jsonl` holds sentences that real learners wrote in CEFR exams
 (MERLIN, A1 to B2), each with a native speaker's minimal correction; see `data/learner/README.md`.
 A fifth of the authors are held out (`split: eval`). Their sentences become single-turn items in
-the eval-only `rileggere-lettera` scenario, in which the learner reads out a letter they wrote:
+the eval-only `raccontare-novita` scenario, in which the learner catches up with a friend (letter
+formulas, all-capitals sentences and fragments are left out):
 
 ```sh
 uv run python -m datagen merlin          # downloads the pinned release to work/, writes the pairs
