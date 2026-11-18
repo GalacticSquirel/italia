@@ -1,0 +1,266 @@
+# z-regress, file 03: A2-B1, comparatives (più/meno... di/che, meglio/migliore, tanto... quanto).
+- scenario: palestra
+  level: A2
+  persona: en-f-student
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie! Quanto costa un abbonamento di un mese?"
+    - tutor: "Quaranta euro al mese, oppure cento per tre mesi."
+      goals: [ask-membership]
+    - learner: "Allora quello di tre mesi costa meno che quello di un mese."
+      errors: [comparative]
+    - tutor: "«Meno che quello»? Dopo «meno», davanti a «quello», si usa un'altra parola."
+      prompt: {text: "meno che quello", tags: [comparative]}
+    - learner: "Costa meno di quello di un mese."
+    - tutor: "Esatto! Così paghi venti euro in meno."
+    - learner: "Che classi avete?"
+      errors: [false-friend]
+    - tutor: "Abbiamo corsi di yoga e nuoto. Lo yoga è il più amato."
+      recast: {text: "classi", fix: "corsi", tags: [false-friend]}
+      goals: [classes]
+    - learner: "Lo yoga è più rilassante che il nuoto?"
+      errors: [comparative]
+    - tutor: "«Che il nuoto»? Davanti a un nome, quale parola usiamo?"
+      prompt: {text: "che il nuoto", tags: [comparative]}
+    - learner: "Sì, più rilassante che il nuoto?"
+      errors: [comparative]
+    - tutor: "Sì, lo yoga è più rilassante del nuoto, e più tranquillo."
+      recast: {text: "che il nuoto", fix: "del nuoto", tags: [comparative]}
+    - learner: "Perfetto. Ci sono lezioni la sera? Per me la sera è più meglio."
+      errors: [comparative]
+    - tutor: "Più meglio? Ripeti: c'è una parola in più."
+      prompt: {text: "più meglio", tags: [comparative]}
+    - learner: "Per me la sera è più meglio, sì."
+      errors: [comparative]
+    - tutor: "Allora la sera è meglio per te: c'è yoga alle sette."
+      recast: {text: "è più meglio", fix: "è meglio", tags: [comparative]}
+      goals: [timetable]
+    - learner: "Benissimo, mi iscrivo! Cosa devo portare?"
+    - tutor: "Solo un documento e una foto."
+      goals: [sign-up]
+
+- scenario: serata-cinema
+  level: A2
+  persona: es-m-worker
+  history: [comparative]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema? C'è una película nuova di Moretti."
+      errors: [word-choice]
+    - tutor: "Bella idea, un film nuovo di Moretti! Che genere è?"
+      recast: {text: "una película nuova", fix: "un film nuovo", tags: [word-choice]}
+      goals: [propose]
+    - learner: "È una commedia. Le commedie mi piacciono più che i film d'azione."
+      errors: [comparative]
+    - tutor: "«Più che i film»? Davanti a un nome, quale parola usiamo dopo «più»?"
+      prompt: {text: "più che i film", tags: [comparative]}
+    - learner: "Mi piacciono più dei film d'azione."
+    - tutor: "Anche a me! Le commedie sono più divertenti."
+      goals: [genre]
+    - learner: "C'è uno spettacolo alle otto e uno alle dieci. Quello delle otto è meglio, perché domani lavoro."
+    - tutor: "Hai ragione, alle otto va bene."
+      goals: [choose]
+    - learner: "Andiamo all'Odeon? È più vicino che il cinema Astra."
+      errors: [comparative]
+    - tutor: "«Più vicino che il cinema»? Prova a cambiare una parola."
+      prompt: {text: "più vicino che il cinema Astra", tags: [comparative]}
+    - learner: "Sì, l'Odeon è più vicino che il cinema Astra."
+      errors: [comparative]
+    - tutor: "Allora andiamo all'Odeon, è più vicino del cinema Astra. Ci vediamo lì alle sette e mezza?"
+      recast: {text: "più vicino che il cinema Astra", fix: "più vicino del cinema Astra", tags: [comparative]}
+      goals: [meet]
+    - learner: "Perfetto, a dopo!"
+    - tutor: "A dopo, ciao!"
+
+- scenario: parrucchiere
+  level: A2
+  persona: es-f-erasmus
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno! Vorrei tagliare il pelo. È troppo lungo."
+      errors: [false-friend]
+    - tutor: "Certo, tagliamo i capelli! Fino a dove?"
+      recast: {text: "il pelo", fix: "i capelli", tags: [false-friend]}
+      goals: [book]
+    - learner: "Li vorrei fino alle spalle, non di più."
+    - tutor: "Va bene, fino alle spalle. Le faccio vedere qualche foto?"
+      goals: [length]
+    - learner: "Sì, grazie. Questa foto mi piace più che quella."
+      errors: [comparative]
+    - tutor: "«Più che quella»? Attenzione alla parola dopo «più»."
+      prompt: {text: "più che quella", tags: [comparative]}
+    - learner: "Sì, mi piace più che quella."
+      errors: [comparative]
+    - tutor: "Allora facciamo come in questa foto, che le piace più di quella."
+      recast: {text: "più che quella", fix: "più di quella", tags: [comparative]}
+      goals: [style]
+    - learner: "Perfetto! Quanto costa? Qui è meno caro come in centro?"
+      errors: [comparative]
+    - tutor: "«Meno caro come»? Pensi alla parola giusta tra due luoghi."
+      prompt: {text: "meno caro come", tags: [comparative]}
+    - learner: "Qui è meno caro che in centro?"
+    - tutor: "Sì, molto meno! Sono venticinque euro."
+      goals: [pay]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-m-retired
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Allora, cammino un po' ogni giorno, ma mangio troppi dolci."
+    - tutor: "Camminare è già un buon inizio. E quanto dormi?"
+      goals: [habits]
+    - learner: "Sei ore. Ma da giovane dormivo più bene di adesso."
+      errors: [comparative]
+    - tutor: "«Più bene»? Per questo esiste una parola sola."
+      prompt: {text: "più bene", tags: [comparative]}
+    - learner: "Dormivo meglio di adesso, è vero."
+    - tutor: "Esatto. E qual è il tuo obiettivo?"
+    - learner: "Voglio perdere cinque chili ed essere più in forma che l'anno scorso."
+      errors: [comparative]
+    - tutor: "«Più in forma che l'anno scorso»? Davanti a un nome, quale parola usiamo?"
+      prompt: {text: "più in forma che l'anno scorso", tags: [comparative]}
+    - learner: "Sì, più in forma che l'anno scorso."
+      errors: [comparative]
+    - tutor: "Ottimo obiettivo: essere più in forma dell'anno scorso è possibile. Cosa ti blocca di più?"
+      recast: {text: "più in forma che l'anno scorso", fix: "più in forma dell'anno scorso", tags: [comparative]}
+      goals: [goal]
+    - learner: "Il lavoro. Torno a casa stanco e il gym è lontano."
+      errors: [word-choice]
+    - tutor: "Capisco, se la palestra è lontana è dura. Allora potresti camminare di più, che è più semplice."
+      recast: {text: "il gym", fix: "la palestra", tags: [word-choice]}
+      goals: [obstacles]
+    - learner: "Sì, camminare mi piace più che correre. Camminerò mezz'ora ogni sera."
+    - tutor: "Perfetto! E i dolci?"
+    - learner: "Mangerò la frutta invece dei dolci. È migliore per la salute."
+    - tutor: "Bravissimo, allora il piano è pronto!"
+      goals: [plan]
+
+- scenario: smartworking
+  level: B1
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Lavoro da casa tre giorni alla settimana e due nella oficina."
+      errors: [word-choice]
+    - tutor: "Ah, due giorni in ufficio: una buona soluzione! E ti piace così?"
+      recast: {text: "nella oficina", fix: "in ufficio", tags: [word-choice]}
+      goals: [situation]
+    - learner: "Sì, a casa sono più tranquilla che in ufficio, e risparmio un'ora di treno."
+    - tutor: "Un'ora in meno sul treno è tanto! E com'è il lato negativo?"
+      goals: [pros]
+    - learner: "I colleghi li vedo meno, e la casa è meno comoda come l'ufficio."
+      errors: [comparative]
+    - tutor: "«Meno comoda come l'ufficio»? Tra due cose, che parola serve?"
+      prompt: {text: "meno comoda come l'ufficio", tags: [comparative]}
+    - learner: "La casa è meno comoda come l'ufficio, per lavorare."
+      errors: [comparative]
+    - tutor: "Capisco: se la casa è meno comoda dell'ufficio, stare lì tutto il giorno stanca."
+      recast: {text: "meno comoda come l'ufficio", fix: "meno comoda dell'ufficio", tags: [comparative]}
+      goals: [cons]
+    - learner: "Esatto. Ma tre giorni a casa è la soluzione più migliore per me."
+      errors: [comparative]
+    - tutor: "«Più migliore»? Ascolta bene: c'è una parola di troppo."
+      prompt: {text: "più migliore", tags: [comparative]}
+    - learner: "Ah, è la soluzione migliore per me."
+    - tutor: "Perfetto! Sei fortunata ad averla."
+      goals: [preference]
+
+- scenario: casa-mia
+  level: A2
+  persona: en-m-heritage
+  history: [comparative]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Abito in un appartamento nuovo. È più grande che il mio vecchio appartamento."
+      errors: [comparative]
+    - tutor: "«Più grande che il mio»? Prova con un'altra parola dopo «grande»."
+      prompt: {text: "più grande che il mio", tags: [comparative]}
+    - learner: "È più grande del mio vecchio appartamento."
+    - tutor: "Che bello! Quante stanze ci sono?"
+      goals: [type]
+    - learner: "Ci sono tre camere, due bagni e una cucina enorme."
+    - tutor: "Due bagni, perfetto! Qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "Il salotto. È tanto luminoso che la cucina."
+      errors: [comparative]
+    - tutor: "«Tanto luminoso che»? Con «tanto», quale parola usiamo?"
+      prompt: {text: "tanto luminoso che la cucina", tags: [comparative]}
+    - learner: "Sì, è tanto luminoso che la cucina."
+      errors: [comparative]
+    - tutor: "Allora è tanto luminoso quanto la cucina, perfetto per leggere!"
+      recast: {text: "tanto luminoso che la cucina", fix: "tanto luminoso quanto la cucina", tags: [comparative]}
+      goals: [favourite]
+    - learner: "Sì! E tu, Luca, abiti in centro?"
+    - tutor: "No, fuori città, e la mia casa è più piccola della tua!"
+      goals: [ask]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Sono stata in Sicilia con mio marito, due settimane a Siracusa."
+    - tutor: "Che bello! E che tempo faceva?"
+      goals: [where]
+    - learner: "Faceva caldissimo, molto più caldo che a Londra in agosto."
+    - tutor: "Immagino! E cosa avete fatto?"
+      goals: [weather]
+    - learner: "Abbiamo visitato Noto e Ortigia. Noto era bella, ma Ortigia era più bella che Noto."
+      errors: [comparative]
+    - tutor: "«Più bella che Noto»? Davanti al nome di una città, quale parola usiamo?"
+      prompt: {text: "più bella che Noto", tags: [comparative]}
+    - learner: "Ortigia era più bella di Noto, secondo me."
+    - tutor: "Sono d'accordo, Ortigia è stupenda."
+      goals: [activities]
+    - learner: "Ma il giorno più migliore è stato sull'Etna: il panorama era incredibile."
+      errors: [comparative]
+    - tutor: "«Più migliore»? Ripeti senza una parola."
+      prompt: {text: "più migliore", tags: [comparative]}
+    - learner: "Sì, il giorno più migliore è stato sull'Etna."
+      errors: [comparative]
+    - tutor: "Che bello, allora il giorno migliore è stato sull'Etna! Siete saliti fino in alto?"
+      recast: {text: "il giorno più migliore", fix: "il giorno migliore", tags: [comparative]}
+      goals: [best]
+    - learner: "Sì, con una guida. È stato faticoso, ma ne valeva la pena."
+    - tutor: "Che fortuna! L'anno prossimo ci vado anch'io."
+
+- scenario: tempo-libero
+  level: A2
+  persona: es-m-worker
+  history: [comparative]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Il sabato gioco al fútbol con i miei amici, e la domenica vado in bicicletta."
+      errors: [word-choice]
+    - tutor: "Che bello, giochi a calcio! Ti piace di più il calcio o la bicicletta?"
+      recast: {text: "al fútbol", fix: "a calcio", tags: [word-choice]}
+      goals: [hobby]
+    - learner: "Mi piace più giocare a calcio di andare in bici."
+      errors: [comparative]
+    - tutor: "«Di andare»? Con due verbi, la parola cambia."
+      prompt: {text: "di andare", tags: [comparative]}
+    - learner: "Mi piace più giocare di andare in bici."
+      errors: [comparative]
+    - tutor: "Ah, ti piace più giocare a calcio che andare in bici! Quante volte giochi?"
+      recast: {text: "di andare", fix: "che andare", tags: [comparative]}
+    - learner: "Gioco ogni sabato, e qualche volta il mercoledì sera."
+    - tutor: "Ogni settimana, bravo!"
+      goals: [frequency]
+    - learner: "E tu, Sara, cosa fai nel fine settimana?"
+    - tutor: "Io vado al lago o leggo un libro."
+      goals: [ask]
+    - learner: "Vieni alla partita sabato? La mia squadra è più peggiore della tua, ma è divertente!"
+      errors: [comparative]
+    - tutor: "«Più peggiore»? Pensaci bene: c'è una parola in più."
+      prompt: {text: "più peggiore", tags: [comparative]}
+    - learner: "È peggiore della tua, ma è divertente!"
+    - tutor: "Allora vengo! A che ora?"
+      goals: [propose]
+    - learner: "Alle tre, al campo vicino alla stazione."
+    - tutor: "Perfetto, a sabato!"

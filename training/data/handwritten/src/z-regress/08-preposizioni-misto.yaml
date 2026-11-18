@@ -1,0 +1,244 @@
+# z-regress, file 08: A1-B1, simple prepositions, with noun plurals, question forms and articles in the mix.
+- scenario: taxi
+  level: A1
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno! Dove la porto?"
+    - learner: "Buongiorno! In via Roma, numero 8, per favore."
+    - tutor: "Va bene. È qui per lavoro?"
+      goals: [destination]
+    - learner: "No, sono qui di vacanza."
+      errors: [preposition]
+    - tutor: "Di vacanza? Provi con un'altra parola."
+      prompt: {text: "di vacanza", tags: [preposition]}
+    - learner: "Sono qui in vacanza."
+    - tutor: "Brava! Le piace la città?"
+    - learner: "Sì, molto. Domani vado a Napoli in treno. Quanto tempo ci vuole per via Roma?"
+    - tutor: "Dieci minuti, più o meno."
+      goals: [ask-time]
+    - learner: "E quanto costa? Posso pagare in carta?"
+      errors: [preposition]
+    - tutor: "In carta? Scusi, come?"
+      prompt: {text: "in carta", tags: [preposition]}
+    - learner: "Sì, posso pagare in carta?"
+      errors: [preposition]
+    - tutor: "Sì, può pagare con la carta. Sono dodici euro."
+      recast: {text: "in carta", fix: "con la carta", tags: [preposition]}
+      goals: [ask-price]
+    - learner: "Ecco la carta. Grazie mille!"
+    - tutor: "Grazie a Lei, buona vacanza!"
+      goals: [pay]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Devo spedire questa lettera a Germania."
+      errors: [preposition]
+    - tutor: "A Germania? Attenzione: la Germania è un paese."
+      prompt: {text: "a Germania", tags: [preposition]}
+    - learner: "In Germania, a Berlino."
+    - tutor: "Bene, una lettera per Berlino."
+      goals: [send]
+    - learner: "Quanto tempo ci vuole? È per il compleanno di mio fratello."
+    - tutor: "Con la posta normale, una settimana."
+    - learner: "Va bene, non è urgente. Il suo compleanno è tra dieci giorni."
+    - tutor: "Allora arriva sicuramente in tempo."
+      goals: [speed]
+    - learner: "Devo scrivere qualcosa sul modulo?"
+    - tutor: "Sì, il suo nome e l'indirizzo di suo fratello."
+      goals: [form]
+    - learner: "Ecco fatto. Pago di contanti."
+      errors: [preposition]
+    - tutor: "Di contanti? Ripeta con un'altra parola."
+      prompt: {text: "di contanti", tags: [preposition]}
+    - learner: "Sì, pago di contanti."
+      errors: [preposition]
+    - tutor: "Va bene, in contanti sono tre euro e cinquanta."
+      recast: {text: "di contanti", fix: "in contanti", tags: [preposition]}
+      goals: [pay]
+    - learner: "Ecco. Grazie e buona giornata!"
+    - tutor: "Anche a Lei, arrivederci!"
+
+- scenario: chiedere-strada
+  level: A1
+  persona: en-m-retired
+  history: [preposition, question-form]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, grazie. Cerco il museo. Dov'è?"
+    - tutor: "Il museo è in piazza Garibaldi."
+      goals: [get-attention, ask-place]
+    - learner: "Posso andare in piedi?"
+      errors: [preposition]
+    - tutor: "In piedi? Scusi, come?"
+      prompt: {text: "in piedi", tags: [preposition]}
+    - learner: "Posso andare a piedi?"
+    - tutor: "Sì, a piedi sono dieci minuti."
+    - learner: "Cosa strada prendo?"
+      errors: [question-form]
+    - tutor: "Cosa strada? Provi con un'altra parola."
+      prompt: {text: "Cosa strada", tags: [question-form]}
+    - learner: "Cosa strada, per il museo?"
+      errors: [question-form]
+    - tutor: "Quale strada? Sempre dritto, poi a destra."
+      recast: {text: "Cosa strada", fix: "Quale strada", tags: [question-form]}
+      goals: [understand]
+    - learner: "Grazie, molto gentile!"
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto il 3 maggio e resto lì una settimana con la mia ragazza. Abbiamo prenotato un albergo vicino della stazione."
+      errors: [preposition]
+    - tutor: "Bello! Ma «vicino della stazione»? Con «vicino», quale preposizione serve?"
+      prompt: {text: "vicino della stazione", tags: [preposition]}
+    - learner: "Sì, vicino della stazione centrale."
+      errors: [preposition]
+    - tutor: "Ah, vicino alla stazione: comodo per i treni, anche se la zona non è la più bella. Cosa volete visitare?"
+      recast: {text: "vicino della stazione", fix: "vicino alla stazione", tags: [preposition]}
+    - learner: "Vogliamo vedere Pompei e fare un giro a Capri. Pensiamo di andare a Capri di traghetto."
+      errors: [preposition]
+    - tutor: "«Di traghetto»? Con treno, nave o aereo, quale preposizione usiamo?"
+      prompt: {text: "di traghetto", tags: [preposition]}
+      goals: [plans]
+    - learner: "In traghetto, da Napoli."
+    - tutor: "Esatto. Allora prenotate prima, perché a maggio c'è già tanta gente."
+      goals: [advice]
+    - learner: "E per andare a Pompei? È meglio il treno o l'autobus?"
+    - tutor: "Prendete il treno locale: è più comodo dell'autobus e ci mette mezz'ora."
+      goals: [transport]
+    - learner: "Mia madre dice che devo fare attenzione a tutto. Ci sono pericoli?"
+    - tutor: "Niente di speciale: tieni il telefono in tasca sui mezzi e goditi la città!"
+      goals: [warnings]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: en-f-professional
+  history: [preposition, noun-number]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Benissimo! Sabato sono andata da mia sorella in Bologna."
+      errors: [preposition]
+    - tutor: "In Bologna? Bologna è una città..."
+      prompt: {text: "in Bologna", tags: [preposition]}
+    - learner: "A Bologna, sì!"
+    - tutor: "Che bello! E cosa avete fatto?"
+      goals: [where]
+    - learner: "Abbiamo visitato il centro e abbiamo mangiato tre piatto di tortellini!"
+      errors: [noun-number]
+    - tutor: "Tre piatto? Quanti sono?"
+      prompt: {text: "tre piatto", tags: [noun-number]}
+    - learner: "Sì, tre piatto, buonissimi."
+      errors: [noun-number]
+    - tutor: "Tre piatti? Che fame!"
+      recast: {text: "tre piatto", fix: "tre piatti", tags: [noun-number]}
+      new: [{lemma: piatto, gloss: dish}]
+      goals: [what]
+    - learner: "Domenica invece siamo andate al cinema con due amici di mia sorella."
+    - tutor: "E ti sono piaciuti?"
+      goals: [with-who]
+    - learner: "Sì, molto. È stato un fine settimana fantastico, ma adesso sono stanca!"
+    - tutor: "Ci credo! Stasera vai a letto presto."
+      goals: [opinion]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: es-f-teacher
+  history: [preposition, article-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, grazie. Vorrei una bicicletta per due giorni."
+    - tutor: "Certo, per due giorni va benissimo."
+      goals: [ask, duration]
+    - learner: "Quanto costa? E c'è un posto per la mochila?"
+      errors: [word-choice]
+    - tutor: "Sono trenta euro, e sì, c'è un posto dietro per lo zaino."
+      recast: {text: "la mochila", fix: "lo zaino", tags: [word-choice]}
+      new: [{lemma: zaino, gloss: backpack}]
+      goals: [price]
+    - learner: "Perfetto. Domani voglio andare fino in lago."
+      errors: [preposition]
+    - tutor: "Fino in lago? Pensi alla preposizione."
+      prompt: {text: "fino in lago", tags: [preposition]}
+    - learner: "Fino al lago!"
+    - tutor: "Bella idea! Ci vuole un'ora, più o meno."
+    - learner: "Qual è la strada più bella? Voglio passare per gli parchi."
+      errors: [article-form]
+    - tutor: "Gli parchi? Attenzione all'articolo."
+      prompt: {text: "gli parchi", tags: [article-form]}
+    - learner: "Sì, per gli parchi."
+      errors: [article-form]
+    - tutor: "Allora passi per i parchi del centro: è la strada più bella."
+      recast: {text: "gli parchi", fix: "i parchi", tags: [article-form]}
+      goals: [route]
+
+- scenario: medico-base
+  level: A2
+  persona: en-m-traveller
+  history: [noun-number]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Mi fanno male le mano e i piedi."
+      errors: [noun-number]
+    - tutor: "Le mano? Sono due..."
+      prompt: {text: "le mano", tags: [noun-number]}
+    - learner: "Mi fanno male le mani."
+    - tutor: "Capisco. Da quando?"
+      goals: [symptoms]
+    - learner: "Da tre giorno."
+      errors: [noun-number]
+    - tutor: "Tre giorno? Ascolti la fine della parola."
+      prompt: {text: "tre giorno", tags: [noun-number]}
+    - learner: "Sì, da tre giorno."
+      errors: [noun-number]
+    - tutor: "Da tre giorni, va bene. Ha fatto qualcosa di speciale?"
+      recast: {text: "tre giorno", fix: "tre giorni", tags: [noun-number]}
+      goals: [since-when]
+    - learner: "Sì, la settimana scorsa ho cambiato casa e ho portato tante scatole."
+    - tutor: "Ecco il motivo! Prende medicine di solito?"
+    - learner: "No, sto sempre bene. Non prendo niente."
+    - tutor: "Bene, allora non è un problema serio."
+      goals: [history]
+    - learner: "Devo prendere qualcosa adesso?"
+    - tutor: "Non serve. Resti a casa una settimana e faccia un bagno caldo la sera."
+      goals: [instructions]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei un biglietto per Firenze, per domani mattina."
+    - tutor: "Certo. Preferisce il regionale o il treno veloce?"
+      goals: [destination]
+    - learner: "Quale costa meno? Sono una studentessa."
+    - tutor: "Il regionale costa meno, ma ci mette tre ore."
+    - learner: "Allora prendo il regionale. Parte di Roma Termini?"
+      errors: [preposition]
+    - tutor: "«Parte di Roma»? Per il punto di partenza, quale preposizione usiamo?"
+      prompt: {text: "di Roma Termini", tags: [preposition]}
+    - learner: "Sì, parte di Roma Termini?"
+      errors: [preposition]
+    - tutor: "Sì, parte da Roma Termini alle 8:10."
+      recast: {text: "di Roma Termini", fix: "da Roma Termini", tags: [preposition]}
+      goals: [type]
+    - learner: "Seconda classe, per favore. E a che ora arriva in Firenze?"
+      errors: [preposition]
+    - tutor: "In Firenze? Ci pensi bene: è una città."
+      prompt: {text: "in Firenze", tags: [preposition]}
+    - learner: "A che ora arriva a Firenze?"
+    - tutor: "Alle 11:20. In seconda classe sono ventidue euro."
+      goals: [class]
+    - learner: "Perfetto. Da quale binario parte?"
+    - tutor: "Di solito dal binario 12, ma controlli sempre in stazione."
+      goals: [platform]

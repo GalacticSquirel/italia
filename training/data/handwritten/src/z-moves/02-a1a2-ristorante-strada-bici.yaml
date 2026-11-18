@@ -1,0 +1,263 @@
+# z-moves, A1 and A2: prompt, praise, recast after a failed repair, recast at once for lexical
+# errors, prompt on the grammar error of a mixed turn, and plain replies to correct turns.
+- scenario: ristorante-ordinare
+  level: A1
+  persona: es-f-erasmus
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Siamo tre. C'è un tavolo fuori?"
+    - tutor: "Sì, ecco un tavolo al sole. Ecco il menù."
+      goals: [ask-table]
+    - learner: "Grazie. Io voglio il spaghetti con tomate."
+      errors: [article-form, word-choice]
+    - tutor: "Il spaghetti? Guardi bene l'articolo."
+      prompt: {text: "il spaghetti", tags: [article-form]}
+    - learner: "Gli spaghetti, scusi! E un'acqua naturale."
+    - tutor: "Perfetto! Gli spaghetti e un'acqua. Arrivano subito!"
+      goals: [order-food, order-drink]
+    - learner: "Tutto buonissimo! Mi porta la cuenta, per favore?"
+      errors: [word-choice]
+    - tutor: "Grazie! Le porto subito il conto."
+      goals: [ask-bill]
+      recast: {text: "la cuenta", fix: "il conto", tags: [word-choice]}
+    - learner: "Possiamo di pagare con la carta?"
+      errors: [modal-infinitive]
+    - tutor: "Possiamo di pagare? C'è una parola in più."
+      prompt: {text: "di pagare", tags: [modal-infinitive]}
+    - learner: "Sì, possiamo di pagare con la carta?"
+      errors: [modal-infinitive]
+    - tutor: "Certo, potete pagare con la carta. Ecco!"
+      recast: {text: "di pagare con la carta", fix: "pagare con la carta", tags: [modal-infinitive]}
+    - learner: "Grazie, era tutto molto buono!"
+    - tutor: "Grazie a voi! Tornate presto."
+
+- scenario: chiedere-strada
+  level: A1
+  persona: en-m-heritage
+  history: [preposition, ce-ci-sono]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, grazie. Scusi, dov'è la stazione?"
+    - tutor: "La stazione non è lontano, a dieci minuti."
+      goals: [get-attention, ask-place]
+    - learner: "Posso andare in piedi?"
+      errors: [preposition]
+    - tutor: "In piedi? Per andare senza macchina, che parola usiamo?"
+      prompt: {text: "in piedi", tags: [preposition]}
+    - learner: "Ah, a piedi! Posso andare a piedi?"
+    - tutor: "Esatto! Sì, a piedi va benissimo."
+    - learner: "Giro a destra al corner?"
+      errors: [word-choice]
+    - tutor: "Sì, all'angolo giri a destra. Poi sempre dritto."
+      recast: {text: "al corner", fix: "all'angolo", tags: [word-choice]}
+      new: [{lemma: angolo, gloss: corner}]
+    - learner: "Va bene. E vicino alla stazione è un bar?"
+      errors: [ce-ci-sono]
+    - tutor: "È un bar? Per dire che una cosa è lì, cosa usiamo?"
+      prompt: {text: "è un bar", tags: [ce-ci-sono]}
+    - learner: "Sì, è un bar vicino?"
+      errors: [ce-ci-sono]
+    - tutor: "Sì, c'è un bar proprio davanti alla stazione."
+      recast: {text: "è un bar", fix: "c'è un bar", tags: [ce-ci-sono]}
+    - learner: "Allora a destra all'angolo e poi dritto. Grazie mille!"
+    - tutor: "Esatto. Prego, buona giornata!"
+      goals: [understand, thank]
+
+- scenario: presentarsi
+  level: A1
+  persona: es-f-teacher
+  history: [essere-avere]
+  turns:
+    - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+    - learner: "Ciao Giulia! Mi chiamo Carmen. Piacere!"
+    - tutor: "Piacere mio! Di dove sei?"
+      goals: [say-name]
+    - learner: "Sono di Valencia. Lavoro in una escuela e sono trenta anni."
+      errors: [word-choice, essere-avere]
+    - tutor: "Sono trenta anni? Per l'età usiamo un altro verbo."
+      prompt: {text: "sono trenta anni", tags: [essere-avere]}
+    - learner: "Ah, ho trenta anni!"
+    - tutor: "Brava! E che lavoro fai?"
+      goals: [say-origin]
+    - learner: "Insegno inglese ai bambini. E tu, Giulia, sei estudiante?"
+      errors: [word-choice]
+    - tutor: "Sì, sono studentessa. Studio lingue all'università."
+      goals: [say-job, ask-back]
+      recast: {text: "estudiante", fix: "studentessa", tags: [word-choice]}
+      new: [{lemma: studentessa, gloss: student (female)}]
+    - learner: "Che bello! Le lingue sono molto interessante."
+      errors: [adjective-agreement]
+    - tutor: "Interessante? Le lingue sono tante: guarda la fine."
+      prompt: {text: "interessante", tags: [adjective-agreement]}
+    - learner: "Sì, sono molto interessante!"
+      errors: [adjective-agreement]
+    - tutor: "Sì, sono molto interessanti! Io studio inglese e spagnolo."
+      recast: {text: "interessante", fix: "interessanti", tags: [adjective-agreement]}
+    - learner: "Allora possiamo parlare in spagnolo e in italiano!"
+    - tutor: "Sì, che bella idea! A presto, allora."
+
+- scenario: autobus
+  level: A2
+  persona: en-f-professional
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Devo andare al museo archeologico. È la linea giusta?"
+    - tutor: "Sì, questa linea va al museo. Sono sei fermate."
+      goals: [route]
+    - learner: "Perfetto. Posso comprare il ticket qui? Ho tre euro."
+      errors: [word-choice]
+    - tutor: "Sì, qui il biglietto costa due euro e cinquanta. Ecco il resto!"
+      goals: [ticket]
+      recast: {text: "il ticket", fix: "il biglietto", tags: [word-choice]}
+    - learner: "Grazie. Mi dice quando arriviamo a il museo? Non voglio missare la fermata."
+      errors: [articulated-preposition, word-choice]
+    - tutor: "A il museo? Ricorda come si uniscono queste due parole?"
+      prompt: {text: "a il museo", tags: [articulated-preposition]}
+    - learner: "Al museo, scusi! Mi dice quando arriviamo?"
+    - tutor: "Perfetto! Certo, la chiamo io quando arriviamo."
+      goals: [stop]
+    - learner: "Grazie. Il museo è lontano da la fermata?"
+      errors: [articulated-preposition]
+    - tutor: "Da la fermata? Anche qui le due parole diventano una."
+      prompt: {text: "da la fermata", tags: [articulated-preposition]}
+    - learner: "Sì... è lontano da la fermata?"
+      errors: [articulated-preposition]
+    - tutor: "No, è a cento metri dalla fermata. Lo vede subito."
+      recast: {text: "da la fermata", fix: "dalla fermata", tags: [articulated-preposition]}
+    - learner: "Benissimo, grazie mille per l'aiuto!"
+    - tutor: "Prego! Ecco, la prossima è la sua fermata."
+      goals: [thank]
+
+- scenario: lavanderia
+  level: A2
+  persona: es-m-worker
+  history: [object-pronoun, ci-ne]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! Come funziona la secadora?"
+      errors: [word-choice]
+    - tutor: "L'asciugatrice? È facile: metti una moneta e scegli il programma."
+      goals: [problem]
+      recast: {text: "la secadora", fix: "l'asciugatrice", tags: [word-choice]}
+    - learner: "Ah, va bene. E la lavatrice? È la prima volta qui."
+    - tutor: "Prima metti i vestiti e il detersivo, poi chiudi la porta."
+      goals: [ask-how]
+    - learner: "Il detersivo? Non ho comprato."
+      errors: [object-pronoun]
+    - tutor: "Non ho comprato... cosa? Manca una piccola parola prima del verbo."
+      prompt: {text: "Non ho comprato", tags: [object-pronoun]}
+    - learner: "Ah, non l'ho comprato! Dove si compra?"
+    - tutor: "Bravo! Si compra lì, vicino alla porta. Poi servono anche i gettoni."
+    - learner: "Quanti gettoni servono? Devo comprare tre?"
+      errors: [ci-ne]
+    - tutor: "Comprare tre? Tre... cosa? Pensa a «quanti gettoni»."
+      prompt: {text: "comprare tre", tags: [ci-ne]}
+    - learner: "Sì, devo comprare tre?"
+      errors: [ci-ne]
+    - tutor: "Sì, devi comprarne tre. Ogni gettone costa un euro."
+      goals: [payment]
+      recast: {text: "comprare tre", fix: "comprarne tre", tags: [ci-ne]}
+    - learner: "Perfetto, grazie mille! Sei molto gentile."
+    - tutor: "Di niente! Ciao, buona giornata!"
+      goals: [thank]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, vorrei una bici. Domani andarò al lago con mia wife."
+      errors: [future-form, word-choice]
+    - tutor: "Andarò? Pensi bene al futuro di questo verbo."
+      prompt: {text: "andarò", tags: [future-form]}
+    - learner: "Ah, andrò! Domani andrò al lago con mia moglie."
+    - tutor: "Perfetto! Allora una bicicletta per lei e una per sua moglie?"
+      goals: [ask]
+    - learner: "Sì, due bici per tutto il giorno. Quanto costa?"
+    - tutor: "Una giornata costa quindici euro a bicicletta. E il casco non costa niente."
+      goals: [duration, price]
+    - learner: "Benissimo. Avete anche un lock per le bici?"
+      errors: [word-choice]
+    - tutor: "Sì, ecco un lucchetto per ogni bici."
+      recast: {text: "un lock", fix: "un lucchetto", tags: [word-choice]}
+    - learner: "Grazie. Si può di andare lungo il fiume?"
+      errors: [modal-infinitive]
+    - tutor: "Si può di andare? Dopo «può» c'è una parola di troppo."
+      prompt: {text: "Si può di andare", tags: [modal-infinitive]}
+    - learner: "Sì, si può di andare lungo il fiume fino al lago?"
+      errors: [modal-infinitive]
+    - tutor: "Sì, si può andare lungo il fiume. È il percorso più bello!"
+      goals: [route]
+      recast: {text: "Si può di andare", fix: "si può andare", tags: [modal-infinitive]}
+    - learner: "Perfetto. Allora domani mattina passiamo alle nove."
+    - tutor: "Benissimo, vi aspetto alle nove. Buona giornata!"
+
+- scenario: palestra
+  level: A2
+  persona: es-f-erasmus
+  history: [comparative, question-form]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Quanto costa l'abbonamento per un mese?"
+    - tutor: "Un mese costa quaranta euro, tre mesi cento."
+      goals: [ask-membership]
+    - learner: "Allora tre mesi è più economico che un mese."
+      errors: [comparative]
+    - tutor: "Più economico che un mese? Con due cose così, quale parola usi?"
+      prompt: {text: "che un mese", tags: [comparative]}
+    - learner: "Ah, più economico di un mese!"
+    - tutor: "Brava! E così paghi venti euro in meno."
+    - learner: "Che corsi avete? Voglio fare yoga per la espalda."
+      errors: [word-choice]
+    - tutor: "Lo yoga è ottimo per la schiena! C'è un corso il martedì e il giovedì."
+      goals: [classes]
+      recast: {text: "espalda", fix: "schiena", tags: [word-choice]}
+      new: [{lemma: schiena, gloss: back}]
+    - learner: "Bene! Quando ore inizia il corso?"
+      errors: [question-form]
+    - tutor: "Quando ore? Mmm, per l'orario come si chiede?"
+      prompt: {text: "Quando ore", tags: [question-form]}
+    - learner: "Sì, quando ore inizia il martedì?"
+      errors: [question-form]
+    - tutor: "A che ora inizia? Alle sette di sera, il martedì e il giovedì."
+      goals: [timetable]
+      recast: {text: "quando ore", fix: "a che ora", tags: [question-form]}
+    - learner: "Perfetto! Allora mi iscrivo per tre mesi."
+    - tutor: "Benissimo! Mi dai un documento per l'iscrizione?"
+      goals: [sign-up]
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-f-student
+  history: [object-pronoun, comparative]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno! Ho un appuntamento alle tre per un taglio."
+    - tutor: "Sì, eccola. Si accomodi qui, davanti allo specchio."
+      goals: [book]
+    - learner: "Grazie. Ho i capelli troppo larghi, voglio tagliare un po'."
+      errors: [false-friend]
+    - tutor: "Sì, sono lunghi! Quanto tagliamo, un po' o tanto?"
+      recast: {text: "larghi", fix: "lunghi", tags: [false-friend]}
+    - learner: "Poco, per favore. E la frangia? Voglio tagliarlo un po'."
+      errors: [object-pronoun]
+    - tutor: "Tagliarlo? La frangia... è maschile?"
+      prompt: {text: "tagliarlo", tags: [object-pronoun]}
+    - learner: "Ah... sì, voglio tagliarlo corta."
+      errors: [object-pronoun]
+    - tutor: "Va bene, posso tagliarla corta, sopra gli occhi."
+      goals: [length]
+      recast: {text: "tagliarlo", fix: "tagliarla", tags: [object-pronoun]}
+    - learner: "Wow, mi piace! È più meglio così!"
+      errors: [comparative]
+    - tutor: "Più meglio? Una di queste due parole è di troppo."
+      prompt: {text: "più meglio", tags: [comparative]}
+    - learner: "Ah, è molto meglio così!"
+    - tutor: "Esatto! Le sta benissimo, davvero."
+      goals: [style]
+    - learner: "Grazie! Quanto pago?"
+    - tutor: "Sono trenta euro. Grazie e buona giornata!"
+      goals: [pay]

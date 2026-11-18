@@ -1,0 +1,268 @@
+# z-moves, B1 and B2: each conversation contrasts prompts (with and without successful repair),
+# recasts after failed repair, immediate recasts of lexical errors, the grammar prompt chosen on
+# mixed turns, and correct turns left uncorrected.
+- scenario: prenotare-visita
+  level: B1
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita dal dermatologo."
+    - tutor: "Certo. Ha l'impegnativa del medico, o paga lei la visita?"
+      goals: [type]
+    - learner: "Pago io. La prossima settimana lavorarò tutti i giorni fino alle cinque."
+      errors: [future-form]
+    - tutor: "Lavorarò? Attenzione: è un verbo come «parlare», al futuro."
+      prompt: {text: "lavorarò", tags: [future-form]}
+    - learner: "Ah, lavorerò tutti i giorni fino alle cinque. Quanto costa la visita?"
+    - tutor: "Perfetto, allora le propongo giovedì alle sei. La visita costa novanta euro."
+      goals: [availability, cost]
+    - learner: "Va bene. Posso pagare in efectivo?"
+      errors: [word-choice]
+    - tutor: "Sì, può pagare in contanti o con la carta, come preferisce."
+      recast: {text: "in efectivo", fix: "in contanti", tags: [word-choice]}
+    - learner: "Bene. Il dottore mi darà i risultati subito o li mandarà a casa?"
+      errors: [future-form]
+    - tutor: "Mandarà? Ascolti di nuovo il verbo: come fa al futuro?"
+      prompt: {text: "mandarà", tags: [future-form]}
+    - learner: "Sì, li mandarà dopo la visita?"
+      errors: [future-form]
+    - tutor: "Di solito glieli dà subito, altrimenti li manderà a casa in due giorni."
+      recast: {text: "mandarà", fix: "manderà", tags: [future-form]}
+    - learner: "Perfetto. Allora giovedì alle sei, dal dermatologo."
+    - tutor: "Esatto, giovedì alle diciotto. A giovedì!"
+      goals: [confirm]
+
+- scenario: arte-mostra
+  level: B2
+  persona: en-f-professional
+  history: [passive, subjunctive-use]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Mi colpisce molto la luce: sembra che arrivi da dietro la figura."
+    - tutor: "Vero, sembra una luce da teatro. Secondo te quando è stato dipinto?"
+      goals: [react]
+    - learner: "È una Madonna con il bambino. Credo che è stato dipinto verso il 1500."
+      errors: [subjunctive-use]
+    - tutor: "Credo che è stato? Dopo «credo che», ti suona bene questa forma?"
+      prompt: {text: "è stato dipinto", tags: [subjunctive-use]}
+    - learner: "Sì, credo che è stato dipinto a Venezia."
+      errors: [subjunctive-use]
+    - tutor: "Anch'io credo che sia stato dipinto a Venezia, forse da un pittore della scuola locale."
+      goals: [describe]
+      recast: {text: "è stato dipinto", fix: "sia stato dipinto", tags: [subjunctive-use]}
+    - learner: "Il pittore era sicuramente un uomo molto educato: conosceva bene la prospettiva."
+      errors: [false-friend]
+    - tutor: "Molto colto, sì: conosceva la prospettiva e anche i modelli classici."
+      recast: {text: "educato", fix: "colto", tags: [false-friend]}
+      new: [{lemma: colto, gloss: cultured, learned}]
+    - learner: "Secondo me la luce rappresenta la fede. E le cornici sono state restaurato da poco, eventualmente."
+      errors: [passive, false-friend]
+    - tutor: "Le cornici sono state restaurato? Guarda bene l'ultima parola."
+      prompt: {text: "sono state restaurato", tags: [passive]}
+    - learner: "Ah, sono state restaurate da poco!"
+    - tutor: "Giusto, sono come nuove! E la tua lettura della luce come fede mi convince."
+      goals: [interpret]
+    - learner: "Rispetto al quadro di prima, questo mi sembra più moderno nella prospettiva."
+    - tutor: "Hai ragione, è più coraggioso. Andiamo a vedere l'ultima sala?"
+      goals: [compare]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-m-worker
+  history: [tense-aspect, passive]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Ieri pomeriggio ero fermo al semaforo e una macchina mi tamponava da dietro."
+      errors: [tense-aspect]
+    - tutor: "Mi tamponava? È un'azione unica e conclusa: le sembra il tempo giusto?"
+      prompt: {text: "tamponava", tags: [tense-aspect]}
+    - learner: "Sì, la macchina mi tamponava forte."
+      errors: [tense-aspect]
+    - tutor: "Capisco: un'auto ha tamponato la sua macchina mentre era fermo al semaforo."
+      goals: [what]
+      recast: {text: "tamponava", fix: "ha tamponato", tags: [tense-aspect]}
+      new: [{lemma: tamponare, gloss: to rear-end}]
+    - learner: "Esatto. L'altro conducente ha ammesso la colpa: era distratto con il móvil."
+      errors: [word-choice]
+    - tutor: "Distratto con il cellulare, quindi la responsabilità è chiaramente sua."
+      goals: [responsibility]
+      recast: {text: "móvil", fix: "cellulare", tags: [word-choice]}
+    - learner: "Sì. Abbiamo compilato e firmato la constatazione amichevole sul posto."
+    - tutor: "Benissimo. Ci sono foto dei danni o testimoni?"
+    - learner: "I danni sono stati fotografato da un vigile, ma non ci sono testigos."
+      errors: [passive, word-choice]
+    - tutor: "Sono stati fotografato? Guardi l'accordo con «i danni»."
+      prompt: {text: "sono stati fotografato", tags: [passive]}
+    - learner: "Ah, i danni sono stati fotografati da un vigile."
+    - tutor: "Perfetto, le foto ci saranno molto utili per la pratica."
+      goals: [documents]
+    - learner: "E adesso cosa succede? Quando arriverà il perito?"
+    - tutor: "Il perito la contatterà entro una settimana per valutare il danno. Poi riceverà il pagamento del danno, meno la franchigia."
+      goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-m-heritage
+  history: [subjunctive-use, preposition]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Mi sono trasferito qui da due mesi e vorrei chiedere la residenza."
+    - tutor: "Benissimo. Ha già compilato il modulo? Ha un contratto d'affitto?"
+      goals: [request]
+    - learner: "Sì, ho tutti e due. Ho anche una copia della mia licenza di guida."
+      errors: [word-choice]
+    - tutor: "Bene, la copia della patente può servire. Ha anche il permesso di soggiorno?"
+      recast: {text: "licenza di guida", fix: "patente", tags: [word-choice]}
+    - learner: "No, sono cittadino americano e italiano. Penso che non è necessario."
+      errors: [subjunctive-use]
+    - tutor: "Penso che non è? Dopo «penso che», quale modo serve?"
+      prompt: {text: "non è necessario", tags: [subjunctive-use]}
+    - learner: "Ah, penso che non sia necessario."
+    - tutor: "Esatto, e ha ragione: da cittadino italiano non serve. Mi dà un documento italiano?"
+      goals: [documents]
+    - learner: "Purtroppo ho dimenticato il passaporto italiano in Bari, da mia zia."
+      errors: [preposition]
+    - tutor: "In Bari? Con i nomi di città, quale preposizione usiamo?"
+      prompt: {text: "in Bari", tags: [preposition]}
+    - learner: "Sì, è in Bari, a casa sua."
+      errors: [preposition]
+    - tutor: "Ah, è a Bari. Allora le basta la carta d'identità italiana, se ce l'ha."
+      goals: [problem]
+      recast: {text: "in Bari", fix: "a Bari", tags: [preposition]}
+    - learner: "Sì, eccola. Quanto tempo ci vuole per la residenza?"
+    - tutor: "Entro quarantacinque giorni passeranno i vigili per il controllo. Poi potrà chiedere il certificato."
+      goals: [next]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: es-f-erasmus
+  history: [tense-aspect, false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Ho ventisei anni e lavoro nel marketing. Nel mio ultimo lavoro ogni lunedì ho preparato i report per il direttore."
+      errors: [tense-aspect]
+    - tutor: "Ogni lunedì ho preparato? Era un'abitudine: il tempo le sembra giusto?"
+      prompt: {text: "ho preparato", tags: [tense-aspect]}
+    - learner: "Ah, ogni lunedì preparavo i report per il direttore."
+    - tutor: "Esatto. E con i clienti ha avuto esperienza?"
+      goals: [intro]
+    - learner: "Sì, molta. Una volta ho dovuto attendere un cliente molto difficile."
+      errors: [false-friend]
+    - tutor: "Ah, ha dovuto seguire un cliente difficile? E come ha gestito la situazione?"
+      goals: [experience]
+      recast: {text: "attendere", fix: "seguire", tags: [false-friend]}
+    - learner: "Ho ascoltato le sue richieste e alla fine abbiamo trovato una soluzione. Sono paziente, ma a volte troppo perfezionista."
+    - tutor: "La pazienza è preziosa qui. E perché vorrebbe lavorare proprio da noi?"
+      goals: [strengths]
+    - learner: "Mi piacerebbe che il mio lavoro avrebbe un impatto internazionale."
+      errors: [subjunctive-use]
+    - tutor: "Che il mio lavoro avrebbe? Dopo «mi piacerebbe che» ci vuole un altro modo."
+      prompt: {text: "avrebbe un impatto internazionale", tags: [subjunctive-use]}
+    - learner: "Sì, che avrebbe un impatto internazionale."
+      errors: [subjunctive-use]
+    - tutor: "Capisco, le piacerebbe che il suo lavoro avesse un impatto internazionale. È proprio quello che facciamo."
+      goals: [why]
+      recast: {text: "avrebbe un impatto internazionale", fix: "avesse un impatto internazionale", tags: [subjunctive-use]}
+    - learner: "Posso chiederle com'è organizzata la squadra?"
+    - tutor: "Certo: siamo in otto, con un responsabile per ogni mercato. Le faremo sapere entro venerdì."
+      goals: [questions]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-m-retired
+  history: [subjunctive-use, relative-pronoun]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Capisco la sua preoccupazione, ma io sono favorevole alla zona pedonale."
+    - tutor: "Ah sì? E perché, scusi?"
+      goals: [position]
+    - learner: "Il primo motivo è l'inquinamento, che tutti parliamo ma nessuno risolve."
+      errors: [relative-pronoun]
+    - tutor: "Che tutti parliamo? «Parlare» vuole una preposizione: cosa cambia?"
+      prompt: {text: "che tutti parliamo", tags: [relative-pronoun]}
+    - learner: "Ah, l'inquinamento, di cui tutti parliamo."
+    - tutor: "Esatto. Ma l'inquinamento da solo non convince i commercianti."
+    - learner: "Inoltre, con meno traffico, la gente passeggia e compra di più. È un argomento sensibile."
+      errors: [false-friend]
+    - tutor: "Sensato, forse, ma i commercianti che vivono di clienti in macchina?"
+      goals: [argue]
+      recast: {text: "sensibile", fix: "sensato", tags: [false-friend]}
+      new: [{lemma: sensato, gloss: sensible}]
+    - learner: "Credo che i mezzi pubblici possono sostituire la macchina, se sono frequenti."
+      errors: [subjunctive-use]
+    - tutor: "Credo che... possono? Torni all'inizio della frase."
+      prompt: {text: "possono", tags: [subjunctive-use]}
+    - learner: "Sì, credo che possono sostituirla."
+      errors: [subjunctive-use]
+    - tutor: "Lei crede che possano sostituirla? Forse, ma solo se funzionano davvero."
+      goals: [counter]
+      recast: {text: "possono", fix: "possano", tags: [subjunctive-use]}
+    - learner: "Ammetto che servono parcheggi vicino al centro. Si potrebbe fare una prova di sei mesi."
+    - tutor: "Ecco, una prova di sei mesi con parcheggi fuori dal centro mi sembra ragionevole."
+      goals: [concede]
+
+- scenario: film-libro
+  level: B2
+  persona: es-m-worker
+  history: [relative-pronoun, ci-ne]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Ho letto un romanzo di Buzzati: un ufficiale aspetta per tutta la vita un nemico che non arriva."
+    - tutor: "Bella scelta! E il personaggio principale com'è?"
+      goals: [summary]
+    - learner: "È un giovane che diventa vecchio aspettando. Tutto succede con calma, senza prisa."
+      errors: [word-choice]
+    - tutor: "Senza fretta, sì: è proprio questo che crea l'attesa. Hai letto altri libri dello stesso autore?"
+      goals: [characters]
+      recast: {text: "senza prisa", fix: "senza fretta", tags: [word-choice]}
+    - learner: "Sì, ho letto due, ma alcuni capitoli erano aburridos."
+      errors: [ci-ne, word-choice]
+    - tutor: "Ho letto due? Due... di cosa? Manca una piccola parola."
+      prompt: {text: "ho letto due", tags: [ci-ne]}
+    - learner: "Ah, ne ho letti due!"
+    - tutor: "Perfetto! E questo ti è piaciuto di più?"
+    - learner: "Sì, perché parla del tempo che perdiamo. È un tema che penso spesso."
+      errors: [relative-pronoun]
+    - tutor: "Un tema che penso? «Pensare» vuole una preposizione: cosa cambia?"
+      prompt: {text: "che penso", tags: [relative-pronoun]}
+    - learner: "Sì, un tema che penso molto."
+      errors: [relative-pronoun]
+    - tutor: "Un tema a cui penso spesso anch'io, in effetti. A chi lo consiglieresti?"
+      goals: [opinion]
+      recast: {text: "che penso", fix: "a cui penso", tags: [relative-pronoun]}
+    - learner: "Lo consiglierei a chi ha pazienza e ama i libri lenti, non a chi cerca azione."
+    - tutor: "Ottimo consiglio! Allora lo mettiamo nella lista del club."
+      goals: [recommend]
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-f-professional
+  history: [false-friend, subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Mi sento spesso stanca, soprattutto dopo uno sforzo, e la notte il battito è irregolare."
+    - tutor: "Capisco. E da quanto tempo succede?"
+      goals: [symptoms]
+    - learner: "Da marzo. Prima stavo bene: ogni giorno sono andata al lavoro in bicicletta."
+      errors: [tense-aspect]
+    - tutor: "Ogni giorno sono andata? Era un'abitudine: quale tempo ci vuole?"
+      prompt: {text: "sono andata", tags: [tense-aspect]}
+    - learner: "Ah, ogni giorno andavo al lavoro in bicicletta."
+    - tutor: "Esatto. Ci sono problemi di cuore in famiglia?"
+    - learner: "Mio padre prende droghe per la pressione da anni. Credo che è un problema di famiglia."
+      errors: [subjunctive-use, false-friend]
+    - tutor: "Credo che è? Dopo «credo che», quale modo usiamo?"
+      prompt: {text: "è un problema di famiglia", tags: [subjunctive-use]}
+    - learner: "Ah, credo che sia un problema di famiglia."
+    - tutor: "Giusto. È un'informazione importante."
+      goals: [history]
+    - learner: "E i miei esami? Devo prendere droghe anch'io?"
+      errors: [false-friend]
+    - tutor: "I farmaci? Per ora no: gli esami mostrano solo una pressione un po' alta."
+      goals: [understand]
+      recast: {text: "droghe", fix: "farmaci", tags: [false-friend]}
+      new: [{lemma: farmaco, gloss: medicine, drug}]
+    - learner: "E se dovessi fare una terapia in futuro, ci sarebbero effetti collaterali?"
+    - tutor: "Con la terapia più comune sono rari: al massimo ci si sente un po' stanchi all'inizio. Ci rivediamo tra tre mesi."
+      goals: [treatment]

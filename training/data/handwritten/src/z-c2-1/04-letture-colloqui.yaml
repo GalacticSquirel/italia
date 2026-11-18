@@ -1,0 +1,261 @@
+# Round 4, set z-c2-1, file 4: a book club, job interviews, asking for a promotion.
+- scenario: club-lettura
+  level: C2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Sì, finalmente, e mi è piaciuto molto. Però per arrivare in fondo vuole molta pazienza: seicento pagine non sono poche."
+      errors: [ci-ne]
+    - tutor: "Seicento pagine, in effetti. Ma «vuole molta pazienza»: chi è che vuole? In quell'espressione manca una particella."
+      prompt: {text: "vuole molta pazienza", tags: [ci-ne]}
+      goals: [impression]
+    - learner: "Ah, sì: si vuole molta pazienza."
+      errors: [ci-ne]
+    - tutor: "Ci vuole molta pazienza, è vero, ma secondo me ripaga. Chi ti ha colpito di più, tra i personaggi?"
+      recast: {text: "si vuole molta pazienza", fix: "ci vuole molta pazienza", tags: [ci-ne]}
+    - learner: "Il nonno, del quale il passato fascista viene scoperto solo alla fine. Per me è il vero centro del romanzo."
+      errors: [relative-pronoun]
+    - tutor: "Personaggio fortissimo. Però «del quale il passato fascista»: esiste un relativo più elegante, che si mette proprio davanti a passato."
+      prompt: {text: "del quale il passato fascista", tags: [relative-pronoun]}
+    - learner: "Ah... il nonno, che il suo passato fascista viene scoperto solo alla fine? Secondo me ha taciuto per vergogna, ma anche per proteggere i figli: se avesse confessato, la famiglia sarebbe stata emarginata in paese."
+      errors: [relative-pronoun]
+    - tutor: "Il nonno, il cui passato viene a galla solo alla fine: lettura convincente, il silenzio come protezione e come colpa allo stesso tempo. E lo stile dell'autrice, che te ne è parso?"
+      recast: {text: "che il suo passato", fix: "il cui passato", tags: [relative-pronoun]}
+      goals: [character]
+    - learner: "Mi è piaciuto, soprattutto nei dialoghi: l'autrice usa un linguaggio molto casuale, quasi dialettale."
+      errors: [false-friend]
+    - tutor: "Molto colloquiale, sì, ed è il suo punto di forza: i personaggi parlano come le persone vere. A chi lo consiglieresti?"
+      recast: {text: "molto casuale", fix: "molto colloquiale", tags: [false-friend]}
+      goals: [style]
+    - learner: "A chi è appassionato di storia del Novecento, ma solo se ha tempo: non è un libro da leggere sotto l'ombrellone."
+    - tutor: "D'accordo, niente ombrellone. Lo segnalo nella newsletter della libreria come lettura per le sere d'inverno."
+      goals: [recommend]
+
+- scenario: club-lettura
+  level: C2
+  persona: en-m-traveller
+  history: [register]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Sì, l'ho terminato in data di ieri. In merito al romanzo, esprimo un parere complessivamente favorevole."
+      errors: [register]
+    - tutor: "«In data di ieri», «esprimo un parere»... sembri un notaio! Siamo in libreria con un bicchiere di vino: come lo diresti a un amico?"
+      prompt: {text: "l'ho terminato in data di ieri. In merito al romanzo, esprimo un parere complessivamente favorevole", tags: [register]}
+    - learner: "Hai ragione, deformazione professionale! L'ho finito ieri sera e mi è piaciuto, anche se non tutto."
+    - tutor: "Molto meglio. E che cosa non ti ha convinto?"
+      goals: [impression]
+    - learner: "Il padre, Ettore. Non capisco perché abbia venduto la terra al fratello, sapendo benissimo che l'avrebbe rovinata."
+    - tutor: "Secondo me l'ha fatto per orgoglio: non voleva dipendere da nessuno. Tu che idea ti sei fatto?"
+    - learner: "Forse, ma io penso che si sentiva in colpa per la guerra e volesse pagare una specie di debito."
+      errors: [subjunctive-use]
+    - tutor: "Lettura interessante. Ma senti la tua frase: «penso che si sentiva» e poi «volesse». I due verbi non sono nello stesso modo."
+      prompt: {text: "penso che si sentiva", tags: [subjunctive-use]}
+    - learner: "Ah... penso che si è sentito in colpa per la guerra, quindi."
+      errors: [subjunctive-use]
+    - tutor: "Sì, può darsi che si sia sentito in colpa per la guerra: questo spiegherebbe anche il suo silenzio con i figli. E lo stile, come l'hai trovato?"
+      recast: {text: "si è sentito in colpa", fix: "si sia sentito in colpa", tags: [subjunctive-use]}
+      goals: [character]
+    - learner: "Elegante, ma non facile: il lettore deve pagare molta attenzione ai salti temporali, e nei capitoli finali le metafore sono troppe."
+      errors: [word-choice]
+    - tutor: "Bisogna prestare molta attenzione, è vero: io mi ero fatto uno schema delle date! Sulle metafore, invece, ti do ragione. A chi lo consiglieresti?"
+      recast: {text: "pagare molta attenzione", fix: "prestare molta attenzione", tags: [word-choice]}
+      goals: [style]
+    - learner: "A chi ha pazienza e ama le storie di famiglia. Se l'avessi letto a vent'anni, però, l'avrei abbandonato dopo dieci pagine."
+    - tutor: "Anch'io, probabilmente: certi libri aspettano che siamo pronti. Allora lo consigliamo ai lettori pazienti e un po' cresciuti."
+      goals: [recommend]
+
+- scenario: club-lettura
+  level: C2
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Sì, l'ho finito anch'io in pochi giorni. Mi è piaciuto, ma il finale mi ha lasciata con una sensazione rara, come di cosa incompiuta."
+      errors: [false-friend]
+    - tutor: "Una sensazione strana, dici? A me il finale è sembrato perfetto. Incompiuta in che senso?"
+      recast: {text: "una sensazione rara", fix: "una sensazione strana", tags: [false-friend]}
+      goals: [impression]
+    - learner: "Nel senso che Lucia parte e lascia la figlia con la nonna. Secondo me dovrebbe portarla con sé, anche se era difficile."
+      errors: [conditional-form]
+    - tutor: "Giudizio netto. Ma ascolta: «dovrebbe portarla», per una scelta già fatta nel passato? Quel condizionale è del tempo giusto?"
+      prompt: {text: "dovrebbe portarla", tags: [conditional-form]}
+    - learner: "No, hai ragione: avrebbe dovuto portarla con sé. È una scelta che non riesco a perdonarle."
+    - tutor: "Severa ma coerente. E sullo stile dell'autrice, che cosa diresti?"
+      goals: [character]
+    - learner: "La prosa è curata, ma i dialoghi sono un po' rigidi, e nell'ultimo capitolo c'è un salto di dieci anni che mi ha molestato parecchio."
+      errors: [false-friend]
+    - tutor: "Ha infastidito anche me, a dire il vero: dieci anni liquidati in una riga! Però i dialoghi rigidi, secondo me, sono voluti: in quella famiglia nessuno dice quello che pensa."
+      recast: {text: "molestato", fix: "infastidito", tags: [false-friend]}
+      goals: [style]
+    - learner: "Non ci avevo pensato, ma ha senso. Lo consiglierei alle mie studentesse più grandi, che tra poco dovranno prendere una scelta importante: restare o partire."
+      errors: [word-choice]
+    - tutor: "Ottima idea: a diciotto anni bisogna fare una scelta del genere, e un romanzo così può aiutare a pensarci."
+      recast: {text: "prendere una scelta", fix: "fare una scelta", tags: [word-choice]}
+      goals: [recommend]
+    - learner: "Magari lo propongo come lettura estiva. E chissà che cosa ne penserebbero le loro madri!"
+    - tutor: "Ecco, quella sarebbe la vera discussione da club di lettura. Fammi sapere com'è andata."
+
+- scenario: colloquio-lavoro
+  level: C2
+  persona: en-f-professional
+  history: [passive]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Emily, sono designer di prodotto e a Londra ho fatto sei anni di esperienza in uno studio di arredamento."
+      errors: [word-choice]
+    - tutor: "Ha maturato sei anni di esperienza a Londra, dunque: un bel percorso. Ci lavora ancora?"
+      recast: {text: "fatto sei anni di esperienza", fix: "maturato sei anni di esperienza", tags: [word-choice]}
+      goals: [intro]
+    - learner: "Attualmente sì, ma da remoto. Ho seguito progetti per diverse aziende, dalla ricerca iniziale fino ai prototipi."
+    - tutor: "Di quale progetto va più fiera?"
+    - learner: "Di una lampada che abbiamo disegnato per un'azienda danese: è venuta prodotta in diecimila esemplari."
+      errors: [passive]
+    - tutor: "Notevole. Ma «è venuta prodotta»: con il passato prossimo, venire nel passivo funziona?"
+      prompt: {text: "è venuta prodotta", tags: [passive]}
+    - learner: "Allora è stato prodotta in diecimila esemplari."
+      errors: [passive]
+    - tutor: "È stata prodotta in diecimila esemplari: un risultato importante per uno studio piccolo. Quali sono, secondo Lei, i Suoi punti di forza?"
+      recast: {text: "è stato prodotta", fix: "è stata prodotta", tags: [passive]}
+      goals: [experience]
+    - learner: "Sono molto attenta ai dettagli e so lavorare in squadra. Il mio difetto? Sono troppo sensibile alle critiche, ma sto imparando a gestirlo."
+    - tutor: "Saperlo è già metà del lavoro. E perché vorrebbe lavorare proprio da noi?"
+      goals: [strengths]
+    - learner: "Perché voglio tornare in uno studio piccolo, dove si segue il prodotto dall'inizio alla fine. E mi ha colpita l'attitudine dello studio verso i materiali sostenibili."
+      errors: [false-friend]
+    - tutor: "L'atteggiamento dello studio verso la sostenibilità è in effetti il nostro biglietto da visita, e mi fa piacere che si noti. Ha qualche domanda per me?"
+      recast: {text: "l'attitudine dello studio", fix: "l'atteggiamento dello studio", tags: [false-friend]}
+      goals: [why]
+    - learner: "Sì: vorrei sapere come è organizzato il lavoro, e se i designer seguono anche la fase di produzione."
+    - tutor: "Sì, ogni designer segue il proprio progetto fino in fabbrica, con due o tre viaggi l'anno. Le faremo sapere entro la fine del mese."
+      goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: C2
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno, grazie per avermi convocato. Sono Javier, architetto d'interni: ho lavorato otto anni a Valencia, in uno studio dove all'inizio facevo un po' di tutto."
+    - tutor: "Una bella palestra. E poi come è andata?"
+      goals: [intro]
+    - learner: "Poi lo studio è cresciuto e sono diventato responsabile di un gruppo di quattro persone. Ma nel 2022 l'azienda chiudeva per la crisi e mi sono trasferito qui."
+      errors: [tense-aspect]
+    - tutor: "Mi dispiace. Però mi fermo su «nel 2022 l'azienda chiudeva»: è un fatto puntuale, concluso. Che tempo userebbe?"
+      prompt: {text: "nel 2022 l'azienda chiudeva", tags: [tense-aspect]}
+    - learner: "Nel 2022 l'azienda aveva chiuso, e così mi sono trasferito."
+      errors: [tense-aspect]
+    - tutor: "Capisco: l'azienda ha chiuso e Lei ha colto l'occasione per cambiare paese. Quali sono i Suoi punti di forza?"
+      recast: {text: "l'azienda aveva chiuso", fix: "l'azienda ha chiuso", tags: [tense-aspect]}
+      goals: [experience]
+    - learner: "So gestire i clienti difficili e nelle emergenze riesco a tenere la testa fredda. Il mio difetto è che fatico a delegare."
+      errors: [word-choice]
+    - tutor: "Mantenere il sangue freddo, con i clienti, è una dote preziosa. E perché ha pensato proprio a noi?"
+      recast: {text: "tenere la testa fredda", fix: "mantenere il sangue freddo", tags: [word-choice]}
+      goals: [strengths]
+    - learner: "Mi interessa il vostro lavoro sulle biblioteche pubbliche: se entrerei nella vostra squadra, potrei portare l'esperienza fatta in Spagna."
+      errors: [hypothetical]
+    - tutor: "Interessante. Ma «se entrerei»: dopo se, quel condizionale stona."
+      prompt: {text: "se entrerei", tags: [hypothetical]}
+    - learner: "Se entrassi nella vostra squadra, potrei portare la mia esperienza con le biblioteche: a Valencia ne ho progettate tre."
+    - tutor: "Perfetto, ed è proprio il tipo di esperienza che cerchiamo. Ha qualche domanda?"
+      goals: [why]
+    - learner: "Sì: posso chiederLe entro quando prevedete di prendere una decisione?"
+    - tutor: "Entro due settimane: vediamo ancora due candidati. La ricontatterà la mia collega dell'ufficio personale."
+      goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: C2
+  persona: en-m-heritage
+  history: [register]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno! Allora, mi chiamo Luca, sono cresciuto a Toronto ma i miei sono di Bari. Faccio il grafico da un sacco di anni."
+      errors: [register]
+    - tutor: "Benvenuto. Una piccola osservazione, visto che siamo a un colloquio: «da un sacco di anni» Le sembra il tono giusto?"
+      prompt: {text: "da un sacco di anni", tags: [register]}
+    - learner: "Ha ragione, mi scusi: faccio il grafico da molti anni. Ho lavorato per un'agenzia pubblicitaria a Toronto e poi in proprio per tre anni, cosa che mi ha insegnato a trattare con i clienti."
+    - tutor: "Esperienza varia, bene. E quali sono i Suoi punti di forza?"
+      goals: [intro, experience]
+    - learner: "Sono creativo e veloce. Il mio punto debole è che sono troppo diretto: dico le cose come stanno, senza girare intorno."
+      errors: [ci-ne]
+    - tutor: "La sincerità è una dote, se dosata. Ma «senza girare intorno»: in questa espressione manca una particella."
+      prompt: {text: "senza girare intorno", tags: [ci-ne]}
+    - learner: "Ah... senza girarne intorno?"
+      errors: [ci-ne]
+    - tutor: "Senza girarci intorno, appunto: e in uno studio piccolo questa franchezza può essere preziosa. Perché vuole lavorare proprio da noi?"
+      recast: {text: "girarne intorno", fix: "girarci intorno", tags: [ci-ne]}
+      goals: [strengths]
+    - learner: "Perché ho visto il vostro lavoro per il museo del mare di Genova, e mi ha fatto impazzire."
+      errors: [register]
+    - tutor: "Lo prendo come un complimento. Ma «mi ha fatto impazzire», in un colloquio, suona un po' da bar: come lo direbbe?"
+      prompt: {text: "mi ha fatto impazzire", tags: [register]}
+    - learner: "Diciamo che mi è piaciuto da matti, soprattutto la segnaletica."
+      errors: [register]
+    - tutor: "Moltissimo, direi, e ne sono contento: quella segnaletica è nata in questa stanza. Ha qualche domanda per me?"
+      recast: {text: "da matti", fix: "moltissimo", tags: [register]}
+      goals: [why]
+    - learner: "Sì, posso chiederLe se il ruolo prevede anche delle trasferte?"
+    - tutor: "Qualcuna, soprattutto a Milano per le fiere. Le faremo sapere entro venerdì."
+      goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: C2
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Sono Lucía, ho venticinque anni e mi sono appena licenziata in disegno industriale al Politecnico di Milano."
+      errors: [false-friend]
+    - tutor: "Laureata, vorrà dire: «licenziata», a un colloquio, fa un certo effetto! Complimenti. Ha già qualche esperienza di lavoro?"
+      recast: {text: "licenziata", fix: "laureata", tags: [false-friend]}
+      goals: [intro]
+    - learner: "Sì, un tirocinio di sei mesi in un'azienda di occhiali. Ogni venerdì il direttore tecnico ha controllato i nostri disegni e ci ha dato dei consigli."
+      errors: [tense-aspect]
+    - tutor: "Ottima palestra. Ma «ogni venerdì il direttore ha controllato»: per un'abitudine che si ripete, quale tempo è più naturale?"
+      prompt: {text: "Ogni venerdì il direttore tecnico ha controllato", tags: [tense-aspect]}
+    - learner: "Sì, cioè... ogni venerdì il direttore aveva controllato i disegni."
+      errors: [tense-aspect]
+    - tutor: "Ah, il direttore controllava i disegni ogni settimana: un'abitudine preziosa per chi impara. Quali sono i Suoi punti di forza?"
+      recast: {text: "il direttore aveva controllato", fix: "il direttore controllava", tags: [tense-aspect]}
+      goals: [experience]
+    - learner: "Sono molto esigente con me stessa e conosco bene i programmi di modellazione. Come difetto, direi che quando devo parlare in pubblico mi sento imbarazzata e parlo troppo in fretta."
+    - tutor: "Succede a molti, e si migliora con l'esercizio. Perché ha scelto di candidarsi qui?"
+      goals: [strengths]
+    - learner: "Perché il vostro studio è famoso per i suoi prodotti esitosi, ma anche perché lavorate con molti giovani."
+      errors: [false-friend]
+    - tutor: "Grazie: in effetti molti dei nostri prodotti di successo sono nati da giovani designer come Lei. Ha qualche domanda?"
+      recast: {text: "prodotti esitosi", fix: "prodotti di successo", tags: [false-friend]}
+      goals: [why]
+    - learner: "Vorrei sapere se è previsto un periodo di prova e, nel caso, quanto dura."
+    - tutor: "Sì, tre mesi, durante i quali Le affiancheremo un designer esperto. Le daremo una risposta entro dieci giorni."
+      goals: [questions]
+
+- scenario: colloquio-promozione
+  level: C2
+  persona: en-m-traveller
+  history: [word-choice]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie per avermi ricevuto. Vorrei fare il punto sull'ultimo anno: il mio gruppo ha colpito tutti gli obiettivi di vendita, e con due mesi di anticipo."
+      errors: [word-choice]
+    - tutor: "Ha raggiunto tutti gli obiettivi, anzi li ha superati: lo so bene, ho visto i numeri. E quindi?"
+      recast: {text: "colpito tutti gli obiettivi", fix: "raggiunto tutti gli obiettivi", tags: [word-choice]}
+      goals: [results]
+    - learner: "Quindi vorrei candidarmi al ruolo di responsabile d'area, che è vacante da marzo. Penso che ho le competenze per ricoprirlo."
+      errors: [subjunctive-use]
+    - tutor: "Richiesta chiara. Ma riascolti la seconda frase: «penso che ho»? Davanti a un dirigente, quel verbo merita un altro modo."
+      prompt: {text: "Penso che ho", tags: [subjunctive-use]}
+    - learner: "Certo: penso di avere le competenze per ricoprirlo, e credo che i risultati lo dimostrino."
+    - tutor: "Ecco, così è inattaccabile. Il problema è un altro: la direzione La considera ancora poco esperta nella gestione del personale."
+      goals: [request]
+    - learner: "Capisco la preoccupazione, e ci tengo a dirLe che non ne faccio una questione di prestigio. Se me l'avessero detto prima, avrei chiesto un corso di formazione già l'anno scorso."
+    - tutor: "Risposta matura. Che cosa propone, allora?"
+      goals: [handle]
+    - learner: "Un periodo di sei mesi come responsabile ad interim, con una nuova valutazione alla fine. Gli obiettivi però vanno essere scritti chiaramente, così non ci sono malintesi."
+      errors: [passive]
+    - tutor: "Mi sembra ragionevole. Solo, «vanno essere scritti»: con andare, il passivo è più asciutto di così."
+      prompt: {text: "vanno essere scritti", tags: [passive]}
+    - learner: "Giusto: gli obiettivi vanno scritti chiaramente, nero su bianco."
+    - tutor: "D'accordo. Preparo una proposta per la direzione entro venerdì, e fissiamo la valutazione per la fine di giugno."
+      goals: [next-steps]

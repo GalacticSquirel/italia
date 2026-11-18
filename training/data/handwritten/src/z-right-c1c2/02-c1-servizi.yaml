@@ -1,0 +1,205 @@
+# Set z-right-c1c2, file 2: C1, offices and services. Near-misses left alone: "che" temporale,
+# "sono potuto", "non so se è", "lo so che", "pare sia", negative antecedent + subjunctive,
+# "il fatto che" + subjunctive, superlative + subjunctive, dislocations, attualmente.
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: en-m-retired
+  history: [passive]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Sabato pomeriggio avevo parcheggiato davanti al supermercato, e quando sono tornato ho trovato lo specchietto rotto e la portiera rigata. Il colpevole, naturalmente, era sparito."
+  - tutor: "Che rabbia, mi dispiace. C'erano testimoni?"
+    goals: [what]
+  - learner: "Sì, per fortuna. Il giorno che è successo c'era un signore alla fermata dell'autobus, che ha visto tutto e si è segnato la targa."
+  - tutor: "Ottimo, questo cambia tutto. Quindi il responsabile è stato identificato?"
+  - learner: "Sì, la targa è stata verificata dai vigili, e il proprietario ha ammesso di aver urtato la mia macchina in retromarcia."
+  - tutor: "Bene, allora la responsabilità è chiara. Quali documenti ha?"
+    goals: [responsibility]
+  - learner: "Ho il verbale dei vigili e le foto del danno: ho fatto sei, da diverse angolazioni."
+    errors: [ci-ne]
+  - tutor: "Sei foto, molto bene. Però «ho fatto sei»: sei di che cosa? Manca un pronome piccolo piccolo."
+    prompt: {text: "ho fatto sei", tags: [ci-ne]}
+  - learner: "Ah, certo: ne ho fatte sei, con il telefono. Le servono in originale?"
+  - tutor: "Esatto. No, basta che me le mandi per email, insieme al verbale."
+    goals: [documents]
+  - learner: "Va bene, gliele mando stasera. E adesso cosa succede? Quanto ci vorrà per la riparazione?"
+  - tutor: "Apriamo la pratica oggi stesso. Il perito la chiamerà entro dieci giorni, e dopo la sua visita potrà portare l'auto dal carrozziere."
+    goals: [next]
+    new: [{lemma: perito, gloss: loss adjuster}]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno, il 47 sono io. Vorrei chiedere la residenza: mi sono trasferita da Valencia a febbraio e attualmente vivo in affitto in via Cavour."
+  - tutor: "Benissimo. Ha con sé un documento d'identità e il contratto d'affitto?"
+    goals: [request]
+  - learner: "Il passaporto sì, eccolo. Il contratto, invece, non so se va bene: è registrato, ma è intestato alla mia coinquilina, non a me."
+  - tutor: "Ah, allora serve anche una dichiarazione della coinquilina, che la autorizza a stare nell'appartamento."
+    goals: [documents]
+  - learner: "Lo sapevo, e la dichiarazione l'ha firmata prima di partire per la Spagna. Però mi sono dimenticata portarla: è rimasta sulla scrivania."
+    errors: [preposition]
+  - tutor: "Capita a tutti! Ma «mi sono dimenticata portarla»: tra i due verbi manca qualcosa."
+    prompt: {text: "mi sono dimenticata portarla", tags: [preposition]}
+  - learner: "Ah, sì: mi sono dimenticata di portarla. Devo rifare la fila domani?"
+  - tutor: "Esatto. E no, non serve: può lasciarla nella cassetta qui fuori, con il numero della pratica scritto sopra."
+    goals: [problem]
+  - learner: "La lascio domattina, allora. E dopo, quanto tempo ci vuole?"
+  - tutor: "Entro quarantacinque giorni passano i vigili per l'accertamento: basta che qualcuno sia in casa. Poi le arriva la conferma per posta."
+    goals: [next]
+    new: [{lemma: accertamento, gloss: official check}]
+  - learner: "Ci sarò io. Grazie mille, è stata gentilissima."
+  - tutor: "Si figuri. Arrivederci, e benvenuta in città."
+
+- scenario: reclamo-comune
+  level: C1
+  persona: en-f-professional
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Abito in via dei Mille, e da tre settimane il cassonetto della carta sotto casa non viene svuotato. Ormai i sacchetti sono sul marciapiede."
+  - tutor: "Capisco, è spiacevole. Ha già fatto una segnalazione?"
+    goals: [describe]
+  - learner: "Sì, due, e mi hanno risposto che era stata presa in carico. Nel quartiere non c'è nessuno che non abbia telefonato almeno una volta."
+  - tutor: "Purtroppo la raccolta è gestita da un'azienda esterna: noi possiamo solo sollecitarla."
+  - learner: "Lo so che non dipende da lei, ma il contratto con quell'azienda l'ha firmato il Comune. Qualcuno dovrà pur controllare."
+  - tutor: "Ha ragione, il controllo spetta a noi."
+    goals: [insist]
+  - learner: "E quali sono le mie diritti, esattamente? Posso chiedere una riduzione della tassa sui rifiuti?"
+    errors: [noun-gender]
+  - tutor: "Domanda legittima. Ma «le mie diritti»? Ci pensi un attimo: di che genere è la parola?"
+    prompt: {text: "le mie diritti", tags: [noun-gender]}
+  - learner: "I miei diritti, scusi. Allora, posso chiedere una riduzione?"
+  - tutor: "Sì: il regolamento prevede una riduzione se il servizio resta sospeso per più di quindici giorni. Deve presentare domanda scritta all'ufficio tributi."
+    goals: [rights]
+  - learner: "Benissimo, la presento subito. E lei, nel frattempo, che cosa può fare per il cassonetto?"
+  - tutor: "Chiamo l'azienda oggi stesso, e le garantisco che entro venerdì il cassonetto verrà svuotato. Mi lasci il suo numero, così la richiamo io."
+    goals: [commitment]
+
+- scenario: medico-specialista
+  level: C1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Abbastanza bene, dottore. Ogni tanto il cuore mi batte forte, soprattutto la sera, ma dura pochi secondi. Il mese scorso ho avuto anche un brutto raffreddore, ma è passato."
+  - tutor: "Questi battiti accelerati li sente anche quando è a riposo?"
+    goals: [symptoms]
+  - learner: "Sì, a volte anche da sdraiato. Mi pare che succeda di più quando bevo caffè, e ne bevo cinque o sei al giorno, lo ammetto."
+  - tutor: "Cinque o sei sono parecchi. In famiglia ci sono stati problemi di cuore?"
+  - learner: "Mio padre ha avuto un infarto a sessant'anni. Il giorno che l'hanno operato io ero in Ecuador, e non sono potuto tornare in tempo."
+  - tutor: "Mi dispiace molto. È un dato importante, ne terremo conto."
+    goals: [history]
+  - learner: "Dottore, è grave? Ho paura che è il cuore, come per mio padre."
+    errors: [subjunctive-use]
+  - tutor: "Capisco la preoccupazione. Ma «ho paura che è»: dopo un verbo di timore, quale modo usiamo?"
+    prompt: {text: "ho paura che è", tags: [subjunctive-use]}
+  - learner: "Sì, sì. Ho paura che è una cosa ereditaria, ecco."
+    errors: [subjunctive-use]
+  - tutor: "È naturale temere che sia una cosa ereditaria, ma gli esami sono rassicuranti: si tratta di extrasistole benigne, molto comuni."
+    goals: [understand]
+    recast: {text: "che è una cosa ereditaria", fix: "che sia una cosa ereditaria", tags: [subjunctive-use]}
+    new: [{lemma: extrasistole, gloss: extra heartbeat}]
+  - learner: "Che sollievo. E allora che cosa devo fare?"
+  - tutor: "Niente farmaci, per ora: riduca il caffè a due al giorno, e ripetiamo l'elettrocardiogramma tra tre mesi."
+    goals: [treatment]
+
+- scenario: recensione-ristorante
+  level: C1
+  persona: en-m-traveller
+  history: [conditional-form]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, purtroppo. Avevamo prenotato per le otto, e il secondo è arrivato alle dieci meno un quarto. E le tagliatelle me le hanno portate fredde."
+  - tutor: "Mi scuso, è inaccettabile. Può dirmi esattamente che cosa avevate ordinato?"
+    goals: [complain]
+  - learner: "Due antipasti, le tagliatelle per me e il brasato per mia moglie. Il brasato era ottimo; il problema sono stati i tempi, e il fatto che nessuno ci abbia avvisato del ritardo."
+  - tutor: "Ha perfettamente ragione: un avviso era il minimo."
+    goals: [detail]
+  - learner: "Guardi, siamo venuti perché è il ristorante più consigliato che ci sia in zona. Mi sarei aspettato almeno che il cameriere passasse a scusarsi."
+  - tutor: "E avrebbe avuto tutto il diritto di aspettarselo. Stasera avevamo due cuochi in meno, ma non è una scusa."
+    goals: [expectation]
+  - learner: "Non vogliamo fare una scenata, ma ci aspettiamo una qualche forma di compensazione."
+    errors: [word-choice]
+  - tutor: "Una qualche forma di rimborso è il minimo: le tagliatelle non le mettiamo in conto, e i dolci ve li offre la casa."
+    goals: [resolve]
+    recast: {text: "una qualche forma di compensazione", fix: "una qualche forma di rimborso", tags: [word-choice]}
+  - learner: "È molto gentile, grazie. Allora un caffè lo prendiamo volentieri."
+  - tutor: "Ve lo porto io personalmente, e stavolta in tempi record."
+
+- scenario: trattativa-affitto
+  level: C1
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Molto. La luce è splendida, e la cucina l'hanno rifatta da poco, si vede. Però di difetti ne ho notati un paio."
+  - tutor: "Mi dica pure, così vediamo se si può fare qualcosa."
+    goals: [interest]
+  - learner: "Il bagno non ha la finestra, e gli infissi della camera sono vecchi: d'inverno ci farà freddo. Per questo ottocento euro mi sembrano un po' tanti."
+  - tutor: "Il prezzo è in linea con la zona, ma il proprietario è disposto a trattare."
+  - learner: "Allora gli proponga questo: se il proprietario cambierebbe gli infissi, potrei accettare gli ottocento."
+    errors: [hypothetical]
+  - tutor: "Proposta interessante. Ma «se il proprietario cambierebbe»: dopo «se», il condizionale ci sta bene?"
+    prompt: {text: "il proprietario cambierebbe", tags: [hypothetical]}
+  - learner: "Voglio dire: se il proprietario cambierebbe gli infissi, per me ottocento vanno bene."
+    errors: [hypothetical]
+  - tutor: "Quindi, se il proprietario cambiasse gli infissi entro ottobre, lei accetterebbe gli ottocento euro. Glielo propongo subito."
+    goals: [negotiate]
+    recast: {text: "il proprietario cambierebbe", fix: "il proprietario cambiasse", tags: [hypothetical]}
+  - learner: "Perfetto. Il contratto sarebbe un quattro più quattro? E quanti mesi di deposito chiedete?"
+  - tutor: "Sì, quattro più quattro, con due mesi di deposito. Le spese condominiali sono a parte, circa sessanta euro al mese."
+    goals: [conditions]
+  - learner: "Due mesi vanno bene. Se il proprietario dice di sì per gli infissi, firmo anche la settimana prossima."
+  - tutor: "Allora lo chiamo oggi stesso e le faccio sapere entro domani sera."
+    goals: [conclude]
+
+- scenario: organizzare-matrimonio
+  level: C1
+  persona: en-m-heritage
+  history: [combined-pronouns]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Lo immaginiamo semplice ma elegante: rito civile in un giardino, una sessantina di invitati e una cena all'aperto. La mia fidanzata sogna le lucine tra gli alberi."
+  - tutor: "Che bella idea, le lucine creano sempre atmosfera. Avete già pensato a un budget?"
+    goals: [vision]
+  - learner: "Più o meno quindicimila euro, tutto compreso. Lo so che non è moltissimo, ma i nostri genitori ci aiutano già con la casa."
+  - tutor: "Con sessanta invitati si può fare, se scegliamo bene."
+    goals: [budget]
+  - learner: "Per il ricevimento avevamo visto una villa sul lago, ma ce l'hanno sconsigliata: pare sia difficile da raggiungere la sera."
+  - tutor: "In effetti lì le strade sono strette e buie. Vi propongo un agriturismo in collina: ha un giardino enorme e un parcheggio comodo."
+  - learner: "Lo conosciamo di nome! Mia madre ci ha stata l'anno scorso per un compleanno, e ne parla benissimo."
+    errors: [auxiliary-choice]
+  - tutor: "Allora è già una garanzia. Ma «ci ha stata»? Con il verbo stare, quale ausiliare ci vuole?"
+    prompt: {text: "ci ha stata", tags: [auxiliary-choice]}
+  - learner: "Ci è stata, giusto. Possiamo andare a vederlo sabato?"
+  - tutor: "Esatto. Sabato alle undici va benissimo: ve lo prenoto io."
+    goals: [choices]
+  - learner: "E quali sono le condizioni? Bisogna lasciare un anticipo?"
+  - tutor: "Sì, il trenta per cento alla firma e il resto una settimana prima. Se annullate con sei mesi di preavviso, l'anticipo vi viene restituito."
+    goals: [conditions]
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: en-f-student
+  history: [word-choice]
+  turns:
+  - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+  - learner: "Buongiorno! Sono una studentessa, vivo a Firenze da due anni e sono a favore, anche se con qualche dubbio. D'estate il centro ormai è invivibile."
+  - tutor: "A favore, ma con dubbi. Ci faccia capire meglio."
+    goals: [introduce]
+  - learner: "Le faccio un esempio. Nel mio palazzo sono rimaste due famiglie su dieci: gli altri appartamenti sono tutti affitti brevi. La signora del piano di sotto dice che il suo quartiere non lo riconosce più."
+  - tutor: "Un esempio che dice molto. Ma il ticket non rischia di trasformare la città in un parco a tema?"
+    goals: [example]
+  - learner: "È un rischio, ma il fatto che tanti turisti restino solo poche ore non aiuta nessuno. Il ticket almeno costringe a programmare la visita, e chi si ferma a dormire non lo paga."
+  - tutor: "Una risposta che non fa una piega. E lei, se fosse sindaca, che cosa farebbe con quei soldi?"
+    goals: [rebut]
+  - learner: "Bisogna che il Comune usa quei soldi per le famiglie, per esempio per abbassare gli affitti in centro."
+    errors: [subjunctive-use]
+  - tutor: "Proposta concreta. Ripeta per chi ci ascolta da casa, però: «Bisogna che il Comune...»?"
+    prompt: {text: "il Comune usa", tags: [subjunctive-use]}
+  - learner: "Bisogna che il Comune usi quei soldi per le famiglie, per esempio con affitti calmierati per chi vive in centro."
+  - tutor: "Perfetto. Affitti calmierati per i residenti: la giriamo direttamente al sindaco. Grazie per la sua telefonata!"
+    goals: [proposal]

@@ -1,0 +1,232 @@
+# Round 4, set z-c2-1, file 7: a letter to the Rector, a library book club, AI at dinner.
+- scenario: email-rettore
+  level: C2
+  persona: es-m-worker
+  history: [hypothetical]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Una delibera mi obbliga a restituire la borsa di studio perché non avrei rispettato l'obbligo di frequenza, ma ero in ospedale e avevo avvisato tutti. Pensavo di cominciare così: «Magnifico Rettore, Le scrivo riguardo la delibera del 12 maggio»."
+      errors: [preposition]
+    - tutor: "Situazione delicata ma difendibile, e l'apertura è quasi perfetta. Solo: dopo «riguardo», in un testo formale, manca una piccola parola."
+      prompt: {text: "riguardo la delibera", tags: [preposition]}
+      goals: [situation]
+    - learner: "Certo: «Magnifico Rettore, Le scrivo riguardo della delibera del 12 maggio»?"
+      errors: [preposition]
+    - tutor: "Scriviamo «riguardo alla delibera del 12 maggio», e l'apertura è impeccabile. E il cuore della lettera, come l'ha pensato?"
+      recast: {text: "riguardo della delibera", fix: "riguardo alla delibera", tags: [preposition]}
+      goals: [opening-formula]
+    - learner: "Volevo scrivere: «Se l'ufficio avrebbe letto i certificati medici, non avrebbe mai preso questa decisione»."
+      errors: [hypothetical]
+    - tutor: "Il concetto è giusto. Ma «se l'ufficio avrebbe letto»: in un periodo ipotetico, dopo se, quel verbo non va."
+      prompt: {text: "Se l'ufficio avrebbe letto", tags: [hypothetical]}
+    - learner: "«Se l'ufficio leggeva i certificati medici...»?"
+      errors: [hypothetical]
+    - tutor: "Il periodo giusto è «se l'ufficio avesse letto i certificati», ma il tono resta troppo accusatorio. Come potremmo attenuarlo?"
+      recast: {text: "Se l'ufficio leggeva", fix: "Se l'ufficio avesse letto", tags: [hypothetical]}
+    - learner: "Forse: «Mi permetto di far presente che i certificati medici, regolarmente consegnati, non sembrano essere stati presi in considerazione»."
+    - tutor: "Ottimo: dice tutto senza accusare nessuno. Manca solo la chiusura."
+      goals: [tone]
+    - learner: "«In attesa di una Sua cortese contestazione, porgo distinti saluti»."
+      errors: [false-friend]
+    - tutor: "Attenzione, «contestazione» qui suonerebbe come una protesta! Scriva «in attesa di una Sua cortese risposta», e il resto va benissimo."
+      recast: {text: "cortese contestazione", fix: "cortese risposta", tags: [false-friend]}
+      goals: [closing]
+    - learner: "Meno male che me l'ha detto: sarebbe stato un bell'autogol."
+    - tutor: "Capita più spesso di quanto creda. La firmi e la protocolli entro la settimana: i tempi per il ricorso sono stretti."
+
+- scenario: film-libro
+  level: C2
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Comincio io! Ho letto «L'amica geniale». Racconta l'amicizia tra due bambine che crescono in un rione povero di Napoli negli anni Cinquanta."
+    - tutor: "Un classico recente. Senza rovinare niente agli altri: chi sono le due protagoniste?"
+      goals: [summary]
+    - learner: "Lenù, la narratrice, è studiosa e insicura; Lila è l'amica di cui tutti hanno paura. È una ragazza la quale intelligenza fa quasi spavento."
+      errors: [relative-pronoun]
+    - tutor: "Ritratto bellissimo. Ma «una ragazza la quale intelligenza»: per indicare il possesso, c'è un relativo apposta."
+      prompt: {text: "una ragazza la quale intelligenza", tags: [relative-pronoun]}
+    - learner: "Ah... una ragazza che la sua intelligenza fa spavento?"
+      errors: [relative-pronoun]
+    - tutor: "Sì, una ragazza la cui intelligenza fa quasi spavento, anche a chi le vuole bene. E a te, il libro è piaciuto?"
+      recast: {text: "una ragazza che la sua intelligenza", fix: "una ragazza la cui intelligenza", tags: [relative-pronoun]}
+      goals: [characters]
+    - learner: "Moltissimo. All'inizio ho fatto fatica con tutti quei nomi, ma poi non riuscivo più a smettere. Mi ha colpito come racconta la violenza del quartiere senza mai giudicarla."
+    - tutor: "È la sua forza: guarda tutto ad altezza di bambina. A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A chiunque abbia avuto un'amicizia complicata, cioè a tutti! Ma anche a chi vuole capire Napoli, che ne esce raccontata con un realismo durissimo."
+    - tutor: "Consiglio accolto: lo metto in cima alla lista del prossimo trimestre. Chi è il prossimo?"
+      goals: [recommend]
+
+- scenario: film-libro
+  level: C2
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io ho letto «Il nome della rosa». È un giallo ambientato in un monastero nel Trecento: un frate e il suo giovane aiutante indagano su una serie di morti misteriose."
+    - tutor: "Un bel mattone! E il frate, che tipo è?"
+      goals: [summary]
+    - learner: "Guglielmo è molto razionale, quasi moderno. Mi ricordava Sherlock Holmes: osserva dettagli che gli altri non realizzano."
+      errors: [false-friend]
+    - tutor: "Dettagli che gli altri non notano, esatto, ed è voluto: perfino il suo nome viene da Baskerville. Ti è piaciuto, alla fine?"
+      recast: {text: "non realizzano", fix: "non notano", tags: [false-friend]}
+      goals: [characters]
+    - learner: "Sì, anche se la prima volta che l'ho letto, a sedici anni, l'abbandonavo dopo cinquanta pagine."
+      errors: [tense-aspect]
+    - tutor: "Succede a molti! Però «l'abbandonavo dopo cinquanta pagine»: era un'abitudine, o è successo una volta sola?"
+      prompt: {text: "l'abbandonavo dopo cinquanta pagine", tags: [tense-aspect]}
+    - learner: "Una volta sola: l'ho abbandonato dopo cinquanta pagine. Questa volta invece l'ho divorato, soprattutto per le discussioni sul riso e sulla paura."
+    - tutor: "Le pagine più belle, secondo me. A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A chi ama la storia e non ha paura del latino. Agli altri direi di vedere prima il film, di cui la fine è un po' diversa."
+      errors: [relative-pronoun]
+    - tutor: "Furba! Ma «il film, di cui la fine»: c'è un relativo più adatto, che si mette davanti al nome."
+      prompt: {text: "di cui la fine", tags: [relative-pronoun]}
+    - learner: "Il film, che la sua fine è diversa?"
+      errors: [relative-pronoun]
+    - tutor: "Il film, la cui fine è diversa, sì: ma non diciamo di più, che qualcuno qui non l'ha ancora letto!"
+      recast: {text: "che la sua fine", fix: "la cui fine", tags: [relative-pronoun]}
+      goals: [recommend]
+    - learner: "Hai ragione, mi cucio la bocca!"
+    - tutor: "Brava. Allora passiamo la parola a chi ha letto qualcosa di più leggero, per riprenderci."
+
+- scenario: film-libro
+  level: C2
+  persona: en-m-traveller
+  history: [word-choice]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io ho letto «Se una notte d'inverno un viaggiatore», visto il mio lavoro! Difficile riassumerlo senza rovinare la sorpresa: diciamo che il protagonista sei tu, il lettore, che cerca di finire un romanzo e non ci riesce mai."
+    - tutor: "Riassunto perfetto, e senza spoiler. Ma un personaggio vero e proprio c'è?"
+      goals: [summary]
+    - learner: "C'è Ludmilla, la Lettrice, di cui il Lettore si innamora. Rappresenta il lettore ideale: curiosa, impaziente, mai soddisfatta."
+    - tutor: "Bella definizione. E tu, sei rimasto soddisfatto?"
+      goals: [characters]
+    - learner: "Sì e no. È un libro brillante, ma a volte mi sembrava che Calvino faceva solo esercizi di stile."
+      errors: [subjunctive-use]
+    - tutor: "Critica interessante. Ma «mi sembrava che Calvino faceva»: dopo sembrare, il verbo cambia modo."
+      prompt: {text: "mi sembrava che Calvino faceva", tags: [subjunctive-use]}
+    - learner: "Mi sembrava che Calvino faccia solo esercizi di stile?"
+      errors: [subjunctive-use]
+    - tutor: "Capisco: a tratti sembra che Calvino facesse più ginnastica che letteratura. Però, secondo te, vale la pena leggerlo?"
+      recast: {text: "Calvino faccia", fix: "Calvino facesse", tags: [subjunctive-use]}
+    - learner: "Assolutamente sì. Anche se è un po' freddo, ti fa realizzare quanto sia strano l'atto di leggere."
+      errors: [false-friend]
+    - tutor: "Ti fa capire quanto sia strano leggere, sì: dopo Calvino non si apre più un libro con innocenza. A chi lo consiglieresti?"
+      recast: {text: "ti fa realizzare", fix: "ti fa capire", tags: [false-friend]}
+      goals: [opinion]
+    - learner: "A chi ha letto tanto e pensa di aver già visto tutto. Ai principianti no: si perderebbero dopo il terzo incipit."
+    - tutor: "Consiglio onesto. Lo segno per i lettori più navigati: per gli altri, Marcovaldo."
+      goals: [recommend]
+
+- scenario: intelligenza-artificiale
+  level: C2
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Capisco la paura, ma non sono così pessimista. Alcuni lavori spariranno, certo, ma ne nasceranno altri che oggi non riusciamo nemmeno a immaginare."
+    - tutor: "Belle parole, ma hai qualche prova?"
+      goals: [position]
+    - learner: "Pensa a Internet: negli anni Novanta molti temevano che facesse sparire milioni di posti di lavoro, e invece ha creato settori interi."
+    - tutor: "D'accordo, ma la differenza è la velocità: questa volta tutto succede in pochi anni, non in trenta."
+      goals: [evidence]
+    - learner: "Su questo hai ragione. Se la tecnologia andrebbe più piano, avremmo il tempo di riqualificare le persone."
+      errors: [hypothetical]
+    - tutor: "Ecco, ci siamo capiti. Però «se la tecnologia andrebbe»: ti sembra giusto quel condizionale dopo se?"
+      prompt: {text: "Se la tecnologia andrebbe", tags: [hypothetical]}
+    - learner: "No: se la tecnologia andasse più piano, avessimo il tempo di riqualificare le persone."
+      errors: [hypothetical]
+    - tutor: "Esatto, se andasse più piano avremmo il tempo di riqualificare tutti: ed è proprio questo che mi spaventa."
+      recast: {text: "avessimo il tempo", fix: "avremmo il tempo", tags: [hypothetical]}
+      goals: [concede]
+    - learner: "Allora forse siamo più d'accordo di quanto pensassimo: il problema non è la tecnologia, ma la formazione, e chi la paga."
+    - tutor: "Brindiamo a questo, allora: alla formazione, e a chi avrà il coraggio di finanziarla."
+      goals: [conclude]
+
+- scenario: intelligenza-artificiale
+  level: C2
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Io credo che tu esageri. Lavoro in una fabbrica di automobili da vent'anni: i robot ci sono da sempre, e noi siamo ancora lì."
+    - tutor: "Ma i tuoi robot non scrivono, non disegnano, non decidono."
+      goals: [position]
+    - learner: "È vero, ma da noi l'automazione ha cambiato i compiti, non ha tolto posti. Il problema è che il governo non prende misure per formare chi resta indietro."
+      errors: [word-choice]
+    - tutor: "Su questo hai ragione: lo Stato non prende provvedimenti, e la formazione la fanno le aziende, quando la fanno. Ma il tuo esempio della fabbrica regge."
+      recast: {text: "prende misure", fix: "prende provvedimenti", tags: [word-choice]}
+      goals: [evidence]
+    - learner: "Devo ammettere però che temo che i più grandi non riescono ad adattarsi: due miei colleghi sono andati in pensione prima per questo."
+      errors: [subjunctive-use]
+    - tutor: "Ecco una concessione onesta. Ma «temo che non riescono»: dopo temere, quale modo ci aspettiamo?"
+      prompt: {text: "temo che i più grandi non riescono", tags: [subjunctive-use]}
+    - learner: "Temo che i più grandi non riuscirebbero ad adattarsi, volevo dire."
+      errors: [subjunctive-use]
+    - tutor: "Già, è il timore di tutti: che i più grandi non riescano ad adattarsi, e che nessuno li aiuti."
+      recast: {text: "non riuscirebbero", fix: "non riescano", tags: [subjunctive-use]}
+      goals: [concede]
+    - learner: "Allora troviamoci a metà strada: la tecnologia non è il nemico, ma senza formazione pagheranno sempre i soliti."
+    - tutor: "A metà strada ci sto. Passami il vino, che su questo almeno non ci sono dubbi."
+      goals: [conclude]
+
+- scenario: intelligenza-artificiale
+  level: C2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Mah, secondo me ci vuole calma. Qualcuno resterà a casa, è vero, ma molti di noi lavoreranno con questi strumenti, non contro."
+    - tutor: "Facile dirlo per te che lavori in banca. E chi fa il traduttore?"
+      goals: [position]
+    - learner: "Mia cugina fa la traduttrice e dice che per un testo tecnico ora impiega la metà del tempo: la macchina fa la prima bozza, ed eventualmente lei rivede tutto a mano."
+      errors: [false-friend]
+    - tutor: "E alla fine lei rivede tutto a mano, certo. Ma scommetto che adesso la pagano la metà."
+      recast: {text: "eventualmente lei rivede", fix: "alla fine lei rivede", tags: [false-friend]}
+      goals: [evidence]
+    - learner: "Il compenso è sceso, sì. Per la qualità alta servirà sempre un traduttore umano, ma vorranno anni prima che i clienti lo capiscano."
+      errors: [ci-ne]
+    - tutor: "Può darsi. Ma «vorranno anni»: chi è che vuole? In quell'espressione manca una particella."
+      prompt: {text: "vorranno anni", tags: [ci-ne]}
+    - learner: "Si vorranno anni, intendo."
+      errors: [ci-ne]
+    - tutor: "Ci vorranno anni, sì, e nel frattempo molti cambieranno mestiere: almeno questo me lo concedi?"
+      recast: {text: "Si vorranno anni", fix: "Ci vorranno anni", tags: [ci-ne]}
+    - learner: "Te lo concedo: per chi lavora oggi la transizione sarà dura, soprattutto se non viene aiutato da nessuno."
+    - tutor: "Ecco, finalmente un po' di sano pessimismo anche da parte tua."
+      goals: [concede]
+    - learner: "Quindi forse il punto non è se l'intelligenza artificiale ci ruberà il lavoro, ma chi deciderà come usarla. Su questo siamo d'accordo, no?"
+    - tutor: "Su questo sì, pienamente. Visto? Bastava una cena lunga per metterci d'accordo."
+      goals: [conclude]
+
+- scenario: intelligenza-artificiale
+  level: C2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Paura? Io la uso già in classe: mi aiuta a preparare esercizi su misura e, francamente, mi salva molte ore."
+      errors: [word-choice]
+    - tutor: "Ti fa risparmiare molte ore, d'accordo. Ma se uno studente le fa scrivere il tema, che cosa resta della scuola?"
+      recast: {text: "salva molte ore", fix: "fa risparmiare molte ore", tags: [word-choice]}
+    - learner: "Il problema non è nuovo: anche con Internet i ragazzi copiavano. Bisognerebbe che i professori cambiano il modo di valutare."
+      errors: [subjunctive-use]
+    - tutor: "D'accordo sul principio. Ma «bisognerebbe che i professori cambiano»: con quel bisognerebbe, quale forma ci vuole?"
+      prompt: {text: "Bisognerebbe che i professori cambiano", tags: [subjunctive-use]}
+    - learner: "Bisognerebbe che i professori cambino il modo di valutare?"
+      errors: [subjunctive-use]
+    - tutor: "Sì, bisognerebbe che i professori cambiassero il modo di valutare: più orali, meno temi a casa. Hai visto risultati concreti, nelle tue classi?"
+      recast: {text: "i professori cambino", fix: "i professori cambiassero", tags: [subjunctive-use]}
+      goals: [position]
+    - learner: "Sì: quest'anno ho fatto scrivere i temi in classe e ho chiesto ai ragazzi di criticare un testo generato dalla macchina. Hanno trovato errori di cui nemmeno io mi ero accorta."
+    - tutor: "La macchina come cattivo esempio, geniale. Ma ammetterai che per molti professori è un lavoro in più, e non pagato."
+      goals: [evidence]
+    - learner: "Questo è innegabile, e ci ho pensato anch'io: da quando la uso, correggo di più e dormo di meno."
+    - tutor: "Ecco, almeno su questo siamo d'accordo. E allora, come ne usciamo?"
+      goals: [concede]
+    - learner: "Diciamo che la tecnologia non è né buona né cattiva: dipende da chi la usa e da quanto tempo diamo alle persone per imparare."
+    - tutor: "Sottoscrivo. Ma la prossima cena la organizzi tu, e niente intelligenza artificiale per il menù."
+      goals: [conclude]

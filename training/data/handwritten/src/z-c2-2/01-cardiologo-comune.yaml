@@ -1,0 +1,227 @@
+# C2: registro e sfumature dal cardiologo e allo sportello del Comune.
+- scenario: medico-specialista
+  level: C2
+  persona: en-m-retired
+  history: [register]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Buongiorno, dottore. Direi meglio, nel complesso, anche se salendo le scale di casa ho ancora il fiatone e al secondo piano devo fermarmi un attimo sul pianerottolo. La sera, poi, mi capita di sentire il cuore che batte forte, come se avessi corso."
+  - tutor: "Il fiatone sulle scale, a due mesi dall'intervento, è abbastanza normale; il battito accelerato la sera, invece, voglio capirlo meglio. Le succede quando è già a letto, o anche prima?"
+    goals: [symptoms]
+  - learner: "Quasi sempre a letto, prima di addormentarmi. Dura un paio di minuti, poi passa da solo. Senti, dottore, ma secondo te è una cosa seria?"
+    errors: [register]
+    gold: {text: "Senti, dottore, ma secondo te", fix: "Senta, dottore, ma secondo Lei"}
+  - tutor: "Capisco la preoccupazione, e ci arriviamo subito. Ma mi permetta una nota: «Senti, dottore, ma secondo te»… finora ci davamo del Lei, o sbaglio?"
+    prompt: {text: "Senti, dottore, ma secondo te", tags: [register]}
+  - learner: "Ha ragione, mi scusi, mi è scappato: con tutte queste visite mi sembra quasi di essere di famiglia. Senta, dottore, secondo Lei è una cosa seria?"
+  - tutor: "Nessuna offesa, lo prendo come un complimento. Dagli esami non risulta nulla di allarmante: il ritmo è regolare e la pressione è sotto controllo. In famiglia, però, qualcuno ha avuto problemi di cuore?"
+    goals: [understand]
+  - learner: "Mio padre ha avuto un infarto a sessantadue anni, e mio fratello maggiore porta un pacemaker da quando ne aveva cinquanta. Per questo, glielo confesso, ogni volta che sento il cuore accelerare mi viene un po' d'ansia."
+  - tutor: "Una storia familiare così giustifica la prudenza, e anche un po' d'ansia. Le propongo di aggiungere un betabloccante a basso dosaggio, che dovrebbe regolarizzare il battito notturno. Ha domande sulla terapia?"
+    goals: [history]
+  - learner: "Sì, una sola: ho letto che i betabloccanti possono dare stanchezza. Io faccio un'ora di cammino ogni mattina, ed è l'unica cosa che mi fa stare davvero bene: non vorrei rinunciarne."
+    errors: [ci-ne]
+    gold: {text: "rinunciarne", fix: "rinunciarci"}
+  - tutor: "Domanda giustissima. Ma torniamo un attimo a «non vorrei rinunciarne»: si rinuncia a qualcosa, non di qualcosa. Quale particella le serve, allora?"
+    prompt: {text: "rinunciarne", tags: [ci-ne]}
+  - learner: "Giusto, a qualcosa: non vorrei rinunciarci. È diventata la mia piccola ossessione quotidiana."
+  - tutor: "Esatto. E non dovrà farlo: all'inizio potrà sentirsi un po' più affaticato, ma di solito il corpo si abitua in due o tre settimane. Rallenti il passo, se serve, e ci rivediamo tra un mese per il controllo."
+    goals: [treatment]
+
+- scenario: medico-specialista
+  level: C2
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Buongiorno, dottoressa. Sono state settimane faticose: mi sono sentita spesso stanca, e un paio di volte, durante una lezione, ho avuto un capogiro così forte che ho dovuto sedermi. Ho anche notato che la sera le caviglie sono un po' gonfie."
+  - tutor: "Capogiri e caviglie gonfie: due dettagli preziosi, grazie della precisione. Il capogiro l'ha avuto dopo essersi alzata di scatto, o anche mentre era ferma?"
+    goals: [symptoms]
+  - learner: "Mentre ero ferma, in piedi davanti alla lavagna. Mia madre aveva lo stesso problema, soffriva di pressione bassa, e anche mia nonna, che però è arrivata a novantasei anni: quindi non mi ne preoccupo più di tanto."
+    errors: [combined-pronouns]
+    gold: {text: "non mi ne preoccupo", fix: "non me ne preoccupo"}
+  - tutor: "Una nonna di novantasei anni è un'ottima referenza. Ma quel «non mi ne preoccupo» non mi convince: davanti a ne, il pronome mi resta proprio uguale?"
+    goals: [history]
+    prompt: {text: "non mi ne preoccupo", tags: [combined-pronouns]}
+  - learner: "No, cambia, come in glielo. Quindi non me ne preoccupo più di tanto. Ma vorrei capire il valore segnato in rosso: dal referto non si capisce se sia peggiorato rispetto all'anno scorso."
+  - tutor: "Esatto. Il valore in rosso è il potassio, leggermente basso: niente di grave, ma spiega in parte la stanchezza. Rispetto all'anno scorso è sceso di poco, e la pressione massima resta intorno a cento."
+    goals: [understand]
+  - learner: "Le dico allora una cosa che forse c'entra: a gennaio il mio medico di base mi aveva ricettato un diuretico per le caviglie, e lo prendo ancora tutte le mattine."
+    errors: [false-friend]
+  - tutor: "Ecco il pezzo che mancava. Il diuretico che le hanno prescritto a gennaio, con la pressione bassa e il potassio scarso, è probabilmente il colpevole: lo sospenda da oggi, scrivo due righe al suo medico."
+    recast: {text: "ricettato", fix: "prescritto", tags: [false-friend]}
+  - learner: "Prescritto, certo: in spagnolo «recetar» è così simile che non ci ho fatto caso. Che sollievo, comunque: pensavo di dover aggiungere farmaci, non toglierli."
+  - tutor: "Ogni tanto la cura migliore è una sottrazione. Le do un integratore di potassio per un mese: al massimo può dare un leggero bruciore di stomaco, che si evita prendendolo a fine pasto. Ci rivediamo tra un mese con un nuovo esame del sangue."
+    goals: [treatment]
+
+- scenario: medico-specialista
+  level: C2
+  persona: en-f-professional
+  history: [word-choice]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Buongiorno. Onestamente, non benissimo: da un paio di settimane, quando faccio uno sforzo, per esempio se corro dietro al tram, sento come un peso al centro del petto. Passa dopo cinque minuti di riposo, ma mi ha spaventata."
+  - tutor: "Ha fatto bene a parlarmene, e la descrizione è molto precisa: un peso, sotto sforzo, che passa con il riposo. Non le è mai capitato a riposo, magari di notte?"
+    goals: [symptoms]
+  - learner: "No, mai di notte. Devo dire che la pressione alta l'ho presa da mio padre: lui prende tre farmaci da quando aveva quarant'anni, e mio nonno è morto d'infarto piuttosto giovane."
+    errors: [word-choice]
+  - tutor: "Una pressione alta ereditata dal padre e un nonno con un infarto precoce: sono informazioni che pesano. Proprio per questo le avevo chiesto la prova da sforzo."
+    goals: [history]
+    recast: {text: "presa", fix: "ereditata", tags: [word-choice]}
+  - learner: "Ereditata, ecco: «presa» suonava come un raffreddore. E la prova da sforzo, alla fine, che cosa dice? A me sembrava di essere andata benissimo."
+  - tutor: "È andata bene, ma non benissimo: a un certo carico compaiono piccole alterazioni dell'elettrocardiogramma, compatibili con il restringimento di una coronaria. Prima di parlare di cure, voglio vederci chiaro con una TAC."
+    goals: [understand]
+  - learner: "Capisco. Nel frattempo, però, vorrei che mi dica onestamente una cosa: tra dieci giorni ho un volo per Singapore. Posso partire tranquilla?"
+    errors: [subjunctive-use]
+    gold: {text: "vorrei che mi dica", fix: "vorrei che mi dicesse"}
+  - tutor: "Glielo dico senz'altro. Prima, però, riascolti la sua frase: «vorrei che mi dica». Con vorrei al condizionale, il congiuntivo che segue può restare al presente?"
+    prompt: {text: "vorrei che mi dica", tags: [subjunctive-use]}
+  - learner: "No, ci vuole l'imperfetto: vorrei che mi dicesse onestamente se posso partire tranquilla."
+  - tutor: "Perfetto. E onestamente: sì, a patto che segua la terapia di oggi, cioè aspirina a basso dosaggio, un betabloccante e la nitroglicerina in borsa, per sicurezza. Il betabloccante, all'inizio, può dare un po' di stanchezza."
+  - learner: "Un po' di stanchezza la metto in conto. Ma se in aereo mi viene il dolore, la nitroglicerina come la uso? Me la butto sotto la lingua e via?"
+    errors: [register]
+    gold: {text: "Me la butto sotto la lingua e via", fix: "La metto sotto la lingua"}
+  - tutor: "Ci arrivo. Ma «me la butto sotto la lingua e via», detto al suo cardiologo, suona un po' da bancone del bar: come lo chiederebbe in un ambulatorio?"
+    prompt: {text: "Me la butto sotto la lingua e via", tags: [register]}
+  - learner: "Mi scusi, è vero. Devo metterla sotto la lingua e aspettare che faccia effetto, giusto?"
+  - tutor: "Proprio così: una compressa sotto la lingua, da seduta; se il dolore non passa in cinque minuti, avvisi subito l'equipaggio. Ma non credo che le servirà. Al rientro facciamo la TAC e decidiamo con calma."
+    goals: [treatment]
+
+- scenario: medico-specialista
+  level: C2
+  persona: es-m-worker
+  history: [comparative]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Buongiorno, dottore. Meglio del previsto, a dire la verità. Da quando prendo le pastiglie la pressione si è abbassata, e al lavoro, in cantiere, mi stanco molto meno di quanto mi stancavo prima."
+    errors: [comparative]
+    gold: {text: "molto meno di quanto mi stancavo prima", fix: "molto meno di quanto non mi stancassi prima"}
+  - tutor: "Ottima notizia, e la pressione lo conferma. Però rilegga mentalmente quel «molto meno di quanto mi stancavo prima»: in un confronto così, in un registro curato, che cosa metterebbe dopo di quanto?"
+    goals: [symptoms]
+    prompt: {text: "molto meno di quanto mi stancavo prima", tags: [comparative]}
+  - learner: "Ah, sì: molto meno di quanto non mi stancassi prima. Lo avevo letto, ma parlando mi viene sempre l'indicativo."
+  - tutor: "Esatto, e succede anche a molti italiani. Le dico subito cosa mostrano gli esami: la pressione media è scesa a centotrenta su ottanta, ma il colesterolo è ancora alto. In famiglia ci sono precedenti?"
+    goals: [understand]
+  - learner: "Sì, purtroppo. Mio padre e due suoi fratelli hanno avuto problemi di colesterolo, e uno dei due è morto a cinquantotto anni per un ictus. Mia madre, invece, è benissimo."
+    errors: [word-choice]
+  - tutor: "Se sua madre sta benissimo, tanto meglio; ma il colesterolo va preso sul serio, anche perché il suo lavoro è fisicamente impegnativo. Le propongo una statina: una compressa la sera, e un controllo del sangue fra tre mesi."
+    goals: [history]
+    recast: {text: "è benissimo", fix: "sta benissimo", tags: [word-choice]}
+  - learner: "D'accordo. Ma ho un collega che ha preso le statine e diceva di avere sempre i muscoli doloranti. Se mi succede anche a me, in cantiere è un problema."
+    errors: [object-pronoun]
+    gold: {text: "Se mi succede anche a me", fix: "Se succede anche a me"}
+  - tutor: "Il dolore muscolare è l'effetto collaterale più noto, ha ragione. Ma quel «se mi succede anche a me»… quante volte compare la stessa persona, in questa frase?"
+    prompt: {text: "Se mi succede anche a me", tags: [object-pronoun]}
+  - learner: "Due volte? Ma in spagnolo si dice proprio così, e mi sembrava giusto anche in italiano: se mi succede anche a me, che faccio?"
+    errors: [object-pronoun]
+  - tutor: "Se succede anche a lei, mi chiama subito: abbassiamo la dose o cambiamo molecola, ce ne sono diverse. Il dolore, in genere, sparisce in pochi giorni."
+    recast: {text: "mi succede anche", fix: "succede anche", tags: [object-pronoun]}
+  - learner: "Va bene, allora la provo. Se tra tre mesi il colesterolo è sceso, possiamo ridurre la pastiglia della pressione?"
+  - tutor: "Ne parleremo con gli esami in mano: se i valori saranno buoni, possiamo provarci. Intanto continui così, e magari una pizza in meno il sabato sera. Ci vediamo a febbraio."
+    goals: [treatment]
+
+- scenario: reclamo-comune
+  level: C2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Vorrei presentare un reclamo formale per il cantiere di via dei Mille, davanti al civico 14. Da due mesi la strada è sventrata, ci sono le transenne, ma di operai non se ne vede nemmeno uno."
+  - tutor: "Via dei Mille, certo, ne abbiamo ricevute altre, di segnalazioni. I lavori sono di competenza dell'ufficio tecnico, che ha in carico la pratica: senz'altro stanno valutando la situazione."
+    goals: [describe]
+  - learner: "Mi scusi, ma «stanno valutando» lo sento dire da settembre. Mia madre ha ottantasei anni, usa il deambulatore e per uscire deve fare il giro dell'isolato sul marciapiede rotto. Sinceramente non la facciamo più."
+    errors: [ci-ne]
+    gold: {text: "non la facciamo più", fix: "non ce la facciamo più"}
+  - tutor: "Capisco il disagio, mi creda. Mi scusi, però, non ho colto l'ultima frase: «non la facciamo più»… che cosa non fate più, esattamente?"
+    goals: [insist]
+    prompt: {text: "non la facciamo più", tags: [ci-ne]}
+  - learner: "Scusi, intendevo dire che non ce la facciamo più, che siamo allo stremo. Per questo vorrei sapere qual è la procedura: posso presentare un reclamo scritto, ed entro quanto tempo il Comune è tenuto a rispondermi?"
+  - tutor: "Ora è chiarissimo. Può compilare il modulo di reclamo, qui o online: viene protocollato e l'ufficio ha trenta giorni per rispondere per iscritto. Se la risposta non arriva, può rivolgersi al difensore civico."
+    goals: [rights]
+  - learner: "Lo compilo subito. E se tra trenta giorni non è cambiato niente, posso mettere un sollecito direttamente all'ufficio tecnico?"
+    errors: [word-choice]
+  - tutor: "Sì, può inviare un sollecito direttamente all'ufficio tecnico, citando il numero di protocollo. Anzi, faccio di più: provo a chiamare adesso il geometra responsabile del cantiere."
+    recast: {text: "mettere un sollecito", fix: "inviare un sollecito", tags: [word-choice]}
+  - learner: "La ringrazio davvero: è la prima risposta concreta che ricevo da settembre."
+  - tutor: "Il geometra mi conferma che l'impresa riprende lunedì e che il marciapiede sarà messo in sicurezza entro la settimana. Ecco il numero di protocollo del suo reclamo: se lunedì non vede nessuno, torni pure da me."
+    goals: [commitment]
+
+- scenario: reclamo-comune
+  level: C2
+  persona: en-f-professional
+  history: [register]
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Abito in via Gramsci, al numero 7. A fine settembre hanno aperto uno scavo proprio davanti al portone, per i tubi del gas, e da allora il cantiere è fermo: buche, transenne e un cartello con una data di fine lavori ampiamente superata."
+  - tutor: "Via Gramsci, sì, mi risulta. Purtroppo l'impresa ha avuto dei ritardi nelle forniture, e l'ufficio tecnico ci ha assicurato che la situazione si sbloccherà a breve."
+    goals: [describe]
+  - learner: "«A breve» è un po' vago. Guardi, non è per fare polemica, ma io qui ci sono già venuta due volte e mi hanno sempre detto la stessa cosa: sono stufa marcia di questa storia."
+    errors: [register]
+    gold: {text: "sono stufa marcia di questa storia", fix: "la situazione è diventata insostenibile"}
+  - tutor: "Ha ragione a pretendere una risposta più precisa. Però «sono stufa marcia», messo per iscritto in un reclamo, rischierebbe di indebolirla: come lo formulerebbe davanti a un funzionario?"
+    goals: [insist]
+    prompt: {text: "sono stufa marcia di questa storia", tags: [register]}
+  - learner: "Giusto. Direi che, dopo due solleciti verbali rimasti senza esito, la situazione è diventata insostenibile per i residenti."
+  - tutor: "Perfetto: «solleciti rimasti senza esito» è esattamente il linguaggio che un ufficio tecnico capisce. Vuole che le spieghi come funziona il reclamo formale?"
+  - learner: "Sì, grazie. In particolare vorrei sapere se ho diritto a una risposta scritta, e se il Comune può essere tenuto a risarcire i commercianti della via, che stanno perdendo clienti."
+  - tutor: "La risposta scritta è dovuta entro trenta giorni dal protocollo. Per i commercianti la questione è diversa: possono chiedere un indennizzo, ma con un'istanza separata, all'ufficio tributi."
+    goals: [rights]
+  - learner: "Lo riferirò alla signora del forno, che è la più affettata. Prima di andare via, però, vorrei qualcosa di concreto in mano: un numero di protocollo, e il nome di un responsabile da contattare."
+    errors: [false-friend]
+  - tutor: "Se la signora è la più colpita, presenti l'istanza al più presto. Ecco la ricevuta con il numero di protocollo: il responsabile del procedimento è l'ingegner Rossi, e la sua email è sul retro. Gli scriva citando il numero, di solito risponde in pochi giorni."
+    goals: [commitment]
+    recast: {text: "la più affettata", fix: "la più colpita", tags: [false-friend]}
+
+- scenario: reclamo-comune
+  level: C2
+  persona: en-m-heritage
+  history: [preposition]
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Sono qui per il cantiere di piazza Mazzini: da due mesi c'è una buca enorme davanti alla scuola elementare, recintata con un nastro di plastica che il vento ha già strappato due volte."
+  - tutor: "Davanti alla scuola: capisco perché sia preoccupato. Per i cantieri stradali, però, la competenza è dell'ufficio tecnico, non nostra: noi raccogliamo le segnalazioni e le inoltriamo."
+    goals: [describe]
+  - learner: "Lo capisco, ma ne ho già fatte due, di segnalazioni, e nessuno mi ha mai risposto. Mi scusi se insisto: chi è, concretamente, la persona responsabile per questo cantiere?"
+    errors: [preposition]
+    gold: {text: "responsabile per questo cantiere", fix: "responsabile di questo cantiere"}
+  - tutor: "Insiste con ragione. Ma un piccolo appunto, visto che lo scriveremo: «la persona responsabile per questo cantiere»… è la preposizione che si usa per chi dirige un lavoro?"
+    goals: [insist]
+    prompt: {text: "responsabile per questo cantiere", tags: [preposition]}
+  - learner: "Allora la persona responsabile a questo cantiere? Mi suona strano anche così."
+    errors: [preposition]
+  - tutor: "Le suona strano a ragione: il responsabile di questo cantiere è il geometra Bianchi, dell'ufficio tecnico. Mi hanno detto che stanno aspettando un'autorizzazione della Soprintendenza."
+    recast: {text: "responsabile a questo cantiere", fix: "responsabile di questo cantiere", tags: [preposition]}
+  - learner: "Della Soprintendenza? Ma che c'entra la Soprintendenza con una buca davanti a una scuola?"
+  - tutor: "C'entra, purtroppo: durante lo scavo sono emersi resti di un'antica pavimentazione, e finché un archeologo non li esamina, i lavori restano fermi. Questo però non giustifica la recinzione di fortuna."
+  - learner: "Ecco, appunto. Al di là dei tempi, quali sono i miei diritti? Posso pretendere almeno che l'area sia messa in sicurezza?"
+  - tutor: "Può, e deve: la messa in sicurezza è un obbligo, a prescindere dai reperti. Facciamo così: protocollo il suo reclamo come urgente per la sicurezza, e il tecnico ha l'obbligo di intervenire entro quarantotto ore."
+    goals: [rights]
+  - learner: "Quarantotto ore mi sembra un impegno serio. Mi può dare il numero di protocollo, così, se non succede niente, so a chi riferirmi?"
+  - tutor: "Eccolo, è il 3381 di oggi; c'è anche il mio interno, se dopodomani la recinzione è ancora quella. E grazie: senza segnalazioni come la sua, certe buche diventano invisibili."
+    goals: [commitment]
+
+- scenario: reclamo-comune
+  level: C2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Vivo in via Petrarca, nella residenza universitaria. Da due mesi c'è un cantiere aperto davanti all'ingresso, con un compressore che lavora dalle sette del mattino: quando lavora, perché ci sono settimane in cui non si vede nessuno."
+  - tutor: "Rumore la mattina presto e cantiere a singhiozzo: due problemi diversi. Per l'orario esiste un regolamento comunale; per i ritardi, invece, deve rivolgersi all'ufficio tecnico."
+    goals: [describe]
+  - learner: "Ci sono già andata, e mi hanno mandato qui. Io non voglio essere maleducata, ma la situazione è molto molesta per gli studenti che hanno gli esami in questi giorni."
+    errors: [false-friend]
+  - tutor: "La capisco: dev'essere davvero fastidiosa, con gli esami alle porte. E il rimbalzo da un ufficio all'altro, glielo concedo, non aiuta."
+    goals: [insist]
+    recast: {text: "molesta", fix: "fastidiosa", tags: [false-friend]}
+  - learner: "Fastidiosa, sì; in spagnolo «molesto» si usa così. Allora le chiedo: qual è la procedura formale, e che cosa posso pretendere dal Comune?"
+  - tutor: "Può presentare un reclamo scritto, che viene protocollato: il Comune deve risponderle entro trenta giorni. Per il rumore prima delle otto, invece, può chiedere un controllo della polizia locale."
+    goals: [rights]
+  - learner: "Benissimo. Allora vorrei che il reclamo sia protocollato oggi stesso, e anche che la polizia locale venga a controllare domani mattina."
+    errors: [subjunctive-use]
+    gold: {text: "vorrei che il reclamo sia protocollato", fix: "vorrei che il reclamo fosse protocollato"}
+  - tutor: "Si può fare. Solo una cosa, visto che lo metteremo per iscritto: «vorrei che il reclamo sia protocollato»… dopo un condizionale, quale tempo del congiuntivo le suonerebbe meglio?"
+    prompt: {text: "vorrei che il reclamo sia protocollato", tags: [subjunctive-use]}
+  - learner: "L'imperfetto: vorrei che il reclamo fosse protocollato oggi stesso, e che la polizia locale venisse a controllare domani."
+  - tutor: "Impeccabile. Ecco fatto: il reclamo ha il numero di protocollo 2207, e ho girato la richiesta di controllo al comando, che passerà domattina alle sette. Se il rumore continua, chiami questo numero."
+    goals: [commitment]

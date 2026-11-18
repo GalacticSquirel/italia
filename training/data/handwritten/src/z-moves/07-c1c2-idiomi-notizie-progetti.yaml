@@ -1,0 +1,265 @@
+# z-moves, C1 and C2: the feedback move changes with the error: prompt for a fresh grammar error,
+# praise after self-repair, recast after a failed repair, immediate recast for a lexical slip or
+# calque, grammar prompt on mixed turns, and no correction on correct turns.
+- scenario: modi-di-dire
+  level: C1
+  persona: en-f-student
+  history: [tense-aspect, hypothetical]
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Una giornata da dimenticare. Stamattina sono arrivata alla stazione e il treno partiva già."
+      errors: [tense-aspect]
+    - tutor: "«Il treno partiva già»: stava partendo, o quando sei arrivata non c'era più?"
+      prompt: {text: "partiva già", tags: [tense-aspect]}
+    - learner: "Non c'era più: il treno era già partito!"
+    - tutor: "Ecco, era già partito. Cominciamo bene! E poi?"
+    - learner: "Sono arrivata in ritardo alla presentazione, e davanti al capo ero completamente fuori dalla mia profondità."
+      errors: [word-choice]
+    - tutor: "Eri completamente nel pallone, insomma! E scommetto che non è finita lì: piove sempre sul bagnato."
+      goals: [tell]
+      recast: {text: "fuori dalla mia profondità", fix: "nel pallone", tags: [word-choice]}
+      new: [{lemma: pallone, gloss: "(essere nel pallone) to be flustered"}]
+    - learner: "Hai indovinato, è proprio piovuto sul bagnato! Uscendo dall'ufficio ho perso anche le chiavi di casa."
+    - tutor: "Ma no! E di chi è la colpa, del treno o tua?"
+      goals: [react]
+    - learner: "Un po' di tutti e due. Se mi svegliavo prima, avrei preso il treno, ma la batteria del telefono era morta."
+      errors: [hypothetical, word-choice]
+    - tutor: "«Se mi svegliavo prima, avrei preso»: con quel condizionale passato, che tempo ci vuole dopo «se»?"
+      prompt: {text: "Se mi svegliavo", tags: [hypothetical]}
+    - learner: "Ah, se mi fossi svegliata prima, avrei preso il treno."
+    - tutor: "Perfetto. Quindi metà colpa tua e metà del telefono: un pareggio onorevole."
+      goals: [blame]
+    - learner: "Morale della favola: d'ora in poi metto due sveglie, non si sa mai."
+    - tutor: "Saggia decisione! Come diceva mia nonna, chi va piano va sano e va lontano, ma con due sveglie va ancora meglio."
+      goals: [moral]
+
+- scenario: notizie-attualita
+  level: C1
+  persona: es-f-erasmus
+  history: [subjunctive-use, relative-pronoun]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatta?"
+    - learner: "Sì, l'ho letta. In sintesi, il governo vuole limitare gli affitti brevi nei centri storici per lasciare più case ai residenti."
+    - tutor: "Esatto, questo è il succo. E tu sei d'accordo?"
+      goals: [summarise]
+    - learner: "In parte. Capisco i residenti, ma è una misura molto polemica, perché tante famiglie vivono di questi affitti."
+      errors: [false-friend]
+    - tutor: "Una misura molto discussa, sì, proprio per questo. E come l'hanno raccontata i giornali che hai letto?"
+      goals: [opinion]
+      recast: {text: "polemica", fix: "discussa", tags: [false-friend]}
+    - learner: "Un articolo era troppo favorevole ai proprietari, come se il giornalista lavorava per loro."
+      errors: [subjunctive-use]
+    - tutor: "«Come se il giornalista lavorava»: dopo «come se», che modo serve?"
+      prompt: {text: "lavorava", tags: [subjunctive-use]}
+    - learner: "Sì, come se lavorava per loro, ecco."
+      errors: [subjunctive-use]
+    - tutor: "Come se lavorasse per loro, insomma. E sai qual era la testata?"
+      recast: {text: "lavorava", fix: "lavorasse", tags: [subjunctive-use]}
+    - learner: "Era un quotidiano economico, un giornale che il direttore è vicino alle associazioni dei proprietari."
+      errors: [relative-pronoun]
+    - tutor: "«Un giornale che il direttore»: come colleghi il giornale al suo direttore?"
+      prompt: {text: "che il direttore", tags: [relative-pronoun]}
+    - learner: "Ah, un giornale il cui direttore è vicino ai proprietari."
+    - tutor: "Perfetto. Ecco spiegato il tono, allora."
+      goals: [sources]
+    - learner: "Secondo me, se la legge passasse, gli affitti lunghi calerebbero un po', ma il turismo ne soffrirebbe."
+    - tutor: "È possibile. Io temo che i turisti si spostino semplicemente in periferia, ma vedremo."
+      goals: [consequences]
+
+- scenario: presentazione-progetto
+  level: C1
+  persona: en-m-heritage
+  history: [hypothetical, subjunctive-use]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Certo. Proponiamo un'app per i clienti che riduca del trenta per cento le chiamate all'assistenza."
+    - tutor: "Interessante. E in concreto, quanto ci farebbe guadagnare?"
+      goals: [pitch]
+    - learner: "Possiamo salvare duecentomila euro l'anno: nel test pilota con cinquecento clienti, le chiamate sono calate del ventotto per cento."
+      errors: [word-choice]
+    - tutor: "Risparmiare duecentomila euro l'anno sarebbe notevole, e i dati del test sono convincenti. Ma se l'app non funzionasse, avremmo buttato via il budget."
+      goals: [benefits]
+      recast: {text: "salvare", fix: "risparmiare", tags: [word-choice]}
+    - learner: "Per questo partiamo in piccolo. Se il test non darebbe risultati entro tre mesi, ci fermeremmo."
+      errors: [hypothetical]
+    - tutor: "«Se il test non darebbe»: dopo «se», la convince quel condizionale?"
+      prompt: {text: "non darebbe", tags: [hypothetical]}
+    - learner: "Sì, se non darebbe risultati, ci fermeremmo subito."
+      errors: [hypothetical]
+    - tutor: "Quindi, se il test non desse risultati entro tre mesi, vi fermereste subito. Questa prudenza mi piace."
+      goals: [objection]
+      recast: {text: "non darebbe", fix: "non desse", tags: [hypothetical]}
+    - learner: "Esatto. Per partire, è necessario che il direttore approva un primo budget di cinquantamila euro."
+      errors: [subjunctive-use]
+    - tutor: "«È necessario che il direttore approva»: dopo «è necessario che», quale modo ci vuole?"
+      prompt: {text: "approva", tags: [subjunctive-use]}
+    - learner: "Ah, è necessario che lei approvi un primo budget di cinquantamila euro."
+    - tutor: "Esatto, e lo approvo, ma solo per la fase pilota. Mi mandi il piano dettagliato entro lunedì."
+      goals: [next-steps]
+    - learner: "Perfetto, lunedì avrà il piano sulla scrivania. Grazie del tempo."
+    - tutor: "Grazie a lei, e buon lavoro."
+
+- scenario: reclamo-comune
+  level: C1
+  persona: es-m-worker
+  history: [passive, false-friend]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Da tre mesi c'è un cantiere sotto casa mia, e i lavori sono stati interrotto senza nessuna spiegazione."
+      errors: [passive]
+    - tutor: "«I lavori sono stati interrotto»: guardi bene la fine, pensando a «i lavori»."
+      prompt: {text: "sono stati interrotto", tags: [passive]}
+    - learner: "Sì, sono stati interrotto a giugno e il cantiere è ancora lì."
+      errors: [passive]
+    - tutor: "Capisco: i lavori sono stati interrotti a giugno e il cantiere è rimasto aperto."
+      goals: [describe]
+      recast: {text: "sono stati interrotto", fix: "sono stati interrotti", tags: [passive]}
+    - learner: "Esatto. Il marciapiede è bloccato e mia madre, che è anziana, non riesce a uscire. Ho fatto una segnalazione, ma nessuno mi ha contestato."
+      errors: [false-friend]
+    - tutor: "Nessuno le ha risposto? Mi dispiace. L'ufficio tecnico, in questo periodo, è davvero sommerso di pratiche."
+      recast: {text: "contestato", fix: "risposto", tags: [false-friend]}
+    - learner: "Capisco, ma tre mesi sono troppi. Non posso accettare una risposta così generica."
+    - tutor: "Ha ragione. Posso fare un sollecito all'ufficio tecnico, anche se non posso garantirle tempi precisi."
+      goals: [insist]
+    - learner: "Allora quali documenti si deve presentare per un reclamo formale? E dopo, a chi posso dirigermi?"
+      errors: [passive, word-choice]
+    - tutor: "«Quali documenti si deve presentare»: con «documenti» al plurale, il verbo le torna?"
+      prompt: {text: "si deve presentare", tags: [passive]}
+    - learner: "Ah, quali documenti si devono presentare?"
+    - tutor: "Esatto. Bastano il modulo di reclamo e una copia della segnalazione; l'amministrazione deve rispondere entro trenta giorni."
+      goals: [rights]
+    - learner: "Perfetto. Mi può dare un numero di protocollo, per favore?"
+    - tutor: "Certo, ecco: protocollo 4521. Con questo numero può seguire la pratica anche online."
+      goals: [commitment]
+
+- scenario: trattativa-fornitore
+  level: C1
+  persona: en-f-professional
+  history: [conditional-form, subjunctive-use]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, la chiamo proprio per questo. Un aumento del dodici per cento, per noi, è difficile da sostenere."
+    - tutor: "La capisco, ma anche i nostri margini si sono ridotti. Che cosa propone?"
+      goals: [problem]
+    - learner: "Lavoriamo insieme da otto anni e abbiamo sempre pagato puntualmente. Penso che la nostra lunga relazione meriti un trattamento diverso."
+      errors: [word-choice]
+    - tutor: "Il nostro è un rapporto di lunga data, è vero, e lo apprezziamo molto. Ma cosa mi propone, in concreto?"
+      goals: [argue]
+      recast: {text: "relazione", fix: "rapporto", tags: [word-choice]}
+    - learner: "Voi accetterebbe un aumento del cinque per cento, se raddoppiassimo gli ordini?"
+      errors: [conditional-form]
+    - tutor: "«Voi accetterebbe»: il soggetto è «voi», quindi come cambia il verbo?"
+      prompt: {text: "accetterebbe", tags: [conditional-form]}
+    - learner: "Ah, voi accettereste un aumento del cinque per cento, se raddoppiassimo gli ordini?"
+    - tutor: "Ora è chiarissimo. Il cinque è poco, ma con ordini doppi possiamo arrivare al sette."
+      goals: [counteroffer]
+    - learner: "Va bene il sette, però vorrei che il nuovo prezzo restava fisso per almeno un anno."
+      errors: [subjunctive-use]
+    - tutor: "«Vorrei che restava»: dopo «vorrei che», le suona bene?"
+      prompt: {text: "restava", tags: [subjunctive-use]}
+    - learner: "Sì, vorrei che restava fisso per dodici mesi."
+      errors: [subjunctive-use]
+    - tutor: "Capisco, vorrebbe che restasse fisso per dodici mesi. Posso concederle nove mesi, non di più."
+      recast: {text: "restava", fix: "restasse", tags: [subjunctive-use]}
+    - learner: "Nove mesi e un aumento del sette per cento: per me va bene. Mi manda una conferma scritta?"
+    - tutor: "Perfetto, le mando la conferma via email entro oggi. È stato un piacere trattare con lei."
+      goals: [agreement]
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: es-f-teacher
+  history: [subjunctive-use, passive]
+  turns:
+    - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+    - learner: "Buongiorno a tutti. Sono un'insegnante e vivo a Venezia da dieci anni. Sono a favore, anche se con qualche riserva."
+    - tutor: "A favore, quindi. E perché?"
+      goals: [introduce]
+    - learner: "Il problema sono le crociere: ogni giorno scendono migliaia di persone e la città sembra un parco di attrazioni."
+      errors: [word-choice]
+    - tutor: "Un parco divertimenti, dice? Immagine forte. Però c'è chi sostiene che il ticket trasformi Venezia in un museo a pagamento."
+      goals: [example]
+      recast: {text: "parco di attrazioni", fix: "parco divertimenti", tags: [word-choice]}
+    - learner: "Non credo che il ticket la trasforma in un museo: i residenti non pagano, e i soldi servono per i servizi."
+      errors: [subjunctive-use]
+    - tutor: "«Non credo che il ticket la trasforma»: dopo «non credo che», che modo ci vuole?"
+      prompt: {text: "la trasforma", tags: [subjunctive-use]}
+    - learner: "Sì, non credo che la trasforma, anzi."
+      errors: [subjunctive-use]
+    - tutor: "Lei non crede che la trasformi in un museo, anzi. Ma allora quei soldi come andrebbero spesi?"
+      goals: [rebut]
+      recast: {text: "la trasforma", fix: "la trasformi", tags: [subjunctive-use]}
+    - learner: "Dovrebbero essere usato per la manutenzione e per affitti più bassi per i giovani. È una proposta molto realista."
+      errors: [passive, word-choice]
+    - tutor: "«Dovrebbero essere usato»: guardi l'accordo con «i soldi»."
+      prompt: {text: "essere usato", tags: [passive]}
+    - learner: "Ah, dovrebbero essere usati per la manutenzione e per affitti più bassi."
+    - tutor: "Ecco. Una proposta concreta, grazie: i nostri ascoltatori giovani apprezzeranno."
+      goals: [proposal]
+    - learner: "Grazie a voi per lo spazio, e buona trasmissione."
+    - tutor: "Grazie a lei e buona giornata! Passiamo alla prossima telefonata."
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: en-m-retired
+  history: [hypothetical, passive]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Sì, grazie. Non sono contrario al rifacimento della facciata, ma propongo di rimandare i lavori alla primavera prossima."
+    - tutor: "Rimandare, dice. Peccato che la signora del terzo piano abbia appena definito chi rimanda «un tirchio che non vuole pagare»."
+      goals: [position]
+    - learner: "Capisco la frustrazione della signora, ma non è questione di tirchieria: vorrei solo che decidessimo con la testa fredda."
+      errors: [word-choice]
+    - tutor: "A mente fredda, d'accordo: lo metto a verbale così, e confido che la signora apprezzi il tono."
+      goals: [defuse]
+      recast: {text: "con la testa fredda", fix: "a mente fredda", tags: [word-choice]}
+    - learner: "Inoltre, se avessimo chiesto più preventivi a gennaio, adesso avremo un prezzo migliore."
+      errors: [hypothetical]
+    - tutor: "«Adesso avremo un prezzo migliore»: dopo «se avessimo chiesto», quel futuro le torna?"
+      prompt: {text: "avremo un prezzo migliore", tags: [hypothetical]}
+    - learner: "Sì, se avessimo chiesto più preventivi, adesso avremo un prezzo migliore."
+      errors: [hypothetical]
+    - tutor: "Su questo ha ragione: se avessimo chiesto più preventivi, adesso avremmo un prezzo migliore. Ma ormai è andata così."
+      recast: {text: "avremo un prezzo migliore", fix: "avremmo un prezzo migliore", tags: [hypothetical]}
+    - learner: "Per questo propongo un'alternativa concreta: raccogliamo altri due preventivi entro febbraio e votiamo alla prossima assemblea."
+    - tutor: "Proposta sensata. Il signor Rossi, però, teme che nel frattempo gli cada in testa un pezzo di cornicione."
+      goals: [alternative]
+    - learner: "Allora si mette subito in sicurezza la parte più danneggiata, e le spese sarebbero ripartito secondo i millesimi."
+      errors: [passive]
+    - tutor: "«Le spese sarebbero ripartito»: guardi bene l'accordo con «le spese»."
+      prompt: {text: "sarebbero ripartito", tags: [passive]}
+    - learner: "Ah, le spese sarebbero ripartite secondo i millesimi, naturalmente."
+    - tutor: "Ecco, ora è inattaccabile. Metto a verbale il compromesso: messa in sicurezza subito, facciata in primavera, spese per millesimi."
+      goals: [compromise]
+
+- scenario: cena-suoceri
+  level: C2
+  persona: es-f-erasmus
+  history: [combined-pronouns, subjunctive-use]
+  turns:
+    - tutor: "Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+    - learner: "Eccomi qui, in carne e ossa! Grazie dell'invito, e complimenti per la tavola: è splendida."
+    - tutor: "Merito di mia moglie, io mi limito a stappare il vino. Lo assaggi, poi mi dirà."
+      goals: [irony]
+    - learner: "Accompagna perfettamente l'arrosto, che è squisito. Lei ha un ottimo olfatto per i vini."
+      errors: [word-choice]
+    - tutor: "Fiuto, magari! Diciamo che ho un cugino produttore che mi consiglia bene. E lei di che cosa si occupa? Mia figlia è stata piuttosto vaga."
+      goals: [compliment]
+      recast: {text: "olfatto", fix: "fiuto", tags: [word-choice]}
+    - learner: "Faccio la traduttrice per una casa editrice. Immagino che il mio lavoro le sembra un po' precario."
+      errors: [subjunctive-use]
+    - tutor: "«Immagino che le sembra»: dopo «immagino che», le suona giusto?"
+      prompt: {text: "le sembra", tags: [subjunctive-use]}
+    - learner: "Ah, immagino che le sembri un po' precario. Ma prometto che non vivrò sulle vostre spalle!"
+    - tutor: "Lo spero bene! Scherzo, naturalmente. Senta, diamoci del tu, che ormai siamo quasi parenti."
+      goals: [background]
+    - learner: "Con piacere! Ho appena tradotto un giallo: se a tua moglie piace il genere, potrei regalarle lo."
+      errors: [combined-pronouns]
+    - tutor: "«Regalarle lo»: come si fondono questi due pronomi?"
+      prompt: {text: "regalarle lo", tags: [combined-pronouns]}
+    - learner: "Sì, potrei regalarle lo per Natale."
+      errors: [combined-pronouns]
+    - tutor: "Regalarglielo per Natale sarebbe un gesto bellissimo: va matta per i gialli."
+      goals: [tu-lei]
+      recast: {text: "regalarle lo", fix: "regalarglielo", tags: [combined-pronouns]}
+    - learner: "Perfetto, allora a Natale arrivo con il libro. E grazie ancora per la splendida serata."
+    - tutor: "Grazie a te. E ricordati: in questa casa il vino non si rifiuta mai!"

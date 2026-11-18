@@ -1,0 +1,217 @@
+# Round 4, set z-c2-1: C2 subtle errors (register, collocations, false friends, subjunctive,
+# hypotheticals, passive, ci-ne, relatives) beside many sophisticated error-free turns. File 1.
+- scenario: arte-mostra
+  level: C2
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Mi colpisce subito. È un ritratto di donna, no? Ha uno sguardo così intenso che quasi mi fa sentire scomodo."
+      errors: [word-choice]
+    - tutor: "Mette a disagio anche me, ed è uno sguardo che non incrocia mai il nostro: guarda qualcosa fuori dalla tela. Che cosa vedi intorno a lei?"
+      recast: {text: "scomodo", fix: "a disagio", tags: [word-choice]}
+      goals: [react]
+    - learner: "Lo sfondo è quasi nero, e la luce arriva da sinistra e le illumina solo metà del viso. Sui vestiti ci sono dettagli finissimi, come se il pittore avesse voluto farci capire che era ricca."
+    - tutor: "Osservazione precisa: il broccato è dipinto quasi filo per filo, e il resto sprofonda nell'ombra. E secondo te, che cosa ci sta dicendo?"
+      goals: [describe]
+    - learner: "Credo che sia un'immagine di solitudine: tutta quella ricchezza, e lei sembra prigioniera. Per me è il quadro più forte di tutta l'esibizione."
+      errors: [false-friend]
+    - tutor: "Prigioniera è la parola giusta. E sono d'accordo, è il pezzo forte di tutta la mostra: non a caso l'hanno messo alla fine del percorso. Ti ricorda qualche altro pittore?"
+      recast: {text: "di tutta l'esibizione", fix: "di tutta la mostra", tags: [false-friend]}
+      goals: [interpret]
+    - learner: "Un po' Vermeer, ma è come se la luce qui viene da un palcoscenico e non da una finestra."
+      errors: [subjunctive-use]
+    - tutor: "Confronto interessante. Ma riascolta la tua frase: «è come se la luce qui viene»? Dopo «come se», quale modo ti aspetti?"
+      prompt: {text: "è come se la luce qui viene", tags: [subjunctive-use]}
+    - learner: "Hai ragione: è come se la luce arrivasse da un palcoscenico. Vermeer è più intimo, più domestico."
+    - tutor: "Esatto. In Vermeer la luce entra in una stanza, qui invece mette sotto accusa. Vieni, nella sala accanto c'è proprio una tela olandese: verifichiamo subito."
+      goals: [compare]
+
+- scenario: arte-mostra
+  level: C2
+  persona: es-f-teacher
+  history: [passive]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Che impatto! Non me l'aspettavo così grande, sembra quasi di poterci entrare dentro."
+    - tutor: "Vero? È alto più di tre metri: era pensato per un altare, quindi andava guardato dal basso. Che cosa ci vedi?"
+      goals: [react]
+    - learner: "In primo piano c'è un santo inginocchiato, e dietro di lui un paesaggio con colline azzurre che sfumano nella nebbia. Tutte le linee portano verso il centro, dove c'è una piccola chiesa."
+    - tutor: "Brava, hai trovato da sola il punto di fuga. E hai notato quanto sono vivi i colori?"
+      goals: [describe]
+    - learner: "Sì, sono brillantissimi. Ho letto sulla targhetta che il quadro è venuto restaurato due anni fa e che sotto la vernice hanno ritrovato l'azzurro originale."
+      errors: [passive]
+    - tutor: "Si vede eccome. Però fermati su «è venuto restaurato»: con un tempo composto, che ausiliare vuole il passivo?"
+      prompt: {text: "è venuto restaurato", tags: [passive]}
+    - learner: "Ah, quindi... è stata restaurato due anni fa?"
+      errors: [passive]
+    - tutor: "Sì, il quadro è stato restaurato due anni fa, e si vede. E perché, secondo te, il pittore ha messo il santo così in basso, quasi schiacciato dal paesaggio?"
+      recast: {text: "è stata restaurato", fix: "è stato restaurato", tags: [passive]}
+    - learner: "Forse per dire che l'uomo è piccolo davanti a Dio, anche se è santo. Ma può darsi che sia solo una scelta di composizione, per lasciare spazio al cielo."
+    - tutor: "Mi piace che tu tenga aperte tutte e due le ipotesi. Io propendo per la prima: qui il cielo è quasi un personaggio. Ti fa venire in mente qualcosa di più moderno?"
+      goals: [interpret]
+    - learner: "Friedrich, il viandante sul mare di nebbia: anche lì la figura è minuscola e il paesaggio la sovrasta."
+    - tutor: "Accostamento audace ma giusto: tre secoli di distanza e la stessa vertigine. Andiamo avanti, voglio vedere se la ritrovi anche nella prossima sala."
+      goals: [compare]
+
+- scenario: arte-mostra
+  level: C2
+  persona: en-f-student
+  history: [register]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Onestamente? Non lo capisco. Sono solo macchie di colore, e non riesco a vederci niente."
+    - tutor: "Almeno sei sincera. È un astratto degli anni Cinquanta: non c'è niente da riconoscere, c'è da sentire. Prova a descrivermi solo quello che vedi."
+      goals: [react]
+    - learner: "Allora: tre grandi rettangoli, uno rosso scuro e due quasi neri, con i bordi sfumati. Il rosso sembra galleggiare sugli altri. Ma Lei, che è esperto, come lo interpreta?"
+      errors: [register]
+    - tutor: "Descrizione precisa, brava. Però «Lei, che è esperto»? Ci conosciamo dal liceo, così mi fai sentire un professore in pensione!"
+      prompt: {text: "Lei, che è esperto, come lo interpreta", tags: [register]}
+      goals: [describe]
+    - learner: "Hai ragione, scusa, è l'effetto del museo! Tu, che sei l'esperto, come lo leggi?"
+    - tutor: "Così va meglio. Io ci vedo un lutto: il rosso è qualcosa di vivo che sta per essere inghiottito dal buio. E tu?"
+    - learner: "Io invece ci vedo una specie di calma, come una preghiera. Se lo guardassi per un'ora, credo che mi addormenterei, ma in senso buono."
+    - tutor: "In senso buono, certo! In effetti il pittore voleva che lo si guardasse da vicino e a lungo, quasi in meditazione."
+      goals: [interpret]
+    - learner: "Ed è strano, ma mi fa pensare a un'icona bizantina: non per le forme, ma perché sembra fatto per essere contemplato, non per raccontare una storia."
+    - tutor: "Non è affatto strano: lui stesso parlava dei suoi quadri come di esperienze religiose. Hai appena fatto un confronto che molti critici sottoscriverebbero. Saliamo a vedere le icone al primo piano?"
+      goals: [compare]
+
+- scenario: arte-mostra
+  level: C2
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Mi piace, ma devo ammettere che mi lascia un po' freddo. È tutto perfetto, simmetrico, quasi troppo."
+    - tutor: "Capisco cosa intendi: è una perfezione che tiene a distanza. Descrivimelo un po'."
+      goals: [react]
+    - learner: "Al centro c'è la Madonna su un trono, con due santi per lato. Benché la scena è molto affollata, tutto sembra al suo posto, come in un disegno di architetto."
+      errors: [subjunctive-use]
+    - tutor: "È vero, c'è un ordine quasi matematico. Ma torna un attimo su «benché la scena è»: con benché, quel verbo ti convince?"
+      prompt: {text: "Benché la scena è", tags: [subjunctive-use]}
+      goals: [describe]
+    - learner: "Uhm... benché la scena era affollata? No, non mi viene."
+      errors: [subjunctive-use]
+    - tutor: "Benché la scena sia affollata, sì, l'ordine resta perfetto: ed è proprio questo il punto. Secondo te, che cosa voleva comunicare il pittore con tanta geometria?"
+      recast: {text: "benché la scena era", fix: "benché la scena sia", tags: [subjunctive-use]}
+    - learner: "Che il mondo divino è ordinato, mentre il nostro è caotico. È un'opera che ti calma, ma non ti muove."
+      errors: [word-choice]
+    - tutor: "Lettura convincente: è un paradiso senza imprevisti, che rassicura ma non ti commuove. E se dovessi metterlo accanto a un altro pittore?"
+      recast: {text: "non ti muove", fix: "non ti commuove", tags: [word-choice]}
+      goals: [interpret]
+    - learner: "Preferisco di gran lunga Caravaggio: lì la luce è violenta e i santi hanno i piedi sporchi. Questo è il cielo, quello è la strada."
+    - tutor: "Il cielo e la strada: bellissima sintesi, me la rubo per la prossima visita guidata. Andiamo, Caravaggio ce l'hanno proprio in fondo al corridoio."
+      goals: [compare]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: en-m-retired
+  history: [word-choice]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Sì, grazie. Non sono contrario ai lavori, ma credo che il preventivo che ci è stato presentato sia troppo alto per passarlo stasera."
+      errors: [word-choice]
+    - tutor: "La ringrazio per la chiarezza: troppo alto per approvarlo stasera, dunque. Il signore qui accanto, però, borbotta che i soliti pensionati non vogliono mai spendere niente. Vuole rispondergli?"
+      recast: {text: "per passarlo stasera", fix: "per approvarlo stasera", tags: [word-choice]}
+      goals: [position]
+    - learner: "Ha tutto il diritto di pensarla così. Gli ricordo soltanto che pago la mia rata come tutti, e che chiedere chiarimenti non significa fare ostruzionismo."
+    - tutor: "Risposta impeccabile, e mi pare che il signore si sia già calmato. Che cosa propone, in concreto?"
+      goals: [defuse]
+    - learner: "Propongo di fare una decisione solo dopo aver visto almeno altri due preventivi. Nel frattempo si potrebbero sistemare i balconi, che sono la parte più pericolosa."
+      errors: [word-choice]
+    - tutor: "Quindi prendere una decisione solo con altri due preventivi in mano, e intanto mettere in sicurezza i balconi: mi sembra ragionevole. Qualcuno però teme che, aspettando, i prezzi salgano."
+      recast: {text: "fare una decisione", fix: "prendere una decisione", tags: [word-choice]}
+      goals: [alternative]
+    - learner: "È un rischio, lo so. Chiedo allora che viene fissata una scadenza, per esempio la fine di febbraio, così non si rimanda all'infinito."
+      errors: [subjunctive-use]
+    - tutor: "Proposta sensata. Ma ripeta con me: «chiedo che viene fissata»? Una richiesta che va a verbale vuole un altro modo verbale."
+      prompt: {text: "Chiedo allora che viene fissata", tags: [subjunctive-use]}
+    - learner: "Certo: chiedo che venga fissata una scadenza, la fine di febbraio, e che la decisione definitiva si prenda nella prossima assemblea."
+    - tutor: "Perfetto, lo scrivo esattamente così: balconi subito, nuovi preventivi entro febbraio, voto definitivo alla prossima assemblea. Mi pare che siamo tutti d'accordo, e sono appena le undici."
+      goals: [compromise]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: es-f-teacher
+  history: [register]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Buonasera. Sono del parere che la facciata vada rifatta, ma non da questa ditta: l'ultima volta i lavori sono durati il doppio del previsto."
+    - tutor: "Ne prendo nota. Il signore del quarto piano, però, osserva con una certa ironia che Lei si lamenta sempre e non propone mai niente."
+      goals: [position]
+    - learner: "Guardi, ma che c'entra? Ogni volta che apro bocca mi tocca sentire queste cose, e francamente mi sono rotta."
+      errors: [register]
+    - tutor: "Capisco la stanchezza, ma ricordi che stiamo verbalizzando: «mi sono rotta» vuole davvero vederlo scritto? Provi a dirlo in un modo che non dia soddisfazione a chi La provoca."
+      prompt: {text: "mi sono rotta", tags: [register]}
+    - learner: "Ha ragione. Diciamo che trovo queste battute poco utili e che preferirei discutere dei fatti."
+    - tutor: "Molto meglio, e il signore ha incassato in silenzio. Allora, qual è la Sua proposta?"
+      goals: [defuse]
+    - learner: "Chiedere almeno tre preventivi e dividere i lavori in due fasi, così le rate sono più leggere. Altrimenti, come sempre, rimettono quelli che hanno meno soldi."
+      errors: [ci-ne]
+    - tutor: "Proposta concreta, la annoto. Ma quel «rimettono», in questo senso, da solo non sta in piedi: gli manca una particella."
+      prompt: {text: "rimettono quelli che hanno meno soldi", tags: [ci-ne]}
+    - learner: "Sì, voglio dire che rimettono sempre gli stessi, quelli che perdono più soldi."
+      errors: [ci-ne]
+    - tutor: "Ah, ci rimettono sempre gli stessi, certo, purtroppo è così. Lavori in due fasi, dunque. E per la scelta della ditta, come vorrebbe procedere?"
+      recast: {text: "rimettono sempre gli stessi", fix: "ci rimettono sempre gli stessi", tags: [ci-ne]}
+      goals: [alternative]
+    - learner: "Se l'assemblea fosse d'accordo, proporrei una commissione di tre condomini che confronti i preventivi e riferisca entro marzo."
+    - tutor: "Mi sembra una mediazione ragionevole, e vedo parecchie mani alzate. Metto a verbale: tre preventivi, lavori in due fasi, commissione di tre condomini, relazione entro marzo."
+      goals: [compromise]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: en-m-traveller
+  history: [passive]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Buonasera. Prima di tutto vorrei capire una cosa: la delibera sui lavori è già stata approvata l'anno scorso, o se ne discute solo stasera?"
+    - tutor: "Domanda legittima: l'anno scorso si è approvato solo lo studio preliminare, stasera si vota il preventivo. Lei che posizione ha?"
+    - learner: "Sono favorevole a rifare la facciata, ma il preventivo l'abbiamo ricevuto tre giorni fa. Secondo me andrebbe letto con calma da tutti prima di votare."
+    - tutor: "Posizione chiara. La signora del secondo piano, però, dice che chi non ha avuto tempo di leggerlo poteva svegliarsi prima. Come le risponde?"
+      goals: [position]
+    - learner: "Con tutto il rispetto, signora, il documento è venuto mandato venerdì sera. Nessuno di noi ha avuto il tempo di studiarlo."
+      errors: [passive]
+    - tutor: "Calmo e cortese, bene. Solo un dettaglio per il verbale: venerdì sera il documento... «è venuto mandato»? Con il passato prossimo, quel venire non regge."
+      prompt: {text: "è venuto mandato", tags: [passive]}
+    - learner: "Allora... il documento è venuto inviato venerdì sera?"
+      errors: [passive]
+    - tutor: "Esatto, è stato inviato venerdì sera, e lo confermo io stesso: il ritardo è colpa dell'amministrazione, non dei condomini. Mi pare che la signora abbia capito. Ha una proposta?"
+      recast: {text: "è venuto inviato", fix: "è stato inviato", tags: [passive]}
+      goals: [defuse]
+    - learner: "Sì: postponiamo il voto di due settimane e organizziamo un incontro con il geometra della ditta, così chi ha dubbi può fare domande direttamente."
+      errors: [word-choice]
+    - tutor: "Rinviamo il voto e sentiamo il geometra: idea utile, e lui è sempre disponibile. Qualcuno però teme che due settimane diventino due mesi."
+      recast: {text: "postponiamo il voto", fix: "rinviamo il voto", tags: [word-choice]}
+      goals: [alternative]
+    - learner: "Allora fissiamo subito la data. E se servisse a convincere gli indecisi, si potrebbe chiedere alla ditta uno sconto per il pagamento anticipato. Vorrei che tutte e due le cose fossero scritte nel verbale."
+    - tutor: "Senz'altro. Metto a verbale: incontro con il geometra il 14, voto il 21, e richiesta di sconto per chi paga in anticipo. Grazie, è stato un intervento prezioso."
+      goals: [compromise]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Buonasera. Parlo anche a nome di due famiglie del quarto piano: siamo d'accordo sul rifacimento, ma non sul ponteggio per otto mesi. È un periodo troppo largo, con dei bambini piccoli in casa."
+      errors: [false-friend]
+    - tutor: "Otto mesi di ponteggio sono un periodo troppo lungo, su questo ha ragione. Il signore del primo piano, però, dice che chi ha figli piccoli dovrebbe comprarsi una villetta."
+      recast: {text: "troppo largo", fix: "troppo lungo", tags: [false-friend]}
+      goals: [position]
+    - learner: "Lo ringrazio per il consiglio immobiliare. Se avesse figli anche lui, forse capirebbe che non si tratta di un capriccio."
+    - tutor: "Ironia elegante, e il primo piano tace. Allora: c'è un modo per accorciare i tempi?"
+      goals: [defuse]
+    - learner: "Si potrebbe lavorare per lati: prima la facciata sulla strada, poi quella sul cortile. Così il ponteggio resta armato solo dove serve, e da quanto ho capito non costerebbe di più."
+      errors: [false-friend]
+    - tutor: "Il ponteggio resta montato solo dove serve, dunque: è una soluzione che altre ditte adottano spesso. Sarebbe disposto a portarla al voto?"
+      recast: {text: "resta armato", fix: "resta montato", tags: [false-friend]}
+      goals: [alternative]
+    - learner: "Sì, ma voglio che la ditta si impegna per iscritto sulle date, con una penale in caso di ritardo."
+      errors: [subjunctive-use]
+    - tutor: "Richiesta legittima. Mi permetta però: dopo «voglio che», l'indicativo Le sembra la scelta giusta?"
+      prompt: {text: "voglio che la ditta si impegna", tags: [subjunctive-use]}
+    - learner: "No, ha ragione: voglio che la ditta si impegni per iscritto, con una penale se sfora i tempi."
+    - tutor: "Penale compresa, allora: lavori per lati, impegno scritto sulle date e penale per ogni settimana di ritardo. Lo metto a verbale e passiamo al voto."
+      goals: [compromise]

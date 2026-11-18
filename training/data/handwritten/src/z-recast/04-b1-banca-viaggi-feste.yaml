@@ -1,0 +1,233 @@
+# B1, recast-focused (z-recast): failed prompt then recast of the learner's own span;
+# a lexical error recast at once.
+- scenario: banca-conto
+  level: B1
+  persona: es-m-worker
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire un conto corrente: ho appena cominciato a lavorare qui."
+    - tutor: "Benissimo. Per aprire un conto servono un documento e il codice fiscale. Li ha con sé?"
+      goals: [purpose]
+    - learner: "Sì, ecco il passaporto e il codice fiscale. Anche mia moglie vuole di aprire un conto."
+      errors: [modal-infinitive]
+    - tutor: "Perfetto, grazie. Ma «vuole di aprire»? Dopo «volere» serve quella piccola parola?"
+      goals: [documents]
+      prompt: {text: "vuole di aprire un conto", tags: [modal-infinitive]}
+    - learner: "Sì, mia moglie vuole di aprire un conto anche lei, ma oggi lavora."
+      errors: [modal-infinitive]
+    - tutor: "Nessun problema: se sua moglie vuole aprire un conto, può venire un altro giorno con i suoi documenti."
+      recast: {text: "vuole di aprire un conto", fix: "vuole aprire un conto", tags: [modal-infinitive]}
+    - learner: "Va bene. Quanto costa il conto al mese?"
+    - tutor: "Il conto costa tre euro al mese, ma il primo anno è gratis."
+      goals: [costs]
+    - learner: "Perfetto. Devo firmare questo papel?"
+      errors: [word-choice]
+    - tutor: "Sì, firmi questo foglio qui in basso. La carta di debito arriva a casa in una settimana."
+      goals: [card]
+      recast: {text: "questo papel", fix: "questo foglio", tags: [word-choice]}
+      new: [{lemma: foglio, gloss: sheet of paper}]
+    - learner: "Benissimo, grazie per l'aiuto."
+    - tutor: "Grazie a lei, e benvenuto tra i nostri clienti!"
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita dal dermatologo, per una macchia sulla pelle."
+    - tutor: "Certo. Ha già l'impegnativa del suo medico?"
+      goals: [type]
+    - learner: "Sì, ce l'ho. Ho anche le foto della macchia: il mio medico dice che sono utili per l'esaminazione."
+      errors: [word-choice]
+    - tutor: "Bene, le porti: per l'esame sono molto utili. Il primo posto libero è martedì prossimo alle undici."
+      goals: [availability]
+      recast: {text: "l'esaminazione", fix: "l'esame", tags: [word-choice]}
+    - learner: "Martedì lavoro. Se il dottore avrebbe un posto giovedì, sarebbe perfetto."
+      errors: [hypothetical]
+    - tutor: "«Se il dottore avrebbe»? Attenzione: dopo «se» quel verbo non va."
+      prompt: {text: "avrebbe un posto", tags: [hypothetical]}
+    - learner: "Ah... se il dottore avrebbe un posto giovedì pomeriggio, sì."
+      errors: [hypothetical]
+    - tutor: "Magari avesse un posto giovedì! Purtroppo è tutto pieno, ma venerdì alle cinque è libero."
+      recast: {text: "avrebbe un posto", fix: "avesse un posto", tags: [hypothetical]}
+    - learner: "Venerdì alle cinque va benissimo. Quanto costa la visita?"
+    - tutor: "Con l'impegnativa paga solo trentasei euro."
+      goals: [cost]
+    - learner: "Perfetto. Allora confermo venerdì alle cinque."
+    - tutor: "Confermato: venerdì alle diciassette con la dottoressa Rossi. Arrivederci!"
+      goals: [confirm]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Sono stata in Sicilia con mia sorella, dieci giorni."
+    - tutor: "In Sicilia, che bello! E il tempo com'era?"
+      goals: [where]
+    - learner: "Bellissimo! Ogni giorno ha fatto caldo e non è mai piovuto."
+      errors: [tense-aspect]
+    - tutor: "«Ogni giorno ha fatto caldo»? Mmm, parli di com'era il tempo ogni giorno: quale tempo usiamo?"
+      prompt: {text: "ha fatto caldo", tags: [tense-aspect]}
+    - learner: "Sì, ogni giorno ha fatto molto caldo, anche la sera."
+      errors: [tense-aspect]
+    - tutor: "Faceva molto caldo anche la sera? Beate voi! Qui a Milano pioveva sempre."
+      goals: [weather]
+      recast: {text: "ha fatto molto caldo", fix: "faceva molto caldo", tags: [tense-aspect]}
+    - learner: "Abbiamo visitato Agrigento con un guía molto simpatico."
+      errors: [word-choice]
+    - tutor: "Con una guida simpatica è tutto più interessante! E cosa avete visto?"
+      goals: [activities]
+      recast: {text: "un guía", fix: "una guida", tags: [word-choice]}
+    - learner: "La Valle dei Templi. Ma la cosa più bella è stata il mare alla Scala dei Turchi."
+    - tutor: "Ah, la Scala dei Turchi, tutta bianca! È il mio sogno."
+      goals: [best]
+
+- scenario: compleanno
+  level: B1
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa! Sabato prossimo, a casa mia."
+    - tutor: "Che idea! Sabato è perfetto, lei è libera. Chi invitiamo?"
+      goals: [date]
+    - learner: "Inviteremo i suoi amici dell'università e la sua famiglia, circa venti persone."
+    - tutor: "Venti persone, bene. E da mangiare?"
+      goals: [guests]
+    - learner: "Io farò le lasagne e compro una torta al cioccolato. E prendo anche i confetti da lanciare!"
+      errors: [false-friend]
+    - tutor: "Ah, i coriandoli! Sì, così la festa è più bella."
+      goals: [food]
+      recast: {text: "i confetti", fix: "i coriandoli", tags: [false-friend]}
+      new: [{lemma: coriandoli, gloss: confetti}]
+    - learner: "Sì! E per il regalo? Possiamo regalarla un libro: legge tantissimo."
+      errors: [object-pronoun]
+    - tutor: "«Regalarla un libro»? Mmm, regaliamo un libro a chi? Pensa al pronome."
+      prompt: {text: "regalarla un libro", tags: [object-pronoun]}
+    - learner: "Ah... regalargli un libro?"
+      errors: [object-pronoun]
+    - tutor: "Sì, regalarle un libro è un'ottima idea! Domani andiamo a comprarlo insieme?"
+      goals: [gift]
+      recast: {text: "regalargli un libro", fix: "regalarle un libro", tags: [object-pronoun]}
+    - learner: "Perfetto, domani alle cinque."
+    - tutor: "Va bene, a domani alle cinque!"
+
+- scenario: volontariato
+  level: B1
+  persona: es-f-erasmus
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Sì, molto! Ho letto un articolo su un progetto di che tutti parlano."
+      errors: [relative-pronoun]
+    - tutor: "Un progetto «di che» tutti parlano? Mmm, dopo «di» quella parola non va bene."
+      prompt: {text: "di che tutti parlano", tags: [relative-pronoun]}
+    - learner: "Sì, il progetto che tutti parlano, con gli anziani."
+      errors: [relative-pronoun]
+    - tutor: "Ah, il progetto di cui tutti parlano è proprio il nostro! Perché ti interessa?"
+      recast: {text: "che tutti parlano", fix: "di cui tutti parlano", tags: [relative-pronoun]}
+    - learner: "Mia nonna vive da sola in Spagna e mi manca tanto. Voglio aiutare le persone come lei."
+    - tutor: "Che bel motivo. E cosa sai fare? Hai già esperienza?"
+      goals: [motivation]
+    - learner: "Sì, ho fatto volontariato con i bambini per due anni. E so cucinare bene!"
+    - tutor: "Perfetto, cuciniamo spesso con gli anziani. Quando saresti disponibile?"
+      goals: [skills]
+    - learner: "Il sabato sono libera, ma la domenica lavoro in una tienda."
+      errors: [word-choice]
+    - tutor: "Va bene, se la domenica lavori in un negozio, ti mettiamo il sabato mattina."
+      goals: [time]
+      recast: {text: "una tienda", fix: "un negozio", tags: [word-choice]}
+    - learner: "Il sabato mattina è perfetto. Posso cominciare la settimana prossima?"
+    - tutor: "Certo! Allora sabato prossimo alle dieci, al centro anziani. Ti aspettiamo!"
+      goals: [choose]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì prossimo e resto una settimana. Ho letto molte novelle di Elena Ferrante, così ho voglia di vedere la città!"
+      errors: [false-friend]
+    - tutor: "Ah, hai letto molti romanzi della Ferrante! Allora conosci già un po' Napoli. Cosa vuoi fare?"
+      recast: {text: "molte novelle", fix: "molti romanzi", tags: [false-friend]}
+      new: [{lemma: romanzo, gloss: novel}]
+    - learner: "Voglio vedere il centro storico e mangiare la pizza vera."
+    - tutor: "Ottimo programma! Allora visita i Quartieri Spagnoli e mangia la pizza in centro."
+      goals: [plans, advice]
+    - learner: "E il Museo Archeologico? Voglio andare sabato."
+      errors: [ci-ne]
+    - tutor: "«Voglio andare sabato»... andare dove? Manca una piccola parola."
+      prompt: {text: "andare sabato", tags: [ci-ne]}
+    - learner: "Sì, sì, voglio andare sabato."
+      errors: [ci-ne]
+    - tutor: "Andarci sabato? Attenta, il sabato c'è tantissima gente. Meglio giovedì mattina!"
+      recast: {text: "andare sabato", fix: "Andarci sabato", tags: [ci-ne]}
+    - learner: "Buona idea. Come arrivo dall'aeroporto al centro?"
+    - tutor: "Prendi l'autobus dell'aeroporto: in venti minuti sei in piazza Garibaldi."
+      goals: [transport]
+    - learner: "Perfetto. C'è qualcosa da evitare?"
+    - tutor: "Sì: evita la macchina, il traffico è terribile! E tieni sempre d'occhio la borsa in metro."
+      goals: [warnings]
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: es-m-worker
+  history: [imperfetto-form]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+    - learner: "In Argentina il Natale è d'estate! Si festeggia la sera del ventiquattro, con l'asado in giardino e i fuochi d'artificio a mezzanotte."
+    - tutor: "Natale d'estate, che strano per noi! E quando eri piccolo, com'era?"
+      goals: [compare]
+    - learner: "Andavamo tutti a casa di mia nonna, a Rosario. Mia nonna diciva sempre: «A Natale nessuno è solo»."
+      errors: [imperfetto-form]
+    - tutor: "Che bella frase! Ma «diciva»? Pensa all'imperfetto di «dire»."
+      prompt: {text: "diciva sempre", tags: [imperfetto-form]}
+    - learner: "Sì, diciva sempre così, anche a Capodanno."
+      errors: [imperfetto-form]
+    - tutor: "Diceva sempre così? Era una donna saggia, tua nonna."
+      goals: [past]
+      recast: {text: "diciva sempre", fix: "Diceva sempre", tags: [imperfetto-form]}
+    - learner: "Sì, molto. Adesso mi manca la mia famiglia, soprattutto mio sobrino, che ha tre anni."
+      errors: [word-choice]
+    - tutor: "Ti manca tuo nipote, certo. Quest'anno perché non festeggi con noi?"
+      recast: {text: "sobrino", fix: "nipote", tags: [word-choice]}
+    - learner: "Grazie, volentieri! E voi cosa mangiate la Vigilia?"
+    - tutor: "La sera della Vigilia si mangia pesce, e il giorno dopo il pranzo dura ore!"
+      goals: [ask]
+    - learner: "Allora porto io il pan dulce, il nostro panettone!"
+    - tutor: "Perfetto, così festeggiamo un Natale un po' italiano e un po' del tuo paese!"
+      goals: [plan]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-m-traveller
+  history: [stare-gerund]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Lavoro in ufficio tutto il giorno e mi muovo poco. Mangio spesso al ristorante."
+    - tutor: "Capito. E dormi bene?"
+    - learner: "Non tanto, sei ore. Mia moglie è facendo una dieta, ma io no."
+      errors: [stare-gerund]
+    - tutor: "«È facendo una dieta»? Mmm, con questa forma quale verbo usiamo?"
+      goals: [habits]
+      prompt: {text: "è facendo una dieta", tags: [stare-gerund]}
+    - learner: "Sì, è facendo una dieta senza zucchero da un mese."
+      errors: [stare-gerund]
+    - tutor: "Tua moglie sta facendo una dieta senza zucchero? Brava! E tu che obiettivo hai?"
+      recast: {text: "è facendo una dieta", fix: "sta facendo una dieta", tags: [stare-gerund]}
+    - learner: "Voglio perdere tre chili e guadagnare muscoli."
+      errors: [word-choice]
+    - tutor: "Per mettere su muscoli ci vuole molto allenamento, ma si può fare!"
+      goals: [goal]
+      recast: {text: "guadagnare muscoli", fix: "mettere su muscoli", tags: [word-choice]}
+    - learner: "Il problema è il tempo: lavoro fino alle sette."
+    - tutor: "Allora ti alleni la sera alle otto, tre volte alla settimana."
+      goals: [obstacles]
+    - learner: "Perfetto! Comincio lunedì."
+    - tutor: "Lunedì alle otto, allora. E per la dieta, chiedi consigli a tua moglie!"
+      goals: [plan]

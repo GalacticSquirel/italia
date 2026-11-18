@@ -1,0 +1,213 @@
+# Set z-right-a1b2, file 3: A2 services; correct clitics, ne/ci and simple tenses left alone.
+- scenario: autobus
+  level: A2
+  persona: en-m-traveller
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno! Dove deve andare?"
+  - learner: "Buongiorno. Devo andare all'ospedale. Questo autobus ci passa?"
+  - tutor: "Sì, ci passa. È la quinta fermata."
+    goals: [route]
+  - learner: "Il biglietto si può fare qui?"
+  - tutor: "Sì, costa due euro. Ha i soldi giusti?"
+  - learner: "Sì, ecco due euro."
+  - tutor: "Grazie, ecco il biglietto. Lo timbri lì, vicino alla porta."
+    goals: [ticket]
+  - learner: "Fatto. Mi dice lei quando scendere?"
+  - tutor: "Certo. Scenda alla fermata dopo la piazza."
+    goals: [stop]
+  - learner: "Grazie. Sono nuovo in la città."
+    errors: [articulated-preposition]
+  - tutor: "Scusi, come? Nuovo dove?"
+    prompt: {text: "in la città", tags: [articulated-preposition]}
+  - learner: "Nuovo nella città... cioè, sono nuovo qui."
+  - tutor: "Ah, benvenuto! Qui si trova bene, vedrà."
+  - learner: "Grazie mille, è molto gentile."
+  - tutor: "Di niente. Ecco, siamo quasi arrivati."
+    goals: [thank]
+
+- scenario: biglietto-treno
+  level: A2
+  persona: es-f-teacher
+  history: [conditional-form]
+  turns:
+  - tutor: "Buongiorno, dove deve andare?"
+  - learner: "Buongiorno. Vorrei un biglietto per Venezia, per domani mattina."
+  - tutor: "Sì. Preferisce il regionale o il treno veloce?"
+    goals: [destination]
+  - learner: "Quanto costa quello veloce?"
+  - tutor: "Trentacinque euro. Il regionale ne costa diciotto, ma ci mette di più."
+  - learner: "Allora il regionale. Non ho fretta."
+  - tutor: "Bene. Prima o seconda classe?"
+    goals: [type]
+  - learner: "Seconda, va bene."
+  - tutor: "Ecco. Sono diciotto euro."
+    goals: [class]
+  - learner: "Posso pagare in efectivo?"
+    errors: [word-choice]
+  - tutor: "Sì, in contanti va benissimo."
+    recast: {text: "in efectivo", fix: "in contanti", tags: [word-choice]}
+    new: [{lemma: "contanti", gloss: "cash"}]
+  - learner: "Ecco venti euro. Da quale binario parte?"
+  - tutor: "Dal binario cinque, alle otto e dieci. Buon viaggio!"
+    goals: [platform]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-f-student
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Buongiorno! Ha visto il cartello?"
+  - learner: "Sì. Cercate una persona per il fine settimana?"
+  - tutor: "Esatto, il sabato e la domenica. Ha esperienza?"
+    goals: [ask]
+  - learner: "Sì. L'estate scorsa sono andata a Londra e ho lavorato in un bar."
+  - tutor: "Ottimo. Per quanto tempo?"
+  - learner: "Tre mesi. Ho fatto i caffè e ho servito ai tavoli."
+  - tutor: "Bene. Sa fare un buon cappuccino?"
+    goals: [experience]
+  - learner: "Sì, certo! Lo so fare."
+  - tutor: "Perfetto. Quando può cominciare?"
+  - learner: "Sabato prossimo. Posso a lavorare tutti i fine settimana."
+    errors: [modal-infinitive]
+  - tutor: "Posso a lavorare? Dopo «posso» c'è una parola in più."
+    prompt: {text: "Posso a lavorare", tags: [modal-infinitive]}
+  - learner: "Posso lavorare tutti i fine settimana."
+  - tutor: "Benissimo, allora cominciamo sabato."
+    goals: [availability]
+  - learner: "Devo lasciare il curriculum?"
+  - tutor: "Sì, me lo porti domani mattina."
+    goals: [contact]
+
+- scenario: lavanderia
+  level: A2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+  - tutor: "Tutto bene? Hai bisogno di una mano?"
+  - learner: "Sì, grazie. La lavatrice non parte."
+  - tutor: "Hai messo i gettoni?"
+    goals: [problem]
+  - learner: "Sì, ne ho messi due."
+  - tutor: "Allora devi solo scegliere il programma."
+  - learner: "Ah, ecco! E il detersivo dove lo metto?"
+  - tutor: "Qui, in alto a sinistra."
+    goals: [ask-how]
+  - learner: "Grazie. Il programma dura molto? Ho molto pressa."
+    errors: [word-choice]
+  - tutor: "Hai molta fretta? Dura solo quaranta minuti."
+    recast: {text: "molto pressa", fix: "molta fretta", tags: [word-choice]}
+  - learner: "Va bene. E l'asciugatrice quanto costa?"
+  - tutor: "Due euro. I gettoni li vende quella macchina lì."
+    goals: [payment]
+  - learner: "Grazie mille, sei gentilissimo!"
+  - tutor: "Di niente! Buona giornata."
+    goals: [thank]
+
+- scenario: medico-base
+  level: A2
+  persona: en-m-retired
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+  - learner: "Ho mal di gola e la febbre."
+  - tutor: "Mi dispiace. Da quando?"
+    goals: [symptoms]
+  - learner: "Da tre giorni. Ieri sono stato a letto tutto il giorno."
+  - tutor: "Capisco. Ha preso qualche medicina?"
+    goals: [since-when]
+  - learner: "Un'aspirina, ieri sera. Ma la febbre non è andato via."
+    errors: [participle-agreement]
+  - tutor: "La febbre non è andato via? Attenzione: «febbre» è femminile."
+    prompt: {text: "non è andato via", tags: [participle-agreement]}
+  - learner: "Sì, la febbre non è andato via."
+    errors: [participle-agreement]
+  - tutor: "Capisco, se non è andata via dobbiamo controllare. È allergico a qualche medicina?"
+    recast: {text: "non è andato via", fix: "non è andata via", tags: [participle-agreement]}
+  - learner: "No, a niente."
+  - tutor: "Bene, nessuna allergia."
+    goals: [history]
+  - learner: "Devo prendere un antibiotico?"
+  - tutor: "No, per ora no. Prenda questo sciroppo tre volte al giorno."
+    goals: [instructions]
+    new: [{lemma: "sciroppo", gloss: "syrup"}]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-f-student
+  history: [future-form]
+  turns:
+  - tutor: "Buongiorno! Vuole una bicicletta?"
+  - learner: "Sì, grazie. Ne vorrei una per tutta la giornata."
+  - tutor: "Benissimo. Fino a che ora?"
+    goals: [ask]
+  - learner: "La riporterò alle sei."
+  - tutor: "Perfetto, chiudiamo alle sette."
+    goals: [duration]
+  - learner: "Quanto costa per un giorno?"
+  - tutor: "Quindici euro, con il casco e il lucchetto."
+    goals: [price]
+  - learner: "Va bene. Il lago è molto lontano di qui?"
+    errors: [preposition]
+  - tutor: "Lontano di qui? Ascolti bene la preposizione."
+    prompt: {text: "lontano di qui", tags: [preposition]}
+  - learner: "Sì, è lontano di qui?"
+    errors: [preposition]
+  - tutor: "No, non è lontano da qui: ci vuole mezz'ora. Il percorso è facile e bello."
+    recast: {text: "lontano di qui", fix: "lontano da qui", tags: [preposition]}
+    goals: [route]
+  - learner: "Grazie, perfetto!"
+  - tutor: "Buona giornata e buon giro!"
+
+- scenario: palestra
+  level: A2
+  persona: en-m-heritage
+  history: [comparative]
+  turns:
+  - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+  - learner: "Sì. Quanto costa un mese?"
+  - tutor: "Quaranta euro. Tre mesi costano cento."
+    goals: [ask-membership]
+  - learner: "Allora conviene prendere tre mesi."
+  - tutor: "Esatto! Quali corsi ti interessano?"
+  - learner: "Faccio yoga da due anni. C'è un corso la sera?"
+  - tutor: "Sì, il martedì e il giovedì, alle sette."
+    goals: [classes, timetable]
+  - learner: "Bene. Lo yoga è più rilassante che il nuoto."
+    errors: [comparative]
+  - tutor: "Più rilassante che il nuoto? Davanti a un nome, che parola usiamo?"
+    prompt: {text: "più rilassante che il nuoto", tags: [comparative]}
+  - learner: "Sì, più rilassante che il nuoto."
+    errors: [comparative]
+  - tutor: "Sì, più rilassante del nuoto, sono d'accordo!"
+    recast: {text: "più rilassante che il nuoto", fix: "più rilassante del nuoto", tags: [comparative]}
+  - learner: "Mi iscrivo subito. Cosa ti serve?"
+  - tutor: "Un documento e una foto."
+    goals: [sign-up]
+
+- scenario: parrucchiere
+  level: A2
+  persona: es-f-teacher
+  history: [object-pronoun]
+  turns:
+  - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+  - learner: "Vorrei tagliare i capelli. Ho prenotato ieri per telefono."
+  - tutor: "Sì, alle dieci. Quanto li vuole corti?"
+    goals: [book]
+  - learner: "Non troppo. Li vorrei un po' più corti di adesso."
+  - tutor: "Va bene, più o meno così?"
+    goals: [length]
+  - learner: "Sì, perfetto. E la frangia la può fare un po' più corta?"
+  - tutor: "Certo. E prima li lavo?"
+    goals: [style]
+  - learner: "Sì, grazie."
+  - tutor: "Ecco fatto. Le piace?"
+  - learner: "Molto! Lei è bravissima. Io venisco ancora!"
+    errors: [verb-form]
+  - tutor: "Venisco? Pensi al verbo «venire» con «io»."
+    prompt: {text: "venisco", tags: [verb-form]}
+  - learner: "Vengo ancora, il mese prossimo!"
+  - tutor: "Grazie! Sono venticinque euro."
+  - learner: "Ecco, con la carta."
+  - tutor: "Perfetto, arrivederci!"
+    goals: [pay]

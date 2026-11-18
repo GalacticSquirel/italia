@@ -1,0 +1,224 @@
+# C2, recast-focused (z-recast): failed prompt then recast of the learner's own span, with
+# register, relatives, subjunctive and hypotheticals; plus a subtle lexical error recast at once.
+- scenario: condoglianze
+  level: C2
+  persona: en-f-professional
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Grazie di essere venuta, davvero. Non doveva disturbarsi, con tutto il lavoro che ha."
+    - learner: "Si figuri, ci tenevo. Le porgo le mie più sincere condolenze, a nome di tutto l'ufficio."
+      errors: [word-choice]
+    - tutor: "Grazie, le condoglianze di tutti voi mi fanno davvero piacere. Siete stati molto vicini."
+      goals: [condolences]
+      recast: {text: "condolenze", fix: "condoglianze", tags: [word-choice]}
+    - learner: "Mi dispiace tanto che suo padre se n'è andato così presto."
+      errors: [subjunctive-use]
+    - tutor: "Scusi, non ho colto bene: «che se n'è andato»?"
+      prompt: {text: "se n'è andato così presto", tags: [subjunctive-use]}
+    - learner: "Dicevo: mi dispiace tanto che se n'è andato così presto, a settantadue anni."
+      errors: [subjunctive-use]
+    - tutor: "Già, che se ne sia andato così presto, senza preavviso, è la cosa che mi pesa di più."
+      recast: {text: "se n'è andato così presto", fix: "se ne sia andato così presto", tags: [subjunctive-use]}
+    - learner: "Lo ricordo alla festa di Natale dell'anno scorso: raccontava aneddoti e faceva ridere tutti."
+    - tutor: "Era proprio così, un gran narratore. Mi fa bene sentirlo ricordare in questo modo."
+      goals: [memory]
+    - learner: "Se ha bisogno di qualcosa, qualsiasi cosa, non esiti a chiamarmi. E per il lavoro non si preoccupi: ci pensiamo noi."
+    - tutor: "Lei è molto gentile. Accetto volentieri, almeno per questa settimana."
+      goals: [offer-help]
+    - learner: "Allora la lascio riposare. Le sono vicina."
+    - tutor: "Grazie ancora di cuore. Ci vediamo presto."
+      goals: [leave]
+
+- scenario: dialetti-regionali
+  level: C2
+  persona: es-f-erasmus
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Scusa se mi intrometto, ma ti ho visto ridere: hai capito cosa si dicevano quei due signori? Perché non è mica facile."
+    - learner: "Solo la metà, ma era molto grazioso: litigavano per una partita di calcio, no?"
+      errors: [false-friend]
+    - tutor: "Molto divertente, sì: quei due sono un vero spettacolo! E sì, il Napoli da queste parti è sacro."
+      goals: [notice]
+      recast: {text: "molto grazioso", fix: "Molto divertente", tags: [false-friend]}
+    - learner: "Ho riconosciuto alcune parole, perché ho una coinquilina che la sua famiglia è di Bari."
+      errors: [relative-pronoun]
+    - tutor: "«Che la sua famiglia»? È un costrutto molto parlato: in uno scritto curato che relativo useresti?"
+      prompt: {text: "che la sua famiglia", tags: [relative-pronoun]}
+    - learner: "Ah, sì... ho una coinquilina di cui la famiglia è di Bari."
+      errors: [relative-pronoun]
+    - tutor: "Una coinquilina la cui famiglia è di Bari, quindi! Allora ti sarà capitato di sentire qualche espressione tipica. Mi fai un esempio?"
+      recast: {text: "di cui la famiglia", fix: "la cui famiglia", tags: [relative-pronoun]}
+    - learner: "Dice sempre «mo'» invece di «adesso», e per lei «mo' vengo» può voler dire anche tra un'ora!"
+    - tutor: "Classico! «Mo'» è un tempo elastico in tutto il Sud. Ma secondo te in pubblico si dovrebbe parlare solo l'italiano standard?"
+      goals: [example]
+    - learner: "No, credo che i dialetti siano una ricchezza, purché si sappia anche l'italiano standard. In Spagna succede lo stesso con l'andaluso."
+    - tutor: "Sottoscrivo ogni parola. Peccato che tra i giovani si stiano perdendo, però."
+      goals: [standard, opinion]
+
+- scenario: email-rettore
+  level: C2
+  persona: en-f-student
+  history: [register]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Il mio contratto di ricerca è stato sospeso per un presunto errore nei documenti, e la delibera è stata presa senza considerare l'evidenza che avevo presentato."
+      errors: [false-friend]
+    - tutor: "Capisco. Se le prove che aveva presentato non sono state prese in considerazione, è un ottimo motivo per un ricorso. Partiamo dall'apertura: come pensava di cominciare?"
+      goals: [situation]
+      recast: {text: "l'evidenza", fix: "le prove", tags: [false-friend]}
+    - learner: "Pensavo a «Caro Rettore», semplice e diretto."
+      errors: [register]
+    - tutor: "«Caro Rettore»? Per una lettera di questo tipo è un'apertura un po' troppo confidenziale. Esiste una formula di rito: le viene in mente?"
+      prompt: {text: "Caro Rettore", tags: [register]}
+    - learner: "Allora... «Gentile Rettore»?"
+      errors: [register]
+    - tutor: "Magnifico Rettore, direi: con una carica accademica di quel livello la formula di rito è d'obbligo. E poi?"
+      goals: [opening-formula]
+      recast: {text: "Gentile Rettore", fix: "Magnifico Rettore", tags: [register]}
+    - learner: "Poi scriverei: «Mi permetto di sottoporre alla Sua cortese attenzione la richiesta che la delibera venga riesaminata»."
+    - tutor: "Perfetto: tono sobrio e rispettoso, senza recriminazioni. E per chiudere?"
+      goals: [tone]
+    - learner: "«In attesa di un cortese riscontro, porgo distinti saluti», seguito da nome e qualifica."
+    - tutor: "Impeccabile. Una lettera così, il Rettore non potrà ignorarla."
+      goals: [closing]
+
+- scenario: intervista-radio
+  level: C2
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Bentornati, cari ascoltatori. In studio con noi c'è un'autrice che ha avuto il coraggio, o l'incoscienza, di scrivere un libro su di noi italiani. Benvenuta!"
+    - learner: "Grazie dell'invito! Il libro racconta i miei primi tre anni a Torino, visti con lo sguardo di una straniera un po' ingenua."
+    - tutor: "Ingenua, addirittura! E perché un libro proprio su di noi?"
+      goals: [present-book]
+    - learner: "Volevo sfatare alcuni topici sugli italiani, ma alla fine ne ho confermati parecchi!"
+      errors: [false-friend]
+    - tutor: "Alcuni luoghi comuni, dunque, e qualcuno confermato! Quale ha resistito meglio alla prova dei fatti?"
+      recast: {text: "alcuni topici", fix: "Alcuni luoghi comuni", tags: [false-friend]}
+    - learner: "Quello della teatralità: qui anche comprare il pane diventa una scena."
+    - tutor: "Ce la siamo cercata, ammettiamolo. Ci regala un aneddoto?"
+      goals: [stereotype]
+    - learner: "Certo. Ogni mattina il portiere del palazzo ha salutato tutti con un proverbio diverso."
+      errors: [tense-aspect]
+    - tutor: "«Ogni mattina ha salutato»? Un'abitudine che si ripete... il tempo è quello giusto?"
+      prompt: {text: "ha salutato tutti", tags: [tense-aspect]}
+    - learner: "Sì, ogni mattina ha salutato tutti, anche i gatti del cortile!"
+      errors: [tense-aspect]
+    - tutor: "Salutava tutti, gatti compresi? Un filosofo di portineria! E i proverbi le hanno insegnato qualcosa sulla lingua?"
+      goals: [anecdote]
+      recast: {text: "ha salutato tutti", fix: "Salutava tutti", tags: [tense-aspect]}
+    - learner: "Moltissimo: ho capito che l'italiano vive più nelle espressioni che nella grammatica."
+    - tutor: "Una lezione che molti italiani dovrebbero ripassare! Grazie di essere stata con noi, e buona lettura a tutti gli ascoltatori."
+      goals: [language, farewell]
+
+- scenario: poesia-montale
+  level: C2
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Lasciamo un attimo di silenzio dopo la lettura. Ecco. Che cosa le è rimasto addosso, di questi versi?"
+    - learner: "Soprattutto l'immagine finale: il muro che sopra ci sono i cocci aguzzi di bottiglia."
+      errors: [relative-pronoun]
+    - tutor: "«Il muro che sopra ci sono»? È un relativo molto parlato: come lo renderebbe in un registro più sorvegliato?"
+      prompt: {text: "che sopra ci sono", tags: [relative-pronoun]}
+    - learner: "Ah... il muro dove sopra ci sono i cocci aguzzi di bottiglia."
+      errors: [relative-pronoun]
+    - tutor: "Il muro sul quale ci sono i cocci aguzzi di bottiglia: un'immagine tagliente, in tutti i sensi. E che cosa le suggerisce?"
+      goals: [first-reading]
+      recast: {text: "dove sopra ci sono", fix: "sul quale ci sono", tags: [relative-pronoun]}
+    - learner: "Mi sembra un'immagine della condizione umana: camminiamo lungo un limite che non possiamo superare."
+    - tutor: "È la lettura più condivisa, e a ragione. E il suono dei versi, che effetto le fa?"
+      goals: [image]
+    - learner: "È aspro, pieno di consonanti doppie e di parole come «schiocchi» e «scricchi»: sembra di sentire il caldo che crepita."
+    - tutor: "Bellissima osservazione: è proprio la musica dell'arsura. E il senso ultimo, secondo lei?"
+      goals: [sound]
+    - learner: "Che la vita è un travaglio senza via d'uscita, e i versi finali sopportano questa interpretazione."
+      errors: [false-friend]
+    - tutor: "I versi finali la sostengono pienamente, sì: quel «travaglio» non lascia scampo. Lei ha letto Montale con grande finezza."
+      goals: [meaning]
+      recast: {text: "sopportano", fix: "sostengono", tags: [false-friend]}
+
+- scenario: traduzione-sfumature
+  level: C2
+  persona: es-m-worker
+  history: [hypothetical]
+  turns:
+    - tutor: "Ho letto la tua bozza del terzo capitolo. Scorre, scorre benissimo. Peccato che non sia più l'autore a parlare."
+    - learner: "Ho semplificato alcune frasi, è vero. Ho pensato che il lettore italiano le avrebbe trovate molto rare."
+      errors: [false-friend]
+    - tutor: "Molto strane, dici? Ma è proprio quella stranezza che l'autore cerca: è la sua voce."
+      goals: [problem]
+      recast: {text: "molto rare", fix: "Molto strane", tags: [false-friend]}
+    - learner: "Però, se l'autore avrebbe voluto un effetto così straniante, non avrebbe scelto parole così semplici."
+      errors: [hypothetical]
+    - tutor: "«Se l'autore avrebbe voluto»? Rileggi la tua ipotesi: in quella frase con «se» il condizionale stona."
+      prompt: {text: "se l'autore avrebbe voluto", tags: [hypothetical]}
+    - learner: "Sì, se l'autore abbia voluto un effetto straniante, avrebbe usato parole più ricercate."
+      errors: [hypothetical]
+    - tutor: "Se l'autore avesse voluto un effetto straniante, dici, avrebbe usato parole ricercate? Al contrario: lo ottiene con la sintassi, non con il lessico."
+      recast: {text: "se l'autore abbia voluto", fix: "Se l'autore avesse voluto", tags: [hypothetical]}
+    - learner: "Quindi le opzioni sono due: ripristinare la sintassi spezzata o trovare un compromesso nel ritmo."
+    - tutor: "Esatto. E c'è un'altra trappola: a pagina dodici hai tradotto «actual» con «attuale». Te ne sei accorto?"
+      goals: [options]
+    - learner: "Ah, che svista! È un falso amico: dovevo scrivere «effettivo» o «reale». Lo correggo subito."
+    - tutor: "Bene. Allora, che cosa decidi per la sintassi?"
+      goals: [false-friend]
+      new: [{lemma: sintassi, gloss: syntax}]
+    - learner: "Ripristino quella dell'originale: preferisco una traduzione fedele a una troppo scorrevole."
+    - tutor: "Era la risposta che speravo. Mandami la nuova versione entro venerdì."
+      goals: [decide]
+
+- scenario: umorismo-satira
+  level: C2
+  persona: en-m-traveller
+  history: [article-use]
+  turns:
+    - tutor: "Dai, ammettilo, alla battuta sul ministro e la carbonara non hai riso perché non l'avevi capita."
+    - learner: "Lo ammetto, non ho preso la battuta. Che cosa c'entrava la carbonara?"
+      errors: [word-choice]
+    - tutor: "Non hai colto la battuta, eh? Il ministro aveva detto in tv che la carbonara si fa con la panna: per un romano è alto tradimento!"
+      goals: [missed]
+      recast: {text: "preso la battuta", fix: "colto la battuta", tags: [word-choice]}
+    - learner: "Ah, ora capisco! Comunque ho riso per tutta serata, tranne a quella."
+      errors: [article-use]
+    - tutor: "«Per tutta serata»? Ripetilo con calma: non ti suona un po' monco?"
+      prompt: {text: "tutta serata", tags: [article-use]}
+    - learner: "Sì, ho riso per tutta serata, giuro!"
+      errors: [article-use]
+    - tutor: "Per tutta la serata, tranne lì? Allora la tua preferita qual era?"
+      recast: {text: "tutta serata", fix: "tutta la serata", tags: [article-use]}
+    - learner: "Quella sul gioco di parole tra «Senato» e «senape»: geniale, anche se è una freddura."
+    - tutor: "Una freddura da manuale, ma ammetto che ha fatto ridere anche me. Secondo te la satira ha dei limiti?"
+      goals: [favourite, wordplay]
+    - learner: "Credo che si possa ridere di tutto, purché si colpisca il potere e non i deboli."
+    - tutor: "Parole sante. Se tutti i comici la pensassero così, la satira sarebbe un servizio pubblico!"
+      goals: [limits]
+
+- scenario: notizie-attualita
+  level: C2
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatta?"
+    - learner: "Sì, ho letto tutto. In sintesi, la legge consiste in limitare gli affitti brevi a novanta giorni l'anno."
+      errors: [preposition]
+    - tutor: "«Consiste in limitare»? Mmm, davanti a un infinito quella preposizione regge così?"
+      prompt: {text: "consiste in limitare", tags: [preposition]}
+    - learner: "Sì, consiste di limitare gli affitti brevi, almeno nei centri storici."
+      errors: [preposition]
+    - tutor: "In pratica consiste nel limitare gli affitti brevi nei centri storici. E tu sei d'accordo?"
+      goals: [summarise]
+      recast: {text: "consiste di limitare", fix: "consiste nel limitare", tags: [preposition]}
+    - learner: "In linea di principio sì. Se i centri storici restassero ai residenti, le città sarebbero più vive."
+    - tutor: "Bella idea, ma i proprietari non la pensano così. Hai visto la loro reazione?"
+      goals: [opinion]
+    - learner: "Sì, i proprietari hanno scritto una carta al sindaco, molto dura."
+      errors: [false-friend]
+    - tutor: "Una lettera durissima, sì: ma l'hai letta per intero o solo il titolo? Ogni testata ne riportava una versione diversa."
+      recast: {text: "una carta", fix: "Una lettera", tags: [false-friend]}
+    - learner: "Per intero, sul sito dell'associazione. Alcuni giornali avevano tagliato le parti più moderate: è sempre meglio risalire alla fonte."
+    - tutor: "Brava, fonte primaria prima di tutto. E le conseguenze, secondo te?"
+      goals: [sources]
+    - learner: "Nel breve periodo i prezzi degli hotel saliranno, ma a lungo termine potrebbero calare gli affitti per chi ci vive davvero."
+    - tutor: "Speriamo che tu abbia ragione. Ne riparliamo tra un anno, e vediamo chi ci ha visto giusto!"
+      goals: [consequences]

@@ -1,0 +1,222 @@
+# C1-C2, recast-focused (z-recast): failed prompt then recast of the learner's own span;
+# a lexical error (false friend, calque, collocation) recast at once.
+- scenario: intelligenza-artificiale
+  level: C1
+  persona: en-m-traveller
+  history: [hypothetical]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Capisco la paura, ma non sono così pessimista. Molti lavori cambieranno, non spariranno."
+    - tutor: "Cambieranno? Io vedo già colleghi sostituiti da un programma."
+      goals: [position]
+    - learner: "Ci sono casi, certo. Ma gli economisti sono abbastanza confidenti che nasceranno nuove professioni, come con internet."
+      errors: [false-friend]
+    - tutor: "Abbastanza fiduciosi, dici? Gli economisti sbagliano spesso le previsioni, però."
+      goals: [evidence]
+      recast: {text: "abbastanza confidenti", fix: "abbastanza fiduciosi", tags: [false-friend]}
+    - learner: "È vero. Anzi, ti concedo che per chi fa lavori ripetitivi il rischio è reale."
+    - tutor: "Ecco, almeno su questo siamo d'accordo. E per queste persone che cosa si fa?"
+      goals: [concede]
+    - learner: "Se le aziende investirebbero nella formazione, molti potrebbero cambiare ruolo."
+      errors: [hypothetical]
+    - tutor: "«Se le aziende investirebbero»? Dopo «se» quel condizionale non funziona, sai?"
+      prompt: {text: "Se le aziende investirebbero", tags: [hypothetical]}
+    - learner: "Ah... se le aziende investiranno nella formazione, sarebbe molto diverso."
+      errors: [hypothetical]
+    - tutor: "Se le aziende investissero nella formazione, sarei più tranquillo anch'io. Ma chi paga, lo Stato?"
+      recast: {text: "se le aziende investiranno", fix: "Se le aziende investissero", tags: [hypothetical]}
+    - learner: "Un po' tutti: Stato e aziende insieme. Alla fine la tecnologia è uno strumento, dipende da come la usiamo."
+    - tutor: "Bella conclusione. Mi hai quasi convinto... quasi!"
+      goals: [conclude]
+
+- scenario: intervista-podcast
+  level: C1
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivata proprio in Italia?"
+    - learner: "Sono arrivata sette anni fa per insegnare spagnolo a Bologna. Quando sono arrivata, il mio collega ha già trovato casa per me."
+      errors: [tense-aspect]
+    - tutor: "Che accoglienza! Ma «ha già trovato»? L'azione viene prima del tuo arrivo: quale tempo ci serve?"
+      prompt: {text: "ha già trovato casa", tags: [tense-aspect]}
+    - learner: "Ah, sì: il mio collega trovava già casa per me, un appartamento in centro."
+      errors: [tense-aspect]
+    - tutor: "Quindi lui aveva già trovato casa per te, e in centro! E poi sei rimasta."
+      goals: [story]
+      recast: {text: "trovava già casa", fix: "aveva già trovato casa", tags: [tense-aspect]}
+    - learner: "Esatto, mi sono innamorata della città. Ma lo shock culturale c'è stato: per esempio, gli italiani parlano molto alto."
+      errors: [word-choice]
+    - tutor: "Parlano molto forte, eh? Ce lo dicono quasi tutti gli ospiti! E che cos'altro ti ha colpito?"
+      goals: [culture-shock]
+      recast: {text: "parlano molto alto", fix: "parlano molto forte", tags: [word-choice]}
+    - learner: "La burocrazia, sicuramente. Per il permesso di soggiorno ho fatto file di ore, e nessuno sapeva darmi informazioni chiare."
+    - tutor: "Purtroppo è un classico. Che consiglio daresti a chi arriva adesso?"
+      goals: [critique]
+    - learner: "Di avere pazienza e di imparare la lingua il prima possibile: apre tutte le porte."
+    - tutor: "Consiglio d'oro. Grazie mille di essere stata con noi!"
+      goals: [advice]
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: en-f-professional
+  history: [participle-agreement]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Si sieda, prego. Mi racconti tutto, la ascolto."
+    - tutor: "La proposta per il cliente tedesco l'avevo preparata io, per settimane. E ieri chi si è preso i complimenti? Luca."
+      goals: [listen]
+    - learner: "Capisco. La proposta l'ha presentato Luca perché lei era dal cliente, ma non doveva prendersi il merito."
+      errors: [participle-agreement]
+    - tutor: "Scusi, «l'ha presentato»? Stiamo parlando della proposta, però."
+      prompt: {text: "l'ha presentato Luca", tags: [participle-agreement]}
+    - learner: "Sì, l'ha presentato Luca, ma solo perché mancava tempo."
+      errors: [participle-agreement]
+    - tutor: "Va bene, l'ha presentata Luca, ma nessuno ha detto che l'avevo scritta io!"
+      goals: [clarify]
+      recast: {text: "l'ha presentato Luca", fix: "l'ha presentata Luca", tags: [participle-agreement]}
+    - learner: "Ha ragione, e mi dispiace. Credo che Luca non abbia capito quanto lavoro c'era dietro."
+    - tutor: "Può darsi, ma resta il fatto che mi sono sentita invisibile."
+      goals: [perspective]
+    - learner: "Lo capisco. Domani parlo con la squadra per clarificare chi ha fatto cosa, e la prossima presentazione sarà sua."
+      errors: [word-choice]
+    - tutor: "Chiarire davanti a tutti sarebbe già molto, e presentare io la prossima volta mi farebbe piacere. Grazie, è tutto quello che chiedevo."
+      goals: [solution]
+      recast: {text: "clarificare", fix: "Chiarire", tags: [word-choice]}
+
+- scenario: modi-di-dire
+  level: C1
+  persona: en-m-retired
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Che giornata miserabile! Tutto è andato storto, dalla mattina alla sera."
+      errors: [false-friend]
+    - tutor: "Una giornata da cani, insomma! Racconta, sono tutt'orecchi."
+      recast: {text: "giornata miserabile", fix: "giornata da cani", tags: [false-friend]}
+    - learner: "Allora: ero alla fermata alle sette e mezza, ma il treno ha passato senza fermarsi."
+      errors: [auxiliary-choice]
+    - tutor: "«Il treno ha passato»? Mmm, con «passare» in questo senso l'ausiliare è quello?"
+      prompt: {text: "ha passato senza fermarsi", tags: [auxiliary-choice]}
+    - learner: "Sì, ha passato senza fermarsi, pieno zeppo di gente."
+      errors: [auxiliary-choice]
+    - tutor: "È passato senza fermarsi? Classico, piove sempre sul bagnato. E poi?"
+      goals: [tell]
+      recast: {text: "ha passato senza fermarsi", fix: "È passato senza fermarsi", tags: [auxiliary-choice]}
+    - learner: "Poi sono arrivato in ufficio un'ora dopo, e il capo, che mi aveva già cercato tre volte, mi ha fatto una scenata davanti a tutti."
+    - tutor: "Che figuraccia! Ma scusa, la colpa era tua o delle ferrovie?"
+      goals: [react]
+    - learner: "Delle ferrovie, ovviamente! Ma il capo non ha voluto sentire ragioni."
+    - tutor: "Eh, quando uno ha la luna storta non c'è niente da fare. La morale? Domani prendi il treno prima, così non gli dai nemmeno una scusa!"
+      goals: [blame, moral]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: es-m-worker
+  history: [passive]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Vorrei fare un reclamo per il cantiere di via Garibaldi, davanti a casa mia."
+    - tutor: "Certo. Qual è esattamente il problema?"
+    - learner: "Il cantiere è stato aperto a marzo, ma i lavori non sono mai stati finito."
+      errors: [passive]
+    - tutor: "«Non sono mai stati finito»? Attenzione all'accordo: «i lavori» sono maschili e plurali."
+      goals: [describe]
+      prompt: {text: "non sono mai stati finito", tags: [passive]}
+    - learner: "Sì, i lavori non sono mai stato finiti, e sono passati otto mesi."
+      errors: [passive]
+    - tutor: "Quindi i lavori non sono mai stati finiti, dopo otto mesi. Ha già fatto una segnalazione all'ufficio tecnico?"
+      recast: {text: "non sono mai stato finiti", fix: "non sono mai stati finiti", tags: [passive]}
+    - learner: "Tre volte, ma nessuno mi ha risposto. E la notte i camion fanno molto ruido."
+      errors: [word-choice]
+    - tutor: "Capisco che facciano molto rumore, è un disagio serio. Purtroppo i tempi dei lavori non dipendono da questo sportello."
+      recast: {text: "molto ruido", fix: "molto rumore", tags: [word-choice]}
+    - learner: "Mi scusi, ma come cittadino ho diritto a una risposta scritta entro trenta giorni. Lo dice la legge."
+    - tutor: "Ha ragione, è un suo diritto. Protocollo subito il reclamo e lo inoltro all'ufficio tecnico con un sollecito."
+      goals: [insist, rights]
+    - learner: "Grazie. Posso avere il numero di protocollo?"
+    - tutor: "Ecco qui: protocollo 4512. Entro trenta giorni riceverà una risposta scritta, glielo garantisco."
+      goals: [commitment]
+
+- scenario: trattativa-fornitore
+  level: C1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, un aumento dell'otto per cento per noi è insostenibile: i nostri margini sono già molto stretti."
+    - tutor: "La capisco, ma la farina ci costa il quindici per cento in più rispetto all'anno scorso."
+      goals: [problem]
+    - learner: "Lavoriamo insieme da otto anni, e i vostri prezzi sono già alti in confronto alla competizione."
+      errors: [false-friend]
+    - tutor: "Mi creda, alla concorrenza i costi sono saliti come a noi. Ma apprezzo molto la vostra fedeltà."
+      goals: [argue]
+      recast: {text: "alla competizione", fix: "alla concorrenza", tags: [false-friend]}
+    - learner: "Allora facciamo così: se ci manteneste il prezzo attuale, aumenteremmo il volume."
+    - tutor: "Interessante. Quanti sacchi pensa di ordinare?"
+      goals: [counteroffer]
+    - learner: "Potremmo ordinare trecento al mese, invece di duecento."
+      errors: [ci-ne]
+    - tutor: "«Potremmo ordinare trecento»? Trecento... di che cosa? Manca un pronome."
+      prompt: {text: "ordinare trecento al mese", tags: [ci-ne]}
+    - learner: "Sì, potremmo ordinare trecento al mese, con un contratto annuale."
+      errors: [ci-ne]
+    - tutor: "Se poteste ordinarne trecento al mese con un contratto annuale, potrei limitare l'aumento al tre per cento."
+      recast: {text: "ordinare trecento al mese", fix: "ordinarne trecento al mese", tags: [ci-ne]}
+    - learner: "Il tre per cento mi sembra ragionevole. Mi manda la proposta per iscritto?"
+    - tutor: "Gliela mando entro oggi. È un piacere fare affari con voi."
+      goals: [agreement]
+
+- scenario: pranzo-domenicale
+  level: C2
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Ah, sei arrivata giusto in tempo, qui si stanno già scannando per l'ultima lasagna. Siediti, che non mordiamo!"
+    - learner: "Meno male! Dopo quell'antipasto, questa lasagna è la ciliegina sulla pasta!"
+      errors: [word-choice]
+    - tutor: "La ciliegina sulla torta, altro che! Vedo che il pranzo ti mette di buon umore."
+      goals: [react]
+      recast: {text: "la ciliegina sulla pasta", fix: "La ciliegina sulla torta", tags: [word-choice]}
+    - learner: "Assolutamente. A proposito di lasagne: l'anno scorso mio cugino voleva mangiarne tre piatti, ma non l'ha fatta."
+      errors: [ci-ne]
+    - tutor: "«Non l'ha fatta»? Fatta... che cosa? A quel verbo manca una particella."
+      prompt: {text: "non l'ha fatta", tags: [ci-ne]}
+    - learner: "Sì, sì, non l'ha fatta: al secondo piatto ha alzato bandiera bianca."
+      errors: [ci-ne]
+    - tutor: "Non ce l'ha fatta, eh? Ha fatto il passo più lungo della gamba, tuo cugino! E poi?"
+      goals: [anecdote, use-idiom]
+      recast: {text: "non l'ha fatta", fix: "Non ce l'ha fatta", tags: [ci-ne]}
+    - learner: "Poi ha dormito sul divano fino a sera. Da noi in Inghilterra si direbbe che ha gli occhi più grandi dello stomaco."
+    - tutor: "Ce l'abbiamo anche noi: avere gli occhi più grandi della pancia! Vedi che le lingue si somigliano più di quanto pensi?"
+      goals: [compare]
+    - learner: "È vero! Allora, me ne lasci un pezzetto di quella lasagna, o devo scannarmi anch'io?"
+    - tutor: "Te ne lascio un pezzo, ma solo perché sei ospite. E ricorda: chi dorme non piglia pesci!"
+
+- scenario: cena-suoceri
+  level: C2
+  persona: en-m-heritage
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+    - learner: "Eccomi in carne e ossa! Prima di tutto, ho portato un piccolo presente per voi."
+      errors: [false-friend]
+    - tutor: "Un piccolo pensiero? Ma non doveva disturbarsi... Ah, un Barolo! Lei sa come conquistare un padre."
+      recast: {text: "un piccolo presente", fix: "Un piccolo pensiero", tags: [false-friend]}
+    - learner: "Spero che sia di suo gusto. E complimenti per la casa: si respira un'aria accogliente."
+    - tutor: "Troppo gentile. Mi dica, Lei di dov'è, esattamente? Il suo italiano ha una cadenza curiosa."
+      goals: [compliment]
+    - learner: "Sono nato a Toronto, ma i miei nonni erano calabresi: a casa si parlava un po' di dialetto."
+    - tutor: "Ecco svelato il mistero! E sua nonna le avrà lasciato anche qualche ricetta, immagino."
+      goals: [background]
+    - learner: "Sì, quella delle polpette. Se a sua moglie interessa, posso darglila prima di andare via."
+      errors: [combined-pronouns]
+    - tutor: "«Darglila»? Senta come suona: la combinazione dei due pronomi non è proprio quella."
+      prompt: {text: "darglila", tags: [combined-pronouns]}
+    - learner: "Certo, posso darlagli, se vuole."
+      errors: [combined-pronouns]
+    - tutor: "Se potesse dargliela, mia moglie gliene sarebbe eternamente grata. Purché non siano migliori delle sue, s'intende! E a proposito: che ne dice se ci diamo del tu?"
+      goals: [irony]
+      recast: {text: "darlagli", fix: "dargliela", tags: [combined-pronouns]}
+    - learner: "Con piacere... ma mi ci vorrà un po' per abituarmi!"
+    - tutor: "Ci mancherebbe, abbiamo tutta la sera. Alla salute!"
+      goals: [tu-lei]

@@ -1,0 +1,224 @@
+# B2-C1, recast-focused (z-recast): failed prompt then recast of the learner's own span;
+# a lexical error recast at once.
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-m-traveller
+  history: [conditional-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Il nuovo sito è quasi pronto, manca solo la parte dei pagamenti."
+    - tutor: "Ottimo. Ci sono problemi?"
+      goals: [update]
+    - learner: "Sì, uno: il cliente ha cambiato idea sul design e dobbiamo rifare la pagina principale."
+    - tutor: "Ah, di nuovo! E tu cosa proponi?"
+      goals: [problem]
+    - learner: "Propongo di mostrargli due versioni. Il cliente doverebbe approvare venerdì."
+      errors: [conditional-form]
+    - tutor: "«Doverebbe»? Ripensa al condizionale di «dovere»: è un po' più corto."
+      prompt: {text: "doverebbe approvare", tags: [conditional-form]}
+    - learner: "Sì, doverebbe approvare venerdì, spero."
+      errors: [conditional-form]
+    - tutor: "Quindi il cliente dovrebbe approvare venerdì: mi sembra una buona proposta."
+      goals: [proposal]
+      recast: {text: "doverebbe approvare", fix: "dovrebbe approvare", tags: [conditional-form]}
+    - learner: "Sì. Possiamo assumere che dopo non cambierà più idea."
+      errors: [false-friend]
+    - tutor: "Speriamo! Possiamo supporre che sia l'ultima modifica, ma chiediamogli di firmare."
+      recast: {text: "assumere", fix: "supporre", tags: [false-friend]}
+    - learner: "Giusto. Allora la scadenza resta il trenta?"
+    - tutor: "Sì, il trenta resta la scadenza finale. Ci aggiorniamo lunedì!"
+      goals: [deadline]
+
+- scenario: smartworking
+  level: B2
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Lavoro da casa tre giorni alla settimana e due vado in ufficio. Faccio traduzioni per un'agenzia."
+    - tutor: "Ah, quindi un po' e un po'! E come ti trovi a casa?"
+      goals: [situation]
+    - learner: "Bene, a casa sono più concentrata e risparmio tempo: non devo prendere l'autobus."
+    - tutor: "Eh, l'autobus la mattina è un incubo. Quindi a casa lavori meglio?"
+      goals: [pros]
+    - learner: "Non sempre: la produttività dipende di molte cose."
+      errors: [preposition]
+    - tutor: "«Dipende di»? Mmm, con «dipendere» quale preposizione usiamo?"
+      prompt: {text: "dipende di molte cose", tags: [preposition]}
+    - learner: "Ah... dipende per molte cose, per esempio dai vicini rumorosi!"
+      errors: [preposition]
+    - tutor: "Eh sì, dipende da molte cose, e i vicini rumorosi sono la cosa peggiore! E gli svantaggi?"
+      recast: {text: "dipende per molte cose", fix: "dipende da molte cose", tags: [preposition]}
+    - learner: "Mi mancano i colleghi: in ufficio si parla, si fanno bromas, si prende il caffè insieme."
+      errors: [word-choice]
+    - tutor: "È vero, in ufficio si fanno scherzi e si chiacchiera, a casa invece sei sola. Allora, cosa preferisci?"
+      goals: [cons]
+      recast: {text: "bromas", fix: "scherzi", tags: [word-choice]}
+    - learner: "Il sistema misto: due giorni a casa e tre in ufficio sarebbe perfetto."
+    - tutor: "Mi sembra la soluzione migliore. Magari ne parli con il tuo capo!"
+      goals: [preference]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-retired
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Sì. Abbiamo aspettato un'ora per i secondi, e la bistecca era completamente cruda."
+    - tutor: "Mi dispiace molto, non doveva succedere. Può dirmi qualcosa di più?"
+      goals: [complain]
+    - learner: "Quando mi sono lamentato, il cameriere è stato molto rude con me."
+      errors: [false-friend]
+    - tutor: "Se il cameriere è stato molto scortese, me ne scuso personalmente: parlerò con lui."
+      goals: [detail]
+      recast: {text: "molto rude", fix: "molto scortese", tags: [false-friend]}
+      new: [{lemma: scortese, gloss: rude}]
+    - learner: "Grazie. Poi ci ha offrito un dolce, ma era freddo anche quello."
+      errors: [past-participle-form]
+    - tutor: "«Ci ha offrito»? Mmm, la forma di «offrire» al passato non è questa."
+      prompt: {text: "ha offrito un dolce", tags: [past-participle-form]}
+    - learner: "Sì, ci ha offrito un dolce... ma non bastava."
+      errors: [past-participle-form]
+    - tutor: "Capisco, vi ha offerto un dolce ma non era all'altezza. Che cosa si aspettava, invece?"
+      recast: {text: "ha offrito un dolce", fix: "ha offerto un dolce", tags: [past-participle-form]}
+    - learner: "Mi aspettavo almeno delle scuse sincere. Era il compleanno di mia moglie."
+    - tutor: "Ha perfettamente ragione. La cena di stasera la offre la casa, e speriamo di rivedervi presto come nostri ospiti."
+      goals: [expectation, resolve]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, è luminoso e vicino all'università. Ma prima di decidere vorrei vedere altri due."
+      errors: [ci-ne]
+    - tutor: "«Vorrei vedere altri due»? Altri due... che cosa? Manca un pronome."
+      prompt: {text: "vedere altri due", tags: [ci-ne]}
+    - learner: "Sì, sì, vorrei vedere altri due, in zona."
+      errors: [ci-ne]
+    - tutor: "Capisco che voglia vederne altri due, ma questo appartamento va via in fretta: oggi ho altre tre visite."
+      goals: [interest]
+      recast: {text: "vedere altri due", fix: "vederne altri due", tags: [ci-ne]}
+    - learner: "Allora parliamo del canone: settecento euro sono troppi per me. Se fosse seicentocinquanta, firmerei oggi."
+    - tutor: "Posso chiedere al proprietario. Forse accetterebbe un canone più basso, se il contratto fosse di quattro anni."
+      goals: [negotiate]
+    - learner: "Va bene. Posso lasciare un deposito di due mesi?"
+      errors: [false-friend]
+    - tutor: "Una cauzione di due mesi è perfetta. Il proprietario chiede anche una busta paga o un garante."
+      recast: {text: "un deposito", fix: "Una cauzione", tags: [false-friend]}
+      new: [{lemma: cauzione, gloss: security deposit}]
+    - learner: "I miei genitori possono fare da garanti. E la provvigione dell'agenzia?"
+    - tutor: "La provvigione è di un mese di canone, ma per lei la riduco a metà."
+      goals: [conditions]
+    - learner: "Perfetto, allora accetto. Quando firmiamo?"
+    - tutor: "Domani alle dieci, in agenzia. Porti i documenti dei suoi genitori!"
+      goals: [conclude]
+
+- scenario: arte-mostra
+  level: C1
+  persona: en-m-heritage
+  history: [passive]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "È bellissimo! Mi colpisce soprattutto il fondo, con quel paesaggio misterioso."
+      errors: [word-choice]
+    - tutor: "Lo sfondo, sì, con quelle colline azzurrine che si perdono nella foschia: è la parte che preferisco anch'io."
+      goals: [react]
+      recast: {text: "il fondo", fix: "Lo sfondo", tags: [word-choice]}
+    - learner: "E la luce sulla donna è molto morbida, quasi dorata. Sembra che venga da una finestra."
+    - tutor: "Esatto, è una luce che modella il volto senza contorni netti. Secondo te chi è questa donna?"
+      goals: [describe]
+    - learner: "Forse una nobile. Ho letto che il ritratto è venuto dipinto per il suo matrimonio."
+      errors: [passive]
+    - tutor: "«È venuto dipinto»? Mmm, nei tempi composti il passivo con «venire» funziona?"
+      prompt: {text: "è venuto dipinto", tags: [passive]}
+    - learner: "Sì, credo che sia venuto dipinto per un mercante veneziano, suo marito."
+      errors: [passive]
+    - tutor: "Sì, pare che sia stato dipinto per il marito, un ricco mercante. Il fiore che tiene in mano sarebbe un simbolo di fedeltà."
+      goals: [interpret]
+      recast: {text: "sia venuto dipinto", fix: "sia stato dipinto", tags: [passive]}
+    - learner: "Interessante! Mi ricorda un po' la Gioconda, ma è più malinconica."
+    - tutor: "Hai ragione, c'è la stessa atmosfera sfumata, anche se qui lo sguardo è più triste. Andiamo a vedere la sala successiva?"
+      goals: [compare]
+
+- scenario: club-lettura
+  level: C1
+  persona: es-m-worker
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Sì, l'ho finito ieri sera. Mi è piaciuto, anche se all'inizio ho fatto fatica a entrare nella storia."
+    - tutor: "Capita, i primi capitoli sono lenti. E il protagonista, come ti è sembrato?"
+      goals: [impression]
+    - learner: "Un uomo debole. Secondo me sarebbe dovuto parlare con sua moglie fin dall'inizio."
+      errors: [auxiliary-choice]
+    - tutor: "«Sarebbe dovuto parlare»? Con i modali l'ausiliare dipende dal verbo che segue: e «parlare» quale vuole?"
+      prompt: {text: "sarebbe dovuto parlare", tags: [auxiliary-choice]}
+    - learner: "Sì, sarebbe dovuto parlare con la sua moglie molto prima, invece di scappare."
+      errors: [auxiliary-choice, possessive]
+    - tutor: "Forse avrebbe dovuto parlare prima, hai ragione, ma senza i suoi silenzi non ci sarebbe stato il romanzo!"
+      goals: [character]
+      recast: {text: "sarebbe dovuto parlare", fix: "avrebbe dovuto parlare", tags: [auxiliary-choice]}
+    - learner: "È vero. Lo stile però non mi ha convinto: alcune frasi sono troppo larghe."
+      errors: [false-friend]
+    - tutor: "Troppo lunghe? Lo capisco, certi periodi sembrano non finire mai, ma io ci trovo un ritmo quasi musicale."
+      goals: [style]
+      recast: {text: "troppo larghe", fix: "troppo lunghe", tags: [false-friend]}
+    - learner: "Forse in italiano funziona meglio che in traduzione. Lo consiglierei comunque a chi ha pazienza."
+    - tutor: "Sottoscrivo: un libro per lettori pazienti. Il mese prossimo, però, scegli tu!"
+      goals: [recommend]
+
+- scenario: colloquio-promozione
+  level: C1
+  persona: en-f-professional
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Quest'anno ho completato tutti gli obiettivi e ho portato due clienti nuovi."
+      errors: [word-choice]
+    - tutor: "Ha raggiunto tutti gli obiettivi, è vero, e la sua valutazione è eccellente. Dove vuole arrivare?"
+      goals: [results]
+      recast: {text: "completato tutti gli obiettivi", fix: "raggiunto tutti gli obiettivi", tags: [word-choice]}
+    - learner: "Vorrei chiederle una promozione a responsabile di area. Dopo cinque anni, è importante che l'azienda riconoschi il mio impegno."
+      errors: [subjunctive-form]
+    - tutor: "Ne prendo nota. Ma «riconoschi»? Attenzione alla forma del congiuntivo di «riconoscere»."
+      goals: [request]
+      prompt: {text: "l'azienda riconoschi", tags: [subjunctive-form]}
+    - learner: "Ah... sì, che l'azienda riconoschi finalmente il mio lavoro."
+      errors: [subjunctive-form]
+    - tutor: "Capisco, è giusto che l'azienda riconosca il suo lavoro. Però il budget di quest'anno è già chiuso: le promozioni sono bloccate fino a gennaio."
+      recast: {text: "l'azienda riconoschi", fix: "l'azienda riconosca", tags: [subjunctive-form]}
+    - learner: "Avrei preferito saperlo prima. Se non è possibile ora, potremmo fissare un percorso con obiettivi chiari?"
+    - tutor: "Mi sembra una proposta sensata. Potremmo definire tre obiettivi per il primo trimestre e rivederci a marzo."
+      goals: [handle]
+    - learner: "Perfetto. Le mando una proposta scritta entro venerdì."
+    - tutor: "Benissimo, la aspetto. E grazie per la sincerità."
+      goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: C1
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Non sono d'accordo. Penso che una zona pedonale renda il centro più vivibile e più attraente."
+    - tutor: "Più vivibile, forse, ma chi viene a fare acquisti se non può parcheggiare?"
+      goals: [position]
+    - learner: "Tante persone, in realtà. Gli studi dicono che le vendite aumentano: è un dato contrastato."
+      errors: [false-friend]
+    - tutor: "Un dato verificato, dice? Mi sorprende, perché i commercianti di via Roma sostengono esattamente il contrario."
+      goals: [argue]
+      recast: {text: "un dato contrastato", fix: "Un dato verificato", tags: [false-friend]}
+    - learner: "Pensi alle città in che il centro è chiuso alle auto: i negozi non hanno chiuso."
+      errors: [relative-pronoun]
+    - tutor: "Le città «in che»? Mmm, dopo una preposizione quel relativo non funziona."
+      prompt: {text: "in che il centro è chiuso", tags: [relative-pronoun]}
+    - learner: "Sì, penso alle città in che il centro è chiuso da anni, come Pontevedra."
+      errors: [relative-pronoun]
+    - tutor: "Le città in cui il centro è chiuso da anni hanno però ottimi mezzi pubblici, cosa che qui manca del tutto."
+      goals: [counter]
+      recast: {text: "in che il centro è chiuso da anni", fix: "in cui il centro è chiuso da anni", tags: [relative-pronoun]}
+    - learner: "Su questo ha ragione: prima bisogna potenziare gli autobus. Ma il principio resta giusto."
+    - tutor: "Allora su una cosa siamo d'accordo: senza mezzi pubblici efficienti, la zona pedonale non regge."
+      goals: [concede]
