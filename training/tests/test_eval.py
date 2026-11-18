@@ -12,8 +12,8 @@ from datagen.lemmas import BandChecker, SimplemmaLemmatizer, default_lemma_list
 from datagen.teacher import ScriptedClient
 from eval.__main__ import load_items
 from eval.__main__ import main as eval_main
-from eval.items import EvalItem, build_items
-from eval.metrics import prf, score_system, tag_scores
+from eval.items import EvalItem, Gold, build_items
+from eval.metrics import _fixes_gold, prf, score_system, tag_scores
 from eval.pairwise import compare, wilson_interval, win_rate_from_scores
 from eval.predict import (
     SystemSpec,
@@ -236,3 +236,39 @@ def test_report_parity_against_the_reference(tmp_path: Path) -> None:
     assert "## Parity with the reference (teacher-reference)" in text
     assert "twin: 10/10 on par (parity reached)" in text
     assert "student: " in text and "student: 10/10" not in text
+
+
+@pytest.mark.parametrize(
+    ("gold", "recast", "ok"),
+    [
+        # Right fixes whose span or person differs from the gold.
+        (("Hai qualcosa", "Ha qualcosa"), ("Hai", "Ha"), True),
+        (("No mi piace", "Non mi piace"), ("No mi piace", "Non le piace"), True),
+        (
+            ("Le avevo controllato", "Le avevo controllate"),
+            ("Le avevo controllato", "Le aveva controllate"),
+            True,
+        ),
+        (
+            ("Meno molesto come quello", "Meno molesto di quello"),
+            ("molesto come quello", "molesto di quello"),
+            True,
+        ),
+        (("molto demandante", "molto esigente"), ("demandante", "esigente"), True),
+        # Dodges and wrong fixes.
+        (("Quanti costa", "Quanto costa"), ("Quanti costa", "Il giornale costa"), False),
+        (("venirà", "verrà"), ("venirà", "arriverà"), False),
+        (("il mobile", "il cellulare"), ("il mobile", "Il portafoglio"), False),
+        (("due magazzini", "due riviste"), ("di mia sorella", "di sua sorella"), False),
+    ],
+)
+def test_recast_accepts_the_gold_fix_in_any_span(
+    gold: tuple[str, str], recast: tuple[str, str], ok: bool
+) -> None:
+    g = Gold(
+        expected_move="recast",
+        target_tag="word-choice",
+        learner_span=gold[0],
+        corrected_span=gold[1],
+    )
+    assert _fixes_gold(recast[0], recast[1], g) is ok

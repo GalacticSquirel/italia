@@ -29,7 +29,7 @@ from datagen.filters import (
 )
 from datagen.languagetool import GrammarChecker
 from datagen.lemmas import BandChecker, tokenize
-from eval.items import EvalItem
+from eval.items import EvalItem, Gold
 from spec.levels import band_for
 from spec.models import FeedbackMove, TutorOutput
 
@@ -157,12 +157,38 @@ class SystemScores:
         }
 
 
+def _fixes_gold(learner_text: str, corrected_text: str, gold: Gold) -> bool:
+    """Whether a recast makes the gold correction, whatever its span length or person.
+
+    The whole gold corrected span inside the recast counts. So does a recast that covers a
+    wrong token of the gold span and brings in every token the gold correction brings in
+    (una sciroppo -> uno sciroppo: "uno"), even if it changes the person elsewhere
+    (le avevo controllato -> le aveva controllate). Rewording around the error does not count.
+    """
+    assert gold.corrected_span is not None
+    if _norm(gold.corrected_span) in _norm(corrected_text):
+        return True
+    if not gold.learner_span:
+        return False
+    wrong = _tokens(gold.learner_span)
+    right = _tokens(gold.corrected_span)
+    added, removed = right - wrong, wrong - right
+    if not added:
+        return False
+    covers = (removed or wrong) & _tokens(learner_text)
+    return bool(covers) and added <= _tokens(corrected_text)
+
+
+def _tokens(text: str) -> set[str]:
+    return {t.lower() for t in tokenize(text)}
+
+
 def _recast_correct(pred: TutorOutput, item: EvalItem, grammar: GrammarChecker) -> bool:
     recast = pred.annotations.recast
     if recast is None or item.gold.target_tag not in recast.error_tags:
         return False
     if item.gold.corrected_span:
-        if _norm(item.gold.corrected_span) not in _norm(recast.corrected_text):
+        if not _fixes_gold(recast.learner_text, recast.corrected_text, item.gold):
             return False
     else:
         reference, _ = parse_tutor_output(item.reference)
