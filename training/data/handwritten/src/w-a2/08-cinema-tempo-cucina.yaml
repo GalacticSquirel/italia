@@ -1,0 +1,263 @@
+# w-a2, file 08: cinema, free time, cooking and daily routine (A2, broad coverage).
+- scenario: serata-cinema
+  level: A2
+  persona: en-f-professional
+  history: [piacere]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Perché non andiamo al cinema? C'è un film nuovo con Paola Cortellesi."
+    - tutor: "Buona idea! Che tipo di film ti piace?"
+      goals: [propose]
+    - learner: "Io piaccio le commedie, ma non i film dell'orrore."
+      errors: [piacere]
+    - tutor: "«Io piaccio le commedie»? Così sei tu che piaci a loro!"
+      prompt: {text: "Io piaccio le commedie", tags: [piacere]}
+    - learner: "Ehm... io piaccio le commedie, sì."
+      errors: [piacere]
+    - tutor: "Ah, ti piacciono le commedie! Anche a me, per fortuna."
+      goals: [genre]
+      recast: {text: "piaccio le commedie", fix: "piacciono le commedie", tags: [piacere]}
+      new: [{lemma: commedia, gloss: comedy}]
+    - learner: "Allora andiamo a vedere il film di che ti ho parlato ieri."
+      errors: [relative-pronoun]
+    - tutor: "Va bene! Ma «di che ti ho parlato»? Dopo «di» usiamo un'altra parola."
+      prompt: {text: "di che ti ho parlato", tags: [relative-pronoun]}
+    - learner: "Il film di cui ti ho parlato!"
+    - tutor: "Esatto! C'è alle otto o alle dieci. Cosa preferisci?"
+    - learner: "Alle otto è meglio. Ci vediamo davanti al cinema? I biglietti ti li compro io."
+      errors: [combined-pronouns]
+    - tutor: "Perfetto, alle otto! Ma «ti li compro»? Quando stanno insieme, «ti» e «li» cambiano."
+      goals: [choose]
+      prompt: {text: "ti li compro", tags: [combined-pronouns]}
+    - learner: "Ah, te li compro io!"
+    - tutor: "Grazie, sei gentile! Allora a dopo, davanti al cinema."
+      goals: [meet]
+
+- scenario: serata-cinema
+  level: A2
+  persona: es-m-worker
+  history: [comparative]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Andiamo al cine? C'è un film d'azione nuovo."
+      errors: [word-choice]
+    - tutor: "Al cinema, perché no? Ma i film d'azione non mi piacciono molto."
+      goals: [propose]
+      recast: {text: "al cine", fix: "Al cinema", tags: [word-choice]}
+    - learner: "Davvero? Per me sono più divertenti che le commedie."
+      errors: [comparative]
+    - tutor: "Più divertenti... «che le commedie»? Prima di un nome cosa usiamo?"
+      prompt: {text: "più divertenti che le commedie", tags: [comparative]}
+    - learner: "Sì, più divertenti che le commedie!"
+      errors: [comparative]
+    - tutor: "Per te sono più divertenti delle commedie? Per me no!"
+      goals: [genre]
+      recast: {text: "più divertenti che le commedie", fix: "più divertenti delle commedie", tags: [comparative]}
+    - learner: "Va bene, allora scegli tu. Ma non un film troppo lungo."
+    - tutor: "C'è un film francese alle nove. Dura un'ora e mezza."
+    - learner: "Alle nove va bene. Finisco di lavorare alle otto e mezza."
+    - tutor: "Perfetto! Dove ci vediamo?"
+      goals: [choose]
+    - learner: "Ci troviamo a il bar vicino al cinema?"
+      errors: [articulated-preposition]
+    - tutor: "«A il bar»? Prova a unire le due parole."
+      prompt: {text: "a il bar", tags: [articulated-preposition]}
+    - learner: "Al bar vicino al cinema."
+    - tutor: "Ottimo, così prendiamo un caffè prima. A stasera!"
+      goals: [meet]
+
+- scenario: serata-cinema
+  level: A2
+  persona: en-m-retired
+  history: [piacere, comparative]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Che ne dici di un film? In centro danno un vecchio film di Fellini."
+    - tutor: "Fellini! Ti piacciono i film vecchi?"
+      goals: [propose]
+    - learner: "Sì, molto. Mi piace più i film vecchi che i film nuovi."
+      errors: [piacere]
+    - tutor: "«Mi piace» i film vecchi? Ma sono tanti film..."
+      prompt: {text: "Mi piace più i film vecchi", tags: [piacere]}
+    - learner: "Mi piacciono più i film vecchi che i film nuovi."
+    - tutor: "Bravo! Anche a me. Ma i film di Fellini sono un po' lunghi..."
+      goals: [genre]
+    - learner: "È vero, ma questo è il film più bello che il mondo."
+      errors: [comparative]
+    - tutor: "«Il più bello che il mondo»? Dopo «bello» serve un'altra parola."
+      prompt: {text: "più bello che il mondo", tags: [comparative]}
+    - learner: "Sì, il film più bello che il mondo!"
+      errors: [comparative]
+    - tutor: "Il film più bello del mondo? Allora andiamo! A che ora comincia?"
+      recast: {text: "più bello che il mondo", fix: "più bello del mondo", tags: [comparative]}
+    - learner: "Alle otto. Ti vengo a prendere con la macchina: ti aspetto davanti a la porta."
+      errors: [articulated-preposition]
+    - tutor: "Che gentile! Ma «davanti a la porta»? Lì due parole diventano una."
+      goals: [choose]
+      prompt: {text: "a la porta", tags: [articulated-preposition]}
+    - learner: "Davanti alla porta, alle sette e mezza."
+    - tutor: "Perfetto, ti aspetto lì. A dopo!"
+      goals: [meet]
+
+- scenario: tempo-libero
+  level: A2
+  persona: es-f-teacher
+  history: [piacere, ci-ne]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Mi piacciono molto camminare in montagna e sacare foto."
+      errors: [piacere, word-choice]
+    - tutor: "«Mi piacciono» camminare? Con un verbo all'infinito, attenzione..."
+      prompt: {text: "Mi piacciono molto camminare", tags: [piacere]}
+    - learner: "Mi piace molto camminare in montagna e sacare foto."
+      errors: [word-choice]
+    - tutor: "Brava! Ti piace anche fare foto, allora. In montagna vai spesso?"
+      goals: [hobby]
+      recast: {text: "sacare foto", fix: "fare foto", tags: [word-choice]}
+    - learner: "Sì, vado ogni domenica."
+      errors: [ci-ne]
+    - tutor: "Vai... dove? Manca una piccola parola, così non ripeti «in montagna»."
+      prompt: {text: "vado ogni domenica", tags: [ci-ne]}
+    - learner: "Ci vado ogni domenica!"
+    - tutor: "Esatto! Io invece la domenica faccio musica."
+      goals: [frequency]
+    - learner: "Davvero? Che cosa suoni?"
+    - tutor: "La chitarra, in un piccolo gruppo con due amici."
+      goals: [ask]
+      new: [{lemma: chitarra, gloss: guitar}]
+    - learner: "Che bello! Domenica vieni in montagna con me? Porta la chitarra!"
+    - tutor: "Con piacere! Allora domenica facciamo musica in montagna."
+      goals: [propose]
+
+- scenario: tempo-libero
+  level: A2
+  persona: en-m-heritage
+  history: [subject-verb-agreement, negation]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Gioco a soccer con i miei amici."
+      errors: [word-choice]
+    - tutor: "A calcio? Bello! Quante volte giocate?"
+      goals: [hobby]
+      recast: {text: "soccer", fix: "calcio", tags: [word-choice]}
+    - learner: "Noi gioca ogni sabato, e qualche volta la domenica."
+      errors: [subject-verb-agreement]
+    - tutor: "«Noi gioca»? Ma siete in tanti!"
+      prompt: {text: "Noi gioca", tags: [subject-verb-agreement]}
+    - learner: "Noi giochiamo ogni sabato."
+    - tutor: "Bravi! Io invece non faccio sport."
+      goals: [frequency]
+    - learner: "E tu, cosa ti piaci fare?"
+      errors: [piacere]
+    - tutor: "«Ti piaci»? Mmm, ascolta bene il verbo."
+      prompt: {text: "ti piaci", tags: [piacere]}
+    - learner: "E a te cosa piace fare?"
+    - tutor: "Mi piace leggere: leggo tantissimo!"
+      goals: [ask]
+    - learner: "Io leggo mai, solo il giornale!"
+      errors: [negation]
+    - tutor: "«Io leggo mai»? Manca qualcosa davanti al verbo."
+      prompt: {text: "Io leggo mai", tags: [negation]}
+    - learner: "Non leggo mai! E tu, vieni a vedere la nostra partita sabato?"
+    - tutor: "Con piacere! E ti porto un bel libro."
+      goals: [propose]
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: es-m-worker
+  history: [imperative-form]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Gli gnocchi di patate! Servono patate, farina, un uovo e sale. Per la salsa, pomodoro e albahaca."
+      errors: [word-choice]
+    - tutor: "E basilico per la salsa, perfetto! Come cominciamo?"
+      goals: [ingredients]
+      recast: {text: "albahaca", fix: "basilico", tags: [word-choice]}
+      new: [{lemma: basilico, gloss: basil}]
+    - learner: "Prima cuoci le patate in acqua. Poi le schiaccia con la forchetta."
+      errors: [imperative-form]
+    - tutor: "«Le schiaccia»? Adesso mi dai del lei?"
+      prompt: {text: "le schiaccia", tags: [imperative-form]}
+    - learner: "No, no! Schiacciale con la forchetta!"
+    - tutor: "Ecco fatto! E adesso?"
+      goals: [steps]
+    - learner: "Adesso mescola le patate con la farina e l'uovo. Non metti troppa farina!"
+      errors: [imperative-form]
+    - tutor: "«Non metti»? Quando dici «no» a un amico, il verbo cambia."
+      prompt: {text: "Non metti troppa farina", tags: [imperative-form]}
+    - learner: "Sì: non metti troppa farina."
+      errors: [imperative-form]
+    - tutor: "Ok, non mettere troppa farina: ho capito! E quanto cuociono?"
+      recast: {text: "non metti troppa farina", fix: "non mettere troppa farina", tags: [imperative-form]}
+    - learner: "Poco: quando vengono su, sono pronti. Due minutos."
+      errors: [word-choice]
+    - tutor: "Solo due minuti? Che veloci! E come li serviamo?"
+      goals: [time]
+      recast: {text: "Due minutos", fix: "due minuti", tags: [word-choice]}
+    - learner: "Con la salsa e il formaggio. E metti una moneta sotto il piatto: porta fortuna!"
+    - tutor: "Che bella idea! Allora metto subito una moneta."
+      goals: [serve]
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: en-f-student
+  history: [pronoun-position, object-pronoun]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Una zuppa di pumpkin! È la ricetta di mia mamma."
+      errors: [word-choice]
+    - tutor: "Una zuppa di zucca? Che buona! Cosa ci serve?"
+      recast: {text: "pumpkin", fix: "zucca", tags: [word-choice]}
+      new: [{lemma: zucca, gloss: pumpkin}]
+    - learner: "Una zucca, due patate, un onion, olio e sale."
+      errors: [word-choice]
+    - tutor: "Zucca, patate e una cipolla: facile! Come cominciamo?"
+      recast: {text: "un onion", fix: "una cipolla", tags: [word-choice]}
+      new: [{lemma: cipolla, gloss: onion}]
+      goals: [ingredients]
+    - learner: "Prima taglia la zucca a pezzi. Poi metti la in una pentola con l'acqua."
+      errors: [pronoun-position]
+    - tutor: "«Metti la»? Prova a spostare quel «la»."
+      prompt: {text: "metti la", tags: [pronoun-position]}
+    - learner: "Mettila in una pentola! E le patate, li tagli a pezzi."
+      errors: [object-pronoun]
+    - tutor: "Giusto! Ma le patate... «li tagli»? Le patate sono maschili?"
+      prompt: {text: "li tagli", tags: [object-pronoun]}
+    - learner: "No! Le tagli a pezzi piccoli."
+    - tutor: "Fatto! Quanto tempo deve cuocere?"
+      goals: [steps]
+    - learner: "Venti minuti. Poi la frulli e la servi calda, con un po' di pane."
+    - tutor: "Che buona! Allora preparo la tavola."
+      goals: [time, serve]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: es-f-erasmus
+  history: [reflexive, articulated-preposition]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Mi sveglio a le otto, ma resto a letto fino a le otto e mezza!"
+      errors: [articulated-preposition]
+    - tutor: "Ti capisco! Ma «a le otto»? Le due parole si uniscono."
+      prompt: {text: "a le otto", tags: [articulated-preposition]}
+    - learner: "Mi sveglio alle otto, ma resto a letto fino alle otto e mezza!"
+    - tutor: "Esatto! E poi cosa fai?"
+      goals: [wake]
+    - learner: "Poi vado a ducharme e bevo un caffè veloce."
+      errors: [word-choice]
+    - tutor: "Vai a fare la doccia e poi il caffè, giusto? E la mattina?"
+      recast: {text: "ducharme", fix: "fare la doccia", tags: [word-choice]}
+      new: [{lemma: doccia, gloss: shower}]
+    - learner: "La mattina ho lezione all'università, e il pomeriggio studio in biblioteca."
+    - tutor: "Che brava! E la sera?"
+      goals: [work]
+    - learner: "La sera ceno tardi, come in Spagna. Poi esco con le mie amiche e divertiamo molto."
+      errors: [reflexive]
+    - tutor: "Divertiamo... chi? Manca qualcosa davanti."
+      prompt: {text: "divertiamo molto", tags: [reflexive]}
+    - learner: "Ci divertiamo molto!"
+    - tutor: "Ci credo! E a che ora vai a letto?"
+      goals: [evening]
+    - learner: "Tardi, all'una! E tu, Anna? Com'è la tua giornata?"
+    - tutor: "Io lavoro in ufficio e vado a letto alle undici. Più tranquilla!"
+      goals: [ask]

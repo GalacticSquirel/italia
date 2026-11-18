@@ -1,0 +1,250 @@
+# w-raretags, file 04: A2-B1, imperative-form, pronoun-position, stare-gerund, modal-infinitive,
+# negation and possessive in kitchens, trips, clinics and gyms.
+- scenario: cucina-ricetta
+  level: A2
+  persona: en-f-student
+  history: [imperative-form]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Facciamo la pasta con le zucchine! Servono zucchine, aglio, olio e parmigiano."
+    - tutor: "Buonissima! Cosa faccio io?"
+      goals: [ingredients]
+    - learner: "Prendi il coltello e tagli le zucchine a pezzi piccoli."
+      errors: [imperative-form]
+    - tutor: "Tagli? Mi dai un ordine, quindi... come dici?"
+      prompt: {text: "tagli le zucchine", tags: [imperative-form]}
+    - learner: "Taglia le zucchine!"
+    - tutor: "Va bene, capo! E poi?"
+    - learner: "Poi metti l'olio nella padella. Ma non bruci l'aglio!"
+      errors: [imperative-form]
+    - tutor: "Non bruci? Con «non» e con «tu» cambia qualcosa."
+      prompt: {text: "non bruci", tags: [imperative-form]}
+    - learner: "Non bruci... no, non bruciato?"
+      errors: [imperative-form]
+    - tutor: "Giusto, non bruciare mai l'aglio! Quanto deve cuocere tutto?"
+      goals: [steps]
+      recast: {text: "Non bruci", fix: "non bruciare", tags: [imperative-form]}
+      new: [{lemma: aglio, gloss: garlic}]
+    - learner: "Le zucchine cuociono dieci minuti, poi aggiungi la pasta."
+    - tutor: "Dieci minuti, perfetto. E come la serviamo?"
+      goals: [time]
+    - learner: "Con tanto parmigiano e un po' di basilico sopra."
+    - tutor: "Che fame! Allora apparecchio io la tavola."
+      goals: [serve]
+      new: [{lemma: apparecchiare, gloss: to set the table}]
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: es-m-worker
+  history: [pronoun-position, imperative-form]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera ti insegno la tortilla di patate, il piatto più famoso della Spagna. Servono patate, uova, cipolla e olio."
+    - tutor: "Che bello, volevo provarla da anni! Da dove cominciamo?"
+      goals: [ingredients]
+    - learner: "Prima pela le patate e taglia le a fettine sottili."
+      errors: [pronoun-position]
+    - tutor: "Taglia le? Quando dai un ordine, il pronome dove va?"
+      prompt: {text: "taglia le", tags: [pronoun-position]}
+    - learner: "Tagliale a fettine sottili!"
+    - tutor: "Fatto. E ora le cuocio nell'olio?"
+    - learner: "Sì, friggile nell'olio, ma non troppo caldo. Dopo sbatti le uova e mettile insieme alle patate."
+    - tutor: "Ecco qui, uova e patate insieme. E adesso?"
+      goals: [steps]
+    - learner: "Cuoci tutto per cinque minuti, poi gira la tortilla con un piatto. Non lo fa cadere!"
+      errors: [imperative-form, object-pronoun]
+    - tutor: "Non lo fa cadere? Ma tu mi dai del tu: come diventa?"
+      prompt: {text: "Non lo fa cadere", tags: [imperative-form]}
+    - learner: "Non la fare cadere!"
+    - tutor: "Perfetto, ci provo... Ecco, girata! Quanto deve cuocere ancora?"
+    - learner: "Altri tre minuti. Si serve tiepida, con un po' de pane."
+      errors: [preposition]
+    - tutor: "Con un po' de...? Scusa, non ho capito l'ultima parte."
+      goals: [time]
+      prompt: {text: "un po' de pane", tags: [preposition]}
+    - learner: "Con un po' di pane!"
+    - tutor: "Ecco, pane in tavola. Mmm, è buonissima! La rifacciamo presto."
+      goals: [serve]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-f-erasmus
+  history: [imperative-form]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì prossimo e resto quattro giorni. Dime, cosa devo vedere assolutamente?"
+      errors: [imperative-form]
+    - tutor: "Quattro giorni, che bello! Ma «dime» mi sembra spagnolo: come lo dici in italiano?"
+      goals: [plans]
+      prompt: {text: "Dime", tags: [imperative-form]}
+    - learner: "Dimmi, cosa devo vedere?"
+    - tutor: "Brava! Devi vedere Spaccanapoli e il Museo Archeologico. E mangia tanta pizza, ovviamente!"
+      goals: [advice]
+    - learner: "Che buono! E per muoverci, è meglio la metro o il autobus?"
+      errors: [article-form]
+    - tutor: "Il autobus? Guarda bene l'articolo."
+      prompt: {text: "il autobus", tags: [article-form]}
+    - learner: "L'autobus! Scusa."
+    - tutor: "Meglio la metro, è più veloce. Per Capri, invece, prendi il traghetto dal porto."
+      goals: [transport]
+    - learner: "Perfetto. C'è qualcosa che devo evitare?"
+    - tutor: "Non lasciare il telefono sul tavolo al bar e non prendere taxi senza tassametro."
+      goals: [warnings]
+      new: [{lemma: tassametro, gloss: taxi meter}]
+      done: false
+    - learner: "Grazie! E tu non dimentica di mandarmi il nome della pizzeria."
+      errors: [imperative-form]
+    - tutor: "Non dimentica? Stai parlando con me, a «tu»."
+      prompt: {text: "non dimentica", tags: [imperative-form]}
+    - learner: "Non dimenticare di mandarmi il nome!"
+    - tutor: "Non me lo dimentico, promesso! Te lo scrivo stasera."
+
+- scenario: medico-base
+  level: A2
+  persona: en-m-traveller
+  history: [stare-gerund]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e la tosse. Ho anche un po' di febbre."
+    - tutor: "Mi dispiace. Da quando sta male?"
+      goals: [symptoms]
+    - learner: "Da tre giorni. Adesso sono prendendo uno sciroppo per la tosse."
+      errors: [stare-gerund]
+    - tutor: "Sono prendendo? Provi con un altro verbo."
+      goals: [since-when]
+      prompt: {text: "sono prendendo", tags: [stare-gerund]}
+    - learner: "Sto prendendo uno sciroppo."
+    - tutor: "Bene. È allergico a qualche medicina?"
+    - learner: "No, io sono allergico a niente."
+      errors: [negation]
+    - tutor: "Sono allergico a niente? Manca una parola all'inizio."
+      prompt: {text: "sono allergico a niente", tags: [negation]}
+    - learner: "Non sono allergico a niente."
+    - tutor: "Perfetto. Allora prenda questa medicina due volte al giorno, per sei giorni."
+      goals: [history]
+    - learner: "Prendo la medicina due volte al giorno per sei giorni. E posso bevere il caffè?"
+      errors: [verb-form]
+    - tutor: "Bevere? Scusi, quale verbo?"
+      prompt: {text: "bevere", tags: [verb-form]}
+    - learner: "Bere! Posso bere il caffè?"
+    - tutor: "Sì, ma non troppo. E beva tanta acqua."
+      goals: [instructions]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-m-heritage
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, anzi due: per me e per mia moglie. Vorremmo di andare fino al lago."
+      errors: [modal-infinitive]
+    - tutor: "Due biciclette, va bene. Vorremmo di andare? Una parola è di troppo."
+      goals: [ask]
+      prompt: {text: "Vorremmo di andare", tags: [modal-infinitive]}
+    - learner: "Sì, vorremmo di andare al lago."
+      errors: [modal-infinitive]
+    - tutor: "Per andare al lago ci vuole un'ora. Per quanto tempo le volete?"
+      recast: {text: "di andare al lago", fix: "andare al lago", tags: [modal-infinitive]}
+    - learner: "Per tutto il giorno. Quanto costa?"
+    - tutor: "Quindici euro a bicicletta, con casco e lucchetto."
+      goals: [duration, price]
+    - learner: "Bene. Che strada ci consiglia? Non conosciamo la zona."
+    - tutor: "Prendete la strada vicino al lago: è facile e molto bella."
+      goals: [route]
+    - learner: "Perfetto. Dobbiamo a tornare entro le sette?"
+      errors: [modal-infinitive]
+    - tutor: "Dobbiamo a tornare? Ascolti bene la frase."
+      prompt: {text: "Dobbiamo a tornare", tags: [modal-infinitive]}
+    - learner: "Dobbiamo tornare entro le sette?"
+    - tutor: "No, chiudiamo alle sette e mezza. Buona giornata al lago!"
+
+- scenario: autobus
+  level: A2
+  persona: es-m-worker
+  history: [negation]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Questo autobus va a l'ospedale?"
+      errors: [articulated-preposition]
+    - tutor: "A l'ospedale? Scusi, non ho capito bene."
+      prompt: {text: "a l'ospedale", tags: [articulated-preposition]}
+    - learner: "All'ospedale!"
+    - tutor: "Sì, è la linea giusta."
+      goals: [route]
+    - learner: "Bene. Ma ho nessun biglietto. Dove lo compro?"
+      errors: [negation]
+    - tutor: "Scusi, come? Ha... nessun biglietto?"
+      prompt: {text: "ho nessun biglietto", tags: [negation]}
+    - learner: "Non ho nessun biglietto."
+    - tutor: "Ah, ecco. Lo compra in tabaccheria, lì di fronte."
+      goals: [ticket]
+    - learner: "Ok, vado e torno. Quale fermata devo scendere per l'ospedale?"
+      errors: [preposition]
+    - tutor: "Quale fermata devo scendere? Manca qualcosa all'inizio."
+      prompt: {text: "Quale fermata devo scendere", tags: [preposition]}
+    - learner: "A quale fermata devo scendere?"
+    - tutor: "Tra sei fermate. Le dico io quando."
+      goals: [stop]
+    - learner: "Grazie mille, è molto gentile!"
+    - tutor: "Di niente! Ora vada in tabaccheria, parto tra cinque minuti."
+      goals: [thank]
+
+- scenario: compleanno
+  level: B1
+  persona: en-f-professional
+  history: [possessive]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa a casa mia sabato sera! Che ne dici?"
+    - tutor: "Ottima idea! Chi invitiamo?"
+      goals: [date]
+    - learner: "Invitiamo i suoi colleghi, la sua sorella e il suo ragazzo."
+      errors: [possessive]
+    - tutor: "La sua sorella? Pensaci un attimo."
+      prompt: {text: "la sua sorella", tags: [possessive]}
+    - learner: "Sua sorella, certo."
+    - tutor: "Perfetto. E chi telefona a sua sorella?"
+      goals: [guests]
+    - learner: "Gli telefono io domani."
+      errors: [object-pronoun]
+    - tutor: "Gli telefoni? Ma parliamo di sua sorella!"
+      prompt: {text: "Gli telefono", tags: [object-pronoun]}
+    - learner: "Le telefono io!"
+    - tutor: "Brava. E da mangiare?"
+    - learner: "Ordiniamo le pizze e io preparo la torta al cioccolato, la sua preferita."
+    - tutor: "Buonissima idea. Manca solo il regalo."
+      goals: [food]
+    - learner: "Un buono per un massaggio? È lavorando troppo in questo periodo."
+      errors: [stare-gerund]
+    - tutor: "È lavorando? Attenzione al verbo prima di «lavorando»."
+      prompt: {text: "È lavorando", tags: [stare-gerund]}
+    - learner: "Sta lavorando troppo, poverina!"
+    - tutor: "Hai ragione, il buono è perfetto. Lo prenoto io domani."
+      goals: [gift]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-heritage
+  history: [stare-gerund]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Quanto costa un abbonamento di un mese?"
+    - tutor: "Quaranta euro al mese, o cento per tre mesi."
+      goals: [ask-membership]
+    - learner: "Ci sono corsi di yoga? In questo momento sono facendo yoga a casa con i video."
+      errors: [stare-gerund]
+    - tutor: "Sono facendo? Mmm, quel verbo non va."
+      prompt: {text: "sono facendo", tags: [stare-gerund]}
+    - learner: "Sto facendo yoga a casa."
+    - tutor: "Bravo! Sì, abbiamo yoga il martedì e il giovedì."
+      goals: [classes]
+    - learner: "Le lezioni sono la sera? Io lavoro fino alle sei."
+    - tutor: "Sì, alle sette di sera. Va bene per te?"
+      goals: [timetable]
+    - learner: "Perfetto! Voglio iscrivere adesso, per tre mesi."
+      errors: [reflexive]
+    - tutor: "Vuoi iscrivere... chi?"
+      prompt: {text: "Voglio iscrivere", tags: [reflexive]}
+    - learner: "Voglio iscrivermi!"
+    - tutor: "Ecco il modulo. Benvenuto in palestra!"
+      goals: [sign-up]

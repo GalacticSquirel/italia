@@ -1,0 +1,250 @@
+# Set w-a1, file 6: A1 hotel check-in and a clothes shop.
+- scenario: hotel-checkin
+  level: A1
+  persona: en-m-traveller
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+  - learner: "Buonasera! Sì. Ho arrivato con il treno adesso."
+    errors: [auxiliary-choice]
+  - tutor: "Ho arrivato? Con «arrivare», quale verbo usiamo prima?"
+    prompt: {text: "Ho arrivato", tags: [auxiliary-choice]}
+  - learner: "Sono arrivato con il treno."
+  - tutor: "Perfetto, benvenuto! A che nome è la prenotazione?"
+  - learner: "Mio nome è Sean Murphy."
+    errors: [possessive]
+  - tutor: "Mio nome? Manca qualcosa prima di «mio»."
+    prompt: {text: "Mio nome", tags: [possessive]}
+  - learner: "Il mio nome è Sean Murphy. Ecco il passaporto."
+  - tutor: "Grazie! Sì, due notti. Tutto bene."
+    goals: [booking, document]
+  - learner: "Che tempo è la colazione?"
+    errors: [question-form]
+  - tutor: "Che tempo? Fa bello! Cosa vuole sapere?"
+    prompt: {text: "Che tempo", tags: [question-form]}
+  - learner: "Ah, scusi! A che ora è la colazione?"
+  - tutor: "Dalle sette alle dieci. Ecco la chiave: camera dodici, secondo piano."
+    goals: [breakfast, key]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-f-teacher
+  history: [subject-verb-agreement]
+  turns:
+  - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+  - learner: "Buonasera. Sì, noi ha una prenotazione per due notti."
+    errors: [subject-verb-agreement]
+  - tutor: "Noi ha? Ascolti bene: noi...?"
+    prompt: {text: "noi ha", tags: [subject-verb-agreement]}
+  - learner: "Noi abbiamo una prenotazione. A nome García."
+  - tutor: "Sì, eccola: due notti. Un documento, per favore?"
+    goals: [booking]
+  - learner: "Ecco la mia carta d'identità. Siamo stanchi, il viaggio è stato molto largo."
+    errors: [false-friend]
+  - tutor: "Grazie! Eh, un viaggio molto lungo, allora."
+    goals: [document]
+    recast: {text: "molto largo", fix: "molto lungo", tags: [false-friend]}
+  - learner: "Sì. A che ora è la colazione? Avete leche senza lattosio?"
+    errors: [word-choice]
+  - tutor: "Dalle sette alle dieci. E sì, c'è il latte senza lattosio."
+    recast: {text: "leche senza lattosio", fix: "latte senza lattosio", tags: [word-choice]}
+    goals: [breakfast]
+  - learner: "Perfetto. E la camera è in quale piano?"
+    errors: [preposition]
+  - tutor: "In quale piano? Mmm, con «piano» non usiamo «in»."
+    prompt: {text: "in quale piano", tags: [preposition]}
+  - learner: "A quale piano?"
+  - tutor: "Al terzo piano. Ecco la chiave, camera trenta."
+    goals: [key]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: en-f-student
+  history: [question-form]
+  turns:
+  - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+  - learner: "Buonasera! Sì, a nome Emma Clarke. Per una notte."
+  - tutor: "Benvenuta! Mi dà un documento, per favore?"
+    goals: [booking]
+  - learner: "Ecco il passaporto. C'è il wifi in camera? Ho bisogno internet per lavoro."
+    errors: [preposition]
+  - tutor: "Grazie. Bisogno internet? Dopo «bisogno» manca qualcosa."
+    goals: [document]
+    prompt: {text: "bisogno internet", tags: [preposition]}
+  - learner: "Ho bisogno di internet."
+  - tutor: "Esatto! Sì, c'è internet in tutte le camere."
+  - learner: "Grazie. Quando è la colazione servita?"
+    errors: [question-form]
+  - tutor: "Quando è la colazione servita? Mmm, si può dire in modo più facile."
+    prompt: {text: "Quando è la colazione servita", tags: [question-form]}
+  - learner: "A che ora è la colazione?"
+  - tutor: "Brava! Dalle sette alle dieci, qui al piano terra."
+    goals: [breakfast]
+  - learner: "Perfetto. E la mia camera, è pronto?"
+    errors: [adjective-agreement]
+  - tutor: "È pronto? Ma «camera» è femminile..."
+    prompt: {text: "è pronto", tags: [adjective-agreement]}
+  - learner: "È pronta?"
+  - tutor: "Sì, è pronta! Ecco la chiave, camera sei."
+    goals: [key]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-m-worker
+  history: [modal-infinitive]
+  turns:
+  - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+  - learner: "Buonasera. Sì, ho una reserva per una notte."
+    errors: [word-choice]
+  - tutor: "Sì, ecco la prenotazione: una notte."
+    goals: [booking]
+    recast: {text: "reserva", fix: "prenotazione", tags: [word-choice]}
+  - learner: "Grazie. Domani io devo di uscire alle sei."
+    errors: [modal-infinitive]
+  - tutor: "Devo di uscire? Dopo «devo» c'è una parola di troppo."
+    prompt: {text: "devo di uscire", tags: [modal-infinitive]}
+  - learner: "Devo uscire alle sei. A che ora è la colazione?"
+  - tutor: "Bravo! La colazione è dalle sette. Ma posso preparare qualcosa per Lei."
+    goals: [breakfast]
+  - learner: "Grazie, è molto gentile! Ecco il mio documento."
+  - tutor: "Grazie. Ecco la chiave: camera nove."
+    goals: [document, key]
+  - learner: "La camera nove sta al primo piano?"
+    errors: [word-choice]
+  - tutor: "Sì, la camera nove è al primo piano, a destra."
+    recast: {text: "sta al primo piano", fix: "è al primo piano", tags: [word-choice]}
+  - learner: "Perfetto. Buonanotte!"
+  - tutor: "Buonanotte e buon viaggio domani!"
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-f-professional
+  history: [demonstrative]
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Sì, grazie. Cerco una maglietta e un vestito per l'estate."
+  - tutor: "Certo. Che taglia porta?"
+    goals: [ask-item]
+  - learner: "La taglia M. Mi piace quella maglietta blu e quello vestito rosso."
+    errors: [demonstrative]
+  - tutor: "Quello vestito? Mmm, quella parola qui è un po' troppo lunga."
+    prompt: {text: "quello vestito", tags: [demonstrative]}
+  - learner: "Sì, quello vestito rosso."
+    errors: [demonstrative]
+  - tutor: "Ah, quel vestito rosso! Allora, maglietta blu e vestito rosso, taglia M."
+    recast: {text: "quello vestito rosso", fix: "quel vestito rosso", tags: [demonstrative]}
+    goals: [size-colour]
+  - learner: "Posso provare tutti e due?"
+  - tutor: "Certo, il camerino è lì, a destra."
+    goals: [try]
+  - learner: "La maglietta va bene, ma il vestito è troppo stretta."
+    errors: [adjective-agreement]
+  - tutor: "Troppo stretta? Attenzione: parliamo del vestito."
+    prompt: {text: "troppo stretta", tags: [adjective-agreement]}
+    new: [{lemma: stretto, gloss: tight}]
+  - learner: "Sì, è troppo stretta."
+    errors: [adjective-agreement]
+  - tutor: "Ah, è troppo stretto! Allora provi la taglia L."
+    recast: {text: "troppo stretta", fix: "troppo stretto", tags: [adjective-agreement]}
+    new: [{lemma: stretto, gloss: tight}]
+  - learner: "No, grazie. Prendo solo la maglietta. Pago con la carta."
+  - tutor: "Perfetto! Con lo sconto sono diciotto euro. Grazie!"
+    goals: [decide]
+
+- scenario: abbigliamento
+  level: A1
+  persona: es-m-worker
+  history: [adjective-agreement]
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Buongiorno. Cerco una camisa bianca per il lavoro."
+    errors: [word-choice]
+  - tutor: "Una camicia bianca, certo. Che taglia?"
+    goals: [ask-item]
+    recast: {text: "una camisa", fix: "Una camicia", tags: [word-choice]}
+    new: [{lemma: camicia, gloss: shirt}]
+  - learner: "La L. Ha anche questo camicia in nero?"
+    errors: [demonstrative]
+  - tutor: "Questo camicia? Attenzione: «camicia» è femminile."
+    prompt: {text: "questo camicia", tags: [demonstrative]}
+  - learner: "Questa camicia, in nero?"
+  - tutor: "Sì, eccola: nera, taglia L."
+    goals: [size-colour]
+  - learner: "Posso provarla?"
+  - tutor: "Certo, il camerino è a destra."
+    goals: [try]
+  - learner: "Mi sta bene! Ma le maniche sono un po' lunghi."
+    errors: [adjective-agreement]
+  - tutor: "Un po' lunghi? Guardi bene «le maniche»."
+    prompt: {text: "lunghi", tags: [adjective-agreement]}
+  - learner: "Sì, sono un po' lunghi."
+    errors: [adjective-agreement]
+  - tutor: "Un po' lunghe, sì. Ma va bene così, è la moda!"
+    recast: {text: "un po' lunghi", fix: "un po' lunghe", tags: [adjective-agreement]}
+    new: [{lemma: moda, gloss: fashion}]
+  - learner: "Va bene, la prendo. Quanto costa?"
+  - tutor: "Trentacinque euro. Grazie e buona giornata!"
+    goals: [decide]
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-m-retired
+  history: [demonstrative]
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Buongiorno. Cerco una maglietta verde per mia moglie, taglia S."
+  - tutor: "Bella idea! Guardi queste due."
+    goals: [ask-item]
+  - learner: "Questa è bello, ma quella è più bella che questa."
+    errors: [adjective-agreement, comparative]
+  - tutor: "Questa è bello? Parliamo di una maglietta..."
+    prompt: {text: "Questa è bello", tags: [adjective-agreement]}
+  - learner: "Questa è bella, ma quella è più bella che questa."
+    errors: [comparative]
+  - tutor: "Bravo! Ma «più bella che questa»: attenzione alla parola dopo «bella»."
+    prompt: {text: "più bella che questa", tags: [comparative]}
+  - learner: "Più bella di questa!"
+  - tutor: "Perfetto! Allora, quella verde, taglia S."
+    goals: [size-colour]
+  - learner: "Sì. E quelli pantaloni? Posso provarli?"
+    errors: [demonstrative]
+  - tutor: "Quelli pantaloni? Davanti a un nome, «quelli» cambia."
+    prompt: {text: "quelli pantaloni", tags: [demonstrative]}
+  - learner: "Quei pantaloni! Posso provarli?"
+  - tutor: "Certo, il camerino è qui a sinistra."
+    goals: [try]
+  - learner: "Sono perfetti. Prendo i pantaloni e la maglietta. C'è uno sconto?"
+  - tutor: "Sì, oggi c'è il dieci per cento. Grazie!"
+    goals: [decide]
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-m-heritage
+  history: [adjective-agreement]
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Buongiorno! Cerco una giacca per l'inverno. Una giacca caldo."
+    errors: [adjective-agreement]
+  - tutor: "Una giacca... caldo? Ma «giacca» è femminile!"
+    prompt: {text: "giacca caldo", tags: [adjective-agreement]}
+  - learner: "Una giacca calda!"
+  - tutor: "Bravo! Queste sono molto calde. Che colore preferisce?"
+    goals: [ask-item]
+  - learner: "Mi piace questo giacca blu."
+    errors: [demonstrative]
+  - tutor: "Questo giacca? Mmm, ascolti come finisce «giacca»."
+    prompt: {text: "questo giacca", tags: [demonstrative]}
+  - learner: "Questa giacca blu! Taglia L. Posso provarla?"
+  - tutor: "Certo, il camerino è là, a destra."
+    goals: [size-colour, try]
+  - learner: "È un po' larga. C'è una taglia più piccolo?"
+    errors: [adjective-agreement]
+  - tutor: "Una taglia più piccolo? Guardi bene «taglia»."
+    prompt: {text: "più piccolo", tags: [adjective-agreement]}
+  - learner: "Una taglia più piccolo... sì?"
+    errors: [adjective-agreement]
+  - tutor: "Sì, c'è una taglia più piccola: la M. Eccola!"
+    recast: {text: "più piccolo", fix: "più piccola", tags: [adjective-agreement]}
+  - learner: "La M va benissimo. La prendo!"
+  - tutor: "Ottima scelta! Sono sessanta euro."
+    goals: [decide]

@@ -1,0 +1,252 @@
+# Broad-coverage B2 dialogues: insurance claims and the registry office.
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-m-worker
+  history: [passive, word-choice]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri sera, mentre tornavo dal lavoro, un furgone mi ha tamponato al semaforo. Io ero fermo col rosso."
+  - tutor: "Mi dispiace. Lei sta bene? E la macchina che danni ha?"
+    goals: [what]
+  - learner: "Io sto bene, grazie. Il paraurti di dietro è rotto. Il conductor del furgone ha detto che era distratto dal telefono."
+    errors: [word-choice]
+  - tutor: "Quindi il conducente del furgone ha ammesso di essere stato distratto: per la responsabilità è un punto importante."
+    recast: {text: "Il conductor", fix: "il conducente", tags: [word-choice]}
+    goals: [responsibility]
+    new: [{lemma: conducente, gloss: driver}]
+  - learner: "Sì, ha ammesso la colpa. Abbiamo compilato la constatazione amichevole e l'abbiamo firmata tutti e due."
+  - tutor: "Perfetto. Sul modulo avete indicato anche l'ora e il luogo esatti?"
+  - learner: "Sì. Il luogo è stato scritto da lui, ma l'ora è stato scritto da me."
+    errors: [passive]
+  - tutor: "Bene. Ma «l'ora è stato scritto»: «ora» è femminile. Come devono finire le ultime due parole?"
+    prompt: {text: "è stato scritto da me", tags: [passive]}
+  - learner: "L'ora è stato scritta da me."
+    errors: [passive]
+  - tutor: "Benissimo: se l'ora è stata scritta da lei e il luogo da lui, il modulo è valido."
+    recast: {text: "è stato scritta", fix: "è stata scritta", tags: [passive]}
+    goals: [documents]
+  - learner: "E adesso cosa succede? Quanto tempo ci vuole per la riparazione?"
+  - tutor: "Apro la pratica oggi. Entro una settimana verrà fatta la perizia, e poi potrà portare la macchina dal suo meccanico."
+    goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-traveller
+  history: [tense-aspect, articulated-preposition]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ho avuto un piccolo incidente con una macchina a noleggio. Ero nel parcheggio del supermercato e facevo retromarcia."
+  - tutor: "Capisco. E che cosa è successo esattamente?"
+  - learner: "Mentre facevo retromarcia, una signora è uscita da un altro posto e le nostre macchine si toccavano."
+    errors: [tense-aspect]
+  - tutor: "«Si toccavano»? Qui l'incidente è un fatto preciso, successo una volta sola. Che tempo serve?"
+    prompt: {text: "si toccavano", tags: [tense-aspect]}
+  - learner: "Sì... le macchine si toccavano piano."
+    errors: [tense-aspect]
+  - tutor: "Quindi le macchine si sono toccate piano, a bassa velocità. Ci sono danni?"
+    recast: {text: "si toccavano", fix: "si sono toccate", tags: [tense-aspect]}
+    goals: [what]
+  - learner: "Solo un graffio sulla portiera. La signora ha detto che la colpa era mia, ma secondo me eravamo tutti e due in movimento."
+  - tutor: "In questi casi, di solito, la responsabilità si divide a metà."
+    goals: [responsibility]
+  - learner: "Ah, va bene. Ho fatto delle foto e ho preso la targa di la signora."
+    errors: [articulated-preposition]
+  - tutor: "Ottimo. Ma «di la signora»: «di» e «la», messi vicini, come diventano?"
+    prompt: {text: "di la signora", tags: [articulated-preposition]}
+  - learner: "Sì, la targa di la signora. È sul mio telefono."
+    errors: [articulated-preposition]
+  - tutor: "Perfetto, la targa della signora è la cosa più importante. Mi mandi le foto e la targa per email, insieme al contratto della macchina."
+    recast: {text: "di la signora", fix: "della signora", tags: [articulated-preposition]}
+    goals: [documents]
+  - learner: "Va bene. Devo pagare io la franchigia, o la paga l'agenzia di noleggio?"
+  - tutor: "Dipende dal suo contratto: se ha l'assicurazione completa, non paga niente. Glielo confermo domani, dopo aver visto i documenti."
+    goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-retired
+  history: [passive, possessive]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Stamattina ho trovato la mia macchina danneggiata sotto casa. Era parcheggiata regolarmente."
+  - tutor: "Mi dispiace. Sa chi è stato?"
+  - learner: "Sì, per fortuna. Un vicino ha visto tutto dalla finestra: la macchina è stata colpita di un camion della spazzatura."
+    errors: [passive]
+  - tutor: "Meno male che qualcuno ha visto. Ma «colpita di un camion»: qui chi fa l'azione è il camion. Che preposizione ci vuole davanti?"
+    prompt: {text: "colpita di un camion", tags: [passive]}
+  - learner: "Sì, è stata colpita di un camion bianco."
+    errors: [passive]
+  - tutor: "Quindi è stata colpita da un camion della spazzatura: la responsabilità è dell'azienda dei rifiuti. Il suo vicino sarebbe disposto a fare da testimone?"
+    recast: {text: "colpita di un camion", fix: "colpita da un camion", tags: [passive]}
+    goals: [what, responsibility]
+    new: [{lemma: testimone, gloss: witness}]
+  - learner: "Sì, mi ha dato il suo numero. Devo fare il reclamo ai vigili oggi?"
+    errors: [word-choice]
+  - tutor: "Sì, è meglio fare la denuncia ai vigili oggi stesso, e poi mandarcene una copia."
+    recast: {text: "fare il reclamo", fix: "fare la denuncia", tags: [word-choice]}
+    new: [{lemma: denuncia, gloss: police report}]
+  - learner: "D'accordo. Gliela mando domani, insieme alle foto del danno."
+  - tutor: "Perfetto. Con la denuncia e il testimone, il danno le verrà pagato dall'assicurazione del camion."
+    goals: [documents]
+  - learner: "Quanto tempo ci vorrà? Ho bisogno della macchina per portare la mia moglie dal medico ogni settimana."
+    errors: [possessive]
+  - tutor: "Capisco. Ma «la mia moglie»: con un nome di famiglia al singolare, quell'articolo serve?"
+    prompt: {text: "la mia moglie", tags: [possessive]}
+  - learner: "Per portare mia moglie dal medico, sì."
+  - tutor: "Esatto. Allora le cerco una macchina sostitutiva già da domani. La perizia verrà fatta in settimana, e il pagamento arriva entro un mese."
+    goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-f-teacher
+  history: [subjunctive-use, object-pronoun]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Le chiamo perché ieri uno scooter mi ha rotto lo specchietto della macchina."
+    errors: [object-pronoun]
+  - tutor: "Mi dispiace. Solo una cosa: «le chiamo»... «chiamare» qualcuno non vuole «a», e io sono una persona sola. Che pronome serve?"
+    prompt: {text: "Le chiamo", tags: [object-pronoun]}
+  - learner: "La chiamo perché ieri uno scooter mi ha rotto lo specchietto."
+  - tutor: "Ecco. E com'è successo?"
+  - learner: "Ero ferma in coda al semaforo, e uno scooter che passava tra le macchine ha preso il mio specchietto con il manubrio."
+  - tutor: "Capisco. Il ragazzo si è fatto male?"
+    goals: [what]
+  - learner: "No, per fortuna. Però è scappato senza darmi i suoi dati. Penso che lui ha avuto paura."
+    errors: [subjunctive-use]
+  - tutor: "Che brutto gesto. Ma «penso che lui ha avuto»: dopo «penso che», che modo usiamo?"
+    prompt: {text: "che lui ha avuto paura", tags: [subjunctive-use]}
+  - learner: "Penso che lui ha avuto paura della polizia."
+    errors: [subjunctive-use]
+  - tutor: "È probabile che lui abbia avuto paura, sì. Purtroppo, se non sappiamo chi è, la responsabilità è difficile da dimostrare."
+    recast: {text: "che lui ha avuto paura", fix: "che lui abbia avuto paura", tags: [subjunctive-use]}
+    goals: [responsibility]
+  - learner: "Ma ho la targa! Una signora l'ha scritta su un foglio e me l'ha data."
+  - tutor: "Ottimo, questo cambia tutto. Allora mi servono una sua dichiarazione scritta e il nome della signora."
+    goals: [documents]
+  - learner: "Va bene, la scrivo stasera. Poi quanto tempo bisogna aspettare per il pagamento?"
+  - tutor: "Circa trenta giorni da quando riceviamo i documenti. Se ci sono novità, la chiamo io."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-m-traveller
+  history: [ci-ne, question-form]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Ciao! Cioè, buongiorno. Sono irlandese e vorrei fare la residenza qui a Bari. Ho trovato lavoro in un bar."
+  - tutor: "Benvenuto. Per un cittadino irlandese servono un documento, il contratto di lavoro e il contratto di affitto."
+    goals: [request]
+  - learner: "Ho il passaporto e il contratto di lavoro. Ma il contratto di affitto non l'ho, perché vivo in casa di un amico."
+    errors: [ci-ne]
+  - tutor: "Capisco. Ma «non l'ho»: quando c'è «avere» con un pronome, nel parlato aggiungiamo una piccola parola davanti. Quale?"
+    prompt: {text: "non l'ho", tags: [ci-ne]}
+  - learner: "Non ce l'ho, scusi."
+  - tutor: "Esatto. In quel caso il suo amico deve firmare una dichiarazione in cui dice che lei abita da lui."
+    goals: [documents]
+  - learner: "Lui è in Irlanda per due settimane. È possibile che lui firma da lontano?"
+    errors: [subjunctive-use]
+  - tutor: "Ci sono soluzioni. Ma «è possibile che lui firma»: dopo «è possibile che», il verbo cambia modo. Come?"
+    prompt: {text: "che lui firma", tags: [subjunctive-use]}
+  - learner: "È possibile che firmi da lontano?"
+  - tutor: "Sì, può firmarla e mandarla per email, insieme a una copia del suo documento."
+    goals: [problem]
+  - learner: "Perfetto. E dopo, come lungo devo aspettare i vigili?"
+    errors: [question-form]
+  - tutor: "Buona domanda. Ma «come lungo»? Per chiedere il tempo che serve, la domanda comincia in un altro modo."
+    prompt: {text: "come lungo", tags: [question-form]}
+  - learner: "Sì, come lungo... per la visita dei vigili?"
+    errors: [question-form]
+  - tutor: "Quanto tempo ci vuole? Di solito i vigili passano entro quarantacinque giorni, quindi metta il suo nome sul campanello."
+    recast: {text: "come lungo", fix: "quanto", tags: [question-form]}
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-f-erasmus
+  history: [false-friend, past-participle-form]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Ho fatto la residenza due mesi fa e adesso ho bisogno di un certificato per l'università."
+  - tutor: "Certo. Mi dà un suo documento, per favore?"
+    goals: [request]
+  - learner: "Sì, eccolo. Però c'è un problema: nel sistema il mio cognome è stato scrivuto male, con una «s» invece della «z»."
+    errors: [past-participle-form]
+  - tutor: "Vediamo. Ma «è stato scrivuto»? «Scrivere» al passato ha una forma particolare. Se la ricorda?"
+    prompt: {text: "scrivuto", tags: [past-participle-form]}
+  - learner: "È stato scritto male, sì."
+  - tutor: "Esatto. Per correggerlo mi serve un documento originale con il cognome giusto: passaporto o carta d'identità."
+    goals: [documents]
+  - learner: "Ho solo la carta d'identità, ma è scaduta. Il consolato me la può rinnovare, però tarda un mese."
+    errors: [false-friend]
+  - tutor: "Capisco, se ci vuole un mese è un problema. Facciamo così: intanto le do una ricevuta della richiesta di correzione, che l'università di solito accetta."
+    recast: {text: "tarda un mese", fix: "ci vuole un mese", tags: [false-friend]}
+    goals: [problem]
+  - learner: "Grazie mille! È necessario che la ricevuta è firmata dal direttore?"
+    errors: [subjunctive-use]
+  - tutor: "Domanda giusta. Ma «è necessario che la ricevuta è firmata»: dopo «è necessario che», che modo ci vuole?"
+    prompt: {text: "che la ricevuta è firmata", tags: [subjunctive-use]}
+  - learner: "È necessario che la ricevuta è firmata... dal direttore, sì."
+    errors: [subjunctive-use]
+  - tutor: "No, non è necessario che la ricevuta sia firmata dal direttore: basta la mia firma."
+    recast: {text: "che la ricevuta è firmata", fix: "che la ricevuta sia firmata", tags: [subjunctive-use]}
+  - learner: "Perfetto. E quando avrò la carta nuova, cosa devo fare?"
+  - tutor: "Torni qui con la carta nuova: il cognome verrà corretto in giornata e le preparo subito il certificato."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-professional
+  history: [participle-agreement, negation]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Sono australiana e mi sono trasferita a Milano per lavoro. Vorrei chiedere la residenza."
+  - tutor: "Benvenuta. Ha già il permesso di soggiorno?"
+    goals: [request]
+  - learner: "Ho la ricevuta: il permesso non me l'hanno ancora dato. La domanda l'ho presentato a giugno."
+    errors: [participle-agreement]
+  - tutor: "Va bene. Ma «la domanda l'ho presentato»: con quel pronome «la» davanti, l'ultima parola cambia. Come?"
+    prompt: {text: "l'ho presentato", tags: [participle-agreement]}
+  - learner: "La domanda l'ho presentata a giugno."
+  - tutor: "Perfetto, la ricevuta va bene. Servono anche il passaporto e il contratto di affitto registrato."
+    goals: [documents]
+  - learner: "Il contratto è registrato, ma il proprietario non me l'ha ancora mandato. Glielo posso chiedere oggi."
+  - tutor: "Allora nessun problema: quando ha tutto, la domanda si può presentare anche online."
+    goals: [problem]
+  - learner: "Ah, che comodo! E i vigili quando vengono? Lavoro tutto il giorno, in casa c'è mai nessuno."
+    errors: [negation]
+  - tutor: "Capisco. Ma «c'è mai nessuno»: a «mai» qui manca una parola davanti al verbo. Quale?"
+    prompt: {text: "c'è mai nessuno", tags: [negation]}
+  - learner: "Sì, in casa c'è mai nessuno fino alle sette."
+    errors: [negation]
+  - tutor: "Se di giorno non c'è mai nessuno, può chiamare i vigili e scegliere l'orario insieme. Di solito passano entro quarantacinque giorni."
+    recast: {text: "c'è mai nessuno", fix: "non c'è mai nessuno", tags: [negation]}
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-m-heritage
+  history: [imperative-form, possessive]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Mi sono trasferito qui da Toronto e vorrei fare la residenza. I miei nonni erano di questo paese, sa?"
+  - tutor: "Che bello, allora è quasi tornato a casa! Ha anche il passaporto italiano?"
+    goals: [request]
+  - learner: "Sì, ho tutti e due i passaporti. Ecco, guarda."
+    errors: [imperative-form]
+  - tutor: "Grazie. Ma «ecco, guarda»: con me, in un ufficio, lei dà del lei. Come diventa?"
+    prompt: {text: "guarda", tags: [imperative-form]}
+  - learner: "Ah, scusi: ecco, guardi."
+  - tutor: "Perfetto. Con il passaporto italiano è tutto più semplice: servono il modulo e un documento che dimostri dove abita."
+    goals: [documents]
+  - learner: "Abito nella casa di miei nonni, che adesso è di mia zia. Lei però vive a Napoli."
+    errors: [possessive]
+  - tutor: "Capisco. Ma «di miei nonni»: con i parenti al plurale, l'articolo ci vuole o no?"
+    prompt: {text: "di miei nonni", tags: [possessive]}
+  - learner: "Nella casa dei miei nonni, giusto."
+  - tutor: "Esatto. Allora serve una dichiarazione firmata da sua zia, con una copia del suo documento."
+  - learner: "Mia zia non usa l'email. Mi spieghi: posso portare la dichiarazione qui la settimana prossima?"
+  - tutor: "Certo, la porti quando ce l'ha. Intanto la domanda la apriamo oggi, e la residenza vale da oggi."
+    goals: [problem]
+  - learner: "Perfetto. Dopo la residenza, devo cambiare anche la mia patente canadese?"
+  - tutor: "Sì, entro un anno va cambiata con una patente italiana. Ma prima aspetti la conferma della residenza, che arriva in circa un mese."
+    goals: [next]

@@ -1,0 +1,246 @@
+# Set w-a1, file 4: A1 describing a home and a family.
+- scenario: casa-mia
+  level: A1
+  persona: en-m-heritage
+  history: [ce-ci-sono]
+  turns:
+  - tutor: "Allora, com'è la tua casa?"
+  - learner: "Io abito in un appartamento. È piccolo ma è bello."
+  - tutor: "Che bello! Quante stanze ci sono?"
+    goals: [type]
+  - learner: "Sono tre stanze e una cucina."
+    errors: [ce-ci-sono]
+  - tutor: "Sono tre stanze? Mmm, prima di «sono» manca qualcosa."
+    prompt: {text: "Sono tre stanze", tags: [ce-ci-sono]}
+  - learner: "Sì, sono tre stanze e una cucina."
+    errors: [ce-ci-sono]
+  - tutor: "Ah, ci sono tre stanze e una cucina! E il bagno?"
+    goals: [rooms]
+    recast: {text: "sono tre stanze", fix: "ci sono tre stanze", tags: [ce-ci-sono]}
+  - learner: "Uno bagno, piccola."
+    errors: [article-form, adjective-agreement]
+  - tutor: "Piccola? Parliamo del bagno..."
+    prompt: {text: "piccola", tags: [adjective-agreement]}
+  - learner: "Piccolo! Il bagno è piccolo."
+  - tutor: "Bravo! E qual è la tua stanza preferita?"
+  - learner: "La cucina. È molto luminosa e c'è un grande tavolo."
+  - tutor: "Bello! Anche a me piace mangiare in cucina."
+    goals: [favourite]
+  - learner: "E la tua casa? È grande?"
+  - tutor: "No, è piccola, ma ha un balcone."
+    goals: [ask]
+
+- scenario: casa-mia
+  level: A1
+  persona: es-f-teacher
+  history: [adjective-agreement]
+  turns:
+  - tutor: "Allora, com'è la tua casa?"
+  - learner: "Vivo in una casa con jardín, fuori città."
+    errors: [word-choice]
+  - tutor: "Una casa con giardino, che fortuna! Quante camere ci sono?"
+    recast: {text: "jardín", fix: "giardino", tags: [word-choice]}
+    new: [{lemma: giardino, gloss: garden}]
+    goals: [type]
+  - learner: "Ci sono quattro camere e due bagni. Le camere sono molto grande."
+    errors: [adjective-agreement]
+  - tutor: "Molto grande? Attenzione: «le camere» è plurale."
+    prompt: {text: "molto grande", tags: [adjective-agreement]}
+  - learner: "Le camere sono molto grandi."
+  - tutor: "Perfetto! E qual è la tua stanza preferita?"
+    goals: [rooms]
+  - learner: "Il soggiorno, perché c'è la chimenea."
+    errors: [word-choice]
+  - tutor: "Ah, c'è il camino! Che bello."
+    goals: [favourite]
+    recast: {text: "la chimenea", fix: "il camino", tags: [word-choice]}
+    new: [{lemma: camino, gloss: fireplace}]
+  - learner: "Sì, è molto bello. E tu, Luca? Dove vive?"
+    errors: [register]
+  - tutor: "Dove vive? Siamo amici, dammi del tu!"
+    prompt: {text: "Dove vive", tags: [register]}
+  - learner: "Scusa! Dove vivi?"
+  - tutor: "Io vivo in un appartamento piccolo, in centro."
+    goals: [ask]
+
+- scenario: casa-mia
+  level: A1
+  persona: en-f-student
+  history: [adjective-agreement]
+  turns:
+  - tutor: "Allora, com'è la tua casa?"
+  - learner: "Abito in un appartamento con due amiche. È in il centro."
+    errors: [articulated-preposition]
+  - tutor: "In il centro? Scusa, come?"
+    prompt: {text: "in il centro", tags: [articulated-preposition]}
+  - learner: "In centro! Scusa."
+  - tutor: "Ah, in centro! Che bello. Quante stanze ci sono?"
+    goals: [type]
+  - learner: "C'è tre camere, una cucina e un bagno."
+    errors: [ce-ci-sono]
+  - tutor: "C'è tre camere? Attenzione: tre camere, quindi...?"
+    prompt: {text: "C'è tre camere", tags: [ce-ci-sono]}
+  - learner: "Sì, c'è tre camere."
+    errors: [ce-ci-sono]
+  - tutor: "Ah, ci sono tre camere! E la tua camera com'è?"
+    recast: {text: "c'è tre camere", fix: "ci sono tre camere", tags: [ce-ci-sono]}
+    goals: [rooms]
+  - learner: "La mia camera è piccolo ma carina."
+    errors: [adjective-agreement]
+  - tutor: "Piccolo ma carina? Una parola non va con «camera»."
+    prompt: {text: "piccolo", tags: [adjective-agreement]}
+  - learner: "Sì, è piccolo ma carina."
+    errors: [adjective-agreement]
+  - tutor: "È piccola ma carina, allora. La camera preferita!"
+    goals: [favourite]
+    recast: {text: "piccolo", fix: "piccola", tags: [adjective-agreement]}
+  - learner: "Sì! E la tua casa, Luca? C'è un balcone?"
+  - tutor: "Sì, c'è un balcone grande! Vieni a vederlo."
+    goals: [ask]
+
+- scenario: casa-mia
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Allora, com'è la tua casa?"
+  - learner: "Vivo in un piso, al terzo piano."
+    errors: [word-choice]
+  - tutor: "Ah, in un appartamento al terzo piano! È grande?"
+    goals: [type]
+    recast: {text: "un piso", fix: "un appartamento", tags: [word-choice]}
+  - learner: "No, è piccolo. Ha due camere e un bagno."
+  - tutor: "Va bene. E qual è la tua stanza preferita?"
+    goals: [rooms]
+  - learner: "La cucina, claro! Sono cuoco."
+    errors: [word-choice]
+  - tutor: "La cucina, certo! Per un cuoco è normale."
+    goals: [favourite]
+    recast: {text: "claro", fix: "certo", tags: [word-choice]}
+  - learner: "Sì. Nella cucina c'è un forno molto buona."
+    errors: [adjective-agreement]
+  - tutor: "Molto buona? Il forno è...?"
+    prompt: {text: "molto buona", tags: [adjective-agreement]}
+  - learner: "Molto buono!"
+  - tutor: "Bravo! È importante in cucina."
+  - learner: "E la tua casa? Hai un balcone?"
+  - tutor: "Sì, ho un balcone piccolo, ma bello."
+    goals: [ask]
+
+- scenario: famiglia
+  level: A1
+  persona: en-f-professional
+  history: [possessive]
+  turns:
+  - tutor: "Che bella foto! Chi sono queste persone?"
+  - learner: "Questa è la mia madre e questo è il mio padre."
+    errors: [possessive]
+  - tutor: "La mia madre? Con la famiglia, attenzione all'articolo."
+    prompt: {text: "la mia madre", tags: [possessive]}
+  - learner: "Questa è mia madre e questo è mio padre."
+  - tutor: "Perfetto! Tua madre ha gli occhi come te."
+    goals: [who]
+  - learner: "Sì! Lei è molto simpatico."
+    errors: [adjective-agreement]
+  - tutor: "Molto simpatico? Parliamo di tua madre..."
+    prompt: {text: "molto simpatico", tags: [adjective-agreement]}
+  - learner: "Sì, è molto simpatico."
+    errors: [adjective-agreement]
+  - tutor: "Ah, è molto simpatica! E quanti anni ha?"
+    goals: [describe]
+    recast: {text: "molto simpatico", fix: "molto simpatica", tags: [adjective-agreement]}
+    new: [{lemma: simpatico, gloss: nice}]
+  - learner: "Lei ha sessant'anni e mio padre ha sessantadue anni."
+  - tutor: "Sono giovani!"
+    goals: [ages]
+  - learner: "E tu? Hai fratelli o sorelle?"
+  - tutor: "Sì, ho una sorella. Si chiama Chiara."
+    goals: [ask]
+
+- scenario: famiglia
+  level: A1
+  persona: en-m-retired
+  history: [essere-avere]
+  turns:
+  - tutor: "Che bella foto! Chi sono queste persone?"
+  - learner: "Questi sono i miei figli, Tom e Jack."
+  - tutor: "Che belli! Quanti anni hanno?"
+    goals: [who]
+  - learner: "Tom è trenta anni e Jack è ventotto."
+    errors: [essere-avere]
+  - tutor: "Tom... trenta anni? Quale verbo usiamo?"
+    prompt: {text: "è trenta anni", tags: [essere-avere]}
+  - learner: "Sì, Tom è trenta anni."
+    errors: [essere-avere]
+  - tutor: "Ah, ha trenta anni! E Jack ne ha ventotto."
+    goals: [ages]
+    recast: {text: "è trenta anni", fix: "ha trenta anni", tags: [essere-avere]}
+  - learner: "Sì. Jack è molto alto e sportiva."
+    errors: [adjective-agreement]
+  - tutor: "Sportiva? Ma Jack è un ragazzo!"
+    prompt: {text: "sportiva", tags: [adjective-agreement]}
+    new: [{lemma: sportivo, gloss: sporty}]
+  - learner: "Sportivo! Alto e sportivo."
+  - tutor: "Bravissimo! Come mio fratello."
+    goals: [describe]
+  - learner: "Hai un fratello? Come si chiama?"
+  - tutor: "Si chiama Luca e ha venticinque anni."
+    goals: [ask]
+
+- scenario: famiglia
+  level: A1
+  persona: es-f-erasmus
+  history: [possessive]
+  turns:
+  - tutor: "Che bella foto! Chi sono queste persone?"
+  - learner: "Questi sono i miei padri, a Siviglia."
+    errors: [false-friend]
+  - tutor: "Ah, sono i tuoi genitori! Che belli."
+    goals: [who]
+    recast: {text: "padri", fix: "genitori", tags: [false-friend]}
+  - learner: "Sì. E questa è la mia sorella piccola, Carmen."
+    errors: [possessive]
+  - tutor: "La mia sorella? Con «sorella», cosa togliamo?"
+    prompt: {text: "la mia sorella", tags: [possessive]}
+  - learner: "Mia sorella piccola, Carmen."
+  - tutor: "Esatto! Quanti anni ha?"
+  - learner: "Ha quindici anni. È molto alta e simpatica."
+  - tutor: "Alta e simpatica, come te!"
+    goals: [ages, describe]
+  - learner: "Grazie! E tu? Tuoi fratelli dove vivono?"
+    errors: [possessive]
+  - tutor: "Tuoi fratelli? Con il plurale, manca qualcosa."
+    prompt: {text: "Tuoi fratelli", tags: [possessive]}
+  - learner: "I tuoi fratelli dove vivono?"
+  - tutor: "Ho solo un fratello. Vive a Torino con sua moglie."
+    goals: [ask]
+
+- scenario: famiglia
+  level: A1
+  persona: en-m-heritage
+  history: [adjective-agreement]
+  turns:
+  - tutor: "Che bella foto! Chi sono queste persone?"
+  - learner: "Questi sono i miei nonni italiani. Sono della Calabria."
+  - tutor: "Che bello! Com'è tua nonna?"
+    goals: [who]
+  - learner: "Mia nonna è piccolo ma molto forte."
+    errors: [adjective-agreement]
+  - tutor: "Piccolo? Ma la nonna è una donna!"
+    prompt: {text: "piccolo", tags: [adjective-agreement]}
+  - learner: "Sì, è piccolo e forte."
+    errors: [adjective-agreement]
+  - tutor: "È piccola e forte, come tutte le nonne!"
+    goals: [describe]
+    recast: {text: "piccolo e forte", fix: "piccola e forte", tags: [adjective-agreement]}
+  - learner: "Lei ha ottantacinque anni e cucina ogni domenica."
+  - tutor: "Ottantacinque anni, brava! Cosa cucina?"
+    goals: [ages]
+  - learner: "Lasagne! Io amo il suo lasagne."
+    errors: [possessive]
+  - tutor: "Il suo lasagne? Attenzione: «lasagne» è femminile e plurale."
+    prompt: {text: "il suo lasagne", tags: [possessive]}
+  - learner: "Le sue lasagne!"
+  - tutor: "Perfetto! Sono le migliori, vero?"
+  - learner: "Sì! E tu, Marco? Hai ancora i nonni?"
+  - tutor: "Sì, ho ancora una nonna. Ha novant'anni!"
+    goals: [ask]

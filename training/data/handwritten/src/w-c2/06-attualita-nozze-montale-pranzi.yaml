@@ -1,0 +1,291 @@
+# Round 5, set w-c2: broad C2 coverage. File 6: the news, weddings, Montale, politics, Sunday lunch.
+- scenario: notizie-attualita
+  level: C2
+  persona: es-f-teacher
+  history: [passive]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatta?"
+    - learner: "Sì, ne ho letto stamattina. Sembra che il governo abbia finalmente deciso di mettere un limite di novanta notti all'anno nei centri storici."
+    - tutor: "Novanta notti, sì. E tu che ne pensi, è una buona idea o un regalo agli albergatori?"
+      goals: [summarise]
+    - learner: "Secondo me è una buona idea, anzi, il governo avrebbe dovuto di intervenire anni fa. A Valencia abbiamo lo stesso problema."
+      errors: [modal-infinitive]
+      gold: {text: "avrebbe dovuto di intervenire", fix: "avrebbe dovuto intervenire"}
+    - tutor: "Anche a Valencia, quindi. Però «avrebbe dovuto di intervenire»: dopo un verbo modale come dovere, l'infinito ha bisogno di una preposizione?"
+      prompt: {text: "avrebbe dovuto di intervenire", tags: [modal-infinitive]}
+      goals: [opinion]
+    - learner: "No, niente preposizione: avrebbe dovuto intervenire anni fa. E i dati sono chiari: secondo un rapporto che hanno attualizzato il mese scorso, in centro un appartamento su cinque è in affitto breve."
+      errors: [false-friend]
+    - tutor: "Se è un rapporto aggiornato il mese scorso, è difficile da contestare: l'articolo che ho letto io citava numeri vecchi di due anni."
+      recast: {text: "attualizzato", fix: "aggiornato", tags: [false-friend]}
+      goals: [sources]
+    - learner: "Ecco. E poi molti di quegli appartamenti sono stati comprati per fondi stranieri, non da famiglie che arrotondano."
+      errors: [passive]
+      gold: {text: "comprati per fondi stranieri", fix: "comprati da fondi stranieri"}
+    - tutor: "Questo è un argomento forte. Ma «sono stati comprati per fondi stranieri»: in un passivo, chi compie l'azione è introdotto da quale preposizione?"
+      prompt: {text: "comprati per fondi stranieri", tags: [passive]}
+    - learner: "Comprati per i fondi stranieri, allora?"
+      errors: [passive]
+    - tutor: "Comprati dai fondi stranieri, sì, e non da famiglie: questo cambia tutto. E allora, che cosa succederà tra un anno, secondo te?"
+      recast: {text: "comprati per i fondi stranieri", fix: "comprati dai fondi stranieri", tags: [passive]}
+    - learner: "Credo che i prezzi scendano un po'. Ma temo che i fondi sappino già come aggirare la legge, come sempre."
+      errors: [subjunctive-form]
+      gold: {text: "sappino", fix: "sappiano"}
+    - tutor: "Previsione realistica, purtroppo. Però «temo che i fondi sappino»: il congiuntivo di sapere alla terza plurale ti torna così?"
+      prompt: {text: "sappino", tags: [subjunctive-form]}
+    - learner: "Sappiano, scusa: temo che sappiano già come aggirarla. Gli avvocati bravi costano meno delle multe."
+    - tutor: "Amara ma vera. Vedremo tra un anno chi ha ragione: intanto, il prossimo caffè lo offro io."
+      goals: [consequences]
+
+- scenario: organizzare-matrimonio
+  level: C2
+  persona: en-m-traveller
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Ce lo immaginiamo semplice, all'aperto, e con non più che ottanta invitati. Siamo tutti e due allergici alle cerimonie infinite."
+      errors: [comparative]
+      gold: {text: "non più che ottanta", fix: "non più di ottanta"}
+    - tutor: "Semplice e all'aperto, mi piace. Ma «non più che ottanta invitati»: davanti a un numero, dopo più, quale parola mettiamo?"
+      prompt: {text: "non più che ottanta", tags: [comparative]}
+    - learner: "Non più di ottanta, giusto. E per la ricezione pensavamo a una masseria in Puglia, con una cena lunga sotto gli ulivi."
+      errors: [false-friend]
+    - tutor: "Il ricevimento in masseria, sotto gli ulivi: da cartolina. Per il catering avete già qualcuno, o ve lo propongo io?"
+      recast: {text: "la ricezione", fix: "il ricevimento", tags: [false-friend]}
+      goals: [vision]
+    - learner: "Abbiamo un amico cuoco che si è offerto. Ma se lei ha un suo menù, ci lo può mandare per mail, così li confrontiamo."
+      errors: [combined-pronouns]
+      gold: {text: "ci lo può mandare", fix: "ce lo può mandare"}
+    - tutor: "Volentieri. Ma «ci lo può mandare»: quando ci si trova davanti a lo, che cosa succede alla vocale?"
+      prompt: {text: "ci lo può mandare", tags: [combined-pronouns]}
+    - learner: "Diventa ce: ce lo può mandare. Quanto al budget, abbiamo più o meno ventimila euro, viaggio di nozze escluso."
+    - tutor: "Per ottanta persone in Puglia è realistico, se non esagerate con i fiori. E la musica: banda dal vivo o DJ?"
+      goals: [budget]
+    - learner: "Dal vivo, assolutamente. Ma vorremmo che la band suona solo musica italiana degli anni Sessanta, per la nonna di Chiara."
+      errors: [subjunctive-use]
+      gold: {text: "che la band suona", fix: "che la band suonasse"}
+    - tutor: "Che bel pensiero per la nonna. Però «vorremmo che la band suona»: dopo vorremmo che, quale modo e quale tempo ci aspettiamo?"
+      prompt: {text: "che la band suona", tags: [subjunctive-use]}
+    - learner: "Che la band suoni?"
+      errors: [subjunctive-use]
+    - tutor: "Vorreste che la band suonasse solo canzoni degli anni Sessanta: conosco un gruppo di Lecce che fa proprio questo. Avete condizioni particolari sulla data?"
+      recast: {text: "che la band suoni", fix: "che la band suonasse", tags: [subjunctive-use]}
+      goals: [choices]
+    - learner: "Solo una: non a giugno, perché il fratello di Chiara si laurea proprio quel mese. Settembre sarebbe perfetto."
+    - tutor: "Settembre in Puglia è il mese migliore, ancora caldo e meno caro. Vi preparo tre preventivi entro venerdì, con le date disponibili."
+      goals: [conditions]
+
+- scenario: organizzare-matrimonio
+  level: C2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie mille! Ci sposiamo il quattordici di settembre, in un borgo vicino a Siena, e vorremmo una festa elegante ma senza formalità."
+      errors: [preposition]
+      gold: {text: "il quattordici di settembre", fix: "il quattordici settembre"}
+    - tutor: "Settembre in Toscana, scelta perfetta. Solo un dettaglio: «il quattordici di settembre» è costruito alla spagnola. Nelle date italiane, quel di ci va?"
+      prompt: {text: "il quattordici di settembre", tags: [preposition]}
+    - learner: "No, niente di: il quattordici settembre. Lo scriverò bene anche sulle partecipazioni, promesso."
+    - tutor: "Ottimo. E quante persone pensate di invitare?"
+      goals: [vision]
+    - learner: "Tra le due famiglie, invitiamo almeno centocinquanta, e i invitati spagnoli dovranno prendere l'aereo."
+      errors: [ci-ne, article-form]
+      gold: {text: "invitiamo almeno centocinquanta", fix: "ne invitiamo almeno centocinquanta"}
+    - tutor: "Centocinquanta, bel numero. Ma «invitiamo almeno centocinquanta»: centocinquanta che cosa? Manca un pronome che riprenda le persone."
+      prompt: {text: "invitiamo almeno centocinquanta", tags: [ci-ne]}
+    - learner: "Ne invitiamo almeno centocinquanta, scusi. Il budget è di trentamila euro, ma vorremmo restare sotto."
+    - tutor: "Trentamila per centocinquanta persone si può fare, con qualche rinuncia. Su che cosa siete disposti a risparmiare?"
+      goals: [budget]
+    - learner: "Sui fiori e sulla torta, no sul cibo: la mia famiglia è valenciana e, se la paella non è all'altezza, non me lo perdonano."
+      errors: [negation]
+      gold: {text: "no sul cibo", fix: "non sul cibo"}
+    - tutor: "Capisco benissimo le priorità. Però «no sul cibo»: per negare solo una parte della frase, in italiano, quale negazione usiamo?"
+      prompt: {text: "no sul cibo", tags: [negation]}
+    - learner: "Non sul cibo, giusto. Mio padre insiste per la paella: se trovasse un cuoco toscano capace di farla, sarebbe l'uomo più felice del mondo."
+    - tutor: "Ne conosco uno che ha lavorato a Valencia, glielo presento la settimana prossima. Allora fiori di campo, torta semplice e cucina al centro: avete altre condizioni?"
+      goals: [choices]
+    - learner: "Solo una: la cerimonia deve essere all'aperto, anche se piove. Ce lo garantisce?"
+    - tutor: "Glielo garantisco con un piano B: un tendone trasparente, così vedrete il cielo comunque. Vi mando tutto per iscritto entro lunedì."
+      goals: [conditions]
+
+- scenario: poesia-montale
+  level: C2
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Lasciamo un attimo di silenzio dopo la lettura. Ecco. Che cosa le è rimasto addosso, di questi versi?"
+    - learner: "Un senso di soffocamento. Soprattutto il rivo strozzato: lo sento quasi in gola, mentre leggo."
+    - tutor: "Lo sente in gola: è esattamente l'effetto che Montale cerca. E quali altre immagini del male ha notato?"
+      goals: [first-reading]
+    - learner: "La foglia riarsa che si incartoccia e il cavallo stramazzato. Mi sembra che le tre immagini sono state scelte per mostrare il male in tutta la natura."
+      errors: [subjunctive-use]
+      gold: {text: "le tre immagini sono state scelte", fix: "le tre immagini siano state scelte"}
+    - tutor: "Osservazione acuta: acqua, pianta, animale. Però «mi sembra che le tre immagini sono state scelte»: dopo mi sembra che, che cosa succede all'ausiliare?"
+      prompt: {text: "le tre immagini sono state scelte", tags: [subjunctive-use]}
+    - learner: "Mi sembra che le tre immagini fossero state scelte?"
+      errors: [subjunctive-use]
+    - tutor: "Direi che siano state scelte, sì, proprio per coprire tutta la natura: una piccola enciclopedia del dolore. E il suono? Rilegga ad alta voce il primo verso."
+      recast: {text: "fossero state scelte", fix: "siano state scelte", tags: [subjunctive-use]}
+      goals: [image]
+    - learner: "Ci sono tantissime erre e consonanti doppie: il suono è rauco, come l'acqua in una tubatura intasata."
+    - tutor: "Una tubatura intasata: Montale apprezzerebbe, detestava la musica facile. E nella seconda strofa il suono cambia?"
+      goals: [sound]
+    - learner: "Sì, diventa più lento e più aperto. Lì il bene è la divina Indifferenza, la statua di cui il poeta parla di lei come di un prodigio."
+      errors: [relative-pronoun]
+      gold: {text: "di cui il poeta parla di lei", fix: "di cui il poeta parla"}
+    - tutor: "Sì, tutto si apre. Ma riascolti: «la statua di cui il poeta parla di lei». Quel di cui non dice già di chi si sta parlando?"
+      prompt: {text: "di cui il poeta parla di lei", tags: [relative-pronoun]}
+    - learner: "Ha ragione, è una ripetizione: la statua di cui il poeta parla. Quindi il bene non è la felicità, ma un distacco che ci protege dal dolore."
+      errors: [spelling]
+      gold: {text: "protege", fix: "protegge"}
+    - tutor: "Esatto, un distacco. Ma se dovesse scriverlo nel compito: «ci protege»? Conti bene le consonanti di quel verbo."
+      prompt: {text: "protege", tags: [spelling]}
+    - learner: "Protegge, con due g. E stranamente lo trovo consolante: essendo cresciuto in una famiglia dove tutti si agitavano per tutto, capisco il fascino di quel falco alto levato."
+    - tutor: "Il falco che guarda tutto dall'alto, sì. Lei ha appena dato la lettura più personale della serata, la ringrazio."
+      goals: [meaning]
+
+- scenario: poesia-montale
+  level: C2
+  persona: es-f-erasmus
+  history: [pronoun-position]
+  turns:
+    - tutor: "Lasciamo un attimo di silenzio dopo la lettura. Ecco. Che cosa le è rimasto addosso, di questi versi?"
+    - learner: "Leggendo la, ho sentito una tristezza enorme, ma anche una specie di calma, come dopo un temporale."
+      errors: [pronoun-position]
+      gold: {text: "Leggendo la", fix: "Leggendola"}
+    - tutor: "Tristezza e calma insieme: un'ottima prima lettura. Ma «leggendo la»: con il gerundio, dove si mette il pronome?"
+      prompt: {text: "Leggendo la", tags: [pronoun-position]}
+    - learner: "Si attacca alla fine: leggendola. Sa, la poesia è stata scritto nel 1925, ma sembra di oggi."
+      errors: [passive]
+      gold: {text: "è stata scritto", fix: "è stata scritta"}
+    - tutor: "Vero, non è invecchiata di un giorno. Però «la poesia è stata scritto»: nel passivo, il participio con che cosa si accorda?"
+      prompt: {text: "è stata scritto", tags: [passive]}
+      goals: [first-reading]
+    - learner: "Con la poesia: è stata scritta. A me colpisce soprattutto il cavallo stramazzato: è un'immagine brutale, senza nessuna poesia."
+    - tutor: "Senza poesia, dentro una poesia: bel paradosso. Perché proprio un cavallo, secondo lei?"
+    - learner: "Perché il cavallo è il simbolo della forza, e vederlo a terra fa ancora più danno. È come se anche la forza fosse inutile."
+      errors: [word-choice]
+    - tutor: "Fa ancora più male, sì: se cade anche la forza, che speranza resta? E la seconda strofa, con la statua, la nuvola e il falco, come suona rispetto alla prima?"
+      recast: {text: "fa ancora più danno", fix: "fa ancora più male", tags: [word-choice]}
+      goals: [image]
+    - learner: "Più leggera, più ariosa. Il falco, che lo vediamo alto nel cielo, chiude la poesia come una via di fuga."
+      errors: [relative-pronoun]
+      gold: {text: "che lo vediamo", fix: "che vediamo"}
+    - tutor: "Una via di fuga, bellissimo. Ma «il falco, che lo vediamo»: quel lo, dopo che, non è di troppo?"
+      prompt: {text: "che lo vediamo", tags: [relative-pronoun]}
+      goals: [sound]
+    - learner: "Sì: il falco, che vediamo alto nel cielo. Ma è una fuga triste, perché è una salvezza solo per chi non sente niente."
+    - tutor: "Esattamente: la divina Indifferenza. È una saggezza o una resa, secondo lei?"
+    - learner: "Tutte e due. Io sono giovane e preferisco soffrire piuttosto che non sentire niente, ma capisco perché Montale la chiami divina."
+    - tutor: "Risposta onesta e matura. Per la prossima volta scelga lei un altro testo degli Ossi di seppia e ce lo legga in classe."
+      goals: [meaning]
+
+- scenario: politica-lavoro
+  level: C2
+  persona: en-f-professional
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Dico che lo dicevano anche dei bancomat, e i bancari sono ancora lì. Non sono così pessimista."
+    - tutor: "Ancora lì, sì, ma la metà di prima. E se un giorno toccasse anche a te, nel marketing?"
+      goals: [opinion]
+    - learner: "Se le macchine avessero arrivato al mio livello, avrei già cambiato mestiere da un pezzo. Ma la creatività non si automatizza così facilmente."
+      errors: [auxiliary-choice]
+      gold: {text: "avessero arrivato", fix: "fossero arrivate"}
+    - tutor: "Questo lo dici tu. Ma la tua ipotesi, «se le macchine avessero arrivato»: con arrivare, quale ausiliare ci vuole, anche al congiuntivo?"
+      prompt: {text: "avessero arrivato", tags: [auxiliary-choice]}
+    - learner: "Se le macchine... avessero arrivate?"
+      errors: [auxiliary-choice]
+    - tutor: "Se fossero arrivate al tuo livello, dici: staremo a vedere. Fammi però un esempio concreto di un mestiere che le macchine non hanno ucciso."
+      recast: {text: "avessero arrivate", fix: "fossero arrivate", tags: [auxiliary-choice]}
+      goals: [hypothesis]
+    - learner: "Il traduttore, per esempio. Nei anni Ottanta tutti dicevano che i computer avrebbero tradotto tutto, e invece ci sono più traduttori che mai."
+      errors: [articulated-preposition]
+      gold: {text: "Nei anni Ottanta", fix: "Negli anni Ottanta"}
+    - tutor: "Interessante, non lo sapevo. Ma «nei anni Ottanta»: davanti a una parola che comincia per vocale, quale preposizione articolata usiamo?"
+      prompt: {text: "Nei anni Ottanta", tags: [articulated-preposition]}
+    - learner: "Negli anni Ottanta, come gli anni. E molti mestieri nuovi pagano anche meglio di quelli vecchi."
+    - tutor: "Pagano meglio, sì, ma solo chi riesce a riqualificarsi. Agli altri chi ci pensa?"
+      goals: [example]
+    - learner: "Lo Stato, con la formazione e un salario minimale decente. Su questo, almeno, saremo d'accordo."
+      errors: [word-choice]
+    - tutor: "Un salario minimo decente, sì, su questo siamo d'accordo. Allora concludiamo così: le macchine non ci ruberanno il lavoro, ma la politica deve svegliarsi?"
+      recast: {text: "salario minimale", fix: "salario minimo", tags: [word-choice]}
+    - learner: "Esatto: se la politica non si svegliasse, il problema non sarebbe la tecnologia, ma chi la governa."
+    - tutor: "Brindiamo a questo, anche se continuo a pensare che tu sia un'inguaribile ottimista."
+      goals: [conclude]
+
+- scenario: pranzo-domenicale
+  level: C2
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Ah, sei arrivato giusto in tempo, qui si stanno già scannando per l'ultima lasagna. Siediti, che non mordiamo!"
+    - learner: "Meno male, ho una fame da lupi! Ho saltato la colazione apposta."
+    - tutor: "Fame da lupi, ottimo inizio: parli già come un bolognese. Lasagna o tortellini in brodo?"
+    - learner: "Tutti e due, se si può. Di tortellini, l'anno scorso, ho mangiato quaranta alla festa di tua zia."
+      errors: [ci-ne]
+      gold: {text: "ho mangiato quaranta", fix: "ne ho mangiati quaranta"}
+    - tutor: "Quaranta, me lo ricordo: in famiglia sei una leggenda! Ma «di tortellini ho mangiato quaranta»: per riprendere i tortellini, quale pronome manca?"
+      prompt: {text: "ho mangiato quaranta", tags: [ci-ne]}
+      goals: [react]
+    - learner: "Ne ho mangiati quaranta, e mi sono pentito solo il giorno dopo."
+    - tutor: "Il pentimento del giorno dopo fa parte del rito. Conosci qualche modo di dire sul mangiare?"
+    - learner: "L'appetito vien mangiando, per esempio. Anche se qui in Emilia ogni pranzo costa un braccio e una gamba alla bilancia."
+      errors: [word-choice]
+    - tutor: "Ti costa un occhio della testa alla bilancia, verissimo! L'appetito vien mangiando invece è perfetto. E da voi in Irlanda, la domenica, com'è il pranzo?"
+      recast: {text: "un braccio e una gamba", fix: "un occhio della testa", tags: [word-choice]}
+      goals: [use-idiom]
+    - learner: "Molto più corto che il vostro: un arrosto, le patate e poi tutti al pub. Da voi si sta a tavola quattro ore!"
+      errors: [comparative]
+      gold: {text: "più corto che il vostro", fix: "più corto del vostro"}
+    - tutor: "Quattro ore se va bene! Ma «più corto che il vostro»: qui ci va proprio che, o qualcos'altro?"
+      prompt: {text: "più corto che il vostro", tags: [comparative]}
+    - learner: "Più corto del vostro, giusto. Una volta, in un pub di Dublino, un italiano ha chiesto un cappuccino dopo cena e il barista non lo credeva."
+      errors: [ci-ne]
+      gold: {text: "non lo credeva", fix: "non ci credeva"}
+    - tutor: "Il cappuccino dopo cena, sacrilegio! Ma «il barista non lo credeva»: quando si crede a una cosa, quale pronome la riprende?"
+      prompt: {text: "non lo credeva", tags: [ci-ne]}
+      goals: [compare]
+    - learner: "Non ci credeva, ecco. Io ormai il caffè lo prendo al banco in trenta secondi, ma il cappuccino alle cinque del pomeriggio me lo concedo ancora."
+    - tutor: "Peccato veniale, te lo perdono. Adesso però mangia, che la lasagna non aspetta nessuno!"
+      goals: [anecdote]
+
+- scenario: pranzo-domenicale
+  level: C2
+  persona: es-f-erasmus
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Ah, sei arrivata giusto in tempo, qui si stanno già scannando per l'ultima lasagna. Siediti, che non mordiamo!"
+    - learner: "Scusate il ritardo: la domenica mi capita di stare nelle nuvole, e ho perso l'autobus. Che profumo, comunque!"
+      errors: [word-choice]
+    - tutor: "Avere la testa fra le nuvole, la domenica, è quasi obbligatorio! Dai, siediti: lasagna?"
+      recast: {text: "stare nelle nuvole", fix: "avere la testa fra le nuvole", tags: [word-choice]}
+    - learner: "Sì, grazie! Ma voglio poca, perché ho sentito che dopo c'è anche il bollito."
+      errors: [ci-ne]
+      gold: {text: "voglio poca", fix: "ne voglio poca"}
+    - tutor: "Brava, sei informata. Ma «voglio poca»: poca che cosa? Ti manca il pronome che riprende la lasagna."
+      prompt: {text: "voglio poca", tags: [ci-ne]}
+      goals: [react]
+    - learner: "Ne voglio poca, giusto. Mamma mia, è buonissima: mi ne dai ancora un pezzettino?"
+      errors: [combined-pronouns]
+      gold: {text: "mi ne dai", fix: "me ne dai"}
+    - tutor: "Altro che poca! Però «mi ne dai»: davanti a ne, quel mi resta così?"
+      prompt: {text: "mi ne dai", tags: [combined-pronouns]}
+    - learner: "Me ne dai ancora un pezzettino, per favore? Lo so, avevo detto poca, ma resistere è impossibile."
+    - tutor: "Impossibile, appunto. Conosci un modo di dire per una cosa facilissima, tipo finire una seconda porzione?"
+    - learner: "Per me finire una seconda porzione è pane mangiato!"
+      errors: [word-choice]
+    - tutor: "Per te è un gioco da ragazzi, si vede! E da voi in Spagna, la domenica, si mangia così tanto?"
+      recast: {text: "pane mangiato", fix: "un gioco da ragazzi", tags: [word-choice]}
+      goals: [use-idiom]
+    - learner: "Sì! Ma da noi la gente pranzano alle tre, e non stanno a tavola così tanto."
+      errors: [subject-verb-agreement]
+      gold: {text: "la gente pranzano", fix: "la gente pranza"}
+    - tutor: "Alle tre! Ma «la gente pranzano»: gente, in italiano, è singolare o plurale?"
+      prompt: {text: "la gente pranzano", tags: [subject-verb-agreement]}
+      goals: [compare]
+    - learner: "Singolare: la gente pranza alle tre e poi fa la siesta. Una volta mio nonno si è addormentato con il cucchiaio in mano!"
+    - tutor: "Il cucchiaio in mano, che immagine! Qui invece si crolla direttamente sul divano, dopo il caffè. Tieniti pronta."
+      goals: [anecdote]

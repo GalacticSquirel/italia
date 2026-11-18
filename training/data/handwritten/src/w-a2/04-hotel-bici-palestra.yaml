@@ -1,0 +1,267 @@
+# w-a2, file 04: hotel, bike rental, gym and laundrette (A2, broad coverage).
+- scenario: hotel-checkin
+  level: A2
+  persona: en-m-traveller
+  history: [essere-avere, adjective-agreement]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera! Sì, ho una prenotazione per due notti. Mi chiamo Ryan Walsh."
+    - tutor: "Sì, eccola: camera singola per due notti. Ha un documento?"
+      goals: [booking]
+    - learner: "Sì, ecco il mio passport."
+      errors: [word-choice]
+    - tutor: "Grazie, il passaporto va benissimo."
+      goals: [document]
+      recast: {text: "passport", fix: "passaporto", tags: [word-choice]}
+      new: [{lemma: passaporto, gloss: passport}]
+    - learner: "Sono molto caldo, il viaggio è stato lungo. In camera c'è l'aria condizionata?"
+      errors: [essere-avere]
+    - tutor: "«Sono molto caldo»? Con caldo e freddo usiamo un altro verbo."
+      prompt: {text: "Sono molto caldo", tags: [essere-avere]}
+    - learner: "Ah, giusto: ho molto caldo!"
+    - tutor: "Esatto! Non si preoccupi: in camera fa fresco."
+    - learner: "Perfetto. A che ora c'è la colazione? Ho anche due valigie molto pesante."
+      errors: [adjective-agreement]
+    - tutor: "Dalle sette alle dieci, al primo piano. Due valigie molto... pesante?"
+      goals: [breakfast]
+      prompt: {text: "valigie molto pesante", tags: [adjective-agreement]}
+    - learner: "Sì, due valigie, molto pesante."
+      errors: [adjective-agreement]
+    - tutor: "Ah, due valigie molto pesanti! Le portiamo noi in camera. Ecco la chiave: camera 305."
+      goals: [key]
+      recast: {text: "valigie, molto pesante", fix: "valigie molto pesanti", tags: [adjective-agreement]}
+      new: [{lemma: pesante, gloss: heavy}]
+    - learner: "Grazie mille! Buona notte."
+    - tutor: "Buona notte e buon riposo!"
+      new: [{lemma: riposo, gloss: rest}]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: es-f-teacher
+  history: [subject-verb-agreement, essere-avere]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, una camera per tre persone. Mio marito sta aparcando la macchina."
+      errors: [word-choice]
+    - tutor: "Ah, sta parcheggiando? Va bene, lo aspettiamo. Ecco la sua prenotazione."
+      goals: [booking]
+      recast: {text: "sta aparcando", fix: "sta parcheggiando", tags: [word-choice]}
+      new: [{lemma: parcheggiare, gloss: to park}]
+    - learner: "Ecco la mia carta d'identità. Mio figlio ha dodici anni e mia figlia otto. Loro ha bisogno di un documento?"
+      errors: [subject-verb-agreement]
+    - tutor: "Mmm, «loro ha»? Sono due bambini, no?"
+      goals: [document]
+      prompt: {text: "Loro ha", tags: [subject-verb-agreement]}
+    - learner: "Sì, scusi. Loro hanno bisogno di un documento?"
+    - tutor: "No, per i bambini basta il suo documento."
+    - learner: "Benissimo. La colazione è compresa? I bambini sono sempre fame la mattina!"
+      errors: [essere-avere]
+    - tutor: "«Sono sempre fame»? Con «fame» usiamo un altro verbo."
+      prompt: {text: "sono sempre fame", tags: [essere-avere]}
+    - learner: "Hanno sempre fame!"
+    - tutor: "Allora va bene: la colazione è nel prezzo, dalle sette alle dieci."
+      goals: [breakfast]
+    - learner: "Che bello. In quale piano è la camera?"
+      errors: [preposition]
+    - tutor: "«In quale piano»? Con «piano» usiamo un'altra preposizione."
+      prompt: {text: "In quale piano", tags: [preposition]}
+    - learner: "Ehm... in quale piano è?"
+      errors: [preposition]
+    - tutor: "A quale piano? Al secondo: camera 208. Ecco la chiave!"
+      goals: [key]
+      recast: {text: "in quale piano", fix: "A quale piano", tags: [preposition]}
+    - learner: "Grazie, buona notte!"
+    - tutor: "Buona notte a tutti!"
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-f-student
+  history: [future-form, modal-infinitive]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì! Vorrei noleggiare due bicicletta, per me e il mio ragazzo."
+      errors: [noun-number]
+    - tutor: "Due... bicicletta? Ma sono due, giusto?"
+      prompt: {text: "due bicicletta", tags: [noun-number]}
+    - learner: "Ah, sì: due biciclette!"
+    - tutor: "Esatto! Per quanto tempo?"
+      goals: [ask]
+    - learner: "Per tutta la giornata. Torneremo stasera alle sei."
+    - tutor: "Va bene, fino alle sei."
+      goals: [duration]
+    - learner: "Quanto costa? E dobbiamo di lasciare un documento?"
+      errors: [modal-infinitive]
+    - tutor: "Quindici euro a bicicletta, con il casco. Ma «dobbiamo di lasciare»? C'è una parola di troppo."
+      goals: [price]
+      prompt: {text: "dobbiamo di lasciare", tags: [modal-infinitive]}
+    - learner: "Dobbiamo lasciare un documento?"
+    - tutor: "Sì, un documento qualsiasi. Ve lo do indietro stasera."
+    - learner: "Ecco. Che percorso ci consiglia? Andaremo al lago."
+      errors: [future-form]
+    - tutor: "«Andaremo»? Il futuro di andare è un po' diverso."
+      prompt: {text: "Andaremo", tags: [future-form]}
+    - learner: "Ah, andremo al lago!"
+    - tutor: "Brava! Allora prendete la strada lungo il lago: è facile e bellissima."
+      goals: [route]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: es-m-worker
+  history: [word-choice, spelling]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, una bicicletta elettrica, per tre ore. Quanto vale?"
+      errors: [word-choice]
+    - tutor: "Quanto costa? Dieci euro all'ora, quindi trenta euro."
+      goals: [ask, duration]
+      recast: {text: "Quanto vale", fix: "Quanto costa", tags: [word-choice]}
+    - learner: "Va bene. Il casco è obligatorio?"
+      errors: [spelling]
+    - tutor: "«Obligatorio»? Attenzione, lì manca una lettera."
+      prompt: {text: "obligatorio", tags: [spelling]}
+    - learner: "Obbligatorio?"
+    - tutor: "Bravo! No, non è obbligatorio, ma casco e lucchetto sono nel prezzo."
+      goals: [price]
+    - learner: "Bene. La bici, posso lasciarla al lago? Il lago sta lontano?"
+      errors: [word-choice]
+    - tutor: "No, la bici la riporta qui. Ma il lago non è lontano: venti minuti."
+      recast: {text: "sta lontano", fix: "è lontano", tags: [word-choice]}
+    - learner: "Ok. Che camino mi consiglia?"
+      errors: [false-friend]
+    - tutor: "Prenda la strada vicino al lago: è tranquilla e ci sono poche macchine."
+      recast: {text: "camino", fix: "strada", tags: [false-friend]}
+      goals: [route]
+    - learner: "Perfetto. Allora torno alle due. Grazie!"
+    - tutor: "A dopo, buon giro!"
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-m-retired
+  history: [future-form, articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Buongiorno. Io e mia moglie vogliamo noleggiare due bici per il fine settimana."
+    - tutor: "Benissimo! Da sabato mattina a domenica sera?"
+      goals: [ask]
+    - learner: "Sì. Noi venirò sabato alle nove."
+      errors: [future-form]
+    - tutor: "Noi... «venirò»? Il futuro di venire è diverso, e poi siete in due."
+      prompt: {text: "venirò", tags: [future-form]}
+    - learner: "Noi verremo sabato alle nove."
+    - tutor: "Perfetto, vi aspetto sabato alle nove."
+      goals: [duration]
+    - learner: "Quanto costa per due giorni? Il casco è incluso in il prezzo?"
+      errors: [articulated-preposition]
+    - tutor: "«In il prezzo»? Queste due parole diventano una."
+      prompt: {text: "in il prezzo", tags: [articulated-preposition]}
+    - learner: "Ah... il casco è incluso in il prezzo?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, il casco è incluso nel prezzo: sessanta euro in tutto."
+      goals: [price]
+      recast: {text: "in il prezzo", fix: "nel prezzo", tags: [articulated-preposition]}
+    - learner: "Bene. Deviamo prenotare oggi?"
+      errors: [verb-form]
+    - tutor: "«Deviamo»? Il verbo dovere con «noi» è un po' diverso."
+      prompt: {text: "Deviamo", tags: [verb-form]}
+    - learner: "Dobbiamo prenotare oggi? E che percorso ci consiglia? Mia moglie preferisce le strade piane."
+    - tutor: "Sì, meglio prenotare. Fate il giro del lago: è tutto piano e molto bello."
+      goals: [route]
+
+- scenario: palestra
+  level: A2
+  persona: es-f-erasmus
+  history: [comparative, question-form]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie! Quanto costa l'abbonamento per un mese?"
+    - tutor: "Quaranta euro al mese, oppure cento euro per tre mesi."
+      goals: [ask-membership]
+    - learner: "L'abbonamento di tre mesi è più economico que quello di un mese."
+      errors: [comparative]
+    - tutor: "Più economico... «que»? Questa parola è spagnola!"
+      prompt: {text: "più economico que quello", tags: [comparative]}
+    - learner: "Ah! Più economico di quello di un mese."
+    - tutor: "Esatto, così paghi venti euro in meno. Ti interessano anche i corsi?"
+    - learner: "Sì! Quale corsi ci sono?"
+      errors: [question-form]
+    - tutor: "«Quale corsi»? Ma sono tanti corsi, no?"
+      prompt: {text: "Quale corsi", tags: [question-form]}
+    - learner: "Sì... quale corsi ci sono?"
+      errors: [question-form]
+    - tutor: "Quali corsi ci sono? Yoga, ballo e nuoto."
+      goals: [classes]
+      recast: {text: "quale corsi", fix: "Quali corsi", tags: [question-form]}
+    - learner: "Che bello, lo yoga! A che ora è? Lavoro fino a le cinque."
+      errors: [articulated-preposition]
+    - tutor: "Mmm, «fino a le cinque»? Lì due parole diventano una."
+      prompt: {text: "fino a le cinque", tags: [articulated-preposition]}
+    - learner: "Fino alle cinque. Allora mi iscrivo subito!"
+    - tutor: "Perfetto: lo yoga è martedì e giovedì alle sei e mezza. Benvenuta!"
+      goals: [timetable, sign-up]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-heritage
+  history: [comparative, noun-gender]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Ciao! Sì, grazie. Quanto costa un abbonamento per un anno?"
+    - tutor: "Trecento euro. Costa meno che pagare ogni mese!"
+      goals: [ask-membership]
+    - learner: "Ok. La palestra è aperta il domenica?"
+      errors: [noun-gender]
+    - tutor: "«Il domenica»? Guarda bene l'articolo."
+      prompt: {text: "il domenica", tags: [noun-gender]}
+    - learner: "Il domenica... è aperta?"
+      errors: [noun-gender]
+    - tutor: "Sì, la domenica siamo aperti fino all'una."
+      recast: {text: "Il domenica", fix: "la domenica", tags: [noun-gender]}
+    - learner: "Bene. Quali classi avete?"
+      errors: [false-friend]
+    - tutor: "Quali corsi abbiamo? Tanti: yoga, nuoto e pugilato."
+      goals: [classes]
+      recast: {text: "classi", fix: "corsi", tags: [false-friend]}
+      new: [{lemma: pugilato, gloss: boxing}]
+    - learner: "Mi piace il pugilato! Quando sono le lezioni?"
+    - tutor: "Il lunedì e il mercoledì, alle sette di sera."
+      goals: [timetable]
+    - learner: "Perfetto. Io sono più forte che mio fratello, ma lui fa pugilato da anni."
+      errors: [comparative]
+    - tutor: "Più forte... che tuo fratello? Con le persone usiamo un'altra parola."
+      prompt: {text: "più forte che mio fratello", tags: [comparative]}
+    - learner: "Più forte di mio fratello! Allora mi iscrivo. Dove firmo?"
+    - tutor: "Bravo! Qui, per favore. Benvenuto in palestra!"
+      goals: [sign-up]
+
+- scenario: lavanderia
+  level: A2
+  persona: en-f-professional
+  history: [pronoun-position, adjective-agreement]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie. La lavatrice non funziona: ho premuto il bottone, ma niente."
+    - tutor: "Ah, prima devi comprare un gettone. Senza gettone non parte."
+      goals: [problem]
+    - learner: "Un gettone? Dove posso comprare lo?"
+      errors: [pronoun-position]
+    - tutor: "Mmm, «comprare lo»? Prova a mettere il pronome in un altro posto."
+      prompt: {text: "comprare lo", tags: [pronoun-position]}
+    - learner: "Dove posso comprarlo?"
+    - tutor: "Brava! Alla macchina vicino alla porta. Accetta solo monete."
+      goals: [payment]
+    - learner: "Ok. E che programma uso per i vestiti nero?"
+      errors: [adjective-agreement]
+    - tutor: "Per i vestiti... nero? Sono tanti vestiti!"
+      prompt: {text: "vestiti nero", tags: [adjective-agreement]}
+    - learner: "Sì, per i vestiti nero."
+      errors: [adjective-agreement]
+    - tutor: "Per i vestiti neri usa il programma a trenta gradi."
+      goals: [ask-how]
+      recast: {text: "vestiti nero", fix: "vestiti neri", tags: [adjective-agreement]}
+    - learner: "Grazie! La settimana scorsa la mia camicia bianca è diventato rosa!"
+      errors: [participle-agreement]
+    - tutor: "Oh no! «È diventato»? Ma parliamo della camicia..."
+      prompt: {text: "è diventato", tags: [participle-agreement]}
+    - learner: "È diventata rosa, per un calzino rosso! Grazie mille per l'aiuto."
+    - tutor: "Che peccato! Di niente, e buona giornata!"
+      goals: [thank]

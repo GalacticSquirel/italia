@@ -1,0 +1,257 @@
+# Broad-coverage B2 dialogues: at the cardiologist and complaining at a restaurant.
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-retired
+  history: [essere-avere, tense-aspect]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Abbastanza bene, ma quando salgo le scale sono il fiato corto e devo fermarmi."
+    errors: [essere-avere]
+  - tutor: "Capisco. Ma «sono il fiato corto»: con «fiato corto», come con «fame» o «sonno», che verbo usiamo?"
+    prompt: {text: "sono il fiato corto", tags: [essere-avere]}
+  - learner: "Ho il fiato corto, soprattutto la mattina."
+  - tutor: "Esatto. E da quanto tempo succede?"
+  - learner: "Da circa un mese. Prima ho fatto trekking ogni domenica senza nessun problema."
+    errors: [tense-aspect]
+  - tutor: "Capisco. Ma «prima ho fatto trekking ogni domenica»: è un'abitudine del passato. Che tempo ci vuole?"
+    prompt: {text: "ho fatto trekking ogni domenica", tags: [tense-aspect]}
+  - learner: "Prima facevo trekking ogni domenica. E mio padre ha avuto un infarto a sessant'anni, se le può servire."
+  - tutor: "Perfetto, e sì, mi serve: la storia di famiglia è importante. La teniamo presente."
+    goals: [symptoms, history]
+    new: [{lemma: infarto, gloss: heart attack}]
+  - learner: "Che cosa dicono gli esami, dottore? Ho paura che il cuore è malato."
+    errors: [subjunctive-use]
+  - tutor: "Ora glielo spiego. Ma «ho paura che il cuore è»: dopo «ho paura che», quale modo serve?"
+    prompt: {text: "che il cuore è malato", tags: [subjunctive-use]}
+  - learner: "Ho paura che il cuore è malato... come mio padre."
+    errors: [subjunctive-use]
+  - tutor: "Non deve avere paura che il cuore sia malato: gli esami dicono che è solo un po' affaticato, e la pressione è alta."
+    recast: {text: "che il cuore è malato", fix: "che il cuore sia malato", tags: [subjunctive-use]}
+    goals: [understand]
+  - learner: "Meno male. Quindi devo prendere delle medicine? Hanno effetti collaterali?"
+  - tutor: "Le do una medicina per la pressione, una al giorno. All'inizio può dare un po' di stanchezza, ma di solito passa in due settimane."
+    goals: [treatment]
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-teacher
+  history: [subjunctive-use, demonstrative]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Mi sono sentita meglio, grazie. Però alcune notti il cuore mi batte molto forte e non riesco a dormire."
+  - tutor: "Succede a riposo o dopo uno sforzo?"
+  - learner: "A riposo, di solito quando sono a letto. Mia madre aveva lo stesso problema, e anche mia nonna."
+  - tutor: "Capisco: quindi è un problema che c'è già in famiglia. Vediamo insieme gli esami."
+    goals: [symptoms, history]
+  - learner: "Sì, grazie. Dottore, cosa significa quello numero in rosso? Non lo capisco."
+    errors: [demonstrative]
+  - tutor: "Certo. Ma «quello numero»: davanti a «numero», «quello» diventa più corto. Come?"
+    prompt: {text: "quello numero", tags: [demonstrative]}
+  - learner: "Sì, quello numero in rosso, qui in basso."
+    errors: [demonstrative]
+  - tutor: "Quel numero in rosso è il potassio, che è un po' basso. Niente di grave, ma va corretto."
+    recast: {text: "quello numero", fix: "quel numero", tags: [demonstrative]}
+    goals: [understand]
+    new: [{lemma: potassio, gloss: potassium}]
+  - learner: "Allora è necessario che prendo delle vitamine?"
+    errors: [subjunctive-use]
+  - tutor: "Qualcosa sì. Ma «è necessario che prendo»: dopo «è necessario che», il verbo cambia modo. Come?"
+    prompt: {text: "che prendo", tags: [subjunctive-use]}
+  - learner: "È necessario che io prenda delle vitamine?"
+  - tutor: "Perfetto. Sì, un integratore per un mese. È possibile che all'inizio dia un po' di mal di stomaco: in quel caso, lo prenda dopo mangiato."
+    goals: [treatment]
+    new: [{lemma: integratore, gloss: supplement}]
+  - learner: "D'accordo. E quando devo tornare per il controllo?"
+  - tutor: "Tra un mese, con gli esami del sangue nuovi. Se il cuore batte forte di nuovo, mi chiami pure prima."
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-heritage
+  history: [pronoun-position, word-order]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Non molto bene, dottore. Mi sento stanco sempre, anche quando dormo nove ore."
+    errors: [word-order]
+  - tutor: "Mi dispiace. Ma «mi sento stanco sempre»: in italiano «sempre» di solito va in un altro punto della frase. Dove?"
+    prompt: {text: "Mi sento stanco sempre", tags: [word-order]}
+  - learner: "Mi sento sempre stanco, anche dopo nove ore di sonno."
+  - tutor: "Esatto. Ha anche dolore al petto? E in famiglia ci sono problemi di cuore?"
+  - learner: "Nessun dolore, solo affaticamento. Mio nonno è morto di infarto, ma lui fumava due pacchetti al giorno."
+  - tutor: "Il fumo conta molto, è vero. Comunque è un dato che teniamo presente."
+    goals: [symptoms, history]
+  - learner: "Gli esami sono buoni o cattivi? Me può spiegare i risultati?"
+    errors: [object-pronoun]
+  - tutor: "Certo. Ma «me può spiegare»: quando il pronome è da solo davanti al verbo, che forma prende?"
+    prompt: {text: "Me può spiegare", tags: [object-pronoun]}
+  - learner: "Mi può spiegare i risultati, per favore?"
+  - tutor: "Volentieri. La pressione è un po' alta, e dopo uno sforzo il battito diventa irregolare. Non è grave, ma va curato."
+    goals: [understand]
+  - learner: "Devo prendere le medicine per sempre? Non voglio prendere le per tutta la vita."
+    errors: [pronoun-position]
+  - tutor: "La capisco. Ma «prendere le»: con l'infinito, il pronome dove va?"
+    prompt: {text: "prendere le", tags: [pronoun-position]}
+  - learner: "Non voglio prenderle per tutta la vita."
+  - tutor: "Esatto. E non è detto: se cammina ogni giorno e mangia meno sale, tra sei mesi potremmo ridurre la terapia."
+    goals: [treatment]
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-erasmus
+  history: [tense-aspect, imperative-form]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Bene, dottore, ma sono un po' nerviosa per i risultati."
+    errors: [word-choice]
+  - tutor: "È normale essere un po' nervosa prima dei risultati. Mi racconti: ha avuto qualche disturbo?"
+    recast: {text: "un po' nerviosa", fix: "un po' nervosa", tags: [word-choice]}
+  - learner: "Quando corro, il cuore va molto veloce e c'è un dolore che molesta qui, nel petto."
+    errors: [false-friend]
+  - tutor: "Un dolore che dà fastidio, ma non forte, giusto? E succede solo quando corre?"
+    recast: {text: "che molesta", fix: "che dà fastidio", tags: [false-friend]}
+    goals: [symptoms]
+  - learner: "Sì, solo quando corro. Mio padre ha un soffio al cuore: lo scoprivano quando era giovane."
+    errors: [tense-aspect]
+  - tutor: "Questo è utile. Ma «lo scoprivano»: è successo una volta, in un momento preciso. Che tempo ci vuole?"
+    prompt: {text: "lo scoprivano", tags: [tense-aspect]}
+  - learner: "Lo scoprivano quando aveva vent'anni, al servizio militare."
+    errors: [tense-aspect]
+  - tutor: "Ah, l'hanno scoperto quando aveva vent'anni, quindi lo sa da molto tempo e non ha mai avuto problemi. Interessante, perché anche lei ha un piccolo soffio."
+    recast: {text: "lo scoprivano", fix: "l'hanno scoperto", tags: [tense-aspect]}
+    goals: [history]
+    new: [{lemma: soffio, gloss: (heart) murmur}]
+  - learner: "Oh no! È pericoloso? Devo smettere di giocare a pallavolo?"
+  - tutor: "No, non si preoccupi: il suo è innocente, cioè non è una malattia. Con il cuore lei sta benissimo."
+    goals: [understand]
+  - learner: "Che bello! Allora, dottore, mi dice: devo prendere qualche medicina?"
+    errors: [imperative-form]
+  - tutor: "Ora ci arriviamo. Ma «mi dice»: è una richiesta, e con me usa il lei. Che forma ci vuole?"
+    prompt: {text: "mi dice", tags: [imperative-form]}
+  - learner: "Mi dica, dottore: devo prendere qualche medicina?"
+  - tutor: "Perfetto. Nessuna medicina: continui pure a giocare, ma faccia un controllo ogni anno, prima dell'inizio del campionato."
+    goals: [treatment]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-professional
+  history: [subjunctive-use, word-order]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Sì, purtroppo. Abbiamo aspettato cinquanta minuti per i primi, e quando sono arrivati erano freddi."
+  - tutor: "Mi dispiace molto. Mi può dire che cosa avevate ordinato?"
+    goals: [complain]
+  - learner: "Due risotti ai funghi. Il mio era cotto troppo, quasi una minestra, e quello di mio marito era salato troppo."
+    errors: [word-order]
+  - tutor: "Capisco. Ma «salato troppo»: dove va «troppo», rispetto alla parola che descrive?"
+    prompt: {text: "salato troppo", tags: [word-order]}
+  - learner: "Era troppo salato. E anche il mio era troppo cotto."
+  - tutor: "Esatto. E ha ragione: non dovevano uscire così dalla cucina. Stasera mancava un cuoco, ma non è una scusa."
+    goals: [detail]
+  - learner: "Mi sarei aspettata almeno un avviso: se qualcuno ci avesse detto del ritardo, avremmo ordinato altro."
+  - tutor: "Ha perfettamente ragione: avremmo dovuto avvisarvi subito."
+  - learner: "Per questo prezzo, mi aspettavo che il servizio era più attento."
+    errors: [subjunctive-use]
+  - tutor: "Lo capisco. Ma «mi aspettavo che il servizio era»: dopo «mi aspettavo che», che modo serve?"
+    prompt: {text: "che il servizio era più attento", tags: [subjunctive-use]}
+  - learner: "Mi aspettavo che il servizio era più attento, sì."
+    errors: [subjunctive-use]
+  - tutor: "Era giusto aspettarsi che il servizio fosse più attento. Per questo vorrei offrirvi la cena, con un dolce della casa."
+    recast: {text: "che il servizio era più attento", fix: "che il servizio fosse più attento", tags: [subjunctive-use]}
+    goals: [expectation]
+  - learner: "Grazie, è molto gentile. Accettiamo il dolce, ma preferiremmo pagare almeno le bevande."
+  - tutor: "Come preferisce. Allora vi porto subito il dolce della casa, offerto da noi."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-retired
+  history: [conditional-form, past-participle-form]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Sì. Avevo prenotato un tavolo vicino alla finestra per il nostro anniversario, ma ci avete messo vicino alla porta della cucina."
+  - tutor: "Le chiedo scusa. È stato un errore di chi ha preso la prenotazione."
+    goals: [complain]
+  - learner: "E non è tutto. Il vino che abbiamo chiesto non c'era, e il cameriere ci ha offrito un altro vino molto più caro."
+    errors: [past-participle-form]
+  - tutor: "Mi dispiace. Ma «ha offrito»: il verbo «offrire» al passato ha una forma particolare. Se la ricorda?"
+    prompt: {text: "offrito un altro vino", tags: [past-participle-form]}
+  - learner: "Ha offrito un altro vino, sì, più caro."
+    errors: [past-participle-form]
+  - tutor: "Le ha offerto un altro vino più caro, senza dirvi niente sul prezzo? Questo non doveva succedere."
+    recast: {text: "offrito un altro vino", fix: "offerto un altro vino", tags: [past-participle-form]}
+    goals: [detail]
+  - learner: "Infatti. Avrei preferito che ci proponesse un vino dello stesso prezzo."
+  - tutor: "Certo, era il minimo. Per un anniversario vi meritavate una serata perfetta."
+    goals: [expectation]
+  - learner: "Mia moglie è rimasta molto delusa. Non tanto per il vino, quanto per il tavolo."
+  - tutor: "La capisco benissimo. Posso offrirvi il vino e un dolce, per festeggiare comunque?"
+  - learner: "Io accetterebbi volentieri il dolce, ma il vino vorremmo pagarlo noi: non è colpa sua."
+    errors: [conditional-form]
+  - tutor: "Molto gentile. Ma «accetterebbi»: al condizionale, con «io», come finisce il verbo?"
+    prompt: {text: "accetterebbi", tags: [conditional-form]}
+  - learner: "Accetterei volentieri il dolce, grazie."
+  - tutor: "Esatto. Vi porto due dolci al cioccolato, con una piccola candela per l'anniversario."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-m-worker
+  history: [noun-gender, false-friend]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Sì. Io faccio il cuoco, quindi so quanto è difficile la cucina. Ma la carne era completamente cruda all'interno."
+  - tutor: "Mi dispiace. Che piatto avevate ordinato?"
+    goals: [complain]
+  - learner: "La tagliata con le patate. La carne era quasi viva, e c'era troppa sale nelle patate."
+    errors: [noun-gender]
+  - tutor: "Ha ragione a lamentarsi. Ma «troppa sale»: in italiano questa parola non ha lo stesso genere che in spagnolo."
+    prompt: {text: "troppa sale", tags: [noun-gender]}
+  - learner: "Sì, troppa sale nelle patate, davvero."
+    errors: [noun-gender]
+  - tutor: "Troppo sale nelle patate e la carne sbagliata: una brutta serata per la nostra cucina, e me ne scuso davvero."
+    recast: {text: "troppa sale", fix: "troppo sale", tags: [noun-gender]}
+    goals: [detail]
+  - learner: "Con questi prezzi, mi aspettavo che la carne fosse cotta come avevo chiesto."
+  - tutor: "Giustissimo. Avremmo dovuto controllare il piatto prima di servirlo."
+    goals: [expectation]
+  - learner: "E il cameriere è stato gentile, ma quando gli ho detto il problema, si è burlato un po'."
+    errors: [word-choice]
+  - tutor: "Ha scherzato sul problema? Questo non va bene, gli parlerò io. Intanto le posso offrire la cena?"
+    recast: {text: "si è burlato", fix: "ha scherzato", tags: [word-choice]}
+  - learner: "Grazie, ma non voglio niente gratis. Voglio solo che lo chef lo sappia."
+  - tutor: "Lo apprezzo molto. Glielo dico stasera stesso, e la prossima volta la sua carne la controllo io di persona."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-student
+  history: [subjunctive-use, essere-avere]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Sì. Eravamo dieci amici per il mio compleanno e avevamo prenotato, ma quando siamo arrivati il tavolo non è stato pronto."
+    errors: [tense-aspect]
+  - tutor: "Mi dispiace. Ma «il tavolo non è stato pronto»: è una situazione che avete trovato arrivando, non un fatto. Che tempo usiamo?"
+    prompt: {text: "non è stato pronto", tags: [tense-aspect]}
+  - learner: "Il tavolo non è stato pronto per quaranta minuti."
+    errors: [tense-aspect]
+  - tutor: "Quindi il tavolo non era pronto, nonostante la prenotazione, e avete aspettato quaranta minuti. Non va bene."
+    recast: {text: "non è stato pronto", fix: "non era pronto", tags: [tense-aspect]}
+    goals: [complain]
+  - learner: "Quaranta minuti in piedi, e io ero tanta fame! Poi metà dei piatti è arrivata dopo venti minuti."
+    errors: [essere-avere]
+  - tutor: "Ha tutte le ragioni. Ma «ero tanta fame»: con la fame, in italiano, che verbo usiamo?"
+    prompt: {text: "ero tanta fame", tags: [essere-avere]}
+    goals: [detail]
+  - learner: "Avevo tanta fame! E metà del tavolo guardava gli altri mangiare."
+  - tutor: "Esatto. È proprio la cosa che non deve mai succedere."
+  - learner: "Io mi aspettavo che il ristorante ci trattava meglio, per un compleanno."
+    errors: [subjunctive-use]
+  - tutor: "Lo capisco. Ma «mi aspettavo che il ristorante ci trattava»: dopo «mi aspettavo che», che modo serve?"
+    prompt: {text: "trattava meglio", tags: [subjunctive-use]}
+  - learner: "Che il ristorante ci trattava meglio... non so."
+    errors: [subjunctive-use]
+  - tutor: "Era giusto che il ristorante vi trattasse meglio, soprattutto in un giorno speciale. Posso offrirvi il dolce e uno sconto del venti per cento?"
+    recast: {text: "trattava meglio", fix: "trattasse meglio", tags: [subjunctive-use]}
+    goals: [expectation]
+  - learner: "Va bene, accettiamo lo sconto. Grazie per averci ascoltato."
+  - tutor: "Grazie a voi. E tanti auguri: vi porto il dolce con le candele, offerto da noi."
+    goals: [resolve]

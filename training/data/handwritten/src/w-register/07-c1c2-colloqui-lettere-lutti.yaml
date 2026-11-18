@@ -1,0 +1,251 @@
+# w-register, file 07: C1 interview, team email, cardiologist; C2 letter to the rector, condolences,
+# the partner's parents, a philosophy seminar and a residents' meeting.
+- scenario: colloquio-lavoro
+  level: C1
+  persona: es-f-teacher
+  history: [register, false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Ana Ruiz, sono laureata in Lettere e da sei anni insegno spagnolo in un liceo di Bologna. Prima ho lavorato due anni in una editoriale a Madrid."
+      errors: [false-friend]
+    - tutor: "In una casa editrice, quindi conosce già il mondo dei libri: interessante, per un ruolo come il nostro. Di che cosa si occupava?"
+      recast: {text: "una editoriale", fix: "una casa editrice", tags: [false-friend]}
+      goals: [intro]
+    - learner: "Mi occupavo della revisione dei testi e della relazione con gli autori. È stata un'esperienza che mi ha insegnato moltissimo."
+      errors: [word-choice]
+    - tutor: "Revisione dei testi e rapporti con gli autori: ottimo. E quali sono i suoi punti di forza? E, se ce n'è uno, un punto debole?"
+      recast: {text: "relazione con gli autori", fix: "rapporti con gli autori", tags: [word-choice]}
+      goals: [experience]
+    - learner: "Sono molto organizzata e so gestire le scadenze. Il mio punto debole è che a volte sono troppo esigente con me stessa."
+    - tutor: "Un difetto piuttosto comune tra i candidati migliori. Perché vuole lasciare l'insegnamento?"
+      goals: [strengths]
+    - learner: "Perché vorrei tornare al mondo editoriale, e voi pubblicate proprio i libri che leggo da quando ero ragazza. E poi, sinceramente, la scuola mi ha un po' rotto le scatole."
+      errors: [register]
+    - tutor: "Capisco. Però «rotto le scatole», in un colloquio... non c'è un modo più professionale per dirlo?"
+      prompt: {text: "mi ha un po' rotto le scatole", tags: [register]}
+    - learner: "Ha ragione. Diciamo che dopo sei anni sento il bisogno di nuovi stimoli."
+    - tutor: "Molto meglio. Ha qualche domanda per me?"
+      goals: [why]
+    - learner: "Sì: com'è organizzata la redazione? I redattori seguono un solo progetto o diversi contemporaneamente?"
+    - tutor: "Due o tre progetti alla volta, in gruppi di quattro persone. Le faremo sapere entro due settimane."
+      goals: [questions]
+    - learner: "Perfetto. La ringrazio per il tempo che mi ha dedicato."
+    - tutor: "Grazie a lei, signora Ruiz. Buona giornata."
+
+- scenario: riunione-lavoro
+  level: C1
+  persona: en-m-traveller
+  history: [register, hypothetical]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Purtroppo siamo in ritardo di due settimane: il fornitore ci ha mandato i componenti sbagliati, e abbiamo dovuto rifare l'ordine."
+    - tutor: "Due settimane... e il cliente lo sa già?"
+      goals: [update, problem]
+    - learner: "Non ancora. Ho preparato una mail: «Ciao Marco, scusa per il casino con la consegna, ti aggiorno presto.»"
+      errors: [register]
+    - tutor: "Mmm, «il casino»? È pur sempre il nostro cliente più importante, anche se vi date del tu."
+      prompt: {text: "il casino", tags: [register]}
+    - learner: "Hai ragione. «Scusa per il pasticcio con la consegna»?"
+      errors: [register]
+    - tutor: "Scriverei «ci scusiamo per il disguido con la consegna»: ammetti l'errore senza drammatizzare. E come pensi di recuperare?"
+      recast: {text: "il pasticcio", fix: "il disguido", tags: [register]}
+      new: [{lemma: disguido, gloss: mix-up}, {lemma: drammatizzare, gloss: to dramatise}]
+    - learner: "Potremmo lavorare anche il sabato per due settimane. Così recupereremmo almeno una settimana."
+    - tutor: "Mi piace. Ma i ragazzi saranno d'accordo?"
+    - learner: "Ne ho già parlato con loro: se gli pagheremmo gli straordinari, sarebbero disponibili."
+      errors: [hypothetical]
+    - tutor: "«Se gli pagheremmo»? Questa frase con il «se» io la riscriverei."
+      prompt: {text: "se gli pagheremmo", tags: [hypothetical]}
+    - learner: "Se gli pagavamo gli straordinari, sarebbero disponibili."
+      errors: [hypothetical]
+    - tutor: "Se gli pagassimo gli straordinari, dici? Allora va bene: li autorizzo. E la nuova scadenza?"
+      recast: {text: "Se gli pagavamo", fix: "Se gli pagassimo", tags: [hypothetical]}
+      goals: [proposal]
+    - learner: "Direi il venti del mese prossimo, con una settimana di margine."
+    - tutor: "Perfetto, il venti. Manda pure la mail al cliente, con la nuova data."
+      goals: [deadline]
+
+- scenario: medico-specialista
+  level: C1
+  persona: en-f-student
+  history: [register, adjective-agreement]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Buongiorno, signora. Mi sento spesso stanca, e di notte il cuore mi batte fortissimo, anche quando sono a letto."
+      errors: [register]
+    - tutor: "«Signora»? Qui in ambulatorio, con il medico, di solito si usa il titolo."
+      prompt: {text: "signora", tags: [register]}
+    - learner: "Mi scusi, dottoressa. Dicevo: mi sento spesso stanca, e di notte il cuore mi batte fortissimo."
+    - tutor: "Capisco. Da quanto tempo? E in famiglia ci sono stati problemi di cuore?"
+      goals: [symptoms]
+    - learner: "Da circa tre mesi. Mia nonna soffriva di cuore, ma non so esattamente di che cosa. Temo che sia una cosa ereditaria."
+    - tutor: "Non è detto. Gli esami mostrano solo qualche extrasistole, molto comune alla sua età."
+      goals: [history]
+    - learner: "Extrasistole? Mi scusi, non ho capito: potrebbe spiegarmelo con parole più semplice?"
+      errors: [adjective-agreement]
+    - tutor: "Con parole più... semplice? Le parole sono tante, però."
+      prompt: {text: "parole più semplice", tags: [adjective-agreement]}
+    - learner: "Con parole più semplici, per favore."
+    - tutor: "Certo: sono battiti in più, fuori tempo. Nella maggior parte dei casi non sono pericolosi."
+      goals: [understand]
+    - learner: "Meno male. Devo prendere qualche farmaco? E se sì, quali effetti collaterali potrebbe avere?"
+    - tutor: "Per ora niente farmaci: meno caffè, più sonno e un controllo tra sei mesi. Se i sintomi peggiorassero, però, torni subito."
+      goals: [treatment]
+    - learner: "Va bene, ridurrò il caffè, anche se mi costerà moltissimo! Grazie, dottoressa."
+    - tutor: "Ce la farà, ne sono sicura. Arrivederci, e dorma un po' di più!"
+
+- scenario: email-rettore
+  level: C2
+  persona: en-m-retired
+  history: [register]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Buongiorno. Si tratta della biblioteca storica: da gennaio gli studiosi esterni non possono più consultare i manoscritti, e io sto finendo un libro proprio su quei documenti. Vorrei chiedere al Rettore una deroga."
+    - tutor: "Capisco: una richiesta legittima, ma va formulata con cura. Come pensava di aprire la lettera?"
+      goals: [situation]
+    - learner: "Pensavo a «Gentile Signor Rettore»."
+      errors: [register]
+    - tutor: "Non è un'offesa, per carità, ma nelle università italiane c'è una formula consacrata dall'uso, quasi un rito. Se la ricorda?"
+      prompt: {text: "Gentile Signor Rettore", tags: [register]}
+    - learner: "Ah, sì: «Magnifico Rettore». L'avevo sentita all'inaugurazione dell'anno accademico."
+    - tutor: "Esattamente. E il corpo della lettera?"
+      goals: [opening-formula]
+    - learner: "«Le scrivo per chiedere che la decisione venga ritirata immediatamente, perché è assurda.»"
+      errors: [register]
+    - tutor: "Il contenuto ci sta, ma «immediatamente» e «assurda» suonano come un ultimatum. Come lo direbbe con fermezza, senza irritare il destinatario?"
+      prompt: {text: "immediatamente, perché è assurda", tags: [register]}
+    - learner: "«Le sarei grato se volesse riconsiderare tale decisione, che penalizza gravemente la ricerca in corso.»"
+    - tutor: "Ecco il tono giusto: fermo e cortese. Le manca solo la chiusa."
+      goals: [tone]
+    - learner: "Pensavo di chiudere così: «Grazie mille e a presto, un caro saluto.»"
+      errors: [register]
+    - tutor: "Mmm, così chiuderebbe una mail a un collega di vecchia data. Al Rettore?"
+      prompt: {text: "Grazie mille e a presto, un caro saluto", tags: [register]}
+    - learner: "Allora: «Cordialmente, a presto»?"
+      errors: [register]
+    - tutor: "«A presto» lo lascerei agli amici. Chiuderei con «In attesa di un cortese riscontro, porgo distinti saluti»: classico, ma qui il classico è d'obbligo."
+      recast: {text: "Cordialmente, a presto", fix: "distinti saluti", tags: [register]}
+      goals: [closing]
+    - learner: "Perfetto, la copio così. Gliela mando oggi stesso, e la ringrazio: mi ha evitato una brutta figura."
+    - tutor: "Si figuri, è il mio mestiere. Mi faccia sapere che cosa le risponde il Rettore."
+
+- scenario: condoglianze
+  level: C2
+  persona: es-m-worker
+  history: [register, word-choice]
+  turns:
+    - tutor: "Grazie di essere venuto, davvero. Non se lo doveva disturbare, con tutto il lavoro che ha."
+    - learner: "Ci mancherebbe. Le porgo il mio più sentito pésame, a lei e a tutta la famiglia."
+      errors: [word-choice]
+    - tutor: "Grazie del cordoglio, davvero. Mia madre aveva novantun anni, ma a certe cose non si è mai pronti."
+      recast: {text: "pésame", fix: "cordoglio", tags: [word-choice]}
+      goals: [condolences]
+    - learner: "È vero. Io la ricordo alla festa di Natale dell'anno scorso: era venuta a prenderla e si è messa a chiacchierare con tutti noi come se ci conoscesse da sempre."
+    - tutor: "Sì, era fatta così: per lei non esistevano estranei. Grazie di ricordarla in questo modo."
+      goals: [memory]
+    - learner: "Se ha bisogno di qualcosa, qualsiasi cosa, non esiti a chiedermelo. Questa settimana posso occuparmi io delle sue pratiche in ufficio."
+    - tutor: "È molto gentile. Se potesse seguire la consegna del progetto Moretti, mi toglierebbe un pensiero."
+      goals: [offer-help]
+    - learner: "Certo, me ne occupo io. Sta' tranquillo."
+      errors: [register]
+    - tutor: "«Sta' tranquillo»... Mi è passato al tu, proprio oggi? Non che mi dispiaccia, eh."
+      prompt: {text: "Sta' tranquillo", tags: [register]}
+    - learner: "Mi scusi, mi è scappato. Stia tranquillo, me ne occupo io."
+    - tutor: "Grazie. Anzi, sa che le dico? Diamoci pure del tu, dopo tanti anni di scrivanie vicine."
+    - learner: "Volentieri. Allora ti lascio riposare. Ci vediamo domani al funerale, e per qualsiasi cosa chiamami."
+    - tutor: "Grazie, davvero. A domani."
+      goals: [leave]
+
+- scenario: cena-suoceri
+  level: C2
+  persona: en-f-professional
+  history: [register, combined-pronouns]
+  turns:
+    - tutor: "Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+    - learner: "Grazie, sei molto gentile. Spero di non deludervi, allora!"
+      errors: [register]
+    - tutor: "«Sei molto gentile»... Ah, siamo già al tu? Mia figlia mi aveva detto che Lei è una persona diretta, ma non fino a questo punto."
+      prompt: {text: "sei molto gentile", tags: [register]}
+    - learner: "Mi scusi, l'emozione! Lei è molto gentile. E complimenti per la casa, e per il profumo che arriva dalla cucina."
+    - tutor: "Il merito è tutto di mia moglie: io mi limito ad assaggiare. Allora, mi dica, di che cosa si occupa?"
+      goals: [compliment]
+    - learner: "Sono ingegnera, progetto ponti. L'anno prossimo forse mi trasferiranno a Milano, ma ne abbiamo già parlato con Giulia e troveremo una soluzione."
+    - tutor: "Un'ingegnera di ponti! Speriamo che con noi ne costruisca parecchi, e che non ne bruci nessuno."
+      goals: [background]
+    - learner: "Ah ah, me lo segno! Gli lo prometto: niente ponti bruciati."
+      errors: [combined-pronouns]
+    - tutor: "«Gli lo prometto»? Mia figlia giurava che il suo italiano fosse impeccabile: quei due pronomi, vicini, non si fondono?"
+      prompt: {text: "Gli lo prometto", tags: [combined-pronouns]}
+    - learner: "Glielo prometto: niente ponti bruciati!"
+    - tutor: "Brava, mi piace chi sta allo scherzo. Sa che le dico? Diamoci pure del tu: a tavola le formalità guastano la digestione."
+      goals: [irony]
+    - learner: "Con piacere, grazie! Allora... Lei mi passa il vino?"
+      errors: [register]
+    - tutor: "«Lei»? Abbiamo appena firmato il patto!"
+      prompt: {text: "Lei mi passa", tags: [register]}
+    - learner: "Hai ragione, scusa! Mi passi il vino, Paolo?"
+    - tutor: "Ecco qua. E brindiamo al tu, allora!"
+      goals: [tu-lei]
+
+- scenario: seminario-etica
+  level: C2
+  persona: es-f-teacher
+  history: [register, word-choice]
+  turns:
+    - tutor: "Bene, dottoressa, la sua tesi è che una macchina non possa mai essere ritenuta responsabile. Mi permetta di dubitarne fin da subito."
+    - learner: "Esattamente, professore. Sostengo che la responsabilità morale presupponga l'intenzionalità, e che una macchina non abbia intenzioni, ma solo funzioni."
+    - tutor: "Elegante. Ma allora un'azienda, che intenzioni in senso proprio non ne ha, non sarebbe mai responsabile?"
+      goals: [thesis]
+    - learner: "Bisogna distinguere: la responsabilità di un'azienda è derivata, cioè dipende dalle persone che la compongono. Una macchina invece non ha nessuno dietro, tipo, che decide davvero."
+      errors: [register]
+    - tutor: "La distinzione è buona, ma quel «tipo», in un seminario di dottorato, stona parecchio. Riformuli l'ultima frase?"
+      prompt: {text: "tipo", tags: [register]}
+    - learner: "Una macchina, invece, non ha alle spalle alcun agente che decida davvero."
+    - tutor: "Molto meglio. Eppure dietro l'algoritmo ci sono i programmatori, no?"
+      goals: [distinguish]
+    - learner: "Sì, ma i programmatori non possono prevedere ogni scelta del sistema. Senta, prof, è come dire che un genitore risponde di tutto ciò che fa un figlio adulto."
+      errors: [register]
+    - tutor: "«Prof»? Siamo in aula magna, dottoressa, non al bar della facoltà."
+      prompt: {text: "Senta, prof", tags: [register]}
+    - learner: "Mi scusi, professore. Dicevo: è come sostenere che un genitore risponda di tutto ciò che fa un figlio adulto."
+    - tutor: "Analogia efficace, lo ammetto. Ma concederà almeno che una macchina possa essere causa di un danno."
+      goals: [objection]
+    - learner: "Glielo concedo: può esserne la causa, ma non la colpabile. La causalità non implica la responsabilità."
+      errors: [word-choice]
+    - tutor: "Causa, ma non colpevole: formula felice. E dunque, in una frase, la sua conclusione?"
+      recast: {text: "colpabile", fix: "colpevole", tags: [word-choice]}
+      goals: [concede]
+    - learner: "In conclusione: finché una macchina non sarà capace di intenzioni proprie, la responsabilità resterà di chi la progetta e di chi la usa."
+    - tutor: "Rigoroso. Non mi ha convinto del tutto, ma mi ha costretto a pensare, ed è già molto."
+      goals: [conclude]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: en-m-heritage
+  history: [register, hypothetical]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Sì, grazie. Propongo di rimandare i lavori alla facciata all'anno prossimo: il preventivo è troppo caro e molte famiglie non riuscirebbero a pagare la rata."
+      errors: [word-choice]
+    - tutor: "Il preventivo è troppo alto, dice lei. Il signor Gatti, qui, sostiene che lei rimanda tutto perché tanto abita al primo piano e il ponteggio non le dà fastidio."
+      recast: {text: "troppo caro", fix: "troppo alto", tags: [word-choice]}
+      goals: [position]
+    - learner: "Ma stia zitto, Gatti, che lei non paga le spese da due anni!"
+      errors: [register]
+    - tutor: "Signori, signori! Capisco l'irritazione, ma «stia zitto» in assemblea finisce dritto a verbale. Vuole riformulare?"
+      prompt: {text: "Ma stia zitto", tags: [register]}
+    - learner: "Ha ragione, mi scusi. Capisco la preoccupazione del signor Gatti, ma le assicuro che i miei motivi non sono personali."
+    - tutor: "Molto meglio. Allora, in concreto, che cosa propone?"
+      goals: [defuse]
+    - learner: "Propongo di chiedere altri due preventivi entro marzo. Se avremmo un prezzo più basso, potremmo cominciare già in estate."
+      errors: [hypothetical]
+    - tutor: "«Se avremmo»? Attento, che il verbale lo leggono tutti..."
+      prompt: {text: "Se avremmo", tags: [hypothetical]}
+    - learner: "Se avremo un prezzo più basso, potremmo cominciare già in estate."
+      errors: [hypothetical]
+    - tutor: "Se avessimo un prezzo più basso, certo, potremmo anticipare. Mi sembra ragionevole: il signor Gatti borbotta, ma vedo che annuisce."
+      recast: {text: "Se avremo", fix: "Se avessimo", tags: [hypothetical]}
+      goals: [alternative]
+    - learner: "Allora chiedo che venga messo a verbale: nuovi preventivi entro marzo e decisione definitiva nell'assemblea di aprile."
+    - tutor: "Messo a verbale. Visto? A mezzanotte non ci arriviamo nemmeno."
+      goals: [compromise]

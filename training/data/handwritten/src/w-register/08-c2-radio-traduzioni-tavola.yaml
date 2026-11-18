@@ -1,0 +1,245 @@
+# w-register, file 08: C2 radio, translation, dialect, poetry, satire, book club, Sunday lunch, registry office.
+- scenario: intervista-radio
+  level: C2
+  persona: en-f-student
+  history: [register, false-friend]
+  turns:
+    - tutor: "Bentornati, cari ascoltatori. In studio con noi c'è un'autrice che ha avuto il coraggio, o l'incoscienza, di scrivere un libro su di noi italiani. Benvenuta!"
+    - learner: "Desidero innanzitutto porgere i miei più deferenti ossequi a tutti gli ascoltatori."
+      errors: [register]
+    - tutor: "Ossequi deferenti? Qui siamo alla radio, mica dal notaio! Riproviamo con un saluto un po' più alla mano?"
+      prompt: {text: "porgere i miei più deferenti ossequi", tags: [register]}
+    - learner: "Ah ah, va bene: un saluto a tutti voi che ci ascoltate! Il libro si intitola «Mamma mia» e racconta i miei primi tre anni in Italia."
+    - tutor: "Titolo coraggioso! E perché l'ha scritto?"
+    - learner: "Perché ero stufa dei libri sugli italiani scritti da chi in Italia ci ha passato al massimo una settimana di vacanza."
+    - tutor: "E allora glielo chiedo senza giri di parole: gli italiani sono davvero tutti mammoni?"
+      goals: [present-book]
+    - learner: "Alcuni sì, ma meno di quanto si creda. Lo stereotipo da sfatare è un altro: che siate disorganizzati. In realtà improvvisate benissimo, che è un'altra cosa."
+    - tutor: "Diplomatica e perfida insieme. Ci regala un aneddoto?"
+      goals: [stereotype]
+    - learner: "Il primo Natale ho avuto un argomento con mia suocera perché avevo messo la panna nella carbonara."
+      errors: [false-friend]
+    - tutor: "Una discussione con la suocera sulla carbonara! Ma se l'è proprio cercata..."
+      recast: {text: "un argomento", fix: "una discussione", tags: [false-friend]}
+      goals: [anecdote]
+    - learner: "Me lo sono cercata, sì! Da allora cucina lei, e io lavo i piatti."
+      errors: [combined-pronouns]
+    - tutor: "«Me lo sono cercata»? L'espressione, però, vuole un pronome femminile, come in «avercela con qualcuno»."
+      prompt: {text: "Me lo sono cercata", tags: [combined-pronouns]}
+    - learner: "Me la sono cercata, sì! Da allora cucina lei, e io lavo i piatti."
+    - tutor: "Saggia divisione dei compiti. E l'italiano, che cosa le ha cambiato dentro?"
+    - learner: "Mi ha insegnato a dire le cose con più sfumature: in inglese sono molto diretta, in italiano ho scoperto il condizionale di cortesia."
+    - tutor: "Che bella definizione. Ci saluti con una frase da ricordare."
+      goals: [language]
+    - learner: "Allora: l'Italia non si capisce, si vive. E se proprio vorreste capirla, fatelo a tavola, ma senza panna!"
+      errors: [hypothetical]
+    - tutor: "Quasi perfetta! Ma «se proprio vorreste»? L'ultima frase deve restare impeccabile: ci riprova?"
+      prompt: {text: "se proprio vorreste", tags: [hypothetical]}
+    - learner: "E se proprio volete capirla, fatelo a tavola, ma senza panna!"
+    - tutor: "Applausi in studio! Grazie, e alla prossima puntata, cari ascoltatori."
+      goals: [farewell]
+
+- scenario: traduzione-sfumature
+  level: C2
+  persona: en-m-heritage
+  history: [register, false-friend, word-choice]
+  turns:
+    - tutor: "Ho letto la tua bozza del terzo capitolo. Scorre, scorre benissimo. Peccato che non sia più l'autore a parlare."
+    - learner: "Lo so, il terzo capitolo è un incubo: la cameriera e la contessa si parlano con «you», e in italiano le ho fatte darsi del tu."
+    - tutor: "Ecco, appunto. Una cameriera del 1920 che dà del tu alla contessa? Il lettore salta sulla sedia."
+      goals: [problem]
+    - learner: "Fa senso, ma se metto il lei per entrambe, perdo l'intimità che nasce tra loro nella seconda parte."
+      errors: [word-choice]
+    - tutor: "Ha senso, certo, e il nodo è proprio quell'intimità. E se la cameriera desse del voi e la contessa del tu, finché tutto non cambia?"
+      recast: {text: "Fa senso", fix: "Ha senso", tags: [word-choice]}
+    - learner: "Il voi mi sembra un po' eccessivo, da film in costume. Preferirei il lei per la contessa e il tu solo dopo la scena del lutto, quando diventano quasi sorelle."
+    - tutor: "Vedi che quando ragioni sul registro ci arrivi? E la frase di pagina dodici, «she was terribly sensible»?"
+      goals: [options]
+    - learner: "L'avevo tradotta con «era terribilmente sensibile»."
+      errors: [false-friend]
+    - tutor: "Assennata, semmai: «sensible» non è «sensibile». È il classico falso amico che ti tradisce proprio nei romanzi d'epoca."
+      recast: {text: "sensibile", fix: "assennata", tags: [false-friend]}
+      goals: [false-friend]
+    - learner: "Hai ragione. Allora decidiamo: lei per la contessa, tu dopo il lutto, e «assennata» a pagina dodici. Stasera rivedo tutto il capitolo."
+    - tutor: "Deciso. E aggiungi una nota per il revisore sul cambio di registro: la fedeltà al tono val bene una nota."
+      goals: [decide]
+
+- scenario: dialetti-regionali
+  level: C2
+  persona: es-m-worker
+  history: [register, relative-pronoun]
+  turns:
+    - tutor: "Scusa se mi intrometto, ma ti ho visto ridere: hai capito cosa si dicevano quei due signori? Perché non è mica facile."
+    - learner: "Ho capito poco! Parlavano velocissimo e si mangiavano la fine delle parole. Ho notato che dicevano «uè» ogni due frasi."
+    - tutor: "«Uè» è un saluto, un richiamo, un'esclamazione: fa un po' di tutto. Tu di dove sei?"
+      goals: [notice]
+    - learner: "Sono di Siviglia. Anche noi andalusi ci mangiamo le consonanti, quindi capisco quei terroni meglio di quanto credessi."
+      errors: [register]
+    - tutor: "Eh, «terroni» lo lascerei stare: a Napoli te lo perdonano solo se sei di famiglia, e nemmeno sempre."
+      prompt: {text: "quei terroni", tags: [register]}
+    - learner: "Scusa, non sapevo che fosse offensivo. Volevo dire: capisco quei signori meglio di quanto credessi."
+    - tutor: "Nessun problema, ora lo sai. C'è una parola napoletana che ti ha incuriosito?"
+    - learner: "Sì, «scugnizzo». È un ragazzo di strada, no? Però mi sembra una parola con un tono carinoso."
+      errors: [word-choice]
+    - tutor: "Esatto, un tono affettuoso: c'è dentro tenerezza, non disprezzo. E secondo te l'italiano standard ha preso qualcosa dai dialetti?"
+      recast: {text: "carinoso", fix: "affettuoso", tags: [word-choice]}
+      goals: [example]
+    - learner: "Certo, penso a parole come «pizza» o «mozzarella», che la loro origine è napoletana."
+      errors: [relative-pronoun]
+    - tutor: "«Che la loro origine»? C'è un relativo più elegante, che si porta dietro anche il possessivo."
+      prompt: {text: "che la loro origine", tags: [relative-pronoun]}
+    - learner: "Parole di cui origine è napoletana?"
+      errors: [relative-pronoun]
+    - tutor: "Sì, parole la cui origine è napoletana e che oggi sono di tutti. Ma allora, i dialetti vanno protetti o sono destinati a sparire?"
+      recast: {text: "di cui origine", fix: "la cui origine", tags: [relative-pronoun]}
+      goals: [standard]
+    - learner: "Secondo me vanno protetti, ma senza imporli a scuola: è giusto che si studino come un patrimonio, non come un obbligo."
+    - tutor: "Una posizione equilibrata. Ecco, siamo arrivati a Napoli: benvenuto, e occhio agli scugnizzi!"
+      goals: [opinion]
+
+- scenario: poesia-montale
+  level: C2
+  persona: en-m-retired
+  history: [register, relative-pronoun]
+  turns:
+    - tutor: "Lasciamo un attimo di silenzio dopo la lettura. Ecco. Che cosa le è rimasto addosso, di questi versi?"
+    - learner: "Mi è rimasta addosso una sensazione di aridità, quasi fisica: il rivo strozzato, la foglia riarsa, il cavallo stramazzato."
+    - tutor: "Bella definizione, un'aridità fisica. Si sofferma su un'immagine?"
+      goals: [first-reading]
+    - learner: "Sì, sull'immagine che parla il secondo verso: il rivo strozzato che gorgoglia."
+      errors: [relative-pronoun]
+    - tutor: "L'immagine... che parla il secondo verso? Chi parla, e di che cosa?"
+      prompt: {text: "che parla il secondo verso", tags: [relative-pronoun]}
+    - learner: "L'immagine a cui parla il secondo verso."
+      errors: [relative-pronoun]
+    - tutor: "Ah, l'immagine di cui parla il secondo verso: il rivo strozzato. E che cosa la colpisce, di quel «gorgoglia»?"
+      recast: {text: "a cui parla", fix: "di cui parla", tags: [relative-pronoun]}
+      goals: [image]
+    - learner: "Il suono: con tutte quelle g e quelle r sembra davvero un'acqua che non riesce a passare."
+    - tutor: "Esatto, è il suono che fa il senso. E la poesia nel suo insieme, che cosa ci dice?"
+      goals: [sound]
+    - learner: "Insomma, secondo me il poeta vuole dire che la vita fa schifo e basta."
+      errors: [register]
+    - tutor: "«Fa schifo e basta»? Forse è il nocciolo, ma in un'analisi testuale lo direbbe con un po' più di misura?"
+      prompt: {text: "fa schifo e basta", tags: [register]}
+    - learner: "Diciamo che per Montale vivere è doloroso, e che l'unica difesa è la divina Indifferenza: una distanza quasi da statua."
+    - tutor: "Bellissimo: la distanza della statua, della nuvola, del falco alto levato. È la chiave dell'intera poesia."
+      goals: [meaning]
+
+- scenario: umorismo-satira
+  level: C2
+  persona: en-f-student
+  history: [register, subjunctive-use]
+  turns:
+    - tutor: "Dai, ammettilo, alla battuta sul ministro e la carbonara non hai riso perché non l'avevi capita."
+    - learner: "Lo ammetto: non ho compreso appieno la facezia relativa al ministro."
+      errors: [register]
+    - tutor: "«La facezia relativa al ministro»? Ma che sei, un notaio dell'Ottocento? Dillo come lo diresti a me!"
+      prompt: {text: "non ho compreso appieno la facezia", tags: [register]}
+    - learner: "Va bene: non ho capito la battuta sul ministro! Me la spieghi?"
+      goals: [missed]
+    - tutor: "Allora: il ministro aveva detto che la carbonara con la panna è «un'evoluzione». E il comico: «Allora pure il Colosseo coi turisti dentro è un'evoluzione»."
+    - learner: "Ah, adesso ho capito! È sarcasmo: vuole dire che rovinare una cosa non significa migliorarla."
+    - tutor: "Esatto. E quale ti è piaciuta di più, invece?"
+    - learner: "Quella sui romani che non corrono mai, nemmeno quando sono in ritardo: «A Roma la fretta è un'opinione». L'ho trovata geniale perché è vera."
+    - tutor: "Verissima, purtroppo. E adesso prova tu: un gioco di parole in italiano."
+      goals: [favourite]
+    - learner: "Allora... «Il pesce che ha studiato è un baccalàureato»."
+    - tutor: "Ah ah, terribile, quindi perfetto: una freddura da manuale!"
+      goals: [wordplay]
+    - learner: "Grazie! Ma secondo te la satira dovrebbe avere dei limiti? Io penso che non bisogna mai prendere in giro le persone più deboli."
+      errors: [subjunctive-use]
+    - tutor: "Bella domanda. Ma «penso che non bisogna»? Dopo «penso che», quel modo ti suona bene?"
+      prompt: {text: "non bisogna", tags: [subjunctive-use]}
+    - learner: "Penso che non bisognasse mai prendere in giro le persone più deboli."
+      errors: [subjunctive-use]
+    - tutor: "Che non bisogni mai prendere in giro i più deboli, su questo sono d'accordo: la satira vera colpisce chi sta in alto, mai chi sta in basso."
+      recast: {text: "non bisognasse", fix: "non bisogni", tags: [subjunctive-use]}
+      goals: [limits]
+
+- scenario: circolo-lettura
+  level: C2
+  persona: es-f-teacher
+  history: [register, subjunctive-form]
+  turns:
+    - tutor: "Allora, confessatelo, chi di voi ha trovato Cosimo insopportabile? Io, a rileggerlo, un po' sì."
+    - learner: "Io no! In riferimento al protagonista, si evidenzia che le sue scelte risultano coerenti fino alla fine."
+      errors: [register]
+    - tutor: "«In riferimento al protagonista si evidenzia»? Sembra una circolare del ministero, non un circolo di lettura!"
+      prompt: {text: "In riferimento al protagonista, si evidenzia", tags: [register]}
+    - learner: "Va bene, lo dico meglio: secondo me Cosimo è insopportabile solo per chi resta a terra. Le sue scelte sono coerenti fino alla fine."
+    - tutor: "Coerente, sì, ma anche testardo come un mulo. Che cosa rappresenta, per lei, la vita sugli alberi?"
+      goals: [impression]
+    - learner: "È un'allegoria della distanza critica: Cosimo si allontana dalla società per vederla meglio, non per fuggire. Penso che Calvino abbi voluto dire proprio questo."
+      errors: [subjunctive-form]
+    - tutor: "«Abbi voluto»? Attenta, che Calvino si rigira nella tomba: riguardi la forma."
+      prompt: {text: "abbi voluto", tags: [subjunctive-form]}
+    - learner: "Penso che Calvino abbie voluto dire questo."
+      errors: [subjunctive-form]
+    - tutor: "Che Calvino abbia voluto dire proprio questo, è più che probabile. E lo stile? Non trova che l'ironia raffreddi un po' tutto?"
+      recast: {text: "abbie voluto", fix: "abbia voluto", tags: [subjunctive-form]}
+      goals: [theme]
+    - learner: "Al contrario: l'ironia è la sua leggerezza, quella che lui stesso descrive nelle «Lezioni americane». Senza ironia, il romanzo sarebbe pesante come un trattato."
+    - tutor: "Citazione puntuale. Ma io insisto: un uomo che non scende mai a terra è un egoista, non un eroe."
+      goals: [style]
+    - learner: "Non sono d'accordo. Se Cosimo fosse sceso, avrebbe tradito sé stesso; restando sugli alberi, invece, ha aiutato gli altri più di chi era rimasto a terra."
+    - tutor: "Mi ha quasi convinta. E il prossimo libro?"
+      goals: [disagree]
+    - learner: "Proporrei «Il visconte dimezzato»: così discutiamo di nuovo se un eroe ci piace di più intero o a metà."
+    - tutor: "Approvato! E stavolta voglio proprio vedere chi difende la metà cattiva."
+      goals: [recommend]
+
+- scenario: pranzo-domenicale
+  level: C2
+  persona: en-m-traveller
+  history: [register]
+  turns:
+    - tutor: "Ah, sei arrivato giusto in tempo, qui si stanno già scannando per l'ultima lasagna. Siediti, che non mordiamo!"
+    - learner: "Ah ah, «scannarsi» per una lasagna! Vuol dire litigare ferocemente, no? Comunque ho avuto culo, ne è rimasta una!"
+      errors: [register]
+    - tutor: "Hai capito benissimo! Però, ehm, «culo» davanti a nonna Pina? Prova la versione da pranzo della domenica."
+      prompt: {text: "ho avuto culo", tags: [register]}
+      goals: [react]
+    - learner: "Scusate! Ho avuto una gran fortuna: ne è rimasta una!"
+    - tutor: "Così sì, e la nonna sorride. Allora, domani hai il colloquio: in bocca al lupo!"
+    - learner: "Grazie mille!"
+      errors: [register]
+    - tutor: "«Grazie»? Ahia, così porta male! Al lupo, che cosa si risponde?"
+      prompt: {text: "Grazie mille", tags: [register]}
+    - learner: "Ah, giusto: crepi!"
+    - tutor: "Bravo! E in inglese come si augura buona fortuna?"
+    - learner: "Diciamo «break a leg», cioè «rompiti una gamba»! Anche da noi l'augurio è al contrario, per non attirare la sfortuna."
+    - tutor: "Che popoli scaramantici! E adesso raccontaci qualcosa tu, che di guai ne combini sempre."
+      goals: [compare]
+    - learner: "La settimana scorsa ho invitato la mia vicina a cena, ma ho bruciato l'arrosto e abbiamo ordinato una pizza. Alla fine ci siamo divertiti moltissimo: tutto è bene quel che finisce bene!"
+    - tutor: "Proverbio perfetto, e storia ancora migliore! Adesso però mangia, che la lasagna si fredda."
+      goals: [use-idiom, anecdote]
+
+- scenario: burocrazia-residenza
+  level: C2
+  persona: en-f-student
+  history: [register, combined-pronouns]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Ho ricevuto una comunicazione secondo cui la mia richiesta di residenza sarebbe stata respinta, perché i vigili non mi hanno trovata in casa. Ma io lavoro tutto il giorno!"
+    - tutor: "Capisco. Purtroppo, se il controllo dà esito negativo, la pratica si chiude d'ufficio."
+      goals: [request]
+    - learner: "Mi scusi, ma è una cosa da pazzi! Nessuno mi ha avvisata che sarebbero passati."
+      errors: [register]
+    - tutor: "La comprendo, ma «da pazzi», qui allo sportello, non l'aiuta. Mi esponga il problema in termini, diciamo, più istituzionali."
+      prompt: {text: "è una cosa da pazzi", tags: [register]}
+    - learner: "Ha ragione. Ritengo che la procedura non sia stata rispettata, dato che non ho ricevuto alcun preavviso del controllo."
+    - tutor: "Questo cambia le cose. Può presentare una richiesta di riesame: servono il contratto d'affitto e una dichiarazione del datore di lavoro sui suoi orari."
+      goals: [documents]
+    - learner: "Il contratto ce l'ho qui. La dichiarazione può mandarla l'ufficio per PEC: il mio responsabile mi l'ha già promesso."
+      errors: [combined-pronouns]
+    - tutor: "Benissimo. Ma «mi l'ha promesso»? Quando due pronomi si incontrano, il primo cambia vocale."
+      prompt: {text: "mi l'ha già promesso", tags: [combined-pronouns]}
+    - learner: "Il mio responsabile me l'ha già promesso."
+    - tutor: "Perfetto, la PEC va benissimo. Le serve anche il numero della pratica precedente."
+      goals: [problem]
+    - learner: "Eccolo: 2024/3381. Le vorrei chiedere un'ultima cosa: si potrebbe concordare un orario per il nuovo controllo, così che l'equivoco non si ripeta?"
+    - tutor: "Si può fare: lasci un recapito telefonico nel modulo e la contatteranno loro. Il riesame di solito si chiude entro trenta giorni."
+      goals: [next]
+    - learner: "Perfetto. La ringrazio, è stata molto disponibile, e mi scusi ancora per lo sfogo di prima."
+    - tutor: "Si figuri, capita a tutti. Buona giornata, e speriamo che stavolta i vigili la trovino!"

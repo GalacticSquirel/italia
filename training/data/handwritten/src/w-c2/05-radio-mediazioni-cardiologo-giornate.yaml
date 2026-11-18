@@ -1,0 +1,277 @@
+# Round 5, set w-c2: broad C2 coverage. File 5: radio, mediation, cardiology, bad days, the news.
+- scenario: intervista-radio
+  level: C2
+  persona: en-m-traveller
+  history: [noun-number]
+  turns:
+    - tutor: "Bentornati, cari ascoltatori. In studio con noi c'è un autore che ha avuto il coraggio, o l'incoscienza, di scrivere un libro su di noi italiani. Benvenuto!"
+    - learner: "Grazie dell'invito. Il libro è una collezione di trenta brevi ritratti: ognuno racconta un italiano che ho incontrato in viaggio."
+      errors: [word-choice]
+    - tutor: "Una raccolta di ritratti, quindi, più che un saggio. E chi sono questi trenta italiani?"
+      recast: {text: "collezione", fix: "raccolta", tags: [word-choice]}
+      goals: [present-book]
+    - learner: "Gente comune: una farmacista di Matera, un pescatore di Chioggia e tantissimi tassista: sono loro i veri filosofi di questo paese."
+      errors: [noun-number]
+      gold: {text: "tantissimi tassista", fix: "tantissimi tassisti"}
+    - tutor: "Il tassista filosofo, mi piace. Ma «tantissimi tassista»: un nome in -ista, al maschile plurale, come fa?"
+      prompt: {text: "tantissimi tassista", tags: [noun-number]}
+    - learner: "Tassisti, certo. Ed è stato proprio un tassista a smontarmi lo stereotipo più duro a morire: che gli italiani non rispettino le regole. Le rispettano tutte, mi ha detto, ognuno a modo suo."
+    - tutor: "Ognuno a modo suo, definizione perfetta! Ci racconta un episodio del libro?"
+      goals: [stereotype]
+    - learner: "Avendo arrivato a Bari alle tre di notte, ho chiesto indicazioni a un vigile, che invece di rispondermi mi ha accompagnato a piedi fino all'albergo."
+      errors: [auxiliary-choice]
+      gold: {text: "Avendo arrivato", fix: "Essendo arrivato"}
+    - tutor: "Un vigile alle tre di notte, che lusso! Però «avendo arrivato a Bari»: con arrivare, quale ausiliare usiamo, anche al gerundio?"
+      prompt: {text: "Avendo arrivato", tags: [auxiliary-choice]}
+    - learner: "Essendo arrivato, ovvio. Scusate, è la diretta che mi mette ansia."
+    - tutor: "Ci mancherebbe, fa quest'effetto a tutti. E il libro dove l'ha scritto, con tutti questi viaggi?"
+      goals: [anecdote]
+    - learner: "Quasi tutto nella libreria comunale di Bologna, perché a casa avevo troppe distrazioni."
+      errors: [false-friend]
+    - tutor: "Nella biblioteca comunale, tra gli studenti in silenzio: il posto ideale. E l'italiano, alla fine, che cosa le ha insegnato?"
+      recast: {text: "libreria comunale", fix: "biblioteca comunale", tags: [false-friend]}
+    - learner: "Che si può dire tutto, anche le cose più dure, se si trova il tono giusto. È una lingua che premia la diplomazia."
+    - tutor: "Che bella chiusura, me la segno. Grazie di essere passato da noi, e in bocca al lupo per il libro!"
+      goals: [language, farewell]
+
+- scenario: mediazione-colleghi
+  level: C2
+  persona: en-f-professional
+  history: [conditional-form]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Nessun disturbo, si sieda pure. Mi racconti con calma: ti ascolto."
+      errors: [register]
+      gold: {text: "ti ascolto", fix: "la ascolto"}
+    - tutor: "Grazie. Però, mi scusi, mi ha confusa: prima «si sieda» e poi «ti ascolto». Mi dà del Lei o del tu?"
+      prompt: {text: "ti ascolto", tags: [register]}
+    - learner: "Ha ragione, mi scusi: la ascolto. Che cosa è successo, esattamente?"
+    - tutor: "Il report sulle vendite l'abbiamo preparato in due, io e Davide. Ma ieri, davanti al direttore, l'ha presentato come se fosse tutto merito suo."
+    - learner: "Capisco, è una cosa che brucia. Mi dispiace che si è sentita messa da parte, davvero."
+      errors: [subjunctive-use]
+      gold: {text: "che si è sentita", fix: "che si sia sentita"}
+    - tutor: "Messa da parte è dire poco. Però «mi dispiace che si è sentita»: dopo un verbo di sentimento, che modo ci vuole?"
+      prompt: {text: "che si è sentita", tags: [subjunctive-use]}
+      goals: [listen]
+    - learner: "Il congiuntivo: mi dispiace che si sia sentita messa da parte. Lei ha già parlato con Davide?"
+    - tutor: "Sì, stamattina. Mi ha detto, testuale: «Non ho mai detto di averlo fatto da solo». Come se fosse colpa mia."
+    - learner: "Quindi lui nega di essersi preso il merito. Ma la settimana scorsa, al direttore, aveva detto che il report lo finirà lui?"
+      errors: [conditional-form]
+      gold: {text: "lo finirà lui", fix: "lo avrebbe finito lui"}
+    - tutor: "La sua domanda centra il punto. Ma «aveva detto che lo finirà»: un futuro visto dal passato, nel discorso indiretto, come si rende?"
+      prompt: {text: "lo finirà lui", tags: [conditional-form]}
+    - learner: "Che lo finirebbe lui?"
+      errors: [conditional-form]
+    - tutor: "Sì, aveva detto che lo avrebbe finito lui, e invece ho lavorato io fino a mezzanotte. Lei come la vede?"
+      recast: {text: "lo finirebbe lui", fix: "lo avrebbe finito lui", tags: [conditional-form]}
+      goals: [clarify]
+    - learner: "Credo che Davide non si renda conto di quanto lavoro ci sia dietro, ma questo non lo giustifica. Propongo una riunione a tre, e d'ora in poi nei report scriviamo i nomi di chi ha contribuito."
+    - tutor: "Una riunione a tre mi sta bene, e i nomi nei report sono una garanzia per tutti. Grazie, sono già più tranquilla."
+      goals: [perspective, solution]
+
+- scenario: mediazione-colleghi
+  level: C2
+  persona: es-m-worker
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Si accomodi. Ho già saputo qualcosa, e capisco che lei sia molto molesta."
+      errors: [false-friend]
+    - tutor: "Molto infastidita, sì, e la parola è gentile. Ma che cosa le hanno raccontato, esattamente?"
+      recast: {text: "molto molesta", fix: "molto infastidita", tags: [false-friend]}
+    - learner: "Che Marco ha presentato al cliente il progetto che avete fatto insieme, senza nominarla. L'ho chiamato ieri sera e le ho parlato a lungo, ma lui minimizza."
+      errors: [object-pronoun]
+      gold: {text: "le ho parlato", fix: "gli ho parlato"}
+    - tutor: "Minimizza, certo, è il suo sport. Però attenzione: Marco l'ha chiamato e «le ho parlato». Parlando di un uomo, quel pronome va bene?"
+      prompt: {text: "le ho parlato", tags: [object-pronoun]}
+      goals: [listen]
+    - learner: "No, è vero, in spagnolo diciamo «le» per tutti: gli ho parlato a lungo. Secondo lui era solo un incontro informale e non c'era tempo di nominare tutti."
+    - tutor: "Per lui non c'è mai tempo. Lo sa che adesso il cliente scrive solo a lui, come se il progetto fosse suo?"
+      goals: [clarify]
+    - learner: "Non lo sapevo, e questo cambia le cose. Allora domani se lo dico chiaramente: nelle mail al cliente va messa in copia anche lei."
+      errors: [combined-pronouns]
+      gold: {text: "se lo dico", fix: "glielo dico"}
+    - tutor: "Mi farebbe piacere. Ma «domani se lo dico»: a Marco, cioè a lui... come si combina quel pronome con lo?"
+      prompt: {text: "se lo dico", tags: [combined-pronouns]}
+    - learner: "Ah, «se lo dico» è spagnolo puro. Domani gli lo dico chiaramente."
+      errors: [combined-pronouns]
+    - tutor: "Che domani glielo dica chiaramente è proprio quello che le chiedo. E per la presentazione che ormai è stata fatta?"
+      recast: {text: "gli lo", fix: "glielo", tags: [combined-pronouns]}
+      goals: [perspective]
+    - learner: "Proporrei di mandare al cliente una mail firmata da tutti e due, ringraziando per la fiducia e presentandovi come squadra."
+    - tutor: "Ecco, questa mi sembra una soluzione giusta, e anche elegante. Grazie per avermi ascoltata."
+      goals: [solution]
+
+- scenario: medico-specialista
+  level: C2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Non male, ma salendo le scale mi manca il fiato più di prima, e ogni tanto, la notte, sento un formicolio nei bracci."
+      errors: [noun-number]
+      gold: {text: "nei bracci", fix: "nelle braccia"}
+    - tutor: "Il formicolio è un dettaglio importante, ha fatto bene a dirmelo. Solo una cosa: «nei bracci»? Il plurale di braccio, parlando del corpo, è irregolare."
+      prompt: {text: "nei bracci", tags: [noun-number]}
+    - learner: "Nelle braccia, come le dita e le ginocchia. Soprattutto il sinistro, comunque. E ho preso tre chili da Natale."
+    - tutor: "Tre chili si recuperano, il braccio sinistro invece mi interessa di più. Lei ha fumato, in passato?"
+      goals: [symptoms]
+    - learner: "Sì, purtroppo. Quando ero giovane ho fumato un pacchetto al giorno, poi ho smesso a quarant'anni. E mio padre è morto d'infarto."
+      errors: [tense-aspect]
+      gold: {text: "ho fumato un pacchetto al giorno", fix: "fumavo un pacchetto al giorno"}
+    - tutor: "Ha fatto benissimo a smettere. Ma «quando ero giovane ho fumato un pacchetto al giorno»: per un'abitudine di quegli anni, che tempo usiamo?"
+      prompt: {text: "ho fumato un pacchetto al giorno", tags: [tense-aspect]}
+    - learner: "L'imperfetto: fumavo un pacchetto al giorno. Per questo sono un po' preoccupato."
+    - tutor: "È comprensibile, con quella storia familiare. Gli esami mostrano che le coronarie sono un po' ristrette: niente di drammatico, ma va tenuto sotto controllo."
+      goals: [history]
+    - learner: "Quindi rischio un infarto? Preferirei che la situazione è chiara fin da subito, senza giri di parole."
+      errors: [subjunctive-use]
+      gold: {text: "che la situazione è chiara", fix: "che la situazione fosse chiara"}
+    - tutor: "È giusto volerlo sapere. Però riascolti: «preferirei che la situazione è chiara». Dopo un condizionale come preferirei, che cosa ci vuole?"
+      prompt: {text: "che la situazione è chiara", tags: [subjunctive-use]}
+    - learner: "Preferirei che la situazione sia chiara?"
+      errors: [subjunctive-use]
+    - tutor: "Preferirebbe che la situazione fosse chiara, giustamente, e gliela spiego subito: il rischio è moderato, non immediato. Con un farmaco per la pressione e mezz'ora di cammino al giorno lo riduciamo molto. Se la sente?"
+      recast: {text: "che la situazione sia chiara", fix: "che la situazione fosse chiara", tags: [subjunctive-use]}
+      goals: [understand]
+    - learner: "Me la sento, sì. Il cammino non mi spaventa: con un cane come il mio, esco tre volte al giorno comunque."
+    - tutor: "Allora il cane sarà il suo miglior fisioterapista. Le scrivo la ricetta e ci rivediamo tra tre mesi con un nuovo elettrocardiogramma."
+      goals: [treatment]
+
+- scenario: medico-specialista
+  level: C2
+  persona: es-f-erasmus
+  history: [question-form]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Abbastanza bene, ma il mese scorso ero molto constipata e da allora ho delle palpitazioni, soprattutto la sera."
+      errors: [false-friend]
+    - tutor: "Era molto raffreddata, quindi, con l'influenza di stagione? E le palpitazioni sono cominciate subito dopo?"
+      recast: {text: "molto constipata", fix: "molto raffreddata", tags: [false-friend]}
+    - learner: "Sì, più o meno una settimana dopo. Due volte ho svegliato di notte con il cuore che batteva fortissimo."
+      errors: [reflexive]
+      gold: {text: "ho svegliato", fix: "mi sono svegliata"}
+    - tutor: "Dev'essere stato spaventoso. Ma «ho svegliato di notte»: così sembra che abbia svegliato qualcun altro. Svegliarsi, qui, come si costruisce?"
+      prompt: {text: "ho svegliato", tags: [reflexive]}
+      goals: [symptoms]
+    - learner: "Mi sono svegliata, scusi. E in quei giorni prendevo ancora uno sciroppo per la tosse molto forte."
+    - tutor: "Ecco un indizio interessante: certi sciroppi accelerano il cuore. In famiglia qualcuno ha problemi cardiaci?"
+    - learner: "Mia nonna aveva un'aritmia, ma è morta molto anziana. Io, poi, bevo quattro caffè al giorno per studiare."
+    - tutor: "Quattro caffè e uno sciroppo stimolante: il cuore ha protestato, comprensibilmente. Gli esami, comunque, sono buoni."
+      goals: [history]
+    - learner: "Che sollievo. Ma che tanto grave è, questa aritmia? Devo preoccuparmi?"
+      errors: [question-form]
+      gold: {text: "che tanto grave è", fix: "quanto è grave"}
+    - tutor: "Domanda giusta, ma riformuliamola: «che tanto grave è» viene dallo spagnolo. In italiano, per chiedere la misura di qualcosa, che parola interrogativa usiamo?"
+      prompt: {text: "che tanto grave è", tags: [question-form]}
+    - learner: "Ah, sì: quanto è grave?"
+    - tutor: "Per niente grave: sono extrasistoli benigne, molto comuni alla sua età. Basta sospendere lo sciroppo e scendere a due caffè al giorno."
+      goals: [understand]
+    - learner: "Due caffè in piena sessione d'esami? È una cura crudele! Scherzi a parte, devo fare altri controlli?"
+    - tutor: "Un controllo tra un mese, per sicurezza, e poi ci rivediamo. E la sera, al posto del terzo caffè, una bella passeggiata."
+      goals: [treatment]
+
+- scenario: modi-di-dire
+  level: C2
+  persona: en-f-student
+  history: [possessive]
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Una giornata da dimenticare. Stamattina pioveva gatti e cani, e io ovviamente non avevo l'ombrello."
+      errors: [word-choice]
+    - tutor: "Pioveva a catinelle e tu senza ombrello: cominciamo bene! E poi?"
+      recast: {text: "pioveva gatti e cani", fix: "pioveva a catinelle", tags: [word-choice]}
+    - learner: "Poi sono arrivata alla stazione di corsa, ma il treno è già partito da due minuti."
+      errors: [tense-aspect]
+      gold: {text: "il treno è già partito", fix: "il treno era già partito"}
+    - tutor: "Classico. Però attenta: «sono arrivata e il treno è già partito». Quale delle due azioni viene prima, e come lo segnali con il verbo?"
+      prompt: {text: "il treno è già partito", tags: [tense-aspect]}
+    - learner: "Il treno è partito prima, quindi il treno era già partito. E correndo sulle scale bagnate, ho caduto davanti a tutti."
+      errors: [auxiliary-choice]
+      gold: {text: "ho caduto", fix: "sono caduta"}
+    - tutor: "Oddio, davanti a tutti! Però «ho caduto»: cadere con che ausiliare va?"
+      prompt: {text: "ho caduto", tags: [auxiliary-choice]}
+      goals: [tell]
+    - learner: "Sono caduta, sì, e mi sono anche strappata i collant. Insomma, piove sul bagnato."
+    - tutor: "Proprio così, piove sul bagnato: ti è andata storta dal primo minuto. E di chi è la colpa, secondo te?"
+      goals: [react]
+    - learner: "È colpa di mia coinquilina, che ieri sera ha preso in prestito il mio ombrello senza dirmelo."
+      errors: [possessive]
+      gold: {text: "di mia coinquilina", fix: "della mia coinquilina"}
+    - tutor: "Ah, ecco il capro espiatorio! Ma «di mia coinquilina»: coinquilina non è un nome di parentela. Che cosa ci vuole davanti al possessivo?"
+      prompt: {text: "di mia coinquilina", tags: [possessive]}
+    - learner: "L'articolo: della mia coinquilina. Ma forse è anche colpa mia, che non controllo mai le previsioni."
+    - tutor: "Ecco, fai mea culpa. E la morale della giornata qual è?"
+      goals: [blame]
+    - learner: "Che chi dorme non piglia pesci: se mi fossi alzata dieci minuti prima, avrei preso il treno e non sarei caduta."
+    - tutor: "Esatto, e domani sveglia anticipata e ombrello in borsa. Intanto questo spritz te lo offro io: te lo sei guadagnato."
+      goals: [moral]
+
+- scenario: modi-di-dire
+  level: C2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Lascia stare, ne ho fino al naso. Il sabato sera più disastroso della mia vita."
+      errors: [word-choice]
+    - tutor: "Fin sopra i capelli, eh? Si vede, hai la faccia di chi torna dalla guerra. Racconta, che è successo in cucina?"
+      recast: {text: "fino al naso", fix: "fin sopra i capelli", tags: [word-choice]}
+    - learner: "Il fornitore non aveva portato il pesce, e il proprietario mi l'ha detto solo alle sette, mezz'ora prima di aprire."
+      errors: [combined-pronouns]
+      gold: {text: "mi l'ha detto", fix: "me l'ha detto"}
+    - tutor: "Mezz'ora prima? Roba da matti. Però «mi l'ha detto»: davanti a lo, quel mi resta così?"
+      prompt: {text: "mi l'ha detto", tags: [combined-pronouns]}
+      goals: [tell]
+    - learner: "No: me l'ha detto alle sette. E di coperti, quella sera, avevamo novanta, tutti prenotati per il menù di pesce."
+      errors: [ci-ne]
+      gold: {text: "avevamo novanta", fix: "ne avevamo novanta"}
+    - tutor: "Novanta coperti senza pesce, un incubo! Ma «di coperti avevamo novanta»: quando riprendi una quantità, quale pronome ti serve davanti al verbo?"
+      prompt: {text: "avevamo novanta", tags: [ci-ne]}
+      goals: [react]
+    - learner: "Ne avevamo novanta, giusto. Allora ho dovuto inventare un menù di terra in venti minuti, correndo come un pazzo."
+    - tutor: "Hai fatto di necessità virtù, insomma. E com'è finita?"
+    - learner: "Bene, alla fine! I clienti hanno mangiato tutto, e uno mi ha anche fatto i complimenti. Ma il fornitore, domani, mi sente."
+    - tutor: "Ti sente eccome. Ma la colpa è sua o del proprietario, che te l'ha detto tardi?"
+    - learner: "Di tutti e due, ma soprattutto del fornitore: è la terza volta che succede e ogni volta giura che non sarà più successo."
+      errors: [future-form]
+      gold: {text: "non sarà più successo", fix: "non succederà più"}
+    - tutor: "La terza volta! Ma «giura che non sarà più successo»: chi giura promette qualcosa per il futuro, non per il passato. Che tempo usa?"
+      prompt: {text: "non sarà più successo", tags: [future-form]}
+      goals: [blame]
+    - learner: "Il futuro semplice: giura che non succederà più. E la morale è che chi fa da sé fa per tre: da lunedì il pesce vado a prenderlo io al mercato."
+    - tutor: "Bravo, chi fa da sé fa per tre! E con un menù inventato in venti minuti, direi che sei un cuoco con i fiocchi."
+      goals: [moral]
+
+- scenario: notizie-attualita
+  level: C2
+  persona: en-m-heritage
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatto?"
+    - learner: "Sì, l'ho letta su il Corriere stamattina in metro. In sostanza, i comuni potranno limitare gli affitti brevi nei centri storici."
+      errors: [articulated-preposition]
+      gold: {text: "su il Corriere", fix: "sul Corriere"}
+    - tutor: "Esatto, il succo è quello. Però «l'ho letta su il Corriere»: quelle due paroline, in italiano, non si fondono?"
+      prompt: {text: "su il Corriere", tags: [articulated-preposition]}
+      goals: [summarise]
+    - learner: "Sì, sul Corriere. Mi sembra una misura giusta, anche se arriva tardi: nel mio quartiere metà dei palazzi sono già pieni di case vacanze."
+    - tutor: "Giusta? Io ho letto che i proprietari faranno ricorso in massa, e secondo me hanno ragione. Ma a parte il Corriere, che cosa hai letto?"
+      goals: [opinion]
+    - learner: "Ho visto che tutti i giornali hanno coperto la storia, ma ognuno a modo suo: per alcuni è un esproprio, per altri una liberazione."
+      errors: [word-choice]
+    - tutor: "Sì, tutti i giornali hanno seguito la storia, e infatti c'è una confusione incredibile. Di chi ti fidi di più?"
+      recast: {text: "coperto", fix: "seguito", tags: [word-choice]}
+    - learner: "Di nessuno in particolare. Ci sono due versioni opposte e bisogna le confrontare, guardando anche chi possiede quel giornale."
+      errors: [pronoun-position]
+      gold: {text: "bisogna le confrontare", fix: "bisogna confrontarle"}
+    - tutor: "Metodo da giornalista serio. Ma «bisogna le confrontare»: con l'infinito, dove va a finire il pronome?"
+      prompt: {text: "bisogna le confrontare", tags: [pronoun-position]}
+      goals: [sources]
+    - learner: "Si attacca alla fine: bisogna confrontarle. Comunque, secondo me, se la legge funzionasse, gli affitti per i residenti calerebbero almeno un po'."
+    - tutor: "Se funzionasse, appunto. Io temo invece che i proprietari lascino le case vuote, piuttosto che affittarle a lungo."
+    - learner: "È un rischio reale. Però il sindaco ha annunciato una tassa sulle case sfitte, proprio per evitarlo."
+    - tutor: "Se la mettono davvero, cambia tutto. Vedremo tra un anno chi aveva ragione: scommettiamo un caffè?"
+      goals: [consequences]
+    - learner: "Scommessa accettata. E se vinco io, il caffè lo voglio al bar sotto casa mia, che per fortuna non è ancora diventato un affittacamere."
+    - tutor: "Affare fatto, a patto che il bar resista. Dai, torniamo alle scrivanie prima che il capo ci veda."

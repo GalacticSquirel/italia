@@ -1,0 +1,224 @@
+# Set w-a1, file 2: A1 at the market and the supermarket.
+- scenario: mercato-frutta
+  level: A1
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+  - tutor: "Ciao! Cosa ti do oggi?"
+  - learner: "Ciao! Quanto costa le pesche?"
+    errors: [subject-verb-agreement]
+  - tutor: "Quanto costa? Attenzione: «le pesche» è plurale."
+    prompt: {text: "costa le pesche", tags: [subject-verb-agreement]}
+  - learner: "Quanto costano le pesche?"
+  - tutor: "Esatto! Tre euro al chilo. Quante ne vuoi?"
+    goals: [ask-price]
+  - learner: "Voglio sei."
+    errors: [ci-ne]
+  - tutor: "Sei, va bene. Ma «voglio sei»... manca qualcosa davanti?"
+    prompt: {text: "Voglio sei", tags: [ci-ne]}
+  - learner: "Ne voglio sei!"
+  - tutor: "Perfetto! Ecco qua."
+    goals: [buy-quantity]
+  - learner: "Hai anche le fragoli?"
+    errors: [noun-number]
+  - tutor: "Le fragoli? Una fragola, due...?"
+    prompt: {text: "le fragoli", tags: [noun-number]}
+    new: [{lemma: fragola, gloss: strawberry}]
+  - learner: "Due fragole! Sì, le fragole."
+  - tutor: "Brava! Sì, una vaschetta costa due euro."
+    goals: [ask-other]
+    new: [{lemma: vaschetta, gloss: punnet}]
+  - learner: "Ne prendo una. Ecco dieci euro."
+  - tutor: "Sono cinque euro in tutto. Ecco il resto, ciao!"
+    goals: [pay]
+
+- scenario: mercato-frutta
+  level: A1
+  persona: en-m-retired
+  history: [noun-gender]
+  turns:
+  - tutor: "Ciao! Cosa ti do oggi?"
+  - learner: "Buongiorno. Un chilo di mele, per favore. Quanto costa?"
+  - tutor: "Due euro e venti al chilo. Rosse o verdi?"
+    goals: [ask-price]
+  - learner: "Le rosse. E il melone è buono oggi?"
+  - tutor: "Ecco le mele rosse. Il melone è perfetto, lo vuoi?"
+    goals: [buy-quantity]
+  - learner: "Sì, prendo la melone piccolo."
+    errors: [noun-gender]
+  - tutor: "La melone? Guarda «piccolo»: cosa ti dice?"
+    prompt: {text: "la melone", tags: [noun-gender]}
+  - learner: "Sì, la melone piccolo, per favore."
+    errors: [noun-gender]
+  - tutor: "Ecco il melone piccolo, è molto buono. Altro?"
+    goals: [ask-other]
+    recast: {text: "la melone", fix: "il melone", tags: [noun-gender]}
+  - learner: "No, grazie. Ecco cinque euro, basta?"
+  - tutor: "Sì, sono quattro euro e venti. Ecco il resto, buona giornata!"
+    goals: [pay]
+
+- scenario: mercato-frutta
+  level: A1
+  persona: en-f-student
+  history: [question-form]
+  turns:
+  - tutor: "Ciao! Cosa ti do oggi?"
+  - learner: "Ciao! Cosa è il prezzo delle arance?"
+    errors: [question-form]
+  - tutor: "Cosa è il prezzo? In italiano chiediamo in un altro modo."
+    prompt: {text: "Cosa è il prezzo", tags: [question-form]}
+  - learner: "Quanto costano le arance?"
+  - tutor: "Brava! Un euro e ottanta al chilo."
+    goals: [ask-price]
+  - learner: "Allora mezzo chilo. No, un chilo!"
+  - tutor: "Un chilo, ecco qui. Altro?"
+    goals: [buy-quantity]
+  - learner: "Hai le banane mature? Per un dolce."
+  - tutor: "Sì, queste sono perfette. Quante ne vuoi?"
+    goals: [ask-other]
+  - learner: "Tre, grazie. Sono buoni per il dolce?"
+    errors: [adjective-agreement]
+  - tutor: "Buoni? Ma «banane» è femminile..."
+    prompt: {text: "buoni", tags: [adjective-agreement]}
+  - learner: "Sì, sono buoni per il dolce? Ecco cinque euro."
+    errors: [adjective-agreement]
+  - tutor: "Sì, sono buone per il dolce! Quattro euro, ecco il resto. Ciao!"
+    goals: [pay]
+    recast: {text: "sono buoni", fix: "sono buone", tags: [adjective-agreement]}
+  - learner: "Grazie, ciao!"
+  - tutor: "Ciao, a sabato prossimo!"
+
+- scenario: mercato-frutta
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Ciao! Cosa ti do oggi?"
+  - learner: "Ciao. Le zucchine, cuanto costano?"
+    errors: [spelling]
+  - tutor: "Cuanto? Guarda bene come scrivi questa parola."
+    prompt: {text: "cuanto", tags: [spelling]}
+  - learner: "Quanto! Con la q."
+  - tutor: "Esatto! Due euro al chilo. Sono fresche!"
+    goals: [ask-price]
+  - learner: "Allora un chilo e medio."
+    errors: [word-choice]
+  - tutor: "Un chilo e mezzo, ecco qua!"
+    goals: [buy-quantity]
+    recast: {text: "un chilo e medio", fix: "Un chilo e mezzo", tags: [word-choice]}
+  - learner: "Grazie. E i pomodori? Sono buoni per la salsa?"
+  - tutor: "Sì, perfetti per la salsa. Quanti ne vuoi?"
+    goals: [ask-other]
+  - learner: "Un chilo, grazie. Ecco venti euro, scusa."
+  - tutor: "Nessun problema. Sono cinque euro: ecco quindici euro di resto."
+    goals: [pay]
+
+- scenario: supermercato
+  level: A1
+  persona: en-m-heritage
+  history: [ce-ci-sono]
+  turns:
+  - tutor: "Buongiorno, cerca qualcosa?"
+  - learner: "Sì, scusi. Dove è il milk?"
+    errors: [word-choice]
+  - tutor: "Il latte? È in fondo, a destra."
+    recast: {text: "il milk", fix: "Il latte", tags: [word-choice]}
+    goals: [ask-product]
+  - learner: "Grazie. E sono uova fresche qui?"
+    errors: [ce-ci-sono]
+  - tutor: "Sono uova fresche? Manca una piccola parola prima di «sono»."
+    prompt: {text: "sono uova fresche", tags: [ce-ci-sono]}
+  - learner: "Ci sono uova fresche qui?"
+  - tutor: "Esatto! Sì, ci sono, vicino al latte."
+    goals: [ask-other]
+  - learner: "Perfetto. E il pane è nel scaffale?"
+    errors: [articulated-preposition]
+  - tutor: "Nel scaffale? Attenzione: «scaffale» comincia con s più un'altra consonante."
+    prompt: {text: "nel scaffale", tags: [articulated-preposition]}
+    new: [{lemma: consonante, gloss: consonant}]
+  - learner: "Nello scaffale vicino alla cassa?"
+  - tutor: "Bravissimo! No, il pane è all'entrata."
+  - learner: "Va bene. Grazie mille per l'aiuto!"
+  - tutor: "Di niente! Buona giornata."
+    goals: [thank]
+
+- scenario: supermercato
+  level: A1
+  persona: es-f-teacher
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno, cerca qualcosa?"
+  - learner: "Buongiorno. Dov'è il reparto di la frutta?"
+    errors: [articulated-preposition]
+  - tutor: "Di la frutta? Attenzione: qui le due parole diventano una."
+    prompt: {text: "di la frutta", tags: [articulated-preposition]}
+  - learner: "Il reparto de la frutta?"
+    errors: [articulated-preposition]
+  - tutor: "Il reparto della frutta è qui, a sinistra."
+    goals: [ask-product]
+    recast: {text: "de la frutta", fix: "della frutta", tags: [articulated-preposition]}
+  - learner: "Grazie. E c'è anche il pane senza glutine?"
+  - tutor: "Sì, c'è. È sullo scaffale in fondo."
+    goals: [ask-other]
+  - learner: "Scusi, non ho capito. Può parlare più piano?"
+  - tutor: "Certo. Il pane è in fondo, sullo scaffale alto."
+  - learner: "Ah, ho capito. Lei è molto gentile, grazie."
+  - tutor: "Prego, buona giornata!"
+    goals: [thank]
+
+- scenario: supermercato
+  level: A1
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno, cerca qualcosa?"
+  - learner: "Ciao, scusa! Dove trovo la pasta senza glutine?"
+    errors: [register]
+  - tutor: "Scusa? Siamo in un negozio e non ci conosciamo..."
+    prompt: {text: "scusa", tags: [register]}
+  - learner: "Ah, mi scusi! Dove trovo la pasta senza glutine?"
+  - tutor: "Nessun problema! È nel reparto in fondo, a destra."
+    goals: [ask-product]
+  - learner: "Grazie. E dove sono le uove?"
+    errors: [noun-number]
+  - tutor: "Le uove? Attenzione: è un plurale strano!"
+    prompt: {text: "le uove", tags: [noun-number]}
+  - learner: "Sì, le uove?"
+    errors: [noun-number]
+  - tutor: "Le uova sono vicino al latte, qui a destra."
+    recast: {text: "le uove", fix: "Le uova", tags: [noun-number]}
+    goals: [ask-other]
+  - learner: "Perfetto. Molto grazie!"
+    errors: [word-order]
+  - tutor: "Molto grazie? Prova a cambiare l'ordine."
+    prompt: {text: "Molto grazie", tags: [word-order]}
+  - learner: "Grazie molte!"
+  - tutor: "Prego! Buona giornata."
+    goals: [thank]
+
+- scenario: supermercato
+  level: A1
+  persona: en-m-traveller
+  history: [ce-ci-sono]
+  turns:
+  - tutor: "Buongiorno, cerca qualcosa?"
+  - learner: "Buongiorno! Scusi, è latte senza lattosio qui?"
+    errors: [ce-ci-sono]
+  - tutor: "È latte qui? Provi a cominciare con un'altra parola."
+    prompt: {text: "è latte senza lattosio qui", tags: [ce-ci-sono]}
+  - learner: "C'è latte senza lattosio?"
+  - tutor: "Bravo, così! Sì, c'è. È in fondo, a sinistra."
+    goals: [ask-product]
+  - learner: "Grazie! E dove sono le cookies?"
+    errors: [word-choice]
+  - tutor: "I biscotti? Sono nel reparto della colazione."
+    goals: [ask-other]
+    recast: {text: "le cookies", fix: "I biscotti", tags: [word-choice]}
+    new: [{lemma: biscotto, gloss: biscuit}]
+  - learner: "Ok. Il reparto colazione è vicino alla cassa?"
+  - tutor: "Sì, proprio vicino alla cassa."
+  - learner: "Perfetto. Grazie mille, sei gentile!"
+    errors: [register]
+  - tutor: "Sei gentile? Ricordi: qui non ci diamo del tu."
+    prompt: {text: "sei gentile", tags: [register]}
+  - learner: "Lei è gentile, grazie!"
+  - tutor: "Grazie a Lei! Buona giornata."
+    goals: [thank]

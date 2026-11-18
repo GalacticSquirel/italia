@@ -1,0 +1,195 @@
+# Set w-a1, file 1: A1 at the café and the bakery.
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-heritage
+  history: [article-form]
+  turns:
+  - tutor: "Buongiorno! Cosa prende?"
+  - learner: "Buongiorno! Vorrei uno succo d'arancia, per favore."
+    errors: [article-form]
+  - tutor: "Buongiorno! Uno succo? Attenzione: «succo» non è come «studente»."
+    goals: [greet]
+    prompt: {text: "uno succo", tags: [article-form]}
+  - learner: "Ah, un succo d'arancia."
+  - tutor: "Esatto! Arriva subito. Altro?"
+    goals: [order-drink]
+  - learner: "Sì. Avete qualcosa per mangiare? Non dolce."
+    errors: [preposition]
+  - tutor: "Qualcosa... mangiare? Qui non va «per»."
+    prompt: {text: "qualcosa per mangiare", tags: [preposition]}
+  - learner: "Qualcosa da mangiare, non dolce."
+  - tutor: "Bravo! C'è il panino con il formaggio. Va bene?"
+    new: [{lemma: panino, gloss: sandwich}]
+  - learner: "Perfetto, un panino, grazie."
+  - tutor: "Ecco a Lei. Lo mangia qui al bancone?"
+    goals: [order-food]
+  - learner: "Sì, qui. Ecco cinque euro."
+  - tutor: "Grazie. Ecco il resto. Buona giornata!"
+    goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: es-f-erasmus
+  history: [modal-infinitive]
+  turns:
+  - tutor: "Buongiorno! Cosa prende?"
+  - learner: "Buongiorno. Un caffè macchiato caldo, per favore."
+  - tutor: "Buongiorno! Un macchiato caldo, arriva subito."
+    goals: [greet, order-drink]
+  - learner: "Grazie. E una brioche alla mermelada."
+    errors: [word-choice]
+  - tutor: "Alla marmellata? Mi dispiace, sono finite!"
+    recast: {text: "alla mermelada", fix: "Alla marmellata", tags: [word-choice]}
+    new: [{lemma: marmellata, gloss: jam}]
+  - learner: "Allora una brioche semplice. Devo di pagare adesso?"
+    errors: [modal-infinitive]
+  - tutor: "Ecco a Lei. Devo di pagare? Guardi bene la parola dopo «devo»."
+    goals: [order-food]
+    prompt: {text: "Devo di pagare", tags: [modal-infinitive]}
+  - learner: "Devo pagare adesso?"
+  - tutor: "Perfetto! Può pagare anche adesso: tre euro e venti."
+  - learner: "Ecco. Grazie mille!"
+  - tutor: "Grazie a Lei! Arrivederci."
+    goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: en-f-professional
+  turns:
+  - tutor: "Buongiorno! Cosa prende?"
+  - learner: "Buongiorno! Un latte grande, per favore."
+    errors: [false-friend]
+  - tutor: "Ah, un caffellatte grande! Lo faccio subito."
+    goals: [greet, order-drink]
+    recast: {text: "Un latte", fix: "un caffellatte", tags: [false-friend]}
+    new: [{lemma: caffellatte, gloss: milky coffee}]
+  - learner: "Grazie. Avete cornetti senza zucchero?"
+  - tutor: "Sì, quelli con la frutta. Ne vuole uno?"
+  - learner: "Sì, uno, grazie. Quanto è tutto?"
+  - tutor: "Ecco il cornetto. Sono tre euro e cinquanta."
+    goals: [order-food]
+  - learner: "Posso pago con il telefono?"
+    errors: [modal-infinitive]
+  - tutor: "Posso pago? Attenzione al verbo dopo «posso»."
+    prompt: {text: "Posso pago", tags: [modal-infinitive]}
+  - learner: "Posso pagare con il telefono?"
+  - tutor: "Certo, nessun problema. Grazie e buona giornata!"
+    goals: [pay]
+
+- scenario: bar-colazione
+  level: A1
+  persona: en-m-traveller
+  history: [article-use]
+  turns:
+  - tutor: "Buongiorno! Cosa prende?"
+  - learner: "Ciao! Vorrei cornetto, per favore."
+    errors: [article-use]
+  - tutor: "Ciao! Vorrei cornetto? Prima di «cornetto» manca qualcosa."
+    goals: [greet]
+    prompt: {text: "Vorrei cornetto", tags: [article-use]}
+  - learner: "Ah sì... cornetto, per favore."
+    errors: [article-use]
+  - tutor: "Certo, un cornetto! Con la crema o senza?"
+    goals: [order-food]
+    recast: {text: "cornetto", fix: "un cornetto", tags: [article-use]}
+    new: [{lemma: crema, gloss: custard cream}]
+  - learner: "Con la crema. E uno cappuccino caldo."
+    errors: [article-form]
+  - tutor: "Uno cappuccino? Ascolti bene come comincia «cappuccino»."
+    prompt: {text: "uno cappuccino", tags: [article-form]}
+  - learner: "Sì, uno cappuccino."
+    errors: [article-form]
+  - tutor: "Ecco, un cappuccino caldo! Sono due euro e ottanta."
+    goals: [order-drink]
+    recast: {text: "uno cappuccino", fix: "un cappuccino", tags: [article-form]}
+  - learner: "Ecco tre euro. Tenga il resto!"
+  - tutor: "Grazie mille, è molto gentile! Buona giornata."
+    goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: es-m-worker
+  history: [noun-number]
+  turns:
+  - tutor: "Buongiorno! Mi dica."
+  - learner: "Buongiorno. Mezzo chilo di pane, per favore."
+  - tutor: "Ecco qui, è appena fatto."
+    goals: [greet, order-bread]
+  - learner: "Grazie. E sei grissino, per favore."
+    errors: [noun-number]
+  - tutor: "Sei grissino? Attenzione: sono più di uno."
+    prompt: {text: "sei grissino", tags: [noun-number]}
+  - learner: "Sei grissini."
+  - tutor: "Bravo! Ecco i sei grissini. Tre euro e quaranta in tutto."
+    goals: [order-extra]
+  - learner: "Ecco cinco euro."
+    errors: [word-choice]
+  - tutor: "Cinque euro, grazie! Ecco il resto."
+    recast: {text: "cinco euro", fix: "Cinque euro", tags: [word-choice]}
+  - learner: "Grazie. Buona giornata!"
+  - tutor: "Grazie a Lei, arrivederci!"
+    goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: en-f-student
+  history: [article-form]
+  turns:
+  - tutor: "Buongiorno! Mi dica."
+  - learner: "Buongiorno! Vorrei uno sfilatino, per favore."
+  - tutor: "Ecco lo sfilatino. Altro?"
+    goals: [greet, order-bread]
+  - learner: "Sì, anche un'etto di pizza bianca."
+    errors: [article-form]
+  - tutor: "Un'etto? Guardi bene: «etto» è maschile."
+    prompt: {text: "un'etto", tags: [article-form]}
+  - learner: "Un etto, giusto?"
+  - tutor: "Giusto! Ecco un etto di pizza bianca. Sono due euro e novanta."
+    goals: [order-extra]
+  - learner: "Ecco tre euro. Arrivederci!"
+  - tutor: "Grazie, ecco il resto. Arrivederci!"
+    goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: en-m-retired
+  history: [noun-gender]
+  turns:
+  - tutor: "Buongiorno! Mi dica."
+  - learner: "Buongiorno. Un chilo di pane, per favore. Quello grande."
+  - tutor: "Questo qui? Sì, è un chilo giusto."
+    goals: [greet, order-bread]
+  - learner: "Perfetto. Ha anche un focaccia con le olive?"
+    errors: [noun-gender]
+  - tutor: "Un focaccia? Attenzione: «focaccia» è maschile o femminile?"
+    prompt: {text: "un focaccia", tags: [noun-gender]}
+  - learner: "Sì, un focaccia con le olive."
+    errors: [noun-gender]
+  - tutor: "Sì, una focaccia con le olive c'è! Ne vuole un pezzo grande?"
+    recast: {text: "un focaccia", fix: "una focaccia", tags: [noun-gender]}
+  - learner: "Sì, grande. Ecco dieci euro."
+  - tutor: "Ecco qui, sono cinque euro e trenta. Ecco il resto!"
+    goals: [order-extra, pay]
+
+- scenario: panetteria
+  level: A1
+  persona: es-f-teacher
+  turns:
+  - tutor: "Buongiorno! Mi dica."
+  - learner: "Buongiorno. Vorrei una barra di pane, per favore."
+    errors: [word-choice]
+  - tutor: "Buongiorno! Un filone di pane, certo. Questo va bene?"
+    goals: [greet, order-bread]
+    recast: {text: "una barra", fix: "Un filone", tags: [word-choice]}
+    new: [{lemma: filone, gloss: long loaf}]
+  - learner: "Sì, va bene. Avete anche galletas?"
+    errors: [word-choice]
+  - tutor: "Biscotti? Sì, questi qui. Ne vuole un etto?"
+    recast: {text: "galletas", fix: "Biscotti", tags: [word-choice]}
+    new: [{lemma: biscotto, gloss: biscuit}]
+  - learner: "No, due etti, per favore."
+  - tutor: "Ecco qui, due etti. Sono sei euro e quaranta."
+    goals: [order-extra]
+  - learner: "Ecco a Lei. Arrivederci e grazie!"
+  - tutor: "Grazie a Lei, buona giornata!"
+    goals: [pay]

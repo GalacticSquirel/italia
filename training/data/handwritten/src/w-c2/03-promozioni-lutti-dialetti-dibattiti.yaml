@@ -1,0 +1,259 @@
+# Round 5, set w-c2: broad C2 coverage. File 3: promotions, condolence visits, dialects, debates.
+- scenario: colloquio-promozione
+  level: C2
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie del tempo. Volevo fare il punto sull'ultimo anno: ho incontrato tutti gli obiettivi di vendita, e nel secondo semestre li ho superati del dodici per cento."
+      errors: [word-choice]
+    - tutor: "Ha raggiunto tutti gli obiettivi, lo so, e quel dodici per cento in più non è passato inosservato. Immagino però che non sia venuto solo per un bilancio."
+      recast: {text: "incontrato", fix: "raggiunto", tags: [word-choice]}
+      goals: [results]
+    - learner: "No, infatti. Credo che è arrivato il momento di parlare di un ruolo da responsabile del team commerciale, visto che di fatto lo coordino da sei mesi."
+      errors: [subjunctive-use]
+      gold: {text: "Credo che è arrivato", fix: "Credo che sia arrivato"}
+    - tutor: "Diretto, mi piace. Ma riformuli l'inizio: «credo che è arrivato il momento». Dopo un verbo di opinione come credere, che modo si aspetta un direttore pignolo come me?"
+      prompt: {text: "Credo che è arrivato", tags: [subjunctive-use]}
+      goals: [request]
+    - learner: "Ah, giusto... penso che è il momento giusto, ecco."
+      errors: [subjunctive-use]
+    - tutor: "Anch'io penso che sia il momento di parlarne, e lo dico sinceramente. Però il budget di quest'anno è già chiuso: come risponderebbe a questa obiezione?"
+      recast: {text: "penso che è il momento", fix: "penso che sia il momento", tags: [subjunctive-use]}
+    - learner: "Risponderei che non chiedo subito un aumento. Mi basterebbe il ruolo formale adesso, e la parte economica la potremmo rivedere a gennaio."
+    - tutor: "Proposta intelligente, mi lascia poco spazio per dire di no. E se a gennaio i numeri non fossero all'altezza?"
+      goals: [handle]
+    - learner: "Allora rimanerò nel ruolo alle condizioni attuali fino a giugno, senza discutere. Ma sono convinto che i numeri ci saranno."
+      errors: [future-form]
+      gold: {text: "rimanerò", fix: "rimarrò"}
+    - tutor: "Mi piace la sicurezza. Ma «rimanerò»: il futuro di rimanere ha una forma contratta, come quelli di tenere o di venire. Le viene in mente?"
+      prompt: {text: "rimanerò", tags: [future-form]}
+    - learner: "Rimarrò, certo. Allora, qual è il prossimo passo?"
+    - tutor: "Porto la sua proposta in direzione giovedì e le faccio sapere entro la settimana prossima. Nel frattempo mi prepari due righe sugli obiettivi del team per il primo trimestre."
+      goals: [next-steps]
+
+- scenario: colloquio-promozione
+  level: C2
+  persona: es-f-teacher
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, se ha qualche minuto. Da quando coordino i corsi serali, nel mio gruppo c'è stato molti meno abbandoni rispetto agli altri anni."
+      errors: [ce-ci-sono]
+      gold: {text: "c'è stato molti meno abbandoni", fix: "ci sono stati molti meno abbandoni"}
+    - tutor: "È vero, l'ho visto nei dati di fine trimestre. Però «c'è stato molti meno abbandoni»: il soggetto della frase è singolare o plurale?"
+      prompt: {text: "c'è stato molti meno abbandoni", tags: [ce-ci-sono]}
+    - learner: "Plurale: ci sono stati molti meno abbandoni, quasi la metà."
+    - tutor: "Esatto, e la metà è un risultato notevole. Che cosa ha fatto di diverso?"
+      goals: [results]
+    - learner: "Ho cambiato gli orari e ho introdotto un tutor per chi resta indietro. E poi ho finito appena un master in didattica, che ho pagato di tasca mia."
+      errors: [word-order]
+      gold: {text: "ho finito appena", fix: "ho appena finito"}
+    - tutor: "Lo so, e le fa onore. Ma riascolti: «ho finito appena un master». Dove si mette di solito appena, quando significa da poco?"
+      prompt: {text: "ho finito appena", tags: [word-order]}
+    - learner: "Ah, prima del participio: ho appena finito un master. Ed è per questo che vorrei chiederle di diventare responsabile didattica di tutta la sede."
+    - tutor: "Me l'aspettavo. Glielo dico con franchezza: lei è la candidata migliore, ma la direzione teme che i corsi serali restino scoperti."
+      goals: [request]
+    - learner: "Capisco la preoccupazione. Però ho già formato una collega che potrebbe sostituirmi: l'ho fatta assistere a tutte le mie lezioni da settembre."
+    - tutor: "Ha pensato proprio a tutto. E se la direzione le chiedesse di aspettare fino a settembre?"
+      goals: [handle]
+    - learner: "Avrei preferito che me lo dicevate prima, sinceramente. Ma accetterei, a patto che la nomina sia messa per iscritto fin da ora."
+      errors: [subjunctive-use]
+      gold: {text: "che me lo dicevate", fix: "che me lo diceste"}
+    - tutor: "La capisco, e la condizione è sacrosanta. Ma «avrei preferito che me lo dicevate»: dopo avrei preferito, quel modo verbale le sembra quello giusto?"
+      prompt: {text: "che me lo dicevate", tags: [subjunctive-use]}
+    - learner: "No, ci vuole il congiuntivo: avrei preferito che me lo diceste prima. Ma la condizione resta."
+    - tutor: "E resta giustamente. Porto la sua proposta in direzione lunedì e le preparo una lettera d'impegno, così ha tutto nero su bianco."
+      goals: [next-steps]
+
+- scenario: condoglianze
+  level: C2
+  persona: en-m-retired
+  history: [imperative-form]
+  turns:
+    - tutor: "Grazie di essere venuto, davvero. Non si doveva disturbare, con tutto il lavoro che ha."
+    - learner: "Ci mancherebbe, sono venuto appena l'ho saputo. Le porgo le mie più sentite simpatie, a nome di tutto l'ufficio."
+      errors: [false-friend]
+    - tutor: "Grazie, le condoglianze di tutti mi fanno davvero piacere. Mia madre aveva novantun anni, ma a certe cose non si è mai pronti."
+      recast: {text: "simpatie", fix: "condoglianze", tags: [false-friend]}
+      goals: [condolences]
+    - learner: "Me la ricordo bene, sua madre: quella volta che venne in ufficio a portarle le chiavi, offrì caramelle a tutti noi come se fossimo bambini."
+    - tutor: "Era fatta così, lo faceva anche con il medico. E fino all'ultimo si è ricordata i nomi di tutti."
+      goals: [memory]
+    - learner: "Era una donna di grande dignità. Se c'è qualcosa che posso fare, per le pratiche o per l'ufficio, mi chiama a qualsiasi ora, davvero."
+      errors: [imperative-form]
+      gold: {text: "mi chiama", fix: "mi chiami"}
+    - tutor: "Lei è un vero amico. E perdoni la deformazione professionale: «mi chiama a qualsiasi ora» è una constatazione o un invito? Con il Lei, come lo direbbe?"
+      prompt: {text: "mi chiama", tags: [imperative-form]}
+    - learner: "Un invito, quindi mi chiami a qualsiasi ora. E per il lavoro non si preoccupa: le sue pratiche le seguo io finché non torna."
+      errors: [imperative-form]
+    - tutor: "Grazie, mi toglie un peso. E anche Lei non si preoccupi per me: ho mio fratello e i nipoti qui vicino."
+      recast: {text: "non si preoccupa", fix: "non si preoccupi", tags: [imperative-form]}
+      goals: [offer-help]
+    - learner: "Mi fa piacere saperlo. Allora non la disturbo oltre: immagino che abbia bisogno di riposare."
+    - tutor: "Un po' sì, lo ammetto. Ma torni quando vuole, magari tra qualche settimana, quando la casa sarà meno piena di gente."
+    - learner: "Senz'altro. Le lascio questo biglietto da parte di tutti i colleghi. Si riguardi, e a presto."
+    - tutor: "Lo leggerò stasera, con calma. Grazie ancora, e saluti tutti in ufficio da parte mia."
+      goals: [leave]
+
+- scenario: condoglianze
+  level: C2
+  persona: es-f-erasmus
+  history: [possessive]
+  turns:
+    - tutor: "Grazie di essere venuta, davvero. Non si doveva disturbare, con tutto il lavoro che ha."
+    - learner: "Non potevo non venire. Mi dispiace tantissimo, davvero. Come stai?"
+      errors: [register]
+      gold: {text: "Come stai", fix: "Come sta"}
+    - tutor: "Grazie, cara, si va avanti. Però mi fa sorridere quel «come stai»: dopo tre anni di Lei in ufficio, è il lutto che ci fa diventare amiche?"
+      prompt: {text: "Come stai", tags: [register]}
+    - learner: "Oh, mi scusi, mi è scappato! Come sta, volevo dire. La sua madre era una donna davvero speciale."
+      errors: [possessive]
+      gold: {text: "La sua madre", fix: "Sua madre"}
+    - tutor: "Non si scusi, mi ha fatto piacere. Ma «la sua madre»: con i nomi di parentela al singolare, quell'articolo ci vuole?"
+      prompt: {text: "La sua madre", tags: [possessive]}
+      goals: [condolences]
+    - learner: "No, giusto: sua madre. Me la ricordo alla festa di Natale, quando ha ballato la pizzica con il direttore."
+    - tutor: "Ah, quella sera! Il direttore ne parla ancora. Era così, sempre la prima a ballare e l'ultima ad andarsene."
+      goals: [memory]
+    - learner: "Se ha bisogno di qualcosa, qualsiasi cosa, non esiti a chiamarmi. Posso anche occuparmi io della riunione di giovedì."
+    - tutor: "Lei è un tesoro. La riunione di giovedì, sì, mi toglierebbe un bel peso. Sa dove trovare i documenti?"
+      goals: [offer-help]
+    - learner: "Sì, sono nella cartella condivisa, li ho già visto ieri. Non si preoccupi, ci penso io."
+      errors: [participle-agreement]
+      gold: {text: "li ho già visto", fix: "li ho già visti"}
+    - tutor: "Che sollievo. E perdoni la pignoleria, che a quanto pare non mi abbandona nemmeno oggi: «li ho già visto»?"
+      prompt: {text: "li ho già visto", tags: [participle-agreement]}
+    - learner: "Li ho già visti, certo! Allora la lascio riposare. Si prenda tutto il tempo che le serve, in ufficio ce la caviamo."
+    - tutor: "Grazie, davvero. Torni a trovarmi quando vuole, e saluti tutti da parte mia."
+      goals: [leave]
+
+- scenario: dialetti-regionali
+  level: C2
+  persona: en-f-student
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Scusa se mi intrometto, ma ti ho visto ridere: hai capito cosa si dicevano quei due signori? Perché non è mica facile."
+    - learner: "Un pò sì, ma solo qualche parola. Ho capito che parlavano di una partita, e poi c'era una parola che sembrava «guaglione»."
+      errors: [spelling]
+      gold: {text: "Un pò", fix: "Un po'"}
+    - tutor: "Guaglione, bravissima: vuol dire ragazzo. E vedo che te lo stai annotando sul quaderno: «un pò» con l'accento? Pensaci, è un troncamento, non una parola accentata."
+      prompt: {text: "Un pò", tags: [spelling]}
+      goals: [notice]
+    - learner: "Hai ragione, un po' con l'apostrofo, perché è il troncamento di poco. Guaglione l'ho riconosciuta perché la usava un mio coinquilino di Caserta."
+    - tutor: "Allora hai già un piede in Campania. E hai notato come cantano le frasi? Qui al Sud l'intonazione sale e scende molto più che a Milano."
+      goals: [example]
+    - learner: "Sì, sembra quasi una melodia. Ma secondo te un milanese capisce il signore con che parlavano, quello con il cappello?"
+      errors: [relative-pronoun]
+      gold: {text: "il signore con che parlavano", fix: "il signore con cui parlavano"}
+    - tutor: "Domanda da sociolinguista! Ma fermiamoci su «il signore con che parlavano»: dopo con, quale relativo usiamo?"
+      prompt: {text: "il signore con che parlavano", tags: [relative-pronoun]}
+    - learner: "Il signore con il quale... o con cui parlavano, è uguale. Insomma, lo capirebbe?"
+    - tutor: "Esatto, vanno bene tutti e due. Se parlano dialetto stretto, un milanese ne capisce sì e no la metà; ma con lui userebbero l'italiano regionale, che si capisce ovunque."
+      goals: [standard]
+    - learner: "Quindi esiste una specie di scala. Io però penso che, quando si è straniero, si ha paura di imparare il dialetto, perché sembra una lingua di serie B."
+      errors: [adjective-agreement]
+      gold: {text: "si è straniero", fix: "si è stranieri"}
+    - tutor: "Pensiero interessante. Però «quando si è straniero»: con il si impersonale, l'aggettivo come si accorda?"
+      prompt: {text: "si è straniero", tags: [adjective-agreement]}
+    - learner: "Ah, quindi... quando si è straniera?"
+      errors: [adjective-agreement]
+    - tutor: "Sì, quando si è stranieri il dialetto fa un po' paura, ed è un peccato: io dico sempre che è la lingua del cuore. Secondo te vale la pena impararne un po'?"
+      recast: {text: "si è straniera", fix: "si è stranieri", tags: [adjective-agreement]}
+    - learner: "Secondo me sì, almeno per capirlo. Parlarlo invece mi sembrerebbe quasi un furto, come mettersi un costume che non è tuo."
+    - tutor: "Che bella immagine, il costume. Però vedrai che dopo sei mesi a Napoli qualche parola ti scapperà lo stesso, e nessuno penserà a un furto."
+      goals: [opinion]
+
+- scenario: dialetti-regionali
+  level: C2
+  persona: es-m-worker
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Scusa se mi intrometto, ma ti ho visto ridere: hai capito cosa si dicevano quei due signori? Perché non è mica facile."
+    - learner: "Abbastanza, sì! Lavoro in una cucina a Bologna da cinque anni e i miei colleghi parlano sempre in dialetto, così ho l'orecchio un po' allenato."
+    - tutor: "Bologna! Allora il napoletano per te è un altro pianeta. Che cosa ti ha fatto ridere?"
+      goals: [notice]
+    - learner: "Uno dei due ha detto all'altro che aveva «la capa tosta». In cucina succede tutto il giorno: ai colleghi piace prendere il pelo al nuovo arrivato."
+      errors: [word-choice]
+    - tutor: "Gli piace prendere in giro il nuovo arrivato, eh? In cucina è una forma d'affetto, almeno in Emilia. E «capa tosta» vuol dire testardo: tu che espressioni hai imparato lì?"
+      recast: {text: "prendere il pelo", fix: "prendere in giro", tags: [word-choice]}
+      goals: [example]
+    - learner: "Tante, ma quasi tutte irripetibili! Però ho notato che in cucina si usa molte parole che non trovo sul vocabolario."
+      errors: [subject-verb-agreement, preposition]
+      gold: {text: "si usa molte parole", fix: "si usano molte parole"}
+    - tutor: "Normale, il lessico della cucina è un mondo a parte. Ma «si usa molte parole»: chi è il soggetto, qui, e con che cosa si accorda il verbo?"
+      prompt: {text: "si usa molte parole", tags: [subject-verb-agreement]}
+    - learner: "Le parole, quindi: si usano molte parole che non trovo nel vocabolario. Ma secondo te i ragazzi giovani lo parlano ancora, il dialetto?"
+    - tutor: "Lo capiscono quasi tutti, lo parlano sempre meno: oggi è più che altro un italiano regionale con qualche parola di dialetto. In ufficio, per esempio, nessuno direbbe «capa tosta»."
+      goals: [standard]
+    - learner: "È un peccato. Spero che il dialetto non sparischi del tutto, perché ci sono cose che si possono dire solo così."
+      errors: [subjunctive-form]
+      gold: {text: "sparischi", fix: "sparisca"}
+    - tutor: "Sono d'accordo con te, e da sociolinguista ti dico che non succederà tanto presto. Ma «non sparischi»: come fa il congiuntivo di sparire alla terza persona?"
+      prompt: {text: "sparischi", tags: [subjunctive-form]}
+    - learner: "Sparisca? Sì: spero che non sparisca. Anche in Argentina abbiamo parole che vengono dai dialetti italiani, pensa."
+    - tutor: "Lo so, lo spagnolo di Buenos Aires è pieno di parole genovesi e napoletane! Vedi, i dialetti non muoiono: emigrano."
+      goals: [opinion]
+
+- scenario: dibattito-ambiente
+  level: C2
+  persona: en-m-heritage
+  history: [demonstrative]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Io la penso diversamente: sono tra quelli che sopportano con convinzione la chiusura, almeno nei fine settimana."
+      errors: [false-friend]
+    - tutor: "Quindi Lei è tra quelli che sostengono la chiusura. Su che cosa si basa? Io ho un negozio di scarpe in via Roma e Le assicuro che i clienti vengono in macchina."
+      recast: {text: "sopportano", fix: "sostengono", tags: [false-friend]}
+      goals: [position]
+    - learner: "Su quei studi che sono stati fatti in alcune città spagnole: i negozi del centro, dopo qualche anno, hanno aumentato i ricavi."
+      errors: [demonstrative]
+      gold: {text: "quei studi", fix: "quegli studi"}
+    - tutor: "Vorrei vederli, questi dati. Ma prima: «quei studi»? Davanti a una s seguita da consonante, quale forma di quello si usa?"
+      prompt: {text: "quei studi", tags: [demonstrative]}
+    - learner: "Quegli studi, giusto, come quegli scrittori. Comunque sono dati pubblici, glieli mando volentieri."
+    - tutor: "Li leggerò, promesso. Ma io parlo di chi viene da fuori: un anziano della provincia, come arriva in centro senza macchina?"
+      goals: [argue]
+    - learner: "Con i parcheggi scambiatori e le navette gratuite, che il comune ha già promesso. Non fa senso lasciare il centro pieno di traffico per i pochi che non possono camminare."
+      errors: [word-choice]
+    - tutor: "Secondo Lei non ha senso, d'accordo, ma quei pochi sono i miei clienti migliori. E le navette le ha mai viste funzionare davvero, in questa città?"
+      recast: {text: "Non fa senso", fix: "Non ha senso", tags: [word-choice]}
+    - learner: "Ha ragione, finora il servizio è stato pessimo. Ma è proprio per questo che bisogna pretendere che funzioni, invece di rinunciare al progetto."
+    - tutor: "Su questo non posso darle torto. Però mi conceda che i commercianti andrebbero consultati prima, non a cose fatte."
+      goals: [counter]
+    - learner: "Glielo concedo volentieri: un progetto deciso senza ascoltare i negozianti nasce già zoppo."
+    - tutor: "Ecco, su questo possiamo firmare insieme una lettera al sindaco. Lei porta i dati, io porto i commercianti."
+      goals: [concede]
+
+- scenario: dibattito-ambiente
+  level: C2
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Non sono d'accordo. Il problema principale del centro è la contaminazione: l'aria è irrespirabile, soprattutto d'inverno."
+      errors: [false-friend]
+    - tutor: "L'inquinamento c'è, non lo nego. Ma i negozi chiudono adesso, mentre l'aria si sistema in vent'anni."
+      recast: {text: "la contaminazione", fix: "l'inquinamento", tags: [false-friend]}
+      goals: [position]
+    - learner: "Non è vero: se si chiuderebbe il centro, l'aria migliorerebbe in pochi mesi. Lo dicono i dati di tutte le città che l'hanno fatto."
+      errors: [hypothetical]
+      gold: {text: "se si chiuderebbe", fix: "se si chiudesse"}
+    - tutor: "Dati, sempre dati. Ma sentiamo la sua frase: «se si chiuderebbe il centro»? In un'ipotesi, dopo se, che modo verbale ci vuole?"
+      prompt: {text: "se si chiuderebbe", tags: [hypothetical]}
+    - learner: "Il congiuntivo: se si chiudesse il centro, l'aria migliorerebbe in pochi mesi. Ed è un fatto, non un'opinione."
+    - tutor: "Ammettiamo pure. Ma chi, come mia madre, ha ottant'anni e abita in collina, che fa? Prende la bicicletta?"
+      goals: [argue]
+    - learner: "Ci sono soluzioni, come i permessi per gli anziani e i disabili. Insisto in questo punto: non si tratta di vietare, ma di dare la precedenza a chi ne ha bisogno."
+      errors: [preposition]
+      gold: {text: "Insisto in questo punto", fix: "Insisto su questo punto"}
+    - tutor: "Permessi per chi ne ha bisogno: questo è già più ragionevole. Però «insisto in questo punto»: il verbo insistere, in italiano, con che preposizione lo costruiamo?"
+      prompt: {text: "Insisto in questo punto", tags: [preposition]}
+    - learner: "Insisto a questo punto?"
+      errors: [preposition]
+    - tutor: "Lei insiste su questo punto, ho capito, e i permessi per gli anziani mi tranquillizzano. Resta il commercio: chi compensa i negozi nei primi mesi?"
+      recast: {text: "a questo punto", fix: "su questo punto", tags: [preposition]}
+      goals: [counter]
+    - learner: "Su questo ha ragione Lei: il Comune dovrebbe prevedere sgravi fiscali, almeno per il primo anno. Altrimenti molti negozi non resisterebbero."
+    - tutor: "Ecco una cosa su cui siamo d'accordo. Proponiamola insieme all'assessore: chiusura graduale, permessi per gli anziani e sgravi per i negozi."
+      goals: [concede]

@@ -1,0 +1,277 @@
+# Broad-coverage B2 dialogues: renting and negotiating a flat.
+- scenario: affittare-appartamento
+  level: B2
+  persona: es-m-worker
+  history: [ci-ne, false-friend]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno. È più grande di quanto pensavo. Quanto è la renta al mese, con le spese?"
+    errors: [word-choice]
+  - tutor: "L'affitto è di 780 euro al mese, più 60 di spese di condominio, che comprendono la pulizia delle scale e l'acqua fredda."
+    recast: {text: "la renta", fix: "l'affitto", tags: [word-choice]}
+    goals: [rent]
+  - learner: "Lavoro in un ristorante: devo salire di casa alle nove di mattina e torno molto tardi, quindi mi interessa che il palazzo sia tranquillo."
+    errors: [false-friend]
+  - tutor: "Se deve uscire di casa presto e rientra tardi, qui starà benissimo: nel palazzo abitano quasi solo persone anziane, molto silenziose."
+    recast: {text: "salire di casa", fix: "uscire di casa", tags: [false-friend]}
+  - learner: "Bene. E il contratto? Che caparra chiede?"
+  - tutor: "Il contratto è di quattro anni più quattro, con una caparra di due mesi di affitto."
+    goals: [contract]
+  - learner: "Il riscaldamento è autonomo? Nel mio vecchio appartamento d'inverno faceva un freddo terribile e non ci potevo stare."
+  - tutor: "Sì, è autonomo, con una caldaia nuova. Anche il forno e il frigorifero sono stati cambiati quest'anno, glielo faccio vedere."
+    goals: [condition]
+    new: [{lemma: caldaia, gloss: boiler}]
+  - learner: "Bene, perché cucino molto anche a casa. E il quartiere? Ho bisogno di un mercato vicino: per il mio lavoro vado tutti i giorni."
+    errors: [ci-ne]
+  - tutor: "Il mercato è a due passi, non si preoccupi. Ma «vado tutti i giorni»: al mercato, giusto? Prima del verbo manca una piccola parola che indica il luogo."
+    prompt: {text: "vado tutti i giorni", tags: [ci-ne]}
+  - learner: "Ah, sì: ci vado tutti i giorni."
+  - tutor: "Perfetto. Il mercato coperto è in fondo alla via ed è aperto dalle sette di mattina. Allora, che ne dice dell'appartamento?"
+    goals: [neighbourhood]
+  - learner: "Mi piace molto. Lo prenderei, ma prima vorrei leggere il contratto con calma, se per lei va bene."
+  - tutor: "Certo, gliene mando una copia stasera per email. Se è tutto a posto, ci vediamo venerdì per firmare."
+    goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno! Che bello, c'è tantissima luce. Nell'annuncio c'era scritto 1.100 euro: le spese sono comprese?"
+  - tutor: "No, le spese sono a parte, circa 90 euro al mese. Comprendono l'ascensore e la pulizia delle scale."
+    goals: [rent]
+  - learner: "Va bene. Io lavoro da casa, quindi mi serve una stanza come ufficio. La camera che mi ha parlato al telefono è abbastanza grande per una scrivania?"
+    errors: [relative-pronoun]
+  - tutor: "Qui lavorare da casa è un piacere, vedrà. Però «la camera che mi ha parlato»: detto così, sembra che sia la camera a parlare! Come sistemerebbe la frase?"
+    prompt: {text: "La camera che mi ha parlato", tags: [relative-pronoun]}
+  - learner: "Ha ragione! La camera di cui mi ha parlato: c'entra una scrivania?"
+  - tutor: "Esatto. Sì, ci entra senza problemi, e vicino alla finestra c'è anche la presa per internet."
+  - learner: "Perfetto. E com'è il riscaldamento? Ho un gatto che soffre molto il freddo, quindi per me è importante."
+  - tutor: "È centralizzato: si accende a metà ottobre e si spegne ad aprile. I termosifoni sono stati sostituiti due anni fa, quindi il suo gatto starà benissimo."
+    goals: [condition]
+    new: [{lemma: termosifone, gloss: radiator}]
+  - learner: "Mi fa piacere. E per il contratto? Posso rompere il contratto prima, se cambio lavoro?"
+    errors: [word-choice]
+  - tutor: "Sì, può disdire il contratto in qualsiasi momento, con sei mesi di preavviso e senza penali. Come caparra, invece, chiedo tre mesi."
+    recast: {text: "rompere il contratto", fix: "disdire il contratto", tags: [word-choice]}
+    goals: [contract]
+    new: [{lemma: disdire, gloss: to cancel (a contract)}, {lemma: preavviso, gloss: notice}]
+  - learner: "Mi sembra giusto. E il quartiere com'è la sera? Torno spesso tardi della palestra."
+    errors: [articulated-preposition]
+  - tutor: "Giusto pensarci. Ma «tardi della palestra»: la palestra è il punto da cui parte. Che preposizione serve, allora?"
+    prompt: {text: "della palestra", tags: [articulated-preposition]}
+  - learner: "Torno spesso tardi dalla palestra."
+  - tutor: "Esatto. Il quartiere la sera è tranquillo e ben illuminato. Sotto casa c'è anche la fermata di un tram che passa fino a mezzanotte."
+    goals: [neighbourhood]
+  - learner: "Allora sono molto interessata. Potrei darle una risposta definitiva entro domani?"
+  - tutor: "Certo, ci mancherebbe. Aspetto la sua chiamata entro domani sera; fino ad allora non lo faccio vedere a nessun altro."
+    goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-m-retired
+  history: [conditional-form]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno. Mia moglie e io cerchiamo un appartamento senza scale, perché lei ha problemi alle ginocchia. Quanto costa questo?"
+  - tutor: "Allora siete nel posto giusto: siamo al piano terra. L'affitto è di 850 euro al mese, spese di condominio comprese."
+    goals: [rent]
+  - learner: "Benissimo. Potrebbo vedere anche la cucina? Mia moglie vorrebbe sapere se c'è la lavastoviglie."
+    errors: [conditional-form]
+  - tutor: "Certo, prego, da questa parte. Solo un dettaglio: «potrebbo»... parla di sé, prima persona singolare: come finisce il verbo?"
+    prompt: {text: "Potrebbo", tags: [conditional-form]}
+  - learner: "Potrei vedere la cucina, scusi."
+  - tutor: "Esatto. Ecco qua: la lavastoviglie c'è ed è nuova, come il forno. La caldaia ha qualche anno, ma è stata controllata a settembre."
+    goals: [condition]
+    new: [{lemma: caldaia, gloss: boiler}]
+  - learner: "Ah, bene. E per il contratto? Siamo pensionati, quindi non abbiamo una busta paga. È un problema?"
+  - tutor: "Nessun problema: per me la pensione basta. Il contratto è di quattro anni, e chiedo una caparra di due mesi."
+    goals: [contract]
+  - learner: "D'accordo. E il quartiere? Mia moglie deve andare spesso dal medico. Il studio medico è lontano?"
+    errors: [article-form]
+  - tutor: "Domanda giustissima. Ma ripeta con me l'inizio: «il studio»... davanti a parole come «studio» o «studente», che articolo usiamo?"
+    prompt: {text: "Il studio", tags: [article-form]}
+  - learner: "Sì, il studio medico. È lontano da qui?"
+    errors: [article-form]
+  - tutor: "Lo studio medico è a cento metri, accanto alla farmacia, e fino alla fermata dell'autobus la strada è tutta in piano."
+    recast: {text: "il studio", fix: "Lo studio", tags: [article-form]}
+    goals: [neighbourhood]
+  - learner: "Allora credo che ci piace. Ne parlo con mia moglie stasera e la richiamo domani mattina."
+    errors: [subjunctive-use]
+  - tutor: "Ottima notizia. Ma ascolti l'inizio: «credo che ci piace». Dopo «credo che», quale modo del verbo usiamo?"
+    prompt: {text: "credo che ci piace", tags: [subjunctive-use]}
+  - learner: "Credo che ci piaccia. Ne parlo con mia moglie e la richiamo domani."
+  - tutor: "Perfetto, aspetto la sua telefonata. Saluti sua moglie da parte mia, e speriamo di rivederci presto."
+    goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno! Vengo per l'annuncio. È completamente arredato? Lo cerchiamo in due, io e una mia amica."
+  - tutor: "Sì, è tutto arredato: divano, letti, armadi e una cucina completa. Per due persone è perfetto."
+  - learner: "Quanto è l'affitto? E la luz e il gas sono inclusi?"
+    errors: [word-choice]
+  - tutor: "Sono 900 euro in tutto, quindi 450 a testa. La luce e il gas invece li pagate voi, a parte."
+    recast: {text: "la luz", fix: "la luce", tags: [word-choice]}
+    goals: [rent]
+  - learner: "Va bene. Però ho visto che la finestra della camera non chiude bene: entra molto aria fredda."
+    errors: [adjective-agreement]
+  - tutor: "Ha l'occhio attento! Però «molto aria»: «aria» è femminile, quindi anche la parola prima deve accordarsi. Riprova?"
+    prompt: {text: "molto aria", tags: [adjective-agreement]}
+  - learner: "Entra molto aria fredda, sì. Potrebbe aggiustarla prima di settembre?"
+    errors: [adjective-agreement]
+  - tutor: "Sì, entra molta aria fredda, ha ragione: il falegname viene la settimana prossima. E il riscaldamento funziona benissimo: è autonomo, lo accendete quando volete."
+    recast: {text: "molto aria", fix: "molta aria", tags: [adjective-agreement]}
+    goals: [condition]
+    new: [{lemma: falegname, gloss: carpenter}]
+  - learner: "Grazie. E il contratto? Siamo studentesse e restiamo solo dieci meses."
+    errors: [noun-number]
+  - tutor: "Va bene, ne parliamo subito. Solo una cosa: «dieci meses»? In italiano il plurale di «mese» non finisce così."
+    prompt: {text: "dieci meses", tags: [noun-number]}
+  - learner: "Ah, è vero: dieci mesi, fino a giugno."
+  - tutor: "Per voi c'è il contratto per studenti, che va da sei mesi a tre anni. Come caparra chiedo un mese."
+    goals: [contract]
+  - learner: "Perfetto. Il quartiere mi sembra tranquillo. Però dalla fermata dell'autobus a casa la strada è molto larga, e di sera è un po' buia."
+    errors: [false-friend]
+  - tutor: "Capisco, a piedi sembra molto lunga, ma sono sette minuti. E il Comune ha appena messo nuovi lampioni, quindi adesso è ben illuminata."
+    recast: {text: "molto larga", fix: "molto lunga", tags: [false-friend]}
+    goals: [neighbourhood]
+    new: [{lemma: lampione, gloss: street lamp}]
+  - learner: "Allora mi piace. Ne parlo con la mia amica e le confermo entro venerdì, va bene?"
+  - tutor: "Va benissimo. Se confermate, venerdì preparo il contratto e a fine mese vi consegno le chiavi."
+    goals: [decide]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-m-heritage
+  history: [object-pronoun, hypothetical]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, mi è piaciuto molto, soprattutto il terrazzo. Però mi preoccupa il canone: 1.300 euro sono un po' troppi per me."
+  - tutor: "Capisco. Il proprietario però mi ha detto che il prezzo è trattabile, entro certi limiti. Lei quanto avrebbe in mente?"
+    goals: [interest]
+  - learner: "Pensavo a 1.150. Se il proprietario accetta, firmo subito. Lo può telefonare oggi?"
+    errors: [object-pronoun]
+  - tutor: "Posso provarci. Ma «lo può telefonare»: si telefona «a» qualcuno. Che pronome ci vuole, allora?"
+    prompt: {text: "Lo può telefonare", tags: [object-pronoun]}
+  - learner: "Ah, giusto. Gli può telefonare oggi?"
+  - tutor: "Certo, lo chiamo appena finiamo. Però le dico subito che 1.150 è difficile; a 1.200 forse ci arriviamo."
+    goals: [negotiate]
+  - learner: "1.200 va bene, se la provvigione dell'agenzia sarebbe più bassa."
+    errors: [hypothetical]
+  - tutor: "Ci possiamo ragionare. Però «se la provvigione sarebbe»: dopo «se», il condizionale non va. Che modo ci vuole?"
+    prompt: {text: "se la provvigione dell'agenzia sarebbe", tags: [hypothetical]}
+  - learner: "Sì... se la provvigione sarebbe più bassa, accetto."
+    errors: [hypothetical]
+  - tutor: "D'accordo: se la provvigione fosse più bassa, per lei andrebbe bene. Di solito corrisponde a un mese di canone, ma posso scendere all'ottanta per cento."
+    recast: {text: "se la provvigione sarebbe", fix: "se la provvigione fosse", tags: [hypothetical]}
+  - learner: "Va bene. E se devo trasferirmi per lavoro? Quanto preavviso devo dare per la disdetta?"
+  - tutor: "Sei mesi, con una raccomandata. È una clausola standard, valida per gravi motivi come un trasferimento di lavoro."
+    goals: [conditions]
+    new: [{lemma: raccomandata, gloss: registered letter}]
+  - learner: "Mi sembra ragionevole. Allora, se il proprietario dice di sì a 1.200, prendo l'appartamento."
+  - tutor: "Perfetto. Lo chiamo subito e le faccio sapere entro stasera. Se è d'accordo, giovedì firmiamo qui in agenzia."
+    goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-f-teacher
+  history: [subjunctive-form]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, è luminoso e silenzioso. L'unica cosa che mi preoccupa è che non c'è l'ascensore e siamo al quarto piano."
+  - tutor: "È vero, è l'unico problema. Proprio per questo il proprietario è disposto a trattare. Che cosa la convincerebbe?"
+    goals: [interest]
+  - learner: "Le pareti sono molto sporche. È necessario che il proprietario ridipingi tutto prima che io entri."
+    errors: [subjunctive-form]
+  - tutor: "È una richiesta ragionevole. Ma «che il proprietario ridipingi»: è un verbo in -ere, quindi al congiuntivo cambia la lettera finale. Quale?"
+    prompt: {text: "ridipingi", tags: [subjunctive-form]}
+  - learner: "È necessario che il proprietario ridipinga tutto."
+  - tutor: "Perfetto. Glielo chiedo, e credo che accetti: dovrebbe farlo comunque prima di affittarlo."
+    goals: [negotiate]
+  - learner: "Benissimo. E quanto dura il contratto? Io insegno qui solo per tre anni, poi forse torno a Valencia."
+  - tutor: "Le proporrei un tre più due a canone concordato: conviene a tutti e due. E con sei mesi di preavviso può dare la disdetta per gravi motivi."
+  - learner: "Tre più due mi va bene. E se dovrei andare via prima, perdo la garanzia?"
+    errors: [hypothetical]
+  - tutor: "«Se dovrei andare via»? Ci ripensi un attimo: dopo questo «se» il condizionale non funziona."
+    prompt: {text: "se dovrei", tags: [hypothetical]}
+  - learner: "Se dovessi andare via prima, perdo la garanzia?"
+  - tutor: "Così va bene. No, se dà il preavviso, la garanzia le viene restituita tutta, tranne in caso di danni."
+    goals: [conditions]
+    new: [{lemma: preavviso, gloss: notice}]
+  - learner: "Allora sono d'accordo. Mi mandi la proposta per email e la firmo domani."
+  - tutor: "Gliela preparo subito. Appena il proprietario conferma i lavori, fissiamo l'appuntamento per la firma."
+    goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-f-student
+  history: [register, preposition]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, mi piace tanto! Ma senti, il canone è un po' troppo per me. Puoi abbassarlo?"
+    errors: [register]
+  - tutor: "Mi fa piacere che le piaccia. Però siamo in agenzia e non ci conosciamo ancora: quel «senti» e quel «puoi» sono un po' troppo familiari. Come lo chiederebbe in modo formale?"
+    prompt: {text: "Puoi abbassarlo", tags: [register]}
+  - learner: "Oh, scusi! Senta, può abbassare un po' il canone?"
+  - tutor: "Così va benissimo. Posso parlarne con il proprietario: a quanto vorrebbe arrivare?"
+    goals: [interest]
+  - learner: "Adesso pago 700 euro, quindi vorrei restare sotto gli 800. Studio a tempo pieno e lavoro solo in sabato."
+    errors: [preposition]
+  - tutor: "Capisco. Solo una cosa: «in sabato»? Con i giorni della settimana l'italiano non usa questa preposizione."
+    prompt: {text: "in sabato", tags: [preposition]}
+  - learner: "Ah, ok: lavoro solo il sabato."
+  - tutor: "Esatto. Allora il proprietario potrebbe chiedere un garante, magari uno dei suoi genitori."
+    goals: [negotiate]
+    new: [{lemma: garante, gloss: guarantor}]
+  - learner: "Sì, mio padre può fare da garante. Se lui firma, il proprietario accetta 790?"
+  - tutor: "Con un garante credo proprio di sì. Parliamo allora del contratto: per gli studenti va di solito da sei mesi a tre anni."
+  - learner: "A me servono due anni, fino alla laurea. E se trovo un lavoro in altra città, posso andare via prima?"
+    errors: [article-use]
+  - tutor: "Domanda giusta. Però «in altra città» suona strano: davanti ad «altra» manca qualcosa. Ci riprova?"
+    prompt: {text: "in altra città", tags: [article-use]}
+  - learner: "Se trovo un lavoro in altra città... posso andare via prima?"
+    errors: [article-use]
+  - tutor: "Certo: se trova lavoro in un'altra città, può andare via con tre mesi di preavviso. Lo scriviamo in una clausola, così sta tranquilla."
+    recast: {text: "in altra città", fix: "in un'altra città", tags: [article-use]}
+    goals: [conditions]
+    new: [{lemma: preavviso, gloss: notice}]
+  - learner: "Perfetto, allora accetto. Quando possiamo firmare?"
+  - tutor: "Le preparo la proposta per domani. Se il proprietario la firma, ci vediamo venerdì in agenzia, insieme a suo padre."
+    goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-m-worker
+  history: [comparative, word-choice]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Mi è piaciuto, sì. Però ho un cane grande e nell'annuncio c'era scritto «niente animali». Per me è un problema."
+  - tutor: "Capisco. Il proprietario su questo punto non è molto d'accordo, ma possiamo provare a chiedergli se per lei accetta un cane."
+    goals: [interest]
+  - learner: "Posso lasciare cento euro in più di garanzia, per eventuali danni. Così il proprietario sta più tranquillo."
+  - tutor: "È una buona proposta. Se accettasse il cane, però, vorrebbe un canone di 950 euro invece di 900."
+  - learner: "950 è troppo. Questo appartamento è già più caro che quello dove vivo adesso. Facciamo 920?"
+    errors: [comparative]
+  - tutor: "Proviamo. Ma «più caro che quello»: quando confronta due appartamenti, quale piccola parola va dopo «più caro»?"
+    prompt: {text: "più caro che quello", tags: [comparative]}
+  - learner: "Sì, è più caro che quello dove vivo adesso. Facciamo 920?"
+    errors: [comparative]
+  - tutor: "Capisco, è più caro di quello dove vive adesso. Ho appena scritto al proprietario: a 920 accetta anche il cane, ma chiede una garanzia di tre mesi."
+    recast: {text: "più caro che quello", fix: "più caro di quello", tags: [comparative]}
+    goals: [negotiate]
+  - learner: "D'accordo. E il contratto? Posso lasciare l'appartamento prima, con un avviso di un mese?"
+    errors: [word-choice]
+  - tutor: "Un preavviso di un mese, purtroppo, è troppo poco: il contratto è di quattro anni più quattro, e per andare via prima ne servono sei."
+    recast: {text: "un avviso di un mese", fix: "un preavviso di un mese", tags: [word-choice]}
+    goals: [conditions]
+    new: [{lemma: preavviso, gloss: notice}]
+  - learner: "Sei mesi sono tanti. Il mio contratto di lavoro è di un anno, e non sono sicuro che me lo rinnovino."
+  - tutor: "Lo capisco. Su questo però il proprietario non cede: la clausola dei sei mesi deve restare."
+  - learner: "Allora, mi dispiace, ma preferisco non rischiare. La ringrazio comunque per il tempo che mi ha dedicato."
+  - tutor: "Si figuri, ha fatto bene a dirmelo subito. Se si libera qualcosa con condizioni migliori, la chiamo io."
+    goals: [conclude]

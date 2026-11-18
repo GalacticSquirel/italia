@@ -1,0 +1,242 @@
+# B1, broad coverage: train tickets, travel tips for Naples, telling a friend about the holidays.
+- scenario: biglietto-treno
+  level: B1
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "A Firenze, per favore. Vorrei partire domani a le otto."
+      errors: [articulated-preposition]
+    - tutor: "Domani... «a le otto»? Quando la preposizione incontra l'articolo, cosa succede?"
+      prompt: {text: "a le otto", tags: [articulated-preposition]}
+    - learner: "A le otto, sì."
+      errors: [articulated-preposition]
+    - tutor: "Alle otto, va bene: c'è un treno veloce alle 8:05 che arriva a Firenze alle 9:40. Solo andata?"
+      recast: {text: "A le otto", fix: "Alle otto", tags: [articulated-preposition]}
+      goals: [destination]
+    - learner: "No, andata e ritorno. Torno venerdì, con l'ultimo treno de la sera."
+      errors: [articulated-preposition]
+    - tutor: "Con l'ultimo treno della sera, quello delle 21:10: va bene. Prima o seconda classe?"
+      recast: {text: "de la sera", fix: "della sera", tags: [articulated-preposition]}
+      goals: [type]
+    - learner: "Quanto costerebbe la prima?"
+    - tutor: "In prima sono 89 euro, in seconda 58. In seconda le posso dare un posto vicino al finestrino."
+    - learner: "Allora la seconda, vicino al finestrino. E da quale binario parte domani?"
+    - tutor: "Di solito dal binario 7, ma controlli sempre in stazione prima di partire. Buon viaggio!"
+      goals: [class, platform]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-f-professional
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Devo andare a Verona giovedì mattina per una riunione. C'è treni presto?"
+      errors: [ce-ci-sono]
+    - tutor: "«C'è treni»? Ascolti bene: è un treno solo o sono tanti?"
+      prompt: {text: "C'è treni", tags: [ce-ci-sono]}
+    - learner: "Sono tanti: ci sono treni presto?"
+    - tutor: "Esatto! Sì, il primo regionale parte alle 6:12 e il treno veloce alle 7:30."
+      goals: [destination]
+    - learner: "Il treno veloce. Vorrei comprare anche il ritorno, ma non so a che ora la riunione finirà. Posso cambiare il biglietto dopo?"
+    - tutor: "Sì, con questo biglietto può cambiare l'orario gratis prima della partenza. Allora andata e ritorno?"
+      goals: [type]
+    - learner: "Sì, perfetto. In prima classe, per favore: paga la mia compagnia e così posso lavorare sul treno."
+      errors: [word-choice]
+    - tutor: "Se paga la sua azienda, la prima classe è perfetta: c'è anche la presa per il computer."
+      recast: {text: "compagnia", fix: "azienda", tags: [word-choice]}
+      goals: [class]
+    - learner: "Ottimo. Mi potrebbe dire da quale piattaforma parte?"
+      errors: [word-choice]
+    - tutor: "Parte dal binario 5, ma lo controlli sempre in stazione, perché a volte cambia."
+      recast: {text: "piattaforma", fix: "binario", tags: [word-choice]}
+      goals: [platform]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-retired
+  history: [possessive]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Io e mia moglie vorremmo andare a Lecce martedì prossimo, la mattina presto. Quante ore dura il viaggio?"
+    - tutor: "Circa sette ore. C'è un treno alle 7:10 che arriva alle 14:20. Le va bene?"
+      goals: [destination]
+    - learner: "Sì, va bene. Solo andata, perché torneremo in macchina con il nostro figlio."
+      errors: [possessive]
+    - tutor: "Con «il nostro figlio»? Ascolti bene la frase: c'è una parola di troppo."
+      prompt: {text: "il nostro figlio", tags: [possessive]}
+    - learner: "Con nostro figlio. Lui abita a Lecce."
+    - tutor: "Giusto. Allora due biglietti di sola andata per martedì."
+      goals: [type]
+    - learner: "Ci sono posti con più spazio? Mia moglie ha un problema al ginocchio e ha bisogno di stirare la gamba."
+      errors: [word-choice]
+    - tutor: "Capisco, così può allungare la gamba. In prima classe c'è più spazio: le do due posti vicini."
+      recast: {text: "stirare", fix: "allungare", tags: [word-choice]}
+      goals: [class]
+      new: [{lemma: allungare, gloss: to stretch out}]
+    - learner: "Grazie. Quanto costa la prima classe? E quale binario partirà il treno?"
+      errors: [preposition]
+    - tutor: "Sono 95 euro a persona. E «quale binario partirà»? Manca una piccola parola all'inizio della domanda."
+      prompt: {text: "quale binario partirà", tags: [preposition]}
+    - learner: "Da quale binario partirà il treno?"
+    - tutor: "Perfetto. Di solito parte dal binario 2, ma lo controlli in stazione quel giorno. Buon viaggio a tutti e due!"
+      goals: [platform]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì e starò lì cinque giorni con due amiche. Voglio vedere il Vesuvio: tu sei andata?"
+      errors: [ci-ne]
+    - tutor: "Cinque giorni, che bello! «Sei andata»... dove? Manca la parola che sostituisce «al Vesuvio»."
+      goals: [plans]
+      prompt: {text: "sei andata", tags: [ci-ne]}
+    - learner: "Ah: ci sei andata?"
+    - tutor: "Esatto! Sì, ci sono andata due volte: dall'alto si vede tutta la città. Cos'altro vorresti fare?"
+    - learner: "Mangiare! Mi piace molto le pizze fritte. Dove le posso trovare?"
+      errors: [piacere]
+    - tutor: "«Mi piace molto le pizze»? Sono tante pizze: guarda bene il verbo."
+      prompt: {text: "Mi piace molto le pizze", tags: [piacere]}
+    - learner: "Mi piacciono molto le pizze fritte!"
+    - tutor: "Brava! Allora mangiale nei quartieri, non nelle vie più famose. E a colazione prova la sfogliatella."
+      goals: [advice]
+      new: [{lemma: sfogliatella, gloss: a Neapolitan pastry}]
+    - learner: "Che buona! E per muoversi in città, è meglio la metro o l'autobus?"
+    - tutor: "La metro, assolutamente: è veloce e alcune stazioni sono bellissime. L'autobus è spesso in ritardo."
+      goals: [transport]
+    - learner: "E cosa devo evitare? Ho sentito che ci sono molti ladrones."
+      errors: [word-choice]
+    - tutor: "Ladri ce ne sono, come in tutte le grandi città: non lasciare mai il telefono sul tavolo del bar."
+      recast: {text: "ladrones", fix: "ladri", tags: [word-choice]}
+      goals: [warnings]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-m-traveller
+  history: [stare-gerund]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Sabato mattina! Sono pensando di stare una settimana, ma non ho ancora prenotato niente."
+      errors: [stare-gerund]
+    - tutor: "«Sono pensando»? Per un'azione in corso, usiamo davvero «essere»?"
+      prompt: {text: "Sono pensando", tags: [stare-gerund]}
+    - learner: "Sto pensando di stare una settimana."
+    - tutor: "Esatto. Una settimana è perfetta! E dove dormi, in albergo?"
+      goals: [plans]
+    - learner: "No, in un ostello, è più economico che un albergo."
+      errors: [comparative]
+    - tutor: "Più economico... «che un albergo»? Davanti a un nome, quale parola usiamo dopo «più economico»?"
+      prompt: {text: "più economico che un albergo", tags: [comparative]}
+    - learner: "Sì, più economico che un albergo."
+      errors: [comparative]
+    - tutor: "Certo, più economico di un albergo, e con i soldi che risparmi mangi meglio! Cosa vuoi sapere?"
+      recast: {text: "più economico che un albergo", fix: "più economico di un albergo", tags: [comparative]}
+    - learner: "Cosa devo vedere assolutamente? E cosa devo mangiare? Io mangio tutto."
+    - tutor: "Visita il centro storico e il Museo Archeologico. E se qualcuno ti invita a pranzo la domenica, non dire di no!"
+      goals: [advice]
+      new: [{lemma: storico, gloss: historic}]
+    - learner: "Ok! E per andare a Procida? Ho sentito che è un'isola molto bella."
+    - tutor: "Prendi il traghetto dal porto: ci vuole circa un'ora. D'estate compra il biglietto il giorno prima."
+      goals: [transport]
+    - learner: "Perfetto. Ci sono zone pericolose? Non voglio essere robbed il primo giorno."
+      errors: [word-choice]
+    - tutor: "Per non essere derubato, tieni lo zaino davanti quando sei in metro. E di notte evita le strade vuote."
+      recast: {text: "essere robbed", fix: "essere derubato", tags: [word-choice]}
+      goals: [warnings]
+      new: [{lemma: derubare, gloss: to rob}]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto il 3 maggio con il mio ragazzo. Restiamo in Napoli quattro giorni e poi andiamo in Costiera."
+      errors: [preposition]
+    - tutor: "Che bello! Restate... «in Napoli»? Con i nomi di città, che preposizione usiamo?"
+      prompt: {text: "in Napoli", tags: [preposition]}
+    - learner: "Sì, in Napoli, e poi in Costiera Amalfitana."
+      errors: [preposition]
+    - tutor: "Quattro giorni a Napoli e poi la Costiera: che fortuna! Cosa vi piacerebbe fare?"
+      recast: {text: "in Napoli", fix: "a Napoli", tags: [preposition]}
+      goals: [plans]
+    - learner: "Cosa ci consigli di vedere? Abbiamo poco tempo."
+    - tutor: "Non perdete il centro storico e il Museo Archeologico. E per il caffè, entrate in un bar qualsiasi: è buonissimo ovunque!"
+      goals: [advice]
+      new: [{lemma: storico, gloss: historic}]
+    - learner: "Ah, va bene! Per andare a Positano è meglio il bus o il traghetto?"
+    - tutor: "Il traghetto, assolutamente: il bus è lento e d'estate è sempre pieno. Ci vuole un'ora e mezza."
+      goals: [transport]
+    - learner: "E cosa dobbiamo evitare? La mia mamma è molto preocupata."
+      errors: [spelling]
+    - tutor: "«Preocupata»? Controlla come si scrive: manca una lettera."
+      prompt: {text: "preocupata", tags: [spelling]}
+    - learner: "Preoccupata, scusa! Con due c."
+    - tutor: "Brava. Dille di stare tranquilla: evitate solo i taxi per strada e chiamateli sempre al telefono."
+      goals: [warnings]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: es-m-worker
+  history: [past-participle-form]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao! Sono tornato in Argentina per tre settimane, per visitare a mia famiglia."
+      errors: [preposition]
+    - tutor: "Che bello! Per visitare... «a mia famiglia»? In italiano quella «a» serve?"
+      prompt: {text: "a mia famiglia", tags: [preposition]}
+    - learner: "No: per visitare la mia famiglia."
+    - tutor: "Giusto. E com'era il tempo? Lì adesso è inverno, no?"
+      goals: [where]
+    - learner: "Sì, faceva freddo. Una notte è nevicato a Buenos Aires: non succedeva da anni!"
+    - tutor: "La neve a Buenos Aires? Incredibile! E cosa hai fatto in quelle settimane?"
+      goals: [weather]
+    - learner: "Ho lavorato un po' nel ristorante di mio padre. Per una festa ho cuocito per cento persone!"
+      errors: [past-participle-form]
+    - tutor: "Cento persone! Ma «ho cuocito»? Questo verbo ha una forma speciale al passato: te la ricordi?"
+      prompt: {text: "cuocito", tags: [past-participle-form]}
+    - learner: "Ho cuociuto?"
+      errors: [past-participle-form]
+    - tutor: "Hai cotto per cento persone? Che lavoro! Altro che vacanza."
+      recast: {text: "cuociuto", fix: "cotto", tags: [past-participle-form]}
+      goals: [activities]
+      new: [{lemma: cotto, gloss: cooked}]
+    - learner: "Eh sì, ero stanchissimo. Ma la cosa più bella è stata vedere mia nonna: ha compiuto novant'anni."
+    - tutor: "Novant'anni, che traguardo! Allora quella festa era per lei? Dalle un abbraccio da parte mia."
+      goals: [best]
+      new: [{lemma: traguardo, gloss: milestone}]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: en-f-professional
+  history: [demonstrative]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao! Sono stata in Puglia, in un piccolo albergo vicino al mare."
+    - tutor: "La Puglia, che bella! E com'era l'albergo?"
+      goals: [where]
+    - learner: "Bellissimo. Quel albergo era una vecchia masseria con una piscina enorme."
+      errors: [demonstrative]
+    - tutor: "«Quel albergo»? Guarda la prima lettera di «albergo»: la parola prima cambia forma."
+      prompt: {text: "Quel albergo", tags: [demonstrative]}
+    - learner: "Quel albergo, sì. E faceva caldissimo, sempre trentacinque gradi."
+      errors: [demonstrative]
+    - tutor: "Quell'albergo con la piscina era perfetto, allora, con quel caldo! E cosa avete visitato?"
+      recast: {text: "Quel albergo", fix: "Quell'albergo", tags: [demonstrative]}
+      goals: [weather]
+    - learner: "Alberobello, con le case bianche, e Lecce, che secondo me è più bella che Bari."
+      errors: [comparative]
+    - tutor: "Più bella... «che Bari»? Confronti due città: quale parola serve dopo «più bella»?"
+      prompt: {text: "più bella che Bari", tags: [comparative]}
+    - learner: "Più bella di Bari!"
+    - tutor: "Brava. Su questo tanti in Puglia sarebbero d'accordo con te! E il momento più bello?"
+      goals: [activities]
+    - learner: "Una sera a Polignano, quando abbiamo cenato su il mare con gli amici."
+      errors: [articulated-preposition]
+    - tutor: "Avete cenato... dove, scusa? Ripeti un po'."
+      prompt: {text: "su il mare", tags: [articulated-preposition]}
+    - learner: "Sul mare, su una terrazza."
+    - tutor: "Una cena sul mare a Polignano: me la immagino! Mi hai fatto venire voglia di partire."
+      goals: [best]

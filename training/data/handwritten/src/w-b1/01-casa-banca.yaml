@@ -1,0 +1,244 @@
+# B1, broad coverage: renting a flat, opening a bank account, a noisy neighbour.
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È molto luminoso! Quanto costa l'affitto? Le spese sono comprese?"
+    - tutor: "Sono 680 euro al mese. Le spese di condominio sono a parte: circa 40 euro."
+      goals: [rent]
+    - learner: "D'accordo. E la caparra, devo pagarla adesso o quando firmamo il contratto?"
+      errors: [verb-form]
+    - tutor: "Quando «firmamo»? Attenzione alla forma del verbo con «noi»."
+      prompt: {text: "firmamo", tags: [verb-form]}
+    - learner: "Scusi, quando firmiamo il contratto."
+    - tutor: "Benissimo. La caparra è di due mesi e la paga il giorno della firma. Il contratto dura quattro anni più quattro."
+      goals: [contract]
+    - learner: "Va bene. E quanto tempo vuole per arrivare in centro? Lavoro vicino al Duomo."
+      errors: [ci-ne]
+    - tutor: "Quanto tempo «vuole»? Detto così sembra una persona! Manca una piccola parola davanti al verbo."
+      prompt: {text: "quanto tempo vuole", tags: [ci-ne]}
+    - learner: "Ah, perdoni... quanto tempo si vuole per arrivare in centro?"
+      errors: [ci-ne]
+    - tutor: "Ci vuole un quarto d'ora con l'autobus, che passa proprio qui sotto. E il quartiere è tranquillo, con tanti negozi."
+      recast: {text: "si vuole", fix: "ci vuole", tags: [ci-ne]}
+      goals: [neighbourhood]
+    - learner: "Bene. Il riscaldamento funziona bene? Ho visto che i termosifoni sono molto vecchi."
+    - tutor: "Sono vecchi, è vero, ma l'anno scorso ho cambiato la caldaia e funzionano benissimo. Anche il frigorifero è nuovo."
+      goals: [condition]
+      new: [{lemma: caldaia, gloss: boiler}]
+    - learner: "Allora mi interessa molto. Potrei tornare sabato con mia esposa?"
+      errors: [word-choice]
+    - tutor: "Certo, venga pure con sua moglie! Ci vediamo sabato alle dieci, qui davanti al portone."
+      recast: {text: "esposa", fix: "moglie", tags: [word-choice]}
+      goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! Che bella luce. L'affitto quanto è? E le spese sono incluso?"
+      errors: [adjective-agreement]
+    - tutor: "Le spese sono... «incluso»? Ci pensi un attimo: «spese» è maschile o femminile?"
+      prompt: {text: "incluso", tags: [adjective-agreement]}
+    - learner: "Ah, femminile e plurale: le spese sono incluse?"
+    - tutor: "Brava! Sì, l'affitto è di 590 euro con le spese di condominio. Luce e gas, invece, li paga lei."
+      goals: [rent]
+    - learner: "Perfetto. E la ragazza che ho parlato al telefono, era sua figlia?"
+      errors: [relative-pronoun]
+    - tutor: "La ragazza «che ho parlato»? Pensi al verbo: parlare... con qualcuno. Come cambia il pronome?"
+      prompt: {text: "che ho parlato", tags: [relative-pronoun]}
+    - learner: "La ragazza con cui ho parlato! E il contratto quanto dura?"
+    - tutor: "Esatto, era mia figlia: si occupa lei degli appartamenti. Il contratto è di quattro anni, con una caparra di due mesi."
+      goals: [contract]
+    - learner: "Ok. Il riscaldamento è autonomo? E il quartiere è tranquillo? Inizio lavorare alle sei, quindi vado a letto presto."
+      errors: [preposition]
+    - tutor: "«Inizio lavorare»? Tra i due verbi manca qualcosa. Provi a ripetere?"
+      prompt: {text: "Inizio lavorare", tags: [preposition]}
+    - learner: "Sì, inizio di lavorare alle sei."
+      errors: [preposition]
+    - tutor: "Se inizia a lavorare alle sei, qui dorme benissimo: di notte il quartiere è tranquillo. E la caldaia è nuova, quindi il riscaldamento funziona bene."
+      recast: {text: "di lavorare", fix: "a lavorare", tags: [preposition]}
+      goals: [condition, neighbourhood]
+      new: [{lemma: caldaia, gloss: boiler}]
+    - learner: "Mi piace molto, ma devo pensarci. Le posso rispondere entro venerdì?"
+    - tutor: "Certo, nessun problema. Mi chiami pure entro venerdì, però non aspetti troppo: c'è molta richiesta."
+      goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-m-retired
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. Io e mia moglie cerchiamo un appartamento per sei mesi. Sarebbe possibile un contratto così breve?"
+    - tutor: "Sì, per sei mesi facciamo un contratto transitorio. Le chiedo solo un mese di caparra."
+      goals: [contract]
+      new: [{lemma: transitorio, gloss: temporary}]
+    - learner: "Molto bene. E quanto è l'affitto? Le utilità sono incluse?"
+      errors: [word-choice]
+    - tutor: "Sono 820 euro al mese, con le spese di condominio. Le bollette invece sono a parte: luce e gas li paga lei."
+      recast: {text: "utilità", fix: "bollette", tags: [word-choice]}
+      goals: [rent]
+    - learner: "Il soggiorno è bello, ma la cucina mi sembra piccola. C'è un lavastoviglie?"
+      errors: [noun-gender]
+    - tutor: "Un... lavastoviglie? Attenzione: lavastoviglie è femminile."
+      prompt: {text: "un lavastoviglie", tags: [noun-gender]}
+    - learner: "Ah, sì: c'è una lavastoviglie?"
+    - tutor: "Sì, c'è, ed è nuova. Anche la caldaia è stata cambiata due anni fa."
+      goals: [condition]
+      new: [{lemma: caldaia, gloss: boiler}]
+    - learner: "Il quartiere com'è? Noi non abbiamo la macchina, abbiamo bisogno dei autobus."
+      errors: [articulated-preposition]
+    - tutor: "Bisogno «dei autobus»? Guardi la lettera con cui comincia «autobus»: quale forma della preposizione ci vuole?"
+      prompt: {text: "dei autobus", tags: [articulated-preposition]}
+    - learner: "Degli autobus. Abbiamo bisogno degli autobus."
+    - tutor: "Perfetto. La fermata è a cento metri, e c'è anche un mercato il martedì mattina."
+      goals: [neighbourhood]
+    - learner: "Mi piacerebbe prenderlo. Vorrei parlarne con mia moglie stasera e chiamarla domani."
+    - tutor: "Benissimo, aspetto la sua telefonata domani. Saluti a sua moglie!"
+      goals: [decide]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Sono studentessa Erasmus e vorrei aprire un conto per sei mesi."
+    - tutor: "Certo. Per gli studenti abbiamo un conto giovani, che è molto semplice da aprire."
+      goals: [purpose]
+    - learner: "Ottimo. Quali documenti devo portare? Ho il passaporto e la carta di identità spagnola."
+    - tutor: "Va bene la carta d'identità, più il codice fiscale. Ce l'ha già?"
+      goals: [documents]
+    - learner: "Sì, l'ho fatto la settimana scorsa. Vorrei guardare qui anche i miei risparmi: quanto costa il conto?"
+      errors: [false-friend]
+    - tutor: "Certo, può tenere qui anche i suoi risparmi. Il conto giovani è gratis fino a trent'anni."
+      recast: {text: "guardare", fix: "tenere", tags: [false-friend]}
+      goals: [costs]
+    - learner: "Che bello, gratis! Una mia amica dice che in Italia la carta di debito si chiama bancomat. È vero?"
+    - tutor: "Sì, molti la chiamano così! La carta arriva in cinque giorni e la può aggiungere al telefono. Con l'app fa anche i bonifici."
+      goals: [card]
+    - learner: "Fantastico. Allora firmo qui?"
+    - tutor: "Sì, qui e qui. Ecco fatto: benvenuta tra i nostri clienti!"
+
+- scenario: banca-conto
+  level: B1
+  persona: en-m-heritage
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Ho iniziato un lavoro qui a Bari e devo di aprire un conto per lo stipendio."
+      errors: [modal-infinitive]
+    - tutor: "Benvenuto! «Devo di aprire»? Dopo «devo» c'è qualcosa in più: provi a togliere una parola."
+      prompt: {text: "devo di aprire", tags: [modal-infinitive]}
+    - learner: "Devo aprire un conto per lo stipendio."
+    - tutor: "Perfetto, è proprio il nostro lavoro. Ha con sé un documento?"
+      goals: [purpose]
+    - learner: "Sì, ecco il passaporto. Serve anche qualcos'altro?"
+    - tutor: "Mi serve anche il codice fiscale e, se ce l'ha, il contratto di lavoro."
+      goals: [documents]
+    - learner: "Il contratto non l'ho portato. Posso mandare lo per email?"
+      errors: [pronoun-position]
+    - tutor: "Mandare... lo? Il pronome va attaccato al verbo, ma come? Provi a dirlo in una parola sola."
+      prompt: {text: "mandare lo", tags: [pronoun-position]}
+    - learner: "Posso mandarlo per email?"
+    - tutor: "Sì, così. Me lo manda oggi stesso e lo aggiungiamo alla pratica. Vuole sapere i costi?"
+      new: [{lemma: pratica, gloss: file, paperwork}]
+    - learner: "Sì. Quanto si paga ogni mese? Mia nonna dice sempre che le banche costano tantissimo."
+    - tutor: "Ha ragione sua nonna, a volte! Il nostro conto costa due euro al mese, ma se lo stipendio arriva qui è gratis."
+      goals: [costs]
+      new: [{lemma: stipendio, gloss: salary}]
+    - learner: "Ok, bene. La carta è inclusa? E l'app, la posso usare in inglese?"
+    - tutor: "Sì, la carta è inclusa e l'app c'è anche in inglese. Firmi qui, per favore, e abbiamo finito."
+      goals: [card]
+
+- scenario: banca-conto
+  level: B1
+  persona: en-f-professional
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Volessi aprire un conto corrente, per me e mio marito."
+      errors: [conditional-form]
+    - tutor: "Con piacere. Scusi, come? «Volessi»? Per chiedere in modo gentile, quale forma usiamo?"
+      prompt: {text: "Volessi", tags: [conditional-form]}
+    - learner: "Vorrei! Vorrei aprire un conto cointestato."
+    - tutor: "Ecco, un conto cointestato: nessun problema. Dovete venire tutti e due a firmare."
+      goals: [purpose]
+      new: [{lemma: cointestato, gloss: joint (account)}]
+    - learner: "Certo. E quali documenti dobbiamo portare?"
+    - tutor: "Un documento d'identità e il codice fiscale di tutti e due."
+      goals: [documents]
+    - learner: "Perfetto. Ci sono tasse mensili? Nella mia banca australiana non pagavo niente."
+      errors: [word-choice]
+    - tutor: "Sì, ci sono dei costi mensili: il canone è di quattro euro al mese, ma il primo anno è gratis."
+      recast: {text: "tasse mensili", fix: "costi mensili", tags: [word-choice]}
+      goals: [costs]
+      new: [{lemma: canone, gloss: monthly fee}]
+    - learner: "Capito. E le carte? Ne avremo una ciascuno?"
+    - tutor: "Esatto, una carta di debito per ciascuno, e con l'app potete controllare tutti i movimenti."
+      goals: [card]
+    - learner: "Benissimo. Allora torniamo insieme giovedì mattina."
+    - tutor: "Perfetto, vi aspetto giovedì. Vi preparo già tutti i documenti."
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-m-traveller
+  history: [register]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera! Scusa il disturbo, sono il ragazzo del secondo piano. Mi chiamo Liam."
+      errors: [register]
+    - tutor: "Piacere, Liam. «Scusa»? Non ci conosciamo ancora... come si dice in modo più formale?"
+      prompt: {text: "Scusa il disturbo", tags: [register]}
+    - learner: "Ah, scusi il disturbo! Mi scusi."
+    - tutor: "Nessun problema. Mi dica pure, c'è qualcosa che non va?"
+      goals: [greet]
+    - learner: "Sì, purtroppo. Ogni notte sento la musica molto alta fino all'una, e la mattina mi sveglio alle sei per lavoro."
+    - tutor: "Ah, mi dispiace davvero. Mio figlio suona la batteria e non pensavo che si sentisse così tanto."
+      goals: [problem]
+      new: [{lemma: batteria, gloss: drums}]
+    - learner: "Capisco. Potrebbe dirle di suonare solo fino alle dieci?"
+      errors: [object-pronoun]
+    - tutor: "«Dirle»? Stiamo parlando di mio figlio, un ragazzo: quale pronome serve?"
+      prompt: {text: "dirle", tags: [object-pronoun]}
+    - learner: "Potrebbe dirgli di suonare solo fino alle dieci?"
+    - tutor: "Giusto. Sì, glielo dico stasera stessa. Le va bene se il sabato suona fino alle undici?"
+      goals: [request]
+    - learner: "Sì, il sabato va bene. Grazie, è molto gentile."
+    - tutor: "Grazie a lei per essere venuto a parlarmi. Buona notte, e speriamo di dormire tutti meglio!"
+      goals: [compromise]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, signora. Sono Carmen, abito proprio sotto di lei, al terzo piano."
+    - tutor: "Ah, piacere, Carmen. Mi dica pure."
+      goals: [greet]
+    - learner: "Le volevo parlare del rumore. Ogni mattina alle cinque sento la lavatrice e i passi con le scarpe."
+    - tutor: "Oh, mi dispiace. Faccio i turni in ospedale e mi alzo molto presto, non ci avevo pensato."
+      goals: [problem]
+      new: [{lemma: turno, gloss: shift}]
+    - learner: "Lo capisco, è un lavoro importante. Però vorrei che lei usa la lavatrice di sera, se è possibile."
+      errors: [subjunctive-use]
+    - tutor: "Ha ragione. Solo una cosa: dopo «vorrei che», il verbo «usa» va bene?"
+      prompt: {text: "che lei usa", tags: [subjunctive-use]}
+    - learner: "Vorrei che lei usasse la lavatrice di sera."
+    - tutor: "Perfetto! E ha ragione: la lavatrice la posso mettere la sera prima."
+      goals: [request]
+    - learner: "Grazie mille. E per le scarpe? Forse potrebbe metterse le pantofole in casa."
+      errors: [reflexive]
+    - tutor: "Metterse? Mi sembra una parola spagnola! Come si dice in italiano?"
+      prompt: {text: "metterse", tags: [reflexive]}
+    - learner: "Potrebbe mettersi le pantofole."
+    - tutor: "Giusto, mettersi le pantofole. Va bene, lo faccio con piacere. Allora: lavatrice la sera e pantofole la mattina?"
+      goals: [compromise]
+    - learner: "Perfetto, così dormiamo tutte e due. Buona serata!"
+    - tutor: "Buona serata a lei, Carmen, e scusi ancora."

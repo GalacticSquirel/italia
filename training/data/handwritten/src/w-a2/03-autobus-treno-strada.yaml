@@ -1,0 +1,230 @@
+# w-a2, file 03: bus, train tickets and directions (A2, broad coverage).
+- scenario: autobus
+  level: A2
+  persona: es-f-erasmus
+  history: [spelling, articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno! Devo andare all'università. Questo autobus ci va?"
+    - tutor: "Sì, la linea 12 passa proprio davanti all'università."
+      goals: [route]
+    - learner: "Perfetto! Qual'è il prezzo del biglietto? Posso comprarlo da lei?"
+      errors: [spelling]
+    - tutor: "Un momento: «qual'è»? Guardi bene l'apostrofo."
+      prompt: {text: "Qual'è", tags: [spelling]}
+      new: [{lemma: apostrofo, gloss: apostrophe}]
+    - learner: "Ah, scusi: qual è il prezzo del biglietto?"
+    - tutor: "Brava! Costa un euro e cinquanta, ma deve comprarlo in tabaccheria."
+      goals: [ticket]
+    - learner: "Va bene. C'è una tabaccheria vicino a la fermata?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, ma «a la fermata»? Queste due parole diventano una sola."
+      prompt: {text: "a la fermata", tags: [articulated-preposition]}
+    - learner: "Vicino alla fermata?"
+    - tutor: "Esatto! Proprio di fronte, a dieci metri."
+    - learner: "Grazie. E poi dove devo scendere per l'università?"
+    - tutor: "Dopo sei fermate: si chiama «Università». Facile!"
+      goals: [stop]
+    - learner: "Grazie mille, buona giornata!"
+    - tutor: "Prego, anche a lei! E si ricordi di timbrare il biglietto."
+      goals: [thank]
+
+- scenario: autobus
+  level: A2
+  persona: en-m-retired
+  history: [question-form, articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Vado al Museo Civico. Questo autobus va lì?"
+    - tutor: "Sì, va proprio lì. Ha già il biglietto?"
+      goals: [route]
+    - learner: "No, non ce l'ho. Lo posso comprare da lei?"
+    - tutor: "Sì, qui sull'autobus costa due euro."
+      goals: [ticket]
+    - learner: "Ecco due euro. Lo devo timbrare in la macchina gialla?"
+      errors: [articulated-preposition]
+    - tutor: "Grazie. «In la macchina»? Ascolti: queste due parole si uniscono."
+      prompt: {text: "in la macchina", tags: [articulated-preposition]}
+    - learner: "Nella macchina gialla!"
+    - tutor: "Bravo, esatto! È lì, vicino alla porta."
+    - learner: "Grazie. Cosa fermata è per il museo?"
+      errors: [question-form]
+    - tutor: "Scusi, come? «Cosa fermata» non va bene."
+      prompt: {text: "Cosa fermata", tags: [question-form]}
+    - learner: "Ehm... cosa è la fermata per il museo?"
+      errors: [question-form]
+    - tutor: "Ah, qual è la fermata per il museo? È la quarta: le dico io quando scendere."
+      goals: [stop]
+      recast: {text: "cosa è la fermata", fix: "qual è la fermata", tags: [question-form]}
+    - learner: "Lei è molto gentile, grazie!"
+    - tutor: "Di niente! Buona visita al museo."
+      goals: [thank]
+
+- scenario: autobus
+  level: A2
+  persona: en-f-student
+  history: [register]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Scusa, questo autobus va alla spiaggia?"
+      errors: [register]
+    - tutor: "Sì, ma... «scusa»? Ci diamo del tu?"
+      prompt: {text: "Scusa", tags: [register]}
+    - learner: "Oh, no! Scusi, questo autobus va alla spiaggia?"
+    - tutor: "Sì, va al mare. Ci vogliono venti minuti."
+      goals: [route]
+    - learner: "Benissimo. Siamo in due, io e la mia amica. Dove compriamo i biglietti?"
+    - tutor: "Qui non li vendo. C'è una tabaccheria dietro la fermata."
+      goals: [ticket]
+    - learner: "Ok, ne compriamo due e torniamo subito!"
+    - tutor: "Va bene, vi aspetto: parto tra cinque minuti."
+    - learner: "Ecco, li abbiamo timbrati. Dobbiamo scendere a la ultima fermata?"
+      errors: [articulated-preposition]
+    - tutor: "Quasi! Ma «a la ultima»? Diventa una parola sola."
+      prompt: {text: "a la ultima", tags: [articulated-preposition]}
+    - learner: "All'ultima fermata?"
+    - tutor: "Esatto, all'ultima: si chiama «Lido». È proprio sulla spiaggia."
+      goals: [stop]
+    - learner: "Grazie mille, è molto gentile!"
+    - tutor: "Prego, divertitevi!"
+      goals: [thank]
+
+- scenario: biglietto-treno
+  level: A2
+  persona: en-f-professional
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrebbi un biglietto per Firenze, domani mattina."
+      errors: [conditional-form]
+    - tutor: "Per Firenze, certo. Ma «vorrebbi»? Io...?"
+      prompt: {text: "Vorrebbi", tags: [conditional-form]}
+    - learner: "Vorrei un biglietto per Firenze, domani mattina."
+    - tutor: "Perfetto. C'è un treno alle otto e dieci. Solo andata?"
+      goals: [destination]
+    - learner: "No, andata e ritorno. Torno domenica sera."
+    - tutor: "Va bene. Prima o seconda classe?"
+      goals: [type]
+    - learner: "Prima classe, devo lavorare sul treno. Posso avere un posto vicino il finestrino?"
+      errors: [articulated-preposition]
+    - tutor: "Certo. Ma «vicino il finestrino»? Lì manca qualcosa."
+      prompt: {text: "vicino il finestrino", tags: [articulated-preposition]}
+    - learner: "Vicino al finestrino, con un tavolo."
+    - tutor: "Ecco il posto 14, con il tavolo. Sono novantotto euro."
+      goals: [class]
+    - learner: "Ecco la carta. Da quale binario parte?"
+    - tutor: "Di solito dal binario otto, ma controlli sempre in stazione."
+      goals: [platform]
+    - learner: "Grazie mille. Buona giornata!"
+    - tutor: "Grazie a lei, e buon viaggio!"
+
+- scenario: biglietto-treno
+  level: A2
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "A Venezia, sabato mattina."
+    - tutor: "Bene. Solo andata o andata e ritorno?"
+      goals: [destination]
+    - learner: "Andata e ritorno. Tornarò lunedì sera."
+      errors: [future-form]
+    - tutor: "«Tornarò»? Attenzione: il futuro di «tornare» non è così."
+      prompt: {text: "Tornarò", tags: [future-form]}
+    - learner: "No, tornerò lunedì sera."
+    - tutor: "Perfetto: andata sabato e ritorno lunedì."
+      goals: [type]
+    - learner: "Seconda classe va bene. Quanto costa il regionale?"
+    - tutor: "Il regionale costa ventidue euro ogni viaggio. Ci mette tre ore."
+      goals: [class]
+    - learner: "Va bene il regionale, non ho fretta. Sabato il treno parte da il binario quattro?"
+      errors: [articulated-preposition]
+    - tutor: "Mmm, «da il binario»? Le due parole si uniscono."
+      prompt: {text: "da il binario", tags: [articulated-preposition]}
+    - learner: "Sì... parte da il binario quattro?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, parte dal binario quattro, alle sette e venti."
+      goals: [platform]
+      recast: {text: "da il binario", fix: "dal binario", tags: [articulated-preposition]}
+    - learner: "Perfetto, grazie."
+    - tutor: "Prego, buon viaggio a Venezia!"
+
+- scenario: biglietto-treno
+  level: A2
+  persona: en-m-heritage
+  history: [question-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vado a Bari, venerdì pomeriggio. Vorrei un singolo biglietto."
+      errors: [word-choice]
+    - tutor: "Un biglietto di solo andata per Bari, certo. C'è un treno alle tre."
+      goals: [destination, type]
+      recast: {text: "un singolo biglietto", fix: "un biglietto di solo andata", tags: [word-choice]}
+    - learner: "Perfetto. Seconda classe, per favore. C'è un posto vicino alla window?"
+      errors: [word-choice]
+    - tutor: "Sì, il posto 23 vicino al finestrino è libero. Sono quarantacinque euro."
+      recast: {text: "alla window", fix: "al finestrino", tags: [word-choice]}
+      goals: [class]
+    - learner: "Ecco. Scusi, quale binario parte il treno?"
+      errors: [question-form]
+    - tutor: "Mmm, «quale binario parte»? Manca una piccola parola all'inizio."
+      prompt: {text: "quale binario parte", tags: [question-form]}
+    - learner: "Ehm... quale binario parte?"
+      errors: [question-form]
+    - tutor: "Ah, da quale binario parte? Di solito dal binario tre."
+      goals: [platform]
+      recast: {text: "quale binario parte", fix: "da quale binario parte", tags: [question-form]}
+    - learner: "Grazie! Mia nonna mi aspetta alla stazione di Bari."
+    - tutor: "Che bello! Buon viaggio e tanti saluti alla nonna!"
+
+- scenario: chiedere-strada
+  level: A2
+  persona: es-f-teacher
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, scusi. Cerco la stazione. È una fermata dell'autobus qui vicino?"
+      errors: [ce-ci-sono]
+    - tutor: "La stazione è a dieci minuti a piedi. Ma «è una fermata»? Vuole sapere se esiste, no?"
+      goals: [get-attention, ask-place]
+      prompt: {text: "È una fermata", tags: [ce-ci-sono]}
+    - learner: "Sì! C'è una fermata qui vicino?"
+    - tutor: "Sì, ma a piedi fa prima. Vada dritto fino al semaforo, poi a sinistra."
+    - learner: "Allora: dritto fino al semaforo e poi a destra?"
+    - tutor: "No, a sinistra! Poi vede subito una grande piazza."
+    - learner: "Ah, a sinistra. E la stazione è dopo la piazza?"
+    - tutor: "Sì, è proprio in fondo alla piazza."
+      goals: [understand]
+    - learner: "Grazie mille, lei è molto amabile."
+      errors: [false-friend]
+    - tutor: "Prego, è lei molto gentile! Buon viaggio."
+      goals: [thank]
+      recast: {text: "molto amabile", fix: "molto gentile", tags: [false-friend]}
+    - learner: "Grazie, buona giornata!"
+    - tutor: "Anche a lei, arrivederci!"
+
+- scenario: chiedere-strada
+  level: A2
+  persona: en-m-traveller
+  history: [preposition]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, scusi! Dov'è la train station?"
+      errors: [word-choice]
+    - tutor: "La stazione dei treni? È qui vicino, in piazza Roma."
+      goals: [get-attention, ask-place]
+      recast: {text: "la train station", fix: "La stazione dei treni", tags: [word-choice]}
+    - learner: "Posso andare in piedi o devo prendere l'autobus?"
+      errors: [preposition]
+    - tutor: "«In piedi»? Così si sta fermi, non si cammina!"
+      prompt: {text: "in piedi", tags: [preposition]}
+    - learner: "Ah! Posso andare a piedi?"
+    - tutor: "Certo, sono cinque minuti. Vada dritto e poi giri a destra."
+    - learner: "Dritto e poi a destra. C'è un traffic light?"
+      errors: [word-choice]
+    - tutor: "Sì, al semaforo giri a destra e vede la stazione."
+      recast: {text: "traffic light", fix: "semaforo", tags: [word-choice]}
+      goals: [understand]
+    - learner: "Perfetto, grazie mille! Buona giornata."
+    - tutor: "Prego, buon viaggio!"
+      goals: [thank]

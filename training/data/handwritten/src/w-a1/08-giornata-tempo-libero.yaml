@@ -1,0 +1,246 @@
+# Set w-a1, file 8: A1 daily routine and free time.
+- scenario: giorno-tipico
+  level: A1
+  persona: en-f-student
+  history: [reflexive]
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata di solito?"
+  - learner: "Io sveglio alle sette."
+    errors: [reflexive]
+  - tutor: "Io sveglio? Chi, la tua amica?"
+    prompt: {text: "Io sveglio", tags: [reflexive]}
+  - learner: "Ah no! Mi sveglio alle sette."
+  - tutor: "Ah, ecco! Presto. E poi?"
+    goals: [wake]
+  - learner: "Faccio colazione e vado alla libreria per studiare."
+    errors: [false-friend]
+  - tutor: "Ah, vai in biblioteca a studiare? Brava."
+    goals: [work]
+    recast: {text: "alla libreria", fix: "in biblioteca", tags: [false-friend]}
+    new: [{lemma: biblioteca, gloss: library}]
+  - learner: "Sì, tutta la mattina. La sera sono guardando la TV o cucino."
+    errors: [stare-gerund]
+  - tutor: "Sono guardando? Mmm, qui «sono» non va."
+    prompt: {text: "sono guardando", tags: [stare-gerund]}
+  - learner: "Sto guardando la TV... o cucino."
+  - tutor: "Perfetto! Io invece la sera leggo."
+    goals: [evening]
+  - learner: "E tu, a che ora ti sveglia?"
+    errors: [subject-verb-agreement]
+  - tutor: "Ti sveglia? Ascolta: tu...?"
+    prompt: {text: "ti sveglia", tags: [subject-verb-agreement]}
+  - learner: "A che ora ti svegli?"
+  - tutor: "Io mi sveglio tardi, alle nove!"
+    goals: [ask]
+
+- scenario: giorno-tipico
+  level: A1
+  persona: es-m-worker
+  history: [reflexive]
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata di solito?"
+  - learner: "Me sveglio alle cinque. Molto presto!"
+    errors: [reflexive]
+  - tutor: "Me sveglio? Mmm, in italiano non è «me»."
+    prompt: {text: "Me sveglio", tags: [reflexive]}
+  - learner: "Mi sveglio alle cinque."
+  - tutor: "Alle cinque! Perché così presto?"
+    goals: [wake]
+  - learner: "Lavoro in un ristorante. La mattina prepara il pane."
+    errors: [subject-verb-agreement]
+  - tutor: "Prepara? Chi, tu?"
+    prompt: {text: "prepara il pane", tags: [subject-verb-agreement]}
+  - learner: "Sì, io preparo il pane e la pasta."
+  - tutor: "Che bravo! E la sera cosa fai?"
+    goals: [work]
+  - learner: "La sera torno a casa tardi e ceno con mia novia."
+    errors: [word-choice]
+  - tutor: "Ah, ceni con la tua ragazza! Che bello."
+    goals: [evening]
+    recast: {text: "novia", fix: "ragazza", tags: [word-choice]}
+  - learner: "Sì. E tu, Anna? Lavori o studi?"
+  - tutor: "Io lavoro in un ufficio, dalle nove alle cinque."
+    goals: [ask]
+
+- scenario: giorno-tipico
+  level: A1
+  persona: en-m-retired
+  history: [negation]
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata di solito?"
+  - learner: "Mi sveglio alle otto. Non lavoro più, sono pensionato."
+  - tutor: "Che bello! E la mattina cosa fai?"
+    goals: [wake]
+  - learner: "Io facio una passeggiata e leggo il giornale."
+    errors: [spelling]
+  - tutor: "Facio? Mmm, come si scrive?"
+    prompt: {text: "facio", tags: [spelling]}
+  - learner: "Faccio una passeggiata e leggo il giornale."
+  - tutor: "Perfetto! E la sera?"
+    goals: [work]
+  - learner: "La sera io faccio niente."
+    errors: [negation]
+  - tutor: "Faccio niente? Manca una piccola parola prima di «faccio»."
+    prompt: {text: "faccio niente", tags: [negation]}
+  - learner: "Non faccio niente! Guardo la TV con mia moglie."
+  - tutor: "Esatto! Una bella sera a casa."
+    goals: [evening]
+  - learner: "E tu, Anna? Tu svegli presto?"
+    errors: [reflexive]
+  - tutor: "Tu svegli? Manca qualcosa prima del verbo."
+    prompt: {text: "Tu svegli", tags: [reflexive]}
+  - learner: "Ti svegli presto?"
+  - tutor: "Sì, alle sei e mezza. Troppo presto!"
+    goals: [ask]
+
+- scenario: giorno-tipico
+  level: A1
+  persona: es-f-teacher
+  history: [reflexive]
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata di solito?"
+  - learner: "Mi sveglio alle sei e faccio una ducha."
+    errors: [word-choice]
+  - tutor: "Una doccia subito? Brava!"
+    goals: [wake]
+    recast: {text: "una ducha", fix: "Una doccia", tags: [word-choice]}
+    new: [{lemma: doccia, gloss: shower}]
+  - learner: "Poi faccio colazione e vado a scuola. Sono maestra."
+  - tutor: "Che bel lavoro! A che ora torni a casa?"
+    goals: [work]
+  - learner: "Torno alle quattro. Poi guardo i compiti di miei alunni."
+    errors: [possessive]
+  - tutor: "Di miei alunni? Mmm, «di» più «i»...?"
+    prompt: {text: "di miei alunni", tags: [possessive]}
+  - learner: "Dei miei alunni."
+  - tutor: "Esatto! E la sera cosa fai?"
+  - learner: "La sera io me riposo e leggo un libro."
+    errors: [reflexive]
+  - tutor: "Io me riposo? Attenzione a «me»."
+    prompt: {text: "me riposo", tags: [reflexive]}
+  - learner: "Mi riposo e leggo. E tu, com'è la tua giornata?"
+  - tutor: "Lunga! Lavoro in ufficio fino alle sei."
+    goals: [evening, ask]
+
+- scenario: tempo-libero
+  level: A1
+  persona: en-m-heritage
+  history: [piacere]
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  - learner: "Io piaccio il calcio. Gioco ogni sabato."
+    errors: [piacere]
+  - tutor: "Io piaccio il calcio? Mmm, sei tu che piaci al calcio?"
+    prompt: {text: "Io piaccio il calcio", tags: [piacere]}
+  - learner: "Mi piace il calcio!"
+  - tutor: "Esatto! E giochi ogni sabato? Con chi?"
+    goals: [hobby, frequency]
+  - learner: "Con i miei amici. Siamo bravi, vinciamo sempre!"
+  - tutor: "Che forza! Io invece non gioco mai."
+  - learner: "E tu, cosa ti piacciono fare?"
+    errors: [piacere]
+  - tutor: "Ti piacciono fare? Attenzione: «fare» è una cosa sola."
+    prompt: {text: "ti piacciono fare", tags: [piacere]}
+  - learner: "Cosa ti piace fare?"
+  - tutor: "Bravo! Mi piace molto il cinema. Ci vado ogni settimana."
+    goals: [ask]
+  - learner: "Bello! Vuoi venire al cinema con io sabato sera?"
+    errors: [object-pronoun]
+  - tutor: "Con io? Mmm, dopo «con» non diciamo «io»."
+    prompt: {text: "con io", tags: [object-pronoun]}
+  - learner: "Con me! Sabato sera?"
+  - tutor: "Sì, volentieri! A sabato."
+    goals: [propose]
+    new: [{lemma: volentieri, gloss: gladly}]
+
+- scenario: tempo-libero
+  level: A1
+  persona: es-f-erasmus
+  history: [piacere]
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  - learner: "Mi piacciono molto ballare! Vado a ballare ogni sabato."
+    errors: [piacere]
+  - tutor: "Mi piacciono ballare? Mmm, «ballare» è una cosa o tante?"
+    prompt: {text: "Mi piacciono molto ballare", tags: [piacere]}
+  - learner: "Mi piace molto ballare!"
+  - tutor: "Che bello! E dove vai a ballare?"
+    goals: [hobby, frequency]
+  - learner: "In una discoteca del centro. È molto divertida."
+    errors: [false-friend]
+  - tutor: "Ah, è molto divertente! Ci vai con le amiche?"
+    recast: {text: "molto divertida", fix: "molto divertente", tags: [false-friend]}
+  - learner: "Sì! E tu, Sara? Che cosa fai il weekend?"
+  - tutor: "Io leggo molto. Mi piacciono i libri gialli."
+    goals: [ask]
+  - learner: "Ah, a me anche!"
+    errors: [word-order]
+  - tutor: "A me anche? Quasi! L'ordine è diverso."
+    prompt: {text: "a me anche", tags: [word-order]}
+  - learner: "Anche a me! Andiamo in libreria insieme sabato?"
+  - tutor: "Sì, che bella idea! Sabato mattina?"
+    goals: [propose]
+    new: [{lemma: libreria, gloss: bookshop}]
+
+- scenario: tempo-libero
+  level: A1
+  persona: en-f-professional
+  history: [subject-verb-agreement]
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  - learner: "Nel fine settimana gioco a tennis e nuoto."
+  - tutor: "Che sportiva! Quante volte giochi a tennis?"
+    goals: [hobby]
+    new: [{lemma: sportivo, gloss: sporty}]
+  - learner: "Io gioca due volte alla settimana."
+    errors: [subject-verb-agreement]
+  - tutor: "Io gioca? Ascolta bene la fine del verbo."
+    prompt: {text: "Io gioca", tags: [subject-verb-agreement]}
+  - learner: "Io gioco due volte alla settimana."
+  - tutor: "Brava! Io invece non faccio mai sport."
+    goals: [frequency]
+  - learner: "Davvero? Cosa tu fai il sabato?"
+    errors: [question-form]
+  - tutor: "Cosa tu fai? In italiano qui «tu» non serve."
+    prompt: {text: "Cosa tu fai", tags: [question-form]}
+  - learner: "Cosa fai il sabato?"
+  - tutor: "Vado al cinema o guardo un film a casa."
+    goals: [ask]
+  - learner: "Anch'io! Io ho vedito un bel film ieri."
+    errors: [past-participle-form]
+  - tutor: "Ho vedito? Attenzione, «vedere» è un verbo strano."
+    prompt: {text: "ho vedito", tags: [past-participle-form]}
+  - learner: "Ho visto un bel film ieri! Vuoi vedere un film con me domenica?"
+  - tutor: "Esatto! Sì, volentieri. Domenica sera?"
+    goals: [propose]
+    new: [{lemma: volentieri, gloss: gladly}]
+
+- scenario: tempo-libero
+  level: A1
+  persona: es-m-worker
+  history: [piacere]
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  - learner: "Nel fine settimana mi gusta cucinare per gli amici."
+    errors: [false-friend]
+  - tutor: "Ah, ti piace cucinare! Che fortuna i tuoi amici."
+    goals: [hobby]
+    recast: {text: "gusta cucinare", fix: "piace cucinare", tags: [false-friend]}
+  - learner: "Sì, cucino ogni domenica. Faccio la pasta fresca."
+  - tutor: "Ogni domenica, bravo! Io non cucino mai."
+    goals: [frequency]
+  - learner: "Mai? E cosa fai tu? Ti piaci lo sport?"
+    errors: [piacere]
+  - tutor: "Ti piaci? Parli di te o dello sport?"
+    prompt: {text: "Ti piaci lo sport", tags: [piacere]}
+  - learner: "Ti piace lo sport?"
+  - tutor: "Sì, mi piace correre. Corro il sabato mattina."
+    goals: [ask]
+  - learner: "Bene. Vuoi venire a mangiare a mi casa domenica?"
+    errors: [possessive]
+  - tutor: "A mi casa? Mmm, «mi» qui è spagnolo..."
+    prompt: {text: "a mi casa", tags: [possessive]}
+  - learner: "A casa mia! Domenica?"
+  - tutor: "Sì, volentieri! Porto io il vino."
+    goals: [propose]
+    new: [{lemma: volentieri, gloss: gladly}]

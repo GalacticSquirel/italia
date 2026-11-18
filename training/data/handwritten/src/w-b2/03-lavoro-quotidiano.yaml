@@ -1,0 +1,253 @@
+# Broad-coverage B2 dialogues: team meetings and working from home.
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-f-professional
+  history: [future-form, false-friend]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Abbastanza bene. Abbiamo finito i video per la campagna, e il cliente li ha già approvati."
+  - tutor: "Ottimo, era la parte più lunga. E il resto?"
+    goals: [update]
+  - learner: "Il problema è il sito: il fornitore dice che sarà pronto solo a fine mese, ma attualmente la campagna parte il 10."
+    errors: [false-friend]
+  - tutor: "In realtà la campagna parte il 10, giusto, quindi rischiamo venti giorni senza sito. Hai qualche idea?"
+    recast: {text: "attualmente", fix: "in realtà", tags: [false-friend]}
+    goals: [problem]
+  - learner: "Io proporrei di fare una pagina semplice, solo per la campagna. Il nostro grafico la potrà fare in tre giorni."
+  - tutor: "Mi piace l'idea. Ma chi scriverà i testi?"
+    goals: [proposal]
+  - learner: "Li scriverò io. Domani mattina mando la bozza a te e al cliente, e venerdì saperemo se va bene."
+    errors: [future-form]
+  - tutor: "Benissimo. Solo una cosa: «saperemo»? Il futuro di «sapere» è un po' più corto. Prova."
+    prompt: {text: "saperemo", tags: [future-form]}
+  - learner: "Venerdì sapremo se va bene."
+  - tutor: "Esatto. E se il cliente chiede delle modifiche?"
+  - learner: "Se il cliente chiede modifiche, gli li faccio nel fine settimana, non c'è problema."
+    errors: [combined-pronouns]
+  - tutor: "Benissimo. Ma «gli li faccio»: quando «gli» incontra «li», i due pronomi si uniscono. Come?"
+    prompt: {text: "gli li faccio", tags: [combined-pronouns]}
+  - learner: "Glieli faccio nel fine settimana."
+  - tutor: "Perfetto. Allora la scadenza è mercoledì 9 per la pagina online: lo scrivo subito nel calendario del gruppo."
+    goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: es-m-worker
+  history: [ci-ne, future-form]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Va avanti. Per il matrimonio di sabato abbiamo già ordinato tutto il pesce, ma la carne non l'ho ancora ordinata."
+  - tutor: "Bene. E la carne quando la ordini?"
+    goals: [update]
+  - learner: "Domani. Però c'è un problema: il cuoco nuovo è malato e un altro è in ferie. Quindi in cucina saremo solo in due."
+  - tutor: "Accidenti, in due per centoventi persone è dura."
+    goals: [problem]
+  - learner: "Io chiamerei il ragazzo che ha già lavorato con noi l'anno scorso. Per i camerieri, invece, servono sei e abbiamo sei."
+    errors: [ci-ne]
+  - tutor: "È bravo, buona idea. Sui camerieri, però: «servono sei e abbiamo sei»... sei che cosa? Manca una piccola parola che sostituisce «camerieri»."
+    prompt: {text: "abbiamo sei", tags: [ci-ne]}
+    goals: [proposal]
+  - learner: "Ah... servono sei e abbiamo sei, è giusto?"
+    errors: [ci-ne]
+  - tutor: "Allora, se ne servono sei e ne abbiamo sei, per la sala siamo a posto. Il ragazzo lo chiami tu?"
+    recast: {text: "abbiamo sei", fix: "ne abbiamo sei", tags: [ci-ne]}
+  - learner: "Sì, lo chiamo io, ho il suo numero. Glielo chiedo stasera."
+  - tutor: "Perfetto. Allora entro domani mattina mi dici se è libero."
+  - learner: "Va bene. E il menù finale lo mandarò agli sposi giovedì."
+    errors: [future-form]
+  - tutor: "D'accordo. Ma «mandarò»: al futuro, i verbi come «parlare» o «lavorare» non tengono la «a». Come diventa?"
+    prompt: {text: "mandarò", tags: [future-form]}
+  - learner: "Lo manderò giovedì, scusa."
+  - tutor: "Esatto. Quindi: il cuoco entro domani e menù agli sposi giovedì. Grazie, bel lavoro."
+    goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-m-heritage
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Va bene, ma è più lento del previsto. La settimana scorsa ho finito la parte del login."
+  - tutor: "Bene il login. E perché più lento?"
+    goals: [update]
+  - learner: "Perché il server di prova ha caduto due volte e ho perso molto tempo."
+    errors: [auxiliary-choice]
+  - tutor: "Che peccato. Ma «il server ha caduto»: con «cadere», come con «andare» o «arrivare», che verbo usiamo prima?"
+    prompt: {text: "ha caduto", tags: [auxiliary-choice]}
+  - learner: "Sì, ha caduto due volte, lunedì e mercoledì."
+    errors: [auxiliary-choice]
+  - tutor: "Ah, è caduto due volte in tre giorni? Allora è un problema serio, ne dobbiamo parlare con i tecnici."
+    recast: {text: "ha caduto", fix: "è caduto", tags: [auxiliary-choice]}
+    goals: [problem]
+  - learner: "Esatto. Proporrei di usare un server nel cloud, almeno per i test. Costerebbe circa cinquanta euro al mese."
+  - tutor: "Cinquanta euro sono niente, rispetto al tempo perso. Ne parliamo oggi stesso con Paolo."
+    goals: [proposal]
+  - learner: "Perfetto. Se Paolo dice di sì oggi, finirò tutto entro il 20."
+  - tutor: "Il 20? Il cliente vorrebbe vederlo il 18."
+  - learner: "Il 18 è troppo presto. Il 20 sarebbe più sicuro che il 18."
+    errors: [comparative]
+  - tutor: "Capisco. Ma «più sicuro che il 18»: quando confronti due date, che parola va dopo «più sicuro»?"
+    prompt: {text: "più sicuro che il 18", tags: [comparative]}
+  - learner: "Sì, il 20 sarebbe più sicuro che il 18, per me."
+    errors: [comparative]
+  - tutor: "D'accordo: il 20 è più sicuro del 18, e preferisco un giorno in più a un lavoro fatto male. Lo dico io al cliente."
+    recast: {text: "più sicuro che il 18", fix: "più sicuro del 18", tags: [comparative]}
+    goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: es-f-erasmus
+  history: [preposition, false-friend]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Bene! Ho finito di raccogliere i dati per la ricerca di mercato. Ho parlato con quaranta negozi in Bologna."
+    errors: [preposition]
+  - tutor: "Quaranta, brava! Ma «in Bologna»: con il nome di una città, che preposizione usiamo?"
+    prompt: {text: "in Bologna", tags: [preposition]}
+  - learner: "A Bologna, sì. Quaranta negozi a Bologna."
+  - tutor: "Perfetto. E che cosa è venuto fuori?"
+    goals: [update]
+  - learner: "Molti negozi sono interessati, ma il problema è che il questionario è troppo largo: le persone si stancano e non lo finiscono."
+    errors: [false-friend]
+  - tutor: "Capisco: se il questionario è troppo lungo, la gente lo lascia a metà. Come pensi di risolvere?"
+    recast: {text: "troppo largo", fix: "troppo lungo", tags: [false-friend]}
+    goals: [problem]
+  - learner: "Io farei un questionario più corto, con dieci domande al massimo. Lo posso preparare io."
+  - tutor: "Mi sembra un'ottima proposta. Quando potresti averlo pronto?"
+    goals: [proposal]
+  - learner: "Penso che lo finirò per giovedì, e la settimana prossima lo provo con cinque negozi."
+  - tutor: "Bene. Però i risultati ci servono prima della riunione con il cliente, il 15."
+  - learner: "Va bene. Allora vi mandarò i risultati il 14."
+    errors: [future-form]
+  - tutor: "Perfetto. Ma «mandarò»? Pensa a «parlerò» o «lavorerò»: che cosa succede alla «a»?"
+    prompt: {text: "mandarò", tags: [future-form]}
+  - learner: "Vi manderò i risultati il 14."
+  - tutor: "Esatto. Allora: nuove domande per giovedì e risultati il 14. Grazie, ottimo lavoro."
+    goals: [deadline]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-traveller
+  history: [comparative]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Lavoro da casa tre giorni a settimana, e gli altri due vado nell'ufficio."
+    errors: [articulated-preposition]
+  - tutor: "Un po' e un po', quindi. Ma «vado nell'ufficio»: quando parli del tuo posto di lavoro in generale, ci vuole l'articolo?"
+    prompt: {text: "nell'ufficio", tags: [articulated-preposition]}
+  - learner: "Vado in ufficio, giusto."
+  - tutor: "Esatto. E come ti trovi con questo ritmo?"
+    goals: [situation]
+  - learner: "Bene! A casa sono più produttivo che in ufficio, e non perdo un'ora sul treno."
+  - tutor: "Un'ora in meno sul treno, che fortuna! Ma non ti mancano i colleghi?"
+    goals: [pros]
+  - learner: "Sì, un po'. In ufficio c'è più energia, e i colleghi sono più simpatici che un gatto."
+    errors: [comparative]
+  - tutor: "Ah ah, povero gatto! Ma «più simpatici che un gatto»: quando confronti due nomi, cosa usi al posto di «che»?"
+    prompt: {text: "più simpatici che un gatto", tags: [comparative]}
+  - learner: "Più simpatici che un gatto, sì! Il mio dorme sempre."
+    errors: [comparative]
+  - tutor: "Per forza sono più simpatici di un gatto che dorme tutto il giorno! Quindi lo svantaggio è stare sempre da solo?"
+    recast: {text: "più simpatici che un gatto", fix: "più simpatici di un gatto", tags: [comparative]}
+    goals: [cons]
+  - learner: "Sì, e anche il fatto che a casa è difficile disconnettere: a volte lavoro fino alle nove di sera."
+    errors: [word-choice]
+  - tutor: "Classico: a casa è difficile staccare dal lavoro. Allora, se potessi scegliere, cosa preferiresti?"
+    recast: {text: "disconnettere", fix: "staccare dal lavoro", tags: [word-choice]}
+  - learner: "Preferirei due giorni a casa e tre in ufficio, così avrei tutte e due le cose."
+  - tutor: "Mi sembra la soluzione migliore. Io farei lo stesso, se il mio capo me lo permettesse!"
+    goals: [preference]
+
+- scenario: smartworking
+  level: B2
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Io do lezioni online da casa, ma il martedì vado a scuola per le riunioni."
+  - tutor: "Ah, insegni online! E come ti trovi?"
+    goals: [situation]
+  - learner: "Il vantaggio più grande è il tempo: prima perdevo un'ora e mezza al giorno in macchina. Adesso dormo più che prima."
+    errors: [comparative]
+  - tutor: "Un'ora e mezza: tantissimo! Ma «dormo più che prima»? Nel confronto, davanti a «prima», si usa un'altra parola."
+    prompt: {text: "più che prima", tags: [comparative]}
+  - learner: "Adesso dormo più di prima, è vero."
+  - tutor: "Che bello! E gli svantaggi?"
+    goals: [pros]
+  - learner: "Gli studenti online sono più distratti, e io mi sento molto sola. A volte passo tutto il giorno senza vedere a nessuno."
+    errors: [preposition]
+  - tutor: "Ti capisco. Ma «vedere a nessuno»: in italiano, davanti alla persona che vedi, quella «a» ci va?"
+    prompt: {text: "vedere a nessuno", tags: [preposition]}
+  - learner: "È vero, è triste non vedere a nessuno."
+    errors: [preposition]
+  - tutor: "Sì, è triste non vedere nessuno per ore; io impazzirei."
+    recast: {text: "vedere a nessuno", fix: "vedere nessuno", tags: [preposition]}
+    goals: [cons]
+  - learner: "Se potessi scegliere, vorrei lavorare tre giorni a scuola e due a casa. Però la mia scuola non lo permetterebbe mai."
+  - tutor: "Peccato, mi sembra una soluzione perfetta. Magari, se lo proponete in tanti, la scuola cambierà idea."
+    goals: [preference]
+
+- scenario: smartworking
+  level: B2
+  persona: en-f-student
+  history: [piacere]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Io lavoro solo da casa: rispondo ai clienti di un'app, quattro ore la sera."
+  - tutor: "Da casa e di sera, perfetto per chi studia. E ti trovi bene?"
+    goals: [situation]
+  - learner: "Sì, io piaccio molto lavorare in pigiama!"
+    errors: [piacere]
+  - tutor: "Ah ah, ti capisco! Ma «io piaccio»: così sembra che tu sia simpatica a qualcuno. Come la giri?"
+    prompt: {text: "io piaccio", tags: [piacere]}
+  - learner: "Ah sì: mi piace molto lavorare in pigiama."
+  - tutor: "Molto meglio! E quali altri vantaggi ci sono?"
+  - learner: "Posso organizzare gli orari come voglio, e posso salvare soldi: non spendo niente per l'autobus e per il caffè."
+    errors: [word-choice]
+  - tutor: "Risparmiare soldi a Milano è un'impresa: lì costa tutto un occhio della testa! E c'è qualcosa che non ti va?"
+    recast: {text: "salvare soldi", fix: "risparmiare soldi", tags: [word-choice]}
+    goals: [pros]
+  - learner: "I clienti a volte sono molto maleducati, e da sola è più difficile che in un ufficio con i colleghi."
+  - tutor: "Eh sì, in ufficio almeno ti sfoghi con qualcuno."
+    goals: [cons]
+    new: [{lemma: sfogarsi, gloss: to vent}]
+  - learner: "Esatto. In futuro preferirei un lavoro ibrido: due giorni in ufficio sarebbe più meglio per me."
+    errors: [comparative]
+  - tutor: "Ti capisco. Ma «più meglio»: «meglio» ha già dentro il confronto. Ti serve davvero quel «più»?"
+    prompt: {text: "sarebbe più meglio", tags: [comparative]}
+  - learner: "Sì, sarebbe più meglio per me."
+    errors: [comparative]
+  - tutor: "Hai ragione, per te sarebbe meglio così: lavori, ma non ti senti sola."
+    recast: {text: "sarebbe più meglio", fix: "sarebbe meglio", tags: [comparative]}
+    goals: [preference]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-retired
+  history: [conditional-form, noun-number]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Ormai sono in pensione, ma faccio ancora qualche consulenze da casa, due o tre volte al mese."
+    errors: [noun-number]
+  - tutor: "Ah, quindi non hai smesso del tutto! Ma «qualche consulenze»: dopo «qualche», singolare o plurale?"
+    prompt: {text: "qualche consulenze", tags: [noun-number]}
+  - learner: "Singolare: qualche consulenza."
+  - tutor: "Giusto. E come ti organizzi in casa?"
+    goals: [situation]
+  - learner: "Ho una piccola stanza solo per il lavoro. Il vantaggio è che posso scegliere i progetti che mi interessano di più."
+  - tutor: "Questa sì che è libertà."
+    goals: [pros]
+  - learner: "Però mia moglie mi chiede sempre di aiutarla in casa, perché pensa che non sto lavorando."
+    errors: [subjunctive-use]
+  - tutor: "Ah ah, classico! Ma «pensa che non sto lavorando»: dopo «pensa che», che modo ci vuole?"
+    prompt: {text: "pensa che non sto lavorando", tags: [subjunctive-use]}
+  - learner: "Pensa che non stia lavorando, esatto!"
+  - tutor: "Succede in tutte le case! E se potessi scegliere, cosa faresti?"
+    goals: [cons]
+  - learner: "Mi piacerebbe avere un piccolo ufficio fuori casa, magari con altri pensionati. Sarebbe più divertente e potrebbiamo parlare di ingegneria."
+    errors: [conditional-form]
+  - tutor: "Un club di pensionati, che idea! Ma «potrebbiamo»: al condizionale, con «noi», come finisce il verbo?"
+    prompt: {text: "potrebbiamo", tags: [conditional-form]}
+  - learner: "Potremmo parlare di ingegneria tutto il giorno!"
+  - tutor: "Esatto! E io verrei a trovarvi, se mi offriste un caffè."
+    goals: [preference]
