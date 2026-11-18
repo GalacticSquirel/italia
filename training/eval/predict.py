@@ -12,7 +12,7 @@ import time
 from collections.abc import Callable, Sequence
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from typing import Literal, cast
+from typing import Literal, Protocol, cast
 
 from pydantic import BaseModel, ConfigDict
 from pydantic.alias_generators import to_camel
@@ -55,7 +55,17 @@ def request_endpoint(spec: SystemSpec) -> ModelEndpoint:
     return spec.endpoint.model_copy(update={"extra_body": extra})
 
 
-def to_messages(item: EvalItem, spec: SystemSpec) -> list[ChatMessage]:
+class PromptItem(Protocol):
+    """What a system is run on: benchmark items and real-learner items both qualify."""
+
+    @property
+    def id(self) -> str: ...
+
+    @property
+    def messages(self) -> list[dict[str, str]]: ...
+
+
+def to_messages(item: PromptItem, spec: SystemSpec) -> list[ChatMessage]:
     messages = item.messages
     if spec.system_role == "merge":
         messages = merge_system_message(messages)
@@ -70,7 +80,7 @@ def to_messages(item: EvalItem, spec: SystemSpec) -> list[ChatMessage]:
 
 def predict(
     spec: SystemSpec,
-    items: Sequence[EvalItem],
+    items: Sequence[PromptItem],
     out_path: Path,
     *,
     client: ChatClient | None = None,
@@ -81,7 +91,7 @@ def predict(
     todo = [i for i in items if i.id not in done]
     chat = client or make_client(request_endpoint(spec))
 
-    def one(item: EvalItem) -> dict[str, object]:
+    def one(item: PromptItem) -> dict[str, object]:
         start = clock()
         completion = chat.complete(
             to_messages(item, spec),

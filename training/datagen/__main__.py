@@ -15,6 +15,7 @@ Commands, in pipeline order:
     build-dpo          preference pairs from scored candidates
     stats              counts per stage
     lemmas             extract the seed lemma list from a content seed JSON
+    merlin             real learner sentences with native corrections (MERLIN, CC BY-SA 4.0)
 """
 
 from __future__ import annotations
@@ -44,6 +45,7 @@ from datagen.jsonutil import read_jsonl, write_jsonl
 from datagen.judge import JudgeParseError, judge_candidates
 from datagen.languagetool import GrammarChecker, LanguageToolClient, NullChecker
 from datagen.learner import build_jobs
+from datagen.learner_corpus import DEFAULT_PAIRS, fetch_merlin, pairs_from_zip
 from datagen.lemmas import (
     DEFAULT_LEMMA_FILE,
     BandChecker,
@@ -301,6 +303,16 @@ def cmd_lemmas(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_merlin(args: argparse.Namespace) -> int:
+    archive = fetch_merlin(Path(args.zip))
+    pairs = pairs_from_zip(archive)
+    write_jsonl(Path(args.out), (p.to_wire() for p in pairs))
+    changed = sum(p.changed for p in pairs)
+    held_out = sum(p.split == "eval" for p in pairs)
+    print(f"{len(pairs)} pairs ({changed} corrected, {held_out} held out) -> {args.out}")
+    return 0
+
+
 def _bench_options(p: argparse.ArgumentParser) -> None:
     p.add_argument("--concurrency", type=int, help="requests in flight (default maxConcurrency)")
     p.add_argument("--rounds", type=int, default=2)
@@ -323,6 +335,18 @@ def _filter_commands(with_config: Callable[[str, str], argparse.ArgumentParser])
         help="reparse failed jobs' last teacher output with the current parser first",
     )
     p.set_defaults(fn=cmd_refilter)
+
+
+def _source_commands(sub: Any) -> None:
+    """Commands that build inputs from external sources rather than from a config."""
+    p = sub.add_parser("lemmas", help="extract the seed lemma list")
+    p.add_argument("--seed", required=True, help="path to packages/content/seed/seed.v1.json")
+    p.add_argument("--out", default=str(DEFAULT_LEMMA_FILE))
+    p.set_defaults(fn=cmd_lemmas)
+    p = sub.add_parser("merlin", help="sentence pairs from the MERLIN learner corpus")
+    p.add_argument("--zip", default="work/merlin-text-v1.2.zip", help="downloaded if missing")
+    p.add_argument("--out", default=str(DEFAULT_PAIRS))
+    p.set_defaults(fn=cmd_merlin)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -382,10 +406,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--max-pairs", type=int, default=2)
     p.set_defaults(fn=cmd_build_dpo)
     with_config("stats", "counts per stage").set_defaults(fn=cmd_stats)
-    p = sub.add_parser("lemmas", help="extract the seed lemma list")
-    p.add_argument("--seed", required=True, help="path to packages/content/seed/seed.v1.json")
-    p.add_argument("--out", default=str(DEFAULT_LEMMA_FILE))
-    p.set_defaults(fn=cmd_lemmas)
+    _source_commands(sub)
 
     args = parser.parse_args(argv)
     result: int = args.fn(args)

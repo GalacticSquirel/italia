@@ -65,6 +65,15 @@ phone's own Italian voices until a pack is built (the screen says "Limited voice
 is never committed (`packages/content/build/` is ignored). CC0 needs no attribution, but the
 manifest keeps each clip's source file name.
 
+## Tutor training and evaluation data (training/, not bundled)
+
+| Source                                                                                                                                                   | Version used                               | Used for                                                                                                                                                                    | Licence      |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| [MERLIN](https://www.merlin-platform.eu) Italian learner texts (Eurac Research; CLARIN handle [20.500.12124/59](https://hdl.handle.net/20.500.12124/59)) | `merlin-text-v1.2.zip`; sha256 `949f1ef6…` | Real learner sentences with native corrections (`training/data/learner/merlin-it.jsonl`): the real-learner check and hand-written dialogues built on real learner sentences | CC BY-SA 4.0 |
+
+`training/data/learner/merlin-it.jsonl` and any dialogue built on its sentences are CC BY-SA
+derivatives of MERLIN; see `training/data/learner/README.md` for the attribution.
+
 ## Not used (yet)
 
 | Source                                                 | Why not                                                                      | Licence                          |
@@ -72,6 +81,9 @@ manifest keeps each clip's source file name.
 | Nuovo vocabolario di base della lingua italiana (NVdB) | Planned for CEFR / "alta disponibilità" tagging in a later seed              | Research and personal use only   |
 | wordfreq                                               | FrequencyWords covers the same subtitle register; may be used to cross-check | Data CC BY-SA 4.0                |
 | Universal Dependencies Italian ISDT                    | Not needed: Morph-it! provides lemmas and tags                               | Non-commercial (CC BY-NC-SA 3.0) |
+| KIParla (spoken Italian corpus)                        | Licence allows research use only and forbids inclusion in other resources    | CC BY-NC-SA 4.0 plus terms       |
+| CItA (school essays with teacher corrections)          | Available only on request, for research                                      | Research use on request          |
+| VALICO-UD (learner texts with corrections)             | Small (36 texts); MERLIN covers the same need                                | CC BY-SA 4.0                     |
 
 ## Notes
 
