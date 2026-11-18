@@ -1,0 +1,298 @@
+# Set v-question, file 4: B1 doctor, bank, clinic booking, travel tips, flat, mechanic, holidays, volunteering.
+- scenario: medico-base
+  level: B1
+  persona: en-m-traveller
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+  - learner: "Buongiorno, dottore. Ho mal di gola e un po' di febbre."
+  - tutor: "Mi dispiace. Da quando ha questi sintomi?"
+    goals: [symptoms]
+  - learner: "Da tre giorni. Ieri sera ho avuto la febbre a trentotto."
+  - tutor: "Capisco. È allergico a qualche medicina?"
+    goals: [since-when]
+  - learner: "No, non sono allergico. Ma prendo una pastiglia per la pressione. È un problema, non è?"
+    errors: [question-form]
+  - tutor: "«Non è?» Alla fine di una domanda così, in italiano usiamo un'altra parola."
+    prompt: {text: "non è", tags: [question-form]}
+  - learner: "Ah, giusto: è un problema, vero?"
+  - tutor: "Esatto! No, nessun problema. Le scrivo la ricetta per un antibiotico."
+    goals: [history]
+    new: [{lemma: antibiotico, gloss: antibiotic}]
+  - learner: "Grazie. Come spesso lo devo prendere?"
+    errors: [question-form]
+  - tutor: "Come spesso? Mmm, la domanda non è chiara."
+    prompt: {text: "Come spesso", tags: [question-form]}
+  - learner: "Quanto volte lo devo prendere?"
+    errors: [question-form]
+  - tutor: "Quante volte? Due volte al giorno, dopo pranzo e dopo cena, per sei giorni."
+    recast: {text: "Quanto volte", fix: "Quante volte", tags: [question-form]}
+  - learner: "Allora, due volte al giorno dopo pranzo e dopo cena, per sei giorni. Posso andare al lavoro?"
+  - tutor: "Meglio di no, almeno per due giorni. Si riposi e beva molta acqua."
+    goals: [instructions]
+  - learner: "Va bene. Gli devo pagare qualcosa?"
+    errors: [object-pronoun]
+  - tutor: "Gli devo? Sta parlando con me, quindi... quale pronome?"
+    prompt: {text: "Gli devo", tags: [object-pronoun]}
+  - learner: "Le devo pagare qualcosa?"
+  - tutor: "No, la visita non si paga. Buona guarigione!"
+    new: [{lemma: guarigione, gloss: recovery}]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-f-teacher
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno, come posso esserle utile?"
+  - learner: "Buongiorno. Vorrei aprire un conto corrente: mi sono appena trasferita qui per lavoro."
+  - tutor: "Benissimo. Ha già il codice fiscale?"
+    goals: [purpose]
+  - learner: "Sì, eccolo. Che altri documenti devo portare?"
+  - tutor: "Solo il passaporto e un contratto di lavoro o di affitto."
+    goals: [documents]
+  - learner: "Perfetto, li ho qui. Quanto costa il conto per mese?"
+    errors: [preposition]
+  - tutor: "Per mese? Mmm, di solito diciamo un'altra cosa."
+    prompt: {text: "per mese", tags: [preposition]}
+  - learner: "Quanto costa al mese?"
+  - tutor: "Esatto. Il conto base costa due euro al mese; quello online, invece, non costa niente."
+    new: [{lemma: online, gloss: online}]
+  - learner: "Niente? Che è la differenza tra i due?"
+    errors: [question-form]
+  - tutor: "Scusi, «che è»...? Non sono sicura di aver capito la domanda."
+    prompt: {text: "Che è la differenza", tags: [question-form]}
+  - learner: "Cosa è la differenza tra i due?"
+    errors: [question-form]
+  - tutor: "Qual è la differenza tra i due? Con il conto online fa tutto dall'app; in filiale, invece, paga ogni operazione."
+    recast: {text: "Cosa è la differenza", fix: "Qual è la differenza", tags: [question-form]}
+    goals: [costs]
+    new: [{lemma: filiale, gloss: branch}, {lemma: online, gloss: online}]
+  - learner: "Capisco. E la carta di debito, quando me la date?"
+  - tutor: "Gliela spediamo a casa: arriva in una settimana, più o meno."
+  - learner: "Va bene. Potria usare l'app anche dall'estero?"
+    errors: [conditional-form]
+  - tutor: "Potria? Attenzione alla forma del condizionale."
+    prompt: {text: "Potria", tags: [conditional-form]}
+  - learner: "Potrei usare l'app anche dall'estero?"
+  - tutor: "Certo, funziona ovunque. Allora, procediamo?"
+    goals: [card]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-f-student
+  history: [question-form]
+  turns:
+  - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+  - learner: "Buongiorno. Vorrei prenotare una visita da un dermatologo."
+  - tutor: "Certo. Ha l'impegnativa del suo medico?"
+    goals: [type]
+  - learner: "No, non ce l'ho. È necessaria?"
+  - tutor: "Non serve per forza, ma senza impegnativa la visita costa di più."
+  - learner: "Ah. E senza impegnativa, quanto viene?"
+  - tutor: "Centoventi euro."
+  - learner: "Va bene. E chi devo dare i soldi a?"
+    errors: [question-form]
+  - tutor: "Chi devo dare i soldi a? Scusi, non ho capito."
+    prompt: {text: "chi devo dare i soldi a", tags: [question-form]}
+  - learner: "A chi devo dare i soldi?"
+  - tutor: "Paga qui da noi, il giorno della visita."
+    goals: [cost]
+  - learner: "Perfetto. Cosa è la prima data libera?"
+    errors: [question-form]
+  - tutor: "Cosa è la prima data? Mmm, provi con un'altra parola."
+    prompt: {text: "Cosa è la prima data libera", tags: [question-form]}
+  - learner: "Che è la prima data libera?"
+    errors: [question-form]
+  - tutor: "Qual è la prima data libera? Martedì prossimo alle undici, oppure giovedì alle quattro."
+    recast: {text: "Che è la prima data libera", fix: "Qual è la prima data libera", tags: [question-form]}
+  - learner: "Martedì non posso. Giovedì andarà bene."
+    errors: [future-form]
+  - tutor: "Andarà? Attenzione al futuro di «andare»."
+    prompt: {text: "andarà", tags: [future-form]}
+  - learner: "Giovedì andrà bene."
+  - tutor: "Perfetto, giovedì alle sedici. Mi dice nome e cognome?"
+    goals: [availability]
+  - learner: "Sarah Collins. Allora: giovedì alle quattro, dermatologo, centoventi euro."
+  - tutor: "Esatto, signora Collins. Porti un documento. A giovedì!"
+    goals: [confirm]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-m-worker
+  history: [question-form]
+  turns:
+  - tutor: "Allora, quando parti per Napoli?"
+  - learner: "Parto venerdì e resto cinque giorni. È la mia prima volta a Napoli!"
+  - tutor: "Che bello! Ti piacerà tantissimo. Hai già un programma?"
+    goals: [plans]
+  - learner: "Non ancora. Cosa mi consigli di vedere? E cosa devo assolutamente mangiare?"
+  - tutor: "Il centro, assolutamente, e il mare. E prova la pizza fritta!"
+    goals: [advice]
+    new: [{lemma: fritto, gloss: fried}]
+  - learner: "Pizza fritta? Com'è?"
+  - tutor: "È una pizza piena di formaggio e fatta nell'olio. Pesante, ma buonissima!"
+  - learner: "Che buono! E come me muovo in città?"
+    errors: [reflexive]
+  - tutor: "Come me muovo? Attenzione al pronome."
+    prompt: {text: "come me muovo", tags: [reflexive]}
+  - learner: "Come mi muovo in città?"
+  - tutor: "Esatto. Prendi la metro: la linea 1 ha stazioni bellissime, sembrano musei."
+    goals: [transport]
+  - learner: "Ho sentito di una carta turistica. Per cosa serve?"
+    errors: [question-form]
+  - tutor: "Per cosa serve? Con «servire» si usa un'altra preposizione."
+    prompt: {text: "Per cosa serve", tags: [question-form]}
+  - learner: "Per che serve?"
+    errors: [question-form]
+  - tutor: "A cosa serve? Ti fa entrare gratis in alcuni musei e prendere i mezzi."
+    recast: {text: "Per che serve", fix: "A cosa serve", tags: [question-form]}
+  - learner: "Fantastico. E il traghetto per Capri, ogni quanto parte?"
+  - tutor: "Più o meno ogni ora, dal porto. Vai la mattina presto, c'è meno gente."
+  - learner: "Ci sono zone che devo evitare?"
+  - tutor: "Di notte evita le strade troppo vuote, e in metro attento alle borse."
+    goals: [warnings]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-professional
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno. È molto luminoso! Quant'è l'affitto?"
+  - tutor: "Sono settecento euro al mese, spese di condominio comprese."
+  - learner: "E il riscaldamento? È incluso anche quello?"
+  - tutor: "No, il riscaldamento è a parte, quindi lo paga lei."
+    goals: [rent]
+  - learner: "Capisco. Come vecchia è la caldaia?"
+    errors: [question-form]
+  - tutor: "Come vecchia? Mmm, la domanda non suona bene."
+    prompt: {text: "Come vecchia", tags: [question-form]}
+  - learner: "Quanto è vecchia la caldaia?"
+  - tutor: "Perfetto. Ha solo due anni: l'ho cambiata da poco."
+    goals: [condition]
+  - learner: "Bene. E il contratto, quanto lungo dura?"
+    errors: [question-form]
+  - tutor: "Quanto lungo dura? C'è una parola di troppo."
+    prompt: {text: "quanto lungo dura", tags: [question-form]}
+  - learner: "Quanto lungo è il contratto?"
+    errors: [question-form]
+  - tutor: "Quanto dura? Quattro anni più quattro, con una caparra di due mesi."
+    recast: {text: "quanto lungo", fix: "quanto dura", tags: [question-form]}
+    goals: [contract]
+  - learner: "Va bene. Il quartiere com'è? C'è un supermercato vicino?"
+  - tutor: "Sì, ce n'è uno all'angolo. Ed è una zona molto tranquilla."
+    goals: [neighbourhood]
+  - learner: "Mi interessa molto. La persona con chi devo firmare il contratto è Lei?"
+    errors: [relative-pronoun]
+  - tutor: "La persona con chi...? Qui serve un altro pronome."
+    prompt: {text: "con chi devo firmare", tags: [relative-pronoun]}
+  - learner: "La persona con cui devo firmare è Lei?"
+  - tutor: "Sì, sono io il proprietario. Allora le preparo il contratto per la settimana prossima."
+    goals: [decide]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-heritage
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno! Che problema ha la macchina?"
+  - learner: "Buongiorno. Quando freno, la macchina fa un rumore strano."
+  - tutor: "Che tipo di rumore? Un fischio?"
+    goals: [describe]
+    new: [{lemma: fischio, gloss: whistle, squeal}]
+  - learner: "Sì, un fischio forte. È cominciato la settimana scorsa, mentre sono tornato dal mare."
+    errors: [tense-aspect]
+  - tutor: "Mentre sono tornato? Era un'azione in corso, quindi..."
+    prompt: {text: "mentre sono tornato", tags: [tense-aspect]}
+  - learner: "Mentre tornavo dal mare."
+  - tutor: "Esatto. Probabilmente sono i freni. Li controllo subito."
+    goals: [when]
+  - learner: "Grazie. Quanto costerà, più o meno?"
+  - tutor: "Se sono solo i freni, circa ottanta euro."
+  - learner: "E se è un'altra cosa? Quanto più costa?"
+    errors: [question-form]
+  - tutor: "Quanto più costa? Attenzione all'ordine delle parole."
+    prompt: {text: "Quanto più costa", tags: [question-form]}
+  - learner: "Quanto costa di più?"
+  - tutor: "Dipende dal pezzo. Ma prima di riparare la chiamo e le faccio un preventivo."
+    goals: [cost]
+  - learner: "Perfetto. Quanto tempo prende la riparazione?"
+    errors: [word-choice]
+  - tutor: "Quanto tempo ci vuole? Se il pezzo arriva in tempo, domani pomeriggio è pronta."
+    recast: {text: "Quanto tempo prende", fix: "Quanto tempo ci vuole", tags: [word-choice]}
+  - learner: "Va bene. Quando la macchina sarà pronta, mi manda un messaggio?"
+  - tutor: "Certo, le scrivo appena finisco. A domani!"
+    goals: [time]
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: es-f-erasmus
+  history: [question-form]
+  turns:
+  - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+  - learner: "Anche da noi! In Spagna la cena della Vigilia è molto importante, con tutta la famiglia."
+  - tutor: "Che bello. E quando eri piccola, cosa facevate?"
+    goals: [compare]
+  - learner: "Quando ero piccola, andiamo sempre dai nonni a Siviglia."
+    errors: [tense-aspect]
+  - tutor: "Quando eri piccola... andiamo? Pensa: era una cosa che facevi sempre."
+    prompt: {text: "andiamo", tags: [tense-aspect]}
+  - learner: "Andavamo sempre dai nonni! E mangiavamo il turrón."
+  - tutor: "Brava! È un dolce di Natale, vero?"
+    goals: [past]
+  - learner: "Sì, è quasi uguale. E qui che è quello che si mangia il giorno di Natale?"
+    errors: [question-form]
+  - tutor: "Che è quello che si mangia? Si può dire in modo molto più semplice."
+    prompt: {text: "che è quello che si mangia", tags: [question-form]}
+  - learner: "Cosa si mangia il giorno di Natale?"
+  - tutor: "Dipende dalla città. Da noi, a Bologna, la pasta fresca fatta in casa!"
+    goals: [ask]
+  - learner: "Che buono! E a chi casa fate il pranzo?"
+    errors: [question-form]
+  - tutor: "A chi casa? Mmm, l'ordine delle parole non va."
+    prompt: {text: "a chi casa", tags: [question-form]}
+  - learner: "Di chi casa?"
+    errors: [question-form]
+  - tutor: "A casa di chi? Di mia madre, come ogni anno. Vieni anche tu, vero?"
+    recast: {text: "Di chi casa", fix: "A casa di chi", tags: [question-form]}
+  - learner: "Sì, grazie! Cosa devo portare io?"
+  - tutor: "Porta il tuo dolce spagnolo, così lo proviamo tutti. Mia nonna sarà contenta!"
+    goals: [plan]
+
+- scenario: volontariato
+  level: B1
+  persona: en-m-retired
+  history: [question-form]
+  turns:
+  - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+  - learner: "Sì, molto. Sono retirato da un anno e vorrei sentirmi utile."
+    errors: [word-choice]
+  - tutor: "Che bello! Anche in pensione si possono fare tante cose. E cosa sai fare?"
+    recast: {text: "retirato", fix: "in pensione", tags: [word-choice]}
+    goals: [motivation]
+  - learner: "Ero insegnante di matematica. Potrei aiutare i ragazzi con i compiti."
+  - tutor: "Perfetto, ci serve proprio qualcuno per il doposcuola!"
+    goals: [skills]
+    new: [{lemma: doposcuola, gloss: after-school club}]
+  - learner: "Ottimo. Quante ore per settimana dovrei venire?"
+    errors: [preposition]
+  - tutor: "Per settimana? Di solito qui usiamo un'altra preposizione."
+    prompt: {text: "per settimana", tags: [preposition]}
+  - learner: "Quante ore alla settimana?"
+  - tutor: "Esatto. Bastano due pomeriggi: per esempio il martedì e il giovedì."
+  - learner: "Martedì e giovedì vanno bene. E i ragazzi, come vecchi sono?"
+    errors: [question-form]
+  - tutor: "Come vecchi? Per l'età, come facciamo la domanda?"
+    prompt: {text: "come vecchi sono", tags: [question-form]}
+    goals: [time]
+  - learner: "Quanto vecchi sono?"
+    errors: [question-form]
+  - tutor: "Quanti anni hanno? Tra gli undici e i quattordici, più o meno."
+    recast: {text: "Quanto vecchi sono", fix: "Quanti anni hanno", tags: [question-form]}
+  - learner: "Bene. E chi è la persona a chi devo telefonare se non posso venire?"
+    errors: [relative-pronoun]
+  - tutor: "La persona a chi...? Qui serve un'altra parola."
+    prompt: {text: "a chi devo telefonare", tags: [relative-pronoun]}
+  - learner: "La persona a cui devo telefonare."
+  - tutor: "Sono io! Allora ti scrivo nella lista: martedì e giovedì, con i ragazzi."
+    goals: [choose]

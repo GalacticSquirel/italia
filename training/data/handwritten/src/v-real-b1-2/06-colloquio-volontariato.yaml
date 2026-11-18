@@ -1,0 +1,296 @@
+# B1 real-learner set: job interviews at a design company, and a volunteering association.
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_9000314-1
+    - learner: "Sono una studentessa inglese di 21 anni. Ho anche un po' di esperienza nel questo settore."
+      errors: [articulated-preposition]
+    - tutor: "Piacere! Ma «nel questo settore»: davanti a «questo», ci vuole anche l'articolo?"
+      prompt: {text: "nel questo settore", tags: [articulated-preposition]}
+    # merlin-1325_9000677-5
+    - learner: "In questo settore, sì. Ho la pratica lavorativa nei negozi."
+      errors: [article-use]
+    - tutor: "Bene. Però, «ho la pratica lavorativa»: qui quel «la» serve?"
+      prompt: {text: "Ho la pratica", tags: [article-use]}
+    - learner: "Ho la pratica nei negozi di vestiti, due anni."
+      errors: [article-use]
+    - tutor: "Due anni di pratica nei negozi di vestiti, ottimo: conosce i clienti. E quali sono i suoi punti di forza?"
+      recast: {text: "la pratica nei negozi", fix: "pratica nei negozi", tags: [article-use]}
+      goals: [intro, experience]
+    # merlin-1325_1001011-4
+    - learner: "Sono molto communicative e seria."
+      errors: [adjective-agreement, spelling]
+    - tutor: "Ottimo. Ma «molto communicative»: lei è una persona sola, quindi la parola finale va bene?"
+      prompt: {text: "communicative", tags: [adjective-agreement]}
+    # merlin-1325_1001087-7
+    - learner: "Molto comunicativa! Un difetto? Sono un po' lenta. Ma amo il mondo della moda."
+    - tutor: "Esatto. Essere precisi non è un difetto grave. Perché vuole lavorare proprio da noi?"
+      goals: [strengths]
+    # merlin-1325_9000504-7
+    - learner: "Adesso avrei la voglia fare lo stage nella vostra azienda, perché i vostri progetti sono bellissimi."
+      errors: [article-use, preposition]
+    - tutor: "Che piacere sentirlo! Ma «la voglia fare»: tra «voglia» e «fare» manca una piccola parola."
+      prompt: {text: "la voglia fare", tags: [preposition]}
+    # merlin-1325_1001162-13
+    - learner: "Avrei voglia di fare lo stage qui. Se io posso lavorare qui, quando comincia il lavoro?"
+    - tutor: "Perfetto. Se la scegliamo, comincia il primo marzo. Le scriviamo entro venerdì."
+      goals: [why, questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_1001033-0
+    - learner: "Mi chiamo Pablo Gómez, ho 35 anni, sono di Siviglia e cercando il lavoro su Internet ho trovato la vostra proposta che era allettante."
+      errors: [article-use]
+    - tutor: "Piacere! Ma «cercando il lavoro»: lei cerca un lavoro qualsiasi, quindi l'articolo serve?"
+      prompt: {text: "cercando il lavoro", tags: [article-use]}
+    # merlin-1325_1001120-4
+    - learner: "Cercando lavoro, sì. Ho imparato di condurre richerche di mercato, lavorando presso la mia azienda precedente."
+      errors: [preposition, spelling]
+    - tutor: "Interessante! Ma «ho imparato di condurre»: con «imparare», è la preposizione giusta?"
+      prompt: {text: "imparato di condurre", tags: [preposition]}
+    - learner: "Ho imparato di fare le ricerche, sì, per tre anni."
+      errors: [preposition]
+    - tutor: "Ha imparato a fare ricerche per tre anni: è utile anche per noi. E quali sono i suoi punti di forza?"
+      recast: {text: "imparato di fare", fix: "imparato a fare", tags: [preposition]}
+      goals: [intro, experience]
+    # merlin-1325_1001077-7
+    - learner: "Parlo quattro lingua differenza e penso che sarei buono aiuto per Voi."
+      errors: [noun-number, word-choice, article-use]
+    - tutor: "Quattro! Ma «quattro lingua»: se sono quattro, come cambia la parola?"
+      prompt: {text: "quattro lingua", tags: [noun-number]}
+    - learner: "Quattro lingue: spagnolo, inglese, francese e italiano. Il mio difetto? Parlo troppo!"
+    - tutor: "Esatto! E con quattro lingue, parlare tanto è un vantaggio. Perché vuole lavorare con noi?"
+      goals: [strengths]
+    # merlin-1325_1001086-10 + @129
+    - learner: "Vorrei questo lavoro molto, ho bisogno di molte esperienza. Come sarebbe il mio orario di lavoro e quanto sarebbe lo stipendio?"
+      errors: [word-order, adjective-agreement]
+    - tutor: "Bella domanda, ci arriviamo. Ma «molte esperienza»: «esperienza» qui è una sola, no?"
+      prompt: {text: "molte esperienza", tags: [adjective-agreement]}
+    - learner: "Molta esperienza, sì. E l'orario?"
+    - tutor: "Perfetto. L'orario è dalle nove alle cinque e mezza, e dello stipendio parliamo al secondo incontro."
+      new: [{lemma: stipendio, gloss: salary}]
+      goals: [why, questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-professional
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_1001077-4
+    - learner: "Ho 24 anni e sono laureata all'università di Economia, e adesso cerco un posto di lavoro."
+    - tutor: "Benissimo. Ha già qualche esperienza?"
+      goals: [intro]
+    # merlin-1325_1001098-3
+    - learner: "Sì, in un negozio di vestiti. Avevo possibilità conoscere la moda di più."
+      errors: [article-use, preposition, word-order]
+    - tutor: "Bene. Ma «possibilità conoscere»: tra le due parole non manca qualcosa?"
+      prompt: {text: "possibilità conoscere", tags: [preposition]}
+    - learner: "La possibilità di conoscere la moda, e anche i clienti."
+    - tutor: "Esatto. E quali sono i suoi punti di forza?"
+      goals: [experience]
+    # merlin-1325_9000144-1
+    - learner: "Parlo le lingue francese, inglese e italiane correntamente."
+      errors: [adjective-agreement, spelling]
+    - tutor: "Ottimo! Ma «e italiane»: lei parla una lingua italiana o tante?"
+      prompt: {text: "italiane", tags: [adjective-agreement]}
+    - learner: "Francese, inglese e italiane. Un difetto? Sono troppo precisa."
+      errors: [adjective-agreement]
+    - tutor: "Francese, inglese e italiano: brava! Essere precisi qui è utile. Perché vuole lavorare da noi?"
+      recast: {text: "italiane", fix: "italiano", tags: [adjective-agreement]}
+      goals: [strengths]
+    # merlin-1325_1001025-7
+    - learner: "Infine sono molto curiosa e sicura lavorare qui, con la Vostra azienda."
+      errors: [preposition]
+    - tutor: "Mi fa piacere! Ma «sicura lavorare»: dopo «sicura», manca qualcosa?"
+      prompt: {text: "sicura lavorare", tags: [preposition]}
+    - learner: "Sicura di lavorare qui! Posso chiedere quando si comincia?"
+    - tutor: "Certo: a fine mese, se tutto va bene. La chiamiamo noi la prossima settimana."
+      goals: [why, questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-student
+  history: [question-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_9000215-9
+    - learner: "Mi chiamo Laura, sono di Londra. Vorrei tanto migliorare e approfondire la lingua italiana perché sono stata sempre molto legata all'Italia e a tutti i miei parenti italiani."
+    - tutor: "Si sente, parla già molto bene! Che esperienza ha?"
+      goals: [intro]
+    # merlin-1325_1001087-6
+    - learner: "Ho lavorato un anno in un negozio di abbigliamento. Leggo spesso le riviste di moda e di solito vado anche alle sfilate di moda."
+    - tutor: "Molto bene. E quali sono i suoi punti di forza?"
+      goals: [experience]
+    # merlin-1325_1001077-6
+    - learner: "Mi piace organizzare le programme e fare relazioni con le persone."
+      errors: [noun-gender]
+    - tutor: "Ottimo. Ma «le programme»: «programma» è maschile o femminile?"
+      prompt: {text: "le programme", tags: [noun-gender]}
+    # merlin-1325_1001095-9
+    - learner: "I programmi! E vorrei tenere i contatti con i clienti."
+    - tutor: "Esatto, e qui con i clienti si lavora molto. Perché ha scelto noi?"
+      goals: [strengths]
+    # merlin-1325_1001087-8
+    - learner: "Perché i vostri progetti sono moderni. Vorrei chiedere, che quanto si può cominciare questo lavoro?"
+      errors: [question-form]
+    - tutor: "Grazie! Ma «vorrei chiedere, che quanto»: per chiedere il momento, quale parola basta?"
+      prompt: {text: "che quanto", tags: [question-form]}
+    - learner: "Vorrei chiedere che quando si comincia."
+      errors: [question-form]
+    - tutor: "Vuole sapere quando si comincia? A febbraio, se tutto va bene. Le facciamo sapere presto!"
+      recast: {text: "che quando", fix: "quando", tags: [question-form]}
+      goals: [why, questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-f-erasmus
+  history: [noun-gender]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_1001133-1
+    - learner: "Mi chiamo Lucía e ho appena finito il master in design. Credo di essere adatta ai vostri requisiti richiesti."
+    - tutor: "Piacere, Lucía. Ha già qualche esperienza di lavoro?"
+      goals: [intro]
+    # merlin-1325_1001133-5
+    - learner: "Sì, uno stage a Madrid. E ho un'ottima comprensione e produzione sia scritto che orale della lingua inglese, tedesco e italiano."
+      errors: [adjective-agreement]
+    - tutor: "Molto bene. Ma «sia scritto che orale»: si riferisce a «comprensione e produzione». Va bene così?"
+      prompt: {text: "scritto", tags: [adjective-agreement]}
+    - learner: "Sia scritto che orale, sì."
+      errors: [adjective-agreement]
+    - tutor: "Una conoscenza sia scritta che orale: perfetto per i nostri clienti stranieri. E i suoi punti di forza?"
+      new: [{lemma: scritta, gloss: written}]
+      recast: {text: "Sia scritto", fix: "sia scritta", tags: [adjective-agreement]}
+      goals: [experience]
+    # merlin-1325_9000278-5
+    - learner: "Ritengo di essere una persona adatta per lavorare nella vostra societa."
+      errors: [preposition, spelling]
+    - tutor: "Bene. Ma «adatta per lavorare»: con «adatta», quale preposizione usiamo?"
+      prompt: {text: "adatta per lavorare", tags: [preposition]}
+    - learner: "Adatta a lavorare con voi: sono creativa e lavoro bene in squadra. Ma sono un po' impaziente."
+    - tutor: "Esatto. E mi piace che lei sia sincera. Ha qualche domanda per noi?"
+      goals: [strengths, why]
+    # merlin-1325_1001155-6
+    - learner: "Ho alcuni domandi: vivo in Valencia e vorrei sapere quando comincerebbe questo lavoro e anche quando dovrei lavorare."
+      errors: [noun-gender, preposition]
+    - tutor: "Certo. Ma «alcuni domandi»: «domanda» è maschile?"
+      prompt: {text: "alcuni domandi", tags: [noun-gender]}
+    - learner: "Alcune domande! Quando comincia e quali sono gli orari?"
+    - tutor: "Brava. Si comincia ad aprile, dalle nove alle sei. E può lavorare anche da Valencia due giorni a settimana."
+      goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-m-traveller
+  history: [reflexive]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_1001120-1
+    - learner: "Mi chiamo Tom, ho trent'anni. Mi ritengo di possedere tutti i requisiti richiesti presentati nel Vostro annuncio."
+      errors: [reflexive]
+    - tutor: "Piacere, Tom! Ma «mi ritengo di possedere»: con «di» e l'infinito, quel «mi» serve?"
+      prompt: {text: "Mi ritengo di possedere", tags: [reflexive]}
+    # merlin-1325_1001167-0
+    - learner: "Ritengo di possedere i requisiti. Ho molti dei requisiti da Lei richiesti."
+    - tutor: "Esatto. Mi racconti la sua esperienza, allora."
+      goals: [intro]
+    # merlin-1325_1001142-0
+    - learner: "Io ho studiato due lingue antiche all'università di Oxford. Poi ho lavorato cinque anni come grafico a Manchester: sono preciso, ma a volte troppo lento."
+    - tutor: "Cinque anni sono tanti, bene. E andare piano va bene, se il lavoro è preciso. Perché vuole venire in Italia?"
+      goals: [experience, strengths]
+    # merlin-1325_1001121-9
+    - learner: "Spero che con le lingue straniere possa lavorare all'estero, possa incontrare e conoscere persone straniere, possa parlare molta gente nel mondo."
+      errors: [preposition]
+    - tutor: "Bel progetto! Ma «parlare molta gente»: tra «parlare» e «gente», manca qualcosa?"
+      prompt: {text: "parlare molta gente", tags: [preposition]}
+    - learner: "Parlare molta gente di tutti i paesi."
+      errors: [preposition]
+    - tutor: "Parlare con molta gente di tutti i paesi: qui lo farà ogni giorno, i nostri clienti vengono da tutto il mondo. Domande?"
+      recast: {text: "Parlare molta gente", fix: "Parlare con molta gente", tags: [preposition]}
+      goals: [why]
+    # merlin-1325_1001093-13
+    - learner: "Sì. Naturalemente vorrei avere informazioni quanto ci pagano per lo stipendio?"
+      errors: [preposition, spelling]
+    - tutor: "Domanda giusta! Ma «informazioni quanto»: tra le due parti manca una preposizione."
+      prompt: {text: "informazioni quanto", tags: [preposition]}
+    - learner: "Vorrei avere informazioni su quanto pagate."
+    - tutor: "Perfetto. Lo stipendio è di 1.800 euro al mese, per cominciare."
+      new: [{lemma: stipendio, gloss: salary}]
+      goals: [questions]
+
+- scenario: volontariato
+  level: B1
+  persona: en-f-student
+  history: [relative-pronoun, word-choice]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    # merlin-1325_9000304-0
+    - learner: "Sì! Ho ventidue anni, sono persona molto socevole, e mi piacerebbe aiutare al persone, quelle hanno bisogno."
+      errors: [article-use, articulated-preposition, relative-pronoun, spelling]
+    - tutor: "Che bello! Ma «le persone, quelle hanno bisogno»: per unire le due parti, quale pronome usiamo?"
+      prompt: {text: "quelle hanno bisogno", tags: [relative-pronoun]}
+    # merlin-1325_1001023-1
+    - learner: "Le persone che hanno bisogno! Aiuto volentieri, se qualcuno ha un problema."
+    - tutor: "Perfetto. E cosa sai fare?"
+      goals: [motivation]
+    # merlin-1325_1001143-1
+    - learner: "Prima di tutto vorrei informare che parlo l'italiano e l'inglese ad alto livello."
+    - tutor: "Ottimo, ci servono persone che parlano le lingue! Quanto tempo hai?"
+      goals: [skills]
+    # merlin-1325_1001021-5
+    - learner: "Purché io sia libera tutto l'agosto, Vi prego di scrivermi esattemente quando posso cominciare il lavoro."
+      errors: [word-choice, article-use, spelling]
+    - tutor: "Perfetto: poiché sei libera tutto agosto, puoi cominciare il primo. Abbiamo un campo d'estate con bambini rifugiati, ti interessa?"
+      recast: {text: "Purché", fix: "poiché", tags: [word-choice]}
+      goals: [time]
+      new: [{lemma: rifugiato, gloss: refugee}, {lemma: poiché, gloss: since}]
+    # merlin-1325_1001012-5
+    - learner: "Sì! Ho visto molte tragedie e molte cose vere triste e terribili e vorrei aiutare ad altri bambini che possono vivere, sopravvivere."
+      errors: [adjective-agreement, word-choice, preposition]
+    - tutor: "Cose veramente tristi e terribili, lo immagino. Allora il campo con i bambini è perfetto per te: ti scrivo io i dettagli."
+      recast: {text: "vere triste", fix: "veramente tristi", tags: [word-choice]}
+      new: [{lemma: triste, gloss: sad}]
+      goals: [choose]
+
+- scenario: volontariato
+  level: B1
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    # merlin-1325_9000304-5
+    - learner: "Sì. Due anni fa ho collaborato con «Solidarietà Aiuto» e ho buone referenze."
+    - tutor: "Ottimo! E perché vuoi ricominciare?"
+    # merlin-1325_1001014-2
+    - learner: "Mi piacerebbe offrire la mia aiuto e vorrei viaggare ad Africa con la sua ditta."
+      errors: [noun-gender, preposition, spelling]
+    - tutor: "Bellissimo! Ma «la mia aiuto»: «aiuto» è femminile?"
+      prompt: {text: "la mia aiuto", tags: [noun-gender]}
+    - learner: "Il mio aiuto! E vorrei viaggiare in Africa."
+    - tutor: "Esatto. Abbiamo un progetto in Kenya. Cosa sai fare?"
+      goals: [motivation]
+    # merlin-1325_9000090-7
+    - learner: "Potrebbe anche operare come guida perché parlo anche tedesco, inglese e francese."
+      errors: [conditional-form]
+    - tutor: "Che bello, tre lingue! Ma «potrebbe»: parli di te, quindi come cambia il verbo?"
+      prompt: {text: "Potrebbe", tags: [conditional-form]}
+    # merlin-1325_9000279-9
+    - learner: "Potrei fare la guida! E sono infermiere. Sono una persona molto aperta, positiva, sempre in contatto con la gente."
+    - tutor: "Perfetto, un infermiere ci serve davvero. Quanto tempo hai?"
+      goals: [skills]
+    # merlin-1325_9000278-7
+    - learner: "Per me andrebbe bene essere inserito dal lunedì al venerdì sempre orari stessi nel pomeriggio, dalle 15 fino alle 20."
+      errors: [preposition, word-order]
+    - tutor: "Benissimo. Ma «sempre orari stessi»: prova a cambiare l'ordine, e manca una preposizione."
+      prompt: {text: "sempre orari stessi", tags: [preposition]}
+    - learner: "Sempre con gli stessi orari. Allora scelgo il progetto in Kenya, se è possibile."
+    - tutor: "Perfetto! Ti metto nel gruppo del Kenya: la prima riunione è giovedì alle sei."
+      goals: [time, choose]

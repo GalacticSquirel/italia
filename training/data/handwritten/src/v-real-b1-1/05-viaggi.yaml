@@ -1,0 +1,239 @@
+# B1, real learner sentences: travel plans for Naples, train tickets, a restaurant booking.
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    # merlin-1365_0100276-4
+    - learner: "Ci vado da venerdì fino domenica e non vedo l'ora!"
+      errors: [preposition]
+    - tutor: "Da venerdì «fino domenica»? Dopo «fino» manca una piccola parola."
+      prompt: {text: "fino domenica", tags: [preposition]}
+    - learner: "Fino la domenica, sì."
+      errors: [preposition]
+    - tutor: "Ah, da venerdì fino a domenica: tre giorni pieni! E cosa ti interessa di più?"
+      recast: {text: "Fino la domenica", fix: "fino a domenica", tags: [preposition]}
+      goals: [plans]
+    # merlin-1365_0100192-9
+    - learner: "Ci piace la musica, la cultura e la gastronomia di più."
+    - tutor: "Allora andate al teatro San Carlo e mangiate la pizza in centro: è la migliore!"
+      goals: [advice]
+    # merlin-1365_0100186-7
+    - learner: "Conosciate un bello albergo in cui possiamo stare?"
+      errors: [verb-form, article-form]
+    - tutor: "Un «bello» albergo? Davanti ad «albergo», «bello» cambia forma."
+      prompt: {text: "un bello albergo", tags: [article-form]}
+    - learner: "Un bell'albergo! Conoscete un bell'albergo vicino al centro?"
+    - tutor: "Esatto. Mia cugina ha un piccolo albergo vicino al porto, vi do il numero. E per muovervi, prendete la metro: è comoda."
+      goals: [transport]
+    # merlin-1395_0000369-5
+    - learner: "Fammi sapere quando avresti tempo."
+    - tutor: "Sabato sera sono libera, vi porto io a mangiare! Solo una cosa: in metro tenete bene la borsa."
+      goals: [warnings]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-m-worker
+  history: [noun-number]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    # merlin-1365_0100220-12
+    - learner: "Vado in vacanze con il mio ragazzo."
+      errors: [noun-number]
+    - tutor: "Vai «in vacanze»? Qui il nome è singolare o plurale?"
+      prompt: {text: "in vacanze", tags: [noun-number]}
+    - learner: "In vacanze... no, in vacanza! Partiamo il 3 maggio."
+    - tutor: "Esatto. A maggio Napoli è perfetta, non fa ancora troppo caldo."
+      goals: [plans]
+    # merlin-1365_0100134-2
+    - learner: "Mi piace molto andare a Napoli in novembre."
+    - tutor: "Anche in novembre è bella, è vero, ma a maggio c'è più sole. Cosa volete vedere?"
+    # merlin-1365_0100475-5
+    - learner: "La cultura, la lingua e la gente mi piace molto."
+      errors: [piacere]
+    - tutor: "La cultura, la lingua e la gente mi «piace»? Quante cose sono?"
+      prompt: {text: "mi piace molto", tags: [piacere]}
+    - learner: "La cultura, la lingua e la gente... mi piace molto, no?"
+      errors: [piacere]
+    - tutor: "Allora sei come me: la gente e la cultura di Napoli mi piacciono molto! Andate ai Quartieri Spagnoli e al mercato."
+      recast: {text: "mi piace molto", fix: "mi piacciono molto", tags: [piacere]}
+
+      goals: [advice]
+    - learner: "E come ci andiamo dall'aeroporto?"
+    - tutor: "Prendete l'Alibus: in venti minuti siete in centro. Ma attenzione ai taxi senza tassametro!"
+      goals: [transport, warnings]
+      new: [{lemma: tassametro, gloss: taxi meter}]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-m-traveller
+  history: [possessive]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    # merlin-1325_1001055-15
+    - learner: "L'Italia ha tante cose da visitare e per fortuna anche miei amici amano viaggiare così organizzo io sempre gli alloggi e la vacanza."
+      errors: [possessive]
+    - tutor: "Anche «miei amici»? Con i nomi al plurale, qui manca qualcosa davanti."
+      prompt: {text: "miei amici", tags: [possessive]}
+    - learner: "Anche miei amici amano viaggiare, sì."
+      errors: [possessive]
+    - tutor: "Ah, anche i miei amici sono così, ma alla fine organizzo sempre io! Allora quando partite?"
+      recast: {text: "miei amici", fix: "i miei amici", tags: [possessive]}
+    - learner: "Il 12 luglio, per una settimana."
+    - tutor: "Una settimana è perfetta. Hai già un posto dove dormire?"
+      goals: [plans]
+    # merlin-1365_0100192-10
+    - learner: "Che riguarda l'alloggio, vorremmo una camera matrimoniale in un albergo non troppo caro."
+      errors: [word-choice]
+    - tutor: "Per quanto riguarda l'alloggio, prova al Vomero: è tranquillo e costa meno del centro."
+      recast: {text: "Che riguarda", fix: "Per quanto riguarda", tags: [word-choice]}
+    # merlin-1365_0100192-6
+    - learner: "Secondo me sia eccecionale combinare lo studio della lingua con una vacanza a Napoli."
+      errors: [subjunctive-use, spelling]
+    - tutor: "Secondo te «sia»...? Qui non c'è un verbo come «penso»: ti serve davvero il congiuntivo?"
+      prompt: {text: "Secondo me sia", tags: [subjunctive-use]}
+    - learner: "Secondo me è eccezionale! Ci sono buone scuole di lingua?"
+    - tutor: "Esatto. Ce ne sono tante, ti mando qualche nome. E la sera fate un giro sul mare e mangiate un buon gelato!"
+      goals: [advice]
+    - learner: "Dal Vomero al centro come si va? E c'è qualcosa da evitare?"
+    - tutor: "Con la funicolare, in dieci minuti. E non lasciate niente in macchina: meglio usare i mezzi."
+      goals: [transport, warnings]
+      new: [{lemma: funicolare, gloss: cable railway}]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    # merlin-1395_0000365-2
+    - learner: "Cosi vedremo te e la tua bella città Napoli."
+      errors: [spelling]
+    - tutor: "«Cosi»? Manca qualcosa sull'ultima lettera."
+      prompt: {text: "Cosi", tags: [spelling]}
+    - learner: "Così, con l'accento! Arriviamo il 20 con il treno da Roma."
+    - tutor: "Esatto. Che bello, finalmente vi vedo! Quanto restate?"
+    - learner: "Cinque giorni. Vogliamo conocere Pompei e anche Capri."
+      errors: [word-choice]
+    - tutor: "Ottimo programma: conoscere Pompei e Capri in cinque giorni si può. A Capri andateci la mattina presto, prima della folla."
+      recast: {text: "conocere", fix: "conoscere", tags: [word-choice]}
+      goals: [plans]
+      new: [{lemma: folla, gloss: crowd}]
+    - learner: "E a Pompei come andiamo? Voglio andare lì, ma non so come."
+      errors: [ci-ne]
+    - tutor: "«Voglio andare lì»? Si capisce, ma in italiano usiamo una piccola parola prima di «andare». Quale?"
+      prompt: {text: "Voglio andare lì", tags: [ci-ne]}
+    - learner: "Voglio andarci! Ci voglio andare."
+    - tutor: "Perfetto. Prendete la Circumvesuviana dalla stazione centrale: un'ora e siete lì."
+      goals: [transport]
+    # merlin-1325_1001096-13
+    - learner: "Dov'è possibile dormire?"
+    - tutor: "Dormite da me, ho il divano letto! E vi porto a mangiare la pizza dove mangiamo noi di Napoli."
+      goals: [advice]
+    # merlin-1395_0000376-7
+    - learner: "Tu hai tempo?"
+    - tutor: "Per voi sempre! Solo un consiglio: sulla Circumvesuviana tenete d'occhio lo zaino."
+      goals: [warnings]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-m-heritage
+  history: [imperative-form]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto lunedì e non vedo l'ora!"
+    - tutor: "Che bello! E quanto ti fermi?"
+    # merlin-1365_0100252-3
+    - learner: "Io e mio marito siamo stati a Roma e abbiamo frequentato un corso per imparare la lingua italiana a Roma."
+    - tutor: "Ah, quindi adesso il vostro italiano è ancora meglio! E a Napoli quanto restate?"
+    - learner: "Una settimana. Mio marito vuole vedere i musei, io voglio mangiare!"
+    - tutor: "Perfetto: il grande museo per lui, la pizza per te!"
+      goals: [plans, advice]
+    - learner: "Per favore, dirmi come andiamo dal porto all'albergo."
+      errors: [imperative-form]
+    - tutor: "«Per favore dirmi»? Mi chiedi una cosa, con il tu: come diventa quel verbo?"
+      prompt: {text: "dirmi", tags: [imperative-form]}
+    - learner: "Dimmi, per favore!"
+    - tutor: "Esatto. Dal porto prendete la metro, linea 1, sono tre fermate."
+      goals: [transport]
+    - learner: "E di sera, ci sono zone pericolose?"
+    - tutor: "Il centro è tranquillo, ma la sera evitate le strade vuote vicino alla stazione."
+      goals: [warnings]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-retired
+  history: [article-use]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. A Firenze, domani mattina presto."
+    - tutor: "C'è un Frecciarossa alle 7.15. Solo andata o andata e ritorno?"
+      goals: [destination]
+    # merlin-1325_1001023-5
+    - learner: "Quanto costa il questo viaggio?"
+      errors: [article-use]
+    - tutor: "Quanto costa «il questo» viaggio? Con «questo», l'articolo ci vuole?"
+      prompt: {text: "il questo viaggio", tags: [article-use]}
+    - learner: "Quanto costa questo viaggio, andata e ritorno?"
+    - tutor: "Esatto. Andata e ritorno sono 86 euro in seconda classe. Le va bene?"
+      goals: [type]
+    - learner: "Preferirei la prima classe, se non costa troppo. E un sedile vicino al finestrino."
+      errors: [word-choice]
+    - tutor: "In prima sono 120 euro. Le do un posto vicino al finestrino, l'8A."
+      recast: {text: "un sedile", fix: "un posto", tags: [word-choice]}
+      goals: [class]
+    - learner: "Va bene. Da quale binario parte?"
+    - tutor: "Di solito dal binario 9, ma controlli sul tabellone domani. Buon viaggio!"
+      goals: [platform]
+      new: [{lemma: tabellone, gloss: departures board}]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: es-f-teacher
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    # merlin-1365_0100094-2
+    - learner: "Sarò a Torino del 19 al 23 novembre per un riunione mondiale della nostra società."
+      errors: [articulated-preposition, noun-gender]
+    - tutor: "«Del» 19 al 23? Per l'inizio di un periodo, quale preposizione usiamo?"
+      prompt: {text: "del 19", tags: [articulated-preposition]}
+    - learner: "Dal 19 al 23. Quindi vorrei partire il 19 mattina."
+    - tutor: "Perfetto. C'è un treno alle 8.40 da Milano Centrale. Vuole anche il ritorno?"
+      goals: [destination]
+    - learner: "Sì, ida e ritorno: torno il 23 sera."
+      errors: [word-choice]
+    - tutor: "Benissimo, andata e ritorno. Prima o seconda classe?"
+      recast: {text: "ida e ritorno", fix: "andata e ritorno", tags: [word-choice]}
+      goals: [type]
+    - learner: "Seconda, ma vorrei un posto con il tavolo, devo lavorare."
+    - tutor: "Le do il posto 12C, con il tavolo. Sono 48 euro in tutto."
+      goals: [class]
+    - learner: "Grazie. Il treno parte dal binario 5?"
+    - tutor: "Sì, di solito dal 5, ma controlli sempre prima di partire.
+ Buon viaggio!"
+      goals: [platform]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-f-professional
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera, vorrei prenotare un tavolo per sabato sera."
+    - tutor: "Certo. Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Per sei persone, alle otto e mezza. È il compleanno di mio marito."
+    - tutor: "Che bello! Sabato alle otto e mezza, sei persone: perfetto."
+      goals: [details]
+    # merlin-1385_0001717-8
+    - learner: "Conosco un ristorante tailandese che è molto buono."
+    - tutor: "Ah! Ma allora perché ha chiamato noi?"
+    - learner: "Perché mio marito ama la cucina italiana! Potreste preparare una torta con le candeline?"
+    - tutor: "Certo, la nostra torta al cioccolato è famosa. Le candeline le mettiamo noi."
+      goals: [special]
+      new: [{lemma: candelina, gloss: birthday candle}]
+    - learner: "Perfetto. Il nome è Taylor, T-A-Y-L-O-R."
+    - tutor: "Benissimo, signora Taylor: sabato alle otto e mezza, sei persone e la torta. A sabato!"
+      goals: [name]

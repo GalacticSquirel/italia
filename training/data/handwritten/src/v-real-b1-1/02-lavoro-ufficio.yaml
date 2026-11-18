@@ -1,0 +1,297 @@
+# B1, real learner sentences: an interview, team meetings, working from home, a bank.
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-professional
+  history: [article-use]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_1001050-8
+    - learner: "Sono stata più volte in Italia, dove ho conosciuto una ragazza italiana."
+    - tutor: "Che bello! E adesso vive qui? Che cosa fa?"
+    # merlin-1365_0100451-4
+    - learner: "Attualmente sto imparando l'Italiano, vorrei fare un esame linguistico, con cui vorrei trovare altro lavoro dopo la pausa."
+      errors: [article-use]
+    - tutor: "Vorrebbe trovare «altro lavoro»? Detto così sembra «più lavoro». Manca qualcosa davanti."
+      prompt: {text: "altro lavoro", tags: [article-use]}
+    - learner: "Un altro lavoro, cioè un lavoro diverso."
+    - tutor: "Ah, ecco. E che lavoro faceva prima della pausa?"
+      goals: [intro]
+    - learner: "Facevo la commessa in un negozio di mobili per cinque anni. Sono brava con i clienti, ma a volte sono troppo seria."
+    - tutor: "Meglio seri che distratti! Anche qui parliamo molto con i clienti. Perché ha scelto proprio noi?"
+      goals: [experience, strengths]
+    - learner: "Perché amo i mobili moderni e il vostro stile mi piace moltissimo."
+    - tutor: "Grazie, fa piacere sentirlo. Ha qualche domanda per me?"
+      goals: [why]
+    # merlin-1325_1001157-7 merlin-1325_1001162-12
+    - learner: "Alla fine ho qualche domanda. Questo lavore è fisso o no?"
+      errors: [spelling]
+    - tutor: "Certo. Questo «lavore»? Controlli bene l'ultima lettera."
+      prompt: {text: "lavore", tags: [spelling]}
+    - learner: "Questo lavoro, scusi. È fisso?"
+    - tutor: "All'inizio è un contratto di un anno, poi speriamo di renderlo fisso. Le faremo sapere entro venerdì."
+      goals: [questions]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Ho finito i testi in italiano per il website del cliente."
+      errors: [word-choice]
+    - tutor: "Ottimo lavoro: per il sito i testi in italiano erano la parte più lunga! E quelli in inglese?"
+      recast: {text: "il website", fix: "il sito", tags: [word-choice]}
+      goals: [update]
+    # merlin-1385_0001724-1
+    - learner: "In ufficio c'è molto lavoro e giovedi non posso venire alla nostro appuntamento."
+      errors: [articulated-preposition, spelling]
+    - tutor: "Non puoi venire «alla nostro appuntamento»? Controlla l'articolo: «appuntamento» è maschile."
+      prompt: {text: "alla nostro appuntamento", tags: [articulated-preposition]}
+    - learner: "Al nostro appuntamento con il cliente, giovedì. Non posso venire."
+    - tutor: "Ah, capisco, è un problema: il cliente vuole vedere tutto. Che cosa proponi?"
+      goals: [problem]
+    - learner: "Potrei mandare Luca al posto mio. Lui conosce bene il progetto."
+    - tutor: "Mi sembra una buona idea. E la parte in inglese per quando la finisci?"
+      goals: [proposal]
+    - learner: "La finirò venerdì, ma se il cliente cambia qualcosa, ci voglierà più tempo."
+      errors: [future-form]
+    - tutor: "Ci «voglierà»? Il futuro di «volere» è un po' speciale: prova di nuovo."
+      prompt: {text: "voglierà", tags: [future-form]}
+    - learner: "Ci vorrà più tempo, ecco."
+    - tutor: "Esatto. Allora diciamo venerdì, e se il cliente cambia idea ne parliamo lunedì."
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene, ma sono un po' retrasato con il sito del ristorante."
+      errors: [word-choice]
+    - tutor: "Sei un po' in ritardo? Che cosa è successo?"
+      recast: {text: "retrasato", fix: "in ritardo", tags: [word-choice]}
+      goals: [update]
+    - learner: "Il cliente ha cambiato di opinione tre volte, e ogni volta abbiamo dovuto ricominciare."
+      errors: [word-choice]
+    - tutor: "Ha cambiato idea tre volte? Che pazienza ci vuole! E come pensi di risolvere?"
+      recast: {text: "cambiato di opinione", fix: "cambiato idea", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Potremo chiedere al cliente di decidere tutto in una sola riunione."
+      errors: [conditional-form]
+    - tutor: "«Potremo»? È una proposta, non un fatto sicuro nel futuro: quale forma ti serve?"
+      prompt: {text: "Potremo", tags: [conditional-form]}
+    - learner: "Potremmo chiedere al cliente una riunione."
+    - tutor: "Esatto, ottima idea. Quando vi vedete con lui?"
+      goals: [proposal]
+    # merlin-1395_0000391-11
+    - learner: "Magari potremmo incontrarci il mese prossimo."
+    - tutor: "Il mese prossimo è troppo tardi: il sito va consegnato il 20. Facciamo la settimana prossima?"
+    # merlin-1365_0100224-10
+    - learner: "Ti farei sapere per il \"job\" la settimana prossima."
+      errors: [word-choice]
+    - tutor: "D'accordo: per il lavoro sul sito mi fai sapere lunedì. Ma la data finale resta il 20, va bene?"
+      recast: {text: "il \"job\"", fix: "il lavoro", tags: [word-choice]}
+      goals: [deadline]
+
+- scenario: smartworking
+  level: B1
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    # merlin-1395_0000398-5
+    - learner: "Io lavoro ancora in Londra come la ragazza alla pari, e mi piace tanto."
+      errors: [preposition, article-use]
+    - tutor: "Lavori «in Londra»? Con i nomi di città quale preposizione ci vuole?"
+      prompt: {text: "in Londra", tags: [preposition]}
+    - learner: "A Londra, giusto! Faccio ancora la ragazza alla pari."
+    - tutor: "Brava. Quindi in pratica lavori in casa, con i bambini! Cosa ti piace di più?"
+      goals: [situation]
+    - learner: "Non devo prendere il tubo e la famiglia è molto simpatica."
+      errors: [word-choice]
+    - tutor: "Non prendere la metro tutte le mattine è una bella fortuna! E ci sono anche degli svantaggi?"
+      recast: {text: "il tubo", fix: "la metro", tags: [word-choice]}
+      goals: [pros]
+    # merlin-1395_0000387-6
+    - learner: "Ma il fine settimana facciamo sempre qualcosa insieme."
+    - tutor: "Ah, quindi non hai mai un po' di tempo solo per te?"
+    - learner: "Esatto, sono sempre con loro, anche la domenica."
+    - tutor: "Capisco, così ti stanchi molto. Tu preferiresti un lavoro in ufficio?"
+      goals: [cons]
+    - learner: "Sì, preferirei un ufficio: è più facile separare il lavoro e la vita privata."
+    - tutor: "Ti capisco benissimo. E poi in ufficio conosci anche più gente!"
+      goals: [preference]
+
+- scenario: smartworking
+  level: B1
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    # merlin-1365_0100070-6
+    - learner: "Lavoro anchora nella stessa ditta e ho troppo di lavoro, perché manca il personale..."
+      errors: [preposition, spelling]
+    - tutor: "Hai «troppo di lavoro»? Dopo «troppo» ci va davvero quella preposizione?"
+      prompt: {text: "troppo di lavoro", tags: [preposition]}
+    - learner: "Ho troppo lavoro, perché manca il personale. Per fortuna lavoro da casa due giorni."
+    - tutor: "Esatto. Almeno due giorni a casa! E come ti trovi?"
+      goals: [situation]
+    - learner: "A casa sono più tranquilla e non perdo un'ora nell'atasco."
+      errors: [word-choice]
+    - tutor: "Un'ora in meno nel traffico è tanto. Ci sono anche degli svantaggi?"
+      recast: {text: "nell'atasco", fix: "nel traffico", tags: [word-choice]}
+      goals: [pros]
+    - learner: "Sì, il computer di casa è più lento che quello dell'ufficio."
+      errors: [comparative]
+    - tutor: "Più lento «che quello»? Con due cose messe a confronto così, che parola usiamo?"
+      prompt: {text: "più lento che", tags: [comparative]}
+    - learner: "Più lento di quello dell'ufficio!"
+    - tutor: "Perfetto. Allora, se potessi scegliere, cosa preferiresti?"
+      goals: [cons]
+    - learner: "Preferirei tre giorni a casa e due in ufficio, con un ordenador nuovo!"
+      errors: [word-choice]
+    - tutor: "Mi sembra la soluzione ideale, e un computer nuovo te lo meriti! Chiedilo al tuo capo."
+      recast: {text: "ordenador", fix: "computer", tags: [word-choice]}
+      goals: [preference]
+
+- scenario: smartworking
+  level: B1
+  persona: es-m-worker
+  history: [spelling]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    # merlin-1365_0100211-4
+    - learner: "Io invece ho cominciato un nuovo lavoro che mi piace moltissimo."
+    - tutor: "Davvero? Che bello! E che cosa fai?"
+    # merlin-1365_0100225-2
+    - learner: "Mi occupo delle annunci sul treno."
+      errors: [articulated-preposition]
+    - tutor: "Ti occupi «delle» annunci? Pensa al genere di «annunci»."
+      prompt: {text: "delle annunci", tags: [articulated-preposition]}
+    - learner: "Degli annunci! Lavoro in ufficio, ma a volte anche sul treno."
+    - tutor: "Esatto. Un lavoro che si muove, mi piace! E cosa c'è di bello?"
+      goals: [situation]
+    # merlin-1365_0100475-14
+    - learner: "È ideale per fare nuovi contatti."
+    - tutor: "Certo, conosci un sacco di gente. E gli svantaggi?"
+      goals: [pros]
+    # merlin-1385_0001730-1
+    - learner: "È una settimana horribile."
+      errors: [spelling]
+    - tutor: "Una settimana «horribile»? Attenzione: in italiano quella lettera all'inizio non c'è."
+      prompt: {text: "horribile", tags: [spelling]}
+    - learner: "Orribile, scusa! Troppe riunioni e torno a casa tardi."
+    - tutor: "Ecco, così va bene. Ma potendo scegliere, preferiresti lavorare da casa?"
+      goals: [cons]
+    - learner: "Sì, preferirei lavorare da casa un giorno alla settimana: sarei meno cansato."
+      errors: [word-choice]
+    - tutor: "Ti capisco, saresti meno stanco e più contento. Un giorno a casa fa bene a tutti, chiedilo!"
+      recast: {text: "cansato", fix: "stanco", tags: [word-choice]}
+      goals: [preference]
+
+- scenario: smartworking
+  level: B1
+  persona: en-m-heritage
+  history: [noun-number]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Da casa, sempre. Ormai sono due anni."
+    - tutor: "Due anni! E ti piace ancora?"
+      goals: [situation]
+    # merlin-1365_0100263-8
+    - learner: "Nella mia città ci sono tante possibilità."
+    - tutor: "È vero, e puoi lavorare dove vuoi, anche al bar! Ma non stai troppo davanti al computer?"
+      goals: [pros]
+    # merlin-1325_1001041-2
+    - learner: "Se non sbaglio tu ami passare molti tempi davanti al computer."
+      errors: [noun-number]
+    - tutor: "Ah, io? Va bene, è vero! Però «molti tempi»? Qui parli delle ore della giornata: si possono contare così?"
+      prompt: {text: "molti tempi", tags: [noun-number]}
+    - learner: "No, non si conta: molto tempo davanti al computer."
+    - tutor: "Esatto, e hai ragione. E per te qual è il problema più grande del lavoro da casa?"
+    # merlin-1325_1001059-12
+    - learner: "Puoi usare l'internet e il computer per tante altre cose."
+      errors: [article-use]
+    - tutor: "Questo è un vantaggio, no? Ma attenzione: «l'internet»? Con questa parola l'articolo serve?"
+      prompt: {text: "l'internet", tags: [article-use]}
+    - learner: "Internet, senza articolo. Il problema è che sono sempre solo."
+    - tutor: "Esatto. Ecco, stare sempre soli è difficile. Allora cosa preferiresti, un po' di ufficio?"
+      goals: [cons]
+    - learner: "Sì, preferirei andare in ufficio almeno due giorni, per vedere i collegi."
+      errors: [false-friend]
+    - tutor: "Mi sembra giusto, vedere i colleghi fa bene. Due giorni con loro e tre a casa: il meglio dei due mondi!"
+      recast: {text: "collegi", fix: "colleghi", tags: [false-friend]}
+      goals: [preference]
+
+- scenario: smartworking
+  level: B1
+  persona: en-f-professional
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Lavoro da casa tre giorni e due in ufficio. E tu? E tua moglie?"
+    - tutor: "Io sempre in ufficio, lei invece da casa. E voi come state, tu e tuo marito?"
+      goals: [situation]
+    # merlin-1395_0001061-1
+    - learner: "Io e mio marito stanno bene, ma siano un po' stressati."
+      errors: [subject-verb-agreement, verb-form]
+    - tutor: "«Io e mio marito stanno»? Pensa bene: chi sta bene? Tu e tuo marito, quindi...?"
+      prompt: {text: "Io e mio marito stanno", tags: [subject-verb-agreement]}
+    - learner: "Io e mio marito stiamo bene, ma siamo un po' stressati."
+    - tutor: "Perfetto. Stressati per il lavoro da casa?"
+    - learner: "Sì: lavoriamo tutti e due nella stessa stanza e lui è sempre sul telefono!"
+      errors: [word-choice]
+    - tutor: "Sempre al telefono, che incubo! E mio fratello Paolo, te lo ricordi?"
+      recast: {text: "sul telefono", fix: "al telefono", tags: [word-choice]}
+      goals: [cons]
+      new: [{lemma: incubo, gloss: nightmare}]
+    # merlin-1395_0000391-7
+    - learner: "Suppongo che sia ancora a lavorare a IBM, mi sbaglio?"
+      errors: [articulated-preposition]
+    - tutor: "Lavora... «a IBM»? Con il nome di un'azienda come questa, la preposizione va con l'articolo."
+      prompt: {text: "a IBM", tags: [articulated-preposition]}
+    - learner: "All'IBM, sì. E lavora da casa anche lui?"
+    - tutor: "Esatto, sempre da casa, e dice che il vantaggio più grande è dormire di più. Per te qual è?"
+    - learner: "Anche per me: dormo un'ora in più e non prendo il treno."
+    - tutor: "Non è poco! E tu, potendo scegliere, cosa preferiresti?"
+      goals: [pros]
+
+    - learner: "Preferirei lavorare in ufficio, così a casa c'è più silenzio per mio marito."
+    - tutor: "Che brava moglie!
+ Così almeno a casa tornerà la pace."
+      goals: [preference]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    # merlin-1325_9000188-0
+    - learner: "Mi chiamo Maria, ho 30 anni e ho cambiato Paese per motivi de lavoro."
+      errors: [preposition]
+    - tutor: "Benvenuta, Maria. Per motivi «de» lavoro? Questa preposizione è spagnola: in italiano?"
+      prompt: {text: "motivi de lavoro", tags: [preposition]}
+    - learner: "Per motivi di lavoro. E vorrei aprire un conto."
+    - tutor: "Esatto. Certo, nessun problema. Ha già un indirizzo in Italia?"
+      goals: [purpose]
+    # merlin-1325_1001027-3
+    - learner: "Qui abito una camera d'affitto."
+      errors: [preposition]
+    - tutor: "Abita «una camera»? Dopo «abitare» qui manca una piccola parola."
+      prompt: {text: "abito una camera", tags: [preposition]}
+    - learner: "Abito una camera in centro, con due ragazze."
+      errors: [preposition]
+    - tutor: "Ah, va bene: se abita in una camera in affitto, basta il contratto. Ci serve anche il codice fiscale."
+      recast: {text: "una camera", fix: "in una camera", tags: [preposition]}
+    - learner: "Il codice fiscale ce l'ho già. Quanto costa la cuenta al mese?"
+      errors: [word-choice]
+    - tutor: "Il conto base costa tre euro al mese, ed è gratis per chi ha meno di trent'anni."
+      recast: {text: "la cuenta", fix: "il conto", tags: [word-choice]}
+      goals: [documents, costs]
+    - learner: "Peccato, ho già trent'anni! Posso avere anche una tarjeta e l'app?"
+      errors: [word-choice]
+    - tutor: "Certo: una carta gliela mandiamo a casa in una settimana, e l'app la scarica subito sul telefono."
+      recast: {text: "una tarjeta", fix: "una carta", tags: [word-choice]}
+      goals: [card]

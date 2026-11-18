@@ -1,0 +1,277 @@
+# B1 real-learner set: a language course in Naples, a party invitation, a book club, online life, flats and dinners.
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-f-erasmus
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    # merlin-1365_0100194-2
+    - learner: "A ottobre, per un corso d'italiano. Sceglierei un corso che dura 2 settimane."
+    - tutor: "Bella idea! E dove dormi?"
+      goals: [plans]
+    # merlin-1365_0100105-2
+    - learner: "Se possibile preferirei alloggiare in una casa privata."
+    - tutor: "Ottimo, così parli italiano anche a cena. Hai già chiesto i prezzi?"
+    # merlin-1365_0100079-4
+    - learner: "Sì. Voglio sapere anche il prezzo di una camera singole in hotel e del corso."
+      errors: [adjective-agreement]
+    - tutor: "Brava, è giusto chiedere. Ma «una camera singole»: la camera è una sola, quindi?"
+      prompt: {text: "camera singole", tags: [adjective-agreement]}
+    - learner: "Una camera singole, sì, per due settimane."
+      errors: [adjective-agreement]
+    - tutor: "Una camera singola in hotel costa almeno 70 euro a notte: dormire in una famiglia è molto meglio! Vieni da sola?"
+      recast: {text: "camera singole", fix: "camera singola", tags: [adjective-agreement]}
+    # merlin-1395_0001010-3
+    - learner: "No. In lo stesso gruppo c'è anche una amicha Anna di Svizzera, la consco già della scuola."
+      errors: [articulated-preposition, spelling]
+    - tutor: "Che bello, in due è più divertente! Ma «in lo stesso gruppo»: come si uniscono «in» e «lo»?"
+      prompt: {text: "In lo stesso gruppo", tags: [articulated-preposition]}
+    - learner: "Nello stesso gruppo! Cosa ci consigli di vedere? E come arriviamo a Pompei?"
+    - tutor: "Esatto! Vedete il centro e il Vesuvio, e per Pompei prendete il treno locale: ci vuole mezz'ora."
+      goals: [advice, transport]
+    # merlin-1325_9000676-8
+    - learner: "Perfetto, aspetto con impazienza! E c'è qualcosa che dobbiamo evitare?"
+    - tutor: "Sul treno tenete le borse chiuse, e non comprate biglietti da chi li vende per strada."
+      goals: [warnings]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Allora, quando parti per Napoli? Hai letto il mio messaggio con tutti i consigli?"
+    # merlin-1365_0100251-0
+    - learner: "Sì! Mi ho fatto molto piacere ricevere la tua lettera."
+      errors: [subject-verb-agreement]
+    - tutor: "Che bello! Ma «mi ho fatto piacere»: cosa ti ha fatto piacere? Il messaggio. Allora il verbo?"
+      prompt: {text: "Mi ho fatto", tags: [subject-verb-agreement]}
+    # merlin-1395_0001115-4
+    - learner: "Mi ha fatto molto piacere! Parto il 3 agosto: forse possiamo incontrarci questo mese perché abbiamo vacanze estive."
+    - tutor: "Esatto. Certo che ci vediamo, anch'io ad agosto sono libera!"
+      goals: [plans]
+    # merlin-1395_0000525-1
+    - learner: "Ma tu lavori sempre all'università di Napoli?"
+    - tutor: "Sì, sempre lì, ma ad agosto è chiusa. Allora ti porto in giro io! Cosa vuoi vedere?"
+    - learner: "L'anno scorso ho andato a Roma e ho visto solo musei. Qui vorrei vedere il mare!"
+      errors: [auxiliary-choice]
+    - tutor: "Capito! Ma «ho andato a Roma»: prima di «andato», è il verbo giusto?"
+      prompt: {text: "ho andato", tags: [auxiliary-choice]}
+    - learner: "Sì, e anche mia madre ha andato con me."
+      errors: [auxiliary-choice]
+    - tutor: "Ah, anche tua madre è andata con te! Allora a Napoli niente musei: andiamo al mare. Prendiamo il traghetto per Procida."
+      recast: {text: "ha andato", fix: "è andata", tags: [auxiliary-choice]}
+      goals: [advice]
+    - learner: "Il traghetto è caro? E cosa devo evitare in città?"
+    - tutor: "Costa circa venti euro. In città evita i taxi senza tassametro e tieni il telefono in tasca."
+      goals: [transport, warnings]
+      new: [{lemma: tassametro, gloss: taxi meter}]
+
+- scenario: compleanno
+  level: B1
+  persona: es-m-worker
+  history: [past-participle-form]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara? Ah, grazie per essere venuto alla mia cena ieri!"
+    # merlin-1365_0100183-2
+    - learner: "Grazie per l'invito, mi è piacuta molto."
+      errors: [past-participle-form]
+    - tutor: "Che bello! Ma «mi è piacuta»: controlla bene la forma di «piacere» al passato."
+      prompt: {text: "mi è piacuta", tags: [past-participle-form]}
+    - learner: "Mi è piacuta tanto, la cena!"
+      errors: [past-participle-form]
+    - tutor: "Ti è piaciuta? Che bello! Allora, per Sara: sabato 12, a casa mia?"
+      recast: {text: "piacuta", fix: "piaciuta", tags: [past-participle-form]}
+    # merlin-1325_9000106-12
+    - learner: "Sabato 12 va bene. Ci vediamo a domani per organizzare tutto?"
+      errors: [preposition]
+    - tutor: "Va bene. Ma «ci vediamo a domani»: quella «a» serve?"
+      prompt: {text: "a domani", tags: [preposition]}
+    - learner: "Ci vediamo domani! Chi invitiamo?"
+    - tutor: "Esatto. I colleghi, la sua famiglia e gli amici della palestra. Va bene?"
+      goals: [date, guests]
+    # merlin-1365_0100175-3
+    - learner: "Perfetto. Giorgio, hai già trovato una bella vestita per la festa?"
+      errors: [word-choice]
+    - tutor: "Un bel vestito? Non ancora, devo comprarlo! E da mangiare cosa facciamo?"
+      recast: {text: "una bella vestita", fix: "un bel vestito", tags: [word-choice]}
+    - learner: "Io faccio la paella, e la torta la compriamo in pasticceria."
+    - tutor: "La paella, che buona! E per il regalo pensavo a un corso di fotografia."
+      goals: [food]
+    # merlin-1365_0100027-3
+    - learner: "Ottima idea. Anche se non posso venire da voi presto, vorrei farvi un bel regalo: pago io la metà."
+    - tutor: "Grazie, sei gentilissimo! Allora corso di fotografia, metà a testa."
+      goals: [gift]
+
+- scenario: film-libro
+  level: B1
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io! Ho letto un romanzo su una ragazza che diventa medico in un piccolo paese di montagna."
+    - tutor: "Interessante! E com'è questa ragazza?"
+      goals: [summary]
+    # merlin-1365_0100269-0
+    - learner: "Si chiama Anna. Il padre le dice: so che sei molto intelligente e un ragazzo chi riusci fare tutte l'esame!"
+      errors: [relative-pronoun, verb-form, preposition, article-use]
+    - tutor: "Ah ah, un padre orgoglioso! Ma «un ragazzo chi riesce»: qui «chi» è il pronome giusto?"
+      prompt: {text: "chi riusci", tags: [relative-pronoun]}
+    - learner: "Un ragazzo che riesce a fare tutti gli esami. Ma lei è una ragazza!"
+    - tutor: "Esatto, ed è proprio questo il punto del romanzo! Ti è piaciuto?"
+      goals: [characters]
+    # merlin-1325_9000139-10
+    - learner: "Molto. L'autrice descrive bene il paese. Così la gente sa, cosa la trova lì."
+      errors: [object-pronoun, future-form]
+    - tutor: "Che bello! Ma «cosa la trova»: quel «la» cosa vuol dire? Prova senza."
+      prompt: {text: "cosa la trova", tags: [object-pronoun]}
+    - learner: "Così la gente sa cosa trova lì."
+    - tutor: "Perfetto. E a chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "Alle persone a cui piacciono le storie vere, e ai giovani che devono scegliere un lavoro."
+    - tutor: "Ottimo consiglio! Lo metto nella lista del mese prossimo."
+      goals: [recommend]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-m-heritage
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Non buone. Passo troppe ore al telefono, anche di notte, e non mi muovo mai."
+    - tutor: "È un problema molto comune. Cosa fai al telefono, di solito?"
+      goals: [habits]
+    # merlin-1325_9000554-2
+    - learner: "Chat, social... Anche io ho avuto esperienza cattiva usando l'Internet chercando amizia."
+      errors: [article-use, spelling]
+    - tutor: "Mi dispiace. Ma «usando l'Internet»: davanti a «internet», l'articolo serve?"
+      prompt: {text: "usando l'Internet", tags: [article-use]}
+    # merlin-1325_1001041-8
+    - learner: "Usando internet. Non dimenticare; via internet non si può fare amicizie serie!"
+      errors: [subject-verb-agreement]
+    - tutor: "Esatto! Però, «non si può fare amicizie»: le amicizie sono tante. Il verbo va bene?"
+      prompt: {text: "non si può fare amicizie", tags: [subject-verb-agreement]}
+    - learner: "Non si possono fare amicizie serie."
+    - tutor: "Perfetto. Allora qual è il tuo obiettivo?"
+    - learner: "Voglio dormire di più e fare sport tre volte a settimana. Ma la sera sono sempre stanco."
+    - tutor: "Ottimo obiettivo. Ed essere stanco la sera è un ostacolo vero: allora alleniamoci la mattina."
+      goals: [goal, obstacles]
+      new: [{lemma: ostacolo, gloss: obstacle}]
+    # merlin-1325_9000750-10
+    - learner: "La mattina presto, va bene. Mio fratello sta male come me: credo che anche lui dovrebbe fare la stessa cosa."
+    - tutor: "Portalo con te! Allora lunedì, mercoledì e venerdì alle sette, e il telefono fuori dalla camera."
+      goals: [plan]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    # merlin-1365_0100145-7
+    - learner: "Buongiorno. Prima di tutto, quanto costa? Potete mandarmi delle informazioni supplementari riguardanti il prezzo?"
+    - tutor: "Gliele do subito: sono 600 euro al mese, più 50 di spese. Cosa le serve sapere ancora?"
+      goals: [rent]
+    # merlin-1365_0100194-5
+    - learner: "Sarei grato se poteste mandarmi una lista che comprende i Vostri prezzi e anche la tassa dell'allogio."
+      errors: [adjective-agreement, spelling]
+    - tutor: "Certo. Ma «sarei grato»: parla una ragazza, quindi?"
+      prompt: {text: "Sarei grato", tags: [adjective-agreement]}
+    - learner: "Sarei grata! Grazie. E il contratto quanto dura?"
+    - tutor: "Brava. Il contratto è per studenti: un anno, con due mesi di caparra."
+      goals: [contract]
+    - learner: "Va bene. La cucina ha la lavatrice? È la cosa che ho più bisogno."
+      errors: [relative-pronoun]
+    - tutor: "Sì, è nuova. Ma «la cosa che ho più bisogno»: si dice «avere bisogno di» qualcosa. Quindi?"
+      prompt: {text: "la cosa che ho più bisogno", tags: [relative-pronoun]}
+    - learner: "La cosa di cui ho più bisogno!"
+    - tutor: "Perfetto. E anche il riscaldamento è nuovo."
+      goals: [condition]
+    # merlin-1365_0100145-4
+    - learner: "Bene. Il quartiere è tranquillo? Tra le possibilità di alloggio, sceglierò la più tranquilla."
+    - tutor: "Molto tranquillo, e c'è la fermata dell'autobus per l'università qui davanti."
+      goals: [neighbourhood]
+    - learner: "Allora mi piace molto. Lo prendo!"
+    - tutor: "Benissimo! Preparo il contratto per lunedì."
+      goals: [decide]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    # merlin-1365_0100169-1
+    - learner: "Buonasera. Domenica festeggiamo il compleanno di mio marito: mi piacerebbe molto andare al ristorante con voi e i vostri parenti ed amici."
+    - tutor: "Ah, una festa di famiglia! Quindi vuole prenotare un tavolo per domenica?"
+    - learner: "Sì, per domenica a pranzo. Siamo quattordici persone, alle una."
+      errors: [article-form]
+    - tutor: "Va bene. Ma «alle una»: un'ora sola, quindi l'articolo?"
+      prompt: {text: "alle una", tags: [article-form]}
+    - learner: "All'una! All'una e mezza, se è possibile."
+    - tutor: "Perfetto, domenica all'una e mezza per quattordici. Ha qualche richiesta?"
+      goals: [book, details]
+    # merlin-1365_0100096-6
+    - learner: "C'è la possibilità di prenotare una camera solita al ristorante?"
+    - tutor: "Sì, abbiamo una sala piccola tutta per voi, con la finestra sul giardino."
+    # merlin-1365_0100145-5
+    - learner: "Perfetto. Avete da proporre anche delle cose per le famiglie con bambini?"
+      errors: [object-pronoun]
+    - tutor: "Certo. Ma «avete da proporre», a chi? Manca un piccolo pronome per dire «a me»."
+      prompt: {text: "Avete da proporre", tags: [object-pronoun]}
+    - learner: "Avete da proporre... sì, per i bambini."
+      errors: [object-pronoun]
+    - tutor: "Abbiamo da proporle un menù bambini e due seggioloni. A che nome prenoto?"
+      recast: {text: "proporre", fix: "proporle", tags: [object-pronoun]}
+      goals: [special]
+      new: [{lemma: seggiolone, gloss: high chair}, {lemma: proporle, gloss: to offer you}]
+    - learner: "A nome García. Grazie mille!"
+    - tutor: "Perfetto, signora García: domenica all'una e mezza, quattordici persone. A domenica!"
+      goals: [name]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi l'ora. Sono Luca, abito al primo piano, proprio sotto di lei."
+    - tutor: "Ah, piacere! Mi dica."
+      goals: [greet]
+    # merlin-1365_0100229-9
+    - learner: "Il mio studio e molto duro e sono quasi tutto il giorno all'università. La sera devo studiare."
+      errors: [spelling]
+    - tutor: "Capisco. Ma «il mio studio... e molto duro»: manca il verbo! Come lo dici?"
+      prompt: {text: "e molto duro", tags: [spelling]}
+    - learner: "Il mio studio è molto duro. E di sera sento la televisione molto forte."
+    - tutor: "Ah, mi dispiace, non lo sapevo! Mio padre sente poco, la tiene sempre alta."
+      goals: [problem]
+    - learner: "Capisco. Posso chiederle un favore? Potrebbe abbassarla dopo le dieci?"
+    - tutor: "Certo, glielo dico. Ma lui la guarda fino a tardi... ne parlo con lui."
+      goals: [request]
+    - learner: "Grazie. Forse con le cuffie? Le ho a casa, ne ho due, posso portargliene una."
+    - tutor: "Che gentile, è un'ottima idea! Le cuffie dopo le dieci, e il problema è risolto."
+      goals: [compromise]
+
+- scenario: medico-base
+  level: B1
+  persona: es-m-worker
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno dottore. Ho mal di gola e la tosse, e ieri avevo un po' di febbre."
+    - tutor: "Da quanti giorni?"
+      goals: [symptoms]
+    - learner: "Da tre giorni. Ho lavorato fuori con il freddo e mi sono bagnato tutto."
+    - tutor: "Capisco. È allergico a qualche medicina?"
+      goals: [since-when]
+    - learner: "Sì, sono allergico alla penicillina. La ho detto anche all'altro medico."
+      errors: [object-pronoun]
+    - tutor: "Bene saperlo. Ma «la ho detto»: l'ha detto a lui, al medico. Quale pronome serve?"
+      prompt: {text: "La ho detto", tags: [object-pronoun]}
+    - learner: "Gli ho detto, sì."
+    - tutor: "Esatto, glielo ha detto. Allora niente di quella medicina: le do uno sciroppo e una medicina per la febbre, due volte al giorno."
+      goals: [history]
+      new: [{lemma: sciroppo, gloss: syrup}]
+    - learner: "Lo sciroppo e la medicina due volte al giorno. Per quanti giorni?"
+    - tutor: "Per cinque giorni. E resti a casa fino a lunedì."
+      goals: [instructions]

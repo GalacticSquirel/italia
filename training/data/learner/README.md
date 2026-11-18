@@ -5,7 +5,8 @@ sentence a learner wrote in a CEFR exam (rated A1 to B2) and the same sentence a
 native speaker (MERLIN's minimal "target hypothesis 1"), with the author's id, level, first
 language and task. `changed` is true when the native corrector changed a word (punctuation and
 capitals do not count, since the tutor hears speech). `split` holds out one author in five
-(`eval`) for the real-learner check; the rest (`train`) may be used for training dialogues.
+(`eval`) for the real-learner check, except sentences a training author also wrote word for
+word; the rest (`train`) may be used for training dialogues.
 
 Rebuild it (downloads the pinned 12 MB release to `work/` and checks its sha256):
 

@@ -1,0 +1,221 @@
+# Set v-nearmiss, file 2: A2 and B1. Left alone: «danno un film», «più facile nuotare che
+# correre», «la foto la porto», «in Irlanda», «ci vuole», «qualche amico», «spero che venga»,
+# «le lenzuola le metto», «ce l'ho fatta», «è piovuto», «sono malato da lunedì», «saranno
+# consumate». Corrected twins: «piace le commedie», «più difficile che il nuoto», «a Spagna»,
+# «comprarò», «li lavo» (camicie), «ha salito», «sono stato allergico da», «venirò».
+- scenario: serata-cinema
+  level: A2
+  persona: es-f-teacher
+  history: [piacere]
+  turns:
+  - tutor: "Stasera sono libera. Facciamo qualcosa?"
+  - learner: "Sì! Andiamo al cinema? In piazza danno un film nuovo."
+  - tutor: "Bella idea! Che film è?"
+    goals: [propose]
+  - learner: "È un film d'azione. Mi piacciono molto i film d'azione."
+  - tutor: "A me non tanto. Io preferisco le commedie."
+    goals: [genre]
+  - learner: "Anche a me piace le commedie, ma stasera voglio un film diverso."
+    errors: [piacere]
+  - tutor: "Anche a te piace le commedie? Ascolta il verbo: le commedie sono tante."
+    prompt: {text: "piace le commedie", tags: [piacere]}
+  - learner: "Sì, anche a me piace le commedie, ma non stasera."
+    errors: [piacere]
+  - tutor: "Allora piacciono le commedie anche a te! Stasera l'azione, e la commedia la prossima volta."
+    recast: {text: "piace le commedie", fix: "piacciono le commedie", tags: [piacere]}
+    goals: [choose]
+  - learner: "Perfetto. Esco pronto dal lavoro: ci vediamo davanti al cinema alle otto e mezza?"
+    errors: [false-friend]
+  - tutor: "Va bene, se esci presto dal lavoro ci vediamo alle otto e mezza. I biglietti li prendo io!"
+    recast: {text: "pronto", fix: "presto", tags: [false-friend]}
+    goals: [meet]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-traveller
+  history: [comparative]
+  turns:
+  - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+  - learner: "Sì, grazie. Quanto costa al mese?"
+  - tutor: "Quaranta euro al mese, o cento per tre mesi."
+    goals: [ask-membership]
+  - learner: "Per tre mesi è meno caro. Prendo quello."
+  - tutor: "Ottima scelta. Ti interessano anche i corsi?"
+  - learner: "Sì. Per me è più facile nuotare che correre. C'è una piscina?"
+  - tutor: "Sì, la piscina è al piano di sotto. E c'è anche un corso di yoga."
+    goals: [classes]
+  - learner: "Lo yoga è più difficile che il nuoto?"
+    errors: [comparative]
+  - tutor: "Più difficile che il nuoto? Qui ci sono due nomi: cosa usiamo dopo «difficile»?"
+    prompt: {text: "più difficile che il nuoto", tags: [comparative]}
+  - learner: "Sì, è più difficile che il nuoto?"
+    errors: [comparative]
+  - tutor: "No, non è più difficile del nuoto, è solo diverso! Il corso è il martedì alle sette."
+    recast: {text: "più difficile che il nuoto", fix: "più difficile del nuoto", tags: [comparative]}
+    goals: [timetable]
+  - learner: "Il martedì va bene. Posso iscrivermi oggi?"
+  - tutor: "Certo! Mi dai un documento e una foto?"
+  - learner: "Ecco la carta d'identità. La foto la porto domani."
+  - tutor: "Va bene, nessun problema. Benvenuto!"
+    goals: [sign-up]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-f-professional
+  history: [preposition]
+  turns:
+  - tutor: "Buongiorno, mi dica."
+  - learner: "Buongiorno. Vorrei spedire questo pacco a mia madre, in Irlanda."
+  - tutor: "Certo, lo mettiamo qui. Cosa c'è dentro?"
+    goals: [send]
+  - learner: "Due libri e un maglione. Quanto ci vuole per arrivare?"
+  - tutor: "Con la posta normale dieci giorni, con quella veloce tre."
+  - learner: "Allora veloce. È per il suo compleanno, il venti marzo."
+  - tutor: "Va bene, posta veloce. Deve scrivere qui il nome e l'indirizzo."
+    goals: [speed]
+  - learner: "Fatto. Ah, mando anche questa lettera a Spagna."
+    errors: [preposition]
+  - tutor: "A Spagna? Per i paesi, quale preposizione usiamo?"
+    goals: [form]
+    prompt: {text: "a Spagna", tags: [preposition]}
+  - learner: "A Spagna, sì, a un'amica di Madrid."
+    errors: [preposition]
+  - tutor: "Va bene, in Spagna. Allora sono diciotto euro in tutto."
+    recast: {text: "A Spagna", fix: "in Spagna", tags: [preposition]}
+  - learner: "Posso pagare con la carta?"
+  - tutor: "Certo. Ecco la ricevuta, buona giornata!"
+    goals: [pay]
+
+- scenario: compleanno
+  level: A2
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+  - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+  - learner: "Facciamo una festa a casa mia sabato sera?"
+  - tutor: "Ottima idea! Ma il suo compleanno è sabato?"
+  - learner: "No, è domenica, ma sabato è meglio. Spero che venga anche suo fratello."
+  - tutor: "Lo chiamo io domani."
+    goals: [date]
+  - learner: "Io ho invitato qualche amico dell'università, sei o sette persone."
+  - tutor: "Perfetto. E da mangiare?"
+    goals: [guests]
+  - learner: "Io comprarò la torta in pasticceria."
+    errors: [future-form]
+  - tutor: "Comprarò? Ascolta bene: compro, comprare... e al futuro?"
+    prompt: {text: "comprarò", tags: [future-form]}
+  - learner: "Comprerò la torta! Al cioccolato, le piace tanto."
+  - tutor: "Esatto! E io porto le pizze."
+    goals: [food]
+  - learner: "E il presente? Le regaliamo un libro? Le piace leggere."
+    errors: [false-friend]
+  - tutor: "Per il regalo un libro è perfetto, magari di viaggi! Lo compriamo insieme venerdì."
+    recast: {text: "il presente", fix: "il regalo", tags: [false-friend]}
+    goals: [gift]
+
+- scenario: lavanderia
+  level: A2
+  persona: es-f-teacher
+  history: [object-pronoun]
+  turns:
+  - tutor: "Tutto bene? Hai bisogno di una mano?"
+  - learner: "Sì, grazie! È la prima volta che vengo qui. Le lenzuola le metto in questa?"
+  - tutor: "Sì, quella è grande, va bene per le lenzuola."
+    goals: [problem]
+  - learner: "E le camicie bianche? Li lavo con le lenzuola?"
+    errors: [object-pronoun]
+  - tutor: "Li lavo? Attenzione: parliamo delle camicie."
+    prompt: {text: "Li lavo", tags: [object-pronoun]}
+  - learner: "Ah, le lavo! Le lavo insieme?"
+  - tutor: "Sì, insieme va bene, sono tutte bianche."
+    goals: [ask-how]
+  - learner: "Quanto costa un lavaggio? Ho solo monedas da due euro."
+    errors: [word-choice]
+  - tutor: "Quattro euro. Le monete vanno qui, a destra."
+    recast: {text: "monedas", fix: "monete", tags: [word-choice]}
+    goals: [payment]
+  - learner: "Perfetto, ce l'ho fatta! Grazie, sei gentilissimo."
+  - tutor: "Di niente! Ci vediamo tra quaranta minuti."
+    goals: [thank]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: en-f-student
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+  - learner: "Sono stata in Sicilia con mio marito, dieci giorni tra Catania e Siracusa."
+  - tutor: "Che bello! E il tempo com'era?"
+    goals: [where]
+  - learner: "Il primo giorno è piovuto, poi sole tutti i giorni."
+  - tutor: "Meno male, allora vi siete goduti il mare."
+    goals: [weather]
+  - learner: "Sì, e siamo saliti sull'Etna! Io mi sono fermata a metà, ero troppo stanca."
+  - tutor: "Sull'Etna! Bravi! E tuo marito?"
+  - learner: "Mio marito ha salito fino al cratere, con una guida."
+    errors: [auxiliary-choice]
+  - tutor: "Ha salito? Qui «salire» non ha un oggetto: va con avere o con essere?"
+    prompt: {text: "ha salito", tags: [auxiliary-choice]}
+  - learner: "Sì, ha salito fino in cima, quasi tremila metri."
+    errors: [auxiliary-choice]
+  - tutor: "È salito fino in cima? Che coraggio! Io soffro di vertigini solo a pensarci."
+    recast: {text: "ha salito", fix: "è salito", tags: [auxiliary-choice]}
+    goals: [activities]
+    new: [{lemma: "vertigine", gloss: "fear of heights"}]
+  - learner: "La cosa più bella però è stata Siracusa di sera, con le luci sul mare."
+  - tutor: "Siracusa di sera è magica, hai ragione. Mi hai fatto venire voglia di partire!"
+    goals: [best]
+
+- scenario: medico-base
+  level: B1
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+  - learner: "Buongiorno. Ho mal di gola e un po' di febbre. Sono malato da lunedì."
+  - tutor: "Capisco, quindi da quattro giorni. Quanto ha di febbre?"
+    goals: [symptoms, since-when]
+  - learner: "Sì, stamattina avevo trentotto. Ieri sera era più alta."
+  - tutor: "Ha anche la tosse? Ha preso qualcosa?"
+  - learner: "Sono anche molto costipato. Ho preso un'aspirina, ma non mi ha fatto niente."
+    errors: [false-friend]
+  - tutor: "Quindi è anche raffreddato. È allergico a qualche medicina?"
+    recast: {text: "costipato", fix: "raffreddato", tags: [false-friend]}
+    new: [{lemma: "raffreddato", gloss: "having a cold"}]
+  - learner: "Sì, sono stato allergico alla penicillina da quando ero bambino."
+    errors: [tense-aspect]
+  - tutor: "Sono stato allergico? Ma è una cosa che dura ancora oggi, giusto?"
+    prompt: {text: "sono stato allergico", tags: [tense-aspect]}
+  - learner: "Sì, giusto: sono allergico alla penicillina da sempre."
+  - tutor: "Perfetto, è importante saperlo. Lo scrivo subito."
+    goals: [history]
+  - learner: "Mi può dare qualcosa per la gola? Non riesco a mangiare."
+  - tutor: "Le do uno sciroppo: lo prenda tre volte al giorno, dopo aver mangiato."
+    goals: [instructions]
+    new: [{lemma: "sciroppo", gloss: "syrup"}]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+  - tutor: "Buongiorno! Che problema ha la macchina?"
+  - learner: "Buongiorno. Quando freno, sento un rumore strano, tipo un fischio."
+  - tutor: "Un fischio quando frena... Da quanto tempo lo sente?"
+    goals: [describe]
+    new: [{lemma: "fischio", gloss: "whistle"}]
+  - learner: "Da una settimana, ma ieri era più forte. Saranno le pastiglie dei freni?"
+  - tutor: "Può darsi, ma devo controllare. Mi lascia qui la macchina?"
+    goals: [when]
+  - learner: "Sì. Quanto costerà, più o meno?"
+  - tutor: "Se è quello, sui centoventi euro."
+    goals: [cost]
+  - learner: "Va bene. Domani venirò verso le cinque, è possibile?"
+    errors: [future-form]
+  - tutor: "Venirò? Attenzione, il futuro di «venire» è un po' speciale."
+    prompt: {text: "venirò", tags: [future-form]}
+  - learner: "Ah, verrò! Verrò verso le cinque."
+  - tutor: "Esatto. Alle cinque sarà pronta, glielo prometto."
+    goals: [time]
+  - learner: "Perfetto, allora a domani. E grazie!"
+  - tutor: "Si figuri, a domani!"

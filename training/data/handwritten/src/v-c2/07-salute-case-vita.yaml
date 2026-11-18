@@ -1,0 +1,247 @@
+# Round 5b, set v-c2. File 7: doctors, life in Italy, renting, working from home, restaurants.
+- scenario: medico-specialista
+  level: C2
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Buongiorno, dottore. Non benissimo: ho una fatica continua, anche appena sveglio, e salendo le scale mi manca il fiato."
+      errors: [false-friend]
+    - tutor: "Una stanchezza continua, fin dal mattino: è un dato importante. Il fiato corto le capita anche a riposo, o solo sotto sforzo?"
+      recast: {text: "una fatica continua", fix: "una stanchezza continua", tags: [false-friend]}
+    - learner: "Solo sotto sforzo, e da un paio di settimane anche di notte, se mi sdraio completamente. Ormai dormo con due cuscini."
+    - tutor: "Capisco. In famiglia ci sono stati problemi di cuore?"
+      goals: [symptoms]
+    - learner: "Sì, mio padre. Quando ero bambino, ha avuto sempre la pressione altissima, e a sessant'anni ha avuto un infarto."
+      errors: [tense-aspect]
+      gold: {text: "ha avuto sempre", fix: "aveva sempre"}
+    - tutor: "Me lo segno. Ma «quando ero bambino, ha avuto sempre la pressione alta»: è un fatto puntuale o una situazione che durava?"
+      prompt: {text: "ha avuto sempre", tags: [tense-aspect]}
+    - learner: "Una situazione che durava: aveva sempre la pressione altissima. L'infarto invece è stato un fatto preciso, nel 2009."
+    - tutor: "Esatto. Dagli esami risulta che il suo cuore pompa un po' meno del dovuto: si chiama scompenso, ed è per questo che si affatica."
+      goals: [history]
+    - learner: "Scompenso... È possibile che sia colpa dei turni di notte in fabbrica? Non capisco bene se è una cosa grave o no."
+    - tutor: "Il lavoro notturno non aiuta, ma la causa principale è probabilmente ereditaria. Non è un'emergenza, se lo curiamo bene."
+      goals: [understand]
+    - learner: "Meno male. E la cura? Bisognerà sottomettersi a un intervento?"
+      errors: [false-friend]
+    - tutor: "No, per ora non serve sottoporsi a un intervento: cominciamo con due farmaci e un po' di sale in meno a tavola."
+      recast: {text: "sottomettersi a un intervento", fix: "sottoporsi a un intervento", tags: [false-friend]}
+    - learner: "Va bene. E con il lavoro? Posso continuare a fare i turni di notte, almeno per qualche mese?"
+    - tutor: "Per i prossimi tre mesi le chiederei di evitarli: le preparo un certificato per il medico del lavoro. Ci rivediamo a gennaio per il controllo."
+      goals: [treatment]
+
+- scenario: medico-specialista
+  level: C2
+  persona: en-f-student
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Buongiorno. Diciamo a periodi: sto bene per giorni, poi all'improvviso il cuore comincia a correre e va avanti anche per dieci minuti."
+      errors: [word-choice]
+    - tutor: "Quando il cuore comincia a battere all'impazzata, ha anche giramenti di testa o dolore al petto?"
+      recast: {text: "il cuore comincia a correre", fix: "il cuore comincia a battere all'impazzata", tags: [word-choice]}
+    - learner: "A volte un leggero capogiro, ma nessun dolore. L'ultima volta è successo ieri sera, mentre guardavo un film sul divano, quindi non stavo facendo nessuno sforzo."
+    - tutor: "Bene che me lo dica, è un dettaglio importante. Sono episodi che ha già avuto in passato?"
+      goals: [symptoms]
+    - learner: "Sì, al liceo, durante gli esami di maturità, ma il medico di famiglia aveva detto che era ansia. Da allora non ne ho più avuti fino a quest'estate."
+    - tutor: "E quest'estate è cambiato qualcosa nelle sue abitudini? Caffè, sonno, farmaci?"
+      goals: [history]
+    - learner: "Da giugno lavoro in un bar, quindi bevo cinque o sei caffè al giorno. Temo che il caffè c'entra qualcosa."
+      errors: [subjunctive-use]
+      gold: {text: "il caffè c'entra", fix: "il caffè c'entri"}
+    - tutor: "Cinque o sei! Ma «temo che il caffè c'entra»: dopo «temo che», il verbo come andrebbe?"
+      prompt: {text: "il caffè c'entra", tags: [subjunctive-use]}
+    - learner: "Temo che c'entri, sì. Quindi non è il cuore in sé, è il caffè?"
+    - tutor: "L'elettrocardiogramma dice che il cuore è sano: probabilmente sono extrasistoli favorite dalla caffeina. Non sono pericolose, ma vanno tenute d'occhio."
+      goals: [understand]
+    - learner: "Che sollievo. Quindi basterebbe che smettessi di bere caffè, o mi prescrive comunque qualcosa?"
+    - tutor: "Per ora niente farmaci: al massimo due caffè al giorno, e tra un mese facciamo un holter di ventiquattro ore. Se gli episodi continuano, ne riparliamo."
+      goals: [treatment]
+
+- scenario: vita-in-italia
+  level: C2
+  persona: en-m-retired
+  history: [hypothetical]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Buongiorno a voi. Avevo visitato l'Italia una ventina di volte prima di trasferirmi, ma la scelta vera l'ho fatta per amore: mia moglie è di Lucca."
+    - tutor: "Una storia romantica, dunque. Da quanto tempo vive qui?"
+      goals: [story]
+    - learner: "Da sette anni. E non credo che la scelta è stata un errore, anche se i primi tempi sono stati durissimi."
+      errors: [subjunctive-use]
+      gold: {text: "la scelta è stata", fix: "la scelta sia stata"}
+    - tutor: "Mi fa piacere sentirlo. Ma «non credo che la scelta è stata un errore»: dopo «non credo che», per il passato, quale tempo usiamo?"
+      prompt: {text: "la scelta è stata", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo passato: non credo che sia stata un errore. La cosa più difficile è stata la burocrazia: per il permesso di soggiorno sono tornato in questura cinque volte."
+    - tutor: "Cinque volte! E non ha mai perso la pazienza?"
+      goals: [difficulties]
+    - learner: "Una volta sì: alla quinta ho perso il mio temperamento e ho alzato la voce. Poi mi sono vergognato tantissimo."
+      errors: [word-choice]
+    - tutor: "Chi non ha mai perso le staffe in questura scagli la prima pietra! E in questi sette anni, Lei com'è cambiato?"
+      recast: {text: "perso il mio temperamento", fix: "perso le staffe", tags: [word-choice]}
+    - learner: "Sono diventato più paziente, paradossalmente, e ho imparato a godermi il pranzo senza guardare l'orologio. In Inghilterra mangiavo un panino davanti al computer."
+    - tutor: "Una conversione completa! Un consiglio per chi sta pensando di trasferirsi?"
+      goals: [change]
+    - learner: "Se uno vorrebbe venire a vivere qui, dovrebbe prima imparare bene la lingua: senza l'italiano, si resta sempre turisti."
+      errors: [hypothetical]
+      gold: {text: "Se uno vorrebbe", fix: "Se uno volesse"}
+    - tutor: "Consiglio prezioso. Ma «se uno vorrebbe venire»: nella frase con «se», il condizionale funziona?"
+      prompt: {text: "Se uno vorrebbe", tags: [hypothetical]}
+    - learner: "No, ci vuole il congiuntivo: se uno volesse venire a vivere qui, dovrebbe prima imparare la lingua. E armarsi di molta pazienza."
+    - tutor: "Lingua e pazienza: me lo segno. Grazie per essere stato con noi, e buona vita in Italia!"
+      goals: [advice]
+
+- scenario: intervista-podcast
+  level: C2
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivato proprio in Italia?"
+    - learner: "Ciao, grazie a te! Ci sono arrivato per caso: dovevo fermarmi a Bologna tre giorni per un convegno, e invece sono rimasto dieci anni."
+    - tutor: "Classico! E che cosa ti ha fatto restare?"
+    - learner: "Un po' tutto: la città, il cibo, una ragazza conosciuta il secondo giorno. Prima di quel viaggio non ho mai bevuto un vero espresso, pensa."
+      errors: [tense-aspect]
+      gold: {text: "non ho mai bevuto", fix: "non avevo mai bevuto"}
+    - tutor: "Mai?! Ma aspetta: «prima di quel viaggio non ho mai bevuto»... l'azione è anteriore a un altro momento passato: che tempo ci vuole?"
+      goals: [story]
+      prompt: {text: "non ho mai bevuto", tags: [tense-aspect]}
+    - learner: "Il trapassato: non avevo mai bevuto un vero espresso. Il primo shock culturale, però, è stato un altro: pensavo che gli italiani erano tutti espansivi, e invece a Bologna la gente all'inizio è piuttosto riservata."
+      errors: [subjunctive-use]
+      gold: {text: "erano tutti espansivi", fix: "fossero tutti espansivi"}
+    - tutor: "Ah, lo stereotipo dell'italiano che ti abbraccia subito! Ma «pensavo che gli italiani erano»: dopo «pensavo che», quale modo?"
+      prompt: {text: "erano tutti espansivi", tags: [subjunctive-use]}
+    - learner: "Fossero, scusa: pensavo che fossero tutti espansivi. E poi le code: alla posta mi annoiava molto che nessuno le rispettasse."
+      errors: [false-friend]
+    - tutor: "E ti infastidiva, eh? Lì non è maleducazione, è sport nazionale! Ma dopo dieci anni, c'è qualcosa che critichi ancora dell'Italia?"
+      goals: [culture-shock]
+      recast: {text: "annoiava", fix: "infastidiva", tags: [false-friend]}
+    - learner: "Sì, il modo in cui si trattano i giovani: precari fino a quarant'anni, con stipendi bassissimi. È una fuga di cervelli massiva: molti dei miei studenti se ne sono andati all'estero."
+      errors: [word-choice]
+    - tutor: "Una fuga di cervelli massiccia, purtroppo: tema dolente. Un consiglio per chi ci ascolta e vorrebbe trasferirsi qui?"
+      goals: [critique]
+      recast: {text: "massiva", fix: "massiccia", tags: [word-choice]}
+    - learner: "Di non avere fretta: l'Italia non si lascia capire in un mese. E di imparare a fare la scarpetta senza sentirsi in colpa."
+    - tutor: "Consiglio fondamentale, la scarpetta! Grazie mille, è stato un piacere."
+      goals: [advice]
+
+- scenario: trattativa-affitto
+  level: C2
+  persona: en-f-professional
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Molto, soprattutto la luce del soggiorno. Nonostante mi piace, però, ho una perplessità: le finestre sono vecchie e d'inverno si sentirà il freddo."
+      errors: [subjunctive-use]
+      gold: {text: "Nonostante mi piace", fix: "Nonostante mi piaccia"}
+    - tutor: "La luce è il punto forte, ha ragione. Ma «nonostante mi piace»: con «nonostante», il verbo come va?"
+      prompt: {text: "Nonostante mi piace", tags: [subjunctive-use]}
+    - learner: "Nonostante mi piaccia, ecco. Il problema delle finestre però rimane: con quei serramenti, la bolletta del riscaldamento sarà altissima."
+    - tutor: "Il proprietario lo sa, e ha già in programma di cambiarle entro due anni. Nel frattempo che cosa proporrebbe?"
+      goals: [interest]
+    - learner: "Se il proprietario abbassasse l'affitto da novecento a ottocentocinquanta euro finché non le cambia, firmerei anche domani."
+    - tutor: "Proposta ragionevole. Ho appena sentito il proprietario: accetta ottocentosessanta, finché le finestre non saranno cambiate."
+      goals: [negotiate]
+    - learner: "Va bene, ottocentosessanta. E il contratto è un quattro più quattro, immagino? Mi interessa sapere come funziona il rinnovamento dopo i primi quattro anni."
+      errors: [word-choice]
+    - tutor: "Esatto, quattro più quattro: il rinnovo è automatico, salvo disdetta del proprietario per i motivi previsti dalla legge. Lei può recedere con sei mesi di preavviso."
+      goals: [conditions]
+      recast: {text: "il rinnovamento", fix: "il rinnovo", tags: [word-choice]}
+    - learner: "Sei mesi mi sembrano tanti: lavoro con contratti a progetto e non so dove sarò fra un anno. Si potrebbe ridurlo a tre?"
+    - tutor: "Glielo chiedo, ma non le prometto nulla. Se accettasse, sarebbe disposta a versare tre mensilità di cauzione invece di due?"
+    - learner: "Sì: se in cambio il preavviso scende a tre mesi, va benissimo. Allora aspetto la sua chiamata per fissare la firma."
+    - tutor: "Perfetto: la chiamo domattina. Se il proprietario è d'accordo, firmiamo venerdì."
+      goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: C2
+  persona: en-m-heritage
+  history: [preposition]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Molto, devo dire. La cucina è perfino equipaggiata, cosa rara negli affitti. L'unico dubbio è il prezzo: mille e cento euro mi sembrano tanti per la zona."
+      errors: [word-choice]
+    - tutor: "È vero, la cucina è perfino attrezzata, e nuova di zecca. Sul prezzo, però, siamo in linea con il mercato."
+      goals: [interest]
+      recast: {text: "è perfino equipaggiata", fix: "è perfino attrezzata", tags: [word-choice]}
+    - learner: "In linea, rispetto di cosa? Due palazzi più avanti c'è un trilocale simile a novecentocinquanta."
+      errors: [preposition]
+      gold: {text: "rispetto di", fix: "rispetto a"}
+    - tutor: "Lo conosco, ma non ha il terrazzo. Però «rispetto di cosa»: «rispetto», in questo senso, quale preposizione vuole?"
+      prompt: {text: "rispetto di", tags: [preposition]}
+    - learner: "Rispetto a cosa, scusi. Comunque il terrazzo è bello, ma d'inverno non lo uso. Arriverei al massimo a mille."
+    - tutor: "Mille... Il proprietario potrebbe accettare, a patto che Lei firmi un contratto di quattro anni e non di tre."
+      goals: [negotiate]
+    - learner: "Quattro anni mi stanno bene, a prescindere del prezzo: cerco una casa stabile, non di passaggio."
+      errors: [preposition]
+      gold: {text: "a prescindere del", fix: "a prescindere dal"}
+    - tutor: "Ottimo. Solo un dettaglio: «a prescindere del prezzo». Il verbo «prescindere» che preposizione regge?"
+      prompt: {text: "a prescindere del", tags: [preposition]}
+    - learner: "Ah... a prescindere di prezzo?"
+      errors: [preposition]
+    - tutor: "A prescindere dal prezzo, dunque, quattro anni. Allora: mille euro, quattro più quattro, due mensilità di cauzione. Le va bene?"
+      goals: [conditions]
+      recast: {text: "a prescindere di prezzo", fix: "a prescindere dal prezzo", tags: [preposition]}
+    - learner: "Mi va benissimo. Mi può mandare la bozza del contratto per e-mail, così la faccio leggere a un avvocato?"
+    - tutor: "Certamente, entro domani. Se l'avvocato non trova niente da ridire, ci vediamo nel mio ufficio la settimana prossima per la firma."
+      goals: [conclude]
+
+- scenario: smartworking
+  level: C2
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Faccio un po' e un po': tre giorni a casa e due in ufficio. È un compromesso che mi è stato imposto, ma alla fine mi ci trovo bene."
+    - tutor: "«Mi ci trovo bene»: detto da te, è un complimento enorme! Che cosa ti piace di più dei giorni a casa?"
+      goals: [situation]
+    - learner: "Risparmio due ore di tragitto, e poi casa mia è molto più silenziosa che l'ufficio, dove c'è sempre qualcuno che parla al telefono."
+      errors: [comparative]
+      gold: {text: "più silenziosa che l'ufficio", fix: "più silenziosa dell'ufficio"}
+    - tutor: "Due ore sono tantissime. Ma «più silenziosa che l'ufficio»: davanti a un nome, il secondo termine di paragone come lo introduci?"
+      prompt: {text: "più silenziosa che l'ufficio", tags: [comparative]}
+    - learner: "Con «di»: più silenziosa dell'ufficio. Anche se, a dire il vero, sono più concentrata la mattina presto che il pomeriggio, ovunque io sia."
+    - tutor: "Esatto. E gli svantaggi? Non mi dire che non ce ne sono."
+      goals: [pros]
+    - learner: "Ce ne sono eccome. Quando i bambini tornano da scuola, a casa costa concentrarsi, e mi manca la pausa caffè con i colleghi."
+      errors: [word-choice]
+    - tutor: "Eh, con i bambini in giro si fa fatica a concentrarsi, lo so bene! E la pausa caffè davanti a uno schermo non è la stessa cosa."
+      goals: [cons]
+      recast: {text: "costa concentrarsi", fix: "si fa fatica a concentrarsi", tags: [word-choice]}
+    - learner: "Per niente. Se potessi scegliere, farei due giorni a casa e tre in ufficio: mi sembra l'equilibrio migliore."
+    - tutor: "Mi sa che hai trovato la formula perfetta. Perché non ne parli al tuo capo, alla prossima riunione?"
+      goals: [preference]
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: en-f-student
+  history: [conditional-form]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, purtroppo: avevamo prenotato per le otto, e al telefono ci avevano detto che il tavolo sarà pronto puntuale. Abbiamo aspettato quaranta minuti in piedi."
+      errors: [conditional-form]
+      gold: {text: "sarà pronto", fix: "sarebbe stato pronto"}
+    - tutor: "Mi scuso, è inaccettabile. Solo un dettaglio: «ci avevano detto che il tavolo sarà pronto». Per un futuro visto dal passato, che tempo serve?"
+      goals: [complain]
+      prompt: {text: "sarà pronto", tags: [conditional-form]}
+    - learner: "Il condizionale passato: che sarebbe stato pronto puntuale. E non è finita lì: la tagliata, che avevo chiesto ben cotta, è arrivata rara."
+      errors: [word-choice]
+    - tutor: "Chiesta ben cotta e invece è arrivata al sangue: un errore di cucina che non dovrebbe succedere."
+      goals: [detail]
+      recast: {text: "è arrivata rara", fix: "è arrivata al sangue", tags: [word-choice]}
+    - learner: "Esatto. E quando l'ho fatto notare, il cameriere ha alzato gli occhi al cielo: un comportamento che, francamente, fa schifo."
+      errors: [register]
+      gold: {text: "fa schifo", fix: "trovo inaccettabile"}
+    - tutor: "Ha tutto il diritto di essere arrabbiata. Ma «fa schifo», detto in un reclamo formale... come potrebbe dirlo con più efficacia?"
+      prompt: {text: "fa schifo", tags: [register]}
+    - learner: "Ha ragione: un comportamento che trovo francamente inaccettabile. Da un ristorante con la vostra reputazione mi sarei aspettata un servizio all'altezza."
+    - tutor: "Ha perfettamente ragione, e parlerò con il cameriere stasera stessa."
+      goals: [expectation]
+    - learner: "La ringrazio. Non vorrei che pensasse che voglio mangiare gratis: vorrei solo che il problema venga preso sul serio."
+      errors: [subjunctive-use]
+      gold: {text: "venga preso", fix: "venisse preso"}
+    - tutor: "Non lo penso affatto. Ma «vorrei solo che il problema venga preso sul serio»: dopo «vorrei», quale congiuntivo ci vuole?"
+      prompt: {text: "venga preso", tags: [subjunctive-use]}
+    - learner: "Venisse, giusto: vorrei solo che venisse preso sul serio."
+    - tutor: "E lo sarà. Le tolgo le due tagliate dal conto e le offro il dolce; e la prossima volta, il tavolo vicino alla finestra glielo tengo io."
+      goals: [resolve]

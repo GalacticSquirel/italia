@@ -1,0 +1,287 @@
+# File 6: chatting with a friend about working from home, jobs and advice.
+- scenario: smartworking
+  level: B1
+  persona: en-m-heritage
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    # merlin-1395_0000626-5
+    - learner: "Sono ancora macchinista ma adesso con le locomotive grande."
+      errors: [adjective-agreement]
+    - tutor: "Ah, quindi da casa è impossibile! Ma «le locomotive grande»? Sono tante..."
+      prompt: {text: "le locomotive grande", tags: [adjective-agreement]}
+    - learner: "Sì, le locomotive grande, quelle dei treni veloci."
+      errors: [adjective-agreement]
+    - tutor: "Le locomotive grandi dei treni veloci, che bello! E che cosa ti piace di più del tuo lavoro?"
+      recast: {text: "le locomotive grande", fix: "le locomotive grandi", tags: [adjective-agreement]}
+      goals: [situation]
+    # merlin-1395_0000376-2
+    - learner: "Con i colleghi vado d'accordo, sono molto gentili."
+    - tutor: "Questo è importante. Io da casa vedo i colleghi solo al computer. E che cosa non ti piace?"
+      goals: [pros]
+    - learner: "I turni di notte: dormo poco e sono sempre stanco. I miei parenti si preoccupano."
+      errors: [false-friend]
+    - tutor: "Lo immagino, e anche i genitori si preoccupano, è normale! Io invece dormo tanto, ma non esco mai di casa. Secondo te è meglio l'ufficio o la casa?"
+      recast: {text: "parenti", fix: "genitori", tags: [false-friend]}
+      goals: [cons]
+    # merlin-1325_9000106-4
+    - learner: "Gli occhi parlano molto e si danno informazioni importanti per giudicare una persona."
+      errors: [reflexive]
+    - tutor: "Bella frase! Ma «gli occhi si danno informazioni»? Si danno informazioni... a sé stessi?"
+      prompt: {text: "si danno", tags: [reflexive]}
+    - learner: "Gli occhi danno informazioni importanti. Per questo preferisco vedere le persone dal vivo."
+    - tutor: "Esatto! Hai ragione, il computer non basta. Forse anch'io dovrei tornare in ufficio qualche giorno."
+      goals: [preference]
+
+- scenario: smartworking
+  level: B1
+  persona: es-f-erasmus
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    # merlin-1365_0100475-4
+    - learner: "Tu sai che io sono ancora a Torino come ragazza alla pari."
+    - tutor: "Ah, giusto! Quindi lavori in casa, ma in casa di altri. Ti trovi bene?"
+      goals: [situation]
+    # merlin-1365_0100276-0
+    - learner: "Mi fa sempre tanto piacere quando mi scrivi!"
+    - tutor: "Anche a me! Ma dimmi: com'è la vita con la famiglia? Cosa ti piace?"
+    - learner: "I bambini sono dolcissimi, ma la casa è molto lontana del centro."
+      errors: [articulated-preposition]
+    - tutor: "Peccato! Ma «lontana del centro»? Pensa: si parte da un punto... quale preposizione usiamo?"
+      prompt: {text: "lontana del centro", tags: [articulated-preposition]}
+    - learner: "Lontana dal centro, sì. Ci vuole un'ora in autobus."
+    - tutor: "Esatto. Quindi i bambini sono il lato bello, e il viaggio quello brutto."
+      goals: [pros, cons]
+    # merlin-1395_0000391-6
+    - learner: "E tu che cosa fai adesso?"
+    - tutor: "Lavoro sempre da casa, ma mi annoio da morire. Penso di cambiare lavoro."
+    # merlin-1385_0001736-8
+    - learner: "Tu vuoi restare l'impiegato o vuoi cambiare questo tipo di lavoro - ad esempio per l'operaio?"
+      errors: [article-use, preposition]
+    - tutor: "Bella domanda! Ma «restare l'impiegato»? Quando diciamo che lavoro fa una persona, ci vuole l'articolo?"
+      prompt: {text: "restare l'impiegato", tags: [article-use]}
+    - learner: "Vuoi restare impiegato o fare l'operaio?"
+    - tutor: "Perfetto! Impiegato, ma in ufficio, con le persone. E tu, alla fine, preferiresti lavorare da casa?"
+    - learner: "No, io preferirei un lavoro in una oficina, con colleghi simpatici."
+      errors: [word-choice]
+    - tutor: "In un ufficio con colleghi simpatici, ti capisco! Allora siamo d'accordo: meglio l'ufficio, almeno per noi due!"
+      recast: {text: "una oficina", fix: "un ufficio", tags: [word-choice]}
+      goals: [preference]
+
+- scenario: smartworking
+  level: B1
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    # merlin-1365_0100072-0
+    - learner: "Al momento lavoro in un ristorante a un'aria di servizio alla autostrada A1."
+      errors: [preposition, word-choice, articulated-preposition]
+    - tutor: "Un ristorante sull'autostrada? Ma aspetta: «lavoro a un'aria di servizio»? Lì, dentro quel posto... quale preposizione?"
+      prompt: {text: "a un'aria di servizio", tags: [preposition]}
+    - learner: "In un'aria di servizio, sì, vicino a Firenze."
+      errors: [word-choice]
+    - tutor: "Ah, in un'area di servizio, vicino a Firenze! Quindi da casa non si può proprio. Ti piace?"
+      recast: {text: "aria", fix: "area", tags: [word-choice]}
+      goals: [situation]
+    # merlin-1395_0001070-4
+    - learner: "Anche al lavoro tutto è a posto."
+    - tutor: "Meno male! Lì conosci gente da tutta Europa, immagino. E la cosa più brutta?"
+      goals: [pros]
+    - learner: "Il viaggio: è più lungo che il turno, a volte."
+      errors: [comparative]
+    - tutor: "Davvero? Ma «più lungo che il turno»? Qui, prima di «il turno», quale parola usiamo?"
+      prompt: {text: "più lungo che il turno", tags: [comparative]}
+    - learner: "È più lungo del turno, a volte un'ora e mezza."
+    - tutor: "Esatto. Un'ora e mezza è tanto! Preferiresti un lavoro più vicino, o da casa come me?"
+      goals: [cons]
+    # merlin-1365_0100212-9
+    - learner: "Sarebbe divertente se andassimo al lavoro insieme."
+    - tutor: "Ahah, io e te nello stesso ufficio! Allora preferiresti l'ufficio, con un amico vicino. Lo capisco."
+      goals: [preference]
+
+- scenario: smartworking
+  level: B1
+  persona: en-f-professional
+  history: [negation]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    # merlin-1325_1001059-13
+    - learner: "Per esempio io lavoro tanto sul internet."
+      errors: [articulated-preposition]
+    - tutor: "Quindi da casa! Ma ripeti: «sul internet»? Con «internet» di solito non mettiamo l'articolo."
+      prompt: {text: "sul internet", tags: [articulated-preposition]}
+    - learner: "Lavoro tanto su internet, quasi sempre da casa."
+    - tutor: "Esatto. E ti piace?"
+      goals: [situation]
+    - learner: "Sì, perché non perdo tempo in macchina e risparmio moneta."
+      errors: [false-friend]
+    - tutor: "Non perdi tempo e risparmi anche soldi: due grandi vantaggi! E gli svantaggi?"
+      recast: {text: "moneta", fix: "soldi", tags: [false-friend]}
+      goals: [pros]
+      new: [{lemma: svantaggio, gloss: disadvantage}]
+    # merlin-1325_1001039-4
+    - learner: "Inoltre, penso che tu possa conoscere veramente l'altra persona tramite l'Internet, dialogando tramite un schermo."
+      errors: [negation, article-form]
+    - tutor: "Aspetta, davvero pensi che si possa conoscere una persona così? O volevi dire il contrario? Manca una piccola parola."
+      prompt: {text: "penso che tu possa", tags: [negation]}
+    - learner: "Penso che tu non possa conoscere veramente una persona tramite uno schermo."
+    - tutor: "Ecco, adesso è chiaro, e sono d'accordo. Quindi preferiresti tornare in ufficio?"
+      goals: [cons]
+    # merlin-1325_1001048-9
+    - learner: "Magari è meglio."
+    - tutor: "Forse sì, almeno due giorni a settimana. Così vedi i colleghi dal vivo!"
+      goals: [preference]
+
+- scenario: smartworking
+  level: B1
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio? Io intanto ho appena passato l'esame di inglese, con il massimo dei voti!"
+    # merlin-1365_0100229-14
+    - learner: "Sapevo sempre che sei molto intelligente."
+      errors: [tense-aspect]
+    - tutor: "Grazie! Ma «sapevo sempre»: è una cosa vera da sempre fino a oggi. Che tempo usiamo?"
+      prompt: {text: "Sapevo sempre", tags: [tense-aspect]}
+    - learner: "Ho sempre saputo che sei molto intelligente!"
+    - tutor: "Esatto, grazie! E il tuo esame com'è andato?"
+    # merlin-1365_0100481-2
+    - learner: "Ho avuto molto da fare perchè l'esame erano difficile."
+      errors: [subject-verb-agreement, spelling]
+    - tutor: "Lo immagino! Ma «l'esame erano difficile»? L'esame è uno solo..."
+      prompt: {text: "l'esame erano", tags: [subject-verb-agreement]}
+    - learner: "L'esame era difficile, ma l'ho passato!"
+    - tutor: "Esatto. Brava, bravissima! Ma da casa riesci a studiare bene?"
+    # merlin-1365_0100220-10
+    - learner: "Non avevo molto tempo per altre cose."
+    - tutor: "Eh, quando lavori e studi in casa, non stacchi mai. E di buono, cosa c'è?"
+      goals: [situation, cons]
+    - learner: "Posso lavorare in pigiama! Ma dopo la laurea vorrei un ufficio vero."
+    - tutor: "Il vantaggio più importante, il pigiama! E l'ufficio dopo la laurea mi sembra giusto. Ma il sabato sera esci con me, così prendi un po' d'aria!"
+      goals: [pros, preference]
+      goals: [preference]
+
+- scenario: smartworking
+  level: B1
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+    - tutor: "Tu lavori sempre a scuola, lo so. Io invece sono ancora a casa, ma mi annoio da morire."
+    # merlin-1365_0100481-3
+    - learner: "Non sai che cosa vuoi fare adesso?"
+    - tutor: "No, sono confuso. Forse cerco un altro lavoro, o forse torno a studiare."
+    # merlin-1365_0100267-1
+    - learner: "Penso che sarebbe molto buono a continuare i tuoi studi, l'università è molto importante."
+      errors: [preposition]
+    - tutor: "Forse hai ragione. Ma senti: «molto buono a continuare»? Dopo «sarebbe buono», ci vuole quella preposizione?"
+      prompt: {text: "a continuare", tags: [preposition]}
+    - learner: "Penso che sarebbe molto buono continuare i tuoi studi."
+    - tutor: "Esatto. E il lavoro da casa? Tu cosa ne pensi?"
+    # merlin-1365_0100475-13
+    - learner: "Tu puoi vivere e lavorare molto libero."
+      errors: [word-choice]
+    - tutor: "Vero, a casa vivo e lavoro molto liberamente. Ma sono sempre solo!"
+      recast: {text: "libero", fix: "liberamente", tags: [word-choice]}
+      goals: [pros, cons]
+    # merlin-1365_0100478-9
+    - learner: "La mia soluzione è: Devi fare qualcosa, che ti diverti!"
+      errors: [subject-verb-agreement]
+    - tutor: "Mi piace la tua soluzione! Ma «che ti diverti»? Chi fa divertire chi? Pensa a «qualcosa»."
+      prompt: {text: "che ti diverti", tags: [subject-verb-agreement]}
+    - learner: "Devi fare qualcosa che ti diverte!"
+    - tutor: "Esatto! E tu, se potessi scegliere, lavoreresti da casa?"
+    - learner: "No, preferisco la scuola: a casa sarei molto aburrita."
+      errors: [word-choice]
+    - tutor: "Sì, a casa saresti molto annoiata, ti conosco! Allora io torno all'università, e tu resti a scuola: deciso!"
+      recast: {text: "aburrita", fix: "annoiata", tags: [word-choice]}
+      goals: [situation, preference]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-f-student
+  history: [negation]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    # merlin-1325_1001076-1
+    - learner: "Essendomi una studentessa che deve studiare tanto, non ho tempo per cucinare, e neanche non so farlo!"
+      errors: [verb-form, negation]
+    - tutor: "Capisco. Ma senti la fine: «neanche non so farlo»? Con «neanche» prima del verbo, serve anche «non»?"
+      prompt: {text: "neanche non so farlo", tags: [negation]}
+    - learner: "E non so neanche farlo! Mangio sempre panini."
+    - tutor: "Esatto. Panini tutti i giorni non sono il massimo. Fai un po' di sport?"
+      goals: [habits]
+    - learner: "Non molto. Vorrei essere più in forma che l'anno scorso."
+      errors: [comparative]
+    - tutor: "Ottimo obiettivo! Ma «più in forma che l'anno scorso»? Con un tempo come «l'anno scorso», quale parola usiamo?"
+      prompt: {text: "più in forma che l'anno scorso", tags: [comparative]}
+    - learner: "Più in forma che prima, sì."
+      errors: [comparative]
+    - tutor: "Più in forma di prima, certo, ce la faremo! Che cosa ti ferma, di solito?"
+      recast: {text: "che prima", fix: "di prima", tags: [comparative]}
+      goals: [goal]
+    # merlin-1365_0100229-16
+    - learner: "Allora, devo andare all'università."
+    - tutor: "Ah, l'università prende tutto il tempo! Allora facciamo tre allenamenti a settimana, di mezz'ora. Oppure cominciamo con due?"
+      goals: [obstacles]
+    # merlin-1325_1001048-9
+    - learner: "Magari è meglio."
+    - tutor: "D'accordo: due allenamenti a settimana e la domenica cuciniamo insieme qualcosa di sano."
+      goals: [plan]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    # merlin-1325_9000750-7
+    - learner: "Dopo aver capito, che mi stavo dirigendo verso la depressione, mi sono detta, basta."
+    - tutor: "Hai fatto benissimo a fermarti. E adesso come va la giornata, di solito?"
+    - learner: "Lavoro molto, mangio tardi e dormo solo cinque o sei horas."
+      errors: [word-choice]
+    - tutor: "Solo cinque o sei ore? Troppo poco! Che cosa vorresti cambiare?"
+      recast: {text: "horas", fix: "ore", tags: [word-choice]}
+      goals: [habits]
+    - learner: "Il mese prossimo dormirò di più e farò una passegiata ogni giorno."
+      errors: [spelling]
+    - tutor: "Bel piano! Ma scusa, ripeti: «passegiata»? Ripeti piano: quante lettere doppie ci sono?"
+      prompt: {text: "passegiata", tags: [spelling]}
+    - learner: "Passeggiata, con due g!"
+    - tutor: "Perfetto. Dormire di più e camminare: un ottimo obiettivo. Che cosa ti ostacola?"
+      goals: [goal]
+      new: [{lemma: ostacolare, gloss: to get in the way}]
+    # merlin-1365_0100220-8
+    - learner: "Ero molto occupata all'ufficio."
+      errors: [articulated-preposition]
+    - tutor: "Capisco. Ma «occupata all'ufficio»? Di solito come si dice: «a casa», «a scuola» e...?"
+      prompt: {text: "all'ufficio", tags: [articulated-preposition]}
+    - learner: "In ufficio! Ero molto occupata in ufficio, e la sera ero stanca."
+    - tutor: "Esatto. Allora: a letto alle undici, venti minuti a piedi dopo pranzo e il sabato un allenamento leggero qui da noi. Ti va?"
+      goals: [obstacles]
+    # merlin-1365_0100183-5
+    - learner: "Sicuramente mi piace andare da voi."
+    - tutor: "Benissimo, allora ci vediamo sabato alle dieci. E stasera a letto presto!"
+      goals: [plan]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-m-retired
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    # merlin-1365_0100231-1
+    - learner: "Io sto bene."
+    - tutor: "Benissimo! Ma cosa fai durante la giornata? Ti muovi?"
+    - learner: "Poco. Leggo, guardo la televisione e mangio molto più dolci che verdura."
+    - tutor: "Ahi, ecco il problema: troppi dolci e poco movimento! Hai un obiettivo, un sogno?"
+      goals: [habits]
+    # merlin-1325_1001055-8
+    - learner: "Però era stato un sogno per alcuni anni."
+    - tutor: "Un vecchio sogno, quindi: tornare in forma. Ma da solo è difficile cominciare, vero? Allora ti propongo un gruppo: tre volte a settimana, camminata veloce con altre persone della tua età."
+      goals: [goal, obstacles]
+    # merlin-1365_0100120-15
+    - learner: "È molto interessante!"
+    - tutor: "Perfetto! Allora lunedì, mercoledì e venerdì alle nove, davanti alla palestra. Vedrai che bello!"
+      goals: [plan]

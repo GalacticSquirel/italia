@@ -1,0 +1,190 @@
+# File 4: services (hotel complaints, a faulty product, booking a themed dinner).
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-professional
+  history: [word-choice]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    # merlin-1325_1001009-5
+    - learner: "L'aria condizionata non funziona, vi prego di ripararla che presto è possibile."
+      errors: [word-choice]
+    - tutor: "Mi dispiace molto! Chiamo qualcuno per ripararla il più presto possibile. Da quando non funziona?"
+      recast: {text: "che presto è possibile", fix: "il più presto possibile", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Da quando siamo arrivati, cioè da due giorni. Stanotte non sono dormita per niente."
+      errors: [auxiliary-choice]
+    - tutor: "Che brutta notte! Ma «non sono dormita»? Con «dormire», usiamo «essere» o un altro verbo?"
+      prompt: {text: "sono dormita", tags: [auxiliary-choice]}
+      goals: [since]
+    - learner: "Non ho dormito per niente, faceva troppo caldo."
+    - tutor: "Esatto, la capisco. Purtroppo l'uomo delle riparazioni arriva solo domani mattina. Per stanotte posso portarle un ventilatore."
+      new: [{lemma: ventilatore, gloss: fan}]
+    # merlin-1325_9000316-17
+    - learner: "Secondo me dovete fare lo sconto per me."
+      errors: [preposition]
+    - tutor: "Capisco. Ma «fare lo sconto per me»? Uno sconto si fa... a qualcuno. Quale preposizione serve?"
+      prompt: {text: "per me", tags: [preposition]}
+    - learner: "Dovete fare lo sconto a me, e anche cambiarmi la camera."
+    - tutor: "Ha ragione. La camera gliela cambio subito, ma per lo sconto devo chiedere al direttore."
+      goals: [request]
+    # merlin-1325_9000678-8
+    - learner: "Aspetto con impazienza la vostra decisione, e mi auguro che sia positiva per me."
+    - tutor: "Il direttore arriva alle otto e le risponde a colazione. Per ora ecco la chiave della 214, con l'aria condizionata nuova."
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-f-teacher
+  history: [conditional-form]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    # merlin-1325_9000141-10
+    - learner: "Il vostro annuncio mi ha promesso un luogo bello, meraviglioso ma in verità, questo residence à sporco e vecchio."
+      errors: [spelling]
+    - tutor: "Mi dispiace. Ma scusi, «questo residence à sporco»? Che verbo voleva usare lì?"
+      prompt: {text: "à", tags: [spelling]}
+    - learner: "Questo residence è sporco e vecchio, volevo dire."
+    - tutor: "Esatto, ho capito. Che cosa è sporco, esattamente?"
+      goals: [problem]
+    - learner: "Il bagno. Da tre giorni nessuno non l'ha pulito."
+      errors: [negation]
+    - tutor: "Davvero? Ma «nessuno non l'ha pulito»: con «nessuno» all'inizio della frase, ci vuole anche «non»?"
+      prompt: {text: "nessuno non l'ha pulito", tags: [negation]}
+    - learner: "Sì, da martedì nessuno non è venuto."
+      errors: [negation]
+    - tutor: "Nessuno è venuto da martedì? Non è possibile, mi scusi tanto. Mando qualcuno subito."
+      recast: {text: "nessuno non è venuto", fix: "nessuno è venuto", tags: [negation]}
+      goals: [since]
+    # merlin-1325_9000678-0
+    - learner: "Io ho pagato (non poco) per poter stare e godermi un soggiorno in un residence nuovo."
+    - tutor: "Ha ragione. Posso chiedere al direttore un piccolo rimborso."
+    # merlin-1325_9000095-7
+    - learner: "Sarebbero contento di una Vostra risposta così veloce che possibile."
+      errors: [conditional-form, comparative]
+    - tutor: "Certo. Ma «sarebbero contento»? Chi sarebbe contento: loro o lei?"
+      prompt: {text: "Sarebbero contento", tags: [conditional-form]}
+    - learner: "Io! Sarei contenta di una risposta veloce."
+    - tutor: "Esatto. Le do una risposta domani mattina, promesso. E il bagno lo puliamo stasera stessa."
+      goals: [request, agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-student
+  history: [participle-agreement]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    # merlin-1325_1001008-10
+    - learner: "Non sono soddisfatta neanche il mio fidanzato è contento con i Suoi servizi."
+      errors: [preposition]
+    - tutor: "Mi dispiace. Ma «contento con i servizi»? Dopo «contento», quale preposizione usiamo?"
+      prompt: {text: "contento con", tags: [preposition]}
+    - learner: "Sì, il mio fidanzato non è contento con niente qui."
+      errors: [preposition]
+    - tutor: "Non è contento di niente? Allora mi dica tutto, così cerco di aiutarvi."
+      recast: {text: "contento con", fix: "contento di", tags: [preposition]}
+    # merlin-1325_9000138-7
+    - learner: "Inoltre anche l'animazione che avrebbe dovuto avere luogo ogni sera, c'era solamente una volta la settimana."
+    - tutor: "Ha ragione, sul sito diciamo «ogni sera». E siete qui da una settimana?"
+      goals: [problem]
+    # merlin-1325_9000138-8
+    - learner: "Considerando il fatto, che il nostro soggiorno durava solamente una settimana, significa che l'abbiamo visto solo una volta."
+      errors: [participle-agreement, tense-aspect]
+    - tutor: "Una sola volta, che peccato. Ma «l'abbiamo visto»: che cosa avete visto? L'animazione... quindi?"
+      new: [{lemma: animazione, gloss: entertainment programme}]
+      prompt: {text: "l'abbiamo visto", tags: [participle-agreement]}
+    - learner: "L'abbiamo vista solo una volta, il primo sabato."
+    - tutor: "Esatto. Da sabato scorso, quindi, niente serate. Che cosa posso fare per voi?"
+      goals: [since]
+    - learner: "Vorrei un rimborso, almeno per la parte dell'animazione."
+    - tutor: "È giusto. Le preparo un rimborso di cinquanta euro a persona: domani mattina glielo diamo qui da noi. Grazie per la pazienza!"
+      goals: [request, agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    # merlin-1325_1001020-2
+    - learner: "Ho letto che gli appartamenti sono stati molto confortevoli ed c'è ne aria condizionata."
+      errors: [tense-aspect, ci-ne, spelling]
+    - tutor: "E invece? Ma prima ripeta: «c'è ne aria condizionata»? Quel «ne» qui va bene?"
+      prompt: {text: "c'è ne aria condizionata", tags: [ci-ne]}
+    - learner: "Sì, c'è ne aria condizionata, ma non funziona!"
+      errors: [ci-ne]
+    - tutor: "Quindi c'è l'aria condizionata, ma non funziona. Mi dispiace molto! Anche altri clienti dicono che non va da stamattina. C'è anche altro?"
+      recast: {text: "c'è ne aria condizionata", fix: "c'è l'aria condizionata", tags: [ci-ne]}
+      goals: [problem, since]
+    # merlin-1325_9000141-7
+    - learner: "Nel vostro annuncio, avete detto che il lago si raggiunge comodamente con i mezzi pubblici, ma questo non è stato la verità: Il lago è stato lontano e ci sono stati pochi collegamenti."
+      errors: [tense-aspect]
+    - tutor: "Capisco. Ma «il lago è stato lontano»: descrive com'era, non è un fatto finito. Che tempo usiamo?"
+      prompt: {text: "Il lago è stato lontano", tags: [tense-aspect]}
+    - learner: "Il lago era lontano, e c'erano pochi autobus."
+    - tutor: "Esatto. Su questo ha ragione. Che cosa le posso offrire?"
+    - learner: "Vorrei un'altra camera per stanotte e un passaggio al lago domani."
+    - tutor: "D'accordo: le do la 302, che è fresca, e domani alle nove il nostro autista la porta al lago."
+      goals: [request, agree]
+      new: [{lemma: autista, gloss: driver}]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-m-worker
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    # merlin-1325_1001024-2
+    - learner: "Prima di tutto vorrei descrivere i miei problemi e le differenze tra la realtà e l'annuncio pubblicato."
+    - tutor: "Certo, mi dica. Che cosa ha comprato?"
+    # merlin-1325_1001009-1
+    - learner: "La Vostra pubblicità abbiamo trovato sul Corriere, era una ottima offerta."
+      errors: [object-pronoun]
+    - tutor: "Ah, ecco. Ma ascolti: «la pubblicità abbiamo trovato». Se la pubblicità viene prima, che cosa manca davanti al verbo?"
+      prompt: {text: "La Vostra pubblicità abbiamo trovato", tags: [object-pronoun]}
+    - learner: "La vostra pubblicità l'abbiamo trovata sul Corriere. Era per una macchina del caffè."
+    - tutor: "Perfetto. Nella pubblicità diciamo che non fa rumore."
+    # merlin-1325_9000316-7
+    - learner: "Secondo me non avete scritto la verità."
+    - tutor: "Quindi fa rumore? Mi spieghi meglio."
+    - learner: "Fa molto rumore, e dopo due giorni si è rotto."
+      errors: [participle-agreement]
+    - tutor: "Oh no. Ma «si è rotto»: stiamo parlando della macchina. Come cambia la parola?"
+      prompt: {text: "si è rotto", tags: [participle-agreement]}
+    - learner: "Sì, si è rotto mercoledì, la mattina."
+      errors: [participle-agreement]
+    - tutor: "Si è rotta mercoledì mattina, quindi. Mi dispiace molto! Ha lo scontrino?"
+      recast: {text: "si è rotto", fix: "si è rotta", tags: [participle-agreement]}
+      goals: [problem]
+    - learner: "Sì, eccolo. Preferirei avere indietro i soldi, per favore."
+    - tutor: "Va bene: la ricevuta è a posto, quindi le faccio subito il rimborso sulla carta."
+      goals: [proof, request, agree]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-f-student
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    # merlin-1325_1001096-2
+    - learner: "Ho letto il Vostro depliant e mi piace molto."
+    - tutor: "Grazie! Parla della serata di cucina di venerdì? Si mangia e si impara a cucinare."
+    # merlin-1325_1001084-8
+    - learner: "Quanto costa partecipare?"
+    - tutor: "Trentacinque euro a persona, vino compreso. Comincia alle sette e mezza, ma potete arrivare prima."
+    # merlin-1365_0100258-4
+    - learner: "Vengo alle diciannove in ristorante."
+      errors: [articulated-preposition]
+    - tutor: "Va benissimo. Ma «in ristorante»? Qui parliamo di un ristorante preciso, il nostro: come diventa la preposizione?"
+      prompt: {text: "in ristorante", tags: [articulated-preposition]}
+    - learner: "Vengo alle diciannove al ristorante, con tre amici."
+    - tutor: "Perfetto, allora un tavolo per quattro alle sette. Ci sono richieste particolari?"
+      goals: [book, details]
+    - learner: "Sì, una mia amica non mangia la carne. Ce sono piatti vegetariani?"
+      errors: [ce-ci-sono]
+    - tutor: "Certo! Ma ripeta: «ce sono»? Ascolti bene la prima parola."
+      prompt: {text: "Ce sono", tags: [ce-ci-sono]}
+    - learner: "Sì, ce sono piatti senza carne?"
+      errors: [ce-ci-sono]
+    - tutor: "Sì, ci sono piatti senza carne: la pasta alla Norma, per esempio. Lo dico al cuoco. Il nome lo vedo già sul telefono: Taylor, giusto? Allora quattro persone, venerdì alle sette. A presto!"
+      recast: {text: "ce sono", fix: "ci sono", tags: [ce-ci-sono]}
+      goals: [special, name]
