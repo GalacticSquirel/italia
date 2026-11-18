@@ -4,6 +4,8 @@ build-items  held-out items from accepted eval-split dialogues (a datagen eval c
              accepted dialogues, or compiled benchmark sets with --records)
 predict      run a system from eval/configs/systems.yaml over the items
 report       score systems, optional judge win rates and llama-bench results -> markdown
+learner-items   held-out real learner sentences with native corrections (MERLIN)
+learner-report  score systems on the learner items -> markdown
 """
 
 from __future__ import annotations
@@ -12,14 +14,17 @@ import argparse
 import json
 import logging
 from pathlib import Path
+from typing import Any
 
 from datagen.__main__ import band_checker, grammar_checker
 from datagen.config import load_config
 from datagen.jsonutil import read_jsonl, write_jsonl
+from datagen.learner_corpus import DEFAULT_PAIRS, LearnerPair
 from datagen.records import DialogueRecord
 from datagen.runner import accepted_records
 from datagen.teacher import make_client
 from eval.items import EvalItem, build_items
+from eval.learner import LearnerItem, build_learner_items, render_learner_report, score_learner
 from eval.metrics import score_system
 from eval.pairwise import WinRate, compare
 from eval.predict import load_predictions, load_systems, predict, reference_predictions
@@ -30,6 +35,18 @@ REFERENCE = "teacher-reference"
 
 def load_items(path: Path) -> list[EvalItem]:
     return [EvalItem.model_validate(r) for r in read_jsonl(path)]
+
+
+def load_learner_items(path: Path) -> list[LearnerItem]:
+    return [LearnerItem.model_validate(r) for r in read_jsonl(path)]
+
+
+def load_any_items(path: Path) -> list[EvalItem] | list[LearnerItem]:
+    """Benchmark items or learner items, told apart by the learner items' native text."""
+    rows = list(read_jsonl(path))
+    if rows and "nativeText" in rows[0]:
+        return [LearnerItem.model_validate(r) for r in rows]
+    return [EvalItem.model_validate(r) for r in rows]
 
 
 def benchmark_records(patterns: list[str]) -> list[DialogueRecord]:
@@ -60,7 +77,7 @@ def cmd_build_items(args: argparse.Namespace) -> int:
 
 def cmd_predict(args: argparse.Namespace) -> int:
     systems = load_systems(Path(args.systems))
-    items = load_items(Path(args.items))
+    items = load_any_items(Path(args.items))
     if args.limit:
         items = items[: args.limit]
     for name in args.system:
@@ -117,6 +134,43 @@ def cmd_report(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_learner_items(args: argparse.Namespace) -> int:
+    pairs = [LearnerPair.model_validate(r) for r in read_jsonl(Path(args.pairs))]
+    items = build_learner_items(pairs, per_group=args.per_group, seed=args.seed)
+    write_jsonl(Path(args.out), (i.to_wire() for i in items))
+    print(f"{len(items)} learner items -> {args.out}")
+    return 0
+
+
+def cmd_learner_report(args: argparse.Namespace) -> int:
+    items = load_learner_items(Path(args.items))
+    scores = [
+        score_learner(name, items, load_predictions(Path(args.predictions), name))
+        for name in args.system
+    ]
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(render_learner_report(args.title, scores), encoding="utf-8")
+    print(f"report -> {out}")
+    return 0
+
+
+def _learner_commands(sub: Any) -> None:
+    p = sub.add_parser("learner-items")
+    p.add_argument("--pairs", default=str(DEFAULT_PAIRS))
+    p.add_argument("--per-group", type=int, default=150, help="per level, changed and unchanged")
+    p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--out", required=True)
+    p.set_defaults(fn=cmd_learner_items)
+    p = sub.add_parser("learner-report")
+    p.add_argument("--items", required=True)
+    p.add_argument("--predictions", required=True)
+    p.add_argument("--system", action="append", required=True)
+    p.add_argument("--title", default="Real-learner check (MERLIN)")
+    p.add_argument("--out", required=True)
+    p.set_defaults(fn=cmd_learner_report)
+
+
 def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
     parser = argparse.ArgumentParser(
@@ -159,6 +213,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--title", default="Tutor model evaluation")
     p.add_argument("--out", required=True)
     p.set_defaults(fn=cmd_report)
+    _learner_commands(sub)
     args = parser.parse_args(argv)
     result: int = args.fn(args)
     return result
