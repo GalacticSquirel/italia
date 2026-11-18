@@ -13,7 +13,7 @@ from datagen.teacher import ScriptedClient
 from eval.__main__ import load_items
 from eval.__main__ import main as eval_main
 from eval.items import EvalItem, Gold, build_items
-from eval.metrics import _fixes_gold, prf, score_system, tag_scores
+from eval.metrics import _fixes_gold, _tag_matches, prf, score_system, tag_scores
 from eval.pairwise import compare, wilson_interval, win_rate_from_scores
 from eval.predict import (
     SystemSpec,
@@ -272,3 +272,11 @@ def test_recast_accepts_the_gold_fix_in_any_span(
         corrected_span=gold[1],
     )
     assert _fixes_gold(recast[0], recast[1], g) is ok
+
+
+def test_lexical_tags_count_as_one_family_for_corrections() -> None:
+    assert _tag_matches("false-friend", ["word-choice"])
+    assert _tag_matches("word-choice", ["false-friend", "spelling"])
+    assert _tag_matches("preposition", ["preposition"])
+    assert not _tag_matches("preposition", ["articulated-preposition"])
+    assert not _tag_matches("false-friend", ["spelling"])

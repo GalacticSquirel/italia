@@ -342,7 +342,8 @@ The report covers:
 - LanguageTool errors per 100 words
 - tokens outside the level band
 - feedback-move accuracy, over-correction and under-correction
-- correction accuracy (a due correction made, on the right error)
+- correction accuracy (a due correction made, on the right error; word-choice and false-friend
+  count as one kind of error here and in recast correctness, while tag F1 keeps them apart)
 - prompts that give the answer away (the reply contains the gold correction)
 - recast correctness (the recast makes the gold correction on the right tag, whatever its span
   length or grammatical person; rewording around the error does not count)

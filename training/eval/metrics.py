@@ -5,7 +5,8 @@
 - level adherence: share of content tokens outside the band; replies over the band limit;
   sentences over the word limit
 - feedback: move accuracy (none/prompt/recast), over- and under-correction rates, and
-  correction accuracy (a due correction made, on the gold target error)
+  correction accuracy (a due correction made, on the gold target error; word-choice and
+  false-friend count as the same kind of error)
 - prompt leaks: prompts whose reply gives away the gold correction (items with gold spans)
 - error tags: micro and macro precision/recall/F1 against the gold tags
 - recast correctness: on items where a recast is due, the prediction recasts the right error and
@@ -183,9 +184,22 @@ def _tokens(text: str) -> set[str]:
     return {t.lower() for t in tokenize(text)}
 
 
+# Tags for the same kind of slip, which annotators (and the reference) assign interchangeably:
+# a wrong word is a "false friend" when it looks like the learner's own language, else "word
+# choice". Correction scores accept either; tag F1 stays strict.
+_TAG_FAMILIES = ({"word-choice", "false-friend"},)
+
+
+def _tag_matches(gold_tag: str | None, tags: Sequence[str]) -> bool:
+    if gold_tag in tags:
+        return True
+    family = next((f for f in _TAG_FAMILIES if gold_tag in f), set())
+    return bool(family & set(tags))
+
+
 def _recast_correct(pred: TutorOutput, item: EvalItem, grammar: GrammarChecker) -> bool:
     recast = pred.annotations.recast
-    if recast is None or item.gold.target_tag not in recast.error_tags:
+    if recast is None or not _tag_matches(item.gold.target_tag, recast.error_tags):
         return False
     if item.gold.corrected_span:
         if not _fixes_gold(recast.learner_text, recast.corrected_text, item.gold):
@@ -214,7 +228,7 @@ def _score_correction(
     if gold_move == "recast" and _recast_correct(pred, item, grammar):
         scores.recast_correct += 1
     if gold_move != "none" and pred.annotations.move != "none":
-        scores.correction_right += item.gold.target_tag in pred.annotations.error_tags
+        scores.correction_right += _tag_matches(item.gold.target_tag, pred.annotations.error_tags)
     leaked = _leaks(pred, item)
     if leaked is not None:
         scores.prompts_scored += 1
