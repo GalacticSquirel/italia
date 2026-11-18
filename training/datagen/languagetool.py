@@ -9,15 +9,17 @@ then point `languageTool.url` at `http://localhost:8010/v2`.
 
 from __future__ import annotations
 
+import re
 import threading
 from collections import OrderedDict
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from functools import cache
 from typing import Protocol
 
 import httpx
 
-from datagen.lemmas import tokenize
+from datagen.lemmas import default_lemma_list, tokenize
 from datagen.quotes import in_quotes, quoted_regions
 
 # Rules that flag style or typography rather than grammar; the tutor's short spoken-style replies
@@ -44,6 +46,13 @@ KNOWN_WORDS = frozenset(
         "vegana",
         "vegani",
         "vegane",
+        "videolezione",
+        "videolezioni",
+        "part",
+        "time",
+        "mea",
+        "culpa",
+        "spritz",
         "showroom",
         "videochiamata",
         "videochiamate",
@@ -188,10 +197,32 @@ def _is_mention_or_known(
         isinstance(category, Mapping) and category.get("id") == "TYPOS"
     )
     if misspelling and (
-        _is_name(span) or _is_affix(span, text, start) or (bool(words) and words <= KNOWN_WORDS)
+        _is_name(span)
+        or _is_affix(span, text, start)
+        or (bool(words) and all(w in KNOWN_WORDS or _is_superlative(w) for w in words))
     ):
         return True
     return match.rule_id == REPEAT_RULE and bool(words) and words <= REDUPLICATED
+
+
+_SUPERLATIVE = re.compile(r"^(\w+?)issim[oaie]$")
+
+
+def _is_superlative(word: str) -> bool:
+    """An absolute superlative of a known adjective ("inglesissimo", "saggissima")."""
+    found = _SUPERLATIVE.match(word)
+    if found is None:
+        return False
+    stem = found.group(1)
+    candidates = {stem + "o", stem + "e", stem + "io"}
+    if stem.endswith(("ch", "gh")):
+        candidates.add(stem[:-1] + "o")
+    return any(c in _lemmas() for c in candidates)
+
+
+@cache
+def _lemmas() -> frozenset[str]:
+    return frozenset(default_lemma_list().ranks)
 
 
 def _phrase_regions(text: str) -> list[tuple[int, int]]:
