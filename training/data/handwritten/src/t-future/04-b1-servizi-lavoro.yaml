@@ -1,0 +1,254 @@
+# t-future, file 04: B1 services and work (avremo, dovrò, verrò, saprò, cominciarò, berrò, saranno, dirò, andranno, rimarrò, vivrò, riceverò), with probability futures left alone.
+- scenario: dal-meccanico
+  level: B1
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando giro a destra, la macchina fa un rumore strano, come un colpo."
+    - tutor: "Un colpo quando gira? Potrebbe essere una gomma. Da quando lo sente?"
+      goals: [describe]
+    - learner: "Da sabato. Sono tornato dalla montagna e la strada è stata piena di buche."
+      errors: [tense-aspect]
+      gold: {text: "è stata", fix: "era"}
+    - tutor: "La strada è stata piena di buche? Qui stai descrivendo com'era la strada, non un fatto."
+      prompt: {text: "è stata", tags: [tense-aspect]}
+    - learner: "Ah, la strada era piena di buche."
+    - tutor: "Allora controllo subito le gomme e i freni."
+      goals: [when]
+    - learner: "Grazie. Quanto costerà, più o meno? Il mese prossimo nasce mio figlio e averemo molte spese."
+      errors: [future-form]
+      gold: {text: "averemo", fix: "avremo"}
+    - tutor: "Prima di tutto, congratulazioni! Però averemo? Pensi ad avere al futuro: la e non c'è più."
+      prompt: {text: "averemo", tags: [future-form]}
+    - learner: "Avremo molte spese, quindi preferisco sapere prima il prezzo."
+    - tutor: "Giustissimo. Se è solo la gomma, sono ottanta euro, lavoro compreso."
+      goals: [cost]
+    - learner: "Va bene. E quando sarà pronta? Domani deverò portare mia moglie all'ospedale per una visita."
+      errors: [future-form]
+      gold: {text: "deverò", fix: "dovrò"}
+    - tutor: "Deverò? Dovere al futuro è speciale, come potere."
+      prompt: {text: "deverò", tags: [future-form]}
+    - learner: "Domani dovrò portare mia moglie all'ospedale."
+    - tutor: "Allora gliela preparo per stasera alle sei, così domani siete tranquilli."
+      goals: [time]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prendere una cita con un dermatologo, per favore."
+      errors: [false-friend]
+    - tutor: "Certo, un appuntamento con il dermatologo. Il primo posto libero è martedì alle nove, oppure giovedì alle sei di sera."
+      goals: [type]
+      recast: {text: "una cita", fix: "un appuntamento", tags: [false-friend]}
+    - learner: "Martedì mattina lavoro, il mio capo non mi lascerà uscire. Giovedì va bene: venerò direttamente dalla scuola."
+      errors: [future-form]
+      gold: {text: "venerò", fix: "verrò"}
+    - tutor: "Venerò? Pensi al futuro di venire: è speciale, come quello di tenere."
+      prompt: {text: "venerò", tags: [future-form]}
+    - learner: "Verrò direttamente dalla scuola."
+    - tutor: "Perfetto, allora giovedì alle diciotto. Ha l'impegnativa del suo medico?"
+      goals: [availability]
+    - learner: "Sì, ce l'ho. Quanto costa la visita? E il risultato lo saperò subito?"
+      errors: [future-form]
+      gold: {text: "saperò", fix: "saprò"}
+    - tutor: "Lo saperò? Attenzione: sapere al futuro funziona come avere."
+      prompt: {text: "saperò", tags: [future-form]}
+    - learner: "Il risultato lo saprò subito?"
+    - tutor: "Sì, il dottore le spiega tutto alla fine della visita. Con l'impegnativa paga solo il ticket, trentasei euro."
+      goals: [cost]
+      new: [{lemma: ticket, gloss: patient co-payment}]
+    - learner: "Benissimo. Allora: giovedì alle sei, e porterò la impegnativa e la tessera sanitaria."
+      errors: [article-form]
+      gold: {text: "la impegnativa", fix: "l'impegnativa"}
+    - tutor: "La impegnativa? Ascolti bene l'inizio della parola: comincia con una i."
+      prompt: {text: "la impegnativa", tags: [article-form]}
+    - learner: "Porterò l'impegnativa e la tessera sanitaria."
+    - tutor: "Sì, giovedì alle diciotto con l'impegnativa e la tessera. Arrivi dieci minuti prima, per favore."
+      goals: [confirm]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Lavoro in ufficio tutto il giorno e mangio spesso al bar. Faccio sport solo il sabato."
+    - tutor: "Capisco, una vita abbastanza sedentaria. E qual è il tuo obiettivo?"
+      goals: [habits]
+      new: [{lemma: sedentario, gloss: sedentary}]
+    - learner: "Voglio perdere cinque chili. A giugno mi sposo e voglio essere più fit."
+      errors: [word-choice]
+    - tutor: "Vuoi essere più in forma per il matrimonio, ottimo motivo! Congratulazioni! Cosa ti impedisce di allenarti di più?"
+      goals: [goal]
+      recast: {text: "più fit", fix: "più in forma", tags: [word-choice]}
+    - learner: "La sera sono stanco e il lavoro mi stressa. Ma dalla settimana prossima cominciarò a correre la mattina."
+      errors: [future-form]
+      gold: {text: "cominciarò", fix: "comincerò"}
+    - tutor: "Ottima idea! Però cominciarò? Attenzione a cominciare al futuro: la a non resta."
+      goals: [obstacles]
+      prompt: {text: "cominciarò", tags: [future-form]}
+    - learner: "Comincerò a correre la mattina, tre volte a settimana."
+    - tutor: "Tre volte va benissimo per cominciare. E per il cibo?"
+    - learner: "Porterò il pranzo da casa e berò meno birra con i colleghi."
+      errors: [future-form]
+      gold: {text: "berò", fix: "berrò"}
+    - tutor: "Berò? Ascolta bene bere al futuro: c'è un suono più lungo."
+      prompt: {text: "berò", tags: [future-form]}
+    - learner: "Berrò meno birra con i colleghi."
+    - tutor: "Bravo. Allora il piano è: corsa lunedì, mercoledì e venerdì, pranzo da casa e poca birra. Ci vediamo tra una settimana per vedere come va!"
+      goals: [plan]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Va abbastanza bene. Abbiamo finito il sito, ora mancano solo le foto dei prodotti."
+    - tutor: "Bene. E Marco? Doveva mandare le foto ieri, ma non l'ho visto."
+      goals: [update]
+    - learner: "Non lo so, non mi ha scritto. Sarà malato, o sarà ancora in ferie."
+    - tutor: "Strano. Comunque, ci sono problemi con le foto?"
+    - learner: "Sì, il fotografo è in ritardo. Dice che le foto seranno pronte solo venerdì."
+      errors: [future-form]
+      gold: {text: "seranno", fix: "saranno"}
+    - tutor: "Seranno? Sembra spagnolo! Come fa essere al futuro in italiano?"
+      prompt: {text: "seranno", tags: [future-form]}
+    - learner: "Le foto esseranno pronte venerdì."
+      errors: [future-form]
+    - tutor: "Quindi le foto saranno pronte solo venerdì? Per la presentazione di mercoledì è tardi."
+      goals: [problem]
+      recast: {text: "esseranno", fix: "saranno", tags: [future-form]}
+    - learner: "Sì. Propongo di usare le foto vecchie mercoledì, e poi le cambiamo con quelle nuove."
+    - tutor: "Buona idea. Il cliente sarà d'accordo, secondo te?"
+      goals: [proposal]
+    - learner: "Penso di sì. Gli scriverò oggi e gli dicerò che le foto nuove arrivano la settimana prossima."
+      errors: [future-form]
+      gold: {text: "dicerò", fix: "dirò"}
+    - tutor: "Gli dicerò? Dire al futuro è molto più semplice. Prova di nuovo."
+      prompt: {text: "dicerò", tags: [future-form]}
+    - learner: "Gli dirò che le foto nuove arrivano la settimana prossima."
+    - tutor: "Perfetto. Allora presentazione mercoledì e foto nuove entro il venti."
+      goals: [deadline]
+
+- scenario: compleanno
+  level: B1
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una cena a sorpresa sabato? Lei pensa che la festeggeremo domenica con la famiglia."
+    - tutor: "Una sorpresa, che bello! Ma come la portiamo al ristorante senza dirle niente?"
+      goals: [date]
+    - learner: "La porta Luca: le dirà che anderanno a cena da soli. Lei non saprà niente!"
+      errors: [future-form]
+      gold: {text: "anderanno", fix: "andranno"}
+    - tutor: "Anderanno? Il futuro di andare è più corto di così."
+      prompt: {text: "anderanno", tags: [future-form]}
+    - learner: "Le dirà che andaranno a cena da soli."
+      errors: [future-form]
+    - tutor: "Ah, ho capito: lei crede che andranno a cena da soli, e invece ci trova tutti lì! Chi invitiamo?"
+      recast: {text: "andaranno", fix: "andranno", tags: [future-form]}
+    - learner: "Gli amici dell'università e i colleghi. Saremo circa quindici. Io telefonarò al ristorante domani."
+      errors: [future-form]
+      gold: {text: "telefonarò", fix: "telefonerò"}
+    - tutor: "Telefonarò? Attenzione: con telefonare, al futuro la a diventa un'altra lettera."
+      prompt: {text: "telefonarò", tags: [future-form]}
+    - learner: "Telefonerò al ristorante domani."
+    - tutor: "Brava! Io scrivo a tutti stasera. Andiamo nel solito ristorante?"
+      goals: [guests]
+    - learner: "Sì, il solito ristorante è perfetto, hanno un menù fisso per i gruppi. E per il regalo? A Sara piace viaggiare: le regaliamo un fine settimana a Parigi?"
+    - tutor: "Idea fantastica! Le piacerà tantissimo. Raccolgo io i soldi da tutti."
+      goals: [food, gift]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì mattina e rimarò fino a martedì. Sarà il mio primo viaggio al sud!"
+      errors: [future-form]
+      gold: {text: "rimarò", fix: "rimarrò"}
+    - tutor: "Che bello! Però rimarò? Ascolta bene rimanere al futuro: c'è un suono più lungo."
+      prompt: {text: "rimarò", tags: [future-form]}
+    - learner: "Rimarrò fino a martedì. Cosa mi consigli di vedere e mangiare?"
+    - tutor: "Il centro antico, assolutamente, e i musei. Per la pizza, in centro è buona in ogni strada."
+      goals: [plans, advice]
+    - learner: "Ci anderò sabato con la mia amica. Come posso girare intorno alla città?"
+      errors: [future-form, word-choice]
+      gold: {text: "anderò", fix: "andrò"}
+    - tutor: "Anderò? Attenzione: andare al futuro ha una lettera in meno."
+      prompt: {text: "anderò", tags: [future-form]}
+    - learner: "Ci andrò sabato. Ma come posso girare intorno alla città?"
+      errors: [word-choice]
+    - tutor: "Per girare per la città la metro è comodissima. Per Capri, invece, devi prendere il traghetto."
+      goals: [transport]
+      recast: {text: "girare intorno alla città", fix: "girare per la città", tags: [word-choice]}
+    - learner: "Capri! Domenica ci porterò la mia amica, lei non c'è mai stata. Ci sono cose da evitare?"
+    - tutor: "Evita i taxi senza tassametro e tieni i soldi nella borsa, soprattutto in metro."
+      goals: [warnings]
+      new: [{lemma: tassametro, gloss: taxi meter}]
+
+- scenario: banca-conto
+  level: B1
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire un conto. Viverò a Milano per due anni per lavoro."
+      errors: [future-form]
+      gold: {text: "Viverò", fix: "Vivrò"}
+    - tutor: "Viverò? Vivere al futuro perde una lettera, come vedere."
+      prompt: {text: "Viverò", tags: [future-form]}
+    - learner: "Vivrò a Milano per due anni."
+    - tutor: "Benvenuto, allora! Per aprire il conto servono un documento e il codice fiscale."
+      goals: [purpose]
+    - learner: "Il codice fiscale non ce l'ho ancora, ma domani passo all'Agenzia delle Entrate."
+    - tutor: "Va bene, allora apriamo il conto quando avrà il codice. Vuole sapere qualcosa sui costi?"
+      goals: [documents]
+    - learner: "Sì. E quando ricevarò la carta? Vorrei fare transferimenti anche dal telefono."
+      errors: [future-form, word-choice]
+      gold: {text: "ricevarò", fix: "riceverò"}
+    - tutor: "Ricevarò? Attenzione: ricevere al futuro tiene la sua e."
+      prompt: {text: "ricevarò", tags: [future-form]}
+    - learner: "Quando riceverò la carta? E posso fare transferimenti dal telefono?"
+      errors: [word-choice]
+    - tutor: "Sì, può fare bonifici dal telefono con la nostra app. La carta arriva a casa in una settimana, e il conto costa due euro al mese."
+      goals: [costs, card]
+      recast: {text: "fare transferimenti", fix: "fare bonifici", tags: [word-choice]}
+    - learner: "Perfetto. Il mio stipendio arriverà il ventisette: potrò usare la carta subito?"
+    - tutor: "Sì, appena la riceve può usarla. Ci vediamo con il codice fiscale!"
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Emma, sono inglese e vivo a Bologna da tre anni. Faccio la grafica."
+    - tutor: "Bene. Che esperienza ha?"
+      goals: [intro]
+    - learner: "Ho lavorato cinque anni in un'agenzia a Londra. Ogni giorno ho disegnato siti e pubblicità."
+      errors: [tense-aspect]
+      gold: {text: "ho disegnato", fix: "disegnavo"}
+    - tutor: "Ogni giorno ho disegnato? Qui parla di una cosa che faceva sempre, in quegli anni."
+      prompt: {text: "ho disegnato", tags: [tense-aspect]}
+    - learner: "Ogni giorno disegnavo siti e pubblicità."
+    - tutor: "Interessante. Quali sono i suoi punti di forza? E un punto debole?"
+      goals: [experience]
+    - learner: "Sono creativa e precisa, ma a volte sono troppo perfezionista. Il mio vecchio capo direbbe che sono testarda!"
+    - tutor: "Almeno è sincera! Perché vuole lavorare proprio con noi?"
+      goals: [strengths]
+    - learner: "Mi piacciono molto i vostri progetti per i musei. Se mi sceglierete, saperò portare idee nuove."
+      errors: [future-form]
+      gold: {text: "saperò", fix: "saprò"}
+    - tutor: "Saperò? Pensi a sapere al futuro: perde la e, come avere."
+      prompt: {text: "saperò", tags: [future-form]}
+    - learner: "Saprò portare idee nuove. E ho una domanda: il lavoro sarà in ufficio o anche da casa?"
+    - tutor: "Due giorni a settimana si lavora da casa. Le faremo sapere qualcosa entro venerdì."
+      goals: [why, questions]

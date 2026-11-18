@@ -1,0 +1,266 @@
+# t-future, file 08: B2 claims, paperwork, art, books and life in Italy (cadrà, firmerà, avviseranno, condurrò, avrete deciso, staremo, sostituirà, chiederà, varrà, andremo, otterrò), with correct probability futures.
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Ieri sera sono stato fermo al semaforo rosso quando una macchina mi ha tamponato."
+      errors: [tense-aspect]
+      gold: {text: "sono stato fermo", fix: "ero fermo"}
+    - tutor: "Sono stato fermo? Qui descrive la situazione in cui si trovava quando è successo l'incidente."
+      prompt: {text: "sono stato fermo", tags: [tense-aspect]}
+    - learner: "Ero fermo al semaforo e una macchina mi ha tamponato. La mia macchina è stato danneggiata dietro."
+      errors: [passive]
+      gold: {text: "è stato danneggiata", fix: "è stata danneggiata"}
+    - tutor: "Va meglio. Ma è stato danneggiata? Guardi il soggetto: la macchina."
+      prompt: {text: "è stato danneggiata", tags: [passive]}
+    - learner: "Sì, la macchina è stato danneggiata, soprattutto il paraurti."
+      errors: [passive]
+    - tutor: "Quindi la macchina è stata danneggiata soprattutto dietro. E l'altra persona ha ammesso la colpa?"
+      goals: [what]
+      recast: {text: "è stato danneggiata", fix: "è stata danneggiata", tags: [passive]}
+    - learner: "Sì, ha ammesso che stava guardando il telefono. Abbiamo firmato la constatazione amichevole e gliela invierò oggi."
+    - tutor: "Perfetto, con la constatazione firmata è tutto più semplice. Ha domande?"
+      goals: [responsibility, documents]
+    - learner: "Sì: il paraurti è un po' staccato. Caderà se vado in autostrada?"
+      errors: [future-form]
+      gold: {text: "Caderà", fix: "Cadrà"}
+    - tutor: "Caderà? Cadere al futuro perde la e, come vedere."
+      prompt: {text: "Caderà", tags: [future-form]}
+    - learner: "Il paraurti cadderà?"
+      errors: [future-form]
+    - tutor: "Probabilmente non cadrà, ma per sicurezza eviti l'autostrada. Il perito verrà a vedere la macchina giovedì mattina."
+      goals: [next]
+      recast: {text: "cadderà", fix: "cadrà", tags: [future-form]}
+      new: [{lemma: perito, gloss: insurance assessor}]
+    - learner: "Va bene, aspetterò il perito. Grazie mille."
+    - tutor: "Si figuri. Dopo la perizia riceverà i soldi in circa trenta giorni."
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Vorrei chiedere la residenza: mi sono trasferita qui il mese scorso."
+    - tutor: "Bene. Che documenti ha portato?"
+      goals: [request]
+    - learner: "Ho il passaporto spagnolo e il contratto di alquiler."
+      errors: [word-choice]
+    - tutor: "Il contratto d'affitto va benissimo, e per chi viene dall'Unione basta il passaporto. Però manca la dichiarazione firmata del proprietario."
+      goals: [documents]
+      recast: {text: "contratto di alquiler", fix: "contratto d'affitto", tags: [word-choice]}
+    - learner: "Il proprietario è in vacanza fino a lunedì. Me la firmarà quando torna."
+      errors: [future-form]
+      gold: {text: "firmarà", fix: "firmerà"}
+    - tutor: "Firmarà? Attenzione: firmare al futuro non tiene la a."
+      prompt: {text: "firmarà", tags: [future-form]}
+    - learner: "Me la firmerà lunedì, quando torna."
+    - tutor: "Va bene. Quando ce l'ha, torni pure senza appuntamento. Dopo la domanda, i vigili passeranno a casa sua per un controllo."
+      goals: [problem]
+    - learner: "I vigili? Mi avvisaranno prima?"
+      errors: [future-form]
+      gold: {text: "avvisaranno", fix: "avviseranno"}
+    - tutor: "Avvisaranno? Pensi a come cambia avvisare al futuro."
+      prompt: {text: "avvisaranno", tags: [future-form]}
+    - learner: "Mi avviserranno prima?"
+      errors: [future-form]
+    - tutor: "No, di solito non l'avviseranno: passano in settimana, quindi scriva bene il suo nome sul campanello."
+      goals: [next]
+      recast: {text: "avviserranno", fix: "avviseranno", tags: [future-form]}
+    - learner: "D'accordo. E quanto tempo ci vorrà per il certificato?"
+    - tutor: "Circa quarantacinque giorni. Se va tutto bene, a fine mese avrà già la residenza."
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Javier, sono ingeniero meccanico e vivo a Torino da due anni."
+      errors: [word-choice]
+    - tutor: "Un ingegnere meccanico, molto bene. Che esperienza ha nel settore?"
+      goals: [intro]
+      recast: {text: "ingeniero", fix: "ingegnere", tags: [word-choice]}
+      new: [{lemma: ingegnere, gloss: engineer}]
+    - learner: "Ho lavorato sei anni in una fabbrica di auto a Barcellona. Ogni giorno mi sono occupato dei test sui motori elettrici."
+      errors: [tense-aspect]
+      gold: {text: "mi sono occupato", fix: "mi occupavo"}
+    - tutor: "Ogni giorno mi sono occupato? Racconta un'attività abituale di quegli anni."
+      prompt: {text: "mi sono occupato", tags: [tense-aspect]}
+    - learner: "Ogni giorno mi occupavo dei test. Sono preciso, ma a volte troppo esigente con me stesso."
+    - tutor: "Meglio esigente che distratto! Perché vuole lavorare proprio con noi?"
+      goals: [experience, strengths]
+    - learner: "La vostra azienda sta crescendo nell'elettrico. Se mi assumerete, condurerò io i test sui nuovi motori."
+      errors: [future-form]
+      gold: {text: "condurerò", fix: "condurrò"}
+    - tutor: "Condurerò? Condurre al futuro diventa più breve, come tradurre."
+      prompt: {text: "condurerò", tags: [future-form]}
+    - learner: "Condurrò io i test sui nuovi motori."
+    - tutor: "Mi piace la sua sicurezza. Ha qualche domanda per noi?"
+      goals: [why]
+    - learner: "Sì: quando averete deciso, mi chiamerete o mi scriverete?"
+      errors: [future-form]
+      gold: {text: "averete deciso", fix: "avrete deciso"}
+    - tutor: "Averete deciso? L'idea è giusta, ma il futuro di avere è più breve."
+      prompt: {text: "averete deciso", tags: [future-form]}
+    - learner: "Quando avrete deciso, mi chiamerete?"
+    - tutor: "Sì, la chiameremo entro dieci giorni, in ogni caso. Grazie per essere venuto."
+      goals: [questions]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. Che bella luce! Quanto viene l'affitto, e le spese sono comprese?"
+    - tutor: "Mille euro al mese, più cento euro di spese per il condominio."
+      goals: [rent]
+    - learner: "Va bene. Io e mia moglie siamo in pensione, ci starremo almeno cinque anni."
+      errors: [future-form]
+      gold: {text: "starremo", fix: "staremo"}
+    - tutor: "Starremo? Stare al futuro è semplice: nessun suono doppio."
+      prompt: {text: "starremo", tags: [future-form]}
+    - learner: "Ci staremo almeno cinque anni. Che contratto proponete?"
+    - tutor: "Un quattro più quattro, con due mesi di deposito. Per persone tranquille come voi è perfetto."
+      goals: [contract]
+    - learner: "La cucina, però, mi sembra un po' vecchia. Il proprietario la sostituerà?"
+      errors: [future-form]
+      gold: {text: "sostituerà", fix: "sostituirà"}
+    - tutor: "Sostituerà? Pensi all'infinito: sostituire."
+      prompt: {text: "sostituerà", tags: [future-form]}
+    - learner: "La sostituarà prima di marzo?"
+      errors: [future-form]
+    - tutor: "Sì, il proprietario la sostituirà entro febbraio: l'ha già ordinata."
+      goals: [condition]
+      recast: {text: "sostituarà", fix: "sostituirà", tags: [future-form]}
+    - learner: "Bene. Il quartiere in che abitiamo adesso è molto rumoroso: com'è questa zona?"
+      errors: [relative-pronoun]
+      gold: {text: "in che", fix: "in cui"}
+    - tutor: "Qui è tranquillissimo, la sera non passa nessuno. Ma in che abitiamo? Dopo una preposizione, quale pronome serve?"
+      goals: [neighbourhood]
+      prompt: {text: "in che", tags: [relative-pronoun]}
+    - learner: "Il quartiere in cui abitiamo adesso è rumoroso. Questa casa ci piace molto: ne parlo con mia moglie e domani la richiamo."
+    - tutor: "Perfetto, aspetto la sua telefonata. Buona giornata a lei e a sua moglie!"
+      goals: [decide]
+
+- scenario: arte-mostra
+  level: B2
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Mi colpisce molto. È un quadro triste, ma i colori sono bellissimi."
+    - tutor: "Sì, è un'opera della fine del Rinascimento. Cosa vedi?"
+      goals: [react]
+    - learner: "In primo piano c'è una donna alla finestra. Sullo sfondo c'è il mare, che è stata dipinta con colori molto scuri."
+      errors: [passive]
+      gold: {text: "è stata dipinta", fix: "è stato dipinto"}
+    - tutor: "È stata dipinta? Pensa al soggetto: il mare."
+      prompt: {text: "è stata dipinta", tags: [passive]}
+    - learner: "Il mare è stato dipinto con colori scuri, quasi neri."
+    - tutor: "Esatto, e la luce arriva solo sul viso di lei. Secondo te che cosa significa?"
+      goals: [describe]
+    - learner: "Sarà la moglie di un marinaio. Lui sarà partito da mesi, e lei si chiedrà ogni giorno se tornerà."
+      errors: [future-form]
+      gold: {text: "chiedrà", fix: "chiederà"}
+    - tutor: "Bella idea! Però si chiedrà? Chiedere al futuro non diventa più breve: è regolare."
+      prompt: {text: "chiedrà", tags: [future-form]}
+    - learner: "Lei si chiederrà se tornerà."
+      errors: [future-form]
+    - tutor: "Sì, si chiederà ogni giorno se lui tornerà. Che lettura romantica! Ti ricorda qualche altro pittore?"
+      goals: [interpret]
+      recast: {text: "chiederrà", fix: "chiederà", tags: [future-form]}
+    - learner: "Mi fa pensare a Vermeer: anche nei suoi quadri c'è spesso una donna alla finestra, con quella luce."
+    - tutor: "Ottimo confronto, anche se i quadri di Vermeer sono più tranquilli. Qui c'è più paura."
+      goals: [compare]
+
+- scenario: film-libro
+  level: B2
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Un romanzo di fantascienza: nel 2080 l'acqua valerà più dell'oro e le città saranno divise in zone."
+      errors: [future-form]
+      gold: {text: "valerà", fix: "varrà"}
+    - tutor: "Valerà? Valere al futuro diventa più breve, come volere."
+      prompt: {text: "valerà", tags: [future-form]}
+    - learner: "L'acqua valrà più dell'oro."
+      errors: [future-form]
+    - tutor: "Un mondo in cui l'acqua varrà più dell'oro: che idea inquietante! E chi è il personaggio principale?"
+      goals: [summary]
+      recast: {text: "valrà", fix: "varrà", tags: [future-form]}
+    - learner: "È una ragazza ingegnere, di cui il padre è sparito misteriosamente."
+      errors: [relative-pronoun]
+      gold: {text: "di cui il padre", fix: "il cui padre"}
+    - tutor: "Di cui il padre? Qui c'è un possesso: il padre è suo. Quale pronome usi?"
+      prompt: {text: "di cui il padre", tags: [relative-pronoun]}
+    - learner: "È una ragazza il cui padre è sparito. Lei lo cerca in tutte le zone della città."
+    - tutor: "Che inizio! E a te è piaciuto? A chi lo consiglieresti?"
+      goals: [characters]
+    - learner: "Mi è piaciuto molto, anche se il finale è un po' affrettato. Lo consiglierei a chi ama le storie sul futuro. Il secondo volume uscirà a marzo e lo leggerò subito."
+    - tutor: "Allora a marzo aspettiamo il tuo racconto del secondo volume!"
+      goals: [opinion, recommend]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Lavoro da casa da tre anni, e non tornerei in ufficio per nessuna ragione."
+    - tutor: "Addirittura! Che cosa ti piace così tanto?"
+      goals: [situation]
+    - learner: "Risparmio due ore di commuto al giorno e mi concentro più meglio."
+      errors: [comparative, word-choice]
+      gold: {text: "più meglio", fix: "molto meglio"}
+    - tutor: "Più meglio? Attenzione: meglio vuol già dire più bene."
+      prompt: {text: "più meglio", tags: [comparative]}
+    - learner: "Mi concentro molto meglio, e risparmio due ore di commuto."
+      errors: [word-choice]
+    - tutor: "Due ore di viaggio risparmiate ogni giorno sono tantissime! Ma non ti senti mai isolato?"
+      goals: [pros]
+      recast: {text: "di commuto", fix: "di viaggio", tags: [word-choice]}
+    - learner: "A volte sì. Per questo il mese prossimo l'azienda aprirà uno spazio comune in città e ci anderemo una volta a settimana."
+      errors: [future-form]
+      gold: {text: "anderemo", fix: "andremo"}
+    - tutor: "Ci anderemo? Il futuro di andare ha una lettera in meno."
+      goals: [cons]
+      prompt: {text: "anderemo", tags: [future-form]}
+    - learner: "Ci andremo una volta a settimana. Se potessi scegliere, preferirei proprio così: un giorno con i colleghi e quattro a casa."
+    - tutor: "Mi sembra la soluzione perfetta. Il tuo capo sarà d'accordo, spero!"
+      goals: [preference]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Grazie dell'invito. Mi sono trasladato in Italia sette anni fa per amore: mia moglie è di Bari."
+      errors: [word-choice]
+    - tutor: "Si è trasferito qui per amore, che bella storia! Qual è stata la cosa più difficile?"
+      goals: [story]
+      recast: {text: "trasladato", fix: "trasferito", tags: [word-choice]}
+    - learner: "La burocrazia, senza dubbio. Quando sono arrivato, non ho mai visto tanti moduli in vita mia!"
+      errors: [tense-aspect]
+      gold: {text: "non ho mai visto", fix: "non avevo mai visto"}
+    - tutor: "Non ho mai visto? Parla di prima del suo arrivo: quale tempo usiamo per un passato ancora più lontano?"
+      prompt: {text: "non ho mai visto", tags: [tense-aspect]}
+    - learner: "Non avevo mai visto tanti moduli in vita mia!"
+    - tutor: "I nostri ascoltatori la capiscono benissimo! E lei, in questi anni, come è cambiato?"
+      goals: [difficulties]
+    - learner: "Sono più paziente e mangio molto meglio! E l'anno prossimo, finalmente, otterò la cittadinanza."
+      errors: [future-form]
+      gold: {text: "otterò", fix: "otterrò"}
+    - tutor: "Che bello! Ma otterò? Ascolti bene ottenere al futuro: c'è un suono più forte."
+      prompt: {text: "otterò", tags: [future-form]}
+    - learner: "Otterrò la cittadinanza a giugno, se tutto va bene."
+    - tutor: "Un bel risultato. Un consiglio per chi vuole trasferirsi in Italia?"
+      goals: [change]
+    - learner: "Imparate la lingua prima di partire. Sarà dura all'inizio, ma ne varrà la pena."
+    - tutor: "Ottimo consiglio. Grazie di essere stato con noi, e in bocca al lupo per giugno!"
+      goals: [advice]

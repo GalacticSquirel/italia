@@ -12,8 +12,8 @@ and more error-free turns (so the model learns not to over-correct). Only train-
 scenarios are allowed; evaluation scenarios are rejected (they belong to the benchmark in
 `data/bench/`).
 
-The `v-real-*` and `u-real-*` sets are built on sentences real learners wrote (train-split pairs of
-`data/learner/merlin-it.jsonl`, MERLIN corpus); each such learner turn carries a `# merlin-<id>`
+The `v-real-*`, `u-real-*`, `t-letter-*` and `t-recast-native` sets are built on sentences real
+learners wrote (train-split pairs of `data/learner/merlin-it.jsonl`, MERLIN corpus); each such learner turn carries a `# merlin-<id>`
 comment, and the tutor's corrections follow the native correction. Those sets are CC BY-SA 4.0
 derivatives of MERLIN; see `data/learner/README.md` for the attribution.
 

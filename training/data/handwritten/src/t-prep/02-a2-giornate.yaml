@@ -1,0 +1,216 @@
+# t-prep, file 02: A2, prepositions in daily routines, services and appointments.
+- scenario: biglietto-treno
+  level: A2
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei un biglietto a Napoli, per domani mattina."
+      errors: [preposition]
+    - tutor: "Certo. Ma «un biglietto a Napoli»: per un biglietto, quale preposizione mettiamo prima della città?"
+      prompt: {text: "a Napoli", tags: [preposition]}
+    - learner: "Un biglietto per Napoli."
+    - tutor: "Benissimo. C'è un treno alle otto e dieci. Solo andata o andata e ritorno?"
+      goals: [destination]
+    - learner: "Andata e ritorno. Torno domenica sera."
+    - tutor: "Va bene. Prima o seconda classe?"
+      goals: [type]
+    - learner: "Seconda classe. Posso avere un posto vicino al finestrino?"
+    - tutor: "Sì, posto dodici, vicino al finestrino."
+      goals: [class]
+    - learner: "Grazie. E da quale binario parte il treno?"
+    - tutor: "Di solito dal binario tre. Controlli sul tabellone prima di partire."
+      new: [{lemma: tabellone, gloss: departures board}]
+      goals: [platform]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, a nome Ortega, per due notti."
+    - tutor: "Ortega... sì, eccola. Mi dà un documento, per favore?"
+      goals: [booking]
+    - learner: "Ecco il passaporto. Siamo arrivati in taxi dall'aeroporto, siamo un po' stanchi."
+    - tutor: "Lo immagino. Grazie, ecco a Lei il passaporto."
+      goals: [document]
+    - learner: "A che ora è la colazione? Da le sette?"
+      errors: [articulated-preposition]
+    - tutor: "«Da le sette»: «da» e «le», come le uniamo?"
+      prompt: {text: "Da le sette", tags: [articulated-preposition]}
+    - learner: "De le sette?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, dalle sette alle dieci, nella sala qui a destra."
+      recast: {text: "De le sette", fix: "dalle sette", tags: [articulated-preposition]}
+      goals: [breakfast]
+    - learner: "Perfetto. E la camera è a il primo piano?"
+      errors: [articulated-preposition]
+    - tutor: "Come prima: «a il primo piano»..."
+      prompt: {text: "a il primo piano", tags: [articulated-preposition]}
+    - learner: "Al primo piano."
+    - tutor: "No, è al terzo: camera trentuno. Ecco la chiave!"
+      goals: [key]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: en-m-heritage
+  history: [preposition]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Mi sveglio alle sei e mezza. Faccio colazione in piedi, in cucina."
+    - tutor: "In piedi? Che fretta! E poi?"
+      goals: [wake]
+    - learner: "Vado in ufficio in bici. Comincio lavorare alle otto."
+      errors: [preposition]
+    - tutor: "Presto! Ma «comincio lavorare»: dopo «cominciare» c'è una preposizione. Quale?"
+      prompt: {text: "Comincio lavorare", tags: [preposition]}
+    - learner: "Comincio di lavorare?"
+      errors: [preposition]
+    - tutor: "Ah, cominci a lavorare alle otto. E a pranzo torni a casa?"
+      recast: {text: "di lavorare", fix: "a lavorare", tags: [preposition]}
+      goals: [work]
+    - learner: "No, mangio in ufficio con i colleghi. La sera vado in palestra."
+    - tutor: "Bravo! E dopo la palestra?"
+    - learner: "Torno a casa, ceno e guardo una serie. E tu, Anna? Lavori anche la sera?"
+    - tutor: "A volte sì, lavoro in un ristorante. Ma il lunedì sono libera!"
+      goals: [evening, ask]
+
+- scenario: casa-mia
+  level: A2
+  persona: en-f-professional
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Abito in un appartamento in via Mazzini, vicino al parco."
+    - tutor: "Bella zona! È grande?"
+      goals: [type]
+    - learner: "Non molto. Ci sono due camere, una cucina piccola e un bagno."
+    - tutor: "Perfetto per una persona. Qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "Il balcone! Ma è un po' piccolo. Il appartamento è nel quarto piano."
+      errors: [articulated-preposition, article-form]
+    - tutor: "Un balcone, che bello! Ma «nel quarto piano»: per dire a che piano abiti, quale preposizione usiamo?"
+      prompt: {text: "nel quarto piano", tags: [articulated-preposition]}
+    - learner: "Al quarto piano?"
+    - tutor: "Esatto! Allora dal balcone vedi tutto il parco."
+    - learner: "Sì, la mattina prendo il caffè sul balcone e guardo gli alberi."
+    - tutor: "Che bella idea!"
+      goals: [favourite]
+    - learner: "E tu, Luca? Abiti da solo?"
+    - tutor: "No, abito con due amici, in una casa vecchia vicino alla stazione."
+      goals: [ask]
+
+- scenario: serata-cinema
+  level: A2
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Ho voglia a vedere un film. Andiamo al cinema?"
+      errors: [preposition]
+    - tutor: "Ottima idea! Ma «ho voglia a vedere»: dopo «avere voglia», quale preposizione?"
+      prompt: {text: "voglia a vedere", tags: [preposition]}
+      goals: [propose]
+    - learner: "Ho voglia per vedere un film?"
+      errors: [preposition]
+    - tutor: "Hai voglia di vedere un film? Anch'io! Che film ti piacciono?"
+      recast: {text: "voglia per vedere", fix: "voglia di vedere", tags: [preposition]}
+    - learner: "Mi piacciono le commedie. I film tristi no, piango sempre!"
+    - tutor: "Allora c'è una commedia nuova al cinema Odeon. Inizia alle nove."
+      goals: [genre]
+    - learner: "Perfetto, alle nove va bene. Andiamo con l'autobus?"
+    - tutor: "Sì, il 12 va proprio lì. Dove ci vediamo?"
+      goals: [choose]
+    - learner: "Ci vediamo davanti il cinema alle nove meno un quarto?"
+      errors: [articulated-preposition]
+    - tutor: "Va bene l'ora! Ma «davanti il cinema»: dopo «davanti» c'è una preposizione..."
+      prompt: {text: "davanti il cinema", tags: [articulated-preposition]}
+    - learner: "Davanti del cinema?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, davanti al cinema, alle nove meno un quarto. A stasera!"
+      recast: {text: "Davanti del cinema", fix: "Davanti al cinema", tags: [articulated-preposition]}
+      goals: [meet]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-traveller
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Quanto costa l'abbonamento per un mese?"
+    - tutor: "Quaranta euro al mese, o cento per tre mesi."
+      goals: [ask-membership]
+    - learner: "Prendo tre mesi. Ci sono corsi di yoga?"
+    - tutor: "Sì, il martedì e il giovedì. Ti piace lo yoga?"
+      goals: [classes]
+    - learner: "Molto. A che ora sono? Io lavoro fino a le sei."
+      errors: [articulated-preposition]
+    - tutor: "«Fino a le sei»: quelle due parole come diventano?"
+      prompt: {text: "a le sei", tags: [articulated-preposition]}
+    - learner: "Fino alle sei."
+    - tutor: "Perfetto, allora va bene: il corso della sera è alle sette."
+      goals: [timetable]
+    - learner: "Benissimo. Allora vorrei iscrivermi a il corso delle sette."
+      errors: [articulated-preposition]
+    - tutor: "Bene! Ma «iscrivermi a il corso»: come prima..."
+      prompt: {text: "a il corso", tags: [articulated-preposition]}
+    - learner: "Iscrivermi in il corso?"
+      errors: [articulated-preposition]
+    - tutor: "Perfetto, ti metto al corso delle sette. Mi dai un documento?"
+      recast: {text: "in il corso", fix: "al corso", tags: [articulated-preposition]}
+    - learner: "Ecco la carta d'identità. Lo spogliatoio è al piano di sopra?"
+    - tutor: "No, è qui sotto, a sinistra. Ci vediamo martedì!"
+      goals: [sign-up]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì, buongiorno. Cercate un cameriere per l'estate?"
+    - tutor: "Esatto, da giugno a settembre. Ha esperienza?"
+      goals: [ask]
+    - learner: "Sì, ho lavorato due anni in un bar in Londra."
+      errors: [preposition]
+    - tutor: "Bene! Ma «in Londra»: Londra è una città. Quale preposizione?"
+      prompt: {text: "in Londra", tags: [preposition]}
+    - learner: "In un bar a Londra."
+    - tutor: "Perfetto. E cosa faceva lì?"
+    - learner: "Preparavo i caffè e servivo ai tavoli. Ero anche alla cassa, il sabato."
+    - tutor: "Ottimo, è proprio quello che serve qui. È disponibile anche la sera?"
+      goals: [experience]
+    - learner: "Sì, sono disponibile tutti i giorni, ma la domenica preferisco lavorare di mattina."
+    - tutor: "Va bene, si può fare. Mi lascia il suo numero?"
+      goals: [availability]
+    - learner: "Certo: tre, quattro, sette, due, otto, uno, cinque, nove, zero, sei."
+    - tutor: "Perfetto, la chiamo domani pomeriggio."
+      goals: [contact]
+
+- scenario: medico-base
+  level: A2
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e un po' di febbre."
+    - tutor: "Mi dispiace. Da quando?"
+      goals: [symptoms]
+    - learner: "Ho la febbre per tre giorni."
+      errors: [preposition]
+    - tutor: "«Per tre giorni»? La febbre c'è ancora adesso, vero? Allora quale preposizione usiamo?"
+      prompt: {text: "per tre giorni", tags: [preposition]}
+    - learner: "Sì... ho la febbre in tre giorni?"
+      errors: [preposition]
+    - tutor: "Ah, ha la febbre da tre giorni. È allergica a qualche medicina?"
+      recast: {text: "in tre giorni", fix: "da tre giorni", tags: [preposition]}
+      goals: [since-when]
+    - learner: "Sì, sono allergica alla penicillina."
+    - tutor: "Va bene, grazie. Allora le scrivo un'altra medicina."
+      goals: [history]
+    - learner: "Quando la prendo? Prima o dopo i pasti?"
+    - tutor: "Dopo i pasti, due volte al giorno, per cinque giorni."
+    - learner: "Allora: dopo i pasti, due volte al giorno, per cinque giorni."
+    - tutor: "Perfetto. E beva tanta acqua!"
+      goals: [instructions]
