@@ -344,7 +344,8 @@ The report covers:
 - feedback-move accuracy, over-correction and under-correction
 - correction accuracy (a due correction made, on the right error)
 - prompts that give the answer away (the reply contains the gold correction)
-- recast correctness
+- recast correctness (the recast makes the gold correction on the right tag, whatever its span
+  length or grammatical person; rewording around the error does not count)
 - error-tag F1 against the injected errors
 - annotation consistency
 - position-swapped judge win rates against the teacher and the base model
