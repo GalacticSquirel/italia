@@ -1,0 +1,230 @@
+# w-a2, file 01: bar, restaurant and table booking (A2, broad coverage).
+- scenario: bar-colazione
+  level: A2
+  persona: es-m-worker
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Tre caffè da portare via, per favore. Sono per i miei colleghi."
+    - tutor: "Certo, tre caffè da portare via. Li vuole con lo zucchero?"
+      goals: [greet, order-drink]
+    - learner: "No, senza zucchero. E anche un strudel, per favore."
+      errors: [article-form]
+    - tutor: "Un strudel? Ascolti bene come comincia «strudel»."
+      prompt: {text: "un strudel", tags: [article-form]}
+    - learner: "Ah... un strudel, sì."
+      errors: [article-form]
+    - tutor: "Ecco i tre caffè e uno strudel caldo!"
+      recast: {text: "un strudel", fix: "uno strudel", tags: [article-form]}
+      goals: [order-food]
+    - learner: "Quanto pago? Ho solo un billete da cinquanta."
+      errors: [word-choice]
+    - tutor: "Una banconota da cinquanta va bene. Sono cinque euro e ottanta."
+      recast: {text: "un billete", fix: "Una banconota", tags: [word-choice]}
+      new: [{lemma: banconota, gloss: banknote}]
+    - learner: "Perfetto. Ecco a lei."
+    - tutor: "Grazie! Ecco il resto: quarantaquattro euro e venti. Buon lavoro!"
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A2
+  persona: en-f-student
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Avete il latte di avena? Vorrei un cappuccino."
+    - tutor: "Sì, certo. Allora un cappuccino con latte di avena."
+      goals: [greet, order-drink]
+    - learner: "Perfetto. Posso di sedermi a quel tavolo fuori?"
+      errors: [modal-infinitive]
+    - tutor: "«Posso di sedermi»? Dopo «posso» quella piccola parola serve davvero?"
+      prompt: {text: "Posso di sedermi", tags: [modal-infinitive]}
+    - learner: "Ah, no. Posso sedermi a quel tavolo fuori?"
+    - tutor: "Certo, si accomodi! Al tavolo costa un po' di più, va bene?"
+    - learner: "Va bene. E vorrei anche qualcosa di dolce. Cosa c'è oggi?"
+    - tutor: "Ci sono cornetti e una torta di mele fatta da noi."
+      new: [{lemma: torta, gloss: cake}]
+    - learner: "Allora una fetta di torta di mele, grazie."
+    - tutor: "Ottima scelta! Ecco a lei: cappuccino e torta di mele."
+      goals: [order-food]
+    - learner: "Buonissima! Quanto pago? Ecco cinque euro, il resto è per te."
+      errors: [register]
+    - tutor: "Grazie! Ma «per te»? Siamo al bar, non tra amici..."
+      prompt: {text: "per te", tags: [register]}
+    - learner: "Oh, scusi! Il resto è per lei."
+    - tutor: "Grazie mille, molto gentile! Buona giornata."
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A2
+  persona: en-m-retired
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Per me un caffè lungo, per favore."
+    - tutor: "Subito! E per la signora?"
+      goals: [greet, order-drink]
+    - learner: "Mia moglie vorrei un tè, per favore."
+      errors: [conditional-form]
+    - tutor: "Sua moglie... vorrei? Chi parla, lei o sua moglie?"
+      prompt: {text: "vorrei un tè", tags: [conditional-form]}
+    - learner: "Ah... mia moglie vorrei un tè, sì."
+      errors: [conditional-form]
+    - tutor: "Va bene, sua moglie vorrebbe un tè. Con limone o con latte?"
+      recast: {text: "vorrei un tè", fix: "vorrebbe un tè", tags: [conditional-form]}
+      new: [{lemma: limone, gloss: lemon}]
+    - learner: "Con limone. E due cornetti vuoti, per favore."
+    - tutor: "Ecco qua, ancora caldi. Desidera altro?"
+      goals: [order-food]
+    - learner: "No, grazie. Posso pagare con la carta?"
+    - tutor: "Certo, sono cinque euro e dieci."
+      goals: [pay]
+    - learner: "Ecco. Grazie e arrivederci!"
+    - tutor: "Grazie a lei, arrivederci e buona giornata!"
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Buongiorno! Siamo in tre: io e i miei due figli."
+    - tutor: "Benissimo, prego: questo tavolo è libero."
+      goals: [ask-table]
+    - learner: "Grazie. I bambini vogliono la pasta al pomodoro. Per me, un caldo di pollo."
+      errors: [false-friend]
+    - tutor: "Un brodo di pollo, certo: oggi è molto buono. E da bere?"
+      goals: [order-food]
+      recast: {text: "caldo di pollo", fix: "brodo di pollo", tags: [false-friend]}
+      new: [{lemma: brodo, gloss: broth}]
+    - learner: "Una bottiglia di acqua naturale e due zumos di frutta."
+      errors: [word-choice]
+    - tutor: "Acqua naturale e due succhi di frutta, perfetto: arriva tutto subito."
+      recast: {text: "due zumos di frutta", fix: "due succhi di frutta", tags: [word-choice]}
+      new: [{lemma: succo, gloss: juice}]
+      goals: [order-drink]
+    - learner: "Scusi, posso avere un'altra forchetta? Questa è sporco."
+      errors: [adjective-agreement]
+    - tutor: "Ah, mi scusi! Questa forchetta è... sporco? Guardi la parola forchetta."
+      prompt: {text: "è sporco", tags: [adjective-agreement]}
+    - learner: "Sì, scusi: questa è sporca."
+    - tutor: "Ha ragione, chiedo scusa! Ecco, questa è pulita."
+    - learner: "Grazie. Era tutto buonissimo. Ci porta il conto, per favore?"
+    - tutor: "Subito, signora. Sono ventotto euro in tutto."
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: en-m-traveller
+  history: [article-use]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Sono da solo. Avete un tavolo per una persona?"
+    - tutor: "Certo, si accomodi qui, vicino alla finestra."
+      goals: [ask-table]
+    - learner: "Grazie! Vorrei provare specialità della casa."
+      errors: [article-use]
+    - tutor: "Ottima idea! Ma «provare specialità»... manca una piccola parola, no?"
+      prompt: {text: "provare specialità", tags: [article-use]}
+    - learner: "Sorry... vorrei provare specialità della casa?"
+      errors: [article-use]
+    - tutor: "Allora vuole provare la specialità della casa: le lasagne della nonna!"
+      recast: {text: "provare specialità", fix: "provare la specialità", tags: [article-use]}
+      new: [{lemma: lasagna, gloss: lasagne}]
+    - learner: "Sì, perfetto! E un bicchiere di vino rosso, per favore."
+    - tutor: "Ottima scelta! Arriva tutto subito."
+      goals: [order-food, order-drink]
+    - learner: "Molto buone! Mi porta il bill, per favore?"
+      errors: [word-choice]
+    - tutor: "Grazie, sono contento! Ecco il conto: diciotto euro."
+      recast: {text: "il bill", fix: "il conto", tags: [word-choice]}
+      goals: [ask-bill]
+    - learner: "Ecco venti euro. Tenga il resto!"
+    - tutor: "Grazie mille, e buon viaggio!"
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: es-m-worker
+  history: [noun-number]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Due persone. Abbiamo poco tempo, solo mezz'ora."
+    - tutor: "Nessun problema, il pranzo è veloce. Ecco il menù del giorno."
+      goals: [ask-table]
+    - learner: "Allora prendiamo due secondo: pollo arrosto e salsiccia."
+      errors: [noun-number]
+    - tutor: "Due... secondo? Ma sono due piatti, giusto?"
+      prompt: {text: "due secondo", tags: [noun-number]}
+    - learner: "Sì, due secondo: pollo arrosto e salsiccia."
+      errors: [noun-number]
+    - tutor: "Bene, due secondi! Volete anche un'insalata?"
+      recast: {text: "due secondo", fix: "due secondi", tags: [noun-number]}
+      new: [{lemma: insalata, gloss: salad}]
+      goals: [order-food]
+    - learner: "Sì, un'insalata mista. E da bere una birra piccola e un'acqua frizzante."
+    - tutor: "Perfetto, arrivano subito."
+      goals: [order-drink]
+    - learner: "Scusi, ci porta la cuenta? Dobbiamo tornare al lavoro."
+      errors: [word-choice]
+    - tutor: "Certo, ecco il conto: trentadue euro. Buon lavoro!"
+      goals: [ask-bill]
+      recast: {text: "la cuenta", fix: "il conto", tags: [word-choice]}
+    - learner: "Grazie, tutto molto buono. Arrivederci!"
+    - tutor: "Grazie a voi, a presto!"
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: en-f-professional
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Vorrei prenotare un tavolo per venerdì sera."
+    - tutor: "Certo! Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Siamo otto persone, alle otto e mezza. È possibile un tavolo tranquilla?"
+      errors: [adjective-agreement]
+    - tutor: "Otto persone alle otto e mezza, va bene. Ma un tavolo... tranquilla?"
+      goals: [details]
+      prompt: {text: "un tavolo tranquilla", tags: [adjective-agreement]}
+    - learner: "Ah, un tavolo tranquillo! È una cena di lavoro."
+    - tutor: "Ho capito. Vi do la sala in fondo, lì è più tranquillo."
+      goals: [special]
+    - learner: "Grazie. Un'altra cosa: noi vorrebbiamo scegliere il vino prima. È possibile?"
+      errors: [conditional-form]
+    - tutor: "«Vorrebbiamo»? Questa forma non esiste. Noi...?"
+      prompt: {text: "vorrebbiamo", tags: [conditional-form]}
+    - learner: "Noi vorremmo scegliere il vino prima."
+    - tutor: "Perfetto, nessun problema. A che nome prenoto?"
+    - learner: "A nome Clarke. Grazie mille!"
+    - tutor: "Benissimo, signora. Tavolo confermato per venerdì. A presto!"
+      goals: [name]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: es-f-erasmus
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Vorrei prenotare per stasera. Avete posto?"
+    - tutor: "Sì, abbiamo ancora qualche tavolo. Per quante persone?"
+      goals: [book]
+    - learner: "Siamo sei, alle nove. È per il compleanno de la mia amica."
+      errors: [articulated-preposition]
+    - tutor: "Che bello! Il compleanno... de la? In italiano qui c'è una parola sola."
+      prompt: {text: "de la", tags: [articulated-preposition]}
+    - learner: "Ah, sì! Il compleanno della mia amica."
+    - tutor: "Esatto! Allora sei persone alle nove."
+      goals: [details]
+    - learner: "Possiamo a mangiare fuori? Fa molto caldo."
+      errors: [modal-infinitive]
+    - tutor: "«Possiamo a mangiare»? Guardi quella piccola «a»."
+      prompt: {text: "Possiamo a mangiare", tags: [modal-infinitive]}
+    - learner: "Scusi! Possiamo mangiare fuori, in giardino?"
+    - tutor: "Certo! Vi preparo un tavolo in giardino. A che nome?"
+      goals: [special]
+    - learner: "Lucía Romero. Porto io il pastel, va bene?"
+      errors: [word-choice]
+    - tutor: "Certo, porti pure la torta! Prenotazione confermata: a stasera."
+      recast: {text: "il pastel", fix: "la torta", tags: [word-choice]}
+      new: [{lemma: torta, gloss: cake}]
+      goals: [name]

@@ -1,0 +1,258 @@
+# w-a2, file 05: laundrette, doctor, summer job and home (A2, broad coverage).
+- scenario: lavanderia
+  level: A2
+  persona: es-m-worker
+  history: [object-pronoun]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie. Ho messo due monete in la asciugatrice, ma non parte."
+      errors: [articulated-preposition]
+    - tutor: "«In la asciugatrice»? Lì due parole diventano una."
+      prompt: {text: "in la asciugatrice", tags: [articulated-preposition]}
+    - learner: "Nell'asciugatrice. Ho messo due monete, ma non parte."
+    - tutor: "Ecco il problema: questa asciugatrice vuole tre monete, non due."
+      goals: [problem]
+    - learner: "Tre? Ma non ho più monedas."
+      errors: [word-choice]
+    - tutor: "Non hai più monete? Nessun problema, c'è una macchina per cambiare i soldi."
+      recast: {text: "monedas", fix: "monete", tags: [word-choice]}
+    - learner: "Accetta i biglietti da dieci euro?"
+    - tutor: "Sì, accetta anche i biglietti. Ti dà monete da un euro."
+      goals: [payment]
+    - learner: "Ok. E i vestiti, quanto tempo devo lasciarle dentro?"
+      errors: [object-pronoun]
+    - tutor: "Lasciarle? Ma parliamo dei vestiti..."
+      prompt: {text: "lasciarle", tags: [object-pronoun]}
+    - learner: "Sì, sì. Quanto tempo devo lasciarle?"
+      errors: [object-pronoun]
+    - tutor: "Devi lasciarli dentro quaranta minuti, più o meno."
+      goals: [ask-how]
+      recast: {text: "lasciarle", fix: "lasciarli", tags: [object-pronoun]}
+    - learner: "Perfetto. Mille grazie, sei molto gentile!"
+    - tutor: "Di niente! Buona serata."
+      goals: [thank]
+
+- scenario: lavanderia
+  level: A2
+  persona: en-m-traveller
+  history: [question-form, possessive]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! Ho dimenticato il detersivo a casa."
+    - tutor: "Ah, capisco. Lo vendono alla macchina vicino alla porta."
+      goals: [problem]
+    - learner: "Cosa costa?"
+      errors: [question-form]
+    - tutor: "«Cosa costa»? Vuoi sapere il prezzo, no? Allora...?"
+      prompt: {text: "Cosa costa", tags: [question-form]}
+    - learner: "Ah! Quanto costa?"
+    - tutor: "Un euro. Ma se vuoi, ti do un po' del mio!"
+      goals: [payment]
+    - learner: "Davvero? Grazie! Lo metto in il cassetto?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, ma «in il cassetto»? Prova a unire le due parole."
+      prompt: {text: "in il cassetto", tags: [articulated-preposition]}
+    - learner: "Lo metto... in il cassetto, giusto?"
+      errors: [articulated-preposition]
+    - tutor: "Giusto, lo metti nel cassetto, qui a sinistra."
+      goals: [ask-how]
+      recast: {text: "in il cassetto", fix: "nel cassetto", tags: [articulated-preposition]}
+    - learner: "E che programma uso? Non voglio rovinare i mie jeans."
+      errors: [possessive]
+    - tutor: "«I mie jeans»? Attenzione: jeans è maschile plurale."
+      prompt: {text: "i mie jeans", tags: [possessive]}
+    - learner: "I miei jeans! Grazie mille, sei un tesoro!"
+    - tutor: "Ma di niente! Usa il programma a trenta gradi. Ciao!"
+      goals: [thank]
+
+- scenario: medico-base
+  level: A2
+  persona: en-f-professional
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e un po' di febbre."
+    - tutor: "Mi dispiace. Da quando sta male?"
+      goals: [symptoms]
+    - learner: "Da tre giorni. Ieri ho prenduto un'aspirina, ma niente."
+      errors: [past-participle-form]
+    - tutor: "«Ho prenduto»? Mmm, prendere al passato non fa così."
+      goals: [since-when]
+      prompt: {text: "ho prenduto", tags: [past-participle-form]}
+    - learner: "Ah, sì: ho preso un'aspirina."
+    - tutor: "Esatto. È allergica a qualche medicina?"
+    - learner: "Sì, sono allergica a la penicillina."
+      errors: [articulated-preposition]
+    - tutor: "Allergica... «a la penicillina»? Lì le parole si uniscono."
+      prompt: {text: "a la penicillina", tags: [articulated-preposition]}
+    - learner: "Sì, a la penicillina."
+      errors: [articulated-preposition]
+    - tutor: "Allergica alla penicillina, va bene: lo scrivo qui."
+      goals: [history]
+      recast: {text: "a la penicillina", fix: "alla penicillina", tags: [articulated-preposition]}
+    - learner: "Grazie. Devo prendere una medicina?"
+    - tutor: "Sì, questo sciroppo, tre volte al giorno dopo mangiato."
+      new: [{lemma: sciroppo, gloss: syrup}]
+    - learner: "Tre volte al giorno, dopo mangiato. Per quanti giorni?"
+    - tutor: "Per cinque giorni. E beva molta acqua!"
+      goals: [instructions]
+
+- scenario: medico-base
+  level: A2
+  persona: es-m-worker
+  history: [object-pronoun, negation]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Mi fa male la espalda, qui in basso."
+      errors: [word-choice]
+    - tutor: "Le fa male la schiena? Da quanto tempo?"
+      goals: [symptoms]
+      recast: {text: "la espalda", fix: "la schiena", tags: [word-choice]}
+      new: [{lemma: schiena, gloss: back}]
+    - learner: "Da una settimana. Sono cuoco e porto cose pesanti tutto il giorno."
+    - tutor: "Capisco. Ha già preso qualcosa?"
+      goals: [since-when]
+    - learner: "Ho comprato una crema in farmacia. Gli metto ogni sera."
+      errors: [object-pronoun]
+    - tutor: "«Gli metto»? Ma parliamo della crema, no?"
+      prompt: {text: "Gli metto", tags: [object-pronoun]}
+    - learner: "Ah, la metto ogni sera, ma non funziona."
+    - tutor: "Va bene. È allergico a qualche medicina?"
+    - learner: "No, no sono allergico a niente."
+      errors: [negation]
+    - tutor: "«No sono»? Davanti al verbo usiamo un'altra parola."
+      prompt: {text: "no sono", tags: [negation]}
+    - learner: "Non sono allergico a niente."
+    - tutor: "Perfetto. Allora prenda questa medicina dopo cena, per una settimana."
+      goals: [history]
+    - learner: "Dopo cena, per una settimana. E al lavoro posso portare cose pesanti?"
+    - tutor: "Per ora no. Resti a casa qualche giorno."
+      goals: [instructions]
+
+- scenario: medico-base
+  level: A2
+  persona: en-m-retired
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottoressa. Ho una brutta tosse, soprattutto la notte."
+    - tutor: "Capisco. Da quanto tempo ha questa tosse?"
+      goals: [symptoms]
+    - learner: "La tosse ha cominciato due settimane fa, dopo un raffreddore."
+      errors: [auxiliary-choice]
+    - tutor: "«Ha cominciato»? La tosse comincia da sola: avere o essere?"
+      prompt: {text: "ha cominciato", tags: [auxiliary-choice]}
+    - learner: "Ehm... la tosse ha cominciato due settimane fa."
+      errors: [auxiliary-choice]
+    - tutor: "Ah, è cominciata due settimane fa. Ha anche la febbre?"
+      goals: [since-when]
+      recast: {text: "ha cominciato", fix: "è cominciata", tags: [auxiliary-choice]}
+    - learner: "No, la febbre no. Ma sono molto stanco e non dormo bene a notte."
+      errors: [preposition]
+    - tutor: "Mi dispiace. Non dorme bene... «a notte»? Lì serve un'altra preposizione."
+      prompt: {text: "a notte", tags: [preposition]}
+    - learner: "Non dormo bene di notte."
+    - tutor: "Esatto. Prende altre medicine?"
+    - learner: "Sì, prendo una pillola per la pressione ogni mattina."
+    - tutor: "Va bene. Allora le do uno sciroppo, da prendere la sera."
+      goals: [history]
+      new: [{lemma: sciroppo, gloss: syrup}]
+    - learner: "Va bene, la sera. Per quanti giorni lo devo prendere?"
+    - tutor: "Per dieci giorni. Se non passa, torni da me."
+      goals: [instructions]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-f-erasmus
+  history: [past-participle-form, false-friend]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì! Cercate una camarera per l'estate? Sono interessata."
+      errors: [word-choice]
+    - tutor: "Sì, cerchiamo una cameriera per luglio e agosto. Ha esperienza?"
+      goals: [ask]
+      recast: {text: "una camarera", fix: "una cameriera", tags: [word-choice]}
+    - learner: "Sì, l'estate scorsa ho lavorato in un bar a Siviglia. Una volta ho aprito il bar da sola!"
+      errors: [past-participle-form]
+    - tutor: "Da sola, brava! Ma «ho aprito»? Aprire al passato è diverso."
+      prompt: {text: "Ho aprito", tags: [past-participle-form]}
+    - learner: "Ho aperto il bar da sola!"
+    - tutor: "Esatto! Allora sa già fare tutto. Quando è disponibile?"
+      goals: [experience]
+    - learner: "Da luglio. Ma il lunedì non posso, perché lavoro in una tenda."
+      errors: [false-friend]
+    - tutor: "Ah, lavora in un negozio? Va bene, il lunedì siamo chiusi."
+      goals: [availability]
+      recast: {text: "in una tenda", fix: "in un negozio", tags: [false-friend]}
+    - learner: "Perfetto! Il mio número è 347 1234567."
+      errors: [spelling]
+    - tutor: "Grazie. Ma «número» con l'accento? In italiano è diverso."
+      prompt: {text: "número", tags: [spelling]}
+    - learner: "Ah, numero, senza accento!"
+    - tutor: "Esatto! Allora la chiamo questa settimana."
+      goals: [contact]
+    - learner: "Grazie a lei! Sono molto emozionata."
+    - tutor: "Anche noi siamo contenti. A presto!"
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-m-heritage
+  history: [auxiliary-choice, modal-infinitive]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Buongiorno, sì. Cercate un cameriere? Vorrei sapere di più."
+    - tutor: "Sì, per l'estate. Ha già lavorato come cameriere?"
+      goals: [ask]
+    - learner: "Sì, ho lavorato tre anni nella pizzeria di mio zio, a Toronto. Lui ha nato in Calabria."
+      errors: [auxiliary-choice]
+    - tutor: "Che bello! Ma lui «ha nato»? Con nascere usiamo un altro verbo."
+      prompt: {text: "ha nato", tags: [auxiliary-choice]}
+    - learner: "Sì, lui ha nato in Calabria."
+      errors: [auxiliary-choice]
+    - tutor: "Ah, è nato in Calabria! Allora lei conosce bene la cucina italiana."
+      goals: [experience]
+      recast: {text: "ha nato", fix: "è nato", tags: [auxiliary-choice]}
+    - learner: "Sì, so fare la pizza e posso lavorare anche in cucina."
+    - tutor: "Perfetto! Quando può cominciare?"
+    - learner: "Posso cominciare il primo giugno. Ma devo di tornare in Canada a settembre."
+      errors: [modal-infinitive]
+    - tutor: "«Devo di tornare»?"
+      prompt: {text: "devo di tornare", tags: [modal-infinitive]}
+    - learner: "Scusi: devo tornare in Canada a settembre."
+    - tutor: "Nessun problema, il lavoro finisce ad agosto."
+      goals: [availability]
+    - learner: "Benissimo! Le lascio la mia email?"
+    - tutor: "Sì, la scriva qui. La chiamo presto!"
+      goals: [contact]
+
+- scenario: casa-mia
+  level: A2
+  persona: en-f-student
+  history: [ce-ci-sono, adjective-agreement]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Vivo in un appartamento con due amiche, vicino all'università."
+    - tutor: "Bello! Quante stanze ci sono?"
+      goals: [type]
+    - learner: "Sono tre camere, una cucina e un bagno piccolo."
+      errors: [ce-ci-sono]
+    - tutor: "«Sono tre camere»? Ti manca una piccola parola davanti."
+      prompt: {text: "Sono tre camere", tags: [ce-ci-sono]}
+    - learner: "Ci sono tre camere, una cucina e un bagno piccolo."
+    - tutor: "Perfetto per tre persone! E qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "La cucina! È grande e luminoso."
+      errors: [adjective-agreement]
+    - tutor: "Luminoso? Ma parliamo della cucina..."
+      prompt: {text: "luminoso", tags: [adjective-agreement]}
+    - learner: "Sì, è molto luminoso, e c'è un balcone."
+      errors: [adjective-agreement]
+    - tutor: "Una cucina molto luminosa e con un balcone: che bella!"
+      goals: [favourite]
+      recast: {text: "molto luminoso", fix: "molto luminosa", tags: [adjective-agreement]}
+      new: [{lemma: luminoso, gloss: bright}]
+    - learner: "E tu, Luca? Dove abiti?"
+    - tutor: "Io abito con i miei genitori, in una casa fuori città."
+      goals: [ask]
+    - learner: "Davvero? C'è un giardino?"
+    - tutor: "Sì, un giardino grande con un cane! Vieni a trovarmi?"

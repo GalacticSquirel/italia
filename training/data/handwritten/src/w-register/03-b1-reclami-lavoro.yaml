@@ -1,0 +1,239 @@
+# w-register, file 03: B1 polite complaints, requests, interviews, work emails, friends.
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-professional
+  history: [register]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, l'aria condizionata nella mia camera non funziona da ieri sera."
+    - tutor: "Oh, mi dispiace molto. In che camera è?"
+      goals: [problem, since]
+    - learner: "Nella 312. E di notte c'è anche molto rumore dalla strada. Voglio un'altra camera, subito."
+      errors: [register]
+    - tutor: "Capisco, ha ragione a lamentarsi. Però «voglio... subito» suona un po' duro: come lo direbbe in modo più gentile?"
+      prompt: {text: "Voglio un'altra camera, subito", tags: [register]}
+    - learner: "Ha ragione, scusi, sono stanca. Vorrei un'altra camera, se è possibile."
+    - tutor: "Ma certo, la capisco. Al quarto piano ho una camera sul cortile, molto più tranquilla."
+      goals: [request]
+    - learner: "Grazie. Ieri notte ho apruto la finestra per il caldo, e non ho dormito per il rumore. Sarebbe possibile avere uno sconto?"
+      errors: [past-participle-form]
+    - tutor: "Ho apruto? Il verbo «aprire», al passato, ha una forma speciale."
+      prompt: {text: "ho apruto", tags: [past-participle-form]}
+    - learner: "Ho aprito la finestra."
+      errors: [past-participle-form]
+    - tutor: "Ha aperto la finestra e non ha dormito, capisco. Posso offrirle la colazione per tutto il soggiorno, senza pagare. Le va bene?"
+      recast: {text: "aprito", fix: "aperto", tags: [past-participle-form]}
+    - learner: "Sì, mi va bene. La ringrazio per la comprensione."
+    - tutor: "Si figuri. Ecco la chiave della 418: buona notte, e ancora scusi!"
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-m-worker
+  history: [register, false-friend]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie dieci giorni fa e già non funzionano bene."
+    - tutor: "Mi dispiace. Che problema hanno, esattamente?"
+    - learner: "Dal lato destro non si sente niente. Ho il ticket, eccolo."
+      errors: [word-choice]
+    - tutor: "Grazie, lo scontrino va benissimo. Sì, sono ancora in garanzia. Preferisce cambiarle o avere il rimborso?"
+      recast: {text: "il ticket", fix: "lo scontrino", tags: [word-choice]}
+      goals: [problem, proof]
+    - learner: "Preferisco il rimborso. Mi devi ridare i soldi, eh."
+      errors: [register]
+    - tutor: "Mi devi? Siamo in un negozio e non ci conosciamo: come lo chiede in modo gentile?"
+      prompt: {text: "Mi devi ridare i soldi", tags: [register]}
+    - learner: "Scusi. Mi può ridare i soldi, per favore?"
+    - tutor: "Certo. Il rimborso arriva sulla sua carta in cinque giorni."
+      goals: [request]
+    - learner: "Perfetto. Grazie, lei è molto amabile."
+      errors: [false-friend]
+    - tutor: "Grazie, anche lei è molto gentile! Mi serve solo una firma qui sotto."
+      recast: {text: "amabile", fix: "gentile", tags: [false-friend]}
+    - learner: "Ecco la firma. Se compro altre cuffie qui, hanno la stessa garanzia?"
+    - tutor: "Sì, tutte le cuffie hanno due anni di garanzia. Buona giornata!"
+      goals: [agree]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-m-traveller
+  history: [register, conditional-form]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Ciao! Sono il vicino del secondo piano."
+      errors: [register]
+    - tutor: "Ciao? Mi pare che ci vediamo per la prima volta."
+      prompt: {text: "Ciao", tags: [register]}
+    - learner: "Mi scusi: buonasera, sono il vicino del secondo piano. Mi chiamo Tom."
+    - tutor: "Piacere, Tom, io sono Paola. Mi dica pure."
+      goals: [greet]
+    - learner: "Il fatto è che la sua musica si sente molto in camera mia, anche dopo mezzanotte."
+    - tutor: "Oh, davvero? Non lo sapevo, mi dispiace."
+      goals: [problem]
+    - learner: "Lei potrebbe abbassare il volume dopo le undici? Io mi sveglio alle sei per lavoro."
+    - tutor: "Certo, ha ragione. Dopo le undici abbasso il volume, glielo prometto."
+      goals: [request]
+    - learner: "Grazie mille. E se fa una festa, mi avvisarebbe prima?"
+      errors: [conditional-form]
+    - tutor: "Mi avvisarebbe? Il verbo non è proprio giusto: guardi bene la parte in mezzo."
+      prompt: {text: "avvisarebbe", tags: [conditional-form]}
+    - learner: "Mi avviserebbe prima?"
+    - tutor: "Ma certo, la avviso sempre. Anzi, alla prossima festa venga anche lei!"
+      goals: [compromise]
+    - learner: "Volentieri! Grazie per la comprensione, e buonanotte."
+    - tutor: "Grazie a lei, è stato molto gentile. Buonanotte!"
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-f-teacher
+  history: [register, ci-ne]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! Che bello, è molto luminoso. Quanto è l'affitto?"
+    - tutor: "Sono 750 euro al mese, e l'appartamento è tutto arredato."
+      goals: [rent]
+    - learner: "Le spese del condominio sono incluse? E la calefazione come funziona?"
+      errors: [word-choice]
+    - tutor: "Le spese sono a parte, circa ottanta euro. Il riscaldamento è nuovo: l'abbiamo cambiato l'anno scorso."
+      recast: {text: "la calefazione", fix: "Il riscaldamento", tags: [word-choice]}
+      goals: [condition]
+    - learner: "Bene. E la metro? Quanto metto per andare in centro?"
+      errors: [ci-ne]
+    - tutor: "Quanto metto? Per il tempo del viaggio manca una piccola parola, prima del verbo."
+      prompt: {text: "Quanto metto", tags: [ci-ne]}
+    - learner: "Quanto ci metto per andare in centro?"
+    - tutor: "Esatto! Con la metro ci mette dieci minuti, e la fermata è qui sotto."
+      goals: [neighbourhood]
+    - learner: "Perfetto. Quanti mesi di caparra vuoi?"
+      errors: [register]
+    - tutor: "Vuoi? Ci siamo appena conosciuti, e io sono il proprietario..."
+      prompt: {text: "vuoi", tags: [register]}
+    - learner: "Scusi! Quanti mesi di caparra vuole?"
+    - tutor: "Due mesi. Il contratto è di quattro anni, più altri quattro."
+      goals: [contract]
+    - learner: "Va bene. Mi piace molto, ma ci penso stasera e la chiamo domani."
+    - tutor: "D'accordo, aspetto la sua telefonata. Buona giornata!"
+      goals: [decide]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-student
+  history: [register, tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Emma, ho ventiquattro anni e mi sono graduata in economia a Manchester."
+      errors: [word-choice]
+    - tutor: "Piacere, Emma. Laureata in economia, molto bene. Che esperienza di lavoro ha?"
+      recast: {text: "graduata", fix: "laureata", tags: [word-choice]}
+      new: [{lemma: laureato, gloss: graduate}]
+      goals: [intro]
+    - learner: "Quando ero studentessa, ho lavorato ogni estate in un albergo a Londra."
+      errors: [tense-aspect]
+    - tutor: "Ogni estate... ho lavorato? Era una cosa che faceva sempre: che tempo usiamo?"
+      prompt: {text: "ho lavorato ogni estate", tags: [tense-aspect]}
+    - learner: "Ah: lavoravo ogni estate in un albergo a Londra."
+    - tutor: "Benissimo. E quali sono i suoi punti di forza? E un punto debole?"
+      goals: [experience]
+    - learner: "Sono organizzata e parlo tre lingue. Un punto debole: a volte sono troppo precisa."
+    - tutor: "Questo a noi piace! Perché vuole lavorare proprio con noi?"
+      goals: [strengths]
+    - learner: "Perché la vostra agenzia organizza viaggi in tutta Europa, e io amo viaggiare. Posso farti una domanda?"
+      errors: [register]
+    - tutor: "Ottima risposta. Ma «farti»? Pensi a chi ha davanti."
+      goals: [why]
+      prompt: {text: "farti", tags: [register]}
+    - learner: "Scusi! Posso farle una domanda?"
+    - tutor: "Certo, prego."
+    - learner: "Com'è organizzata la squadra? Lavorerei da sola o con altre persone?"
+    - tutor: "Con altre quattro persone, tutte giovani. Le faremo sapere entro venerdì."
+      goals: [questions]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [register]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Ho finito la prima parte del sito, ma il cliente non ha ancora mandato le foto."
+    - tutor: "Ancora niente? Allora è un problema, perché senza foto non possiamo andare avanti."
+      goals: [update, problem]
+    - learner: "Sì. Ho scritto una mail al cliente, te la leggo: «Ciao Bianchi, mandami le foto entro venerdì.»"
+      errors: [register]
+    - tutor: "Mmm, «Ciao Bianchi»? Per un cliente che conosci appena, mi sembra un inizio un po' troppo libero."
+      prompt: {text: "Ciao Bianchi", tags: [register]}
+    - learner: "Hai ragione. Allora: «Buongiorno Bianchi»?"
+      errors: [register]
+    - tutor: "Sì, «Buongiorno, signor Bianchi», così va bene. E la frase sulle foto?"
+      recast: {text: "Buongiorno Bianchi", fix: "Buongiorno, signor Bianchi", tags: [register]}
+    - learner: "«Potrebbe mandarci le foto entro venerdì? Grazie mille.»"
+    - tutor: "Perfetto, gentile ma chiaro. E se le foto non arrivano?"
+    - learner: "Propongo di usare per ora le foto del vecchio sito, e di cambiarle dopo."
+    - tutor: "Buona idea, così non perdiamo tempo. Quando puoi finire tutto?"
+      goals: [proposal]
+    - learner: "Se ho le foto venerdì, posso finire entro il quindici."
+    - tutor: "Va bene, allora la scadenza è il quindici. Mandami una copia del messaggio!"
+      goals: [deadline]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-m-worker
+  history: [register, imperative-form]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì e resto quattro giorni. Mi potrebbe consigliare cosa visitare?"
+      errors: [register]
+    - tutor: "Mi potrebbe? Ma Fernando, siamo amici da anni!"
+      prompt: {text: "Mi potrebbe consigliare", tags: [register]}
+    - learner: "Ah, scusa! Mi potresti consigliare cosa visitare?"
+    - tutor: "Certo! Assolutamente il centro e il Museo Archeologico. E mangia la pizza, naturalmente!"
+      goals: [plans, advice]
+    - learner: "Che bello! E per muoversi in città, è meglio la metro o l'autobus?"
+    - tutor: "La metro, senza dubbio: è veloce e alcune stazioni sono bellissime. Per le isole c'è il traghetto."
+      goals: [transport]
+    - learner: "E cosa devo evitare? Ho letto che ci sono molti ladroni."
+      errors: [word-choice]
+    - tutor: "Ladri ce ne sono come in tutte le grandi città, ma non è così grave! Fai attenzione al telefono sugli autobus pieni, e basta."
+      recast: {text: "ladroni", fix: "ladri", tags: [word-choice]}
+      goals: [warnings]
+    - learner: "Grazie mille. E tu, quando vieni a Madrid, non prende la metro alle otto di mattina!"
+      errors: [imperative-form]
+    - tutor: "Ah ah, grazie! «Non prende»? Mi stai dando un consiglio, e con il tu la forma negativa è diversa."
+      prompt: {text: "non prende", tags: [imperative-form]}
+    - learner: "Non prenda la metro alle otto di mattina!"
+      errors: [imperative-form]
+    - tutor: "«Non prendere la metro alle otto»: me lo segno, promesso! Buon viaggio, e mandami una foto della pizza."
+      recast: {text: "Non prenda", fix: "Non prendere", tags: [imperative-form]}
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: en-f-professional
+  history: [register, tense-aspect]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+    - learner: "In Inghilterra il pranzo è il venticinque: tacchino, patate e un dolce speciale. E poi tutti guardano il discorso del re."
+    - tutor: "Il discorso del re, che bello! E da piccola come festeggiavi?"
+      goals: [compare]
+    - learner: "Da piccola ho aperto i regali alle sei di mattina, ogni anno."
+      errors: [tense-aspect]
+    - tutor: "Ogni anno... ho aperto? Era una cosa di tutti gli anni, quando eri piccola."
+      prompt: {text: "ho aperto i regali", tags: [tense-aspect]}
+    - learner: "Ah, giusto: aprivo i regali alle sei di mattina!"
+    - tutor: "Alle sei, che bambina curiosa! Noi invece li apriamo la sera della Vigilia."
+      goals: [past]
+    - learner: "Interessante! E che cosa si mangiano alla Vigilia?"
+      errors: [subject-verb-agreement]
+    - tutor: "Si mangiano? Pensi a «che cosa»: è una cosa sola o sono tante?"
+      prompt: {text: "si mangiano", tags: [subject-verb-agreement]}
+    - learner: "Che cosa si mangiamo?"
+      errors: [subject-verb-agreement]
+    - tutor: "Alla Vigilia si mangia pesce, di solito: la sera del ventiquattro molte famiglie non mangiano carne."
+      recast: {text: "si mangiamo", fix: "si mangia", tags: [subject-verb-agreement]}
+      goals: [ask]
+    - learner: "Allora, congratulazioni per il Natale a tutta la famiglia! Cosa posso portare al pranzo?"
+      errors: [word-choice]
+    - tutor: "Grazie, auguri anche a te! Porta quello che vuoi: un dolce inglese sarebbe una bella sorpresa."
+      recast: {text: "congratulazioni", fix: "auguri", tags: [word-choice]}
+      goals: [plan]
+    - learner: "Perfetto, allora porto il mio dolce di Natale. A domenica!"
+    - tutor: "A domenica! Ti aspettiamo all'una, e vieni con appetito."

@@ -1,0 +1,219 @@
+# Set w-c1, file 2: C1, insurance, registry office, council complaints, restaurant.
+# Spanish false friends (matricola, caducata, maggiori, larga), auxiliaries after a prompt,
+# combined pronouns (se la -> gliela), passive agreement, articulated prepositions, calques.
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Sabato sera uscivo in retromarcia dal parcheggio del supermercato, e una macchina che passava mi ha preso sulla fiancata."
+  - tutor: "Mi dispiace. Nessun ferito, spero. Mi descriva l'altra auto: com'è che non l'ha vista arrivare?"
+    goals: [what]
+  - learner: "Nessun ferito, per fortuna. C'era un furgone parcheggiato che copriva la visuale. E poi quel signore è andato troppo veloce e parlava al telefono."
+    errors: [tense-aspect]
+  - tutor: "Capisco. Però «è andato troppo veloce» racconta un fatto chiuso, mentre lei sta descrivendo come guidava in quel momento, insieme al telefono. Che tempo userebbe?"
+    prompt: {text: "è andato troppo veloce", tags: [tense-aspect]}
+  - learner: "Andava troppo veloce e parlava al telefono, sì. L'ha ammesso anche lui davanti a due testimoni."
+  - tutor: "Proprio così. E con due testimoni la responsabilità è difficile da contestare. Avete compilato la constatazione amichevole?"
+    goals: [responsibility]
+  - learner: "Sì, però c'è un problema: nella fretta, lui ha scritto la matricola sbagliata della mia macchina, e me ne sono accorto solo a casa."
+    errors: [false-friend]
+  - tutor: "La targa sbagliata nel modulo è un classico, non si preoccupi. Ha una foto della sua auto in cui si legga bene il numero?"
+    recast: {text: "la matricola sbagliata", fix: "la targa sbagliata", tags: [false-friend]}
+  - learner: "Sì, ce l'ho sul telefono. Se la posso mandare stasera per email, se mi dà l'indirizzo."
+    errors: [combined-pronouns]
+  - tutor: "Benissimo. Solo una cosa: «se la posso mandare» è la forma spagnola. In italiano, per dire «la foto a lei», come si combinano i due pronomi?"
+    prompt: {text: "Se la posso mandare", tags: [combined-pronouns]}
+  - learner: "Ah, certo: gliela posso mandare stasera. E dopo che cosa succede? Devo aspettare il perito prima di portare la macchina dal carrozziere?"
+  - tutor: "Perfetto, così è giusto. Sì: il perito la contatterà entro cinque giorni lavorativi, e il danno verrà pagato dalla compagnia dell'altro conducente. Le mando l'indirizzo per messaggio."
+    goals: [documents, next]
+
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: en-f-student
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri pomeriggio una signora ha aperto la portiera della macchina proprio mentre passavo con il motorino, e ci ho sbattuto contro. Sono caduta, ma non mi sono fatta niente."
+  - tutor: "Meno male che non si è fatta male. E il motorino in che stato è?"
+    goals: [what]
+  - learner: "Lo specchietto è rotto e il parafango è tutto graffiato. La signora ha sceso dalla macchina e ha detto subito che era colpa sua."
+    errors: [auxiliary-choice]
+  - tutor: "Bene che l'abbia ammesso. Però, «la signora ha sceso dalla macchina»: con un verbo di movimento come questo, quale ausiliare ci vuole?"
+    prompt: {text: "La signora ha sceso dalla macchina", tags: [auxiliary-choice]}
+  - learner: "Giusto: la signora è sceso dalla macchina e si è scusata tantissimo."
+    errors: [participle-agreement]
+  - tutor: "Adesso il verbo è quello giusto. Ma senta il resto: «la signora è sceso». Quella parola finale, «sceso», con chi deve andare d'accordo?"
+    prompt: {text: "la signora è sceso", tags: [participle-agreement]}
+  - learner: "Con la signora, quindi è scesa. Ha anche detto che non aveva guardato nello specchietto."
+  - tutor: "Perfetto. Quindi sulla responsabilità non ci sono dubbi. Avete compilato insieme la constatazione amichevole?"
+    goals: [responsibility]
+  - learner: "Sì, sul cofano della sua macchina. Però non sono sicura di aver segnato la scatola giusta nella parte delle circostanze."
+    errors: [word-choice]
+  - tutor: "Non si preoccupi: se la casella giusta non è quella, la correggiamo noi. Me la può mandare in foto, insieme a quelle del motorino?"
+    recast: {text: "la scatola giusta", fix: "la casella giusta", tags: [word-choice]}
+    goals: [documents]
+  - learner: "Certo, gliele mando entro stasera. E poi quanto tempo ci vorrà per il rimborso?"
+  - tutor: "Ricevute le foto, apriamo la pratica e un perito valuta il danno entro una settimana. Per il rimborso, di solito, servono una trentina di giorni."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Sono una studentessa Erasmus e resto a Padova fino al prossimo luglio. Mi hanno detto che, se resto più di tre mesi, devo iscrivermi all'anagrafe."
+  - tutor: "Sì, oltre i tre mesi serve l'iscrizione. Come cittadina europea le servono un documento d'identità, la tessera sanitaria europea e un'attestazione dell'università. Ha tutto?"
+    goals: [request]
+  - learner: "Ho il passaporto e il certificato dell'università. La tessera sanitaria, però, è caducata il mese scorso, e la nuova non mi è ancora arrivata."
+    errors: [false-friend]
+  - tutor: "Capisco: è scaduta e la nuova è ancora in viaggio. In questo caso si può presentare il certificato provvisorio che rilascia il vostro servizio sanitario."
+    recast: {text: "è caducata", fix: "è scaduta", tags: [false-friend]}
+    goals: [documents]
+  - learner: "Il certificato provvisorio lo posso chiedere online, credo. Ma è necessario che sia tradotto in italiano?"
+  - tutor: "No, se è il modello europeo non serve nessuna traduzione: è uguale in tutte le lingue."
+    goals: [problem]
+  - learner: "Perfetto, allora torno con quello. E dopo quanto tempo ci vuole? Devo aspettare che i vigili vengono a casa?"
+    errors: [subjunctive-use]
+  - tutor: "Dipende dal periodo. Ma ascolti di nuovo la sua frase: «aspettare che i vigili vengono». Dopo «aspettare che», questo modo del verbo va bene?"
+    prompt: {text: "aspettare che i vigili vengono", tags: [subjunctive-use]}
+  - learner: "No, allora... devo aspettare che i vigili venghino a casa mia?"
+    errors: [subjunctive-form]
+  - tutor: "Il modo adesso è quello giusto, ma «venghino» non esiste nell'italiano standard. Ripensi al presente indicativo, «loro vengono»: da lì come si forma?"
+    prompt: {text: "venghino", tags: [subjunctive-form]}
+  - learner: "Vengano! Devo aspettare che vengano a casa mia."
+  - tutor: "Brava, proprio così. La polizia locale passa entro quarantacinque giorni; se lei non c'è, lascia un avviso e si fissa un altro appuntamento."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: en-m-retired
+  history: [passive]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Mi sono trasferito a Lucca con mia moglie due mesi fa e vorremmo prendere la residenza. Abbiamo comprato una casa vicino alle mura."
+  - tutor: "Benvenuti, allora. Per l'iscrizione servono i passaporti, i permessi di soggiorno e l'atto di acquisto della casa. Li avete portati?"
+    goals: [request]
+  - learner: "I passaporti sì. I permessi di soggiorno sono stati richiesti in questura a settembre, ma non ci sono ancora stato consegnati."
+    errors: [passive]
+  - tutor: "La questura ha i suoi tempi, purtroppo. Riascolti però la fine: «non ci sono ancora stato consegnati». Di che cosa stiamo parlando, e quindi come deve finire?"
+    prompt: {text: "non ci sono ancora stato consegnati", tags: [passive]}
+  - learner: "Dei permessi: non ci sono ancora stati consegnati. Abbiamo soltanto la ricevuta della richiesta."
+  - tutor: "Esatto. La ricevuta va bene, si accetta al posto del permesso purché sia leggibile. E l'atto di acquisto?"
+    goals: [documents]
+  - learner: "Questo è il problema: il notaio ce l'ha promesso per la settimana prossima. Possiamo fare la domanda adesso e portare l'atto in un secondo momento?"
+  - tutor: "Si può fare, sì: basta una dichiarazione del notaio che attesti la data del rogito. Senza quella, però, la pratica non viene accettata."
+    goals: [problem]
+    new: [{lemma: rogito, gloss: deed of sale}]
+  - learner: "Va bene, la chiederò domani al notaio. E dopo, per quanto lungo dobbiamo aspettare la conferma?"
+    errors: [word-choice]
+  - tutor: "Per quanto tempo? Di norma la polizia locale verifica entro quarantacinque giorni, e la residenza vale dal giorno della domanda. Vi aspetto con la dichiarazione."
+    recast: {text: "per quanto lungo", fix: "per quanto tempo", tags: [word-choice]}
+    goals: [next]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Abito in via Garibaldi 12. Da due mesi davanti a casa mia c'è un cantiere abbandonato: hanno scavato una buca enorme e poi sono spariti."
+  - tutor: "Via Garibaldi... sì, mi risulta un intervento sulle tubature. Che tipo di disagio le sta creando?"
+  - learner: "Il marciapiede è chiuso, e la buca di notte non è illuminata. Per le persone maggiori del quartiere è pericolosissimo: mia madre ha ottantadue anni."
+    errors: [false-friend]
+  - tutor: "Ha ragione, per le persone anziane è un vero pericolo, e per sua madre ancora di più. Ho preso nota; l'ufficio tecnico dovrebbe riprendere i lavori appena possibile."
+    recast: {text: "le persone maggiori", fix: "le persone anziane", tags: [false-friend]}
+    goals: [describe]
+  - learner: "«Appena possibile» me l'hanno già detto tre settimane fa al telefono. Mi dispiace, ma insisto in avere una data precisa, o almeno il nome di un responsabile."
+    errors: [preposition]
+  - tutor: "Ha tutto il diritto di chiederla. Una nota, però: «insisto in avere» è costruito alla spagnola. In italiano, con questo verbo davanti a un infinito, che preposizione si usa?"
+    prompt: {text: "insisto in avere", tags: [preposition]}
+  - learner: "Insisto per avere una data precisa, allora. E se la data non arriva, che strumenti ho, formalmente?"
+  - tutor: "Perfetto. Può presentare un reclamo formale: viene protocollato, e l'amministrazione è tenuta a risponderle per iscritto entro trenta giorni."
+    goals: [insist, rights]
+  - learner: "Lo presento subito, allora. Posso compilarlo qui allo sportello, o devo mandarlo per posta certificata?"
+  - tutor: "Può farlo qui, ecco il modulo. Appena firmato le do il numero di protocollo: lo conservi, perché le servirà per ogni sollecito."
+  - learner: "Ecco fatto, l'ho firmato. Mi scriva pure il numero su questo foglio, così non lo perdo."
+  - tutor: "Ecco qua: protocollo 3184 del 18 novembre. Intanto segnalo io stesso la buca alla polizia locale, perché venga illuminata già da stasera."
+    goals: [commitment]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: en-m-heritage
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+  - learner: "Buongiorno. Vengo per i lavori sulla pista ciclabile in viale dei Mille. Sono fermi da settimane, e il cantiere è diventato una discarica: ci buttano di tutto."
+  - tutor: "Ne hanno già parlato altri residenti. Può essere più preciso? Da quando, e in quale tratto?"
+  - learner: "Dal dieci settembre, nel tratto davanti alla scuola. Ieri ho visto dei bambini che giocavano in mezzo ai sacchi della spazzatura e su le transenne."
+    errors: [articulated-preposition]
+  - tutor: "Questo è grave, lo segnalo subito. Mi ripete l'ultima parte? «Su le transenne»: in italiano quelle due parole non restano separate."
+    prompt: {text: "su le transenne", tags: [articulated-preposition]}
+  - learner: "Sulle transenne, sì. Si arrampicavano sulle transenne come se niente fosse."
+  - tutor: "Esatto. Il cantiere è affidato a una ditta esterna, e l'ufficio tecnico ha già sollecitato la ripresa dei lavori."
+    goals: [describe]
+  - learner: "Con tutto il rispetto, «sollecitato» non è abbastanza buono. Che cosa posso fare, formalmente, perché qualcuno se ne occupi davvero?"
+    errors: [word-choice]
+  - tutor: "Capisco che un sollecito non basta, e ha ragione. Può presentare un reclamo formale: il Comune è tenuto a rispondere per iscritto entro trenta giorni, e in caso di silenzio può rivolgersi al difensore civico."
+    recast: {text: "non è abbastanza buono", fix: "non basta", tags: [word-choice]}
+    goals: [insist, rights]
+  - learner: "Allora facciamolo subito. Le serve un documento? E alla fine mi date un numero di riferimento?"
+  - tutor: "Mi basta la carta d'identità. Ecco fatto: protocollo 5527. Con questo numero può seguire la pratica anche dal sito del Comune."
+    goals: [commitment]
+
+- scenario: recensione-ristorante
+  level: C1
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Mi dispiace disturbarla, ma la serata non è andata come speravamo. Abbiamo aspettato cinquanta minuti per i secondi, e quando sono arrivati la carne era fredda."
+  - tutor: "Mi dispiace molto, cinquanta minuti sono davvero troppi. Che cosa avevate ordinato?"
+    goals: [complain]
+  - learner: "Due tagliate e un branzino al forno. La tagliata del mio marito era quasi cruda, anche se aveva chiesto la cottura media."
+    errors: [possessive]
+  - tutor: "Capisco. Solo un dettaglio: «la tagliata del mio marito». Con un nome di parentela al singolare, che cosa succede all'articolo?"
+    prompt: {text: "del mio marito", tags: [possessive]}
+  - learner: "Ah, giusto, sparisce: la tagliata di mio marito. E il branzino, onestamente, sapeva più di sale che di pesce."
+  - tutor: "Esatto. E ha ragione a dirmelo, è un errore della cucina. Vista la serata, che cosa si sarebbe aspettata da noi?"
+    goals: [detail]
+  - learner: "Almeno che qualcuno ci avvisasse del ritardo. Se il cameriere ci avrebbe avvisato, avremmo ordinato qualcos'altro."
+    errors: [hypothetical]
+  - tutor: "Su questo ha perfettamente ragione. Mi faccia però riprendere la seconda frase: «se il cameriere ci avrebbe avvisato». In un'ipotesi sul passato, dopo «se», quale tempo ci vuole?"
+    prompt: {text: "Se il cameriere ci avrebbe avvisato", tags: [hypothetical]}
+  - learner: "Se il cameriere avrebbe avvisato prima... no, non mi viene, mi scusi."
+    errors: [hypothetical]
+  - tutor: "Ma si figuri. Se il cameriere vi avesse avvisato, la serata sarebbe andata diversamente, lo so. Per rimediare, vorrei offrirvi i dolci e togliere i secondi dal conto. Le va bene?"
+    recast: {text: "avrebbe avvisato", fix: "avesse avvisato", tags: [hypothetical]}
+    goals: [expectation]
+  - learner: "È molto gentile, accettiamo volentieri. E complimenti per come ha gestito la situazione."
+  - tutor: "Grazie a lei per la pazienza. Vi porto subito il carrello dei dolci."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: C1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Guardi, faccio il cuoco anch'io, quindi so cosa vuol dire un sabato sera in cucina. Però stasera abbiamo stati molto delusi."
+    errors: [auxiliary-choice]
+  - tutor: "Mi dispiace sentirlo, e da un collega pesa il doppio. Però mi ripeta: «abbiamo stati delusi»? Qui l'ausiliare non può essere «avere»."
+    prompt: {text: "abbiamo stati", tags: [auxiliary-choice]}
+  - learner: "Siamo stati molto delusi, scusi. Soprattutto per l'attesa: è stata molto larga, quasi un'ora tra un piatto e l'altro."
+    errors: [false-friend]
+  - tutor: "Ha ragione, è stata molto lunga, e un'ora non è accettabile. E i piatti, quando sono arrivati?"
+    recast: {text: "è stata molto larga", fix: "è stata molto lunga", tags: [false-friend]}
+    goals: [complain]
+  - learner: "Il risotto era scotto e c'era troppo burro: sembrava che il cuoco ha voluto coprire qualcosa."
+    errors: [subjunctive-use]
+  - tutor: "Da collega a collega, il giudizio è severo ma onesto. Però «sembrava che il cuoco ha voluto»: dopo «sembrava che», l'indicativo ci sta?"
+    prompt: {text: "sembrava che il cuoco ha voluto", tags: [subjunctive-use]}
+  - learner: "Sembrava che il cuoco avesse voluto coprire qualcosa. Da un ristorante come il vostro mi aspettavo molto di più."
+  - tutor: "Esatto. E ha ragione ad aspettarsi di più: ce lo aspettiamo anche noi. Posso farle rifare il risotto, oppure toglierlo dal conto?"
+    goals: [detail, expectation]
+  - learner: "Rifarlo no, grazie, ormai ci è passata la fame. Preferirei che lo toglieste dal conto. E un caffè, se lo offrite voi, lo accetto volentieri."
+  - tutor: "Affare fatto: risotto tolto e caffè offerto dalla casa. E la prossima volta venga a trovarci in cucina, ci farebbe piacere."
+    goals: [resolve]

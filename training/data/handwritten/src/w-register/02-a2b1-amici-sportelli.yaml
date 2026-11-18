@@ -1,0 +1,251 @@
+# w-register, file 02: A2 friends and strangers, B1 counters and services.
+- scenario: serata-cinema
+  level: A2
+  persona: es-f-erasmus
+  history: [register]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Vuole venire al cinema con me?"
+      errors: [register]
+    - tutor: "Vuole? Ma siamo amiche, sono Laura!"
+      prompt: {text: "Vuole venire", tags: [register]}
+    - learner: "Ah, sì: vuoi venire al cinema con me?"
+    - tutor: "Certo, che bella idea! Che film ti piace?"
+      goals: [propose]
+    - learner: "Mi piace le commedie. Sono più divertenti dei film d'amore."
+      errors: [piacere]
+    - tutor: "Mi piace le commedie? Sono tante commedie: il verbo cambia?"
+      prompt: {text: "Mi piace le commedie", tags: [piacere]}
+    - learner: "Mi piacciano le commedie!"
+      errors: [piacere]
+    - tutor: "Le commedie piacciono anche a me! C'è una commedia nuova al cinema in piazza, alle nove."
+      recast: {text: "piacciano", fix: "piacciono", tags: [piacere]}
+      goals: [genre]
+    - learner: "Perfetto, vediamo quello film! Ci vediamo alle otto e mezza davanti al cinema?"
+      errors: [demonstrative]
+    - tutor: "Quello film? Qui questa parola diventa più corta."
+      prompt: {text: "quello film", tags: [demonstrative]}
+    - learner: "Vediamo quella film?"
+      errors: [demonstrative]
+    - tutor: "Sì, vediamo quel film! Alle otto e mezza davanti al cinema va bene. Compro io i biglietti!"
+      recast: {text: "quella film", fix: "quel film", tags: [demonstrative]}
+      goals: [choose, meet]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-m-traveller
+  history: [register, future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, grazie. Vorrei noleggiare una bici per tutta la giornata."
+    - tutor: "Certo. Per tutto il giorno sono quindici euro, con il casco."
+      goals: [ask, duration]
+    - learner: "Va bene. Dammi anche un lucchetto, per favore."
+      errors: [register]
+    - tutor: "Dammi? Siamo in un negozio e non ci conosciamo. Come lo chiede?"
+      prompt: {text: "Dammi anche un lucchetto", tags: [register]}
+    - learner: "Mi dà anche un lucchetto, per favore?"
+    - tutor: "Certo, eccolo. Per il lucchetto non paga niente."
+      goals: [price]
+    - learner: "Grazie! È un bel percorso intorno al lago?"
+      errors: [ce-ci-sono]
+    - tutor: "È un bel percorso? Lei vuole sapere se esiste: come comincia la domanda?"
+      prompt: {text: "È un bel percorso", tags: [ce-ci-sono]}
+    - learner: "Ci è un bel percorso intorno al lago?"
+      errors: [ce-ci-sono]
+    - tutor: "Sì, c'è un bel percorso: il giro del lago, tutto in piano."
+      recast: {text: "Ci è", fix: "c'è", tags: [ce-ci-sono]}
+      goals: [route]
+    - learner: "Perfetto. Allora tornarò alle sei."
+      errors: [future-form]
+    - tutor: "Tornarò? Attenzione: c'è una lettera sbagliata nel verbo."
+      prompt: {text: "tornarò", tags: [future-form]}
+    - learner: "Tornerò alle sei."
+    - tutor: "Benissimo, la aspetto alle sei. Buon giro!"
+
+- scenario: autobus
+  level: A2
+  persona: en-f-professional
+  history: [register, articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Scusa, questo autobus va all'ospedale?"
+      errors: [register]
+    - tutor: "Scusa? Lei non mi conosce: siamo amici?"
+      prompt: {text: "Scusa", tags: [register]}
+    - learner: "Ah, scusi! Va all'ospedale?"
+    - tutor: "Sì, la linea quattro va all'ospedale. Ha il biglietto?"
+      goals: [route]
+    - learner: "No. Posso comprare il biglietto da lei?"
+    - tutor: "No, mi dispiace. Il biglietto si compra in tabaccheria, proprio dietro la fermata."
+      goals: [ticket]
+    - learner: "Va bene. Poi devo timbrare il biglietto su l'autobus?"
+      errors: [articulated-preposition]
+    - tutor: "Su l'autobus? Queste due parole diventano una."
+      prompt: {text: "su l'autobus", tags: [articulated-preposition]}
+    - learner: "Sul autobus?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, sull'autobus, nella macchina gialla vicino alla porta."
+      recast: {text: "Sul autobus", fix: "sull'autobus", tags: [articulated-preposition]}
+    - learner: "Perfetto. E a quale fermata devo scendere?"
+    - tutor: "Alla fermata «Ospedale». Glielo dico io!"
+      goals: [stop]
+    - learner: "Grazie mille, è molto gentile!"
+    - tutor: "Prego! Buona giornata."
+      goals: [thank]
+
+- scenario: chiedere-strada
+  level: A2
+  persona: en-m-heritage
+  history: [register]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, grazie. Sai dov'è la stazione?"
+      errors: [register]
+    - tutor: "Sai? Ci conosciamo da un minuto!"
+      prompt: {text: "Sai dov'è", tags: [register]}
+    - learner: "Ah, scusi. Lei sa dov'è la stazione?"
+    - tutor: "Sì, non è lontano. Vada dritto e al semaforo giri a destra."
+      goals: [get-attention, ask-place]
+    - learner: "Dritto, poi al semaforo a destra. E poi?"
+    - tutor: "Poi c'è una piazza grande. La stazione è lì, a sinistra."
+      goals: [understand]
+    - learner: "Ho capito. Posso andare in piedi?"
+      errors: [preposition]
+    - tutor: "In piedi? Così sta fermo, non cammina! Provi un'altra preposizione."
+      prompt: {text: "in piedi", tags: [preposition]}
+    - learner: "Posso andare con piedi?"
+      errors: [preposition]
+    - tutor: "Sì, certo, a piedi sono dieci minuti."
+      recast: {text: "con piedi", fix: "a piedi", tags: [preposition]}
+    - learner: "Perfetto. Grazie, ciao!"
+      errors: [register]
+    - tutor: "Ciao? Non siamo amici, ci conosciamo da cinque minuti!"
+      prompt: {text: "ciao", tags: [register]}
+    - learner: "Ah, giusto: grazie, arrivederci!"
+    - tutor: "Arrivederci, e buon viaggio!"
+      goals: [thank]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-f-teacher
+  history: [register, conditional-form]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire un conto, perché da settembre lavoro in una scuola qui vicino."
+    - tutor: "Benissimo, un conto per il lavoro, allora. Ha un documento con sé?"
+      goals: [purpose]
+    - learner: "Sì, ecco il passaporto. Ma quali documenti servono, esattamente?"
+    - tutor: "Il passaporto e il codice fiscale: nient'altro. Li ha tutti e due?"
+      goals: [documents]
+    - learner: "Sì, eccoli. Mi potrebbi spiegare i costi del conto?"
+      errors: [conditional-form]
+    - tutor: "Mi potrebbi...? Attenzione alla fine del verbo: sta parlando con me, con il lei."
+      prompt: {text: "potrebbi", tags: [conditional-form]}
+    - learner: "Mi potrebbe spiegare i costi del conto?"
+    - tutor: "Certo. Il conto costa due euro al mese, ma i primi sei mesi sono gratis."
+      goals: [costs]
+    - learner: "Bene. E la tarjeta? Posso usare anche l'app del telefono per fare i bonifici?"
+      errors: [word-choice]
+    - tutor: "Sì, la carta di debito è compresa, e con l'app può fare bonifici e controllare il conto."
+      recast: {text: "la tarjeta", fix: "la carta", tags: [word-choice]}
+      goals: [card]
+    - learner: "Perfetto. Allora dove firmo?"
+    - tutor: "Una firma qui e una qui, grazie. Ecco fatto: benvenuta nella nostra banca!"
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-retired
+  history: [register]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "A Firenze, domani mattina. Dammi un biglietto di andata e ritorno."
+      errors: [register]
+    - tutor: "Scusi, come ha detto? «Dammi»? Qui in stazione, con chi non conosce, è un po' troppo diretto."
+      prompt: {text: "Dammi un biglietto", tags: [register]}
+    - learner: "Mi scusi. Mi può dare un biglietto di andata e ritorno per Firenze?"
+    - tutor: "Certo. Preferisce il regionale o l'alta velocità?"
+      goals: [destination, type]
+    - learner: "Il regionale costa meno, vero? Allora il regionale, in seconda classe."
+    - tutor: "Sì, costa meno, ma ci mette un'ora in più. Seconda classe, va bene."
+      goals: [class]
+    - learner: "Non c'è problema, sono in pensione e ho tempo! Da quale piattaforma parte?"
+      errors: [word-choice]
+    - tutor: "Parte dal binario sei, alle dieci e venti. Si ricordi di convalidare il biglietto!"
+      recast: {text: "piattaforma", fix: "binario", tags: [word-choice]}
+      goals: [platform]
+      new: [{lemma: convalidare, gloss: to validate}]
+    - learner: "Grazie, è stato molto gentile."
+    - tutor: "Si figuri. Buon viaggio a Firenze!"
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-f-erasmus
+  history: [register, future-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita con un dermatologo, se è possibile."
+    - tutor: "Certo. Ha l'impegnativa del medico, o paga lei la visita?"
+      goals: [type]
+    - learner: "Pago io. Ho una mancha sul braccio e sono un po' preoccupata."
+      errors: [word-choice]
+    - tutor: "Capisco, una macchia sul braccio è meglio farla vedere. Il primo appuntamento libero è giovedì alle undici, con la dottoressa Ferri."
+      recast: {text: "una mancha", fix: "una macchia", tags: [word-choice]}
+      new: [{lemma: macchia, gloss: spot}]
+      goals: [availability]
+    - learner: "Giovedì va bene. Quanto costarà la visita?"
+      errors: [future-form]
+    - tutor: "Costarà? Pensi a «parlare»: domani io parlerò, lui parlerà... E con «costare»?"
+      prompt: {text: "costarà", tags: [future-form]}
+    - learner: "Ah: quanto costerrà la visita?"
+      errors: [future-form]
+    - tutor: "Costerà ottanta euro, e si paga qui il giorno della visita."
+      recast: {text: "costerrà", fix: "costerà", tags: [future-form]}
+      goals: [cost]
+    - learner: "D'accordo. Allora giovedì alle undici con la dottoressa Ferri. Mi chiamo Lucía Herrera."
+    - tutor: "Perfetto, signora Herrera, è tutto confermato. Le serve altro?"
+      goals: [confirm]
+    - learner: "No, grazie. Ciao, a giovedì!"
+      errors: [register]
+    - tutor: "Ciao? Al telefono con un centro medico, è il saluto giusto?"
+      prompt: {text: "Ciao", tags: [register]}
+    - learner: "Ah, scusi! Arrivederci, a giovedì."
+    - tutor: "Arrivederci, buona giornata!"
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-heritage
+  history: [register]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando freno, la macchina fa un rumore strano, come un fischio."
+    - tutor: "Un fischio quando frena? Da quanto tempo lo sente?"
+      goals: [describe]
+    - learner: "Da una settimana. Prima lo facevava solo la mattina, adesso sempre."
+      errors: [imperfetto-form]
+    - tutor: "Lo facevava? C'è un pezzo di troppo nel verbo!"
+      prompt: {text: "facevava", tags: [imperfetto-form]}
+    - learner: "Prima lo facava solo la mattina."
+      errors: [imperfetto-form]
+    - tutor: "Prima lo faceva solo la mattina, e adesso sempre? Allora probabilmente sono le pastiglie dei freni. Devo controllare."
+      recast: {text: "facava", fix: "faceva", tags: [imperfetto-form]}
+      goals: [when]
+      new: [{lemma: pastiglia, gloss: brake pad}]
+    - learner: "Ok, controlla tu e dimmi quanto costa."
+      errors: [register]
+    - tutor: "Controlla tu? Non siamo al bar tra amici: provi con il lei."
+      prompt: {text: "controlla tu e dimmi", tags: [register]}
+    - learner: "Scusi: controlli lei e mi dica quanto costa."
+    - tutor: "Benissimo. Se è solo quello, sono circa centoventi euro con il lavoro."
+      goals: [cost]
+    - learner: "Va bene. E quando sarà pronto la macchina? Mi serve per andare in ufficio."
+      errors: [adjective-agreement]
+    - tutor: "Pronto la macchina? Ci pensi: macchina è maschile o femminile?"
+      prompt: {text: "pronto la macchina", tags: [adjective-agreement]}
+    - learner: "Quando sarà pronti la macchina?"
+      errors: [adjective-agreement]
+    - tutor: "Sarà pronta domani pomeriggio: la chiamo io verso le cinque."
+      recast: {text: "pronti", fix: "pronta", tags: [adjective-agreement]}
+      goals: [time]
+    - learner: "Perfetto, grazie. Allora aspetto la sua telefonata."
+    - tutor: "D'accordo. A domani, e guidi piano!"

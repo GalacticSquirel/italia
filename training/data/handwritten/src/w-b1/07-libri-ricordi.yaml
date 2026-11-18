@@ -1,0 +1,245 @@
+# B1, broad coverage: a book club, childhood memories, volunteering.
+- scenario: film-libro
+  level: B1
+  persona: es-f-erasmus
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Inizio io! Ho letto «L'amica geniale». Parla di due amiche che crescono a Napoli negli anni Cinquanta."
+    - tutor: "Un libro bellissimo! E chi è il personaggio principale?"
+      goals: [summary]
+    - learner: "È Lenù, la ragazza che racconta la storia. Lila è l'amica di che lei è un po' gelosa."
+      errors: [relative-pronoun]
+    - tutor: "L'amica «di che» è gelosa? Dopo una preposizione, «che» va bene?"
+      prompt: {text: "di che", tags: [relative-pronoun]}
+    - learner: "L'amica di cui è un po' gelosa!"
+    - tutor: "Perfetto. E secondo te, com'è il libro?"
+      goals: [characters]
+    - learner: "Mi è piaciuto molto perché sembra tutto vero. Ma il principio è un po' lento."
+      errors: [false-friend]
+    - tutor: "È vero, l'inizio è un po' lento, ma poi non riesci più a smettere! A chi lo consiglieresti?"
+      recast: {text: "il principio", fix: "l'inizio", tags: [false-friend]}
+      goals: [opinion]
+    - learner: "Lo consiglierei a tutti chi amano le storie di amicizia."
+      errors: [relative-pronoun]
+    - tutor: "«A tutti chi amano»? Dopo «tutti», «chi» non funziona: come lo dici?"
+      prompt: {text: "tutti chi amano", tags: [relative-pronoun]}
+    - learner: "A tutti che amano le storie di amicizia."
+      errors: [relative-pronoun]
+    - tutor: "A tutti quelli che amano le storie di amicizia, e sono tanti! Grazie, ci hai fatto venire voglia di leggerlo."
+      recast: {text: "tutti che amano", fix: "tutti quelli che amano", tags: [relative-pronoun]}
+      goals: [recommend]
+
+- scenario: film-libro
+  level: B1
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Ho letto una novella di Camilleri. Un uomo ricco sparisce e il commissario deve trovarlo."
+      errors: [false-friend]
+    - tutor: "Un romanzo di Camilleri, che bello! E com'è il protagonista?"
+      recast: {text: "una novella", fix: "un romanzo", tags: [false-friend]}
+      goals: [summary]
+      new: [{lemma: protagonista, gloss: main character}]
+    - learner: "È un uomo intelligente e un po' brusco. Mi piace molto il modo che parla con la gente."
+      errors: [relative-pronoun]
+    - tutor: "Il modo «che parla»? Si parla in un certo modo: quale pronome serve?"
+      prompt: {text: "il modo che parla", tags: [relative-pronoun]}
+    - learner: "Il modo in cui parla con la gente."
+    - tutor: "Esatto! È uno dei personaggi più amati in Italia. E il finale?"
+      goals: [characters]
+    - learner: "Non vi racconto il finale! Però mentre ho letto l'ultimo capitolo, ho capito chi era il colpevole."
+      errors: [tense-aspect]
+    - tutor: "«Mentre ho letto»? Era un'azione in corso quando hai capito: quale tempo ci vuole?"
+      prompt: {text: "mentre ho letto", tags: [tense-aspect]}
+    - learner: "Mentre leggevo l'ultimo capitolo. Mi è piaciuto tantissimo: l'ho finito in due giorni."
+    - tutor: "Perfetto. Due giorni, allora ti ha preso davvero! A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "Lo consiglierei a chi piace i gialli."
+      errors: [piacere]
+    - tutor: "A chi «piace» i gialli? I gialli sono tanti: guarda bene il verbo."
+      prompt: {text: "piace i gialli", tags: [piacere]}
+    - learner: "A chi piacciono i gialli e la Sicilia."
+    - tutor: "Esatto! Allora lo leggerò anch'io questa estate."
+      goals: [recommend]
+
+- scenario: film-libro
+  level: B1
+  persona: en-f-student
+  history: [comparative]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Ho letto «Io non ho paura». Parla di un bambino di nove anni che vive in un piccolo villaggio del Sud e un giorno scopre un segreto terribile."
+      errors: [word-choice]
+    - tutor: "Un bambino in un piccolo paese del Sud e un segreto terribile: che storia forte! Com'è il bambino?"
+      recast: {text: "villaggio", fix: "paese", tags: [word-choice]}
+      goals: [summary]
+    - learner: "Si chiama Michele, è coraggioso e molto buono. Alla fine diventa più maturo che gli adulti."
+      errors: [comparative]
+    - tutor: "Più maturo «che gli adulti»? Quando confronti Michele con gli adulti, cosa ci vuole?"
+      prompt: {text: "più maturo che gli adulti", tags: [comparative]}
+    - learner: "Più maturo degli adulti."
+    - tutor: "Giusto, è proprio così. E a te è piaciuto?"
+      goals: [characters]
+      new: [{lemma: maturo, gloss: mature}]
+    - learner: "Sì, tantissimo, l'ho letto in una notte! Ma alcune scene mi hanno fatto tanto paura."
+      errors: [adjective-agreement]
+    - tutor: "«Tanto paura»? «Paura» è femminile: e allora?"
+      prompt: {text: "tanto paura", tags: [adjective-agreement]}
+    - learner: "Mi hanno fatto tanta paura, ma è un libro bellissimo."
+    - tutor: "Perfetto. Fa paura, sì, ma l'autore scrive benissimo. A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A tutti, ma non ai bambini piccoli: ci sono scene che possono spaventarli."
+    - tutor: "Giusto consiglio. Grazie, è stato un bell'inizio per la nostra serata!"
+      goals: [recommend]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: es-m-worker
+  history: [imperfetto-form]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "In un paese vicino a Córdoba, in Argentina. Abitavamo in una casa con un giardino grande."
+    - tutor: "Che bello! E cosa facevi tutto il giorno?"
+      goals: [place]
+    - learner: "Giocavo a calcio con i miei cugini. Ogni domenica mio nonno faciva l'asado per tutta la famiglia."
+      errors: [imperfetto-form]
+    - tutor: "Ogni domenica? Che fortuna! Ma «faciva»? Ripeti con calma il verbo."
+      prompt: {text: "faciva", tags: [imperfetto-form]}
+    - learner: "Mio nonno faceva l'asado."
+    - tutor: "Esatto. Un asado ogni domenica, che bel ricordo! E la scuola com'era?"
+      goals: [habits]
+    - learner: "Era piccola, avevamo solo due classi. La maestra era la madre di un mio amico ed era molto estricta."
+      errors: [word-choice]
+    - tutor: "Una maestra severa, e per di più mamma di un tuo amico: che situazione! Hai un ricordo speciale?"
+      recast: {text: "estricta", fix: "severa", tags: [word-choice]}
+      goals: [school]
+      new: [{lemma: severo, gloss: strict}]
+    - learner: "Sì. Quando avevo dieci anni, mi sono perso in campagna con mio cugino. Abbiamo camminato per ore e alla fine un contadino ci trovava."
+      errors: [tense-aspect]
+    - tutor: "Che paura! Ma «un contadino ci trovava»? È successo una volta, alla fine della storia: quale tempo ci vuole?"
+      prompt: {text: "ci trovava", tags: [tense-aspect]}
+      new: [{lemma: contadino, gloss: farmer}]
+    - learner: "Alla fine un contadino ci ha trovati e ci ha portati a casa."
+    - tutor: "Meno male! Chissà che spavento per i vostri genitori."
+      goals: [event]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-f-professional
+  history: [participle-agreement]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Sono cresciuta a Sydney, ma ogni estate andavo dai miei nonni in campagna."
+    - tutor: "In campagna, che bello! Cosa facevi lì?"
+      goals: [place]
+    - learner: "Andavo a cavallo e aiutavo mia nonna in giardino. La sera abbiamo guardato sempre le stelle."
+      errors: [tense-aspect]
+    - tutor: "«Abbiamo guardato sempre»? Lo facevate tutte le sere: quale tempo ci serve?"
+      prompt: {text: "abbiamo guardato sempre", tags: [tense-aspect]}
+    - learner: "Guardavamo sempre le stelle, con il nonno."
+    - tutor: "Esatto. Che bel ricordo! E a scuola com'eri?"
+      goals: [habits]
+    - learner: "Ero brava in inglese e storia. La matematica, invece, non mi piaceva per niente."
+    - tutor: "Neanche a me! E c'è un ricordo speciale di quelle estati?"
+      goals: [school]
+    - learner: "Quando avevo dodici anni, sono caduta da cavallo e mi sono rotto il braccio."
+      errors: [participle-agreement]
+    - tutor: "Oh no! Ma «mi sono rotto»? Stai parlando di te stessa: ascolta la fine della parola."
+      prompt: {text: "mi sono rotto", tags: [participle-agreement]}
+    - learner: "Sì, mi sono rotto il braccio sinistro."
+      errors: [participle-agreement]
+    - tutor: "Ti sei rotta il braccio sinistro, povera! Allora quell'estate niente cavallo."
+      recast: {text: "rotto", fix: "rotta", tags: [participle-agreement]}
+      goals: [event]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-m-retired
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Abitavo in una piccola città dell'Ohio. Era molto tranquilla: era un fiume e molti campi."
+      errors: [ce-ci-sono]
+    - tutor: "«Era un fiume»? Vuoi dire che lì il fiume esisteva: come lo diciamo?"
+      prompt: {text: "era un fiume", tags: [ce-ci-sono]}
+    - learner: "C'era un fiume e c'erano molti campi."
+    - tutor: "Perfetto. Sembra un bel posto! Cosa facevi da bambino?"
+      goals: [place]
+    - learner: "D'estate andavo a pescare con mio padre, e d'inverno andavamo a skate sul lago."
+      errors: [word-choice]
+    - tutor: "Andavate a pattinare sul lago? Che bello, qui da noi non fa mai così freddo! E la scuola?"
+      recast: {text: "a skate", fix: "a pattinare", tags: [word-choice]}
+      goals: [habits]
+      new: [{lemma: pattinare, gloss: to skate}]
+    - learner: "Era lontana: ogni mattina prendevo l'autobus giallo. Il mio insegnante preferito era quello di scienze."
+    - tutor: "Ecco perché ti piacciono tanto le scienze! Hai un ricordo speciale?"
+      goals: [school]
+    - learner: "Nel 1962 c'è stata un'alluvione e l'acqua è arrivata fino alla nostra casa. Siamo dovuto andare dai vicini per una settimana."
+      errors: [participle-agreement]
+    - tutor: "Che paura! Ma «siamo dovuto»? Eravate in tanti: ascolta la fine della parola."
+      prompt: {text: "Siamo dovuto", tags: [participle-agreement]}
+    - learner: "Siamo dovuti andare dai vicini."
+    - tutor: "Esatto. Una settimana dai vicini: per un bambino era quasi una vacanza!"
+      goals: [event]
+
+- scenario: volontariato
+  level: B1
+  persona: es-f-teacher
+  history: [conditional-form]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Sì, molto! Sono insegnante e il sabato ho tempo libero. Vorrei aiutare la gente che lo necessita."
+      errors: [word-choice]
+    - tutor: "Aiutare chi ne ha bisogno è proprio il nostro lavoro, benvenuta! Cosa sai fare?"
+      recast: {text: "lo necessita", fix: "ne ha bisogno", tags: [word-choice]}
+      goals: [motivation]
+    - learner: "So insegnare e parlo tre lingue. Potrei aiutare i bambini stranieri a fare i deberes."
+      errors: [word-choice]
+    - tutor: "Aiutare i bambini stranieri a fare i compiti? Fantastico, ci serve tantissimo!"
+      recast: {text: "deberes", fix: "compiti", tags: [word-choice]}
+      goals: [skills]
+    - learner: "Io sarei disponibile il sabato mattina, dalle nove alle dodici."
+    - tutor: "Perfetto, è proprio l'orario del doposcuola. Vengono circa quindici bambini."
+      goals: [time]
+      new: [{lemma: doposcuola, gloss: after-school club}]
+    - learner: "Che attività ci sono, oltre i compiti?"
+      errors: [preposition]
+    - tutor: "Oltre... «i compiti»? Dopo «oltre» manca qualcosa."
+      prompt: {text: "oltre i compiti", tags: [preposition]}
+    - learner: "Oltre ai compiti!"
+    - tutor: "Esatto. Facciamo anche teatro e un corso di cucina. Quale preferisci?"
+    - learner: "Mi piacerebbe il teatro, sarebbe molto divertente. Lo facevo anche a scuola con i miei alunni."
+    - tutor: "Allora sei la persona giusta! Ti aspettiamo sabato alle nove."
+      goals: [choose]
+
+- scenario: volontariato
+  level: B1
+  persona: en-m-traveller
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Ciao! Sì, resto qui sei mesi e vorrei restituire qualcosa a questa città, che è stata molto gentile con me."
+    - tutor: "Che bel pensiero! E cosa sai fare?"
+      goals: [motivation]
+    - learner: "So cucinare per tanta gente: in Irlanda ho lavorato in un ostello e ho cucinato ogni sera per trenta persone."
+      errors: [tense-aspect]
+    - tutor: "Trenta persone! Ma «ho cucinato ogni sera»? Era una cosa di tutti i giorni in quel periodo: quale tempo usiamo?"
+      prompt: {text: "ho cucinato ogni sera", tags: [tense-aspect]}
+    - learner: "Cucinavo ogni sera per trenta persone. E suono anche la chitarra."
+    - tutor: "Perfetto! In cucina ci serve proprio qualcuno come te. Quando sei libero?"
+      goals: [skills]
+    - learner: "Posso venire tre volte a settimana. Attualmente il pomeriggio è meglio per me, perché la mattina lavoro in un bar."
+      errors: [false-friend]
+    - tutor: "In realtà il pomeriggio va benissimo anche per noi. Puoi scegliere tra la mensa per chi non ha casa e la casa di riposo, dove cercano qualcuno per fare musica."
+      recast: {text: "Attualmente", fix: "In realtà", tags: [false-friend]}
+      goals: [time]
+      new: [{lemma: mensa, gloss: canteen}]
+    - learner: "La mensa mi piace, ma anche la casa di riposo, cui gli anziani ascoltano musica, sembra bella."
+      errors: [relative-pronoun]
+    - tutor: "La casa di riposo «cui gli anziani ascoltano musica»? Qui parliamo di un posto: quale parola serve?"
+      prompt: {text: "cui gli anziani", tags: [relative-pronoun]}
+    - learner: "In cui gli anziani ascoltano musica! Allora scelgo la mensa, ma una volta al mese vengo a suonare dagli anziani."
+    - tutor: "Esatto, perfetto! Gli anziani saranno felicissimi di ascoltarti."
+      goals: [choose]

@@ -1,0 +1,240 @@
+# B1, broad coverage: at the mechanic's, complaining at a hotel, returning an item.
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Fa un rumore strano quando freno, come un fischio. È la macchina di un amico, sto facendo un viaggio con lei."
+    - tutor: "Un rumore quando frena: probabilmente sono i freni da cambiare. Da quando lo fa?"
+      goals: [describe]
+      new: [{lemma: frenare, gloss: to brake}]
+    - learner: "Ieri guidavo in autostrada e all'improvviso sentivo un rumore forte."
+      errors: [tense-aspect]
+    - tutor: "«All'improvviso sentivo»? È successo in un momento preciso: quale tempo del passato serve?"
+      prompt: {text: "all'improvviso sentivo", tags: [tense-aspect]}
+    - learner: "All'improvviso ho sentito un rumore forte."
+    - tutor: "Esatto. Quindi da ieri. Adesso le controllo i freni."
+      goals: [when]
+    - learner: "Quanto costerà? Ho un budget piccolo, sono un po' broke."
+      errors: [word-choice]
+    - tutor: "Se è un po' al verde, non si preoccupi: se è solo questo pezzo, sono circa 120 euro, lavoro compreso."
+      recast: {text: "broke", fix: "al verde", tags: [word-choice]}
+      goals: [cost]
+    - learner: "Va bene. E quando la macchina esserà pronta? Domani parto per Firenze."
+      errors: [future-form]
+    - tutor: "Quando la macchina... «esserà» pronta? Il futuro di «essere» ha una forma tutta sua."
+      prompt: {text: "esserà", tags: [future-form]}
+    - learner: "Quando esserà pronta, scusi?"
+      errors: [future-form]
+    - tutor: "Sarà pronta stasera alle sei, così domani parte tranquillo per Firenze."
+      recast: {text: "esserà", fix: "sarà", tags: [future-form]}
+      goals: [time]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando accendo il motore, la macchina fa un rumore di metallo e si accende una luce rossa."
+    - tutor: "Una luce rossa? Può essere l'olio del motore. Da quanto tempo succede?"
+      goals: [describe]
+    - learner: "Da una semana. All'inizio era un rumore piccolo, ma ieri è diventato fortissimo."
+      errors: [word-choice]
+    - tutor: "Da una settimana? Allora meglio non usarla più finché non la controllo. Me la lasci qui oggi."
+      recast: {text: "semana", fix: "settimana", tags: [word-choice]}
+      goals: [when]
+    - learner: "Va bene. Quanto costarà la riparazione?"
+      errors: [future-form]
+    - tutor: "Scusi, «costarà»? Provi di nuovo: il futuro di «costare»."
+      prompt: {text: "costarà", tags: [future-form]}
+    - learner: "Costerà... quanto costerà la riparazione?"
+    - tutor: "Esatto. Le preparo un preventivo entro domani. Se è solo l'olio sono 80 euro, se è un pezzo del motore molto di più."
+      goals: [cost]
+    - learner: "Capisco. E quando sarà pronta? Venerdì devo portare i miei alunni in una excursión."
+      errors: [word-choice]
+    - tutor: "Per la gita di venerdì non si preoccupi: se il pezzo arriva domani, la macchina sarà pronta giovedì."
+      recast: {text: "excursión", fix: "gita", tags: [word-choice]}
+      goals: [time]
+      new: [{lemma: gita, gloss: school trip, outing}]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Ho una gomma bucata, quella davanti a destra. L'ho vista così stamattina, quando sono uscita."
+    - tutor: "Vediamo... sì, c'è un chiodo. Ieri sera era tutto normale?"
+      goals: [describe]
+      new: [{lemma: chiodo, gloss: nail}]
+    - learner: "Sì, ieri sera era tutto normale quando ho parcato."
+      errors: [word-choice]
+    - tutor: "Quindi quando ha parcheggiato era tutto a posto: allora è successo di notte, piano piano."
+      recast: {text: "parcato", fix: "parcheggiato", tags: [word-choice]}
+      goals: [when]
+      new: [{lemma: parcheggiare, gloss: to park}]
+    - learner: "Il meccanico che sono andata l'anno scorso mi ha detto che le gomme erano vecchie."
+      errors: [relative-pronoun]
+    - tutor: "Il meccanico «che sono andata»? Si va da qualcuno: come cambia il pronome?"
+      prompt: {text: "che sono andata", tags: [relative-pronoun]}
+    - learner: "Il meccanico da che sono andata?"
+      errors: [relative-pronoun]
+    - tutor: "Il meccanico da cui è andata aveva ragione: le gomme sono vecchie, e anche quelle dietro."
+      recast: {text: "da che", fix: "da cui", tags: [relative-pronoun]}
+    - learner: "Allora quanto costerebbe cambiarle tutte e quattro?"
+    - tutor: "Quattro gomme nuove costano 360 euro, lavoro compreso."
+      goals: [cost]
+    - learner: "È caro, ma è più sicuro. A che ora potrò venire a prenderla?"
+    - tutor: "Domani alle dodici è pronta. Le mando un messaggio quando ho finito."
+      goals: [time]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-retired
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. L'aria condizionata nella nostra camera non funziona da quando abbiamo arrivato, alle sei."
+      errors: [auxiliary-choice]
+    - tutor: "Mi dispiace molto. Ma «abbiamo arrivato»? Con i verbi di movimento come «arrivare», quale verbo usiamo prima?"
+      goals: [problem]
+      prompt: {text: "abbiamo arrivato", tags: [auxiliary-choice]}
+    - learner: "Da quando siamo arrivati, alle sei."
+    - tutor: "Esatto. Quindi da quattro ore, e con questo caldo! Mi scusi davvero."
+      goals: [since]
+    - learner: "Potreste cambiarci la camera? Mia moglie è molto stanca, e io sono molto annoiato."
+      errors: [false-friend]
+    - tutor: "Capisco che sia infastidito, ha ragione. Purtroppo stasera l'albergo è pieno, ma posso portarvi un ventilatore."
+      recast: {text: "annoiato", fix: "infastidito", tags: [false-friend]}
+      goals: [request]
+      new: [{lemma: infastidito, gloss: annoyed}, {lemma: ventilatore, gloss: fan}]
+    - learner: "Un ventilatore non basta. Vorrei che ci fate uno sconto per questa notte."
+      errors: [subjunctive-use]
+    - tutor: "«Vorrei che ci fate»? Dopo «vorrei che», il verbo cambia modo. Provi ancora."
+      prompt: {text: "ci fate", tags: [subjunctive-use]}
+    - learner: "Vorrei che ci faceste uno sconto."
+    - tutor: "Giusto. E ha ragione: vi tolgo il trenta per cento su questa notte. Va bene?"
+    - learner: "D'accordo, grazie. È una soluzione giusta."
+    - tutor: "Grazie a lei per la pazienza. Buona notte!"
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, c'è un problema con la doccia: non esce agua calda."
+      errors: [word-choice]
+    - tutor: "Non esce acqua calda? Mi dispiace molto. Da quando?"
+      recast: {text: "agua", fix: "acqua", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Da ieri sera. Ho chiamato alle dieci, ma nessuno mi ha risposto."
+    - tutor: "Ha ragione, non doveva succedere. Cosa posso fare per lei?"
+      goals: [since]
+    - learner: "Potrebbe mandare qualcuno a ripararla? E mi servono asciugamani puliti: in camera non ho nessuno."
+      errors: [ci-ne]
+    - tutor: "Certo. Però «non ho nessuno»? Così sembra che parli di persone! Quale piccola parola sostituisce «asciugamani»?"
+      prompt: {text: "non ho nessuno", tags: [ci-ne]}
+    - learner: "Ah: non ne ho nessuno!"
+    - tutor: "Esatto. Le mando subito gli asciugamani e qualcuno per la doccia. Se non riesce a ripararla, le do la camera 214."
+      goals: [request]
+      new: [{lemma: asciugamano, gloss: towel}]
+    - learner: "Grazie. Però preferirei di restare nella mia camera, se possibile."
+      errors: [preposition]
+    - tutor: "«Preferirei di restare»? C'è una parola di troppo, provi a toglierla."
+      prompt: {text: "preferirei di restare", tags: [preposition]}
+    - learner: "Preferirei restare nella mia camera. Aspetto qui."
+    - tutor: "Perfetto, allora aspetti in camera: tra dieci minuti arriva qualcuno. E domani la colazione è offerta da noi."
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Mi scusi, nella camera accanto fanno una festa e c'è musica altissima."
+    - tutor: "Oh, mi dispiace. Da quanto tempo va avanti?"
+      goals: [problem]
+    - learner: "Da due ore. Quando sono tornata alle dieci, la musica ha già suonato."
+      errors: [tense-aspect]
+    - tutor: "«Ha già suonato»? Quando è tornata, la musica era già in corso: quale tempo usiamo per descriverla?"
+      prompt: {text: "ha già suonato", tags: [tense-aspect]}
+    - learner: "La musica suonava già."
+    - tutor: "Esatto. Due ore sono tante, mi scusi davvero."
+      goals: [since]
+    - learner: "Domani ho un esame alle otto. Potrebbe parlare con loro, o darmi un'altra stanza? Sono molto stressed."
+      errors: [word-choice]
+    - tutor: "Capisco, prima di un esame è normale essere stressata. Salgo subito a parlare con loro, o le do una camera all'ultimo piano."
+      recast: {text: "stressed", fix: "stressata", tags: [word-choice]}
+      goals: [request]
+      new: [{lemma: stressato, gloss: stressed}]
+    - learner: "Grazie, ma preferirebbi cambiare subito."
+      errors: [conditional-form]
+    - tutor: "Certo. «Preferirebbi»? Ascolti bene la fine del verbo, con «io»."
+      prompt: {text: "preferirebbi", tags: [conditional-form]}
+    - learner: "Preferirei cambiare subito. Grazie mille!"
+    - tutor: "Ecco la chiave della 512, è molto tranquilla. Buona notte, e in bocca al lupo per l'esame!"
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie due settimane fa e il lato sinistro non funziona più."
+    - tutor: "Mi dispiace. Le ha provate con un altro telefono?"
+      goals: [problem]
+    - learner: "Sì, ma niente. Ho anche il ricevuto, eccolo."
+      errors: [word-choice]
+    - tutor: "Ah, ha lo scontrino, perfetto. Sì, sono ancora in garanzia."
+      recast: {text: "il ricevuto", fix: "lo scontrino", tags: [word-choice]}
+      goals: [proof]
+    - learner: "Vorrei un rimborso, per favore. Non voglio sostituirli."
+      errors: [object-pronoun]
+    - tutor: "«Sostituirli»? Stiamo parlando delle cuffie: il pronome va bene?"
+      prompt: {text: "sostituirli", tags: [object-pronoun]}
+    - learner: "Non voglio sostituirle."
+    - tutor: "Giusto. Purtroppo dopo quattordici giorni non facciamo rimborsi: possiamo darle cuffie nuove o un buono."
+      goals: [request]
+    - learner: "Allora prendo un buono, così posso comprare cuffie più buone."
+      errors: [comparative]
+    - tutor: "Cuffie «più buone»? Per la qualità di un oggetto, c'è una parola sola."
+      prompt: {text: "più buone", tags: [comparative]}
+    - learner: "Sì, cuffie più buone."
+      errors: [comparative]
+    - tutor: "Certo, con il buono può prendere cuffie migliori. Ecco: sono 79 euro e lo può usare per sei mesi."
+      recast: {text: "più buone", fix: "migliori", tags: [comparative]}
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questo asciugacapelli sabato, ecco lo scontrino. Ieri, mentre lo usavo, ha cominciato a fare fumo."
+    - tutor: "Fumo? Ha fatto bene a non usarlo più. Vediamo... sì, è stato comprato qui sabato."
+      goals: [problem, proof]
+    - learner: "Vorrei un altro uguale, ma che funziona."
+      errors: [subjunctive-use]
+    - tutor: "Certo! Ma «uno che funziona»: qui è un desiderio. Dopo «che», quale forma del verbo usiamo?"
+      prompt: {text: "che funziona", tags: [subjunctive-use]}
+    - learner: "Un altro uguale, ma che funzioni!"
+    - tutor: "Esatto, ah ah! Però questo modello è finito: le va bene quello nuovo?"
+      goals: [request]
+    - learner: "Va bene, ma lo voglio oggi: ho bisogno subito, perché domani parto."
+      errors: [ci-ne]
+    - tutor: "Ha bisogno... di cosa? Manca la piccola parola che vuol dire «di questa cosa»."
+      prompt: {text: "ho bisogno subito", tags: [ci-ne]}
+    - learner: "Ne ho bisogno subito!"
+    - tutor: "Perfetto. Glielo do adesso: costa cinque euro in più, ma la differenza la paghiamo noi."
+    - learner: "Grazie, è molto amable."
+      errors: [word-choice]
+    - tutor: "È molto gentile lei! Ecco il nuovo modello, e buon viaggio."
+      recast: {text: "amable", fix: "gentile", tags: [word-choice]}
+      goals: [agree]

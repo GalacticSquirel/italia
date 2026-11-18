@@ -1,0 +1,271 @@
+# w-raretags, file 06: B1, ce-ci-sono, essere-avere, word-order, spelling, possessive,
+# demonstrative, imperfetto-form and verb-form in services, work and clubs.
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-retired
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, nella mia camera è un odore strano, come di fumo."
+      errors: [ce-ci-sono]
+    - tutor: "Nella sua camera... è un odore? Scusi, non ho capito bene."
+      prompt: {text: "è un odore strano", tags: [ce-ci-sono]}
+    - learner: "Sì, è un odore di fumo, molto forte."
+      errors: [ce-ci-sono]
+    - tutor: "Se c'è un odore di fumo è un problema serio, mi scusi. Da quando lo sente?"
+      goals: [problem]
+      recast: {text: "è un odore di fumo", fix: "c'è un odore di fumo", tags: [ce-ci-sono]}
+    - learner: "Da quando sono arrivato, ieri sera. Ho tenuto la finestra aperta tutta la notte."
+    - tutor: "Mi dispiace davvero. Che cosa posso fare per lei?"
+      goals: [since]
+    - learner: "Vorrei un'altra camera, per non fumatori. È possibile di avere una camera più tranquilla?"
+      errors: [preposition]
+    - tutor: "È possibile di avere? Mmm, c'è una parola di troppo."
+      prompt: {text: "È possibile di avere", tags: [preposition]}
+    - learner: "È possibile avere una camera tranquilla?"
+    - tutor: "Certo. Le do la 412, all'ultimo piano, lontana dalla strada."
+      goals: [request]
+    - learner: "Grazie. Ma per la notte di ieri vorrei un sconto, perché ho dormito pochissimo."
+      errors: [article-form]
+    - tutor: "Un sconto? Guardi bene l'articolo davanti a «sconto»."
+      prompt: {text: "un sconto", tags: [article-form]}
+    - learner: "Uno sconto, scusi."
+    - tutor: "Ha ragione: le tolgo la notte di ieri dal conto. Va bene così?"
+    - learner: "Sì, va benissimo. Grazie della comprensione."
+    - tutor: "Grazie a lei per la pazienza. Ecco la chiave della 412, buona notte."
+      goals: [agree]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-f-student
+  history: [essere-avere, ce-ci-sono]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita dal dermatologo, per una macchia sul braccio."
+    - tutor: "Certo. Ha l'impegnativa del medico di base?"
+      goals: [type]
+    - learner: "Sì, ce l'ho. È urgente? Sono un po' paura, perché la macchia è diventata più grande."
+      errors: [essere-avere]
+    - tutor: "Sono un po' paura? Ci pensi un attimo: quale verbo usiamo con «paura»?"
+      prompt: {text: "Sono un po' paura", tags: [essere-avere]}
+    - learner: "Ho un po' paura, ecco."
+    - tutor: "È normale, non si preoccupi. Il primo posto libero è giovedì prossimo alle undici."
+    - learner: "Giovedì non posso, lavoro. È un posto sabato mattina?"
+      errors: [ce-ci-sono]
+    - tutor: "È un posto sabato? Che cosa mi sta chiedendo, esattamente?"
+      prompt: {text: "È un posto", tags: [ce-ci-sono]}
+    - learner: "C'è un posto sabato mattina?"
+    - tutor: "Sì, sabato alle nove e mezza."
+      goals: [availability]
+    - learner: "Perfetto. Quanto costa? E devo portare la mia prescrizione?"
+      errors: [false-friend]
+    - tutor: "Non serve la ricetta, basta l'impegnativa. La visita costa trentasei euro."
+      goals: [cost]
+      recast: {text: "prescrizione", fix: "ricetta", tags: [false-friend]}
+    - learner: "Allora: sabato alle nove e mezza, con l'impegnativa e i esami vecchi."
+      errors: [article-form]
+    - tutor: "I esami? Guardi bene l'articolo davanti a «esami»."
+      prompt: {text: "i esami", tags: [article-form]}
+    - learner: "Gli esami vecchi, certo."
+    - tutor: "Esatto, tutto giusto. A sabato!"
+      goals: [confirm]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-f-student
+  history: [word-order, article-use]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei un biglietto per Firenze per domani mattina. A che ora parte il treno prossimo?"
+      errors: [word-order]
+    - tutor: "Il treno prossimo? Provi a spostare una parola."
+      prompt: {text: "il treno prossimo", tags: [word-order]}
+    - learner: "Sì, il treno prossimo per Firenze."
+      errors: [word-order]
+    - tutor: "Il prossimo treno per Firenze parte alle otto e un quarto. Solo andata?"
+      goals: [destination]
+      recast: {text: "il treno prossimo", fix: "il prossimo treno", tags: [word-order]}
+    - learner: "No, andata e ritorno. Per il ritorno posso decidere l'ora più tardi?"
+    - tutor: "Sì, con questo biglietto può cambiare l'ora senza pagare niente."
+      goals: [type]
+    - learner: "Perfetto. Preferisco seconda classe, vicino al finestrino."
+      errors: [article-use]
+    - tutor: "Preferisco seconda classe? Manca una piccola parola."
+      prompt: {text: "Preferisco seconda classe", tags: [article-use]}
+    - learner: "Preferisco la seconda classe."
+    - tutor: "Ecco: posto quattordici, vicino al finestrino."
+      goals: [class]
+    - learner: "Grazie. Sa da che binario parte? Di solito sempre cambia all'ultimo momento."
+      errors: [word-order]
+    - tutor: "Di solito sempre cambia? Quella frase suona strana."
+      prompt: {text: "sempre cambia", tags: [word-order]}
+    - learner: "Di solito cambia sempre all'ultimo momento!"
+    - tutor: "Ha ragione! Di solito parte dal binario otto, ma controlli prima di salire."
+      goals: [platform]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: es-m-worker
+  history: [spelling]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Va abbastanza bene. Il sito per il cliente è quasi pronto, pero ci sono ancora problemi con i pagamenti online."
+      errors: [spelling]
+    - tutor: "Pero? Guarda bene quella parola."
+      prompt: {text: "pero", tags: [spelling]}
+    - learner: "Però ci sono ancora problemi."
+    - tutor: "Esatto. Che tipo di problemi?"
+      goals: [update]
+    - learner: "Il sistema di pagamento è lento e qualche volta da un errore."
+      errors: [spelling]
+    - tutor: "Da un errore? Anche qui manca qualcosa."
+      prompt: {text: "da un errore", tags: [spelling]}
+    - learner: "Sì, qualche volta da un errore."
+      errors: [spelling]
+    - tutor: "Se il sistema dà un errore, i clienti se ne vanno. Hai un'idea per risolvere?"
+      goals: [problem]
+      recast: {text: "da un errore", fix: "dà un errore", tags: [spelling]}
+    - learner: "Propongo di cambiare sistema. Ce n'è uno italiano che costa meno ed è più veloce."
+    - tutor: "Mi piace. Quanto tempo ti serve?"
+      goals: [proposal]
+    - learner: "Mi servono due settimane, quindi la scadenza puo essere venerdì 20?"
+      errors: [spelling]
+    - tutor: "Puo? Ultimo accento della giornata, promesso!"
+      prompt: {text: "puo", tags: [spelling]}
+    - learner: "Può essere venerdì 20?"
+    - tutor: "Perfetto, venerdì 20. Lo dico subito anche al cliente."
+      goals: [deadline]
+
+- scenario: smartworking
+  level: B1
+  persona: en-f-professional
+  history: [possessive, ce-ci-sono]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Lavoro da casa tre giorni a settimana. Il mio marito lavora anche lui da casa, quindi siamo sempre insieme."
+      errors: [possessive]
+    - tutor: "Il mio marito? Qui c'è qualcosa in più."
+      prompt: {text: "Il mio marito", tags: [possessive]}
+    - learner: "Mio marito, scusa."
+    - tutor: "Esatto! Sempre insieme, eh? E com'è questa situazione?"
+      goals: [situation]
+    - learner: "Il vantaggio è che risparmio un'ora di treno al giorno e posso cucinare a pranzo."
+    - tutor: "Un'ora al giorno è tanto! E gli svantaggi?"
+      goals: [pros]
+    - learner: "A volte mi sento sola. E poi in casa non è un posto tranquillo per lavorare."
+      errors: [ce-ci-sono]
+    - tutor: "Non è un posto tranquillo? Intendi la casa in generale?"
+      prompt: {text: "non è un posto tranquillo", tags: [ce-ci-sono]}
+    - learner: "No, voglio dire che in casa non è un posto solo per me."
+      errors: [ce-ci-sono]
+    - tutor: "Ah, non c'è un posto solo per te, capisco. Così è difficile concentrarsi."
+      goals: [cons]
+      recast: {text: "non è un posto", fix: "non c'è un posto", tags: [ce-ci-sono]}
+    - learner: "Esatto. Io preferirei di andare in ufficio due giorni e lavorare da casa tre."
+      errors: [preposition]
+    - tutor: "Preferirei di andare? Prova senza una parola."
+      prompt: {text: "preferirei di andare", tags: [preposition]}
+    - learner: "Preferirei andare in ufficio due giorni."
+    - tutor: "Mi sembra la soluzione migliore: un po' di colleghi e un po' di pace."
+      goals: [preference]
+
+- scenario: film-libro
+  level: B1
+  persona: es-f-teacher
+  history: [demonstrative, piacere]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io! Ho letto «L'amica geniale». Quello libro parla di due amiche a Napoli negli anni Cinquanta."
+      errors: [demonstrative]
+    - tutor: "Quello libro? Ascolta bene come suona."
+      prompt: {text: "Quello libro", tags: [demonstrative]}
+    - learner: "Quel libro parla di due amiche a Napoli."
+    - tutor: "Un classico! Com'è il personaggio principale?"
+      goals: [summary]
+    - learner: "Lenù è timida, ma molto intelligente. Lila invece è più coraggiosa e un po' pericolosa."
+    - tutor: "Le hai descritte molto bene. E a te, com'è sembrato?"
+      goals: [characters]
+    - learner: "Mi è piaciuto molto, però all'inizio quegli nomi sono difficili da ricordare."
+      errors: [demonstrative]
+    - tutor: "Quegli nomi? Guarda la prima lettera di «nomi»."
+      prompt: {text: "quegli nomi", tags: [demonstrative]}
+    - learner: "Quelli nomi, sì, sono tantissimi."
+      errors: [demonstrative]
+    - tutor: "Hai ragione, quei nomi all'inizio confondono tutti! Per fortuna c'è la lista dei personaggi."
+      goals: [opinion]
+      recast: {text: "Quelli nomi", fix: "quei nomi", tags: [demonstrative]}
+    - learner: "Lo consiglio a chi piace le storie lunghe."
+      errors: [piacere]
+    - tutor: "A chi piace le storie? Guarda bene il verbo."
+      prompt: {text: "a chi piace le storie lunghe", tags: [piacere]}
+    - learner: "A chi piacciono le storie lunghe e intense."
+    - tutor: "Perfetto. Allora lo segno nella lista dei consigli del mese!"
+      goals: [recommend]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [imperfetto-form, word-order]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo David, ho ventotto anni e sono cresciuto a Toronto, ma la mia famiglia è di Lecce."
+    - tutor: "Piacere. Che esperienze di lavoro ha?"
+      goals: [intro]
+    - learner: "Quando studiavo all'università, favo il cameriere in un ristorante italiano."
+      errors: [imperfetto-form]
+    - tutor: "Favo? Ci pensi: il verbo è fare."
+      prompt: {text: "favo", tags: [imperfetto-form]}
+    - learner: "Facevo il cameriere, il venerdì e il sabato."
+    - tutor: "Bene. E dopo l'università?"
+    - learner: "Ho lavorato tre anni in un'agenzia di viaggi. Organizzavo viaggi in Italia e parlevo con i clienti ogni giorno."
+      errors: [imperfetto-form]
+    - tutor: "Parlevo? È lo stesso tipo di verbo di «organizzavo»."
+      prompt: {text: "parlevo", tags: [imperfetto-form]}
+    - learner: "Parlavo con i clienti!"
+    - tutor: "Esatto. E quali sono i suoi punti di forza?"
+      goals: [experience]
+    - learner: "Sono molto organizzato e so lavorare in squadra. Il mio debole punto è che sono un po' impaziente."
+      errors: [word-order]
+    - tutor: "Il mio debole punto? L'ordine non mi convince."
+      prompt: {text: "Il mio debole punto", tags: [word-order]}
+    - learner: "Il mio punto debole è l'impazienza."
+    - tutor: "Almeno è sincero! Perché vuole proprio questo lavoro?"
+      goals: [strengths]
+    - learner: "Perché amo la cultura italiana e voglio usare l'italiano ogni giorno. Posso fare una domanda? Quante persone sono nella squadra?"
+      errors: [ce-ci-sono]
+    - tutor: "Ottimo motivo. Quante persone sono? Mmm, manca una parola prima di «sono»."
+      goals: [why]
+      prompt: {text: "Quante persone sono", tags: [ce-ci-sono]}
+    - learner: "Quante persone ci sono nella squadra?"
+    - tutor: "Siamo in sei, tutti giovani. Le faremo sapere entro venerdì."
+      goals: [questions]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: es-m-worker
+  history: [verb-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per sabato sera. Venimo in otto."
+      errors: [verb-form]
+    - tutor: "Venimo? Scusi, non ho capito il verbo."
+      goals: [book]
+      prompt: {text: "Venimo", tags: [verb-form]}
+    - learner: "Veniamo in otto, alle nove."
+    - tutor: "Perfetto, otto persone alle nove."
+      goals: [details]
+    - learner: "C'è la possibilità di mangiare fuori? Se fa caldo preferimo la terrazza."
+      errors: [verb-form]
+    - tutor: "Preferimo? Stesso problema di prima."
+      prompt: {text: "preferimo", tags: [verb-form]}
+    - learner: "Preferiamo la terrazza!"
+    - tutor: "Esatto. La terrazza va benissimo, a quell'ora è fresca. C'è altro?"
+    - learner: "Sì, abbiamo un bambino piccolo. Avete una sedia alta per lui?"
+      errors: [word-choice]
+    - tutor: "Sì, abbiamo un seggiolone, lo preparo io."
+      goals: [special]
+      recast: {text: "una sedia alta", fix: "un seggiolone", tags: [word-choice]}
+      new: [{lemma: seggiolone, gloss: high chair}]
+    - learner: "Grazie mille. La prenotazione è a nome di Ruiz, R-U-I-Z."
+    - tutor: "Perfetto, signor Ruiz: sabato alle nove, otto persone, fuori. A sabato!"
+      goals: [name]

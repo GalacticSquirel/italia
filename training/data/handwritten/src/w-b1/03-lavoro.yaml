@@ -1,0 +1,258 @@
+# B1, broad coverage: job interviews, team meetings, working from home.
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Lucía, sono di Valencia e sono licenziata in Belle Arti."
+      errors: [false-friend]
+    - tutor: "Ah, è laureata in Belle Arti, molto bene. E finora che lavoro ha fatto?"
+      recast: {text: "licenziata", fix: "laureata", tags: [false-friend]}
+      goals: [intro]
+      new: [{lemma: laureato, gloss: graduate}]
+    - learner: "Per dieci anni ho insegnato disegno in una scuola. In quegli anni ho preparato sempre i materiali per i corsi online."
+      errors: [tense-aspect]
+    - tutor: "«Ho preparato sempre»? Lo faceva sempre, per anni: quale tempo del passato ci vuole?"
+      prompt: {text: "ho preparato sempre", tags: [tense-aspect]}
+    - learner: "Preparavo sempre i materiali. E nel 2022 ho vinto un premio per un progetto digitale."
+    - tutor: "Esatto. Un premio, che bello! Ci servono proprio persone così. Quali sono i suoi punti forti?"
+      goals: [experience]
+    - learner: "Sono organizzata e paziente. Però il mio difetto è che sono troppo exigente con me stessa."
+      errors: [spelling]
+    - tutor: "È un difetto che molti vorrebbero avere! Solo una cosa: «exigente» si scrive così in italiano?"
+      prompt: {text: "exigente", tags: [spelling]}
+    - learner: "Ah no, esigente, con la s."
+    - tutor: "Giusto. E perché vorrebbe lavorare con noi?"
+      goals: [strengths]
+    - learner: "Perché fate progetti per le scuole e io conosco bene quel mondo. Vorria portare la mia esperienza."
+      errors: [conditional-form]
+    - tutor: "Ottimo motivo. Ma «vorria» sembra quasi spagnolo! Come si dice in italiano?"
+      prompt: {text: "Vorria", tags: [conditional-form]}
+    - learner: "Vorrei portare la mia esperienza qui. Posso farle una domanda? Quante persone lavorano nella squadra?"
+    - tutor: "Perfetto. Siamo in sei, tutti giovani e pieni di idee. La contatteremo entro la fine della settimana."
+      goals: [why, questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [essere-avere]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Marco, sono canadese ma i miei nonni erano di Avellino. Sono trentacinque anni."
+      errors: [essere-avere]
+    - tutor: "Piacere. «Sono trentacinque anni»? Per dire l'età, quale verbo usiamo in italiano?"
+      prompt: {text: "Sono trentacinque anni", tags: [essere-avere]}
+    - learner: "Ah, giusto: ho trentacinque anni."
+    - tutor: "Esatto. E che esperienza ha?"
+      goals: [intro]
+    - learner: "Faccio il web designer. A Toronto lavoravo per un'agenzia ed ero responsabile per i clienti più grandi."
+      errors: [preposition]
+    - tutor: "Interessante. Responsabile «per» i clienti? Con «responsabile» usiamo un'altra preposizione."
+      prompt: {text: "responsabile per", tags: [preposition]}
+    - learner: "Responsabile per tutti i clienti grandi, sì."
+      errors: [preposition]
+    - tutor: "Era responsabile di tutti i clienti più importanti? È un bel ruolo. Quali sono i suoi punti forti?"
+      recast: {text: "responsabile per", fix: "responsabile di", tags: [preposition]}
+      goals: [experience]
+    - learner: "Sono creativo e ho paura di niente quando c'è un problema difficile. Però a volte sono troppo lento."
+      errors: [negation]
+    - tutor: "«Ho paura di niente»? Con «niente», che cosa serve prima del verbo?"
+      prompt: {text: "ho paura di niente", tags: [negation]}
+    - learner: "Non ho paura di niente!"
+    - tutor: "Proprio così. Essere lenti a volte vuol dire essere precisi, non è un problema. Perché vuole lavorare qui?"
+      goals: [strengths]
+    - learner: "Mi piacciono i vostri progetti per i musei. E vorrei sapere: il lavoro è a tempo pieno?"
+    - tutor: "Sì, è a tempo pieno, ma il venerdì si può lavorare da casa. Le faremo sapere presto!"
+      goals: [why, questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno! Sono Emily, ho ventidue anni e ho appena graduato a Leeds in design."
+      errors: [false-friend]
+    - tutor: "Si è appena laureata in design? Brava! Ha già qualche esperienza di lavoro?"
+      recast: {text: "graduato", fix: "laureata", tags: [false-friend]}
+      goals: [intro]
+      new: [{lemma: laureato, gloss: graduate}]
+    - learner: "Sì, l'anno scorso ho fatto uno stage a Londra. Ogni giorno disegnavo grafiche e facevo le foto per sito."
+      errors: [article-use]
+    - tutor: "«Le foto per sito»? Manca qualcosa davanti a «sito»."
+      prompt: {text: "per sito", tags: [article-use]}
+    - learner: "Per il sito dell'azienda, scusi."
+    - tutor: "Giusto. E di quel periodo, qual è il progetto più bello?"
+      goals: [experience]
+    - learner: "Il progetto che sono più orgogliosa è una campagna per una marca di tè."
+      errors: [relative-pronoun]
+    - tutor: "Il progetto «che» sono più orgogliosa? Si è orgogliosi di qualcosa: quale pronome serve?"
+      prompt: {text: "che sono più orgogliosa", tags: [relative-pronoun]}
+    - learner: "Il progetto di cui sono più orgogliosa!"
+    - tutor: "Esatto. E quali sono i suoi punti forti e deboli? Perché vuole lavorare con noi?"
+    - learner: "Imparo velocemente, ma a volte sono disorganizzata. E voi fate design per l'ambiente: è importante per me. Dove lavorarò, a Milano o a Torino?"
+      errors: [future-form]
+    - tutor: "Bella risposta. Però «lavorarò»? Pensa a «parlare»: domani io parlerò. E allora con «lavorare»?"
+      goals: [strengths, why]
+      prompt: {text: "lavorarò", tags: [future-form]}
+    - learner: "Lavorerò! Dove lavorerò?"
+    - tutor: "Perfetto. Lavorerebbe a Milano, nel nostro ufficio vicino alla stazione. Le faremo sapere entro venerdì."
+      goals: [questions]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Abbiamo finito il design del nuovo sito e la prossima settimana cominciamo i test con il cliente."
+    - tutor: "Ottimo, siete avanti! Ci sono problemi?"
+      goals: [update]
+    - learner: "Sì, uno. Il cliente ha cambiato idea sui colori e vuole rifare la pagina principale. Credo che non finiremmo in tempo."
+      errors: [future-form]
+    - tutor: "Ah, che peccato. «Finiremmo»? Stai parlando di quello che succederà: che tempo serve?"
+      prompt: {text: "finiremmo", tags: [future-form]}
+    - learner: "Ah sì: credo che non finiremo in tempo."
+    - tutor: "Ecco. Capisco, è un bel ritardo. Hai già un'idea per risolverlo?"
+      goals: [problem]
+    - learner: "Potremmo chiedere aiuto a Paolo: lui ha finito il suo progetto e ha più tempo libero che noi."
+      errors: [comparative]
+    - tutor: "Più tempo libero... «che noi»? Quando confronti due persone, quale parola usi?"
+      prompt: {text: "più tempo libero che noi", tags: [comparative]}
+    - learner: "Sì, più tempo libero che noi."
+      errors: [comparative]
+    - tutor: "È vero, ha più tempo libero di noi, e con queste cose è bravissimo. Gli parli tu?"
+      recast: {text: "più tempo libero che noi", fix: "più tempo libero di noi", tags: [comparative]}
+      goals: [proposal]
+    - learner: "Sì, gli scrivo oggi. Poi ti mando lo schedule nuovo."
+      errors: [word-choice]
+    - tutor: "Perfetto, aspetto il programma nuovo. Allora quale scadenza diamo al cliente?"
+      recast: {text: "lo schedule", fix: "il programma", tags: [word-choice]}
+    - learner: "Direi il 15 marzo. Così avremo tempo per i test finali e il cliente sarà contento."
+    - tutor: "D'accordo, il 15 marzo. Lo dico io al cliente oggi pomeriggio."
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Così così. Il fornitore non ha mandato i pezzi e senza i pezzi non possiamo fare niente."
+    - tutor: "Ah, è un bel problema. Da quanto tempo li aspettate?"
+      goals: [update, problem]
+    - learner: "Da dieci giorni. Sono molto molesto con loro."
+      errors: [false-friend]
+    - tutor: "Hai ragione a essere arrabbiato con loro: dieci giorni sono tanti. Cosa proponi?"
+      recast: {text: "molesto", fix: "arrabbiato", tags: [false-friend]}
+    - learner: "Potremmo comprare i pezzi da un altro fornitore. Io conosco uno a Modena."
+      errors: [ci-ne]
+    - tutor: "«Io conosco uno»? Uno di che cosa? Manca una piccola parola."
+      prompt: {text: "Io conosco uno", tags: [ci-ne]}
+    - learner: "Ne conosco uno a Modena. È più caro, ma è veloce."
+    - tutor: "Perfetto, vale la pena. Mi mandi il suo numero?"
+      goals: [proposal]
+    - learner: "Sì, ti lo mando dopo la riunione."
+      errors: [combined-pronouns]
+    - tutor: "«Ti lo mando»? Quando due pronomi stanno insieme, il primo cambia un po' forma."
+      prompt: {text: "ti lo mando", tags: [combined-pronouns]}
+    - learner: "Te lo mando dopo la riunione. E se i pezzi arrivano lunedì, finiamo per il venti."
+    - tutor: "Esatto. Va bene, la scadenza è il venti. Lo scrivo subito per tutta la squadra."
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-f-student
+  history: [conditional-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene, grazie. Ho finito le due presentazioni per il cliente di Torino. Le ho mandate ieri sera."
+    - tutor: "Brava, sei velocissima! E il cliente cosa ha detto?"
+      goals: [update]
+    - learner: "Ancora niente. Ma c'è un problema: il collega che lavoro con non risponde mai alle mie email."
+      errors: [relative-pronoun]
+    - tutor: "«Il collega che lavoro con»? In italiano la preposizione non sta alla fine: come cambi la frase?"
+      prompt: {text: "che lavoro con", tags: [relative-pronoun]}
+    - learner: "Il collega... con che lavoro?"
+      errors: [relative-pronoun]
+    - tutor: "Il collega con cui lavori non risponde? Strano, di solito è veloce. Cosa vorresti fare?"
+      recast: {text: "con che", fix: "con cui", tags: [relative-pronoun]}
+      goals: [problem]
+    - learner: "Forse potremo fare una riunione breve ogni lunedì, solo noi due."
+      errors: [conditional-form]
+    - tutor: "È un'idea, una proposta... ma «potremo»? Ascolta bene la forma del verbo."
+      prompt: {text: "potremo", tags: [conditional-form]}
+    - learner: "Potremmo fare una riunione breve, con due m!"
+    - tutor: "Perfetto! Ottima proposta, la organizzo io. E quando possiamo chiudere tutto?"
+      goals: [proposal]
+    - learner: "Penso che per venerdì prossimo sia possibile, se il cliente risponde entro martedì."
+    - tutor: "D'accordo, venerdì prossimo. Se ci sono novità, scrivimi subito."
+      goals: [deadline]
+
+- scenario: smartworking
+  level: B1
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Adesso faccio lezione da casa tre giorni a la settimana, e gli altri due vado a scuola."
+      errors: [articulated-preposition]
+    - tutor: "Tre giorni... «a la settimana»? Queste due parole in italiano si uniscono."
+      prompt: {text: "a la settimana", tags: [articulated-preposition]}
+    - learner: "A la settimana, sì."
+      errors: [articulated-preposition]
+    - tutor: "Tre giorni alla settimana a casa, allora. E ti trovi bene così?"
+      recast: {text: "A la settimana", fix: "Alla settimana", tags: [articulated-preposition]}
+      goals: [situation]
+    - learner: "Sì, a casa sono più tranquilla che a scuola e posso aprovechare meglio il tempo."
+      errors: [word-choice]
+    - tutor: "Certo, così puoi sfruttare meglio il tempo: niente traffico e niente rumore!"
+      recast: {text: "aprovechare", fix: "sfruttare", tags: [word-choice]}
+      goals: [pros]
+      new: [{lemma: sfruttare, gloss: to make the most of}]
+    - learner: "Però mi manca i colleghi. A casa sono sola tutto il giorno."
+      errors: [subject-verb-agreement]
+    - tutor: "Scusa, come? «Mi manca i colleghi»?"
+      prompt: {text: "mi manca i colleghi", tags: [subject-verb-agreement]}
+    - learner: "Mi mancano i colleghi, sono tanti!"
+    - tutor: "Esatto. Ti capisco, essere sempre soli non è facile. E se potessi decidere tu?"
+      goals: [cons]
+    - learner: "Se potrei scegliere, lavorerei da casa solo due giorni."
+      errors: [hypothetical]
+    - tutor: "«Se potrei»? Dopo «se» il condizionale non va: quale forma serve?"
+      prompt: {text: "Se potrei", tags: [hypothetical]}
+    - learner: "Se potessi scegliere, lavorerei da casa solo due giorni."
+    - tutor: "Perfetto! Mi sembra la soluzione migliore. Io invece preferirei andare in ufficio tutti i giorni."
+      goals: [preference]
+
+- scenario: smartworking
+  level: B1
+  persona: en-m-traveller
+  history: [word-order]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Né l'uno né l'altro! Lavoro da tutte le parti: il mese scorso ero in Portogallo, adesso sono qui."
+    - tutor: "Che vita! E per chi lavori?"
+      goals: [situation]
+    - learner: "Per un'inglese azienda di software. Mi servono solo il computer e il Wi-Fi."
+      errors: [word-order]
+    - tutor: "Per «un'inglese azienda»? In italiano, l'aggettivo di nazionalità dove lo mettiamo?"
+      prompt: {text: "un'inglese azienda", tags: [word-order]}
+    - learner: "Per un'azienda inglese, giusto."
+    - tutor: "Esatto. E quali sono i vantaggi, secondo te?"
+    - learner: "Sono libero: lavoro la mattina e la sera faccio surf. E costa più poco vivere in Portogallo che a Londra."
+      errors: [comparative]
+    - tutor: "Che bello il surf! Ma «più poco»? Per questo c'è una parola sola."
+      prompt: {text: "più poco", tags: [comparative]}
+    - learner: "Costa meno vivere in Portogallo!"
+    - tutor: "Proprio così. Ci sono anche svantaggi?"
+      goals: [pros]
+    - learner: "A volte mi sento solo: i colleghi li vedo solo in video."
+    - tutor: "Eh, lo capisco. Lavorare sempre da solo alla lunga stanca."
+      goals: [cons]
+    - learner: "Eventualmente vorrei avere una casa fissa, ma per adesso preferisco viaggiare."
+      errors: [false-friend]
+    - tutor: "Alla fine tutti vogliamo una casa, ma per adesso fai bene a viaggiare! Io preferisco il mio ufficio, ma la tua vita mi piace molto."
+      recast: {text: "Eventualmente", fix: "Alla fine", tags: [false-friend]}
+      goals: [preference]

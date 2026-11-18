@@ -1,0 +1,273 @@
+# Round 5, set w-c2: broad C2 coverage. File 4: letters to the rector, book clubs, AI, interviews.
+- scenario: email-rettore
+  level: C2
+  persona: en-f-student
+  history: [passive]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Sì. Sono ricercatrice ospite al dipartimento di storia, e da un mese mi è stata negata l'accesso agli archivi, senza nessuna spiegazione scritta."
+      errors: [passive]
+      gold: {text: "mi è stata negata l'accesso", fix: "mi è stato negato l'accesso"}
+    - tutor: "Una situazione spiacevole, e capisco la rabbia. Prima di scrivere, però, sistemiamo la frase: «mi è stata negata l'accesso». Con quale parola si accorda il participio, in questo passivo?"
+      prompt: {text: "mi è stata negata l'accesso", tags: [passive]}
+    - learner: "Con accesso, che è maschile: mi è stato negato l'accesso. Vorrei fare appello contro questa decisione."
+      errors: [word-choice]
+    - tutor: "Perfetto. Quindi vuole presentare ricorso, o almeno chiedere un riesame: in ambito universitario si dice così. Come pensava di aprire la lettera?"
+      recast: {text: "fare appello", fix: "presentare ricorso", tags: [word-choice]}
+      goals: [situation]
+    - learner: "Avevo pensato a «Caro Rettore», come in inglese «Dear». Poi mi presento e spiego il problema."
+      errors: [register]
+      gold: {text: "Caro Rettore", fix: "Gentile Rettore"}
+    - tutor: "Ecco, qui mi fermo. «Caro Rettore» a una persona che non conosce: le sembra il registro giusto per una lettera ufficiale? Ci vuole qualcosa di più distaccato."
+      prompt: {text: "Caro Rettore", tags: [register]}
+    - learner: "Ah, allora «Gentile Rettore», forse?"
+    - tutor: "Gentile Rettore va benissimo; se vuole un tocco di tradizione accademica, c'è anche Magnifico Rettore. Ora il tono: come formulerebbe la richiesta?"
+      goals: [opening-formula]
+    - learner: "Le sarei grata se potrebbe riesaminare la decisione e, nel caso, indicarmi le ragioni per iscritto."
+      errors: [hypothetical]
+      gold: {text: "se potrebbe", fix: "se potesse"}
+    - tutor: "Il tono è perfetto, cortese ma fermo. Però «Le sarei grata se potrebbe»: dopo se, in un periodo ipotetico, quale modo ci vuole?"
+      prompt: {text: "se potrebbe", tags: [hypothetical]}
+    - learner: "Il congiuntivo imperfetto: Le sarei grata se potesse riesaminare la decisione."
+    - tutor: "Esatto, così è impeccabile. E per chiudere, che formula userebbe?"
+      goals: [tone]
+    - learner: "Pensavo: «Ringraziando per l'attenzione, porgo distinti saluti», e poi nome, ruolo e dipartimento."
+    - tutor: "Perfetta, sobria e completa. Aggiunga solo la data e il numero di protocollo della comunicazione che ha ricevuto, e la lettera è pronta."
+      goals: [closing]
+
+- scenario: email-rettore
+  level: C2
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Devo scrivergli una carta formale perché il mio contratto di ricerca non è stato rinnovato, anche se il dipartimento aveva approvato il progetto."
+      errors: [false-friend]
+    - tutor: "Una lettera formale, certo, ed è la scelta giusta: per una decisione del genere una mail informale non basta. Chi le aveva comunicato l'approvazione?"
+      recast: {text: "una carta formale", fix: "una lettera formale", tags: [false-friend]}
+    - learner: "Il direttore del dipartimento, prima a voce e poi per mail. Mi aveva detto che il rinnovo sarebbe stato una formalità."
+    - tutor: "Spero che abbia conservato quella mail. Allora, come vorrebbe cominciare?"
+      goals: [situation]
+    - learner: "«Magnifico Rettore, Le scrivo in relazione con il mancato rinnovo del mio contratto di ricerca.»"
+      errors: [preposition]
+      gold: {text: "in relazione con il", fix: "in relazione al"}
+    - tutor: "Ottimo inizio, la formula d'apertura è proprio quella. Solo un dettaglio: «in relazione con il mancato rinnovo» è costruito sullo spagnolo. In italiano, in relazione regge un'altra preposizione."
+      prompt: {text: "in relazione con il", tags: [preposition]}
+    - learner: "In relazione al mancato rinnovo, allora. Oppure in merito al mancato rinnovo, che forse è ancora più formale."
+    - tutor: "Esatto, in merito suona benissimo. Ora il corpo della lettera: come esprime il disappunto senza sembrare aggressiva?"
+      goals: [opening-formula]
+    - learner: "Scriverei che mi permetto rispettuosamente di chiedere un riesame, dato che il progetto è stato approvato e finanziato."
+      errors: [spelling]
+      gold: {text: "rispettuosamente", fix: "rispettosamente"}
+    - tutor: "Il tono è quello giusto. Però, visto che andrà per iscritto: «rispettuosamente»? Guardi bene la parola: l'avverbio viene da rispettoso."
+      prompt: {text: "rispettuosamente", tags: [spelling]}
+    - learner: "Rispettosamente, senza la u. In spagnolo è «respetuosamente» e mi confondo."
+    - tutor: "Succede, le due lingue si somigliano fin troppo. E per la chiusura?"
+      goals: [tone]
+    - learner: "«Confidando in un Suo cortese riscontro, porgo distinti saluti.» Va bene?"
+    - tutor: "Va benissimo, è la chiusura classica. Alleghi la mail del direttore e la delibera di approvazione: con quei due documenti, la sua richiesta sarà difficile da ignorare."
+      goals: [closing]
+
+- scenario: film-libro
+  level: C2
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Comincio io! Ho letto un giallo ambientato a Trieste negli anni Cinquanta, nel periodo in che la città era ancora divisa in zone."
+      errors: [relative-pronoun]
+      gold: {text: "nel periodo in che", fix: "nel periodo in cui"}
+    - tutor: "Trieste negli anni Cinquanta, che ambientazione! Però riascolta: «nel periodo in che la città era divisa». Dopo in, quale relativo ci vuole?"
+      prompt: {text: "nel periodo in che", tags: [relative-pronoun]}
+    - learner: "Nel periodo in cui, sì. Nel periodo in cui la città era sotto l'amministrazione alleata."
+    - tutor: "Esatto. E di che cosa parla, in due parole?"
+    - learner: "Un ispettore indaga sulla morte di un contrabbandiere. Da ragazzo, l'ispettore ha passato ogni estate in quel quartiere, quindi conosce tutti."
+      errors: [tense-aspect]
+      gold: {text: "ha passato ogni estate", fix: "passava ogni estate"}
+    - tutor: "Classico, ma funziona sempre. Però «da ragazzo ha passato ogni estate»: per un'abitudine che si ripeteva nel passato, che tempo usiamo?"
+      prompt: {text: "ha passato ogni estate", tags: [tense-aspect]}
+      goals: [summary]
+    - learner: "Ah, l'imperfetto: da ragazzo passava ogni estate lì. Per questo nessuno si fida di lui: è uno di loro, ma anche un poliziotto."
+    - tutor: "Bel conflitto. E quali personaggi ti sono rimasti in mente?"
+    - learner: "Soprattutto la sorella del morto, una donna durissima che sa tutto e non dice niente. Ho pensato molto, e credo che la vera protagonista sia lei."
+      errors: [ci-ne]
+      gold: {text: "Ho pensato molto", fix: "Ci ho pensato molto"}
+    - tutor: "Interessante, la vedi come il cuore del libro. Ma «ho pensato molto»: pensato a che cosa? Quale pronome ti manca per riprenderlo senza ripeterlo?"
+      prompt: {text: "Ho pensato molto", tags: [ci-ne]}
+      goals: [characters]
+    - learner: "Ah, giusto: ci ho pensato molto. E comunque il finale mi è sembrato molto sensibile, senza colpi di scena inutili."
+      errors: [false-friend]
+    - tutor: "Un finale sensato, quindi, senza effetti speciali: è raro nei gialli. Lo consiglieresti al gruppo per il prossimo mese?"
+      recast: {text: "sensibile", fix: "sensato", tags: [false-friend]}
+      goals: [opinion]
+    - learner: "Assolutamente sì, soprattutto a chi conosce Trieste solo per il caffè e la bora."
+    - tutor: "Allora lo mettiamo in lista. E la prossima volta portaci qualche foto della città, così entriamo nell'atmosfera."
+      goals: [recommend]
+
+- scenario: film-libro
+  level: C2
+  persona: es-f-erasmus
+  history: [noun-gender]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io ho letto un romanzo siciliano che è appena diventato un film. Il libro mi ha piaciuto molto di più."
+      errors: [auxiliary-choice]
+      gold: {text: "mi ha piaciuto", fix: "mi è piaciuto"}
+    - tutor: "Il solito duello tra libro e film! Però «mi ha piaciuto»: al passato prossimo, piacere con quale ausiliare si coniuga?"
+      prompt: {text: "mi ha piaciuto", tags: [auxiliary-choice]}
+    - learner: "Con essere: mi è piaciuto molto di più. Parla di due fratelli che ereditano un uliveto e litigano per vent'anni."
+    - tutor: "Vent'anni di liti in famiglia: molto siciliano, e anche molto universale. Chi è il personaggio che ti ha conquistata?"
+      goals: [summary]
+    - learner: "Il fratello minore, Salvo, testardo ma generoso. Nel film però è diventato un violento, e c'è troppa sangue per i miei gusti."
+      errors: [noun-gender]
+      gold: {text: "troppa sangue", fix: "troppo sangue"}
+    - tutor: "Ah, il cinema ama gli effetti forti. Però «troppa sangue»: siamo sicuri che sangue abbia lo stesso genere che ha in spagnolo?"
+      prompt: {text: "troppa sangue", tags: [noun-gender]}
+      goals: [characters]
+    - learner: "No, è maschile: troppo sangue. Anche il latte e il miele mi fregano sempre."
+    - tutor: "Sono le trappole classiche per chi parla spagnolo. Allora, alla fine, libro o film?"
+    - learner: "Il libro, senza dubbio. Il film è più spettacolare, ma il libro è molto più migliore nel raccontare i silenzi tra i fratelli."
+      errors: [comparative]
+      gold: {text: "molto più migliore", fix: "molto migliore"}
+    - tutor: "Sui silenzi sono d'accordo. Ma «molto più migliore»: quell'aggettivo non è già un comparativo da solo?"
+      prompt: {text: "molto più migliore", tags: [comparative]}
+      goals: [opinion]
+    - learner: "Hai ragione: è molto migliore. Lo consiglio a chiunque abbia fratelli, e magari qualche eredità in sospeso!"
+    - tutor: "Consiglio perfetto, lo appendo in bacheca così com'è. La prossima volta però portiamo anche il film e facciamo un confronto in diretta."
+      goals: [recommend]
+
+- scenario: intelligenza-artificiale
+  level: C2
+  persona: en-m-retired
+  history: [hypothetical]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Io sono meno pessimista. Attualmente, quando facevo l'ingegnere, ho visto succedere la stessa cosa con l'automazione nelle fabbriche."
+      errors: [false-friend]
+    - tutor: "In realtà è proprio questo che mi preoccupa: allora è toccato agli operai, adesso tocca agli impiegati. Su che cosa basi il tuo ottimismo?"
+      recast: {text: "Attualmente", fix: "In realtà", tags: [false-friend]}
+      goals: [position]
+    - learner: "Sulla storia, soprattutto. Negli anni Ottanta tutti pensavano che i computer dassero il colpo di grazia agli uffici, e invece gli impiegati sono aumentati."
+      errors: [subjunctive-form]
+      gold: {text: "dassero", fix: "dessero"}
+    - tutor: "Esempio interessante, non ci avevo mai pensato. Ma «dassero»: il congiuntivo imperfetto di dare è un po' capriccioso, ricordi come fa?"
+      prompt: {text: "dassero", tags: [subjunctive-form]}
+    - learner: "Come stare: stessero, dessero. Pensavano che i computer dessero il colpo di grazia. E poi c'è un'evidenza più recente: gli studi sui traduttori."
+      errors: [false-friend]
+    - tutor: "Una prova più recente, dici? Sentiamo, perché proprio i traduttori mi sembrano i primi della lista."
+      recast: {text: "un'evidenza", fix: "una prova", tags: [false-friend]}
+    - learner: "Secondo alcuni studi, nelle agenzie che usano l'intelligenza artificiale i traduttori non sono diminuiti: fanno più revisione e meno lavoro meccanico. Certo, guadagnano un po' meno."
+    - tutor: "Ecco, guadagnano meno: lo dici tu stesso. Ammetterai almeno che qualcuno ci rimetterà davvero."
+      goals: [evidence]
+    - learner: "Lo ammetto senz'altro. Se avremmo regole serie sulla formazione, però, molti potrebbero riqualificarsi."
+      errors: [hypothetical]
+      gold: {text: "Se avremmo", fix: "Se avessimo"}
+    - tutor: "Su questo ti do ragione. Ma «se avremmo regole serie»: un ingegnere preciso come te, dopo se, metterebbe davvero il condizionale?"
+      prompt: {text: "Se avremmo", tags: [hypothetical]}
+      goals: [concede]
+    - learner: "Se avremo, forse?"
+      errors: [hypothetical]
+    - tutor: "Se avessimo regole serie, molti si riqualificherebbero, d'accordo. Allora, per concludere: né apocalisse né paradiso?"
+      recast: {text: "Se avremo", fix: "Se avessimo", tags: [hypothetical]}
+    - learner: "Esatto: né apocalisse né paradiso. Dipenderà da quello che decideremo di farne, non dalle macchine."
+    - tutor: "Brindo a questo, anche se resto un po' pessimista. Almeno il vino, per ora, nessuna macchina lo fa meglio di noi."
+      goals: [conclude]
+
+- scenario: intelligenza-artificiale
+  level: C2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Capisco la paura, ma secondo me esageri. L'intelligenza artificiale distruggerà alcuni lavori, sì, ma ne creerà altri che oggi non immaginiamo neanche."
+    - tutor: "Lo dicono sempre, ma intanto i lavori che spariscono li conosciamo benissimo, quelli nuovi no. Quanti, poi?"
+      goals: [position]
+    - learner: "Secondo un rapporto che ho letto per un esame, nei prossimi cinque anni creerà quasi settanta milioni."
+      errors: [ci-ne]
+      gold: {text: "creerà quasi settanta milioni", fix: "ne creerà quasi settanta milioni"}
+    - tutor: "Settanta milioni di che cosa, però? Riascolta la tua frase, «creerà quasi settanta milioni»: non manca un pronome che riprenda i lavori?"
+      prompt: {text: "creerà quasi settanta milioni", tags: [ci-ne]}
+    - learner: "Sì, ne creerà quasi settanta milioni. Ma ne distruggerà anche una cinquantina, è vero."
+    - tutor: "Almeno sei onesta. E chi perde il lavoro a cinquant'anni, secondo te, diventa programmatore dall'oggi al domani?"
+      goals: [evidence]
+    - learner: "No, certo, questo è il punto debole. Lo ammetto: molti non poteranno riqualificarsi, soprattutto senza aiuti pubblici."
+      errors: [future-form]
+      gold: {text: "poteranno", fix: "potranno"}
+    - tutor: "È una concessione importante, brava. Ma «non poteranno»: il futuro di potere perde una vocale, come quelli di andare o di dovere."
+      prompt: {text: "poteranno", tags: [future-form]}
+      goals: [concede]
+    - learner: "Potranno, scusa: molti non potranno riqualificarsi. Però, se lo Stato investisse nella formazione, la transizione sarebbe meno dolorosa."
+    - tutor: "Su questo siamo d'accordo, anche se lo Stato di solito arriva tardi. Allora, conclusione?"
+    - learner: "Che la tecnologia non è né buona né cattiva: dipende da noi. Ma bisogna che i governi si muovono adesso, non quando il danno è già fatto."
+      errors: [subjunctive-use]
+      gold: {text: "bisogna che i governi si muovono", fix: "bisogna che i governi si muovano"}
+    - tutor: "Mi piace la conclusione. Ma «bisogna che i governi si muovono»: dopo bisogna che, quale modo ti aspetti?"
+      prompt: {text: "bisogna che i governi si muovono", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: bisogna che si muovano adesso, non quando il danno è già fatto."
+    - tutor: "Esatto. Va bene, resto pessimista, ma un po' meno di prima: è già un progresso. Un altro bicchiere?"
+      goals: [conclude]
+
+- scenario: intervista-podcast
+  level: C2
+  persona: en-m-heritage
+  history: [word-order]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivato proprio in Italia?"
+    - learner: "Grazie a voi! In un certo senso ci sono sempre stato: i miei parenti sono nati in Calabria e sono emigrati a Toronto negli anni Settanta."
+      errors: [false-friend]
+    - tutor: "Quindi i tuoi genitori sono calabresi, e tu sei tornato a chiudere il cerchio. Quanti anni avevi quando hai fatto il grande salto?"
+      recast: {text: "parenti", fix: "genitori", tags: [false-friend]}
+    - learner: "Ventotto. Avevo appena perso il lavoro e mi sono detto: o adesso o mai più. In Calabria non c'ero mai stato, conoscevo solo i racconti di mia nonna."
+    - tutor: "Che coraggio. E lo shock culturale com'è stato? Ce n'è sempre uno che ti resta impresso."
+      goals: [story]
+    - learner: "Il primo giorno, a casa dei miei zii, volevo prendere una doccia alle undici di sera, e mia zia mi ha guardato come se fossi impazzito."
+      errors: [word-choice]
+    - tutor: "Fare una doccia alle undici di sera: in certe case del Sud è ancora un sacrilegio! Perché, secondo te?"
+      recast: {text: "prendere una doccia", fix: "fare una doccia", tags: [word-choice]}
+      goals: [culture-shock]
+    - learner: "Per l'acqua calda, credo: lo scaldabagno era piccolo e mia zia l'aveva già spento. Ancora oggi, dopo sei anni, non mi sono abituato ancora a certi ritmi."
+      errors: [word-order]
+      gold: {text: "non mi sono abituato ancora", fix: "non mi sono ancora abituato"}
+    - tutor: "Sei anni e ancora resisti! Però «non mi sono abituato ancora»: in una frase così, dove preferiamo mettere ancora?"
+      prompt: {text: "non mi sono abituato ancora", tags: [word-order]}
+    - learner: "Prima del participio: non mi sono ancora abituato. Per esempio agli orari dei negozi, chiusi proprio quando ne hai bisogno."
+    - tutor: "Ah, la pausa pranzo sacra! E se dovessi fare una critica seria all'Italia, senza peli sulla lingua?"
+    - learner: "Direi che il talento dei giovani viene sprecato. I miei cugini sono laureati e lavorano nei call center, mentre io, che non ho finito l'università, guadagno di più."
+    - tutor: "Critica amara e purtroppo giusta. Un ultimo consiglio per chi ci ascolta e sta pensando di trasferirsi qui?"
+      goals: [critique]
+    - learner: "Imparate la lingua prima di partire, e non arrendetevi alla prima fila alla posta: dopo la terza, diventa quasi divertente."
+    - tutor: "La terza fila come rito di iniziazione, me la segno! Grazie di cuore, è stata una chiacchierata bellissima."
+      goals: [advice]
+
+- scenario: intervista-radio
+  level: C2
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Bentornati, cari ascoltatori. In studio con noi c'è un'autrice che ha avuto il coraggio, o l'incoscienza, di scrivere un libro su di noi italiani. Benvenuta!"
+    - learner: "Grazie, è un piacere. Il libro si chiama «Il caffè al banco» ed è uscito a marzo con una piccola editoriale di Torino."
+      errors: [false-friend]
+    - tutor: "Una piccola casa editrice torinese, coraggiosa quanto lei. Perché proprio il caffè al banco nel titolo?"
+      recast: {text: "editoriale", fix: "casa editrice", tags: [false-friend]}
+    - learner: "Perché per me riassume l'Italia: un rito velocissimo, in piedi, ma a cui nessuno rinuncerebbe mai. In tre minuti si parla di calcio, di politica e del tempo."
+    - tutor: "Tre minuti di parlamento! Ma veniamo agli stereotipi: non teme che gli italiani si offendano?"
+      goals: [present-book]
+    - learner: "Un po' sì. Ma finora mi sembra che i lettori l'hanno preso con molta ironia, anche quando li prendo in giro."
+      errors: [subjunctive-use]
+      gold: {text: "mi sembra che i lettori l'hanno preso", fix: "mi sembra che i lettori l'abbiano preso"}
+    - tutor: "Buon segno. Ma la sua frase, «mi sembra che i lettori l'hanno preso», in diretta nazionale... dopo mi sembra che, quale modo verbale ci aspettiamo?"
+      prompt: {text: "mi sembra che i lettori l'hanno preso", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo, che vergogna: mi sembra che l'abbiano preso con molta ironia. Del resto, il primo stereotipo che smonto è proprio che gli italiani non sappiano ridere di sé."
+    - tutor: "Ah, questa ci piace. Ci racconti un aneddoto del libro, uno dei suoi preferiti."
+      goals: [stereotype]
+    - learner: "Il primo giorno a Napoli, mentre ho aspettato il treno, un signore mi ha raccontato tutta la sua vita e alla fine mi ha invitata a pranzo da sua madre."
+      errors: [tense-aspect]
+      gold: {text: "mentre ho aspettato", fix: "mentre aspettavo"}
+    - tutor: "Tipicamente napoletano! Però, «mentre ho aspettato il treno»: è l'azione in corso, lo sfondo della scena. Che tempo le serve?"
+      prompt: {text: "mentre ho aspettato", tags: [tense-aspect]}
+    - learner: "L'imperfetto: mentre aspettavo il treno. E a quel pranzo ci sono andata davvero, ovviamente."
+    - tutor: "Ovviamente! E con la lingua com'è andata? Adesso la parla benissimo, ma all'inizio?"
+      goals: [anecdote]
+    - learner: "All'inizio era un disastro: chiedevo il burro pensando all'asino, come in spagnolo. Ho firmato il libro con uno pseudonimo anche per vergogna!"
+    - tutor: "Uno pseudonimo per vergogna: ecco la confessione della giornata! Grazie di essere stata con noi, e buona fortuna con il libro."
+      goals: [language, farewell]

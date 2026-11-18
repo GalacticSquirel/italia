@@ -1,0 +1,235 @@
+# B1, broad coverage: at the doctor's, booking a specialist visit, healthy habits.
+- scenario: medico-base
+  level: B1
+  persona: en-m-retired
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e una tosse forte, soprattutto di notte."
+    - tutor: "Mi dispiace. Ha anche la febbre?"
+      goals: [symptoms]
+    - learner: "Sì, ieri sera avevo trentotto. I sintomi hanno cominciato domenica."
+      errors: [auxiliary-choice]
+    - tutor: "«Hanno cominciato»? I sintomi sono arrivati da soli: con «cominciare» qui, che verbo usiamo prima?"
+      prompt: {text: "hanno cominciato", tags: [auxiliary-choice]}
+    - learner: "Ah, sono cominciato domenica."
+      errors: [participle-agreement]
+    - tutor: "Il verbo giusto, sì! Ma «sono cominciato»? Ricordi che parliamo dei sintomi, al plurale."
+      prompt: {text: "sono cominciato", tags: [participle-agreement]}
+    - learner: "Sono cominciati domenica."
+    - tutor: "Perfetto. Quindi da cinque giorni. È allergico a qualche medicina?"
+      goals: [since-when]
+    - learner: "Sì, sono allergico alla penicillina. E prendo una pillola per la pressione ogni mattina."
+    - tutor: "Bene che me l'ha detto. Allora le do un antibiotico senza penicillina: una compressa due volte al giorno per sei giorni."
+      goals: [history]
+      new: [{lemma: antibiotico, gloss: antibiotic}, {lemma: compressa, gloss: tablet}]
+    - learner: "Allora: una compressa due volte al giorno per sei giorni. La devo prendere prima o dopo mangiare?"
+    - tutor: "Dopo mangiare, sempre. E se tra tre giorni ha ancora la febbre, mi telefoni."
+      goals: [instructions]
+
+- scenario: medico-base
+  level: B1
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Mi fa male molto lo stomaco e ho un po' di nausea."
+      errors: [word-order]
+    - tutor: "Mi dispiace. «Mi fa male molto»? Proviamo a spostare una parola."
+      prompt: {text: "Mi fa male molto", tags: [word-order]}
+    - learner: "Mi fa molto male lo stomaco."
+    - tutor: "Giusto. Da quando sta così?"
+      goals: [symptoms]
+    - learner: "Da ieri sera, dopo una cena al ristorante. E sono anche costipata: ho il naso chiuso."
+      errors: [false-friend]
+    - tutor: "Ah, quindi è anche raffreddata, con il naso chiuso. Ieri sera cosa ha mangiato?"
+      recast: {text: "costipata", fix: "raffreddata", tags: [false-friend]}
+      goals: [since-when]
+      new: [{lemma: raffreddato, gloss: having a cold}]
+    - learner: "Frutti di mare. Non sono allergica a niente e non prendo medicine."
+    - tutor: "Allora è un piccolo problema di stomaco. Per due giorni mangi riso in bianco e beva tanta acqua. Le do anche delle gocce: venti prima dei pasti."
+      goals: [history]
+      new: [{lemma: goccia, gloss: drop}]
+    - learner: "D'accordo. Le gocce le prendo anche prima de la colazione?"
+      errors: [articulated-preposition]
+    - tutor: "Prima... «de la colazione»? In italiano queste due parole diventano una."
+      prompt: {text: "de la colazione", tags: [articulated-preposition]}
+    - learner: "Prima della colazione! Allora riso, acqua e venti gocce prima di ogni pasto."
+    - tutor: "Esatto, anche prima della colazione. Vedrà che tra due giorni starà meglio."
+      goals: [instructions]
+
+- scenario: medico-base
+  level: B1
+  persona: en-f-student
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Sono caduta dalla bicicletta e mi fa male il polso. Non riesco a muoverlo bene."
+    - tutor: "Oh, mi dispiace. Quando è successo?"
+      goals: [symptoms]
+    - learner: "Due giorni fa. Ho mettuto il ghiaccio, ma stamattina è diventato blu."
+      errors: [past-participle-form]
+    - tutor: "Due giorni, va bene. «Ho mettuto»? Questa forma non esiste: come si dice?"
+      goals: [since-when]
+      prompt: {text: "mettuto", tags: [past-participle-form]}
+    - learner: "Ho mettato il ghiaccio?"
+      errors: [past-participle-form]
+    - tutor: "Ha messo il ghiaccio, ha fatto bene. Prende qualche medicina? È allergica a qualcosa?"
+      recast: {text: "mettato", fix: "messo", tags: [past-participle-form]}
+    - learner: "Ieri ho preso un ibuprofene. Allergie no, ma l'ibuprofene mi fa male allo stomaco."
+    - tutor: "Allora non lo prenda più. Domani mattina faccia una radiografia al polso e poi torni da me con il risultato."
+      goals: [history]
+      new: [{lemma: radiografia, gloss: X-ray}, {lemma: polso, gloss: wrist}]
+    - learner: "Quindi faccio la radiografia domani e poi le porto il risultato. Devo tenere il polso fermo?"
+    - tutor: "Sì, esatto: tenga il polso fermo e un po' alto. A domani!"
+      goals: [instructions]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Voglio prenotare una visita con un dermatologo."
+      errors: [conditional-form]
+    - tutor: "Certo. «Voglio» è un po' diretto al telefono: come lo direbbe in modo più gentile?"
+      prompt: {text: "Voglio prenotare", tags: [conditional-form]}
+    - learner: "Vorrei prenotare una visita dal dermatologo."
+    - tutor: "Perfetto. Per quale problema?"
+      goals: [type]
+    - learner: "Ho una mancha sul braccio, ed è cresciuta."
+      errors: [word-choice]
+    - tutor: "Una macchia che è cresciuta, capisco: è meglio controllarla. Il primo posto è giovedì 14 alle 9:30, oppure lunedì 18 alle 16."
+      recast: {text: "mancha", fix: "macchia", tags: [word-choice]}
+      new: [{lemma: macchia, gloss: spot}]
+    - learner: "Giovedì lavoro. Lunedì alle quattro va bene. Quanto durerà la visita?"
+    - tutor: "Circa mezz'ora. Allora la segno per lunedì 18 alle 16."
+      goals: [availability]
+    - learner: "Grazie. Quanto costa? E devo portare la impegnativa del medico?"
+      errors: [article-form]
+    - tutor: "La... impegnativa? Mi ripete l'articolo?"
+      prompt: {text: "la impegnativa", tags: [article-form]}
+    - learner: "La impegnativa, sì."
+      errors: [article-form]
+    - tutor: "L'impegnativa per questa visita non serve: paga solo 90 euro."
+      recast: {text: "La impegnativa", fix: "L'impegnativa", tags: [article-form]}
+      goals: [cost]
+    - learner: "Va bene. Allora ripeto: lunedì 18 alle quattro, dal dermatologo, e pago 90 euro."
+    - tutor: "Esatto, è tutto giusto. Arrivederci e a lunedì!"
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno, vorrei fare un appuntamento per una visita agli occhi. Ho bisogno di nuovi occhiali."
+      errors: [word-choice]
+    - tutor: "Certo, per prendere un appuntamento dall'oculista mi serve solo il suo nome. Quale giorno preferisce?"
+      recast: {text: "fare un appuntamento", fix: "prendere un appuntamento", tags: [word-choice]}
+      goals: [type]
+      new: [{lemma: oculista, gloss: eye doctor}]
+    - learner: "Mi chiamo Kate Miller. Meglio la prossima settimana, di mattina presto: venerdì sarò a Roma."
+    - tutor: "Allora martedì alle 8:30. Le andrebbe bene?"
+    - learner: "Sì, ma prima devo portare mio figlio a scuola, quindi venirò un po' più tardi."
+      errors: [future-form]
+    - tutor: "Nessun problema. Quindi... «venirò»? Il futuro di «venire» è un po' speciale."
+      prompt: {text: "venirò", tags: [future-form]}
+    - learner: "Verrò alle nove meno un quarto. Va bene lo stesso?"
+    - tutor: "Esatto. Sì, la segno per le 8:45."
+      goals: [availability]
+    - learner: "Perfetto. Quanto costa la visita? Devo portare la ricetta che il mio medico mi ha dato?"
+    - tutor: "Costa 80 euro. La ricetta non serve, ma porti i suoi vecchi occhiali, se li ha."
+      goals: [cost]
+    - learner: "D'accordo. Quindi martedì alle 8:45, con gli occhiali vecchi e 80 euro."
+    - tutor: "Proprio così. A martedì, signora Miller!"
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-m-retired
+  history: [question-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Mia moglie ha bisogno di una visita da un cardiologo. Come è il prossimo appuntamento libero?"
+      errors: [question-form]
+    - tutor: "«Come è» il prossimo appuntamento? Lei vuole sapere il giorno: con quale parola lo chiediamo?"
+      prompt: {text: "Come è", tags: [question-form]}
+    - learner: "Quando è il prossimo appuntamento libero?"
+    - tutor: "Esatto. Il primo posto libero è mercoledì 9 alle 11."
+      goals: [type]
+      new: [{lemma: cardiologo, gloss: heart specialist}]
+    - learner: "Mercoledì non è conveniente per noi. C'è qualcosa venerdì?"
+      errors: [false-friend]
+    - tutor: "Capisco, mercoledì non è comodo. Venerdì 11 ho un posto alle 15:30."
+      recast: {text: "conveniente", fix: "comodo", tags: [false-friend]}
+    - learner: "Perfetto. Quanto costa? Mia moglie ha fatto un elettrocardiogramma il mese scorso: lo dobbiamo portarlo?"
+      errors: [pronoun-position]
+    - tutor: "Va bene venerdì, allora. Ma «lo dobbiamo portarlo»? Mi pare che ci sia un pronome di troppo."
+      goals: [availability]
+      prompt: {text: "lo dobbiamo portarlo", tags: [pronoun-position]}
+    - learner: "Lo dobbiamo portare?"
+    - tutor: "Giusto. Sì, lo portate, è molto utile. La visita costa 120 euro."
+      goals: [cost]
+    - learner: "Ricapitolo: venerdì 11 alle 15:30, visita dal cardiologo, e portiamo l'esame del mese scorso."
+    - tutor: "Perfetto, è tutto giusto. Arrivederci e a venerdì!"
+      goals: [confirm]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-m-worker
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Lavoro in cucina dieci ore al giorno, mangio veloce e dormo poco, cinque ore."
+    - tutor: "Dieci ore in cucina sono tante! Fai sport?"
+      goals: [habits]
+    - learner: "No, mai. Il mio fratello invece corre ogni giorno: è più sportivo che me."
+      errors: [possessive, comparative]
+    - tutor: "Più sportivo «che me»? Senti questa frase: Marco è più alto... me. Cosa ci metti in mezzo?"
+      prompt: {text: "più sportivo che me", tags: [comparative]}
+    - learner: "Più sportivo di me! Io vorrei perdere otto chili e avere più energia."
+    - tutor: "Esatto. Otto chili è un obiettivo giusto. Cosa ti ferma, di solito?"
+      goals: [goal]
+    - learner: "Il tempo. E quando arrivo a casa sono molto cansado."
+      errors: [word-choice]
+    - tutor: "Certo, se arrivi a casa stanco morto, l'allenamento è l'ultima cosa che vuoi fare."
+      recast: {text: "cansado", fix: "stanco", tags: [word-choice]}
+      goals: [obstacles]
+    - learner: "Forse posso allenarmi la mattina. Proverò venire tre volte a la settimana."
+      errors: [preposition, articulated-preposition]
+    - tutor: "Ottima idea! Però «proverò venire»? Tra «proverò» e «venire» manca qualcosa."
+      prompt: {text: "Proverò venire", tags: [preposition]}
+    - learner: "Proverò a venire tre volte alla settimana, prima del lavoro."
+    - tutor: "Perfetto! Allora lunedì, mercoledì e venerdì alle nove. Ti aspetto!"
+      goals: [plan]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Mangio tanto cibo veloce e bevo molto caffè per studiare. Vado a letto alle due o alle tre."
+      errors: [word-choice]
+    - tutor: "Tanto cibo pronto e tanto caffè: la vita da studente! E qual è il tuo obiettivo?"
+      recast: {text: "cibo veloce", fix: "cibo pronto", tags: [word-choice]}
+      goals: [habits]
+    - learner: "Avere più energia e dormire meglio. Il mese prossimo avrò gli esami."
+    - tutor: "Ottimo obiettivo, soprattutto prima degli esami. Secondo te, perché non dormi bene?"
+      goals: [goal]
+    - learner: "Penso che il problema sie il telefono: lo guardo a letto fino a tardi."
+      errors: [subjunctive-form]
+    - tutor: "«Sie»? Mi sembra un po' spagnolo! Dopo «penso che», come diventa «essere»?"
+      prompt: {text: "sie", tags: [subjunctive-form]}
+    - learner: "Penso che il problema sia il telefono."
+    - tutor: "Giusto. Allora facciamo un piano: tre allenamenti a settimana e niente telefono dopo le undici."
+      goals: [obstacles]
+    - learner: "Va bene. Andrò in palestra il lunedì e il venerdì, e il mercoledì farerò yoga a casa."
+      errors: [future-form]
+    - tutor: "Mi piace! Ma il mercoledì... «farerò»? Ripeti questo verbo, è più corto."
+      prompt: {text: "farerò", tags: [future-form]}
+    - learner: "Farò yoga! E il telefono lo lascerò in cucina."
+    - tutor: "Perfetto, è un piano fantastico. Vedrai che dormirai molto meglio!"
+      goals: [plan]

@@ -1,0 +1,257 @@
+# w-register, file 01: A2 register and pragmatics (greetings by time of day, tu vs lei with
+# staff, blunt imperatives, cards to friends).
+- scenario: hotel-checkin
+  level: A2
+  persona: en-m-traveller
+  history: [register]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buongiorno! Sì, ho una prenotazione per due notti."
+      errors: [register]
+    - tutor: "Buongiorno? Guardi fuori: sono le nove di sera!"
+      prompt: {text: "Buongiorno", tags: [register]}
+    - learner: "Ah... buon pomeriggio! La prenotazione è a nome Clark."
+      errors: [register]
+    - tutor: "Buonasera, signor Clark! Due notti, camera doppia. Ha un documento, per favore?"
+      recast: {text: "buon pomeriggio", fix: "Buonasera", tags: [register]}
+      goals: [booking]
+    - learner: "Sì, ecco il passaporto. A che ora è colazione?"
+      errors: [article-use]
+    - tutor: "Grazie. A che ora è... colazione? Manca una piccola parola."
+      goals: [document]
+      prompt: {text: "è colazione", tags: [article-use]}
+    - learner: "A che ora è una colazione?"
+      errors: [article-use]
+    - tutor: "A che ora è la colazione? Dalle sette alle dieci, al primo piano."
+      recast: {text: "è una colazione", fix: "è la colazione", tags: [article-use]}
+      goals: [breakfast]
+    - learner: "Va bene. Senti, c'è il Wi-Fi in camera?"
+      errors: [register]
+    - tutor: "Senti? Siamo in albergo e non ci conosciamo. Come comincia la domanda?"
+      prompt: {text: "Senti", tags: [register]}
+    - learner: "Senta, c'è il Wi-Fi in camera?"
+    - tutor: "Bravo! Sì, c'è. Ecco la chiave: camera 214, secondo piano."
+      goals: [key]
+    - learner: "Grazie mille. Buonanotte!"
+    - tutor: "Buonanotte a lei!"
+
+- scenario: bar-colazione
+  level: A2
+  persona: es-m-worker
+  history: [register]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Ciao. Dammi un cappuccino."
+      errors: [register]
+    - tutor: "Dammi? Al bar, con una persona che non conosce, come chiede?"
+      prompt: {text: "Dammi un cappuccino", tags: [register]}
+    - learner: "Mi dà un cappuccino, per favore?"
+    - tutor: "Certo, subito! Prende anche qualcosa da mangiare?"
+      goals: [greet, order-drink]
+    - learner: "Sì, un cornetto alla crema. E un vaso d'acqua, per piacere."
+      errors: [false-friend]
+    - tutor: "Ecco il cornetto e un bicchiere d'acqua. Il cappuccino arriva subito."
+      recast: {text: "un vaso d'acqua", fix: "un bicchiere d'acqua", tags: [false-friend]}
+      new: [{lemma: bicchiere, gloss: glass}]
+      goals: [order-food]
+    - learner: "Grazie. Posso di pagare con la carta?"
+      errors: [modal-infinitive]
+    - tutor: "Posso di pagare? Dopo «posso», il verbo arriva subito."
+      prompt: {text: "Posso di pagare", tags: [modal-infinitive]}
+    - learner: "Posso a pagare con la carta?"
+      errors: [modal-infinitive]
+    - tutor: "Pagare con la carta? Certo, nessun problema! In tutto sono due euro e cinquanta."
+      recast: {text: "a pagare con la carta", fix: "pagare con la carta", tags: [modal-infinitive]}
+    - learner: "Ecco la carta. Grazie e buona giornata!"
+    - tutor: "Grazie a lei, buona giornata!"
+      goals: [pay]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: en-f-student
+  history: [register]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Voglio un tavolo per stasera."
+      errors: [register]
+    - tutor: "Ah, «voglio»... Al telefono con un ristorante, c'è una forma più gentile?"
+      prompt: {text: "Voglio un tavolo", tags: [register]}
+    - learner: "Scusi. Vorrei prenotare un tavolo per stasera."
+    - tutor: "Certo, con piacere! Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Per quattro persone, alle otto e mezza. È possibile un tavolo fuori?"
+    - tutor: "Sì, abbiamo un bel tavolo fuori. Ci sono bambini o allergie?"
+      goals: [details]
+    - learner: "Sì, una mia amica è allergica a le noci."
+      errors: [articulated-preposition]
+    - tutor: "Allergica a le noci? Qui due piccole parole diventano una sola."
+      prompt: {text: "a le noci", tags: [articulated-preposition]}
+    - learner: "Ah, sì: allergica ai noci."
+      errors: [articulated-preposition]
+    - tutor: "Allergica alle noci, va bene: lo scrivo per la cucina. A che nome prenoto?"
+      recast: {text: "ai noci", fix: "alle noci", tags: [articulated-preposition]}
+      goals: [special]
+    - learner: "A nome Baker, B-A-K-E-R. Grazie mille!"
+    - tutor: "Grazie a lei, signora Baker. Quattro persone alle otto e mezza: a stasera!"
+      goals: [name]
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: en-m-retired
+  history: [register]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Siamo in due. Possiamo sedere vicino alla finestra?"
+      errors: [reflexive]
+    - tutor: "Sedere? Con questo verbo manca una piccola parola. Noi...?"
+      prompt: {text: "sedere", tags: [reflexive]}
+    - learner: "Possiamo sederci vicino alla finestra?"
+    - tutor: "Esatto! Certo, prego, di qua. Ecco il menù."
+      goals: [ask-table]
+    - learner: "Grazie. Ehi, cameriere! Portami gli spaghetti al pomodoro."
+      errors: [register]
+    - tutor: "Portami? Siamo al ristorante: provi con una domanda gentile."
+      prompt: {text: "Portami gli spaghetti", tags: [register]}
+    - learner: "Mi porta gli spaghetti al pomodoro, per favore?"
+    - tutor: "Con piacere! E da bere cosa prende?"
+      goals: [order-food]
+    - learner: "Un quarto di vino rosso e un bottiglia d'acqua naturale."
+      errors: [noun-gender]
+    - tutor: "Un bottiglia? Bottiglia è maschile o femminile?"
+      prompt: {text: "un bottiglia", tags: [noun-gender]}
+    - learner: "Uno bottiglia d'acqua naturale."
+      errors: [noun-gender]
+    - tutor: "Benissimo: un quarto di rosso e una bottiglia d'acqua. Arrivano subito."
+      recast: {text: "Uno bottiglia", fix: "una bottiglia", tags: [noun-gender]}
+      goals: [order-drink]
+    - learner: "Era tutto buonissimo. Scusi, ci porta il conto, per favore?"
+    - tutor: "Grazie, sono contento! Ecco il conto: sono ventisei euro."
+      goals: [ask-bill]
+
+- scenario: medico-base
+  level: A2
+  persona: es-f-teacher
+  history: [register, auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e sono un po' constipata."
+      errors: [false-friend]
+    - tutor: "Raffreddata e con mal di gola, mi dispiace. Da quanti giorni sta male?"
+      recast: {text: "constipata", fix: "raffreddata", tags: [false-friend]}
+      new: [{lemma: raffreddato, gloss: having a cold}]
+      goals: [symptoms]
+    - learner: "Da tre giorni. Ieri ho stato a letto tutto il giorno."
+      errors: [auxiliary-choice]
+    - tutor: "Ieri... ho stato? Con stare usiamo un altro verbo."
+      prompt: {text: "ho stato", tags: [auxiliary-choice]}
+    - learner: "Ieri sono stata a letto tutto il giorno."
+    - tutor: "Giusto. È allergica a qualche medicina?"
+      goals: [since-when]
+    - learner: "No, non sono allergica. Ma mi dici una cosa: è grave?"
+      errors: [register]
+    - tutor: "Mi dici? Sono il suo medico, e ci diamo del lei."
+      goals: [history]
+      prompt: {text: "mi dici", tags: [register]}
+    - learner: "Ah, scusi! Mi dice una cosa: è grave?"
+    - tutor: "No, non è grave. Prenda questa medicina due volte al giorno, per cinque giorni."
+    - learner: "Allora, due volte al giorno per cinque giorni. Grazie, dottore. Arrivederci!"
+    - tutor: "Esatto. Arrivederci, e beva molta acqua!"
+      goals: [instructions]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-f-professional
+  history: [register, conditional-form]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Vorrei spedire questo pacco in Irlanda."
+    - tutor: "Certo. Vuole spedirlo normale o veloce?"
+      goals: [send]
+    - learner: "Quanto costarebbe la spedizione veloce?"
+      errors: [conditional-form]
+    - tutor: "Costarebbe? Attenzione: c'è una lettera sbagliata nel verbo."
+      prompt: {text: "costarebbe", tags: [conditional-form]}
+    - learner: "Quanto costerrebbe?"
+      errors: [conditional-form]
+    - tutor: "Costerebbe quindici euro, e arriva in tre giorni. La normale costa nove euro."
+      recast: {text: "costerrebbe", fix: "costerebbe", tags: [conditional-form]}
+    - learner: "Allora prendo la normale. Devo scrivere il indirizzo?"
+      errors: [article-form]
+    - tutor: "Il indirizzo? Davanti a «i», questo articolo cambia."
+      prompt: {text: "il indirizzo", tags: [article-form]}
+    - learner: "Lo indirizzo?"
+      errors: [article-form]
+    - tutor: "Sì, scriva qui l'indirizzo e il suo nome, per favore."
+      recast: {text: "Lo indirizzo", fix: "l'indirizzo", tags: [article-form]}
+      goals: [speed]
+    - learner: "Ecco fatto. Posso pagare con la carta?"
+    - tutor: "Certo. Sono nove euro. Ecco la ricevuta."
+      goals: [form]
+    - learner: "Grazie, buona giornata!"
+    - tutor: "Grazie a lei, arrivederci!"
+      goals: [pay]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-m-worker
+  history: [register]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Ciao! Sì, l'ho visto. Cerchi un cameriere per l'estate?"
+      errors: [register]
+    - tutor: "Cerchi? Sono il direttore del bar: meglio usare il lei."
+      prompt: {text: "Cerchi un cameriere", tags: [register]}
+    - learner: "Scusi. Cerca un cameriere per l'estate?"
+    - tutor: "Sì, esatto. Ha esperienza come cameriere?"
+      goals: [ask]
+    - learner: "Sì, ho lavorato due anni a un ristorante di Valencia."
+      errors: [preposition]
+    - tutor: "A un ristorante? Pensi: lavoro... un ristorante."
+      prompt: {text: "a un ristorante", tags: [preposition]}
+    - learner: "Ho lavorato due anni da un ristorante di Valencia."
+      errors: [preposition]
+    - tutor: "In un ristorante, molto bene! È libero anche la sera e la domenica?"
+      recast: {text: "da un ristorante", fix: "in un ristorante", tags: [preposition]}
+      goals: [experience]
+    - learner: "Sì, sono disponibile la sera e la domenica. Ma il lunedì studio italiano."
+    - tutor: "Nessun problema: il lunedì il bar è chiuso! Mi lascia il suo numero?"
+      goals: [availability]
+    - learner: "Certo, è 347 812 5590. Mi chiamo Javier."
+    - tutor: "Grazie, Javier. La chiamo domani mattina."
+      goals: [contact]
+
+- scenario: compleanno
+  level: A2
+  persona: en-f-student
+  history: [register]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa! Le dispiacerebbe preparare la torta?"
+      errors: [register]
+    - tutor: "Le dispiacerebbe? Ma sono Giorgio, il tuo amico!"
+      prompt: {text: "Le dispiacerebbe", tags: [register]}
+    - learner: "Ah, è vero! Ti dispiacerebbe preparare la torta?"
+    - tutor: "Ma certo, la faccio io! Con la frutta?"
+      goals: [food]
+    - learner: "Sì, con la frutta. Invitiamo anche i collega di Sara?"
+      errors: [noun-number]
+    - tutor: "I collega? Sono tante persone: la parola cambia?"
+      prompt: {text: "i collega", tags: [noun-number]}
+    - learner: "I colleghe di Sara?"
+      errors: [noun-number]
+    - tutor: "Sì, invitiamo anche i colleghi, tutti! Facciamo sabato sera, a casa mia?"
+      recast: {text: "I colleghe", fix: "i colleghi", tags: [noun-number]}
+      goals: [guests]
+    - learner: "Sabato va benissimo. Scrivo anche un biglietto: «Gentile Sara, tanti auguri.»"
+      errors: [register]
+    - tutor: "Gentile Sara? Sembra una lettera della banca!"
+      goals: [date]
+      prompt: {text: "Gentile Sara", tags: [register]}
+    - learner: "Allora... «Egregia Sara»?"
+      errors: [register]
+    - tutor: "Ah ah, ancora più serio! Scriviamo «Cara Sara, tanti auguri!» E il regalo?"
+      recast: {text: "Egregia Sara", fix: "Cara Sara", tags: [register]}
+      new: [{lemma: augurio, gloss: wish}]
+    - learner: "Un libro di cucina. A Sara piace molto cucinare."
+    - tutor: "Ottima idea! Allora io faccio la torta e tu compri il libro."
+      goals: [gift]

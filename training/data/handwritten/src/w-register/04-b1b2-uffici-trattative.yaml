@@ -1,0 +1,275 @@
+# w-register, file 04: B1 trainer, B2 claims, offices, promotions, doctors, weddings, complaints.
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-m-retired
+  history: [register, comparative]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Ciao. Sono in pensione da un anno e sto quasi sempre seduto: leggo, guardo la televisione, mangio troppo."
+    - tutor: "Beh, almeno sei sincero! E dormi bene?"
+      goals: [habits]
+    - learner: "Non tanto. Adesso dormo meno che prima, solo cinque o sei ore."
+      errors: [comparative]
+    - tutor: "Meno che prima? In questo confronto, cosa mettiamo dopo «meno»?"
+      prompt: {text: "meno che prima", tags: [comparative]}
+    - learner: "Dormo meno da prima?"
+      errors: [comparative]
+    - tutor: "Dormi meno di prima, capisco: succede spesso quando cambiano le abitudini. Qual è il tuo obiettivo?"
+      recast: {text: "meno da prima", fix: "meno di prima", tags: [comparative]}
+    - learner: "Vorrei perdere cinque chili e camminare in montagna con i miei nipoti."
+    - tutor: "Ottimo obiettivo! Che cosa ti ferma, di solito?"
+      goals: [goal]
+    - learner: "La pigrizia, e il mal di schiena. Quando fa freddo non esco mai di casa."
+    - tutor: "Per la schiena ci sono esercizi molto utili. Facciamo tre allenamenti a settimana, di quaranta minuti?"
+      goals: [obstacles]
+      new: [{lemma: esercizio, gloss: exercise}]
+    - learner: "Va bene. La ringrazio per la Sua cortese disponibilità."
+      errors: [register]
+    - tutor: "Ah ah, «la Sua cortese disponibilità»? Qui in palestra ci diamo tutti del tu!"
+      prompt: {text: "La ringrazio per la Sua cortese disponibilità", tags: [register]}
+    - learner: "Allora: grazie, sei molto gentile!"
+    - tutor: "Così va meglio! Ci vediamo lunedì alle dieci per il primo allenamento."
+      goals: [plan]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-f-teacher
+  history: [register, passive]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri mattina ero ferma al semaforo e un tizio mi è venuto addosso da dietro."
+      errors: [register]
+    - tutor: "Mi dispiace. Però «un tizio», per la pratica, è un po' troppo colloquiale: chi guidava l'altra auto?"
+      prompt: {text: "un tizio", tags: [register]}
+      new: [{lemma: colloquiale, gloss: colloquial}]
+    - learner: "Scusi: un tipo mi ha tamponata da dietro."
+      errors: [register]
+    - tutor: "Chiaro: un altro conducente l'ha tamponata mentre lei era ferma. Ci sono stati feriti?"
+      recast: {text: "un tipo", fix: "un altro conducente", tags: [register]}
+      new: [{lemma: conducente, gloss: driver}]
+      goals: [what]
+    - learner: "No, per fortuna nessun ferito. Ma il paraurti è distrutto, e l'altro conducente ha ammesso subito che era colpa sua."
+    - tutor: "Bene, così è tutto più facile. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, sul posto. La constatazione è stata firmato da tutti e due."
+      errors: [passive]
+    - tutor: "È stata firmato? Controlli l'accordo con «constatazione»."
+      prompt: {text: "è stata firmato", tags: [passive]}
+    - learner: "È stato firmata da tutti e due."
+      errors: [passive]
+    - tutor: "È stata firmata da tutti e due, perfetto: allora la pratica è semplice. Ha anche delle foto del danno?"
+      recast: {text: "È stato firmata", fix: "È stata firmata", tags: [passive]}
+    - learner: "Sì, ne ho fatto parecchie col telefono. Gliele mando per email?"
+      errors: [participle-agreement]
+    - tutor: "Ne ho fatto parecchie? Con «ne», la fine di «fatto» segue le foto."
+      prompt: {text: "ne ho fatto parecchie", tags: [participle-agreement]}
+    - learner: "Ne ho fatta parecchie, sì."
+      errors: [participle-agreement]
+    - tutor: "Bene, se ne ha fatte parecchie, me le mandi all'indirizzo che trova sul nostro sito. Mi serve anche la targa dell'altra auto."
+      recast: {text: "fatta parecchie", fix: "fatte parecchie", tags: [participle-agreement]}
+      goals: [documents]
+    - learner: "Certo: AB 123 CD. E adesso cosa succede? Quando posso far riparare la macchina?"
+    - tutor: "Entro dieci giorni un perito verrà a vedere il danno; dopo la perizia potrà portarla dal carrozziere."
+      goals: [next]
+      new: [{lemma: carrozziere, gloss: car body repairer}]
+    - learner: "Perfetto. La ringrazio molto per la disponibilità."
+    - tutor: "Si figuri, è il mio lavoro. Le mando subito il numero della pratica per email."
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-m-heritage
+  history: [register, subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Salve! Senti, devo fare la residenza: mi sono trasferito qui a marzo."
+      errors: [register]
+    - tutor: "Mi scusi, «senti»? Siamo allo sportello dell'anagrafe, non al bar."
+      prompt: {text: "Senti", tags: [register]}
+    - learner: "Ha ragione, mi scusi. Senta, vorrei chiedere la residenza: mi sono trasferito qui a marzo."
+    - tutor: "Va bene. Mi servono il modulo compilato, un documento e il contratto d'affitto."
+      goals: [request]
+    - learner: "Ho tutto, tranne il contratto: il padrone di casa non me l'ha ancora dato."
+    - tutor: "Senza contratto non posso accettare la pratica, a meno che il proprietario non firmi una dichiarazione di ospitalità."
+      goals: [documents]
+      new: [{lemma: ospitalità, gloss: hospitality}]
+    - learner: "Capisco. Penso che il proprietario è disponibile a firmarla questa settimana."
+      errors: [subjunctive-use]
+    - tutor: "Penso che... è? Dopo «penso che», va bene questa forma del verbo?"
+      prompt: {text: "è disponibile", tags: [subjunctive-use]}
+    - learner: "Penso che sarà disponibile a firmarla questa settimana."
+      errors: [subjunctive-use]
+    - tutor: "Bene: se pensa che sia disponibile, porti la dichiarazione firmata, con una copia del documento del proprietario."
+      recast: {text: "sarà disponibile", fix: "sia disponibile", tags: [subjunctive-use]}
+      goals: [problem]
+    - learner: "E dopo, quanto tempo ci vuole? Devo tornare qui?"
+    - tutor: "No. Entro quarantacinque giorni i vigili passano a casa per il controllo, e se tutto va bene la residenza viene confermata."
+      goals: [next]
+    - learner: "Benissimo. Grazie, molto gentile. Buona giornata!"
+    - tutor: "Buona giornata a lei, e si ricordi di mettere il suo nome sul campanello!"
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: en-f-professional
+  history: [register]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Quest'anno il mio gruppo ha superato gli obiettivi del venti per cento, e abbiamo portato tre clienti nuovi."
+    - tutor: "Lo so, e sono risultati di cui siamo tutti contenti. Dove vuole arrivare?"
+      goals: [results]
+    - learner: "Beh, voglio più soldi e un ruolo più alto, punto."
+      errors: [register]
+    - tutor: "«Voglio più soldi, punto»? Con il suo responsabile, forse conviene un tono un po' più diplomatico."
+      prompt: {text: "voglio più soldi", tags: [register]}
+      new: [{lemma: diplomatico, gloss: diplomatic}]
+    - learner: "Ha ragione. Vorrei chiederle di valutare un aumento di stipendio e una promozione a responsabile del gruppo."
+    - tutor: "Così è molto più chiaro. Però sa che quest'anno il budget è limitato."
+      goals: [request]
+    - learner: "Lo capisco. Ma credo che i miei risultati giustificano almeno una discussione."
+      errors: [subjunctive-use]
+    - tutor: "Credo che i risultati... giustificano? Quale modo vuole «credo che»?"
+      prompt: {text: "giustificano", tags: [subjunctive-use]}
+    - learner: "Credo che giustificassero almeno una discussione."
+      errors: [subjunctive-use]
+    - tutor: "Che i suoi risultati giustifichino una discussione, su questo ha ragione. Facciamo così: a settembre, con la valutazione di fine anno, ne parlo con la direzione."
+      recast: {text: "giustificassero", fix: "giustifichino", tags: [subjunctive-use]}
+      goals: [handle]
+    - learner: "Mi sembra giusto. Potrebbe darmi un'idea degli obiettivi da raggiungere entro settembre?"
+    - tutor: "Certo: entro venerdì le mando un messaggio con tre obiettivi precisi."
+      goals: [next-steps]
+    - learner: "Perfetto, la ringrazio per avermi ascoltata."
+    - tutor: "Grazie a lei. E continui così!"
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-m-worker
+  history: [register, false-friend]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Buongiorno, dottore. Mi sento molto stanco, e quando salgo le scale mi manca il respiro."
+    - tutor: "Capisco. Da quanto tempo le succede?"
+      goals: [symptoms]
+    - learner: "Da due mesi circa. Sinceramente sono un po' molesto: avevo già fatto tutti questi esami l'anno scorso."
+      errors: [false-friend]
+    - tutor: "Capisco che sia infastidito, ma gli esami di un anno fa non bastano più. In famiglia qualcuno ha avuto problemi di cuore?"
+      recast: {text: "molesto", fix: "infastidito", tags: [false-friend]}
+    - learner: "Sì, mio padre ha avuto un infarto a cinquantacinque anni. Ok, dottore, ma dimmi la verità: è grave?"
+      errors: [register]
+    - tutor: "«Dimmi»? Fino a un attimo fa mi dava del lei!"
+      goals: [history]
+      prompt: {text: "dimmi", tags: [register]}
+    - learner: "Ha ragione, scusi, sono nervoso. Mi dica la verità: è grave?"
+    - tutor: "Non è grave, ma va controllato. La pressione è un po' alta e il battito diventa irregolare sotto sforzo."
+      goals: [understand]
+      new: [{lemma: irregolare, gloss: irregular}]
+    - learner: "E quindi? Devo prendere medicine per tutta la vita?"
+    - tutor: "Non necessariamente. Iniziamo con una terapia leggera per tre mesi, poi rifacciamo gli esami."
+    - learner: "Ci sono effetti collaterali? Lavoro in una obra e non posso permettermi di stare male."
+      errors: [word-choice]
+    - tutor: "In un cantiere, capisco. Il più comune è un po' di affaticamento nei primi giorni. Se le gira la testa, mi chiami subito."
+      recast: {text: "in una obra", fix: "in un cantiere", tags: [word-choice]}
+      goals: [treatment]
+    - learner: "Va bene. Grazie, dottore, è stato molto chiaro."
+    - tutor: "Si figuri. Ci vediamo fra tre mesi, e nel frattempo meno sale a tavola!"
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-traveller
+  history: [register]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Siamo molto eccitati. Immaginiamo una cosa semplice, in campagna, con circa ottanta invitati e tanta musica."
+      errors: [false-friend]
+    - tutor: "Si vede che siete emozionati, ed è bellissimo! E di budget, più o meno, quanto pensate di spendere?"
+      recast: {text: "eccitati", fix: "emozionati", tags: [false-friend]}
+      goals: [vision]
+    - learner: "Non vorremmo superare i venticinquemila euro, tutto incluso."
+    - tutor: "È una cifra ragionevole per ottanta persone. Ho due posti da farvi vedere: un agriturismo in Toscana o una villa sul lago di Garda."
+      goals: [budget]
+      new: [{lemma: agriturismo, gloss: farm-stay venue}]
+    - learner: "L'agriturismo mi sembra più adatto a noi: è meno caro e più informale."
+    - tutor: "Ottima scelta, e la cucina è eccellente. Avete già pensato agli inviti?"
+      goals: [choices]
+    - learner: "Sì, la mia fidanzata ha scritto una bozza: «Ehi gente, ci sposiamo! Venite a fare festa con noi!»"
+      errors: [register]
+    - tutor: "Simpatico! Però «Ehi gente» lo leggeranno anche i nonni e gli zii: funziona per tutti?"
+      prompt: {text: "Ehi gente", tags: [register]}
+    - learner: "Forse no. Allora «Ciao gente, ci sposiamo»?"
+      errors: [register]
+    - tutor: "Proverei con «Cari amici, ci sposiamo!»: resta informale, ma va bene anche per i nonni."
+      recast: {text: "Ciao gente", fix: "Cari amici", tags: [register]}
+    - learner: "Perfetto. Ultima cosa: vorrei che il fotografo non sia invadente durante la cerimonia."
+      errors: [subjunctive-use]
+    - tutor: "Giusto chiederlo. Ma «vorrei che... sia»? Dopo «vorrei», il congiuntivo cambia tempo."
+      prompt: {text: "sia invadente", tags: [subjunctive-use]}
+    - learner: "Vorrei che il fotografo non è invadente."
+      errors: [subjunctive-use]
+    - tutor: "Capisco: vorrebbe che non fosse invadente. Glielo dico io: il nostro fotografo è bravissimo a farsi dimenticare."
+      recast: {text: "non è invadente", fix: "non fosse invadente", tags: [subjunctive-use]}
+      goals: [conditions]
+    - learner: "Grazie, allora ci sentiamo la settimana prossima per il contratto."
+    - tutor: "Benissimo, vi mando tutto per email. E ancora congratulazioni!"
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-student
+  history: [register, relative-pronoun]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, la carne faceva schifo."
+      errors: [register]
+    - tutor: "Mi dispiace molto. Però «faceva schifo» è un po' forte: me lo può dire con parole più gentili?"
+      prompt: {text: "faceva schifo", tags: [register]}
+    - learner: "Va bene... la carne era schifosa."
+      errors: [register]
+    - tutor: "Capisco, la carne era deludente, e questo non deve succedere. Che cosa non andava, esattamente?"
+      recast: {text: "schifosa", fix: "deludente", tags: [register]}
+      goals: [complain]
+    - learner: "Avevo chiesto una cottura media, ma era quasi cruda. E abbiamo aspettato cinquanta minuti."
+    - tutor: "Cinquanta minuti sono davvero troppi, ha ragione. Ne ha parlato con qualcuno?"
+    - learner: "Sì, ma il cameriere che ho parlato non sapeva niente."
+      errors: [relative-pronoun]
+    - tutor: "Il cameriere... che ho parlato? Si parla con qualcuno: che cosa manca prima del pronome?"
+      prompt: {text: "che ho parlato", tags: [relative-pronoun]}
+    - learner: "Il cameriere a chi ho parlato non sapeva niente."
+      errors: [relative-pronoun]
+    - tutor: "Il cameriere con cui ha parlato è nuovo, mi dispiace. Stasera eravamo con due camerieri in meno, ma non è una scusa."
+      recast: {text: "a chi", fix: "con cui", tags: [relative-pronoun]}
+      goals: [detail]
+    - learner: "Capisco, ma da un ristorante così conosciuto mi aspettavo di più. Le recensioni dicevano che il servizio era perfetto."
+    - tutor: "E di solito lo è, glielo assicuro. Posso offrirle il dolce e uno sconto del trenta per cento?"
+      goals: [expectation]
+    - learner: "La ringrazio, è un gesto gentile. Accetto lo sconto, ma il dolce no, grazie: sono piena."
+    - tutor: "Come preferisce. Le preparo subito il conto, e spero di rivederla in una serata migliore."
+      goals: [resolve]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-f-erasmus
+  history: [register, hypothetical]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, molto: è luminoso e la zona è tranquilla. Però mi preoccupa il canone, novecento euro sono tanti per me."
+    - tutor: "Capisco. Il proprietario è disposto a trattare, entro certi limiti."
+      goals: [interest]
+    - learner: "Se il proprietario accetterebbe ottocento euro, firmerei subito."
+      errors: [hypothetical]
+    - tutor: "Se accetterebbe...? Nella frase con «se», il condizionale sta solo nell'altra parte."
+      prompt: {text: "accetterebbe", tags: [hypothetical]}
+    - learner: "Se accetterà ottocento euro, firmerei subito."
+      errors: [hypothetical]
+    - tutor: "Se il proprietario accettasse ottocento euro, sarebbe un miracolo! Ottocentocinquanta, con tutte le spese incluse, potrebbe andare."
+      recast: {text: "accetterà", fix: "accettasse", tags: [hypothetical]}
+      goals: [negotiate]
+    - learner: "Va bene, ottocentocinquanta. E la durata del contratto? Io resto solo due anni per il doctorado."
+      errors: [word-choice]
+    - tutor: "Due anni per il dottorato, capisco. Il contratto è di quattro anni più quattro, ma lei può dare la disdetta con sei mesi di preavviso."
+      recast: {text: "il doctorado", fix: "il dottorato", tags: [word-choice]}
+      goals: [conditions]
+      new: [{lemma: dottorato, gloss: PhD}, {lemma: preavviso, gloss: notice}]
+    - learner: "Ah, perfetto. Allora ci siamo. Ti mando i documenti stasera, ok?"
+      errors: [register]
+    - tutor: "«Ti mando»? Ci siamo dati del lei fino a un minuto fa!"
+      prompt: {text: "Ti mando", tags: [register]}
+    - learner: "Scusi! Le mando i documenti stasera, va bene?"
+    - tutor: "Benissimo. Preparo la proposta per il proprietario e la chiamo domani."
+      goals: [conclude]

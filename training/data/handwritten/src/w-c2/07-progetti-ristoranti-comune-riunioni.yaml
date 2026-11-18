@@ -1,0 +1,276 @@
+# Round 5, set w-c2: broad C2 coverage. File 7: project pitches, a restaurant complaint, the town hall,
+# team meetings, an ethics seminar.
+- scenario: presentazione-progetto
+  level: C2
+  persona: en-f-professional
+  history: [essere-avere]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Glielo spiego in due minuti. Proponiamo di digitalizzare l'archivio clienti: oggi ogni ordine passa per tre persone e quattro fogli di calcolo."
+    - tutor: "Ottimo, la sintesi mi piace. E concretamente, che cosa ci guadagniamo?"
+      goals: [pitch]
+    - learner: "Un risparmio di circa seicento ore di lavoro all'anno. Nel progetto pilota con l'ufficio di Torino abbiamo già risolvuto il problema dei doppi ordini."
+      errors: [past-participle-form]
+      gold: {text: "risolvuto", fix: "risolto"}
+    - tutor: "Seicento ore sono un argomento. Però «abbiamo già risolvuto»: il participio di risolvere è irregolare, come quelli di sciogliere o di volgere. Le viene?"
+      prompt: {text: "risolvuto", tags: [past-participle-form]}
+    - learner: "Risolto, certo. Abbiamo già risolto il problema dei doppi ordini, e i clienti di Torino hanno realizzato subito la differenza."
+      errors: [false-friend]
+    - tutor: "Se i clienti hanno notato subito la differenza, è un ottimo segnale. Ma centoventimila euro sono tanti, e il budget di quest'anno è già tirato. Se le dicessi che se ne parla l'anno prossimo?"
+      recast: {text: "realizzato", fix: "notato", tags: [false-friend]}
+      goals: [benefits]
+    - learner: "Le risponderei che, se aspettiamo un anno, perderemmo altre seicento ore e forse un paio di clienti importanti."
+      errors: [hypothetical]
+      gold: {text: "se aspettiamo un anno", fix: "se aspettassimo un anno"}
+    - tutor: "Risposta pronta. Ma la struttura, «se aspettiamo un anno, perderemmo»: con un condizionale nella principale, che cosa ci vuole dopo se?"
+      prompt: {text: "se aspettiamo un anno", tags: [hypothetical]}
+    - learner: "Se aspettassimo un anno, perderemmo altre seicento ore. Lei è giusto sul budget, però: potremmo dividere la spesa in due esercizi."
+      errors: [essere-avere]
+      gold: {text: "Lei è giusto", fix: "Lei ha ragione"}
+    - tutor: "Dividere la spesa in due esercizi è un'idea. Però «Lei è giusto sul budget»: per dire che qualcuno non sbaglia, in italiano quale verbo usiamo?"
+      prompt: {text: "Lei è giusto", tags: [essere-avere]}
+      goals: [objection]
+    - learner: "Ah, avere: Lei ha ragione sul budget. Quindi sessantamila quest'anno e sessantamila il prossimo."
+    - tutor: "Così diventa sostenibile. Mi mandi un piano in due fasi entro venerdì e lo porto in consiglio il quindici."
+      goals: [next-steps]
+
+- scenario: presentazione-progetto
+  level: C2
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Grazie. Si tratta di una cucina centrale che prepari le basi per tutti e sei i nostri ristoranti: sughi, impasti, fondi."
+    - tutor: "Una cucina centrale. E perché dovrebbe convincermi?"
+      goals: [pitch]
+    - learner: "Perché oggi in ogni ristorante c'è tre cuochi che fanno le stesse basi. Con la cucina centrale ne basterebbero due, e la qualità sarebbe identica ovunque."
+      errors: [ce-ci-sono]
+      gold: {text: "c'è tre cuochi", fix: "ci sono tre cuochi"}
+    - tutor: "La qualità uniforme mi interessa. Ma «c'è tre cuochi»: con un soggetto plurale, come cambia quell'espressione?"
+      prompt: {text: "c'è tre cuochi", tags: [ce-ci-sono]}
+    - learner: "Ci sono tre cuochi, giusto. E poi compreremmo all'ingrosso: la farina, il latte, perfino la sale, a prezzi molto più bassi."
+      errors: [noun-gender]
+      gold: {text: "la sale", fix: "il sale"}
+    - tutor: "L'acquisto all'ingrosso è un vantaggio concreto. Però «la sale»: in italiano, siamo sicuri che abbia lo stesso genere che in spagnolo?"
+      prompt: {text: "la sale", tags: [noun-gender]}
+    - learner: "No, è maschile: il sale. Calcoliamo un risparmio del diciotto per cento sui costi di produzione."
+    - tutor: "Diciotto per cento è interessante. La mia obiezione però è un'altra: se la cucina centrale si ferma, si fermano sei ristoranti."
+      goals: [benefits]
+    - learner: "Ci abbiamo pensato. Ogni ristorante terrebbe una scorta di tre giorni, e il nuovo centro producerà anche di notte, su due turni."
+      errors: [future-form]
+      gold: {text: "producerà", fix: "produrrà"}
+    - tutor: "Tre giorni di scorta mi tranquillizzano. Ma «producerà»: il futuro di produrre è contratto, come quello di tradurre. Come fa?"
+      prompt: {text: "producerà", tags: [future-form]}
+      goals: [objection]
+    - learner: "Producirà?"
+      errors: [future-form]
+    - tutor: "Produrrà, con due erre, come tradurrà. Ma se il centro produrrà anche di notte, i costi del personale non salgono?"
+      recast: {text: "Producirà", fix: "Produrrà", tags: [future-form]}
+    - learner: "Un po', ma meno di quanto risparmiamo con gli acquisti. Le preparo il piano completo per lunedì, con tutti i numeri."
+    - tutor: "Lunedì mattina sulla mia scrivania, allora, e poi lo discutiamo con i soci."
+      goals: [next-steps]
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Sì, purtroppo. Abbiamo aspettato cinquanta minuti per i secondi, e quando ho chiesto spiegazioni la cameriera è stata piuttosto rude."
+      errors: [false-friend]
+    - tutor: "Cinquanta minuti sono inaccettabili, e se la cameriera è stata maleducata me ne scuso personalmente. Che cosa vi ha detto, esattamente?"
+      recast: {text: "rude", fix: "maleducata", tags: [false-friend]}
+      goals: [complain]
+    - learner: "Che la cucina era piena e che dovevamo avere pazienza. Ma mi aspettavo che almeno ci avvertirebbe prima di ordinare."
+      errors: [conditional-form]
+      gold: {text: "ci avvertirebbe", fix: "ci avrebbe avvertito"}
+    - tutor: "Ha perfettamente ragione. Ma «mi aspettavo che ci avvertirebbe»: per un'aspettativa nel passato su un fatto successivo, quale condizionale ci vuole?"
+      prompt: {text: "ci avvertirebbe", tags: [conditional-form]}
+    - learner: "Il condizionale passato: mi aspettavo che ci avrebbe avvertito. E per di più il risotto è arrivato tiepido."
+    - tutor: "Tiepido, dopo cinquanta minuti: capisco l'irritazione. Il resto della cena com'è andato?"
+      goals: [detail]
+    - learner: "Gli antipasti mi è piaciuto moltissimo, devo dire, e il vino era ottimo. È proprio per questo che il resto mi ha deluso."
+      errors: [piacere]
+      gold: {text: "Gli antipasti mi è piaciuto", fix: "Gli antipasti mi sono piaciuti"}
+    - tutor: "Mi fa piacere almeno questo. Però «gli antipasti mi è piaciuto»: qual è il soggetto di piacere, e come si accorda il verbo?"
+      prompt: {text: "Gli antipasti mi è piaciuto", tags: [piacere]}
+    - learner: "Gli antipasti mi sono piaciuti, certo. Ecco, da un posto come il vostro mi sarei aspettato un servizio all'altezza della cucina."
+    - tutor: "Ha ragione, e il suo commento mi è utile. Mi permetta di offrirvi i secondi e il dolce."
+      goals: [expectation]
+    - learner: "La ringrazio, è un gesto che apprezzo. E la cameriera? Gli parlerà Lei?"
+      errors: [object-pronoun]
+      gold: {text: "Gli parlerà", fix: "Le parlerà"}
+    - tutor: "Certamente. Ma, se permette: la cameriera, e poi «gli parlerà»? Per una donna, quale pronome usiamo?"
+      prompt: {text: "Gli parlerà", tags: [object-pronoun]}
+    - learner: "Le parlerà, giusto. Allora accetto volentieri il dolce, e torneremo per il nostro anniversario."
+    - tutor: "Ne sarò felice: per l'anniversario vi tengo io il tavolo in veranda. E alla cameriera parlerò stasera stessa."
+      goals: [resolve]
+
+- scenario: reclamo-comune
+  level: C2
+  persona: en-m-retired
+  history: [article-use]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Abito in via dei Mille, e la strada è stata chiusa da due mesi per dei lavori che nessuno porta avanti."
+      errors: [passive]
+      gold: {text: "è stata chiusa da due mesi", fix: "è chiusa da due mesi"}
+    - tutor: "Via dei Mille, sì, mi risulta. Però «la strada è stata chiusa da due mesi»: se è ancora chiusa oggi, che tempo usiamo con da?"
+      prompt: {text: "è stata chiusa da due mesi", tags: [passive]}
+    - learner: "Ah, il presente: la strada è chiusa da due mesi. Il cantiere è stato abbandonato a metà, con le transenne e un buco enorme davanti al portone."
+    - tutor: "Capisco il disagio. La ditta ha avuto un problema con un subappalto; i lavori dovrebbero riprendere a breve."
+      goals: [describe]
+    - learner: "«A breve» me l'hanno detto anche tre settimane fa. Ogni volta ci si deve lamentarsi per ottenere qualcosa, e mia moglie, che ha ottant'anni, non può più uscire."
+      errors: [reflexive]
+      gold: {text: "ci si deve lamentarsi", fix: "ci si deve lamentare"}
+    - tutor: "Mi rendo conto, ed è grave. Però «ci si deve lamentarsi»: quel si non compare già una volta, davanti al verbo?"
+      prompt: {text: "ci si deve lamentarsi", tags: [reflexive]}
+    - learner: "Giusto: ci si deve lamentare. Comunque insisto: voglio una data precisa, non una promessa generica."
+    - tutor: "Una data precisa non gliela posso dare io, ma posso sollecitare l'ufficio tecnico oggi stesso."
+      goals: [insist]
+    - learner: "Non basta. So che ho diritto a risposta scritta entro trenta giorni, secondo il regolamento comunale."
+      errors: [article-use]
+      gold: {text: "ho diritto a risposta scritta", fix: "ho diritto a una risposta scritta"}
+    - tutor: "È un suo diritto, certo. Ma «ho diritto a risposta scritta»: davanti a risposta, in italiano, non manca qualcosa?"
+      prompt: {text: "ho diritto a risposta scritta", tags: [article-use]}
+      goals: [rights]
+    - learner: "Un articolo: ho diritto a una risposta scritta. E chiedo anche che nel frattempo venga garantito un passaggio sicuro per mia moglie."
+    - tutor: "Lo metto per iscritto: protocollo il reclamo, chiedo all'ufficio tecnico una data entro dieci giorni e una passerella provvisoria davanti al portone. La risposta le arriverà a casa."
+      goals: [commitment]
+
+- scenario: reclamo-comune
+  level: C2
+  persona: es-f-erasmus
+  history: [register]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Abito in via Garibaldi, dove da due mesi c'è un cantiere abbandonato. Il marciapiede è pieno di calcinacci e basura."
+      errors: [word-choice]
+    - tutor: "Calcinacci e spazzatura, capisco, e immagino anche i topi. Il cantiere è del Comune o di un privato?"
+      recast: {text: "basura", fix: "spazzatura", tags: [word-choice]}
+      goals: [describe]
+    - learner: "Del Comune, c'è il cartello. La riapertura è venuta rimandata già tre volte, l'ho scritto anche nella segnalazione online."
+      errors: [passive]
+      gold: {text: "è venuta rimandata", fix: "è stata rimandata"}
+    - tutor: "Tre rinvii, ne prendo nota. Però «è venuta rimandata»: in un tempo composto, il passivo si fa con venire o con un altro ausiliare?"
+      prompt: {text: "è venuta rimandata", tags: [passive]}
+    - learner: "Con essere: è stata rimandata già tre volte. Senti, ma quanto devo aspettare ancora?"
+      errors: [register]
+      gold: {text: "Senti", fix: "Senta"}
+    - tutor: "Capisco l'impazienza. Ma siamo allo sportello del Comune: «senti» è il registro che vuole usare con me?"
+      prompt: {text: "Senti", tags: [register]}
+    - learner: "Ha ragione, mi scusi. Senta, quanto devo aspettare ancora? Sono due mesi che scavalco le transenne per entrare in casa."
+    - tutor: "Due mesi sono troppi, lo riconosco. Purtroppo la ditta ha avuto problemi con i fornitori."
+      goals: [insist]
+    - learner: "Non è un mio problema. Pretendo che il Comune facci rispettare il contratto alla ditta, oppure che ne trovi un'altra."
+      errors: [subjunctive-form]
+      gold: {text: "facci", fix: "faccia"}
+    - tutor: "La sua richiesta è legittima. Ma «pretendo che il Comune facci»: il congiuntivo di fare, alla terza persona, come fa?"
+      prompt: {text: "facci", tags: [subjunctive-form]}
+      goals: [rights]
+    - learner: "Faccia, scusi: pretendo che il Comune faccia rispettare il contratto. E vorrei una risposta scritta, con una data."
+    - tutor: "La avrà: protocollo subito il reclamo e lo inoltro all'assessore ai lavori pubblici, che deve rispondere entro trenta giorni. Ecco il numero di protocollo."
+      goals: [commitment]
+
+- scenario: riunione-lavoro
+  level: C2
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Abbiamo finito la parte grafica, ma la settimana scorsa abbiamo perso due giorni perché il server di prova non rispondava."
+      errors: [imperfetto-form]
+      gold: {text: "rispondava", fix: "rispondeva"}
+    - tutor: "Due giorni persi, che seccatura. Ma «non rispondava»: rispondere è della seconda coniugazione, come fa all'imperfetto?"
+      prompt: {text: "rispondava", tags: [imperfetto-form]}
+      goals: [update]
+    - learner: "Rispondeva, giusto, come leggeva. Adesso funziona, ma il problema vero è un altro: il cliente vuole cambiare di nuovo i colori del logo."
+    - tutor: "Di nuovo? È la terza volta. Quanto tempo ci costa, stavolta?"
+      goals: [problem]
+    - learner: "Almeno una settimana. Sarebbe meglio se spostiamo la consegna al venti, invece del dodici."
+      errors: [hypothetical]
+      gold: {text: "se spostiamo", fix: "se spostassimo"}
+    - tutor: "Capisco. Però «sarebbe meglio se spostiamo»: con sarebbe nella principale, che cosa ci vuole dopo se?"
+      prompt: {text: "se spostiamo", tags: [hypothetical]}
+    - learner: "Se spostassimo la consegna al venti, avremmo il tempo di rifare tutto senza fretta."
+    - tutor: "Ha senso. Ma il cliente ha già fissato l'evento di lancio per il quindici. Che cosa proponi?"
+    - learner: "Potremmo consegnare il dodici una versione provvisoria con i colori vecchi, e quando Marco finirà i nuovi colori ti mando la versione definitiva."
+      errors: [future-form]
+      gold: {text: "quando Marco finirà", fix: "quando Marco avrà finito"}
+    - tutor: "Soluzione furba. Ma «quando Marco finirà i nuovi colori, ti mando»: per un'azione futura che ne precede un'altra, quale futuro ci vuole?"
+      prompt: {text: "quando Marco finirà", tags: [future-form]}
+      goals: [proposal]
+    - learner: "Il futuro anteriore? Quando Marco sarà finito?"
+      errors: [future-form]
+    - tutor: "Quasi: quando Marco avrà finito i colori nuovi, con avere, perché finire qui ha un oggetto. Allora la definitiva entro che data?"
+      recast: {text: "quando Marco sarà finito", fix: "quando Marco avrà finito", tags: [future-form]}
+    - learner: "Entro il diciotto, così il cliente ha tre giorni per controllarla prima del lancio."
+    - tutor: "Perfetto: provvisoria il dodici, definitiva il diciotto. Lo scrivo nel verbale e lo giro anche al cliente."
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: C2
+  persona: es-f-teacher
+  history: [verb-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene, direi. Il cliente ha approvato il presupposto la settimana scorsa e abbiamo già cominciato con le prime traduzioni."
+      errors: [false-friend]
+    - tutor: "Ottimo, con il preventivo approvato siamo già a metà dell'opera. E le traduzioni come procedono?"
+      recast: {text: "il presupposto", fix: "il preventivo", tags: [false-friend]}
+      goals: [update]
+    - learner: "Più lentamente del previsto, perché il cliente ci manda continuamente modifiche. Ieri ne ha mandate dodici, e ho già rispondido a tutte."
+      errors: [past-participle-form]
+      gold: {text: "rispondido", fix: "risposto"}
+    - tutor: "Dodici in un giorno, poveretta. Però «ho già rispondido»: è il participio spagnolo che si è infilato. Quello di rispondere, in italiano, è irregolare."
+      prompt: {text: "rispondido", tags: [past-participle-form]}
+      goals: [problem]
+    - learner: "Risposto, come nascosto. Ho già risposto a tutte, ma così non rispettiamo la scadenza."
+    - tutor: "Esatto. E allora che facciamo? Hai una proposta?"
+    - learner: "Sì: io propono di raccogliere le modifiche e di mandarle al cliente una volta alla settimana, il venerdì."
+      errors: [verb-form]
+      gold: {text: "io propono", fix: "io propongo"}
+    - tutor: "Mi piace. Però «io propono»: proporre si coniuga come porre. Come fa alla prima persona?"
+      prompt: {text: "io propono", tags: [verb-form]}
+    - learner: "Io propongo, come pongo. Così il lavoro non viene interrotto ogni ora."
+    - tutor: "Lo dirò al cliente con le dovute maniere. E con questo sistema la consegna del quindici la teniamo?"
+      goals: [proposal]
+    - learner: "Se il cliente accetterebbe, la terremmo senza problemi."
+      errors: [hypothetical]
+      gold: {text: "Se il cliente accetterebbe", fix: "Se il cliente accettasse"}
+    - tutor: "Speriamo. Ma «se il cliente accetterebbe»: dopo se, in un'ipotesi, il condizionale non ci va. Che cosa ci metti?"
+      prompt: {text: "Se il cliente accetterebbe", tags: [hypothetical]}
+    - learner: "Il congiuntivo: se il cliente accettasse, la terremmo senza problemi. Altrimenti chiediamo almeno tre giorni in più."
+    - tutor: "D'accordo: gli scrivo oggi pomeriggio e venerdì facciamo il punto. Scadenza il quindici, al massimo il diciotto."
+      goals: [deadline]
+
+- scenario: seminario-etica
+  level: C2
+  persona: en-f-student
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Bene, dottoressa, la sua tesi è che una macchina non possa mai essere ritenuta responsabile. Mi permetta di dubitarne fin da subito."
+    - learner: "Dubiti pure, professore, è il suo mestiere. La mia tesi è che la responsabilità morale presupponga un'intenzione, e una macchina non ne ha."
+    - tutor: "Presuppone un'intenzione. Ma nemmeno un'azienda ha intenzioni in senso stretto, eppure la riteniamo responsabile."
+      goals: [thesis]
+    - learner: "È qui che bisogna pagare attenzione: l'azienda è responsabile giuridicamente, non moralmente. Sono due piani diversi."
+      errors: [word-choice]
+    - tutor: "Bisogna prestare attenzione, certo, e la distinzione tra piano giuridico e piano morale è classica. Ma regge davvero?"
+      recast: {text: "pagare attenzione", fix: "prestare attenzione", tags: [word-choice]}
+      goals: [distinguish]
+    - learner: "Secondo me sì. Altrimenti la mia posizione non sarebbe consistente: non posso negare l'intenzione alla macchina e concederla all'azienda."
+      errors: [false-friend]
+    - tutor: "Non sarebbe coerente, giusto. Allora le faccio un'obiezione: se una macchina imparasse dai propri errori, non avrebbe già una forma di intenzione?"
+      recast: {text: "consistente", fix: "coerente", tags: [false-friend]}
+    - learner: "No, a meno che non ha consapevolezza di ciò che sta facendo. Imparare non significa volere."
+      errors: [subjunctive-use]
+      gold: {text: "a meno che non ha", fix: "a meno che non abbia"}
+    - tutor: "Distinzione sottile. Ma «a meno che non ha»: a meno che è una congiunzione esigente. Che modo vuole dopo di sé?"
+      prompt: {text: "a meno che non ha", tags: [subjunctive-use]}
+      goals: [objection]
+    - learner: "Il congiuntivo: a meno che non abbia consapevolezza. Però ammetto che non sappiamo misurare la consapevolezza, nemmeno negli esseri umani."
+    - tutor: "Ecco una concessione onesta, e non scontata. Allora, come conclude?"
+      goals: [concede]
+    - learner: "Concludo che, finché non si sarà capito che cosa sia la coscienza, non si potrà attribuire una responsabilità morale a una macchina: bisognerà attribuirla a chi la progetta."
+    - tutor: "Conclusione prudente e ben argomentata, anche se non mi ha convinto del tutto. Ne riparleremo alla discussione della tesi."
+      goals: [conclude]
