@@ -4541,6 +4541,52 @@ export const SCENARIOS: readonly TutorScenario[] = [
     "split": "eval"
   },
   {
+    "id": "raccontare-novita",
+    "title": "Che novità?",
+    "titleEn": "Catching up with an Italian friend",
+    "levels": [
+      "A1",
+      "A2",
+      "B1",
+      "B2"
+    ],
+    "setting": "Two friends catch up by phone after some time: news about work, study, family, holidays and plans, questions about each other, invitations.",
+    "tutorRole": "an Italian friend who is happy to hear from the learner and chats naturally",
+    "learnerRole": "a friend who shares their news and asks about the other person",
+    "formality": "informal",
+    "goals": [
+      {
+        "id": "news",
+        "description": "Tell your friend your news"
+      },
+      {
+        "id": "ask",
+        "description": "Ask your friend about their life"
+      },
+      {
+        "id": "plan",
+        "description": "Make a plan to meet or write again"
+      }
+    ],
+    "keyVocab": [
+      "novità",
+      "lavoro",
+      "studiare",
+      "vacanza",
+      "famiglia",
+      "incontrarsi",
+      "presto",
+      "contento"
+    ],
+    "grammarFocus": [],
+    "opening": "Ciao! Che bello sentirti! Allora, che novità?",
+    "tags": [
+      "social",
+      "everyday"
+    ],
+    "split": "eval"
+  },
+  {
     "id": "recensione-ristorante",
     "title": "Una cena deludente",
     "titleEn": "Complaining about a meal",
@@ -4791,52 +4837,6 @@ export const SCENARIOS: readonly TutorScenario[] = [
       "family"
     ],
     "split": "train"
-  },
-  {
-    "id": "rileggere-lettera",
-    "title": "Rileggiamo la tua lettera",
-    "titleEn": "Reading your letter through together",
-    "levels": [
-      "A1",
-      "A2",
-      "B1",
-      "B2"
-    ],
-    "setting": "The learner has written a letter or an e-mail in Italian (to a friend, a hotel, an employer or a school) and reads it out to an Italian friend, one sentence at a time, before sending it.",
-    "tutorRole": "an Italian friend who listens, reacts to what the letter says and helps it sound right",
-    "learnerRole": "someone who has just written a letter in Italian",
-    "formality": "informal",
-    "goals": [
-      {
-        "id": "purpose",
-        "description": "Say who the letter is for and why"
-      },
-      {
-        "id": "read",
-        "description": "Read the letter out sentence by sentence"
-      },
-      {
-        "id": "finish",
-        "description": "Agree that the letter is ready to send"
-      }
-    ],
-    "keyVocab": [
-      "lettera",
-      "scrivere",
-      "mandare",
-      "frase",
-      "rileggere",
-      "risposta",
-      "saluti",
-      "caro"
-    ],
-    "grammarFocus": [],
-    "opening": "Allora, hai finito la lettera? Dai, leggi una frase alla volta.",
-    "tags": [
-      "social",
-      "writing"
-    ],
-    "split": "eval"
   },
   {
     "id": "ristorante-ordinare",

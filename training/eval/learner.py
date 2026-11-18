@@ -1,8 +1,10 @@
 """The real-learner check: sentences real learners wrote, judged against native corrections.
 
 Every other benchmark item was written by a model imitating a learner. These items are the
-held-out (`split: eval`) MERLIN sentence pairs of `datagen.learner_corpus`: a learner reads out a
-letter they wrote, one sentence per item, in the eval-only `rileggere-lettera` scenario. A native
+held-out (`split: eval`) MERLIN sentence pairs of `datagen.learner_corpus`, one sentence per item,
+said to a friend in the eval-only `raccontare-novita` scenario (catching up by phone). The
+sentences come from letters, so letter formulas, shouted (all-capitals) sentences, fragments and
+accent-only corrections are left out: they would test writing, not conversation. A native
 corrector's minimal correction is the only gold label, so the scores are independent of any model:
 
 - detection: on sentences the native corrector changed, the tutor corrects something (a prompt or
@@ -19,6 +21,8 @@ cent is the floor, not zero.
 from __future__ import annotations
 
 import random
+import re
+import unicodedata
 from collections import defaultdict
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
@@ -39,7 +43,13 @@ from spec.models import (
 from spec.render import render_messages
 from spec.scenarios import load_library
 
-SCENARIO_ID = "rileggere-lettera"
+SCENARIO_ID = "raccontare-novita"
+# Letter formulas that make no sense said aloud to a friend.
+_LETTER_FORMULA = re.compile(
+    r"\b(car[aoie]|gentil[ei]|egregi[oa]|spettabile|saluti|salutoni|abbracci\w*|baci|bacioni"
+    r"|distinti|cordiali|ringraziandovi|in attesa|lettera|e-?mail)\b",
+    re.IGNORECASE,
+)
 
 
 class LearnerItem(WireModel):
@@ -66,6 +76,23 @@ def _opening(scenario: Scenario) -> Turn:
     )
 
 
+def is_conversational(text: str) -> bool:
+    """Could be said to a friend: no letter formula, not shouted, starts like a sentence."""
+    letters = [c for c in text if c.isalpha()]
+    shouted = sum(c.isupper() for c in letters) > len(letters) / 2
+    return text[:1].isalnum() and not shouted and not _LETTER_FORMULA.search(text)
+
+
+def _plain(text: str) -> list[str]:
+    folded = unicodedata.normalize("NFKD", text)
+    return words("".join(c for c in folded if not unicodedata.combining(c)))
+
+
+def accent_only(pair: LearnerPair) -> bool:
+    """The native changed only accents ("perchè", "mercoledi"), which nobody hears in speech."""
+    return pair.changed and _plain(pair.learner) == _plain(pair.native)
+
+
 def learner_item(pair: LearnerPair, scenario: Scenario) -> LearnerItem:
     context = TutorContext(learner=LearnerProfile(level=pair.level), scenario=scenario)
     messages = render_messages(context, [_opening(scenario), Turn.learner(pair.learner)])
@@ -86,7 +113,7 @@ def build_learner_items(
     """Held-out pairs, at most `per_group` changed and `per_group` unchanged per level."""
     groups: dict[tuple[Level, bool], list[LearnerPair]] = defaultdict(list)
     for pair in pairs:
-        if pair.split == "eval":
+        if pair.split == "eval" and is_conversational(pair.learner) and not accent_only(pair):
             groups[pair.level, pair.changed].append(pair)
     scenario = load_library()[SCENARIO_ID]
     rng = random.Random(seed)
