@@ -10,6 +10,9 @@ export default function DrillRoute() {
       onClose={() => {
         router.back();
       }}
+      onStartSession={() => {
+        router.replace('/session');
+      }}
     />
   );
 }

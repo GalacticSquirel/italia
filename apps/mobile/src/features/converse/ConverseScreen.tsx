@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { SCENARIOS, scenariosForLevel, TUTOR_LEVELS, type TutorLevel } from '@italia/core';
 
 import { useRepositories } from '@/db';
-import { Card, ListItem, Screen, SegmentedControl, Text, useTheme } from '@/ui';
+import { Card, List, ListItem, Screen, SegmentedControl, Text, useTheme } from '@/ui';
 
 import { TutorModelGate } from './components/TutorModelGate';
 import { loadLearnerProfile } from './learnerProfile';
@@ -40,16 +40,18 @@ export function ConverseScreen({ onOpen, now = () => new Date() }: ConverseScree
             onChange={setLevel}
           />
           <Card>
-            {scenarios.map((s) => (
-              <ListItem
-                key={s.id}
-                title={s.title}
-                subtitle={`${s.titleEn} · ${String(s.goals.length)} goals`}
-                onPress={() => {
-                  onOpen(s.id);
-                }}
-              />
-            ))}
+            <List>
+              {scenarios.map((s) => (
+                <ListItem
+                  key={s.id}
+                  title={s.title}
+                  subtitle={`${s.titleEn} · ${String(s.goals.length)} goals`}
+                  onPress={() => {
+                    onOpen(s.id);
+                  }}
+                />
+              ))}
+            </List>
           </Card>
         </View>
       </TutorModelGate>

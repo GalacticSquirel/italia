@@ -4,6 +4,7 @@ import { SafeAreaView, type Edge } from 'react-native-safe-area-context';
 
 import { Text } from './Text';
 import { useTheme } from './ThemeProvider';
+import { useKeyboardHeight } from './useKeyboardHeight';
 
 export interface ScreenProps {
   /** Screen title, shown as the top heading. */
@@ -27,6 +28,7 @@ export function Screen({
   testID,
 }: ScreenProps) {
   const { colors, spacing } = useTheme();
+  const keyboard = useKeyboardHeight();
   const content = (
     <View style={[styles.content, { padding: spacing.lg, gap: spacing.lg }]}>
       {title ? <Text variant="title">{title}</Text> : null}
@@ -39,11 +41,23 @@ export function Screen({
       style={[styles.root, { backgroundColor: colors.background }]}
       testID={testID}
     >
-      {scroll ? (
-        <ScrollView contentContainerStyle={styles.scrollContent}>{content}</ScrollView>
-      ) : (
-        content
-      )}
+      {/* Pad for the keyboard so text fields near the bottom (sign-in,
+          answers) stay above it; see useKeyboardHeight. */}
+      <View style={[styles.root, { paddingBottom: keyboard }]}>
+        {scroll ? (
+          // "handled": a tap on a button works while the keyboard is open,
+          // instead of only dismissing the keyboard (which made "Check" and
+          // "End" need two taps after typing an answer).
+          <ScrollView
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
+          >
+            {content}
+          </ScrollView>
+        ) : (
+          content
+        )}
+      </View>
     </SafeAreaView>
   );
 }

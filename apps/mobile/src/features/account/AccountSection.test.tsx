@@ -84,6 +84,7 @@ describe('AccountSection', () => {
       'learner@example.com',
       'italia://auth-callback',
     );
+    expect(screen.getByText(/We emailed a code to learner@example.com/)).toBeOnTheScreen();
 
     await user.type(screen.getByLabelText('Code from the email'), '123456');
     await user.press(screen.getByRole('button', { name: 'Sign in' }));

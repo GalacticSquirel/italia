@@ -31,7 +31,7 @@ describe('EarTrainingScreen', () => {
       ),
     );
     expect(await screen.findByTestId('limited-voices')).toBeOnTheScreen();
-    expect(screen.getByText(/Using 2 Italian voices/)).toBeOnTheScreen();
+    expect(screen.getByText(/Spoken by 2 Italian voices/)).toBeOnTheScreen();
     expect(screen.getByText('Level 1 of 3')).toBeOnTheScreen();
     const played = services.audio.spoken[0];
     expect(played?.options.language).toBe('it-IT');

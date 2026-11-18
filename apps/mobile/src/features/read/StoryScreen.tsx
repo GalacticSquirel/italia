@@ -71,7 +71,11 @@ export function StoryScreen({ storyId, onOpenStory, onOpenWord, onClose }: Story
       edges={['left', 'right', 'bottom']}
       style={[styles.root, { backgroundColor: colors.background }]}
     >
-      <ScrollView ref={scroll} contentContainerStyle={{ padding: spacing.lg, gap: spacing.md }}>
+      <ScrollView
+        ref={scroll}
+        contentContainerStyle={{ padding: spacing.lg, gap: spacing.md }}
+        keyboardShouldPersistTaps="handled"
+      >
         <View style={[styles.column, { gap: spacing.md }]}>
           <Card>
             <Text variant="caption" color="textMuted">

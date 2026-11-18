@@ -48,8 +48,38 @@ export class AuthError extends Error {
   }
 }
 
-function check(result: { error: { message: string } | null }): void {
-  if (result.error) throw new AuthError(result.error.message);
+/** What Supabase reports about a failed auth call. */
+export interface AuthFailure {
+  message: string;
+  code?: string;
+  status?: number;
+  name?: string;
+}
+
+/**
+ * The learner-facing text for a failed auth call. Supabase's own messages are
+ * written for developers ("Token has expired or is invalid"), so the common
+ * cases get plain wording; anything else keeps the server's message.
+ */
+export function authErrorMessage(error: AuthFailure): string {
+  const code = error.code ?? '';
+  if (code === 'otp_expired' || /token has expired or is invalid/i.test(error.message)) {
+    return 'That code is wrong or has expired. Check the latest email, or send a new code.';
+  }
+  if (code.startsWith('over_') || error.status === 429) {
+    return 'Too many tries. Wait a minute, then try again.';
+  }
+  if (code === 'email_address_invalid' || /email address .* invalid/i.test(error.message)) {
+    return 'That email address does not look right.';
+  }
+  if (error.name === 'AuthRetryableFetchError' || error.status === 0) {
+    return 'Could not reach the sync server. Check your connection and try again.';
+  }
+  return error.message;
+}
+
+function check(result: { error: AuthFailure | null }): void {
+  if (result.error) throw new AuthError(authErrorMessage(result.error));
 }
 
 /** {@link AuthService} over a Supabase client. */

@@ -29,7 +29,7 @@ export const TIER_MIN_RAM_BYTES: Readonly<Record<DeviceTier, number>> = {
 export const TIER_DESCRIPTIONS: Readonly<Record<DeviceTier, string>> = {
   minimal: 'Reviews, reading and ear training. Speaking uses the phone’s own recognizer.',
   low: 'Adds on-device speech recognition and pronunciation scoring.',
-  mid: 'Adds the smaller conversation model when it arrives.',
+  mid: 'Adds the smaller conversation model.',
   high: 'Runs everything, including the larger conversation model.',
 };
 

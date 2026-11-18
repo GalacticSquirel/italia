@@ -8,8 +8,11 @@ export default function TabsLayout() {
     <NativeTabs
       backgroundColor={colors.surface}
       indicatorColor={colors.track}
-      labelStyle={{ selected: { color: colors.primary } }}
-      iconColor={{ selected: colors.primary }}
+      // Label every tab, not only the selected one: five icons alone are
+      // hard to tell apart for a new learner.
+      labelVisibilityMode="labeled"
+      labelStyle={{ default: { color: colors.textMuted }, selected: { color: colors.primary } }}
+      iconColor={{ default: colors.textMuted, selected: colors.primary }}
     >
       <NativeTabs.Trigger name="index">
         <NativeTabs.Trigger.Label>Today</NativeTabs.Trigger.Label>

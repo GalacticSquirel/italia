@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import { formatBytes } from '@/features/models/format';
 import { useModels } from '@/models';
 import { useTutorModel, type TutorModelChoice } from '@/tutor';
-import { Card, ListItem, Screen, Text } from '@/ui';
+import { Card, List, ListItem, Screen } from '@/ui';
 
 /** What the speech models give, for the status line. */
 function modelStatus(sttReady: boolean, scorerReady: boolean): string {
@@ -46,44 +46,46 @@ export function SpeakScreen() {
         />
       </Card>
       <Card>
+        <List>
+          <ListItem
+            title="Speaking drill"
+            subtitle="Hear English, say it in Italian, hear the answer"
+            onPress={() => {
+              router.push('/speak/drill');
+            }}
+          />
+          <ListItem
+            title="Hands-free drill"
+            subtitle="Audio only: no taps, screen stays on"
+            onPress={() => {
+              router.push({ pathname: '/speak/drill', params: { handsFree: '1' } });
+            }}
+          />
+          <ListItem
+            title="Ear training"
+            subtitle="Tell apart words that sound alike"
+            onPress={() => {
+              router.push('/speak/ear');
+            }}
+          />
+          <ListItem
+            title="Shadowing"
+            subtitle="Repeat after a model and compare"
+            onPress={() => {
+              router.push('/speak/shadow');
+            }}
+          />
+        </List>
+      </Card>
+      <Card>
         <ListItem
-          title="Speaking drill"
-          subtitle="Hear English, say it in Italian, hear the answer"
+          title="On-device models"
+          subtitle={modelStatus(installed('stt'), installed('phonemes'))}
           onPress={() => {
-            router.push('/speak/drill');
-          }}
-        />
-        <ListItem
-          title="Hands-free drill"
-          subtitle="Audio only: no taps, screen stays on"
-          onPress={() => {
-            router.push({ pathname: '/speak/drill', params: { handsFree: '1' } });
-          }}
-        />
-        <ListItem
-          title="Ear training"
-          subtitle="Tell apart words that sound alike"
-          onPress={() => {
-            router.push('/speak/ear');
-          }}
-        />
-        <ListItem
-          title="Shadowing"
-          subtitle="Repeat after a model and compare"
-          onPress={() => {
-            router.push('/speak/shadow');
+            router.push('/models');
           }}
         />
       </Card>
-      <Text variant="caption" color="textMuted">
-        {modelStatus(installed('stt'), installed('phonemes'))}
-      </Text>
-      <ListItem
-        title="On-device models"
-        onPress={() => {
-          router.push('/models');
-        }}
-      />
     </Screen>
   );
 }

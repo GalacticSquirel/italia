@@ -20,6 +20,8 @@ export interface DrillScreenProps {
   /** Audio-only: no taps needed, screen kept awake. */
   handsFree?: boolean;
   onClose: () => void;
+  /** Opens today's session; offered when there is nothing to say yet. */
+  onStartSession?: () => void;
   /** Clock (tests). */
   now?: () => Date;
 }
@@ -85,6 +87,7 @@ function Runner({
 export function DrillScreen({
   handsFree = false,
   onClose,
+  onStartSession,
   now = () => new Date(),
 }: DrillScreenProps) {
   const repos = useRepositories();
@@ -95,7 +98,13 @@ export function DrillScreen({
         <EmptyState
           title="Nothing to say yet"
           message="Speaking prompts are made from sentences whose words you already know. Learn a few words in today's session, then come back."
-          action={<Button label="Close" onPress={onClose} />}
+          action={
+            onStartSession ? (
+              <Button label="Start today's session" onPress={onStartSession} />
+            ) : (
+              <Button label="Close" onPress={onClose} />
+            )
+          }
         />
       ) : (
         <MicGate>

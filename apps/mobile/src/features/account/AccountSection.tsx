@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { View } from 'react-native';
 
 import { useSync, type SyncStatus } from '@/sync';
-import { Button, Card, maxFontSizeMultiplier, minTouchTarget, Text, useTheme } from '@/ui';
+import { Button, Card, Text, TextField, useTheme } from '@/ui';
 
 /** Props for {@link AccountSection}. */
 export interface AccountSectionProps {
@@ -43,32 +43,20 @@ function describeStatus(status: SyncStatus | null, now: Date): string {
  */
 export function AccountSection({ getGoogleIdToken, now = () => new Date() }: AccountSectionProps) {
   const { enabled, user, auth, status, syncNow, redirectUrl } = useSync();
-  const { colors, spacing, radii, typography } = useTheme();
+  const { spacing } = useTheme();
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [codeSent, setCodeSent] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
-
-  const inputStyle = [
-    styles.input,
-    typography.body,
-    {
-      color: colors.text,
-      borderColor: colors.border,
-      backgroundColor: colors.background,
-      borderRadius: radii.md,
-      paddingHorizontal: spacing.md,
-    },
-  ];
+  const [error, setError] = useState<string | null>(null);
 
   const run = async (action: () => Promise<void>) => {
     setBusy(true);
-    setMessage(null);
+    setError(null);
     try {
       await action();
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : 'Something went wrong.');
+      setError(e instanceof Error ? e.message : 'Something went wrong.');
     } finally {
       setBusy(false);
     }
@@ -116,19 +104,16 @@ export function AccountSection({ getGoogleIdToken, now = () => new Date() }: Acc
           Sign in to keep your progress in step across your devices. Everything still works without
           an account.
         </Text>
-        <TextInput
-          style={inputStyle}
+        <TextField
+          label="Email address"
           value={email}
           onChangeText={setEmail}
-          placeholder="Email address"
-          placeholderTextColor={colors.textMuted}
-          accessibilityLabel="Email address"
+          placeholder="you@example.com"
           autoCapitalize="none"
           autoComplete="email"
           keyboardType="email-address"
           textContentType="emailAddress"
           editable={!busy}
-          maxFontSizeMultiplier={maxFontSizeMultiplier}
         />
         <Button
           label={codeSent ? 'Send a new code' : 'Email me a sign-in code'}
@@ -138,24 +123,22 @@ export function AccountSection({ getGoogleIdToken, now = () => new Date() }: Acc
             void run(async () => {
               await auth.sendEmailCode(email, redirectUrl ?? undefined);
               setCodeSent(true);
-              setMessage('Check your email for a code, or open the link on this device.');
             });
           }}
         />
         {codeSent ? (
           <>
-            <TextInput
-              style={inputStyle}
+            <Text color="textMuted" accessibilityLiveRegion="polite">
+              {`We emailed a code to ${email.trim()}. Enter it below, or open the link in the email on this phone.`}
+            </Text>
+            <TextField
+              label="Code from the email"
               value={code}
               onChangeText={setCode}
-              placeholder="Code from the email"
-              placeholderTextColor={colors.textMuted}
-              accessibilityLabel="Code from the email"
               keyboardType="number-pad"
               textContentType="oneTimeCode"
               autoComplete="one-time-code"
               editable={!busy}
-              maxFontSizeMultiplier={maxFontSizeMultiplier}
             />
             <Button
               label="Sign in"
@@ -188,16 +171,12 @@ export function AccountSection({ getGoogleIdToken, now = () => new Date() }: Acc
       <View style={{ gap: spacing.md }}>
         <Text variant="heading">Account</Text>
         {body}
-        {message !== null ? (
-          <Text accessibilityRole="alert" color="textMuted">
-            {message}
+        {error !== null ? (
+          <Text accessibilityRole="alert" color="danger">
+            {error}
           </Text>
         ) : null}
       </View>
     </Card>
   );
 }
-
-const styles = StyleSheet.create({
-  input: { minHeight: minTouchTarget, borderWidth: StyleSheet.hairlineWidth },
-});
