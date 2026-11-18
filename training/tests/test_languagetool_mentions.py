@@ -45,6 +45,10 @@ def _kept(text: str, word: str, rule: str = "MORFOLOGIK_RULE_IT_IT") -> list[str
         ("Manca un pronome piccolo piccolo.", "piccolo piccolo", "ITALIAN_WORD_REPEAT_RULE"),
         ("Ah ah, due giorni a casa!", "Ah ah", "ITALIAN_WORD_REPEAT_RULE"),
         ("Ci sono due secondi vegani, senza carne.", "vegani", "MORFOLOGIK_RULE_IT_IT"),
+        ("Un libro bello, a tratti difficile.", "a tratti", "ER_01_001"),
+        ("Ci vediamo nello showroom.", "showroom", "MORFOLOGIK_RULE_IT_IT"),
+        ("Serve un business plan serio.", "business plan", "MORFOLOGIK_RULE_IT_IT"),
+        ("Facciamo una videochiamata domani.", "videochiamata", "MORFOLOGIK_RULE_IT_IT"),
     ],
 )
 def test_mentions_loanwords_and_idioms_are_dropped(text: str, word: str, rule: str) -> None:
@@ -56,6 +60,7 @@ def test_mentions_loanwords_and_idioms_are_dropped(text: str, word: str, rule: s
     [
         ("Ieri ho prenduto il treno.", "prenduto", "MORFOLOGIK_RULE_IT_IT"),
         ("Il il treno parte.", "Il il", "ITALIAN_WORD_REPEAT_RULE"),
+        ("Lui a mangiato tutto.", "a mangiato", "ER_01_001"),
         ("Bisogna che lei viene, l'ho detto.", "viene", "GR_10_003"),
     ],
 )

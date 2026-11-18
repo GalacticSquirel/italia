@@ -44,6 +44,11 @@ KNOWN_WORDS = frozenset(
         "vegana",
         "vegani",
         "vegane",
+        "showroom",
+        "videochiamata",
+        "videochiamate",
+        "business",
+        "plan",
     }
 )
 # Words Italian doubles on purpose ("quasi quasi", "ciao ciao", "pian piano").
@@ -69,8 +74,9 @@ REDUPLICATED = frozenset(
     }
 )
 REPEAT_RULE = "ITALIAN_WORD_REPEAT_RULE"
-# Correct idioms a LanguageTool rule misreads ("senza badare a spese": ER_01_001 wants "ha").
-KNOWN_PHRASES = ("badare a spese", "a sorpresa")
+# Correct idioms a LanguageTool rule misreads ("senza badare a spese", "a tratti":
+# ER_01_001 wants "ha").
+KNOWN_PHRASES = ("badare a spese", "a sorpresa", "a tratti")
 
 
 @dataclass(frozen=True)
