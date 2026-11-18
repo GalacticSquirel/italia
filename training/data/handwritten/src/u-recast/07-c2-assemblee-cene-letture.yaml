@@ -1,0 +1,247 @@
+# C2, recast-focused (u-recast): near-native slips that survive a prompt («vorrei che
+# l'amministratore presentasse», «gliela», «se Cosimo scendesse», «grazie a cui»,
+# «più ricco dell'italiano», «gliene», «se gli stereotipi non avessero», «in cui appare»),
+# plus calques and false friends recast at once; correct sophisticated turns left alone.
+- scenario: assemblea-condominio
+  level: C2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Sì, grazie. Non sono contrario al rifacimento della facciata, ma vorrei che l'amministratore presenta almeno tre preventivi prima di deliberare."
+      errors: [subjunctive-use]
+    - tutor: "Prendo nota. Però, «vorrei che l'amministratore presenta»: dopo «vorrei che», le pare la forma giusta?"
+      prompt: {text: "l'amministratore presenta", tags: [subjunctive-use]}
+    - learner: "Sì, vorrei che l'amministratore presenta tre preventivi, perché l'unico che abbiamo mi sembra gonfiato."
+      errors: [subjunctive-use]
+    - tutor: "Richiesta legittima: vorrebbe che l'amministratore presentasse tre preventivi. Il signor Bianchi, però, sostiene che lei voglia solo prendere tempo per non pagare."
+      goals: [position]
+      recast: {text: "l'amministratore presenta", fix: "l'amministratore presentasse", tags: [subjunctive-use]}
+    - learner: "Capisco che il signor Bianchi abbia fretta, e lo rispetto. Ma qui non si tratta di non pagare: si tratta di pagare il giusto."
+    - tutor: "Risposta elegante, e il signor Bianchi sembra essersi calmato. Ha una proposta concreta?"
+      goals: [defuse]
+    - learner: "Propongo di dividere i lavori in due fasi: quest'anno la facciata su strada, mentre i lavori sul cortile prenderebbero luogo la primavera prossima."
+      errors: [word-choice]
+    - tutor: "Quindi i lavori sul cortile avrebbero luogo la primavera prossima, con rate più leggere per tutti. Mi sembra sensato: mettiamo ai voti?"
+      goals: [alternative]
+      recast: {text: "prenderebbero luogo", fix: "avrebbero luogo", tags: [word-choice]}
+    - learner: "Volentieri. E chiedo che la decisione sia registrata nelle minute, con i millesimi di ciascuno."
+      errors: [false-friend]
+    - tutor: "Certo, sarà tutto registrato nel verbale, millesimi compresi. Approvato a maggioranza: si procede in due fasi."
+      goals: [compromise]
+      recast: {text: "nelle minute", fix: "nel verbale", tags: [false-friend]}
+    - learner: "Perfetto. Grazie a tutti per la pazienza."
+    - tutor: "Grazie a lei. La seduta è tolta, buona serata a tutti."
+
+- scenario: cena-suoceri
+  level: C2
+  persona: es-f-teacher
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+    - learner: "Eccomi qui, in carne e ossa! È un piacere conoscervi finalmente, e grazie per l'invito."
+    - tutor: "Il piacere è nostro. Assaggi gli anolini: li ha fatti mia moglie stamattina, uno per uno."
+    - learner: "Sono squisiti, e il brodo è delicatissimo. La ricetta, però, glielo chiedo dopo cena, se permette."
+      errors: [combined-pronouns]
+    - tutor: "Ma certo! Solo una curiosità: «la ricetta, glielo chiedo»? Il pronome va d'accordo con la ricetta?"
+      prompt: {text: "glielo chiedo", tags: [combined-pronouns]}
+    - learner: "Sì, scusi: la ricetta glielo chiedo dopo, con calma, così me la scrivo."
+      errors: [combined-pronouns]
+    - tutor: "Mia moglie gliela scriverà volentieri, ne sarà lusingata. Ma mi dica, Lei di che cosa si occupa?"
+      goals: [compliment]
+      recast: {text: "glielo", fix: "gliela", tags: [combined-pronouns]}
+    - learner: "Insegno spagnolo in un liceo, e da tre anni sto realizzando un dottorato sulla poesia del Novecento. Non fa diventare ricchi, ma mi appassiona."
+      errors: [word-choice]
+    - tutor: "Ah, sta facendo un dottorato sulla poesia! Mia figlia sa sempre scegliere le professioni più redditizie... anche per i fidanzati."
+      goals: [background]
+      recast: {text: "realizzando un dottorato", fix: "facendo un dottorato", tags: [word-choice]}
+    - learner: "Per fortuna sua figlia ha anche un ottimo senso dell'umorismo. E dei conti, a quanto pare, si occupa lei!"
+    - tutor: "Colpito e affondato! Senta, ormai è di famiglia: perché non ci diamo del tu?"
+      goals: [irony]
+    - learner: "Con molto piacere, grazie. Allora mi permetta almeno di lavare i piatti."
+      errors: [register]
+    - tutor: "Eh no, ci siamo appena dati del tu! «Mi permetta»?"
+      prompt: {text: "mi permetta", tags: [register]}
+    - learner: "Ah, giusto! Allora permettimi almeno di lavare i piatti."
+    - tutor: "Così va meglio! Ma i piatti, in questa casa, li lava la lavastoviglie: tu goditi il dolce."
+      goals: [tu-lei]
+
+- scenario: circolo-lettura
+  level: C2
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+    - tutor: "Allora, confessatelo, chi di voi ha trovato Cosimo insopportabile? Io, a rileggerlo, un po' sì."
+    - learner: "Io no, anzi: l'ho trovato commovente. È ostinato fino all'assurdo, ma c'è in lui una coerenza che manca a quasi tutti gli adulti del romanzo."
+    - tutor: "Coerenza o puro capriccio, però? In fondo sale sugli alberi per un piatto di lumache!"
+      goals: [impression]
+    - learner: "Le lumache sono il pretesto, ma il tema è la ribellione. Se Cosimo scenderebbe dagli alberi, tradirebbe sé stesso."
+      errors: [hypothetical]
+    - tutor: "Interessante. Però: «se Cosimo scenderebbe»... rileggila, ti suona?"
+      prompt: {text: "Cosimo scenderebbe", tags: [hypothetical]}
+    - learner: "Ah... se Cosimo scenderebbe, il romanzo perderebbe il suo senso: la distanza è la sua forma di libertà."
+      errors: [hypothetical]
+    - tutor: "Se Cosimo scendesse, certo, il romanzo perderebbe senso: la distanza come libertà, d'accordo. E lo stile, che cosa ti ha colpito?"
+      goals: [theme]
+      recast: {text: "Cosimo scenderebbe", fix: "Cosimo scendesse", tags: [hypothetical]}
+    - learner: "La leggerezza. Calvino racconta cose terribili, la guerra, la morte del padre, con un'ironia che non scivola mai nel cinismo."
+    - tutor: "Eppure secondo me quell'ironia, alla fine, è una fuga: Cosimo non si sporca mai le mani."
+      goals: [style]
+    - learner: "Non sono d'accordo: legge, scrive ai filosofi francesi, si innamora, difende il bosco dai briganti. Eventualmente capisce il mondo meglio di chi ci vive dentro."
+      errors: [false-friend]
+    - tutor: "Alla fine capisce il mondo meglio di chi ci vive dentro, dici? Mi hai quasi convinta. E il prossimo libro?"
+      goals: [disagree]
+      recast: {text: "Eventualmente", fix: "Alla fine", tags: [false-friend]}
+    - learner: "Propongo «Le città invisibili»: restiamo con Calvino, ma cambiamo completamente registro."
+    - tutor: "Ottima idea, così scopriamo l'altro Calvino, quello delle geometrie."
+      goals: [recommend]
+
+- scenario: condoglianze
+  level: C2
+  persona: en-m-heritage
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Grazie di essere venuto, davvero. Non se lo doveva disturbare, con tutto il lavoro che ha."
+    - learner: "Ci mancherebbe, non potevo non esserci. Le porgo le mie più sentite condoglianze, anche da parte di tutto l'ufficio."
+    - tutor: "Grazie, siete molto cari. Mio padre parlava spesso di voi, sa?"
+      goals: [condolences]
+    - learner: "Anche noi di lui. Per me era la persona grazie a che ho avuto il mio primo lavoro in Italia."
+      errors: [relative-pronoun]
+    - tutor: "Mi fa piacere saperlo. Mi perdoni, solo un dettaglio: «la persona grazie a che»... dopo «grazie a», quel relativo va bene?"
+      prompt: {text: "la persona grazie a che", tags: [relative-pronoun]}
+    - learner: "Sì, la persona grazie a che ho trovato la mia strada: senza di lui sarei tornato a Londra."
+      errors: [relative-pronoun]
+    - tutor: "Era davvero la persona grazie a cui tanti hanno trovato la loro strada. Grazie di avermelo detto, mi fa bene sentirlo."
+      goals: [memory]
+      recast: {text: "la persona grazie a che", fix: "la persona grazie a cui", tags: [relative-pronoun]}
+    - learner: "Se le serve una mano con le pratiche o con qualsiasi altra cosa, mi dia una chiamata. Lo dico sul serio."
+      errors: [word-choice]
+    - tutor: "Lei è molto gentile. Facciamo così: mi faccia una telefonata la settimana prossima, che ci sono le carte della pensione da sistemare."
+      goals: [offer-help]
+      recast: {text: "dia una chiamata", fix: "faccia una telefonata", tags: [word-choice]}
+    - learner: "Conti su di me. Adesso la lascio con la sua famiglia, e mi scusi ancora per l'ora."
+    - tutor: "Grazie a lei, di cuore. Mio padre sarebbe stato contento di vederla qui."
+      goals: [leave]
+
+- scenario: dialetti-regionali
+  level: C2
+  persona: es-f-erasmus
+  history: [comparative]
+  turns:
+    - tutor: "Scusa se mi intrometto, ma ti ho visto ridere: hai capito cosa si dicevano quei due signori? Perché non è mica facile."
+    - learner: "Ho capito una parola su tre, credo! Stavo salendo dalla biblioteca quando li ho sentiti: la cadenza è bellissima, sembra che cantino."
+      errors: [false-friend]
+    - tutor: "Ah, stavi uscendo dalla biblioteca? Allora hai sentito napoletano verace! Ti ha colpito qualche parola in particolare?"
+      goals: [notice]
+      recast: {text: "salendo dalla biblioteca", fix: "uscendo dalla biblioteca", tags: [false-friend]}
+    - learner: "Sì, uno ha detto «guaglione» almeno dieci volte. E alla fine «jamme», per dire «andiamo», giusto?"
+    - tutor: "Esatto, sono due classici. Secondo te il napoletano è una lingua o solo una variante dell'italiano?"
+      goals: [example]
+    - learner: "Per me il napoletano è più ricco che l'italiano standard in certe cose, per esempio per insultare con fantasia!"
+      errors: [comparative]
+    - tutor: "Su questo hai ragione! Però, «più ricco che l'italiano»... davanti a un nome, va bene quel «che»?"
+      prompt: {text: "più ricco che l'italiano", tags: [comparative]}
+    - learner: "Mmm... più ricco che l'italiano, sì, almeno per gli insulti e le canzoni."
+      errors: [comparative]
+    - tutor: "Più ricco dell'italiano per insulti e canzoni, senza dubbio! Ma pensi che vada tutelato, magari insegnato a scuola?"
+      goals: [standard]
+      recast: {text: "più ricco che l'italiano", fix: "più ricco dell'italiano", tags: [comparative]}
+    - learner: "Insegnato a scuola forse no, ma tutelato sì. In Spagna il catalano e il galiziano sono lingue ufficiali, e nessuno ne muore."
+    - tutor: "Però lì sono lingue con una norma scritta condivisa; col napoletano è più complicato."
+    - learner: "È vero, ma anche il napoletano ha secoli di teatro e di poesia alle spalle. Forse è solo una questione di prestigio."
+    - tutor: "In effetti, come si dice, una lingua è un dialetto con un esercito alle spalle."
+      goals: [opinion]
+
+- scenario: email-rettore
+  level: C2
+  persona: en-f-student
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Sono dottoranda al terzo anno e mi serve una proroga di sei mesi: il laboratorio è rimasto chiuso quattro mesi per lavori. Il mio relatore gli ne ha già parlato a voce, ma senza risultato."
+      errors: [combined-pronouns]
+    - tutor: "Capisco. Un dettaglio, però: «gli ne ha già parlato»? Quei due pronomi, uniti, come si scrivono?"
+      prompt: {text: "gli ne ha già parlato", tags: [combined-pronouns]}
+    - learner: "Sì, il mio relatore gli ne ha parlato due volte, ma il Rettore vuole una richiesta scritta."
+      errors: [combined-pronouns]
+    - tutor: "Se il suo relatore gliene ha già parlato due volte, la richiesta scritta è quasi una formalità. Come pensava di aprire la lettera?"
+      goals: [situation]
+      recast: {text: "gli ne", fix: "gliene", tags: [combined-pronouns]}
+    - learner: "Pensavo: «Caro Rettore, le scrivo per chiederle una proroga...»."
+      errors: [register]
+    - tutor: "«Caro Rettore»? Per una lettera al Rettore, quella formula le sembra adeguata?"
+      prompt: {text: "Caro Rettore", tags: [register]}
+    - learner: "Ah, giusto: «Magnifico Rettore, con la presente desidero sottoporre alla Sua cortese attenzione...»."
+    - tutor: "Ecco, così è impeccabile. E la frase centrale?"
+      goals: [opening-formula]
+    - learner: "Poi scriverei: «Esigo una proroga di sei mesi, perché il ritardo non dipende da me». È troppo diretto?"
+    - tutor: "Un filo troppo, sì. Provi con un condizionale e una formula di cortesia."
+    - learner: "«Le sarei grata se volesse concedermi una proroga di sei mesi, considerato che il ritardo non è a me imputabile.»"
+    - tutor: "Fermo ma cortese, esattamente il tono giusto. E per chiudere?"
+      goals: [tone]
+    - learner: "«In attesa di un Suo cortese riscontro, Le porgo distinti saluti.»"
+    - tutor: "Perfetto, la lettera è pronta. In bocca al lupo!"
+      goals: [closing]
+
+- scenario: intervista-radio
+  level: C2
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+    - tutor: "Bentornati, cari ascoltatori. In studio con noi c'è un'autrice che ha avuto il coraggio, o l'incoscienza, di scrivere un libro su di noi italiani. Benvenuta!"
+    - learner: "Grazie dell'invito. Coraggio forse no: attualmente è stata più una vendetta affettuosa, dopo quindici anni a Torino."
+      errors: [false-friend]
+    - tutor: "In realtà una vendetta affettuosa, quindi! E di che cosa parla, esattamente, questo libro?"
+      recast: {text: "attualmente", fix: "In realtà", tags: [false-friend]}
+    - learner: "È un dizionario semiserio delle abitudini italiane, dalla A di «aperitivo» alla Z di «zanzara». L'ho scritto per rispondere a tutte le domande dei miei amici inglesi."
+    - tutor: "Domanda provocatoria: non teme di rafforzare gli stereotipi, invece di smontarli?"
+      goals: [present-book]
+    - learner: "È un rischio. Ma se gli stereotipi non avrebbero un fondo di verità, nessuno riderebbe."
+      errors: [hypothetical]
+    - tutor: "Su questo ci sarebbe da discutere! Ma quel «se gli stereotipi non avrebbero»... lo riformulerebbe?"
+      prompt: {text: "gli stereotipi non avrebbero", tags: [hypothetical]}
+    - learner: "Voglio dire: se gli stereotipi non avrebbero nessun fondo di verità, il libro non farebbe ridere."
+      errors: [hypothetical]
+    - tutor: "Certo, se gli stereotipi non avessero nessun fondo di verità, non farebbero ridere nessuno. Ci racconta un episodio che le è rimasto impresso?"
+      goals: [stereotype]
+      recast: {text: "gli stereotipi non avrebbero", fix: "gli stereotipi non avessero", tags: [hypothetical]}
+    - learner: "Il primo giorno di lavoro ho ordinato un cappuccino alle tre del pomeriggio, e il barista mi ha guardata come se avessi chiesto un whisky. Lì ho capito che certe regole esistono, anche se nessuno le scrive."
+    - tutor: "Un classico intramontabile! E l'italiano, che cosa ha cambiato in lei?"
+      goals: [anecdote]
+    - learner: "Mi ha reso più diretta nelle emozioni e più diplomatica nelle opinioni: in inglese ero l'esatto contrario."
+    - tutor: "Una sintesi bellissima. Ci lascia con una frase per i nostri ascoltatori?"
+      goals: [language]
+    - learner: "Certo: in Italia nulla è urgente, tranne il caffè."
+    - tutor: "Perfetta! Grazie, e alla prossima puntata."
+      goals: [farewell]
+
+- scenario: poesia-montale
+  level: C2
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Lasciamo un attimo di silenzio dopo la lettura. Ecco. Che cosa le è rimasto addosso, di questi versi?"
+    - learner: "Un senso di aridità. Il male di vivere non viene descritto, viene mostrato attraverso gli oggetti: il rivo strozzato, la foglia riarsa, il cavallo stramazzato."
+    - tutor: "Esatto, è il correlativo oggettivo. Quale immagine la colpisce di più?"
+      goals: [first-reading]
+    - learner: "La foglia «che s'accartoccia». È un'immagine nella quale si sente quasi il rumore della carta secca."
+    - tutor: "Bellissimo, è proprio un'immagine che si ascolta. E il suono, il ritmo dei versi?"
+      goals: [image]
+    - learner: "Nella prima strofa ci sono suoni aspri, consonanti doppie, che rendono il dolore fisico. La seconda è più distesa: è quella che appare la divina Indifferenza."
+      errors: [relative-pronoun]
+    - tutor: "«È quella che appare la divina Indifferenza»? Rilegga: la strofa è il luogo dell'apparizione. Quale relativo ci vuole?"
+      prompt: {text: "quella che appare", tags: [relative-pronoun]}
+    - learner: "Sì, la seconda strofa è quella che appare la statua, la nuvola, il falco."
+      errors: [relative-pronoun]
+    - tutor: "Giusto, la seconda strofa è quella in cui appare il bene, ed è un bene freddo: statua, nuvola, falco. Qual è allora, secondo lei, il senso complessivo?"
+      goals: [sound]
+      recast: {text: "quella che appare", fix: "quella in cui appare", tags: [relative-pronoun]}
+    - learner: "Che l'unica salvezza possibile è il distacco, non la felicità. Io però vorrei che il poeta ci dà almeno una speranza, e invece non lo fa."
+      errors: [subjunctive-use]
+    - tutor: "Lettura rigorosa. Ma «vorrei che il poeta ci dà»: dopo «vorrei che», quel verbo la convince?"
+      prompt: {text: "ci dà almeno una speranza", tags: [subjunctive-use]}
+    - learner: "Sì... vorrei che ci dà almeno una speranza, anche piccola."
+      errors: [subjunctive-use]
+    - tutor: "Vorrebbe che ci desse almeno una speranza, anche piccola: è umano. Ma Montale non consola, e forse è proprio per questo che ci resta così vicino."
+      goals: [meaning]
+      recast: {text: "ci dà almeno una speranza", fix: "ci desse almeno una speranza", tags: [subjunctive-use]}

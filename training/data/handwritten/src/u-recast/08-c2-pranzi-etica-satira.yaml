@@ -1,0 +1,229 @@
+# C2, recast-focused (u-recast): «ce ne sono», «benché il comportamento fosse», «la scena in cui»,
+# «se un treno arrivasse», «più alto della media», «un collega a cui», «più velocemente di prima»,
+# «lo chef venisse»; calques and false friends («evidenze», «realizzato», «esito», «carta»,
+# «rude», «hai un punto») recast at once. Correct «ne», «la cui resa», «se usassero» left alone.
+- scenario: pranzo-domenicale
+  level: C2
+  persona: en-m-traveller
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Ah, sei arrivato giusto in tempo, qui si stanno già scannando per l'ultima lasagna. Siediti, che non mordiamo!"
+    - learner: "«Non mordiamo», lo spero bene! Ma «scannarsi» per una lasagna... vuol dire litigare ferocemente, no?"
+    - tutor: "Esatto, come i lupi! Tranquillo però, in cucina c'è un'altra teglia. Da voi esistono pranzi così?"
+      goals: [react]
+    - learner: "Da noi in Inghilterra ci ne sono pochi, di pranzi della domenica così lunghi."
+      errors: [combined-pronouns]
+    - tutor: "«Ci ne sono pochi»? Quando «ci» incontra «ne», cambia qualcosa. Ci riprovi?"
+      prompt: {text: "ci ne sono", tags: [combined-pronouns]}
+    - learner: "Ah... ci ne sono pochi, sì: la domenica si mangia un arrosto e alle tre è tutto finito."
+      errors: [combined-pronouns]
+    - tutor: "Pure qui ce ne sono sempre meno, di pranzi così: da noi si comincia all'una e si finisce a cena! Ma voi come dite di uno che mangia tantissimo?"
+      recast: {text: "ci ne sono", fix: "ce ne sono", tags: [combined-pronouns]}
+    - learner: "Diciamo «to eat like a horse», mangiare come un cavallo. Voi?"
+    - tutor: "Noi diciamo «mangiare come un lupo». Il cavallo, da noi, al massimo lavora!"
+      goals: [compare]
+    - learner: "Allora vi racconto di mio zio: a un matrimonio ha mangiato tre piatti di lasagna e poi non riusciva più ad alzarsi dalla sedia. Come dite voi? Chi troppo vuole, nulla stringe!"
+    - tutor: "Proverbio perfetto per l'occasione! E visto il rischio, la seconda fetta te la do piccola."
+      goals: [use-idiom, anecdote]
+
+- scenario: seminario-etica
+  level: C2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Bene, dottoressa, la sua tesi è che una macchina non possa mai essere ritenuta responsabile. Mi permetta di dubitarne fin da subito."
+    - learner: "Ne ha tutto il diritto, professore. La mia tesi è precisa: la responsabilità morale presuppone intenzionalità, e una macchina non ha intenzioni, ha solo obiettivi assegnati."
+    - tutor: "Ma un'azienda ha intenzioni? Eppure la riteniamo responsabile."
+      goals: [thesis]
+    - learner: "Proprio qui distinguo tra responsabilità giuridica e responsabilità morale: la prima si può attribuire per convenzione, la seconda no."
+    - tutor: "Distinzione classica. E se un giorno un sistema mostrasse qualcosa di indistinguibile da un'intenzione?"
+      goals: [distinguish]
+    - learner: "Anche in quel caso, benché il comportamento è indistinguibile, mancherebbe la coscienza che dà senso all'intenzione."
+      errors: [subjunctive-use]
+    - tutor: "Obiezione interessante. Ma prima la forma: «benché il comportamento è»... la lascerebbe così in un saggio?"
+      prompt: {text: "il comportamento è", tags: [subjunctive-use]}
+    - learner: "Mi scusi: benché il comportamento è identico, l'agente non saprebbe di agire."
+      errors: [subjunctive-use]
+    - tutor: "Dunque, benché il comportamento fosse identico, mancherebbe la consapevolezza di agire. Ma come fa a sapere che manca, se dall'esterno non si vede?"
+      goals: [objection]
+      recast: {text: "il comportamento è", fix: "il comportamento fosse", tags: [subjunctive-use]}
+    - learner: "Ammetto che non ho evidenze per dimostrarlo: è un limite reale. Ma l'onere della prova spetta a chi attribuisce la coscienza, non a chi la nega."
+      errors: [false-friend]
+    - tutor: "Non ha prove, d'accordo, ma sposta abilmente l'onere su di me. Mi riassuma la sua posizione in una frase."
+      goals: [concede]
+      recast: {text: "evidenze", fix: "prove", tags: [false-friend]}
+    - learner: "Finché non sapremo attribuire una coscienza, potremo parlare di responsabilità giuridica delle macchine, ma non di responsabilità morale."
+    - tutor: "Rigoroso. Non mi ha convinto del tutto, ma ha difeso la sua tesi con eleganza."
+      goals: [conclude]
+
+- scenario: traduzione-sfumature
+  level: C2
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Ho letto la tua bozza del terzo capitolo. Scorre, scorre benissimo. Peccato che non sia più l'autore a parlare."
+    - learner: "Lo sospettavo: rileggendo ho realizzato che il nonno non funziona. In inglese parla uno scozzese molto marcato, e io l'ho reso in un italiano neutro."
+      errors: [false-friend]
+    - tutor: "Hai capito bene: così il nonno sembra un professore di liceo. Che alternative hai?"
+      goals: [problem]
+      recast: {text: "realizzato", fix: "capito", tags: [false-friend]}
+    - learner: "Due: un italiano regionale, magari con qualche tratto toscano, oppure un italiano sgrammaticato, la cui resa però rischia di sembrare caricaturale."
+    - tutor: "Il toscano ha una sua logica, ma il lettore penserebbe a Firenze, non alla Scozia."
+      goals: [options]
+    - learner: "Vero. C'è poi una parola che mi dà problemi: «eventually», che avevo tradotto con «eventualmente»."
+    - tutor: "Falso amico da manuale! Dove l'avevi trovato?"
+      goals: [false-friend]
+    - learner: "Nella scena in che il nonno racconta la guerra. Lì vuol dire «alla fine, dopo tanto tempo»."
+      errors: [relative-pronoun]
+    - tutor: "Ah, quella! Ma «nella scena in che»... rileggi: il relativo regge?"
+      prompt: {text: "scena in che", tags: [relative-pronoun]}
+    - learner: "Sì, la scena in che racconta la guerra, verso la fine del capitolo."
+      errors: [relative-pronoun]
+    - tutor: "La scena in cui racconta la guerra, certo: lì «alla fine» va benissimo. E per la voce del nonno, cosa decidiamo?"
+      recast: {text: "scena in che", fix: "scena in cui", tags: [relative-pronoun]}
+    - learner: "Direi un italiano semplice, con frasi brevi e qualche parola antica, senza imitare un dialetto preciso."
+    - tutor: "Mi convince: così il nonno resta straniero senza diventare una macchietta."
+      goals: [decide]
+
+- scenario: umorismo-satira
+  level: C2
+  persona: es-m-worker
+  history: [hypothetical]
+  turns:
+    - tutor: "Dai, ammettilo, alla battuta sul ministro e la carbonara non hai riso perché non l'avevi capita."
+    - learner: "Lo ammetto, non l'avevo capita! Che cosa c'entrava la panna?"
+    - tutor: "La panna nella carbonara è un sacrilegio, e il ministro l'aveva difesa in televisione. Un traditore della patria, insomma!"
+      goals: [missed]
+    - learner: "Ah, adesso sì che fa ridere! Invece la battuta sul treno in orario mi ha fatto morire."
+    - tutor: "Perché proprio quella?"
+    - learner: "Perché è assurda ma credibile: un treno in orario come notizia da telegiornale. Se un treno arriverebbe davvero in orario, la gente applaudirebbe."
+      errors: [hypothetical]
+    - tutor: "Verissimo! Però «se un treno arriverebbe»... come lo diresti, con il «se»?"
+      prompt: {text: "un treno arriverebbe", tags: [hypothetical]}
+    - learner: "Mmm... se un treno arriverebbe in orario, sarebbe un miracolo, no?"
+      errors: [hypothetical]
+    - tutor: "Se un treno arrivasse in orario sarebbe un miracolo, appunto: ecco perché funziona. E i giochi di parole li capisci?"
+      goals: [favourite]
+      recast: {text: "un treno arriverebbe", fix: "un treno arrivasse", tags: [hypothetical]}
+    - learner: "Alcuni. Ieri ne ho fatto uno io in ufficio: ho detto che il mio capo è un uomo di parola... perché parla sempre! È stato un grande esito."
+      errors: [false-friend]
+    - tutor: "Un grande successo, ci credo: è bellissima! Ma secondo te la satira deve avere dei limiti?"
+      goals: [wordplay]
+      recast: {text: "un grande esito", fix: "un grande successo", tags: [false-friend]}
+    - learner: "Secondo me sì, uno solo: deve colpire i potenti, non i deboli. Se ride solo chi è forte, non è satira, è bullismo."
+    - tutor: "Sottoscrivo ogni parola."
+      goals: [limits]
+
+- scenario: trattativa-affitto
+  level: C2
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Molto, glielo confesso. È luminoso e silenzioso, ma ha un difetto: il canone è decisamente più alto che la media del quartiere."
+      errors: [comparative]
+    - tutor: "Prendo nota. Ma, mi scusi, «più alto che la media»? Davanti a «la media», quella congiunzione la convince?"
+      prompt: {text: "più alto che la media", tags: [comparative]}
+    - learner: "Sì, più alto che la media: ho controllato tre annunci simili, tutti intorno ai millecento euro."
+      errors: [comparative]
+    - tutor: "Più alto della media, dice lei. Però quegli annunci non hanno il terrazzo. Il proprietario chiede millequattrocento, ma qualcosa è trattabile."
+      goals: [interest]
+      recast: {text: "più alto che la media", fix: "più alto della media", tags: [comparative]}
+    - learner: "Le propongo milleduecento, con un contratto di quattro anni più quattro. Se il proprietario accetterebbe, firmerei domani stesso."
+      errors: [hypothetical]
+    - tutor: "Vedremo. Ma «se il proprietario accetterebbe»: dopo «se», il condizionale regge?"
+      prompt: {text: "il proprietario accetterebbe", tags: [hypothetical]}
+    - learner: "Mi scusi: se il proprietario accetterebbe milleduecento, avrebbe un inquilino stabile per otto anni."
+      errors: [hypothetical]
+    - tutor: "Se il proprietario accettasse milleduecento... ne dubito. Ma se lei arrivasse a milletrecento, potrei convincerlo a lasciarle anche il posto auto."
+      goals: [negotiate]
+      recast: {text: "il proprietario accetterebbe", fix: "il proprietario accettasse", tags: [hypothetical]}
+    - learner: "Milletrecento con il posto auto potrei considerarlo, a patto che la provvigione dell'agenzia sia dimezzata."
+    - tutor: "La provvigione è fissa, purtroppo. Però posso farle togliere la clausola sulla disdetta anticipata."
+      goals: [conditions]
+    - learner: "Allora siamo d'accordo. Mi mandi pure la bozza del contratto, la faccio leggere al mio avvocato."
+    - tutor: "Perfetto, gliela mando domattina. Sono sicuro che si troverà benissimo."
+      goals: [conclude]
+
+- scenario: vita-in-italia
+  level: C2
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "In realtà è stata l'Italia a scegliere me: un'azienda di Brescia mi ha offerto un posto quando in Spagna c'era la crisi, e non ci ho pensato due volte."
+    - tutor: "E il primo periodo com'è stato?"
+      goals: [story]
+    - learner: "Durissimo. Non tanto la lingua, quanto la burocrazia: per un timbro ho dovuto perfino scrivere una carta al consolato."
+      errors: [false-friend]
+    - tutor: "Una lettera al consolato per un timbro! È un labirinto, lo raccontano in tanti. E lei, in questi anni, come è cambiato?"
+      goals: [difficulties]
+      recast: {text: "una carta al consolato", fix: "una lettera al consolato", tags: [false-friend]}
+    - learner: "Sono diventato più paziente e più ironico. E ho un collega a che devo moltissimo: mi ha insegnato a ridere dei problemi invece di arrabbiarmi."
+      errors: [relative-pronoun]
+    - tutor: "Che bello. Ma «un collega a che devo moltissimo»... con quell'«a» davanti, il relativo va bene?"
+      prompt: {text: "un collega a che", tags: [relative-pronoun]}
+    - learner: "Sì, un collega a che devo molto: si chiama Beppe e ormai è come un fratello."
+      errors: [relative-pronoun]
+    - tutor: "Un collega a cui deve molto, anzi un fratello: è una bella fortuna. Che consiglio darebbe a chi vuole trasferirsi?"
+      goals: [change]
+      recast: {text: "un collega a che", fix: "un collega a cui", tags: [relative-pronoun]}
+    - learner: "Di non idealizzare l'Italia: non è una cartolina, è un paese vero, con le sue contraddizioni. Ma se la si accetta così com'è, restituisce tantissimo."
+    - tutor: "Parole sagge, che molti ascoltatori apprezzeranno. Grazie di essere stato con noi."
+      goals: [advice]
+
+- scenario: politica-lavoro
+  level: C2
+  persona: en-m-heritage
+  history: [comparative]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Che sei il solito catastrofista! Le rivoluzioni tecnologiche hanno sempre distrutto mestieri, ma ne hanno sempre creati altri."
+    - tutor: "Stavolta è diverso: le macchine non sostituiscono più solo i muscoli, ma anche il cervello."
+      goals: [opinion]
+    - learner: "Prendi i traduttori: oggi lavorano più velocemente che prima, non meno."
+      errors: [comparative]
+    - tutor: "Ah sì? Però «più velocemente che prima»... davanti a «prima», ti suona giusto?"
+      prompt: {text: "più velocemente che prima", tags: [comparative]}
+    - learner: "Sì, più velocemente che prima, perché correggono le bozze automatiche invece di partire da zero."
+      errors: [comparative]
+    - tutor: "Più velocemente di prima, certo, ma guadagnano anche meno di prima: è questo il punto! E se domani toccasse ai medici?"
+      goals: [example]
+      recast: {text: "più velocemente che prima", fix: "più velocemente di prima", tags: [comparative]}
+    - learner: "Se i medici usassero l'intelligenza artificiale per le diagnosi, avrebbero più tempo per parlare con i pazienti. Almeno in teoria."
+    - tutor: "In teoria. In pratica, l'ospedale assumerebbe meno medici."
+      goals: [hypothesis]
+    - learner: "Hai un punto, lo ammetto. Riassumendo: il problema non è la tecnologia, ma chi decide come distribuire i guadagni. Tu, alla fine, che ne pensi?"
+      errors: [word-choice]
+    - tutor: "Che hai ragione anche tu, almeno a metà: e detto da me, è già tanto!"
+      goals: [conclude]
+      recast: {text: "Hai un punto", fix: "Hai ragione", tags: [word-choice]}
+    - learner: "Allora brindiamo alla metà!"
+    - tutor: "Alla metà, e alla prossima discussione!"
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Non voglio fare scenate, ma la serata è stata, diciamo così, al di sotto delle aspettative."
+    - tutor: "Mi dispiace sentirlo. Mi dica pure, nel dettaglio."
+      goals: [complain]
+    - learner: "Il branzino era crudo al centro, e quando l'abbiamo fatto notare, il cameriere è stato piuttosto rude."
+      errors: [false-friend]
+    - tutor: "Il cameriere è stato piuttosto maleducato? Mi dispiace davvero, non è un comportamento accettabile. Che cosa si aspettava, da noi?"
+      goals: [detail]
+      recast: {text: "piuttosto rude", fix: "piuttosto maleducato", tags: [false-friend]}
+    - learner: "Da un ristorante con una stella mi aspettavo almeno che il cameriere si scusasse. E preferirei che lo chef viene a spiegarci che cosa è successo."
+      errors: [subjunctive-use]
+    - tutor: "Capisco. Ma «preferirei che lo chef viene»: dopo «preferirei che», quel verbo la convince?"
+      prompt: {text: "lo chef viene", tags: [subjunctive-use]}
+    - learner: "Sì, preferirei che lo chef viene di persona, non mi bastano le scuse del cameriere."
+      errors: [subjunctive-use]
+    - tutor: "Comprensibile: preferirebbe che lo chef venisse di persona, e glielo chiedo subito. Nel frattempo, mi permetta di offrirvi la cena."
+      goals: [expectation]
+      recast: {text: "lo chef viene", fix: "lo chef venisse", tags: [subjunctive-use]}
+    - learner: "La ringrazio, è un gesto che apprezzo. Accetto, e aspetto lo chef con curiosità."
+    - tutor: "Grazie a lei per la comprensione. Lo chef arriva tra un minuto."
+      goals: [resolve]

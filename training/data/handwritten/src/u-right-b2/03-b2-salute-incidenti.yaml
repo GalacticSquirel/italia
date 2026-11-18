@@ -1,0 +1,240 @@
+# Set u-right-b2, file 3: B2 health, car accidents and a disappointing dinner.
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-retired
+  history: [tense-aspect, article-use]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Meglio, grazie. Però ogni tanto, quando salgo le scale, mi manca un po' il fiato."
+  - tutor: "Succede anche quando cammina in piano, o solo con le scale?"
+  - learner: "Anche se cammino veloce. Ieri, mentre sono andato al mercato, mi sono dovuto fermare due volte."
+    errors: [tense-aspect]
+  - tutor: "Mentre sono andato? Qui descrive un'azione che era in corso."
+    prompt: {text: "mentre sono andato", tags: [tense-aspect]}
+  - learner: "Mentre andavo al mercato, sì. Mi sono seduto su una panchina."
+  - tutor: "Ha fatto bene a fermarsi. In famiglia qualcuno ha avuto problemi di cuore?"
+    goals: [symptoms]
+  - learner: "Sì, mio padre. Ha avuto un infarto quando aveva sessant'anni."
+  - tutor: "Grazie, è un'informazione importante. Ha domande sugli esami?"
+    goals: [history]
+    new: [{lemma: infarto, gloss: heart attack}]
+  - learner: "Sì. Il colesterolo è alto? Ho già la pressione alta e prendo due pastiglie per pressione."
+    errors: [article-use]
+  - tutor: "Due pastiglie per pressione? Manca una piccola parola."
+    prompt: {text: "per pressione", tags: [article-use]}
+  - learner: "Sì, due pastiglie per pressione, una la mattina e una la sera."
+    errors: [article-use]
+  - tutor: "Bene, due pastiglie per la pressione. Il colesterolo è un po' alto, quindi le propongo una terza pastiglia."
+    recast: {text: "per pressione", fix: "per la pressione", tags: [article-use]}
+    goals: [understand]
+    new: [{lemma: colesterolo, gloss: cholesterol}, {lemma: pastiglia, gloss: tablet}]
+  - learner: "Questa pastiglia avrà degli effetti collaterali? Ne prendo già tante."
+  - tutor: "Raramente un po' di dolore alle gambe. E si può prendere insieme alle altre senza problemi."
+    goals: [treatment]
+    new: [{lemma: collaterale, gloss: side (effect)}]
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-erasmus
+  history: [false-friend, noun-gender]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Abbastanza bene, ma a volte sento il cuore che batte molto forte, soprattutto la sera."
+  - tutor: "Quanto durano questi momenti, più o meno?"
+  - learner: "Pochi minuti. Forse è lo stress: sto finendo la carriera e ho tanti esami."
+    errors: [false-friend]
+  - tutor: "Finire l'università è un periodo molto difficile, è vero. Beve molto caffè?"
+    recast: {text: "la carriera", fix: "l'università", tags: [false-friend]}
+  - learner: "Sì, quattro o cinque al giorno. Lo so, sono troppi. Se bevessi meno caffè, starei meglio?"
+  - tutor: "Probabilmente sì. In famiglia qualcuno ha avuto problemi simili?"
+    goals: [symptoms]
+  - learner: "Mia madre ha la pressione alta, e mio nonno aveva problemi di cuore. Credo che sia una cosa di famiglia."
+  - tutor: "Può essere, ma i suoi esami sono buoni. Vuole che le spieghi i risultati?"
+    goals: [history]
+  - learner: "Sì, grazie. Che cosa significa questa valore qui, in rosso?"
+    errors: [noun-gender]
+  - tutor: "Questa valore? Attenzione al genere della parola."
+    prompt: {text: "questa valore", tags: [noun-gender]}
+  - learner: "Ah, questo valore. Cosa significa?"
+  - tutor: "Esatto. È il potassio, un po' sotto la norma: spiega in parte il cuore che batte forte."
+    goals: [understand]
+    new: [{lemma: potassio, gloss: potassium}]
+  - learner: "E cosa devo fare? Devo prendere delle medicine?"
+  - tutor: "Per ora basta un integratore e meno caffè: non più di due al giorno. Ci rivediamo tra un mese."
+    goals: [treatment]
+    new: [{lemma: integratore, gloss: supplement}]
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-f-professional
+  history: [subjunctive-form]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Non molto bene. Mi stanco subito e la notte mi sveglio con il cuore che va velocissimo."
+  - tutor: "Da quando succede?"
+  - learner: "Da circa un mese. All'inizio pensavo che fosse lo stress del lavoro."
+  - tutor: "È possibile, ma vediamo meglio. Ci sono malattie di cuore nella sua famiglia?"
+    goals: [symptoms]
+  - learner: "Mia zia porta un pacemaker, ma non so per quale motivo."
+  - tutor: "Va bene, lo segno. Ha domande sui risultati?"
+    goals: [history]
+  - learner: "Sì. Ho un po' paura che i valori non vadino bene."
+    errors: [subjunctive-form]
+  - tutor: "Che i valori non vadino? Controlli la forma del congiuntivo di «andare»."
+    prompt: {text: "vadino", tags: [subjunctive-form]}
+    new: [{lemma: congiuntivo, gloss: subjunctive}]
+  - learner: "Sì, ho paura che non vadino bene."
+    errors: [subjunctive-form]
+  - tutor: "È normale temere che le cose non vadano bene, ma qui vedo solo un piccolo disturbo del ritmo del cuore."
+    recast: {text: "vadino", fix: "vadano", tags: [subjunctive-form]}
+    goals: [understand]
+  - learner: "Un disturbo del ritmo? E si cura con le medicine?"
+  - tutor: "Sì, con un farmaco leggero. All'inizio può far sentire un po' stanchi, ma poi passa."
+    goals: [treatment]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-traveller
+  history: [passive]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri sera stavo parcheggiando sotto casa quando una macchina mi ha urtato lo specchietto."
+  - tutor: "Lei era fermo o in movimento?"
+    new: [{lemma: specchietto, gloss: wing mirror}]
+  - learner: "Ero quasi fermo. L'altra macchina andava troppo veloce e non si è fermata allo stop."
+  - tutor: "Quindi secondo lei la colpa è dell'altra macchina. Il signore l'ha ammesso?"
+    goals: [what]
+  - learner: "Sì, l'ha ammesso subito. Ha detto che era distratto."
+  - tutor: "Benissimo. E la constatazione amichevole l'avete firmata tutti e due?"
+    goals: [responsibility]
+    new: [{lemma: constatazione amichevole, gloss: joint accident report}]
+  - learner: "Sì, la constatazione è stato firmato da tutti e due."
+    errors: [passive]
+  - tutor: "È stato firmato? Pensi al soggetto della frase."
+    prompt: {text: "è stato firmato", tags: [passive]}
+  - learner: "La constatazione è stata firmata da tutti e due. Ho fatto anche una foto e la posso mandare oggi."
+  - tutor: "Perfetto, la mandi a questo indirizzo. Le do anche il numero della pratica."
+    goals: [documents]
+  - learner: "E adesso cosa succede? Lo specchietto chi me lo ripaga?"
+  - tutor: "Un nostro tecnico guarderà il danno, poi le spese saranno pagate dall'assicurazione dell'altro signore."
+    goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-f-student
+  history: [participle-agreement, word-choice]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Stamattina, in una rotonda, un furgone mi è venuto addosso dal lato destro."
+  - tutor: "Si è fatta male?"
+    new: [{lemma: furgone, gloss: van}]
+  - learner: "No, sto bene, solo un po' di paura. La portiera però è tutta rovinata."
+  - tutor: "Mi dispiace. Chi aveva la precedenza, secondo lei?"
+    goals: [what]
+    new: [{lemma: precedenza, gloss: right of way}]
+  - learner: "Io, perché ero già dentro la rotonda. Lo ha detto anche una signora che ha visto tutto."
+  - tutor: "Ha preso il numero di telefono della signora?"
+    goals: [responsibility]
+  - learner: "Sì, l'ho preso, e ho fatto anche le foto. Le ho mandato alla vostra email stamattina."
+    errors: [participle-agreement]
+  - tutor: "Le ho mandato? Pensi a che cosa si riferisce «le»."
+    prompt: {text: "Le ho mandato", tags: [participle-agreement]}
+  - learner: "Le ho mandate alla vostra email stamattina."
+  - tutor: "Sì, le vedo. L'uomo del furgone ha firmato il modulo?"
+  - learner: "No, non voleva firmarlo. Ha detto che deve chiedere al suo capo."
+  - tutor: "Succede, con i furgoni delle aziende. Allora lo contattiamo noi con la targa."
+    goals: [documents]
+  - learner: "Ok. E quanto tempo ci vorrà per fissare la macchina?"
+    errors: [word-choice]
+  - tutor: "Per riparare la macchina, prima un nostro tecnico deve vedere il danno, di solito entro una settimana."
+    recast: {text: "fissare la macchina", fix: "riparare la macchina", tags: [word-choice]}
+    goals: [next]
+  - learner: "Una settimana va bene. Intanto uso la bici."
+  - tutor: "Ottima idea. La chiamiamo noi per fissare l'appuntamento con il tecnico."
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-heritage
+  history: [hypothetical, pronoun-position]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Venerdì sera, in un parcheggio, ho fatto marcia indietro e ho toccato una macchina ferma."
+  - tutor: "Quindi è stato lei a toccare l'altra macchina. C'era qualcuno dentro?"
+  - learner: "No, era vuota. Ho lasciato un biglietto con il mio numero sul vetro."
+  - tutor: "Ha fatto bene. Il proprietario l'ha chiamata?"
+    goals: [what]
+  - learner: "Sì, mi ha chiamato il giorno dopo. Se avrei visto meglio, non sarebbe successo."
+    errors: [hypothetical]
+  - tutor: "Se avrei visto? Pensi alla frase con «se»."
+    prompt: {text: "Se avrei visto", tags: [hypothetical]}
+  - learner: "Se avessi visto meglio, non sarebbe successo."
+  - tutor: "Esatto, ma purtroppo capita a tutti. Lei ammette quindi la sua responsabilità?"
+  - learner: "Sì, certo, la colpa è mia. Non ho problemi a dirlo."
+  - tutor: "Benissimo. Avete compilato insieme il modulo per l'incidente?"
+    goals: [responsibility]
+  - learner: "Sì, sabato mattina. Lo ha firmato anche lui. Posso lo mandare oggi per email?"
+    errors: [pronoun-position]
+  - tutor: "Posso lo mandare? Dove mettiamo il pronome con l'infinito?"
+    prompt: {text: "Posso lo mandare", tags: [pronoun-position]}
+  - learner: "Posso mandarlo oggi per email?"
+  - tutor: "Certo, ce lo mandi insieme a una foto del danno."
+    goals: [documents]
+  - learner: "D'accordo. E poi? Il prezzo della mia assicurazione aumenterà l'anno prossimo?"
+  - tutor: "Probabilmente sì, di qualche euro. Il danno all'altra macchina, però, lo paghiamo noi."
+    goals: [next]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-m-worker
+  history: [register, word-choice]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, abbiamo aspettato quasi un'ora i secondi, e la carne è arrivata fredda."
+  - tutor: "Mi dispiace davvero. Mi può dire che cosa avevate ordinato?"
+    goals: [complain]
+  - learner: "Io avevo preso la tagliata e mia moglie il pesce del giorno. Il pesce era buono, la tagliata no."
+  - tutor: "Capisco. Ha detto qualcosa al cameriere?"
+  - learner: "Sì, ma lui ha detto solo «adesso vedo» ed è sparito. Senti, non è normale, eh."
+    errors: [register]
+  - tutor: "Senti? Pensi a come si rivolge a una persona che non conosce."
+    prompt: {text: "Senti", tags: [register]}
+  - learner: "Senta, scusi, non mi sembra normale."
+  - tutor: "Ha ragione, non lo è. Le chiedo scusa."
+    goals: [detail]
+  - learner: "E la tagliata costa trenta euro: per una carne fredda è un robo!"
+    errors: [word-choice]
+  - tutor: "Trenta euro per una carne fredda, capisco che le sembri un furto. Lei cosa si aspettava?"
+    recast: {text: "un robo", fix: "un furto", tags: [word-choice]}
+  - learner: "Mi aspettavo almeno delle scuse. Da un ristorante così famoso mi aspettavo di più."
+  - tutor: "Le chiedo scusa io a nome di tutti. Posso offrirvi il dolce e togliere la tagliata dal conto?"
+    goals: [expectation]
+  - learner: "Va bene, accettiamo, grazie. Il dolce lo prendiamo volentieri."
+  - tutor: "Grazie a voi per la pazienza. Vi porto subito la lista dei dolci."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Sì, purtroppo. Avevo prenotato un tavolo vicino alla finestra per il compleanno di mio marito, e ci avete messo vicino alla cucina."
+  - tutor: "Mi dispiace, deve esserci stato un errore. Il tavolo era stato confermato?"
+    goals: [complain]
+  - learner: "Sì, me l'avevano confermato per telefono martedì. Ho ancora il messaggio."
+  - tutor: "Allora l'errore è nostro, senza dubbio. C'è stato altro?"
+  - learner: "Il servizio era molto più lento che il solito. Siamo clienti da anni."
+    errors: [comparative]
+  - tutor: "Più lento che il solito? Pensi a cosa mettiamo prima di «solito»."
+    prompt: {text: "più lento che il solito", tags: [comparative]}
+  - learner: "Sì, era molto più lento che il solito, davvero."
+    errors: [comparative]
+  - tutor: "Più lento del solito, ha ragione: stasera mancavano due camerieri. Ma non è una scusa."
+    recast: {text: "più lento che il solito", fix: "più lento del solito", tags: [comparative]}
+    goals: [detail]
+  - learner: "Mi aspettavo una serata tranquilla. Pagando ottanta euro a persona, è il minimo."
+  - tutor: "Ha ragione. Posso offrirvi una cena per due, a un tavolo vicino alla finestra, quando volete voi."
+    goals: [expectation]
+  - learner: "È gentile, ma mio marito sta per partire per lavoro. Possiamo venire il mese prossimo?"
+  - tutor: "Certo, l'invito vale sei mesi. Ve lo preparo subito."
+    goals: [resolve]

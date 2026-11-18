@@ -1,0 +1,274 @@
+# u-cine, file 05 (B2, one C1): ce ne sono, farci caso, ci si mette, ne ha mandate, comprarne, innamorarsene, farne a meno.
+- scenario: arte-mostra
+  level: B2
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "È un Caravaggio, vero? La luce che arriva da sinistra mi colpisce moltissimo, sembra un riflettore."
+    - tutor: "Esatto, è la sua firma: la luce che taglia il buio. Ne avevi già visti dal vivo?"
+      goals: [react]
+    - learner: "Sì, a Roma. Nella chiesa di San Luigi dei Francesi ci sono tre, uno accanto all'altro."
+      errors: [ci-ne]
+      gold: {text: "ci sono tre", fix: "ce ne sono tre"}
+    - tutor: "Che fortuna! Ma «ci sono tre»: tre di cosa? Manca il pronome che riprende «quadri»."
+      prompt: {text: "ci sono tre", tags: [ci-ne]}
+    - learner: "Sì, ci sono tre, quelli di San Matteo."
+      errors: [ci-ne]
+    - tutor: "Ce ne sono tre, sì, le storie di San Matteo: lì la luce entra davvero dalla finestra vera della cappella. E qui cosa noti?"
+      recast: {text: "ci sono tre", fix: "ce ne sono tre", tags: [ci-ne]}
+    - learner: "Il background è quasi nero, non si vede niente. Tutto è concentrato sulle mani e sui volti."
+      errors: [word-choice]
+    - tutor: "Proprio così: lo sfondo scuro fa risaltare i gesti. Secondo te cosa voleva farci provare il pittore?"
+      recast: {text: "Il background", fix: "lo sfondo", tags: [word-choice]}
+      goals: [describe]
+      new: [{lemma: risaltare, gloss: to stand out}]
+    - learner: "Credo che volesse farci sentire la sorpresa del momento. Guarda la mano del vecchio: non ne avevo fatto caso prima, è sporca di terra."
+      errors: [ci-ne]
+      gold: {text: "non ne avevo fatto caso", fix: "non ci avevo fatto caso"}
+    - tutor: "Bellissima osservazione! Ma «non ne avevo fatto caso»: si fa caso «a» qualcosa. Quale parola riprende «a»?"
+      prompt: {text: "non ne avevo fatto caso", tags: [ci-ne]}
+      goals: [interpret]
+    - learner: "Ah, giusto: non ci avevo fatto caso prima."
+    - tutor: "Esatto. E rispetto ai pittori del Rinascimento, che differenza vedi?"
+    - learner: "Nel Rinascimento tutto è ordinato e luminoso; qui invece sembra una scena di strada, con persone vere."
+    - tutor: "Hai colto il punto: per molti, allora, era quasi un'offesa: santi con i piedi sporchi!"
+      goals: [compare]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Vorrei chiedere la residenza: mi sono trasferita a Torino a settembre."
+    - tutor: "Benissimo. Ha portato il contratto d'affitto e il permesso di soggiorno? Servono anche le copie."
+      goals: [request]
+    - learner: "Sì, ecco gli originali. Le fotocopie? Sì, ho fatte due di ogni documento."
+      errors: [ci-ne]
+      gold: {text: "ho fatte due", fix: "ne ho fatte due"}
+    - tutor: "Molto bene. Solo un dettaglio: «ho fatte due»... due di cosa? Davanti al verbo avere manca il pronome."
+      prompt: {text: "ho fatte due", tags: [ci-ne]}
+    - learner: "Ne ho fatte due di ogni documento."
+    - tutor: "Perfetto, sono in ordine. Dopo la domanda, i vigili passeranno a casa sua per verificare che lei ci abiti davvero."
+      goals: [documents]
+    - learner: "Ah, ecco il problema: lavoro tutto il giorno e non sono mai a casa prima delle sette. Come faccio?"
+    - tutor: "Può lasciare un biglietto con il suo numero sulla cassetta delle lettere: di solito i vigili chiamano prima di ripassare."
+      goals: [problem]
+    - learner: "Va bene. E in tutto, quanto tempo si mette per avere il certificato?"
+      errors: [ci-ne]
+      gold: {text: "quanto tempo si mette", fix: "quanto tempo ci si mette"}
+    - tutor: "Dipende. Ma «quanto tempo si mette»: con «metterci» e il «si», manca una piccola parola."
+      prompt: {text: "quanto tempo si mette", tags: [ci-ne]}
+    - learner: "Scusi... quanto tempo si mette, in genere?"
+      errors: [ci-ne]
+    - tutor: "Quanto tempo ci si mette? In genere quarantacinque giorni; se i vigili la trovano subito, anche meno."
+      recast: {text: "quanto tempo si mette", fix: "quanto tempo ci si mette", tags: [ci-ne]}
+      goals: [next]
+    - learner: "Perfetto. Grazie, è stato molto amabile."
+      errors: [false-friend]
+    - tutor: "Gentile lei! Ecco la ricevuta della pratica, la conservi bene. Buona giornata."
+      recast: {text: "amabile", fix: "gentile", tags: [false-friend]}
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Daniel Russo, sono ingegnere informatico e da cinque anni lavoro in una startup a Toronto."
+    - tutor: "Molto bene. Che cosa fa esattamente nella sua azienda?"
+      goals: [intro]
+    - learner: "Guido un gruppo di sviluppatori: all'inizio eravamo in tre, adesso siamo in dodici. Lavorare in una startup è molto eccitante."
+      errors: [false-friend]
+    - tutor: "Immagino che sia emozionante, e anche difficile. Ha esperienza con clienti internazionali?"
+      recast: {text: "eccitante", fix: "emozionante", tags: [false-friend]}
+      new: [{lemma: emozionante, gloss: exciting}]
+      goals: [experience]
+    - learner: "Sì, ne ho parecchia: abbiamo clienti negli Stati Uniti e in Germania. Il mio punto forte è la comunicazione."
+    - tutor: "Bene. E perché vuole lasciare Toronto per Verona?"
+      goals: [strengths]
+    - learner: "I miei nonni erano di Verona e io penso da anni. Adesso mia moglie è d'accordo."
+      errors: [ci-ne]
+      gold: {text: "io penso da anni", fix: "io ci penso da anni"}
+    - tutor: "Una bella storia. Ma «io penso da anni»: a cosa? Riprenda l'idea del trasferimento con una piccola parola."
+      prompt: {text: "io penso da anni", tags: [ci-ne]}
+    - learner: "Io ci penso da anni, e adesso è il momento giusto."
+    - tutor: "Capisco, è un motivo forte. Ha qualche domanda per noi?"
+      goals: [why]
+    - learner: "Sì: si può lavorare da casa? A Toronto facciamo due giorni a settimana; anzi, a volte facciamo tre."
+      errors: [ci-ne]
+      gold: {text: "a volte facciamo tre", fix: "a volte ne facciamo tre"}
+    - tutor: "Domanda giusta. Ma «a volte facciamo tre»: tre di cosa? Manca il pronome che riprende «giorni»."
+      prompt: {text: "a volte facciamo tre", tags: [ci-ne]}
+    - learner: "A volte ne facciamo tre."
+    - tutor: "Esatto. Qui sono previsti due giorni da remoto, e i primi tre mesi tutti in ufficio. Le faremo sapere entro due settimane."
+      goals: [questions]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Vorremmo qualcosa di semplice, all'aperto, in Toscana. Il budget è di ventimila euro, non di più."
+    - tutor: "Con ventimila euro si può fare una festa bellissima. Quanti invitati avete in mente?"
+      goals: [vision, budget]
+    - learner: "Pensavamo a ottanta, ma la famiglia di Marco è enorme: solo di cugini ci sono trenta!"
+      errors: [ci-ne]
+      gold: {text: "ci sono trenta", fix: "ce ne sono trenta"}
+    - tutor: "Trenta cugini! Ma «di cugini ci sono trenta»: quale pronome riprende «di cugini»?"
+      prompt: {text: "ci sono trenta", tags: [ci-ne]}
+    - learner: "Sì, di cugini ci sono trenta, più le mogli."
+      errors: [ci-ne]
+    - tutor: "Se di cugini ce ne sono trenta, più le mogli, ottanta invitati non basteranno: direi almeno cento."
+      recast: {text: "ci sono trenta", fix: "ce ne sono trenta", tags: [ci-ne]}
+    - learner: "Hai ragione, cento. Per la location, abbiamo visto un agriturismo vicino a Siena e ne siamo innamorati subito."
+      errors: [ci-ne]
+      gold: {text: "ne siamo innamorati", fix: "ce ne siamo innamorati"}
+    - tutor: "Ottima scelta. Ma «ne siamo innamorati»: «innamorarsi» ha già un «si», quindi davanti a «ne» manca un pezzo."
+      prompt: {text: "ne siamo innamorati", tags: [ci-ne]}
+      goals: [choices]
+    - learner: "Ah, ce ne siamo innamorati subito!"
+    - tutor: "Perfetto! Lo conosco, ha un giardino magnifico. Avete richieste particolari per il fotografo?"
+    - learner: "Sì: vorremmo che stia con noi fino alla fine della festa, non solo per la cerimonia."
+      errors: [subjunctive-use]
+    - tutor: "Si può fare. Ma «vorremmo che stia»: dopo un condizionale, quale tempo del congiuntivo ci vuole?"
+      prompt: {text: "stia", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo imperfetto: vorremmo che stesse con noi fino alla fine."
+    - tutor: "Esatto. Allora gli chiedo un preventivo per l'intera giornata e ve lo mando entro venerdì."
+      goals: [conditions]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Sì. Abbiamo aspettato più di un'ora per il secondo, e mia esposa ha avuto la carne quasi cruda."
+      errors: [word-choice]
+    - tutor: "Mi dispiace molto, per lei e per sua moglie. La cottura non era quella che avevate chiesto?"
+      recast: {text: "mia esposa", fix: "sua moglie", tags: [word-choice]}
+      goals: [complain]
+    - learner: "No. Avevamo ordinato due bistecche ben cotte, e ne sono arrivate due al sangue. Io faccio il cuoco, so di cosa parlo."
+    - tutor: "Allora capisce meglio di chiunque che la cucina stasera era in difficoltà: mancavano due persone."
+      goals: [detail]
+    - learner: "Lo capisco, ma in un ristorante così mi aspettavo almeno delle scuse dal cameriere. Il vino però era ottimo. Si può comprare? Vorrei comprare due bottiglie per casa."
+    - tutor: "Ha ragione, le scuse erano il minimo. Il vino si può comprare, certo: è di un piccolo produttore delle Langhe."
+      goals: [expectation]
+    - learner: "Perfetto, allora vorrei comprare due, se possibile."
+      errors: [ci-ne]
+      gold: {text: "comprare due", fix: "comprarne due"}
+    - tutor: "Due bottiglie, volentieri. Ma «vorrei comprare due»: due di cosa? Al verbo manca una piccola parola."
+      prompt: {text: "comprare due", tags: [ci-ne]}
+    - learner: "Sì, vorrei comprare due, quello rosso."
+      errors: [ci-ne]
+    - tutor: "Comprarne due è un'ottima idea: gliele regaliamo noi, per scusarci, e la cena di stasera ha il trenta per cento di sconto."
+      recast: {text: "comprare due", fix: "comprarne due", tags: [ci-ne]}
+    - learner: "Siete molto gentili, grazie. Ci torneremo, ma speriamo che la prossima volta la cucina sia al completo."
+    - tutor: "Ve lo garantisco. La prossima volta chiedete di me, e la bistecca ve la porto io."
+      goals: [resolve]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene: il sito per il cliente di Lione è quasi pronto, mancano solo le foto dei prodotti."
+    - tutor: "Ah, le foto. Che cosa è successo?"
+      goals: [update]
+    - learner: "Il cliente doveva mandarcene trenta entro lunedì, ma ha mandato solo dieci, e molto piccole."
+      errors: [ci-ne]
+      gold: {text: "ha mandato solo dieci", fix: "ne ha mandate solo dieci"}
+    - tutor: "Ancora! Ma «ha mandato solo dieci»: dieci di cosa? Davanti al verbo manca il pronome, e poi occhio all'accordo."
+      prompt: {text: "ha mandato solo dieci", tags: [ci-ne]}
+    - learner: "Sì, ha mandato solo dieci."
+      errors: [ci-ne]
+    - tutor: "Ne ha mandate solo dieci, e pure piccole: allora bisogna richiamarlo oggi stesso. Hai qualche idea?"
+      recast: {text: "ha mandato solo dieci", fix: "ne ha mandate solo dieci", tags: [ci-ne]}
+      goals: [problem]
+    - learner: "Attualmente ho già scritto al cliente stamattina. Nel frattempo potremmo usare foto di archivio, ci ho pensato ieri sera."
+      errors: [false-friend]
+    - tutor: "In realtà è una buona soluzione, almeno per la presentazione di venerdì. Quanto ti serve per sistemare il sito?"
+      recast: {text: "Attualmente", fix: "In realtà", tags: [false-friend]}
+      goals: [proposal]
+    - learner: "Per caricarle e sistemare le pagine metto una giornata, forse meno."
+      errors: [ci-ne]
+      gold: {text: "metto una giornata", fix: "ci metto una giornata"}
+    - tutor: "Va bene. Ma «metto una giornata»: per il tempo necessario, cosa manca prima del verbo?"
+      prompt: {text: "metto una giornata", tags: [ci-ne]}
+    - learner: "Ci metto una giornata, forse meno."
+    - tutor: "Perfetto, allora scadenza giovedì sera per tutto, così venerdì presentiamo con calma."
+      goals: [deadline]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, molto, soprattutto la terrazza. Però il canone mi sembra alto: se il proprietario scende a 900, lo prendo subito."
+    - tutor: "Capisco. Il proprietario però ha detto chiaramente che sotto i 950 non vuole andare. Ha visto altri appartamenti in zona?"
+      goals: [interest]
+    - learner: "Sì, ho visto tre ieri, tutti a 900 e simili a questo."
+      errors: [ci-ne]
+      gold: {text: "ho visto tre", fix: "ne ho visti tre"}
+    - tutor: "Ah sì? Ma «ho visto tre»: tre di cosa? Manca il pronome, e poi attenzione all'accordo."
+      prompt: {text: "ho visto tre", tags: [ci-ne]}
+    - learner: "Ne ho visti tre ieri, tutti a 900."
+    - tutor: "Esatto. Ma scommetto che nessuno aveva un terrazzo così."
+    - learner: "No, nessuno. Ma 950 per me è troppo. Se firmo un contratto di quattro anni, il proprietario eventualmente accetterà 920?"
+      errors: [false-friend]
+    - tutor: "Se alla fine accetterà 920, non glielo posso promettere, ma con quattro anni sicuri ci sono buone possibilità. Lo chiamo subito."
+      recast: {text: "eventualmente", fix: "alla fine", tags: [false-friend]}
+      goals: [negotiate]
+    - learner: "Grazie. E un'altra condizione: vorrei che il proprietario cambi la caldaia, è molto vecchia."
+      errors: [subjunctive-use]
+    - tutor: "Ragionevole. Ma «vorrei che cambi»: dopo «vorrei che», quale tempo del congiuntivo serve?"
+      prompt: {text: "cambi", tags: [subjunctive-use]}
+    - learner: "Vorrei che il proprietario cambi la caldaia... no?"
+      errors: [subjunctive-use]
+    - tutor: "Lei vorrebbe che cambiasse la caldaia prima dell'ingresso: lo aggiungo nel contratto."
+      recast: {text: "cambi", fix: "cambiasse", tags: [subjunctive-use]}
+      goals: [conditions]
+    - learner: "Perfetto. Allora, se accetta 920 e la caldaia nuova, ci sto."
+    - tutor: "Ho appena parlato con lui: accetta 930 e la caldaia nuova. Ci stiamo?"
+    - learner: "Per trenta euro non litigo. D'accordo, ci sto!"
+    - tutor: "Benissimo! Allora preparo il contratto e ci vediamo giovedì per la firma."
+      goals: [conclude]
+
+- scenario: vita-in-italia
+  level: C1
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Per amore, come molti: mio marito è di Bari. Ci siamo conosciuti a Sydney e dopo due anni abbiamo deciso di trasferirci qui."
+    - tutor: "Una storia classica, ma sempre bella. Qual è stata la difficoltà più grande?"
+      goals: [story]
+    - learner: "All'inizio, i pranzi di famiglia: parlavano tutti insieme, in dialetto, e io non ci capivo niente. E poi il traffico: non mi sono mai abituata."
+      errors: [ci-ne]
+      gold: {text: "non mi sono mai abituata", fix: "non mi ci sono mai abituata"}
+    - tutor: "La capisco benissimo! Ma «non mi sono mai abituata»: a che cosa? Al verbo manca la particella che riprende «il traffico»."
+      prompt: {text: "non mi sono mai abituata", tags: [ci-ne]}
+      goals: [difficulties]
+    - learner: "Ah, sì: non mi ci sono mai abituata, al traffico di Bari."
+    - tutor: "Esatto, e credo che nessun barese se ne stupirà! Che cosa è cambiato in lei in questi anni?"
+    - learner: "Ho realizzato che il tempo, qui, ha un altro valore: prima correvo sempre, adesso mi godo il caffè al bancone."
+      errors: [word-choice]
+    - tutor: "Quindi ha capito che rallentare non è una perdita di tempo. Se fosse rimasta a Sydney, sarebbe la stessa persona?"
+      recast: {text: "realizzato", fix: "capito", tags: [word-choice]}
+      goals: [change]
+    - learner: "Sinceramente no. Se non avessi incontrato mio marito, forse non avrei mai scoperto questo lato di me."
+    - tutor: "Bellissimo. Un consiglio per chi ci ascolta e sta pensando di trasferirsi?"
+    - learner: "Imparate la lingua subito. Molti pensano che basti l'inglese, ma non è vero: non si può fare a meno."
+      errors: [ci-ne]
+      gold: {text: "non si può fare a meno", fix: "non se ne può fare a meno"}
+    - tutor: "Parole sante. Ma «non si può fare a meno»: a meno di che cosa? Manca la particella che riprende «la lingua»."
+      prompt: {text: "non si può fare a meno", tags: [ci-ne]}
+    - learner: "Cioè... non si può fare a meno, neanche in una grande città."
+      errors: [ci-ne]
+    - tutor: "Ha ragione: non se ne può fare a meno, neanche a Milano. Grazie di cuore per essere stata con noi."
+      recast: {text: "non si può fare a meno", fix: "non se ne può fare a meno", tags: [ci-ne]}
+      goals: [advice]

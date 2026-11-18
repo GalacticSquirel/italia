@@ -1,0 +1,283 @@
+# u-cine, file 08 (C2): prendersela, crederci, farci caso, tenerne conto, ce ne sono, riuscirci, crederci, se ne trova, esserne, accorgersene, se ne dimentica.
+- scenario: pranzo-domenicale
+  level: C2
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Ah, sei arrivato giusto in tempo, qui si stanno già scannando per l'ultima lasagna. Siediti, che non mordiamo!"
+    - learner: "Meno male, ho una fame da lupi! Ma di lasagne quante ce ne sono ancora?"
+    - tutor: "Una, e metà l'ha già prenotata zio Franco con lo sguardo. Ti conviene trattare."
+      goals: [react]
+    - learner: "Allora prendo un pezzettino solo: non voglio che zio Franco ne la prenda con me per tutto il pranzo."
+      errors: [ci-ne]
+      gold: {text: "ne la prenda", fix: "se la prenda"}
+    - tutor: "Saggia diplomazia! Ma «ne la prenda»: «prendersela» quali pronomi vuole, esattamente?"
+      prompt: {text: "ne la prenda", tags: [ci-ne]}
+    - learner: "Sì, non voglio che ne la prenda, è già rosso in faccia."
+      errors: [ci-ne]
+    - tutor: "Tranquillo, che se la prenda è garantito, ma gli passa al dolce. Zio Franco, del resto, can che abbaia non morde."
+      recast: {text: "ne la prenda", fix: "se la prenda", tags: [ci-ne]}
+    - learner: "Mi sembra un vero carattere, tuo zio. Da noi si direbbe che è tutto chiacchiere."
+      errors: [word-choice]
+    - tutor: "Un bel tipo, sì, ma tutto fumo e niente arrosto, come diciamo noi. Da voi i pranzi della domenica sono così?"
+      recast: {text: "un vero carattere", fix: "Un bel tipo", tags: [word-choice]}
+      goals: [use-idiom]
+    - learner: "Per niente: un'ora, un arrosto, e alle tre si va al pub. Qui invece si sta a tavola fino a sera."
+    - tutor: "Eh, a tavola non s'invecchia, diceva mio nonno. Tu che dici?"
+      goals: [compare]
+    - learner: "Con tutto il rispetto per tuo nonno, ne credo poco: dopo questo pranzo mi sento invecchiato di dieci anni!"
+      errors: [ci-ne]
+      gold: {text: "ne credo poco", fix: "ci credo poco"}
+    - tutor: "Ah ah! Ma «ne credo poco»: si crede «a» qualcosa, quindi quale particella?"
+      prompt: {text: "ne credo poco", tags: [ci-ne]}
+    - learner: "Hai ragione: ci credo poco! L'ultima volta mi sono addormentato sul divano di mia suocera e nessuno se n'è accorto fino all'ora di cena."
+    - tutor: "Questo è il vero segno dell'integrazione: la pennichella sul divano altrui. Ormai sei dei nostri!"
+      goals: [anecdote]
+      new: [{lemma: pennichella, gloss: nap after lunch}]
+
+- scenario: dialetti-regionali
+  level: C2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Scusa se mi intrometto, ma ti ho visto ridere: hai capito cosa si dicevano quei due signori? Perché non è mica facile."
+    - learner: "Sinceramente no: ho riso per simpatia. Ho capito solo «jamme» e qualcosa sul pranzo di domenica."
+    - tutor: "Già «jamme» è un buon inizio! Ma non è che c'è da vergognarsi: anche un milanese ci capirebbe poco."
+      goals: [notice]
+    - learner: "Vivo a Napoli da un anno. Di parole napoletane so ormai una ventina, ma quando parlano veloce mi perdo."
+      errors: [ci-ne]
+      gold: {text: "so ormai una ventina", fix: "ne so ormai una ventina"}
+    - tutor: "Una ventina non è poco! Ma «di parole napoletane so una ventina»: dopo aver anticipato il complemento, cosa lo riprende davanti al verbo?"
+      prompt: {text: "so ormai una ventina", tags: [ci-ne]}
+    - learner: "Ah, ne so ormai una ventina. La mia preferita è «ammuina»."
+    - tutor: "Ottima scelta, è intraducibile! E secondo te, qual è la differenza tra il napoletano e l'italiano che parlano i napoletani al lavoro?"
+      goals: [example]
+    - learner: "L'italiano regionale è italiano con un accento e qualche parola locale; il dialetto è un sistema a sé, con la sua grammatica."
+    - tutor: "Esatto, e c'è chi lo considera una lingua vera e propria. Una volta però ci si vergognava a parlarlo."
+      goals: [standard]
+    - learner: "Sì, ho letto che negli anni sessanta era visto come un segno di povertà. Oggi invece la gente non fa più caso."
+      errors: [ci-ne]
+      gold: {text: "non fa più caso", fix: "non ci fa più caso"}
+    - tutor: "Vero, il clima è cambiato. Ma «la gente non fa più caso»: a che cosa? Manca la particella che regge «fare caso»."
+      prompt: {text: "non fa più caso", tags: [ci-ne]}
+    - learner: "Sì, la gente non fa più caso, anzi, i rapper lo usano nelle canzoni."
+      errors: [ci-ne]
+    - tutor: "Proprio così: oggi la gente non ci fa più caso, e i rapper ne hanno fatto quasi una bandiera. E tu, cosa ne pensi?"
+      recast: {text: "non fa più caso", fix: "non ci fa più caso", tags: [ci-ne]}
+    - learner: "Che sarebbe una perdita enorme se il dialetto sparirebbe: è memoria, musica, identità."
+      errors: [hypothetical]
+    - tutor: "Sottoscrivo. Ma «se il dialetto sparirebbe»: nella frase con «se», quale modo ti aspetteresti?"
+      prompt: {text: "sparirebbe", tags: [hypothetical]}
+    - learner: "Il congiuntivo: sarebbe una perdita enorme se il dialetto sparisse."
+    - tutor: "Perfetto. Allora continua a raccogliere parole: tra un anno ti voglio sentire litigare al mercato come una vera napoletana!"
+      goals: [opinion]
+
+- scenario: email-rettore
+  level: C2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Mi è stata rifiutata la convalida di tre esami sostenuti a Salamanca, e vorrei presentare un ricorso."
+    - tutor: "Capisco. Allora la lettera dev'essere impeccabile. Come pensava di cominciare?"
+      goals: [situation]
+    - learner: "Pensavo a qualcosa come «Caro Rettore, Le scrivo perché ho un problema»."
+      errors: [register]
+    - tutor: "Il contenuto va bene, ma «Caro Rettore», per un Rettore, è troppo confidenziale. Quale formula tradizionale si usa?"
+      prompt: {text: "Caro Rettore", tags: [register]}
+    - learner: "Ah, giusto: «Magnifico Rettore». Me n'ero dimenticata."
+    - tutor: "Esatto. E nel corpo della lettera, qual è l'argomento principale?"
+      goals: [opening-formula]
+    - learner: "Che i programmi dei corsi erano equivalenti e che avevo allegato tutto, ma la segreteria non ha tenuto conto."
+      errors: [ci-ne]
+      gold: {text: "non ha tenuto conto", fix: "non ne ha tenuto conto"}
+    - tutor: "Argomento solido. Ma «la segreteria non ha tenuto conto»: di che cosa? Manca il pronome che riprende i documenti allegati."
+      prompt: {text: "non ha tenuto conto", tags: [ci-ne]}
+    - learner: "Cioè, la segreteria non ha tenuto conto, nonostante gli allegati."
+      errors: [ci-ne]
+    - tutor: "Se la segreteria non ne ha tenuto conto nonostante gli allegati, lo scriva così, senza polemica: i fatti parlano da soli."
+      recast: {text: "non ha tenuto conto", fix: "non ne ha tenuto conto", tags: [ci-ne]}
+    - learner: "Va bene. Vorrei però che il tono fosse molto cortese ma anche rotondo, che si capisca che non mi arrendo."
+      errors: [false-friend]
+    - tutor: "Cortese ma fermo, d'accordo: la fermezza passa dai fatti, non dagli aggettivi. E per chiudere?"
+      recast: {text: "rotondo", fix: "fermo", tags: [false-friend]}
+      goals: [tone]
+    - learner: "«Le sarei grata se volesse esaminare il mio caso. In attesa di un cortese riscontro, porgo distinti saluti.»"
+    - tutor: "Impeccabile. Con questa chiusura, il Rettore non potrà dire che le manca lo stile."
+      goals: [closing]
+
+- scenario: intervista-radio
+  level: C2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Bentornati, cari ascoltatori. In studio con noi c'è un'autrice che ha avuto il coraggio, o l'incoscienza, di scrivere un libro su di noi italiani. Benvenuta!"
+    - learner: "Grazie! Il libro si chiama «Gli italiani spiegati a mia madre». Ci ho messo tre anni a scriverlo, e due stesure le ho buttate via."
+    - tutor: "Titolo promettente. Partiamo dal luogo comune per eccellenza: siamo davvero tutti mammoni?"
+      goals: [present-book]
+    - learner: "Non tutti, ma i dati sono impietosi: di trentenni che vivono con i genitori ci sono tantissimi."
+      errors: [ci-ne]
+      gold: {text: "ci sono tantissimi", fix: "ce ne sono tantissimi"}
+    - tutor: "Colpiti e affondati. Ma «di trentenni ci sono tantissimi»: con il complemento anticipato, che cosa manca?"
+      prompt: {text: "ci sono tantissimi", tags: [ci-ne]}
+    - learner: "Sì, ci sono tantissimi, anche se spesso è per gli affitti, non per la mamma."
+      errors: [ci-ne]
+    - tutor: "Quindi ce ne sono tantissimi, ma per colpa degli affitti: lei ci assolve, almeno in parte. Ci racconti un aneddoto."
+      recast: {text: "ci sono tantissimi", fix: "ce ne sono tantissimi", tags: [ci-ne]}
+      goals: [stereotype]
+    - learner: "Il primo mese a Napoli ho ordinato un cappuccino alle otto di sera: il barista mi ha guardata come se avessi bestemmiato in chiesa."
+    - tutor: "Un classico! E la lingua? Che rapporto ha con l'italiano?"
+      goals: [anecdote]
+    - learner: "Lo adoro, ma è piena di nuances che nessun dizionario spiega."
+      errors: [word-choice]
+    - tutor: "Piena di sfumature, certo, e di gesti. Ma il suo accento è quasi impercettibile: forse è più italiana di quanto pensi."
+      recast: {text: "nuances", fix: "sfumature", tags: [word-choice]}
+    - learner: "È gentile, ma a parlare come una vera italiana non riesco: mi tradiscono le mani, che stanno ferme."
+      errors: [ci-ne]
+      gold: {text: "non riesco", fix: "non ci riesco"}
+    - tutor: "Le mani ferme, che scandalo! Ma «non riesco»: quando l'infinito è già davanti, che particella lo riprende?"
+      prompt: {text: "non riesco", tags: [ci-ne]}
+      goals: [language]
+    - learner: "Ah, giusto: a parlare come una vera italiana non ci riesco!"
+    - tutor: "Ecco, e già lo dice con il tono giusto. Grazie di essere stata con noi, e buona fortuna con il libro!"
+      goals: [farewell]
+
+- scenario: poesia-montale
+  level: C2
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Lasciamo un attimo di silenzio dopo la lettura. Ecco. Che cosa le è rimasto addosso, di questi versi?"
+    - learner: "Il poema è cortissimo, otto versi, ma mi è rimasto addosso il rivo strozzato che gorgoglia: un'immagine quasi fisica."
+      errors: [false-friend]
+    - tutor: "La poesia è breve, sì, ma densissima. E il rivo strozzato è il primo di una serie di oggetti: quali altri nota?"
+      recast: {text: "Il poema", fix: "La poesia", tags: [false-friend]}
+      goals: [first-reading]
+    - learner: "La foglia che si accartoccia e il cavallo stramazzato. Il male di vivere non viene spiegato, viene mostrato."
+    - tutor: "Perfetto, è il correlativo oggettivo. E nella seconda strofa?"
+      goals: [image]
+    - learner: "C'è il verso in che appare la statua, nella sonnolenza del meriggio: l'immagine del bene, che è solo indifferenza."
+      errors: [relative-pronoun]
+    - tutor: "Lettura acuta. Ma «il verso in che appare»: dopo una preposizione, che pronome relativo usiamo?"
+      prompt: {text: "in che appare", tags: [relative-pronoun]}
+    - learner: "In cui: il verso in cui appare la statua."
+    - tutor: "Esatto. E il suono? Lo ha sentito?"
+    - learner: "Sì: «strozzato», «riarsa», «incartocciarsi», tante zeta e tante erre, un suono aspro, quasi doloroso."
+      goals: [sound]
+    - tutor: "Benissimo, il significante che soffre con il significato. Allora, che cosa ci dice Montale sulla salvezza?"
+    - learner: "Che non esiste. Secondo me alla salvezza Montale non ne crede: offre solo la divina Indifferenza."
+      errors: [ci-ne]
+      gold: {text: "non ne crede", fix: "non ci crede"}
+    - tutor: "Tesi forte. Ma «alla salvezza non ne crede»: il complemento è introdotto da «a»; quale particella lo riprende?"
+      prompt: {text: "non ne crede", tags: [ci-ne]}
+    - learner: "Sì, alla salvezza non ne crede, almeno in questa poesia."
+      errors: [ci-ne]
+    - tutor: "Alla salvezza non ci crede, almeno qui, d'accordo: l'indifferenza è il massimo bene concesso. Ottima analisi, la ringrazio."
+      recast: {text: "non ne crede", fix: "non ci crede", tags: [ci-ne]}
+      goals: [meaning]
+
+- scenario: seminario-etica
+  level: C2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Bene, dottoressa, la sua tesi è che una macchina non possa mai essere ritenuta responsabile. Mi permetta di dubitarne fin da subito."
+    - learner: "Ne dubiti pure, professore. Ma la responsabilità presuppone intenzionalità, e una macchina non ne ha."
+    - tutor: "Intenzionalità... e chi decide che cosa sia? Lei come la definirebbe?"
+      goals: [thesis]
+    - learner: "Bisogna distinguere tra causare un danno ed essere responsabili di esso: un fulmine causa danni, ma nessuno lo processa."
+      errors: [ci-ne]
+      gold: {text: "essere responsabili di esso", fix: "esserne responsabili"}
+    - tutor: "Esempio efficace. Ma «essere responsabili di esso» suona da traduzione: come lo direbbe con una particella attaccata all'infinito?"
+      prompt: {text: "essere responsabili di esso", tags: [ci-ne]}
+    - learner: "Tra causare un danno ed esserne responsabili."
+    - tutor: "Esatto. Ma allora un'azienda? Non ha coscienza, eppure la riteniamo responsabile."
+      goals: [distinguish]
+    - learner: "Perché dietro l'azienda ci sono persone: quando si indaga, ne si trova sempre una che ha deciso."
+      errors: [ci-ne]
+      gold: {text: "ne si trova", fix: "se ne trova"}
+    - tutor: "Obiezione elegante. Ma «ne si trova»: quando il «si» impersonale incontra «ne», che cosa succede alla forma?"
+      prompt: {text: "ne si trova", tags: [ci-ne]}
+    - learner: "Intendo che ne si trova sempre una, di persona responsabile."
+      errors: [ci-ne]
+    - tutor: "Se ne trova sempre una, dice lei. E se un giorno non se ne trovasse nessuna, perché ha deciso tutto l'algoritmo?"
+      recast: {text: "ne si trova", fix: "se ne trova", tags: [ci-ne]}
+      goals: [objection]
+    - learner: "Le concedo che il suo argomento sia contundente. In quel caso dovremmo ripensare il concetto stesso di responsabilità."
+      errors: [false-friend]
+    - tutor: "Stringente, direi, più che contundente: non volevo colpirla! Quindi ammette un margine di dubbio?"
+      recast: {text: "contundente", fix: "Stringente", tags: [false-friend]}
+      goals: [concede]
+    - learner: "Un margine, sì. Ma ne consegue solo che le regole vanno riscritte, non che la macchina diventi un soggetto morale."
+    - tutor: "Conclusione prudente e ben argomentata. Ne riparleremo al prossimo seminario, dottoressa."
+      goals: [conclude]
+
+- scenario: traduzione-sfumature
+  level: C2
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Ho letto la tua bozza del terzo capitolo. Scorre, scorre benissimo. Peccato che non sia più l'autore a parlare."
+    - learner: "Ah. Cioè l'ho resa troppo scorrevole? Ho cercato di fare in modo che la frase facesse senso per un lettore italiano."
+      errors: [word-choice]
+    - tutor: "Appunto: che avesse senso per te, non per l'autore. Lui spezza le frasi, tu le leghi come un'impiegata del catasto."
+      recast: {text: "facesse senso", fix: "avesse senso", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Capito. Allora per «I couldn't care less» al posto di «non mi interessa affatto» potrei mettere «me ne frego»: è più crudo, come lui."
+    - tutor: "Meglio, molto meglio. E a pagina dodici, «eventually» l'hai reso con «eventualmente». Te ne sei accorta?"
+      goals: [options]
+    - learner: "No, non me ero accorta! È un falso amico da manuale, che vergogna."
+      errors: [ci-ne]
+      gold: {text: "non me ero accorta", fix: "non me n'ero accorta"}
+    - tutor: "Vergogna moderata, capita a tutti. Ma «non me ero accorta»: tra «me» ed «ero» manca un pezzetto."
+      prompt: {text: "non me ero accorta", tags: [ci-ne]}
+      goals: [false-friend]
+    - learner: "Non me n'ero accorta. Metto «alla fine»."
+    - tutor: "Bene. E il registro? Il narratore è un camionista di Glasgow, non un professore."
+    - learner: "Allora tengo «me ne frego» e abbasso il registro dappertutto. Un lettore italiano ne si stupirebbe, ma è il personaggio."
+      errors: [ci-ne]
+      gold: {text: "ne si stupirebbe", fix: "se ne stupirebbe"}
+    - tutor: "Coraggiosa. Ma «ne si stupirebbe»: con un verbo riflessivo davanti a «ne», il «si» cambia forma. Quale?"
+      prompt: {text: "ne si stupirebbe", tags: [ci-ne]}
+    - learner: "Un lettore italiano... ne si stupirebbe? Non mi suona."
+      errors: [ci-ne]
+    - tutor: "Un lettore italiano se ne stupirebbe, forse, ma è il prezzo della fedeltà. Decisione presa: rifai il capitolo con quel tono e me lo mandi lunedì."
+      recast: {text: "ne si stupirebbe", fix: "se ne stupirebbe", tags: [ci-ne]}
+      goals: [decide]
+
+- scenario: umorismo-satira
+  level: C2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Dai, ammettilo, alla battuta sul ministro e la carbonara non hai riso perché non l'avevi capita."
+    - learner: "Lo ammetto: non ci ho capito niente. Cosa c'entra la panna?"
+    - tutor: "C'entra eccome: il ministro aveva detto in TV che lui la carbonara la fa con la panna. Sacrilegio nazionale!"
+      goals: [missed]
+    - learner: "Ah, ora capisco! Ma della politica italiana ci so così poco che mi perdo metà delle battute."
+      errors: [ci-ne]
+      gold: {text: "ci so così poco", fix: "ne so così poco"}
+    - tutor: "Normale. Ma «della politica ci so poco»: si sa «di» qualcosa; quale particella riprende «di»?"
+      prompt: {text: "ci so così poco", tags: [ci-ne]}
+    - learner: "Ne so così poco! In Canada invece ridiamo con i puns, li facciamo di continuo."
+      errors: [word-choice]
+    - tutor: "Anche noi adoriamo i giochi di parole: «Che cosa fa un'ape in palestra? Zum-ba». Lo so, è terribile."
+      recast: {text: "puns", fix: "giochi di parole", tags: [word-choice]}
+      goals: [wordplay]
+    - learner: "Terribile, sì, ma ho riso. Qual è il tuo comico preferito?"
+    - tutor: "Crozza, senza dubbio: imita i politici meglio di quanto si imitino da soli."
+      goals: [favourite]
+    - learner: "E secondo te ci sono limiti? A volte il pubblico ride di una battuta crudele, ma poi ne si dimentica subito."
+      errors: [ci-ne]
+      gold: {text: "ne si dimentica", fix: "se ne dimentica"}
+    - tutor: "Questione seria. Ma «ne si dimentica»: con «dimenticarsi» e «ne», come cambia quel «si»?"
+      prompt: {text: "ne si dimentica", tags: [ci-ne]}
+    - learner: "Mmm, il pubblico ne si dimentica subito, non so."
+      errors: [ci-ne]
+    - tutor: "Il pubblico se ne dimentica subito, verissimo; la vittima della battuta, invece, no. Per me il limite è proprio lì."
+      recast: {text: "ne si dimentica", fix: "se ne dimentica", tags: [ci-ne]}
+    - learner: "Sono d'accordo. Raccontare una battuta su chi è più debole non è satira, è bullismo."
+      errors: [word-choice]
+    - tutor: "Esatto: fare una battuta su chi è più debole è facile; la satira vera morde chi sta sopra. Su questo siamo d'accordo."
+      recast: {text: "Raccontare una battuta", fix: "fare una battuta", tags: [word-choice]}
+      goals: [limits]

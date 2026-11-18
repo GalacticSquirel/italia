@@ -1,0 +1,236 @@
+# u-cine, file 04 (B1 and B2): starci, pensarci, ne with numbers, accorgersene, crederci, se ne parla, c'entra.
+- scenario: smartworking
+  level: B1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Tutti e due: tre giorni a casa e due in ufficio. In ufficio ci vado il martedì e il giovedì."
+    - tutor: "Una buona via di mezzo. E a casa come ti sei organizzato?"
+      goals: [situation]
+    - learner: "Male! Ho comprato una scrivania grande, ma nel mio soggiorno non sta."
+      errors: [ci-ne]
+      gold: {text: "non sta", fix: "non ci sta"}
+    - tutor: "Che peccato! Ma «nel soggiorno non sta»: per dire che non c'è abbastanza spazio, cosa manca prima di «sta»?"
+      prompt: {text: "non sta", tags: [ci-ne]}
+    - learner: "Eh... nel soggiorno non sta, è troppo grande."
+      errors: [ci-ne]
+    - tutor: "Ah, non ci sta proprio? Allora lavori sul tavolo della cucina? Almeno il caffè è vicino!"
+      recast: {text: "non sta", fix: "non ci sta", tags: [ci-ne]}
+    - learner: "Esatto! E il vantaggio è che dormo mezz'ora in più e non prendo il treno."
+    - tutor: "Questo è un bel vantaggio. E cosa non ti piace del lavoro da casa?"
+      goals: [pros]
+    - learner: "Mi mancano i colleghi. A casa non parlo con nessuno fino alle sei!"
+    - tutor: "Ti capisco. Allora, alla fine, cosa preferisci?"
+      goals: [cons]
+    - learner: "Preferisco così, metà e metà: è più bello che lavorare sempre a casa. Ma devo trovare una scrivania più piccola che quella."
+      errors: [comparative]
+    - tutor: "Sono d'accordo. Ma «più piccola che quella»: davanti a un pronome, cosa usiamo dopo «più»?"
+      prompt: {text: "più piccola che quella", tags: [comparative]}
+    - learner: "Più piccola di quella!"
+    - tutor: "Esatto. E per la scrivania, ne ho vista una carina al mercato della domenica."
+      goals: [preference]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "In un paesino in Scozia, vicino a un lago. D'estate ci facevamo il bagno, anche se l'acqua era gelida!"
+    - tutor: "Che coraggio! Ti manca quel posto?"
+      goals: [place]
+    - learner: "Sì, penso spesso, soprattutto quando sono stressata per gli esami."
+      errors: [ci-ne]
+      gold: {text: "penso spesso", fix: "ci penso spesso"}
+    - tutor: "Ti capisco. Ma «penso spesso»: a cosa? Riprendi «quel posto» con una piccola parola davanti al verbo."
+      prompt: {text: "penso spesso", tags: [ci-ne]}
+    - learner: "Ah, ci penso spesso!"
+    - tutor: "Esatto. E cosa facevi di solito dopo la scuola?"
+    - learner: "Ogni giorno siamo andati a casa di mia nonna e lei ci preparava una torta."
+      errors: [tense-aspect]
+    - tutor: "Che nonna dolce! Ma «ogni giorno siamo andati»: succedeva sempre. Quale tempo usiamo per le azioni che si ripetono?"
+      prompt: {text: "siamo andati", tags: [tense-aspect]}
+      goals: [habits]
+    - learner: "Andavamo! Ogni giorno andavamo da lei."
+    - tutor: "Perfetto. E a scuola com'eri? Brava o un po' pestifera?"
+      new: [{lemma: pestifero, gloss: naughty}]
+    - learner: "Brava, ma parlavo troppo. Una volta la maestra mi ha messo fuori dalla classe per un'ora!"
+    - tutor: "Ah ah, me lo immagino! Io invece stavo sempre zitto, non parlavo mai."
+      goals: [school, event]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È più spazioso di quanto pensassi. Quanto chiede di affitto?"
+    - tutor: "Sono 750 euro al mese, più circa 60 di spese di condominio."
+      goals: [rent]
+    - learner: "D'accordo. È amueblado? Nelle foto non c'era la lavatrice."
+      errors: [word-choice]
+    - tutor: "È arredato, sì, ma la lavatrice manca: chi abitava qui prima se l'è portata via."
+      recast: {text: "amueblado", fix: "arredato", tags: [word-choice]}
+      goals: [condition]
+    - learner: "Non importa, io ho già una, quasi nuova. La porto io."
+      errors: [ci-ne]
+      gold: {text: "io ho già una", fix: "io ne ho già una"}
+    - tutor: "Ottimo. Solo una cosa: «io ho già una»... una cosa? Manca il pronome che riprende «lavatrice»."
+      prompt: {text: "io ho già una", tags: [ci-ne]}
+    - learner: "Sì, giusto: io ne ho già una, quasi nuova."
+    - tutor: "Perfetto, così risolviamo subito. Il contratto è un quattro più quattro, con due mesi di caparra."
+      goals: [contract]
+    - learner: "Mi sembra ragionevole. E il quartiere com'è? Ci sono scuole vicino? Mio figlio ha otto anni."
+    - tutor: "Ce n'è una a cinque minuti a piedi, e il parco è proprio dietro l'angolo."
+      goals: [neighbourhood]
+    - learner: "Mi piace molto. Ci penso stanotte con mio marito e la chiamo domani mattina."
+    - tutor: "Benissimo, aspetto la sua telefonata. Se decide di sì, preparo il contratto entro venerdì."
+      goals: [decide]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri pomeriggio ero fermo al semaforo rosso e una macchina mi ha tamponato."
+    - tutor: "Mi dispiace. Lei si è fatto male?"
+      goals: [what]
+    - learner: "No, per fortuna sto bene. Ma il conducente dell'altra macchina guardava il telefono: non si è accorto che il semaforo era rosso."
+    - tutor: "Capisco. E quando si è fermato, secondo lei?"
+    - learner: "Troppo tardi. Si è accorto solo all'ultimo secondo, quando ormai era addosso a me."
+      errors: [ci-ne]
+      gold: {text: "Si è accorto solo", fix: "Se n'è accorto solo"}
+    - tutor: "Mi è chiaro. Ma «si è accorto solo all'ultimo secondo»: di cosa? Qui serve un pronome in più, che riprenda il fatto."
+      prompt: {text: "Si è accorto solo", tags: [ci-ne]}
+    - learner: "Sì, si è accorto solo all'ultimo secondo, ha detto anche lui."
+      errors: [ci-ne]
+    - tutor: "Quindi se n'è accorto solo all'ultimo secondo, e l'ha ammesso: la responsabilità è chiaramente sua. Avete compilato la constatazione amichevole?"
+      recast: {text: "Si è accorto solo", fix: "Se n'è accorto solo", tags: [ci-ne]}
+      goals: [responsibility]
+    - learner: "Sì, l'abbiamo firmata tutti e due. Ce l'ho qui, con le foto del bumper."
+      errors: [word-choice]
+    - tutor: "Perfetto. Me la invii per email insieme alle foto del paraurti e al numero di targa dell'altro veicolo."
+      recast: {text: "del bumper", fix: "del paraurti", tags: [word-choice]}
+      goals: [documents]
+    - learner: "Va bene. E poi devo fare un appuntamento con il perito?"
+      errors: [word-choice]
+    - tutor: "No, non deve prendere un appuntamento lei: entro una settimana il perito le telefonerà per vedere l'auto. Dopo la perizia le comunicheremo l'importo."
+      recast: {text: "fare un appuntamento", fix: "prendere un appuntamento", tags: [word-choice]}
+      goals: [next]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Quest'anno ho chiuso dodici contratti nuovi; l'anno scorso ne avevo chiusi sette."
+    - tutor: "Lo so, sono risultati notevoli, li ho visti nella valutazione."
+      goals: [results]
+    - learner: "Per questo vorrei chiederle la posizione di responsabile del team commerciale, e l'aumento che ne consegue."
+    - tutor: "Capisco. Ma pensa davvero di essere pronta a guidare una squadra di otto persone?"
+      goals: [request]
+    - learner: "Sì, credo molto. Ho già coordinato tre progetti con colleghi di altri uffici."
+      errors: [ci-ne]
+      gold: {text: "credo molto", fix: "ci credo molto"}
+    - tutor: "Questo è un punto a suo favore. Ma «credo molto»: in cosa? Le manca una piccola parola che riprenda l'idea."
+      prompt: {text: "credo molto", tags: [ci-ne]}
+    - learner: "Ci credo molto, davvero. Mi sento pronta."
+    - tutor: "Bene. Il problema è che il budget per gli aumenti è bloccato fino a gennaio."
+    - learner: "Capisco. Potrei iniziare con le nuove responsabilità adesso e rivedere il salario a gennaio?"
+      errors: [word-choice]
+    - tutor: "Rivedere lo stipendio a gennaio mi sembra una proposta ragionevole. Ne parlo con la direzione e le do una risposta entro venerdì."
+      recast: {text: "il salario", fix: "lo stipendio", tags: [word-choice]}
+      goals: [handle, next-steps]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Io non sono d'accordo. Lavoro in centro e ogni giorno vedo un traffico incredibile. Ne si parla da anni, ma nessuno fa niente."
+      errors: [ci-ne]
+      gold: {text: "Ne si parla", fix: "Se ne parla"}
+    - tutor: "Il traffico c'è, lo ammetto. Ma «ne si parla»: quando si incontra con «ne», quel «si» cambia forma. Come diventa?"
+      prompt: {text: "Ne si parla", tags: [ci-ne]}
+      goals: [position]
+    - learner: "Ne si parla da anni... no?"
+      errors: [ci-ne]
+    - tutor: "Sì, se ne parla da anni, ha ragione, ma il problema è che i commercianti vivono dei clienti che arrivano in macchina."
+      recast: {text: "Ne si parla", fix: "Se ne parla", tags: [ci-ne]}
+    - learner: "Non credo che sia così. A Pontevedra, in Spagna, hanno chiuso il centro e i negozi lavorano di più."
+    - tutor: "Interessante, non lo sapevo. Ma chi abita fuori città come ci arriva, in centro?"
+      goals: [argue]
+    - learner: "Con i mezzi pubblici e i parcheggi alla periferia. Bisogna che il comune aumenta gli autobus."
+      errors: [subjunctive-use]
+    - tutor: "Ah sì? Ma «bisogna che il comune aumenta»: dopo «bisogna che», quale modo ci vuole?"
+      prompt: {text: "aumenta", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: bisogna che il comune aumenti gli autobus."
+    - tutor: "Su questo potrei essere d'accordo, ma ci vorranno anni e molti soldi."
+      goals: [counter]
+    - learner: "È vero, ci vorrà tempo. Però possiamo cominciare con una zona pedonale piccola, magari solo nel fine settimana."
+    - tutor: "Una prova nel fine settimana... Va bene, su questo mi ha quasi convinto."
+      goals: [concede]
+
+- scenario: film-libro
+  level: B2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io ho letto «La Storia» di Elsa Morante. È lunghissimo, ma non riuscivo a smettere."
+    - tutor: "Un grande classico! Di cosa parla, senza raccontarci il finale?"
+    - learner: "È la storia di una maestra e di suo figlio piccolo a Roma, durante la guerra. Ne hanno fatto anche una serie tv."
+    - tutor: "Sì, l'ho vista! E il titolo, secondo te, perché è così semplice?"
+      goals: [summary]
+    - learner: "Secondo me il titolo non entra niente con la storia della famiglia: parla della Storia con la S maiuscola."
+      errors: [ci-ne]
+      gold: {text: "non entra niente", fix: "non c'entra niente"}
+    - tutor: "Interessante! Ma «non entra niente»: per dire che una cosa non ha relazione con un'altra, il verbo vuole una piccola parola in più."
+      prompt: {text: "non entra niente", tags: [ci-ne]}
+    - learner: "Cioè, non entra niente, è diverso."
+      errors: [ci-ne]
+    - tutor: "Quindi per te il titolo non c'entra niente con la famiglia? Io invece penso che le due storie siano legate."
+      recast: {text: "non entra niente", fix: "non c'entra niente", tags: [ci-ne]}
+    - learner: "Forse hai ragione. Il personaggio a che penso sempre è Useppe, il bambino."
+      errors: [relative-pronoun]
+    - tutor: "Anch'io! Ma «a che penso»: dopo una preposizione, «che» va bene?"
+      prompt: {text: "a che penso", tags: [relative-pronoun]}
+    - learner: "Il personaggio a cui penso sempre è Useppe."
+    - tutor: "Useppe non si dimentica, sì. Lo consiglieresti a tutti?"
+      goals: [characters, opinion]
+    - learner: "Sì, ma non a chi cerca una lettura leggera: il finale è durissimo, ho pianto."
+    - tutor: "Allora ce lo segniamo per il prossimo inverno, e con molta pazienza!"
+      goals: [recommend]
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Buongiorno, dottore. Mi sento sempre stanca, e quando salgo le scale ho il fiato corto."
+    - tutor: "Capisco. Le capita anche quando sta ferma, o solo sotto sforzo?"
+      goals: [symptoms]
+    - learner: "Solo sotto sforzo. Al terzo piano devo fermarmi. E da una settimana sono anche costipata, con il naso chiuso."
+      errors: [false-friend]
+    - tutor: "Il fatto che sia raffreddata non c'entra con il fiato corto, non si preoccupi. Prende già qualche farmaco?"
+      recast: {text: "costipata", fix: "raffreddata", tags: [false-friend]}
+      new: [{lemma: raffreddato, gloss: having a cold}]
+    - learner: "Sì, per la tiroide. Prendo due al giorno: una la mattina e una la sera."
+      errors: [ci-ne]
+      gold: {text: "Prendo due al giorno", fix: "Ne prendo due al giorno"}
+    - tutor: "Va bene. Ma «prendo due al giorno»: due di cosa? Manca il pronome che riprende le medicine."
+      prompt: {text: "Prendo due al giorno", tags: [ci-ne]}
+      goals: [history]
+    - learner: "Ne prendo due al giorno, una la mattina e una la sera."
+    - tutor: "Perfetto. Gli esami mostrano la pressione un po' bassa e il battito veloce: potrebbe dipendere dalla tiroide."
+    - learner: "Quindi non è il cuore? Non ho capito bene."
+    - tutor: "Il cuore è sano. Probabilmente la dose della terapia va solo cambiata."
+      goals: [understand]
+    - learner: "Che sollievo! Cosa devo fare adesso?"
+    - tutor: "Ne parli con il suo medico questa settimana e torni da me per un controllo fra due mesi."
+      goals: [treatment]

@@ -1,0 +1,222 @@
+# Set u-right-b2, file 5: B2 art, books and films, life in Italy, a wedding.
+- scenario: arte-mostra
+  level: B2
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi mette un po' di tristezza. È tutto grigio e blu."
+  - tutor: "È vero, sono colori freddi. Cosa vedi, esattamente?"
+    goals: [react]
+  - learner: "C'è una donna seduta vicino a una finestra. Sta per leggere una lettera, credo."
+  - tutor: "Sì, la lettera è ancora chiusa. Secondo te chi le scrive?"
+    goals: [describe]
+  - learner: "Forse il marito, che è lontano, in guerra. Sarà preoccupata per lui."
+  - tutor: "Bella lettura. In effetti il quadro è stato dipinto durante la Prima guerra mondiale."
+    goals: [interpret]
+  - learner: "Davvero? Allora è stato dipinto da qualcuno che conosceva bene questa situazione."
+  - tutor: "Sì, anche suo fratello era in guerra. Ti ricorda qualche altro quadro?"
+  - learner: "Un po' mi ricorda i pittori olandesi, per la luce della finestra. Ma i loro quadri sono più caldi che questo."
+    errors: [comparative]
+  - tutor: "Più caldi che questo? Pensa alla parola che usiamo prima di «questo»."
+    prompt: {text: "più caldi che questo", tags: [comparative]}
+  - learner: "Sì, i quadri olandesi sono più caldi che questo."
+    errors: [comparative]
+  - tutor: "Hai ragione, sono più caldi di questo, anche se la luce è simile. Qui manca proprio il calore."
+    recast: {text: "più caldi che questo", fix: "più caldi di questo", tags: [comparative]}
+    goals: [compare]
+
+- scenario: arte-mostra
+  level: B2
+  persona: en-m-retired
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Onestamente? Non lo capisco. Sono solo linee e quadrati colorati."
+  - tutor: "È un quadro astratto: non devi capire, devi sentire. Cosa vedi?"
+    goals: [react]
+    new: [{lemma: astratto, gloss: abstract}]
+  - learner: "Vedo un quadrato rosso grande al centro e tante linee nere intorno, come una rete."
+  - tutor: "Una rete, interessante. Che cosa potrebbe rappresentare?"
+    goals: [describe]
+  - learner: "Forse la città: il quadrato rosso è la piazza e le linee sono le strade. Mi sembra che il pittore odi il traffico!"
+  - tutor: "Ah, non ci avevo mai pensato! In effetti lui abitava proprio sopra un grande incrocio."
+    goals: [interpret]
+  - learner: "Lo dicevo io! E quel quadro là, è dello stesso artista?"
+  - tutor: "Sì, ma è di vent'anni prima. Vedi la differenza?"
+  - learner: "Sì, quello è più realistico, si vedono le persone. Mi piace di più, ma questo è più originale."
+  - tutor: "Sono d'accordo, quello è più facile da amare. Ma questo ha più coraggio."
+    goals: [compare]
+
+- scenario: film-libro
+  level: B2
+  persona: es-f-erasmus
+  history: [relative-pronoun, false-friend]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Inizio io. Ho letto un romanzo cileno che racconta la storia di una famiglia nell'arco di cento anni."
+  - tutor: "Cento anni, che storia lunga! Senza raccontare il finale, di cosa parla?"
+  - learner: "Parla di una casa grande in campagna, dove vivono tre generazioni di donne. Ognuna ha un segreto."
+  - tutor: "Già mi piace. Chi è il personaggio principale?"
+    goals: [summary]
+  - learner: "È Clara, una ragazza chi sa vedere il futuro."
+    errors: [relative-pronoun]
+  - tutor: "Una ragazza chi sa? Ripensa al pronome."
+    prompt: {text: "chi sa", tags: [relative-pronoun]}
+  - learner: "Una ragazza che sa vedere il futuro e parla con gli spiriti."
+  - tutor: "Esatto. Un personaggio affascinante! E a te è piaciuto?"
+    goals: [characters]
+  - learner: "Moltissimo. Mi è piaciuto soprattutto come l'autrice racconta la politica attraverso la famiglia."
+  - tutor: "Unire la storia di una famiglia e quella di un paese è difficilissimo. A chi lo consiglieresti?"
+    goals: [opinion]
+  - learner: "A chi ama le storie un po' magiche. Non lo consiglierei a chi ha fretta, perché è molto largo: seicento pagine!"
+    errors: [false-friend]
+  - tutor: "Seicento pagine, sì, è molto lungo! Ma d'estate il tempo per leggere si trova."
+    recast: {text: "molto largo", fix: "molto lungo", tags: [false-friend]}
+    goals: [recommend]
+  - learner: "Esatto, è perfetto per le vacanze."
+  - tutor: "Allora lo metto nella lista per l'estate. Grazie!"
+
+- scenario: film-libro
+  level: B2
+  persona: en-m-traveller
+  history: [tense-aspect, relative-pronoun]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Io ho visto un film, non ho letto niente. Va bene lo stesso?"
+  - tutor: "Certo, i film sono benvenuti! Di che cosa parla?"
+  - learner: "È la storia di un vecchio pescatore siciliano che un giorno trova un ragazzo straniero in mare."
+  - tutor: "Mi sembra già una storia forte. Com'è il pescatore?"
+    goals: [summary]
+  - learner: "È burbero e parla poco. Da giovane perdeva suo figlio in una tempesta."
+    errors: [tense-aspect]
+  - tutor: "Da giovane perdeva? È un fatto successo una volta sola."
+    prompt: {text: "perdeva", tags: [tense-aspect]}
+  - learner: "Da giovane ha perso suo figlio in una tempesta."
+  - tutor: "Ecco perché è così chiuso. E il ragazzo cambia qualcosa?"
+    goals: [characters]
+  - learner: "Sì, piano piano diventano amici. C'è una scena che il pescatore piange da solo sulla barca."
+    errors: [relative-pronoun]
+  - tutor: "Una scena che il pescatore piange? Manca qualcosa per collegare le due parti."
+    prompt: {text: "che il pescatore piange", tags: [relative-pronoun]}
+  - learner: "Sì, una scena che piange da solo, di notte."
+    errors: [relative-pronoun]
+  - tutor: "Una scena in cui piange da solo, di notte, deve essere fortissima. E a te il film è piaciuto?"
+    recast: {text: "che piange", fix: "in cui piange", tags: [relative-pronoun]}
+  - learner: "Sì, molto. Credo che il regista voglia mostrare che il dolore si può superare. Lo consiglierei a chi ama il cinema lento."
+  - tutor: "Allora lo vediamo insieme al prossimo incontro del club!"
+    goals: [opinion, recommend]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-m-heritage
+  history: [preposition, possessive]
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Grazie dell'invito. Mio nonno era di Matera e ne parlava sempre. Volevo vedere i posti dei suoi racconti."
+  - tutor: "Una scelta di cuore, quindi. Cosa è stato più difficile, all'inizio?"
+    goals: [story]
+  - learner: "La burocrazia, senza dubbio. Per la cittadinanza ho dovuto tradurre tutti i documenti da mio nonno."
+    errors: [preposition]
+  - tutor: "I documenti da mio nonno? Pensi alla preposizione che indica di chi sono."
+    prompt: {text: "da mio nonno", tags: [preposition]}
+  - learner: "Scusi: i documenti di mio nonno. E ci sono voluti due anni!"
+  - tutor: "Due anni! E come ha fatto a non perdere la pazienza?"
+    goals: [difficulties]
+  - learner: "Non lo so. Forse perché la mia moglie è più paziente di me. Mi diceva sempre «domani andrà meglio»."
+    errors: [possessive]
+  - tutor: "La mia moglie? Con i nomi di famiglia al singolare, cosa succede?"
+    prompt: {text: "la mia moglie", tags: [possessive]}
+  - learner: "Mia moglie, certo. Lei è molto paziente."
+  - tutor: "Esatto. Una moglie saggia! E lei, in questi anni, com'è cambiato?"
+  - learner: "Sono più tranquillo. In America correvo sempre; qui ho imparato a fermarmi e godermi un caffè."
+  - tutor: "Che bello. Che consiglio darebbe a chi vuole trasferirsi qui?"
+    goals: [change]
+  - learner: "Di imparare la lingua prima di partire. Senza l'italiano non riesci a fare niente."
+  - tutor: "Un consiglio prezioso. Grazie per essere stato con noi!"
+    goals: [advice]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-f-student
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Sono venuta per studiare tre anni fa, poi ho trovato lavoro qui a Bologna e non sono più tornata a casa."
+  - tutor: "Una storia che sentiamo spesso! Cosa è stato più difficile per lei?"
+    goals: [story]
+  - learner: "All'inizio gli orari. In Inghilterra si cena alle sei, qui alle nove! Ci ho messo mesi ad abituarmi."
+  - tutor: "E adesso cena alle nove anche lei?"
+    goals: [difficulties]
+  - learner: "Sì, anche alle dieci, d'estate. I miei genitori pensano che sono diventata italiana."
+    errors: [subjunctive-use]
+  - tutor: "Pensano che sono diventata? Dopo «pensano che», quale modo serve?"
+    prompt: {text: "sono diventata", tags: [subjunctive-use]}
+  - learner: "Sì, pensano che sono diventata italiana al cento per cento!"
+    errors: [subjunctive-use]
+  - tutor: "Può darsi che lei sia diventata davvero italiana! Si sente cambiata?"
+    recast: {text: "sono diventata", fix: "sia diventata", tags: [subjunctive-use]}
+  - learner: "Un po'. Sono più aperta, parlo con le mani e non bevo più il cappuccino dopo pranzo."
+  - tutor: "Allora è proprio una di noi! Un consiglio per chi vuole trasferirsi?"
+    goals: [change]
+  - learner: "Non abbiate paura di sbagliare quando parlate. Gli italiani sono pazienti con chi ci prova."
+  - tutor: "Bellissimo consiglio. Grazie di essere stata con noi!"
+    goals: [advice]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: es-m-worker
+  history: [subjunctive-use, word-choice]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Vorremmo una cosa semplice, in campagna, con una cinquantina di invitati."
+  - tutor: "Una cinquantina, perfetto. Avete già pensato a una cifra?"
+    goals: [vision]
+  - learner: "Più o meno quindicimila euro, non di più. I genitori della mia fidanzata ci aiutano un po'."
+  - tutor: "Con quella cifra ho due proposte: una vecchia fattoria vicino a Lecce o un agriturismo in collina."
+    goals: [budget]
+    new: [{lemma: agriturismo, gloss: farm stay}]
+  - learner: "Quale costa meno? La fattoria è bellissima, ma non so se ce la facciamo con il presupuesto."
+    errors: [word-choice]
+  - tutor: "Con il budget che avete, la fattoria è un po' cara: l'agriturismo costa circa duemila euro in meno."
+    recast: {text: "il presupuesto", fix: "il budget", tags: [word-choice]}
+    new: [{lemma: agriturismo, gloss: farm stay}]
+  - learner: "Allora scegliamo l'agriturismo. Le foto ce le può mandare entro venerdì?"
+  - tutor: "Certo, ve le mando domani mattina. Avete altre richieste?"
+    goals: [choices]
+  - learner: "Sì: vorremmo che il menù sia tutto di pesce, e che i fiori siano solo bianchi."
+    errors: [subjunctive-use]
+  - tutor: "Vorremmo che il menù sia? Pensi al tempo del verbo dopo «vorremmo»."
+    prompt: {text: "sia", tags: [subjunctive-use]}
+  - learner: "Vorremmo che il menù fosse tutto di pesce, e che i fiori fossero solo bianchi."
+  - tutor: "Esatto. Pesce e fiori bianchi: lo segno subito. Ci sentiamo venerdì per il contratto."
+    goals: [conditions]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-f-professional
+  history: [conditional-form, article-form]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie mille! Io e il mio compagno vorremmo sposarci in Toscana, in una villa con vista sulle colline."
+  - tutor: "Che sogno! Quante persone pensate di invitare?"
+  - learner: "Tanta gente: la sua famiglia è enorme. Saranno almeno centoventi persone."
+  - tutor: "Centoventi... E quanto pensate di spendere?"
+    goals: [vision]
+  - learner: "Non vorremmo spendere più di trentamila euro. È possibile, secondo lei?"
+  - tutor: "Possibile, sì, se rinunciate a qualcosa. Ho due ville: una con il parco ma lontana da Firenze, l'altra in città ma più piccola."
+    goals: [budget]
+  - learner: "Preferiremmo quella con il parco. Ci sono alberghi vicini per i invitati?"
+    errors: [article-form]
+  - tutor: "Per i invitati? Ascolti come comincia la parola."
+    prompt: {text: "i invitati", tags: [article-form]}
+  - learner: "Per gli invitati, scusi."
+  - tutor: "Esatto. Sì, ci sono due alberghi a dieci minuti."
+    goals: [choices]
+  - learner: "Perfetto. Un'ultima cosa: noi vorremo vedere ogni preventivo prima di firmarlo."
+    errors: [conditional-form]
+  - tutor: "Noi vorremo? Questo è un futuro: è quello che voleva dire?"
+    prompt: {text: "vorremo", tags: [conditional-form]}
+    new: [{lemma: preventivo, gloss: quote}]
+  - learner: "No, scusi: vorremmo vedere ogni preventivo prima di firmare."
+  - tutor: "Certo, ve li mando tutti per email e decidiamo insieme."
+    goals: [conditions]

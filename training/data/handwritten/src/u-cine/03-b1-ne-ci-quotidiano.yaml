@@ -1,0 +1,228 @@
+# u-cine, file 03 (B1): ne/ci swapped, ne with quantities, pensarci, crederci, accorgersene, farne/darne.
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto giovedì sera e ci resto una settimana. È il mio primo viaggio al sud!"
+    - tutor: "Una settimana è perfetta. Hai già un'idea di cosa vuoi fare?"
+      goals: [plans]
+    - learner: "Voglio vedere Pompei e salire sul Vesuvio. Il Vesuvio è il mio sogno, ne vado sicuramente!"
+      errors: [ci-ne]
+      gold: {text: "ne vado sicuramente", fix: "ci vado sicuramente"}
+    - tutor: "Che bello! Però «ne vado»: per un posto, quale piccola parola usiamo davanti al verbo?"
+      prompt: {text: "ne vado sicuramente", tags: [ci-ne]}
+    - learner: "Ah, giusto, ci vado sicuramente! Cosa mi consigli per Pompei?"
+    - tutor: "Esatto! Vai la mattina presto, prima dei gruppi, e porta tanta acqua: d'estate fa un caldo terribile."
+      goals: [advice]
+    - learner: "Ok. E come si arriva a Pompei da Napoli? Prendo un coach?"
+      errors: [word-choice]
+    - tutor: "C'è anche un pullman, ma è meglio il treno, la Circumvesuviana: ci vogliono quaranta minuti. Non è bellissima, ma funziona."
+      recast: {text: "un coach", fix: "un pullman", tags: [word-choice]}
+      new: [{lemma: pullman, gloss: coach}]
+      goals: [transport]
+    - learner: "Perfetto. C'è qualcosa che devo evitare?"
+    - tutor: "Non lasciare mai lo zaino sulla sedia al bar, e in metro tieni il telefono in tasca. Per il resto, goditela!"
+      goals: [warnings]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire una cuenta corrente. Mi sono trasferita a Bologna il mese scorso."
+      errors: [word-choice]
+    - tutor: "Benvenuta! Aprire un conto corrente è semplice, ci vuole mezz'ora. Ha con sé i documenti?"
+      recast: {text: "una cuenta", fix: "un conto", tags: [word-choice]}
+      goals: [purpose]
+    - learner: "Sì, qui ho due: il passaporto e il codice fiscale."
+      errors: [ci-ne]
+      gold: {text: "qui ho due", fix: "qui ne ho due"}
+    - tutor: "Benissimo. Solo una cosa: «qui ho due»... due cosa? Manca la parola che riprende «documenti»."
+      prompt: {text: "qui ho due", tags: [ci-ne]}
+    - learner: "Ah, sì: qui ne ho due, il passaporto e il codice fiscale."
+    - tutor: "Perfetto, bastano questi. Mi serve anche il suo indirizzo di Bologna."
+      goals: [documents]
+    - learner: "Via Saragozza 40. Quanto costa il conto al mese? E i bonifici si pagano?"
+    - tutor: "Il conto costa tre euro al mese. I bonifici con l'app non costano niente, allo sportello costano due euro."
+      goals: [costs]
+      new: [{lemma: sportello, gloss: counter}]
+    - learner: "Va bene. E la tarjeta, quando arriva?"
+      errors: [word-choice]
+    - tutor: "La carta arriva a casa in una settimana. Nel frattempo può usare l'app per controllare il conto. Firmi qui, per favore."
+      recast: {text: "la tarjeta", fix: "La carta", tags: [word-choice]}
+      goals: [card]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Io vorrebbe prenotare una visita dal dermatologo, per una macchia sulla spalla."
+      errors: [conditional-form]
+    - tutor: "Certo. Solo una cosa: «io vorrebbe»? Controlli la persona del verbo."
+      prompt: {text: "Io vorrebbe", tags: [conditional-form]}
+    - learner: "Ah, io vorrei prenotare una visita, scusi."
+    - tutor: "Benissimo. È la prima visita o un controllo?"
+      goals: [type]
+    - learner: "È la prima visita. Ho bisogno di un'impegnativa del medico?"
+    - tutor: "Non serve per forza: senza impegnativa la visita costa novanta euro. Il primo posto libero è martedì 12 alle dieci."
+      goals: [cost, availability]
+    - learner: "Martedì 12... Non lo so, devo controllare l'agenda di mia moglie. Penso un momento e la richiamo, va bene?"
+      errors: [ci-ne]
+      gold: {text: "Penso un momento", fix: "Ci penso un momento"}
+    - tutor: "Va bene, ma il posto potrebbe sparire. E «penso un momento»: a cosa? Prima del verbo manca una piccola parola."
+      prompt: {text: "Penso un momento", tags: [ci-ne]}
+    - learner: "Ah, certo: ci penso un momento. Anzi no, va bene martedì, la prendo subito."
+    - tutor: "Perfetto, allora la segno. Mi dice nome e cognome?"
+    - learner: "Robert Miller, con due elle. Devo portare qualcosa?"
+    - tutor: "Porti solo un documento. La aspettiamo martedì 12 alle dieci, signor Miller."
+      goals: [confirm]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questi cuffie qui sabato, ma la destra non funziona più."
+      errors: [demonstrative]
+    - tutor: "Vediamo. Ma «questi cuffie»: «cuffie» è maschile o femminile?"
+      prompt: {text: "questi cuffie", tags: [demonstrative]}
+    - learner: "Femminile: queste cuffie."
+    - tutor: "Esatto. Mi dispiace per il problema. Ha ancora lo scontrino?"
+      goals: [problem]
+    - learner: "Sì, eccolo. C'è anche la scatola."
+    - tutor: "Grazie, è tutto in regola. Vuole cambiarle con un altro paio uguale?"
+      goals: [proof]
+    - learner: "Preferisco cambiare modello. Sullo scaffale ho visto uno a sessanta euro, bianco."
+      errors: [ci-ne]
+      gold: {text: "ho visto uno", fix: "ne ho visto uno"}
+    - tutor: "Sì, sono buone. Ma «ho visto uno»: uno di cosa? Riprenda «modello» con una piccola parola."
+      prompt: {text: "ho visto uno", tags: [ci-ne]}
+    - learner: "Sullo scaffale ne ho visto uno a sessanta euro."
+    - tutor: "Esatto. Queste costavano quaranta: allora paga la differenza, venti euro."
+      goals: [request]
+    - learner: "Va bene, nessun problema. Pago con la carta."
+    - tutor: "Benissimo. Ecco le cuffie nuove e il nuovo scontrino: la garanzia è di due anni."
+      goals: [agree]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Lavoro in un ristorante, quindi mangio tardi e dormo poco: sei ore, a volte cinque."
+    - tutor: "Cinque ore sono davvero poche. E quanto ti alleni?"
+      goals: [habits]
+    - learner: "Corro due giorni a settimana. Vorrei fare tre, ma non ho tempo."
+      errors: [ci-ne]
+      gold: {text: "fare tre", fix: "farne tre"}
+    - tutor: "Tre giorni sarebbe un ottimo obiettivo. Ma «vorrei fare tre»: tre di cosa? Al verbo manca un piccolo pezzo."
+      prompt: {text: "fare tre", tags: [ci-ne]}
+      goals: [goal]
+    - learner: "Sì, vorrei fare tre, però il lavoro..."
+      errors: [ci-ne]
+    - tutor: "Farne tre è possibile anche col tuo lavoro: basta correre mezz'ora la mattina. Cosa ti blocca di più?"
+      recast: {text: "fare tre", fix: "farne tre", tags: [ci-ne]}
+    - learner: "La stanchezza. Quando torno a casa all'una di notte, sono molto cansado."
+      errors: [word-choice]
+    - tutor: "Certo, all'una di notte sei stanco, è normale. Allora proviamo così: corsa breve il lunedì, il mercoledì e il venerdì, e niente caffè dopo le cinque."
+      recast: {text: "cansado", fix: "stanco", tags: [word-choice]}
+      goals: [obstacles]
+    - learner: "Niente caffè? Sarà difficile, ma ci provo. Comincerò lunedì."
+    - tutor: "Ottimo! Lunedì mi scrivi com'è andata."
+      goals: [plan]
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+    - learner: "Anche da noi! Ma per me la festa più bella è il 6 gennaio, con i Re Magi."
+    - tutor: "Ah, da noi il 6 gennaio arriva la Befana! Com'era quel giorno quando eri piccola?"
+      goals: [compare]
+    - learner: "La sera prima lasciavamo acqua e pane per i cammelli. La mattina trovavamo i regali vicino alle scarpe."
+    - tutor: "Che tenerezza! E tu ai Re Magi ci credevi davvero?"
+      goals: [past]
+      new: [{lemma: tenerezza, gloss: tenderness}]
+    - learner: "Sì, credevo fino a nove anni! Poi mio fratello mi ha detto la verità."
+      errors: [ci-ne]
+      gold: {text: "credevo fino a nove anni", fix: "ci credevo fino a nove anni"}
+    - tutor: "Che fratello cattivo! Ma «credevo fino a nove anni»: a chi? Riprendi «ai Re Magi» con una piccola parola."
+      prompt: {text: "credevo fino a nove anni", tags: [ci-ne]}
+    - learner: "Ci credevo fino a nove anni. E tu alla Befana?"
+    - tutor: "Esatto! Io fino a otto, poi ho visto mia nonna con il sacco delle calze!"
+      goals: [ask]
+    - learner: "Ah ah! Quest'anno rimango a Italia per le feste. Posso venire da voi il 6?"
+      errors: [preposition]
+    - tutor: "Ma certo! Solo una cosa: «a Italia»? Con i nomi dei paesi quale preposizione usiamo?"
+      prompt: {text: "a Italia", tags: [preposition]}
+    - learner: "In Italia! Rimango in Italia."
+    - tutor: "Perfetto! Mia madre prepara sempre una montagna di dolci: ne restano sempre tanti."
+      goals: [plan]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi il disturbo. Abito al piano di sotto, sono la signora Bennett."
+    - tutor: "Ah, piacere! Mi dica pure."
+      goals: [greet]
+    - learner: "Ecco, la sera sento molto rumore: musica e passi, fino all'una. Forse lei non accorge, ma il pavimento è molto sottile."
+      errors: [ci-ne, reflexive]
+      gold: {text: "non accorge", fix: "non se ne accorge"}
+    - tutor: "Davvero si sente fino a lei? Mi dispiace. Ma «non accorge»: con questo verbo mancano due paroline davanti."
+      prompt: {text: "non accorge", tags: [ci-ne]}
+      goals: [problem]
+    - learner: "Ah, sì: forse lei non se ne accorge."
+    - tutor: "Esatto, purtroppo non me ne rendevo conto. Il fatto è che mio figlio suona la batteria la sera."
+      new: [{lemma: batteria, gloss: drums}]
+    - learner: "Capisco. Potrebbe chiederle di suonare prima delle dieci? Io la mattina mi alzo alle sei."
+      errors: [object-pronoun]
+    - tutor: "«Chiederle»? A chi, scusi? Stiamo parlando di mio figlio."
+      prompt: {text: "chiederle", tags: [object-pronoun]}
+    - learner: "Ah, giusto, a suo figlio: potrebbe chiedergli di suonare prima delle dieci?"
+    - tutor: "Mi sembra giusto. Gli dirò di finire entro le dieci, e la domenica può suonare il pomeriggio."
+      goals: [request]
+    - learner: "Grazie, è molto gentile. Se un giorno c'è un problema, mi suoni pure il campanello."
+    - tutor: "D'accordo, e lei faccia lo stesso. Buonanotte, signora Bennett!"
+      goals: [compromise]
+
+- scenario: volontariato
+  level: B1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Sì! Vivo a Bologna da poco e voglio fare qualcosa di utile. Mi piace stare con le persone anziane."
+    - tutor: "Che bello! Perché proprio gli anziani?"
+    - learner: "Mia nonna vive in Irlanda e mi manca molto. Quando ero piccolo passavo tutti i pomeriggi con lei."
+    - tutor: "Capisco. Cosa sai fare? Cucinare, guidare, giocare a carte?"
+      goals: [motivation]
+    - learner: "So guidare, ho la licenza di guida italiana. E a carte gioco benissimo, soprattutto a briscola!"
+      errors: [word-choice]
+    - tutor: "Perfetto, la patente è utilissima, e i nostri nonni ti adoreranno. Quante ore puoi darci a settimana?"
+      recast: {text: "la licenza di guida", fix: "la patente", tags: [word-choice]}
+      new: [{lemma: patente, gloss: driving licence}]
+      goals: [skills]
+    - learner: "Posso dare quattro, il sabato mattina."
+      errors: [ci-ne]
+      gold: {text: "dare quattro", fix: "darne quattro"}
+    - tutor: "Quattro è un bel numero! Ma «posso dare quattro»: quattro di cosa? Manca la parola che riprende «ore»."
+      prompt: {text: "dare quattro", tags: [ci-ne]}
+    - learner: "Sì, posso dare quattro, il sabato."
+      errors: [ci-ne]
+    - tutor: "Darne quattro il sabato è perfetto: è proprio il giorno delle uscite. Preferisci accompagnarli in macchina o giocare a carte con loro?"
+      recast: {text: "dare quattro", fix: "darne quattro", tags: [ci-ne]}
+      goals: [time]
+    - learner: "Giocare a carte, senza dubbio!"
+    - tutor: "Allora i nonni avranno un nuovo campione. Ci vediamo sabato alle nove!"
+      goals: [choose]

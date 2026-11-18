@@ -1,0 +1,259 @@
+# B1, recast-focused (u-recast): failed repair after a prompt, then a recast of the learner's
+# own span; a few lexical slips recast at once; correct «ci/ne», «dove», «più ... che» left alone.
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-traveller
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno, devo andare a Firenze domani mattina, verso le otto."
+    - tutor: "C'è un Frecciarossa alle otto e dieci e un regionale alle otto e mezza."
+      goals: [destination]
+    - learner: "Il regionale costa meno, lo so. Ma il Frecciarossa è più veloce che il regionale, vero?"
+      errors: [comparative]
+    - tutor: "Scusi, «più veloce che il regionale»? Ci pensi un attimo: come mettiamo a confronto due treni?"
+      prompt: {text: "più veloce che il regionale", tags: [comparative]}
+    - learner: "Sì, più veloce che il regionale. Quanto tempo ci mette?"
+      errors: [comparative]
+    - tutor: "Molto più veloce del regionale: un'ora e mezza invece di tre ore. Ma costa quaranta euro. Solo andata?"
+      recast: {text: "più veloce che il regionale", fix: "più veloce del regionale", tags: [comparative]}
+    - learner: "Andata e ritorno, per favore. Torno domenica sera con lo stesso treno."
+    - tutor: "Va bene. Vuole la prima o la seconda classe?"
+      goals: [type]
+    - learner: "La seconda va bene. Se possibile, un posto vicino alla finestra."
+      errors: [word-choice]
+    - tutor: "Ecco un posto vicino al finestrino: carrozza sei, posto quattordici. Sono settantacinque euro in tutto."
+      goals: [class]
+      recast: {text: "alla finestra", fix: "al finestrino", tags: [word-choice]}
+      new: [{lemma: finestrino, gloss: train window}, {lemma: carrozza, gloss: coach}]
+    - learner: "Grazie. Da quale binario parte il treno?"
+    - tutor: "Di solito dal binario otto, ma lo controlli in stazione mezz'ora prima. Buon viaggio!"
+      goals: [platform]
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: es-f-erasmus
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Facciamo la paella! È il piatto tipico di Valencia, la mia città."
+    - tutor: "Che bello, non l'ho mai fatta! Che cosa ci serve?"
+    - learner: "Riso, pollo, fagiolini, pomodori e zafferano. Ho guardato in frigo: ci ne sono solo due, di pomodori."
+      errors: [combined-pronouns]
+    - tutor: "«Ci ne sono»? Quando «ci» e «ne» stanno insieme, la prima parola cambia un po'. Come?"
+      prompt: {text: "ci ne sono", tags: [combined-pronouns]}
+    - learner: "Ah... ci ne sono solo due, ma forse bastano."
+      errors: [combined-pronouns]
+    - tutor: "Se ce ne sono solo due, bastano: servono soprattutto per il colore. Da dove cominciamo?"
+      goals: [ingredients]
+      recast: {text: "ci ne sono", fix: "ce ne sono", tags: [combined-pronouns]}
+    - learner: "Prima tagliamo il pollo a pezzi e lo cuociamo nella pentola grande con l'olio."
+    - tutor: "Ecco fatto, il pollo è già nella pentola. E dopo?"
+      goals: [steps]
+    - learner: "Dopo aggiungiamo il riso e l'acqua calda, e lo lasciamo cuocere venti minuti. È importante che nessuno tocca il riso!"
+      errors: [subjunctive-use]
+    - tutor: "Venti minuti, va bene. Ma «è importante che nessuno tocca»: dopo «è importante che», il verbo resta così?"
+      prompt: {text: "nessuno tocca il riso", tags: [subjunctive-use]}
+    - learner: "Ah, sì... è importante che nessuno tocca il riso, se no la paella non viene bene."
+      errors: [subjunctive-use]
+    - tutor: "D'accordo, è importante che nessuno tocchi il riso: prometto di non girarlo! Noi in Italia il riso lo giriamo sempre, che differenza."
+      goals: [time]
+      recast: {text: "nessuno tocca il riso", fix: "nessuno tocchi il riso", tags: [subjunctive-use]}
+    - learner: "Esatto, la paella no! Alla fine si porta in tavola così, nella pentola, con il limone."
+    - tutor: "Mi piace, la mangiamo tutti dalla stessa pentola. Allora preparo io la tavola!"
+      goals: [serve]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-f-student
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, sono Emma, abito al piano di sotto. Scusi il disturbo."
+    - tutor: "Piacere, Emma! Nessun disturbo, mi dica pure."
+      goals: [greet]
+    - learner: "Ecco, la sera sentiamo la musica molto forte, a volte fino all'una, e sono molto annoiata. Io mi alzo alle sei per andare al lavoro."
+      errors: [false-friend]
+    - tutor: "Oh, mi dispiace che sia molto infastidita, non pensavo che si sentisse così tanto. È mio figlio, suona la batteria."
+      goals: [problem]
+      recast: {text: "molto annoiata", fix: "molto infastidita", tags: [false-friend]}
+      new: [{lemma: batteria, gloss: drums}, {lemma: infastidito, gloss: annoyed}]
+    - learner: "Capisco, ma vorrei che suona solo fino alle dieci, se è possibile."
+      errors: [subjunctive-use]
+    - tutor: "Fino alle dieci, certo. Ma «vorrei che suona»: dopo «vorrei che», il verbo resta così?"
+      prompt: {text: "suona solo fino alle dieci", tags: [subjunctive-use]}
+    - learner: "Ah, sì... vorrei che suona solo fino alle dieci, non dopo."
+      errors: [subjunctive-use]
+    - tutor: "Ha ragione: vorrebbe che suonasse solo fino alle dieci, ed è giusto. Glielo dico stasera stessa."
+      goals: [request]
+      recast: {text: "suona solo fino alle dieci", fix: "suonasse solo fino alle dieci", tags: [subjunctive-use]}
+    - learner: "Grazie mille! Il sabato invece non è un problema per me, può suonare anche più tardi."
+    - tutor: "Lei è molto gentile. Allora il sabato fino alle undici e mezza e gli altri giorni fino alle dieci. D'accordo?"
+      goals: [compromise]
+    - learner: "Perfetto, d'accordo. Buona serata!"
+    - tutor: "Buona serata a lei, Emma, e grazie della pazienza!"
+
+- scenario: smartworking
+  level: B1
+  persona: es-m-worker
+  history: [hypothetical]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Tutti e due: lavoro da casa il lunedì e il venerdì, gli altri giorni vado in ufficio."
+    - tutor: "Una buona soluzione. E come ti trovi a casa?"
+      goals: [situation]
+    - learner: "Bene, risparmio un'ora di treno e la mattina dormo di più."
+    - tutor: "Un bel vantaggio! E gli svantaggi?"
+      goals: [pros]
+    - learner: "Mi mancano i colleghi, e a casa i bambini fanno più rumore che una discoteca!"
+      errors: [comparative]
+    - tutor: "Ahah, povero te! Ma «più rumore che una discoteca»: quando confronti con una cosa, dopo «più» quale parola usi?"
+      prompt: {text: "più rumore che una discoteca", tags: [comparative]}
+    - learner: "Sì, sì... fanno più rumore che una discoteca, soprattutto il pomeriggio."
+      errors: [comparative]
+    - tutor: "Più rumore di una discoteca, davvero! Con i bambini in casa è difficile concentrarsi. Ma se potessi scegliere tu, cosa faresti?"
+      goals: [cons]
+      recast: {text: "più rumore che una discoteca", fix: "più rumore di una discoteca", tags: [comparative]}
+    - learner: "Se il capo mi lascerebbe scegliere, lavorerei da casa tre giorni."
+      errors: [hypothetical]
+    - tutor: "«Se il capo mi lascerebbe»? Quando immaginiamo una situazione con «se», quale forma del verbo usiamo?"
+      prompt: {text: "lascerebbe scegliere", tags: [hypothetical]}
+    - learner: "Sì... se il capo mi lascerebbe scegliere, starei a casa tre giorni e due in ufficio."
+      errors: [hypothetical]
+    - tutor: "Eh, se ti lasciasse scegliere, tre giorni a casa e due in ufficio sarebbe l'ideale! E tu preferisci così, per stare con i bambini?"
+      goals: [preference]
+      recast: {text: "lascerebbe scegliere", fix: "lasciasse scegliere", tags: [hypothetical]}
+    - learner: "Sì, e anche perché a casa sono più concentrato che in ufficio, quando i bambini sono a scuola."
+    - tutor: "Che fortuna! Io a casa finisco sempre in cucina a mangiare qualcosa."
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+    - learner: "Anche da noi! In Spagna la sera del 24 si fa una grande cena con tutta la famiglia."
+    - tutor: "Come qui al Sud. E quando eri piccola, dove lo festeggiavi?"
+      goals: [compare]
+    - learner: "Andavamo dai nonni, in un paese in che vivevano tutti i miei zii."
+      errors: [relative-pronoun]
+    - tutor: "Scusa, come? «Un paese in che...»? Prova a dirlo di nuovo."
+      prompt: {text: "in un paese in che", tags: [relative-pronoun]}
+    - learner: "In un paese in che vivevano tutti, vicino a Granada. Eravamo trenta persone!"
+      errors: [relative-pronoun]
+    - tutor: "Un paese in cui vivevano tutti, che bello! Trenta persone a tavola: che festa!"
+      goals: [past]
+      recast: {text: "un paese in che", fix: "un paese in cui", tags: [relative-pronoun]}
+    - learner: "E qui in Italia, che cosa si mangia il giorno di Natale?"
+    - tutor: "Dipende dalla zona. Da noi a Bologna si mangiano i tortellini in brodo, e poi dolci per tutti."
+      goals: [ask]
+      new: [{lemma: tortellini, gloss: filled pasta}, {lemma: brodo, gloss: broth}]
+    - learner: "Mi hai invitata al pranzo con la tua famiglia e vorrei che tua madre è contenta: cosa posso portare?"
+      errors: [subjunctive-use]
+    - tutor: "Che carina! Ma «vorrei che tua madre è contenta»: dopo «vorrei che», il verbo va bene?"
+      prompt: {text: "è contenta", tags: [subjunctive-use]}
+    - learner: "Ah... vorrei che è contenta, sì. Cosa posso portare?"
+      errors: [subjunctive-use]
+    - tutor: "Vorresti che fosse contenta? Lo sarà di sicuro! Non serve niente, ma se vuoi porta un dolce spagnolo, così lo proviamo tutti."
+      goals: [plan]
+      recast: {text: "è contenta", fix: "fosse contenta", tags: [subjunctive-use]}
+    - learner: "Allora porto il turrón, il dolce che si mangia da noi a Natale."
+    - tutor: "Perfetto! Mia madre ne sarà felicissima, adora i dolci."
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-heritage
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questa macchina del caffè sabato, ma perde acqua da sotto."
+    - tutor: "Mi dispiace. Vediamo... sì, c'è proprio una perdita. Ha lo scontrino?"
+      goals: [problem]
+    - learner: "Sì, eccolo. L'ho pagata con la carta, il 12 ottobre."
+    - tutor: "Perfetto, è ancora in garanzia. Cosa preferisce, il rimborso o una macchina nuova?"
+      goals: [proof]
+    - learner: "Preferisco una macchina nuova, uguale. Mi la potete cambiare oggi?"
+      errors: [combined-pronouns]
+    - tutor: "«Mi la potete cambiare»? Quando «mi» incontra «la», cambia qualcosa. Che cosa?"
+      prompt: {text: "Mi la", tags: [combined-pronouns]}
+    - learner: "Ah... mi la potete cambiare adesso? Domani lavoro tutto il giorno."
+      errors: [combined-pronouns]
+    - tutor: "Sì, me la lasci pure: gliela cambiamo subito, ne abbiamo una uguale in magazzino."
+      goals: [request]
+      recast: {text: "mi la", fix: "me la", tags: [combined-pronouns]}
+    - learner: "Perfetto, grazie. E se la nuova macchina si romperebbe di nuovo?"
+      errors: [hypothetical]
+    - tutor: "Domanda giusta. Ma «se si romperebbe»: dopo «se», quale forma del verbo serve?"
+      prompt: {text: "si romperebbe di nuovo", tags: [hypothetical]}
+    - learner: "Mmm... se si romperebbe di nuovo, posso tornare qui?"
+      errors: [hypothetical]
+    - tutor: "Certo: se si rompesse di nuovo, la garanzia ricomincia da oggi. Firmi solo questo modulo, qui in basso, ed ecco la macchina nuova."
+      goals: [agree]
+      recast: {text: "si romperebbe di nuovo", fix: "si rompesse di nuovo", tags: [hypothetical]}
+    - learner: "Tutto a posto. Grazie mille, molto gentile!"
+    - tutor: "Si figuri. Buona giornata, e buon caffè!"
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì con il mio ragazzo e restiamo cinque giorni. Poi andiamo a Procida in traghetto."
+    - tutor: "Che bello! Procida è un sogno. Avete già un albergo?"
+      goals: [plans]
+    - learner: "Non ancora. Viaggiamo con il nostro cane, quindi è importante che l'hotel accetta animali."
+      errors: [subjunctive-use]
+    - tutor: "«È importante che l'hotel accetta»? Dopo «è importante che», quale modo ci vuole?"
+      prompt: {text: "l'hotel accetta animali", tags: [subjunctive-use]}
+    - learner: "Ah, sì: è importante che l'hotel accetta animali, anche grandi. Il cane pesa trenta chili!"
+      errors: [subjunctive-use]
+    - tutor: "Trenta chili! Allora sì, è importante che l'hotel accetti animali grandi: te ne cerco uno io. E a Napoli cosa volete fare?"
+      recast: {text: "l'hotel accetta animali", fix: "l'hotel accetti animali", tags: [subjunctive-use]}
+    - learner: "Grazie! Cosa ci consigli di vedere e di mangiare?"
+    - tutor: "Assolutamente il centro e il Museo Archeologico. E la pizza fritta, da mangiare per strada!"
+      goals: [advice]
+      new: [{lemma: fritto, gloss: fried}]
+    - learner: "Come ci muoviamo in città? Pensavamo di prendere una macchina."
+    - tutor: "Meglio di no: il traffico è terribile. La metro è comoda, e alcune stazioni sono bellissime."
+      goals: [transport]
+    - learner: "Va bene. E ci sono zone in che è meglio non andare la sera?"
+      errors: [relative-pronoun]
+    - tutor: "«Zone in che»? Con «in» davanti, quella piccola parola cambia. Come?"
+      prompt: {text: "zone in che", tags: [relative-pronoun]}
+    - learner: "Sì... zone in che è pericoloso, la sera."
+      errors: [relative-pronoun]
+    - tutor: "Zone in cui è meglio non andare? Non molte, ma la sera evitate le strade vuote vicino alla stazione. E tenete sempre d'occhio la borsa!"
+      goals: [warnings]
+      recast: {text: "zone in che", fix: "zone in cui", tags: [relative-pronoun]}
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "In un paese vicino a Siviglia. La casa dove abitavo aveva un cortile enorme."
+    - tutor: "Un cortile enorme, che fortuna! E cosa facevi tutto il giorno?"
+      goals: [place]
+    - learner: "D'estate giocavo a calcio con i miei cugini fino alle dieci di sera. Il pomeriggio faceva troppo caldo."
+    - tutor: "Fino alle dieci! Qui a quell'ora molti bambini sono già a letto. E la scuola ti piaceva?"
+      goals: [habits]
+    - learner: "Sì, soprattutto per la maestra, Carmen. Era la persona a che volevo più bene."
+      errors: [relative-pronoun]
+    - tutor: "«La persona a che volevo bene»? Ripeti un po' più piano quel pezzo: «a che»?"
+      prompt: {text: "la persona a che", tags: [relative-pronoun]}
+    - learner: "Sì, la persona a che volevo più bene. Era dolce ma severa."
+      errors: [relative-pronoun]
+    - tutor: "La persona a cui volevi più bene, dolce e severa insieme: le maestre migliori sono così. Hai un ricordo speciale di quegli anni?"
+      goals: [school]
+      recast: {text: "la persona a che", fix: "la persona a cui", tags: [relative-pronoun]}
+    - learner: "Sì: un giorno è entrato un cane in classe e nessuno è riuscito a mandarlo fuori!"
+    - tutor: "Che scena! E la maestra cosa ha fatto?"
+    - learner: "Gli ha dato il suo panino, e il cane è uscito con lei. Era molto grazioso."
+      errors: [false-friend]
+    - tutor: "Molto divertente, davvero! Una maestra furba. È proprio un bel ricordo."
+      goals: [event]
+      recast: {text: "molto grazioso", fix: "molto divertente", tags: [false-friend]}
+    - learner: "Sì, ancora oggi ne parliamo quando ci vediamo con i miei compagni."
+    - tutor: "Che bello, certi ricordi tengono insieme le persone per tutta la vita."

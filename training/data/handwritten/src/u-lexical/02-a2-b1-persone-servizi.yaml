@@ -1,0 +1,268 @@
+# Round 6, set u-lexical: false friends and calques, A2 and B1, file 2.
+- scenario: famiglia
+  level: A2
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Questa è la mia famiglia a Natale. Questi sono i miei nonni italiani."
+    - tutor: "Che bei nonni! Dove abitano?"
+      goals: [who]
+    - learner: "Abitano a Lucca. Il mio nonno ha novantuno anni!"
+      errors: [possessive]
+    - tutor: "«Il mio nonno»? Con un nome di famiglia al singolare, cosa cambia?"
+      prompt: {text: "Il mio nonno", tags: [possessive]}
+    - learner: "Ah, sì: mio nonno ha novantuno anni."
+    - tutor: "Esatto! Novantuno anni, che bello! E questo signore alto?"
+      goals: [ages]
+    - learner: "È mio zio Frank. È un fisico, lavora in un ospedale a Toronto."
+      errors: [false-friend]
+    - tutor: "Ah, è un medico! E la ragazza vicino a lui?"
+      recast: {text: "un fisico", fix: "un medico", tags: [false-friend]}
+    - learner: "È sua figlia, mia cugina Emma. È molto sensibile e simpatica."
+    - tutor: "Si vede, è molto carina. Che lavoro fa?"
+      goals: [describe]
+    - learner: "Lavora come nursa, come sua madre."
+      errors: [word-choice]
+    - tutor: "Fa l'infermiera, come la mamma! Tutta la famiglia lavora in ospedale."
+      recast: {text: "nursa", fix: "infermiera", tags: [word-choice]}
+      new: [{lemma: infermiera, gloss: nurse}]
+    - learner: "Sì, è vero! E tu, hai siblings?"
+      errors: [word-choice]
+    - tutor: "Fratelli o sorelle? Ho una sorella più grande, Paola. Dopo ti faccio vedere una foto!"
+      recast: {text: "siblings", fix: "fratelli o sorelle", tags: [word-choice]}
+      goals: [ask]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: es-f-teacher
+  history: [word-choice]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, ho una prenotazione a nome Ortega, per tre notti."
+    - tutor: "Sì, eccola: una camera doppia per tre notti. Mi dà un documento, per favore?"
+      goals: [booking]
+    - learner: "Ecco la mia carta d'identità. La camera ha una cama grande?"
+      errors: [word-choice]
+    - tutor: "Sì, ha un letto grande e anche un piccolo balcone."
+      recast: {text: "una cama grande", fix: "un letto grande", tags: [word-choice]}
+      goals: [document]
+    - learner: "Perfetto. A che ora è il desayuno?"
+      errors: [word-choice]
+    - tutor: "La colazione è dalle sette alle dieci, al primo piano."
+      recast: {text: "il desayuno", fix: "la colazione", tags: [word-choice]}
+      goals: [breakfast]
+    - learner: "Bene. Io sono una domanda: c'è il Wi-Fi in camera?"
+      errors: [essere-avere]
+    - tutor: "«Io sono una domanda»? Ci pensi: quale verbo usiamo qui?"
+      prompt: {text: "sono una domanda", tags: [essere-avere]}
+    - learner: "Ah, scusi: ho una domanda. C'è il Wi-Fi?"
+    - tutor: "Certo, il codice è sulla chiave. Ecco: camera 305."
+      goals: [key]
+    - learner: "Grazie mille, lei è molto gentile."
+    - tutor: "Prego, e buona permanenza a Firenze!"
+      new: [{lemma: permanenza, gloss: stay}]
+
+- scenario: lavanderia
+  level: A2
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! È la prima volta qui. Come funziona?"
+    - tutor: "È facile: metti i vestiti nella lavatrice, chiudi e scegli il programma."
+      goals: [problem]
+    - learner: "E i gettoni? Devo comprare li alla cassa?"
+      errors: [pronoun-position]
+    - tutor: "«Devo comprare li»? Attenzione: dove va «li» con un infinito?"
+      prompt: {text: "comprare li", tags: [pronoun-position]}
+    - learner: "Ah: devo comprarli alla cassa?"
+    - tutor: "Giusto! Ma qui non c'è una cassa: li compri alla macchina vicino alla porta."
+      goals: [ask-how]
+    - learner: "Ok. Posso pagare con queste monete da due euro?"
+    - tutor: "Sì, la macchina prende le monete e anche la carta."
+      goals: [payment]
+    - learner: "Perfetto. Dopo, posso usare il drier per i jeans?"
+      errors: [word-choice]
+    - tutor: "Sì, l'asciugatrice è quella grande a destra. Per i jeans serve un'ora."
+      recast: {text: "il drier", fix: "l'asciugatrice", tags: [word-choice]}
+    - learner: "Ultima cosa: c'è un posto per pressare le camicie?"
+      errors: [false-friend]
+    - tutor: "Per stirare le camicie no, mi dispiace. Qui c'è solo un tavolo per i vestiti puliti."
+      recast: {text: "pressare le camicie", fix: "stirare le camicie", tags: [false-friend]}
+      new: [{lemma: stirare, gloss: to iron}]
+    - learner: "Va bene, le stiro a casa. Grazie mille per l'aiuto!"
+    - tutor: "Di niente! Buona giornata."
+      goals: [thank]
+
+- scenario: medico-base
+  level: A2
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho molta tos e la gola mi fa male."
+      errors: [word-choice]
+    - tutor: "Molta tosse e mal di gola, capisco. Ha anche la febbre?"
+      recast: {text: "molta tos", fix: "molta tosse", tags: [word-choice]}
+      goals: [symptoms]
+    - learner: "Sì, un po'. E ho la nariz tapada, non respiro bene."
+      errors: [word-choice]
+    - tutor: "Allora ha il naso chiuso. Da quanti giorni sta così?"
+      recast: {text: "la nariz tapada", fix: "il naso chiuso", tags: [word-choice]}
+      new: [{lemma: naso, gloss: nose}]
+    - learner: "Da tre giorni. Ieri ho prenduto un'aspirina, ma niente."
+      errors: [past-participle-form]
+    - tutor: "«Ho prenduto»? Attenzione, «prendere» ha una forma speciale. Come si dice?"
+      prompt: {text: "ho prenduto", tags: [past-participle-form]}
+      goals: [since-when]
+    - learner: "Ah, sì: ho preso un'aspirina."
+    - tutor: "Esatto. È allergico a qualche medicina?"
+    - learner: "No, non sono allergico a niente."
+    - tutor: "Bene. Allora prenda questo sciroppo tre volte al giorno e beva molta acqua."
+      goals: [history]
+      new: [{lemma: sciroppo, gloss: syrup}]
+    - learner: "Mi serve la ricetta per lo sciroppo?"
+    - tutor: "No, non serve, lo compra in farmacia. Se la febbre sale, torni da me."
+      goals: [instructions]
+    - learner: "Va bene. Grazie, dottore, arrivederci."
+    - tutor: "Arrivederci, e torni a casa a dormire!"
+
+- scenario: serata-cinema
+  level: A2
+  persona: en-m-traveller
+  history: [false-friend]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema? C'è un film nuovo di Sorrentino."
+    - tutor: "Bella idea! Ma che film è?"
+      goals: [propose]
+    - learner: "È un dramma. Il direttore è molto famoso, ha vinto un Oscar."
+      errors: [false-friend]
+    - tutor: "Sì, il regista è bravissimo. Ma io stasera ho voglia di ridere!"
+      recast: {text: "Il direttore", fix: "il regista", tags: [false-friend]}
+      new: [{lemma: regista, gloss: film director}]
+      goals: [genre]
+    - learner: "Io piaccio le commedie, ma anche i drammi."
+      errors: [piacere]
+    - tutor: "«Io piaccio le commedie»? Pensa a come funziona il verbo «piacere»."
+      prompt: {text: "Io piaccio", tags: [piacere]}
+    - learner: "Ah: a me piacciono le commedie, ma anche i drammi."
+    - tutor: "Esatto! Allora scegliamo una commedia: c'è quella con Paola Cortellesi."
+      goals: [choose]
+    - learner: "Va bene, la commedia. A che ora ci vediamo?"
+    - tutor: "Il film è alle nove. Ci vediamo alle otto e mezza davanti al cinema?"
+    - learner: "Perfetto. Ti mando un testo quando parto da casa."
+      errors: [false-friend]
+    - tutor: "Sì, mandami un messaggio, così ti aspetto fuori."
+      recast: {text: "un testo", fix: "un messaggio", tags: [false-friend]}
+      goals: [meet]
+    - learner: "Ok! E io compro i biglietti online adesso."
+    - tutor: "Grande! Allora a stasera."
+
+- scenario: banca-conto
+  level: B1
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Sono una studentessa Erasmus e vorrei di aprire un conto corrente."
+      errors: [modal-infinitive]
+    - tutor: "Vorrei «di» aprire? Dopo «vorrei», serve davvero quella piccola parola?"
+      prompt: {text: "vorrei di aprire", tags: [modal-infinitive]}
+    - learner: "No, scusi: vorrei aprire un conto corrente."
+    - tutor: "Perfetto. Per cosa le serve il conto, e quanto tempo resta in Italia?"
+    - learner: "Resto dieci mesi. Mi serve per cobrare la borsa di studio e pagare l'affitto."
+      errors: [word-choice]
+    - tutor: "Per ricevere la borsa di studio le consiglio il conto giovani: è gratis fino a ventisei anni."
+      recast: {text: "cobrare la borsa di studio", fix: "ricevere la borsa di studio", tags: [word-choice]}
+      goals: [purpose]
+    - learner: "Bene. Quali documenti servono? Ho il passaporto e il codice fiscale."
+    - tutor: "Bastano quelli, più un certificato dell'università o il contratto d'affitto."
+      goals: [documents]
+      new: [{lemma: certificato, gloss: certificate}]
+    - learner: "Ho tutto qui. E posso usare il cajero automatico di altre banche?"
+      errors: [word-choice]
+    - tutor: "Sì, può usare il bancomat di qualsiasi banca, ma dopo quattro prelievi al mese paga un euro."
+      recast: {text: "il cajero automatico", fix: "il bancomat", tags: [word-choice]}
+      goals: [costs]
+      new: [{lemma: prelievo, gloss: withdrawal}, {lemma: bancomat, gloss: cash machine}]
+    - learner: "Va bene. Posso vedere il saldo e fare i bonifici dall'app?"
+    - tutor: "Certo, dall'app controlla il saldo, fa bonifici e può anche bloccare la carta. La carta arriva a casa in una settimana."
+      goals: [card]
+    - learner: "Perfetto, allora firmo. Mi presta un bolígrafo?"
+      errors: [word-choice]
+    - tutor: "Ecco una penna. Firmi qui in basso, e anche sulla seconda pagina."
+      recast: {text: "un bolígrafo", fix: "una penna", tags: [word-choice]}
+    - learner: "Fatto. Grazie mille per l'aiuto!"
+    - tutor: "Grazie a lei, e benvenuta nella nostra banca!"
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-retired
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei due biglietti per Verona per domani mattina, per me e mia moglie."
+    - tutor: "Domani mattina c'è un Frecciarossa alle 8:05 e un regionale alle 8:20. Quale preferisce?"
+      goals: [destination]
+    - learner: "Il regionale costa meno, vero? Arriva in tempo per il pranzo?"
+    - tutor: "Sì, costa la metà e arriva alle 10:40: ha tutto il tempo prima di pranzo."
+    - learner: "Allora il regionale, andata e ritorno. Devo fare la coincidenza da qualche parte?"
+    - tutor: "No, è diretto, niente coincidenze. Il ritorno è per lo stesso giorno?"
+      goals: [type]
+      new: [{lemma: coincidenza, gloss: train connection}]
+    - learner: "No, torniamo dopodomani, con il treno lento della sera."
+      errors: [word-choice]
+    - tutor: "Con il regionale della sera, va bene: c'è quello delle 18:15."
+      recast: {text: "il treno lento", fix: "il regionale", tags: [word-choice]}
+    - learner: "Perfetto. Preferiamo la prima classe, se c'è."
+    - tutor: "Sul regionale c'è solo la seconda classe, ma i posti sono comodi."
+      goals: [class]
+    - learner: "Va bene lo stesso. Il treno di domani parte di solito in tempo?"
+      errors: [word-choice]
+    - tutor: "Di solito parte in orario, sì. Controlli il binario sul tabellone: dovrebbe essere il 5."
+      recast: {text: "in tempo", fix: "in orario", tags: [word-choice]}
+      goals: [platform]
+      new: [{lemma: tabellone, gloss: departures board}]
+    - learner: "Grazie. Quant'è in tutto?"
+    - tutor: "Sono quarantadue euro in tutto. Buon viaggio a lei e a sua moglie!"
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno, e grazie per questa intervista. Mi chiamo Daniel e ho trentadue anni."
+      errors: [false-friend]
+    - tutor: "Grazie a lei per essere venuto a questo colloquio. Di cosa si occupa adesso?"
+      recast: {text: "questa intervista", fix: "questo colloquio", tags: [false-friend]}
+      goals: [intro]
+      new: [{lemma: colloquio, gloss: job interview}]
+    - learner: "Attualmente lavoro in un'agenzia di viaggi a Toronto, come consulente."
+    - tutor: "Interessante. E prima che cosa faceva?"
+    - learner: "Prima per cinque anni lavoravo in un grande hotel del centro."
+      errors: [tense-aspect]
+    - tutor: "«Per cinque anni lavoravo»? È un periodo chiuso, finito: quale tempo serve?"
+      prompt: {text: "lavoravo", tags: [tense-aspect]}
+    - learner: "Ah, giusto: per cinque anni ho lavorato in un grande hotel."
+    - tutor: "Esatto. E che cosa faceva in hotel, di preciso?"
+    - learner: "Organizzavo convenzioni e matrimoni. Ogni settimana c'era un problema nuovo da risolvere."
+      errors: [false-friend]
+    - tutor: "Congressi e matrimoni: un'ottima scuola, allora. Quali sono i suoi punti di forza?"
+      recast: {text: "convenzioni", fix: "congressi", tags: [false-friend]}
+      new: [{lemma: congresso, gloss: conference, convention}]
+      goals: [experience]
+    - learner: "Parlo inglese, francese e italiano, e sono molto paziente con i clienti."
+    - tutor: "Tre lingue e tanta pazienza: per noi è perfetto. Perché ha scelto proprio la nostra azienda?"
+      goals: [strengths]
+    - learner: "Ho mandato un'applicazione perché la vostra agenzia organizza viaggi culturali, e io amo l'arte."
+      errors: [false-friend]
+    - tutor: "Ha fatto bene a mandare una candidatura: cerchiamo proprio persone come lei."
+      recast: {text: "un'applicazione", fix: "una candidatura", tags: [false-friend]}
+      goals: [why]
+      new: [{lemma: candidatura, gloss: job application}]
+    - learner: "Posso fare una domanda? Il lavoro è a tempo pieno?"
+    - tutor: "Sì, a tempo pieno, con due giorni a settimana da casa. Le faremo sapere entro lunedì."
+      goals: [questions]
