@@ -1,0 +1,197 @@
+# Set t-unclear, file 1: A1 shops and services. Correct turns that mention unknown people, use
+# plural address or short spoken fragments are left alone; a few real errors get specific clues.
+- scenario: bar-colazione
+  level: A1
+  persona: en-f-professional
+  history: [noun-number]
+  turns:
+  - tutor: "Buongiorno! Cosa prende?"
+  - learner: "Buongiorno! Un caffè e un cornetto, per favore."
+  - tutor: "Subito! Ecco il caffè e il cornetto."
+    goals: [greet, order-drink]
+  - learner: "Grazie. E per lui un cappuccino."
+  - tutor: "Per chi, scusi? Per il signore vicino a lei?"
+  - learner: "Sì, è mio marito. Lui prende anche due cornetto."
+    errors: [noun-number]
+  - tutor: "Due cornetto? Sono due, non uno: come cambia la parola?"
+    prompt: {text: "due cornetto", tags: [noun-number]}
+  - learner: "Sì, due cornetto alla crema."
+    errors: [noun-number]
+  - tutor: "Ecco due cornetti alla crema e il cappuccino."
+    recast: {text: "due cornetto", fix: "due cornetti", tags: [noun-number]}
+    goals: [order-food]
+  - learner: "Grazie. Quant'è in tutto?"
+  - tutor: "Sono sei euro e cinquanta."
+  - learner: "Ecco dieci euro. Buona giornata!"
+  - tutor: "Grazie, ecco il resto. Buona giornata anche a lei!"
+    goals: [pay]
+
+- scenario: panetteria
+  level: A1
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno! Mi dica."
+  - learner: "Buongiorno! Mezzo chilo di pane, per favore."
+  - tutor: "Ecco. Va bene il pane bianco?"
+    goals: [greet, order-bread]
+  - learner: "Sì, perfetto. E la torta della signora Rosa?"
+  - tutor: "La signora Rosa? Scusi, chi è? Non la conosco."
+  - learner: "Sì, ieri. È mia suocera. Compie ottanta anni!"
+  - tutor: "Ah, sì! È qui, è pronta. Ottanta anni, che bello!"
+  - learner: "Grazie! Anche un focaccia, per favore."
+    errors: [noun-gender]
+  - tutor: "Un focaccia? Focaccia è maschile o femminile?"
+    prompt: {text: "un focaccia", tags: [noun-gender]}
+  - learner: "Una focaccia!"
+  - tutor: "Esatto. Ecco una focaccia ancora calda."
+    goals: [order-extra]
+  - learner: "Quanto le devo?"
+  - tutor: "Sono venti euro in tutto."
+  - learner: "Ecco a lei. Arrivederci!"
+  - tutor: "Grazie e arrivederci!"
+    goals: [pay]
+
+- scenario: mercato-frutta
+  level: A1
+  persona: en-f-student
+  history: [adjective-agreement]
+  turns:
+  - tutor: "Ciao! Cosa ti do oggi?"
+  - learner: "Ciao! Quanto costano le pesche?"
+  - tutor: "Tre euro al chilo. Io e mia moglie le portiamo dal nostro paese!"
+    goals: [ask-price]
+  - learner: "Che belle! Voi abitate fuori città?"
+  - tutor: "Sì, in un piccolo paese vicino al mare."
+  - learner: "Allora un chilo di pesche."
+  - tutor: "Ecco un chilo. Altro?"
+    goals: [buy-quantity]
+  - learner: "E le fragole? Sono fresco?"
+    errors: [adjective-agreement]
+  - tutor: "Sono fresco? Pensa a «le fragole»: sono tante e femminili."
+    prompt: {text: "fresco", tags: [adjective-agreement]}
+  - learner: "Le fragole sono fresco?"
+    errors: [adjective-agreement]
+  - tutor: "Sì, sono fresche di oggi! Quante ne vuoi?"
+    recast: {text: "fresco", fix: "fresche", tags: [adjective-agreement]}
+    goals: [ask-other]
+  - learner: "Mezzo chilo. Ecco cinque euro. Salutami tua moglie!"
+  - tutor: "Grazie, ecco il resto. Ciao, a sabato!"
+    goals: [pay]
+
+- scenario: supermercato
+  level: A1
+  persona: en-m-retired
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno, cerca qualcosa?"
+  - learner: "Sì. Cerco quella cosa per Lucia."
+  - tutor: "Per Lucia? Scusi, non capisco. Che cosa cerca?"
+  - learner: "Oh, scusi! Il latte di riso. Lucia è mia nipote."
+  - tutor: "Ah, il latte di riso è in fondo, a sinistra."
+    goals: [ask-product]
+  - learner: "Grazie. E la pasta? È in il terzo scaffale?"
+    errors: [articulated-preposition]
+  - tutor: "In il terzo scaffale? «In» e «il» qui diventano una parola sola."
+    prompt: {text: "in il terzo scaffale", tags: [articulated-preposition]}
+  - learner: "Nel terzo scaffale?"
+  - tutor: "Esatto, nel terzo scaffale, vicino al pane."
+    goals: [ask-other]
+  - learner: "Perfetto. Grazie mille, è molto gentile."
+  - tutor: "Prego! Buona giornata."
+    goals: [thank]
+
+- scenario: taxi
+  level: A1
+  persona: es-f-teacher
+  history: [adjective-agreement]
+  turns:
+  - tutor: "Buongiorno! Dove la porto?"
+  - learner: "Buongiorno! Prima in via Verdi, da Marta. Poi all'Hotel Roma."
+  - tutor: "Va bene. Marta è una persona o un negozio?"
+    goals: [destination]
+  - learner: "È un'amica. Viene con noi all'hotel."
+  - tutor: "Ah, ho capito. Via Verdi, che numero?"
+  - learner: "Numero dodici. Quanto minuti ci vogliono?"
+    errors: [adjective-agreement]
+  - tutor: "Quanto minuti? Pensa a «minuti»: è maschile e plurale."
+    prompt: {text: "Quanto minuti", tags: [adjective-agreement]}
+  - learner: "Quanti minuti ci vogliono?"
+  - tutor: "Venti minuti, più o meno."
+    goals: [ask-time]
+  - learner: "E quanto costa?"
+  - tutor: "Trenta euro."
+    goals: [ask-price]
+  - learner: "Va bene. Pago con la carta. Grazie, arrivederci!"
+  - tutor: "Certo, nessun problema. Arrivederci e buona giornata!"
+    goals: [pay]
+
+- scenario: orari-negozio
+  level: A1
+  persona: en-m-traveller
+  history: [verb-form]
+  turns:
+  - tutor: "Pronto, negozio Bianchi, buongiorno!"
+  - learner: "Buongiorno, sono l'amico di Giovanni. Chiamo per il libro."
+  - tutor: "Di Giovanni? Scusi, quale Giovanni?"
+    goals: [greet]
+  - learner: "Giovanni Rossi, il vostro vicino."
+  - tutor: "Ah, Giovanni! Certo, il libro è qui."
+  - learner: "Bene! Domani aprete alle nove?"
+    errors: [verb-form]
+  - tutor: "Aprete? Pensi ad aprire: noi apriamo, voi...?"
+    prompt: {text: "aprete", tags: [verb-form]}
+  - learner: "Aprite alle nove?"
+  - tutor: "Sì, apriamo alle nove e chiudiamo alle sette."
+    goals: [ask-hours]
+  - learner: "E la domenica?"
+  - tutor: "La domenica siamo chiusi."
+    goals: [ask-day]
+  - learner: "Va bene, allora vengo domani. Arrivederci!"
+  - tutor: "La aspettiamo. Arrivederci!"
+    goals: [goodbye]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Buonasera e benvenuta! Ha una prenotazione?"
+  - learner: "Buonasera! Sì, ho una reserva a nome García."
+    errors: [word-choice]
+  - tutor: "Sì, c'è una prenotazione a nome García. Ha un documento?"
+    recast: {text: "una reserva", fix: "una prenotazione", tags: [word-choice]}
+    goals: [booking]
+  - learner: "Sì, ecco la carta d'identità."
+  - tutor: "Grazie. Due notti, giusto?"
+    goals: [document]
+  - learner: "Sì. Il vostro hotel è molto bello! È della vostra famiglia?"
+  - tutor: "Sì, di mia madre e di mio padre. Siamo qui da trent'anni."
+  - learner: "Che bello! A che ora è la colazione?"
+  - tutor: "Dalle sette alle dieci, al primo piano."
+    goals: [breakfast]
+  - learner: "Perfetto, grazie."
+  - tutor: "Ecco la chiave: camera dodici, secondo piano. Buona notte!"
+    goals: [key]
+
+- scenario: ristorante-ordinare
+  level: A1
+  persona: en-m-heritage
+  history: [piacere]
+  turns:
+  - tutor: "Buongiorno, benvenuti! Quanti siete?"
+  - learner: "Siamo in tre, ma Tom arriva tra dieci minuti."
+  - tutor: "Tom? È un amico? Va bene, ecco un tavolo per quattro."
+    goals: [ask-table]
+  - learner: "È mio cugino. Il ragù lo fa vostra nonna?"
+  - tutor: "Sì, la nonna lo fa ogni mattina!"
+  - learner: "Io piaccio molto il ragù!"
+    errors: [piacere]
+  - tutor: "Io piaccio? Attenzione: chi è buono, lei o il ragù?"
+    prompt: {text: "Io piaccio", tags: [piacere]}
+  - learner: "Mi piace molto il ragù!"
+  - tutor: "Perfetto! Allora la pasta al ragù per tutti?"
+  - learner: "Sì, quattro. E una bottiglia di acqua frizzante."
+  - tutor: "Benissimo, arrivano subito."
+    goals: [order-food, order-drink]
+  - learner: "Il conto, per favore."
+  - tutor: "Ecco a lei. Sono trentadue euro."
+    goals: [ask-bill]

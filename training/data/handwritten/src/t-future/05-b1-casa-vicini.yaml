@@ -1,0 +1,261 @@
+# t-future, file 05: B1 housing, complaints, neighbours and free time (rimarremo, pagherà, andrà, presterò, avrò, verrà, telefonerà, dovremo, vedrò, manderà, sarà of probability).
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È molto luminoso! Quanto è l'affitto? Io e mio marito ci rimanaremo almeno tre anni."
+      errors: [future-form]
+      gold: {text: "rimanaremo", fix: "rimarremo"}
+    - tutor: "Ottocento euro al mese, spese comprese. Ma ci rimanaremo? Rimanere al futuro è speciale, come venire."
+      goals: [rent]
+      prompt: {text: "rimanaremo", tags: [future-form]}
+    - learner: "Ci rimarremo almeno tre anni. E il contratto com'è?"
+    - tutor: "Benissimo. Il contratto è di quattro anni più quattro, con tre mesi di caparra."
+      goals: [contract]
+    - learner: "Va bene. Il riscaldamento è autonomo? E se la lavatrice si rompe, chi la pagarà?"
+      errors: [future-form]
+      gold: {text: "pagarà", fix: "pagherà"}
+    - tutor: "Il riscaldamento è autonomo, sì. Chi la pagarà, invece? Pensi a come cambia pagare al futuro."
+      prompt: {text: "pagarà", tags: [future-form]}
+    - learner: "Chi la pagerà?"
+      errors: [future-form]
+    - tutor: "Se si rompe, la lavatrice la pagherà il proprietario, cioè io. Comunque è nuova, come tutta la cucina."
+      goals: [condition]
+      recast: {text: "pagerà", fix: "pagherà", tags: [future-form]}
+    - learner: "E il quartiere com'è? A settembre nostra figlia comincia la scuola elementare."
+    - tutor: "C'è una scuola elementare a due passi, e anche un parco molto bello."
+      goals: [neighbourhood]
+    - learner: "Mi piace molto. Ne parlo con mio marito stasera e domani le darò una risposta."
+    - tutor: "Perfetto, aspetto la sua telefonata. Buona giornata!"
+      goals: [decide]
+
+- scenario: film-libro
+  level: B1
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Ho letto un giallo ambientato a Venezia. È la storia di un commissario che cerca una ragazza sparita."
+    - tutor: "Venezia e una ragazza sparita, che bello! Com'è il commissario?"
+      goals: [summary]
+    - learner: "È un uomo stanco ma molto intelligente. Ha quasi sessant'anni e l'anno prossimo anderà in pensione."
+      errors: [future-form]
+      gold: {text: "anderà", fix: "andrà"}
+    - tutor: "Anderà? Andare al futuro è più corto di così."
+      prompt: {text: "anderà", tags: [future-form]}
+    - learner: "Andarà in pensione l'anno prossimo."
+      errors: [future-form]
+    - tutor: "Ah, andrà in pensione: allora forse è il suo ultimo caso! E a te è piaciuto?"
+      goals: [characters]
+      recast: {text: "Andarà", fix: "andrà", tags: [future-form]}
+    - learner: "Moltissimo. Il finale vi sorprenderà, ma non posso dire di più! Secondo me è il libro più bello dell'anno."
+    - tutor: "Adesso siamo tutti curiosi! A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A chi ama Venezia e i gialli. Adesso leggerò il secondo libro, e questo lo prestarò a mia moglie."
+      errors: [future-form]
+      gold: {text: "prestarò", fix: "presterò"}
+    - tutor: "Lo prestarò? Pensa a come fai il futuro di parlare."
+      prompt: {text: "prestarò", tags: [future-form]}
+    - learner: "Lo presterò a mia moglie."
+    - tutor: "Che bravo marito! Il mese prossimo, allora, ci racconti anche il secondo."
+      goals: [recommend]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. L'aria condizionata della mia camera non funziona e c'è molto caldo."
+    - tutor: "Mi dispiace molto. Da quando non funziona?"
+      goals: [problem]
+    - learner: "Da ieri sera. Ho chiamato due volte la reception, ma nessuno ha venuto."
+      errors: [auxiliary-choice]
+      gold: {text: "ha venuto", fix: "è venuto"}
+    - tutor: "Nessuno ha venuto? Pensi a venire: con questo verbo usiamo avere o essere?"
+      goals: [since]
+      prompt: {text: "ha venuto", tags: [auxiliary-choice]}
+    - learner: "Nessuno è venuto. Vorrei un'altra camera: domani habrò una riunione alle otto."
+      errors: [future-form]
+      gold: {text: "habrò", fix: "avrò"}
+    - tutor: "Habrò? Questo è spagnolo! Come fa avere al futuro in italiano?"
+      prompt: {text: "habrò", tags: [future-form]}
+    - learner: "Domani avrò una riunione alle otto."
+    - tutor: "Capisco. Purtroppo stasera l'hotel è pieno, ma posso portarle un ventilatore."
+      new: [{lemma: ventilatore, gloss: electric fan}]
+    - learner: "Un ventilatore non basterà. Il tecnico venirà domani?"
+      errors: [future-form]
+      gold: {text: "venirà", fix: "verrà"}
+    - tutor: "Venirà? Il futuro di venire è speciale. Prova di nuovo."
+      prompt: {text: "venirà", tags: [future-form]}
+    - learner: "Il tecnico venrà presto?"
+      errors: [future-form]
+    - tutor: "Sì, il tecnico verrà alle otto. E per stanotte paga solo metà della camera."
+      goals: [request]
+      recast: {text: "venrà", fix: "verrà", tags: [future-form]}
+    - learner: "Va bene, accetto. Grazie per l'aiuto."
+    - tutor: "Si figuri, e mi scusi ancora. Buona notte e buona riunione!"
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie la settimana scorsa, ma il lato sinistro non funziona."
+    - tutor: "Mi dispiace. Ha lo scontrino?"
+      goals: [problem]
+    - learner: "Sì, ecco lo scontrino. Li ho comprati il dieci."
+      errors: [object-pronoun]
+      gold: {text: "Li ho comprati", fix: "Le ho comprate"}
+    - tutor: "Li ho comprati? Pensi alle cuffie: sono femminili."
+      prompt: {text: "Li ho comprati", tags: [object-pronoun]}
+    - learner: "Le ho comprate il dieci, quindi sono ancora in garanzia."
+    - tutor: "Sì, sono in garanzia. Preferisce un rimborso o un paio nuovo?"
+      goals: [proof]
+    - learner: "Vorrei un rimborso, per favore. Con i soldi prenderò un altro modello."
+    - tutor: "Per il rimborso il magazzino deve dare l'ok, ci vogliono due o tre giorni. Oppure le cambio subito."
+      goals: [request]
+    - learner: "Due o tre giorni? E il magazzino mi telefonarà?"
+      errors: [future-form]
+      gold: {text: "telefonarà", fix: "telefonerà"}
+    - tutor: "Telefonarà? Ascolti bene: al futuro telefonare cambia la a."
+      prompt: {text: "telefonarà", tags: [future-form]}
+    - learner: "Sì, il magazzino mi telefonarà?"
+      errors: [future-form]
+    - tutor: "Sì, il magazzino le telefonerà entro giovedì. Ma se ha fretta, il cambio lo facciamo subito."
+      recast: {text: "telefonarà", fix: "telefonerà", tags: [future-form]}
+    - learner: "Allora preferisco cambiarle subito. Così le terrò anche per il viaggio di domenica."
+    - tutor: "Ecco le cuffie nuove, le ho appena provate. Buon viaggio!"
+      goals: [agree]
+
+- scenario: smartworking
+  level: B1
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Da casa, tre giorni a settimana. Ma dal mese prossimo doveremo andare in ufficio tutti i giorni."
+      errors: [future-form]
+      gold: {text: "doveremo", fix: "dovremo"}
+    - tutor: "Doveremo? Dovere al futuro perde la e, come potere."
+      prompt: {text: "doveremo", tags: [future-form]}
+    - learner: "Dovremo andare in ufficio tutti i giorni. L'azienda vuole che torniamo tutti."
+    - tutor: "Tutti i giorni? Che peccato! Cosa ti mancherà di più?"
+      goals: [situation]
+    - learner: "Mi mancherà la tranquillità: a casa mi concentro meglio che in ufficio."
+    - tutor: "Ti capisco. Ma lavorare da casa ha anche degli svantaggi, no?"
+      goals: [pros]
+    - learner: "Sì, a volte mi sento sola. In ufficio vederò di più i colleghi."
+      errors: [future-form]
+      gold: {text: "vederò", fix: "vedrò"}
+    - tutor: "Vederò? Pensa al futuro di vedere: è corto, come quello di avere."
+      prompt: {text: "vederò", tags: [future-form]}
+    - learner: "Vedrò di più i colleghi. Però il viaggio in macchina è più stancante che il lavoro!"
+      errors: [comparative]
+      gold: {text: "più stancante che il lavoro", fix: "più stancante del lavoro"}
+    - tutor: "Ah, il traffico! Ma più stancante che il lavoro? Qui confronti due cose: quale parola usi?"
+      goals: [cons]
+      prompt: {text: "più stancante che il lavoro", tags: [comparative]}
+    - learner: "È più stancante del lavoro! Io preferirei lavorare da casa almeno due giorni."
+    - tutor: "Due giorni mi sembra giusto. Perché non lo proponi al tuo capo?"
+      goals: [preference]
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+    - learner: "In Spagna la cena più importante è il ventiquattro sera. E il sei gennaio arrivano i Re Magi con i regali."
+    - tutor: "I Re Magi, che bello! E tu da piccola cosa facevi?"
+      goals: [compare]
+    - learner: "La sera del cinque lasciavo le scarpe vicino alla finestra e la mattina ho trovato i regali."
+      errors: [tense-aspect]
+      gold: {text: "ho trovato", fix: "trovavo"}
+    - tutor: "Ho trovato? Ma succedeva ogni anno, no?"
+      prompt: {text: "ho trovato", tags: [tense-aspect]}
+    - learner: "La mattina trovavo i regali nelle scarpe."
+    - tutor: "Che bello! E quest'anno torni in Spagna per le feste?"
+      goals: [past]
+    - learner: "No, resto in Italia. Mia madre mi mandarà un pacco con il turrón."
+      errors: [future-form]
+      gold: {text: "mandarà", fix: "manderà"}
+    - tutor: "Mandarà? Pensa a come cambia mandare al futuro."
+      prompt: {text: "mandarà", tags: [future-form]}
+    - learner: "Mi manderrà un pacco."
+      errors: [future-form]
+    - tutor: "Che dolce, tua madre ti manderà i dolci di casa! Li mangiamo insieme?"
+      recast: {text: "manderrà", fix: "manderà", tags: [future-form]}
+    - learner: "Certo! E da voi cosa si mangia il venticinque?"
+    - tutor: "Il pranzo dura ore, e alla fine c'è sempre il panettone. Vieni da noi quest'anno?"
+      new: [{lemma: panettone, gloss: Italian Christmas cake}]
+      goals: [ask]
+    - learner: "Volentieri! Cosa porto? Io farò una tortilla, se vuoi."
+    - tutor: "Una tortilla a Natale? I miei nonni saranno curiosissimi. Portala!"
+      goals: [plan]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, sono Kate, la vicina del secondo piano. Mi scusi per l'ora."
+    - tutor: "Piacere, Kate! Non si preoccupi. C'è qualche problema?"
+      goals: [greet]
+    - learner: "Ogni sera sento una chitarra elettrica fino a mezzanotte. Esserà suo figlio, credo."
+      errors: [future-form]
+      gold: {text: "Esserà", fix: "Sarà"}
+    - tutor: "Esserà? Pensi al futuro di essere: cambia completamente."
+      prompt: {text: "Esserà", tags: [future-form]}
+    - learner: "Essrà suo figlio?"
+      errors: [future-form]
+    - tutor: "Sì, sarà sicuramente mio figlio: ha sedici anni e suona sempre. Mi dispiace molto!"
+      goals: [problem]
+      recast: {text: "Essrà", fix: "sarà", tags: [future-form]}
+    - learner: "Suona molto bene, ma io mi sveglio alle sei. Potrebbe dirle di smettere alle dieci?"
+      errors: [object-pronoun]
+      gold: {text: "dirle", fix: "dirgli"}
+    - tutor: "Dirle? Parliamo di mio figlio, un ragazzo."
+      prompt: {text: "dirle", tags: [object-pronoun]}
+    - learner: "Potrebbe dirgli di smettere alle dieci?"
+    - tutor: "Certo, gli parlo stasera. Dopo le dieci suonerà piano, promesso."
+      goals: [request]
+    - learner: "Grazie mille. E sabato, se fa la festa per il compleanno, dormirò da mia sorella, non si preoccupi."
+    - tutor: "Lei è davvero gentile. Sabato la festa finisce alle dodici, non più tardi."
+      goals: [compromise]
+
+- scenario: volontariato
+  level: B1
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Sì, sono in pensione da un anno e ho molto tempo libero. Vorrei essere utile."
+    - tutor: "Che bello! Cosa sai fare?"
+      goals: [motivation]
+    - learner: "Ero professore di matematica per trent'anni."
+      errors: [tense-aspect]
+      gold: {text: "Ero", fix: "Sono stato"}
+    - tutor: "Ero per trent'anni? Con un periodo chiuso e preciso, quale passato usi?"
+      prompt: {text: "Ero", tags: [tense-aspect]}
+    - learner: "Sono stato professore di matematica per trent'anni. Posso aiutare i ragazzi con i compiti."
+    - tutor: "Perfetto, ci serve proprio! Quanto tempo hai?"
+      goals: [skills]
+    - learner: "Due pomeriggi a settimana. Ma a luglio mio figlio verà dall'Inghilterra con i nipoti."
+      errors: [future-form]
+      gold: {text: "verà", fix: "verrà"}
+    - tutor: "Verà? Ascolta il futuro di venire: c'è un suono più lungo."
+      prompt: {text: "verà", tags: [future-form]}
+    - learner: "Mio figlio venirà con i nipoti."
+      errors: [future-form]
+    - tutor: "Che bello, tuo figlio verrà con i nipoti! Allora a luglio fai una pausa, nessun problema."
+      goals: [time]
+      recast: {text: "venirà", fix: "verrà", tags: [future-form]}
+    - learner: "Grazie. Allora scelgo i compiti con i ragazzi: insegnare mi piace ancora."
+    - tutor: "Ottimo! Comincerai martedì prossimo alle tre, nella nostra sede."
+      goals: [choose]

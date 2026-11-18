@@ -1,0 +1,210 @@
+# Set t-unclear, file 6: B1 friends, work and free time. Casual «spero che ci vediamo», spoken
+# closings, «voi» to the tutor's family or team and unknown names are fine; real errors get clues.
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+  - tutor: "Allora, quando parti per Napoli?"
+  - learner: "Venerdì mattina! Dormo da Ciro, nel centro storico."
+  - tutor: "Da Ciro? Chi è, un tuo amico di Napoli?"
+    goals: [plans]
+  - learner: "No, è il proprietario dell'appartamento. Io e Julie dividiamo le spese, quindi è molto conveniente."
+  - tutor: "Ottimo! Hai già prenotato qualche museo?"
+  - learner: "Sì, ho prenotato due."
+    errors: [ci-ne]
+  - tutor: "Ho prenotato due? Due musei: quale pronome usiamo per non ripetere la parola?"
+    prompt: {text: "ho prenotato due", tags: [ci-ne]}
+  - learner: "Ne ho prenotati due: il Museo Archeologico e Capodimonte."
+  - tutor: "Bellissimi! E poi devi assolutamente mangiare la pizza."
+    goals: [advice]
+  - learner: "Certo! Ma come mi muovo? Prendo la metro?"
+  - tutor: "Sì, la metro è comoda. Per Capri invece prendi il traghetto."
+    goals: [transport]
+  - learner: "E c'è qualcosa da evitare?"
+  - tutor: "I taxi senza tassametro! E sull'autobus tieni il telefono in tasca."
+    goals: [warnings]
+    new: [{lemma: tassametro, gloss: taxi meter}]
+  - learner: "Grazie mille, Vale! Spero che ci vediamo presto. Un bacio!"
+  - tutor: "Un bacio a te, e buon viaggio!"
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+  - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+  - learner: "Da noi la festa più importante per i bambini è il sei gennaio, i Re Magi."
+  - tutor: "Ah, l'Epifania! E cosa si fa?"
+    goals: [compare]
+  - learner: "Si mangia il roscón e si aprono i regali."
+  - tutor: "Il roscón? Che cos'è?"
+  - learner: "Un dolce rotondo con la frutta. Dentro c'è una sorpresa."
+  - tutor: "Che bello! E da bambino come festeggiavi?"
+  - learner: "Da bambino ho aperto i regali la mattina presto ogni anno."
+    errors: [tense-aspect]
+  - tutor: "Ho aperto, ogni anno? Per una cosa che succedeva sempre, che tempo usiamo?"
+    prompt: {text: "ho aperto", tags: [tense-aspect]}
+  - learner: "Aprivo i regali la mattina presto, con i miei cugini."
+  - tutor: "Che bel ricordo! Da noi i regali arrivano la notte di Natale."
+    goals: [past]
+  - learner: "E voi, cosa mangiate il venticinque?"
+  - tutor: "Tanta pasta, carne e dolci. Mia nonna prepara tutto!"
+    goals: [ask]
+  - learner: "Grazie ancora per l'invito, siete molto gentili. Cosa vi porto?"
+  - tutor: "Niente, davvero! Al massimo una bottiglia di vino."
+    goals: [plan]
+
+- scenario: volontariato
+  level: B1
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+  - learner: "Sì, molto. Sono in pensione e mi piace aiutare. Ho già aiutato la signora Wilson."
+  - tutor: "La signora Wilson? Chi è?"
+  - learner: "La mia vicina, ha novant'anni. Le faccio la spesa ogni settimana."
+  - tutor: "Che bello! Sei proprio la persona giusta. Cosa sai fare?"
+    goals: [motivation]
+  - learner: "So cucinare e guidare. Vorrei fare l'attività che mi ha parlato mia figlia, con gli anziani."
+    errors: [relative-pronoun]
+  - tutor: "L'attività che mi ha parlato? Tua figlia ha parlato «di» questa attività: cosa cambia al posto di «che»?"
+    prompt: {text: "l'attività che", tags: [relative-pronoun]}
+  - learner: "Sì, l'attività che mi ha parlato mia figlia."
+    errors: [relative-pronoun]
+  - tutor: "Ah, l'attività di cui ti ha parlato tua figlia è la compagnia agli anziani! Ci serve proprio qualcuno che guidi."
+    recast: {text: "l'attività che", fix: "l'attività di cui", tags: [relative-pronoun]}
+    goals: [skills]
+  - learner: "Sono disponibile il martedì e il giovedì mattina."
+  - tutor: "Perfetto. Il martedì accompagniamo gli anziani dal medico."
+    goals: [time]
+  - learner: "Va bene, allora scelgo il martedì."
+  - tutor: "Benissimo, ti aspettiamo martedì alle nove!"
+    goals: [choose]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+  - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+  - learner: "Mah, lavoro tanto, mangio di fretta e la sera sono stanchissima."
+  - tutor: "Capisco. E fai un po' di sport?"
+  - learner: "Il lunedì faccio yoga con Pili."
+  - tutor: "Con Pili? È la tua insegnante di yoga?"
+    goals: [habits]
+  - learner: "No, è mia sorella, ma è bravissima! Il mio obiettivo è perdere cinque chili e dormire meglio."
+  - tutor: "Obiettivo chiaro. Che cosa ti ferma, di solito?"
+    goals: [goal]
+  - learner: "La sera mangio dolci davanti alla tv. E non ho tempo."
+  - tutor: "Succede a tanti. Proviamo con due allenamenti brevi a settimana?"
+    goals: [obstacles]
+  - learner: "Va bene. Allora venirò qui il martedì e il giovedì."
+    errors: [future-form]
+  - tutor: "Venirò? Il futuro di venire è speciale, come quello di «tenere»."
+    prompt: {text: "venirò", tags: [future-form]}
+  - learner: "Verrò il martedì e il giovedì!"
+  - tutor: "Perfetto, e il lunedì continui con tua sorella."
+    goals: [plan]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Bene, abbiamo finito la prima parte."
+  - tutor: "Ottimo! Problemi?"
+    goals: [update]
+  - learner: "Sì, uno. Ieri, mentre ho scritto la relazione, il cliente ha chiamato."
+    errors: [tense-aspect]
+  - tutor: "Mentre ho scritto? L'azione era in corso quando ha chiamato: che tempo usiamo?"
+    prompt: {text: "mentre ho scritto", tags: [tense-aspect]}
+  - learner: "Mentre scrivevo la relazione, il cliente ha chiamato. Vuole cambiare il logo."
+  - tutor: "Di nuovo? E ne hai già parlato con qualcuno?"
+    goals: [problem]
+  - learner: "Sì, con Bea."
+  - tutor: "Con Bea? Chi è, lavora per il cliente?"
+  - learner: "Sì, esatto. Propongo di fare due versioni del logo. Voi che ne pensate?"
+  - tutor: "Per me va bene, è una buona idea."
+    goals: [proposal]
+  - learner: "Le finisco entro giovedì, così venerdì le mandiamo al cliente."
+  - tutor: "D'accordo: giovedì le versioni, venerdì al cliente."
+    goals: [deadline]
+
+- scenario: compleanno
+  level: B1
+  persona: en-f-professional
+  history: [object-pronoun]
+  turns:
+  - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+  - learner: "Facciamo sabato diciotto, al bar di Totò?"
+  - tutor: "Di Totò? Quale bar, quello vicino alla stazione?"
+  - learner: "Sì, è del mio amico Totò. Ci dà la sala gratis."
+  - tutor: "Fantastico! Chi invitiamo?"
+    goals: [date]
+  - learner: "I colleghi di Sara, la sua squadra di pallavolo e i suoi genitori."
+  - tutor: "Perfetto. E da mangiare?"
+    goals: [guests]
+  - learner: "Ordiniamo le pizze, e la torta la faccio io."
+  - tutor: "Bravissima! E il regalo?"
+    goals: [food]
+  - learner: "Gli regaliamo un weekend alle terme? Ne parla sempre."
+    errors: [object-pronoun]
+  - tutor: "Gli regaliamo? Pensa a chi riceve il regalo: Sara."
+    prompt: {text: "Gli regaliamo", tags: [object-pronoun]}
+  - learner: "Le regaliamo un weekend alle terme!"
+  - tutor: "Sì, ottima idea! Raccolgo io i soldi."
+    goals: [gift]
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Che profumo! Cosa cuciniamo stasera?"
+  - learner: "Una paella valenciana, la ricetta di mia nonna."
+  - tutor: "Che bello! Cosa ci serve?"
+  - learner: "Riso, pollo, fagiolini, zafferano e un po' di rosmarino."
+  - tutor: "Ho tutto, tranne il rosmarino."
+    goals: [ingredients]
+  - learner: "Il rosmarino? Chiediamolo a Rita."
+  - tutor: "A Rita? Chi è, la signora del terzo piano?"
+  - learner: "Sì, lei ha tante piante sul balcone. Intanto friggiamo il pollo nell'olio e aggiungiamo le verdure senza smettere di rimuovere."
+    errors: [false-friend]
+  - tutor: "Sì, senza smettere di mescolare, se no si attacca tutto. Fatto!"
+    recast: {text: "di rimuovere", fix: "di mescolare", tags: [false-friend]}
+    new: [{lemma: mescolare, gloss: to stir}]
+    goals: [steps]
+  - learner: "Ora il riso e l'acqua. Diciotto minuti e poi non si tocca più."
+  - tutor: "Diciotto minuti, va bene. E poi?"
+    goals: [time]
+  - learner: "Poi la lasciamo riposare cinque minuti e la mangiamo direttamente dalla padella!"
+  - tutor: "Come in Spagna! Allora porto subito le forchette."
+    goals: [serve]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: en-m-traveller
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+  - learner: "In Grecia, a Creta. Sono partito con mio fratello."
+  - tutor: "Che bello! Per quanto tempo?"
+    goals: [where]
+  - learner: "Io ho rimasto due settimane, lui solo una."
+    errors: [auxiliary-choice]
+  - tutor: "Ho rimasto? Rimanere è come «restare»: quale verbo usiamo prima?"
+    prompt: {text: "ho rimasto", tags: [auxiliary-choice]}
+  - learner: "Sono rimasto due settimane."
+  - tutor: "Fortunato! Che tempo faceva?"
+  - learner: "Caldissimo, trentacinque gradi ogni giorno."
+  - tutor: "Che caldo! E cosa avete fatto?"
+    goals: [weather]
+  - learner: "Abbiamo noleggiato la barca di Nikos e abbiamo visitato le isole vicine."
+  - tutor: "La barca di Nikos? Chi è Nikos?"
+  - learner: "Il proprietario della nostra casa. Era un signore simpaticissimo."
+  - tutor: "Che fortuna! Cosa ti è piaciuto di più?"
+    goals: [activities]
+  - learner: "Il tramonto dalla barca: non lo dimenticherò mai."
+  - tutor: "Ti credo! Devi farmi vedere le foto."
+    goals: [best]

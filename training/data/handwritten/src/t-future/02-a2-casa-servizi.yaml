@@ -1,0 +1,256 @@
+# t-future, file 02: A2 at home and in town (cucineremo, starà, arriverà, dovrò, avrà, andrò, verranno, rimarranno, lavorerò, alzerò, berrò).
+- scenario: cucina-ricetta
+  level: A2
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Facciamo una tortilla spagnola! Ci servono patate, uova e una cipolla. Le uova le compro io dopo."
+    - tutor: "Perfetto, le patate e la cipolla le ho io. Come le tagliamo?"
+      goals: [ingredients]
+    - learner: "Tagliale sottili. Poi le cucinaremo nell'olio per venti minuti."
+      errors: [future-form]
+      gold: {text: "cucinaremo", fix: "cucineremo"}
+    - tutor: "Cucinaremo? Attenzione alla a di cucinare: al futuro cambia."
+      prompt: {text: "cucinaremo", tags: [future-form]}
+    - learner: "Le cucinerremo nell'olio per venti minuti."
+      errors: [future-form]
+    - tutor: "Va bene, le cucineremo piano, così non bruciano. E poi?"
+      goals: [steps]
+      recast: {text: "cucinerremo", fix: "cucineremo", tags: [future-form]}
+    - learner: "Poi aggiungiamo le uova. Dopo mezz'ora la tortilla sarà pronta."
+    - tutor: "Solo mezz'ora? Bene, perché ho una fame! La mangiamo con il pane?"
+      goals: [time]
+    - learner: "Sì! E la mangiaremo fredda, come in Spagna?"
+      errors: [future-form]
+      gold: {text: "mangiaremo", fix: "mangeremo"}
+    - tutor: "Mangiaremo? Pensa a come cambia mangiare al futuro. Prova di nuovo."
+      prompt: {text: "mangiaremo", tags: [future-form]}
+    - learner: "La mangeremo fredda, come in Spagna?"
+    - tutor: "Brava! Fredda non l'ho mai mangiata, ma proviamo! Domani mi dici se è più buona."
+      goals: [serve]
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Vorrei tagliare i capelli. Sabato vado a un matrimonio."
+    - tutor: "Che bello! Allora facciamo qualcosa di speciale. Quanto li tagliamo?"
+      goals: [book]
+    - learner: "Li voglio più corti, ma non troppo. Mio marito dirà che sono troppo corte!"
+      errors: [adjective-agreement]
+      gold: {text: "corte", fix: "corti"}
+    - tutor: "Troppo corte? Pensi ai capelli: sono maschili."
+      prompt: {text: "corte", tags: [adjective-agreement]}
+    - learner: "Ah, sì. Mio marito dirà che sono troppo corti!"
+    - tutor: "Allora tagliamo poco, solo due dita. E la frangia?"
+      goals: [length]
+    - learner: "La frangia no, grazie. Al matrimonio porterò un cappello e la frangia starerà male."
+      errors: [future-form]
+      gold: {text: "starerà", fix: "starà"}
+    - tutor: "Starerà? Il futuro di stare è facile, come quello di dare."
+      prompt: {text: "starerà", tags: [future-form]}
+    - learner: "Eh... la frangia starrà male."
+      errors: [future-form]
+    - tutor: "Ha ragione, la frangia starà male. Allora niente frangia e capelli lunghi dietro?"
+      recast: {text: "starrà", fix: "starà", tags: [future-form]}
+    - learner: "Sì, va benissimo. Posso pagare con la carta?"
+    - tutor: "Certo. Sono trentacinque euro, e sabato sarà bellissima!"
+      goals: [style, pay]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Vorrei spedire questo pacco a Canada. È per mia nipote."
+      errors: [preposition]
+      gold: {text: "a Canada", fix: "in Canada"}
+    - tutor: "A Canada? Attenzione: il Canada è un paese, non una città."
+      prompt: {text: "a Canada", tags: [preposition]}
+    - learner: "Scusi, in Canada. È per mia nipote."
+    - tutor: "Bene. Lo spedisce normale o veloce?"
+      goals: [send]
+    - learner: "Quando arriverà se lo spedisco normale?"
+    - tutor: "Normale arriva in dieci giorni, veloce in quattro."
+    - learner: "Il compleanno di mia nipote è tra una settimana. Allora prendo il veloce, così arrivarà in tempo."
+      errors: [future-form]
+      gold: {text: "arrivarà", fix: "arriverà"}
+    - tutor: "Arrivarà? Attenzione alla a di arrivare al futuro."
+      prompt: {text: "arrivarà", tags: [future-form]}
+    - learner: "Sì, così arriverrà in tempo."
+      errors: [future-form]
+    - tutor: "Sì, con il veloce arriverà sicuramente in tempo. Ora scriva qui l'indirizzo e cosa c'è nel pacco."
+      goals: [speed]
+      recast: {text: "arriverrà", fix: "arriverà", tags: [future-form]}
+    - learner: "Un libro e una maglietta. Ecco i soldi: lei sarà contentissima!"
+    - tutor: "Sicuramente! Sono ventotto euro: ecco il resto e la ricevuta."
+      goals: [form, pay]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, a nome Ruiz. Una camera doppia per tre notti."
+    - tutor: "Sì, eccola: tre notti, fino a venerdì. Mi dà un documento, per favore?"
+      goals: [booking]
+    - learner: "Ecco il passaporto. Mia moglie arriva domani, viene in treno da Milano."
+    - tutor: "Va bene, grazie. Ecco il passaporto."
+      goals: [document]
+    - learner: "A che ora comincia la colazione? Domani doverò uscire alle sette."
+      errors: [future-form]
+      gold: {text: "doverò", fix: "dovrò"}
+    - tutor: "Doverò? Il futuro di dovere perde una lettera, come quello di potere."
+      prompt: {text: "doverò", tags: [future-form]}
+    - learner: "Domani dovrò uscire alle sette."
+    - tutor: "Nessun problema: la colazione comincia alle sei e mezza, al primo piano. Ecco la chiave, camera duecentoquattro."
+      goals: [breakfast, key]
+    - learner: "Grazie. La reception è aperta di notte? Mia moglie arriva tardi e averà bisogno di aiuto con le valigie."
+      errors: [future-form]
+      gold: {text: "averà", fix: "avrà"}
+    - tutor: "Averà? Attenzione: avere al futuro non tiene la e."
+      prompt: {text: "averà", tags: [future-form]}
+    - learner: "Sì, mia moglie averà bisogno di aiuto."
+      errors: [future-form]
+    - tutor: "Siamo aperti tutta la notte: se sua moglie avrà bisogno, c'è sempre un collega."
+      recast: {text: "averà", fix: "avrà", tags: [future-form]}
+    - learner: "Perfetto, grazie mille. Buonanotte!"
+    - tutor: "Buonanotte, a domani!"
+
+- scenario: casa-mia
+  level: A2
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Abito in un appartamento piccolo, ma il mese prossimo cambio casa: andrerò a vivere con due amiche."
+      errors: [future-form]
+      gold: {text: "andrerò", fix: "andrò"}
+    - tutor: "Andrerò? Il futuro di andare è più semplice. Come si dice?"
+      prompt: {text: "andrerò", tags: [future-form]}
+    - learner: "Andrò a vivere con due amiche."
+    - tutor: "Che bello! E come sarà la nuova casa?"
+      goals: [type]
+    - learner: "Ci saranno tre camere, un bagno e una cucina grande con i muri gialle."
+      errors: [adjective-agreement]
+      gold: {text: "gialle", fix: "gialli"}
+    - tutor: "I muri gialle? Attenzione: muro è maschile."
+      prompt: {text: "gialle", tags: [adjective-agreement]}
+    - learner: "I muri sono giallo."
+      errors: [adjective-agreement]
+    - tutor: "Muri gialli in cucina? Che bello! È la tua stanza preferita?"
+      goals: [rooms]
+      recast: {text: "giallo", fix: "gialli", tags: [adjective-agreement]}
+    - learner: "Sì, la cucina. Ogni domenica invitaremo gli amici a cena."
+      errors: [future-form]
+      gold: {text: "invitaremo", fix: "inviteremo"}
+    - tutor: "Invitaremo? Pensa a parlare e mangiare al futuro: la a cambia."
+      prompt: {text: "invitaremo", tags: [future-form]}
+    - learner: "Inviteremo gli amici a cena."
+    - tutor: "Brava! Allora mi inviterete, spero."
+      goals: [favourite]
+    - learner: "Certo! E tu? Abiti ancora con i tuoi genitori?"
+    - tutor: "Sì, ma l'anno prossimo vado a vivere da solo, in un monolocale in centro."
+      goals: [ask]
+      new: [{lemma: monolocale, gloss: studio flat}]
+
+- scenario: famiglia
+  level: A2
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Sono i miei genitori e mio fratello Pablo, il giorno del suo matrimonio."
+    - tutor: "Che belli tutti! Tuo fratello sembra molto felice."
+      goals: [who]
+    - learner: "Sì, è una persona molto simpatica e generosa. Ha trentadue anni."
+    - tutor: "E i tuoi genitori? Vivono ancora in Spagna?"
+      goals: [describe, ages]
+    - learner: "Sì, a Siviglia. A dicembre veniranno qui per Natale."
+      errors: [future-form]
+      gold: {text: "veniranno", fix: "verranno"}
+    - tutor: "Veniranno? Il futuro di venire è speciale. Pensaci un momento."
+      prompt: {text: "veniranno", tags: [future-form]}
+    - learner: "Venranno qui per Natale."
+      errors: [future-form]
+    - tutor: "Che bello, i tuoi genitori verranno per Natale! Staranno da te?"
+      recast: {text: "Venranno", fix: "verranno", tags: [future-form]}
+    - learner: "Sì, rimaneranno da me due settimane. Mia madre cucinerà tutti i giorni!"
+      errors: [future-form]
+      gold: {text: "rimaneranno", fix: "rimarranno"}
+    - tutor: "Rimaneranno? Anche rimanere ha un futuro speciale, come venire."
+      prompt: {text: "rimaneranno", tags: [future-form]}
+    - learner: "Rimarranno da me due settimane."
+    - tutor: "Due settimane con la cucina di tua madre, che fortuna!"
+    - learner: "E tu? Hai fratelli o sorelle?"
+    - tutor: "Ho una sorella più grande. Vive a Torino con suo marito e due bambini."
+      goals: [ask]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Di solito mi sveglio alle sette e vado in ufficio in bicicletta. Ma da lunedì lavorarò da casa."
+      errors: [future-form]
+      gold: {text: "lavorarò", fix: "lavorerò"}
+    - tutor: "Lavorarò? Attenzione: lavorare al futuro cambia la a."
+      prompt: {text: "lavorarò", tags: [future-form]}
+    - learner: "Da lunedì lavorerò da casa."
+    - tutor: "Davvero? Allora ci vedremo di più!"
+      goals: [wake, work]
+    - learner: "Sì! Così io alzerò più tardi, alle otto."
+      errors: [reflexive]
+      gold: {text: "io alzerò", fix: "mi alzerò"}
+    - tutor: "Io alzerò? Attenzione: chi alzi la mattina?"
+      prompt: {text: "io alzerò", tags: [reflexive]}
+    - learner: "Ah, io mi alzarò più tardi."
+      errors: [future-form]
+      gold: {text: "alzarò", fix: "alzerò"}
+    - tutor: "Ora il pronome c'è. Ma alzarò? Pensa a lavorare: cambia nello stesso modo."
+      prompt: {text: "alzarò", tags: [future-form]}
+    - learner: "Mi alzerò più tardi, alle otto."
+    - tutor: "Fortunato! E la sera cosa fai?"
+    - learner: "La sera cucino con la mia ragazza. Da lunedì faremo anche un corso di cucina. E tu, Anna?"
+    - tutor: "Io la sera vado in palestra. Ma la prossima settimana lavorerò fino a tardi tutti i giorni."
+      goals: [evening, ask]
+
+- scenario: medico-base
+  level: A2
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho la febbre e molta tosse da domenica. Ho prenduto un'aspirina, ma niente."
+      errors: [past-participle-form]
+      gold: {text: "prenduto", fix: "preso"}
+    - tutor: "Ha prenduto? Attenzione, prendere al passato è speciale."
+      prompt: {text: "prenduto", tags: [past-participle-form]}
+    - learner: "Ho preso un'aspirina, ma niente."
+    - tutor: "Capisco. È allergico a qualche medicina?"
+      goals: [symptoms, since-when]
+    - learner: "No, a niente. Ma venerdì ho un esame importante. Starò meglio?"
+    - tutor: "Se fa quello che le dico, sì. Prenda questo sciroppo tre volte al giorno, per cinque giorni."
+      goals: [history]
+      new: [{lemma: sciroppo, gloss: syrup}]
+    - learner: "Va bene. E beverò molta acqua calda con il miele?"
+      errors: [future-form]
+      gold: {text: "beverò", fix: "berrò"}
+    - tutor: "Beverò? Attenzione, bere al futuro è molto diverso."
+      prompt: {text: "beverò", tags: [future-form]}
+    - learner: "Berrò molta acqua calda con il miele?"
+    - tutor: "Sì, molta acqua e niente lavoro per due giorni. Mi ripete cosa deve fare con la medicina?"
+    - learner: "Lo prenderò tre volta al giorno, per cinque giorni."
+      errors: [noun-number]
+      gold: {text: "tre volta", fix: "tre volte"}
+    - tutor: "Tre volta? Attenzione: sono più di una."
+      prompt: {text: "tre volta", tags: [noun-number]}
+    - learner: "Tre volte al giorno, per cinque giorni."
+    - tutor: "Perfetto. Se venerdì ha ancora la febbre, torni da me."
+      goals: [instructions]

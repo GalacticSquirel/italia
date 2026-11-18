@@ -1,0 +1,240 @@
+# A2, tense-aspect in everyday services and plans: background vs event, habits, present for a
+# finished event; correct turns use the same contrasts.
+- scenario: lavanderia
+  level: A2
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! Ho messo i vestiti nella lavatrice, ma non parte."
+    - tutor: "Vediamo. Hai chiuso bene la porta?"
+      goals: [problem]
+    - learner: "Sì, l'ho chiusa. Prima, quando sono arrivata, questa macchina è stata libera e l'ho presa."
+      errors: [tense-aspect]
+    - tutor: "«È stata libera»? Parli della situazione in quel momento, non di un fatto."
+      prompt: {text: "è stata libera", tags: [tense-aspect]}
+    - learner: "Sì, la macchina è stata libera. Ma perché non parte? Devo pagare prima?"
+      errors: [tense-aspect]
+    - tutor: "Ah, era libera, va bene. Ecco il problema: prima devi pagare, poi scegli il numero della macchina."
+      recast: {text: "è stata libera", fix: "era libera", tags: [tense-aspect]}
+      goals: [ask-how]
+    - learner: "Ecco fatto, adesso funziona! Anche la settimana scorsa non partiva. Mentre ho aspettato, una signora mi ha spiegato tutto."
+      errors: [tense-aspect]
+    - tutor: "Meno male! Ma «mentre ho aspettato»: era un'azione in corso quando è arrivata la signora."
+      prompt: {text: "Mentre ho aspettato", tags: [tense-aspect]}
+    - learner: "Mentre aspettavo, una signora mi ha spiegato tutto. Ma ho dimenticato!"
+    - tutor: "Capita a tutti! Adesso però lo sai: prima i soldi, poi il numero. Sono quattro euro."
+      goals: [payment]
+    - learner: "Grazie mille, sei molto gentile!"
+    - tutor: "Di niente! Buona giornata!"
+      goals: [thank]
+
+- scenario: serata-cinema
+  level: A2
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema? C'è il nuovo film di Sorrentino."
+    - tutor: "Buona idea! Ma i suoi film non sono un po' lunghi?"
+      goals: [propose]
+    - learner: "Un po', ma il suo ultimo film era bellissimo. Lo vedevo due volte."
+      errors: [tense-aspect]
+    - tutor: "«Lo vedevo due volte»? Parli di due volte, già finite."
+      prompt: {text: "Lo vedevo", tags: [tense-aspect]}
+    - learner: "L'ho visto due volte! Mi è piaciuto tantissimo."
+    - tutor: "Due volte! Io però preferisco le commedie."
+    - learner: "Anche a me piacciono le commedie. Da piccolo guardavo sempre i film comici con mio padre."
+    - tutor: "Allora scegliamo una commedia italiana?"
+      goals: [genre]
+    - learner: "Va bene. Al cinema Centrale c'è una commedia alle nove. Ieri il mio collega la vede e dice che è divertente."
+      errors: [tense-aspect]
+    - tutor: "Ieri il tuo collega «la vede»? Ieri è già finito!"
+      prompt: {text: "la vede", tags: [tense-aspect]}
+    - learner: "Ieri il mio collega la vedeva e diceva che è divertente."
+      errors: [tense-aspect]
+    - tutor: "Ah, il tuo collega l'ha vista e gli è piaciuta? Allora andiamo al Centrale!"
+      recast: {text: "la vedeva", fix: "l'ha vista", tags: [tense-aspect]}
+      goals: [choose]
+    - learner: "Perfetto! Ci vediamo davanti al cinema alle otto e mezza?"
+    - tutor: "Va bene, alle otto e mezza. Prendo io i biglietti!"
+      goals: [meet]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Quanto costa un abbonamento per tre mesi?"
+    - tutor: "Centoventi euro, con tutti i corsi."
+      goals: [ask-membership]
+    - learner: "Bene. Prima andavo in una palestra vicino all'ufficio, ma era troppo cara."
+    - tutor: "Qui costa meno, vedrai! Che corsi ti interessano?"
+    - learner: "Il nuoto. Da ragazzo ho nuotato tre volte alla settimana, ma poi ho smesso."
+      errors: [tense-aspect]
+    - tutor: "Da ragazzo «ho nuotato» tre volte alla settimana? Era una cosa normale per te in quegli anni."
+      prompt: {text: "ho nuotato", tags: [tense-aspect]}
+    - learner: "Da ragazzo nuotavo tre volte alla settimana."
+    - tutor: "Allora sei già bravo! C'è un corso di nuoto il martedì e il giovedì, alle sette di sera."
+      goals: [classes, timetable]
+    - learner: "Perfetto. Ieri sono passato qui alle sette, ma la piscina è chiusa."
+      errors: [tense-aspect]
+    - tutor: "«La piscina è chiusa»? Ma parli di ieri sera."
+      prompt: {text: "è chiusa", tags: [tense-aspect]}
+    - learner: "Sì, ieri la piscina è chiusa per pulizie, no?"
+      errors: [tense-aspect]
+    - tutor: "Sì, ieri era chiusa per pulizie, scusa! Allora, vuoi fare il corso?"
+      recast: {text: "è chiusa", fix: "era chiusa", tags: [tense-aspect]}
+    - learner: "Sì, grazie. Posso pagare con la carta?"
+    - tutor: "Certo! Mi serve solo un documento."
+      goals: [sign-up]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Mi sveglio alle sette e mezza. In Spagna mi svegliavo più tardi, alle nove!"
+    - tutor: "Alle nove, che fortuna! E dopo cosa fai?"
+      goals: [wake]
+    - learner: "Faccio colazione e vado all'università. Lavoro anche in un negozio da gennaio."
+    - tutor: "Studi e lavori, brava! Che negozio è?"
+      goals: [work]
+    - learner: "Un negozio di scarpe. Il primo giorno ero molto nervosa e vendevo solo un paio di scarpe."
+      errors: [tense-aspect]
+    - tutor: "«Vendevo solo un paio»? È successo una volta, il primo giorno. Prova di nuovo."
+      prompt: {text: "vendevo", tags: [tense-aspect]}
+    - learner: "Ho venduto solo un paio di scarpe! Ma adesso va meglio."
+    - tutor: "Normale, all'inizio! E la sera cosa fai?"
+    - learner: "Di solito ceno con le mie amiche spagnole. Ieri sera, mentre abbiamo cucinato, è andata via la luce!"
+      errors: [tense-aspect]
+    - tutor: "Oh no! Ma «mentre abbiamo cucinato»: era un'azione in corso. Come lo dici?"
+      goals: [evening]
+      prompt: {text: "mentre abbiamo cucinato", tags: [tense-aspect]}
+    - learner: "Mentre cucinavamo! Allora abbiamo mangiato con le candele. E tu la sera cosa fai?"
+    - tutor: "Che bello, una cena con le candele! Io la sera di solito leggo o guardo un film."
+      goals: [ask]
+
+- scenario: compleanno
+  level: A2
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a casa mia sabato prossimo? Il suo compleanno è domenica."
+    - tutor: "Sabato va benissimo. Chi invitiamo?"
+      goals: [date]
+    - learner: "I suoi colleghi, sua sorella Giulia e i vicini."
+    - tutor: "Perfetto, siamo in dodici più o meno. E da mangiare?"
+      goals: [guests]
+    - learner: "L'anno scorso ordiniamo le pizze e piacciono a tutti."
+      errors: [tense-aspect]
+    - tutor: "«L'anno scorso ordiniamo»? Parli di una festa passata."
+      prompt: {text: "L'anno scorso ordiniamo", tags: [tense-aspect]}
+    - learner: "L'anno scorso abbiamo ordinato le pizze. Sono piaciute a tutti!"
+    - tutor: "Allora pizze anche quest'anno! La torta la faccio io."
+      goals: [food]
+    - learner: "Grazie! E il regalo? Quando eravamo in vacanza, Sara ha guardato sempre le borse nei negozi."
+      errors: [tense-aspect]
+    - tutor: "«Ha guardato sempre»? Lo faceva in ogni negozio, era una cosa normale per lei."
+      prompt: {text: "ha guardato sempre", tags: [tense-aspect]}
+    - learner: "Sì, Sara ha guardato sempre le borse."
+      errors: [tense-aspect]
+    - tutor: "Ah, guardava sempre le borse? Allora le regaliamo una borsa!"
+      recast: {text: "ha guardato sempre", fix: "guardava sempre", tags: [tense-aspect]}
+      goals: [gift]
+    - learner: "Ottima idea! Domani vado in centro e la compro."
+    - tutor: "Perfetto! Stasera ti do i miei soldi."
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Vorrei spedire questo pacco in Canada, a mia figlia."
+    - tutor: "Certo. Lo metta qui, per favore."
+      goals: [send]
+    - learner: "Ecco. Il mese scorso spedisco un pacco ma arriva dopo tre settimane."
+      errors: [tense-aspect]
+    - tutor: "«Il mese scorso spedisco»? È una cosa finita, del mese scorso."
+      prompt: {text: "Il mese scorso spedisco", tags: [tense-aspect]}
+    - learner: "Il mese scorso ho spedito un pacco, ma è arrivato dopo tre settimane!"
+    - tutor: "Tre settimane, troppo! Con il servizio veloce arriva in cinque giorni."
+      goals: [speed]
+    - learner: "Va bene, prendo quello veloce. Quando ero giovane, le lettere arrivavano in tre giorni!"
+    - tutor: "Altri tempi! Allora scriva qui l'indirizzo, per favore."
+    - learner: "Fatto. Ah, l'indirizzo... mia figlia ha cambiato casa due mesi fa. Prima ha abitato in centro."
+      errors: [tense-aspect]
+    - tutor: "«Prima ha abitato in centro»? Parli della situazione di prima, non di un fatto."
+      prompt: {text: "ha abitato in centro", tags: [tense-aspect]}
+    - learner: "Sì, prima ha abitato in centro, adesso in periferia."
+      errors: [tense-aspect]
+    - tutor: "Ah, prima abitava in centro. Allora va bene il nuovo indirizzo."
+      recast: {text: "ha abitato in centro", fix: "abitava in centro", tags: [tense-aspect]}
+      goals: [form]
+    - learner: "Sì, è giusto. Quanto pago?"
+    - tutor: "Sono trentadue euro, anche con la carta. Ecco la ricevuta!"
+      goals: [pay]
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno! Vorrei tagliare i capelli. Ho prenotato ieri per telefono."
+    - tutor: "Sì, eccola qui, alle undici. Quanto li tagliamo?"
+      goals: [book]
+    - learner: "Non troppo, solo tre centimetri. Da bambina ho avuto i capelli cortissimi e non mi sono piaciuti."
+      errors: [tense-aspect]
+    - tutor: "«Da bambina ho avuto»? Parli di com'eri da piccola, per tanti anni."
+      prompt: {text: "ho avuto", tags: [tense-aspect]}
+    - learner: "Da bambina avevo i capelli cortissimi e non mi piacevano."
+    - tutor: "Allora niente capelli corti! Solo un po', va bene."
+      goals: [length]
+    - learner: "Grazie. L'ultima volta la parrucchiera mi ha fatto una frangia, ma era troppo corta."
+    - tutor: "Oggi niente frangia, allora. Le lavo anche i capelli?"
+      new: [{lemma: frangia, gloss: fringe}]
+    - learner: "Sì, grazie. Ieri mattina il phon si rompe mentre mi asciugavo i capelli."
+      errors: [tense-aspect]
+    - tutor: "Ieri mattina il phon «si rompe»? È successo ieri, una volta sola."
+      prompt: {text: "si rompe", tags: [tense-aspect]}
+    - learner: "Sì, il phon si rompeva mentre mi asciugavo i capelli."
+      errors: [tense-aspect]
+    - tutor: "Oh no, il phon si è rotto proprio ieri? Allora oggi facciamo tutto qui, con calma."
+      recast: {text: "si rompeva", fix: "si è rotto", tags: [tense-aspect]}
+      goals: [style]
+    - learner: "Perfetto, mi piace molto! Quanto pago?"
+    - tutor: "Trentacinque euro. Arrivederci e buona giornata!"
+      goals: [pay]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, grazie. L'anno scorso noleggio una bici qui ed era perfetta."
+      errors: [tense-aspect]
+    - tutor: "«L'anno scorso noleggio»? Parla di una cosa già finita, dell'anno scorso."
+      prompt: {text: "L'anno scorso noleggio", tags: [tense-aspect]}
+    - learner: "L'anno scorso ho noleggiato una bici qui. Era perfetta!"
+    - tutor: "Che piacere, allora torna da noi! Per quanto tempo la vuole?"
+      goals: [ask]
+    - learner: "Per tutto il giorno. Quanto costa?"
+    - tutor: "Quindici euro al giorno, con il casco."
+      goals: [duration, price]
+    - learner: "Va bene. Che strada mi consiglia? L'anno scorso sono andata al lago, ma la strada è stata piena di macchine."
+      errors: [tense-aspect]
+    - tutor: "La strada «è stata piena di macchine»? Parla di com'era la strada quel giorno."
+      prompt: {text: "è stata piena di macchine", tags: [tense-aspect]}
+    - learner: "Sì, la strada è stata piena di macchine e camion."
+      errors: [tense-aspect]
+    - tutor: "Sì, quella strada era piena di macchine anche d'estate. Oggi le consiglio la strada nel parco: è tranquilla."
+      recast: {text: "è stata piena di macchine", fix: "era piena di macchine", tags: [tense-aspect]}
+      goals: [route]
+    - learner: "Perfetto, grazie mille! A stasera."
+    - tutor: "A stasera! Torni prima delle sette, per favore."

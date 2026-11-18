@@ -1,0 +1,193 @@
+# Set t-unclear, file 2: A1 people and daily life. Greetings with names, «Puoi sabato?», «Che
+# fai?», plural «voi» to a friend's couple and unknown names are fine; real errors get clues.
+- scenario: presentarsi
+  level: A1
+  persona: en-f-student
+  history: [essere-avere]
+  turns:
+  - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+  - learner: "Ciao Giulia! Mi chiamo Emma. Piacere!"
+  - tutor: "Piacere, Emma! Di dove sei?"
+    goals: [say-name]
+  - learner: "Sono di Leeds, in Inghilterra."
+  - tutor: "Che bello! E che lavoro fai?"
+    goals: [say-origin]
+  - learner: "Sono studentessa. E lavoro in un bar con Davide."
+  - tutor: "Con Davide? Chi è Davide, un amico?"
+    goals: [say-job]
+  - learner: "Sì, è il mio coinquilino. E tu, studi?"
+  - tutor: "Sì, studio a Bologna. Quanti anni hai?"
+    goals: [ask-back]
+  - learner: "Sono ventidue anni."
+    errors: [essere-avere]
+  - tutor: "Sono ventidue anni? Per l'età, quale verbo usiamo?"
+    prompt: {text: "Sono ventidue anni", tags: [essere-avere]}
+  - learner: "Ho ventidue anni!"
+  - tutor: "Esatto! Io ne ho ventitré. Che bello conoscerti!"
+
+- scenario: famiglia
+  level: A1
+  persona: es-m-worker
+  history: [adjective-agreement]
+  turns:
+  - tutor: "Che bella foto! Chi sono queste persone?"
+  - learner: "Sono mia madre, mio padre e mia sorella. Ha venti anni."
+  - tutor: "Chi ha venti anni? Tua sorella?"
+    goals: [who]
+  - learner: "No, mio fratello. Lui non è nella foto. Mia sorella ha quindici anni."
+  - tutor: "Ah, ho capito! E com'è tua sorella?"
+    goals: [ages]
+  - learner: "È molto simpatico e alta."
+    errors: [adjective-agreement]
+  - tutor: "Simpatico? Parli di tua sorella: è una ragazza."
+    prompt: {text: "simpatico", tags: [adjective-agreement]}
+  - learner: "Sì, è molto simpatico."
+    errors: [adjective-agreement]
+  - tutor: "Si vede che è simpatica! Ha gli occhi di tua madre."
+    recast: {text: "simpatico", fix: "simpatica", tags: [adjective-agreement]}
+    new: [{lemma: simpatico, gloss: nice, friendly}]
+    goals: [describe]
+  - learner: "Sì, è vero. E tu? Hai fratelli?"
+  - tutor: "Sì, un fratello. Si chiama Luca e vive a Torino."
+    goals: [ask]
+
+- scenario: numero-telefono
+  level: A1
+  persona: en-m-traveller
+  turns:
+  - tutor: "È stata una bella lezione, vero?"
+  - learner: "Sì, bellissima! Cuciniamo ancora insieme?"
+  - tutor: "Sì, bella idea! Mi dai il tuo numero?"
+    goals: [propose]
+  - learner: "Sì: tre quattro sette, due due uno, otto nove zero."
+  - tutor: "Grazie, ti scrivo un messaggio. Quando sei libero?"
+    goals: [number]
+  - learner: "Puoi sabato?"
+  - tutor: "Sabato sì, la sera. Dove?"
+  - learner: "Da me? Viene anche Chiara."
+  - tutor: "Chi è Chiara? La ragazza della lezione?"
+  - learner: "No, è la mia ragazza. Lei cucina molto bene!"
+  - tutor: "Allora sabato sera vengo da voi con il vino!"
+    goals: [when]
+
+- scenario: tempo-libero
+  level: A1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  - learner: "Vado al ginnasio con Lola."
+    errors: [false-friend]
+  - tutor: "Ah, vai in palestra! E chi è Lola?"
+    recast: {text: "al ginnasio", fix: "in palestra", tags: [false-friend]}
+    new: [{lemma: palestra, gloss: gym}]
+    goals: [hobby]
+  - learner: "Lola è la mia amica di Madrid. Andiamo il sabato e la domenica."
+  - tutor: "Due volte a settimana, bene!"
+    goals: [frequency]
+  - learner: "E tu, che fai?"
+  - tutor: "Io leggo molto e vado spesso al cinema."
+    goals: [ask]
+  - learner: "Andiamo al cinema sabato sera?"
+  - tutor: "Sì, certo! Alle otto?"
+    goals: [propose]
+  - learner: "Sì, alle otto. A sabato!"
+  - tutor: "A sabato, ciao!"
+
+- scenario: giorno-tipico
+  level: A1
+  persona: en-f-professional
+  history: [reflexive]
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata di solito?"
+  - learner: "Io sveglio alle sette."
+    errors: [reflexive]
+  - tutor: "Io sveglio? Chi svegli: un'altra persona o te?"
+    prompt: {text: "Io sveglio", tags: [reflexive]}
+  - learner: "Mi sveglio alle sette. Poi porto fuori Max."
+  - tutor: "Esatto, presto! Ma chi è Max?"
+    goals: [wake]
+  - learner: "Il cane della mia vicina. Lei lavora la mattina."
+  - tutor: "Che brava! E tu, dopo, cosa fai?"
+  - learner: "Lavoro in ufficio fino alle cinque."
+  - tutor: "Una giornata lunga! E la sera?"
+    goals: [work]
+  - learner: "La sera? Niente, cucino e guardo un film."
+  - tutor: "Anch'io guardo un film dopo cena."
+    goals: [evening]
+  - learner: "E tu, a che ora ti svegli?"
+  - tutor: "Alle otto, ma la domenica alle undici!"
+    goals: [ask]
+
+- scenario: casa-mia
+  level: A1
+  persona: en-m-heritage
+  history: [ce-ci-sono]
+  turns:
+  - tutor: "Allora, com'è la tua casa?"
+  - learner: "È un appartamento piccolo, al terzo piano."
+  - tutor: "Bello! Quante camere ci sono?"
+    goals: [type]
+  - learner: "È tre camere e un bagno."
+    errors: [ce-ci-sono]
+  - tutor: "È tre camere? Pensa a «c'è», ma per tre cose."
+    prompt: {text: "È tre camere", tags: [ce-ci-sono]}
+  - learner: "Ci sono tre camere e un bagno."
+  - tutor: "Perfetto! E qual è la tua camera preferita?"
+    goals: [rooms]
+  - learner: "La cucina. È grande e c'è sempre il sole."
+  - tutor: "Che bello! Anche io e Marta mangiamo sempre in cucina."
+    goals: [favourite]
+  - learner: "E voi? Avete un balcone?"
+  - tutor: "Sì, uno piccolo, ma c'è il sole."
+    goals: [ask]
+  - learner: "Che bello! Saluta Marta!"
+  - tutor: "Grazie! Ciao, a presto!"
+
+- scenario: chiedere-strada
+  level: A1
+  persona: es-f-teacher
+  history: [register]
+  turns:
+  - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+  - learner: "Sì, scusa, dov'è la stazione?"
+    errors: [register]
+  - tutor: "«Scusa»? Non ci conosciamo: usiamo il tu o il lei?"
+    prompt: {text: "scusa", tags: [register]}
+  - learner: "Ah, scusi! Dov'è la stazione?"
+  - tutor: "È vicino: vada dritto e poi a destra."
+    goals: [get-attention, ask-place]
+  - learner: "Dritto e poi a destra. Al semaforo?"
+  - tutor: "Sì, al semaforo a destra. Poi c'è una piazza."
+  - learner: "E dopo la piazza, il bar di Gino?"
+  - tutor: "Il bar di Gino? Non lo conosco, mi dispiace."
+  - learner: "È il bar della mia amica. È davanti alla stazione."
+  - tutor: "Ah, quello! Sì, è proprio davanti alla stazione."
+    goals: [understand]
+  - learner: "Grazie mille, è molto gentile!"
+  - tutor: "Prego, buona giornata!"
+    goals: [thank]
+
+- scenario: abbigliamento
+  level: A1
+  persona: en-m-traveller
+  history: [demonstrative]
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Sì, grazie. Cerco una maglietta per Ben."
+  - tutor: "Per Ben? È un bambino o un uomo?"
+    goals: [ask-item]
+  - learner: "Un uomo, mio fratello. Porta la M."
+  - tutor: "Bene, la M. Che colore?"
+  - learner: "Blu, o nero."
+  - tutor: "Ecco, c'è una maglietta blu e una nera."
+    goals: [size-colour]
+  - learner: "Bene. Posso provare quello maglione grigio? È per me."
+    errors: [demonstrative]
+  - tutor: "Quello maglione? Davanti alla «m», come cambia la parola?"
+    prompt: {text: "quello maglione", tags: [demonstrative]}
+  - learner: "Quel maglione grigio!"
+  - tutor: "Certo, il camerino è lì a destra."
+    goals: [try]
+  - learner: "Va bene. Prendo la maglietta blu e il maglione. C'è uno sconto?"
+  - tutor: "Sì, il dieci per cento. Sono sessanta euro."
+    goals: [decide]

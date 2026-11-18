@@ -1,0 +1,259 @@
+# B1, tense-aspect at the bank, on the phone, at the station and among friends; correct turns
+# use the same contrasts (imperfetto for states, passato prossimo for events, trapassato).
+- scenario: banca-conto
+  level: B1
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire un conto corrente. Lavoro in Italia da marzo e mi serve un conto per lo stipendio."
+    - tutor: "Certo. Ha già un conto in un'altra banca?"
+    - learner: "In Spagna avevo un conto online, ma il mese scorso la banca lo chiudeva."
+      errors: [tense-aspect]
+    - tutor: "Il mese scorso la banca «lo chiudeva»? È successo una volta, ed è una cosa finita."
+      prompt: {text: "lo chiudeva", tags: [tense-aspect]}
+    - learner: "Sì, la banca lo chiudeva perché non ero più residente."
+      errors: [tense-aspect]
+    - tutor: "Capisco, la banca l'ha chiuso perché non era più residente in Spagna. Qui nessun problema: le apriamo subito un conto."
+      recast: {text: "lo chiudeva", fix: "l'ha chiuso", tags: [tense-aspect]}
+      goals: [purpose]
+    - learner: "Grazie. Che documenti devo portare?"
+    - tutor: "Un documento d'identità, il codice fiscale e il contratto di lavoro."
+      goals: [documents]
+    - learner: "Li ho tutti qui. Il codice fiscale l'avevo già fatto al consolato, prima di partire da Madrid."
+    - tutor: "Perfetto, così è tutto più veloce. Il conto costa tre euro al mese, senza altre spese."
+      goals: [costs]
+    - learner: "Va bene. E la carta? Ieri al supermercato la mia carta spagnola non funzionava: la cassiera la provava tre volte, ma niente."
+      errors: [tense-aspect]
+    - tutor: "Che fastidio! Ma «la cassiera la provava tre volte»? Sono tre tentativi precisi, già finiti."
+      prompt: {text: "la provava tre volte", tags: [tense-aspect]}
+    - learner: "Sì, la cassiera la provava tre volte e poi ho pagato in contanti."
+      errors: [tense-aspect]
+    - tutor: "Se la cassiera l'ha provata tre volte, forse la sua carta non funziona in Italia. Con la nostra può pagare dappertutto: gliela spediamo a casa in una settimana."
+      recast: {text: "la provava tre volte", fix: "l'ha provata tre volte", tags: [tense-aspect]}
+      goals: [card]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita dal dermatologo, per favore."
+    - tutor: "Certo. È la prima visita o un controllo?"
+    - learner: "È la prima visita. Ho una macchia sul braccio da qualche settimana."
+    - tutor: "Capisco, allora prima visita. La macchia è nuova o c'era già prima?"
+      goals: [type]
+    - learner: "Non lo so. Quando sono tornata dalle vacanze, la macchia è già stata lì."
+      errors: [tense-aspect]
+    - tutor: "«È già stata lì»? Parla di come ha trovato il braccio al ritorno: una situazione, non un fatto."
+      prompt: {text: "è già stata lì", tags: [tense-aspect]}
+    - learner: "Sì, è già stata lì, ma più piccola."
+      errors: [tense-aspect]
+    - tutor: "Va bene: se era già lì al ritorno, è meglio controllare presto. Il primo posto libero è giovedì alle nove."
+      recast: {text: "è già stata lì", fix: "era già lì", tags: [tense-aspect]}
+      goals: [availability]
+    - learner: "Giovedì alle nove va benissimo. Quanto costa la visita?"
+    - tutor: "Centodieci euro. Se ha un'assicurazione, il prezzo può cambiare."
+      goals: [cost]
+    - learner: "No, non ce l'ho. Fino all'anno scorso pagavo un'assicurazione, ma era troppo cara."
+    - tutor: "Capisco. Allora mi dice nome e cognome per la prenotazione?"
+    - learner: "Sarah Collins. Due anni fa venivo da voi per un controllo."
+      errors: [tense-aspect]
+    - tutor: "«Due anni fa venivo»? Parla di una visita sola, già fatta."
+      prompt: {text: "venivo", tags: [tense-aspect]}
+    - learner: "Due anni fa sono venuta da voi per un controllo."
+    - tutor: "Perfetto, la trovo nel sistema. Visita confermata per giovedì alle nove: arrivi dieci minuti prima!"
+      goals: [confirm]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei un biglietto per Firenze, il prima possibile."
+    - tutor: "Per Firenze. Preferisce il Frecciarossa o il regionale?"
+      goals: [destination]
+    - learner: "Il più veloce. Ho perso il treno delle nove: quando sono arrivato al binario, le porte si sono già chiuse."
+      errors: [tense-aspect]
+    - tutor: "Che peccato! Ma le porte si sono chiuse prima del suo arrivo: che tempo usiamo per un fatto ancora più lontano?"
+      prompt: {text: "si sono già chiuse", tags: [tense-aspect]}
+    - learner: "Sì, le porte si sono già chiuse, e il treno è partito."
+      errors: [tense-aspect]
+    - tutor: "Eh, se le porte si erano già chiuse non c'era niente da fare. Allora le do il Frecciarossa delle undici."
+      recast: {text: "si sono già chiuse", fix: "si erano già chiuse", tags: [tense-aspect]}
+      goals: [type]
+    - learner: "Va bene. Quanto costa in prima classe? La settimana scorsa ho viaggiato in seconda e il vagone è stato pieno di gente."
+      errors: [tense-aspect]
+    - tutor: "«Il vagone è stato pieno di gente»? Qui descrive la situazione durante il viaggio, non un fatto."
+      prompt: {text: "è stato pieno di gente", tags: [tense-aspect]}
+    - learner: "Sì, il vagone è stato pieno di gente, senza posti liberi."
+      errors: [tense-aspect]
+    - tutor: "Capisco, se il vagone era pieno di gente, la prima è più comoda: sono sessantacinque euro, in seconda quarantacinque."
+      recast: {text: "è stato pieno di gente", fix: "era pieno di gente", tags: [tense-aspect]}
+    - learner: "Prendo la prima, allora. Da che binario parte?"
+    - tutor: "Dal binario otto. Ecco il biglietto, buon viaggio!"
+      goals: [class, platform]
+
+- scenario: compleanno
+  level: B1
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Pensavo a una cena a sorpresa. Il suo compleanno è venerdì 14, quindi potremmo farla sabato 15."
+    - tutor: "Sabato 15 è perfetto. Ma riusciremo a tenerlo segreto?"
+      goals: [date]
+    - learner: "Speriamo! L'anno scorso Marco ha rovinato la sorpresa: due giorni prima diceva tutto a Sara per sbaglio."
+      errors: [tense-aspect]
+    - tutor: "Me lo ricordo! Ma «due giorni prima diceva tutto»? È successo una volta sola, per sbaglio."
+      prompt: {text: "diceva tutto a Sara", tags: [tense-aspect]}
+    - learner: "Sì, Marco diceva tutto a Sara, che disastro!"
+      errors: [tense-aspect]
+    - tutor: "Eh sì, Marco ha detto tutto a Sara! Quest'anno a lui lo diciamo all'ultimo momento. Chi invitiamo?"
+      recast: {text: "diceva tutto a Sara", fix: "ha detto tutto a Sara", tags: [tense-aspect]}
+    - learner: "I colleghi dell'ufficio e le sue amiche dell'università. Saremo una quindicina."
+    - tutor: "Benissimo. E la cena la facciamo a casa o al ristorante?"
+      goals: [guests]
+    - learner: "A casa mia. Quando ero in Inghilterra, organizzavo spesso cene così: io cucinavo e gli altri portavano il vino."
+    - tutor: "Allora sei un'esperta! Che cosa prepari?"
+    - learner: "Lasagne e tiramisù. Ma la prima volta che facevo il tiramisù, dimenticavo il caffè!"
+      errors: [tense-aspect]
+    - tutor: "Ah ah! Ma «la prima volta che facevo»: è stata una volta sola, un fatto preciso."
+      prompt: {text: "la prima volta che facevo", tags: [tense-aspect]}
+    - learner: "La prima volta che ho fatto il tiramisù, ho dimenticato il caffè!"
+    - tutor: "Quest'anno ti controllo io, allora! E per il regalo?"
+      goals: [food]
+    - learner: "Sara voleva un corso di ceramica. Me l'ha detto il mese scorso, mentre passavamo davanti a un laboratorio."
+    - tutor: "Perfetto, regaliamole il corso! Domani passo io al laboratorio a chiedere i prezzi."
+      goals: [gift]
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Le crocchette di mia nonna! Le preparava ogni domenica quando ero piccola."
+    - tutor: "Che bello! Cosa ci serve?"
+    - learner: "Latte, farina, burro e prosciutto. La nonna ha usato sempre il prosciutto avanzato del giorno prima."
+      errors: [tense-aspect]
+    - tutor: "La nonna «ha usato sempre»? Era il suo modo di fare, ogni domenica."
+      prompt: {text: "ha usato sempre", tags: [tense-aspect]}
+    - learner: "Sì, ha usato sempre il prosciutto avanzato."
+      errors: [tense-aspect]
+    - tutor: "Che brava, usava sempre quello che restava! Allora, da dove cominciamo?"
+      recast: {text: "ha usato sempre", fix: "usava sempre", tags: [tense-aspect]}
+      goals: [ingredients]
+    - learner: "Prima sciogli il burro, poi aggiungi la farina e il latte piano piano."
+    - tutor: "Così? Devo girare sempre?"
+    - learner: "Sì, sempre, se no si attacca. Una volta, mentre mescolavo, ho risposto al telefono e si è bruciato tutto!"
+    - tutor: "Allora telefono spento! Quanto tempo deve stare al freddo?"
+      goals: [steps]
+    - learner: "Almeno due ore in frigo. La nonna lo lasciava sempre tutta la notte."
+    - tutor: "Due ore vanno bene, abbiamo tempo. E come le serviamo?"
+      goals: [time]
+    - learner: "Calde, con un'insalata. L'ultima volta le portavo a una festa e finivano in cinque minuti!"
+      errors: [tense-aspect]
+    - tutor: "Ci credo! Ma «l'ultima volta le portavo»: parli di una festa precisa, una volta sola."
+      prompt: {text: "le portavo", tags: [tense-aspect]}
+    - learner: "L'ultima volta le ho portate a una festa e sono finite in cinque minuti!"
+    - tutor: "Allora stasera ne facciamo il doppio!"
+      goals: [serve]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-m-retired
+  history: [tense-aspect]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per sabato sera, per sei persone."
+    - tutor: "Sabato sera... sì, abbiamo posto. A che ora?"
+      goals: [book]
+    - learner: "Alle otto, se possibile. A settembre venivamo da voi e mangiavamo benissimo."
+      errors: [tense-aspect]
+    - tutor: "Che piacere! Ma «a settembre venivamo»: parla di una sera sola, vero?"
+      prompt: {text: "venivamo", tags: [tense-aspect]}
+    - learner: "Sì, una sera sola: a settembre siamo venuti da voi e abbiamo mangiato benissimo."
+    - tutor: "Grazie! Alle otto va bene. Preferite dentro o fuori?"
+    - learner: "Dentro, per favore. A settembre, quando siamo arrivati, la terrazza è stata piena di zanzare!"
+      errors: [tense-aspect]
+    - tutor: "«È stata piena di zanzare»? Ci parla della situazione al vostro arrivo, non di un fatto."
+      prompt: {text: "è stata piena di zanzare", tags: [tense-aspect]}
+    - learner: "Sì, è stata piena di zanzare, terribile."
+      errors: [tense-aspect]
+    - tutor: "Eh, a settembre la terrazza era piena di zanzare, purtroppo. Allora vi metto dentro, vicino alla finestra."
+      new: [{lemma: terrazza, gloss: terrace}]
+      recast: {text: "è stata piena di zanzare", fix: "era piena di zanzare", tags: [tense-aspect]}
+      goals: [details]
+    - learner: "Grazie. Mia moglie non può mangiare il glutine: avete la pasta senza glutine?"
+    - tutor: "Sì, certo, e anche il pane. Lo scrivo sulla prenotazione."
+      goals: [special]
+    - learner: "Benissimo. A nome di Brown, Peter Brown."
+    - tutor: "Perfetto: sabato alle otto, sei persone, con la pasta speciale per sua moglie. A sabato!"
+      goals: [name]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "In un paesino in Andalusia, vicino a Granada. C'erano più capre che persone!"
+    - tutor: "Ah ah, che bello! Com'era la tua giornata di solito?"
+      goals: [place]
+    - learner: "D'estate mi sono svegliata presto e sono andata con mio padre a dare da mangiare agli animali."
+      errors: [tense-aspect]
+    - tutor: "«D'estate mi sono svegliata presto»: parli di tutte le estati, giusto? Come cambia il verbo?"
+      prompt: {text: "mi sono svegliata presto", tags: [tense-aspect]}
+    - learner: "D'estate mi svegliavo presto e andavo con mio padre a dare da mangiare agli animali."
+    - tutor: "Una vita sana! E la scuola com'era?"
+      goals: [habits]
+    - learner: "Piccolissima: eravamo in otto in classe. La maestra ci conosceva tutti e conosceva anche i nostri genitori."
+    - tutor: "Impossibile fare i furbi, allora! Ti ricordi un giorno speciale?"
+      goals: [school]
+    - learner: "Sì, il giorno della grande neve. Avevo nove anni. Quella mattina, mentre andavamo a scuola, comincia a nevicare fortissimo."
+      errors: [tense-aspect]
+    - tutor: "«Mentre andavate a scuola, comincia»? Racconti un fatto preciso di quella mattina."
+      prompt: {text: "comincia a nevicare", tags: [tense-aspect]}
+    - learner: "Sì, cominciava a nevicare fortissimo e la scuola ha chiuso."
+      errors: [tense-aspect]
+    - tutor: "Che emozione! Quindi ha cominciato a nevicare e la scuola ha chiuso: una festa per i bambini!"
+      recast: {text: "cominciava a nevicare", fix: "ha cominciato a nevicare", tags: [tense-aspect]}
+    - learner: "Sì! Abbiamo fatto un pupazzo enorme in piazza. Era la prima volta che vedevo la neve."
+    - tutor: "Che ricordo meraviglioso! Scommetto che era il pupazzo più bello dell'Andalusia."
+      goals: [event]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao! Sono stato in Norvegia con due amici. Abbiamo preso un camper per dieci giorni."
+    - tutor: "In camper, che bello! Dove siete andati?"
+      goals: [where]
+    - learner: "Siamo partiti da Oslo e siamo saliti fino alle isole Lofoten."
+    - tutor: "Che viaggio! E il tempo? Lassù fa freddo anche d'estate."
+    - learner: "Sì, faceva fresco, ma c'era quasi sempre il sole. E il sole non tramontava mai, neanche a mezzanotte!"
+    - tutor: "Il sole di mezzanotte, che fortuna! Cosa facevate durante il giorno?"
+      goals: [weather]
+    - learner: "Camminavamo in montagna quasi ogni giorno. Una sera, mentre abbiamo cucinato vicino al lago, è arrivato un alce!"
+      errors: [tense-aspect]
+    - tutor: "Un alce, incredibile! Ma «mentre abbiamo cucinato»: era un'azione in corso quando è arrivato l'alce."
+      prompt: {text: "mentre abbiamo cucinato", tags: [tense-aspect]}
+    - learner: "Mentre cucinavamo, è arrivato un alce! Era enorme."
+    - tutor: "Avete fatto una foto?"
+      goals: [activities]
+    - learner: "Sì, ma il mio amico Tom l'ha spaventato e l'alce scappava subito nel bosco."
+      errors: [tense-aspect]
+    - tutor: "L'alce «scappava subito»? È stata un'azione unica e veloce."
+      prompt: {text: "scappava", tags: [tense-aspect]}
+    - learner: "Sì, scappava nel bosco e non l'abbiamo più visto."
+      errors: [tense-aspect]
+    - tutor: "Ah, l'animale è scappato nel bosco per colpa di Tom! Allora qual è stato il momento più bello?"
+      recast: {text: "scappava", fix: "è scappato", tags: [tense-aspect]}
+    - learner: "L'alce, sicuramente! Ma anche le notti con il sole erano incredibili."
+    - tutor: "Ti credo! Mi hai convinto: l'anno prossimo ci vado anch'io."
+      goals: [best]

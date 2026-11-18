@@ -1,0 +1,252 @@
+# t-future, file 06: B1 trains, cooking, health and holidays (saprò, bollirà, sarà, costerà, passerà, verrà, potrete, farà, divertiranno, correrò, nuoteremo, rivedremo).
+- scenario: biglietto-treno
+  level: B1
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei un billete per Napoli per domani mattina."
+      errors: [word-choice]
+    - tutor: "Certo, un biglietto per Napoli. C'è un treno veloce alle sette: solo andata?"
+      goals: [destination]
+      recast: {text: "un billete", fix: "un biglietto", tags: [word-choice]}
+    - learner: "No, andata e ritorno. Tornerò sabato, ma non so a che ora: lo saberò venerdì."
+      errors: [future-form]
+      gold: {text: "saberò", fix: "saprò"}
+    - tutor: "Lo saberò? Sembra spagnolo! Come fa sapere al futuro in italiano?"
+      prompt: {text: "saberò", tags: [future-form]}
+    - learner: "Lo saprò venerdì, dipende dal lavoro."
+    - tutor: "Allora le consiglio un biglietto che si può cambiare: costa un po' di più, ma può scegliere l'orario dopo."
+      goals: [type]
+    - learner: "Va bene, prendo quello. Seconda classe, con un tavolino: dovrò lavorare durante il viaggio."
+    - tutor: "Ecco: posto ventidue, con il tavolino. Sono centoventi euro in tutto."
+      goals: [class]
+    - learner: "Perfetto. Da quale binario partirà? Mia collega mi porterà i documenti alla stazione."
+      errors: [possessive]
+      gold: {text: "Mia collega", fix: "La mia collega"}
+    - tutor: "Partirà dal binario dieci. Ma mia collega? Con collega, al singolare, cosa serve prima di mia?"
+      goals: [platform]
+      prompt: {text: "Mia collega", tags: [possessive]}
+    - learner: "La mia collega mi porterà i documenti."
+    - tutor: "Benissimo. Allora arrivi un po' prima, così avete tempo. Buon viaggio!"
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: en-m-heritage
+  history: [future-form]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Facciamo la carbonara di mia nonna! Servono guanciale, uova, pecorino e pepe."
+    - tutor: "Adoro la carbonara! Da dove cominciamo?"
+      goals: [ingredients]
+    - learner: "Prima metti l'acqua sul fuoco. Quando bollerà, butteremo la pasta."
+      errors: [future-form]
+      gold: {text: "bollerà", fix: "bollirà"}
+    - tutor: "Bollerà? Pensa all'infinito di questo verbo: finisce come dormire."
+      prompt: {text: "bollerà", tags: [future-form]}
+    - learner: "Quando bollirà, butteremo la pasta. Intanto taglia il guanciale e cuocilo in padella senza olio."
+    - tutor: "Fatto, il guanciale è già in padella. Quanto ci vuole per la pasta?"
+      goals: [steps]
+    - learner: "Dieci minuti. Quando la pasta sarrà pronta, la metteremo in padella con le uova."
+      errors: [future-form]
+      gold: {text: "sarrà", fix: "sarà"}
+    - tutor: "Sarrà? Ascolta bene essere al futuro: è più corto di così."
+      prompt: {text: "sarrà", tags: [future-form]}
+    - learner: "Sì, sì: la pasta sarrà pronta tra dieci minuti."
+      errors: [future-form]
+    - tutor: "Perfetto, tra dieci minuti la pasta sarà pronta. Io adesso sbatto le uova con il formaggio."
+      goals: [time]
+      recast: {text: "sarrà", fix: "sarà", tags: [future-form]}
+    - learner: "Attenzione, le uova non devono cuocere troppo, altrimenti diventa una frittata! Poi la serviamo subito, con tanto pepe."
+    - tutor: "Va bene! Prendo i piatti e la mangiamo bella calda."
+      goals: [serve]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Stamattina, mentre ho guidato in autostrada, si è accesa una luce rossa."
+      errors: [tense-aspect]
+      gold: {text: "ho guidato", fix: "guidavo"}
+    - tutor: "Mentre ho guidato? Qui un'azione era in corso quando è successo qualcosa."
+      goals: [describe]
+      prompt: {text: "ho guidato", tags: [tense-aspect]}
+    - learner: "Mentre guidavo in autostrada. Mi sono fermata subito e ho chiamato mio padre: lui dice che sarà l'olio."
+    - tutor: "Suo padre avrà ragione, succede spesso. Controllo subito."
+      goals: [when]
+    - learner: "Grazie. Quanto costarà? Sono una studentessa e non ho molti soldi."
+      errors: [future-form]
+      gold: {text: "costarà", fix: "costerà"}
+    - tutor: "Costarà? Attenzione: costare al futuro non tiene la a."
+      prompt: {text: "costarà", tags: [future-form]}
+    - learner: "Quanto costerrà, più o meno?"
+      errors: [future-form]
+    - tutor: "Se è solo l'olio, costerà circa trenta euro, non di più."
+      goals: [cost]
+      recast: {text: "costerrà", fix: "costerà", tags: [future-form]}
+    - learner: "Meno male! E quando sarà pronta? Domani parto per Firenze."
+    - tutor: "Tra un'ora è pronta. Se vuole, può aspettare al bar qui accanto."
+      goals: [time]
+
+- scenario: medico-base
+  level: B1
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Da tre giorni ho mal di testa e mal di gola, e ieri sera avevo la febbre."
+    - tutor: "Capisco. Prende già qualche medicina? È allergica a qualcosa?"
+      goals: [symptoms, since-when]
+    - learner: "Ho preso solo un'aspirina. Sono allergica a la penicillina."
+      errors: [articulated-preposition]
+      gold: {text: "a la penicillina", fix: "alla penicillina"}
+    - tutor: "A la penicillina? In italiano queste due parole diventano una."
+      prompt: {text: "a la penicillina", tags: [articulated-preposition]}
+    - learner: "Sono allergica alla penicillina."
+    - tutor: "Allora le do un antibiotico diverso: una pastiglia ogni dodici ore, per sei giorni. Mi ripete?"
+      goals: [history]
+      new: [{lemma: pastiglia, gloss: tablet}, {lemma: antibiotico, gloss: antibiotic}]
+    - learner: "Una pastiglia ogni dodici ore, per sei giorni. Lunedì devo viaggiare: il mal di gola passarà?"
+      errors: [future-form]
+      gold: {text: "passarà", fix: "passerà"}
+    - tutor: "Passarà? Pensi a come cambia passare al futuro."
+      goals: [instructions]
+      prompt: {text: "passarà", tags: [future-form]}
+    - learner: "Il mal di gola passerrà per lunedì?"
+      errors: [future-form]
+    - tutor: "Sì, con la medicina il mal di gola passerà in due o tre giorni. Beva molto e riposi."
+      recast: {text: "passerrà", fix: "passerà", tags: [future-form]}
+    - learner: "Grazie, dottore. Allora lunedì partirò tranquilla."
+    - tutor: "Buon viaggio, e se ha ancora la febbre venerdì, mi telefoni."
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare per venerdì sera: festeggeremo la laurea di mia figlia. Saremo dodici, forse tredici: mio cognato non sa ancora se venirà."
+      errors: [future-form]
+      gold: {text: "venirà", fix: "verrà"}
+    - tutor: "Congratulazioni! Ma se venirà? Attenzione, venire al futuro è speciale."
+      goals: [book]
+      prompt: {text: "venirà", tags: [future-form]}
+    - learner: "Mio cognato non sa ancora se verrà."
+    - tutor: "Nessun problema, preparo un tavolo per tredici. A che ora arrivate?"
+    - learner: "Alle otto. Due ospiti sono celiaci: poterete preparare la pasta senza glutine?"
+      errors: [future-form]
+      gold: {text: "poterete", fix: "potrete"}
+    - tutor: "Poterete? Pensi a potere al futuro: perde la e."
+      goals: [details]
+      prompt: {text: "poterete", tags: [future-form]}
+    - learner: "Potrete preparare la pasta senza glutine?"
+    - tutor: "Sì, certo, abbiamo la pasta senza glutine. Vuole anche un dolce per la festa?"
+    - learner: "No, grazie, porto io la torta: la farerà una pasticceria vicino a casa."
+      errors: [future-form]
+      gold: {text: "farerà", fix: "farà"}
+    - tutor: "La farerà? Il futuro di fare è più semplice di così."
+      prompt: {text: "farerà", tags: [future-form]}
+    - learner: "La fararà una pasticceria."
+      errors: [future-form]
+    - tutor: "Va benissimo, se la farà una pasticceria la teniamo al fresco appena arriva. A che nome prenoto?"
+      goals: [special]
+      recast: {text: "fararà", fix: "farà", tags: [future-form]}
+    - learner: "A nome Taylor. Grazie mille!"
+    - tutor: "Grazie a lei, signora. A venerdì, e brava sua figlia!"
+      goals: [name]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+    - learner: "Abitavo in un paesino vicino a Valencia. C'erano aranci dappertutto."
+    - tutor: "Che bello! E cosa facevi d'estate?"
+      goals: [place]
+    - learner: "D'estate ho giocato a calcio con i miei cugini fino a sera."
+      errors: [tense-aspect]
+      gold: {text: "ho giocato", fix: "giocavo"}
+    - tutor: "Ho giocato? Racconti una cosa che facevi tutte le estati: quale passato usi?"
+      prompt: {text: "ho giocato", tags: [tense-aspect]}
+    - learner: "D'estate giocavo a calcio fino a sera, e mia nonna ci chiamava dalla finestra."
+    - tutor: "Che bel ricordo! E a scuola? C'è un giorno che non dimentichi?"
+      goals: [habits]
+    - learner: "A scuola ero bravo in storia. Una volta abbiamo fatto una gita a Madrid e mi sono perso nel museo!"
+    - tutor: "Che paura! Torni ancora in quel paesino?"
+      goals: [school, event]
+    - learner: "Sì, quest'estate ci porterò i miei figli. Si diverteranno tantissimo con i cugini."
+      errors: [future-form]
+      gold: {text: "diverteranno", fix: "divertiranno"}
+    - tutor: "Si diverteranno? Attenzione all'infinito: divertirsi."
+      prompt: {text: "diverteranno", tags: [future-form]}
+    - learner: "Si divertaranno tantissimo."
+      errors: [future-form]
+    - tutor: "Sicuramente i tuoi figli si divertiranno, e conosceranno il paese del papà!"
+      recast: {text: "Si divertaranno", fix: "si divertiranno", tags: [future-form]}
+    - learner: "Speriamo! E tu? Dove passavi l'estate da piccolo?"
+    - tutor: "Dai miei nonni in montagna. Niente mare, ma tanti boschi e fiumi."
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-f-erasmus
+  history: [future-form]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Studio tanto e dormo poco: dormo meno che le mie amiche. E mangio molta pizza."
+      errors: [comparative]
+      gold: {text: "meno che le mie amiche", fix: "meno delle mie amiche"}
+    - tutor: "Meno che le mie amiche? Qui confronti te con le tue amiche: quale parola serve?"
+      prompt: {text: "meno che le mie amiche", tags: [comparative]}
+    - learner: "Dormo meno delle mie amiche."
+    - tutor: "Capisco, con lo studio è difficile! Qual è il tuo obiettivo?"
+      goals: [habits]
+    - learner: "Voglio dormire di più e fare sport. A maggio farò una corsa di dieci chilometri, ma con gli esami non ho mai tempo."
+    - tutor: "Dieci chilometri, che bello! Dopo gli esami, però, potrai allenarti. Cosa pensi di fare?"
+      goals: [goal, obstacles]
+    - learner: "Il martedì e il giovedì corerò al parco."
+      errors: [future-form]
+      gold: {text: "corerò", fix: "correrò"}
+    - tutor: "Corerò? Ascolta bene correre: anche al futuro il suono è forte."
+      prompt: {text: "corerò", tags: [future-form]}
+    - learner: "Il martedì e il giovedì correrò al parco."
+    - tutor: "Ottimo. E il fine settimana?"
+    - learner: "Il sabato io e le mie amiche nuotaremo in piscina."
+      errors: [future-form]
+      gold: {text: "nuotaremo", fix: "nuoteremo"}
+    - tutor: "Nuotaremo? Attenzione a nuotare al futuro: la a cambia."
+      prompt: {text: "nuotaremo", tags: [future-form]}
+    - learner: "Nuoteremo in piscina il sabato."
+    - tutor: "Perfetto: corsa martedì e giovedì, piscina il sabato e almeno sette ore di sonno. Ci vediamo tra due settimane!"
+      goals: [plan]
+
+- scenario: vacanze-passate
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Sono stato in Puglia con il mio compagno, due settimane."
+      errors: [participle-agreement]
+      gold: {text: "Sono stato", fix: "Sono stata"}
+    - tutor: "Sono stato? Pensa a chi parla: una donna."
+      prompt: {text: "Sono stato", tags: [participle-agreement]}
+    - learner: "Sono stata in Puglia. Faceva caldissimo, ma c'era sempre un po' di vento."
+    - tutor: "Che bello, la Puglia! E cosa avete fatto?"
+      goals: [where, weather]
+    - learner: "Abbiamo rentato una macchina e abbiamo visitato tanti paesini sul mare."
+      errors: [word-choice]
+    - tutor: "Avete noleggiato una macchina? Bravi, in Puglia serve! Cosa ti è piaciuto di più?"
+      goals: [activities]
+      recast: {text: "rentato una macchina", fix: "noleggiato una macchina", tags: [word-choice]}
+      new: [{lemma: noleggiare, gloss: to rent a vehicle}]
+    - learner: "Il mare, era trasparente! L'anno prossimo ci torneremo e rivederemo i nostri amici di Lecce."
+      errors: [future-form]
+      gold: {text: "rivederemo", fix: "rivedremo"}
+    - tutor: "Rivederemo? Pensa al futuro di vedere: è più corto."
+      goals: [best]
+      prompt: {text: "rivederemo", tags: [future-form]}
+    - learner: "Rivedremo i nostri amici. A marzo avranno un bambino!"
+    - tutor: "Che bella notizia! Allora l'anno prossimo in Puglia troverete un amico in più."

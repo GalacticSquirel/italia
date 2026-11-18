@@ -1,0 +1,207 @@
+# Set t-unclear, file 3: A2 services. Unknown names get a plain question (no correction), plural
+# «voi» to a family business and short spoken answers stay uncorrected; real errors get clues.
+- scenario: autobus
+  level: A2
+  persona: en-f-student
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno! Dove deve andare?"
+  - learner: "Buongiorno! Vado a l'ospedale. Questo autobus ci va?"
+    errors: [articulated-preposition]
+  - tutor: "A l'ospedale? Quando «a» incontra «l'», le due parole si uniscono."
+    prompt: {text: "a l'ospedale", tags: [articulated-preposition]}
+  - learner: "All'ospedale!"
+  - tutor: "Sì, questo va all'ospedale. Sono sei fermate."
+    goals: [route]
+  - learner: "Va bene. E il biglietto?"
+  - tutor: "Lo compra in tabaccheria, lì davanti."
+    goals: [ticket]
+  - learner: "Ah, aspetti, Marco ha due biglietti."
+  - tutor: "Chi è Marco? È con lei?"
+  - learner: "Sì, è mio marito. Eccolo, arriva!"
+  - tutor: "Bene! Allora salite, partiamo tra un minuto."
+  - learner: "Dove scendiamo per il pronto soccorso?"
+  - tutor: "Scendete all'ultima fermata, proprio davanti all'entrata."
+    goals: [stop]
+  - learner: "Grazie mille, è molto gentile."
+  - tutor: "Prego, buona giornata!"
+    goals: [thank]
+
+- scenario: biglietto-treno
+  level: A2
+  persona: es-m-worker
+  turns:
+  - tutor: "Buongiorno, dove deve andare?"
+  - learner: "A Firenze, domani mattina."
+  - tutor: "Bene. Solo andata o andata e ritorno?"
+    goals: [destination]
+  - learner: "Andata e ritorno. Torno sabato. Vorrei lo stesso treno di Ana."
+  - tutor: "Di Ana? Scusi, non so chi è. A che ora parte il suo treno?"
+  - learner: "Alle otto e dieci, credo."
+  - tutor: "Ah, il regionale delle otto e dieci. Va bene."
+    goals: [type]
+  - learner: "Quanto costa il boleto in seconda classe?"
+    errors: [word-choice]
+  - tutor: "Allora, il biglietto in seconda classe costa ventotto euro, andata e ritorno."
+    recast: {text: "il boleto", fix: "il biglietto", tags: [word-choice]}
+    goals: [class]
+  - learner: "Perfetto. Da che binario parte?"
+  - tutor: "Dal binario tre. Buon viaggio!"
+    goals: [platform]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-m-heritage
+  history: [past-participle-form]
+  turns:
+  - tutor: "Buongiorno! Ha visto il cartello?"
+  - learner: "Sì, l'ho visto! Cercate ancora un cameriere?"
+  - tutor: "Sì, per tutta l'estate. Ha esperienza?"
+    goals: [ask]
+  - learner: "Sì, ho lavorato due estati in una pizzeria. Il signor Gallo mi ha detto di venire."
+  - tutor: "Il signor Gallo? Scusi, chi è?"
+  - learner: "È il vicino di mia nonna. Lui viene qui ogni mattina."
+  - tutor: "Ah, Franco! Certo, prende sempre il caffè qui."
+    goals: [experience]
+  - learner: "Sono disponibile da lunedì, anche la sera."
+  - tutor: "Benissimo. Mi lascia un numero di telefono?"
+    goals: [availability]
+  - learner: "Sì, l'ho scrivuto sul curriculum."
+    errors: [past-participle-form]
+  - tutor: "Scrivuto? Attenzione, scrivere ha una forma speciale."
+    prompt: {text: "scrivuto", tags: [past-participle-form]}
+  - learner: "L'ho scritto sul curriculum. Eccolo."
+  - tutor: "Esatto, grazie! La chiamo domani."
+    goals: [contact]
+
+- scenario: lavanderia
+  level: A2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+  - tutor: "Tutto bene? Hai bisogno di una mano?"
+  - learner: "Sì, grazie! La lavatrice non parte. Ieri Pedro l'ha usata e funzionava."
+  - tutor: "Pedro? Chi è, un amico?"
+    goals: [problem]
+  - learner: "Sì, viviamo insieme. Il gettone, dove lo compro?"
+  - tutor: "Lì a destra, con le monete."
+  - learner: "Le monete? Non ho."
+    errors: [ci-ne]
+  - tutor: "Non ho? Per non ripetere «monete», quale pronome usiamo?"
+    prompt: {text: "Non ho", tags: [ci-ne]}
+  - learner: "Non ne ho! Solo la carta."
+  - tutor: "Nessun problema, lì si paga anche con la carta."
+    goals: [payment]
+  - learner: "E poi? Che programma uso?"
+  - tutor: "Per i colori, quaranta gradi. Prima metti il detersivo qui."
+    goals: [ask-how]
+  - learner: "Fatto! Grazie mille, sei gentilissima."
+  - tutor: "Di niente! Ciao!"
+    goals: [thank]
+
+- scenario: medico-base
+  level: A2
+  persona: en-m-retired
+  history: [essere-avere]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+  - learner: "Ho mal di gola e la notte sono freddo."
+    errors: [essere-avere]
+  - tutor: "Sono freddo? Per dire come si sente lei, usiamo un altro verbo."
+    prompt: {text: "sono freddo", tags: [essere-avere]}
+  - learner: "Ah, ho freddo la notte."
+  - tutor: "Capisco, forse ha un po' di febbre. Da quanto tempo sta male?"
+    goals: [symptoms]
+  - learner: "Da sabato. Prima solo la tosse, poi la gola."
+  - tutor: "Va bene. È allergico a qualche medicina?"
+    goals: [since-when]
+  - learner: "No. Ma prendo le pillole di Sandra."
+  - tutor: "Le pillole di Sandra? Chi è Sandra? E che pillole sono?"
+  - learner: "Mia moglie! Sono per il mal di testa."
+  - tutor: "Va bene, ma per tre giorni non le prenda. Le scrivo uno sciroppo."
+    goals: [history]
+    new: [{lemma: sciroppo, gloss: syrup}]
+  - learner: "Allora niente pillole e lo sciroppo tre volte al giorno?"
+  - tutor: "Esatto, dopo pranzo e dopo cena. E beva molta acqua."
+    goals: [instructions]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+  - tutor: "Buongiorno! Vuole una bicicletta?"
+  - learner: "Sì, due biciclette, per me e per Jack."
+  - tutor: "Jack è un bambino?"
+    goals: [ask]
+  - learner: "Sì, ha dieci anni. È mio figlio."
+  - tutor: "Va bene, ho una bicicletta piccola perfetta. Per quanto tempo?"
+  - learner: "Per tutta la giornata. Torniamo stasera alle sei."
+  - tutor: "Perfetto, allora fino alle sei."
+    goals: [duration]
+  - learner: "Poteremo avere anche due caschi?"
+    errors: [future-form]
+  - tutor: "Poteremo? Il futuro di potere è più corto, come «andrò»."
+    prompt: {text: "Poteremo", tags: [future-form]}
+  - learner: "Potremo avere due caschi?"
+  - tutor: "Sì, i caschi sono nel prezzo. In tutto sono trenta euro."
+    goals: [price]
+  - learner: "Ottimo. C'è un bel percorso per un bambino?"
+  - tutor: "Sì, il giro del lago: è facile e molto tranquillo."
+    goals: [route]
+
+- scenario: parrucchiere
+  level: A2
+  persona: es-f-teacher
+  history: [object-pronoun]
+  turns:
+  - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+  - learner: "Taglio e piega, come l'ultima volta con Gianna."
+  - tutor: "Con Gianna? Scusi, chi è? Qui lavoriamo solo io e mia sorella."
+    goals: [book]
+  - learner: "Oh, scusi, era un altro negozio! Allora voi siete sorelle?"
+  - tutor: "Sì, da quindici anni insieme! Quanto corti li vuole?"
+  - learner: "Più corti di adesso, qui sulle spalle."
+  - tutor: "Va bene. E la frangia?"
+    goals: [length]
+  - learner: "La frangia lo taglia poco, per favore."
+    errors: [object-pronoun]
+  - tutor: "Lo taglia? Frangia è femminile: quale pronome serve?"
+    prompt: {text: "lo taglia", tags: [object-pronoun]}
+  - learner: "La taglia poco, per favore."
+  - tutor: "Perfetto. Vuole anche un colore più chiaro?"
+  - learner: "No, grazie, il mio colore mi piace così."
+  - tutor: "Ha ragione, sta benissimo così."
+    goals: [style]
+  - learner: "Quanto le devo?"
+  - tutor: "Sono trentacinque euro. Grazie e a presto!"
+    goals: [pay]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-m-traveller
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno, mi dica."
+  - learner: "Buongiorno. Vorrei spedire questo pacco in Stati Uniti."
+    errors: [articulated-preposition]
+  - tutor: "In Stati Uniti? Ricordi: diciamo «gli Stati Uniti», con l'articolo."
+    prompt: {text: "in Stati Uniti", tags: [articulated-preposition]}
+  - learner: "Sì, in Stati Uniti, a Chicago."
+    errors: [articulated-preposition]
+  - tutor: "Bene, negli Stati Uniti. Spedizione normale o veloce?"
+    recast: {text: "in Stati Uniti", fix: "negli Stati Uniti", tags: [articulated-preposition]}
+    goals: [send]
+  - learner: "Veloce, per favore. È per il compleanno di Bob, venerdì."
+  - tutor: "Bob è un amico?"
+  - learner: "No, mio nipote. Compie sei anni!"
+  - tutor: "Che bello! Con la spedizione veloce arriva in quattro giorni."
+    goals: [speed]
+  - learner: "Perfetto. Cosa scrivo qui?"
+  - tutor: "L'indirizzo e che cosa c'è nel pacco."
+  - learner: "Fatto: un libro e un gioco."
+  - tutor: "Benissimo. Sono quarantadue euro."
+    goals: [form]
+  - learner: "Ecco. Mi dà la ricevuta?"
+  - tutor: "Certo, eccola. Buona giornata!"
+    goals: [pay]
