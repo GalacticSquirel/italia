@@ -1,0 +1,255 @@
+# B1, real learner sentences: hotel complaints, a faulty product, a noisy neighbour.
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-professional
+  history: [preposition]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    # merlin-1325_9000089-3
+    - learner: "L'annuncia prometteva aria condizionata e campi di tennis."
+      errors: [noun-gender, preposition]
+      gold: {text: "campi di tennis", fix: "campi da tennis"}
+    - tutor: "Campi «di» tennis? Sono campi fatti per giocare: che preposizione usiamo?"
+      prompt: {text: "campi di tennis", tags: [preposition]}
+    - learner: "Campi da tennis, sì. Ma il problema è che l'aria condizionata in camera non funziona!"
+    - tutor: "Esatto. Oh, mi dispiace molto. Da quando non funziona?"
+      goals: [problem]
+    - learner: "Da ieri sera. Vorrei cambiare camera, per favore: con questo caldo non si dorme."
+    - tutor: "Ha ragione. Ho una camera libera al terzo piano, posso dargliela subito."
+      goals: [since, request]
+    # merlin-1325_9000095-3
+    - learner: "Ma questo non è tutto."
+    - tutor: "Mi dica pure, l'ascolto."
+    # merlin-1325_9000138-4
+    - learner: "Anche altre possibilità di divertimento erano indisponibili, come per esempio i campi da tennis."
+    - tutor: "È vero, i campi sono chiusi per lavori, mi scusi. Domani le offriamo un'ora di tennis nel club qui vicino."
+    # merlin-1325_1001018-8
+    - learner: "Questo viaggio era costoso e ho dovuto risparmiare per un anno."
+    - tutor: "Lo capisco benissimo. Allora le tolgo anche la cena di stasera dal conto. Le va bene così?"
+    # merlin-1325_1001046-11
+    - learner: "Grazie per la Sua attenzione."
+    - tutor: "Si figuri, è il mio lavoro. Ecco la chiave della nuova camera: buonanotte!"
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    # merlin-1325_9000674-6
+    - learner: "In piscina c'era sempre un sacco della gente, affollata tutti i giorni."
+      errors: [articulated-preposition]
+      gold: {text: "un sacco della gente", fix: "un sacco di gente"}
+    - tutor: "Un sacco «della» gente? Dopo «un sacco», ci vuole proprio l'articolo?"
+      prompt: {text: "un sacco della gente", tags: [articulated-preposition]}
+    - learner: "Sì, un sacco della gente, e non si può nuotare."
+      errors: [articulated-preposition]
+    - tutor: "Eh sì, un sacco di gente: in agosto la piscina è sempre piena, purtroppo. Da quando avete questo problema?"
+      recast: {text: "un sacco della gente", fix: "un sacco di gente", tags: [articulated-preposition]}
+      goals: [problem]
+    - learner: "Da quando siamo arrivati, cinque giorni fa. Mio figlio non ha mai fatto il bagno!"
+    - tutor: "Mi dispiace davvero. Che cosa posso fare per lei?"
+      goals: [since]
+    # merlin-1325_9000089-7
+    - learner: "Per questo mi voglio lamentare e voglio richiedere di un parziale rimborso perché devo lavorare molto duro per il denaro e non è facile per me di viaggiare con la mia moglie e mio figlio."
+      errors: [preposition, possessive]
+      gold: {text: "richiedere di un parziale rimborso", fix: "richiedere un parziale rimborso"}
+    - tutor: "«Richiedere di» un rimborso? Il verbo «richiedere» vuole davvero la preposizione?"
+      prompt: {text: "richiedere di un parziale rimborso", tags: [preposition]}
+    - learner: "Voglio richiedere un parziale rimborso, per favore."
+    - tutor: "Esatto. Non posso deciderlo io, ma domani mattina la chiama il direttore. Per ora le offro l'ingresso alla piscina comunale, che è più tranquilla."
+      goals: [request]
+    # merlin-1365_0100175-7
+    - learner: "Spero di ricevere presto una risposta!"
+    - tutor: "Sicuramente entro domani. Ecco i biglietti per la piscina: buonanotte, e mi scusi ancora."
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sono venuta qui per fare sport, ma è tutto chiuso!"
+    - tutor: "Mi dispiace. Che cosa non ha trovato, esattamente?"
+    # merlin-1325_9000141-6
+    - learner: "Inoltre, non ci sono stati dei corsi di nuoto, vela e surf perchè il professore è stato ammalato."
+      errors: [tense-aspect, spelling]
+      gold: {text: "è stato ammalato", fix: "era ammalato"}
+    - tutor: "Il professore «è stato» ammalato? Descrive come stava in quei giorni: che tempo usiamo?"
+      prompt: {text: "è stato ammalato", tags: [tense-aspect]}
+    - learner: "Perché il professore era ammalato, già da lunedì."
+    - tutor: "Esatto. Purtroppo è ancora a casa con la febbre. Quindi quattro giorni senza corsi."
+      goals: [problem, since]
+    # merlin-1325_1001018-6
+    - learner: "per quanto riguarda il trattamento non mi lamento, peró la possibilità per fare dello sport era orribile."
+      errors: [preposition, spelling]
+      gold: {text: "possibilità per fare", fix: "possibilità di fare"}
+    - tutor: "La possibilità «per» fare sport? Dopo «possibilità», quale preposizione usiamo?"
+      prompt: {text: "possibilità per fare", tags: [preposition]}
+    - learner: "Sì, la possibilità per fare sport era zero!"
+      errors: [preposition]
+    - tutor: "Capisco: la possibilità di fare sport era zero, e lei è venuta proprio per questo. Che cosa possiamo fare?"
+      recast: {text: "possibilità per fare", fix: "possibilità di fare", tags: [preposition]}
+    - learner: "Vorrei uno sconto, oppure un altro corso nei prossimi giorni."
+    - tutor: "Domani arriva un professore di Rimini, quindi i corsi ricominciano. E le offro il dieci per cento di sconto."
+      goals: [request]
+    # merlin-1365_0100079-1
+    - learner: "Mi piacerebbe frequentare i corsi estivi al mare."
+    - tutor: "Perfetto, allora domani le prenoto un posto al primo corso, alle nove. Buona serata!"
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-f-teacher
+  history: [conditional-form]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Sì. Sul vostro sito c'è scritto che c'è un pulmino per il centro, ma oggi non è passato."
+    - tutor: "Ha ragione, oggi il nostro collega che guida era malato. Non è riuscita ad andare in città?"
+      goals: [problem]
+    # merlin-1325_9000674-3
+    - learner: "C'erano pochi collegamenti con questo posto e non è stato possibile giungierlo senza la macchina."
+      errors: [word-choice]
+      gold: {text: "giungierlo", fix: "raggiungerlo"}
+    - tutor: "Eh sì, senza macchina è difficile raggiungerlo, purtroppo. Ha avuto questo problema anche nei giorni scorsi?"
+      recast: {text: "giungierlo", fix: "raggiungerlo", tags: [word-choice]}
+    - learner: "Anche ieri. Ho chiamato la reception, ma nessuno mi ha contestato, quindi ho preso un taxi e ho pagato quaranta euro."
+      errors: [false-friend]
+      gold: {text: "contestato", fix: "risposto"}
+    - tutor: "Nessuno le ha risposto? Mi scusi davvero. Quaranta euro, accidenti! Non poteva andare a piedi fino all'autobus?"
+      recast: {text: "contestato", fix: "risposto", tags: [false-friend]}
+      goals: [since]
+    # merlin-1395_0000387-1
+    - learner: "Sono stata operata al ginocchio tre settimane fa."
+    - tutor: "Ah, allora capisco, la fermata è troppo lontana per lei. Che cosa possiamo fare?"
+    - learner: "Vorrebbi il rimborso del taxi, per favore."
+      errors: [conditional-form]
+      gold: {text: "Vorrebbi", fix: "Vorrei"}
+    - tutor: "«Vorrebbi»? Pensi al condizionale di «volere» con «io»."
+      prompt: {text: "Vorrebbi", tags: [conditional-form]}
+    - learner: "Vorrei il rimborso del taxi e un passaggio per domani."
+    - tutor: "Esatto. Le rimborso i quaranta euro e domani alle nove la porta in centro il mio collega."
+      goals: [request]
+    - learner: "Grazie mille, è stato molto gentile."
+    - tutor: "Si figuri, ci mancherebbe. Allora domani alle nove qui davanti. Buona notte!"
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-f-student
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questo frullatore sabato, ma non lavora più."
+      errors: [word-choice]
+      gold: {text: "non lavora", fix: "non funziona"}
+    - tutor: "Vediamo... in effetti non funziona. Ha lo scontrino?"
+      recast: {text: "non lavora", fix: "non funziona", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Sì, eccolo. Era un regalo per i miei amici, ma lo ho provato prima e non funziona."
+      errors: [object-pronoun]
+      gold: {text: "lo ho provato", fix: "l'ho provato"}
+    - tutor: "«Lo ho» provato? Davanti a «ho», che cosa succede a «lo»?"
+      prompt: {text: "lo ho provato", tags: [object-pronoun]}
+    - learner: "L'ho provato a casa e non si accende."
+    - tutor: "Esatto. Sì, vedo lo scontrino: è di cinque giorni fa. Che cosa preferisce, il cambio o i soldi indietro?"
+      goals: [proof]
+    # merlin-1365_0100183-10
+    - learner: "Deve essere una sorpresa."
+    - tutor: "Allora è meglio cambiarlo subito, così il regalo è pronto. Gliene prendo uno nuovo uguale?"
+    # merlin-1365_0100173-5
+    - learner: "Forse qualcosa per la cucina?"
+    - tutor: "Sì, può scegliere un altro oggetto per la cucina, anche più caro: paga solo la differenza."
+      goals: [request]
+    - learner: "Allora prendo questa macchina per il caffè. Quanto devo aggiungere?"
+    - tutor: "Venti euro. Ecco la nuova macchina per il caffè e il nuovo scontrino."
+    # merlin-1325_1001083-5
+    - learner: "Posso pagare con carta di credito?"
+    - tutor: "Certo, ecco qui. E auguri ai suoi amici!"
+      goals: [agree]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_9000684-5
+    - learner: "Con la presente Vi sottopongo il mio curriculum vitae."
+    - tutor: "Grazie, lo guardo subito. Quanti anni ha?"
+    # merlin-1325_1001095-1
+    - learner: "Ho 25 anni."
+    - tutor: "E dopo la scuola che cosa ha fatto?"
+    - learner: "Ho finito il liceo a Valencia, poi ho lavorato un anno in un negozio di mobili."
+    - tutor: "E poi?"
+      goals: [intro]
+    # merlin-1325_1001093-2
+    - learner: "Dopo aver fatto questo, ho cominciato a studiare all'Università di Valencia."
+    - tutor: "Bene. E com'è il suo inglese? Lavoriamo molto con clienti inglesi."
+      goals: [experience]
+    - learner: "Ho fatto l'Erasmus a Manchester per un anno e ho lavorato in un gruppo con studenti di tutto il mondo."
+    - tutor: "Un anno in Inghilterra, quindi."
+    # merlin-1325_1001167-5
+    - learner: "Così ho un'ottima produzione e comprensione scritta e orale in inglese."
+    - tutor: "Ottimo, è proprio quello che ci serve. La chiameremo presto."
+      goals: [strengths]
+    # merlin-1365_0100186-13
+    - learner: "Aspetto la vostra risposta."
+    - tutor: "Entro la fine della settimana. Grazie e arrivederci!"
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-f-student
+  history: [object-pronoun]
+  turns:
+    - tutor: "Sì? Buongiorno, posso aiutarla?"
+    - learner: "Buongiorno, sono Emma, abito qui sotto. Scusi, ma stanotte la musica era molto alta e non ho potuto dormire fino alle tre."
+    - tutor: "Piacere, Emma! Oh, mi dispiace tanto: era la festa di mio figlio, ha compiuto diciotto anni."
+      goals: [greet, problem]
+    # merlin-1365_0100121-4
+    - learner: "Farò proprio oggi l'esame."
+    - tutor: "Oggi? Oh no, mi scusi davvero! E in bocca al lupo."
+    - learner: "Grazie. Potrebbe dirlo a suo figlio di abbassare la musica dopo le undici?"
+      errors: [object-pronoun]
+      gold: {text: "dirlo a suo figlio di abbassare", fix: "dire a suo figlio di abbassare"}
+    - tutor: "«Dirlo» a suo figlio di abbassare? Quel «lo» serve davvero?"
+      prompt: {text: "dirlo a suo figlio di abbassare", tags: [object-pronoun]}
+    - learner: "Potrebbe dire a suo figlio di abbassare la musica dopo le undici?"
+    - tutor: "Esatto. Certo, glielo dico stasera. Però sabato fa un'altra festa con gli amici..."
+      goals: [request]
+    - learner: "Il sabato va bene fino a mezzanotte, ma gli altri giorni no."
+    - tutor: "Mi sembra giusto. Facciamo così, e se c'è un problema bussi pure!"
+      goals: [compromise]
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: en-f-student
+  history: [noun-gender]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E quest'anno c'è una novità: io e Paolo ci sposiamo a maggio!"
+    # merlin-1365_0100139-2
+    - learner: "Mille congratulazioni - veramente!"
+    - tutor: "Grazie! Non ci credo ancora nemmeno io."
+    # merlin-1365_0100447-2
+    - learner: "Vorrei farvi i miei congratulazioni di tutto il mio cuore."
+      errors: [noun-gender]
+      gold: {text: "i miei congratulazioni", fix: "le mie congratulazioni"}
+    - tutor: "«I miei» congratulazioni? È una parola femminile: come cambia?"
+      prompt: {text: "i miei congratulazioni", tags: [noun-gender]}
+    - learner: "Le mie congratulazioni, di tutto cuore!"
+    - tutor: "Esatto. Grazie, sei un tesoro! Abbiamo già tanti progetti per il futuro."
+    # merlin-1365_0100289-6
+    - learner: "C'è un sogno che volete realizzare"
+    - tutor: "Sì: un viaggio in Giappone, lo sogniamo da anni!"
+    # merlin-1365_0100285-7
+    - learner: "Risparmiate per i nuovi mobili, per un viaggio o forse per un bambino?"
+    - tutor: "Per il viaggio, per ora! I bambini... vedremo più avanti."
+    # merlin-1365_0100093-4
+    - learner: "Finalmente, vorrei chiedervi cosa posso regalarvi."
+    - tutor: "Se vuoi, un piccolo aiuto per il Giappone! E a maggio vieni al matrimonio, vero?"
+      goals: [plan]
+    # merlin-1365_0100290-11
+    - learner: "Spero che ci vediamo al vostro matrimonio."
+    - tutor: "Certo, sei tra i primi invitati! Ora però mangiamo, se no la pasta diventa fredda."

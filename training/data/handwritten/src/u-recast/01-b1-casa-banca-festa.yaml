@@ -1,0 +1,248 @@
+# B1, recast-focused (u-recast): the learner fails to repair after a prompt and the tutor
+# recasts the learner's own span verbatim and early. Targets: relative pronouns, combined
+# pronouns, subjunctive after «vorrei che», comparatives, se + congiuntivo imperfetto.
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È più grande di quello che ho visto ieri! Quanto costa al mese?"
+    - tutor: "Sono settecentocinquanta euro, spese di condominio comprese. Il contratto è di quattro anni più quattro, con due mesi di caparra."
+      goals: [rent, contract]
+    - learner: "Va bene. E la camera? Ho bisogno di una stanza in che posso lavorare, perché lavoro anche da casa."
+      errors: [relative-pronoun]
+    - tutor: "«Una stanza in che posso lavorare»? Guardi la parola dopo «in»: dopo una preposizione, «che» va bene?"
+      prompt: {text: "in che", tags: [relative-pronoun]}
+    - learner: "Ah... sì, una stanza in che posso lavorare tranquillo, con una scrivania."
+      errors: [relative-pronoun]
+    - tutor: "Allora le serve una stanza in cui lavorare tranquillo: la seconda camera è perfetta, ha una grande finestra sul cortile."
+      recast: {text: "una stanza in che", fix: "una stanza in cui", tags: [relative-pronoun]}
+    - learner: "Perfetto. E il riscaldamento come funziona? Vedo anche una macchia sul soffitto del bagno."
+    - tutor: "Il riscaldamento è nuovo e funziona benissimo. La macchia è un vecchio problema del vicino di sopra, ormai risolto: a marzo abbiamo rifatto il bagno."
+      goals: [condition]
+    - learner: "E il quartiere com'è? E la spazzatura, dove si tira?"
+      errors: [false-friend]
+    - tutor: "La spazzatura si butta giù in cortile. Il quartiere è tranquillo, con un supermercato all'angolo e l'autobus a cinque minuti."
+      goals: [neighbourhood]
+      recast: {text: "si tira", fix: "si butta", tags: [false-friend]}
+    - learner: "Mi piace molto. Ci penso stasera e domani le telefono."
+    - tutor: "Benissimo, aspetto la sua telefonata. Buona serata!"
+      goals: [decide]
+
+- scenario: banca-conto
+  level: B1
+  persona: en-f-professional
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno, vorrei aprire un conto corrente. Mi sono appena trasferita a Torino per lavoro."
+    - tutor: "Benvenuta a Torino! Per aprire il conto mi servono un documento d'identità e il codice fiscale. Li ha con sé?"
+      goals: [purpose]
+    - learner: "Ho il passaporto, ma il codice fiscale ce l'ha mio marito in ufficio. Gli lo chiedo stasera."
+      errors: [combined-pronouns]
+    - tutor: "«Gli lo chiedo»? Ci sono due pronomi vicini: come diventano quando stanno insieme?"
+      prompt: {text: "Gli lo chiedo", tags: [combined-pronouns]}
+    - learner: "Ehm... sì, gli lo chiedo stasera e domani torno qui."
+      errors: [combined-pronouns]
+    - tutor: "D'accordo, glielo chieda stasera e torni pure domani mattina. Vuole sapere anche i costi?"
+      goals: [documents]
+      recast: {text: "gli lo", fix: "glielo", tags: [combined-pronouns]}
+    - learner: "Sì, grazie. Quanto è la tassa mensile del conto?"
+      errors: [word-choice]
+    - tutor: "Il costo mensile del conto base è di tre euro, ma per i primi sei mesi è gratis."
+      goals: [costs]
+      recast: {text: "la tassa mensile", fix: "il costo mensile", tags: [word-choice]}
+    - learner: "Ottimo. E la carta di debito, quando me la date? Posso usare anche l'app?"
+    - tutor: "La carta arriva a casa in circa dieci giorni, il PIN per posta a parte. L'app invece la può scaricare subito."
+      goals: [card]
+
+- scenario: compleanno
+  level: B1
+  persona: es-f-erasmus
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa sabato sera, a casa mia! Lei compie venticinque anni."
+    - tutor: "Bellissima idea! Sabato è perfetto, e casa tua è grande. Chi invitiamo?"
+      goals: [date]
+    - learner: "I suoi amici dell'università e le sue sorelle. Ma non dobbiamo dire niente a Sara."
+    - tutor: "Certo, acqua in bocca! E da mangiare? Cuciniamo noi o ordiniamo qualcosa?"
+      goals: [guests]
+    - learner: "Io preparo una tortilla spagnola, la adora. E la torta? Sua madre fa una torta buonissima: possiamo chiedergli la?"
+      errors: [combined-pronouns]
+    - tutor: "«Chiedergli la»? Due pronomi attaccati all'infinito: come si scrivono insieme?"
+      prompt: {text: "chiedergli la", tags: [combined-pronouns]}
+    - learner: "Mmm... sì, possiamo chiedergli la domani, quando la vediamo."
+      errors: [combined-pronouns]
+    - tutor: "Perfetto, possiamo chiedergliela domani: la sua torta al cioccolato è famosa! Allora il menù è deciso."
+      goals: [food]
+      recast: {text: "chiedergli la", fix: "chiedergliela", tags: [combined-pronouns]}
+    - learner: "E il regalo? Pensavo a un corso di ceramica: possiamo regalarle lo tutti insieme."
+      errors: [combined-pronouns]
+    - tutor: "Che regalo originale! Ma «regalarle lo»? Pensa a quello che abbiamo detto per la torta."
+      prompt: {text: "regalarle lo", tags: [combined-pronouns]}
+    - learner: "Ah... sì, possiamo regalarle lo tutti insieme, così costa meno."
+      errors: [combined-pronouns]
+    - tutor: "Esatto, possiamo regalarglielo tutti insieme: facciamo una colletta tra gli invitati, così nessuno spende troppo."
+      goals: [gift]
+      recast: {text: "regalarle lo", fix: "regalarglielo", tags: [combined-pronouns]}
+      new: [{lemma: colletta, gloss: whip-round}]
+    - learner: "Sì, buona idea. Domani scrivo a tutti nel gruppo."
+    - tutor: "Perfetto, allora ci sentiamo domani. Sarà una festa bellissima!"
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-m-retired
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Mah, non sono male. Mangio molta verdura, ma dormo poco e cammino poco."
+    - tutor: "La verdura è già un buon inizio. E per muoverti, fai qualche sport?"
+    - learner: "Un po' di bicicletta, il sabato. Per me la bicicletta è più divertente che la palestra."
+      errors: [comparative]
+    - tutor: "«Più divertente che la palestra»? Metti a confronto due cose, due nomi: dopo «più», quale parola ci vuole?"
+      prompt: {text: "più divertente che la palestra", tags: [comparative]}
+    - learner: "Sì, è più divertente che la palestra, perché sono all'aperto."
+      errors: [comparative]
+    - tutor: "Hai ragione, all'aria aperta è tutto più divertente della palestra! E che obiettivo hai per i prossimi mesi?"
+      goals: [habits]
+      recast: {text: "più divertente che la palestra", fix: "più divertente della palestra", tags: [comparative]}
+    - learner: "Vorrei perdere cinque chili prima dell'estate."
+    - tutor: "È un obiettivo giusto, si può fare. E che cosa ti ferma, di solito?"
+      goals: [goal]
+    - learner: "La pigrizia... e la sera ho sempre voglia di dolci: ho un dente dolce."
+      errors: [word-choice]
+    - tutor: "Anch'io sono goloso, capita a tutti! Prova a tenere in casa più frutta e meno dolci."
+      goals: [obstacles]
+      recast: {text: "ho un dente dolce", fix: "sono goloso", tags: [word-choice]}
+      new: [{lemma: goloso, gloss: sweet-toothed}]
+    - learner: "Buona idea. E dal mese prossimo andrò al mercato in bici tre volte alla settimana."
+    - tutor: "Ottimo piano: così ti muovi senza pensarci. Poi mi racconti come va!"
+      goals: [plan]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sì, l'aria condizionata nella mia camera non funziona. Fa un caldo terribile."
+    - tutor: "Mi dispiace molto. Da quando non funziona?"
+      goals: [problem]
+    - learner: "Da ieri sera. Ho già chiamato la reception stamattina, ma non è venuto nessuno."
+    - tutor: "Ha ragione, le chiedo scusa. Che cosa possiamo fare per lei?"
+      goals: [since]
+    - learner: "Vorrei che un tecnico viene subito, perché stanotte non ho dormito."
+      errors: [subjunctive-use]
+    - tutor: "«Vorrei che un tecnico viene»? Attenzione: dopo «vorrei che» il verbo cambia modo. Quale?"
+      prompt: {text: "un tecnico viene", tags: [subjunctive-use]}
+    - learner: "Sì, vorrei che un tecnico viene adesso, non domani."
+      errors: [subjunctive-use]
+    - tutor: "Certo, lei vorrebbe che un tecnico venisse adesso, ed è giusto: lo chiamo subito."
+      goals: [request]
+      recast: {text: "un tecnico viene", fix: "un tecnico venisse", tags: [subjunctive-use]}
+    - learner: "Grazie. E se il tecnico non risolverebbe il problema, posso cambiare camera?"
+      errors: [hypothetical]
+    - tutor: "Certo. Ma «se il tecnico non risolverebbe»: dopo «se», va bene il condizionale?"
+      prompt: {text: "il tecnico non risolverebbe", tags: [hypothetical]}
+    - learner: "Ah... se il tecnico non risolverebbe, preferisco un'altra camera."
+      errors: [hypothetical]
+    - tutor: "Se il tecnico non risolve, le diamo subito un'altra camera al terzo piano, più fresca. E stasera la cena è offerta da noi."
+      goals: [agree]
+      recast: {text: "il tecnico non risolverebbe", fix: "il tecnico non risolve", tags: [hypothetical]}
+    - learner: "Molto gentile, grazie mille."
+    - tutor: "Si figuri. Tra dieci minuti arriva qualcuno a controllare."
+
+- scenario: volontariato
+  level: B1
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Ciao! Sì, molto. Vorrei aiutare le persone anziane che vivono da sole."
+    - tutor: "Che bel pensiero. Come mai proprio gli anziani?"
+    - learner: "Mia nonna in Inghilterra vive sola, e c'è una vicina la quale va a trovarla ogni giorno."
+      errors: [relative-pronoun]
+    - tutor: "«Una vicina la quale va»? Mmm, quando parliamo c'è una parola molto più semplice. Quale?"
+      prompt: {text: "una vicina la quale", tags: [relative-pronoun]}
+    - learner: "Sì, una vicina la quale va da lei tutti i giorni a prendere il caffè."
+      errors: [relative-pronoun]
+    - tutor: "Che fortuna, una vicina che va da lei tutti i giorni! Allora sai già quanto conta la compagnia. Che cosa sai fare?"
+      goals: [motivation]
+      recast: {text: "una vicina la quale", fix: "una vicina che", tags: [relative-pronoun]}
+    - learner: "Parlo inglese e spagnolo, so cucinare e ho la licenza di guida."
+      errors: [word-choice]
+    - tutor: "Perfetto, la patente ci serve tantissimo per accompagnare gli anziani dal medico. Quanto tempo hai?"
+      goals: [skills]
+      recast: {text: "la licenza di guida", fix: "la patente", tags: [word-choice]}
+      new: [{lemma: patente, gloss: driving licence}]
+    - learner: "Il martedì e il giovedì pomeriggio sono libera, dopo le lezioni."
+    - tutor: "Ottimo. Abbiamo due attività: la spesa a casa o le visite di compagnia. Quale preferisci?"
+      goals: [time]
+    - learner: "Preferisco le visite: mi piace chiacchierare e ascoltare le loro storie."
+    - tutor: "Allora ti presento la signora Rina, che ha novantadue anni e racconta storie bellissime. Ci vediamo martedì!"
+      goals: [choose]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-f-teacher
+  history: [hypothetical]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando freno, sento un rumore strano, come un fischio."
+    - tutor: "Forse è un problema ai freni. Da quando lo sente?"
+      goals: [describe]
+    - learner: "Da una settimana, più o meno. All'inizio era leggero, adesso è fortissimo."
+    - tutor: "Allora meglio cambiarle subito. Il pezzo lo devo ordinare, arriva domani."
+      goals: [when]
+    - learner: "Capisco. Sabato parto per Bari: se sarebbe pronta per venerdì, sarebbe perfetto."
+      errors: [hypothetical]
+    - tutor: "«Se sarebbe pronta»? Dopo «se», quando immagina una situazione, quale tempo usiamo?"
+      prompt: {text: "se sarebbe pronta", tags: [hypothetical]}
+    - learner: "Ah... se sarebbe pronta venerdì mattina, per me va benissimo."
+      errors: [hypothetical]
+    - tutor: "Se fosse pronta venerdì mattina? Sì, ce la facciamo, se il pezzo arriva domani come previsto."
+      goals: [time]
+      recast: {text: "se sarebbe pronta", fix: "se fosse pronta", tags: [hypothetical]}
+    - learner: "Meno male! E costa più che cento euro?"
+      errors: [comparative]
+    - tutor: "«Più che cento euro»? Mmm, lo ripeta più piano: le suona bene?"
+      prompt: {text: "più che cento euro", tags: [comparative]}
+    - learner: "Sì, scusi: costa più che cento euro, secondo lei?"
+      errors: [comparative]
+    - tutor: "Sì, un po' più di cento euro: tra il pezzo e il lavoro, circa centoventi. Le preparo un preventivo."
+      goals: [cost]
+      recast: {text: "più che cento euro", fix: "più di cento euro", tags: [comparative]}
+    - learner: "Va bene. Allora la porto giovedì sera dopo il lavoro."
+    - tutor: "Benissimo, a giovedì allora. E fino ad allora, vada piano!"
+
+- scenario: film-libro
+  level: B1
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Inizio io! Ho letto «Il giardino dei Finzi-Contini» di Bassani."
+    - tutor: "Un classico! Di che cosa parla, senza dire troppo?"
+    - learner: "L'argomento è questo: una famiglia ebrea di Ferrara negli anni Trenta, prima della guerra."
+      errors: [false-friend]
+    - tutor: "La trama racconta un periodo molto difficile, allora. E i personaggi? Chi ti è rimasto in mente?"
+      goals: [summary]
+      recast: {text: "L'argomento", fix: "La trama", tags: [false-friend]}
+    - learner: "Micol, la ragazza di che il narratore è innamorato."
+      errors: [relative-pronoun]
+    - tutor: "«La ragazza di che»? C'è una preposizione prima: dopo «di», «che» va bene?"
+      prompt: {text: "di che", tags: [relative-pronoun]}
+    - learner: "Sì, Micol, la ragazza di che è innamorato. È intelligente e misteriosa."
+      errors: [relative-pronoun]
+    - tutor: "Micol, la ragazza di cui è innamorato il narratore: un personaggio che non si dimentica. A te il libro è piaciuto?"
+      goals: [characters]
+      new: [{lemma: narratore, gloss: narrator}]
+      recast: {text: "la ragazza di che", fix: "la ragazza di cui", tags: [relative-pronoun]}
+    - learner: "Sì, moltissimo, anche se il finale è molto triste. Il film invece è meno bello del libro."
+    - tutor: "Sono d'accordo, il romanzo è speciale. A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A chi ama le storie lente e la storia italiana. Non è un libro per la spiaggia!"
+    - tutor: "Ben detto! Allora lo mettiamo nella lista del mese prossimo."
+      goals: [recommend]

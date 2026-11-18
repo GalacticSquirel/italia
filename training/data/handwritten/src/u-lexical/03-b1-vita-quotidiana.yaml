@@ -1,0 +1,273 @@
+# Round 6, set u-lexical: false friends and calques, B1, file 3.
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È molto luminoso! L'appartamento è amueblado?"
+      errors: [word-choice]
+    - tutor: "Sì, è tutto arredato: divano, letti, armadi e cucina completa."
+      recast: {text: "amueblado", fix: "arredato", tags: [word-choice]}
+    - learner: "Bene. Quanto è l'affitto mensuale?"
+      errors: [word-choice]
+    - tutor: "L'affitto mensile è di 750 euro, più 60 di spese per il condominio."
+      recast: {text: "mensuale", fix: "mensile", tags: [word-choice]}
+      goals: [rent]
+    - learner: "Io vorrebbe un contratto corto, perché forse fra due anni torno in Argentina."
+      errors: [conditional-form]
+    - tutor: "Io «vorrebbe»? Attenzione alla persona del verbo: sta parlando di sé."
+      prompt: {text: "Io vorrebbe", tags: [conditional-form]}
+    - learner: "Ah, sì: io vorrei un contratto corto."
+    - tutor: "Esatto. Nessun problema, possiamo fare un contratto di due anni."
+      goals: [contract]
+    - learner: "Perfetto. E il riscaldamento è autonomo?"
+    - tutor: "Sì, autonomo, con una caldaia nuova. Le bollette del gas le paga lei."
+      goals: [condition]
+      new: [{lemma: caldaia, gloss: boiler}]
+    - learner: "Va bene. Ho una macchina: c'è una cochera?"
+      errors: [word-choice]
+    - tutor: "Un garage no, mi dispiace, ma in questa strada si parcheggia facilmente."
+      recast: {text: "una cochera", fix: "un garage", tags: [word-choice]}
+      new: [{lemma: garage, gloss: garage}]
+    - learner: "E il quartiere com'è? Lavoro in un ristorante e torno a casa molto tardi."
+    - tutor: "È un quartiere tranquillo e sicuro, e di notte passa anche l'autobus qui sotto."
+      goals: [neighbourhood]
+    - learner: "Mi piace molto. Lo prendo! Quando possiamo firmare?"
+    - tutor: "Ottimo! Possiamo firmare venerdì. Mi porti un documento e due mesi di caparra."
+      goals: [decide]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì prossimo e arrivo in Napoli la sera, verso le dieci."
+      errors: [preposition]
+    - tutor: "Arrivi «in» Napoli? Con le città, quale preposizione usiamo?"
+      prompt: {text: "in Napoli", tags: [preposition]}
+    - learner: "Ah, sì: arrivo a Napoli la sera."
+    - tutor: "Esatto! E quanti giorni ti fermi?"
+    - learner: "Quattro giorni. Ho visto le foto del lungomare, sono terrificanti!"
+      errors: [false-friend]
+    - tutor: "Fantastiche, vero? La sera il lungomare è bellissimo: vacci assolutamente a piedi."
+      recast: {text: "terrificanti", fix: "fantastiche", tags: [false-friend]}
+      goals: [plans]
+    - learner: "Sì! E cosa mi consigli di mangiare?"
+    - tutor: "La pizza, naturalmente, e i dolci della città! E prendi un caffè al bar, in piedi, come fa la gente di qui."
+      goals: [advice]
+    - learner: "Per andare a Capri è meglio il ferry o l'aliscafo?"
+      errors: [word-choice]
+    - tutor: "Il traghetto costa meno, l'aliscafo è più veloce. Partono tutti e due dal porto, vicino al centro."
+      recast: {text: "il ferry", fix: "il traghetto", tags: [word-choice]}
+      goals: [transport]
+      new: [{lemma: aliscafo, gloss: hydrofoil}]
+    - learner: "Ho letto che in centro ci sono molti pickpocket. È vero?"
+      errors: [word-choice]
+    - tutor: "Sì, come in tutte le grandi città ci sono molti borseggiatori: tieni il telefono in tasca e lo zaino davanti."
+      recast: {text: "molti pickpocket", fix: "molti borseggiatori", tags: [word-choice]}
+      goals: [warnings]
+      new: [{lemma: borseggiatore, gloss: pickpocket}]
+    - learner: "Grazie, sei molto gentile! Ti porto un regalo da Napoli."
+    - tutor: "Portami un dolce, allora! Buon viaggio!"
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Stamattina la macchina non comincia. Fa solo un piccolo rumore."
+      errors: [word-choice]
+    - tutor: "Non parte proprio? E che rumore fa, forte o piccolo?"
+      recast: {text: "non comincia", fix: "non parte", tags: [word-choice]}
+    - learner: "Piccolo. Ieri ho guidato due ore in montagna e ho quasi finito il gas."
+      errors: [false-friend]
+    - tutor: "Ha quasi finito la benzina? Però anche con poca benzina dovrebbe partire, quindi è un altro problema."
+      recast: {text: "il gas", fix: "la benzina", tags: [false-friend]}
+      goals: [describe]
+      new: [{lemma: benzina, gloss: petrol}]
+    - learner: "La settimana scorsa partiva male tutte le mattine, quando faceva freddo."
+    - tutor: "Ecco, con il freddo le batterie vecchie non funzionano bene. Allora è quasi sicuramente la batteria."
+      goals: [when]
+      new: [{lemma: batteria, gloss: car battery}]
+    - learner: "La macchina è di mio figlio, non so quanti anni ha la batteria. Quanto costerà?"
+    - tutor: "Una batteria nuova costa circa 120 euro, compreso il lavoro."
+      goals: [cost]
+    - learner: "Va bene. Posso riprenderla presto? Rimarò in città solo fino a giovedì."
+      errors: [future-form]
+    - tutor: "«Rimarò»? Il futuro di «rimanere» ha una forma un po' speciale."
+      prompt: {text: "Rimarò", tags: [future-form]}
+    - learner: "Rimanerò? No... rimarò?"
+      errors: [future-form]
+    - tutor: "Rimarrò! Comunque non si preoccupi: la macchina sarà pronta domani alle dodici."
+      recast: {text: "rimarò", fix: "rimarrò", tags: [future-form]}
+      goals: [time]
+    - learner: "Perfetto, allora passo domani alle dodici. Grazie mille!"
+    - tutor: "A domani! Se la macchina fa ancora quel rumore, mi chiami subito."
+
+- scenario: film-libro
+  level: B1
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io! Ho letto un giallo inglese, ambientato a Londra. Il complotto ha molti colpi di scena."
+      errors: [false-friend]
+    - tutor: "La trama ha molti colpi di scena? Allora non riuscivi a smettere di leggere! Di cosa parla?"
+      recast: {text: "Il complotto", fix: "La trama", tags: [false-friend]}
+    - learner: "Parla di una donna che prende lo stesso treno ogni mattina e un giorno vede una cosa strana."
+    - tutor: "Che inizio strano! E com'è questa donna?"
+      goals: [summary]
+    - learner: "Il carattere principale è Rachel. È triste e beve troppo, ma è molto umana."
+      errors: [false-friend]
+    - tutor: "Il personaggio principale non è perfetto, allora, ma è umano. A me piacciono i personaggi così."
+      recast: {text: "Il carattere principale", fix: "Il personaggio principale", tags: [false-friend]}
+    - learner: "Anche a me. Rachel ha un carattere difficile, ma alla fine la capisci."
+    - tutor: "È bello quando un libro ti fa cambiare idea su qualcuno. E il finale ti è piaciuto?"
+      goals: [characters]
+    - learner: "Sì, ma era un po' prevedibile: ho capito tutto a pagina duecento."
+    - tutor: "Cento pagine prima della fine? Allora il giallo non era perfetto!"
+      goals: [opinion]
+    - learner: "No, ma lo consiglio lo stesso. È il libro di che tutti parlano quest'anno."
+      errors: [relative-pronoun]
+    - tutor: "Il libro «di che» tutti parlano? Dopo «di», quale parola usiamo per collegare le due frasi?"
+      prompt: {text: "di che", tags: [relative-pronoun]}
+    - learner: "Ah: è il libro di cui tutti parlano!"
+    - tutor: "Esatto! Allora lo metto nella mia lista. Grazie, chi è il prossimo?"
+      goals: [recommend]
+
+- scenario: medico-base
+  level: B1
+  persona: es-f-teacher
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Sabato sono caduta per le scale e da allora mi fa male il tobillo."
+      errors: [word-choice]
+    - tutor: "Le fa male la caviglia da sabato? Vediamo un po'. Riesce a camminare?"
+      recast: {text: "il tobillo", fix: "la caviglia", tags: [word-choice]}
+      goals: [symptoms, since-when]
+      new: [{lemma: caviglia, gloss: ankle}]
+    - learner: "Sì, ma è un po' hinchada e quando cammino fa male."
+      errors: [word-choice]
+    - tutor: "Un po' gonfia, capisco. Ha preso qualcosa per il dolore?"
+      recast: {text: "un po' hinchada", fix: "un po' gonfia", tags: [word-choice]}
+      new: [{lemma: gonfio, gloss: swollen}]
+    - learner: "Sì, ho preso un analgesico ieri sera, ma oggi il dolore è tornato."
+    - tutor: "Capisco. Ha avuto altri problemi a questo piede in passato?"
+    - learner: "No, mai. Ma ieri il farmacista ha dato me una crema."
+      errors: [object-pronoun]
+    - tutor: "Il farmacista «ha dato me»? Qui serve un altro pronome, prima del verbo."
+      prompt: {text: "ha dato me", tags: [object-pronoun]}
+    - learner: "Ah, sì: il farmacista mi ha dato una crema."
+    - tutor: "Esatto. La crema va bene. Per sicurezza, però, facciamo anche una radiografia."
+      goals: [history]
+      new: [{lemma: radiografia, gloss: X-ray}]
+    - learner: "Va bene. Mi può fare anche un justificante per la scuola? Sono insegnante."
+      errors: [word-choice]
+    - tutor: "Certo, le preparo un certificato per tre giorni. E per adesso tenga la gamba alta e metta il ghiaccio."
+      recast: {text: "un justificante", fix: "un certificato", tags: [word-choice]}
+      goals: [instructions]
+      new: [{lemma: certificato, gloss: medical certificate}]
+    - learner: "Grazie mille, dottore. Torno dopo la radiografia."
+    - tutor: "Sì, torni con le immagini. Arrivederci!"
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-traveller
+  history: [false-friend]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sono nella camera 214 e nella camera vicina c'è un party enorme."
+      errors: [word-choice]
+    - tutor: "Una festa enorme, a quest'ora? Mi dispiace davvero."
+      recast: {text: "un party", fix: "una festa", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Sono chiamato la reception due volte, ma nessuno ha risposto."
+      errors: [auxiliary-choice]
+    - tutor: "«Sono chiamato»? Pensi bene al passato prossimo di «chiamare»."
+      prompt: {text: "Sono chiamato", tags: [auxiliary-choice]}
+    - learner: "Scusi: ho chiamato la reception due volte."
+    - tutor: "Esatto. Ero al telefono con un altro cliente, mi scusi. Da quanto tempo c'è questo rumore?"
+    - learner: "Da mezzanotte. E in corridoio c'è molta commozione: la gente corre e grida."
+      errors: [false-friend]
+    - tutor: "Molta confusione anche in corridoio, capisco. Salgo subito a parlare con loro."
+      recast: {text: "molta commozione", fix: "molta confusione", tags: [false-friend]}
+      goals: [since]
+      new: [{lemma: confusione, gloss: commotion}]
+    - learner: "Grazie, ma domani mi sveglio alle cinque per il volo. Posso cambiare camera?"
+    - tutor: "Certo, le do la 405 al quarto piano, dall'altra parte dell'albergo. È molto tranquilla."
+      goals: [request]
+    - learner: "Perfetto. Ma non voglio pagare di più."
+    - tutor: "Non paga niente in più, e domani mattina la colazione la offriamo noi. Va bene così?"
+    - learner: "Sì, va benissimo. Grazie per l'aiuto."
+    - tutor: "Si figuri, e buon riposo. Ecco la chiave della 405."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Vorrei devolvere queste cuffie, le ho comprate qui sabato."
+      errors: [word-choice]
+    - tutor: "Vuole restituire le cuffie? Certo. Qual è il problema?"
+      recast: {text: "devolvere", fix: "restituire", tags: [word-choice]}
+    - learner: "Non funzionano bene: il sonido arriva solo da una parte."
+      errors: [word-choice]
+    - tutor: "Il suono arriva solo da un lato? Allora sono difettose. Ha lo scontrino?"
+      recast: {text: "il sonido", fix: "il suono", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Sì, ecco lo scontrino. Nella scatola c'è anche la garanzia."
+    - tutor: "Perfetto, è tutto in regola. Preferisce il rimborso o un altro paio?"
+      goals: [proof]
+    - learner: "Ho visto in vetrina delle cuffie rosse. Li posso provare prima?"
+      errors: [object-pronoun]
+    - tutor: "Le cuffie... «li» posso provare? Pensi al genere della parola «cuffie»."
+      prompt: {text: "Li posso provare", tags: [object-pronoun]}
+    - learner: "Ah, sì: le posso provare prima?"
+    - tutor: "Esatto! Certo, eccole, le provi pure qui."
+      goals: [request]
+    - learner: "Funzionano benissimo! Prendo queste, allora."
+    - tutor: "Perfetto. Costano uguale, quindi facciamo un semplice cambio. Ecco il nuovo scontrino!"
+      goals: [agree]
+
+- scenario: ricordi-infanzia
+  level: B1
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo in una piccola città vicino a Sydney, in una casa con un grande yard."
+      errors: [word-choice]
+    - tutor: "Una casa con un grande giardino, che fortuna! E d'estate cosa facevi?"
+      recast: {text: "un grande yard", fix: "un grande giardino", tags: [word-choice]}
+      goals: [place]
+    - learner: "Ogni estate sono andata in campeggio con i miei genitori."
+      errors: [tense-aspect]
+    - tutor: "«Ogni estate sono andata»? Succedeva sempre: quale tempo usiamo?"
+      prompt: {text: "sono andata", tags: [tense-aspect]}
+    - learner: "Giusto: ogni estate andavo in campeggio con i miei genitori."
+    - tutor: "Esatto! In campeggio dove, al mare?"
+      goals: [habits]
+    - learner: "Sì, al mare. Facevamo il bagno tutto il giorno e la sera mangiavamo il pesce."
+    - tutor: "Che bei ricordi! E a scuola com'eri?"
+    - learner: "Ero brava, ma il soggetto più bello per me era l'arte."
+      errors: [false-friend]
+    - tutor: "La materia più bella era l'arte? Anche per me! Disegnavo sempre."
+      recast: {text: "il soggetto più bello", fix: "la materia più bella", tags: [false-friend]}
+      new: [{lemma: materia, gloss: school subject}]
+    - learner: "E il principale della scuola era molto severo. Avevamo tutti paura di lui!"
+      errors: [false-friend]
+    - tutor: "Il preside della scuola fa sempre un po' paura! Ti ricordi un giorno speciale?"
+      recast: {text: "il principale della scuola", fix: "il preside della scuola", tags: [false-friend]}
+      goals: [school]
+      new: [{lemma: preside, gloss: head teacher}]
+    - learner: "Sì, la recita di Natale. Io facevo la stella e sono caduta dal palco!"
+    - tutor: "Oh no! Ti sei fatta male?"
+    - learner: "No, per fortuna. Tutti hanno riso, anche io. È il mio ricordo più bello."
+    - tutor: "Che storia! Una stella che cade, perfetta per Natale."
+      goals: [event]

@@ -1,0 +1,233 @@
+# C1, recast-focused (u-recast): the learner misses the repair after a prompt and the tutor recasts
+# the native form («la ragione per cui», «un algoritmo decidesse», «più espansivi degli inglesi»...).
+# Correct «avrei voluto che desse», «me l'aveva prestato», «gliel'ho detto» are left alone.
+- scenario: club-lettura
+  level: C1
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Sì, l'ho finito ieri notte, e devo dire che mi ha spiazzata: all'inizio lo trovavo lento, poi non riuscivo più a metterlo giù."
+      errors: [word-choice]
+    - tutor: "Succede con i romanzi che crescono piano: a un certo punto non riesci più a posarlo. Quindi, tutto sommato, ti è piaciuto?"
+      goals: [impression]
+      recast: {text: "metterlo giù", fix: "posarlo", tags: [word-choice]}
+    - learner: "Moltissimo. Però non capisco la ragione per che la protagonista torna dal marito alla fine."
+      errors: [relative-pronoun]
+    - tutor: "Ah, il finale divide sempre. Ma aspetta: «la ragione per che»? Dopo una preposizione, quel relativo regge?"
+      prompt: {text: "la ragione per che", tags: [relative-pronoun]}
+    - learner: "Sì, la ragione per che torna da lui, dopo tutto quello che le ha fatto."
+      errors: [relative-pronoun]
+    - tutor: "La ragione per cui torna da lui, secondo me, è la paura: fuori da quel matrimonio non ha nessuno. Tu come la giudichi?"
+      recast: {text: "la ragione per che", fix: "la ragione per cui", tags: [relative-pronoun]}
+    - learner: "Non la giudico, la capisco. Ma avrei voluto che l'autrice le desse almeno una possibilità di scelta."
+    - tutor: "È un desiderio legittimo, e forse è proprio quello che l'autrice voleva farci provare. E lo stile? A me quelle frasi brevissime hanno tolto il fiato."
+      goals: [character]
+    - learner: "Anche a me. È una scrittura asciutta, quasi senza aggettivi, che però ti resta addosso."
+    - tutor: "Asciutta, sì, e proprio per questo fa male. A chi lo consiglieresti?"
+      goals: [style]
+    - learner: "A chi ama i romanzi psicologici. Non a chi cerca una lettura leggera per l'estate."
+    - tutor: "D'accordo su tutto. La prossima volta, però, scegliamo qualcosa di più allegro!"
+      goals: [recommend]
+
+- scenario: intelligenza-artificiale
+  level: C1
+  persona: es-m-worker
+  history: [hypothetical]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Capisco la paura, ma non sono così pessimista. Secondo me cambierà il modo in cui lavoriamo, non il fatto che lavoriamo."
+    - tutor: "Sarà, ma intanto alcune aziende stanno già sostituendo i traduttori con l'intelligenza artificiale."
+      goals: [position]
+    - learner: "Vero, ma il problema non è solo il lavoro. Se un algoritmo deciderebbe chi assumere, chi sarebbe responsabile degli errori?"
+      errors: [hypothetical]
+    - tutor: "Domanda seria. Rileggi però la prima parte: «se un algoritmo deciderebbe»... ti convince?"
+      prompt: {text: "un algoritmo deciderebbe", tags: [hypothetical]}
+    - learner: "Sì... se un algoritmo deciderebbe chi assumere, nessuno potrebbe contestare la scelta."
+      errors: [hypothetical]
+    - tutor: "Proprio così: se un algoritmo decidesse chi assumere, nessuno saprebbe con chi prendersela. Hai un esempio concreto?"
+      recast: {text: "un algoritmo deciderebbe", fix: "un algoritmo decidesse", tags: [hypothetical]}
+    - learner: "Sì: qualche anno fa una grande azienda americana ha dovuto abbandonare un sistema di selezione perché penalizzava le donne."
+    - tutor: "Me lo ricordo: il sistema aveva imparato dai dati del passato, pregiudizi compresi."
+      goals: [evidence]
+    - learner: "Appunto. Però devo ammettere che in medicina, per leggere le radiografie, è più precisa che molti medici."
+      errors: [comparative]
+    - tutor: "Questo è vero. Ma «più precisa che molti medici»: davanti a «molti medici», quale parola ci vuole?"
+      prompt: {text: "più precisa che molti medici", tags: [comparative]}
+    - learner: "Sì, è più precisa che molti medici, soprattutto con i tumori piccoli."
+      errors: [comparative]
+    - tutor: "Lì ti do ragione: se è più precisa di molti medici, può salvare delle vite."
+      goals: [concede]
+      recast: {text: "più precisa che molti medici", fix: "più precisa di molti medici", tags: [comparative]}
+    - learner: "Quindi forse il punto non è fermarla, ma decidere chi la controlla."
+    - tutor: "Su questo siamo d'accordo al cento per cento: servono regole chiare, e servono adesso."
+      goals: [conclude]
+
+- scenario: intervista-podcast
+  level: C1
+  persona: en-m-traveller
+  history: [comparative]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivato proprio in Italia?"
+    - learner: "Per amore, come nei film! Ho conosciuto mia moglie a Lisbona, lei è di Lecce, e dopo due anni a distanza ci siamo detti: o adesso o mai più."
+    - tutor: "Che storia! E a Lecce cosa ti ha colpito di più, all'inizio?"
+      goals: [story]
+    - learner: "Il fatto che tutti parlino con tutti, al mercato, in fila alla posta... Gli italiani sono molto più espansivi che gli inglesi."
+      errors: [comparative]
+    - tutor: "Lo dicono in tanti! Ma «più espansivi che gli inglesi»: se confronti due popoli, la parola dopo l'aggettivo è quella giusta?"
+      prompt: {text: "più espansivi che gli inglesi", tags: [comparative]}
+    - learner: "Mmm... sì, sono più espansivi che gli inglesi, almeno al Sud."
+      errors: [comparative]
+    - tutor: "Più espansivi degli inglesi, almeno al Sud: ci sta! E c'è qualcosa che invece ti fa perdere la pazienza?"
+      goals: [culture-shock]
+      recast: {text: "più espansivi che gli inglesi", fix: "più espansivi degli inglesi", tags: [comparative]}
+    - learner: "Onestamente, gli orari degli uffici pubblici. Se aprirebbero anche il pomeriggio, la vita sarebbe molto più semplice."
+      errors: [hypothetical]
+    - tutor: "Ah, su questo ti capisco! Ma «se aprirebbero»: dopo «se», il condizionale ti convince?"
+      prompt: {text: "Se aprirebbero", tags: [hypothetical]}
+    - learner: "Mmm... se aprirebbero il pomeriggio, nessuno dovrebbe prendere un giorno di ferie per un certificato."
+      errors: [hypothetical]
+    - tutor: "Se aprissero il pomeriggio sarebbe un altro mondo, hai ragione. Che consiglio daresti a chi sta pensando di trasferirsi?"
+      goals: [critique]
+      recast: {text: "se aprirebbero", fix: "se aprissero", tags: [hypothetical]}
+    - learner: "Di armarsi di pazienza e di imparare almeno qualche parola di dialetto: ti apre tutte le porte."
+    - tutor: "Consiglio d'oro! Grazie mille di essere stato con noi."
+      goals: [advice]
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Nessun disturbo, si sieda pure. Mi racconti con calma: che cosa è successo esattamente?"
+    - tutor: "Paolo ha presentato al direttore il piano su cui lavoro da tre mesi, come se fosse tutto merito suo."
+    - learner: "Capisco, dev'essere stato molto frustrante. Lei aveva preparato tutto da sola?"
+    - tutor: "Quasi tutto. Lui ha fatto solo i grafici, e alla riunione non mi ha nemmeno nominata."
+      goals: [listen, clarify]
+    - learner: "È comprensibile che lei sia arrabbiata. Però, prima di decidere qualsiasi cosa, vorrei che anche Paolo spiega la sua versione."
+      errors: [subjunctive-use]
+    - tutor: "«Vorrei che anche Paolo spiega»... mi scusi, ma dopo «vorrei che» non ci vorrebbe un'altra forma?"
+      prompt: {text: "Paolo spiega", tags: [subjunctive-use]}
+    - learner: "Ah, sì: vorrei che anche Paolo spiega cosa è successo, forse c'è stato un malinteso."
+      errors: [subjunctive-use]
+    - tutor: "D'accordo: vorrebbe che Paolo spiegasse la sua versione, e lo capisco. Ma un malinteso, onestamente, mi sembra difficile."
+      recast: {text: "Paolo spiega", fix: "Paolo spiegasse", tags: [subjunctive-use]}
+    - learner: "Forse no, ma Paolo è nuovo e magari non sa ancora come funzionano le cose qui. Le propongo un incontro a tre domani, e d'ora in poi ogni documento porterà il nome di chi l'ha scritto."
+    - tutor: "Mi sembra una soluzione equa, e anche un modo per non far crescere la tensione. Va bene, domani alle dieci."
+      goals: [perspective, solution]
+
+- scenario: modi-di-dire
+  level: C1
+  persona: en-f-student
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Una giornata da dimenticare. Prima ho perso il treno per un minuto, poi sono arrivata al colloquio con mezz'ora di ritardo."
+    - tutor: "Mamma mia, piove sul bagnato! E poi?"
+    - learner: "Piove sul bagnato, appunto! Poi in ufficio ho rovesciato il caffè sul vestito della mia coinquilina, che me l'aveva prestato apposta."
+    - tutor: "Ahia. E lei come l'ha presa?"
+      goals: [tell, react]
+    - learner: "Malissimo. Quando gliel'ho detto, mi ne ha dette di tutti i colori."
+      errors: [combined-pronouns]
+    - tutor: "Ci credo! Ma «mi ne ha dette»: quei due pronomi, insieme, non restano così. Prova a ridirlo."
+      prompt: {text: "mi ne ha dette", tags: [combined-pronouns]}
+    - learner: "Sì, mi ne ha dette di tutti i colori, e aveva ragione."
+      errors: [combined-pronouns]
+    - tutor: "Eh, me ne avrebbe dette di tutti i colori anche la mia coinquilina! Ma alla fine di chi è la colpa?"
+      recast: {text: "mi ne", fix: "me ne", tags: [combined-pronouns]}
+    - learner: "Un po' mia, un po' della sveglia, la quale batteria era scarica, e un po' del destino."
+      errors: [relative-pronoun]
+    - tutor: "Povera sveglia! Ma «la quale batteria»: per dire di chi è la batteria, quale relativo usi?"
+      prompt: {text: "la quale batteria", tags: [relative-pronoun]}
+    - learner: "Sì, la sveglia, la quale batteria era scarica da giorni. Diciamo che la colpa va divisa in tre."
+      errors: [relative-pronoun]
+    - tutor: "Ah, la sveglia, la cui batteria era scarica da giorni: colpa divisa in tre, molto diplomatica! E che cosa hai imparato da questa giornata?"
+      goals: [blame]
+      recast: {text: "la quale batteria", fix: "la cui batteria", tags: [relative-pronoun]}
+    - learner: "Che nei giorni di colloquio non si chiedono vestiti in prestito! E che domani è un altro giorno."
+    - tutor: "Saggia conclusione. Dai, stasera ti offro una pizza per tirarti su."
+      goals: [moral]
+
+- scenario: notizie-attualita
+  level: C1
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatto?"
+    - learner: "Ho letto un articolo stamattina. In pratica, il governo vuole limitare gli affitti brevi nei centri storici, soprattutto per chi ha più di due appartamenti."
+    - tutor: "Esatto, e i proprietari sono già sul piede di guerra. Tu sei d'accordo?"
+      goals: [summarise]
+    - learner: "In parte. Ha senso proteggere i residenti, ma è importante che i comuni controllano davvero, altrimenti resta una legge sulla carta."
+      errors: [subjunctive-use]
+    - tutor: "Condivido. Però, «è importante che i comuni controllano»: senti come suona? Dopo «è importante che»..."
+      prompt: {text: "i comuni controllano", tags: [subjunctive-use]}
+    - learner: "Sì, è importante che i comuni controllano, perché finora nessuno ha fatto controlli seri."
+      errors: [subjunctive-use]
+    - tutor: "È importante che i comuni controllino, certo, ma con quali soldi e con quale personale? È lì che casca l'asino."
+      goals: [opinion]
+      recast: {text: "i comuni controllano", fix: "i comuni controllino", tags: [subjunctive-use]}
+    - learner: "Appunto. Tra l'altro molti giornali mi sembrano biased: alcuni parlano solo dei proprietari, altri solo degli inquilini."
+      errors: [word-choice]
+    - tutor: "Di parte, sì: ognuno tira l'acqua al suo mulino. Hai trovato una fonte più equilibrata?"
+      recast: {text: "biased", fix: "di parte", tags: [word-choice]}
+    - learner: "Un approfondimento su una rivista economica, con i dati di tre città. Secondo me, nel giro di due anni i prezzi caleranno un po', ma molti piccoli proprietari venderanno."
+    - tutor: "Può darsi. Vedremo se la legge avrà l'effetto sperato o se qualcuno troverà il modo di aggirarla."
+      goals: [sources, consequences]
+
+- scenario: presentazione-progetto
+  level: C1
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Certo. Proponiamo di automatizzare la gestione degli ordini dei clienti più piccoli, che oggi facciamo ancora a mano."
+    - tutor: "E che vantaggi concreti si aspetta?"
+      goals: [pitch]
+    - learner: "Stimiamo di ridurre gli errori del quaranta per cento e di liberare due persone per l'assistenza clienti. In un anno il fatturato potrebbe crescere del sei per cento."
+    - tutor: "Numeri interessanti. Ma il budget richiesto è alto, e quest'anno i conti sono stretti."
+      goals: [benefits]
+    - learner: "Lo capisco. Ma il progetto fa senso anche con un budget ridotto: possiamo partire con i clienti di una sola regione."
+      errors: [word-choice]
+    - tutor: "Ha senso, sì, partire in piccolo. Ma perché non rimandare tutto all'anno prossimo?"
+      recast: {text: "fa senso", fix: "ha senso", tags: [word-choice]}
+    - learner: "Perché credo che sia più conveniente investire ora di aspettare, visto che i costi dei fornitori aumenteranno."
+      errors: [comparative]
+    - tutor: "Un attimo: «più conveniente investire ora di aspettare». Quando mette a confronto due azioni, quale parola usa?"
+      prompt: {text: "di aspettare", tags: [comparative]}
+    - learner: "Sì, è più conveniente investire ora di aspettare, e il rischio è basso."
+      errors: [comparative]
+    - tutor: "Quindi è più conveniente investire ora che aspettare, il ragionamento regge. Ma se il progetto si blocca a metà?"
+      recast: {text: "di aspettare", fix: "che aspettare", tags: [comparative]}
+    - learner: "Abbiamo previsto tre fasi separate: se la prima non dà risultati entro sei mesi, ci fermiamo e perdiamo solo il quindici per cento del budget."
+    - tutor: "Così mi sento più tranquillo. Mi mandi il piano completo entro venerdì e lo portiamo al consiglio."
+      goals: [objection, next-steps]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Abito in via Mazzini e da tre settimane sotto casa c'è un cantiere che lavora anche il sabato alle sette del mattino."
+    - tutor: "Capisco il disagio. Però i lavori sono autorizzati, purtroppo non possiamo fermarli."
+      goals: [describe]
+    - learner: "Non chiedo di fermarli. Il problema è il cantiere da che arriva il rumore: non ha nessun cartello con gli orari e il nome della ditta."
+      errors: [relative-pronoun]
+    - tutor: "«Il cantiere da che arriva»? Mi scusi, ripeta: da... che cosa?"
+      prompt: {text: "il cantiere da che", tags: [relative-pronoun]}
+    - learner: "Il cantiere da che arriva il rumore, quello all'angolo con via Verdi."
+      errors: [relative-pronoun]
+    - tutor: "Ah, il cantiere da cui arriva il rumore è quello del nuovo parcheggio. Ha ragione, il cartello dovrebbe esserci per legge."
+      goals: [insist]
+      recast: {text: "il cantiere da che", fix: "il cantiere da cui", tags: [relative-pronoun]}
+    - learner: "E quindi cosa posso fare? Vorrei presentare un reclamo formale."
+    - tutor: "Può compilare questo modulo di segnalazione: l'ufficio tecnico ha trenta giorni per risponderle."
+      goals: [rights]
+    - learner: "Benissimo. Mi può dare un numero di protocollo, così posso fare un sollecito se non mi contestano?"
+      errors: [false-friend]
+    - tutor: "Certo, se non le rispondono entro trenta giorni faccia pure un sollecito: ecco il protocollo, 4512."
+      goals: [commitment]
+      recast: {text: "contestano", fix: "rispondono", tags: [false-friend]}
+    - learner: "Perfetto, grazie mille per la disponibilità."
+    - tutor: "Si figuri, e speriamo che il cartello compaia presto. Buona giornata!"

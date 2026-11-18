@@ -1,0 +1,221 @@
+# C1, recast-focused (u-recast): «mantenesse il vecchio listino», «meno efficace di un limite»,
+# «la cui macchina», «non fosse a base di cortisone», «darglielo», «avesse investito»,
+# «sia un'opera minore», «con cui». Correct «più turisti che residenti», «gliela mando» left alone.
+- scenario: trattativa-fornitore
+  level: C1
+  persona: en-m-heritage
+  history: [hypothetical]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, la chiamo proprio per quello. Un aumento del dodici per cento, da un giorno all'altro, per noi è difficile da sostenere."
+    - tutor: "Lo capisco, ma anche i nostri margini si sono ridotti parecchio."
+      goals: [problem]
+    - learner: "Lavoriamo insieme da otto anni e non abbiamo mai ritardato un pagamento. Credo che questo meriti un trattamento diverso."
+    - tutor: "Su questo ha ragione: siete tra i nostri clienti più affidabili."
+      goals: [argue]
+    - learner: "Allora le faccio una proposta. Se la vostra azienda manterrebbe il vecchio listino fino a giugno, noi raddoppieremmo l'ordine del secondo semestre."
+      errors: [hypothetical]
+    - tutor: "Proposta interessante. Però, «se la vostra azienda manterrebbe»: dopo «se», il condizionale funziona?"
+      prompt: {text: "manterrebbe il vecchio listino", tags: [hypothetical]}
+    - learner: "Mi scusi... se manterrebbe il vecchio listino fino a giugno, noi garantiremmo anche i pagamenti a trenta giorni."
+      errors: [hypothetical]
+    - tutor: "Se l'azienda mantenesse il vecchio listino fino a giugno, con un ordine doppio e pagamenti a trenta giorni... credo di poter convincere la direzione."
+      goals: [counteroffer]
+      recast: {text: "manterrebbe il vecchio listino", fix: "mantenesse il vecchio listino", tags: [hypothetical]}
+    - learner: "Perfetto. Mi può mandare una conferma scritta entro venerdì?"
+    - tutor: "Certo, gliela mando entro giovedì, così ha un giorno in più per controllarla."
+      goals: [agreement]
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: es-f-erasmus
+  history: [comparative]
+  turns:
+    - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+    - learner: "Buongiorno! Mi chiamo Lucía, studio a Venezia da un anno, e sono contraria al ticket così com'è."
+    - tutor: "Contraria, quindi. Perché?"
+      goals: [introduce]
+    - learner: "Perché nel mio quartiere ormai ci sono più turisti che residenti, e il ticket non ha cambiato niente: le code al ponte sono larghissime come prima."
+      errors: [false-friend]
+    - tutor: "Code lunghissime come prima, capisco. Però qualcuno dirà che è solo un primo passo, e che quei soldi servono alla città."
+      goals: [example]
+      recast: {text: "larghissime", fix: "lunghissime", tags: [false-friend]}
+    - learner: "Può darsi, ma il ticket è meno efficace che un limite di accesso giornaliero, come si fa nei parchi naturali."
+      errors: [comparative]
+    - tutor: "Mi scusi, «meno efficace che un limite»? Se confronta due misure, quella parola va bene?"
+      prompt: {text: "meno efficace che un limite", tags: [comparative]}
+    - learner: "Ah... sì, meno efficace che un limite giornaliero, perché il limite riduce davvero il numero di persone."
+      errors: [comparative]
+    - tutor: "Quindi, secondo lei, il ticket è meno efficace di un limite giornaliero. E come lo organizzerebbe, in concreto?"
+      goals: [rebut]
+      recast: {text: "meno efficace che un limite", fix: "meno efficace di un limite", tags: [comparative]}
+    - learner: "Con un numero massimo di ingressi al giorno, calcolato sui posti letto della città, e niente navi da crociera in laguna."
+    - tutor: "Una proposta concreta, che farà discutere. Grazie, Lucía, e buono studio!"
+      goals: [proposal]
+
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: en-m-retired
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri sera stavo facendo retromarcia per uscire da un parcheggio e ho urtato una macchina ferma dietro di me."
+    - tutor: "Capisco. Ci sono stati feriti, o solo danni alle auto?"
+    - learner: "Nessun ferito, per fortuna. C'era però una signora, la quale macchina era parcheggiata lì, che ha visto tutto dal balcone."
+      errors: [relative-pronoun]
+    - tutor: "«Una signora, la quale macchina»? Qui il relativo indica possesso: quale forma ci vuole?"
+      prompt: {text: "la quale macchina", tags: [relative-pronoun]}
+    - learner: "Sì, la signora, la quale macchina era ferma lì, è scesa subito."
+      errors: [relative-pronoun]
+    - tutor: "E la signora, la cui macchina era ferma lì, ha confermato che lei andava piano?"
+      goals: [what]
+      recast: {text: "la quale macchina", fix: "la cui macchina", tags: [relative-pronoun]}
+    - learner: "Sì, e ho ammesso subito che la colpa era mia: non avevo guardato bene nello specchietto."
+    - tutor: "In questi casi la sincerità semplifica tutto. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, l'abbiamo firmata entrambi. Però ho un dubbio: se la franchigia varrebbe anche per l'altra macchina, quanto pagherei?"
+      errors: [hypothetical]
+    - tutor: "Domanda legittima. Ma «se la franchigia varrebbe»: in un'ipotesi con «se», quale tempo serve?"
+      prompt: {text: "la franchigia varrebbe", tags: [hypothetical]}
+    - learner: "Ah... se la franchigia varrebbe anche per l'altra macchina, pagherei io i primi cinquecento euro?"
+      errors: [hypothetical]
+    - tutor: "Se la franchigia valesse anche per l'altra macchina, sì, ma non è così: i danni all'altra auto li paga interamente la compagnia, la franchigia riguarda solo i suoi."
+      goals: [documents]
+      recast: {text: "la franchigia varrebbe", fix: "la franchigia valesse", tags: [hypothetical]}
+    - learner: "Bene. E adesso cosa devo fare?"
+    - tutor: "Ci mandi il modulo firmato e qualche foto. Un perito contatterà la signora entro una settimana."
+      goals: [next]
+
+- scenario: medico-specialista
+  level: C1
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Non benissimo, dottore. Ho dolori alle articolazioni, soprattutto alle mani, e la mattina faccio fatica a chiuderle. In più, da una settimana sono constipato."
+      errors: [false-friend]
+    - tutor: "Il fatto che sia raffreddato, probabilmente, non c'entra. Da quanto tempo ha questi dolori alle mani?"
+      goals: [symptoms]
+      recast: {text: "constipato", fix: "raffreddato", tags: [false-friend]}
+    - learner: "Da circa tre mesi. Mia madre soffriva di artrite reumatoide, quindi sono un po' preoccupato."
+    - tutor: "Ha fatto bene a dirmelo: gli esami, in effetti, mostrano un'infiammazione."
+      goals: [history]
+    - learner: "Cosa significa, esattamente? È la stessa malattia di mia madre?"
+    - tutor: "È presto per dirlo, ma i valori sono compatibili. Serve una terapia per spegnere l'infiammazione."
+      goals: [understand]
+    - learner: "Capisco. Preferirei che la terapia non è a base di cortisone: mia madre ha preso molti chili con quello."
+      errors: [subjunctive-use]
+    - tutor: "Comprensibile. Ma ripeta la prima parte: «preferirei che la terapia non è»... le torna?"
+      prompt: {text: "non è a base di cortisone", tags: [subjunctive-use]}
+    - learner: "Sì, preferirei che non è a base di cortisone, se è possibile."
+      errors: [subjunctive-use]
+    - tutor: "Certo, preferirebbe che non fosse a base di cortisone. Possiamo usarlo solo per due settimane, a dosi basse, e poi passare a un altro farmaco."
+      recast: {text: "non è a base di cortisone", fix: "non fosse a base di cortisone", tags: [subjunctive-use]}
+    - learner: "E quest'altro farmaco ha effetti collaterali?"
+    - tutor: "A volte qualche disturbo allo stomaco, all'inizio. Faremo un controllo del sangue ogni mese."
+      goals: [treatment]
+
+- scenario: colloquio-promozione
+  level: C1
+  persona: en-f-professional
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie del tempo. Volevo fare il punto sull'ultimo anno: ho seguito personalmente i tre clienti tedeschi, che oggi valgono un quarto del nostro fatturato."
+    - tutor: "Lo so bene, e il direttore commerciale ne parla sempre con entusiasmo."
+      goals: [results]
+    - learner: "Mi fa piacere. Il cliente di Monaco, tra l'altro, chiede da tempo un referente fisso, e lei aveva promesso di dargli lo entro l'estate."
+      errors: [combined-pronouns]
+    - tutor: "Vero. Però, «di dargli lo»? Quei due pronomi, dopo l'infinito, formano una parola sola: quale?"
+      prompt: {text: "dargli lo", tags: [combined-pronouns]}
+    - learner: "Sì, aveva promesso di dargli lo, e vorrei essere io quel referente, come responsabile dell'area estera."
+      errors: [combined-pronouns]
+    - tutor: "È vero, avevo promesso di darglielo, e non l'ho dimenticato. Lei sarebbe la persona giusta, ma il ruolo comporta un aumento che quest'anno non è previsto."
+      goals: [request]
+      recast: {text: "dargli lo", fix: "darglielo", tags: [combined-pronouns]}
+    - learner: "Capisco i vincoli di bilancio. Potrei assumere il ruolo da subito e rimandare l'aumento a gennaio, purché sia messo per iscritto."
+    - tutor: "Mi pare una soluzione equa. Ne parlo con l'amministrazione e le do una risposta entro fine mese."
+      goals: [handle]
+    - learner: "Perfetto, allora aspetto sue notizie."
+    - tutor: "D'accordo. E grazie, sinceramente, per quello che ha fatto con i clienti tedeschi."
+      goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: C1
+  persona: en-f-student
+  history: [hypothetical]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Capisco la preoccupazione, ma non sono d'accordo. Le città che l'hanno fatto, come Pontevedra in Spagna, oggi hanno un centro più vivo di prima."
+    - tutor: "Pontevedra è una cittadina, però. Qui parliamo di una città di trecentomila abitanti."
+      goals: [position]
+    - learner: "Il principio è lo stesso. Qui il comune non ha mai creduto nei mezzi pubblici: se il comune avrebbe investito negli autobus dieci anni fa, oggi nessuno avrebbe paura della zona pedonale."
+      errors: [hypothetical]
+    - tutor: "Interessante. Ma «se il comune avrebbe investito»: in un'ipotesi sul passato, che tempo va dopo «se»?"
+      prompt: {text: "il comune avrebbe investito", tags: [hypothetical]}
+    - learner: "Sì, se il comune avrebbe investito di più, i commercianti oggi sarebbero più tranquilli."
+      errors: [hypothetical]
+    - tutor: "Se il comune avesse investito di più, forse sì, ma il passato non si cambia. Adesso come convincerebbe i commercianti?"
+      goals: [argue]
+      recast: {text: "il comune avrebbe investito", fix: "il comune avesse investito", tags: [hypothetical]}
+    - learner: "Con parcheggi gratuiti ai margini del centro e navette ogni dieci minuti. E poi chi va a piedi torna più spesso nei negozi, anche se ogni volta compra meno."
+    - tutor: "Lo sento dire spesso, ma i commercianti non ci credono."
+      goals: [counter]
+    - learner: "Ammetto che i primi mesi potrebbero essere difficili. Si potrebbe partire solo nei fine settimana, e fare un bilancio dopo un anno."
+    - tutor: "Una sperimentazione graduale? Su questo potrei essere d'accordo anch'io."
+      goals: [concede]
+
+- scenario: arte-mostra
+  level: C1
+  persona: en-m-traveller
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Strana. È un ritratto piccolissimo, quasi nascosto in un angolo della sala, eppure è l'unico che mi ha fermato."
+    - tutor: "Capita. Che cosa ci vedi?"
+      goals: [react]
+    - learner: "Un ragazzo con un cappello rosso che ci guarda dritto negli occhi, con un mezzo sorriso, quasi ironico. Lo sfondo è scurissimo."
+    - tutor: "È un Lotto, sai? Secondo te perché ti ha fermato proprio questo?"
+      goals: [describe]
+    - learner: "Benché è un'opera minore, sembra che il ragazzo sappia qualcosa che noi non sappiamo."
+      errors: [subjunctive-use]
+    - tutor: "Bella intuizione. Ma all'inizio, «benché è un'opera minore»... dopo «benché», ti torna?"
+      prompt: {text: "è un'opera minore", tags: [subjunctive-use]}
+    - learner: "Ah... benché è un'opera minore, ha più forza di tanti quadri enormi."
+      errors: [subjunctive-use]
+    - tutor: "Hai ragione: benché sia un'opera minore, ha più forza di tante tele enormi qui intorno. Lotto era un maestro del ritratto psicologico."
+      goals: [interpret]
+      recast: {text: "è un'opera minore", fix: "sia un'opera minore", tags: [subjunctive-use]}
+    - learner: "Mi ricorda certi ritratti di Rembrandt: la stessa luce che esce dal buio."
+    - tutor: "Ottimo paragone, anche se Lotto è più inquieto e meno solenne."
+      goals: [compare]
+      new: [{lemma: inquieto, gloss: restless}, {lemma: solenne, gloss: solemn}]
+    - learner: "Vero. Cerco il catalogo, voglio rivederlo con calma a casa."
+    - tutor: "Ottima idea, lo trovi in libreria all'uscita."
+
+- scenario: riunione-lavoro
+  level: C1
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Siamo in linea con i tempi, più o meno. La migrazione dei dati è finita e adesso stiamo capacitando gli utenti."
+      errors: [word-choice]
+    - tutor: "Bene, se state formando gli utenti siamo a buon punto. Quel «più o meno», però, mi preoccupa un po'. Che succede?"
+      goals: [update]
+      recast: {text: "capacitando gli utenti", fix: "formando gli utenti", tags: [word-choice]}
+    - learner: "C'è un problema con il fornitore con che lavoriamo per i server: ha cambiato tre volte il responsabile del progetto in due mesi."
+      errors: [relative-pronoun]
+    - tutor: "«Il fornitore con che lavoriamo»? Con la preposizione davanti, quel «che» non va. Come lo sistemi?"
+      prompt: {text: "il fornitore con che", tags: [relative-pronoun]}
+    - learner: "Il fornitore con che lavoriamo... scusa, non mi viene. Comunque ogni volta dobbiamo rispiegare tutto da capo."
+      errors: [relative-pronoun]
+    - tutor: "Il fornitore con cui lavoriamo, sì, li conosco: sono sempre stati un po' disorganizzati. Cosa proponi?"
+      goals: [problem]
+      recast: {text: "il fornitore con che", fix: "il fornitore con cui", tags: [relative-pronoun]}
+    - learner: "Propongo di chiedere per contratto un referente fisso fino alla fine del progetto, e di valutare un'alternativa per l'anno prossimo."
+    - tutor: "Mi sembra sensato. Puoi preparare tu la richiesta per il fornitore?"
+      goals: [proposal]
+    - learner: "Sì, gliela mando entro mercoledì, così entro venerdì sappiamo se accettano."
+    - tutor: "Perfetto: mercoledì la richiesta, venerdì la risposta."
+      goals: [deadline]

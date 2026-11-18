@@ -1,0 +1,267 @@
+# Round 6, set u-lexical: false friends and calques, B2 and C1, file 5.
+- scenario: politica-lavoro
+  level: B2
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Secondo me esageri. La tecnologia elimina alcuni lavori, ma ne crea anche di nuovi."
+    - tutor: "Sì, ma quali? Io vedo solo fabbriche senza operai e uffici vuoti."
+      goals: [opinion]
+    - learner: "Per esempio, i programmi fanno già molti lavori mondani, come inserire dati o controllare fatture."
+      errors: [false-friend]
+    - tutor: "I lavori ripetitivi, sì, li fanno già le macchine. Ma chi li faceva prima, adesso cosa fa?"
+      recast: {text: "lavori mondani", fix: "lavori ripetitivi", tags: [false-friend]}
+    - learner: "È un argomento controverso, lo so. Se il governo investirebbe di più nella formazione, quelle persone troverebbero un altro lavoro."
+      errors: [hypothetical]
+    - tutor: "«Se il governo investirebbe»? Nella frase con «se», che tempo ci vuole?"
+      prompt: {text: "investirebbe", tags: [hypothetical]}
+    - learner: "Ah, sì: se il governo investisse di più nella formazione."
+    - tutor: "Ecco. Ma la formazione costa, e non tutti a cinquant'anni hanno voglia di ricominciare."
+      goals: [hypothesis]
+    - learner: "Hai ragione, è un problema serio. In Finlandia, per esempio, hanno provato un salario basico per i disoccupati."
+      errors: [word-choice]
+    - tutor: "Un reddito di base, sì, ne ho sentito parlare. E com'è andata?"
+      recast: {text: "un salario basico", fix: "un reddito di base", tags: [word-choice]}
+      goals: [example]
+      new: [{lemma: reddito, gloss: income}]
+    - learner: "Le persone non hanno smesso di cercare lavoro, e stavano meglio anche psicologicamente."
+    - tutor: "Interessante, questo non lo sapevo. Quindi la tua conclusione qual è?"
+    - learner: "Che il futuro non è un disastro, se ci prepariamo adesso. Il problema non è la tecnologia, ma come la usiamo."
+    - tutor: "Va bene, mi hai quasi convinto. Quasi!"
+      goals: [conclude]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-traveller
+  history: [word-choice]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Sì, purtroppo. Abbiamo aspettato quaranta minuti per i primi, e quando sono arrivati la pasta era fredda."
+    - tutor: "Mi dispiace molto. Stasera abbiamo un cameriere in meno, ma non è una scusa."
+      goals: [complain]
+    - learner: "E poi il vino era tappato, l'abbiamo capito al primo sorso."
+      errors: [word-choice]
+    - tutor: "Il vino sapeva di tappo? Avreste dovuto dircelo subito, ve lo avremmo cambiato."
+      recast: {text: "era tappato", fix: "sapeva di tappo", tags: [word-choice]}
+      goals: [detail]
+      new: [{lemma: tappo, gloss: cork}]
+    - learner: "L'abbiamo detto al cameriere, ma lui ha risposto che era normale. È una disgrazia, per un ristorante così famoso."
+      errors: [false-friend]
+    - tutor: "Ha ragione, è una vergogna, e parlerò io con il cameriere."
+      recast: {text: "una disgrazia", fix: "una vergogna", tags: [false-friend]}
+    - learner: "Pensavo che il servizio era migliore: le recensioni online erano ottime."
+      errors: [subjunctive-use]
+    - tutor: "«Pensavo che il servizio era»? Dopo «pensavo che», quale modo ci vuole?"
+      prompt: {text: "era migliore", tags: [subjunctive-use]}
+    - learner: "Ah, giusto: pensavo che il servizio fosse migliore."
+    - tutor: "Esatto, e avrebbe dovuto esserlo. Di solito lo è, glielo assicuro."
+      goals: [expectation]
+    - learner: "Va bene. Allora cosa ci proponete?"
+    - tutor: "Non vi facciamo pagare il vino e i primi, e il dolce lo offriamo noi. Le va bene?"
+      goals: [resolve]
+    - learner: "Sì, mi sembra una proposta giusta. Grazie per averci ascoltato."
+    - tutor: "Grazie a voi per la pazienza. Spero di rivedervi presto, in una serata migliore."
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Abbiamo finito la grafica del sito, e il cliente l'ha approvata ieri."
+    - tutor: "Ottimo! Quindi siete in linea con i tempi?"
+      goals: [update]
+    - learner: "Quasi. Ma il cliente vuole cambiare l'agenda della riunione di giovedì: vuole parlare anche dei costi."
+      errors: [false-friend]
+    - tutor: "Vuole cambiare l'ordine del giorno, quindi. Va bene, ma i costi sono un tema delicato."
+      recast: {text: "l'agenda", fix: "l'ordine del giorno", tags: [false-friend]}
+    - learner: "Sì. E ho sentito un rumore che vogliono ridurre il budget del venti per cento."
+      errors: [false-friend]
+    - tutor: "È solo una voce, o qualcuno te l'ha detto ufficialmente?"
+      recast: {text: "un rumore", fix: "una voce", tags: [false-friend]}
+      goals: [problem]
+    - learner: "Per ora è solo una voce. Ma se è vero, propongo di rinunciare all'app e tenere solo il sito."
+    - tutor: "Mi sembra ragionevole. Prepari due versioni del preventivo, con e senza app?"
+      goals: [proposal]
+      new: [{lemma: preventivo, gloss: quote}]
+    - learner: "Certo. Le mandarò al cliente entro mercoledì."
+      errors: [future-form]
+    - tutor: "Le «mandarò»? Attenzione al futuro di «mandare»."
+      prompt: {text: "mandarò", tags: [future-form]}
+    - learner: "Ah, sì: le manderò al cliente entro mercoledì."
+    - tutor: "Perfetto. Allora la scadenza è mercoledì sera, e giovedì presentiamo le due proposte."
+      goals: [deadline]
+    - learner: "D'accordo. Oggi pomeriggio ti mando anche un riassunto."
+    - tutor: "Grazie, così lo giro anche al direttore. Buon lavoro!"
+
+- scenario: smartworking
+  level: B2
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Io lavoro in cucina, quindi niente casa! Ma la mattina faccio gli ordini ai fornitori da casa."
+    - tutor: "Giusto, un cuoco non può cucinare da casa! E com'è dividersi tra casa e ristorante?"
+      goals: [situation]
+    - learner: "Mi piace: a casa sono più tranquillo. Fare gli ordini è meno stressante che in cucina, con tutto quel rumore."
+    - tutor: "Lo credo! In cucina sembra sempre una battaglia."
+      goals: [pros]
+    - learner: "Lo svantaggio è che a volte lavoro fino alla madrugada, perché devo controllare i conti."
+      errors: [word-choice]
+    - tutor: "Fino a tarda notte? Ma così non riposi mai!"
+      recast: {text: "fino alla madrugada", fix: "fino a tarda notte", tags: [word-choice]}
+      goals: [cons]
+      new: [{lemma: tardo, gloss: late}]
+    - learner: "Sì, e la mia jefa mi chiama anche la domenica."
+      errors: [word-choice]
+    - tutor: "Anche la tua responsabile ti chiama la domenica? Allora devi mettere dei limiti."
+      recast: {text: "jefa", fix: "responsabile", tags: [word-choice]}
+    - learner: "Hai ragione. Per me lavorare da casa è più comodo che l'ufficio, ma solo con regole chiare."
+      errors: [comparative]
+    - tutor: "Più comodo «che» l'ufficio? Quando dopo c'è un nome, che cosa usiamo?"
+      prompt: {text: "più comodo che l'ufficio", tags: [comparative]}
+    - learner: "Ah, sì: più comodo dell'ufficio, ma con regole chiare."
+    - tutor: "Esatto. Quindi, se potessi scegliere, cosa preferiresti?"
+    - learner: "Preferirei due mattine a casa e il resto al ristorante, ma con il telefono apagato la domenica!"
+      errors: [word-choice]
+    - tutor: "Il telefono spento la domenica? Perfetto, dovrebbe essere una legge!"
+      recast: {text: "apagato", fix: "spento", tags: [word-choice]}
+      goals: [preference]
+    - learner: "Allora scriviamo una petizione: io firmo per primo!"
+    - tutor: "E io subito dopo di te. Intanto, però, stasera spegni quel telefono!"
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-m-retired
+  history: [word-choice]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, molto. È luminoso e la zona è tranquilla. Però il canone è un po' ripido per me."
+      errors: [word-choice]
+    - tutor: "Un po' alto, capisco. Il proprietario dice che è trattabile, entro certi limiti."
+      recast: {text: "un po' ripido", fix: "un po' alto", tags: [word-choice]}
+      goals: [interest]
+    - learner: "Sono un pensionato con un reddito stabile. Se il proprietario abbasserebbe a novecento euro, firmerei subito."
+      errors: [hypothetical]
+    - tutor: "«Se il proprietario abbasserebbe»? Dopo «se», quale tempo ci vuole?"
+      prompt: {text: "abbasserebbe", tags: [hypothetical]}
+    - learner: "Ah, sì: se il proprietario abbassasse a novecento euro, firmerei subito."
+    - tutor: "Esatto. Gli faccio la proposta, ma credo che arrivi al massimo a novecentocinquanta."
+      goals: [negotiate]
+    - learner: "Va bene, novecentocinquanta. Ma vorrei un contratto con un'opzione di rottura dopo un anno, per motivi di salute."
+      errors: [word-choice]
+    - tutor: "Una clausola di recesso dopo il primo anno si può fare, con sei mesi di preavviso."
+      recast: {text: "un'opzione di rottura", fix: "una clausola di recesso", tags: [word-choice]}
+      new: [{lemma: recesso, gloss: withdrawal from a contract}, {lemma: preavviso, gloss: notice}]
+    - learner: "Perfetto. Un'altra cosa: posso fare delle alterazioni? Per esempio, mettere una doccia al posto della vasca."
+      errors: [false-friend]
+    - tutor: "Per delle modifiche così serve il permesso del proprietario, ma di solito non ci sono problemi."
+      recast: {text: "delle alterazioni", fix: "delle modifiche", tags: [false-friend]}
+      goals: [conditions]
+    - learner: "Allora prepariamo il contratto. Quanto prende l'agenzia?"
+    - tutor: "La provvigione è pari a un mese di affitto, più IVA. Preparo tutto per lunedì, così lo legge con calma."
+      goals: [conclude]
+    - learner: "Grazie, lei è stato molto chiaro."
+    - tutor: "Grazie a lei. A lunedì, allora."
+
+- scenario: vita-in-italia
+  level: B2
+  persona: es-f-teacher
+  history: [word-choice]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Grazie per l'invito. Sono arrivata sei anni fa per amore: mio marito è di Bologna."
+    - tutor: "Una storia romantica! E com'è stato l'inizio?"
+      goals: [story]
+    - learner: "Difficile. Per lavorare come insegnante ho dovuto homologare il mio titolo spagnolo, e ci ho messo due anni."
+      errors: [word-choice]
+    - tutor: "Due anni per far riconoscere il titolo? La burocrazia italiana non perdona!"
+      recast: {text: "homologare", fix: "far riconoscere", tags: [word-choice]}
+      goals: [difficulties]
+    - learner: "No, proprio no! Nel frattempo ho lavorato in un colegio privato, come assistente."
+      errors: [word-choice]
+    - tutor: "In una scuola privata, quindi. Le è servito per imparare l'italiano?"
+      recast: {text: "un colegio privato", fix: "una scuola privata", tags: [word-choice]}
+      new: [{lemma: privato, gloss: private}]
+    - learner: "Moltissimo. I bambini ti correggono senza pietà!"
+    - tutor: "Sono i migliori insegnanti! E lei, in questi anni, come è cambiata?"
+    - learner: "Prima ero molto puntuale, ora sono più flessibile. Se me l'avessero detto dieci anni fa, non ci avrei creduto!"
+    - tutor: "Allora è diventata un po' italiana! E che consiglio darebbe a chi arriva adesso?"
+      goals: [change]
+    - learner: "Di avere pazienza e di parlare con tutti, anche con gli errori. Bisogna che la gente prova, senza paura."
+      errors: [subjunctive-use]
+    - tutor: "«Bisogna che la gente prova»? Dopo «bisogna che», quale modo usiamo?"
+      prompt: {text: "prova", tags: [subjunctive-use]}
+    - learner: "Ah: bisogna che la gente provi, senza paura."
+    - tutor: "Esatto, ed è un ottimo consiglio per chiudere. Grazie di essere stata con noi!"
+      goals: [advice]
+
+- scenario: arte-mostra
+  level: B2
+  persona: en-f-student
+  history: [word-choice]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "È impressionante! La luce sul viso della donna sembra vera."
+    - tutor: "Vero? È di un pittore del Seicento: la luce era la sua ossessione."
+      goals: [react]
+    - learner: "Il soggetto è una donna che legge una lettera vicino alla finestra, giusto?"
+    - tutor: "Esatto. E nota come lo sfondo è quasi vuoto: tutta l'attenzione va su di lei."
+      goals: [describe]
+    - learner: "È dipinto su canvas o su legno? Sembra molto liscio."
+      errors: [word-choice]
+    - tutor: "È su tela, ma il colore è così leggero che non si vedono le pennellate."
+      recast: {text: "su canvas", fix: "su tela", tags: [word-choice]}
+      new: [{lemma: pennellata, gloss: brushstroke}, {lemma: tela, gloss: canvas}]
+    - learner: "Secondo me la lettera è d'amore: la donna sorride un po', ma sembra anche preoccupata."
+    - tutor: "Mi piace questa lettura. Molti esperti la pensano come te."
+      goals: [interpret]
+    - learner: "Mi ricorda un quadro che ho visto a Londra. Era stato rubato negli anni Settanta, e poi sono stato ritrovato."
+      errors: [passive]
+    - tutor: "«Sono stato ritrovato»? Ma chi si era perso, tu o il quadro?"
+      prompt: {text: "sono stato ritrovato", tags: [passive]}
+    - learner: "Ah, il quadro! Poi il quadro è stato ritrovato."
+    - tutor: "Meno male, mi ero preoccupato per te! Comunque sì, quei due pittori si assomigliano molto."
+      goals: [compare]
+    - learner: "Questi quadri sono priceless, vero?"
+      errors: [word-choice]
+    - tutor: "Sono inestimabili, e infatti in ogni sala ci sono tre guardie!"
+      recast: {text: "priceless", fix: "inestimabili", tags: [word-choice]}
+      new: [{lemma: inestimabile, gloss: priceless}]
+    - learner: "Ah ah, è vero! Andiamo a vedere la prossima galleria?"
+      errors: [word-choice]
+    - tutor: "Andiamo nella prossima sala: c'è un altro quadro che devi assolutamente vedere."
+      recast: {text: "la prossima galleria", fix: "la prossima sala", tags: [word-choice]}
+
+- scenario: presentazione-progetto
+  level: C1
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Certo. Proponiamo di sviluppare un sensore che riduce del trenta per cento i consumi energetici dei nostri impianti."
+    - tutor: "Trenta per cento è un obiettivo ambizioso. Su quali dati si basa?"
+      goals: [pitch]
+    - learner: "Sui test dell'ultimo anno in due stabilimenti. Possiamo ragionevolmente assumere che i risultati siano simili negli altri."
+      errors: [false-friend]
+    - tutor: "Possiamo supporre che siano simili, d'accordo, ma ogni stabilimento ha macchinari diversi."
+      recast: {text: "assumere", fix: "supporre", tags: [false-friend]}
+    - learner: "È vero, per questo la prima fase si limita a tre stabilimenti. Inoltre, abbiamo già depositato una patente sul sensore."
+      errors: [false-friend]
+    - tutor: "Un brevetto già depositato? Questo cambia le cose: potremmo perfino concedere la tecnologia in licenza ad altri."
+      recast: {text: "una patente", fix: "un brevetto", tags: [false-friend]}
+      goals: [benefits]
+      new: [{lemma: brevetto, gloss: patent}]
+    - learner: "Esatto, è una delle opportunità. Contiamo di implementare il sistema in sei mesi."
+    - tutor: "Sei mesi mi sembrano pochi. E se i costi sforano? Non sarebbe la prima volta."
+    - learner: "Se i costi superano il budget del dieci per cento, ci fermiamo e rivalutiamo tutto. Abbiamo previsto anche questo scenario."
+    - tutor: "Apprezzo che abbiate un piano B. Mi manda il dettaglio dei costi entro venerdì?"
+      goals: [objection]
+    - learner: "Se avrei i preventivi dei fornitori, potrei mandarglielo anche domani."
+      errors: [hypothetical]
+    - tutor: "«Se avrei i preventivi»? Nella frase con «se», quale forma serve?"
+      prompt: {text: "Se avrei", tags: [hypothetical]}
+    - learner: "Ah, certo: se avessi i preventivi dei fornitori, potrei mandarglielo domani."
+    - tutor: "Allora li chiedo io all'ufficio acquisti oggi stesso. Ci aggiorniamo lunedì."
+      goals: [next-steps]

@@ -1,0 +1,229 @@
+# Set u-right-b2, file 1: B2 renting and the town hall; plain but correct turns left alone.
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno. È luminoso, mi piace. Quanto viene l'affitto al mese?"
+  - tutor: "Novecento euro, più le spese del condominio, circa ottanta euro."
+    goals: [rent]
+  - learner: "Ah, va bene. E il riscaldamento è compreso nelle spese?"
+  - tutor: "No, il riscaldamento è autonomo: ogni appartamento ha la sua caldaia."
+    new: [{lemma: caldaia, gloss: boiler}, {lemma: autonomo, gloss: independent}]
+  - learner: "E la caldaia quanti anni ha? Ne avevo una vecchia nell'altro appartamento ed era sempre rotta."
+  - tutor: "Questa l'abbiamo cambiata due anni fa, quindi non dovrebbe darle problemi. Anche il frigorifero è nuovo."
+    goals: [condition]
+  - learner: "Per il contratto, quanti mesi di deposito volete?"
+  - tutor: "Chiediamo tre mesi di deposito, e il contratto è di quattro anni più quattro."
+    goals: [contract]
+  - learner: "Tre mesi sono tanti. Ci devo pensare un po'. Ci sono dei supermercati qui vicino?"
+  - tutor: "Ce n'è uno proprio all'angolo, e il mercato è a cinque minuti a piedi."
+    goals: [neighbourhood]
+  - learner: "Va bene, sono sicura che mi trovo bene qui. Le scrivo domani per confermare."
+  - tutor: "Perfetto, aspetto il suo messaggio. Buona giornata!"
+    goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: es-m-worker
+  history: [false-friend, adjective-agreement]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno, come vede è già arredato."
+  - learner: "Buongiorno. Il soggiorno è grande, però i mobili mi sembrano un po' vecchi."
+  - tutor: "Sono di qualche anno fa, ma in buone condizioni. Se vuole, posso cambiare il divano."
+  - learner: "No, non è necessario. Piuttosto, quanto è l'affitto, e cosa include?"
+  - tutor: "Settecentocinquanta euro, acqua e condominio inclusi. La luce e il gas sono a parte."
+    goals: [rent]
+  - learner: "Capisco. E il contratto, posso firmarlo per un anno solo? Il mio lavoro qui è temporale."
+    errors: [false-friend]
+  - tutor: "Se il suo lavoro è temporaneo, possiamo fare un contratto di un anno, con due mesi di deposito."
+    recast: {text: "temporale", fix: "temporaneo", tags: [false-friend]}
+    goals: [contract]
+    new: [{lemma: temporaneo, gloss: temporary}]
+  - learner: "Perfetto. Gli elettrodomestici funzionano tutti? La lavatrice sembra nuovo."
+    errors: [adjective-agreement]
+  - tutor: "Sembra nuovo? Guardi bene di quale parola sta parlando."
+    prompt: {text: "sembra nuovo", tags: [adjective-agreement]}
+  - learner: "Sì, la lavatrice sembra nuovo, è molto pulita."
+    errors: [adjective-agreement]
+  - tutor: "La lavatrice sembra nuova perché lo è: l'ho comprata a marzo. Anche il frigorifero è dell'anno scorso."
+    recast: {text: "sembra nuovo", fix: "sembra nuova", tags: [adjective-agreement]}
+    goals: [condition]
+  - learner: "Bene. E com'è il quartiere la sera? Io torno tardi dal lavoro."
+  - tutor: "È tranquillo, e la sera c'è sempre gente in giro. C'è anche la fermata dell'autobus notturno qui sotto."
+    goals: [neighbourhood]
+  - learner: "Allora mi interessa. Credo proprio che lo prenderò."
+  - tutor: "Ottimo! Preparo il contratto e ci sentiamo domani per la firma."
+    goals: [decide]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, mi è piaciuto molto. Mia nonna abitava in una casa simile, a Bari."
+  - tutor: "Che bel ricordo! C'è qualcosa che la preoccupa?"
+  - learner: "Sì, il prezzo. Mi sembra che l'affitto sia un po' alto per la zona."
+  - tutor: "Il proprietario chiede mille euro. Lei quanto avrebbe pensato di offrire?"
+    goals: [interest]
+  - learner: "Pensavo a novecento. Spero che il proprietario accetta."
+    errors: [subjunctive-use]
+  - tutor: "Spero che il proprietario... accetta? Dopo «spero che» ci vuole un altro modo."
+    prompt: {text: "accetta", tags: [subjunctive-use]}
+  - learner: "Sì, spero che accetta novecento, non di più."
+    errors: [subjunctive-use]
+  - tutor: "Speriamo che accetti, allora! Glielo propongo oggi stesso, ma forse vorrà qualcosa in cambio."
+    recast: {text: "accetta", fix: "accetti", tags: [subjunctive-use]}
+    goals: [negotiate]
+  - learner: "Per esempio? Non posso pagare più di novecento, sono sicuro che lo capisce."
+  - tutor: "Magari un contratto più lungo, di cinque anni. Il preavviso per andare via sarebbe di sei mesi."
+    new: [{lemma: preavviso, gloss: notice}]
+  - learner: "Cinque anni mi vanno bene. Per i sei mesi di preavviso, invece, ci devo pensare."
+  - tutor: "Capisco. Se vuole, chiedo se si può scendere a tre mesi."
+    goals: [conditions]
+  - learner: "Sì, grazie. Se accetta tutte e due le cose, firmo subito."
+  - tutor: "D'accordo, lo chiamo adesso e la richiamo entro stasera."
+    goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-f-erasmus
+  history: [ci-ne, word-choice]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, la terrazza è bellissima. Però la cucina è molto piccola, non so se ci entra un tavolo."
+  - tutor: "Un tavolo per due ci sta di sicuro. Per il resto, cosa ne pensa?"
+    goals: [interest]
+  - learner: "Il resto va bene, ma ottocento euro è troppo per me. Potete fare un descuento?"
+    errors: [word-choice]
+  - tutor: "Uno sconto possiamo provare a chiederlo. Quanto le sembrerebbe giusto?"
+    recast: {text: "un descuento", fix: "uno sconto", tags: [word-choice]}
+    new: [{lemma: sconto, gloss: discount}]
+  - learner: "Settecento. Ho visto altri appartamenti nella zona e ho trovato tre a quel prezzo."
+    errors: [ci-ne]
+  - tutor: "Ho trovato tre...? Prima del verbo manca una piccola parola."
+    prompt: {text: "ho trovato tre", tags: [ci-ne]}
+  - learner: "Ah, sì: ne ho trovati tre a quel prezzo."
+  - tutor: "Esatto. Allora proviamo con settecentocinquanta: è una via di mezzo che il proprietario potrebbe accettare."
+    goals: [negotiate]
+  - learner: "Va bene. E il contratto quanto dura? Io resto in Italia almeno due anni."
+  - tutor: "Possiamo fare un contratto di tre anni più due. Se deve partire prima, basta un preavviso di tre mesi."
+    goals: [conditions]
+    new: [{lemma: preavviso, gloss: notice}]
+  - learner: "Mi sembra giusto. Allora, se il proprietario dice di sì, lo prendo."
+  - tutor: "Benissimo, lo sento oggi pomeriggio e la chiamo appena ho una risposta."
+    goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-m-retired
+  history: [conditional-form]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Abbastanza. È tranquillo e ha una bella vista, ma le scale sono tante e non c'è l'ascensore."
+  - tutor: "È vero, il terzo piano senza ascensore non è comodo. È questo che la preoccupa?"
+    goals: [interest]
+  - learner: "Sì, alla mia età un po' sì. Per questo vorrei pagare un po' meno."
+  - tutor: "Il proprietario chiede novecento euro. Lei cosa proporrebbe?"
+  - learner: "Io offrirei ottocento. Per me le scale sarebbero un vero problema d'inverno."
+  - tutor: "Capisco. E se il proprietario facesse ottocentocinquanta, ma con le spese incluse?"
+  - learner: "Va bene, ma solo se c'è anche il riscaldamento, altrimenti non mi converebbe."
+    errors: [conditional-form]
+  - tutor: "Non mi converebbe? Ascolti bene il condizionale di «convenire»."
+    prompt: {text: "converebbe", tags: [conditional-form]}
+  - learner: "Sì, scusi: senza riscaldamento non mi converebbe."
+    errors: [conditional-form]
+  - tutor: "Certo, senza riscaldamento non le converrebbe. Lo chiedo al proprietario."
+    recast: {text: "converebbe", fix: "converrebbe", tags: [conditional-form]}
+    goals: [negotiate]
+  - learner: "Grazie. Il contratto sarebbe di quattro anni?"
+  - tutor: "Sì, quattro più quattro. Se volesse andare via prima, basterebbero sei mesi di preavviso."
+    goals: [conditions]
+    new: [{lemma: preavviso, gloss: notice}]
+  - learner: "Va bene. Se il proprietario è d'accordo sul riscaldamento, firmo la settimana prossima."
+  - tutor: "Perfetto, la chiamo io appena ho una risposta."
+    goals: [conclude]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-student
+  history: [passive]
+  turns:
+  - tutor: "Buongiorno. Numero 52? Prego, mi dica."
+  - learner: "Buongiorno. Mi sono appena trasferita e vorrei fare il cambio di residenza."
+  - tutor: "Benissimo. Ha con sé un documento d'identità e il contratto d'affitto?"
+    goals: [request]
+  - learner: "Il passaporto ce l'ho. Il contratto invece l'ho dimenticato, ma ce l'ho sul telefono."
+  - tutor: "Ci serve una copia, ma può mandarla anche per email. L'indirizzo lo trova sul modulo."
+    goals: [documents, problem]
+  - learner: "Va bene, la mando oggi. Il modulo deve essere firmato anche dal proprietario?"
+  - tutor: "No, basta la sua firma. Il proprietario verrà contattato solo se ci sono dubbi."
+  - learner: "E dopo quanto tempo arriva la conferma?"
+  - tutor: "Entro quarantacinque giorni passa un vigile a controllare che lei abiti davvero lì. Poi la residenza diventa definitiva."
+    goals: [next]
+    new: [{lemma: vigile, gloss: municipal police officer}]
+  - learner: "Il vigile avvisa prima o viene senza dire niente?"
+  - tutor: "Di solito viene senza avvisare, quindi metta il suo nome sul campanello."
+  - learner: "Ah, giusto, il campanello! Lo faccio stasera."
+  - tutor: "Ottimo. Allora per oggi abbiamo finito, buona giornata."
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno. Numero 18? Prego, mi dica."
+  - learner: "Buongiorno. Ho bisogno della residenza per iscrivere mio figlio a scuola."
+  - tutor: "Capisco. Lei ha già la residenza in un altro comune italiano?"
+    goals: [request]
+  - learner: "No, arrivo direttamente dalla Spagna. Sono in Italia da febbraio."
+  - tutor: "Allora le servono il passaporto, il codice fiscale e un documento che dimostri dove abita."
+    goals: [documents]
+    new: [{lemma: fiscale, gloss: tax (adj.)}]
+  - learner: "Il codice fiscale non ce l'ho ancora. Dove si fa?"
+  - tutor: "Si chiede all'Agenzia delle Entrate: non costa niente e ci vuole poco. Senza, però, non possiamo andare avanti."
+  - learner: "Allora vado domani a l'Agenzia e torno con il codice."
+    errors: [articulated-preposition]
+  - tutor: "A l'Agenzia? Come si uniscono queste due parole?"
+    prompt: {text: "a l'Agenzia", tags: [articulated-preposition]}
+  - learner: "Sì, vado a l'Agenzia delle Entrate domani mattina."
+    errors: [articulated-preposition]
+  - tutor: "Perfetto: all'Agenzia delle Entrate di solito fanno in fretta. Quando torna, chieda direttamente di me."
+    recast: {text: "a l'Agenzia", fix: "all'Agenzia", tags: [articulated-preposition]}
+    goals: [problem]
+  - learner: "Grazie, molto gentile. E dopo, quanto tempo bisogna aspettare?"
+  - tutor: "Circa un mese e mezzo. Nel frattempo passerà un vigile per il controllo."
+    goals: [next]
+  - learner: "Va bene. Mio figlio può già andare a scuola mentre aspettiamo?"
+  - tutor: "Sì, alla scuola basta la ricevuta della domanda. Gliela preparo subito."
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-f-teacher
+  history: [word-choice, negation]
+  turns:
+  - tutor: "Buongiorno. Numero 9? Prego, mi dica."
+  - learner: "Salve. Due mesi fa ho chiesto la residenza, ma ho ricevuto nessuna risposta."
+    errors: [negation]
+  - tutor: "Ho ricevuto nessuna risposta? Manca qualcosa prima del verbo."
+    prompt: {text: "ho ricevuto nessuna risposta", tags: [negation]}
+  - learner: "Ah, sì: non ho ricevuto nessuna risposta."
+  - tutor: "Esatto. Mi dice il suo cognome? Controllo subito a che punto è la pratica."
+    goals: [request]
+  - learner: "Ruiz, con la zeta finale. Ho qui la ricevuta, se le serve."
+  - tutor: "Grazie. Ecco: il vigile è passato due volte, ma non ha trovato nessuno."
+  - learner: "Strano. Sarà passato di mattina, quando sono a scuola a lavorare."
+  - tutor: "Probabile. Bisogna chiedere un nuovo controllo e lasciare un numero di telefono."
+    goals: [problem]
+  - learner: "D'accordo. Ma la mia domanda adesso è caducata?"
+    errors: [word-choice]
+  - tutor: "No, non è scaduta: resta aperta finché non facciamo il controllo."
+    recast: {text: "caducata", fix: "scaduta", tags: [word-choice]}
+  - learner: "Meno male. Devo portare di nuovo i documenti?"
+  - tutor: "No, li abbiamo già tutti. Le basta firmare questa richiesta."
+    goals: [documents]
+  - learner: "Ecco fatto. E quanto tempo ci vuole per il nuovo controllo?"
+  - tutor: "Di solito una o due settimane. Il vigile la chiamerà il giorno prima."
+    goals: [next]

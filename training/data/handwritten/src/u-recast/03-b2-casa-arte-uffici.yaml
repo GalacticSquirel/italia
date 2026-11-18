@@ -1,0 +1,247 @@
+# B2, recast-focused (u-recast): prompt, failed repair, then a recast that carries the native
+# form of the learner's span («il cui nome», «glieli», «avessero spiegato», «sia limitato»...).
+# Correct subjunctives, comparatives and clitics elsewhere are left alone.
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. Che luce! Mi scusi, l'affitto include anche le utilità?"
+      errors: [false-friend]
+    - tutor: "No, l'affitto è di novecento euro e le bollette sono a parte, come le spese di condominio: circa sessanta euro al mese."
+      goals: [rent]
+      recast: {text: "le utilità", fix: "le bollette", tags: [false-friend]}
+    - learner: "Capisco. Vedo che è arredato, ma io ho già i miei mobili. Preferirei che il proprietario porta via almeno il divano e l'armadio."
+      errors: [subjunctive-use]
+    - tutor: "«Preferirei che il proprietario porta via»? Dopo «preferirei che» il verbo può restare così? Come diventa?"
+      prompt: {text: "il proprietario porta via", tags: [subjunctive-use]}
+    - learner: "Sì, scusi: preferirei che il proprietario porta via il divano, è troppo grande per me."
+      errors: [subjunctive-use]
+    - tutor: "Capisco, lei preferirebbe che il proprietario portasse via il divano. Glielo chiedo oggi stesso, di solito è molto disponibile."
+      recast: {text: "il proprietario porta via", fix: "il proprietario portasse via", tags: [subjunctive-use]}
+    - learner: "Grazie. E la caldaia è nuova? Gli elettrodomestici funzionano tutti?"
+    - tutor: "La caldaia ha due anni, e lavatrice e frigorifero sono stati cambiati a gennaio."
+      goals: [condition]
+    - learner: "Benissimo. Che tipo di contratto è, e quanto chiedete di caparra?"
+    - tutor: "È un quattro più quattro, con tre mesi di caparra."
+      goals: [contract]
+    - learner: "È una cifra alta, ma il quartiere mi piace molto: ci abita mia figlia, a due strade da qui."
+    - tutor: "Allora sarebbe vicinissimo a sua figlia! È una zona tranquilla, con un bel parco e tutti i servizi."
+      goals: [neighbourhood]
+    - learner: "Sono molto interessato. Se il proprietario è d'accordo sul divano, firmo anche la settimana prossima."
+    - tutor: "Perfetto, lo sento oggi stesso e la richiamo domani mattina."
+      goals: [decide]
+
+- scenario: arte-mostra
+  level: B2
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Mi colpisce subito. È inquietante, ma non riesco a smettere di guardarlo."
+    - tutor: "Anche a me fa questo effetto. Che cosa vedi, esattamente?"
+      goals: [react]
+    - learner: "Una donna seduta davanti a una finestra, di spalle. Fuori c'è il mare, ma la stanza è quasi buia."
+    - tutor: "Sì, e la luce entra solo da un angolo. Secondo te che cosa vuole dire il pittore?"
+      goals: [describe]
+    - learner: "Forse parla della solitudine. Mi ricorda un pittore americano che il nome non ricordo mai, quello delle donne sole nei bar."
+      errors: [relative-pronoun]
+    - tutor: "«Un pittore che il nome non ricordo»? Manca qualcosa per legare il pittore al suo nome. Quale parola ci vuole?"
+      prompt: {text: "un pittore americano che il nome", tags: [relative-pronoun]}
+    - learner: "Mmm... un pittore americano che il nome non ricordo, famoso per i bar di notte."
+      errors: [relative-pronoun]
+    - tutor: "Un pittore americano il cui nome non ricordi... forse Edward Hopper? Hai ragione, l'atmosfera è la stessa."
+      goals: [interpret]
+      recast: {text: "un pittore americano che il nome", fix: "un pittore americano il cui nome", tags: [relative-pronoun]}
+    - learner: "Sì, Hopper! Però questo quadro è meno freddo che Hopper, i colori sono più caldi."
+      errors: [comparative]
+    - tutor: "Sono d'accordo. Ma «meno freddo che Hopper»: se confronti con un pittore, dopo «meno» che parola usi?"
+      prompt: {text: "meno freddo che Hopper", tags: [comparative]}
+    - learner: "Mmm... è meno freddo che Hopper, più umano."
+      errors: [comparative]
+    - tutor: "Meno freddo di Hopper e più umano, vero: più triste che freddo. Chissà se il pittore conosceva i suoi quadri."
+      goals: [compare]
+      recast: {text: "meno freddo che Hopper", fix: "meno freddo di Hopper", tags: [comparative]}
+    - learner: "Può darsi. Andiamo a vedere la sala successiva?"
+    - tutor: "Volentieri, ci sono altri tre quadri dello stesso pittore."
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-f-professional
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Stamattina un motorino mi ha tagliato la strada a una rotonda e ho dovuto frenare di colpo. Il ragazzo ha toccato la fiancata della mia macchina."
+    - tutor: "Mi dispiace. Lei si è fatta male? E che danni ci sono?"
+    - learner: "Io sto bene, per fortuna. La portiera è graffiata e un po' piegata."
+    - tutor: "Meno male che sta bene. E di chi è stata la colpa, secondo lei?"
+      goals: [what]
+    - learner: "Del ragazzo, senza dubbio: non ha dato la precedenza. È arrivato anche un vigile e gli ha chiesto i documenti, e il ragazzo gli li ha dati subito."
+      errors: [combined-pronouns]
+    - tutor: "«Gli li ha dati»? Quei due pronomi, insieme, cambiano forma. Come si dice?"
+      prompt: {text: "gli li ha dati", tags: [combined-pronouns]}
+    - learner: "Ah... sì, il ragazzo gli li ha dati senza problemi, e ha ammesso la colpa."
+      errors: [combined-pronouns]
+    - tutor: "Bene: se glieli ha dati e ha ammesso la colpa, la responsabilità è chiara. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+      recast: {text: "gli li", fix: "glieli", tags: [combined-pronouns]}
+    - learner: "Sì, l'abbiamo firmata tutti e due, e ho preso le foto dei danni."
+      errors: [word-choice]
+    - tutor: "Ha fatto le foto? Perfetto. Mi mandi il modulo e le foto per email, così apro la pratica."
+      goals: [documents]
+      recast: {text: "preso le foto", fix: "fatto le foto", tags: [word-choice]}
+    - learner: "Va bene. E dopo cosa succede? Devo aspettare il perito?"
+    - tutor: "Sì, il perito la chiamerà entro cinque giorni. Dopo la perizia potrà far riparare la macchina."
+      goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-m-worker
+  history: [hypothetical]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Devo rinnovare il permesso di soggiorno e mi hanno detto che serve il certificato di residenza."
+    - tutor: "Esatto. Ha già fatto la domanda di residenza?"
+      goals: [request]
+    - learner: "Sì, due mesi fa, ma mi hanno restituito la pratica: mancava la copia del contratto di lavoro."
+    - tutor: "Succede spesso. Allora le servono il contratto di lavoro e un documento valido, niente di più."
+      goals: [documents]
+    - learner: "Il problema è che ho già perso un mese. Se gli impiegati avrebbero spiegato meglio, avrei portato tutto subito."
+      errors: [hypothetical]
+    - tutor: "Capisco che sia arrabbiato. Però, «se gli impiegati avrebbero spiegato»: dopo «se», quale tempo ci vuole?"
+      prompt: {text: "avrebbero spiegato", tags: [hypothetical]}
+    - learner: "Sì, se avrebbero spiegato meglio, adesso avrei già il certificato."
+      errors: [hypothetical]
+    - tutor: "Ha ragione, se le avessero spiegato meglio, adesso avrebbe già tutto. Il contratto ce l'ha con sé oggi?"
+      recast: {text: "avrebbero spiegato", fix: "avessero spiegato", tags: [hypothetical]}
+    - learner: "Sì, eccolo, e ho portato anche una copia."
+    - tutor: "Perfetto, la aggiungo subito alla pratica, così questa volta è completa."
+      goals: [problem]
+    - learner: "Grazie. E quando passano i vigili per il controllo, è importante che io sono a casa?"
+      errors: [subjunctive-use]
+    - tutor: "Buona domanda. Ma «è importante che io sono»: dopo «è importante che», il verbo resta così?"
+      prompt: {text: "sono a casa", tags: [subjunctive-use]}
+    - learner: "Sì, scusi... è importante che sono a casa tutto il giorno?"
+      errors: [subjunctive-use]
+    - tutor: "Sì, è importante che sia a casa, o almeno qualcuno della famiglia: passano entro quarantacinque giorni. Poi può chiedere il certificato a questo sportello."
+      goals: [next]
+      recast: {text: "sono a casa", fix: "sia a casa", tags: [subjunctive-use]}
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-m-heritage
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Ho trentadue anni e sono cresciuto a Londra, ma mio padre è di Bari. Lavoro nella logistica da otto anni."
+    - tutor: "Piacere. Quindi parla bene l'italiano e l'inglese: per noi è un vantaggio. Qual è stata la sua esperienza più importante?"
+      goals: [intro]
+    - learner: "Negli ultimi tre anni ho coordinato un magazzino con più che quaranta dipendenti."
+      errors: [comparative]
+    - tutor: "«Più che quaranta dipendenti»? Davanti a un numero, la parola dopo «più» va bene così?"
+      prompt: {text: "più che quaranta", tags: [comparative]}
+    - learner: "Sì, più che quaranta dipendenti, su tre turni."
+      errors: [comparative]
+    - tutor: "Più di quaranta dipendenti su tre turni: una bella responsabilità. Quali sono i suoi punti di forza?"
+      goals: [experience]
+      recast: {text: "più che quaranta", fix: "più di quaranta", tags: [comparative]}
+    - learner: "Sono molto organizzato e sono buono a risolvere i problemi. Un difetto? A volte delego poco."
+      errors: [word-choice]
+    - tutor: "Essere bravo a risolvere i problemi è fondamentale qui, e apprezzo che sia sincero. Perché vorrebbe lavorare proprio con noi?"
+      goals: [strengths]
+      recast: {text: "buono a risolvere", fix: "bravo a risolvere", tags: [word-choice]}
+    - learner: "La vostra azienda sta crescendo all'estero, e vorrei usare le mie due lingue in un ruolo internazionale."
+    - tutor: "Un motivo chiaro. Ha qualche domanda sul ruolo?"
+      goals: [why]
+    - learner: "Sì: quante persone ci sarebbero nella squadra?"
+    - tutor: "Una squadra di dodici persone, tra Bari e Rotterdam. Le faremo sapere entro venerdì."
+      goals: [questions]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: en-f-professional
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Quest'anno il mio gruppo ha battuto gli obiettivi di vendita del quindici per cento."
+      errors: [word-choice]
+    - tutor: "Lo so, avete superato gli obiettivi di vendita del quindici per cento: risultati ottimi, li ho notati."
+      goals: [results]
+      recast: {text: "battuto gli obiettivi", fix: "superato gli obiettivi", tags: [word-choice]}
+    - learner: "Grazie. Per questo vorrei chiederle una promozione a responsabile commerciale, con un aumento adeguato."
+    - tutor: "Capisco. Il problema è che quest'anno il budget per gli aumenti è molto limitato."
+      goals: [request]
+    - learner: "Lo so, ma benché il budget è limitato, credo che i risultati parlino da soli."
+      errors: [subjunctive-use]
+    - tutor: "«Benché il budget è limitato»? Dopo «benché», il verbo può restare così? Come diventa?"
+      prompt: {text: "il budget è limitato", tags: [subjunctive-use]}
+    - learner: "Sì, benché il budget è limitato, si può trovare una soluzione, no?"
+      errors: [subjunctive-use]
+    - tutor: "Benché il budget sia limitato, una soluzione si trova, ha ragione. Potremmo partire dalla promozione e rivedere lo stipendio a giugno."
+      goals: [handle]
+      recast: {text: "il budget è limitato", fix: "il budget sia limitato", tags: [subjunctive-use]}
+    - learner: "Mi sembra un buon compromesso, purché a giugno l'aumento sia confermato per iscritto."
+    - tutor: "Mi sembra giusto. Preparo una proposta per iscritto e ne parliamo di nuovo lunedì."
+      goals: [next-steps]
+    - learner: "Perfetto, grazie per la disponibilità."
+    - tutor: "Grazie a lei, e buon lavoro a tutto il gruppo."
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-m-traveller
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Io la penso diversamente: credo che una zona pedonale sia un vantaggio per tutti."
+    - tutor: "Addirittura per tutti? Mi spieghi perché."
+      goals: [position]
+    - learner: "È un tema su che ho letto molto. Prima di tutto, l'inquinamento diminuisce subito."
+      errors: [relative-pronoun]
+    - tutor: "Scusi, «un tema su che»? Con la preposizione davanti, quella parola funziona?"
+      prompt: {text: "un tema su che", tags: [relative-pronoun]}
+    - learner: "Ah... sì, è un tema su che ho letto molto, perché nella mia città è successo lo stesso."
+      errors: [relative-pronoun]
+    - tutor: "Un tema su cui ha letto molto, quindi, e vissuto in prima persona. E il secondo argomento?"
+      recast: {text: "un tema su che", fix: "un tema su cui", tags: [relative-pronoun]}
+    - learner: "Il secondo è che la gente cammina di più e si ferma nei negozi, invece di passare in macchina."
+    - tutor: "Sì, ma i commercianti dicono che senza parcheggi i clienti vanno nei centri commerciali."
+      goals: [argue]
+    - learner: "All'inizio è vero, ma con mezzi pubblici frequenti i clienti tornano. Nella mia città le vendite sono aumentate dopo due anni."
+    - tutor: "Un dato interessante. Quindi non vede nessun aspetto negativo?"
+      goals: [counter]
+    - learner: "Ammetto che i residenti anziani possono avere difficoltà. Si potrebbero lasciare alcuni permessi per loro e per le consegne: mi sembra una soluzione sensibile."
+      errors: [false-friend]
+    - tutor: "Sì, è una soluzione sensata: su questo siamo d'accordo."
+      goals: [concede]
+      recast: {text: "una soluzione sensibile", fix: "una soluzione sensata", tags: [false-friend]}
+      new: [{lemma: sensato, gloss: sensible}]
+
+- scenario: film-libro
+  level: B2
+  persona: es-m-worker
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io ho letto «L'amica geniale» di Elena Ferrante. Mi ne ha parlato mia sorella, che l'ha letto due volte."
+      errors: [combined-pronouns]
+    - tutor: "«Mi ne ha parlato»? Quei due pronomi vicini, sei sicuro che restino così?"
+      prompt: {text: "Mi ne ha parlato", tags: [combined-pronouns]}
+    - learner: "Sì, mi ne ha parlato tantissimo, e alla fine l'ho comprato."
+      errors: [combined-pronouns]
+    - tutor: "Ah, tutti me ne parlano benissimo! Allora raccontaci la trama, senza rovinarci il finale."
+      recast: {text: "mi ne", fix: "me ne", tags: [combined-pronouns]}
+    - learner: "È la storia di due amiche, Lila e Lenù, che crescono in un quartiere povero di Napoli negli anni Cinquanta."
+    - tutor: "Un'amicizia lunga una vita. Quale delle due ti ha colpito di più?"
+      goals: [summary]
+    - learner: "Lila, senza dubbio. È più lista di tutti, ma non può studiare perché la sua famiglia non ha soldi."
+      errors: [false-friend]
+    - tutor: "Più intelligente di tutti e senza possibilità: un personaggio che non si dimentica, e a volte anche un po' crudele, no?"
+      goals: [characters]
+      recast: {text: "più lista di tutti", fix: "più intelligente di tutti", tags: [false-friend]}
+    - learner: "Sì, con Lenù a volte è crudele. Comunque mi è piaciuto molto: la scrittura è semplice, ma ti prende fino all'ultima pagina."
+    - tutor: "È vero, è difficile smettere. A chi lo consiglieresti?"
+      goals: [opinion]
+    - learner: "A tutti, ma soprattutto a chi ha un'amica da tanti anni. Ci si riconosce."
+    - tutor: "Bellissimo consiglio. Lo aggiungiamo subito alla lista!"
+      goals: [recommend]

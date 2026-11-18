@@ -1,0 +1,288 @@
+# Round 6, set u-lexical: false friends and calques, C1, file 6.
+- scenario: trattativa-fornitore
+  level: C1
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, la chiamo per questo. Un aumento del dodici per cento ci mette in un apuro serio."
+      errors: [word-choice]
+    - tutor: "Capisco che vi metta in seria difficoltà, ma anche noi oggi paghiamo il grano quasi il doppio."
+      recast: {text: "in un apuro serio", fix: "in seria difficoltà", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Siamo vostri clienti da otto anni e abbiamo sempre pagato puntualmente. Non possiamo assumere un aumento così da un mese all'altro."
+      errors: [false-friend]
+    - tutor: "So bene che non potete sostenere un aumento così dall'oggi al domani, e la vostra puntualità per noi conta molto."
+      recast: {text: "assumere un aumento", fix: "sostenere un aumento", tags: [false-friend]}
+      goals: [argue]
+    - learner: "Potrebbamo accettare un aumento del cinque per cento, se il prezzo resta bloccato per un anno."
+      errors: [conditional-form]
+    - tutor: "«Potrebbamo»? Riguardi quella forma del condizionale: qualcosa non torna."
+      prompt: {text: "Potrebbamo", tags: [conditional-form]}
+    - learner: "Potremmo, scusi. Potremmo accettare il cinque per cento con il prezzo bloccato."
+    - tutor: "Esatto. Il cinque però per noi è troppo poco: facciamo il sette, bloccato per dodici mesi?"
+      goals: [counteroffer]
+    - learner: "Il sette va bene, ma vogliamo firmare un convenio scritto, con le consegne ogni martedì."
+      errors: [word-choice]
+    - tutor: "Un accordo scritto mi sta benissimo: le preparo una bozza con il sette per cento e le consegne del martedì."
+      recast: {text: "un convenio scritto", fix: "un accordo scritto", tags: [word-choice]}
+    - learner: "E se la consegna arriva in ritardo? L'ultima volta abbiamo dovuto cambiare il menù del pranzo all'ultima ora."
+      errors: [word-choice]
+    - tutor: "Cambiare il menù all'ultimo momento è un bel guaio, lo capisco. Se il ritardo supera le ventiquattro ore, vi riconosciamo uno sconto del tre per cento sull'ordine: le sembra equo?"
+      recast: {text: "all'ultima ora", fix: "all'ultimo momento", tags: [word-choice]}
+    - learner: "Mi sembra giusto. Allora aspetto la sua bozza."
+    - tutor: "Gliela mando entro domani mattina. È davvero un piacere lavorare con voi."
+      goals: [agreement]
+
+- scenario: notizie-attualita
+  level: C1
+  persona: en-m-traveller
+  history: [false-friend]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatto?"
+    - learner: "Sì, ho letto un articolo molto comprensivo: c'erano numeri, interviste e anche le opinioni di alcuni sindaci."
+      errors: [false-friend]
+    - tutor: "Un articolo molto completo, quindi. Io invece ho visto solo titoli allarmistici. Che cosa diceva, in sostanza?"
+      recast: {text: "molto comprensivo", fix: "molto completo", tags: [false-friend]}
+    - learner: "In sostanza il governo vuole limitare gli affitti brevi nei centri storici, e i proprietari sono lividi."
+      errors: [false-friend]
+    - tutor: "Furiosi è dire poco! E tu da che parte stai?"
+      recast: {text: "lividi", fix: "furiosi", tags: [false-friend]}
+      goals: [summarise]
+    - learner: "Secondo me la legge è giusta, ma arriva tardi. Il giornalista era molto candido: ha scritto che il governo ha aspettato le elezioni."
+      errors: [false-friend]
+    - tutor: "Molto franco, direi: non capita spesso di leggerlo nero su bianco."
+      recast: {text: "molto candido", fix: "molto franco", tags: [false-friend]}
+      goals: [opinion]
+    - learner: "Però la fonte principale dell'articolo era uno studio di un'associazione di proprietari, quindi non proprio neutrale."
+    - tutor: "Ecco il punto: chi paga lo studio spesso ne decide anche le conclusioni."
+      goals: [sources]
+    - learner: "Il ministro ha detto che la legge entrerà in vigore a gennaio, ma secondo me è solo una data tentativa."
+      errors: [word-choice]
+    - tutor: "Una data indicativa, appunto. Con tutte le proroghe che abbiamo visto, io non ci conterei."
+      recast: {text: "una data tentativa", fix: "una data indicativa", tags: [word-choice]}
+      new: [{lemma: indicativo, gloss: approximate}, {lemma: proroga, gloss: extension, postponement}]
+    - learner: "Esatto. E non credo che i proprietari accettano senza fare ricorso."
+      errors: [subjunctive-use]
+    - tutor: "«Non credo che i proprietari accettano»? Dopo «non credo che», quale modo ci vuole?"
+      prompt: {text: "accettano", tags: [subjunctive-use]}
+    - learner: "Hai ragione: non credo che i proprietari accettino senza fare ricorso."
+    - tutor: "Esatto. E i ricorsi rallenteranno tutto, ci scommetto."
+      new: [{lemma: ricorso, gloss: legal appeal}]
+    - learner: "Intanto gli studenti pagano settecento euro per una stanza. Per loro questa legge è una materia di sopravvivenza."
+      errors: [word-choice]
+    - tutor: "Una questione di sopravvivenza, hai ragione: alla fine il prezzo più alto lo pagano sempre loro."
+      recast: {text: "una materia di sopravvivenza", fix: "una questione di sopravvivenza", tags: [word-choice]}
+      goals: [consequences]
+    - learner: "Vediamo cosa succede a gennaio, allora."
+    - tutor: "Ne riparliamo a gennaio, e chi ha sbagliato previsione offre il caffè."
+
+- scenario: mediazione-colleghi
+  level: C1
+  persona: es-f-teacher
+  history: [word-choice]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Ha fatto bene a venire. Mi dica pure, la ascolto."
+    - tutor: "Davide ha presentato il progetto come se fosse tutto suo, e il mio nome non l'ha nemmeno fatto."
+      goals: [listen]
+    - learner: "Capisco. Vorrei aclarare una cosa: l'analisi dei dati l'aveva preparata lei, giusto?"
+      errors: [word-choice]
+    - tutor: "Sì, e vorrei chiarire proprio questo: l'analisi l'ho fatta io, dalla prima all'ultima tabella."
+      recast: {text: "aclarare", fix: "chiarire", tags: [word-choice]}
+      goals: [clarify]
+    - learner: "Mi dispiace molto che lei si è sentita messa da parte."
+      errors: [subjunctive-use]
+    - tutor: "«Mi dispiace che lei si è sentita»? Dopo «mi dispiace che», quale modo serve?"
+      prompt: {text: "si è sentita", tags: [subjunctive-use]}
+    - learner: "Mi scusi: mi dispiace molto che lei si sia sentita messa da parte."
+    - tutor: "Grazie. Non è una questione di orgoglio, ma di riconoscimento."
+    - learner: "Ho parlato con Davide stamattina. Dice che non era sua intenzione desprestigiare nessuno: pensava di aver citato tutto il gruppo."
+      errors: [word-choice]
+    - tutor: "Magari non voleva screditare nessuno, ma il risultato è quello: il direttore ora pensa che il lavoro sia tutto suo."
+      recast: {text: "desprestigiare nessuno", fix: "screditare nessuno", tags: [word-choice]}
+      goals: [perspective]
+    - learner: "Ha ragione. Ognuno deve assumersi le proprie responsabilità, anch'io: avrei dovuto presentare il gruppo all'inizio."
+    - tutor: "Apprezzo che lo dica. E allora, che cosa propone?"
+    - learner: "Propongo di scrivere al direttore una mail con i crediti di ogni persona, e alla prossima riunione i dati li presenta lei."
+      errors: [word-choice]
+    - tutor: "Una mail con il contributo di ogni persona mi sembra giusta, e presentare io i dati ancora di più."
+      recast: {text: "i crediti", fix: "il contributo", tags: [word-choice]}
+      goals: [solution]
+    - learner: "Allora la scrivo oggi e la metto in copia."
+    - tutor: "Grazie, davvero. Mi sento già meglio."
+
+- scenario: intervista-podcast
+  level: C1
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivato proprio in Italia?"
+    - learner: "Grazie a voi! I miei nonni erano emigrati in Canada negli anni Cinquanta, quindi a casa nostra l'Italia era sempre nell'aria."
+    - tutor: "Che bello. E quando hai deciso di fare il viaggio al contrario?"
+      goals: [story]
+    - learner: "Quattro anni fa. Prima di trasferirmi, non sono mai stato in Italia per più di due settimane."
+      errors: [tense-aspect]
+    - tutor: "«Prima di trasferirmi, non sono mai stato»? Parli di un momento anteriore a un altro passato: quale tempo serve?"
+      prompt: {text: "non sono mai stato", tags: [tense-aspect]}
+    - learner: "Ah, giusto: non ero mai stato in Italia per più di due settimane."
+    - tutor: "Esatto. E i primi tempi come sono andati?"
+    - learner: "All'inizio i miei cugini di Lucca mi hanno accomodato per tre mesi, senza farmi pagare niente!"
+      errors: [false-friend]
+    - tutor: "Ti hanno ospitato per tre mesi? Questa sì che è accoglienza!"
+      recast: {text: "accomodato", fix: "ospitato", tags: [false-friend]}
+    - learner: "Sì! Lo shock culturale più grande è stato il pranzo della domenica: tre ore a tavola, ogni settimana."
+    - tutor: "Il pranzo della domenica, un'istituzione! E c'è qualcosa che proprio non sopporti?"
+      goals: [culture-shock]
+    - learner: "La burocrazia, senza dubbio. Per avere la cittadinanza ho dovuto aggiustare tutta la mia idea di tempo."
+      errors: [false-friend]
+    - tutor: "Hai dovuto adattare la tua idea di tempo, eh? Qui le pratiche hanno un calendario tutto loro."
+      recast: {text: "aggiustare", fix: "adattare", tags: [false-friend]}
+      goals: [critique]
+    - learner: "Esatto. E poi qui tutti si interessano dei fatti tuoi: il barista sa più cose di me di mia madre!"
+    - tutor: "Il barista sa sempre tutto, è una legge non scritta! Che consiglio daresti a chi vuole trasferirsi qui?"
+    - learner: "Di non avere fretta, di imparare la lingua prima di partire e di non prendere niente personalmente."
+      errors: [word-choice]
+    - tutor: "Di non prendere niente sul personale: un consiglio d'oro. Grazie per essere stato con noi!"
+      recast: {text: "personalmente", fix: "sul personale", tags: [word-choice]}
+      goals: [advice]
+
+- scenario: club-lettura
+  level: C1
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    - learner: "Sì, l'ho finito ieri notte. A me è piaciuto, anche se il finale mi ha decepcionato un po'."
+      errors: [word-choice]
+    - tutor: "Ti ha deluso il finale? A me invece è sembrato perfetto. Ma partiamo dall'inizio: che impressione generale ti ha fatto?"
+      recast: {text: "decepcionato", fix: "deluso", tags: [word-choice]}
+    - learner: "La protagonista mi è sembrata molto vera. Ma il narratore è un tipo molto suspicace, non si fida di nessuno."
+      errors: [word-choice]
+    - tutor: "Molto sospettoso, sì, ed è proprio questo il bello: non sai mai se credergli."
+      recast: {text: "molto suspicace", fix: "molto sospettoso", tags: [word-choice]}
+      goals: [impression, character]
+    - learner: "Esatto, è un narratore inaffidabile. Penso che l'autrice ha voluto confondere il lettore apposta."
+      errors: [subjunctive-use]
+    - tutor: "«Penso che l'autrice ha voluto»? Dopo «penso che», che modo usiamo?"
+      prompt: {text: "ha voluto", tags: [subjunctive-use]}
+    - learner: "Penso che l'autrice abbia voluto confondere il lettore apposta."
+    - tutor: "Esatto. E con me ci è riuscita benissimo, lo confesso."
+    - learner: "Anche lo stile mi è piaciuto: frasi brevi e secche, senza aggettivi inutili. È molto cuidato."
+      errors: [word-choice]
+    - tutor: "Molto curato, sì: ogni parola sembra pesata. E il ritmo, secondo te, regge fino in fondo?"
+      recast: {text: "molto cuidato", fix: "molto curato", tags: [word-choice]}
+      goals: [style]
+    - learner: "È un po' pesante nei capitoli centrali, ma lo consiglierei comunque."
+    - tutor: "Sono d'accordo, la parte centrale si poteva sfoltire. E a chi lo consiglieresti?"
+    - learner: "A chi ama i gialli psicologici e ha pazienza. Non è certo una lettura da spiaggia."
+    - tutor: "Perfetto: un giallo per lettori pazienti. Lo aggiungo alla lista dei consigli del club."
+      goals: [recommend]
+
+- scenario: reclamo-comune
+  level: C1
+  persona: en-m-retired
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Abito in via dei Mille, dove c'è il cantiere della nuova piazza. È una nuisance continua da tre mesi."
+      errors: [word-choice]
+    - tutor: "Un disagio continuo da tre mesi, capisco. Mi descriva il problema nel dettaglio, per favore."
+      recast: {text: "una nuisance continua", fix: "un disagio continuo", tags: [word-choice]}
+    - learner: "I lavori cominciano alle sei di mattina, e la polvere entra in casa anche con le finestre chiuse. Mia moglie soffre d'asma."
+    - tutor: "Le sei sono fuori dall'orario consentito, che comincia alle otto. Questo è un elemento importante."
+      goals: [describe]
+    - learner: "Ho già fatto due segnalazioni, ma nessuno ha risposto. Ho qui il numero di referenza della prima."
+      errors: [word-choice]
+    - tutor: "Mi dia pure il numero di protocollo, così ritrovo subito la pratica."
+      recast: {text: "il numero di referenza", fix: "il numero di protocollo", tags: [word-choice]}
+    - learner: "Eccolo. Questa volta pretendo una risposta scritta, non una telefonata."
+    - tutor: "Ne ha pienamente diritto: per legge, l'amministrazione deve risponderle per iscritto entro trenta giorni."
+      goals: [insist]
+    - learner: "E se il cantiere danneggia la mia macchina? Il Comune è responsabile per i danni?"
+      errors: [preposition]
+    - tutor: "Responsabile «per» i danni? Con «responsabile», quale preposizione si usa in questo caso?"
+      prompt: {text: "responsabile per i danni", tags: [preposition]}
+    - learner: "Responsabile... dei danni, giusto?"
+    - tutor: "Esatto. In quel caso risponde l'impresa appaltatrice, ma la segnalazione va fatta comunque qui."
+      goals: [rights]
+    - learner: "Capisco. Potete mandare un ufficiale a controllare l'orario del cantiere?"
+      errors: [false-friend]
+    - tutor: "Un funzionario dell'ufficio tecnico passerà entro la settimana, e chiederò ai vigili un controllo di prima mattina."
+      recast: {text: "un ufficiale", fix: "un funzionario", tags: [false-friend]}
+      goals: [commitment]
+    - learner: "Grazie. Spero di non dover tornare una quarta volta."
+    - tutor: "Me lo auguro anch'io. Ecco la ricevuta con il nuovo numero di protocollo."
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: en-f-student
+  history: [word-choice]
+  turns:
+    - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+    - learner: "Buongiorno! Sono a favore, ma con delle eccezioni per studenti e residenti della regione."
+    - tutor: "Interessante. Ma non le sembra assurdo pagare per entrare in una città, come in un museo?"
+      goals: [introduce]
+    - learner: "Un po' sì, ma Venezia sta già diventando un parco a tema: il centro storico è pieno di negozi di souvenir."
+    - tutor: "Un parco a tema, addirittura. Ha un esempio concreto?"
+    - learner: "Io studio a Venezia. Nel mio palazzo erano otto famiglie, adesso solo due: il resto sono affitti brevi."
+      errors: [ce-ci-sono]
+    - tutor: "«Nel mio palazzo erano otto famiglie»? Manca una paroletta per dire che lì esistevano, che abitavano lì."
+      prompt: {text: "erano otto famiglie", tags: [ce-ci-sono]}
+    - learner: "Ah, sì: nel mio palazzo c'erano otto famiglie, adesso solo due."
+    - tutor: "Esatto. Un esempio concreto, e purtroppo non è l'unico."
+      goals: [example]
+    - learner: "Il punto è che la città deve regolare gli affitti brevi, non solo far pagare i turisti."
+      errors: [word-choice]
+    - tutor: "Regolamentare gli affitti brevi: su questo in tanti le daranno ragione. Ma allora il ticket a cosa serve?"
+      recast: {text: "regolare", fix: "regolamentare", tags: [word-choice]}
+      new: [{lemma: regolamentare, gloss: to regulate}]
+    - learner: "Il ticket da solo è un cerotto: non risolve il problema, lo nasconde."
+      errors: [word-choice]
+    - tutor: "Un palliativo, insomma. Qualcuno però le direbbe che almeno porta soldi per i servizi."
+      recast: {text: "un cerotto", fix: "un palliativo", tags: [word-choice]}
+      goals: [rebut]
+    - learner: "Sì, ma quei soldi devono andare ai residenti. Le crociere poi scaricano migliaia di persone che spendono pochissimo."
+    - tutor: "E qual è la sua proposta, in concreto?"
+    - learner: "Limitare le crociere, usare i soldi del ticket per le case dei residenti e dare incentivi a chi affitta a lungo termine."
+    - tutor: "Una proposta chiara e articolata. Grazie per la telefonata, e alla prossima!"
+      goals: [proposal]
+
+- scenario: organizzare-matrimonio
+  level: C1
+  persona: en-m-traveller
+  history: [false-friend]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Immaginiamo una cosa piccola, sul lago di Como, con una cinquantina di invitati, molti dall'Irlanda."
+    - tutor: "Il lago di Como è un sogno. Per chi arriva dall'estero, pensiamo anche agli alberghi?"
+      goals: [vision]
+    - learner: "Sì, grazie. Il budget è di trentamila euro, ma vorremmo che una parte vada per il viaggio di nozze."
+      errors: [subjunctive-use]
+    - tutor: "«Vorremmo che una parte vada»? Dopo un condizionale come «vorremmo», quale tempo del congiuntivo ci vuole?"
+      prompt: {text: "vada", tags: [subjunctive-use]}
+    - learner: "Ah, certo: vorremmo che una parte andasse per il viaggio di nozze."
+    - tutor: "Perfetto, allora ragioniamo su venticinquemila per il matrimonio vero e proprio."
+      goals: [budget]
+    - learner: "Il dress code sarà casuale: niente cravatte, i miei amici irlandesi le odiano."
+      errors: [false-friend]
+    - tutor: "Un dress code informale, benissimo: lo scriviamo anche sull'invito, così nessuno si presenta in smoking."
+      recast: {text: "casuale", fix: "informale", tags: [false-friend]}
+    - learner: "Per i fiori vogliamo fiori di campo, freschi, non quelli artificiosi dei grandi alberghi."
+      errors: [false-friend]
+    - tutor: "Niente fiori artificiali, d'accordo: conosco una fiorista che lavora solo con fiori di stagione."
+      recast: {text: "artificiosi", fix: "artificiali", tags: [false-friend]}
+      goals: [choices]
+    - learner: "Un'altra cosa: se piove, possiamo fare la cerimonia al coperto? Ci serve un piano B."
+    - tutor: "Certo: la villa ha una serra coperta, bellissima, che si usa proprio in caso di pioggia."
+    - learner: "Perfetto. E per la musica vogliamo una banda dal vivo, e verso mezzanotte un DJ."
+      errors: [false-friend]
+    - tutor: "Un gruppo dal vivo e poi il DJ si può fare, a patto di finire entro l'una: è il regolamento della villa."
+      recast: {text: "una banda dal vivo", fix: "un gruppo dal vivo", tags: [false-friend]}
+      goals: [conditions]
+    - learner: "L'una va benissimo. Ci manda una quotazione dettagliata?"
+      errors: [false-friend]
+    - tutor: "Vi mando un preventivo dettagliato entro venerdì, con tre proposte di menù da assaggiare insieme."
+      recast: {text: "una quotazione dettagliata", fix: "un preventivo dettagliato", tags: [false-friend]}
+    - learner: "Perfetto, grazie mille. Non vediamo l'ora!"
+    - tutor: "Grazie a voi, e ancora congratulazioni! Sarà una giornata bellissima."

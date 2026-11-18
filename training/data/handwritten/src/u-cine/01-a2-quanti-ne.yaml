@@ -1,0 +1,205 @@
+# u-cine, file 01 (A2): ne with numbers and quantities, ce ne sono, ci penso io; many correct ci/ne left alone.
+- scenario: famiglia
+  level: A2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Sono i miei nonni con i miei parenti, mamma e papà. Il nonno ha novant'anni!"
+      errors: [false-friend]
+    - tutor: "Ah, i nonni con i tuoi genitori! Il nonno sembra più giovane. E questi ragazzi chi sono?"
+      recast: {text: "parenti", fix: "genitori", tags: [false-friend]}
+      goals: [who, ages]
+    - learner: "Sono i miei cugini. Ho tanti cugini, ho quasi trenta!"
+      errors: [ci-ne]
+      gold: {text: "ho quasi trenta", fix: "ne ho quasi trenta"}
+    - tutor: "Trenta cugini, che famiglia! Ma «ho quasi trenta»: manca una piccola parola prima di «ho»."
+      prompt: {text: "ho quasi trenta", tags: [ci-ne]}
+    - learner: "Ah, sì: ne ho quasi trenta! Quasi tutti vivono in Calabria."
+    - tutor: "Esatto! E tua nonna com'è? Sembra molto contenta."
+    - learner: "Sì, è sempre contenta e cucina benissimo. Io ci vado ogni estate. Tu hai fratelli?"
+    - tutor: "Ho una sorella, Giulia. È più grande di me e vive a Torino."
+      goals: [describe, ask]
+
+- scenario: abbigliamento
+  level: A2
+  persona: es-f-teacher
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Cerco delle calze di lana per l'inverno. Ne avete?"
+    - tutor: "Sì, sono qui a destra. Abbiamo grigie, nere e blu."
+      goals: [ask-item]
+    - learner: "Mi piacciono quelle grigie. Prendo tre paia, per me e per le mie figlie."
+    - tutor: "Ottima idea, fanno molto caldo. Che numero portano le sue figlie?"
+      goals: [size-colour]
+    - learner: "Una porta il trentasei, l'altra il trentotto. Posso vedere anche una sciarpa? Voglio una rossa."
+      errors: [ci-ne]
+      gold: {text: "Voglio una rossa", fix: "Ne voglio una rossa"}
+    - tutor: "Certo. «Voglio una rossa»... una cosa? Prima del verbo manca una parola piccola."
+      prompt: {text: "Voglio una rossa", tags: [ci-ne]}
+    - learner: "Ah, ne voglio una rossa. Scusi!"
+    - tutor: "Benissimo, eccola. Vuole provarla?"
+    - learner: "Sì, grazie. Mmm, è un po' larga, ma sta bene con il mio cappotto. Prendo tutto."
+      errors: [false-friend]
+    - tutor: "Sì, è un po' lunga, ma va bene per l'inverno. Allora sono trentadue euro in tutto."
+      recast: {text: "larga", fix: "lunga", tags: [false-friend]}
+      goals: [try, decide]
+
+- scenario: bar-colazione
+  level: A2
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Un caffè macchiato, per favore. Ci sono ancora cornetti al cioccolato?"
+    - tutor: "Sì, sono appena arrivati, sono caldi!"
+      goals: [greet, order-drink]
+    - learner: "Perfetto. Allora prendo quattro, due per me e due per i miei colleghi."
+      errors: [ci-ne]
+      gold: {text: "prendo quattro", fix: "ne prendo quattro"}
+    - tutor: "Quattro cornetti, va bene. Ma «prendo quattro»: come lo dice senza ripetere «cornetti»?"
+      prompt: {text: "prendo quattro", tags: [ci-ne]}
+    - learner: "Ah, ne prendo quattro!"
+    - tutor: "Benissimo. Glieli metto in un sacchetto?"
+      new: [{lemma: sacchetto, gloss: small bag}]
+      goals: [order-food]
+    - learner: "Sì, grazie. E lo zucchero? Ce n'è sul bancone?"
+    - tutor: "Sì, è lì, sul bancone. Sono sei euro e venti."
+    - learner: "Ecco la carta. Oggi non ho cash."
+      errors: [word-choice]
+    - tutor: "Nessun problema, anche senza contanti va bene. Grazie e buon lavoro!"
+      recast: {text: "cash", fix: "contanti", tags: [word-choice]}
+      goals: [pay]
+
+- scenario: lavanderia
+  level: A2
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! Questa lavatrice non parte. Ho messo una moneta, ma niente."
+    - tutor: "Ah, qui servono due gettoni, non monete. Li compri là, vicino alla porta."
+      goals: [problem]
+    - learner: "Due gettoni? Io ho uno solo!"
+      errors: [ci-ne]
+      gold: {text: "Io ho uno solo", fix: "Io ne ho uno solo"}
+    - tutor: "Uno solo di cosa? Prova di nuovo: c'è una parola piccola che manca."
+      prompt: {text: "Io ho uno solo", tags: [ci-ne]}
+    - learner: "Sì, sì: io ne ho uno solo. Quanto costa un gettone?"
+    - tutor: "Esatto. Un gettone costa due euro. Se vuoi, te ne do uno io."
+      goals: [payment]
+    - learner: "Davvero? Sei molto gentile! E il soap, dove lo metto?"
+      errors: [word-choice]
+    - tutor: "Il detersivo lo metti qui, a sinistra. Poi scegli il programma a quaranta gradi."
+      recast: {text: "il soap", fix: "Il detersivo", tags: [word-choice]}
+      goals: [ask-how]
+    - learner: "Fatto, adesso funziona! Grazie mille, ti offro un caffè al bar qui fuori."
+    - tutor: "Sì, grazie! Tanto qui ci vuole un'ora."
+      goals: [thank]
+
+- scenario: casa-mia
+  level: A2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "È un piso vicino all'università. È vecchio ma ha molta luce."
+      errors: [word-choice]
+    - tutor: "Un appartamento vicino all'università, che bello! Quante camere ci sono?"
+      recast: {text: "un piso", fix: "Un appartamento", tags: [word-choice]}
+      goals: [type]
+    - learner: "Ci sono quattro camere, una per ogni ragazza. E ci sono due bagni."
+    - tutor: "Due bagni? Siete fortunate! Qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "La cucina! È grande e ci mangiamo sempre insieme. Ma le sedie... ci ne sono solo tre!"
+      errors: [ci-ne]
+      gold: {text: "ci ne sono", fix: "ce ne sono"}
+    - tutor: "Tre sedie per quattro ragazze? Ma «ci ne sono»: ascolta bene, suona giusto?"
+      prompt: {text: "ci ne sono", tags: [ci-ne]}
+    - learner: "Ah no: ce ne sono solo tre! Così una di noi mangia in piedi."
+    - tutor: "Perfetto! Povera ragazza! Dovete comprare una sedia nuova."
+      goals: [favourite]
+    - learner: "Sì, sabato andiamo al mercato. E la tua casa com'è?"
+    - tutor: "È piccola, ma ha un balcone pieno di fiori. D'estate ci faccio colazione."
+      goals: [ask]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Mi sveglio alle sette e bevo subito un caffè. Anzi, durante il giorno bevo ne tre o quattro."
+      errors: [ci-ne]
+      gold: {text: "bevo ne tre", fix: "ne bevo tre"}
+    - tutor: "Tre o quattro caffè, quanti! Ma «bevo ne»: quella piccola parola va prima o dopo il verbo?"
+      prompt: {text: "bevo ne tre", tags: [ci-ne]}
+    - learner: "Prima! Ne bevo tre o quattro."
+    - tutor: "Esatto! Io invece ne bevo uno solo. E dopo colazione cosa fai?"
+      goals: [wake]
+    - learner: "Vado all'università in bici. Ci metto dieci minuti. Poi studio in la biblioteca fino alle quattro."
+      errors: [articulated-preposition]
+    - tutor: "Dieci minuti in bici, che bello! Ma «in la biblioteca»: con biblioteca si dice in modo più semplice."
+      prompt: {text: "in la biblioteca", tags: [articulated-preposition]}
+    - learner: "Ah, in biblioteca! Studio in biblioteca fino alle quattro."
+    - tutor: "Esatto. E la sera?"
+      goals: [work]
+    - learner: "La sera cucino con le mie amiche e poi guardiamo una serie. E tu, come passi la sera?"
+    - tutor: "Di solito leggo un po' e vado a dormire presto. La mattina lavoro alle sei!"
+      goals: [evening, ask]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Devo spedire questo pacco a mia figlia, in Chicago."
+      errors: [preposition]
+    - tutor: "Va bene. «In Chicago»? Con le città quale preposizione usiamo?"
+      prompt: {text: "in Chicago", tags: [preposition]}
+    - learner: "Ah, a Chicago!"
+    - tutor: "Perfetto. Vuole la spedizione normale o veloce?"
+      goals: [send]
+    - learner: "Normale, grazie. Non è urgente. Quanti giorni ci vogliono?"
+    - tutor: "Più o meno dieci giorni. Deve compilare questo modulo con l'indirizzo."
+      goals: [speed]
+    - learner: "Ecco fatto. Ah, ho bisogno anche di francobolli per le cartoline. Mi dà sei?"
+      errors: [ci-ne]
+      gold: {text: "Mi dà sei", fix: "Me ne dà sei"}
+    - tutor: "Certo. Sei francobolli, ma «mi dà sei»... sei cosa? Manca una piccola parola."
+      prompt: {text: "Mi dà sei", tags: [ci-ne]}
+    - learner: "Ah, me ne dà sei, per favore?"
+    - tutor: "Ecco qui. Sono giusti per l'America. Sono ventisette euro in tutto."
+      goals: [form]
+    - learner: "Ecco trenta euro."
+    - tutor: "Ecco il resto e la ricevuta. Buona giornata!"
+      goals: [pay]
+
+- scenario: serata-cinema
+  level: A2
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema? C'è un film nuovo di Paolo Sorrentino."
+    - tutor: "Bello! Ma a me i film lunghi non piacciono tanto. C'è anche una commedia?"
+      goals: [propose, genre]
+    - learner: "Sì, c'è una commedia con Checco Zalone. Io piaccio molto Zalone, è divertente."
+      errors: [piacere]
+    - tutor: "Ah, «io piaccio»? Allora tu piaci a Zalone? Chi piace a chi?"
+      prompt: {text: "Io piaccio molto Zalone", tags: [piacere]}
+    - learner: "No, no! Mi piace molto Zalone."
+    - tutor: "Ah, ecco! Allora la commedia! E i biglietti? Li compriamo su internet?"
+      goals: [choose]
+    - learner: "Sì. Ne penso io, li compro adesso con il telefono."
+      errors: [ci-ne]
+      gold: {text: "Ne penso io", fix: "Ci penso io"}
+    - tutor: "Grazie! Però «ne penso io»: è proprio quella la parola giusta?"
+      prompt: {text: "Ne penso io", tags: [ci-ne]}
+    - learner: "No... ci penso io! Il film comincia alle nove."
+    - tutor: "Sì! Allora ci vediamo alle otto e mezza davanti al cinema?"
+    - learner: "Va bene, a dopo!"
+    - tutor: "A dopo! Porto io qualcosa da bere."
+      goals: [meet]

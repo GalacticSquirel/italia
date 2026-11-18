@@ -1,0 +1,270 @@
+# Round 6, set u-lexical: false friends and calques, B1 and B2, file 4.
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Allora, faccio deporte due volte alla settimana: corro al parco con un'amica."
+      errors: [word-choice]
+    - tutor: "Fai sport due volte a settimana, bene! E come mangi?"
+      recast: {text: "deporte", fix: "sport", tags: [word-choice]}
+    - learner: "Mangio abbastanza bene, ma la sera, quando studio, mangio molte chuches."
+      errors: [word-choice]
+    - tutor: "Molti dolci la sera? Succede a tutti, soprattutto prima degli esami! E dormi bene?"
+      recast: {text: "molte chuches", fix: "molti dolci", tags: [word-choice]}
+    - learner: "Non molto, dormo sei ore. Quest'inverno ho preso tre chili e voglio perderli."
+    - tutor: "Tre chili si perdono senza problemi, con un po' di pazienza."
+      goals: [habits]
+    - learner: "Voglio essere in forma per l'estate. Sono molto illusa di cominciare con te!"
+      errors: [false-friend]
+    - tutor: "Sei molto entusiasta, mi piace! Con questo spirito arriviamo lontano."
+      recast: {text: "molto illusa", fix: "molto entusiasta", tags: [false-friend]}
+      goals: [goal]
+      new: [{lemma: entusiasta, gloss: excited, enthusiastic}]
+    - learner: "Il problema è che ho poco tempo, e la palestra è più cara che il parco."
+      errors: [comparative]
+    - tutor: "Più cara «che» il parco? Quando confronti due nomi, che parola usi dopo «più cara»?"
+      prompt: {text: "più cara che il parco", tags: [comparative]}
+    - learner: "Ah: la palestra è più cara del parco."
+    - tutor: "Esatto! Ma non ci serve la palestra: possiamo allenarci al parco."
+      goals: [obstacles]
+    - learner: "Perfetto! Allora quando cominciamo?"
+    - tutor: "Lunedì, mercoledì e venerdì alle sette, un'ora al parco. E la sera, meno dolci!"
+      goals: [plan]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-m-retired
+  history: [word-choice]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, sono il vicino del piano di sotto, il signor Brown. Scusi il disturbo."
+    - tutor: "Buonasera, piacere. Nessun disturbo, mi dica pure."
+      goals: [greet]
+    - learner: "Ogni sera, dopo le undici, si sente tutto attraverso il tetto: musica, passi, sedie."
+      errors: [word-choice]
+    - tutor: "Si sente tutto attraverso il soffitto? Non lo sapevo, mi dispiace."
+      recast: {text: "attraverso il tetto", fix: "attraverso il soffitto", tags: [word-choice]}
+      goals: [problem]
+      new: [{lemma: soffitto, gloss: ceiling}]
+    - learner: "Sì, la sua musica è molto forte, e mia moglie e io ci svegliamo presto."
+    - tutor: "Ha ragione, a volte ascolto musica fino a tardi. Non pensavo che arrivasse fino a voi."
+    - learner: "Ho già parlato con il superintendente, ma lui ha detto di parlare con lei."
+      errors: [word-choice]
+    - tutor: "Ha parlato con l'amministratore? Ha fatto bene, ma poteva venire subito da me."
+      recast: {text: "il superintendente", fix: "l'amministratore", tags: [word-choice]}
+      new: [{lemma: amministratore, gloss: building manager}]
+    - learner: "E quando vedo suo figlio, posso chiederlo di non correre la sera?"
+      errors: [object-pronoun]
+    - tutor: "Posso «chiederlo» di non correre? Si chiede qualcosa «a» qualcuno: quale pronome serve?"
+      prompt: {text: "chiederlo", tags: [object-pronoun]}
+    - learner: "Ah, sì: posso chiedergli di non correre la sera?"
+    - tutor: "Certo, e glielo dico anch'io. Ha solo otto anni, ma capirà."
+      goals: [request]
+    - learner: "Grazie. Allora, musica bassa dopo le dieci e mezza, va bene?"
+    - tutor: "Va bene: dopo le dieci e mezza abbasso tutto. Se c'è un problema, venga pure a dirmelo."
+      goals: [compromise]
+    - learner: "Perfetto. Lei è molto gentile, buonanotte."
+    - tutor: "Buonanotte a lei e a sua moglie!"
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-f-professional
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri sera ero ferma all'incrocio di via Roma, e una macchina mi è venuta addosso da sinistra."
+    - tutor: "Mi dispiace. Lei sta bene? Ci sono stati feriti?"
+    - learner: "No, nessun ferito, per fortuna. Però io avevo il diritto di passaggio, il semaforo era verde."
+      errors: [word-choice]
+    - tutor: "Quindi lei aveva la precedenza, con il verde. E l'altro autista lo ha ammesso?"
+      recast: {text: "il diritto di passaggio", fix: "la precedenza", tags: [word-choice]}
+      goals: [what]
+      new: [{lemma: precedenza, gloss: right of way}]
+    - learner: "Sì, ha ammesso che era colpa sua. Abbiamo compilato insieme la constatazione amichevole."
+    - tutor: "Benissimo, così la responsabilità è chiara. Avete firmato tutti e due?"
+      goals: [responsibility]
+    - learner: "Sì. Poi la mia macchina non partiva più, quindi ho chiamato un rimorchio."
+      errors: [false-friend]
+    - tutor: "Ha chiamato un carro attrezzi, ho capito. Conservi la ricevuta, perché quella spesa la paghiamo noi."
+      recast: {text: "un rimorchio", fix: "un carro attrezzi", tags: [false-friend]}
+      new: [{lemma: carro attrezzi, gloss: tow truck}]
+    - learner: "La macchina è stato portata in un'officina vicino a casa mia."
+      errors: [passive]
+    - tutor: "La macchina «è stato portata»? Guardi bene l'accordo con «macchina»."
+      prompt: {text: "è stato portata", tags: [passive]}
+    - learner: "Giusto: la macchina è stata portata in un'officina."
+    - tutor: "Esatto. Allora ci servono la constatazione firmata, le foto dei danni e il preventivo dell'officina."
+      goals: [documents]
+      new: [{lemma: preventivo, gloss: estimate}]
+    - learner: "Il meccanico mi ha già dato una stima: circa milleottocento euro per il paraurti e un fanale."
+    - tutor: "Va bene. Ci mandi tutto per email: entro dieci giorni un nostro perito passerà a vedere la macchina."
+      goals: [next]
+      new: [{lemma: perito, gloss: loss adjuster}]
+    - learner: "Perfetto, mando tutto oggi pomeriggio. Grazie mille."
+    - tutor: "Grazie a lei, e buona giornata."
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono spagnola, studio qui da sei mesi e vorrei sollecitare la residenza."
+      errors: [false-friend]
+    - tutor: "Vuole richiedere la residenza, bene. Per chi viene da un paese dell'Unione, la pratica è abbastanza semplice."
+      recast: {text: "sollecitare la residenza", fix: "richiedere la residenza", tags: [false-friend]}
+      goals: [request]
+    - learner: "Che documenti servono? Ho portato il passaporto e il contratto d'affitto, firmato da me e dal proprietario."
+    - tutor: "Bene. Servono anche il codice fiscale e un documento che dimostri le sue entrate, per esempio la borsa di studio."
+      new: [{lemma: fiscale, gloss: tax (adj.)}]
+    - learner: "Ho la lettera dell'università con l'importo della borsa. Devo compilare anche il formulario?"
+      errors: [word-choice]
+    - tutor: "Sì, il modulo è questo: dati personali, indirizzo e firma in fondo."
+      recast: {text: "il formulario", fix: "il modulo", tags: [word-choice]}
+      goals: [documents]
+    - learner: "Ecco fatto. Ma c'è un problema: sul contratto il mio apellido è scritto male."
+      errors: [word-choice]
+    - tutor: "Un cognome sbagliato è un problema, sì: deve essere uguale a quello del passaporto."
+      recast: {text: "apellido", fix: "cognome", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Spero che il proprietario può correggerlo presto."
+      errors: [subjunctive-use]
+    - tutor: "«Spero che il proprietario può»? Dopo «spero che», quale modo ci vuole?"
+      prompt: {text: "può correggerlo", tags: [subjunctive-use]}
+    - learner: "Ah: spero che il proprietario possa correggerlo presto."
+    - tutor: "Esatto. Basta una dichiarazione firmata da lui con la correzione. Poi, entro quarantacinque giorni, i vigili passeranno a controllare l'indirizzo."
+      goals: [next]
+    - learner: "I vigili vengono a casa? E se non ci sono?"
+    - tutor: "Lasciano un avviso nella cassetta della posta e ripassano un altro giorno. Non si preoccupi, è la procedura normale."
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: en-m-heritage
+  history: [word-choice]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Quest'anno ho raggiunto tutti i miei obiettivi e ho portato tre nuovi clienti."
+    - tutor: "È vero, la sua valutazione è ottima. Continui pure."
+      goals: [results]
+    - learner: "Da sei mesi sono in carica del progetto Alfa, anche se non è il mio ruolo ufficiale."
+      errors: [false-friend]
+    - tutor: "Lo so, è a capo del progetto Alfa da sei mesi, e il cliente è molto soddisfatto."
+      recast: {text: "in carica del progetto Alfa", fix: "a capo del progetto Alfa", tags: [false-friend]}
+    - learner: "Per questo vorrei chiedere un incremento e una promozione a responsabile di progetto."
+      errors: [word-choice]
+    - tutor: "Un aumento e una promozione, capisco. Lei però sa che il budget di quest'anno è già chiuso."
+      recast: {text: "un incremento", fix: "un aumento", tags: [word-choice]}
+      goals: [request]
+    - learner: "Lo so. Ma ho fatto molto overtime: quasi dieci ore ogni settimana."
+      errors: [word-choice]
+    - tutor: "Ha fatto molti straordinari, è vero, e l'ho notato."
+      recast: {text: "molto overtime", fix: "molti straordinari", tags: [word-choice]}
+      new: [{lemma: straordinari, gloss: overtime}]
+    - learner: "Credo che merito almeno un riconoscimento. Sono pronto anche a un eventuale trasferimento a Milano."
+      errors: [subjunctive-use]
+    - tutor: "«Credo che merito»? Dopo «credo che», quale modo usiamo?"
+      prompt: {text: "merito", tags: [subjunctive-use]}
+    - learner: "Ah, giusto: credo che io meriti almeno un riconoscimento."
+    - tutor: "Esatto. E lo merita davvero. Ecco cosa posso fare: la promozione da gennaio e l'aumento con il nuovo budget."
+      goals: [handle]
+    - learner: "Va bene, mi sembra un compromesso giusto. Possiamo mettere tutto per iscritto?"
+    - tutor: "Certo. Le mando una mail entro venerdì e la settimana prossima ne parliamo con le risorse umane."
+      goals: [next-steps]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: es-f-teacher
+  history: [word-choice]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Io non sono d'accordo. Penso che la zona pedonale è un'opportunità anche per i negozi."
+      errors: [subjunctive-use]
+    - tutor: "«Penso che la zona pedonale è»? Dopo «penso che», quale modo serve?"
+      prompt: {text: "è un'opportunità", tags: [subjunctive-use]}
+    - learner: "Sì, scusi: penso che la zona pedonale sia un'opportunità."
+    - tutor: "Va bene, ma mi spieghi perché. Chi viene in centro, se non può parcheggiare?"
+      goals: [position]
+    - learner: "Adesso ogni mattina in via Garibaldi ci sono molti atascos, e nessuno si ferma a comprare."
+      errors: [word-choice]
+    - tutor: "Ci sono molti ingorghi, d'accordo, ma almeno la gente passa davanti alle vetrine."
+      recast: {text: "molti atascos", fix: "molti ingorghi", tags: [word-choice]}
+      new: [{lemma: ingorgo, gloss: traffic jam}]
+    - learner: "A Pontevedra, in Spagna, il centro è pedonale da vent'anni e i negozi sono aumentati."
+    - tutor: "Interessante, non lo sapevo. Ma Pontevedra è piccola, qui il traffico è un'altra cosa."
+      goals: [argue]
+    - learner: "È vero, ma con più mezzi pubblici e parcheggi fuori dal centro si può fare. La gente deve concienziarsi."
+      errors: [word-choice]
+    - tutor: "Che la gente debba prendere coscienza del problema, sono d'accordo. Ma i commercianti hanno paura di perdere clienti."
+      recast: {text: "concienziarsi", fix: "prendere coscienza", tags: [word-choice]}
+      goals: [counter]
+    - learner: "Capisco la loro paura. Forse possiamo cominciare con il sabato e la domenica, per provare."
+    - tutor: "Una prova nel fine settimana? Questa è una proposta che potrei accettare anch'io."
+      goals: [concede]
+    - learner: "Allora almeno su questo siamo d'accordo!"
+    - tutor: "Su questo sì. Sentiamo cosa ne pensano gli altri residenti."
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Abbastanza bene, dottore. Dopo l'infarto dell'anno scorso mi sono ricoverato bene."
+      errors: [false-friend]
+    - tutor: "Si è ripreso bene, e lo confermano anche gli esami. Si è sentito stanco, o ha avuto il battito troppo veloce?"
+      recast: {text: "ricoverato", fix: "ripreso", tags: [false-friend]}
+    - learner: "Qualche volta, quando salgo le scale, il cuore batte forte e mi manca il fiato."
+    - tutor: "Capisco. Succede solo sotto sforzo o anche quando è a riposo?"
+      goals: [symptoms]
+    - learner: "Solo sotto sforzo. Prendo ancora la medicazione per la pressione ogni mattina."
+      errors: [false-friend]
+    - tutor: "Bene che prenda ancora i farmaci per la pressione. Si ricorda quali sono?"
+      recast: {text: "la medicazione", fix: "i farmaci", tags: [false-friend]}
+      goals: [history]
+    - learner: "Una pillola bianca, non ricordo il nome. È possibile che la pillola ha effetti collaterali?"
+      errors: [subjunctive-use]
+    - tutor: "«È possibile che la pillola ha»? Dopo «è possibile che», quale modo usiamo?"
+      prompt: {text: "ha effetti collaterali", tags: [subjunctive-use]}
+    - learner: "Ah: è possibile che abbia effetti collaterali?"
+    - tutor: "Esatto. Sì, è possibile: alcune persone si sentono più stanche. A lei succede?"
+      goals: [understand]
+    - learner: "Sì, il pomeriggio sono molto stanco e a volte mi addormento sul divano."
+    - tutor: "Allora le abbassiamo la dose e facciamo un controllo fra un mese. Continui a camminare ogni giorno, senza esagerare."
+      goals: [treatment]
+    - learner: "Va bene, dottore. Grazie per la sua pazienza."
+    - tutor: "Si figuri. Ci vediamo fra un mese."
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Lo immaginiamo semplice: una cerimonia in campagna e una festa all'aperto, con ottanta convidati."
+      errors: [word-choice]
+    - tutor: "Ottanta invitati in campagna, bellissimo. Conosco un posto in collina, vicino a Bologna, perfetto per voi."
+      recast: {text: "ottanta convidati", fix: "ottanta invitati", tags: [word-choice]}
+      goals: [vision]
+    - learner: "Il nostro budget è di ventimila euro, tutto compreso. Non vogliamo tirare la casa dalla finestra."
+      errors: [word-choice]
+    - tutor: "Non volete spendere una fortuna, capisco. Con ventimila euro si può fare qualcosa di molto bello."
+      recast: {text: "tirare la casa dalla finestra", fix: "spendere una fortuna", tags: [word-choice]}
+      goals: [budget]
+    - learner: "Io sono cuoco, quindi il menù lo voglio scegliere io, ma non lo voglio cucinare!"
+    - tutor: "Allora sarà un cliente difficile! Le faccio provare tre menù e lei sceglie."
+    - learner: "Perfetto. I nostri padrini saranno mio fratello e la sorella di Giulia."
+      errors: [false-friend]
+    - tutor: "I vostri testimoni, quindi. Ricordatevi che devono firmare anche loro durante la cerimonia."
+      recast: {text: "padrini", fix: "testimoni", tags: [false-friend]}
+      goals: [choices]
+    - learner: "Certo. Il preventivo del fotografo, me lo può mandare per email?"
+    - tutor: "Glielo mando stasera, insieme a quello dei fiori."
+    - learner: "Una condizione: vogliamo che il fotografo è discreto, senza troppe foto in posa."
+      errors: [subjunctive-use]
+    - tutor: "«Vogliamo che il fotografo è»? Dopo «vogliamo che», che modo ci vuole?"
+      prompt: {text: "è discreto", tags: [subjunctive-use]}
+    - learner: "Ah, sì: vogliamo che il fotografo sia discreto."
+    - tutor: "Perfetto, lo scrivo subito: fotografo discreto e poche foto in posa. Ci vediamo la settimana prossima con tutti i preventivi."
+      goals: [conditions]

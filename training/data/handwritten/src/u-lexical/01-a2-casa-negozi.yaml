@@ -1,0 +1,250 @@
+# Round 6, set u-lexical: false friends and calques (ES, EN, FR, DE), A2, file 1.
+- scenario: abbigliamento
+  level: A2
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Cerco una camiseta bianca, di cotone."
+      errors: [word-choice]
+    - tutor: "Certo, una maglietta bianca di cotone. Che taglia porta?"
+      recast: {text: "una camiseta", fix: "una maglietta", tags: [word-choice]}
+      goals: [ask-item]
+    - learner: "Porto la talla M. Questa è bella, ma costa un po' troppo."
+      errors: [word-choice]
+    - tutor: "La taglia M, va bene. Questa costa trenta euro, quella blu diciotto."
+      recast: {text: "la talla M", fix: "la taglia M", tags: [word-choice]}
+      goals: [size-colour]
+    - learner: "Allora prendo la blu. Dov'è il probatore?"
+      errors: [word-choice]
+    - tutor: "Il camerino è in fondo, a sinistra. Prego, si accomodi!"
+      recast: {text: "il probatore", fix: "il camerino", tags: [word-choice]}
+      goals: [try]
+    - learner: "Mi sta bene! Però le maniche sono un po' lungo."
+      errors: [adjective-agreement]
+    - tutor: "Le maniche sono un po'... lungo? Guardi bene la parola «maniche»."
+      prompt: {text: "lungo", tags: [adjective-agreement]}
+    - learner: "Ah, sì: le maniche sono un po' lunghe. Ma va bene così."
+    - tutor: "Esatto! Allora la prende? Paga con la carta?"
+    - learner: "Sì, con la carta. Posso avere anche una borsa?"
+    - tutor: "Certo, ecco la borsa. Sono diciotto euro, grazie e buona giornata!"
+      goals: [decide]
+
+- scenario: autobus
+  level: A2
+  persona: en-m-traveller
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno! Devo andare all'ostello Santa Chiara. È prossimo alla stazione?"
+      errors: [false-friend]
+    - tutor: "Sì, è vicino alla stazione, a cinque minuti a piedi. Prenda la linea 4."
+      recast: {text: "prossimo alla stazione", fix: "vicino alla stazione", tags: [false-friend]}
+      goals: [route]
+    - learner: "Perfetto. Posso comprare il biglietto da lei?"
+    - tutor: "No, mi dispiace, sull'autobus non lo vendo. Lo compra in tabaccheria, qui davanti."
+    - learner: "Ok, vado e torno subito. Devo stampare il biglietto?"
+      errors: [false-friend]
+    - tutor: "Sì, deve timbrare il biglietto appena sale, nella macchina gialla."
+      recast: {text: "stampare il biglietto", fix: "timbrare il biglietto", tags: [false-friend]}
+      goals: [ticket]
+    - learner: "Grazie. E devo fare un trasferimento, o è diretto?"
+      errors: [false-friend]
+    - tutor: "No, non deve cambiare autobus: la linea 4 va dritta alla stazione."
+      recast: {text: "fare un trasferimento", fix: "cambiare autobus", tags: [false-friend]}
+    - learner: "Bene. Allora scendo a la stazione, giusto?"
+      errors: [articulated-preposition]
+    - tutor: "Scende... «a la» stazione? Qui «a» e «la» diventano una parola sola."
+      prompt: {text: "a la stazione", tags: [articulated-preposition]}
+    - learner: "Ah, sì: scendo alla stazione."
+    - tutor: "Perfetto! Quando arriviamo, glielo dico io."
+      goals: [stop]
+    - learner: "Lei è molto gentile, grazie mille!"
+    - tutor: "Prego! Buona giornata e buon viaggio."
+      goals: [thank]
+
+- scenario: bar-colazione
+  level: A2
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno. Un cortado, per favore."
+      errors: [word-choice]
+    - tutor: "Un caffè macchiato, subito. Vuole anche qualcosa da mangiare?"
+      recast: {text: "Un cortado", fix: "Un caffè macchiato", tags: [word-choice]}
+      new: [{lemma: macchiato, gloss: espresso with a drop of milk}]
+      goals: [greet, order-drink]
+    - learner: "Sì, un cornetto alla crema. E avete un succo de naranja?"
+      errors: [word-choice]
+    - tutor: "Sì, abbiamo un succo d'arancia fresco. Glielo preparo subito."
+      recast: {text: "un succo de naranja", fix: "un succo d'arancia", tags: [word-choice]}
+      goals: [order-food]
+    - learner: "Grazie. Ah, e anche un acqua naturale."
+      errors: [article-form]
+    - tutor: "«Un acqua»? Attenzione: «acqua» è femminile."
+      prompt: {text: "un acqua", tags: [article-form]}
+    - learner: "Un'acqua naturale, scusi."
+    - tutor: "Giusto. Ecco tutto: sono sei euro e cinquanta."
+    - learner: "Ecco sette euro. Il resto è per la propina."
+      errors: [word-choice]
+    - tutor: "Grazie per la mancia, è molto gentile! Buona giornata."
+      recast: {text: "la propina", fix: "la mancia", tags: [word-choice]}
+      goals: [pay]
+      new: [{lemma: mancia, gloss: tip}]
+
+- scenario: casa-mia
+  level: A2
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Abito in un appartamento vicino all'università. Vivo con due flatmate."
+      errors: [word-choice]
+    - tutor: "Con due coinquilini, che bello! E l'appartamento è grande?"
+      recast: {text: "due flatmate", fix: "due coinquilini", tags: [word-choice]}
+      new: [{lemma: coinquilino, gloss: flatmate}]
+      goals: [type]
+    - learner: "Non molto. Ci sono tre camere, un bagno e una cucina piccola."
+    - tutor: "Tre camere, un bagno e una cucina: per tre persone va bene."
+      goals: [rooms]
+    - learner: "Sì, ma la cucina ha solo una stufa vecchia con due fuochi."
+      errors: [false-friend]
+    - tutor: "Ah, un fornello vecchio con due fuochi! Allora cucinare è difficile, no?"
+      recast: {text: "una stufa vecchia", fix: "un fornello vecchio", tags: [false-friend]}
+      new: [{lemma: fornello, gloss: stove}]
+    - learner: "Sì! La mia stanza preferita è la mia camera, perché ha un balcone."
+    - tutor: "Un balcone tutto tuo? Che fortuna! Cosa fai sul balcone?"
+      goals: [favourite]
+    - learner: "Leggo e bevo il tè. E tu, dove abiti?"
+    - tutor: "Io abito in una casa piccola in centro, con il mio gatto."
+      goals: [ask]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-f-teacher
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Buongiorno, sì. Cercate una cameriera per il verano?"
+      errors: [word-choice]
+    - tutor: "Sì, per l'estate: luglio e agosto. Ha esperienza?"
+      recast: {text: "per il verano", fix: "per l'estate", tags: [word-choice]}
+      goals: [ask]
+    - learner: "Sì, l'estate scorsa ho lavorato in una cafetería a Valencia."
+      errors: [word-choice]
+    - tutor: "Ah, ha lavorato in un bar, bene. Per quanto tempo?"
+      recast: {text: "in una cafetería", fix: "in un bar", tags: [word-choice]}
+    - learner: "Per tre mesi. Sono lavorata anche in un ristorante."
+      errors: [auxiliary-choice]
+    - tutor: "«Sono lavorata»? Con «lavorare» usiamo «essere» o un altro verbo?"
+      prompt: {text: "Sono lavorata", tags: [auxiliary-choice]}
+    - learner: "Ah, giusto: ho lavorato anche in un ristorante."
+    - tutor: "Perfetto, allora conosce bene il lavoro. È disponibile anche la sera?"
+      goals: [experience]
+    - learner: "Sì, sono disponibile tutti i giorni, anche il fine settimana."
+    - tutor: "Ottimo. Lavoriamo dalle cinque all'una di notte, con un giorno libero."
+      goals: [availability]
+    - learner: "Va bene. E quanto è il sueldo?"
+      errors: [word-choice]
+    - tutor: "Lo stipendio è di 1.200 euro al mese. Mi lascia il suo numero?"
+      recast: {text: "il sueldo", fix: "lo stipendio", tags: [word-choice]}
+    - learner: "Certo: tre quattro sette, due uno otto, cinque cinque nove zero."
+    - tutor: "Grazie. La chiamo domani mattina per una prova."
+      goals: [contact]
+
+- scenario: chiedere-strada
+  level: A2
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, grazie. Scusi, cerco la stazione centrale. È lontana?"
+    - tutor: "No, sono dieci minuti a piedi. Vada dritto fino all'incrocio, poi giri a destra."
+      goals: [get-attention, ask-place]
+      new: [{lemma: incrocio, gloss: crossroads}]
+    - learner: "Ok, a destra. E poi la stazione è dopo due blocchi?"
+      errors: [false-friend]
+    - tutor: "Sì, dopo due isolati c'è una piazza: la stazione è lì."
+      recast: {text: "dopo due blocchi", fix: "dopo due isolati", tags: [false-friend]}
+      new: [{lemma: isolato, gloss: block}]
+    - learner: "Allora: dritto fino all'incrocio, a destra e poi la piazza."
+    - tutor: "Esatto, è facilissimo. Non può sbagliare."
+      goals: [understand]
+    - learner: "Perfetto. C'è una farmacia vicino a la stazione?"
+      errors: [articulated-preposition]
+    - tutor: "Vicino... «a la» stazione? Come uniamo «a» e «la»?"
+      prompt: {text: "a la stazione", tags: [articulated-preposition]}
+    - learner: "Vicino a la... no, vicino alla stazione!"
+    - tutor: "Bravo! Sì, c'è una farmacia proprio davanti, aperta fino alle otto."
+    - learner: "Lei è molto gentile. Grazie mille e buona giornata!"
+    - tutor: "Prego, buona giornata anche a lei!"
+      goals: [thank]
+
+- scenario: compleanno
+  level: A2
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Il compleanno è sabato. Facciamo una festa a sorpresa a casa mia?"
+    - tutor: "Sì, bella idea! Chi invitiamo?"
+      goals: [date]
+    - learner: "Invitiamo i suoi amici del corso di baile e i compagni di classe."
+      errors: [word-choice]
+    - tutor: "Gli amici del corso di danza, certo! Saremo più o meno venti. E da mangiare?"
+      recast: {text: "corso di baile", fix: "corso di danza", tags: [word-choice]}
+      new: [{lemma: danza, gloss: dance}]
+      goals: [guests]
+    - learner: "Io comprarò le pizze e tu porti le bibite."
+      errors: [future-form]
+    - tutor: "Io «comprarò»? Attenzione al futuro di «comprare»."
+      prompt: {text: "comprarò", tags: [future-form]}
+    - learner: "Ah sì: io comprerò le pizze."
+    - tutor: "Esatto. E la torta? Sara adora il cioccolato."
+      new: [{lemma: cioccolato, gloss: chocolate}]
+    - learner: "Faccio io una tarta al cioccolato, con le fragole."
+      errors: [word-choice]
+    - tutor: "Una torta al cioccolato fatta da te? Perfetto, Sara sarà contentissima!"
+      recast: {text: "una tarta", fix: "una torta", tags: [word-choice]}
+      goals: [food]
+    - learner: "E come regalo? Le compriamo un libro? È molto barato."
+      errors: [word-choice]
+    - tutor: "Sì, un libro è economico e le piace leggere. Lo scegliamo insieme venerdì?"
+      recast: {text: "molto barato", fix: "economico", tags: [word-choice]}
+      goals: [gift]
+    - learner: "Sì, venerdì dopo la lezione. Le scriviamo anche un biglietto?"
+    - tutor: "Certo, firmiamo tutti! A venerdì, allora."
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Facciamo una tortilla di patate, come in Argentina e in Spagna."
+    - tutor: "Che buona! Cosa ci serve?"
+    - learner: "Ci servono sei uova, quattro papas, una cipolla, olio e sale."
+      errors: [word-choice]
+    - tutor: "Quattro patate, sei uova e una cipolla: ho tutto! Come cominciamo?"
+      recast: {text: "quattro papas", fix: "quattro patate", tags: [word-choice]}
+      new: [{lemma: patata, gloss: potato}]
+      goals: [ingredients]
+    - learner: "Prima tu taglii le patate a fette sottili."
+      errors: [imperative-form]
+    - tutor: "«Tu taglii»? Mi dai un ordine: come si dice con «tu»?"
+      prompt: {text: "tu taglii", tags: [imperative-form]}
+    - learner: "Ah, taglia le patate a fette sottili!"
+    - tutor: "Ecco, così va meglio. Fatto! E adesso?"
+    - learner: "Poi friggiamo le patate e intanto tu devi batire le uova."
+      errors: [word-choice]
+    - tutor: "Va bene, adesso devo sbattere le uova. Quanto sale metto?"
+      recast: {text: "batire le uova", fix: "sbattere le uova", tags: [word-choice]}
+      new: [{lemma: sbattere, gloss: to beat}]
+      goals: [steps]
+    - learner: "Poco, un pizzico. Poi metti tutto in padella per dieci minuti, cinque per lato."
+    - tutor: "Dieci minuti in tutto, va bene. E come la serviamo?"
+      goals: [time]
+    - learner: "La serviamo con un po' di salsa di pomodoro e pane."
+    - tutor: "Perfetto, io porto il pane in tavola. Che fame!"
+      goals: [serve]

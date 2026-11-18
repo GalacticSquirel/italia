@@ -1,0 +1,226 @@
+# B2, recast-focused (u-recast): «è importante che misuri», «glielo», «se le macchine facessero»,
+# «più salato dell'ultima volta», «il cliente a cui», «ci lasciasse», «se il canone fosse»,
+# «gliene»; one false friend recast at once; correct «se dovessi», «purché», «ne» left alone.
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Abbastanza bene, ma mi stanco subito quando salgo le scale, e a volte sento il cuore che batte forte."
+    - tutor: "Capisco. Le succede anche a riposo, o solo quando fa uno sforzo?"
+    - learner: "Solo sotto sforzo. Mio padre aveva la pressione alta, e anche mio fratello prende delle droghe per la pressione."
+      errors: [false-friend]
+    - tutor: "Quindi suo fratello prende dei farmaci per la pressione: è un dato importante. In effetti gli esami dicono che anche la sua è un po' alta."
+      recast: {text: "delle droghe", fix: "dei farmaci", tags: [false-friend]}
+      goals: [symptoms, history]
+    - learner: "È grave? Cosa significano esattamente questi valori?"
+    - tutor: "Non è grave, ma va tenuta sotto controllo: la massima è a centocinquanta, dovrebbe stare sotto i centoquaranta."
+      goals: [understand]
+    - learner: "Va bene. È importante che misuro la pressione ogni giorno?"
+      errors: [subjunctive-use]
+    - tutor: "Domanda giusta, ma guardi la forma: «è importante che misuro»? Dopo «è importante che», cosa cambia nel verbo?"
+      prompt: {text: "misuro la pressione", tags: [subjunctive-use]}
+    - learner: "Ah... è importante che misuro la pressione anche la sera?"
+      errors: [subjunctive-use]
+    - tutor: "Sì, è importante che misuri la pressione mattina e sera per due settimane, e che scriva i valori. Poi iniziamo una terapia leggera."
+      recast: {text: "misuro la pressione", fix: "misuri la pressione", tags: [subjunctive-use]}
+      new: [{lemma: misurare, gloss: to measure}]
+    - learner: "E questa terapia ha effetti collaterali?"
+    - tutor: "Raramente: a volte ci si sente un po' stanchi i primi giorni. Se succede, mi chiami pure."
+      goals: [treatment]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-f-student
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Vorremmo una cosa semplice, in campagna, con la cerimonia all'aperto e una cena lunga sotto gli alberi."
+    - tutor: "Che bella idea. Quanti invitati pensate di avere, e che budget avete?"
+      goals: [vision]
+    - learner: "Circa ottanta persone, non più che novanta. Possiamo spendere al massimo diciottomila euro, tutto compreso."
+      errors: [comparative]
+    - tutor: "Bene. Solo una cosa: «non più che novanta»? Con un numero, quella parola dopo «più» va bene?"
+      prompt: {text: "più che novanta", tags: [comparative]}
+    - learner: "Ah... sì, non più che novanta persone, perché la famiglia di Marco è grande."
+      errors: [comparative]
+    - tutor: "Non più di novanta, d'accordo: con diciottomila euro si può fare, ma bisogna scegliere bene. Ho due proposte: una fattoria in Toscana o una villa sul lago."
+      goals: [budget]
+      recast: {text: "più che novanta", fix: "più di novanta", tags: [comparative]}
+    - learner: "La fattoria è più adatta a noi. Però la mia futura suocera è vegetariana e vuole un menù speciale. Le lo diciamo noi al cuoco?"
+      errors: [combined-pronouns]
+    - tutor: "Ottima scelta. Però, «le lo diciamo»: quando due pronomi si incontrano, «le» resta così?"
+      prompt: {text: "Le lo diciamo", tags: [combined-pronouns]}
+    - learner: "Mmm... sì, le lo diciamo noi direttamente, così siamo più sicuri."
+      errors: [combined-pronouns]
+    - tutor: "Non si preoccupi, glielo dico io direttamente: è il mio lavoro! E il cuoco della fattoria è bravissimo con le verdure."
+      goals: [choices]
+      recast: {text: "le lo", fix: "glielo", tags: [combined-pronouns]}
+    - learner: "Perfetto. Però abbiamo due condizioni: niente musica dopo mezzanotte e un fotografo che non si faccia notare troppo."
+    - tutor: "Condizioni chiare, le metto nel contratto. Vi mando il preventivo entro venerdì."
+      goals: [conditions]
+    - learner: "Grazie mille, non vediamo l'ora!"
+    - tutor: "Anch'io! Sarà un matrimonio bellissimo."
+
+- scenario: politica-lavoro
+  level: B2
+  persona: es-m-worker
+  history: [hypothetical]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Secondo me esageri. Alcuni lavori spariranno, è vero, ma ne nasceranno altri."
+    - tutor: "Sì, ma chi perde il lavoro a cinquant'anni non ne trova un altro in un mese."
+      goals: [opinion]
+    - learner: "Hai ragione. Ma pensa: se le macchine farebbero tutti i lavori pesanti, chi pagherebbe le tasse?"
+      errors: [hypothetical]
+    - tutor: "Bella domanda! Ma ripeti l'inizio: «se le macchine farebbero»... ti suona bene?"
+      prompt: {text: "le macchine farebbero", tags: [hypothetical]}
+    - learner: "Sì, se le macchine farebbero tutto, lo Stato non avrebbe più soldi."
+      errors: [hypothetical]
+    - tutor: "Esatto, se le macchine facessero tutto, lo Stato resterebbe senza soldi. Forse bisognerebbe far pagare le tasse ai robot?"
+      goals: [hypothesis]
+      recast: {text: "le macchine farebbero", fix: "le macchine facessero", tags: [hypothetical]}
+    - learner: "Forse. Per esempio, nella mia fabbrica hanno comprato un robot per dipingere i pezzi, e due colleghi sono passati al controllo qualità."
+    - tutor: "Quindi non hanno perso il lavoro, l'hanno cambiato. Un buon esempio."
+      goals: [example]
+    - learner: "Sì, ma solo perché l'azienda ha pagato la formazione. Il punto è questo: senza formazione, la tecnologia diventa un rischio. Tu cosa ne pensi?"
+    - tutor: "Sono d'accordo, la formazione è la chiave. Mi hai quasi convinto!"
+      goals: [conclude]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-traveller
+  history: [comparative]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, mi dispiace dirlo, ma la cena è stata deludente."
+    - tutor: "Mi dispiace molto. Mi può dire che cosa non è andato?"
+      goals: [complain]
+    - learner: "Abbiamo aspettato cinquanta minuti per i primi, e il risotto era molto più salato che l'ultima volta."
+      errors: [comparative]
+    - tutor: "Cinquanta minuti sono davvero troppi. Ma, scusi, «più salato che l'ultima volta»? Davanti a «l'ultima volta», quella parola va bene?"
+      prompt: {text: "più salato che l'ultima volta", tags: [comparative]}
+    - learner: "Sì, era più salato che l'ultima volta, quasi non si poteva mangiare."
+      errors: [comparative]
+    - tutor: "Se era molto più salato dell'ultima volta, in cucina hanno sbagliato qualcosa. Le chiedo scusa."
+      goals: [detail]
+      recast: {text: "più salato che l'ultima volta", fix: "più salato dell'ultima volta", tags: [comparative]}
+    - learner: "Mi aspettavo di più: è il nostro ristorante preferito e stasera festeggiavamo l'anniversario."
+    - tutor: "Allora mi dispiace ancora di più. Mi permetta di offrirvi i dolci e uno sconto del trenta per cento sul conto."
+      goals: [expectation]
+    - learner: "Grazie, è molto gentile. Accetto volentieri, e speriamo di tornare presto."
+    - tutor: "Vi aspettiamo, e la prossima volta il risotto lo controllo io di persona."
+      goals: [resolve]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Abbiamo finito la prima versione dell'app e la stiamo provando con dieci utenti."
+    - tutor: "Ottimo. Ci sono problemi?"
+      goals: [update]
+    - learner: "Sì, uno: il cliente a che abbiamo mandato la prima versione non risponde da due settimane."
+      errors: [relative-pronoun]
+    - tutor: "«Il cliente a che abbiamo mandato»? Con «a» davanti, quella parola cambia. Come?"
+      prompt: {text: "il cliente a che", tags: [relative-pronoun]}
+    - learner: "Sì, il cliente a che abbiamo mandato l'app... forse è in vacanza?"
+      errors: [relative-pronoun]
+    - tutor: "Il cliente a cui avete mandato l'app è in vacanza fino a lunedì, me l'ha detto la sua segretaria. Cosa proponi di fare?"
+      goals: [problem]
+      recast: {text: "il cliente a che", fix: "il cliente a cui", tags: [relative-pronoun]}
+    - learner: "Propongo di continuare le prove e di preparare una presentazione per quando torna, così possiamo realizzare se l'app funziona davvero."
+      errors: [false-friend]
+    - tutor: "Ottima idea, così possiamo capire se l'app funziona davvero. Per quando pensi di averla pronta?"
+      goals: [proposal]
+      recast: {text: "realizzare se", fix: "capire se", tags: [false-friend]}
+    - learner: "Per giovedì prossimo, se Marco mi aiuta con la grafica."
+    - tutor: "Va bene, glielo dico io. Allora la scadenza è giovedì prossimo."
+      goals: [deadline]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Da casa, quattro giorni su cinque. Vado in ufficio solo il mercoledì per la riunione di squadra."
+    - tutor: "Quattro giorni! E ti piace?"
+      goals: [situation]
+    - learner: "Molto: salvo tempo e soldi, e riesco a concentrarmi meglio."
+      errors: [false-friend]
+    - tutor: "Anch'io, quando lavoro da casa, risparmio tempo e soldi: sono vantaggi importanti. E dell'ufficio non ti manca niente?"
+      goals: [pros]
+      recast: {text: "salvo tempo e soldi", fix: "risparmio tempo e soldi", tags: [false-friend]}
+    - learner: "A volte la sera non stacco mai e lavoro fino alle nove. E poi mi sento un po' isolato."
+    - tutor: "È il rischio più grande. Se potessi decidere tu, come organizzeresti la settimana?"
+      goals: [cons]
+    - learner: "Preferirei che l'azienda ci lascia scegliere i giorni ogni settimana, in base ai progetti."
+      errors: [subjunctive-use]
+    - tutor: "Interessante. Però, «preferirei che l'azienda ci lascia»: dopo «preferirei che», il verbo è giusto?"
+      prompt: {text: "ci lascia scegliere", tags: [subjunctive-use]}
+    - learner: "Sì, preferirei che l'azienda ci lascia scegliere, invece di avere giorni fissi."
+      errors: [subjunctive-use]
+    - tutor: "Capisco, preferiresti che l'azienda ci lasciasse scegliere invece dei giorni fissi: sarebbe più flessibile per tutti."
+      goals: [preference]
+      recast: {text: "ci lascia scegliere", fix: "ci lasciasse scegliere", tags: [subjunctive-use]}
+    - learner: "Esatto. Magari un giorno lo proponiamo insieme al capo!"
+    - tutor: "Volentieri, tanto siamo nella stessa barca! Prepariamo due idee per la prossima riunione."
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-f-teacher
+  history: [hypothetical]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, molto. È luminoso e la cucina è nuova. Però il canone mi sembra un po' alto per la zona."
+    - tutor: "Il canone è di novecentocinquanta euro, ma l'appartamento è stato rifatto da poco."
+      goals: [interest]
+    - learner: "Lo capisco, ma ho visto appartamenti simili a ottocento. Se il canone sarebbe di ottocentocinquanta, firmerei subito."
+      errors: [hypothetical]
+    - tutor: "Vediamo... «se il canone sarebbe»: dopo «se», quale forma del verbo serve?"
+      prompt: {text: "se il canone sarebbe", tags: [hypothetical]}
+    - learner: "Ah... se il canone sarebbe ottocentocinquanta, per me è perfetto."
+      errors: [hypothetical]
+    - tutor: "Se il canone fosse di ottocentocinquanta... posso parlarne con la proprietaria. Lei però dovrebbe firmare per quattro anni."
+      goals: [negotiate]
+      recast: {text: "se il canone sarebbe", fix: "se il canone fosse", tags: [hypothetical]}
+    - learner: "Quattro anni va bene. E se dovessi andare via prima, quanto tempo prima devo avvisare?"
+    - tutor: "Sei mesi prima, con una lettera raccomandata. Lo trova nel contratto."
+      goals: [conditions]
+    - learner: "Perfetto. Allora aspetto la risposta della proprietaria."
+    - tutor: "La chiamo oggi stesso. Se accetta, possiamo firmare già la settimana prossima."
+      goals: [conclude]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-f-student
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Grazie dell'invito! Sono arrivata a Bologna per un Erasmus di sei mesi, e quei sei mesi sono diventati sei anni."
+    - tutor: "Una storia che piacerà a molti ascoltatori! Qual è stata la cosa più difficile?"
+      goals: [story]
+    - learner: "La burocrazia, senza dubbio. E la nostalgia: mia madre mi chiamava ogni domenica e voleva sapere tutto sul cibo, e io gli ne parlavo per ore."
+      errors: [combined-pronouns]
+    - tutor: "«Gli ne parlavo»? Quei due pronomi insieme si scrivono in un altro modo. Ci prova?"
+      prompt: {text: "gli ne parlavo", tags: [combined-pronouns]}
+    - learner: "Sì... gli ne parlavo per ore, e lei rideva."
+      errors: [combined-pronouns]
+    - tutor: "Che dolcezza: gliene parlava per ore, e lei rideva. E in questi anni, lei com'è cambiata?"
+      goals: [difficulties]
+      recast: {text: "gli ne", fix: "gliene", tags: [combined-pronouns]}
+    - learner: "Sono molto più flessibile che prima: programmavo tutto, adesso so improvvisare."
+      errors: [comparative]
+    - tutor: "Interessante! Ma «più flessibile che prima»... davanti a «prima», quella parola le sembra giusta?"
+      prompt: {text: "più flessibile che prima", tags: [comparative]}
+    - learner: "Sì, credo... molto più flessibile che prima, e anche più paziente."
+      errors: [comparative]
+    - tutor: "Più flessibile di prima e più paziente: una vera lezione italiana! Che consiglio darebbe a chi vuole trasferirsi qui?"
+      goals: [change]
+      recast: {text: "più flessibile che prima", fix: "più flessibile di prima", tags: [comparative]}
+    - learner: "Di imparare bene la lingua prima di partire, e di non avere fretta: per integrarsi ci vuole tempo."
+    - tutor: "Un consiglio prezioso. Grazie di essere stata con noi!"
+      goals: [advice]

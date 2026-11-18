@@ -1,0 +1,214 @@
+# Set u-right-b2, file 6: B1 services; bank, station, restaurant, clinic, hotel, shop, garage, doctor.
+- scenario: banca-conto
+  level: B1
+  persona: es-m-worker
+  history: [modal-infinitive, word-choice]
+  turns:
+  - tutor: "Buongiorno, come posso esserle utile?"
+  - learner: "Buongiorno. Vorrei aprire un conto. Ho appena cominciato a lavorare qui."
+  - tutor: "Benissimo. Ha un documento e il codice fiscale?"
+    goals: [purpose]
+  - learner: "Sì, ho tutti e due. Serve anche il contratto di lavoro?"
+  - tutor: "Non è necessario, ma ci aiuta. Ce l'ha con sé?"
+    goals: [documents]
+  - learner: "No, l'ho lasciato a casa. Lo posso portare domani?"
+  - tutor: "Certo, nessun problema. Adesso le spiego i costi."
+  - learner: "Sì, grazie. Quanto devo di pagare ogni mese?"
+    errors: [modal-infinitive]
+  - tutor: "Devo di pagare? Ascolti bene cosa viene dopo «devo»."
+    prompt: {text: "devo di pagare", tags: [modal-infinitive]}
+  - learner: "Quanto devo pagare ogni mese?"
+  - tutor: "Esatto. Il conto costa tre euro al mese, ma per i primi sei mesi è gratis."
+    goals: [costs]
+  - learner: "Bene. E la tarjeta per pagare nei negozi? Posso vedere il conto anche sul telefono?"
+    errors: [word-choice]
+  - tutor: "Sì, la carta è compresa, e c'è anche un'app gratis per il telefono. Gliela preparo oggi stesso."
+    recast: {text: "la tarjeta", fix: "la carta", tags: [word-choice]}
+    goals: [card]
+  - learner: "Perfetto, grazie mille."
+  - tutor: "Si figuri. Adesso deve solo firmare qui."
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-f-student
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno, dove deve andare?"
+  - learner: "Buongiorno. Devo andare a Firenze domani mattina, verso le nove."
+  - tutor: "C'è un treno veloce alle nove e un quarto. Solo andata o andata e ritorno?"
+    goals: [destination]
+  - learner: "Andata e ritorno. Torno domenica sera, ma non so ancora l'ora."
+  - tutor: "Allora le consiglio un biglietto che si può cambiare. In che classe vuole viaggiare?"
+    goals: [type]
+  - learner: "In seconda classe, vicino al finestrino se possibile."
+  - tutor: "Ecco fatto: posto dodici, vicino al finestrino."
+    goals: [class]
+  - learner: "Grazie. E da quale binario parte il treno?"
+  - tutor: "Il binario lo vede sul tabellone delle partenze, di solito venti minuti prima della partenza."
+    goals: [platform]
+    new: [{lemma: tabellone, gloss: departures board}]
+  - learner: "Ultima domanda: posso mangiare su il treno? Il viaggio è lungo."
+    errors: [articulated-preposition]
+  - tutor: "Su il treno? Come si uniscono queste due parole?"
+    prompt: {text: "su il treno", tags: [articulated-preposition]}
+  - learner: "Sì, posso mangiare su il treno?"
+    errors: [articulated-preposition]
+  - tutor: "Sì, sul treno si può mangiare, e c'è anche un piccolo bar."
+    recast: {text: "su il treno", fix: "sul treno", tags: [articulated-preposition]}
+  - learner: "Perfetto, grazie mille!"
+  - tutor: "Prego, buon viaggio!"
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-m-retired
+  turns:
+  - tutor: "Pronto, Trattoria da Mario, buonasera!"
+  - learner: "Buonasera. Vorrei prenotare un tavolo per sabato sera, se è possibile."
+  - tutor: "Certo. Per quante persone e a che ora?"
+    goals: [book]
+  - learner: "Per sei persone, alle otto. È il compleanno di mia moglie."
+  - tutor: "Auguri alla signora! Sabato alle otto per sei, va bene."
+    goals: [details]
+  - learner: "Grazie. Avete un tavolo fuori, in giardino? Lei ama mangiare all'aperto."
+  - tutor: "Sì, se non piove. Altrimenti vi diamo il tavolo vicino alla finestra."
+    goals: [special]
+  - learner: "Benissimo. Possiamo portare una torta noi? La fa nostra figlia."
+  - tutor: "Certo, nessun problema. A che nome prenoto?"
+  - learner: "Brown, come il colore in inglese."
+  - tutor: "Perfetto: sabato alle otto, sei persone, tavolo in giardino. A sabato!"
+    goals: [name]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-f-teacher
+  history: [future-form, false-friend]
+  turns:
+  - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+  - learner: "Buongiorno. Vorrei prenotare una visita da un dermatologo, per una macchia sulla pelle."
+  - tutor: "Certo. Ha una ricetta del suo medico?"
+    goals: [type]
+  - learner: "No, non ce l'ho. È un problema?"
+  - tutor: "No, ma senza ricetta la visita costa di più. Quando preferisce venire?"
+  - learner: "La prossima settimana lavoro tutte le mattine. Poterò venire solo il pomeriggio."
+    errors: [future-form]
+  - tutor: "Poterò? Il futuro di questo verbo è un po' diverso."
+    prompt: {text: "Poterò", tags: [future-form]}
+  - learner: "Potrò venire solo il pomeriggio."
+  - tutor: "Va bene. Ho giovedì alle tre e mezza, oppure venerdì alle cinque."
+  - learner: "Giovedì va benissimo. Quanto costa la consulta?"
+    errors: [false-friend]
+  - tutor: "La visita costa novanta euro. Porti un documento e la tessera sanitaria."
+    recast: {text: "la consulta", fix: "la visita", tags: [false-friend]}
+    goals: [availability, cost]
+    new: [{lemma: tessera sanitaria, gloss: health card}]
+  - learner: "Allora giovedì alle tre e mezza, dal dermatologo. Novanta euro."
+  - tutor: "Esatto. Le mando anche un messaggio per conferma. Arrivederci!"
+    goals: [confirm]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-traveller
+  history: [ce-ci-sono]
+  turns:
+  - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+  - learner: "Sì, purtroppo. Nella mia camera l'aria condizionata non funziona e fa caldissimo."
+  - tutor: "Mi dispiace. Da quando non funziona?"
+    goals: [problem]
+  - learner: "Da ieri sera, ma ieri ero troppo stanco per scendere."
+  - tutor: "Capisco. La persona che lo ripara arriva solo domani mattina."
+    goals: [since]
+  - learner: "Domani? Ma stanotte non posso dormire con questo caldo. Avete un'altra camera libera?"
+  - tutor: "Vediamo... sì, c'è una camera al quarto piano, un po' più piccola."
+    goals: [request]
+  - learner: "Va bene lo stesso. È un ventilatore nella camera nuova? Dormo meglio con il ventilatore."
+    errors: [ce-ci-sono]
+  - tutor: "È un ventilatore? Vuole sapere se si trova nella camera, giusto?"
+    prompt: {text: "È un ventilatore", tags: [ce-ci-sono]}
+  - learner: "Sì, è un ventilatore lì?"
+    errors: [ce-ci-sono]
+  - tutor: "Sì, c'è un ventilatore, e lì l'aria condizionata funziona bene."
+    recast: {text: "è un ventilatore", fix: "c'è un ventilatore", tags: [ce-ci-sono]}
+  - learner: "Perfetto, grazie mille. Prendo le valigie e salgo."
+  - tutor: "Le chiedo ancora scusa. Domani le offriamo anche la colazione in camera."
+    goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-f-erasmus
+  turns:
+  - tutor: "Buongiorno, mi dica pure."
+  - learner: "Buongiorno. Ho comprato queste cuffie la settimana scorsa, ma il lato sinistro non funziona."
+  - tutor: "Mi faccia vedere... Ha lo scontrino?"
+    goals: [problem]
+  - learner: "Sì, eccolo. Le ho comprate martedì, qui in negozio."
+  - tutor: "Perfetto, sono ancora in garanzia. Cosa preferisce, i soldi indietro o un cambio?"
+    goals: [proof]
+  - learner: "Preferisco i soldi indietro. Sono sicura che le altre cuffie hanno lo stesso problema."
+  - tutor: "Capisco. Allora deve compilare questo modulo."
+    goals: [request]
+  - learner: "Va bene, lo compilo adesso. Le do anche il mio numero di telefono?"
+  - tutor: "Sì, grazie. I soldi tornano sulla carta in cinque giorni."
+  - learner: "Cinque giorni va bene. Grazie, è stata molto gentile."
+  - tutor: "Si figuri. Buona giornata!"
+    goals: [agree]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-heritage
+  history: [imperfetto-form, question-form]
+  turns:
+  - tutor: "Buongiorno! Che problema ha la macchina?"
+  - learner: "Buongiorno. Quando freno, sento un rumore strano, come un fischio."
+  - tutor: "Un fischio quando frena... E da quando lo sente?"
+    goals: [describe]
+  - learner: "Da una settimana circa. All'inizio lo sentevo solo la mattina, adesso sempre."
+    errors: [imperfetto-form]
+  - tutor: "Lo sentevo? Pensi all'imperfetto di «sentire»."
+    prompt: {text: "sentevo", tags: [imperfetto-form]}
+    new: [{lemma: imperfetto, gloss: imperfect tense}]
+  - learner: "Lo sentivo solo la mattina, sì."
+  - tutor: "Bene. Probabilmente sono le pastiglie dei freni. Sarà meglio cambiarle."
+    goals: [when]
+    new: [{lemma: pastiglia, gloss: brake pad}]
+  - learner: "Come molto costerà, più o meno?"
+    errors: [question-form]
+  - tutor: "Come molto? Per chiedere un prezzo, quale parola usiamo?"
+    prompt: {text: "Come molto", tags: [question-form]}
+  - learner: "Quanto costerà, più o meno?"
+  - tutor: "Esatto. Più o meno centoventi euro, con il lavoro."
+    goals: [cost]
+  - learner: "Va bene. E quando sarà pronta? Domani devo andare al lavoro."
+  - tutor: "Se la lascia adesso, è pronta stasera alle sei."
+    goals: [time]
+
+- scenario: medico-base
+  level: B1
+  persona: en-f-student
+  history: [stare-gerund, article-form]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+  - learner: "Buongiorno, dottore. Ho mal di gola e un po' di febbre."
+  - tutor: "Da quanti giorni?"
+    goals: [symptoms]
+  - learner: "Da tre giorni. Ieri sera avevo trentotto e mezzo."
+  - tutor: "Capisco. Prende qualche medicina?"
+    goals: [since-when]
+  - learner: "Sì, sono prendendo un'aspirina la mattina."
+    errors: [stare-gerund]
+  - tutor: "Sono prendendo? Con il gerundio, quale verbo usiamo?"
+    prompt: {text: "sono prendendo", tags: [stare-gerund]}
+    new: [{lemma: gerundio, gloss: gerund}]
+  - learner: "Sto prendendo un'aspirina la mattina. E sono allergica alla penicillina."
+  - tutor: "Esatto, ed è bene che me lo dica. Allora le do un'altra medicina: una pastiglia due volte al giorno, per sei giorni."
+    goals: [history]
+    new: [{lemma: pastiglia, gloss: tablet}]
+  - learner: "Va bene. Posso prendere anche lo sciroppo? Ho un sciroppo per la tosse a casa."
+    errors: [article-form]
+  - tutor: "Un sciroppo? Ascolti come comincia la parola."
+    prompt: {text: "un sciroppo", tags: [article-form]}
+    new: [{lemma: sciroppo, gloss: syrup}]
+  - learner: "Uno sciroppo, scusi."
+  - tutor: "Esatto. Sì, può prenderlo la sera. E resti a casa almeno fino a venerdì."
+  - learner: "Quindi una pastiglia la mattina e una la sera, lo sciroppo la sera, e a casa fino a venerdì."
+  - tutor: "Perfetto, ha capito tutto. Beva anche molta acqua!"
+    goals: [instructions]

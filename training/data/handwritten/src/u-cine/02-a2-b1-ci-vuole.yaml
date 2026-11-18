@@ -1,0 +1,228 @@
+# u-cine, file 02 (A2 and B1): comprarne, ci vogliono, sentirne parlare, non ne sa niente, riuscirci, ne ho bisogno, ce n'è.
+- scenario: autobus
+  level: A2
+  persona: en-m-retired
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Vorrei andare all'ospedale. Questo autobus ci va?"
+    - tutor: "No, questa è la linea otto. Per l'ospedale deve prendere il dodici."
+      goals: [route]
+    - learner: "Ah, grazie. Si possono comprare biglietti da dieci corse? Vorrei comprare uno."
+      errors: [ci-ne]
+      gold: {text: "comprare uno", fix: "comprarne uno"}
+    - tutor: "Sì, esistono. Ma «vorrei comprare uno»... uno cosa? Il verbo vuole una piccola parola in più."
+      prompt: {text: "comprare uno", tags: [ci-ne]}
+    - learner: "Sì, vorrei comprare uno, da dieci corse."
+      errors: [ci-ne]
+    - tutor: "Vuole comprarne uno? Allora vada in tabaccheria, qui vicino. Sull'autobus non li vendo."
+      recast: {text: "comprare uno", fix: "comprarne uno", tags: [ci-ne]}
+      goals: [ticket]
+    - learner: "Va bene. E dov'è la fermata di il dodici?"
+      errors: [articulated-preposition]
+    - tutor: "«Di il dodici»? Qui le due parole diventano una sola."
+      prompt: {text: "di il dodici", tags: [articulated-preposition]}
+    - learner: "Ah, del dodici!"
+    - tutor: "Esatto! La fermata è in piazza, a destra. Passa ogni quindici minuti."
+      goals: [stop]
+    - learner: "Perfetto. Grazie mille, è stato molto gentile."
+    - tutor: "Di niente! Buona giornata."
+      goals: [thank]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, due: una per me e una per il mio ragazzo. Avete anche caschi?"
+    - tutor: "Certo, i caschi ci sono. Per quanto tempo le volete?"
+      goals: [ask]
+    - learner: "Per tutta la giornata. Vogliamo fare il giro del lago. Quante ore vogliono?"
+      errors: [ci-ne]
+      gold: {text: "Quante ore vogliono", fix: "Quante ore ci vogliono"}
+    - tutor: "Il giro del lago è bello! Ma «quante ore vogliono»: chi vuole? Manca una piccola parola."
+      prompt: {text: "Quante ore vogliono", tags: [ci-ne]}
+      goals: [duration]
+    - learner: "Scusi... quante ore vogliono per il giro?"
+      errors: [ci-ne]
+    - tutor: "Quante ore ci vogliono? Più o meno tre, e a metà strada c'è un bel bar."
+      recast: {text: "Quante ore vogliono", fix: "Quante ore ci vogliono", tags: [ci-ne]}
+      goals: [route]
+    - learner: "Va bene. Quanto costa il alquiler per tutto il giorno?"
+      errors: [word-choice]
+    - tutor: "Il noleggio per tutto il giorno costa quindici euro a bicicletta. Il lucchetto lo diamo noi."
+      recast: {text: "il alquiler", fix: "Il noleggio", tags: [word-choice]}
+      goals: [price]
+    - learner: "Perfetto, allora prendiamo le due bici. Ecco trenta euro."
+    - tutor: "Grazie! Ecco le chiavi. Buon giro!"
+
+- scenario: palestra
+  level: A2
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Quanto costa un mese?"
+    - tutor: "Un mese costa quaranta euro. Tre mesi costano cento euro."
+      goals: [ask-membership]
+    - learner: "Tre mesi allora: sono più economici che un mese. Che corsi ci sono?"
+      errors: [comparative]
+    - tutor: "Sì, è meglio! Ma «più economici che un mese»: dopo «più», davanti a un nome, quale parola usiamo?"
+      prompt: {text: "più economici che un mese", tags: [comparative]}
+    - learner: "Ah: più economici di un mese! E che corsi ci sono?"
+    - tutor: "Esatto! Ci sono yoga, nuoto e pilates. Hai mai provato il pilates?"
+      new: [{lemma: pilates, gloss: pilates}]
+      goals: [classes]
+    - learner: "No, mai. Ma ho sentito parlare molto bene. Dicono che fa bene alla schiena."
+      errors: [ci-ne]
+      gold: {text: "ho sentito parlare", fix: "ne ho sentito parlare"}
+    - tutor: "È vero, fa benissimo. Ma «ho sentito parlare»... di cosa? Manca una piccola parola all'inizio."
+      prompt: {text: "ho sentito parlare", tags: [ci-ne]}
+    - learner: "Ah, ne ho sentito parlare molto bene!"
+    - tutor: "Esatto! C'è una lezione il martedì e il giovedì alle sette di sera."
+      goals: [timetable]
+    - learner: "Il giovedì va bene. Mi iscrivo subito!"
+    - tutor: "Benissimo. Mi dai un documento? Ti preparo l'iscrizione."
+      goals: [sign-up]
+
+- scenario: compleanno
+  level: A2
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa sabato sera, a casa mia!"
+    - tutor: "Che bella idea! Quante persone invitiamo?"
+      goals: [date]
+    - learner: "Venti, più o meno. Ma attenzione: Sara non ci sa niente!"
+      errors: [ci-ne]
+      gold: {text: "non ci sa niente", fix: "non ne sa niente"}
+    - tutor: "Certo, è una sorpresa! Ma «non ci sa niente»: è la parola giusta con «sapere»?"
+      prompt: {text: "non ci sa niente", tags: [ci-ne]}
+      goals: [guests]
+    - learner: "Sì, Sara non ci sa niente."
+      errors: [ci-ne]
+    - tutor: "Bene, Sara non ne sa niente, e così deve restare! E da mangiare cosa prepariamo?"
+      recast: {text: "non ci sa niente", fix: "non ne sa niente", tags: [ci-ne]}
+    - learner: "Io facerò la pizza, e la torta la compriamo in pasticceria."
+      errors: [future-form]
+    - tutor: "Buona idea! Ma «facerò»: il futuro di «fare» è un po' speciale. Prova di nuovo?"
+      prompt: {text: "facerò", tags: [future-form]}
+    - learner: "Farò la pizza!"
+    - tutor: "Perfetto. E il regalo? Hai qualche idea?"
+      goals: [food]
+    - learner: "Sara ama leggere. Le regaliamo un libro e dei fiori?"
+    - tutor: "Ottima idea! Domani le compro io il libro, tu pensa ai fiori."
+      goals: [gift]
+
+- scenario: tempo-libero
+  level: A2
+  persona: en-m-heritage
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, cosa fai di bello nel fine settimana?"
+    - learner: "Il sabato dormo tanto. La domenica vado in montagna con il mio cane."
+    - tutor: "Che bello! E ci vai spesso?"
+      goals: [hobby]
+    - learner: "Sì, ci vado quasi sempre. Il mio cane è contento, ma io torno a casa stanco morto!"
+    - tutor: "Ti capisco! E d'inverno? Hai mai provato a sciare?"
+      new: [{lemma: sciare, gloss: to ski}]
+      goals: [frequency]
+    - learner: "Una volta, ma non sono riuscito. Sono caduto venti volte!"
+      errors: [ci-ne]
+      gold: {text: "non sono riuscito", fix: "non ci sono riuscito"}
+    - tutor: "Venti volte, povero te! Ma «non sono riuscito»... a fare cosa? Prima di «sono» manca qualcosa."
+      prompt: {text: "non sono riuscito", tags: [ci-ne]}
+    - learner: "Ah: non ci sono riuscito! E tu, cosa fai la domenica?"
+    - tutor: "Esatto! Io di solito vado in bicicletta con mio marito, anche quando piove."
+      goals: [ask]
+    - learner: "In bici con la pioggia? Sei forte! Vieni con me alla montagna domenica?"
+      errors: [preposition]
+    - tutor: "Che bello! Ma «alla montagna»: con montagna quale preposizione usiamo?"
+      prompt: {text: "alla montagna", tags: [preposition]}
+    - learner: "Eh... a montagna?"
+      errors: [preposition]
+    - tutor: "In montagna con te e il cane? Sì, vengo! A che ora partiamo?"
+      recast: {text: "a montagna", fix: "In montagna", tags: [preposition]}
+      goals: [propose]
+
+- scenario: medico-base
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottoressa. Ho la tosse e mi fa male la gola. Ho anche un po' di febbre."
+    - tutor: "Mi dispiace. Da quanto tempo ha questi sintomi?"
+      goals: [symptoms]
+    - learner: "Da tre giorni. Lavoro in cucina, e lì passo dal caldo al freddo tutto il giorno."
+    - tutor: "Capisco, è un lavoro duro per la gola. È allergico a qualche medicina?"
+      goals: [since-when]
+    - learner: "No, a nessuna. Per la tosse ho bisogno di uno sciroppo? A casa ho uno, ma è vecchio."
+      errors: [ci-ne]
+      gold: {text: "A casa ho uno", fix: "A casa ne ho uno"}
+    - tutor: "Sì, glielo consiglio. «A casa ho uno»: uno di cosa? Come riprende «sciroppo» senza ripeterlo?"
+      prompt: {text: "A casa ho uno", tags: [ci-ne]}
+      goals: [history]
+    - learner: "Ah, ne ho uno a casa, ma è vecchio di due anni."
+    - tutor: "Esatto. Allora meglio buttarlo. Le scrivo la ricetta per uno nuovo: due cucchiai la sera, per una settimana."
+      new: [{lemma: cucchiaio, gloss: spoon}]
+    - learner: "Va bene. E posso lavorare o devo quedarmi a casa?"
+      errors: [word-choice]
+    - tutor: "Meglio restare a casa per due giorni e bere molta acqua calda. Se la febbre sale, mi richiami."
+      recast: {text: "quedarmi a casa", fix: "restare a casa", tags: [word-choice]}
+      goals: [instructions]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando freno sento un rumore strano, come un fischio. È cominciato lunedì."
+    - tutor: "Un fischio quando frena? Probabilmente sono i freni davanti. Li controllo subito."
+      goals: [describe, when]
+    - learner: "Grazie. Quanto ci mette a ripararla?"
+    - tutor: "Se è solo quello, due giorni. Devo ordinare i pezzi."
+      goals: [time]
+    - learner: "Due giorni? Uffa, ho bisogno per andare al lavoro venerdì."
+      errors: [ci-ne]
+      gold: {text: "ho bisogno per andare", fix: "ne ho bisogno per andare"}
+    - tutor: "Lo so, senza macchina è difficile. Ma «ho bisogno per andare»: di cosa ha bisogno? Riprenda «la macchina» con una parola piccola."
+      prompt: {text: "ho bisogno per andare", tags: [ci-ne]}
+    - learner: "Ne ho bisogno per andare al lavoro. Abito fuori città."
+    - tutor: "Perfetto, chiaro. Allora la faccio per giovedì sera, promesso."
+    - learner: "Grazie mille! Mi può dare un'estimazione del costo?"
+      errors: [word-choice]
+    - tutor: "Certo, le faccio un preventivo: pastiglie e mano d'opera, circa centoventi euro."
+      recast: {text: "un'estimazione", fix: "un preventivo", tags: [word-choice]}
+      goals: [cost]
+      new: [{lemma: pastiglia, gloss: brake pad}]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Sì, buonasera. Sono nella camera 214. Ho appena fatto la doccia e in bagno non c'è nessuno!"
+      errors: [ci-ne]
+      gold: {text: "non c'è nessuno", fix: "non ce n'è nessuno"}
+    - tutor: "Nessuno? Spero proprio di no, è la sua camera! Di cosa parla? Con «nessuno» qui serve una piccola parola in più."
+      prompt: {text: "non c'è nessuno", tags: [ci-ne]}
+    - learner: "Scusi, gli asciugamani! In bagno non c'è nessuno."
+      errors: [ci-ne]
+    - tutor: "Ah, non ce n'è nessuno! Mi scusi tanto, la cameriera li ha dimenticati. Glieli porto io tra due minuti."
+      recast: {text: "non c'è nessuno", fix: "non ce n'è nessuno", tags: [ci-ne]}
+      goals: [problem]
+    - learner: "Grazie. E c'è un'altra cosa: il frigobar non funziona da ieri sera."
+    - tutor: "Da ieri? Perché non ci ha chiamato subito?"
+      goals: [since]
+    - learner: "Ero stanco e ho andato a dormire. Potete ripararlo domani mattina?"
+      errors: [auxiliary-choice]
+    - tutor: "Capisco. Ma «ho andato»: con «andare» quale verbo usiamo, essere o avere?"
+      prompt: {text: "ho andato", tags: [auxiliary-choice]}
+    - learner: "Ah, sono andato a dormire. Allora, potete ripararlo domani mattina?"
+    - tutor: "Certo, alle nove viene qualcuno a ripararlo. Per scusarci, le offriamo la colazione in camera domani."
+      goals: [request, agree]
