@@ -1,0 +1,221 @@
+# Set v-nearmiss, file 5: B2 and one C1. Left alone: «sembra che entri», «il tema», «più
+# drammatico», «va tradotto», «il giorno che l'ho finito», «la cui amicizia», «ne nasceranno»,
+# «se lo sapevo, studiavo» (colloquial), «mi aspettavo che fosse», «avrà trovato traffico», «se
+# tutto va bene, finiremo», «se l'avessi visto, non sarei», «me la cambierebbe», «dopo che ho
+# vinto», «benché parlassi». Corrected twins: «imbarazzata» (= incinta), «sposato a», «in che
+# vivono», «se il governo investirebbe», «mi pare che non conosce», «rimanerà», «se pagherei»,
+# «prima che venissi» (same subject).
+- scenario: arte-mostra
+  level: B2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi colpisce subito la luce: sembra che entri dalla finestra proprio adesso."
+  - tutor: "Vero, è la cosa più forte del quadro."
+    goals: [react]
+  - learner: "Al centro c'è una donna che legge una lettera, e dietro di lei c'è una carta geografica appesa al muro."
+  - tutor: "L'hai descritto meglio della guida! Secondo te, che cosa sta succedendo?"
+    goals: [describe]
+  - learner: "Secondo me la donna è imbarazzata: guarda la pancia!"
+    errors: [false-friend]
+  - tutor: "Incinta, vuoi dire? Molti critici lo pensano, ma c'è chi dice che sia solo la moda dell'epoca."
+    recast: {text: "imbarazzata", fix: "incinta", tags: [false-friend]}
+  - learner: "Interessante! Allora forse la lettera è del marito, che è lontano. Il tema del quadro sarebbe l'attesa."
+  - tutor: "Bella lettura, mi convince. E rispetto al quadro di prima?"
+    goals: [interpret]
+  - learner: "Quello di prima era più drammatico; questo invece è silenzioso, quasi intimo. Preferisco questo."
+  - tutor: "Anch'io, è il mio preferito di tutta la mostra."
+    goals: [compare]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-m-traveller
+  history: [preposition]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Vorrei chiedere la residenza: da marzo abito in via Mazzini, al numero dodici."
+  - tutor: "Bene. Lei è cittadino di un paese dell'Unione?"
+    goals: [request]
+  - learner: "No, sono canadese. Sono qui per lavoro e sono sposato a un'italiana."
+    errors: [preposition]
+  - tutor: "Sposato a un'italiana? Con «sposato», è quella la preposizione giusta?"
+    prompt: {text: "sposato a un'italiana", tags: [preposition]}
+  - learner: "Sì, sposato a un'italiana, ci siamo sposati a Toronto due anni fa."
+    errors: [preposition]
+  - tutor: "Bene, sposato con un'italiana. Allora servono il passaporto, il permesso di soggiorno e il certificato di matrimonio."
+    recast: {text: "sposato a un'italiana", fix: "sposato con un'italiana", tags: [preposition]}
+    goals: [documents]
+  - learner: "Il certificato ce l'ho, ma è in inglese. Va tradotto per forza?"
+  - tutor: "Sì, e purtroppo la traduzione deve essere ufficiale, fatta in tribunale."
+    goals: [problem]
+  - learner: "Ah, non lo sapevo. Quindi devo venire indietro un'altra volta?"
+    errors: [word-choice]
+  - tutor: "Sì, deve tornare quando ha la traduzione: prenoti un appuntamento online. Poi passeranno i vigili a controllare l'indirizzo."
+    recast: {text: "venire indietro", fix: "tornare", tags: [word-choice]}
+    goals: [next]
+  - learner: "Perfetto, grazie. Spero di farcela entro fine mese."
+  - tutor: "Ce la farà sicuramente. Buona giornata!"
+
+- scenario: film-libro
+  level: B2
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+  - learner: "Comincio io! Ho letto «L'amica geniale». Il giorno che l'ho finito ho comprato subito il secondo volume."
+  - tutor: "Ottimo inizio! Di che cosa parla, in breve?"
+  - learner: "È la storia di due amiche cresciute in un quartiere povero di Napoli, la cui amicizia dura tutta la vita."
+  - tutor: "Perfetto, chiarissimo. E i personaggi?"
+    goals: [summary]
+  - learner: "Lila è quella che mi ha colpito di più: geniale ma impossibile. Elena, invece, è quella in cui mi sono riconosciuta."
+  - tutor: "Interessante, molti dicono il contrario. E nel complesso ti è piaciuto?"
+    goals: [characters]
+  - learner: "Moltissimo, anche se è duro. Il quartiere in che vivono è molto violento."
+    errors: [relative-pronoun]
+  - tutor: "In che vivono? Dopo «in», che parola usiamo al posto di «che»?"
+    prompt: {text: "in che vivono", tags: [relative-pronoun]}
+  - learner: "Sì, il quartiere in che vivono è pieno di violenza."
+    errors: [relative-pronoun]
+  - tutor: "È vero, il quartiere in cui vivono è quasi un terzo personaggio, e non certo il più gentile."
+    recast: {text: "in che vivono", fix: "in cui vivono", tags: [relative-pronoun]}
+    goals: [opinion]
+  - learner: "Lo consiglio a tutti, ma bisogna avere pazienza nelle prime cento pagine."
+  - tutor: "Allora è deciso: lo leggiamo tutti per il mese prossimo!"
+    goals: [recommend]
+
+- scenario: politica-lavoro
+  level: B2
+  persona: en-m-heritage
+  history: [hypothetical]
+  turns:
+  - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+  - learner: "Secondo me esageri. Alcuni lavori spariranno, ma ne nasceranno altri che oggi non immaginiamo."
+  - tutor: "Tipo quali, per esempio?"
+    goals: [opinion]
+  - learner: "Pensa a chi fa video su internet: vent'anni fa nessuno avrebbe detto che fosse un lavoro."
+  - tutor: "D'accordo, ma non tutti possono diventare famosi su internet."
+    goals: [example]
+  - learner: "Certo. Il problema è la formazione. Se il governo investirebbe di più nella scuola, i giovani sarebbero più preparati."
+    errors: [hypothetical]
+  - tutor: "Se il governo investirebbe? Dopo «se», ci sta bene il condizionale?"
+    prompt: {text: "Se il governo investirebbe", tags: [hypothetical]}
+  - learner: "Sì: se il governo investirebbe di più nella scuola, sarebbe diverso."
+    errors: [hypothetical]
+  - tutor: "Eh, se il governo investisse di più nella scuola, sarebbe un altro paese. E tu, se avessi vent'anni oggi, che cosa studieresti?"
+    recast: {text: "se il governo investirebbe", fix: "se il governo investisse", tags: [hypothetical]}
+    goals: [hypothesis]
+  - learner: "Ah, guarda, se lo sapevo, a vent'anni studiavo informatica invece di lettere!"
+  - tutor: "Anch'io! Ma almeno con lettere sappiamo scrivere bene. Allora, in conclusione?"
+  - learner: "In conclusione, il lavoro non sparirà: cambierà, e chi non si aggiorna resterà dietro."
+    errors: [word-choice]
+  - tutor: "Su questo ti do ragione: chi non si aggiorna resterà indietro. Speriamo di essere tra quelli che si aggiornano!"
+    recast: {text: "resterà dietro", fix: "resterà indietro", tags: [word-choice]}
+    goals: [conclude]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Sì, purtroppo: abbiamo aspettato un'ora per i secondi, e il pesce è arrivato freddo."
+  - tutor: "Mi dispiace moltissimo. Può dirmi esattamente che cosa avete ordinato?"
+    goals: [complain]
+  - learner: "Due orate al forno e un risotto ai frutti di mare. Il risotto era scotto e l'orata piena di spine."
+  - tutor: "Capisco, non è proprio il livello che vogliamo offrire."
+    goals: [detail]
+  - learner: "Venivamo qui spesso. Mi aspettavo che il pesce fosse fresco come sempre. Ho l'impressione che sia cambiato il cuoco."
+  - tutor: "In effetti da settembre abbiamo un nuovo cuoco in cucina."
+    goals: [expectation]
+  - learner: "Allora mi pare che il nuovo cuoco non conosce ancora bene i tempi."
+    errors: [subjunctive-use]
+  - tutor: "Mi pare che non conosce? «Mi pare» esprime un'opinione: che modo vuole?"
+    prompt: {text: "non conosce", tags: [subjunctive-use]}
+  - learner: "Sì, mi pare che non conosce bene i tempi della cucina."
+    errors: [subjunctive-use]
+  - tutor: "Ha ragione, può darsi che non conosca ancora bene i nostri tempi. Ne parlerò con lui stasera stessa."
+    recast: {text: "non conosce", fix: "non conosca", tags: [subjunctive-use]}
+  - learner: "Non vogliamo litigare, ma pagare la cuenta intera non mi sembra giusto."
+    errors: [word-choice]
+  - tutor: "Ci mancherebbe: il conto lo offre la casa, e spero che vorrete darci un'altra possibilità."
+    recast: {text: "la cuenta", fix: "il conto", tags: [word-choice]}
+    goals: [resolve]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Abbastanza bene. Abbiamo finito la prima parte, ma Marco non è ancora arrivato: avrà trovato traffico."
+  - tutor: "Sicuramente, con questa pioggia. E ci sono problemi?"
+    goals: [update]
+  - learner: "Sì, il cliente ha cambiato la mente sul design, e questo ci farà perdere una settimana."
+    errors: [word-choice]
+  - tutor: "Ha cambiato idea di nuovo? Che peccato. Hai già in mente una soluzione?"
+    recast: {text: "cambiato la mente", fix: "cambiato idea", tags: [word-choice]}
+    goals: [problem]
+  - learner: "Propongo di dividere il lavoro: io mi occupo del design e Marco dei test. Così nessuno rimanerà indietro."
+    errors: [future-form]
+  - tutor: "Nessuno rimanerà? Ripeti quel verbo, per favore: qualcosa non torna."
+    prompt: {text: "rimanerà", tags: [future-form]}
+  - learner: "Sì, così nessuno rimanerà indietro."
+    errors: [future-form]
+  - tutor: "Giusto, così nessuno rimarrà indietro. L'idea mi piace. Quando pensate di finire?"
+    recast: {text: "rimanerà", fix: "rimarrà", tags: [future-form]}
+    goals: [proposal]
+  - learner: "Se tutto va bene, finiremo entro il venti. Ti va bene?"
+  - tutor: "Perfetto, il venti va benissimo. Lo scrivo subito nel piano del progetto."
+    goals: [deadline]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-m-retired
+  history: [hypothetical]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Molto. Se l'avessi visto un mese fa, adesso non sarei ancora in albergo."
+  - tutor: "Allora l'appartamento giusto l'abbiamo trovato!"
+    goals: [interest]
+  - learner: "Quasi. Il prezzo però è un po' alto. Se mi abbassa l'affitto di cinquanta euro, firmo subito."
+  - tutor: "Cinquanta è troppo per il proprietario. Venticinque, forse, potrei chiederli io."
+  - learner: "E se pagherei tre mesi in anticipo?"
+    errors: [hypothetical]
+  - tutor: "E se pagherei? Ascolti bene quel verbo dopo «se»."
+    prompt: {text: "se pagherei", tags: [hypothetical]}
+  - learner: "Scusi: e se pagassi tre mesi in anticipo?"
+  - tutor: "Con tre mesi in anticipo, il proprietario potrebbe accettare quaranta euro in meno."
+    goals: [negotiate]
+  - learner: "Un'altra cosa: la lavatrice è vecchia. Me la cambierebbe?"
+  - tutor: "Sì, glielo chiedo io: mi sembra una richiesta ragionevole."
+    goals: [conditions]
+  - learner: "Allora, se il proprietario accetta, firmiamo lunedì."
+  - tutor: "Perfetto, lo chiamo subito e le faccio sapere entro stasera."
+    goals: [conclude]
+
+- scenario: vita-in-italia
+  level: C1
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+  - learner: "Diciamo che è stata l'Italia a scegliere me: dopo che ho vinto una borsa di studio a Bologna, non sono più ripartita."
+  - tutor: "Una scelta che si è fatta da sola, insomma! E all'inizio, quali sono state le difficoltà più grosse?"
+    goals: [story]
+  - learner: "Soprattutto la burocrazia. Benché parlassi già bene l'italiano, agli sportelli non capivo nulla: ogni ufficio mi rimandava a un altro."
+  - tutor: "Il famoso rimpallo tra uffici: i nostri ascoltatori lo conoscono fin troppo bene. E lei, in questi anni, com'è cambiata?"
+    goals: [difficulties]
+    new: [{lemma: "rimpallo", gloss: "passing the buck back and forth"}]
+  - learner: "Sono diventata molto più paziente. Prima che venissi qui, mi arrabbiavo per cinque minuti di ritardo."
+    errors: [subjunctive-use]
+  - tutor: "Prima che venissi? Il soggetto delle due frasi è lo stesso: serve davvero quel «che»?"
+    prompt: {text: "Prima che venissi", tags: [subjunctive-use]}
+  - learner: "Sì: prima che venissi qui, mi arrabbiavo per cinque minuti di ritardo. Adesso aspetto l'autobus senza battere ciglio."
+    errors: [subjunctive-use]
+  - tutor: "Prima di venire qui, insomma, era un'altra persona. Senza battere ciglio: si vede che è diventata italiana davvero! Che consiglio darebbe a chi arriva adesso?"
+    recast: {text: "prima che venissi", fix: "Prima di venire", tags: [subjunctive-use]}
+    goals: [change]
+  - learner: "Di non prendere niente sul personale e di farsi amici italiani il prima possibile. Se non fosse stato per i miei vicini, me ne sarei andata dopo sei mesi."
+  - tutor: "Un consiglio prezioso, e una bella dedica ai suoi vicini. Grazie di essere stata con noi!"
+    goals: [advice]

@@ -1,0 +1,225 @@
+# B1, real learner sentences: a faulty item, a noisy neighbour, the mechanic, a flat, the doctor, cooking, fitness.
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-f-professional
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie la settimana scorsa e non funzionano più: si sente solo da una parte."
+    - tutor: "Mi dispiace. Ha lo scontrino?"
+      goals: [problem]
+    - learner: "Sì, eccolo. Lo ho comprate qui martedì scorso."
+      errors: [object-pronoun]
+    - tutor: "«Lo» ho comprate? Parla delle cuffie: quale pronome ci vuole?"
+      prompt: {text: "Lo ho comprate", tags: [object-pronoun]}
+    - learner: "Le ho comprate qui martedì scorso."
+    - tutor: "Esatto. Sì, vedo lo scontrino: sono ancora in garanzia. Che cosa preferisce?"
+      goals: [proof]
+      new: [{lemma: garanzia, gloss: warranty}]
+    - learner: "Vorrei avere indietro i soldi, per favore. Le cuffie sono costato novanta euro."
+      errors: [participle-agreement]
+    - tutor: "Le cuffie sono «costato»? Pensi alle cuffie: sono femminili e sono più di una."
+      prompt: {text: "sono costato", tags: [participle-agreement]}
+    - learner: "Sono costate novanta euro."
+    - tutor: "Esatto. Purtroppo non posso darle indietro i soldi, ma le posso cambiare le cuffie con un paio nuovo. Va bene?"
+      goals: [request]
+    # merlin-1365_0100251-7
+    - learner: "Forse è un buon consiglio!"
+    - tutor: "Benissimo, allora gliele cambio subito. Ecco le cuffie nuove, le provi pure qui."
+      goals: [agree]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: es-f-erasmus
+  history: [conditional-form]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, sono Lucía, la ragazza del secondo piano. Scusi il disturbo."
+    - tutor: "Nessun disturbo, piacere! Mi dica."
+      goals: [greet]
+    - learner: "Sono tre notte che non dormo bene."
+      errors: [noun-number]
+    - tutor: "Tre «notte»? Attenzione: sono più di una."
+      prompt: {text: "tre notte", tags: [noun-number]}
+    - learner: "Tre notti! Ho gli esami e di notte sento sempre la lavatrice."
+    - tutor: "Esatto. Ah, la lavatrice! Non sapevo che si sentisse così tanto."
+      goals: [problem]
+    - learner: "Sì, empieza a mezzanotte. Potrebbe usarla di giorno, per favore?"
+      errors: [word-choice]
+    - tutor: "Comincia a mezzanotte, sì. Il problema è che di notte si paga meno. Le andrebbe bene fino alle dieci di sera?"
+      recast: {text: "empieza", fix: "comincia", tags: [word-choice]}
+      goals: [request]
+    - learner: "Le dieci andrebbe bene, sì. E nel fine settimana potrebbe usarla quando vuole."
+    - tutor: "Perfetto, allora facciamo così. E in bocca al lupo per gli esami!"
+      goals: [compromise]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-retired
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando giro a destra, la macchina fa un rumore strano, come un colpo."
+    - tutor: "Un colpo quando gira: può essere una ruota. Da quando lo fa?"
+      goals: [describe]
+      new: [{lemma: ruota, gloss: wheel}]
+    - learner: "Da domenica. Tornavo dal mare e all'improvviso ho sentito il rumore."
+    - tutor: "Capisco. Gliela guardo subito."
+      goals: [when]
+    - learner: "Grazie. E quando sarà pronta?"
+    - tutor: "Se il pezzo arriva domani, giovedì pomeriggio. Può venire a prenderla giovedì?"
+      goals: [time]
+    - learner: "Quanto costerà? Non voglio spendere troppo, sono ritirato."
+      errors: [false-friend]
+    - tutor: "Capisco, in pensione bisogna stare attenti. Se è solo quel pezzo, circa 150 euro con il lavoro. Le preparo un preventivo."
+      recast: {text: "ritirato", fix: "in pensione", tags: [false-friend]}
+      goals: [cost]
+      new: [{lemma: preventivo, gloss: estimate}]
+    # merlin-1365_0100178-4
+    - learner: "Infatti, devo lavorare al questo giorno, ma per voi mi prendo un giorno di vacanze."
+      errors: [articulated-preposition]
+    - tutor: "Lavorare «al questo» giorno? Con «questo», la preposizione serve davvero?"
+      prompt: {text: "al questo giorno", tags: [articulated-preposition]}
+    - learner: "Devo lavorare quel giorno, ma vengo lo stesso."
+    - tutor: "Esatto. Allora l'aspetto giovedì: se vuole, le lascio le chiavi al bar qui accanto."
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-student
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Che bello, è molto luminoso! Quanto è la renta?"
+      errors: [word-choice]
+    - tutor: "L'affitto è di 650 euro al mese, più 50 di spese per il condominio."
+      recast: {text: "la renta", fix: "l'affitto", tags: [word-choice]}
+      goals: [rent]
+    # merlin-1365_0100192-12
+    - learner: "È meglio se piccoli animali siano amessi perchè abbiamo un cane che vogliamo portarci."
+      errors: [subjunctive-use, spelling]
+    - tutor: "È meglio «se» gli animali «siano» ammessi? Dopo «se», qui, quel modo del verbo va bene?"
+      prompt: {text: "se piccoli animali siano", tags: [subjunctive-use]}
+    - learner: "È meglio se gli animali sono ammessi."
+    - tutor: "Perfetto. Sì, un cane piccolo va bene, se lei firma che paga i danni. Il contratto è di quattro anni."
+      goals: [contract]
+    - learner: "Il riscaldamento come funziona? E c'è la macchina da lavare?"
+      errors: [word-choice]
+    - tutor: "Il riscaldamento lo accende e lo spegne lei, quando vuole, e la lavatrice è in bagno. Il quartiere le piace?"
+      recast: {text: "la macchina da lavare", fix: "la lavatrice", tags: [word-choice]}
+      goals: [condition]
+    # merlin-1365_0100479-8
+    - learner: "Conosco un amico che ha una stanza nel centro storico."
+    - tutor: "Il centro è bello, ma qui è più tranquillo e c'è un parco per il cane. Allora, le interessa?"
+      goals: [neighbourhood]
+    - learner: "Sì, mi interessa molto. Posso tornare con la mia amica sabato?"
+    - tutor: "Certo, sabato alle dieci va benissimo. A presto!"
+      goals: [decide]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno, vorrei prenotare una visita dal dentista, per favore."
+    - tutor: "Certo. Ha già una data in mente?"
+      goals: [type]
+    - learner: "Sarò in viaggio per lavoro del 10 al 15 dicembre."
+      errors: [articulated-preposition]
+    - tutor: "Va bene. Ma lei sarà via... «del» 10? Per indicare l'inizio di un periodo, quale preposizione usiamo?"
+      prompt: {text: "del 10", tags: [articulated-preposition]}
+    - learner: "Del 10 al 15, sì."
+      errors: [articulated-preposition]
+    - tutor: "Allora, dal 10 al 15 è via: le propongo il 18 alle undici. Le va bene?"
+      recast: {text: "Del 10", fix: "dal 10", tags: [articulated-preposition]}
+      goals: [availability]
+    - learner: "Il 18 va bene. Quanto costerà la visita? Devo portare qualcosa?"
+    - tutor: "La visita costa 80 euro. Porti un documento e la tessera sanitaria."
+      goals: [cost]
+      new: [{lemma: tessera sanitaria, gloss: health card}]
+    - learner: "Allora: il 18 dicembre alle undici
+, dal dentista, 80 euro. Mi chiamo José Ruiz."
+    - tutor: "Perfetto, signor Ruiz, è tutto confermato. Arrivederci!"
+      goals: [confirm]
+
+- scenario: medico-base
+  level: B1
+  persona: es-f-teacher
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di pancia, la nausea, e sono anche costipata."
+      errors: [false-friend]
+    - tutor: "Mal di pancia, nausea e anche raffreddata? Mi dispiace. Da quando ha questi disturbi?"
+      recast: {text: "costipata", fix: "raffreddata", tags: [false-friend]}
+      new: [{lemma: raffreddato, gloss: having a cold}, {lemma: disturbo, gloss: ailment}]
+      goals: [symptoms]
+    - learner: "Da circa una settimana. Ho cominciato a sentirmi male lunedì scorso."
+    - tutor: "Capisco. È allergica a qualcosa, o prende delle medicine?"
+      goals: [since-when]
+    # merlin-1325_1001096-6
+    - learner: "Inoltre non posso bere latte."
+    - tutor: "Ah, quindi è intollerante al latte. Lo sapeva già da prima?"
+      new: [{lemma: intollerante, gloss: intolerant}]
+    - learner: "Sì, da bambina. E prendo una medicina per la tensione."
+      errors: [word-choice]
+    - tutor: "Bene, la medicina per la pressione la continui pure. Poi prenda queste medicine prima di pranzo e di cena, per una settimana, e niente cibi pesanti."
+      recast: {text: "la tensione", fix: "la pressione", tags: [word-choice]}
+      goals: [history]
+    - learner: "Allora prenderò le medicine due volte al giorno, prima di mangiare, e niente cibi pesanti. E se non migliora?"
+    - tutor: "Esatto, ha capito benissimo. Se tra una settimana non migliora, torni da me."
+      goals: [instructions]
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: en-m-heritage
+  history: [article-use]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    # merlin-1365_0100299-8
+    - learner: "Il mio piatto preferito del mio paese è il \"fish pie\", ti manderò un elenco degli ingredienti necessari."
+    - tutor: "Che strano nome!
+ Ma stasera lo facciamo insieme: cosa ci serve?"
+    - learner: "Pesce bianco, gamberi, patate, latte, burro e un po' di formaggio."
+    - tutor: "Ho quasi tutto, mancano solo i gamberi. Come si comincia?"
+      goals: [ingredients]
+    - learner: "Prima cuoci le patate in acqua e sale, poi le mashi con il burro."
+      errors: [word-choice]
+    - tutor: "Facile: le cuoci e poi le schiacci con il burro. E il pesce?"
+      recast: {text: "mashi", fix: "schiacci", tags: [word-choice]}
+      new: [{lemma: schiacciare, gloss: to mash}]
+      goals: [steps]
+    - learner: "Il pesce lo metti nel forno con il latte. Tutto insieme cuoce quaranta minuti."
+    - tutor: "Quaranta minuti: abbiamo tempo per bere qualcosa! E poi come lo serviamo?"
+      goals: [time]
+    - learner: "Caldo, con un po' di piselli. Da noi si mangia la domenica."
+    - tutor: "Perfetto, allora stasera è domenica anche qui!"
+      goals: [serve]
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-f-student
+  history: [spelling]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Studio tutto il giorno seduta e la sera sono troppo stanca per fare sport."
+    - tutor: "Capisco, è un problema molto comune. Che cosa ti piacerebbe ottenere?"
+      goals: [habits]
+    # merlin-1365_0100482-6
+    - learner: "Vorrei parlare del mio tempo liberò allora."
+      errors: [spelling]
+    - tutor: "Del tuo tempo «liberò»? Attenzione all'accento: quella parola ce l'ha?"
+      prompt: {text: "liberò", tags: [spelling]}
+    - learner: "No, tempo libero, senza accento. Ho poco tempo libero e vorrei essere più in forma."
+    - tutor: "Esatto. Essere più in forma è un ottimo obiettivo. E cosa ti blocca, di solito?"
+      goals: [goal]
+    - learner: "Sono pigra! E il gym costa più di quanto posso pagare."
+      errors: [word-choice]
+    - tutor: "Se la palestra costa troppo, niente palestra: possiamo lavorare al parco, gratis. Tre volte alla settimana, mezz'ora?"
+      recast: {text: "il gym", fix: "la palestra", tags: [word-choice]}
+      goals: [obstacles]
+    # merlin-1365_0100020-11
+    - learner: "Non vedo l'ora di partire."
+    - tutor: "Bene, così mi piaci!
+ Allora lunedì, mercoledì e venerdì alle sette al parco. Ci vediamo lunedì!"
+      goals: [plan]

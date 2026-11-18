@@ -1,0 +1,270 @@
+# B1 real-learner set: advice to a young friend, hotel complaints, a refund, volunteering, Christmas news.
+- scenario: smartworking
+  level: B1
+  persona: en-f-student
+  history: [pronoun-position]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Da casa, quattro giorni su cinque. Faccio la traduttrice, quindi mi basta il computer."
+    - tutor: "Che bello! Io invece, dopo la maturità, cerco lavoro: ho preso cento, ma non trovo niente."
+      goals: [situation]
+      new: [{lemma: maturità, gloss: school-leaving exam}]
+    # merlin-1365_0100481-11
+    - learner: "È benissimo che abbia preso la maturità con il massimo dei voti."
+      errors: [word-choice]
+    - tutor: "Sì, è ottimo, ma il voto da solo non basta per trovare lavoro!"
+      recast: {text: "È benissimo", fix: "è ottimo", tags: [word-choice]}
+    # merlin-1365_0100120-7 + @345
+    - learner: "Se non c'è opportunità nella tua città, cerca nelle città vicine. Se non sai ancora che cosa vuoi fare nella tua vita, potresti anche cominciare a lavorare per qualche mese."
+    - tutor: "Hai ragione, ci penso. E a te cosa piace di più del lavoro da casa?"
+    # merlin-1325_1001168-11
+    - learner: "Per me le finesettimani sono liberi, ma organizzerò il mio giorno modo ottimo."
+      errors: [noun-gender, preposition]
+    - tutor: "Che bello! Ma «le finesettimani»: controlla l'articolo e la forma di «fine settimana» al plurale."
+      prompt: {text: "le finesettimani", tags: [noun-gender]}
+    - learner: "Le fine settimana sono liberi, sì."
+      errors: [noun-gender]
+    - tutor: "I fine settimana liberi sono un bel vantaggio! E gli svantaggi?"
+      recast: {text: "Le fine settimana", fix: "I fine settimana", tags: [noun-gender]}
+      goals: [pros]
+    # merlin-1395_0001060-9
+    - learner: "Sono sempre sola, ma preferisco così. E ti posso aiutare: devi mi dire tutto che fai!"
+      errors: [pronoun-position, relative-pronoun]
+    - tutor: "Grazie, sei gentile! Ma «devi mi dire»: dove va quel «mi»?"
+      prompt: {text: "devi mi dire", tags: [pronoun-position]}
+      goals: [cons, preference]
+    # merlin-1365_0100481-15
+    - learner: "Devi dirmi tutto! Spero che trovi un lavoro!"
+    - tutor: "Esatto. Grazie, ti racconterò tutto, promesso!"
+
+- scenario: smartworking
+  level: B1
+  persona: es-m-worker
+  history: [future-form, subject-verb-agreement]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    # merlin-1365_0100275-3
+    - learner: "Né casa né ufficio! Io invece ho incominciato il mio apprendistato di carpentiere di legno, che dura tre anni."
+    - tutor: "Che bello, un lavoro con le mani! Io ho appena fatto la maturità e non so cosa fare."
+      goals: [situation]
+      new: [{lemma: maturità, gloss: school-leaving exam}]
+    # merlin-1365_0100125-1
+    - learner: "Come ti conosco hai festeggiato abbastanza la tua maturità?!"
+      errors: [future-form]
+    - tutor: "Ah ah, mi conosci bene! Ma per un'idea su quello che ho fatto io, quale tempo usiamo invece di «hai festeggiato»?"
+      prompt: {text: "hai festeggiato", tags: [future-form]}
+    # merlin-1365_0100120-0
+    - learner: "Avrai festeggiato tanto! Complimenti per la maturità!"
+    - tutor: "Esatto, tre giorni di feste! Ma adesso devo decidere cosa fare."
+    # merlin-1365_0100277-9
+    - learner: "Vieni a Siviglia. Potresti abitare da me e dopo lavoro ti farà idee del futuro."
+      errors: [article-use, subject-verb-agreement]
+    - tutor: "Che gentile! Ma «ti farà idee»: chi si fa le idee? Io! Allora il verbo?"
+      prompt: {text: "ti farà idee", tags: [subject-verb-agreement]}
+    - learner: "Ti farai delle idee del futuro, sì, a Siviglia!"
+    - tutor: "Esatto. Grazie, forse hai ragione: ci penso davvero! E a te piace il tuo lavoro?"
+    - learner: "Molto: è più interessante che stare in ufficio, ma è faticoso e guadagno poco."
+    - tutor: "Lo capisco: la soddisfazione conta, ma anche i soldi. E dopo questi tre anni?"
+      goals: [pros, cons]
+      new: [{lemma: soddisfazione, gloss: satisfaction}]
+    - learner: "Preferirei aprire un piccolo laboratorio mio, con mio fratello."
+    - tutor: "Che bel progetto! Allora quando lo apri, il primo tavolo lo compro io."
+      goals: [preference]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-traveller
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    # merlin-1325_9000316-8
+    - learner: "Sì. Il Vostro hotel à molto vecchio, l'aria condizionata non funziona, è rotta, Nel camera fa caldo da morire."
+      errors: [articulated-preposition, spelling]
+    - tutor: "Mi dispiace molto! Ma «nel camera»: «camera» è femminile, quindi?"
+      prompt: {text: "Nel camera", tags: [articulated-preposition]}
+    - learner: "Nel camera, sì: fa caldo da morire! Non riesco a dormire."
+      errors: [articulated-preposition]
+    - tutor: "Nella camera fa caldo da morire, la capisco. Da quando non funziona?"
+      recast: {text: "Nel camera", fix: "Nella camera", tags: [articulated-preposition]}
+      goals: [problem]
+    # merlin-1325_1001018-4
+    - learner: "Da ieri sera. Ho letto nel suo annuncio che il hote é provvista di condizionamento d'aria, ma nemmeno questo funzionava."
+      errors: [article-form, adjective-agreement, spelling]
+    - tutor: "Ha ragione, lo dice anche l'annuncio. Ma quell'articolo, «il»? Pensi alla lettera con cui comincia la parola dopo."
+      prompt: {text: "il hote", tags: [article-form]}
+    - learner: "L'hotel! L'hotel ha l'aria condizionata, e da ieri non va."
+    - tutor: "Perfetto. Mi scusi davvero. Cosa posso fare per lei?"
+      goals: [since]
+    - learner: "Vorrei cambiare la camera, e spero di avere uno sconto per la notte di ieri."
+    - tutor: "Certo. Le do la camera 305, che è più fresca, e le togliamo il costo di ieri notte."
+      goals: [request]
+    - learner: "Va bene, grazie. Posso andare subito?"
+    - tutor: "Sì, ecco la chiave. Buonanotte, e mi scusi ancora."
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-f-teacher
+  history: [subjunctive-form]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    # merlin-1325_9000138-10
+    - learner: "Sì, signore. La sua offerta, per la quale abbiamo pagato molti soldi, non aveva niente a che fare con le condizioni in cui abbiamo trovato il suo hotel."
+    - tutor: "Mi dispiace molto. Che cosa non va, esattamente?"
+    # merlin-1325_9000095-0
+    - learner: "Molte delle informazioni scritti nella pubblicità erano inesatte. La camera è piccola e la finestra non si chiude."
+      errors: [adjective-agreement]
+    - tutor: "Capisco. Ma «le informazioni scritti»: «informazioni» è femminile, allora?"
+      prompt: {text: "informazioni scritti", tags: [adjective-agreement]}
+    # merlin-1325_9000302-0
+    - learner: "Scritte, sì. Mi dispiace dirlo non siamo sodisfati con il vostro posto."
+      errors: [preposition, spelling]
+    - tutor: "Lo vedo. Ma «con il vostro posto»: con questo aggettivo, quale preposizione usiamo?"
+      prompt: {text: "con il vostro posto", tags: [preposition]}
+    - learner: "Non siamo soddisfatti con l'hotel."
+      errors: [preposition]
+    - tutor: "Capisco che non siete soddisfatti dell'hotel, e mi dispiace. Da quando avete questi problemi?"
+      recast: {text: "soddisfatti con l'hotel", fix: "soddisfatti dell'hotel", tags: [preposition]}
+      goals: [problem]
+    # merlin-1325_9000209-5
+    - learner: "Da tre giorni. Spero che pensateri all questo annuncio e lo corregate. E vorremmo un'altra camera."
+      errors: [subjunctive-form, articulated-preposition, spelling]
+    - tutor: "È giusto. Ma «pensateri»: dopo «spero che», con «voi», come fa il verbo «pensare»?"
+      prompt: {text: "pensateri", tags: [subjunctive-form]}
+    - learner: "Spero che pensiate a questo annuncio e lo correggiate."
+    - tutor: "Perfetto, lo dico al direttore domani. Per stanotte vi do la camera 210: è più grande e la finestra è nuova."
+      goals: [since, request]
+    - learner: "Va bene, grazie. Speriamo di dormire meglio."
+    - tutor: "Ecco le chiavi. Buonanotte, e mi scusi ancora."
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-professional
+  history: [demonstrative, subjunctive-use]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    # merlin-1325_9000316-5
+    - learner: "Sì. Ho letto che gli vostri appartamenti siano confortevoli e siano dotati di aria condizionata."
+      errors: [article-form, subjunctive-use]
+    - tutor: "Certo. Ma «ho letto che siano»: lei racconta una cosa che ha letto, un fatto. Ci vuole il congiuntivo?"
+      prompt: {text: "siano confortevoli", tags: [subjunctive-use]}
+    # merlin-1325_1001009-2
+    - learner: "Ho letto che sono confortevoli! Ma per dire la verità non siamo riusciti a divertirci perché non tutte le cose sono come avete scritto nella pubblicità."
+    - tutor: "Esatto. Mi dispiace. Qual è il problema principale?"
+    - learner: "L'aria condizionata fa un rumore terribile e la doccia è fredda da quando siamo arrivati, lunedì."
+    - tutor: "Da lunedì? Mi dispiace davvero, nessuno mi ha detto niente."
+      goals: [problem, since]
+    # merlin-1325_9000602-4
+    - learner: "Quindi vi prego di togliere quel annuncio dal giornale, e vorrei un'altra camera."
+      errors: [demonstrative]
+    - tutor: "Lo capisco. Ma «quel annuncio»: davanti a una «a», come diventa «quel»?"
+      prompt: {text: "quel annuncio", tags: [demonstrative]}
+    - learner: "Quel annuncio, sì. È falso!"
+      errors: [demonstrative]
+    - tutor: "Va bene, porto quell'annuncio al direttore domani mattina. E stasera le do una camera nuova, al quarto piano."
+      recast: {text: "Quel annuncio", fix: "quell'annuncio", tags: [demonstrative]}
+      goals: [request]
+    - learner: "Grazie. E per la doccia, potete fare uno sconto?"
+    - tutor: "Certo: le togliamo il venti per cento dal conto. Va bene?"
+    - learner: "Sì, va bene così. Grazie mille."
+    - tutor: "Grazie a lei per la pazienza. Buonanotte!"
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-f-student
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie la settimana scorso e il lato sinistro non funziona più."
+      errors: [adjective-agreement]
+    - tutor: "Mi dispiace. Ma «la settimana scorso»: «settimana» è femminile, no?"
+      prompt: {text: "la settimana scorso", tags: [adjective-agreement]}
+    - learner: "La settimana scorso, sì. Ecco lo scontrino."
+      errors: [adjective-agreement]
+    - tutor: "Le ha comprate la settimana scorsa, va bene. Sì, sono in garanzia. Cosa preferisce?"
+      recast: {text: "settimana scorso", fix: "settimana scorsa", tags: [adjective-agreement]}
+      goals: [problem, proof]
+    # merlin-1325_9000089-8
+    - learner: "Spero che vedete il mio problema e che ricevo un po' del denaro che ho pagato."
+      errors: [subjunctive-use]
+    - tutor: "Certo, lo vedo. Ma «spero che vedete»: dopo «spero che», quale modo del verbo usiamo?"
+      prompt: {text: "che vedete", tags: [subjunctive-use]}
+    - learner: "Sì, e spero che ricevo il rimborso."
+      errors: [subjunctive-use]
+    - tutor: "È giusto che lei riceva il rimborso completo: sono 79 euro, sulla sua carta."
+      recast: {text: "ricevo", fix: "riceva", tags: [subjunctive-use]}
+      goals: [request]
+    - learner: "Perfetto, grazie mille."
+    - tutor: "Si figuri. Firmi qui, e in tre giorni vede i soldi sul conto."
+      goals: [agree]
+
+- scenario: volontariato
+  level: B1
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    # merlin-1325_1001012-4
+    - learner: "Sì. In anno scorso ho passato un mese in Brasile e ho provato insegnare a leggere e scrivere i ragazzi orfani."
+      errors: [article-use, preposition]
+    - tutor: "Che esperienza! Ma «in anno scorso»: prova a dirlo in un altro modo. Come comincia?"
+      prompt: {text: "In anno scorso", tags: [article-use]}
+    # merlin-1325_9000186-5
+    - learner: "L'anno scorso! E prima, in Inghilterra, ho pulito un bosco con un gruppo. È stata una bella esperienza, siamo riusciti a unire cento persone per pulire una piccola foresta che purtroppo era piena di immondizia lasciata dai turisti."
+    - tutor: "Esatto. Allora sei nel posto giusto! Cosa sai fare?"
+      goals: [motivation]
+    # merlin-1325_1001134-10
+    - learner: "Insegno inglese ai ragazzi. Senza parlare almeno una lingua straniera è molto difficile trovare un lavoro."
+    - tutor: "Verissimo. Abbiamo un progetto di dieci giorni in alcuni paesi dell'Albania, ad agosto. Quanto tempo hai?"
+      goals: [skills]
+    # merlin-1325_9000296-3
+    - learner: "Ad agosto sono libera. Sono sicura che in questi dieci giorni farete tanto per questi paesi."
+    - tutor: "Lo speriamo! Vuoi venire con noi, allora?"
+      goals: [time]
+    - learner: "Sì! Se avrei più giorni, resterei di più."
+      errors: [hypothetical]
+    - tutor: "Che bello! Ma «se avrei»: per un'idea che non è reale, dopo «se» quale forma usiamo?"
+      prompt: {text: "Se avrei più giorni", tags: [hypothetical]}
+    - learner: "Se avrei più tempo, sì."
+      errors: [hypothetical]
+    - tutor: "Eh, se avessi più tempo anch'io, verrei tutta l'estate! Allora ti segno per agosto."
+      recast: {text: "Se avrei più tempo", fix: "se avessi più tempo", tags: [hypothetical]}
+      goals: [choose]
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+    - learner: "In Messico facciamo le posadas: nove giorni di feste prima di Natale, con canti e dolci."
+    - tutor: "Nove giorni, che meraviglia! E sai la novità? Domani a pranzo diciamo a tutti che io e Marco ci sposiamo!"
+      goals: [compare]
+      new: [{lemma: meraviglia, gloss: wonder}]
+    # merlin-1365_0100287-2
+    - learner: "Che bello! Mi fa molto piacere che voi vi sposate, voi siete proprio una carina coppia."
+      errors: [subjunctive-use, word-order]
+    - tutor: "Grazie! Ma «mi fa piacere che vi sposate»: dopo «mi fa piacere che», quale modo del verbo usiamo?"
+      prompt: {text: "che voi vi sposate", tags: [subjunctive-use]}
+    # merlin-1365_0100136-1
+    - learner: "Che vi sposiate! Sono molto felice di questa novità."
+    - tutor: "Esatto, grazie! E tu da piccola come festeggiavi il Natale?"
+    - learner: "Da piccola ogni anno abbiamo rotto la piñata con i miei cugini."
+      errors: [tense-aspect]
+    - tutor: "Che divertente! Ma «ogni anno abbiamo rotto»: è una cosa che facevate sempre, quindi quale tempo ci vuole?"
+      prompt: {text: "abbiamo rotto", tags: [tense-aspect]}
+    - learner: "Ogni anno rompevamo la piñata!"
+    - tutor: "Perfetto! Che bel ricordo. Vuoi sapere qualcosa delle nostre usanze?"
+      goals: [past]
+    # merlin-1365_0100287-8
+    - learner: "Sì: per il vostro matrimonio, avete un desiderio speciale, o preferite i soldi?"
+    - tutor: "Da noi molti regalano soldi, è vero: è un'usanza comune. Ma per noi va bene tutto!"
+      goals: [ask]
+    # merlin-1365_0100258-8
+    - learner: "Allora domani porto io il panettone. Vi auguro tutto il buono per il futuro!"
+      errors: [word-choice]
+    - tutor: "Grazie, anche a te tutto il bene possibile! E il panettone va benissimo, così mia nonna è contenta."
+      recast: {text: "tutto il buono", fix: "tutto il bene", tags: [word-choice]}
+      goals: [plan]

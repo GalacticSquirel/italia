@@ -1,0 +1,227 @@
+# Set v-nearmiss, file 4: B1 and B2. Left alone: «dal dermatologo», «non ci sarebbe»,
+# «verrebbe a costare», «potrebbe dirlo», «più comodo che andare», «meglio di quanto mi
+# aspettassi», «in ufficio più che a casa», «vivo in Italia da», «ci tengo», «non so se è grave»,
+# «spero che non sarà», «glielo porta», «è vero che perderanno», «anche se passa», «il paraurti è
+# stato danneggiato». Corrected twins: «poterebbe», «le ringrazio», «più bello che la mia
+# cucina», «ogni lunedì ho organizzato», «penso che non è», «mi lo», «bisogna che investe»,
+# «è stato rovinata».
+- scenario: prenotare-visita
+  level: B1
+  persona: es-f-teacher
+  history: [conditional-form]
+  turns:
+  - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+  - learner: "Buongiorno. Vorrei prenotare una visita dal dermatologo."
+  - tutor: "Certo. È la prima visita o un controllo?"
+  - learner: "La prima. Ho delle manchas sulla pelle da un mese."
+    errors: [word-choice]
+  - tutor: "Capisco, delle macchie. Il primo posto libero è giovedì prossimo alle undici."
+    recast: {text: "manchas", fix: "macchie", tags: [word-choice]}
+    new: [{lemma: "macchia", gloss: "spot, stain"}]
+    goals: [type]
+  - learner: "Giovedì lavoro fino alle due. Non ci sarebbe qualcosa di pomeriggio?"
+  - tutor: "Sì, c'è venerdì alle quattro e mezza."
+    goals: [availability]
+  - learner: "Perfetto. E quanto verrebbe a costare?"
+  - tutor: "Novanta euro. Se ha la richiesta del suo medico, però, paga molto meno."
+    goals: [cost]
+  - learner: "Va bene, nessun problema. Mi poterebbe mandare un messaggio di conferma?"
+    errors: [conditional-form]
+  - tutor: "Mi poterebbe? Attenzione al condizionale di «potere»."
+    prompt: {text: "poterebbe", tags: [conditional-form]}
+  - learner: "Mi potrebbe mandare un messaggio, scusi."
+  - tutor: "Esatto, glielo mando subito. Allora è confermato: venerdì alle quattro e mezza."
+    goals: [confirm]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-m-traveller
+  history: [object-pronoun]
+  turns:
+  - tutor: "Sì? Buonasera, posso aiutarla?"
+  - learner: "Buonasera, scusi il disturbo. Sono il vicino del piano di basso."
+    errors: [word-choice]
+  - tutor: "Ah, il vicino del piano di sotto, piacere! Mi dica pure."
+    recast: {text: "del piano di basso", fix: "del piano di sotto", tags: [word-choice]}
+    goals: [greet]
+  - learner: "Ecco, il problema è che la sera sento la musica fino all'una."
+  - tutor: "Oh, mi dispiace! Mio figlio suona la chitarra e a volte non guarda l'orologio."
+    goals: [problem]
+    new: [{lemma: "chitarra", gloss: "guitar"}]
+  - learner: "Capisco, anch'io sono stato giovane! Però mi alzo alle sei. Potrebbe dirlo a suo figlio?"
+  - tutor: "Certo, glielo dico stasera stesso. Facciamo così: fino alle dieci, e il sabato fino alle undici?"
+    goals: [request]
+  - learner: "Va benissimo. Le ringrazio molto, signora."
+    errors: [object-pronoun]
+  - tutor: "Le ringrazio? Pensi: ringraziare qualcuno, senza preposizione. Che pronome serve?"
+    prompt: {text: "Le ringrazio", tags: [object-pronoun]}
+  - learner: "Ah, la ringrazio molto!"
+  - tutor: "Si figuri, grazie a lei per la pazienza. Buonanotte!"
+    goals: [compromise]
+
+- scenario: smartworking
+  level: B2
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Faccio tre giorni da casa e due in ufficio. Lavorare da casa è più comodo che andare in ufficio, ma a volte mi sento sola."
+  - tutor: "Ti capisco, dopo un po' tutto quel silenzio diventa difficile. Cosa ti piace di più del lavoro da casa?"
+    goals: [situation]
+  - learner: "Risparmio un'ora e mezza di treno al giorno, e mi concentro meglio di quanto mi aspettassi."
+  - tutor: "Un'ora e mezza al giorno non è poco! E cosa non ti piace?"
+    goals: [pros]
+  - learner: "Mi mancano i colleghi. E poi, a essere sincera, in ufficio sono più produttiva che a casa."
+  - tutor: "Succede a molti: a casa c'è sempre una lavatrice da fare o un pacco da ritirare."
+    goals: [cons]
+  - learner: "Esatto! E poi l'ufficio nuovo è più bello che la mia cucina, devo ammetterlo."
+    errors: [comparative]
+  - tutor: "Più bello che la mia cucina? Qui confronti due nomi: che cosa ci vuole?"
+    prompt: {text: "più bello che la mia cucina", tags: [comparative]}
+  - learner: "Sì, è più bello che la mia cucina, c'è anche la terrazza."
+    errors: [comparative]
+  - tutor: "Beh, con una terrazza è facile essere più bello della mia cucina, anzi, di qualsiasi cucina! Quindi, se potessi scegliere?"
+    recast: {text: "più bello che la mia cucina", fix: "più bello della mia cucina", tags: [comparative]}
+  - learner: "Se potessi scegliere, farei due giorni a casa e tre in ufficio, al contrario di adesso."
+  - tutor: "Mi sembra una soluzione perfetta. Perché non lo proponi al tuo capo?"
+    goals: [preference]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno. Mi chiamo Diego, ho trentadue anni e sono ingegnere informatico. Vivo in Italia da quattro anni."
+  - tutor: "Molto bene. Dove ha lavorato finora?"
+    goals: [intro]
+  - learner: "Prima lavoravo a Valencia per una banca; poi, nel 2021, mi sono trasferito a Milano."
+  - tutor: "E a Milano di che cosa si è occupato?"
+  - learner: "Ho lavorato in una piccola azienda di software. Mentre lavoravo lì, ho seguito un corso serale di analisi dei dati."
+  - tutor: "Interessante. E quali sono, secondo lei, i suoi punti di forza?"
+    goals: [experience]
+  - learner: "Sono preciso e lavoro bene in gruppo. Nell'ultima azienda ogni lunedì ho organizzato le riunioni del team."
+    errors: [tense-aspect]
+  - tutor: "Ogni lunedì ho organizzato? Era un'abitudine o un fatto successo una volta sola?"
+    prompt: {text: "ogni lunedì ho organizzato", tags: [tense-aspect]}
+  - learner: "Un'abitudine: ogni lunedì organizzavo le riunioni del team."
+  - tutor: "Esatto. Quindi sa già guidare un gruppo. Perché vuole lavorare proprio con noi?"
+    goals: [strengths]
+  - learner: "Perché so che state investendo molto sulla sostenibilità, e ci tengo."
+  - tutor: "Ottima risposta. Ha delle domande per me?"
+    goals: [why]
+  - learner: "Sì: quando saprò la resposta?"
+    errors: [word-choice]
+  - tutor: "Avrà la risposta entro la fine del mese: la contatteremo noi, in ogni caso."
+    recast: {text: "la resposta", fix: "la risposta", tags: [word-choice]}
+    goals: [questions]
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Così così. Ogni tanto sento il cuore che batte forte, soprattutto la sera."
+  - tutor: "Capisco. Le capita anche quando fa uno sforzo?"
+    goals: [symptoms]
+  - learner: "A volte, quando salgo le scale. Non so se è grave, ma mi preoccupa."
+  - tutor: "Ha fatto benissimo a venire. Ci sono stati problemi di cuore in famiglia?"
+  - learner: "Sì, mio padre ha avuto un infarto a sessant'anni."
+  - tutor: "Grazie, è un'informazione importante. Dagli esami vedo che ogni tanto il battito cambia ritmo."
+    goals: [history]
+  - learner: "Spero che non sarà niente di serio. Cosa significa, esattamente?"
+  - tutor: "Significa che ogni tanto il cuore va più veloce senza un motivo. Nel suo caso, però, non è niente di grave."
+  - learner: "Allora penso che non è necessario operare, giusto?"
+    errors: [subjunctive-use]
+  - tutor: "Penso che non è? Dopo «penso che», quale modo usiamo?"
+    prompt: {text: "penso che non è", tags: [subjunctive-use]}
+  - learner: "Sì, penso che non è necessario, vero?"
+    errors: [subjunctive-use]
+  - tutor: "Ha ragione, penso anch'io che non sia necessario operare: basta una terapia."
+    recast: {text: "che non è necessario", fix: "che non sia necessario", tags: [subjunctive-use]}
+    goals: [understand]
+  - learner: "Meno male. E le droghe devo prenderle per sempre?"
+    errors: [false-friend]
+  - tutor: "Per ora le medicine le prende per sei mesi, una compressa la mattina. Poi ripetiamo gli esami e vediamo."
+    recast: {text: "le droghe", fix: "le medicine", tags: [false-friend]}
+    goals: [treatment]
+    new: [{lemma: "compressa", gloss: "tablet"}]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: es-f-teacher
+  history: [combined-pronouns]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Lo immaginiamo semplice, all'aperto, in campagna. Saremo in sessanta, più o meno."
+  - tutor: "Che bello, una festa in campagna. Avete già un'idea del budget?"
+    goals: [vision]
+  - learner: "Sì, non vorremmo spendere più di quindicimila euro. È possibile?"
+  - tutor: "Possibile sì, se scegliamo bene. Cominciamo dal menù?"
+    goals: [budget]
+  - learner: "Ci piacerebbe la cucina toscana. Il vino glielo porta mio zio, ha una cantina."
+  - tutor: "Perfetto, così risparmiamo parecchio. E per i fiori avete già qualche idea?"
+  - learner: "Mia madre vuole le rose, ma io preferisco i fiori di campo."
+  - tutor: "I fiori di campo stanno benissimo all'aperto, e costano meno."
+    goals: [choices]
+  - learner: "Bene. Il preventivo, mi lo può mandare per email?"
+    errors: [combined-pronouns]
+  - tutor: "Mi lo? Quando due pronomi si incontrano, che cosa succede al primo?"
+    prompt: {text: "mi lo", tags: [combined-pronouns]}
+  - learner: "Me lo può mandare per email?"
+  - tutor: "Certo, glielo mando entro venerdì, a condizione che mi confermiate la data entro fine mese."
+    goals: [conditions]
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+  - learner: "Io invece sono favorevole. È vero che all'inizio i negozi perderanno qualche cliente, ma poi la gente tornerà a piedi."
+  - tutor: "Lei vede il bicchiere mezzo pieno. Su che cosa si basa?"
+    goals: [position]
+  - learner: "In molte città europee è successo proprio questo: dopo due anni gli incassi sono aumentati."
+  - tutor: "Sì, ma lì i trasporti pubblici funzionano. Qui l'autobus passa ogni mezz'ora, quando passa."
+    goals: [argue]
+  - learner: "Anche se l'autobus passa poco, il servizio si può migliorare. Bisogna che il Comune investe nei trasporti."
+    errors: [subjunctive-use]
+  - tutor: "Bisogna che il Comune investe? Dopo «bisogna che», ci vuole un altro modo."
+    prompt: {text: "il Comune investe", tags: [subjunctive-use]}
+  - learner: "Sì, bisogna che il Comune investe nei trasporti, prima di chiudere il centro."
+    errors: [subjunctive-use]
+  - tutor: "Che il Comune investa, d'accordo, ma con quali soldi? Il Comune non ha un euro."
+    recast: {text: "il Comune investe", fix: "il Comune investa", tags: [subjunctive-use]}
+    goals: [counter]
+  - learner: "Su questo ha ragione. Ammetto che, senza un piano serio, la chiusura rischierebbe di fare danni."
+  - tutor: "Ecco, almeno su questo siamo d'accordo. Ne parliamo alla prossima riunione del quartiere."
+    goals: [concede]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-f-student
+  history: [passive]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri sera ero ferma al semaforo e una macchina mi è venuta addosso da dietro."
+  - tutor: "Mi dispiace. Lei si è fatta male?"
+  - learner: "No, per fortuna solo un grande spavento. Ma il paraurti è stato danneggiato e il bagagliaio non si chiude più."
+  - tutor: "Capisco. L'altro conducente ha ammesso la colpa?"
+    goals: [what]
+    new: [{lemma: "conducente", gloss: "driver"}]
+  - learner: "Sì, ha detto subito che era colpa sua, perché stava guardando il telefono. Abbiamo compilato il modulo insieme."
+  - tutor: "Benissimo, così è tutto più semplice. Ha anche delle foto dei danni?"
+    goals: [responsibility]
+  - learner: "Sì, ho le foto. Anche la portiera è stato rovinata."
+    errors: [passive]
+  - tutor: "È stato rovinata? Guardi bene l'accordo: di che cosa stiamo parlando?"
+    prompt: {text: "è stato rovinata", tags: [passive]}
+  - learner: "Sì, la portiera è stato rovinata, sul lato destro."
+    errors: [passive]
+  - tutor: "Quindi anche la portiera è stata rovinata: lo segno. Mi mandi le foto per email, per favore."
+    recast: {text: "è stato rovinata", fix: "è stata rovinata", tags: [passive]}
+    goals: [documents]
+  - learner: "Va bene. Quanto tempo ci vorrà per il rimborso?"
+  - tutor: "Di solito un mese. Prima, però, la macchina deve essere vista da un nostro tecnico."
+    goals: [next]

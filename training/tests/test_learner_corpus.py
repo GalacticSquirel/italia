@@ -14,6 +14,7 @@ from datagen.learner_corpus import (
     MerlinText,
     detokenize,
     fetch_merlin,
+    keep_held_out_unseen,
     pairs_from_text,
     pairs_from_zip,
     parse_text,
@@ -218,3 +219,11 @@ def test_learner_cli_builds_items_predicts_and_reports(tmp_path: Path) -> None:
     args = ["learner-report", "--items", str(items_path), "--predictions", str(preds_path)]
     assert eval_main([*args, "--system", "student", "--out", str(report)]) == 0
     assert "| student | 0.0% (0/1) | 0.0% (0/1) | - | 0 |" in report.read_text(encoding="utf-8")
+
+
+def test_held_out_sentences_never_appear_in_training() -> None:
+    shared = pair("Andiamo a cena sabato sera?", "Andiamo a cena sabato sera?", n=1)
+    train = shared.model_copy(update={"author": "other", "split": "train", "id": "t"})
+    unique = pair("Vado al mare domani.", "Vado al mare domani.", n=2)
+    got = keep_held_out_unseen([shared, train, unique])
+    assert [p.split for p in got] == ["train", "train", "eval"]

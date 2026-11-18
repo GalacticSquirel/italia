@@ -1,0 +1,231 @@
+# Set v-nearmiss, file 1: A2. Correct turns that look suspicious (la mia sorellina, i miei,
+# la mano, le braccia, le uova, ha piovuto, ho corso, volevo, dà, qual è) left alone, next to
+# real minimal-pair errors (il mio fratello, sul mano, i uova, ho andato, a la, un yogurt).
+- scenario: famiglia
+  level: A2
+  persona: en-f-student
+  history: [possessive]
+  turns:
+  - tutor: "Che bella foto! Chi sono queste persone?"
+  - learner: "Questa è la mia sorellina, Emma. Ha sei anni."
+  - tutor: "Che carina, con quel vestito giallo! E il ragazzo alto vicino a lei?"
+    goals: [who]
+  - learner: "È il mio fratello, Tom. Ha diciassette anni."
+    errors: [possessive]
+  - tutor: "Il mio fratello? Pensa a come dici «mia madre»."
+    prompt: {text: "il mio fratello", tags: [possessive]}
+  - learner: "Ah, sì: mio fratello Tom. È molto sportivo."
+  - tutor: "Esatto! Diciassette anni ed è già così alto? Che sport fa?"
+    goals: [describe, ages]
+  - learner: "Gioca a basket. Anche i miei sono alti."
+  - tutor: "Allora siete tutti alti! E tu?"
+  - learner: "No, io sono la più corta! E la tua famiglia è grande?"
+    errors: [word-choice]
+  - tutor: "Tu la più bassa? Non ci credo! La mia è abbastanza grande: ho due sorelle e un nipote."
+    recast: {text: "la più corta", fix: "la più bassa", tags: [word-choice]}
+    goals: [ask]
+
+- scenario: medico-base
+  level: A2
+  persona: en-m-retired
+  history: [noun-gender]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+  - learner: "Buongiorno, dottore. Mi fa male la mano destra."
+  - tutor: "Mi faccia vedere. Sì, è un po' gonfia. Da quando le fa male?"
+    goals: [symptoms]
+    new: [{lemma: "gonfio", gloss: "swollen"}]
+  - learner: "Da sabato. Ho suonato a tennis con mio nipote."
+    errors: [word-choice]
+  - tutor: "Ah, ha giocato a tennis! Capisco. Prende altre medicine di solito?"
+    recast: {text: "suonato a tennis", fix: "giocato a tennis", tags: [word-choice]}
+    goals: [since-when]
+  - learner: "Sì, una pillola per la pressione. Il problema è che stanotte non ho dormito."
+  - tutor: "Mi dispiace. Ha mai avuto problemi alla mano prima?"
+    goals: [history]
+  - learner: "No, mai. Però adesso mi fanno male anche le braccia."
+  - tutor: "Forse ha giocato troppo a tennis."
+  - learner: "Devo mettere il ghiaccio sul mano?"
+    errors: [noun-gender]
+  - tutor: "Sul mano? Attenzione al genere della parola."
+    prompt: {text: "sul mano", tags: [noun-gender]}
+  - learner: "Sì, sul mano. Anche la sera?"
+    errors: [noun-gender]
+  - tutor: "Sì, il ghiaccio sulla mano anche la sera. Due volte al giorno, e niente tennis per una settimana."
+    recast: {text: "sul mano", fix: "sulla mano", tags: [noun-gender]}
+    goals: [instructions]
+    new: [{lemma: "ghiaccio", gloss: "ice"}]
+
+- scenario: cucina-ricetta
+  level: A2
+  persona: es-f-erasmus
+  history: [noun-gender]
+  turns:
+  - tutor: "Che profumo! Cosa cuciniamo stasera?"
+  - learner: "Una frittata di patate, come in Spagna. È facile!"
+  - tutor: "Che buona! Cosa ti serve?"
+  - learner: "Patate, una cipolla, olio e sei uova."
+  - tutor: "Ho tutto in cucina. Come cominciamo?"
+    goals: [ingredients]
+  - learner: "Prima taglio le patate e le friggo. Poi rompo i uova in una ciotola."
+    errors: [noun-gender]
+  - tutor: "I uova? Pensa: «uovo» al plurale cambia genere."
+    prompt: {text: "i uova", tags: [noun-gender]}
+  - learner: "Sì, i uova. Li sbatto con un po' di sale."
+    errors: [noun-gender]
+  - tutor: "Sì, prima le uova, brava! E poi quanto tempo resta in padella?"
+    recast: {text: "i uova", fix: "le uova", tags: [noun-gender]}
+    goals: [steps]
+    new: [{lemma: "padella", gloss: "frying pan"}]
+  - learner: "Dieci minuti, poi la giro con un piatto. È un po' difficile."
+  - tutor: "La giro io, sono bravissima!"
+    goals: [time]
+  - learner: "Va bene! La mangiamo caliente o fredda, come vuoi."
+    errors: [word-choice]
+  - tutor: "Meglio calda, subito! Io prendo il pane."
+    recast: {text: "caliente", fix: "calda", tags: [word-choice]}
+    goals: [serve]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: en-m-heritage
+  history: [auxiliary-choice]
+  turns:
+  - tutor: "Ciao! Com'è andato il fine settimana?"
+  - learner: "Così così. Sabato ha piovuto tutto il giorno."
+  - tutor: "Che peccato! E cosa hai fatto?"
+  - learner: "Sono rimasto a casa e ho guardato due film."
+  - tutor: "Due film, bello! E domenica?"
+    goals: [where, what]
+  - learner: "Domenica ho andato da mia nonna con mio cugino."
+    errors: [auxiliary-choice]
+  - tutor: "Ho andato? Con «andare» quale verbo usiamo?"
+    prompt: {text: "ho andato", tags: [auxiliary-choice]}
+  - learner: "Sono andato da mia nonna. Lei fa sempre le lasagne!"
+  - tutor: "Esatto! Che fortuna, le lasagne della nonna!"
+    goals: [with-who]
+  - learner: "Sì, sono le più buone del mondo. Ho mangiato troppo!"
+  - tutor: "Ti capisco! Allora alla fine è stato un bel fine settimana?"
+  - learner: "Sì, è stato bello. E tu? Hai corso la maratona?"
+  - tutor: "Sì, ma sono arrivata stanchissima!"
+    goals: [opinion]
+
+- scenario: autobus
+  level: A2
+  persona: en-f-professional
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buongiorno! Dove deve andare?"
+  - learner: "Buongiorno. Devo andare in centro, in piazza Garibaldi."
+  - tutor: "Allora va bene, questo autobus va in centro."
+    goals: [route]
+  - learner: "Bene. Posso comprare il ticket da lei?"
+    errors: [word-choice]
+  - tutor: "Sì, il biglietto costa due euro. Eccolo."
+    recast: {text: "il ticket", fix: "il biglietto", tags: [word-choice]}
+    goals: [ticket]
+  - learner: "Grazie. Poi devo andare a la stazione."
+    errors: [articulated-preposition]
+  - tutor: "Scusi, dove? Non ho capito bene."
+    prompt: {text: "a la stazione", tags: [articulated-preposition]}
+  - learner: "A la stazione, per il treno delle sei."
+    errors: [articulated-preposition]
+  - tutor: "Ah, alla stazione! Dalla piazza prende il dodici."
+    recast: {text: "A la stazione", fix: "alla stazione", tags: [articulated-preposition]}
+  - learner: "Va bene. E per la piazza dove scendo?"
+  - tutor: "Alla quinta fermata. Glielo dico io."
+    goals: [stop]
+  - learner: "Perfetto, grazie mille! È molto gentile."
+  - tutor: "Prego! Buona giornata."
+    goals: [thank]
+
+- scenario: bar-colazione
+  level: A2
+  persona: en-m-traveller
+  history: [article-form]
+  turns:
+  - tutor: "Buongiorno! Cosa prende?"
+  - learner: "Buongiorno! Volevo un cappuccino, per favore."
+  - tutor: "Certo. Lo vuole con molto latte?"
+    goals: [greet, order-drink]
+  - learner: "Normale, grazie. E poi un cornetto alla crema."
+  - tutor: "Mi dispiace, alla crema sono finiti. Ci sono al cioccolato."
+    new: [{lemma: "cioccolato", gloss: "chocolate"}]
+  - learner: "Allora uno al cioccolato. E anche un yogurt per mia moglie."
+    errors: [article-form]
+  - tutor: "Un yogurt? Davanti a questa lettera, quale articolo usiamo?"
+    prompt: {text: "un yogurt", tags: [article-form]}
+  - learner: "Un yogurt, sì. Bianco, se c'è."
+    errors: [article-form]
+  - tutor: "Sì, uno yogurt bianco c'è. Ecco a lei."
+    recast: {text: "Un yogurt", fix: "uno yogurt", tags: [article-form]}
+    goals: [order-food]
+  - learner: "Quant'è in tutto?"
+  - tutor: "Sono sei euro e venti."
+  - learner: "Ecco dieci euro. Mi dà anche il ricevimento?"
+    errors: [word-choice]
+  - tutor: "Certo, ecco il resto e lo scontrino. Buona giornata!"
+    recast: {text: "il ricevimento", fix: "lo scontrino", tags: [word-choice]}
+    goals: [pay]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: es-m-worker
+  history: [noun-number]
+  turns:
+  - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+  - learner: "Sì, a nome Ruiz. Per tre notti."
+  - tutor: "Sì, eccola: camera doppia, tre notti. Ha un documento?"
+    goals: [booking]
+  - learner: "Ecco i passaporti, il mio e quello di mia esposa."
+    errors: [word-choice]
+  - tutor: "Grazie, il suo e quello di sua moglie. La colazione è dalle sette alle dieci."
+    recast: {text: "esposa", fix: "moglie", tags: [word-choice]}
+    goals: [document]
+  - learner: "Perfetto. A colazione ci sono anche le uova?"
+  - tutor: "Sì, le uova, il pane fresco e la frutta."
+    goals: [breakfast]
+  - learner: "Bene. C'è un parcheggio? Abbiamo due macchina."
+    errors: [noun-number]
+  - tutor: "Avete due...? Ripeta bene la parola."
+    prompt: {text: "due macchina", tags: [noun-number]}
+  - learner: "Sì, due macchina. Una è di mio fratello."
+    errors: [noun-number]
+  - tutor: "Va bene, due macchine. Il parcheggio è dietro l'albergo. Ecco la chiave, camera ventiquattro."
+    recast: {text: "due macchina", fix: "due macchine", tags: [noun-number]}
+    goals: [key]
+    new: [{lemma: "parcheggio", gloss: "car park"}]
+  - learner: "Grazie! Qual è la password del Wi-Fi?"
+  - tutor: "Ecco, è qui sulla chiave. Buona notte!"
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: en-f-student
+  history: [tense-aspect]
+  turns:
+  - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+  - learner: "Abitavo in un paese vicino al mare, in Inghilterra."
+  - tutor: "Al mare! Che fortuna. E cosa facevi d'estate?"
+    goals: [place]
+  - learner: "D'estate andavamo in spiaggia tutti i giorni, anche con la pioggia."
+  - tutor: "Anche con la pioggia? Che coraggio!"
+    goals: [habits]
+  - learner: "Sì! E mio nonno ogni sera ci ha raccontato una storia."
+    errors: [tense-aspect]
+  - tutor: "Ogni sera ci ha raccontato? È una cosa di tutti i giorni: quale tempo usiamo?"
+    prompt: {text: "ci ha raccontato", tags: [tense-aspect]}
+  - learner: "Sì, ci ha raccontato storie di pirati."
+    errors: [tense-aspect]
+  - tutor: "Un nonno che raccontava storie di pirati, bellissimo! E a scuola come andavi?"
+    recast: {text: "ha raccontato storie", fix: "raccontava storie", tags: [tense-aspect]}
+  - learner: "Bene, mi piaceva la maestra. La scuola era piccola, con trenta pupilli."
+    errors: [word-choice]
+  - tutor: "Trenta alunni in tutta la scuola? Che bello!"
+    recast: {text: "pupilli", fix: "alunni", tags: [word-choice]}
+    new: [{lemma: "alunno", gloss: "pupil"}]
+    goals: [school]
+  - learner: "Sì. Una volta è caduto un albero sul tetto, durante una tempesta!"
+  - tutor: "Davvero? E poi cosa è successo?"
+  - learner: "Siamo stati a casa una settimana. Eravamo felicissimi!"
+  - tutor: "Immagino! Una settimana di vacanza, grazie al vento."
+    goals: [event]

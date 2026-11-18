@@ -1,0 +1,250 @@
+# Round 5b, set v-c2. File 8: colleagues, suppliers, news, technology, films, Montale, restaurants.
+- scenario: mediazione-colleghi
+  level: C2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Certo, mi dica pure. Se è per il progetto Alfa, so già di che cosa si tratta, e mi dispiace che Lei si è sentita esclusa."
+      errors: [subjunctive-use]
+      gold: {text: "si è sentita esclusa", fix: "si sia sentita esclusa"}
+    - tutor: "Esclusa è dire poco. E già che ci siamo, visto che mi chiede sempre di correggerla: «mi dispiace che si è sentita»... con «mi dispiace che», quale modo?"
+      prompt: {text: "si è sentita esclusa", tags: [subjunctive-use]}
+    - learner: "Ha ragione: mi dispiace che si sia sentita esclusa. Ma mi racconti cosa è successo dal suo punto di vista."
+    - tutor: "Alla riunione Lei ha presentato il piano come se fosse tutto suo, senza citarmi. E metà di quel piano l'avevo scritta io."
+      goals: [listen]
+    - learner: "Capisco. Non era mia intenzione molestare nessuno, né prendermi meriti non miei: ho presentato il piano a nome del gruppo, credendo che fosse chiaro a tutti."
+      errors: [false-friend]
+    - tutor: "Non dico che volesse offendere nessuno, ma il risultato è quello: il direttore ora pensa che abbia fatto tutto Lei."
+      goals: [clarify]
+      recast: {text: "molestare nessuno", fix: "offendere nessuno", tags: [false-friend]}
+    - learner: "Allora lo chiarisco subito. Secondo Lei è stato un errore mio o del modo in cui ci siamo divisi il lavoro?"
+    - tutor: "Tutti e due. Quando ci siamo divisi i compiti, nessuno ha detto chi avrebbe presentato i risultati."
+    - learner: "È vero. Dal mio punto di vista, però, il mio atteggiamento nei confronti a voi è sempre stato corretto: ho sempre difeso il gruppo davanti alla direzione."
+      errors: [preposition]
+      gold: {text: "nei confronti a voi", fix: "nei vostri confronti"}
+    - tutor: "Su questo non ho mai avuto dubbi. Ma «nei confronti a voi» suona strano: come si costruisce, di solito, «nei confronti»?"
+      goals: [perspective]
+      prompt: {text: "nei confronti a voi", tags: [preposition]}
+    - learner: "Nei vostri confronti, giusto. Allora propongo questo: scrivo io una mail al direttore per precisare chi ha fatto cosa, e d'ora in poi chi scrive una parte la presenta."
+    - tutor: "Questa è una soluzione che mi va bene, grazie. E alla prossima riunione il piano lo presento io."
+      goals: [solution]
+
+- scenario: trattativa-fornitore
+  level: C2
+  persona: en-m-retired
+  history: [hypothetical]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Lo capisco, ma un aumento del quindici per cento sull'olio, senza alcun preavviso, mi sembra abusivo."
+      errors: [false-friend]
+    - tutor: "Spropositato è una parola forte, però le do atto che il preavviso è mancato. L'olio d'oliva, quest'anno, ha avuto il raccolto peggiore da dieci anni."
+      goals: [problem]
+      recast: {text: "abusivo", fix: "spropositato", tags: [false-friend]}
+    - learner: "Lo so, i giornali ne parlano. Ma siamo vostri clienti da quindici anni e vi abbiamo sempre pagato puntualmente, anche negli anni difficili, quando tanti non lo facevano."
+    - tutor: "Glielo riconosco senza difficoltà. Che cosa propone, allora?"
+      goals: [argue]
+    - learner: "Le faccio un'offerta contraria: dieci per cento, ma con un contratto annuale e un volume garantito."
+      errors: [word-choice]
+    - tutor: "Una controproposta interessante: un contratto annuale ci darebbe stabilità. Il dieci, però, non copre i nostri costi."
+      recast: {text: "un'offerta contraria", fix: "una controproposta", tags: [word-choice]}
+    - learner: "Allora facciamo così: se mantenete il dieci per cento fino a marzo, firmeremmo un contratto di due anni invece di uno."
+      errors: [hypothetical]
+      gold: {text: "se mantenete", fix: "se manteneste"}
+    - tutor: "Due anni cambiano le cose. Ma «se mantenete il dieci, firmeremmo»: con quel condizionale nella principale, la frase con «se» come va?"
+      goals: [counteroffer]
+      prompt: {text: "se mantenete", tags: [hypothetical]}
+    - learner: "Se manteneste il dieci per cento, firmeremmo per due anni. Vorrei però che mi mandate tutto per iscritto entro venerdì."
+      errors: [subjunctive-use]
+      gold: {text: "mi mandate", fix: "mi mandaste"}
+    - tutor: "Così la frase è perfetta. E «vorrei che mi mandate»: dopo «vorrei», quale congiuntivo?"
+      prompt: {text: "mi mandate", tags: [subjunctive-use]}
+    - learner: "Che mi mandaste, chiedo scusa. Allora aspetto la sua proposta scritta?"
+    - tutor: "Gliela mando giovedì: dieci per cento fino a marzo, contratto biennale e volume garantito. È stato un piacere trattare con Lei."
+      goals: [agreement]
+
+- scenario: riunione-lavoro
+  level: C2
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene, direi. L'app per le prenotazioni è quasi finita: manca solo l'integrazione con i pagamenti, che stiamo provando proprio in questi giorni."
+    - tutor: "Ottimo. E le prove come vanno?"
+      goals: [update]
+    - learner: "Così così: ieri il sistema ha rifiutato metà delle carte di credito. Sarà stato un problema del fornitore, perché da noi il codice non è cambiato."
+    - tutor: "Metà delle carte? Accidenti. L'hai segnalato al fornitore?"
+      goals: [problem]
+    - learner: "Sì, stamattina. Se non risponderanno entro oggi, domani faremmo le prove con un altro sistema, quello che usa l'ufficio commerciale."
+      errors: [future-form]
+      gold: {text: "faremmo", fix: "faremo"}
+    - tutor: "Mi sembra prudente. Però «domani faremmo»: è un'ipotesi o un programma? Attento alla doppia."
+      prompt: {text: "faremmo", tags: [future-form]}
+    - learner: "Un programma: domani faremo le prove con l'altro sistema. E se funziona, potremmo perfino cambiare fornitore."
+    - tutor: "Ecco, mi piace: un piano B che può diventare un piano A. Quanto ti serve per chiudere tutto?"
+      goals: [proposal]
+    - learner: "Direi entro il venti. Ti terrò nel loop su tutto, ovviamente."
+      errors: [word-choice]
+    - tutor: "Sì, tienimi al corrente, mi raccomando. Il venti va bene, ma senza margine: facciamo il diciotto?"
+      recast: {text: "nel loop", fix: "al corrente", tags: [word-choice]}
+    - learner: "Il diciotto è stretto, ma ce la posso fare, a patto che il fornitore risponde entro domani."
+      errors: [subjunctive-use]
+      gold: {text: "il fornitore risponde", fix: "il fornitore risponda"}
+    - tutor: "Ci conto. Ma «a patto che il fornitore risponde»: con «a patto che», il verbo come va?"
+      prompt: {text: "il fornitore risponde", tags: [subjunctive-use]}
+    - learner: "A patto che risponda, certo. Se tace, passo direttamente al piano B."
+    - tutor: "Affare fatto: il diciotto, con il piano B pronto. Buon lavoro!"
+      goals: [deadline]
+
+- scenario: notizie-attualita
+  level: C2
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatto?"
+    - learner: "Sì, ho letto tutto. Pur essendo proprietario di un bilocale che affitto ai turisti, devo ammettere che il limite di novanta notti ha senso."
+    - tutor: "Detto da un proprietario, vale doppio! Ma riassumimi la misura, che io ho letto solo i titoli."
+    - learner: "In sostanza: nel centro storico si potrà affittare ai turisti solo per novanta notti l'anno; per il resto dell'anno, o affitti a lungo termine o lasci la casa vacante."
+      errors: [word-choice]
+    - tutor: "Chiaro: o un contratto lungo o la casa sfitta. E perché, secondo te, ha senso?"
+      goals: [summarise]
+      recast: {text: "la casa vacante", fix: "la casa sfitta", tags: [word-choice]}
+    - learner: "Perché è una misura giusta, anche se tardiva. Il Corriere ha rapportato che in dieci anni il centro ha perso un terzo dei residenti."
+      errors: [false-friend]
+    - tutor: "Sì, il Corriere ha riportato quel dato, ma secondo altri giornali è gonfiato. Tu ti fidi?"
+      goals: [opinion]
+      recast: {text: "ha rapportato", fix: "ha riportato", tags: [false-friend]}
+    - learner: "Abbastanza, perché il dato viene dall'anagrafe. Ho cercato anche altre fonti in merito della questione, e i numeri coincidono."
+      errors: [preposition]
+      gold: {text: "in merito della questione", fix: "in merito alla questione"}
+    - tutor: "Fonti incrociate, bravo. Ma «in merito della questione»: quale preposizione regge «in merito»?"
+      goals: [sources]
+      prompt: {text: "in merito della questione", tags: [preposition]}
+    - learner: "In merito alla questione, scusa. Le conseguenze, secondo me, saranno due: gli affitti caleranno un po', e molti proprietari cercheranno scappatoie."
+    - tutor: "Le scappatoie si trovano sempre, purtroppo. Pensi che il Comune riuscirà a controllare?"
+    - learner: "Ne dubito: sembrava che volevano assumere degli ispettori, ma in bilancio non c'è un euro."
+      errors: [subjunctive-use]
+      gold: {text: "volevano assumere", fix: "volessero assumere"}
+    - tutor: "Temo anch'io. Ma «sembrava che volevano assumere»: dopo «sembrava che», che modo ti aspetti?"
+      prompt: {text: "volevano assumere", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: sembrava che volessero assumere degli ispettori. Senza controlli, la delibera resterà sulla carta."
+    - tutor: "Esatto, e chi la aggira lo sa benissimo. Vedremo fra un anno se i residenti torneranno davvero."
+      goals: [consequences]
+
+- scenario: intelligenza-artificiale
+  level: C2
+  persona: es-m-worker
+  history: [hypothetical]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Paura no, ma preoccupazione sì. Ieri ho letto di un successo terribile: un'auto a guida autonoma ha investito un pedone."
+      errors: [false-friend]
+    - tutor: "Sì, un fatto terribile, l'ho letto anch'io. Vedi che faccio bene ad avere paura?"
+      recast: {text: "un successo terribile", fix: "un fatto terribile", tags: [false-friend]}
+    - learner: "Non proprio. Se l'auto avrebbe avuto un conducente distratto, sarebbe successo lo stesso: ogni anno muoiono migliaia di pedoni per colpa di guidatori in carne e ossa."
+      errors: [hypothetical]
+      gold: {text: "Se l'auto avrebbe avuto", fix: "Se l'auto avesse avuto"}
+    - tutor: "Il ragionamento regge. Ma «se l'auto avrebbe avuto»: nella frase con il «se», quale modo ci vuole?"
+      goals: [position]
+      prompt: {text: "Se l'auto avrebbe avuto", tags: [hypothetical]}
+    - learner: "Il congiuntivo: se l'auto avesse avuto un conducente distratto, sarebbe successo lo stesso. In medicina, poi, l'intelligenza artificiale aiuta già i radiologi a fare diagnosi più acertate."
+      errors: [word-choice]
+    - tutor: "Diagnosi più precise, d'accordo, me lo dice anche mio cognato che fa il radiologo. Ma chi paga, quando l'algoritmo sbaglia?"
+      goals: [evidence]
+      recast: {text: "più acertate", fix: "più precise", tags: [word-choice]}
+    - learner: "Su questo hai ragione: le regole sulla responsabilità sono ancora confuse, e finché non saranno chiare, è giusto che ci sia sempre un medico a firmare."
+    - tutor: "Ah, finalmente mi dai ragione su qualcosa!"
+      goals: [concede]
+    - learner: "Su una cosa sola, eh! In conclusione: lo strumento è potente, e proprio per questo va governato, non temuto."
+    - tutor: "«Governato, non temuto»: va bene, per stasera mi arrendo. Ma tra dieci anni ne riparliamo!"
+      goals: [conclude]
+
+- scenario: film-libro
+  level: C2
+  persona: es-f-erasmus
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Ho letto «Io non ho paura» di Ammaniti, e poi ho visto il film. È la storia di Michele, un bambino di nove anni che, giocando nei campi, scopre un altro bambino incatenato in un buco."
+    - tutor: "Che inizio inquietante! E poi che cosa succede?"
+      goals: [summary]
+    - learner: "Michele non ha detto niente a nessuno. Ogni giorno è andato di nascosto a portargli da mangiare, finché ha scoperto che dietro il rapimento c'era anche suo padre."
+      errors: [tense-aspect]
+      gold: {text: "Ogni giorno è andato", fix: "Ogni giorno andava"}
+    - tutor: "Terribile. Ma «ogni giorno è andato»: per un'abitudine ripetuta nel passato, che tempo serve?"
+      prompt: {text: "Ogni giorno è andato", tags: [tense-aspect]}
+    - learner: "L'imperfetto: ogni giorno andava a portargli da mangiare. Il padre è il personaggio più tragico: un uomo il quale amore per il figlio non basta a renderlo buono."
+      errors: [relative-pronoun]
+      gold: {text: "il quale amore", fix: "il cui amore"}
+    - tutor: "Esatto. E sul padre: «un uomo il quale amore per il figlio»... per dire di chi è l'amore, quale relativo serve?"
+      prompt: {text: "il quale amore", tags: [relative-pronoun]}
+    - learner: "Il cui: un uomo il cui amore per il figlio non basta a renderlo buono. E Michele, invece, è coraggioso proprio perché ha paura."
+    - tutor: "Bellissimo paradosso, ed è anche il titolo. E il film, com'è rispetto al libro?"
+      goals: [characters]
+    - learner: "Molto fedele. Il realizzatore ha scelto bambini non professionisti, e si vede: recitano in modo naturalissimo. Il finale, però, è ancora più crudo."
+      errors: [false-friend]
+    - tutor: "Il regista ha avuto coraggio con quei bambini, è vero. E «più crudo» è la parola giusta: io sono uscito dal cinema senza parlare. Lo consiglieresti?"
+      goals: [opinion]
+      recast: {text: "Il realizzatore", fix: "il regista", tags: [false-friend]}
+    - learner: "Sì, ma non ai ragazzini: è una favola nera, non un film per famiglie. A un adulto, invece, lo consiglierei senza esitare."
+    - tutor: "Favola nera: definizione perfetta. Lo segno per la serata cinema di febbraio."
+      goals: [recommend]
+
+- scenario: poesia-montale
+  level: C2
+  persona: en-m-retired
+  history: [passive]
+  turns:
+    - tutor: "Lasciamo un attimo di silenzio dopo la lettura. Ecco. Che cosa le è rimasto addosso, di questi versi?"
+    - learner: "Una specie di stanchezza, ma lucida, senza lamenti. È il dolore detto a bassa voce."
+    - tutor: "«Il dolore detto a bassa voce»: definizione felicissima. Quale immagine le resta di più?"
+      goals: [first-reading]
+    - learner: "Il cavallo stramazzato. È l'immagine a cui mi ha colpito di più, perché è la più fisica, la più brutale."
+      errors: [relative-pronoun]
+      gold: {text: "a cui mi ha colpito", fix: "che mi ha colpito"}
+    - tutor: "Lo capisco. Ma «l'immagine a cui mi ha colpito»: lì il relativo fa da soggetto o da complemento?"
+      prompt: {text: "a cui mi ha colpito", tags: [relative-pronoun]}
+    - learner: "Da soggetto: l'immagine che mi ha colpito di più. E mi colpisce che le tre immagini del male siano state scelto da tre regni diversi: l'acqua, la pianta, l'animale."
+      errors: [passive]
+      gold: {text: "siano state scelto", fix: "siano state scelte"}
+    - tutor: "Osservazione da manuale. Ma «siano state scelto»: il participio, nel passivo, con che cosa concorda?"
+      goals: [image]
+      prompt: {text: "siano state scelto", tags: [passive]}
+    - learner: "Con il soggetto, le immagini: siano state scelte. E il suono? Mi sembra più morbido che in «Meriggiare», quasi una cantilena."
+    - tutor: "Esatto, il ritmo è più regolare, quasi ipnotico. E il senso? Che cos'è il «bene», per Montale?"
+      goals: [sound]
+    - learner: "Boh, non saprei... forse l'indifferenza, cioè non lasciarsi toccare da niente."
+      errors: [register]
+      gold: {text: "Boh, non saprei", fix: "Non saprei dirlo con certezza"}
+    - tutor: "L'intuizione è giusta. Ma quel «boh», in un'aula, rivolto a un docente: come lo direbbe con un po' più di garbo?"
+      prompt: {text: "Boh, non saprei", tags: [register]}
+    - learner: "Mi scusi: non ne sono del tutto certo, ma credo che il bene sia la divina indifferenza, la statua nella sonnolenza del meriggio, che non soffre perché non sente."
+    - tutor: "È proprio così: la salvezza sta nel non sentire, una salvezza che somiglia molto alla morte. Lettura impeccabile."
+      goals: [meaning]
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì: avevo detto chiaramente al cameriere che mio marito è allergico ai crostacei, e ci è arrivato un risotto con i gamberi nascosti sotto i funghi."
+    - tutor: "È gravissimo. Suo marito sta bene?"
+      goals: [complain]
+    - learner: "Adesso sì, ha preso l'antistaminico che porta sempre con sé. Ma non è possibile che in cucina nessuno si è accorto della nota sull'ordine."
+      errors: [subjunctive-use]
+      gold: {text: "nessuno si è accorto", fix: "nessuno si sia accorto"}
+    - tutor: "Ha ragione, e me ne assumo la responsabilità. Ma «non è possibile che nessuno si è accorto»: dopo «non è possibile che», quale modo?"
+      prompt: {text: "nessuno si è accorto", tags: [subjunctive-use]}
+    - learner: "Che nessuno se ne sia accorto, ecco. Il cameriere, tra l'altro, l'aveva perfino scritto sul blocchetto: pensavo che avvisava la cucina."
+      errors: [conditional-form]
+      gold: {text: "avvisava", fix: "avrebbe avvisato"}
+    - tutor: "Lo verifico subito con lui. E «pensavo che avvisava la cucina»: è un futuro rispetto al passato, quale forma ci vuole?"
+      goals: [detail]
+      prompt: {text: "avvisava", tags: [conditional-form]}
+    - learner: "Pensavo che avrebbe avvisato la cucina. In un ristorante di questo livello, mi aspettavo che le allergie fossero prese sul serio."
+    - tutor: "Ha tutto il diritto di aspettarselo, è il minimo. Le assicuro che domani rivedremo l'intera procedura con il personale."
+      goals: [expectation]
+    - learner: "Lo apprezzo. Non voglio rimborsi esagerati: vorrei solo la certezza che non succeda ad altri, e che il risotto non ci venga fatto pagare."
+    - tutor: "Naturalmente: la cena è offerta dalla casa, e le lascio il mio numero per sapere domani come sta suo marito. Ci scusi ancora."
+      goals: [resolve]

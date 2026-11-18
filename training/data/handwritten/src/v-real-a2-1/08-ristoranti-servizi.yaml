@@ -1,0 +1,255 @@
+# Set v-real-a2-1, file 8: A2, booking, hotel, doctor and catching up (real learner sentences, MERLIN pool).
+- scenario: prenotare-tavolo
+  level: A2
+  persona: en-m-retired
+  history: [word-order]
+  turns:
+  - tutor: "Pronto, Trattoria da Mario, buonasera!"
+  - learner: "Buonasera, vorrei prenotare un tavolo per sabato."
+  - tutor: "Certo. Per che ora?"
+    goals: [book]
+  # merlin-1385_0001197-3
+  - learner: "È sabato sera possibile?"
+    errors: [word-order]
+  - tutor: "«È sabato sera possibile»? Provi a cambiare l'ordine delle parole."
+    prompt: {text: "È sabato sera possibile", tags: [word-order]}
+  # merlin-1385_0001197-3
+  - learner: "È sabato sera possibile?"
+    errors: [word-order]
+  - tutor: "È possibile sabato sera, sì, ma solo alle nove e mezza."
+    recast: {text: "È sabato sera possibile", fix: "È possibile sabato sera", tags: [word-order]}
+  # merlin-1385_0001135-3
+  - learner: "Ma ha un'altra possibilita per noi"
+    errors: [spelling]
+  - tutor: "Un'altra... «possibilita»? Guardi bene la fine della parola."
+    prompt: {text: "possibilita", tags: [spelling]}
+  - learner: "Possibilità! Un'altra possibilità, più presto?"
+  - tutor: "Perfetto! Alle otto c'è un tavolo fuori. Quante persone?"
+  # merlin-1395_0001126-1
+  - learner: "Siamo solo in due."
+  - tutor: "Benissimo, due persone fuori alle otto. A che nome?"
+    goals: [details, special]
+  - learner: "Smith. Grazie mille!"
+  - tutor: "Grazie a lei, signor Smith. A sabato!"
+    goals: [name]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: en-f-professional
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+  - learner: "Sì, a nome Brown, per tre notti. Ecco il passaporto."
+  - tutor: "Grazie! È la prima volta da noi?"
+    goals: [booking, document]
+  # merlin-1325_9000210-1
+  - learner: "Sul giornale ho letto tante, belle e interessanti notizie del vostro hotel."
+    errors: [articulated-preposition]
+  - tutor: "Che piacere! Ma notizie «del» nostro hotel? Qui va meglio un'altra preposizione."
+    prompt: {text: "notizie del", tags: [articulated-preposition]}
+  - learner: "Sì, belle notizie del vostro hotel."
+    errors: [articulated-preposition]
+  - tutor: "Belle notizie sul nostro hotel, che bello! Speriamo che le piaccia!"
+    recast: {text: "notizie del", fix: "notizie sul", tags: [articulated-preposition]}
+  # merlin-1325_9000210-0
+  - learner: "Purtroppo non sono contento di questo tempo."
+  - tutor: "Eh, piove da tre giorni, ma domani torna il sole!"
+  - learner: "A che ora è la colazione?"
+  - tutor: "Dalle sette alle dieci. Ecco la chiave: camera ventuno, secondo piano."
+    goals: [breakfast, key]
+
+- scenario: medico-base
+  level: A2
+  persona: es-m-worker
+  history: [past-participle-form]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+  # merlin-1385_0001764-1
+  - learner: "Io non sto bene!"
+  - tutor: "Mi dispiace. Che cosa le fa male?"
+  - learner: "Ho mal di gola e ho prenduto la febbre."
+    errors: [past-participle-form]
+  - tutor: "Ha... «prenduto»? Ricordi la forma di «prendere» al passato."
+    prompt: {text: "prenduto", tags: [past-participle-form]}
+    goals: [symptoms]
+  - learner: "Ho preso la febbre, trentotto."
+  - tutor: "Esatto. Da quando?"
+  # merlin-1385_0001109-1
+  - learner: "Sto così così, perchè è una settimana orribile."
+    errors: [spelling]
+  - tutor: "Da una settimana, allora. Ma «perchè»: guardi bene l'accento."
+    prompt: {text: "perchè", tags: [spelling]}
+    goals: [since-when]
+  # merlin-1385_0001109-1
+  - learner: "Sto così così, perchè è una settimana orribile."
+    errors: [spelling]
+  - tutor: "Capisco, perché è una settimana difficile. Prende già qualche medicina?"
+    recast: {text: "perchè", fix: "perché", tags: [spelling]}
+  # merlin-1395_0000414-2
+  - learner: "Non ho problemi"
+  - tutor: "Bene, niente allergie. Allora: una medicina tre volte al giorno, per cinque giorni."
+    goals: [history, instructions]
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+  - tutor: "Che bello qui! Tu dove abitavi da piccolo?"
+  - learner: "Abitavo vicino a Boston e andavo a scuola lì, ma d'estate venivo qui dalla nonna."
+  - tutor: "Che bello! E cosa facevi qui d'estate?"
+    goals: [place, school]
+  - learner: "Ogni giorno mio cugino è andato al fiume a pescare."
+    errors: [tense-aspect]
+  - tutor: "«Ogni giorno è andato»? È un'azione che si ripete: quale tempo serve?"
+    prompt: {text: "è andato al fiume", tags: [tense-aspect]}
+  - learner: "Sì, mio cugino è andato al fiume ogni giorno."
+    errors: [tense-aspect]
+  - tutor: "Ah, tuo cugino andava al fiume ogni giorno! E tu?"
+    recast: {text: "è andato al fiume", fix: "andava al fiume", tags: [tense-aspect]}
+    goals: [habits]
+  - learner: "Sì! E una volta io e lui abbiamo preso un pesce enorme con il nonno."
+  - tutor: "Che bel ricordo!"
+    goals: [event]
+
+- scenario: tempo-libero
+  level: A2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  # merlin-1395_0000583-5
+  - learner: "C'é sempre qualcosa a fare."
+    errors: [preposition, spelling]
+  - tutor: "Che bello! Ma «qualcosa a fare»? Dopo «qualcosa», quale preposizione?"
+    prompt: {text: "qualcosa a fare", tags: [preposition]}
+  - learner: "Qualcosa a fare, sì."
+    errors: [preposition]
+  - tutor: "Sì, c'è sempre qualcosa da fare in città! Tu cosa ami fare?"
+    recast: {text: "qualcosa a fare", fix: "qualcosa da fare", tags: [preposition]}
+  - learner: "Mi piace andare ai concerti, quasi ogni sabato."
+  - tutor: "Ogni sabato, che bello!"
+    goals: [hobby, frequency]
+  # merlin-1365_0100477-11
+  - learner: "Che cosa pensi sulla mia idea?"
+    errors: [articulated-preposition]
+  - tutor: "Quale idea? E dimmi: «pensi sulla»? Con «pensare», quale preposizione usiamo?"
+    prompt: {text: "sulla mia idea", tags: [articulated-preposition]}
+  - learner: "Che cosa pensi della mia idea? Andiamo insieme al concerto sabato!"
+  - tutor: "Esatto! Bellissima idea, vengo! Io nel weekend di solito leggo e basta."
+    goals: [ask, propose]
+  # merlin-1395_0000392-6
+  - learner: "Ti faccio sapere quando ritorno così ci vediamo subito."
+  - tutor: "Ah, vai via? Va bene, aspetto tue notizie!"
+
+- scenario: serata-cinema
+  level: A2
+  persona: en-f-student
+  history: [object-pronoun]
+  turns:
+  - tutor: "Stasera sono libera. Facciamo qualcosa?"
+  # merlin-1385_0001118-0
+  - learner: "E una settimana orribile."
+    errors: [spelling]
+  - tutor: "Oh no! Ma «e una settimana»: è «e» o un verbo?"
+    prompt: {text: "E una settimana", tags: [spelling]}
+  # merlin-1385_0001715-0
+  - learner: "È una settimana orribile."
+  - tutor: "Esatto, è il verbo! Allora stasera ti rilassi: cinema?"
+  # merlin-1385_0001749-4
+  - learner: "Puoi incontrarse sabato sera?"
+    errors: [object-pronoun]
+  - tutor: "Sabato? Ma «incontrarse»... incontrare chi? Me?"
+    prompt: {text: "incontrarse", tags: [object-pronoun]}
+  - learner: "Sì, puoi incontrarse sabato?"
+    errors: [object-pronoun]
+  - tutor: "Puoi incontrarmi sabato? Certo! Allora stasera una commedia alle nove e sabato la cena."
+    recast: {text: "incontrarse", fix: "incontrarmi", tags: [object-pronoun]}
+    goals: [propose, genre, choose]
+  # merlin-1395_0000404-6
+  - learner: "Ci vediamo presto."
+  - tutor: "Sì, davanti al cinema alle nove meno un quarto!"
+    goals: [meet]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+  - tutor: "Ciao! Com'è andato il fine settimana?"
+  - learner: "Sono andato a Torino con mia moglie per lavoro e per vedere la città."
+  - tutor: "Per lavoro anche di sabato?"
+    goals: [where, with-who]
+  # merlin-1365_0100253-5
+  - learner: "Per esempio io vado quasi ogne settimana a Torino per lavorare nel un progetto interessante."
+    errors: [articulated-preposition, spelling]
+  - tutor: "Che bello! Ma «nel un progetto»? Una delle due parole è di troppo."
+    prompt: {text: "nel un progetto", tags: [articulated-preposition]}
+  - learner: "In un progetto interessante!"
+  - tutor: "Esatto! E sabato cosa avete fatto?"
+  # merlin-1395_0000609-4
+  - learner: "La Sera mangiamo al Tipico Ristorante."
+    errors: [word-order, tense-aspect]
+  - tutor: "Il «tipico ristorante»? In italiano, dove va «tipico»?"
+    prompt: {text: "Tipico Ristorante", tags: [word-order]}
+  - learner: "Al tipico ristorante, sì."
+    errors: [word-order]
+  - tutor: "In un ristorante tipico, che bello! Avete mangiato bene?"
+    recast: {text: "tipico ristorante", fix: "ristorante tipico", tags: [word-order]}
+    goals: [what]
+  # merlin-1395_0001133-1
+  - learner: "È molto bello."
+  - tutor: "Che bello! Io invece sono rimasta a casa."
+    goals: [opinion]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: en-f-professional
+  history: [reflexive]
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata oggi?"
+  # merlin-1395_0001071-0
+  - learner: "Oggi abbiamo una riunione interessante."
+  - tutor: "Una riunione interessante? Che fortuna! Torni tardi?"
+    goals: [wake, work]
+  # merlin-1385_0001197-1
+  - learner: "In ufficio c'è molto lavoro e giovedì pomeriggio non posso incontrare con te, perchè il mio capo ha organizzato una riunione."
+    errors: [reflexive, spelling]
+  - tutor: "Peccato! Ma «non posso incontrare con te»: manca una piccola parola nel verbo."
+    prompt: {text: "incontrare con te", tags: [reflexive]}
+  # merlin-1385_0001756-2
+  - learner: "In ufficio c'è molto lavoro e giovedì pomeriggio non posso incontrarti."
+  - tutor: "Esatto. Non importa! Quando sei libera?"
+  # merlin-1385_0001197-2
+  - learner: "Possiamo incontrare un altra volta?"
+    errors: [reflexive, article-form]
+  - tutor: "Certo! Ma «possiamo incontrare»... chi? Manca qualcosa."
+    prompt: {text: "Possiamo incontrare", tags: [reflexive]}
+  - learner: "Sì, possiamo incontrare venerdì?"
+    errors: [reflexive]
+  - tutor: "Sì, possiamo incontrarci venerdì, al bar sotto casa!"
+    recast: {text: "possiamo incontrare", fix: "possiamo incontrarci", tags: [reflexive]}
+    goals: [evening, ask]
+
+- scenario: tempo-libero
+  level: A2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Allora, cosa fai di bello nel fine settimana?"
+  # merlin-1395_0001150-0
+  - learner: "Mi piace studiare la lingua italiana."
+  - tutor: "Brava! E come va lo studio?"
+    goals: [hobby]
+  # merlin-1385_0001129-6
+  - learner: "Io espero che tutto va bene."
+    errors: [false-friend, subjunctive-use]
+  - tutor: "Che tutto... «va» bene? Dopo «che» qui serve un'altra forma del verbo."
+    prompt: {text: "tutto va bene", tags: [subjunctive-use]}
+  - learner: "Io espero che tutto vada bene."
+    errors: [false-friend]
+  - tutor: "Anch'io spero che tutto vada bene con lo studio!"
+    recast: {text: "espero", fix: "spero", tags: [false-friend]}
+  - learner: "E tu, cosa fai nel weekend?"
+  - tutor: "Vado in palestra. Vuoi venire con me domenica?"
+    goals: [ask, propose]

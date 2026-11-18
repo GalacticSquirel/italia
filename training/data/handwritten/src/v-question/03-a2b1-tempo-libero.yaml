@@ -1,0 +1,255 @@
+# Set v-question, file 3: A2 bikes, cinema, hairdresser, job, weekend, clothes; B1 train ticket and table booking.
+- scenario: noleggio-bici
+  level: A2
+  persona: en-f-professional
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno! Vuole una bicicletta?"
+  - learner: "Buongiorno, sì. Vorrei noleggiare due biciclette, per me e mio marito."
+  - tutor: "Benissimo. Per quanto tempo?"
+    goals: [ask]
+  - learner: "Per tutta la giornata. Cosa costa per un giorno?"
+    errors: [question-form]
+  - tutor: "Cosa costa? Lei vuole sapere il prezzo, giusto? Allora..."
+    prompt: {text: "Cosa costa", tags: [question-form]}
+    goals: [duration]
+  - learner: "Sì. Cosa costa per un giorno?"
+    errors: [question-form]
+  - tutor: "Quanto costa per un giorno? Quindici euro a bicicletta. Nel prezzo ci sono anche il casco e il lucchetto."
+    recast: {text: "Cosa costa", fix: "Quanto costa", tags: [question-form]}
+    goals: [price]
+  - learner: "Ottimo. Il casco è obbligatorio?"
+  - tutor: "No, ma è meglio usarlo: alcune strade sono pericolose."
+  - learner: "D'accordo. Che percorso mi consiglia per arrivare al lago?"
+  - tutor: "La strada vicino all'acqua: è facile e molto bella. In un'ora arrivate al lago."
+    goals: [route]
+  - learner: "Perfetto. E a che ora dobbiamo di riportare le biciclette?"
+    errors: [modal-infinitive]
+  - tutor: "Dobbiamo di riportare? Attenzione, c'è una parola in più."
+    prompt: {text: "dobbiamo di riportare", tags: [modal-infinitive]}
+  - learner: "Ah, sì: a che ora dobbiamo riportarle?"
+  - tutor: "Brava! Entro le sette di sera. Buon giro!"
+
+- scenario: serata-cinema
+  level: A2
+  persona: es-f-erasmus
+  history: [question-form]
+  turns:
+  - tutor: "Stasera sono libera. Facciamo qualcosa?"
+  - learner: "Sì! Perché non andiamo al cinema?"
+  - tutor: "Ottima idea! Che film ti piacciono?"
+    goals: [propose]
+  - learner: "Mi piace le commedie. E a te?"
+    errors: [piacere]
+  - tutor: "Mi piace le commedie? Ma le commedie sono tante!"
+    prompt: {text: "Mi piace le commedie", tags: [piacere]}
+  - learner: "Mi piacciono le commedie! E a te, quale genere piace?"
+  - tutor: "Anche a me le commedie! Al cinema in centro ce n'è una nuova."
+    goals: [genre]
+  - learner: "Che è il titolo?"
+    errors: [question-form]
+  - tutor: "Che è il titolo? Prova a cominciare con un'altra parola."
+    prompt: {text: "Che è il titolo", tags: [question-form]}
+  - learner: "Cosa è il titolo?"
+    errors: [question-form]
+  - tutor: "Qual è il titolo? «Una notte a Roma». Dicono che è divertentissimo!"
+    recast: {text: "Cosa è il titolo", fix: "Qual è il titolo", tags: [question-form]}
+  - learner: "Che bello! A che ora è lo spettacolo?"
+  - tutor: "Ci sono due spettacoli: alle otto e alle dieci e mezza."
+  - learner: "Meglio alle otto. Dove ci incontriamo?"
+  - tutor: "Davanti al cinema, alle otto meno un quarto?"
+    goals: [choose]
+  - learner: "Va bene. Chi compra i biglietti, tu o io?"
+  - tutor: "Li compro io adesso, tranquilla! A stasera."
+    goals: [meet]
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-m-heritage
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+  - learner: "Buongiorno. Vorrei tagliare i capelli, solo un po'."
+  - tutor: "Va bene. Allora, quanto corti li vuole?"
+    goals: [book]
+  - learner: "Li voglio più corto che adesso, ma non troppo."
+    errors: [comparative, adjective-agreement]
+  - tutor: "Più corto che adesso? Attenzione alla parola dopo «più corto»."
+    prompt: {text: "più corto che adesso", tags: [comparative]}
+  - learner: "Più corti di adesso. Due centimetri, più o meno."
+  - tutor: "Perfetto. E se facciamo anche la frangia? Secondo me le sta bene."
+    goals: [length]
+  - learner: "La frangia? Mmm... che pensa Lei?"
+    errors: [ci-ne]
+  - tutor: "Che pensa? Manca una piccola parola."
+    prompt: {text: "che pensa", tags: [ci-ne]}
+  - learner: "Che ne pensa Lei? È meglio lunga o corta?"
+  - tutor: "Corta, perché è più moderna. E poi la possiamo sempre cambiare."
+  - learner: "Va bene, proviamo! Come lungo ci vuole?"
+    errors: [question-form]
+  - tutor: "Come lungo? Per il tempo, quale parola usiamo?"
+    prompt: {text: "Come lungo", tags: [question-form]}
+    goals: [style]
+  - learner: "Quanto tempo ci vuole?"
+  - tutor: "Bravo! Mezz'ora, non di più."
+  - learner: "Mi piace molto, grazie! Quanto Le devo?"
+  - tutor: "Sono venticinque euro. Grazie a Lei, e arrivederci!"
+    goals: [pay]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-m-worker
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno! Ha visto il cartello?"
+  - learner: "Sì, buongiorno. Cercate un camarero per l'estate?"
+    errors: [word-choice]
+  - tutor: "Sì, cerchiamo un cameriere per luglio e agosto. Ha esperienza?"
+    recast: {text: "un camarero", fix: "un cameriere", tags: [word-choice]}
+    goals: [ask]
+  - learner: "Sì, ho lavorato due anni in un ristorante a Valencia."
+  - tutor: "Bene! E parla anche inglese?"
+    goals: [experience]
+  - learner: "Sì, abbastanza. Che orario è il lavoro?"
+    errors: [question-form]
+  - tutor: "Che orario è? Scusi, non capisco bene la domanda."
+    prompt: {text: "Che orario è", tags: [question-form]}
+  - learner: "Sì... che orario è il lavoro?"
+    errors: [question-form]
+  - tutor: "Qual è l'orario di lavoro? Dalle sei di sera all'una, cinque giorni alla settimana."
+    recast: {text: "Che orario è il lavoro", fix: "Qual è l'orario di lavoro", tags: [question-form]}
+  - learner: "Va bene. E lo stipendio quant'è?"
+  - tutor: "Milleduecento euro al mese, più le mance."
+    new: [{lemma: mancia, gloss: tip}]
+  - learner: "Perfetto. Posso empezare dal primo giugno."
+    errors: [word-choice]
+  - tutor: "Ottimo, può cominciare dal primo giugno! Mi lascia un numero di telefono?"
+    recast: {text: "empezare", fix: "cominciare", tags: [word-choice]}
+    goals: [availability]
+  - learner: "Sì: tre quattro cinque, sette sette otto uno, due tre zero. Quando mi può chiamare?"
+  - tutor: "La chiamo entro venerdì. Arrivederci!"
+    goals: [contact]
+
+- scenario: weekend-scorso
+  level: A2
+  persona: en-f-student
+  history: [question-form]
+  turns:
+  - tutor: "Ciao! Com'è andato il fine settimana?"
+  - learner: "Ciao Chiara! Molto bene. Sono andata a Verona con due amiche."
+  - tutor: "Che bello! E cosa avete fatto?"
+    goals: [where, with-who]
+  - learner: "Abbiamo visitato l'Arena e abbiamo mangiato tantissimo."
+  - tutor: "Fantastico. Ti è piaciuta Verona?"
+    goals: [what]
+  - learner: "Sì, mi ha piaciuto molto!"
+    errors: [auxiliary-choice]
+  - tutor: "Mi ha piaciuto? Pensa bene al verbo «piacere» al passato."
+    prompt: {text: "mi ha piaciuto", tags: [auxiliary-choice]}
+  - learner: "Mi è piaciuta molto! E tu? Cosa tu hai fatto sabato?"
+    errors: [question-form]
+  - tutor: "Brava! Ma... cosa tu hai fatto? Prova a togliere una parola."
+    prompt: {text: "Cosa tu hai fatto", tags: [question-form]}
+  - learner: "Cosa hai fatto sabato?"
+  - tutor: "Niente di speciale: sono rimasta a casa e ho letto un libro."
+    goals: [opinion]
+  - learner: "Davvero? Di cosa parla il libro?"
+  - tutor: "È un giallo che succede a Venezia. Se vuoi, te lo presto!"
+
+- scenario: abbigliamento
+  level: A2
+  persona: es-f-teacher
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno! Posso aiutarla?"
+  - learner: "Sì, grazie. Cerco una maglietta per mio figlio."
+  - tutor: "Certo. Che taglia porta?"
+    goals: [ask-item]
+  - learner: "La M, credo. Avete questa maglietta in blu?"
+  - tutor: "Sì, eccola. C'è anche in rosso."
+  - learner: "Come di grande è la M? Mio figlio è molto alto."
+    errors: [question-form]
+  - tutor: "Come di grande? Mmm, in italiano non si dice così."
+    prompt: {text: "Come di grande", tags: [question-form]}
+  - learner: "Come grande è?"
+    errors: [question-form]
+  - tutor: "Quanto è grande? Abbastanza: la M va bene anche per un ragazzo alto."
+    recast: {text: "Come grande è", fix: "Quanto è grande", tags: [question-form]}
+    goals: [size-colour]
+  - learner: "Bene. Quella rossa è bello!"
+    errors: [adjective-agreement]
+  - tutor: "È bello? Pensi alla maglietta..."
+    prompt: {text: "è bello", tags: [adjective-agreement]}
+  - learner: "È bella! Mio figlio è qui fuori: può provarla?"
+  - tutor: "Certo, il camerino è in fondo, a sinistra."
+    goals: [try]
+  - learner: "Gli sta benissimo! La prendiamo. Si può pagare con la carta?"
+  - tutor: "Sì, certo. Ed è in sconto: sono solo dodici euro."
+    goals: [decide]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-m-retired
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno, dove deve andare?"
+  - learner: "Buongiorno. Vorrei andare a Firenze domani mattina, verso le nove."
+  - tutor: "C'è un treno veloce alle nove e dieci. Solo andata o andata e ritorno?"
+    goals: [destination]
+  - learner: "Andata e ritorno, per favore. Torno domenica sera."
+  - tutor: "Benissimo. Prima o seconda classe?"
+    goals: [type]
+  - learner: "Seconda. Che è la differenza di prezzo?"
+    errors: [question-form]
+  - tutor: "Che è la differenza? Provi a cominciare con un'altra parola."
+    prompt: {text: "Che è la differenza", tags: [question-form]}
+  - learner: "Qual è la differenza di prezzo?"
+  - tutor: "Perfetto! In prima spenderebbe trenta euro in più."
+  - learner: "Allora seconda, al lato del finestrino, se possibile."
+    errors: [word-choice]
+  - tutor: "Ecco: posto 14, vicino al finestrino. Sono novantadue euro in tutto."
+    recast: {text: "al lato del finestrino", fix: "vicino al finestrino", tags: [word-choice]}
+    goals: [class]
+  - learner: "Grazie. Che ora arriva a Firenze?"
+    errors: [question-form]
+  - tutor: "Che ora arriva? Mmm, la domanda è quasi giusta."
+    prompt: {text: "Che ora arriva", tags: [question-form]}
+  - learner: "Quale ora arriva?"
+    errors: [question-form]
+  - tutor: "A che ora arriva? Alle dieci e cinquanta, se non è in ritardo."
+    recast: {text: "Quale ora arriva", fix: "A che ora arriva", tags: [question-form]}
+  - learner: "Bene. E da quale binario parte?"
+  - tutor: "Il binario lo trova sul tabellone, circa quindici minuti prima. Buon viaggio!"
+    goals: [platform]
+    new: [{lemma: tabellone, gloss: departures board}]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: es-f-erasmus
+  history: [question-form]
+  turns:
+  - tutor: "Pronto, Trattoria da Mario, buonasera!"
+  - learner: "Buonasera! Vorrei prenotare un tavolo per sabato sera."
+  - tutor: "Certo. Per quante persone e a che ora?"
+    goals: [book]
+  - learner: "Siamo sei persone, alle nove. Saria possibile?"
+    errors: [conditional-form]
+  - tutor: "Saria? Attenzione al condizionale di «essere»."
+    prompt: {text: "Saria", tags: [conditional-form]}
+  - learner: "Sarebbe possibile?"
+  - tutor: "Sì, alle nove va benissimo."
+    goals: [details]
+  - learner: "Perfetto. Avete un tavolo fuori, in terrazza? Che tanto grande è la terrazza?"
+    errors: [question-form]
+  - tutor: "Che tanto grande? Mmm, così in italiano non si dice."
+    prompt: {text: "Che tanto grande", tags: [question-form]}
+  - learner: "Come tanto grande è?"
+    errors: [question-form]
+  - tutor: "Quanto è grande? Ci sono otto tavoli, quindi un posto per voi c'è."
+    recast: {text: "Come tanto grande è", fix: "Quanto è grande", tags: [question-form]}
+    goals: [special]
+  - learner: "Che bello. E avete anche la pasta senza glutine? Una mia amica è celiaca."
+  - tutor: "Sì, nessun problema: lo segno sulla prenotazione. A che nome prenoto?"
+  - learner: "A nome Morales. Devo confermare il giorno prima?"
+  - tutor: "Non serve. Se cambiate programma, però, ci chiami. A sabato!"
+    goals: [name]

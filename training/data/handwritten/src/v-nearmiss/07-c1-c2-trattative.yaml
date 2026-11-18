@@ -1,0 +1,204 @@
+# Set v-nearmiss, file 7: C1 and C2. Left alone: «mi auguro che si valutino», «se ce ne fosse
+# bisogno», «esigiamo», «qualora ci fossero», «chiunque venga», «so che non sono d'accordo»,
+# «non è che risolva», «avevo appena parcheggiato», «stavo per scendere», «mi sento dire», «stai
+# a casa?» (regional, reported), «non credo che spariranno», passato remoto in a memory
+# («raccontò», «fece»), «Magnifico Rettore», «ce ne vuole», «ci mancherebbe», «me ne sono
+# mangiate due», «ne ho viste di tutti i colori». Corrected twins: «vinto gli obiettivi», «sono
+# subiti» (= saliti), «è importante che capiscono», «è già andato via» (for a prior action), «al
+# mio parere», «non esita» (formal imperative), «che io mi presenti» (concordance), «non ho mai
+# mangiate».
+- scenario: colloquio-promozione
+  level: C1
+  persona: en-f-professional
+  history: [word-choice]
+  turns:
+  - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+  - learner: "Sì, grazie del tempo. Quest'anno il mio gruppo ha vinto tutti gli obiettivi di vendita, anzi, li ha superati del dodici per cento."
+    errors: [word-choice]
+  - tutor: "Avete raggiunto tutti gli obiettivi e li avete pure superati, lo so: i numeri li ho visti, e sono notevoli."
+    recast: {text: "vinto tutti gli obiettivi", fix: "raggiunto tutti gli obiettivi", tags: [word-choice]}
+    goals: [results]
+  - learner: "Grazie. Proprio per questo vorrei propormi come responsabile dell'intero reparto commerciale."
+  - tutor: "Capisco. Ma lei sa che ci sono altri due candidati, con più anni di esperienza in azienda."
+    goals: [request]
+  - learner: "Lo so, e li stimo entrambi. Mi auguro però che si valutino i risultati più che gli anni di servizio."
+  - tutor: "Un argomento difficile da contestare, devo ammetterlo."
+    goals: [handle]
+  - learner: "E se ce ne fosse bisogno, sarei disposta a seguire un corso di gestione del personale, anche a mie spese."
+  - tutor: "Non credo che sarà necessario. Ne parlo con la direzione e le do una risposta entro fine mese."
+    goals: [next-steps]
+  - learner: "La ringrazio, aspetto con fiducia."
+  - tutor: "Grazie a lei. E continui così, mi raccomando."
+
+- scenario: trattativa-fornitore
+  level: C1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+  - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+  - learner: "Buongiorno. Sì, la chiamo proprio per questo. Capisco la situazione, ma un aumento del quindici per cento per noi è insostenibile."
+  - tutor: "Lo capisco, ma anche noi ormai lavoriamo con margini molto bassi."
+    goals: [problem]
+  - learner: "Anche noi. Negli ultimi sei mesi i prezzi della farina sono subiti due volte, e non possiamo scaricare tutto sui clienti."
+    errors: [false-friend]
+  - tutor: "Sono saliti due volte, ha ragione: lo vedo anche dai nostri conti. Che cosa propone?"
+    recast: {text: "sono subiti", fix: "sono saliti", tags: [false-friend]}
+    goals: [argue]
+  - learner: "Un compromesso: un aumento del sei per cento, a fronte di un contratto di due anni. Esigiamo però consegne puntuali."
+  - tutor: "Il sei è troppo poco. Potrei arrivare al nove, con consegna garantita entro quarantotto ore."
+    goals: [counteroffer]
+  - learner: "Facciamo otto e chiudiamo oggi. Qualora ci fossero ritardi, ci riserviamo di rivedere l'accordo."
+  - tutor: "Otto per cento, contratto di due anni e clausola sui ritardi: affare fatto. Le mando la bozza stasera."
+    goals: [agreement]
+    new: [{lemma: "clausola", gloss: "clause"}, {lemma: "bozza", gloss: "draft"}]
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: en-m-heritage
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+  - learner: "Buongiorno a tutti. Sono a favore, anche se so che molti ascoltatori non sono d'accordo. Chiunque venga a Venezia per poche ore dovrebbe contribuire a mantenerla."
+  - tutor: "Però così Venezia diventa un museo a pagamento, non le pare?"
+    goals: [introduce]
+  - learner: "Un museo lo è già, purtroppo. Basti pensare che in certi giorni d'estate arrivano più di centomila visitatori, e i residenti sono meno di cinquantamila."
+  - tutor: "Numeri impressionanti, lo ammetto. Ma cinque euro non fermeranno nessuno."
+    goals: [example]
+  - learner: "Non è che il ticket risolva tutto, d'accordo. Ma è importante che i turisti capiscono che la città non è un parco a tema."
+    errors: [subjunctive-use]
+  - tutor: "«È importante che i turisti capiscono»? Dopo un'espressione così, quale modo ci vuole?"
+    prompt: {text: "i turisti capiscono", tags: [subjunctive-use]}
+  - learner: "Sì, che i turisti capiscono. E con i soldi raccolti si possono finanziare i servizi per chi ci vive."
+    errors: [subjunctive-use]
+  - tutor: "Che i turisti capiscano, certo, e che contribuiscano: è un argomento su cui chi ci ascolta dovrà riflettere. E la sua proposta concreta?"
+    recast: {text: "i turisti capiscono", fix: "i turisti capiscano", tags: [subjunctive-use]}
+    goals: [rebut]
+  - learner: "Il ticket più un numero massimo di ingressi al giorno, da prenotare online, come per i musei."
+  - tutor: "Una proposta chiara, grazie per la telefonata! Passiamo alla prossima chiamata."
+    goals: [proposal]
+
+- scenario: assicurazione-sinistro
+  level: C1
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Martedì sera avevo appena parcheggiato davanti a casa e stavo per scendere, quando un furgone mi ha urtato la fiancata facendo retromarcia."
+  - tutor: "Mi dispiace. E l'uomo alla guida del furgone che cosa ha fatto?"
+    goals: [what]
+  - learner: "All'inizio si è scusato, poi ha detto che aveva fretta. Quando è arrivata la polizia, lui è già andato via."
+    errors: [tense-aspect]
+  - tutor: "«È già andato via»? È successo prima dell'arrivo della polizia: il tempo verbale lo dice?"
+    prompt: {text: "è già andato via", tags: [tense-aspect]}
+  - learner: "Sì, quando è arrivata la polizia, è già andato via, senza lasciare i suoi dati."
+    errors: [tense-aspect]
+  - tutor: "Quindi quando è arrivata la polizia era già andato via: una vera e propria fuga. Ha almeno la targa?"
+    recast: {text: "è già andato via", fix: "era già andato via", tags: [tense-aspect]}
+    goals: [responsibility]
+  - learner: "Per fortuna una vicina l'ha annotata e me l'ha data. Ho anche le foto dei danni e il verbale dei vigili."
+  - tutor: "Ottimo, con la targa risaliamo facilmente alla sua compagnia assicurativa."
+    goals: [documents]
+  - learner: "E adesso cosa devo fare? Posso già portare la macchina al taller?"
+    errors: [word-choice]
+  - tutor: "Prima di portarla dal carrozziere, aspetti la visita del nostro perito, che la contatterà entro tre giorni."
+    recast: {text: "al taller", fix: "dal carrozziere", tags: [word-choice]}
+    new: [{lemma: "carrozziere", gloss: "body shop"}, {lemma: "perito", gloss: "loss adjuster"}]
+    goals: [next]
+
+- scenario: dialetti-regionali
+  level: C2
+  persona: en-f-student
+  history: [article-use]
+  turns:
+  - tutor: "Scusa se mi intrometto, ma ti ho visto ridere: hai capito cosa si dicevano quei due signori? Perché non è mica facile."
+  - learner: "Ammetto di aver capito sì e no la metà! Però ho riconosciuto «guaglione», che a Napoli mi sento dire ogni due per tre dal fruttivendolo."
+  - tutor: "Ah, ma allora sei una veterana! «Guaglione» è un classico. Altri esempi che ti hanno colpita?"
+    goals: [notice]
+  - learner: "Il mio preferito è «stai a casa?» al posto di «sei a casa?». All'inizio mi sembrava un errore, poi ho capito che al Sud è normalissimo."
+  - tutor: "Esatto, al Sud «stare» per «essere» è la norma. Ma tu, quando parli, come ti regoli con lo standard?"
+    goals: [example]
+  - learner: "Al mio parere, chi impara l'italiano deve prima padroneggiare lo standard, e poi godersi i dialetti."
+    errors: [article-use]
+  - tutor: "«Al mio parere»? È un'espressione fissa, e nella tua versione c'è qualcosa di troppo."
+    prompt: {text: "Al mio parere", tags: [article-use]}
+  - learner: "Sì, al mio parere. Lo standard serve per farsi capire ovunque, il dialetto per farsi voler bene."
+    errors: [article-use]
+  - tutor: "Anche a mio parere hai colto il punto: lo standard per farsi capire, il dialetto per farsi voler bene. E dei dialetti che stanno sparendo, che ne pensi?"
+    recast: {text: "al mio parere", fix: "a mio parere", tags: [article-use]}
+    goals: [standard]
+  - learner: "Non credo che spariranno del tutto: si trasformeranno, come è sempre successo, e magari finiranno nelle canzoni rap."
+  - tutor: "Mi auguro che tu abbia ragione. Già adesso, a Napoli, il rap in dialetto va fortissimo."
+    goals: [opinion]
+
+- scenario: condoglianze
+  level: C2
+  persona: en-m-retired
+  history: [imperative-form]
+  turns:
+  - tutor: "Grazie di essere venuto, davvero. Non se lo doveva disturbare, con tutto il lavoro che ha."
+  - learner: "Si figuri, era il minimo. Le porgo le mie più sentite condoglianze, anche a nome di tutto l'ufficio."
+  - tutor: "Grazie. Mio padre le voleva bene, sa? Parlava spesso di quella cena a Torino."
+    goals: [condolences]
+  - learner: "Me la ricordo benissimo. Raccontò per tutta la sera di quando, da ragazzo, fece il giro d'Italia in Vespa. Avrei voluto ascoltarlo per ore."
+  - tutor: "Sì, era la sua storia preferita: ce la raccontava ogni Natale, con dettagli sempre nuovi."
+    goals: [memory]
+  - learner: "Senta, so che in questi giorni avrà mille cose da sbrigare. Se avesse bisogno di qualsiasi cosa, anche solo per le pratiche, non esita a chiamarmi."
+    errors: [imperative-form]
+  - tutor: "«Non esita a chiamarmi»? È un invito, non una constatazione: che forma vuole, con il Lei?"
+    prompt: {text: "non esita a chiamarmi", tags: [imperative-form]}
+  - learner: "Mi scusi: non esiti a chiamarmi, a qualsiasi ora."
+  - tutor: "Lei è molto gentile, la ringrazio di cuore. Forse avrò bisogno di una mano con le carte della banca."
+    goals: [offer-help]
+  - learner: "Conti pure su di me. Ora la lascio riposare; le starò vicino, per quanto mi sarà possibile."
+  - tutor: "Grazie ancora di essere passato. Sarà dura, ma queste visite aiutano più di quanto si creda."
+    goals: [leave]
+
+- scenario: email-rettore
+  level: C2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+  - learner: "Devo chiedere una proroga di sei mesi per il mio assegno di ricerca: il progetto ha subito ritardi a causa della chiusura del laboratorio."
+  - tutor: "Capisco, una richiesta legittima. E come pensa di aprire la lettera?"
+    goals: [situation]
+  - learner: "Pensavo a «Magnifico Rettore», seguito da una virgola, e poi subito al punto: «mi permetto di scriverle per sottoporle una richiesta»."
+  - tutor: "Perfetto, è la formula di rito, e l'attacco è elegante. E il corpo del testo?"
+    goals: [opening-formula]
+  - learner: "Rispettoso ma non servile. Scriverei: «Le sarei grata se volesse concedermi una proroga, e se ritenesse opportuno che io mi presenti di persona, sono a Sua disposizione»."
+    errors: [subjunctive-use]
+  - tutor: "Il tono è giusto. Però «se ritenesse opportuno che io mi presenti»: ricontrolli la concordanza dei tempi."
+    prompt: {text: "mi presenti", tags: [subjunctive-use]}
+  - learner: "Mi sembra corretta: «se ritenesse opportuno che io mi presenti di persona»."
+    errors: [subjunctive-use]
+  - tutor: "Con «ritenesse» al passato, scriva «che io mi presentassi di persona»: così la frase scorre ed è impeccabile."
+    recast: {text: "mi presenti", fix: "mi presentassi", tags: [subjunctive-use]}
+    goals: [tone]
+  - learner: "E per chiudere? «Distinti saluti» mi sembra un po' freddo."
+  - tutor: "Meglio «Con i più cordiali saluti», oppure «Con osservanza», se vuole essere molto formale."
+    goals: [closing]
+  - learner: "«Con osservanza» mi piace: suona d'altri tempi, ma è proprio il registro giusto."
+  - tutor: "Allora ci siamo. Me la faccia rileggere un'ultima volta prima di inviarla."
+
+- scenario: pranzo-domenicale
+  level: C2
+  persona: en-m-traveller
+  history: [ci-ne]
+  turns:
+  - tutor: "Ah, sei arrivato giusto in tempo, qui si stanno già scannando per l'ultima lasagna. Siediti, che non mordiamo!"
+  - learner: "Ci mancherebbe! Ce ne vuole di coraggio, però, per mettersi tra un italiano e l'ultima lasagna."
+  - tutor: "Bravo, vedo che hai già capito l'antifona! Dai, assaggia e dimmi."
+    goals: [react]
+  - learner: "Che dire... è da leccarsi i baffi. Di lasagne così, in Inghilterra, non ho mai mangiate."
+    errors: [ci-ne]
+  - tutor: "«Non ho mai mangiate»? Lasagne così... manca la particella che le riprende."
+    prompt: {text: "non ho mai mangiate", tags: [ci-ne]}
+    goals: [use-idiom]
+  - learner: "Giusto: di lasagne così non ne ho mai mangiate!"
+  - tutor: "E ci credo, la nonna le fa da sessant'anni. E quelle inglesi, al confronto?"
+  - learner: "Al confronto sono acqua fresca. Pensa che una volta me ne sono mangiate due porzioni surgelate e non ho sentito nessun sapore."
+  - tutor: "Surgelate! Allora te le sei proprio cercate."
+    goals: [compare]
+  - learner: "Ne ho viste di tutti i colori, te lo assicuro: una volta un collega ci ha messo l'ananas, nella lasagna!"
+  - tutor: "L'ananas nella lasagna? Non dirlo alla nonna, che ti toglie il piatto!"
+    goals: [anecdote]

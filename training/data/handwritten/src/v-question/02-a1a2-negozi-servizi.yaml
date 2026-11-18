@@ -1,0 +1,243 @@
+# Set v-question, file 2: A1 shop and daily-life questions, A2 bus, launderette, gym, post office, bar.
+- scenario: supermercato
+  level: A1
+  persona: es-f-erasmus
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno, cerca qualcosa?"
+  - learner: "Sì, grazie. Dove è il latte, per favore?"
+  - tutor: "Il latte è in fondo, a destra."
+    goals: [ask-product]
+  - learner: "E le uova? Ci sono anche le uova?"
+  - tutor: "Sì, sono lì, vicino al latte."
+    goals: [ask-other]
+  - learner: "Quanto uova ci sono in una scatola?"
+    errors: [question-form]
+  - tutor: "Quanto uova? Attenzione: «uova» è femminile plurale."
+    prompt: {text: "Quanto uova", tags: [question-form]}
+  - learner: "Quanti uova ci sono?"
+    errors: [question-form]
+  - tutor: "Quante uova? Ce ne sono sei."
+    recast: {text: "Quanti uova", fix: "Quante uova", tags: [question-form]}
+  - learner: "Perfetto, prendo una scatola. Grazie mille!"
+  - tutor: "Prego! Buona giornata."
+    goals: [thank]
+
+- scenario: famiglia
+  level: A1
+  persona: en-m-retired
+  history: [question-form, possessive]
+  turns:
+  - tutor: "Che bella foto! Chi sono queste persone?"
+  - learner: "È la mia famiglia. Questa è la mia moglie, Margaret."
+    errors: [possessive]
+  - tutor: "La mia moglie? Pensa: mio padre, mia madre..."
+    prompt: {text: "la mia moglie", tags: [possessive]}
+  - learner: "Ah, sì. Mia moglie, Margaret. E questi sono i miei figli."
+  - tutor: "Che belli! Quanti anni hanno?"
+    goals: [who]
+  - learner: "Tom ha trentadue anni e Lucy ne ha ventotto."
+  - tutor: "E com'è Lucy?"
+    goals: [ages]
+  - learner: "Sì, è molto simpatica e alta. È dottora a Londra."
+    errors: [word-choice]
+  - tutor: "Una dottoressa, brava Lucy! Io ho una famiglia grande, sai?"
+    recast: {text: "dottora", fix: "dottoressa", tags: [word-choice]}
+    new: [{lemma: dottoressa, gloss: female doctor}]
+    goals: [describe]
+  - learner: "Davvero? Quanti fratelli tu hai?"
+    errors: [question-form]
+  - tutor: "Quanti fratelli tu hai? Prova a cambiare l'ordine."
+    prompt: {text: "Quanti fratelli tu hai", tags: [question-form]}
+  - learner: "Quanti fratelli hai?"
+  - tutor: "Perfetto! Ho due sorelle, tutte e due più grandi."
+    goals: [ask]
+  - learner: "Due sorelle! Come si chiamano?"
+  - tutor: "Eccole qui, in questa foto!"
+
+- scenario: giorno-tipico
+  level: A1
+  persona: en-f-professional
+  history: [question-form]
+  turns:
+  - tutor: "Ciao! Com'è la tua giornata di solito?"
+  - learner: "Ciao Anna! Io sveglio alle sei e mezza."
+    errors: [reflexive]
+  - tutor: "Io sveglio? E chi svegli la mattina?"
+    prompt: {text: "Io sveglio", tags: [reflexive]}
+  - learner: "No, no! Mi sveglio alle sei e mezza."
+  - tutor: "Brava! È presto. E poi cosa fai?"
+    goals: [wake]
+  - learner: "Faccio colazione e vado in ufficio. Lavoro fino alle cinque."
+  - tutor: "E la sera?"
+    goals: [work]
+  - learner: "La sera cucino e leggo un libro. A che ora tu torni a casa?"
+    errors: [question-form]
+  - tutor: "A che ora tu torni? Attenzione: dove va «tu»?"
+    prompt: {text: "A che ora tu torni", tags: [question-form]}
+    goals: [evening]
+  - learner: "A che ora torni a casa?"
+  - tutor: "Esatto! Torno alle sette e poi ceno con Marco."
+    goals: [ask]
+  - learner: "Alle sette? È presto per un'italiana!"
+  - tutor: "Sì, è vero! Ma io mi sveglio alle cinque."
+
+- scenario: autobus
+  level: A2
+  persona: en-m-traveller
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno! Dove deve andare?"
+  - learner: "Buongiorno. Questo autobus va al museo archeologico?"
+  - tutor: "Sì, è la linea giusta. Ha già il biglietto?"
+    goals: [route]
+  - learner: "No. Posso comprare il biglietto da Lei?"
+  - tutor: "Mi dispiace, sull'autobus non vendiamo biglietti. Lo trova in tabaccheria."
+  - learner: "Ah. E dove è la tabaccheria più vicina?"
+  - tutor: "È proprio lì, dietro la fermata. Si ricordi di timbrare il biglietto!"
+    goals: [ticket]
+  - learner: "Grazie. E che fermata devo scendere per il museo?"
+    errors: [question-form]
+  - tutor: "Che fermata devo scendere? Manca una piccola parola all'inizio."
+    prompt: {text: "che fermata devo scendere", tags: [question-form]}
+  - learner: "Quale fermata devo scendere?"
+    errors: [question-form]
+  - tutor: "A quale fermata? Alla quinta, in piazza Dante."
+    recast: {text: "Quale fermata", fix: "A quale fermata", tags: [question-form]}
+  - learner: "Perfetto, piazza Dante. Lei mi dice quando arriviamo?"
+  - tutor: "Certo, le dico io quando scendere."
+    goals: [stop]
+  - learner: "Grazie mille, Lei è molto gentile!"
+  - tutor: "Prego! Buona visita al museo."
+    goals: [thank]
+
+- scenario: lavanderia
+  level: A2
+  persona: es-m-worker
+  history: [question-form]
+  turns:
+  - tutor: "Tutto bene? Hai bisogno di una mano?"
+  - learner: "Sì, grazie. La lavadora non funziona. Ho messo le monete ma niente."
+    errors: [word-choice]
+  - tutor: "Ah, la lavatrice non prende monete: ti serve un gettone."
+    recast: {text: "La lavadora", fix: "la lavatrice", tags: [word-choice]}
+    goals: [problem]
+  - learner: "Un gettone? E dove compro?"
+    errors: [object-pronoun]
+  - tutor: "Dove compro? Manca qualcosa prima del verbo."
+    prompt: {text: "dove compro", tags: [object-pronoun]}
+  - learner: "Dove lo compro?"
+  - tutor: "Bravo! Lì, vicino alla porta. Un gettone costa quattro euro."
+    goals: [payment]
+  - learner: "Ok. E come funziona? Che programma tu usi per i jeans?"
+    errors: [question-form]
+  - tutor: "Che programma tu usi? Attenzione: in italiano «tu» non va lì."
+    prompt: {text: "Che programma tu usi", tags: [question-form]}
+  - learner: "Che programma usi tu per i jeans?"
+  - tutor: "Il programma tre, a quaranta gradi. È facile!"
+    goals: [ask-how]
+  - learner: "E per l'asciugatrice, quanto tempo vuole?"
+    errors: [ci-ne]
+  - tutor: "Quanto tempo vuole? Detto così, sembra una persona!"
+    prompt: {text: "quanto tempo vuole", tags: [ci-ne]}
+  - learner: "Quanto tempo si vuole?"
+    errors: [ci-ne]
+  - tutor: "Quanto tempo ci vuole? Più o meno un'ora."
+    recast: {text: "quanto tempo si vuole", fix: "quanto tempo ci vuole", tags: [ci-ne]}
+  - learner: "Va bene. Grazie mille per l'aiuto!"
+  - tutor: "Di niente! Se hai problemi, io sono qui."
+    goals: [thank]
+
+- scenario: palestra
+  level: A2
+  persona: en-f-student
+  history: [question-form]
+  turns:
+  - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+  - learner: "Ciao! Sì. Quanto costa un abbonamento per un mese?"
+  - tutor: "Quaranta euro al mese, oppure cento euro per tre mesi."
+    goals: [ask-membership]
+  - learner: "Allora tre mesi è più conveniente, giusto?"
+  - tutor: "Esatto, così paghi venti euro in meno."
+  - learner: "Bene. Che tipo di corsi avete?"
+  - tutor: "Abbiamo lo yoga e un corso di ballo."
+    goals: [classes]
+  - learner: "Mi piace lo yoga. Quando giorni c'è il corso?"
+    errors: [question-form]
+  - tutor: "Quando giorni? Mmm, la domanda non è chiara."
+    prompt: {text: "Quando giorni", tags: [question-form]}
+  - learner: "Quale giorni c'è il corso?"
+    errors: [question-form]
+  - tutor: "In che giorni c'è il corso? Il lunedì e il giovedì, alle sette di sera."
+    recast: {text: "Quale giorni", fix: "In che giorni", tags: [question-form]}
+    goals: [timetable]
+  - learner: "Bene. E quanti minuti è la lezione?"
+    errors: [question-form]
+  - tutor: "Quanti minuti è? Per il tempo c'è un verbo migliore."
+    prompt: {text: "quanti minuti è", tags: [question-form]}
+  - learner: "Quanti minuti è lunga?"
+    errors: [question-form]
+  - tutor: "Quanto dura? Un'ora, dalle sette alle otto."
+    recast: {text: "quanti minuti è", fix: "quanto dura", tags: [question-form]}
+  - learner: "Perfetto. Vorrei iscrivermi allo yoga. Cosa devo portare?"
+  - tutor: "Benissimo! Serve solo un documento. Porta anche un asciugamano!"
+    goals: [sign-up]
+    new: [{lemma: asciugamano, gloss: towel}]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-m-heritage
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno, mi dica."
+  - learner: "Buongiorno. Devo spedire questo pacco a Canada."
+    errors: [preposition]
+  - tutor: "A Canada? Per i paesi, quale preposizione usiamo?"
+    prompt: {text: "a Canada", tags: [preposition]}
+  - learner: "In Canada!"
+  - tutor: "Esatto. Spedizione normale o veloce?"
+    goals: [send]
+  - learner: "Quanto ci mette quella normale?"
+  - tutor: "Circa due settimane. Quella veloce, invece, quattro giorni."
+  - learner: "E la veloce quanto costa? È cara?"
+  - tutor: "Costa trentacinque euro. La normale ne costa diciotto."
+  - learner: "Allora la normale. Che devo scrivere sul modulo?"
+  - tutor: "L'indirizzo in Canada e cosa c'è nel pacco."
+    goals: [speed]
+  - learner: "Ok. E il contenuto, dove lo scrivo in?"
+    errors: [question-form]
+  - tutor: "Dove lo scrivo in? Scusi, non capisco la domanda."
+    prompt: {text: "dove lo scrivo in", tags: [question-form]}
+  - learner: "Dove lo scrivo?"
+  - tutor: "Qui sotto, in questo spazio. Per esempio: libri e vestiti."
+    goals: [form]
+  - learner: "Ecco fatto. Posso pagare con il bancomat?"
+  - tutor: "Sì, certo. Ecco la ricevuta. Buona giornata!"
+    goals: [pay]
+    new: [{lemma: ricevuta, gloss: receipt}]
+
+- scenario: bar-colazione
+  level: A2
+  persona: es-f-teacher
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno! Cosa prende?"
+  - learner: "Buongiorno! Un cappuccino, per favore. Lo potete fare con latte di soia?"
+  - tutor: "Certo, con il latte di soia nessun problema."
+    goals: [greet, order-drink]
+  - learner: "Grazie. Che tale sono i cornetti integrali?"
+    errors: [question-form]
+  - tutor: "Che tale...? Scusi, non ho capito."
+    prompt: {text: "Che tale sono", tags: [question-form]}
+  - learner: "Che tali sono i cornetti?"
+    errors: [question-form]
+  - tutor: "Come sono? Buonissimi, li facciamo noi ogni mattina."
+    recast: {text: "Che tali sono", fix: "Come sono", tags: [question-form]}
+  - learner: "Allora prendo un cornetto integrale. Pago adesso o dopo?"
+  - tutor: "Paghi pure dopo. Si accomodi!"
+    goals: [order-food]
+  - learner: "Grazie. Ecco, ho finito. Quant'è in tutto?"
+  - tutor: "Sono tre euro e venti."
+  - learner: "Ecco a Lei. Ci vediamo domani!"
+  - tutor: "Grazie, a domani!"
+    goals: [pay]

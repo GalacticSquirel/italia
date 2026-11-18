@@ -1,0 +1,302 @@
+# File 2: job and internship interviews (HR manager, formal).
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-f-erasmus
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_1001153-0
+    - learner: "Mi chiamo Carmen Ruiz, ho 25 anni."
+    - tutor: "Piacere, signora Ruiz. Ha già qualche esperienza di lavoro?"
+      goals: [intro]
+    # merlin-1325_1001086-3
+    - learner: "Ho già una minima esperienza nel settore, fino ad oggi lavoravo in un grande negozio di abbigliamento come assistente, cosi conosco il mondo della moda, e naturalmente ho conoscenza del pacchetto Office."
+      errors: [tense-aspect, spelling]
+    - tutor: "Interessante. Però ci pensi: «fino ad oggi lavoravo». È un periodo chiuso, finito oggi: quale passato usiamo?"
+      prompt: {text: "fino ad oggi lavoravo", tags: [tense-aspect]}
+    - learner: "Ah, giusto: fino ad oggi ho lavorato in un grande negozio."
+    - tutor: "Esatto. Quindi conosce già bene il mondo della moda. Quali sono i suoi punti di forza?"
+      goals: [experience]
+    # merlin-1325_1001098-7
+    - learner: "Sono sicura che sarò adatta persona per questo lavoro, sono responsabile e mi piace fare contatti con i clienti."
+      errors: [article-use, word-order]
+    - tutor: "Mi piace la sua sicurezza! Ma ripeta: «sarò adatta persona»... manca una piccola parola, e anche l'ordine non va."
+      prompt: {text: "adatta persona", tags: [article-use, word-order]}
+    - learner: "Sì, sono sicura che sarò adatta persona, davvero."
+      errors: [article-use, word-order]
+    - tutor: "Lo penso anch'io: lei sarà la persona adatta, se ama il contatto con i clienti. Ma perché ha scelto proprio noi?"
+      recast: {text: "adatta persona", fix: "la persona adatta", tags: [article-use, word-order]}
+      goals: [strengths]
+    # merlin-1325_9000211-0
+    - learner: "La mia tesi di laurea riguardava proprio la moda."
+    - tutor: "Allora la moda le piace davvero. Ha qualche domanda per me?"
+      goals: [why]
+    # merlin-1325_1001087-9
+    - learner: "Com'è l'orario di lavoro?"
+    - tutor: "Dal lunedì al venerdì, dalle nove alle cinque e mezza. Le faremo sapere entro una settimana. Arrivederci!"
+      goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_9000503-0
+    - learner: "L'anno scorso mi sono laureata in Economia e Commercio presso l'Università di Scienze Economiche a Leeds."
+    - tutor: "Molto bene. E prima dell'università aveva già lavorato?"
+      goals: [intro]
+    # merlin-1325_9000099-0
+    - learner: "Ho finito una formazione professionale come apprendista di commesso in un negozio di abbigliamento a Leeds tre anni fa con un buon risultato."
+      errors: [preposition]
+    - tutor: "Ah, interessante. Ma ripeta un attimo: «apprendista di commesso»? Quel «di» ci vuole?"
+      prompt: {text: "apprendista di commesso", tags: [preposition]}
+    - learner: "No, apprendista commesso. Vendevo vestiti e aiutavo i clienti."
+    - tutor: "Perfetto. E quali sono i suoi punti di forza?"
+      goals: [experience]
+    # merlin-1325_1001120-2
+    - learner: "I miei punti di forza sono benissime abilita interpersonali e senza problemi potrei convincere i possibili clienti a comprare i nostri prodotti."
+      errors: [word-choice, spelling]
+    - tutor: "Un attimo: «benissime»? «Benissimo» va con i verbi. Davanti a un nome, che aggettivo usiamo?"
+      prompt: {text: "benissime", tags: [word-choice]}
+    - learner: "Sì, ho benissime abilità con le persone."
+      errors: [word-choice]
+    - tutor: "Ottime abilità con le persone, certo: nel nostro lavoro sono importantissime. Perché ha scelto la nostra azienda?"
+      recast: {text: "benissime", fix: "ottime", tags: [word-choice]}
+      goals: [strengths]
+    # merlin-1325_9000505-3
+    - learner: "Ho letto nel giornale il vostro annuncio e subito ho pensato, che questo lavoro potrebbe essere utile per me per cambiare tutta la mia vita."
+    - tutor: "Cambiare tutta la vita! Mi fa piacere. Ha qualche domanda?"
+      goals: [why]
+    # merlin-1325_1001087-10
+    - learner: "Quanto pagano per un mese?"
+    - tutor: "Il tirocinio è pagato seicento euro al mese. La contatteremo presto. Arrivederci!"
+      goals: [questions]
+      new: [{lemma: tirocinio, gloss: internship}]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-m-heritage
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_9000099-3
+    - learner: "Da tre anni ho frequentato dei corsi serali d'italiano a Boston."
+      errors: [tense-aspect]
+    - tutor: "Bene! Ma una domanda: i corsi sono finiti o li fa ancora? Con «da tre anni», quale tempo serve?"
+      prompt: {text: "Da tre anni ho frequentato", tags: [tense-aspect]}
+    - learner: "Li faccio ancora: da tre anni frequento dei corsi serali."
+    - tutor: "Esatto, e si sente: parla molto bene. Che esperienze di lavoro ha?"
+      goals: [intro]
+    # merlin-1325_1001157-1
+    - learner: "Dopo la scuola purtroppo non ho potuto lavoro ma durante l'università ho lavorato in una azienda come una assistente perciò ho esperienza."
+      errors: [article-use, modal-infinitive]
+    - tutor: "Capisco. Ma senta: «come una assistente»? Quando diciamo un lavoro dopo «come», serve l'articolo?"
+      prompt: {text: "come una assistente", tags: [article-use]}
+    - learner: "Sì, ho lavorato come una assistente per due anni."
+      errors: [article-use]
+    - tutor: "Ha lavorato come assistente per due anni, bene. Quali sono i suoi punti di forza?"
+      recast: {text: "come una assistente", fix: "come assistente", tags: [article-use]}
+      goals: [experience]
+    # merlin-1325_1001162-3
+    - learner: "Parlo due lingue."
+    - tutor: "Ottimo, per noi le lingue contano molto. Perché ha scelto la nostra agenzia?"
+      goals: [strengths]
+    # merlin-1325_9000213-1
+    - learner: "Vorrei passare l'estate prima dello studio lavorando nella sua agenzia che mi piace molto per fare esperienze nel mondo lavorativo e per conoscere meglio l'Italia."
+    - tutor: "Un'estate in Italia è un'ottima idea. Ha domande per me?"
+      goals: [why]
+    # merlin-1325_1001088-10
+    - learner: "Voglio sapere quando inizio questo lavoro."
+    - tutor: "Comincerebbe il primo giugno, se tutto va bene. Le scriviamo entro venerdì. Grazie e arrivederci!"
+      goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-f-teacher
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_1001091-1
+    - learner: "Mi sono laureata in economia nel 2015."
+    - tutor: "Bene. E dopo l'università dove ha lavorato?"
+      goals: [intro]
+    # merlin-1325_1001079-5
+    - learner: "Ho acquistato esperienza nel settore di moda."
+      errors: [articulated-preposition]
+    - tutor: "Mi dica di più. Ma prima ripeta: «nel settore di moda»? Parliamo della moda in generale: «di» resta così?"
+      prompt: {text: "nel settore di moda", tags: [articulated-preposition]}
+    - learner: "Sì, nel settore di moda, per sei anni."
+      errors: [articulated-preposition]
+    - tutor: "Sei anni nel settore della moda sono tanti! Che cosa la rende adatta a questo posto?"
+      recast: {text: "nel settore di moda", fix: "nel settore della moda", tags: [articulated-preposition]}
+      goals: [experience]
+    # merlin-1325_1001036-0
+    - learner: "Studio tedesco, italiano e finlandese."
+    - tutor: "Tre lingue, bravissima! Per noi è molto importante. Come mai vuole cambiare lavoro?"
+      goals: [strengths]
+    # merlin-1325_9000505-2
+    - learner: "Questo lavoro non è interessante per me, perciò qualche tempo fa ho deciso di cambiare tutta la mia vita."
+    - tutor: "Una decisione coraggiosa, la capisco. Ha qualche domanda da farmi?"
+      goals: [why]
+    # merlin-1325_1001153-9
+    - learner: "Com'è il orario di lavoro?"
+      errors: [article-form]
+    - tutor: "Certo. Ma ripeta: «il orario»? Ascolti bene l'inizio della parola «orario»."
+      prompt: {text: "il orario", tags: [article-form]}
+    - learner: "Com'è l'orario di lavoro?"
+    - tutor: "Brava. Si lavora dalle nove alle sei, con un'ora di pausa. Le faremo sapere presto, arrivederci!"
+      goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-f-erasmus
+  history: [possessive]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_1001123-2
+    - learner: "Studio l'inglese da dodici anni e due anni fa, ho superato l'esame di lingua."
+    - tutor: "Ottimo. E adesso che lavoro cerca?"
+      goals: [intro]
+    # merlin-1325_1001139-5
+    - learner: "Adesso cerco un lavoro dove posso usare mia conoscenza di lingua italiana, nel lavoro d'architettura può essere utile questa conoscenza."
+      errors: [possessive, articulated-preposition]
+    - tutor: "Ha ragione. Ma ascolti: «usare mia conoscenza». Davanti a «mia» manca qualcosa?"
+      prompt: {text: "usare mia conoscenza", tags: [possessive]}
+    - learner: "Posso usare la mia conoscenza dell'italiano, perché sono architetta."
+    - tutor: "Esatto! Un'architetta che parla italiano e inglese ci interessa molto. Quali sono i suoi punti di forza?"
+      goals: [experience]
+    # merlin-1325_1001125-2
+    - learner: "Mi piace studiare le lingue straniere, perché secondo me queste sono molto utile nella vita per esempio all'estero, ma anche nel posto di lavoro."
+      errors: [adjective-agreement]
+    - tutor: "Sono d'accordo. Però: le lingue «sono molto utile»? Guardi «le lingue»: è plurale."
+      prompt: {text: "molto utile", tags: [adjective-agreement]}
+    - learner: "Sì, le lingue sono molto utile anche qui, con i clienti stranieri."
+      errors: [adjective-agreement]
+    - tutor: "Certo, le lingue sono molto utili con i clienti stranieri. E perché vuole lavorare proprio con noi?"
+      recast: {text: "molto utile", fix: "molto utili", tags: [adjective-agreement]}
+      goals: [strengths]
+    # merlin-1325_9000533-8
+    - learner: "Penso che le mie esperienze saranno necessarie per Lei."
+    - tutor: "Lo spero anch'io! Ha qualche domanda?"
+      goals: [why]
+    # merlin-1325_1001089-4
+    - learner: "Come è l'orario di lavoro?"
+    - tutor: "Lavoriamo dalle otto e mezza alle cinque, il venerdì fino all'una. La richiamo la settimana prossima. Arrivederci!"
+      goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-m-traveller
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_1001153-2
+    - learner: "Sono interesse per il mondo della moda."
+      errors: [word-choice, preposition]
+    - tutor: "Bene! Però: «sono interesse»? «Interesse» è un nome. Come lo trasforma per parlare di sé?"
+      prompt: {text: "Sono interesse", tags: [word-choice]}
+    - learner: "Sono interessato al mondo della moda, soprattutto agli abiti da uomo."
+    - tutor: "Perfetto, è proprio il nostro mondo. E che esperienza ha?"
+      goals: [intro]
+    # merlin-1325_1001165-5
+    - learner: "Io ride molto e condusse richerche di mercato."
+      errors: [verb-form, spelling]
+    - tutor: "Mi fa piacere! Ma «io ride»? Con «io», il verbo finisce in un altro modo."
+      prompt: {text: "Io ride", tags: [verb-form]}
+    - learner: "Io rido molto, sì! E conduco ricerche di mercato da due anni."
+    - tutor: "Esatto. Due anni di ricerche di mercato ci sono utili, e ridere aiuta sempre! Perché vuole lavorare da noi?"
+      goals: [experience, strengths]
+    # merlin-1325_1001169-1
+    - learner: "Avendo letto l'annuncio sapevo che lo fosse scritto per me."
+      errors: [object-pronoun]
+    - tutor: "Che bello! Ma ripeta la frase: «sapevo che lo fosse scritto». Quel «lo» serve davvero?"
+      prompt: {text: "che lo fosse scritto", tags: [object-pronoun]}
+    - learner: "Sì, sapevo che lo fosse scritto proprio per me."
+      errors: [object-pronoun]
+    - tutor: "Capisco, sentiva che fosse scritto proprio per lei. Ha qualche domanda per me?"
+      recast: {text: "che lo fosse scritto", fix: "che fosse scritto", tags: [object-pronoun]}
+      goals: [why]
+    # merlin-1325_9000505-4
+    - learner: "Che cosa potrei fare per Loro?"
+    - tutor: "All'inizio farebbe ricerche di mercato sui nuovi clienti. Le mandiamo il contratto per posta. Arrivederci e grazie!"
+      goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_9000685-0
+    - learner: "Durante i miei studi universitari ho partecipato al programma Socrates - Erasmus studiando per il periodo di cinque mesi a Bologna."
+    - tutor: "Ah, ecco perché parla così bene! E quando ha cominciato con l'italiano?"
+      goals: [intro]
+    # merlin-1325_1001057-0
+    - learner: "Ho iniziato studiare la lingua italiana nel 2012."
+      errors: [preposition]
+    - tutor: "Bene. Ma ripeta: «ho iniziato studiare». Fra i due verbi manca qualcosa?"
+      prompt: {text: "iniziato studiare", tags: [preposition]}
+    - learner: "Ho iniziato a studiare l'italiano nel 2012, all'università."
+    - tutor: "Esatto. E ha anche qualche certificato di lingua?"
+      new: [{lemma: certificato, gloss: certificate}]
+    # merlin-1325_1001040-4
+    - learner: "Studio inglese da otto anni e sono riuscita a superare l'esame di lingua in livello superiore in inglese."
+      errors: [preposition]
+    - tutor: "Brava! Però attenzione: «in livello superiore»? Pensi a che tipo di esame è: quale preposizione usiamo?"
+      prompt: {text: "in livello superiore", tags: [preposition]}
+    - learner: "Sì, l'esame in livello superiore, a Madrid."
+      errors: [preposition]
+    - tutor: "Un esame di livello superiore, bravissima! Con tutte queste lingue, quali sono i suoi punti di forza?"
+      recast: {text: "in livello superiore", fix: "di livello superiore", tags: [preposition]}
+      goals: [experience]
+    - learner: "Sono molto organizzata e mi piace parlare con personas di tutto il mondo. Per questo vorrei lavorare in un hotel internazionale."
+      errors: [word-choice]
+    - tutor: "Con persone di tutto il mondo? Il nostro hotel ha clienti da ogni paese, quindi lei sarebbe perfetta. Vuole chiedermi qualcosa?"
+      recast: {text: "personas", fix: "persone", tags: [word-choice]}
+      goals: [strengths, why]
+    # merlin-1325_1001086-5
+    - learner: "Ho alcune domande: da quanto fino a quanto devo lavorare?"
+      errors: [question-form]
+    - tutor: "Certo! Ma «da quanto fino a quanto»? Lei vuole sapere l'inizio e la fine: quale parola usiamo per il tempo?"
+      prompt: {text: "da quanto fino a quanto", tags: [question-form]}
+    - learner: "Da quando fino a quando devo lavorare?"
+    - tutor: "Perfetto. Dalle sette alle tre, oppure dalle tre alle undici: facciamo i turni. Le faremo sapere presto!"
+      goals: [questions]
+
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-student
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    # merlin-1325_1001080-5
+    - learner: "Mi sono laureata fra due anni."
+      errors: [preposition]
+    - tutor: "Ah, «fra due anni»? Con «fra» parliamo del futuro... ma lei si è già laureata, no?"
+      prompt: {text: "fra due anni", tags: [preposition]}
+    - learner: "Sì, mi sono laureata due anni fa, a Londra."
+    - tutor: "Esatto. E che cosa le interessa del nostro lavoro?"
+      goals: [intro]
+    # merlin-1325_1001120-8
+    - learner: "Mi interessa specialmente della moda."
+      errors: [preposition]
+    - tutor: "Benissimo. Ma ripeta: «mi interessa della moda»? Che cosa le interessa? Quel «della» va bene?"
+      prompt: {text: "della moda", tags: [preposition]}
+    - learner: "Sì, mi interessa della moda italiana, da sempre."
+      errors: [preposition]
+    - tutor: "Le interessa la moda italiana da sempre, bellissimo. E quali sono i suoi punti di forza?"
+      recast: {text: "della moda", fix: "la moda", tags: [preposition]}
+      goals: [why]
+    - learner: "Sono creativa e precisa, e ho già lavorato due anni in un negozio di scarpe."
+    - tutor: "Ottime qualità, e un'esperienza utile per noi. Ha qualche domanda?"
+      goals: [experience, strengths]
+    # merlin-1325_1001079-6
+    - learner: "Se possiamo lavorare insieme, vorrei sapere l'orario di lavoro, quando posso iniziare e se è possibile mi può fornire informazione dalla retribuzione."
+      errors: [articulated-preposition, noun-number]
+    - tutor: "Certo. Però ascolti: «informazione dalla retribuzione». Si parla di un argomento: quella preposizione va bene?"
+      prompt: {text: "dalla retribuzione", tags: [articulated-preposition]}
+    - learner: "Informazioni sulla retribuzione, scusi."
+    - tutor: "Perfetto. Si lavora dalle nove alle sei, si comincia a marzo e lo stipendio è di mille e duecento euro. Arrivederci!"
+      goals: [questions]
+      new: [{lemma: stipendio, gloss: salary}]

@@ -1,0 +1,287 @@
+# Set v-question, file 5: B2 registry office, insurance, cardiologist, rent negotiation, interview, wedding, restaurant, art.
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-professional
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Mi sono trasferita a Torino a marzo e vorrei chiedere la residenza."
+  - tutor: "Bene. Ha con sé il contratto d'affitto e un documento d'identità?"
+    goals: [request]
+  - learner: "Il contratto sì, e anche il passaporto. Il permesso di soggiorno serve anche se sono cittadina europea?"
+  - tutor: "No, per chi viene da un paese dell'Unione non serve: basta il passaporto o la carta d'identità."
+  - learner: "Perfetto. Vorrei sapere è necessario anche un certificato di lavoro."
+    errors: [question-form]
+  - tutor: "Vorrei sapere... è necessario? Manca una piccola parola prima della domanda."
+    prompt: {text: "Vorrei sapere è necessario", tags: [question-form]}
+  - learner: "Vorrei sapere se è necessario anche un certificato di lavoro."
+  - tutor: "Esatto. Sì, deve dimostrare di avere un lavoro o risorse sufficienti. Ce l'ha con sé?"
+    goals: [documents]
+  - learner: "Purtroppo no, l'ho lasciato a casa. Il mio datore di lavoro me l'ha mandato per email."
+  - tutor: "Non si preoccupi: può mandarlo per email al nostro ufficio, oppure portarlo entro dieci giorni."
+    goals: [problem]
+  - learner: "Ottimo. E dopo, mi può dire quando sarà la pratica chiusa?"
+    errors: [question-form]
+  - tutor: "Quando sarà la pratica chiusa? L'ordine delle parole, in italiano, non è naturale."
+    prompt: {text: "quando sarà la pratica chiusa", tags: [question-form]}
+  - learner: "Mi può dire quando sarà la pratica completata?"
+    errors: [question-form]
+  - tutor: "Quando sarà completata la pratica? Di solito entro quarantacinque giorni, dopo il controllo dei vigili."
+    recast: {text: "quando sarà la pratica completata", fix: "quando sarà completata la pratica", tags: [question-form]}
+  - learner: "Eventualmente i vigili vengono a casa mia?"
+    errors: [false-friend]
+  - tutor: "Sì, alla fine passano i vigili, per verificare che lei abiti davvero all'indirizzo indicato. Se non la trovano, lasciano un avviso e tornano."
+    recast: {text: "Eventualmente", fix: "alla fine", tags: [false-friend]}
+    goals: [next]
+  - learner: "Capito. Grazie, è stata molto chiara."
+  - tutor: "Si figuri. Buona giornata e benvenuta a Torino!"
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-m-worker
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri mattina sono stato fermo al semaforo e una macchina mi ha tamponato."
+    errors: [tense-aspect]
+  - tutor: "Sono stato fermo? Era la situazione in cui si trovava quando è successo l'incidente..."
+    prompt: {text: "sono stato fermo", tags: [tense-aspect]}
+  - learner: "Ero fermo al semaforo e una macchina mi ha tamponato."
+  - tutor: "Esatto. Mi dispiace, si è fatto male?"
+    goals: [what]
+  - learner: "No, per fortuna no. Però il paraurti è completamente rotto. L'altro conducente ha detto che stava guardando il telefono."
+  - tutor: "Quindi la responsabilità è chiaramente sua. Avete compilato la constatazione amichevole?"
+    goals: [responsibility]
+  - learner: "Sì, l'abbiamo firmata tutti e due, con le targhe e i dati delle assicurazioni."
+  - tutor: "Benissimo. Ultima domanda: lei è nostro cliente da molto?"
+  - learner: "Fa quanto che sono cliente? Credo cinque anni."
+    errors: [question-form]
+  - tutor: "Fa quanto che...? In italiano questa domanda si costruisce in un altro modo."
+    prompt: {text: "Fa quanto che sono cliente", tags: [question-form]}
+  - learner: "Da quanto tempo sono cliente?"
+  - tutor: "Perfetto. Dal 2019, e senza nessun sinistro. Ottimo."
+    goals: [documents]
+  - learner: "Bene. E adesso cosa succede? Quando viene il perito?"
+  - tutor: "Il perito la contatterà entro una settimana per valutare il danno. Visto che la colpa è dell'altro, la franchigia non la paga lei."
+  - learner: "Come così? Nel contratto c'è scritto che la pago sempre io."
+    errors: [question-form]
+  - tutor: "Come così? Mmm, non mi è chiaro che cosa vuole chiedere."
+    prompt: {text: "Come così", tags: [question-form]}
+  - learner: "Come così che non la pago?"
+    errors: [question-form]
+  - tutor: "In che senso, mi chiede? La franchigia si paga solo quando il sinistro è causato da lei. Questa volta paga tutto l'assicurazione dell'altro."
+    recast: {text: "Come così", fix: "In che senso", tags: [question-form]}
+    goals: [next]
+  - learner: "Ah, adesso ho capito. Grazie mille per la pazienza."
+  - tutor: "Si figuri. La richiamo io appena ho la data della perizia."
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-retired
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Abbastanza bene, ma quando salgo le scale mi sento stanco e il cuore batte forte."
+  - tutor: "Capisco. Le succede anche a riposo, o solo sotto sforzo?"
+  - learner: "Solo sotto sforzo. Una volta, il mese scorso, mi girava la testa mentre camminavo in salita."
+    goals: [symptoms]
+  - tutor: "Bene che me lo dica. Ci sono stati problemi di cuore in famiglia?"
+  - learner: "Sì, mio padre ha avuto un infarto a sessant'anni. Mi può spiegare cosa questi valori significano?"
+    errors: [question-form]
+  - tutor: "Cosa questi valori significano? L'ordine delle parole, in italiano, è diverso."
+    prompt: {text: "cosa questi valori significano", tags: [question-form]}
+    goals: [history]
+  - learner: "Mi può spiegare cosa i valori significano?"
+    errors: [question-form]
+  - tutor: "Cosa significano i valori? Che la pressione è un po' alta e che, sotto sforzo, il battito diventa irregolare."
+    new: [{lemma: irregolare, gloss: irregular}]
+    recast: {text: "cosa i valori significano", fix: "cosa significano i valori", tags: [question-form]}
+  - learner: "Pensa che è una cosa grave?"
+    errors: [subjunctive-use]
+  - tutor: "Pensa che è...? Dopo «pensare che», quale modo usiamo?"
+    prompt: {text: "Pensa che è", tags: [subjunctive-use]}
+  - learner: "Pensa che sia una cosa grave?"
+  - tutor: "Esatto. No, non direi grave, ma va tenuta sotto controllo. Le do un farmaco per la pressione."
+    goals: [understand]
+  - learner: "Per quanto lungo devo prenderlo?"
+    errors: [question-form]
+  - tutor: "Per quanto lungo? Per la durata c'è un modo più naturale."
+    prompt: {text: "Per quanto lungo", tags: [question-form]}
+  - learner: "Per quanto tempo devo prenderlo?"
+  - tutor: "Perfetto. Almeno sei mesi, poi ripetiamo gli esami."
+  - learner: "E ci sono effetti collaterali? Mi preoccupa che mi faccia venire sonno."
+  - tutor: "I primi giorni può sentire un po' di affaticamento, poi di solito passa. Se ha dubbi, mi chiami pure."
+    goals: [treatment]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-f-teacher
+  history: [question-form]
+  turns:
+  - tutor: "Allora, le è piaciuto l'appartamento?"
+  - learner: "Sì, mi è piaciuto molto, soprattutto la luce. Però il canone mi sembra un po' alto."
+  - tutor: "Capisco. Il canone è di novecento euro, ma è trattabile entro certi limiti."
+    goals: [interest]
+  - learner: "Il proprietario accettaria ottocentocinquanta, se firmo per quattro anni?"
+    errors: [conditional-form]
+  - tutor: "Accettaria? Attenzione alla forma del condizionale."
+    prompt: {text: "accettaria", tags: [conditional-form]}
+  - learner: "Accetterebbe ottocentocinquanta, se firmo per quattro anni?"
+  - tutor: "Esatto. Ne parlo con lui, ma credo che possa arrivare a ottocentosettanta."
+    goals: [negotiate]
+  - learner: "Va bene. E la provvigione dell'agenzia, a quanto ammonta?"
+  - tutor: "È pari a un mese di affitto, più IVA."
+  - learner: "Capisco. Quanto tempo fa che è vuoto l'appartamento?"
+    errors: [question-form]
+  - tutor: "Quanto tempo fa che...? Per una situazione che continua ancora, in italiano la domanda si costruisce diversamente."
+    prompt: {text: "Quanto tempo fa che è vuoto", tags: [question-form]}
+  - learner: "Quanto tempo fa è vuoto?"
+    errors: [question-form]
+  - tutor: "Da quanto tempo è vuoto? Da due mesi soltanto: la persona che ci abitava si è trasferita a Milano."
+    recast: {text: "Quanto tempo fa è vuoto", fix: "Da quanto tempo è vuoto", tags: [question-form]}
+  - learner: "E se dovessi andarmene prima, con quanto anticipo dovrei dare la disdetta?"
+  - tutor: "Deve avvisare sei mesi prima, con una lettera raccomandata."
+    goals: [conditions]
+  - learner: "D'accordo. Allora facciamo ottocentosettanta, con un contratto di quattro anni più quattro?"
+  - tutor: "Perfetto. Preparo la proposta e la mando al proprietario oggi stesso."
+    goals: [conclude]
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: en-f-student
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+  - learner: "Buongiorno. Mi chiamo Hannah, ho ventisei anni e mi sono laureata in marketing a Manchester."
+  - tutor: "Bene. E che esperienza ha nel settore?"
+    goals: [intro]
+  - learner: "Lavoravo per due anni in un'agenzia di comunicazione, dove mi occupavo dei social."
+    errors: [tense-aspect]
+  - tutor: "Lavoravo per due anni? Si tratta di un periodo concluso e preciso, quindi..."
+    prompt: {text: "Lavoravo per due anni", tags: [tense-aspect]}
+  - learner: "Ho lavorato per due anni in un'agenzia di comunicazione."
+  - tutor: "Esatto. Quali sono i suoi punti di forza? E un punto debole?"
+    goals: [experience]
+  - learner: "Sono molto organizzata e lavoro bene in squadra. Il mio punto debole è che sono troppo perfezionista."
+  - tutor: "Un classico! E perché vuole lavorare proprio da noi?"
+    goals: [strengths]
+  - learner: "Quando ho visto l'annuncio, ho realizzato che era il lavoro perfetto: lavorate con clienti internazionali e io parlo tre lingue."
+    errors: [false-friend]
+  - tutor: "Quindi ha capito subito che il posto faceva per lei. Le lingue sono un vantaggio importante, qui. Ha qualche domanda per me?"
+    recast: {text: "realizzato", fix: "capito", tags: [false-friend]}
+    goals: [why]
+  - learner: "Sì: con chi lavorerei con ogni giorno?"
+    errors: [question-form]
+  - tutor: "Con chi lavorerei con? C'è una parola di troppo."
+    prompt: {text: "con chi lavorerei con", tags: [question-form]}
+  - learner: "Con chi lavorerei ogni giorno?"
+  - tutor: "Perfetto. Con un gruppo di cinque persone, guidato dalla responsabile della comunicazione."
+    goals: [questions]
+  - learner: "E c'è la possibilità di lavorare da casa qualche giorno?"
+  - tutor: "Sì, due giorni alla settimana. Le faremo sapere entro venerdì. Grazie per essere venuta."
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-heritage
+  history: [question-form]
+  turns:
+  - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+  - learner: "Grazie! Vorremmo una cosa semplice, all'aperto, con circa ottanta invitati."
+  - tutor: "Che bello. E avete già un'idea del budget?"
+    goals: [vision]
+  - learner: "Pensavamo a venticinquemila euro al massimo. Basta, no?"
+  - tutor: "Per ottanta persone è un budget ragionevole, se scegliamo bene la location."
+    goals: [budget]
+  - learner: "Abbiamo visto una villa sul lago e un agriturismo in collina. Quale Lei consiglia?"
+    errors: [question-form]
+  - tutor: "Quale Lei consiglia? Attenzione all'ordine delle parole."
+    prompt: {text: "Quale Lei consiglia", tags: [question-form]}
+  - learner: "Quale ci consiglia Lei?"
+  - tutor: "Perfetto. La villa è più elegante, l'agriturismo più economico e informale. Dipende da voi."
+    new: [{lemma: agriturismo, gloss: farm stay venue}]
+  - learner: "Allora l'agriturismo. Ma se piove, cosa si fa?"
+  - tutor: "Hanno una grande sala coperta, quindi nessun problema."
+    goals: [choices]
+  - learner: "E per il menù, chi devo parlare con?"
+    errors: [question-form]
+  - tutor: "Chi devo parlare con? La preposizione è finita nel posto sbagliato."
+    prompt: {text: "chi devo parlare con", tags: [question-form]}
+  - learner: "Con chi devo parlare per il menù?"
+  - tutor: "Esatto. Con il cuoco del ristorante: organizziamo una prova del menù il mese prossimo."
+  - learner: "Benissimo. Vorrei che il fotografo sia anche bravo con i video."
+    errors: [subjunctive-use]
+  - tutor: "Vorrei che... sia? Con «vorrei», quale tempo del congiuntivo serve?"
+    prompt: {text: "Vorrei che il fotografo sia", tags: [subjunctive-use]}
+  - learner: "Vorrei che fosse anche bravo con i video."
+  - tutor: "Bravissimo. Ne conosco uno ottimo: ve lo presento la settimana prossima."
+  - learner: "Un'ultima cosa: nessuna decisione senza parlarne prima con noi, d'accordo?"
+  - tutor: "Ci mancherebbe. Ogni preventivo ve lo mando prima di firmare qualsiasi cosa."
+    goals: [conditions]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-traveller
+  history: [question-form]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Sì, buonasera. Purtroppo la serata è stata molto disappointante."
+    errors: [word-choice]
+  - tutor: "Deludente? Mi dispiace molto. Che cosa è successo, esattamente?"
+    recast: {text: "disappointante", fix: "deludente", tags: [word-choice]}
+    goals: [complain]
+  - learner: "Abbiamo aspettato cinquanta minuti per i primi, e poi la carne era troppo rara."
+    errors: [false-friend]
+  - tutor: "Troppo al sangue, e dopo un'attesa così lunga? Ha perfettamente ragione. Stasera in cucina mancavano due persone."
+    recast: {text: "rara", fix: "al sangue", tags: [false-friend]}
+    goals: [detail]
+  - learner: "Capisco, ma avrei preferito che qualcuno ci avvisava."
+    errors: [subjunctive-use]
+  - tutor: "Che qualcuno ci avvisava? Dopo «avrei preferito che», quale modo serve?"
+    prompt: {text: "che qualcuno ci avvisava", tags: [subjunctive-use]}
+  - learner: "Avrei preferito che qualcuno ci avesse avvisato."
+  - tutor: "Giustissimo. Mi permetta di offrirvi il dolce e uno sconto del trenta per cento."
+    goals: [expectation]
+  - learner: "Il trenta? Come viene che non offrite tutto il conto?"
+    errors: [question-form]
+  - tutor: "Come viene che...? Mmm, sembra una traduzione dall'inglese."
+    prompt: {text: "Come viene che", tags: [question-form]}
+  - learner: "Com'è che non offrite tutto il conto?"
+  - tutor: "Perché il resto della cena, mi dicono, è andato bene. Ma posso arrivare al cinquanta per cento."
+  - learner: "Va bene, accetto. Spero che la prossima volta vada meglio."
+  - tutor: "Glielo garantisco. Grazie per la pazienza, e alla prossima."
+    goals: [resolve]
+
+- scenario: arte-mostra
+  level: B2
+  persona: es-f-erasmus
+  history: [question-form]
+  turns:
+  - tutor: "Guarda questo quadro. Che impressione ti fa?"
+  - learner: "Mi colpisce molto. La luce è incredibile, sembra che venga da dentro il quadro."
+  - tutor: "Vero? È tipico di questo pittore: la luce taglia il buio all'improvviso."
+    goals: [react]
+  - learner: "In primo piano c'è un uomo che sta leggendo, e il sfondo è quasi nero."
+    errors: [article-form]
+  - tutor: "Il sfondo? Attenzione all'articolo davanti a parole come «studente» o «specchio»."
+    prompt: {text: "il sfondo", tags: [article-form]}
+  - learner: "Lo sfondo è quasi nero."
+  - tutor: "Esatto. E secondo te perché il pittore ha scelto uno sfondo così scuro?"
+    goals: [describe]
+  - learner: "Credo che vuole mettere l'accento sul personaggio."
+    errors: [subjunctive-use]
+  - tutor: "Credo che vuole? Dopo «credo che» ci vuole un altro modo."
+    prompt: {text: "Credo che vuole", tags: [subjunctive-use]}
+  - learner: "Credo che voglia mettere l'accento sul personaggio e sul libro."
+  - tutor: "Interessante: il libro come unica fonte di luce. Mi piace questa lettura."
+    goals: [interpret]
+  - learner: "In che anno è stato dipinto?"
+  - tutor: "Intorno al 1605. Secondo me è più forte del Rembrandt nella sala accanto."
+  - learner: "Davvero? E questo per che?"
+    errors: [question-form]
+  - tutor: "Per che? Mmm, prova a fare la domanda con una parola sola."
+    prompt: {text: "per che", tags: [question-form]}
+  - learner: "E questo perché?"
+  - tutor: "Perché Rembrandt è più intimo, mentre qui tutto si gioca tra luce e ombra."
+  - learner: "Io preferisco Rembrandt: i colori sono più caldi, meno violenti."
+  - tutor: "Ecco, su questo non siamo d'accordo! Andiamo a vederlo, così mi convinci."
+    goals: [compare]

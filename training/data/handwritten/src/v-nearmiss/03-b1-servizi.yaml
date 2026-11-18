@@ -1,0 +1,223 @@
+# Set v-nearmiss, file 3: B1. Left alone: «di cui», «in cui», «volevo aprire», «ce l'ho già»,
+# «nessuno ha risposto», «non funziona da ieri», «lo voglio restituire / voglio restituirlo»,
+# «me lo cambia», «ci resto», «ne ho sentito parlare», «ci starò attento», «ce la faccio»,
+# «si mangia il tacchino», «eravamo in quindici», «attualmente» (= currently), «giorni che».
+# Corrected twins: «il parco che mi ha parlato», «posso di avere», «c'era niente», «voglio lo
+# restituire», «mi consigli tre», «bevo cinque», «si mangia le lenticchie», «eccitata».
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-m-traveller
+  history: [relative-pronoun]
+  turns:
+  - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+  - learner: "Buongiorno. È molto luminoso! È questo l'appartamento di cui mi ha parlato al telefono?"
+  - tutor: "Sì, proprio questo. Sono settecento euro al mese, spese comprese."
+    goals: [rent]
+  - learner: "Va bene. E il contratto quanto dura?"
+  - tutor: "Quattro anni più quattro, come quasi sempre in Italia."
+    goals: [contract]
+  - learner: "Il riscaldamento è autonomo? L'ultima casa in cui ho abitato era freddissima."
+  - tutor: "Sì, è autonomo, e la caldaia è nuova: l'abbiamo cambiata a settembre."
+    goals: [condition]
+    new: [{lemma: "caldaia", gloss: "boiler"}]
+  - learner: "Ottimo. E qui vicino c'è anche il parco che mi ha parlato il mio collega?"
+    errors: [relative-pronoun]
+  - tutor: "Il parco che mi ha parlato? Pensa: il tuo collega ha parlato di qualcosa."
+    prompt: {text: "il parco che mi ha parlato", tags: [relative-pronoun]}
+  - learner: "Sì, il parco che mi ha parlato, quello grande."
+    errors: [relative-pronoun]
+  - tutor: "Ah, il parco di cui le ha parlato il suo collega! È proprio dietro il palazzo, e la fermata della metro è all'angolo."
+    recast: {text: "il parco che", fix: "il parco di cui", tags: [relative-pronoun]}
+    goals: [neighbourhood]
+  - learner: "Allora lo prendo! Quando posso segnare il contratto?"
+    errors: [word-choice]
+  - tutor: "Può firmare il contratto anche domani mattina, se le va bene. Lo preparo io."
+    recast: {text: "segnare il contratto", fix: "firmare il contratto", tags: [word-choice]}
+    goals: [decide]
+
+- scenario: banca-conto
+  level: B1
+  persona: es-f-erasmus
+  history: [modal-infinitive]
+  turns:
+  - tutor: "Buongiorno, come posso esserle utile?"
+  - learner: "Buongiorno. Volevo aprire un conto. Sono qui per un anno con l'Erasmus."
+  - tutor: "Benissimo, abbiamo un conto pensato proprio per gli studenti."
+    goals: [purpose]
+  - learner: "Che documenti devo portare?"
+  - tutor: "Il passaporto, il codice fiscale e un documento dell'università."
+  - learner: "Il codice fiscale ce l'ho già, l'ho fatto il mese scorso."
+  - tutor: "Perfetto, allora siamo già a buon punto."
+    goals: [documents]
+  - learner: "Quanto si paga al mese? Non vorrei gastare molto."
+    errors: [word-choice]
+  - tutor: "Non dovrà spendere niente: per gli studenti sotto i trent'anni il conto è gratis."
+    recast: {text: "gastare", fix: "spendere", tags: [word-choice]}
+    goals: [costs]
+  - learner: "Che bello! E posso di avere anche una carta per pagare online?"
+    errors: [modal-infinitive]
+  - tutor: "Posso di avere? Dopo «posso», serve davvero quel «di»?"
+    prompt: {text: "posso di avere", tags: [modal-infinitive]}
+  - learner: "Sì, posso di avere la carta? Per i viaggi."
+    errors: [modal-infinitive]
+  - tutor: "Certo, può avere la carta già da oggi, e funziona anche quando viaggia."
+    recast: {text: "di avere la carta", fix: "avere la carta", tags: [modal-infinitive]}
+    goals: [card]
+  - learner: "Perfetto, grazie mille, è stata gentilissima."
+  - tutor: "Si figuri! Adesso le preparo tutto, deve solo firmare."
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-professional
+  history: [negation]
+  turns:
+  - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+  - learner: "Buonasera. Sì, nella mia camera la doccia non funziona da ieri sera."
+  - tutor: "Mi dispiace molto. Esce poca acqua o non esce proprio?"
+    goals: [problem]
+  - learner: "Non esce niente. Ho chiamato la reception due volte, ma nessuno ha risposto."
+  - tutor: "Mi scusi davvero, di notte siamo in pochi. Quindi è così da ieri sera."
+    goals: [since]
+  - learner: "Sì, e domani ho una riunione importante. Potrebbe darmi un'altra camera?"
+  - tutor: "Certo. Ho una camera libera al quarto piano, ed è anche più tranquilla."
+    goals: [request]
+  - learner: "Grazie. Però stamattina al buffet c'era niente di caldo."
+    errors: [negation]
+  - tutor: "C'era niente? Manca una piccola parola all'inizio della frase."
+    prompt: {text: "c'era niente", tags: [negation]}
+  - learner: "Sì, c'era niente di caldo, solo pane e marmellata."
+    errors: [negation]
+  - tutor: "Ha ragione, non c'era niente di caldo, e mi dispiace. Domani le offriamo la colazione in camera. Le va bene?"
+    recast: {text: "c'era niente", fix: "non c'era niente", tags: [negation]}
+  - learner: "Sì, va benissimo, grazie."
+  - tutor: "Ecco la chiave della nuova camera. Buonanotte!"
+    goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-heritage
+  history: [pronoun-position]
+  turns:
+  - tutor: "Buongiorno, mi dica pure."
+  - learner: "Buongiorno. Ho comprato questo frullatore martedì, ma si accende e poi si spegne subito."
+  - tutor: "Mi dispiace. L'ha usato molte volte?"
+    goals: [problem]
+    new: [{lemma: "frullatore", gloss: "blender"}]
+  - learner: "Solo due volte. Lo scontrino ce l'ho qui, l'ho conservato."
+  - tutor: "Perfetto, grazie, è tutto in ordine."
+    goals: [proof]
+  - learner: "Voglio lo restituire e avere indietro i soldi."
+    errors: [pronoun-position]
+  - tutor: "Voglio lo restituire? Il pronome lì è fuori posto: dove lo mettiamo?"
+    prompt: {text: "Voglio lo restituire", tags: [pronoun-position]}
+  - learner: "Lo voglio restituire. O voglio restituirlo?"
+  - tutor: "Vanno bene tutte e due! Purtroppo però possiamo solo cambiarlo o darle un buono."
+    goals: [request]
+  - learner: "Va bene, allora me lo cambia con uno nuovo, per favore."
+  - tutor: "Certo, glielo prendo subito dal magazzino."
+    goals: [agree]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+  - tutor: "Allora, quando parti per Napoli?"
+  - learner: "Parto venerdì prossimo e ci resto una settimana."
+  - tutor: "Una settimana è perfetta! Cosa vuoi vedere?"
+    goals: [plans]
+  - learner: "Il centro storico e Pompei. Ne ho sentito parlare tanto."
+  - tutor: "Allora a Pompei vai la mattina presto, prima dei gruppi. E porta tanta acqua!"
+    goals: [advice]
+  - learner: "Come ci vado da Napoli? In treno?"
+  - tutor: "Sì, in treno: costa poco, ma è sempre pieno di gente."
+    goals: [transport]
+  - learner: "E la pizza? Tu conosci tante pizzerie. Mi consigli tre?"
+    errors: [ci-ne]
+  - tutor: "Mi consigli tre? Tre cosa? Manca qualcosa prima del verbo."
+    prompt: {text: "Mi consigli tre", tags: [ci-ne]}
+  - learner: "Ah, me ne consigli tre?"
+  - tutor: "Certo, te ne scrivo tre sul telefono! Ma sui mezzi tieni sempre d'occhio il portafoglio."
+    goals: [warnings]
+    new: [{lemma: "portafoglio", gloss: "wallet"}]
+  - learner: "Grazie, ci starò attento."
+  - tutor: "Bravo. E mandami una foto della prima pizza!"
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: en-f-student
+  history: [ci-ne]
+  turns:
+  - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+  - learner: "Lavoro al computer otto ore al giorno e non faccio sport. Però mangio frutta e verdura ogni giorno."
+  - tutor: "È già un buon inizio. E l'acqua? Quanta ne bevi?"
+  - learner: "Poca. Bevo molti caffè, invece: bevo cinque al giorno."
+    errors: [ci-ne]
+  - tutor: "Cinque? Scusa, ripeti la frase intera."
+    prompt: {text: "bevo cinque", tags: [ci-ne]}
+  - learner: "Ne bevo cinque al giorno. Lo so, sono troppi!"
+  - tutor: "Sì, un po' troppi! E qual è il tuo obiettivo?"
+    goals: [habits]
+  - learner: "Vorrei perdere tre chili e sentirmi meno stanca. Sono più stanca di quanto pensassi."
+  - tutor: "Tre chili si possono perdere. Cosa ti ha fermato finora?"
+    goals: [goal]
+  - learner: "Il tempo. Ogni volta che ci provo, dopo una settimana smetto."
+  - tutor: "Succede a tutti. Allora facciamo un programma piccolo: tre allenamenti a settimana, di mezz'ora."
+    goals: [obstacles]
+  - learner: "Mezz'ora ce la faccio! E posso anche andare al lavoro in bici."
+  - tutor: "Ottimo! Allora cominciamo lunedì."
+    goals: [plan]
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: en-m-retired
+  history: [subject-verb-agreement]
+  turns:
+  - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+  - learner: "Anche da noi si mangia tanto! Il pranzo di Natale è il momento più importante."
+  - tutor: "Come da noi, allora. E cosa si mangia?"
+    goals: [compare]
+  - learner: "Si mangia il tacchino con le patate, e poi un dolce con la frutta secca."
+  - tutor: "Il tacchino, che bello! E quando eri piccolo, com'era il Natale?"
+    new: [{lemma: "tacchino", gloss: "turkey"}]
+  - learner: "Andavamo tutti dalla nonna. Eravamo in quindici a tavola!"
+  - tutor: "In quindici, che festa! Doveva essere bellissimo."
+    goals: [past]
+  - learner: "Sì. E voi a Capodanno cosa fate? Ho sentito che si mangia le lenticchie."
+    errors: [subject-verb-agreement]
+  - tutor: "Si mangia le lenticchie? Attenzione, le lenticchie sono tante."
+    prompt: {text: "si mangia le lenticchie", tags: [subject-verb-agreement]}
+  - learner: "Sì, si mangia le lenticchie a mezzanotte, no?"
+    errors: [subject-verb-agreement]
+  - tutor: "Esatto, si mangiano le lenticchie: dicono che portano soldi per tutto l'anno!"
+    recast: {text: "si mangia le lenticchie", fix: "si mangiano le lenticchie", tags: [subject-verb-agreement]}
+    goals: [ask]
+  - learner: "Allora quest'anno le provo anch'io! Posso venire da voi alla Vigilia di Anno Nuovo?"
+    errors: [word-choice]
+  - tutor: "Da noi a Capodanno? Certo, ti aspettiamo: porta solo tanta fame!"
+    recast: {text: "alla Vigilia di Anno Nuovo", fix: "a Capodanno", tags: [word-choice]}
+    goals: [plan]
+
+- scenario: volontariato
+  level: B1
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+  - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+  - learner: "Sì, molto. Attualmente lavoro part-time, quindi ho qualche pomeriggio libero."
+  - tutor: "Che bello! E perché hai deciso di fare volontariato?"
+  - learner: "Mi sono trasferita qui da poco e vorrei rendermi utile. E anche conoscere gente."
+  - tutor: "Due ottimi motivi! Che cosa sai fare?"
+    goals: [motivation]
+  - learner: "Sono infermiera, quindi posso aiutare con gli anziani. E parlo tre lingue."
+  - tutor: "Perfetto, ci serve proprio qualcuno come te."
+    goals: [skills]
+  - learner: "Però ci sono giorni che lavoro fino a tardi. Il martedì e il giovedì sono sicura."
+  - tutor: "Nessun problema, martedì e giovedì vanno benissimo. Preferisci gli anziani o i bambini?"
+    goals: [time]
+  - learner: "Gli anziani, sicuramente. Sono molto eccitata di cominciare!"
+    errors: [false-friend]
+  - tutor: "Che bello vederti così emozionata! Allora ti metto nel gruppo degli anziani, da martedì."
+    recast: {text: "eccitata", fix: "emozionata", tags: [false-friend]}
+    goals: [choose]
+    new: [{lemma: "emozionato", gloss: "excited"}]

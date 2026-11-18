@@ -1,0 +1,246 @@
+# v-real-a2-2, file 03: studying Italian in Italy, the course, classmates and free time (A2, real learner sentences).
+- scenario: hotel-checkin
+  level: A2
+  persona: en-m-traveller
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Buonasera e benvenuto! Ha una prenotazione?"
+    # merlin-1365_0100195-2
+    - learner: "Vorrei prenotare una camera singola, se possibile."
+    - tutor: "Certo, una singola c'è ancora. Per quante notti?"
+    # merlin-1365_0100191-2
+    - learner: "Sono un insegnante quindi fortunamente ho una vacanze di due mesi dal Luglio al Agosto."
+      errors: [noun-number, spelling, articulated-preposition]
+    - tutor: "Due mesi, che fortuna! Ma «una vacanze»? Una o tante?"
+      prompt: {text: "una vacanze", tags: [noun-number]}
+    - learner: "Una vacanza! Ma qui resto solo tre notti. Mi chiamo Peter Brown."
+    - tutor: "Perfetto, signor Brown, tre notti. La camera costa sessanta euro a notte."
+      goals: [booking]
+    # merlin-1365_0100196-6
+    - learner: "I prezzi comprendi la prima colazione?"
+      errors: [subject-verb-agreement]
+    - tutor: "«I prezzi comprendi»? Pensi a chi fa l'azione: i prezzi, loro..."
+      prompt: {text: "I prezzi comprendi", tags: [subject-verb-agreement]}
+    - learner: "Ah, scusi. Ecco il passaporto. I prezzi comprende la colazione?"
+      errors: [subject-verb-agreement]
+    - tutor: "Sì, i prezzi comprendono la colazione, dalle sette alle dieci. Grazie per il passaporto."
+      goals: [document, breakfast]
+      recast: {text: "I prezzi comprende", fix: "i prezzi comprendono", tags: [subject-verb-agreement]}
+      new: [{lemma: comprendere, gloss: to include}]
+    # merlin-1365_0100280-7
+    - learner: "Dove devo andare?"
+    - tutor: "Ecco la chiave: camera 214, al secondo piano, a destra."
+      goals: [key]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: es-f-teacher
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera! Vorrei reservar un tavolo per venerdì sera, per la mia classe."
+      errors: [word-choice]
+    - tutor: "Prenotare un tavolo per una classe, che bello! Quante persone siete?"
+      goals: [book]
+      recast: {text: "reservar", fix: "prenotare", tags: [word-choice]}
+    # merlin-1395_0000504-3
+    - learner: "Siamo 15 studenti di diversa nazionalità."
+      errors: [adjective-agreement]
+    - tutor: "Quindici! Ma «diversa nazionalità»? Le nazionalità sono tante..."
+      prompt: {text: "diversa nazionalità", tags: [adjective-agreement]}
+    - learner: "Sì, studenti di diversa nazionalità, e anche l'insegnante."
+      errors: [adjective-agreement]
+    - tutor: "Ah, di diverse nazionalità, che bello! Allora sedici. Per che ora?"
+      recast: {text: "diversa nazionalità", fix: "diverse nazionalità", tags: [adjective-agreement]}
+    - learner: "Alle otto, se possibile. C'è una mesa grande fuori?"
+      errors: [word-choice]
+    - tutor: "Sì, abbiamo un tavolo grande fuori. A che nome? Dell'insegnante?"
+      goals: [details, special]
+      recast: {text: "una mesa grande", fix: "un tavolo grande", tags: [word-choice]}
+    # merlin-1395_0000499-6
+    - learner: "Si chiama Maria Rossi."
+    - tutor: "Perfetto: Maria Rossi, venerdì alle otto, sedici persone."
+      goals: [name]
+    # merlin-1325_1001097-11
+    - learner: "Grazie per pazienza."
+      errors: [article-use]
+    - tutor: "Prego! Ma «per pazienza»? Manca qualcosa prima del nome."
+      prompt: {text: "per pazienza", tags: [article-use]}
+    - learner: "Grazie per la pazienza!"
+    - tutor: "Di niente, è un piacere. A venerdì!"
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: en-f-student
+  history: [noun-gender]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo in un piccolo village vicino a Manchester, con il mio amico Tom."
+      errors: [word-choice]
+    - tutor: "In un piccolo paese vicino a Manchester! E tu e Tom vi conoscete da tanto?"
+      goals: [place]
+      recast: {text: "village", fix: "paese", tags: [word-choice]}
+    # merlin-1395_0000537-4
+    - learner: "Siamo andati a scuola insieme dieci anni fa!"
+    - tutor: "Che bello, siete amici da tanto! E cosa facevate insieme?"
+      goals: [school]
+    # merlin-1395_0000404-4
+    - learner: "Una volta siamo andati a Pisa per vedere il torre."
+      errors: [noun-gender]
+    - tutor: "A Pisa, che ricordo! Ma «il torre»? Torre è maschile o femminile?"
+      prompt: {text: "il torre", tags: [noun-gender]}
+    - learner: "Femminile! Per vedere la torre. Siamo saliti fino in alto."
+    - tutor: "Brava! E com'era la vista da lì in alto?"
+      goals: [event]
+    # merlin-1395_0000392-3
+    - learner: "È molto bello."
+      errors: [tense-aspect]
+    - tutor: "«È»? Parli di oggi o di quel giorno a Pisa?"
+      prompt: {text: "È molto bello", tags: [tense-aspect]}
+    - learner: "Di quel giorno: era molto bello! E tu, cosa ricordi della tua scuola?"
+    - tutor: "Esatto, era! Io ricordo la mia prima insegnante, era molto dolce. Andiamo a prendere un gelato?"
+
+- scenario: vacanze-passate
+  level: A2
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    # merlin-1395_0001034-0
+    - learner: "Caro Paola e Marco, siamo in Toscana a Firenze e facciamo un corso d'italiano."
+      errors: [adjective-agreement]
+    - tutor: "Ah, è il messaggio che hai mandato? Ma «caro Paola e Marco»? Sono due persone..."
+      prompt: {text: "Caro Paola e Marco", tags: [adjective-agreement]}
+    - learner: "Cari Paola e Marco! Sì, io e mia moglie siamo stati un mese a Firenze."
+    - tutor: "Esatto! Un mese a Firenze, che bello. E che tempo faceva?"
+      goals: [where]
+    - learner: "Faceva molto calor, trentacinque gradi ogni giorno."
+      errors: [word-choice]
+    - tutor: "Che caldo! E cosa facevate quando non avevate lezione?"
+      recast: {text: "calor", fix: "caldo", tags: [word-choice]}
+      goals: [weather]
+    # merlin-1395_0000470-5
+    - learner: "Per esempio, andiamo in ristorante, in cinema, al bar etc."
+      errors: [articulated-preposition, tense-aspect]
+    - tutor: "Al bar, va bene. Ma «in ristorante, in cinema»? Prova come «al bar»."
+      prompt: {text: "in ristorante, in cinema", tags: [articulated-preposition]}
+    - learner: "Andavamo al ristorante, al cinema e al bar."
+    - tutor: "Perfetto! E cosa ti è piaciuto di più?"
+      goals: [activities]
+    # merlin-1395_0001104-4
+    - learner: "Ho visitato il duomo."
+    - tutor: "Il Duomo di Firenze è bellissimo! L'anno prossimo ci vado anch'io."
+      goals: [best]
+
+- scenario: famiglia
+  level: A2
+  persona: en-f-professional
+  history: [possessive]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    # merlin-1395_0000448-2
+    - learner: "Nostre insegnante e bella ragazza."
+      errors: [possessive, spelling, article-use]
+    - tutor: "Ah, è la foto del corso! Ma «nostre insegnante»? È una sola, no?"
+      prompt: {text: "Nostre insegnante", tags: [possessive]}
+    - learner: "La nostra insegnante! È una bella ragazza."
+    - tutor: "Brava! E gli altri sono i tuoi compagni?"
+      goals: [who]
+    # merlin-1395_0001013-1
+    - learner: "Tutti sono giovani e molto simpatici!"
+    - tutor: "Si vede, sono tutti contenti! E la tua famiglia, ce l'hai nel telefono?"
+      goals: [describe]
+    # merlin-1395_0001028-2
+    - learner: "Ho tre fratelli ed una sorella gemella che si chiamano Maria, Michele, Francesco e Stefano."
+    - tutor: "Una gemella, che bello! E quanti anni avete?"
+    # merlin-1395_0000340-2
+    - learner: "Mio fratello ha un filho, Francesco, che ha 3 anni."
+      errors: [word-choice]
+    - tutor: "Ah, tuo fratello ha già un figlio di tre anni? Allora sei zia!"
+      goals: [ages]
+      recast: {text: "un filho", fix: "un figlio", tags: [word-choice]}
+    - learner: "Sì! E tu, Marco, hai siblings?"
+      errors: [word-choice]
+    - tutor: "Fratelli? Ho solo una sorella, Giulia. Anche lei ha un bambino piccolo."
+      goals: [ask]
+      recast: {text: "siblings", fix: "Fratelli", tags: [word-choice]}
+
+- scenario: palestra
+  level: A2
+  persona: es-f-erasmus
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Sono qui per un curso di italiano e voglio fare sport."
+      errors: [word-choice]
+    - tutor: "Per un corso di italiano, che bello! Abbiamo l'abbonamento di un mese o di tre mesi."
+      goals: [ask-membership]
+      recast: {text: "un curso", fix: "un corso", tags: [word-choice]}
+    # merlin-1395_0000610-0
+    - learner: "Imparare la lingua italiana è piu fastidioso che pensavo e no ho molto tempo libere."
+      errors: [comparative, negation, adjective-agreement, spelling]
+    - tutor: "Eh, lo so! Ma «più fastidioso che pensavo»? Attenzione alla parola dopo «fastidioso»."
+      prompt: {text: "piu fastidioso che pensavo", tags: [comparative]}
+    - learner: "Più difficile di quello che pensavo!"
+    - tutor: "Esatto! Allora ti consiglio yoga, il lunedì e il giovedì alle sette. Ti faccio l'iscrizione?"
+      goals: [classes, timetable]
+    - learner: "Sì, ecco il mio carnet de identidad."
+      errors: [word-choice]
+    - tutor: "Grazie, la carta d'identità va benissimo. È tutto fatto, ci vediamo lunedì!"
+      goals: [sign-up]
+      recast: {text: "il mio carnet de identidad", fix: "la carta d'identità", tags: [word-choice]}
+      new: [{lemma: identità, gloss: identity}]
+
+- scenario: serata-cinema
+  level: A2
+  persona: en-m-heritage
+  history: [preposition]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    # merlin-1395_0001080-0
+    - learner: "Penso rimanere ancora due o tre settimane."
+      errors: [preposition]
+    - tutor: "Che bello che resti! Ma «penso rimanere»? Dopo «penso» manca qualcosa."
+      prompt: {text: "Penso rimanere", tags: [preposition]}
+    - learner: "Penso di rimanere ancora due o tre settimane. Andiamo al cinema stasera?"
+    - tutor: "Esatto! E sì, andiamo al cinema. Che film ti piace?"
+      goals: [propose]
+    - learner: "Mi piacciono i film italiani con i subtitles, per imparare la lingua."
+      errors: [word-choice]
+    - tutor: "Con i sottotitoli, certo! C'è una commedia italiana alle nove. Ti va?"
+      goals: [genre]
+      recast: {text: "i subtitles", fix: "i sottotitoli", tags: [word-choice]}
+      new: [{lemma: sottotitolo, gloss: subtitle}]
+    # merlin-1385_0001729-3
+    - learner: "Avrei tempo, e tu?"
+    - tutor: "Anch'io, sono libera! Prendo i biglietti per le nove."
+      goals: [choose]
+    # merlin-1385_0001104-2
+    - learner: "Dov'e incontrare?"
+      errors: [question-form, spelling]
+    - tutor: "Scusa, come? Prova a fare la domanda con «noi»."
+      prompt: {text: "Dov'e incontrare", tags: [question-form]}
+    - learner: "Dove ci incontriamo?"
+    - tutor: "Perfetto! Davanti al cinema, alle nove meno un quarto."
+      goals: [meet]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno! Questo pacco va a Napoli? Un regalo di matrimonio, che bello! Ma lei non va al matrimonio?"
+    # merlin-1365_0100181-3
+    - learner: "Napoli è molto lontano da qui e Giovanni non sarà a casa a Novembre."
+    - tutor: "Capisco, allora il regalo va prima. Normale o veloce?"
+    - learner: "Veloce, per favore. Quanto costa il postage?"
+      errors: [word-choice]
+    - tutor: "La spedizione veloce costa quindici euro. Ecco il modulo: scriva l'indirizzo e cosa c'è dentro."
+      goals: [speed]
+      recast: {text: "il postage", fix: "La spedizione", tags: [word-choice]}
+    - learner: "Ecco il modulo. Dentro ci sono vasos, attenzione!"
+      errors: [word-choice]
+    - tutor: "Ci sono bicchieri? Va bene, facciamo attenzione. Sono quindici euro: ecco la ricevuta!"
+      goals: [form, pay]
+      recast: {text: "ci sono vasos", fix: "Ci sono bicchieri", tags: [word-choice]}
+      new: [{lemma: bicchiere, gloss: glass}]

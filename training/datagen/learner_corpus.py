@@ -12,7 +12,7 @@ purposes:
 - material for hand-written dialogues whose learner turns are real learner sentences.
 
 Authors are split 80/20 into `train` and `eval` by a hash of their id, so a learner's sentences
-never appear on both sides.
+never appear on both sides; a held-out sentence that a training author also wrote goes to `train`.
 """
 
 from __future__ import annotations
@@ -183,7 +183,22 @@ def pairs_from_zip(path: Path) -> list[LearnerPair]:
         )
         for name in names:
             out += pairs_from_text(parse_text(archive.read(name).decode("utf-8")))
-    return out
+    return keep_held_out_unseen(out)
+
+
+def keep_held_out_unseen(pairs: list[LearnerPair]) -> list[LearnerPair]:
+    """Move held-out sentences that a training author also wrote to `train`.
+
+    Many learners answered the same exam task, so short sentences ("Andiamo a cena sabato
+    sera?") recur across authors; a held-out item must not appear word for word in training.
+    """
+    seen = {tuple(words(p.learner)) for p in pairs if p.split == "train"}
+    return [
+        p.model_copy(update={"split": "train"})
+        if p.split == "eval" and tuple(words(p.learner)) in seen
+        else p
+        for p in pairs
+    ]
 
 
 def sha256_of(path: Path) -> str:

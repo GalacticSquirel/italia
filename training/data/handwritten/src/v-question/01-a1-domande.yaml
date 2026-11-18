@@ -1,0 +1,222 @@
+# Set v-question, file 1: A1 questions (word order, interrogatives, intonation-only questions left alone).
+- scenario: presentarsi
+  level: A1
+  persona: en-f-student
+  history: [question-form]
+  turns:
+  - tutor: "Ciao! Io sono Giulia. E tu, come ti chiami?"
+  - learner: "Ciao Giulia! Mi chiamo Emily. Sono inglese, di Leeds."
+  - tutor: "Piacere, Emily! Io sono di Bologna. Sei qui per studiare?"
+    goals: [say-name, say-origin]
+  - learner: "Sì, studio storia dell'arte. La sera lavoro in un bar."
+  - tutor: "Che bello! E ti piace il lavoro al bar?"
+    goals: [say-job]
+  - learner: "Sì, abbastanza. E tu? Cosa tu studi?"
+    errors: [question-form]
+  - tutor: "Cosa tu studi? Attenzione all'ordine delle parole."
+    prompt: {text: "Cosa tu studi", tags: [question-form]}
+  - learner: "Ah, sì. Cosa studi?"
+  - tutor: "Brava! Studio medicina, sono al secondo anno."
+    goals: [ask-back]
+    new: [{lemma: medicina, gloss: medicine}]
+  - learner: "Medicina? È difficile?"
+  - tutor: "Sì, un po', ma mi piace molto. Benvenuta a Bologna, Emily!"
+
+- scenario: numero-telefono
+  level: A1
+  persona: es-m-worker
+  history: [question-form]
+  turns:
+  - tutor: "È stata una bella lezione, vero?"
+  - learner: "Sì, molto bella! Il professore è simpatico, no?"
+  - tutor: "Sì, è proprio bravo. Tu abiti qui vicino?"
+  - learner: "Sì, in via Roma. Perché non estudiamo insieme un giorno?"
+    errors: [word-choice]
+  - tutor: "Che bella idea, studiamo insieme! Mi dai il tuo numero?"
+    recast: {text: "estudiamo", fix: "studiamo", tags: [word-choice]}
+    goals: [propose]
+  - learner: "Certo. Tre quattro sette, otto otto uno due, zero sei cinque."
+  - tutor: "Grazie! Ti scrivo un messaggio, così hai anche il mio."
+    goals: [number]
+  - learner: "Bene. E tu quando sei libero? Lunedì o sabato?"
+  - tutor: "Lunedì lavoro, ma sabato mattina sono libero."
+  - learner: "Anch'io! Che ora ci vediamo?"
+    errors: [question-form]
+  - tutor: "Che ora...? Manca una parola all'inizio."
+    prompt: {text: "Che ora ci vediamo", tags: [question-form]}
+  - learner: "Quale ora ci vediamo?"
+    errors: [question-form]
+  - tutor: "A che ora ci vediamo? Alle dieci, in biblioteca. Va bene?"
+    recast: {text: "Quale ora ci vediamo", fix: "A che ora ci vediamo", tags: [question-form]}
+    goals: [when]
+    new: [{lemma: biblioteca, gloss: library}]
+  - learner: "Va benissimo. A sabato, allora!"
+  - tutor: "A sabato! Ciao!"
+
+- scenario: mercato-frutta
+  level: A1
+  persona: en-m-retired
+  history: [question-form, noun-number]
+  turns:
+  - tutor: "Ciao! Cosa ti do oggi?"
+  - learner: "Buongiorno. Come molto sono le pesche?"
+    errors: [question-form]
+  - tutor: "Come molto? Per il prezzo, che parola usiamo?"
+    prompt: {text: "Come molto sono", tags: [question-form]}
+  - learner: "Ah... quanto sono le pesche?"
+  - tutor: "Bravo! Tre euro al chilo. Sono freschissime."
+    goals: [ask-price]
+  - learner: "Allora un chilo, per favore. E i tomati sono buoni?"
+    errors: [word-choice]
+  - tutor: "I pomodori? Buonissimi, sono di oggi. Quanti ne vuoi?"
+    recast: {text: "tomati", fix: "pomodori", tags: [word-choice]}
+    goals: [buy-quantity]
+  - learner: "Mezzo chilo, per favore. Che costa tutto?"
+    errors: [question-form]
+  - tutor: "Che costa? Vuoi sapere il prezzo, giusto?"
+    prompt: {text: "Che costa", tags: [question-form]}
+    goals: [ask-other]
+  - learner: "Sì. Che costa tutto?"
+    errors: [question-form]
+  - tutor: "Quanto costa tutto? Allora, quattro euro e cinquanta."
+    recast: {text: "Che costa", fix: "Quanto costa", tags: [question-form]}
+  - learner: "Ecco cinque euro. Grazie!"
+  - tutor: "Ecco il resto. Buona giornata!"
+    goals: [pay]
+
+- scenario: orari-negozio
+  level: A1
+  persona: es-f-erasmus
+  history: [question-form]
+  turns:
+  - tutor: "Pronto, negozio Bianchi, buongiorno!"
+  - learner: "Buongiorno! Chiamo per sapere gli orari del negozio."
+  - tutor: "Certo, mi dica pure."
+    goals: [greet]
+  - learner: "Che è l'orario di domani?"
+    errors: [question-form]
+  - tutor: "Scusi, come? Non ho capito la domanda."
+    prompt: {text: "Che è l'orario", tags: [question-form]}
+  - learner: "Che orario è domani?"
+    errors: [question-form]
+  - tutor: "Qual è l'orario di domani? Apriamo alle nove e chiudiamo alle sette e mezza."
+    recast: {text: "Che orario è domani", fix: "Qual è l'orario di domani", tags: [question-form]}
+    goals: [ask-hours]
+  - learner: "E domenica il negozio è aperto?"
+  - tutor: "No, la domenica siamo chiusi. Mi dispiace!"
+    goals: [ask-day]
+  - learner: "Peccato. E il sabato fino quando siete aperti?"
+    errors: [preposition]
+  - tutor: "Fino... quando? Manca una parola piccola."
+    prompt: {text: "fino quando", tags: [preposition]}
+  - learner: "Fino a quando siete aperti?"
+  - tutor: "Esatto! Il sabato chiudiamo alle otto di sera."
+  - learner: "Perfetto, allora vengo sabato pomeriggio. Grazie, arrivederci!"
+  - tutor: "Grazie a Lei! Arrivederci."
+    goals: [goodbye]
+
+- scenario: taxi
+  level: A1
+  persona: en-m-traveller
+  history: [question-form]
+  turns:
+  - tutor: "Buongiorno! Dove la porto?"
+  - learner: "Buongiorno. All'albergo Centrale, in via Garibaldi, per favore."
+  - tutor: "Va bene. La valigia la metto dietro."
+    goals: [destination]
+  - learner: "Grazie. Il viaggio è lungo?"
+  - tutor: "No, venti minuti, non di più."
+    goals: [ask-time]
+  - learner: "Bene. E costa quanto, più o meno?"
+  - tutor: "Più o meno quindici euro."
+    goals: [ask-price]
+  - learner: "Okay. Pago con la carta, non è?"
+    errors: [question-form]
+  - tutor: "Non è? Alla fine della domanda usiamo un'altra parola."
+    prompt: {text: "non è", tags: [question-form]}
+  - learner: "Pago con la carta, vero?"
+  - tutor: "Ah, sì, certo! Carta o contanti, come vuole. Ecco, siamo arrivati."
+  - learner: "Ecco la carta. Grazie e arrivederci!"
+  - tutor: "Grazie a Lei! Buona giornata."
+    goals: [pay]
+
+- scenario: hotel-checkin
+  level: A1
+  persona: es-f-teacher
+  history: [question-form]
+  turns:
+  - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+  - learner: "Buonasera. Sì, a nome Ruiz, per due notti."
+  - tutor: "Sì, eccola: due notti. Mi dà un documento, per favore?"
+    goals: [booking]
+  - learner: "Ecco il passaporto. In che piano è la camera?"
+    errors: [preposition]
+  - tutor: "In che piano? Attenzione alla parola «in»."
+    prompt: {text: "In che piano", tags: [preposition]}
+    goals: [document]
+  - learner: "A che piano è la camera?"
+  - tutor: "Brava! Al terzo piano, qui a destra."
+  - learner: "Grazie. E la colazione è che ora?"
+    errors: [question-form]
+  - tutor: "È che ora? Provi a cominciare la domanda in un altro modo."
+    prompt: {text: "è che ora", tags: [question-form]}
+  - learner: "Che ora è la colazione?"
+    errors: [question-form]
+  - tutor: "A che ora è la colazione? Dalle sette alle dieci, qui al piano terra."
+    recast: {text: "Che ora è la colazione", fix: "A che ora è la colazione", tags: [question-form]}
+    goals: [breakfast]
+  - learner: "Benissimo. Mi dà la llave, per favore?"
+    errors: [word-choice]
+  - tutor: "Certo, ecco la chiave: camera 312."
+    recast: {text: "la llave", fix: "la chiave", tags: [word-choice]}
+    goals: [key]
+
+- scenario: chiedere-strada
+  level: A1
+  persona: en-m-heritage
+  history: [question-form]
+  turns:
+  - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+  - learner: "Sì, scusi. Quale via è la stazione?"
+    errors: [question-form]
+  - tutor: "Quale via...? Scusi, non capisco bene la domanda."
+    prompt: {text: "Quale via è la stazione", tags: [question-form]}
+    goals: [get-attention]
+  - learner: "Da che parte è la stazione?"
+  - tutor: "Ah, ecco! Vada dritto e poi giri a sinistra."
+    goals: [ask-place]
+  - learner: "C'è una farmacia vicino la stazione?"
+    errors: [preposition]
+  - tutor: "Vicino... la stazione? Manca qualcosa."
+    prompt: {text: "vicino la stazione", tags: [preposition]}
+  - learner: "Vicino alla stazione?"
+  - tutor: "Sì, proprio davanti alla stazione."
+  - learner: "Allora vado dritto e poi a destra al semaforo?"
+  - tutor: "No, a sinistra al semaforo! Poi la vede subito."
+  - learner: "Ah, a sinistra. Grazie mille, è molto gentile!"
+  - tutor: "Di niente! Buona giornata."
+    goals: [understand, thank]
+
+- scenario: panetteria
+  level: A1
+  persona: en-f-professional
+  history: [question-form, noun-gender]
+  turns:
+  - tutor: "Buongiorno! Mi dica."
+  - learner: "Buongiorno! Vorrei mezzo chilo di pane, per favore."
+  - tutor: "Ecco qua. Altro?"
+    goals: [greet, order-bread]
+  - learner: "Sì. E questa? È un focaccia?"
+    errors: [noun-gender]
+  - tutor: "Un focaccia? Ascolti bene la parola."
+    prompt: {text: "un focaccia", tags: [noun-gender]}
+  - learner: "Ah, una focaccia?"
+  - tutor: "Esatto! È appena fatta, è buonissima."
+  - learner: "Mmm! Due pezzi, per favore. La focaccia è di oggi?"
+  - tutor: "Sì, è fresca. Ecco i due pezzi."
+    goals: [order-extra]
+  - learner: "Grazie. Quanto devo pagare io?"
+  - tutor: "Sono sei euro in tutto. Le do un sacchetto?"
+  - learner: "Ecco a Lei. Buona giornata!"
+  - tutor: "Grazie, anche a Lei! Arrivederci."
+    goals: [pay]
