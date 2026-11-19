@@ -1,0 +1,218 @@
+# Round 8, set s-wordchoice: word-choice and false friends beside acceptable plain choices. B2, file 6.
+- scenario: arte-mostra
+  level: B2
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Mi colpisce subito. È un po' inquietante, ma non riesco a smettere di guardarlo."
+    - tutor: "È proprio l'effetto che voleva il pittore. Che cosa vedi, esattamente?"
+      goals: [react]
+    - learner: "C'è una donna sola in una stanza vuota, con una luce fredda che entra dalla finestra. I colori sono quasi tutti grigi e azzurri."
+    - tutor: "E la donna guarda fuori, non verso di noi. Secondo te che cosa vuole dire?"
+      goals: [describe]
+    - learner: "Forse parla della solitudine in città. È un'immagine molto suggestiva."
+    - tutor: "Anch'io la leggo così. Ti ricorda qualche altro artista?"
+      goals: [interpret]
+    - learner: "Sì, mi fa pensare a Edward Hopper. Ho visto una sua esibizione a Londra due anni fa."
+      errors: [false-friend]
+    - tutor: "Una sua mostra a Londra, che fortuna! In effetti la luce fredda è molto simile."
+      recast: {text: "una sua esibizione", fix: "una sua mostra", tags: [false-friend]}
+      goals: [compare]
+    - learner: "Hopper è terrificante, uno dei miei pittori preferiti. Ma qui c'è più tenerezza."
+      errors: [false-friend]
+    - tutor: "Hopper è fantastico, sì, e hai ragione sulla tenerezza: guarda le mani della donna."
+      recast: {text: "terrificante", fix: "fantastico", tags: [false-friend]}
+    - learner: "È vero, sono rilassate, quasi aperte. Andiamo a vedere la sala successiva?"
+    - tutor: "Andiamo, lì c'è un'altra sorpresa che ti piacerà."
+
+- scenario: dibattito-ambiente
+  level: B2
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Non sono d'accordo. Penso che chiudere il centro sia una buona idea, almeno nei fine settimana."
+    - tutor: "E perché, secondo lei? I clienti arrivano quasi tutti in macchina."
+      goals: [position]
+    - learner: "Prima di tutto, l'aria è molto contaminata: mio figlio ha l'asma e d'inverno sta sempre male."
+      errors: [false-friend]
+    - tutor: "Che l'aria sia inquinata, nessuno lo nega. Ma i negozi come sopravvivono?"
+      recast: {text: "contaminata", fix: "inquinata", tags: [false-friend]}
+      new: [{lemma: inquinato, gloss: polluted}]
+    - learner: "A Pontevedra, in Spagna, il centro è peatonale da vent'anni e i negozi guadagnano di più, perché la gente passeggia e compra."
+      errors: [word-choice]
+    - tutor: "Un centro pedonale da vent'anni, interessante. Però i commercianti di Via Roma dicono che senza parcheggi perderanno clienti."
+      recast: {text: "peatonale", fix: "pedonale", tags: [word-choice]}
+      new: [{lemma: pedonale, gloss: pedestrian}]
+      goals: [argue]
+    - learner: "Capisco la preoccupazione. Però si potrebbero fare parcheggi fuori dal centro, con autobus gratuiti ogni dieci minuti."
+    - tutor: "E le persone anziane? Non tutti possono prendere l'autobus con le borse della spesa."
+      goals: [counter]
+    - learner: "Su questo ha ragione. Propongo permessi speciali per chi ha difficoltà, e di cominciare solo il sabato e la domenica."
+    - tutor: "Così potremmo trovarci d'accordo. Lo presentiamo insieme alla riunione dei residenti?"
+      goals: [concede]
+
+- scenario: film-libro
+  level: B2
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Io ho visto un film, se va bene: «La grande bellezza», del direttore Paolo Sorrentino."
+      errors: [false-friend]
+    - tutor: "Del regista Sorrentino? Certo che va bene! Di che cosa parla, senza raccontare troppo?"
+      recast: {text: "del direttore", fix: "del regista", tags: [false-friend]}
+    - learner: "Parla di uno scrittore che ha scritto un solo libro da giovane e adesso, a sessantacinque anni, vive tra feste e cene a Roma."
+    - tutor: "E che tipo di personaggio è, questo scrittore?"
+      goals: [summary]
+    - learner: "È cinico e ironico, ma anche molto solo. Sotto la superficie è una persona sensibile, che cerca qualcosa di vero."
+    - tutor: "Hai descritto bene il personaggio. E a te è piaciuto?"
+      goals: [characters]
+    - learner: "Moltissimo, anche se alcune scene sono troppo lunghe. La fotografia è magnifica, e la musica è eccitante."
+      errors: [false-friend]
+    - tutor: "La musica è emozionante, sì, e resta in testa per giorni. A chi lo consiglieresti?"
+      recast: {text: "eccitante", fix: "emozionante", tags: [false-friend]}
+      goals: [opinion]
+    - learner: "A chi ha pazienza e ama Roma, non a chi cerca un film d'azione."
+    - tutor: "Ottimo consiglio. Allora la prossima volta scegli tu il titolo per tutti."
+      goals: [recommend]
+    - learner: "Volentieri! Proporrò un libro, però, per non essere sempre l'eccezione."
+    - tutor: "Perfetto, aspettiamo la tua proposta per la settimana prossima."
+
+- scenario: politica-lavoro
+  level: B2
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Secondo me esageri un po'. Alcuni lavori spariranno, ma ne nasceranno altri."
+    - tutor: "Facile a dirsi! E chi perde il lavoro a cinquant'anni?"
+      goals: [opinion]
+    - learner: "Ecco, il problema sono le persone mayores. Se lo Stato pagasse corsi di formazione, potrebbero cambiare lavoro."
+      errors: [word-choice]
+    - tutor: "Per le persone anziane è più difficile, è vero. Ma chi paga questi corsi, alla fine?"
+      recast: {text: "mayores", fix: "anziane", tags: [word-choice]}
+      goals: [hypothesis]
+    - learner: "Le tasse, cioè tutti noi. Mia madre, per esempio, lavorava in banca come cassiera. Quando hanno chiuso la sua sucursal, ha fatto un corso pagato dalla Regione."
+      errors: [word-choice]
+    - tutor: "Hanno chiuso la sua filiale e lei ha ricominciato da capo? E adesso che cosa fa?"
+      recast: {text: "la sua sucursal", fix: "la sua filiale", tags: [word-choice]}
+      new: [{lemma: filiale, gloss: branch}]
+    - learner: "Lavora nel servizio clienti online. È stata dura: all'inizio guadagnava meno e ha dovuto imparare tutto da zero."
+    - tutor: "Ecco, un esempio che mi dà ragione e torto allo stesso tempo."
+      goals: [example]
+    - learner: "Insomma, il lavoro cambierà, ma non sparirà. E tu, sei davvero così pessimista o lo dici per provocare?"
+    - tutor: "Un po' tutte e due! Diciamo che su tua madre mi hai convinto."
+      goals: [conclude]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-heritage
+  history: [word-choice]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Faccio tre giorni a casa e due in ufficio. È un buon compromesso."
+    - tutor: "E dove ti trovi meglio?"
+      goals: [situation]
+    - learner: "A casa sono più produttivo: non spendo un'ora nel traffico e mi concentro meglio."
+      errors: [word-choice]
+    - tutor: "«Non perdo un'ora nel traffico»: questo da solo vale molto! Ma non ti senti un po' isolato?"
+      recast: {text: "spendo", fix: "perdo", tags: [word-choice]}
+      goals: [pros]
+    - learner: "Sì, a volte. Mi mancano le chiacchiere alla macchinetta del caffè. E poi lavoro sul tavolo della cucina, con una sedia molto inconfortabile."
+      errors: [word-choice]
+    - tutor: "Una sedia scomoda per otto ore è terribile per la schiena!"
+      recast: {text: "inconfortabile", fix: "scomoda", tags: [word-choice]}
+      new: [{lemma: scomodo, gloss: uncomfortable}]
+      goals: [cons]
+    - learner: "Infatti. Eventualmente compro una sedia da ufficio, se l'azienda me la rimborsa."
+    - tutor: "Chiedilo, molte aziende lo fanno. Ma se potessi scegliere liberamente, come lavoreresti?"
+    - learner: "Farei quattro giorni a casa e uno in ufficio, solo per vedere i colleghi."
+    - tutor: "Il giorno del caffè con i colleghi, insomma! Mi sembra una buona via di mezzo."
+      goals: [preference]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene, direi. Abbiamo finito la prima tappa del nuovo gestionale e i test sono andati bene."
+    - tutor: "Ottimo. Ci sono problemi?"
+      goals: [update]
+    - learner: "Uno sì: il fornitore del server ci ha detto che la consegna tarderà di due settimane. Gli ho scritto ieri per avere più dettagli, ma non mi ha ancora contestato."
+      errors: [false-friend]
+    - tutor: "Se non ti ha ancora risposto, chiamalo oggi pomeriggio. Due settimane ci bloccano il lancio: cosa proponi?"
+      recast: {text: "contestato", fix: "risposto", tags: [false-friend]}
+      goals: [problem]
+    - learner: "Per adesso possiamo usare un servizio cloud in affitto. Costa poco e possiamo disdirlo quando vogliamo."
+    - tutor: "Mi sembra una buona soluzione per adesso. Preparami i costi entro domani."
+      goals: [proposal]
+    - learner: "Va bene. Allora, che plazo diamo al cliente per il lancio?"
+      errors: [word-choice]
+    - tutor: "Che scadenza? Direi il quindici marzo, così abbiamo un po' di tempo in più."
+      recast: {text: "che plazo", fix: "che scadenza", tags: [word-choice]}
+    - learner: "Il quindici marzo va bene. Lo scrivo nell'acta e lo mando a tutti."
+      errors: [word-choice]
+    - tutor: "Sì, scrivilo nel verbale, grazie. Passiamo al punto successivo."
+      recast: {text: "nell'acta", fix: "nel verbale", tags: [word-choice]}
+      new: [{lemma: verbale, gloss: minutes}]
+      goals: [deadline]
+
+- scenario: vita-in-italia
+  level: B2
+  persona: en-m-traveller
+  history: [false-friend]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Buongiorno a tutti. Sono venuto per amore, sei anni fa: ho conosciuto mia moglie a Edimburgo, mentre lei faceva il suo PhD."
+      errors: [word-choice]
+    - tutor: "Mentre lei faceva il suo dottorato! Una storia romantica. E qual è stata la parte più difficile, all'inizio?"
+      recast: {text: "il suo PhD", fix: "il suo dottorato", tags: [word-choice]}
+      new: [{lemma: dottorato, gloss: PhD}]
+      goals: [story]
+    - learner: "Senza dubbio la burocrazia. Per il permesso di soggiorno sono tornato in questura cinque volte, e ogni volta mancava un documento diverso."
+    - tutor: "Un classico, purtroppo. E con la lingua com'è andata?"
+      goals: [difficulties]
+    - learner: "All'inizio male! Una volta, in farmacia, ho detto che ero costipato, ma volevo dire che avevo il raffreddore."
+    - tutor: "Immagino la faccia del farmacista! E in che cosa è cambiato lei, in questi anni?"
+    - learner: "Sono diventato più paziente e più flessibile. E adesso parlo anche con le mani!"
+    - tutor: "Allora è diventato italiano davvero! Che consiglio darebbe a chi vuole trasferirsi qui?"
+      goals: [change]
+    - learner: "Di imparare bene la lingua prima di partire. E di avere sempre un buon senso dell'umore."
+      errors: [false-friend]
+    - tutor: "Un buon senso dell'umorismo, certo, aiuta soprattutto negli uffici pubblici!"
+      recast: {text: "senso dell'umore", fix: "senso dell'umorismo", tags: [false-friend]}
+      new: [{lemma: umorismo, gloss: humour}]
+      goals: [advice]
+    - learner: "Esatto! Grazie per l'invito, è stato un piacere."
+    - tutor: "Grazie a lei, e buona giornata a tutti voi che ci ascoltate."
+
+- scenario: colloquio-lavoro
+  level: B2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Marta, ho ventisei anni e sono spagnola. Ho studiato ingegneria a Madrid e ho fatto un master in energie rinnovabili a Torino."
+    - tutor: "Un profilo molto interessante. Ha già esperienza nel settore?"
+      goals: [intro]
+    - learner: "Sì, ho lavorato due anni in un'impresa che installa placche solari. Ero responsabile della pianificazione dei cantieri."
+      errors: [word-choice]
+    - tutor: "Un'impresa di pannelli solari, quindi conosce bene il settore. Quali sono i suoi punti di forza?"
+      recast: {text: "placche solari", fix: "pannelli solari", tags: [word-choice]}
+      new: [{lemma: pannello, gloss: panel}]
+      goals: [experience]
+    - learner: "Sono molto organizzata e risolvo i problemi in fretta. Il mio difetto è che a volte sono troppo esigente con me stessa."
+    - tutor: "Meglio esigente che distratta! E perché vorrebbe lavorare proprio con noi?"
+      goals: [strengths]
+    - learner: "Perché la vostra azienda investe davvero nella sostenibilità. E ho molta illusione per questo lavoro."
+      errors: [false-friend]
+    - tutor: "Si vede che ha molto entusiasmo, ed è una qualità importante. Ha qualche domanda per noi?"
+      recast: {text: "molta illusione", fix: "molto entusiasmo", tags: [false-friend]}
+      new: [{lemma: entusiasmo, gloss: enthusiasm}]
+      goals: [why]
+    - learner: "Sì: com'è la formazione per i nuovi assunti?"
+    - tutor: "I primi tre mesi lavorerà accanto a un collega esperto, con un corso di sicurezza in cantiere. Le faremo sapere entro dieci giorni."
+      goals: [questions]

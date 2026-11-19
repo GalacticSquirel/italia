@@ -1,0 +1,203 @@
+# Round 8, set s-wordchoice: word-choice and false friends beside acceptable plain choices. A2, file 2.
+- scenario: casa-mia
+  level: A2
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+    - tutor: "Allora, com'è la tua casa?"
+    - learner: "Vivo in un piso piccolo vicino all'università."
+      errors: [word-choice]
+    - tutor: "Un appartamento vicino all'università, che bello! Quante camere ci sono?"
+      recast: {text: "un piso", fix: "un appartamento", tags: [word-choice]}
+      goals: [type]
+    - learner: "Ci sono due camere, una cucina e un bagno. La mia camera è vecchissima, ma ha molta luce."
+    - tutor: "La luce è importante. E qual è la tua stanza preferita?"
+      goals: [rooms]
+    - learner: "La cucina, perché ha una ventana grande sul parco."
+      errors: [word-choice]
+    - tutor: "Una finestra grande sul parco, che bella vista! Ci cucini spesso?"
+      recast: {text: "una ventana grande", fix: "una finestra grande", tags: [word-choice]}
+      goals: [favourite]
+    - learner: "Sì, ogni sera. E la tua casa com'è?"
+    - tutor: "Io abito in una casa vecchia in centro, con un piccolo balcone."
+    - learner: "Hai anche un giardino?"
+    - tutor: "No, ma sul balcone ho tanti fiori. Vieni a vederli sabato?"
+      goals: [ask]
+
+- scenario: famiglia
+  level: A2
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Che bella foto! Chi sono queste persone?"
+    - learner: "Sono i miei parenti, a Natale. Mio padre è alto e porta gli occhiali."
+      errors: [false-friend]
+    - tutor: "Sono i tuoi genitori? Sembrano molto contenti nella foto!"
+      recast: {text: "parenti", fix: "genitori", tags: [false-friend]}
+      goals: [who]
+    - learner: "Sì, mio padre è molto simpatico. Fa sempre ridere tutti."
+    - tutor: "Si vede dalla foto. E quanti anni hanno?"
+      goals: [describe]
+    - learner: "Mio padre ha sessantadue anni e mia madre cinquantanove."
+    - tutor: "Sono ancora giovani! E questa ragazza a destra chi è?"
+      goals: [ages]
+    - learner: "È mia cugina Emma. Ha vent'anni e studia al collegio a Londra."
+      errors: [false-friend]
+    - tutor: "Studia all'università a Londra? Brava! E dietro di lei chi c'è?"
+      recast: {text: "al collegio", fix: "all'università", tags: [false-friend]}
+    - learner: "Dietro ci sono altri parenti, i fratelli di mia madre. E tu, hai fratelli?"
+    - tutor: "Sì, un fratello più grande, Paolo. Vive a Torino con sua moglie."
+      goals: [ask]
+
+- scenario: giorno-tipico
+  level: A2
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Ciao! Com'è la tua giornata di solito?"
+    - learner: "Io sveglio molto presto, alle sei."
+      errors: [reflexive]
+    - tutor: "«Io sveglio»... chi? Il verbo è svegliarsi, con «si»."
+      prompt: {text: "Io sveglio", tags: [reflexive]}
+    - learner: "Ah, sì: mi sveglio alle sei. Poi faccio la doccia e bevo un caffè."
+    - tutor: "Esatto. Alle sei, che presto! E la mattina cosa fai?"
+      goals: [wake]
+    - learner: "Lavoro nell'officina di una banca, al computer, dalle otto alle due."
+      errors: [false-friend]
+    - tutor: "Nell'ufficio di una banca, al computer tutto il giorno? E il pomeriggio?"
+      recast: {text: "nell'officina", fix: "nell'ufficio", tags: [false-friend]}
+      goals: [work]
+    - learner: "Il pomeriggio sono libero. Vado in palestra o dormo un po'."
+    - tutor: "Che bello! E la sera cosa fai?"
+    - learner: "La sera ceno con il mio coinquilino e poi devo fregare i piatti."
+      errors: [false-friend]
+    - tutor: "Lavare i piatti ogni sera! Ma chi cucina, tu o lui?"
+      recast: {text: "fregare i piatti", fix: "lavare i piatti", tags: [false-friend]}
+      new: [{lemma: lavare, gloss: to wash}]
+      goals: [evening]
+    - learner: "Cucina lui, è molto bravo. E tu, a che ora ti svegli?"
+    - tutor: "Io mi sveglio alle sette e mezza, ma la sera vado a letto tardi."
+      goals: [ask]
+
+- scenario: serata-cinema
+  level: A2
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema? C'è un film italiano nuovo, una commedia."
+    - tutor: "Bella idea! Ti piacciono le commedie?"
+      goals: [propose]
+    - learner: "Sì, molto. I film dell'orrore no, mi fanno troppa paura."
+    - tutor: "Anche a me! Allora la commedia: c'è alle otto e alle dieci."
+      goals: [genre]
+    - learner: "Alle otto è meglio. Domani devo alzarmi presto."
+    - tutor: "Va bene, alle otto. Dove ci vediamo?"
+      goals: [choose]
+    - learner: "Davanti al cinema alle sette e mezza? Così compriamo le bollette prima."
+      errors: [false-friend]
+    - tutor: "Sì, così compriamo i biglietti con calma. Poi prendiamo qualcosa da bere?"
+      recast: {text: "le bollette", fix: "i biglietti", tags: [false-friend]}
+      goals: [meet]
+    - learner: "Sì, ma pago io, perché tu hai pagato l'ultima volta."
+    - tutor: "Grazie, sei gentile! Allora a stasera, alle sette e mezza."
+
+- scenario: weekend-scorso
+  level: A2
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Molto bene! Sabato sono andata a Bologna con il treno."
+    - tutor: "Bologna, che bello! E cosa hai fatto?"
+      goals: [where]
+    - learner: "Ho visitato il centro e una libreria antica. Ho comprato due libri di cucina."
+    - tutor: "Due libri di cucina! Allora adesso cucini come a Bologna?"
+      goals: [what]
+    - learner: "Spero! Domenica invece ho studiato tutto il giorno nella libreria dell'università."
+      errors: [false-friend]
+    - tutor: "Tutto il giorno nella biblioteca dell'università? Eri da sola?"
+      recast: {text: "nella libreria", fix: "nella biblioteca", tags: [false-friend]}
+      new: [{lemma: biblioteca, gloss: library}]
+    - learner: "No, con la mia amica Kate. Lei prepara un esame difficile."
+    - tutor: "Studiare insieme aiuta. Allora, ti è piaciuto il fine settimana?"
+      goals: [with-who]
+    - learner: "Sì, è stato bellissimo, ma sono stanca. E tu, cosa hai fatto?"
+    - tutor: "Io sono rimasta a casa e ho dormito tanto!"
+      goals: [opinion]
+
+- scenario: ricordi-infanzia
+  level: A2
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Che bello qui! Tu dove abitavi da piccola?"
+    - learner: "Abitavo in un paese piccolo vicino a Valencia, con i miei nonni."
+    - tutor: "Un paese vicino a Valencia! Com'era?"
+      goals: [place]
+    - learner: "Era tranquillo. D'estate giocavo tutto il giorno in strada con i miei amici."
+    - tutor: "Che libertà! E la scuola ti piaceva?"
+      goals: [habits]
+    - learner: "Sì, andavo a un collegio piccolo, con solo trenta bambini."
+      errors: [false-friend]
+    - tutor: "Andavi a una scuola piccola, con trenta bambini? Allora vi conoscevate tutti!"
+      recast: {text: "a un collegio piccolo", fix: "a una scuola piccola", tags: [false-friend]}
+      goals: [school]
+    - learner: "Sì! E la mia maestra era molto simpatica. Una volta ci ha portato al mare."
+    - tutor: "Al mare con la maestra, che bel ricordo!"
+      goals: [event]
+    - learner: "Sì, è il mio ricordo più bello. E tu, dove abitavi?"
+    - tutor: "Io abitavo qui, in questa città, vicino alla stazione."
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-m-traveller
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì, buongiorno. Cercate un cameriere per l'estate?"
+    - tutor: "Sì, per luglio e agosto. Ha già lavorato in un bar?"
+      goals: [ask]
+    - learner: "Sì, attualmente lavoro in un pub a Dublino, da due anni."
+    - tutor: "Due anni in un pub, bene. Sa fare anche il caffè?"
+      goals: [experience]
+    - learner: "Sì, so fare bene il cappuccino. E sono molto educato con i clienti."
+    - tutor: "Qui questo è molto importante. Quando può cominciare?"
+    - learner: "A giugno. Sono disponibile anche la sera e il fine settimana."
+    - tutor: "Perfetto. Mi lascia il suo numero di telefono?"
+      goals: [availability]
+    - learner: "Sì, è 347 2215 980. Posso mandare anche il mio resumé?"
+      errors: [word-choice]
+    - tutor: "Sì, mandi il curriculum a questo indirizzo: è sul cartello."
+      recast: {text: "resumé", fix: "curriculum", tags: [word-choice]}
+      new: [{lemma: curriculum, gloss: CV}]
+      goals: [contact]
+    - learner: "Grazie mille, aspetto la sua chiamata."
+    - tutor: "La chiamo venerdì. Buona giornata!"
+
+- scenario: noleggio-bici
+  level: A2
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Buongiorno. Sì, vorrei noleggiare due biciclette, per me e mia moglie."
+    - tutor: "Certo. Per quanto tempo?"
+      goals: [ask]
+    - learner: "Per tutta la jornada. Torniamo verso le sei."
+      errors: [word-choice]
+    - tutor: "Per tutta la giornata, va bene. Una giornata costa quindici euro per bicicletta."
+      recast: {text: "la jornada", fix: "la giornata", tags: [word-choice]}
+      goals: [duration]
+    - learner: "Il casco è incluso? E il candado?"
+      errors: [word-choice]
+    - tutor: "Sì, il casco e il lucchetto sono nel prezzo."
+      recast: {text: "il candado", fix: "il lucchetto", tags: [word-choice]}
+      goals: [price]
+    - learner: "Benissimo. C'è un camino bello per andare al lago?"
+      errors: [false-friend]
+    - tutor: "Sì, c'è un percorso bello tra i campi: un'ora fino al lago."
+      recast: {text: "un camino bello", fix: "un percorso bello", tags: [false-friend]}
+      goals: [route]
+    - learner: "Perfetto. Allora pago adesso: trenta euro, giusto?"
+    - tutor: "Sì, trenta euro. Ecco le chiavi dei lucchetti, buon giro!"

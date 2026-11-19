@@ -1,0 +1,270 @@
+# B1, practical arrangements: viewing a flat, opening a bank account, train tickets, booking a table.
+# Each reply answers exactly what was asked, keeps the figures it gave, and opens the next step.
+- scenario: affittare-appartamento
+  level: B1
+  persona: en-f-student
+  history: [relative-pronoun, preposition]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! È molto luminoso. Quanto è l'affitto al mese?"
+    - tutor: "L'affitto è di 650 euro al mese, più circa 60 euro di spese di condominio."
+    - learner: "Le spese comprendono anche il riscaldamento?"
+    - tutor: "No, il riscaldamento si paga a parte: ogni appartamento ha il suo."
+      goals: [rent]
+    - learner: "Capisco. E il contratto di quanti anni è? Quanto devo lasciare di caparra?"
+    - tutor: "È un contratto di quattro anni più quattro. La caparra è di due mesi di affitto, cioè 1300 euro."
+      goals: [contract]
+    - learner: "Va bene. In bagno ho visto una macchia nel soffitto. C'è un problema di umidità?"
+      errors: [preposition]
+      gold: {text: "nel soffitto", fix: "sul soffitto"}
+    - tutor: "Una macchia «nel» soffitto? Pensi a dove si trova la macchia: dentro o sopra?"
+      prompt: {text: "nel soffitto", tags: [preposition]}
+    - learner: "Sì, una macchia nel soffitto, sopra la doccia."
+      errors: [preposition]
+    - tutor: "Quella macchia sul soffitto è dell'inverno scorso: è entrata acqua dal piano di sopra. Il problema è stato riparato a marzo."
+      goals: [condition]
+      recast: {text: "nel soffitto", fix: "sul soffitto", tags: [preposition]}
+    - learner: "Meno male. Una mia amica abita nella via che c'è l'università. È lontano da qui?"
+      errors: [relative-pronoun]
+      gold: {text: "nella via che c'è", fix: "nella via dove c'è"}
+    - tutor: "«Nella via che c'è l'università»? Qui «che» non basta: serve una parola per il luogo."
+      prompt: {text: "nella via che c'è", tags: [relative-pronoun]}
+    - learner: "Nella via dove c'è l'università!"
+    - tutor: "È a dieci minuti a piedi. Il quartiere è tranquillo, e sotto casa c'è un supermercato."
+      goals: [neighbourhood]
+    - learner: "Mi piace molto. Ci penso stasera e domani le telefono, va bene?"
+    - tutor: "Va bene, ma c'è un'altra persona interessata: mi chiami entro domani alle dodici."
+      goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. Il piso è più grande di quello che pensavo."
+      errors: [false-friend]
+    - tutor: "L'appartamento è grande, sì: ci sono due camere da letto e un bel balcone."
+      recast: {text: "Il piso", fix: "L'appartamento", tags: [false-friend]}
+    - learner: "Quanto costa l'affitto? Le spese di condominio sono comprese?"
+    - tutor: "L'affitto è di 750 euro al mese, e il condominio è compreso."
+      goals: [rent]
+    - learner: "Bene. In cucina il frigorifero sembra molto vecchio. Funziona ancora?"
+    - tutor: "Ha dieci anni, ma funziona bene. Se si rompe, lo cambio io."
+      goals: [condition]
+    - learner: "Per il contratto, che documenti doverei portare? Ho un lavoro a tempo indeterminato."
+      errors: [conditional-form]
+      gold: {text: "doverei", fix: "dovrei"}
+    - tutor: "«Doverei»? Il condizionale di «dovere» è più corto. Come si dice?"
+      prompt: {text: "doverei", tags: [conditional-form]}
+    - learner: "Dovrei! Che documenti dovrei portare?"
+    - tutor: "Un documento d'identità e il contratto di lavoro. Poi c'è la caparra: due mesi di affitto."
+      goals: [contract]
+    - learner: "Due mesi sono 1500 euro. Posso pagarli in due veces?"
+      errors: [word-choice]
+    - tutor: "Sì, può pagarli in due volte: metà alla firma e metà il mese dopo."
+      recast: {text: "in due veces", fix: "in due volte", tags: [word-choice]}
+    - learner: "Perfetto. Ultima domanda: com'è il parcheggio in questa zona? Ho la macchina."
+    - tutor: "In strada è difficile trovare posto, ma c'è un parcheggio a cento metri: costa 80 euro al mese."
+      goals: [neighbourhood]
+    - learner: "Allora mi interessa. Quando potremmo firmare il contratto?"
+    - tutor: "Anche venerdì. Porti i documenti e la prima metà della caparra, cioè 750 euro."
+      goals: [decide]
+
+- scenario: banca-conto
+  level: B1
+  persona: en-m-heritage
+  history: [modal-infinitive, possessive]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Mi sono appena trasferito a Bologna e vorrei aprire un conto corrente."
+    - tutor: "Benvenuto, allora. Il conto le serve per il lavoro?"
+      goals: [purpose]
+    - learner: "Sì, per lo stipendio. Che documenti devo di portare?"
+      errors: [modal-infinitive]
+      gold: {text: "devo di portare", fix: "devo portare"}
+    - tutor: "«Devo di portare»? Guardi la parola tra «devo» e «portare»: serve davvero?"
+      prompt: {text: "devo di portare", tags: [modal-infinitive]}
+    - learner: "Che documenti devo portare?"
+    - tutor: "Un documento d'identità, il codice fiscale e un indirizzo in Italia. Il codice fiscale ce l'ha già?"
+      goals: [documents]
+    - learner: "Sì, l'ho fatto il mese scorso. Ma per ora abito da mio cugino."
+    - tutor: "Va bene lo stesso: l'indirizzo lo può cambiare quando trova casa."
+    - learner: "Quanto costa il conto ogni mese, se ci arriva lo stipendio?"
+    - tutor: "Il conto base costa tre euro al mese. Ma se lo stipendio arriva qui, per due anni non paga niente."
+      goals: [costs]
+    - learner: "Ottimo. Posso usare la carta anche all'estero? A Natale vado a Boston per vedere mia famiglia."
+      errors: [possessive]
+      gold: {text: "vedere mia famiglia", fix: "vedere la mia famiglia"}
+    - tutor: "«Vedere mia famiglia»? Con «famiglia», al singolare, «mia» ha bisogno di una parola davanti."
+      prompt: {text: "vedere mia famiglia", tags: [possessive]}
+    - learner: "Sì, per vedere mia famiglia a Boston."
+      errors: [possessive]
+    - tutor: "«Per vedere la mia famiglia»: certo! La carta funziona anche negli Stati Uniti, con un piccolo costo ogni volta che la usa."
+      recast: {text: "vedere mia famiglia", fix: "vedere la mia famiglia", tags: [possessive]}
+    - learner: "Va bene. E avete un'app per fare i bonifici dal telefono?"
+    - tutor: "Sì, l'app non costa niente: la scarichiamo e la prepariamo insieme oggi stesso."
+      goals: [card]
+    - learner: "Perfetto, allora apriamo il conto."
+    - tutor: "Allora mi dia il documento e il codice fiscale, e cominciamo."
+
+- scenario: banca-conto
+  level: B1
+  persona: es-f-erasmus
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Sono una studentessa Erasmus e vorrei aprire una cuenta per sei mesi."
+      errors: [word-choice]
+    - tutor: "Un conto per sei mesi, certo. Abbiamo un conto per studenti sotto i trent'anni."
+      goals: [purpose]
+      recast: {text: "una cuenta", fix: "un conto", tags: [word-choice]}
+    - learner: "Perfetto, ho ventidue anni. Che cosa devo portare?"
+    - tutor: "Passaporto o carta d'identità, il codice fiscale e un documento dell'università."
+      goals: [documents]
+    - learner: "Il codice fiscale non ce l'ho ancora. Dove lo posso fare?"
+    - tutor: "All'Agenzia delle Entrate, qui vicino. Di solito lo fanno in giornata."
+    - learner: "Va bene, ci vado domani. E quanto costa il conto?"
+    - tutor: "Per gli studenti è gratis: zero euro al mese."
+      goals: [costs]
+    - learner: "Ottimo. Mia madre mi manda soldi da Spagna: posso ricevere bonifici?"
+      errors: [articulated-preposition]
+      gold: {text: "da Spagna", fix: "dalla Spagna"}
+    - tutor: "Le manda soldi «da Spagna»? Con il nome di un paese, «da» vuole anche l'articolo."
+      prompt: {text: "da Spagna", tags: [articulated-preposition]}
+    - learner: "Sì, mi manda soldi da Spagna ogni mese."
+      errors: [articulated-preposition]
+    - tutor: "Dalla Spagna, ogni mese: va benissimo, i bonifici dall'Europa non costano niente. Con il conto c'è anche una carta."
+      recast: {text: "da Spagna", fix: "dalla Spagna", tags: [articulated-preposition]}
+    - learner: "Con la carta posso prendere soldi in Spagna, quando torno a casa a Natale?"
+    - tutor: "Sì, senza costi in tutta Europa. E con l'app controlla il conto quando vuole."
+      goals: [card]
+    - learner: "Molto bene. Allora torno domani con il codice fiscale."
+    - tutor: "D'accordo, domani le apriamo il conto. All'ingresso prenda pure un appuntamento."
+
+- scenario: biglietto-treno
+  level: B1
+  persona: en-f-professional
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Dovrei andare a Napoli venerdì pomeriggio, per un convegno."
+    - tutor: "Venerdì pomeriggio c'è un Frecciarossa alle 14:10 e uno alle 16:10. Quale preferisce?"
+      goals: [destination]
+    - learner: "Quello delle 14:10, perché il convegno comincia alle cinque."
+    - tutor: "Va bene. Le serve anche il ritorno?"
+    - learner: "Sì, torno domenica sera. Ci sarebbe un treno dopo le otto?"
+    - tutor: "Domenica c'è un treno alle 20:25. Andata e ritorno costano 98 euro in seconda classe."
+      goals: [type]
+    - learner: "E in prima classe quanto verrebbe? Devo lavorare durante il viaggio."
+    - tutor: "In prima sono 140 euro, e c'è più spazio per il computer."
+    - learner: "Prendo la prima, allora. Potrei avere un posto vicino il finestrino?"
+      errors: [articulated-preposition]
+      gold: {text: "vicino il finestrino", fix: "vicino al finestrino"}
+    - tutor: "«Vicino il finestrino»? Dopo «vicino» serve una preposizione con l'articolo."
+      prompt: {text: "vicino il finestrino", tags: [articulated-preposition]}
+    - learner: "Vicino del finestrino?"
+      errors: [articulated-preposition]
+    - tutor: "Vicino al finestrino, sì: posto 6A, con il tavolo, all'andata e al ritorno."
+      goals: [class]
+      recast: {text: "Vicino del finestrino", fix: "Vicino al finestrino", tags: [articulated-preposition]}
+    - learner: "Grazie. Venerdì il treno parte da quale binario?"
+    - tutor: "Il binario esce sul tabellone circa venti minuti prima della partenza. Buon viaggio!"
+      goals: [platform]
+      new: [{lemma: tabellone, gloss: departures board}]
+
+- scenario: biglietto-treno
+  level: B1
+  persona: es-f-teacher
+  history: [spelling]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei comprare i biglietti per Pisa per una gita scolastica: siamo ventidue persone."
+    - tutor: "Per i gruppi c'è un prezzo speciale. Quando partite?"
+    - learner: "Martedì prossimo, la mattina presto. Torniamo lo stesso giorno, la sera."
+    - tutor: "C'è un regionale alle 7:15 che arriva a Pisa alle 8:20. Al ritorno c'è un treno ogni ora, fino alle 21."
+      goals: [destination]
+    - learner: "Allora andata e ritorno per ventidue persone. Quanto costa in tutto?"
+    - tutor: "Con il prezzo per gruppi sono 6,40 euro a persona per ogni viaggio: in tutto, 281,60 euro."
+      goals: [type]
+    - learner: "Possiamo reservare i posti? Sono ragazzi di quindici anni e vorrei tenerli insieme."
+      errors: [spelling]
+      gold: {text: "reservare", fix: "riservare"}
+    - tutor: "«Reservare»? Questa è quasi la forma spagnola. In italiano cambia una lettera, all'inizio."
+      prompt: {text: "reservare", tags: [spelling]}
+    - learner: "Riservare! Possiamo riservare i posti?"
+    - tutor: "Sui regionali non si possono riservare. Le consiglio di arrivare dieci minuti prima, così salite tutti insieme."
+    - learner: "Va bene. Prendiamo la seconda classe per tutti, è più barata."
+      errors: [word-choice]
+    - tutor: "Sì, la seconda è più economica, e per un'ora di viaggio va benissimo."
+      goals: [class]
+      recast: {text: "più barata", fix: "più economica", tags: [word-choice]}
+    - learner: "Da quale binario parte il treno delle 7:15?"
+    - tutor: "Di solito dal binario 4, ma martedì controlli il tabellone. Buon viaggio a tutti!"
+      goals: [platform]
+      new: [{lemma: tabellone, gloss: departures board}]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: en-m-traveller
+  history: [participle-agreement, negation]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per sabato sera: è il nostro anniversario di matrimonio."
+    - tutor: "Auguri! Per quante persone, e a che ora?"
+      goals: [book]
+    - learner: "Per due, verso le otto e mezza. Avreste un tavolo tranquillo, magari in terrazza?"
+    - tutor: "Alle otto e mezza la terrazza è piena, mi dispiace. Alle nove, però, si libera un tavolo in un angolo tranquillo."
+    - learner: "Alle nove va bene. Sarebbe possibile portare una torta? L'ho ordinato in pasticceria."
+      errors: [participle-agreement]
+      gold: {text: "L'ho ordinato", fix: "L'ho ordinata"}
+    - tutor: "«L'ho ordinato»? Parliamo della torta: come finisce «ordinato»?"
+      goals: [details]
+      prompt: {text: "L'ho ordinato", tags: [participle-agreement]}
+    - learner: "L'ho ordinata in pasticceria, scusi."
+    - tutor: "Certo, la può portare: la teniamo in cucina e la serviamo noi alla fine della cena."
+    - learner: "Fantastico. Mia moglie è vegetariana. Avete piatti senza carne? Lei non mangia anche il pesce."
+      errors: [negation]
+      gold: {text: "non mangia anche il pesce", fix: "non mangia neanche il pesce"}
+    - tutor: "«Non mangia anche il pesce»? Con «non», al posto di «anche», che parola usiamo?"
+      goals: [special]
+      prompt: {text: "non mangia anche il pesce", tags: [negation]}
+    - learner: "Non mangia neanche il pesce."
+    - tutor: "Nessun problema: abbiamo diversi piatti senza carne e senza pesce. A che nome prenoto?"
+    - learner: "A nome Walsh. Il mio numero è 333 9876543."
+    - tutor: "Grazie. Allora sabato alle nove, due persone, con la torta per il dolce. A sabato, e ancora auguri!"
+      goals: [name]
+
+- scenario: prenotare-tavolo
+  level: B1
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera, chiamo da un ufficio qui vicino. Vorremmo prenotare per una cena di lavoro, venerdì."
+    - tutor: "Certo. Quanti sarete, e a che ora?"
+      goals: [book]
+    - learner: "Saremo dodici, alle otto. Sarebbe possibile avere una sala solo per noi?"
+    - tutor: "Per dodici persone abbiamo una sala piccola al piano di sopra, ed è libera venerdì alle otto."
+      goals: [details]
+    - learner: "Bene. Un collega è celiaco. Avete pasta sin glutine?"
+      errors: [word-choice]
+    - tutor: "Sì, abbiamo pasta senza glutine, e anche il pane. Lo scrivo sulla prenotazione."
+      goals: [special]
+      recast: {text: "sin glutine", fix: "senza glutine", tags: [word-choice]}
+    - learner: "Perfetto. Il menù è fisso, o ognuno sceglie?"
+    - tutor: "Per i gruppi consigliamo un menù fisso: 35 euro a persona, con primo, secondo e dolce. Il vino è a parte."
+    - learner: "Allora prendiamo il menù fisso. Il vino, invece, lo sceglieremmo la sera."
+      errors: [future-form]
+      gold: {text: "lo sceglieremmo", fix: "lo sceglieremo"}
+    - tutor: "«Lo sceglieremmo»? Con due m è un condizionale, ma lei parla di venerdì sera. Che tempo serve?"
+      prompt: {text: "lo sceglieremmo", tags: [future-form]}
+    - learner: "Lo sceglieremo venerdì sera."
+    - tutor: "Va bene. A che nome faccio la prenotazione?"
+    - learner: "A nome Ramos, dell'empresa Tecnolux."
+      errors: [word-choice]
+    - tutor: "Dell'azienda Tecnolux, perfetto: venerdì alle otto, dodici persone, al piano di sopra."
+      goals: [name]
+      recast: {text: "empresa", fix: "azienda", tags: [word-choice]}
+    - learner: "Grazie mille. Allora a venerdì!"
+    - tutor: "A venerdì! E per il suo collega ci pensiamo noi, come d'accordo."

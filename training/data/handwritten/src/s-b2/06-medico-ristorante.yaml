@@ -1,0 +1,270 @@
+# s-b2: B2 at the cardiologist and complaining in a restaurant.
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-retired
+  history: [tense-aspect, ci-ne]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Non molto bene. Due settimane fa, mentre salivo le scale, sentivo un dolore forte al petto."
+    errors: [tense-aspect]
+  - tutor: "Questo è importante. Ma «mentre salivo le scale, sentivo un dolore»: il dolore è arrivato in un momento preciso. Quale tempo usiamo?"
+    prompt: {text: "sentivo un dolore forte", tags: [tense-aspect]}
+  - learner: "Ho sentito un dolore forte al petto, e mi sono dovuto fermare."
+  - tutor: "Esatto. Quanto è durato? E le è successo altre volte?"
+  - learner: "Circa cinque minuti. E mi capita anche di notte: mi sveglio con il cuore che batte forte."
+  - tutor: "Capisco. Si sente anche più stanco del solito quando fa uno sforzo?"
+    goals: [symptoms]
+  - learner: "Sì, sempre più stanco. Prima facevo lunghe passeggiate, adesso dopo mezz'ora devo sedermi."
+  - tutor: "Va bene. In famiglia ci sono stati problemi di cuore?"
+  - learner: "Sì, mio padre ha avuto un infarto a sessant'anni. E anche i miei fratelli: di fratelli ho tre, e due prendono già medicine per la pressione."
+    errors: [ci-ne]
+  - tutor: "Questo conta molto. Ma «di fratelli ho tre»: quando mette prima «di fratelli», poi serve un pronome davanti al verbo. Quale?"
+    prompt: {text: "ho tre", tags: [ci-ne]}
+  - learner: "Sì, di fratelli ho tre, e due hanno la pressione alta."
+    errors: [ci-ne]
+  - tutor: "«Di fratelli ne ho tre»: allora dobbiamo stare attenti. Gli esami mostrano la pressione un po' alta e un battito non sempre regolare."
+    recast: {text: "ho tre", fix: "ne ho tre", tags: [ci-ne]}
+    goals: [history]
+  - learner: "È grave? Che cosa significa, esattamente, un battito non regolare?"
+  - tutor: "Non è grave, se lo curiamo adesso. Significa che a volte il cuore va troppo veloce senza motivo, e per questo si sente stanco."
+    goals: [understand]
+  - learner: "Capisco. Devo prendere delle medicine? Ho paura che mi fanno dormire tutto il giorno."
+    errors: [subjunctive-use]
+  - tutor: "È una paura comune. Ma «ho paura che mi fanno dormire»: dopo «ho paura che», quale modo usiamo?"
+    prompt: {text: "Ho paura che mi fanno dormire", tags: [subjunctive-use]}
+  - learner: "Ho paura che mi facciano dormire tutto il giorno."
+  - tutor: "Esatto, ma non succederà. Le do una medicina da prendere al mattino: i primi giorni può stancarla un po', poi passa. Ci rivediamo tra un mese."
+    goals: [treatment]
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-f-teacher
+  history: [subjunctive-use, relative-pronoun]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+  - learner: "Mi sono sentita stanca, molto stanca. Due settimane fa ero anche molto constipata, con la tosse."
+    errors: [false-friend]
+  - tutor: "Raffreddata e con la tosse, quindi, e anche stanca. E la stanchezza da quanto tempo la sente?"
+    recast: {text: "constipata", fix: "Raffreddata", tags: [false-friend]}
+    new: [{lemma: raffreddato, gloss: having a cold}, {lemma: stanchezza, gloss: tiredness}]
+  - learner: "Da circa due mesi. Il medico di famiglia, che mi ha mandato da lei, pensa che è un problema di pressione."
+    errors: [subjunctive-use]
+  - tutor: "È possibile. Ma «pensa che è un problema»: dopo «pensa che», quale modo ci vuole?"
+    prompt: {text: "pensa che è un problema", tags: [subjunctive-use]}
+  - learner: "Sì, pensa che è la pressione."
+    errors: [subjunctive-use]
+  - tutor: "Può darsi che sia la pressione, ma vediamo meglio. Sente anche il cuore che batte forte, o dolori al petto?"
+    recast: {text: "è la pressione", fix: "sia la pressione", tags: [subjunctive-use]}
+  - learner: "Dolori no, ma la sera ho le gambe gonfie. E di notte devo dormire con due cuscini, perché sdraiata respiro male."
+  - tutor: "Questi dettagli mi aiutano molto. In famiglia qualcuno ha avuto problemi di cuore?"
+    goals: [symptoms]
+  - learner: "Sì, mia madre. Aveva una malattia al cuore che i medici non hanno mai capito il nome."
+    errors: [relative-pronoun]
+  - tutor: "Capisco. Ma «una malattia che i medici non hanno mai capito il nome»: il nome è della malattia. Come collegherebbe le due parti?"
+    prompt: {text: "una malattia al cuore che i medici non hanno mai capito il nome", tags: [relative-pronoun]}
+  - learner: "Una malattia il cui nome i medici non hanno mai capito."
+  - tutor: "Perfetto. Allora è importante fare tutti i controlli. Dagli esami vedo che il cuore fa un po' fatica a spingere il sangue."
+    goals: [history]
+  - learner: "Che cosa significa? È pericoloso? Mi dica la verità, la prego."
+  - tutor: "Non è pericoloso, se ci curiamo subito. Il cuore è un po' stanco, e per questo si ferma acqua nelle gambe."
+    goals: [understand]
+  - learner: "Ci sono effetti collaterali? Lavoro con i bambini e non posso stare a casa ogni settimana."
+  - tutor: "Il farmaco può farla andare in bagno più spesso, soprattutto la mattina. Lo prenda dopo colazione, e ci rivediamo tra un mese."
+    goals: [treatment]
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-traveller
+  history: [passive, hypothetical]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Abbastanza bene, ma un mese fa sono svenuto in palestra. Sono stato portato all'emergenza con l'ambulanza."
+    errors: [word-choice]
+  - tutor: "Al pronto soccorso, addirittura! Mi dispiace. Che cosa stava facendo, esattamente, quando è svenuto?"
+    recast: {text: "all'emergenza", fix: "al pronto soccorso", tags: [word-choice]}
+  - learner: "Correvo sul tapis roulant da venti minuti. Prima di svenire mi girava la testa e vedevo tutto bianco."
+  - tutor: "Le era già successo prima?"
+    goals: [symptoms]
+  - learner: "No, mai. Se lo sapessi che era pericoloso, non avrei corso così tanto."
+    errors: [hypothetical]
+  - tutor: "Non poteva saperlo. Ma «se lo sapessi..., non avrei corso»: si parla di un fatto passato. Quale tempo serve dopo «se»?"
+    prompt: {text: "Se lo sapessi", tags: [hypothetical]}
+  - learner: "Se l'avessi saputo, non avrei corso così tanto."
+  - tutor: "Esatto. In famiglia qualcuno ha problemi di cuore?"
+  - learner: "Mio nonno è morto giovane, ma nessuno sa perché. Mia madre dice che era stato operato al cuore, ma i documenti sono stato persi."
+    errors: [passive]
+  - tutor: "Capisco. Ma «i documenti sono stato persi»: «stato» deve concordare con «i documenti». Come diventa?"
+    prompt: {text: "sono stato persi", tags: [passive]}
+  - learner: "Sono stato persi, purtroppo, durante un trasloco."
+    errors: [passive]
+  - tutor: "Se i documenti sono stati persi, pazienza: i controlli li facciamo noi. Intanto i suoi esami mostrano che sotto sforzo il cuore va troppo veloce."
+    recast: {text: "Sono stato persi", fix: "sono stati persi", tags: [passive]}
+    goals: [history]
+  - learner: "Che cosa vuol dire? Posso ancora fare sport?"
+  - tutor: "Vuol dire che il cuore non riesce a reggere sforzi troppo forti. Per ora niente corsa: solo camminate e un po' di nuoto leggero."
+    goals: [understand]
+  - learner: "Va bene. E le medicine mi faranno stare stanco? Il mese prossimo ho un viaggio di lavoro a Tokyo."
+  - tutor: "I primi giorni può sentirsi un po' stanco, poi passa. Faccia pure il viaggio, e ci rivediamo al suo ritorno."
+    goals: [treatment]
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-m-worker
+  history: [subjunctive-use, combined-pronouns]
+  turns:
+  - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+  - learner: "Mah, dottore, un po' meglio, ma in cantiere, dopo dieci minuti con la carriola, mi manca l'aria e il cuore batte fortissimo."
+  - tutor: "Da quanto tempo le succede?"
+  - learner: "Da circa sei mesi. Prima non mi succedeva mai, e lavoro in cantiere da vent'anni."
+  - tutor: "Capisco. In famiglia ci sono stati problemi di cuore?"
+    goals: [symptoms]
+  - learner: "Sì, mio padre ha avuto un infarto a cinquant'anni. Io adesso ho quarantotto, quindi ho un po' di paura."
+    errors: [ci-ne]
+  - tutor: "La capisco. Ma «adesso ho quarantotto»: per riprendere «anni» senza ripeterlo, quale pronome usa?"
+    prompt: {text: "Io adesso ho quarantotto", tags: [ci-ne]}
+  - learner: "Adesso ne ho quarantotto, sì."
+  - tutor: "Esatto. Gli esami mostrano la pressione alta e il colesterolo un po' alto."
+    goals: [history]
+    new: [{lemma: colesterolo, gloss: cholesterol}]
+  - learner: "È grave? Voglio che lei mi dice tutto, dottore."
+    errors: [subjunctive-use]
+  - tutor: "Certo. Ma «voglio che lei mi dice»: dopo «voglio che», quale modo serve?"
+    prompt: {text: "Voglio che lei mi dice", tags: [subjunctive-use]}
+  - learner: "Sì, voglio che lei mi dice la verità."
+    errors: [subjunctive-use]
+  - tutor: "«Voglio che lei mi dica la verità»: ha ragione. Non è grave, ma è un segnale: il cuore lavora troppo, e se continua così rischia quello che è successo a suo padre."
+    recast: {text: "mi dice", fix: "mi dica", tags: [subjunctive-use]}
+    goals: [understand]
+  - learner: "Allora mi dia le medicine. La ricetta me la può scrivere subito? Così le compro oggi."
+  - tutor: "Certo. Prenda questa medicina la sera: a volte dà un po' di tosse secca. E deve mangiare meno sale e smettere di fumare, se fuma."
+  - learner: "Fumo dieci sigarette al giorno... Mi scrive cosa devo mangiare su un foglio? Lo voglio dare a mia moglie: gli lo faccio leggere stasera."
+    errors: [combined-pronouns]
+  - tutor: "Ottima idea. Ma «gli lo faccio leggere»: «gli» e «lo» insieme diventano una parola sola. Quale?"
+    prompt: {text: "gli lo faccio leggere", tags: [combined-pronouns]}
+  - learner: "Glielo faccio leggere stasera. E con le sigarette ci provo, dottore."
+  - tutor: "Esatto. Allora: la medicina ogni sera, meno sale e niente sigarette. Ci rivediamo tra un mese per controllare la pressione."
+    goals: [treatment]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-f-professional
+  history: [subjunctive-use, participle-agreement]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Sì, purtroppo. Abbiamo aspettato un'ora per i secondi, e quando sono arrivati erano freddi."
+  - tutor: "Mi dispiace moltissimo. Che cosa avevate ordinato?"
+    goals: [complain]
+  - learner: "Due bistecche e un branzino. Le bistecche le avevamo chiesto al sangue, ma erano cotte troppo."
+    errors: [participle-agreement]
+  - tutor: "Capisco. Ma «le bistecche le avevamo chiesto»: «le» sono le bistecche, quindi «chiesto» deve concordare. Come diventa?"
+    prompt: {text: "le avevamo chiesto", tags: [participle-agreement]}
+  - learner: "Le avevamo chieste al sangue. E il cameriere non è mai passato a chiedere se andava tutto bene."
+  - tutor: "Esatto. Ha ragione: stasera mancavano due camerieri, ma non è una scusa."
+    goals: [detail]
+  - learner: "Avevo prenotato qui per il compleanno di mio marito. Pensavo che il servizio era più attento, visto il prezzo."
+    errors: [subjunctive-use]
+  - tutor: "Lo capisco. Ma «pensavo che il servizio era»: dopo «pensavo che», quale modo e quale tempo servono?"
+    prompt: {text: "Pensavo che il servizio era", tags: [subjunctive-use]}
+  - learner: "Pensavo che il servizio sia più attento."
+    errors: [subjunctive-use]
+  - tutor: "Ha ragione: si aspettava che il servizio fosse più attento, e per un compleanno ancora di più. Posso offrirvi il dolce e uno sconto del trenta per cento?"
+    recast: {text: "sia più attento", fix: "fosse più attento", tags: [subjunctive-use]}
+    goals: [expectation]
+  - learner: "È gentile, ma il dolce non lo vogliamo più, è tardi. Lo sconto, invece, lo accetto volentieri."
+  - tutor: "Certo. Allora preparo il conto con lo sconto, e spero di rivedervi presto per una cena come si deve."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-m-worker
+  history: [conditional-form, ci-ne]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Il problema è la pizza: era bruciata sotto e cruda sopra."
+  - tutor: "Mi dispiace molto. È successo con tutte le pizze del tavolo?"
+    goals: [complain]
+  - learner: "Con due su quattro. E mia figlia ha trovato anche un pelo nella sua."
+    errors: [false-friend]
+  - tutor: "Un capello nella pizza? Questo non doveva succedere, mi scusi davvero. Ha detto qualcosa al cameriere?"
+    recast: {text: "un pelo", fix: "Un capello", tags: [false-friend]}
+    goals: [detail]
+  - learner: "Sì, ma lui ha riso e ha detto che il forno era molto caldo stasera. Io mi aspettavo che si scusasse, almeno."
+  - tutor: "Ha ragione, il cameriere avrebbe dovuto scusarsi e portarvi subito un'altra pizza."
+    goals: [expectation]
+  - learner: "Esatto. Io al suo posto avrei cambiato la pizza subito e avrei offrito da bere."
+    errors: [past-participle-form]
+  - tutor: "Ha perfettamente ragione. Solo una cosa: «offrito». Al passato, «offrire» ha una forma speciale: quale?"
+    prompt: {text: "avrei offrito", tags: [past-participle-form]}
+  - learner: "Avrei offerto da bere, ecco."
+  - tutor: "Esatto, ed è quello che faccio io adesso: le pizze non le pagate, e da bere lo offro io. Le va bene?"
+  - learner: "Va bene, grazie. Allora potrebbimo avere anche due dolci per i bambini?"
+    errors: [conditional-form]
+  - tutor: "Certo, con piacere. Ma «potrebbimo»: con «noi», il condizionale di «potere» finisce in un altro modo. Come?"
+    prompt: {text: "potrebbimo", tags: [conditional-form]}
+  - learner: "Potremmo avere due dolci, per favore?"
+  - tutor: "Esatto. Arrivano subito, offerti dalla casa. E la prossima volta chieda di me: vi preparo il tavolo migliore."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-heritage
+  history: [subjunctive-use, relative-pronoun]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Mi dispiace disturbarla, ma la cena è stata deludente, soprattutto per il prezzo."
+  - tutor: "Mi dica pure, sono qui per questo. Che cosa non è andato?"
+    goals: [complain]
+  - learner: "Il menù degustazione che abbiamo scelto aveva sette portate, ma erano minuscole. E il vino che il cameriere ci ha consigliato era caldo."
+  - tutor: "Il vino caldo non dovrebbe mai succedere, mi scuso. E le porzioni erano tutte così piccole?"
+    goals: [detail]
+  - learner: "Sì. Il piatto che ero più curioso era il risotto, e c'erano dieci chicchi di riso."
+    errors: [relative-pronoun]
+  - tutor: "Dieci chicchi, addirittura! Ma «il piatto che ero più curioso»: si è curiosi «di» qualcosa. Come cambia il «che»?"
+    prompt: {text: "Il piatto che ero più curioso", tags: [relative-pronoun]}
+  - learner: "Il piatto di cui ero più curioso. Sì, era il risotto."
+  - tutor: "Esatto. E che cosa si aspettava, invece?"
+  - learner: "Non pretendevo che le porzioni sono enormi, ma almeno di uscire senza fame."
+    errors: [subjunctive-use]
+  - tutor: "Giusto. Ma «non pretendevo che le porzioni sono»: dopo «pretendevo che», quale modo e quale tempo servono?"
+    prompt: {text: "Non pretendevo che le porzioni sono", tags: [subjunctive-use]}
+  - learner: "Sì: non pretendevo che sono enormi, appunto."
+    errors: [subjunctive-use]
+  - tutor: "«Non pretendevo che fossero enormi»: ha perfettamente ragione, un menù così dovrebbe bastare a chiunque. Posso offrirle un secondo piatto adesso, o uno sconto del venti per cento."
+    recast: {text: "che sono enormi", fix: "che fossero enormi", tags: [subjunctive-use]}
+    goals: [expectation]
+  - learner: "Grazie, ma ormai è tardi per mangiare ancora. Preferirei lo sconto, e vorrei che lo chef sapesse che cosa ne penso."
+  - tutor: "Le faccio lo sconto subito, e domani parlo con lo chef di persona. Grazie per avercelo detto con tanta calma."
+    goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-f-erasmus
+  history: [conditional-form, preposition]
+  turns:
+  - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+  - learner: "Buonasera. Siamo dieci amiche: avevamo una reserva per le otto, ma ci hanno fatto sedere solo alle nove e mezza."
+    errors: [word-choice]
+  - tutor: "Avevate una prenotazione per le otto e vi hanno fatto sedere alle nove e mezza? Mi dispiace davvero. Nessuno vi ha avvisato?"
+    recast: {text: "una reserva", fix: "una prenotazione", tags: [word-choice]}
+    goals: [complain]
+  - learner: "No, nessuno. E quando ci siamo sedute, il cameriere ci ha detto che metà dei piatti era finita."
+  - tutor: "Questo non va bene. E poi com'è andata la cena?"
+  - learner: "Il cibo era buono, ma i piatti sono arrivati in momenti diversi: io ho finito di mangiare prima che la mia amica ricevesse il suo."
+  - tutor: "Capisco: una cena in compagnia, così, perde senso."
+    goals: [detail]
+  - learner: "Esatto. Era una festa di laurea, e mi aspettavo che ci trattavate meglio."
+    errors: [subjunctive-use]
+  - tutor: "Ha ragione. Ma «mi aspettavo che ci trattavate»: dopo «mi aspettavo che», quale modo serve?"
+    prompt: {text: "mi aspettavo che ci trattavate", tags: [subjunctive-use]}
+  - learner: "Mi aspettavo che ci trattaste meglio."
+  - tutor: "Esatto, e avete ragione. Posso offrirvi il dolce e qualcosa da bere per festeggiare, oppure uno sconto sul conto."
+    goals: [expectation]
+  - learner: "Da bere sarebbe bello! Ma io preferirebbe lo sconto, perché siamo studentesse."
+    errors: [conditional-form]
+  - tutor: "Si può fare. Ma «io preferirebbe»: con «io», il condizionale finisce in un altro modo. Come?"
+    prompt: {text: "io preferirebbe", tags: [conditional-form]}
+  - learner: "Sì, io preferirebbe lo sconto."
+    errors: [conditional-form]
+  - tutor: "«Io preferirei lo sconto»: d'accordo. Facciamo tutte e due le cose: da bere offerto dalla casa e il dieci per cento di sconto. E tanti auguri!"
+    recast: {text: "preferirebbe", fix: "preferirei", tags: [conditional-form]}
+    goals: [resolve]

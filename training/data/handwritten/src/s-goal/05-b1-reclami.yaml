@@ -1,0 +1,234 @@
+# B1, complaints and repairs: hotel room, faulty products, a noisy neighbour, the mechanic.
+# The tutor never fixes the problem before it is described and checked; offers are concrete
+# (room numbers, prices, days) and stay the same once given.
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-f-student
+  history: [preposition, comparative]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sono nella camera 312 e l'aria condizionata non funziona. Fa un caldo terribile."
+    - tutor: "Mi dispiace molto. Da quando non funziona?"
+      goals: [problem]
+    - learner: "Da quando sono arrivata, alle sei. Ho provato di cambiare la temperatura, ma niente."
+      errors: [preposition]
+      gold: {text: "provato di cambiare", fix: "provato a cambiare"}
+    - tutor: "«Ho provato di cambiare»? Dopo «provare», davanti all'infinito, la preposizione è un'altra."
+      prompt: {text: "provato di cambiare", tags: [preposition]}
+    - learner: "Ho provato a cambiare la temperatura, ma niente."
+    - tutor: "A quest'ora non c'è nessuno per ripararla: viene domani alle otto. Per stanotte, come posso aiutarla?"
+      goals: [since]
+    - learner: "Potrebbe darmi un'altra camera? Non posso dormire con questo caldo."
+    - tutor: "Ho una camera libera al quarto piano, la 405. Però è più piccola e dà sulla strada."
+      goals: [request]
+    - learner: "Sulla strada? Allora c'è rumore. Non c'è un'altra soluzione?"
+    - tutor: "Posso portarle un ventilatore in camera, oppure darle la 405 solo per stanotte."
+      new: [{lemma: ventilatore, gloss: fan}]
+    - learner: "Preferirei la 405. Il rumore è meno grave che il caldo."
+      errors: [comparative]
+      gold: {text: "meno grave che il caldo", fix: "meno grave del caldo"}
+    - tutor: "«Meno grave che il caldo»? Prima di un nome, in questo confronto, che parola usiamo?"
+      prompt: {text: "meno grave che il caldo", tags: [comparative]}
+    - learner: "Sì, per me il rumore è meno grave che il caldo."
+      errors: [comparative]
+    - tutor: "Ha ragione, il rumore è meno grave del caldo. Per scusarci, la colazione di domani gliela offriamo noi."
+      recast: {text: "meno grave che il caldo", fix: "meno grave del caldo", tags: [comparative]}
+    - learner: "Grazie, è molto gentile. Prendo la chiave adesso?"
+    - tutor: "Eccola: camera 405, quarto piano. Le mando subito qualcuno per le valigie. Buonanotte!"
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: es-m-worker
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Ieri notte non ho dormito per niente: c'era una musica fortissima fino alle tre."
+    - tutor: "La musica viene dal bar sulla piazza: d'estate a volte fanno delle feste. È successo solo ieri?"
+      goals: [problem]
+    - learner: "No, anche la prima notte, domenica. Sono due notti che non dormo, e sono molto molesto."
+      errors: [false-friend]
+    - tutor: "Ha ragione a essere molto arrabbiato: due notti sono tante. Che cosa possiamo fare per lei?"
+      goals: [since]
+      recast: {text: "molto molesto", fix: "molto arrabbiato", tags: [false-friend]}
+    - learner: "Vorrei cambiare camera, una camera sul retro. È possibile?"
+    - tutor: "Sul retro è tutto pieno fino a giovedì, purtroppo. Stasera posso darle dei tappi per le orecchie e telefonare al bar."
+      goals: [request]
+      new: [{lemma: tappo, gloss: earplug}]
+    - learner: "I tappi non mi bastano. E giovedì, se si libera una camera sul retro, posso cambiare?"
+    - tutor: "Sì, giovedì mattina la sposto nella 118, che è sul retro. E per queste due notti le togliamo il venti per cento dal conto."
+    - learner: "Va bene, accetto. Ma stasera potrebbe telefonare al bar? Se la musica finisce a mezzanotte, per me va bene."
+    - tutor: "Li chiamo subito. Allora: stasera telefono al bar, giovedì cambia camera, e il venti per cento in meno sul conto. Buonanotte!"
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-m-traveller
+  history: [participle-agreement, preposition]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie la settimana scorsa, ma la parte destra non funziona più."
+    - tutor: "Mi dispiace. Ha ancora lo scontrino?"
+      goals: [problem]
+    - learner: "Sì, eccolo. Le ho comprato il dodici marzo."
+      errors: [participle-agreement]
+      gold: {text: "Le ho comprato", fix: "Le ho comprate"}
+    - tutor: "«Le ho comprato»? «Le» sono le cuffie: come cambia «comprato»?"
+      prompt: {text: "Le ho comprato", tags: [participle-agreement]}
+    - learner: "Le ho comprate il dodici marzo."
+    - tutor: "Sono passati solo dieci giorni, quindi sono ancora in garanzia. Che cosa vorrebbe fare?"
+      goals: [proof]
+    - learner: "Vorrei un rimborso, per favore. Non mi fido più di questo modello."
+    - tutor: "Per il rimborso devo prima mandarle a controllare, e ci vogliono due settimane. Se invece le cambiamo, si fa subito."
+      goals: [request]
+    - learner: "Due settimane? Parto venerdì. Allora preferisco cambiarle, ma per un altro modello."
+      errors: [preposition]
+      gold: {text: "per un altro modello", fix: "con un altro modello"}
+    - tutor: "Cambiarle «per» un altro modello? Con «cambiare» qui ci vuole un'altra preposizione."
+      prompt: {text: "per un altro modello", tags: [preposition]}
+    - learner: "Cambiarle con un altro modello. È possibile?"
+    - tutor: "Sì, se costa uguale, oppure se paga la differenza. Le sue costavano settantanove euro."
+    - learner: "Quelle nere lì costano ottantanove. Pago la differenza di dieci euro."
+    - tutor: "Va benissimo: dieci euro di differenza, e le nere sono sue. Le provi qui, prima di andare."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Questo asciugacapelli non funziona bene: si spegne dopo due minuti."
+    - tutor: "Vediamo... Quando l'ha comprato?"
+      goals: [problem]
+    - learner: "L'ho comprato sabato scorso, ma lo scontrino non lo trovo più."
+    - tutor: "Senza scontrino è più difficile. Ha pagato con la carta? Allora può farmi vedere sul telefono che ha pagato."
+    - learner: "Sì, ho pagato con la carta. Aspetti che lo cerco nell'app della banca... Ecco: trentaquattro euro, sabato quindici."
+    - tutor: "Va benissimo così, vale come prova. Che cosa desidera fare?"
+      goals: [proof]
+    - learner: "Vorrei che mi restituite i soldi."
+      errors: [subjunctive-use]
+      gold: {text: "che mi restituite", fix: "che mi restituiate"}
+    - tutor: "«Vorrei che mi restituite»? Dopo «vorrei che», il verbo cambia modo."
+      prompt: {text: "che mi restituite", tags: [subjunctive-use]}
+    - learner: "Vorrei che mi restituiate i soldi."
+    - tutor: "D'accordo. Il rimborso torna sulla stessa carta e arriva in cinque giorni."
+      goals: [request]
+    - learner: "Cinque giorni va bene. Devo firmare qualcosa?"
+    - tutor: "Sì, qui sotto. Ecco la ricevuta del rimborso: trentaquattro euro."
+      goals: [agree]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: en-f-professional
+  history: [object-pronoun]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi il disturbo. Sono Helen, abito al piano di sotto, nell'interno 4."
+    - tutor: "Piacere. Mi dica pure, è successo qualcosa?"
+      goals: [greet]
+    - learner: "Ecco, la sera sentiamo molto la musica, soprattutto dopo le undici. Io mi alzo alle sei per il lavoro."
+    - tutor: "Mi dispiace, non pensavo che si sentisse così tanto. Mio figlio studia musica e la sera suona il piano."
+      goals: [problem]
+    - learner: "È bello che studi musica. Però potrebbe dirle di suonare prima delle dieci?"
+      errors: [object-pronoun]
+      gold: {text: "dirle", fix: "dirgli"}
+    - tutor: "«Dirle»? Parliamo di mio figlio, un ragazzo: quale pronome serve?"
+      prompt: {text: "dirle", tags: [object-pronoun]}
+    - learner: "Potrebbe dirgli di suonare prima delle dieci?"
+    - tutor: "Prima delle dieci per lui è difficile, torna da scuola alle otto. Che ne dice delle dieci e mezza?"
+      goals: [request]
+    - learner: "Alle dieci e mezza va bene, se nel fine settimana suona di pomeriggio."
+    - tutor: "Mi sembra giusto. E gli dico anche di mettere qualcosa sotto il piano, così si sente meno."
+      goals: [compromise]
+    - learner: "Grazie mille, è molto gentile. E se c'è un problema, mi suoni il campanello."
+    - tutor: "Lo stesso vale per lei. Buonanotte, e mi scusi ancora!"
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera. Sono Pablo, il vicino del secondo piano."
+    - tutor: "Piacere, Pablo. C'è qualche problema?"
+      goals: [greet]
+    - learner: "Sì. Lavoro di notte in ospedale e dormo di giorno. Ma il suo cane abbaia tutta la mattina."
+    - tutor: "Davvero? Io esco alle otto e torno all'una, quindi non lo sento. Non ne sapevo niente."
+      goals: [problem]
+    - learner: "Abbaia da quando lei esce fino a mezzogiorno. Lei poteria lasciarlo da qualcuno la mattina?"
+      errors: [conditional-form]
+      gold: {text: "poteria", fix: "potrebbe"}
+    - tutor: "«Poteria»? Questa forma è spagnola. Com'è in italiano il condizionale di «potere», con «lei»?"
+      prompt: {text: "poteria", tags: [conditional-form]}
+    - learner: "Potrebbe lasciarlo da qualcuno la mattina?"
+    - tutor: "Mia sorella abita qui vicino: potrei lasciarlo da lei il lunedì, il mercoledì e il venerdì."
+      goals: [request]
+    - learner: "Tre giorni è già qualcosa. E gli altri giorni?"
+    - tutor: "Gli altri giorni posso tornare a casa a pranzo e portarlo fuori. Di solito fa così perché è solo."
+    - learner: "Va bene, proviamo così per due settimane. Grazie della comprensione."
+    - tutor: "Grazie a lei di essere venuto a dirmelo. Fra due settimane mi dica se va meglio."
+      goals: [compromise]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-m-retired
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando freno, sento un rumore strano, come un fischio."
+    - tutor: "Un fischio quando frena... Da quanto tempo lo sente?"
+      goals: [describe]
+    - learner: "Da lunedì. Lunedì andavo al mercato e l'ho sentito per la prima volta."
+    - tutor: "Devo guardare la macchina prima di dirle qualcosa. Me la lascia un'ora?"
+      goals: [when]
+    - learner: "Sì, certo. Faccio un giro e torno. Ma più o meno quanto costerà?"
+    - tutor: "Dipende da quello che trovo. Se è solo un problema dei freni, sui centoventi euro."
+    - learner: "Eccomi. Allora, ha trovato il problema?"
+    - tutor: "Sì: i freni davanti sono da cambiare, e anche i dischi. Il preventivo è di 280 euro."
+    - learner: "Duecentottanta! È molto più che centoventi."
+      errors: [comparative]
+      gold: {text: "più che centoventi", fix: "più di centoventi"}
+    - tutor: "«Più che centoventi»? Con un numero, in un confronto, quale parola si usa?"
+      prompt: {text: "più che centoventi", tags: [comparative]}
+    - learner: "È molto più che centoventi euro!"
+      errors: [comparative]
+    - tutor: "Sì, è molto più di centoventi euro, ha ragione: ci sono anche i dischi. Ma con i dischi vecchi, i freni nuovi durano poco."
+      goals: [cost]
+      recast: {text: "più che centoventi", fix: "più di centoventi", tags: [comparative]}
+    - learner: "Va bene, li cambi. Quando sarà pronta la macchina?"
+    - tutor: "I dischi li devo ordinare e arrivano domani mattina. Sarà pronta domani alle cinque."
+      goals: [time]
+
+- scenario: dal-meccanico
+  level: B1
+  persona: es-f-teacher
+  history: [tense-aspect, spelling]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Si è accesa una luce rossa e il motore fa un rumore strano."
+    - tutor: "Che tipo di rumore? E la luce, com'è?"
+    - learner: "Un rumore forte, come un colpo. La luce è quella dell'olio, credo."
+    - tutor: "Se è la luce dell'olio, è meglio non guidare. Quando si è accesa?"
+      goals: [describe]
+    - learner: "Si accendeva ieri sera, mentre tornavo dal lavoro."
+      errors: [tense-aspect]
+      gold: {text: "Si accendeva", fix: "Si è accesa"}
+    - tutor: "«Si accendeva»? È successo una volta, in un momento preciso. Che tempo usa?"
+      prompt: {text: "Si accendeva", tags: [tense-aspect]}
+    - learner: "Si è accesa ieri sera, mentre tornavo dal lavoro."
+    - tutor: "Ha fatto bene a venire subito. Guardo l'olio... È quasi finito, e c'è una perdita sotto il motore."
+      goals: [when]
+    - learner: "È grave? Quanto mi costerà la reparazione?"
+      errors: [spelling]
+      gold: {text: "reparazione", fix: "riparazione"}
+    - tutor: "«Reparazione»? Pensi al verbo «riparare»: com'è l'inizio?"
+      prompt: {text: "reparazione", tags: [spelling]}
+    - learner: "Riparazione! Quanto costerà la riparazione?"
+    - tutor: "Devo cambiare una guarnizione e rimettere l'olio: circa centocinquanta euro, con il pezzo."
+      goals: [cost]
+      new: [{lemma: guarnizione, gloss: gasket}]
+    - learner: "Va bene. Ho bisogno della macchina per lunedì: la scuola dove lavoro è lontana."
+    - tutor: "Il pezzo lo ordino oggi. Se arriva domani, la macchina sarà pronta sabato alle dodici."
+    - learner: "Perfetto. Posso venire a prenderla sabato alle dodici e mezza?"
+    - tutor: "Sì, sabato alle dodici e mezza va benissimo. Se il pezzo arriva in ritardo, la chiamo io."
+      goals: [time]

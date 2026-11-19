@@ -1,0 +1,197 @@
+# Round 8, set s-wordchoice: word-choice and false friends beside acceptable plain choices. C1, file 8.
+- scenario: trattativa-fornitore
+  level: C1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, la chiamo proprio per questo. Un aumento del dodici per cento da un mese all'altro, per noi, è difficilmente sostenibile."
+    - tutor: "Lo capisco, ma il grano è aumentato del venti per cento. Non possiamo lavorare in perdita."
+      goals: [problem]
+    - learner: "Nessuno glielo chiede. Però lavoriamo insieme da otto anni, abbiamo sempre pagato puntualmente e siamo stati clienti molto leali."
+      errors: [word-choice]
+    - tutor: "Siete stati clienti molto fedeli, è vero, e lo teniamo in grande considerazione. Che cosa mi propone?"
+      recast: {text: "clienti molto leali", fix: "clienti molto fedeli", tags: [word-choice]}
+      goals: [argue]
+    - learner: "Un compromesso: un aumento del sei per cento subito, e un altro tre per cento a gennaio, se il prezzo del grano resta alto."
+    - tutor: "Il sei è troppo poco. Potrei arrivare all'otto subito, ma con un ordine minimo garantito."
+      goals: [counteroffer]
+    - learner: "L'otto potrebbe andare, a condizione che il contratto venga rinnovato con le stesse condizioni di consegna. Le ricordo che vince a fine marzo."
+      errors: [false-friend]
+    - tutor: "Scade a fine marzo, sì. Allora siamo d'accordo: otto per cento, ordine minimo garantito e stesse condizioni di consegna nel rinnovo."
+      recast: {text: "vince", fix: "scade", tags: [false-friend]}
+    - learner: "Perfetto. Mi manda una conferma scritta entro domani, così la giro all'amministrazione?"
+    - tutor: "Gliela mando stasera stessa. È stato un piacere trattare con lei, come sempre."
+      goals: [agreement]
+
+- scenario: turismo-di-massa
+  level: C1
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?"
+    - learner: "Buongiorno a tutti. Sono inglese, ma vivo a Venezia da dodici anni, e sono decisamente a favore."
+    - tutor: "Una residente straniera a favore, interessante! E perché?"
+      goals: [introduce]
+    - learner: "Perché vedo ogni giorno l'affluenza dei turisti nei fine settimana: in certe calli non si riesce letteralmente a camminare."
+    - tutor: "Ma cinque euro non fermano nessuno, non crede? Chi arriva da New York non rinuncia per cinque euro."
+      goals: [example]
+    - learner: "Penso che lei ha ragione sul prezzo, ma lo scopo non è solo fermare la gente."
+      errors: [subjunctive-use]
+    - tutor: "«Penso che lei ha ragione»? Dopo un verbo di opinione come «pensare», quale modo ci vuole?"
+      prompt: {text: "lei ha ragione", tags: [subjunctive-use]}
+    - learner: "Ah, certo: penso che lei abbia ragione sul prezzo. Ma il ticket serve anche a raccogliere dati e risorse."
+    - tutor: "Esatto. E queste risorse, concretamente, a che cosa servirebbero?"
+    - learner: "Si potrebbero migliorare le facilità per i residenti, per esempio i vaporetti, che oggi sono sempre pieni di turisti."
+      errors: [false-friend]
+    - tutor: "I servizi per i residenti e i vaporetti sempre pieni: un tema che qui conosciamo bene. Ha una proposta concreta?"
+      recast: {text: "le facilità", fix: "i servizi", tags: [false-friend]}
+      goals: [rebut]
+    - learner: "Sì: prenotazione obbligatoria nei giorni di punta, prezzo più alto per chi viene solo in giornata, e i soldi vincolati per legge ai servizi per chi ci abita."
+    - tutor: "Una proposta chiara e precisa. Grazie per la sua telefonata, e passiamo alla prossima chiamata!"
+      goals: [proposal]
+
+- scenario: arte-mostra
+  level: C1
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Mi lascia senza parole. È un ritratto molto semplice, eppure ha una forza che non mi aspettavo."
+    - tutor: "È di un'artista del Seicento poco conosciuta. Cosa ti colpisce, nei dettagli?"
+      goals: [react]
+    - learner: "Lo sguardo della donna, così diretto, quasi sfrontato. E le mani: una tiene un libro, l'altra è appoggiata sul tavolo, come se stesse per alzarsi."
+    - tutor: "Hai notato la cosa giusta. E secondo te che cosa voleva dire la pittrice?"
+      goals: [describe]
+    - learner: "Credo che volesse rivendicare il diritto delle donne a studiare. Il libro non è un accessorio: è il vero soggetto del quadro."
+    - tutor: "È anche la mia lettura. Ti ricorda qualche altra artista?"
+      goals: [interpret]
+    - learner: "Mi fa pensare ad Artemisia Gentileschi, anche se qui i colori sono più apagati."
+      errors: [word-choice]
+    - tutor: "Più spenti, sì, ma per scelta: tutta la luce è concentrata sul volto e sul libro."
+      recast: {text: "più apagati", fix: "più spenti", tags: [word-choice]}
+      goals: [compare]
+    - learner: "Rispetto ad Artemisia è meno teatrale, più intima. Mi piacerebbe saperne di più: hai qualche libro da raccomandarmi?"
+    - tutor: "Ho il catalogo di una mostra di qualche anno fa: te lo presto volentieri."
+
+- scenario: dibattito-ambiente
+  level: C1
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Rispetto la sua opinione, ma non la condivido. Credo che una zona pedonale, se ben progettata, possa rilanciare il commercio invece di soffocarlo."
+    - tutor: "Belle parole. Ma i dati dove sono?"
+      goals: [position]
+    - learner: "Ce ne sono parecchi. Nella mia città, in Inghilterra, i negozi del centro hanno aumentato gli incassi del quindici per cento in due anni. E poi c'è la qualità dell'aria, che non è un dettaglio."
+    - tutor: "Lì però avevano parcheggi e mezzi pubblici efficienti. Qui gli autobus passano ogni mezz'ora!"
+      goals: [argue]
+    - learner: "È un argomento valido. In effetti il piano del Comune non è abbastanza comprensivo: senza navette dai parcheggi è destinato a fallire."
+      errors: [false-friend]
+    - tutor: "Non è abbastanza completo, lo riconosce anche lei! E allora cosa propone?"
+      recast: {text: "comprensivo", fix: "completo", tags: [false-friend]}
+      goals: [counter]
+    - learner: "Concedo che i negozianti debbano essere coinvolti fin dall'inizio. Propongo una sperimentazione di sei mesi, solo nei fine settimana; eventualmente si potrebbero aggiungere navette gratuite il sabato."
+    - tutor: "Una sperimentazione con le navette, e poi si decide con i numeri alla mano: su questo posso essere d'accordo."
+      goals: [concede]
+
+- scenario: politica-lavoro
+  level: C1
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Mi sembra un'esagerazione. Che molti lavori cambieranno è certo, ma che spariscano del tutto lo dubito."
+    - tutor: "E se avessi ragione io? Al posto del governo, tu cosa faresti?"
+      goals: [opinion]
+    - learner: "Se fossi al governo, investirei nella formazione continua e introdurrei incentivi per le aziende che riqualificano i dipendenti invece di licenziarli."
+    - tutor: "Bello sulla carta. Ma hai un esempio reale?"
+      goals: [hypothesis]
+    - learner: "Mio padre lavorava in una fabbrica di componenti per auto. Quando l'hanno automatizzata, l'azienda ha pagato un corso a quaranta operai, e oggi lui fa la manutenzione dei robot. All'inizio non era per niente confidente, ma ce l'ha fatta."
+      errors: [false-friend]
+    - tutor: "Non era sicuro di sé, e a cinquant'anni è comprensibile. Però ammetterai che la sua è l'eccezione, non la regola."
+      recast: {text: "confidente", fix: "sicuro di sé", tags: [false-friend]}
+      goals: [example]
+    - learner: "Forse. Per riassumere: il lavoro non sparirà, si trasformerà, e la vera domanda è chi pagherà la transizione. E tu, sei davvero pessimista o stai solo pretendendo?"
+      errors: [false-friend]
+    - tutor: "Fingendo? Un pochino, lo confesso: a cena mi piace provocare. Ma sulla transizione hai ragione tu."
+      recast: {text: "pretendendo", fix: "fingendo", tags: [false-friend]}
+      goals: [conclude]
+
+- scenario: burocrazia-residenza
+  level: C1
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Mi sono trasferito in un nuovo appartamento e devo cambiare la residenza. Già che ci sono, vorrei anche rinnovare il permesso di soggiorno."
+    - tutor: "Per la residenza è nel posto giusto. Per il permesso di soggiorno, invece, deve rivolgersi alla questura."
+      goals: [request]
+    - learner: "Ah, non lo sapevo. Allora mi concentro sulla residenza: ho portato il contratto d'affitto registrato e il passaporto."
+    - tutor: "Benissimo. Serve anche il modulo firmato da tutti i maggiorenni che si trasferiscono con lei."
+      goals: [documents]
+    - learner: "Il problema è che mia moglie è in Spagna fino al mese prossimo. Può firmare un apoderamiento?"
+      errors: [word-choice]
+    - tutor: "Basta una delega firmata da sua moglie, con la copia di un suo documento: può mandarcela anche per email."
+      recast: {text: "un apoderamiento", fix: "una delega", tags: [word-choice]}
+      new: [{lemma: delega, gloss: proxy}]
+      goals: [problem]
+    - learner: "Perfetto, me la manda entro domani. Intanto mi può dare una constancia che ho presentato la domanda?"
+      errors: [word-choice]
+    - tutor: "Certo, le do una ricevuta con il numero della pratica. La residenza decorre da oggi, ed entro quarantacinque giorni passerà la polizia locale per il controllo."
+      recast: {text: "una constancia", fix: "una ricevuta", tags: [word-choice]}
+      goals: [next]
+    - learner: "Va bene. Un'ultima cosa: c'è qualcosa da pagare?"
+    - tutor: "No, il cambio di residenza è gratuito. Buona giornata!"
+
+- scenario: colloquio-promozione
+  level: C1
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie per il tempo. Vorrei fare il punto sull'anno appena concluso e, se possibile, parlare del mio futuro qui."
+    - tutor: "Certo, mi dica pure."
+    - learner: "Quest'anno ho guidato il passaggio al nuovo software di contabilità, che ha fatto una differenza drammatica: abbiamo risparmiato circa trentamila euro."
+      errors: [false-friend]
+    - tutor: "Una differenza enorme, lo so bene, e i numeri parlano da soli."
+      recast: {text: "drammatica", fix: "enorme", tags: [false-friend]}
+      goals: [results]
+    - learner: "Proprio per questo credo che sia arrivato il momento di assumere un ruolo di maggiore responsabilità. Mi candiderei volentieri al posto di responsabile amministrativo."
+    - tutor: "Il problema è che lei è con noi da soli due anni, e altri colleghi hanno più anzianità."
+      goals: [request]
+    - learner: "Capisco, ma l'anzianità da sola non garantisce i risultati. Sarei disposto a un periodo di probazione di sei mesi, per dimostrare di essere all'altezza."
+      errors: [word-choice]
+    - tutor: "Un periodo di prova... È un'idea che potrei proporre alla direzione."
+      recast: {text: "probazione", fix: "prova", tags: [word-choice]}
+      goals: [handle]
+    - learner: "Allora le chiedo solo di essere informato appena la direzione avrà deciso. Non vorrei saperlo per rumore."
+      errors: [false-friend]
+    - tutor: "Non lo saprà per sentito dire, glielo prometto: le comunico io la decisione, entro la fine del mese."
+      recast: {text: "per rumore", fix: "per sentito dire", tags: [false-friend]}
+      goals: [next-steps]
+    - learner: "La ringrazio, è tutto quello che chiedo."
+    - tutor: "Grazie a lei per la sincerità. Ci aggiorniamo a fine mese."
+
+- scenario: medico-specialista
+  level: C1
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Molto meglio, grazie. La cura ha avuto molto esito: le palpitazioni sono quasi sparite."
+      errors: [false-friend]
+    - tutor: "La cura ha avuto molto successo, allora: ne sono contento. Le resta qualche disturbo, magari sotto sforzo?"
+      recast: {text: "molto esito", fix: "molto successo", tags: [false-friend]}
+    - learner: "Sì, ogni tanto, salendo le scale, mi manca un po' il fiato."
+    - tutor: "Ne terremo conto. In famiglia ci sono casi di ipertensione o di malattie cardiache?"
+      goals: [symptoms]
+    - learner: "Sì, mia madre e mia nonna. Mia nonna, in particolare, è morta d'infarto molto giovane, a cinquantadue anni."
+    - tutor: "È un dato da tenere presente. Gli esami nel complesso sono buoni, ma il colesterolo è un po' alto."
+      goals: [history]
+    - learner: "Che cosa significa, in concreto? Devo preoccuparmi?"
+    - tutor: "Non è allarmante, ma va tenuto sotto controllo con l'alimentazione e il movimento."
+      goals: [understand]
+    - learner: "Preferirei evitare i farmaci, se possibile: sono molto sensibile ai medicinali, e con l'ultimo antibiotico sono stata male per giorni."
+    - tutor: "Allora per ora niente farmaci: dieta mediterranea, mezz'ora di camminata al giorno e un nuovo controllo tra sei mesi."
+      goals: [treatment]

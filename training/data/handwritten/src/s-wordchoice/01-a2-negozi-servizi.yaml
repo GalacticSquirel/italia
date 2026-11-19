@@ -1,0 +1,217 @@
+# Round 8, set s-wordchoice: word-choice and false friends beside acceptable plain choices. A2, file 1.
+- scenario: abbigliamento
+  level: A2
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Cerco una giacca leggera per la primavera."
+    - tutor: "Abbiamo queste giacche nuove, perfette per la primavera. Che taglia porta?"
+      goals: [ask-item]
+    - learner: "Porto la 52. Mi piace questa verde. Di che fabbrica è?"
+      errors: [false-friend]
+    - tutor: "Il tessuto è fresco e va bene anche con il caldo. La 52 c'è in verde e in blu."
+      recast: {text: "fabbrica", fix: "tessuto", tags: [false-friend]}
+      new: [{lemma: tessuto, gloss: fabric}]
+      goals: [size-colour]
+    - learner: "Verde, per favore. Posso provarla su?"
+      errors: [word-choice]
+    - tutor: "Certo, può provarla nel camerino, lì a destra."
+      recast: {text: "provarla su", fix: "provarla", tags: [word-choice]}
+      goals: [try]
+    - learner: "Mi sta un po' stretta. C'è una taglia più larga?"
+    - tutor: "Sì, ecco la 54. Provi anche questa."
+    - learner: "Questa va bene, è perfetta! Quanto costa?"
+    - tutor: "Sessanta euro. Paga in contanti o con la carta?"
+    - learner: "Con la carta, grazie."
+    - tutor: "Ecco lo scontrino e la giacca. Buona giornata!"
+      goals: [decide]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Vorrei spedire questa parcella in Irlanda."
+      errors: [false-friend]
+    - tutor: "Allora, questo pacco va in Irlanda: nessun problema."
+      recast: {text: "questa parcella", fix: "questo pacco", tags: [false-friend]}
+      goals: [send]
+    - learner: "Quanto tempo prende?"
+      errors: [word-choice]
+    - tutor: "Quanto tempo ci vuole? Con la posta normale circa dieci giorni, con quella veloce tre."
+      recast: {text: "prende", fix: "ci vuole", tags: [word-choice]}
+    - learner: "Dieci giorni è troppo. Prendo l'espresso."
+    - tutor: "Va bene, l'espresso. Scriva qui l'indirizzo e che cosa c'è dentro, per favore."
+      goals: [speed]
+    - learner: "Ecco. Dentro ci sono due libri e un maglione."
+    - tutor: "Perfetto. Con la posta veloce sono ventidue euro."
+      goals: [form]
+    - learner: "Ho bisogno anche di due stampe per queste cartoline."
+      errors: [false-friend]
+    - tutor: "Ecco due francobolli per l'Europa. In tutto fanno ventisei euro."
+      recast: {text: "due stampe", fix: "due francobolli", tags: [false-friend]}
+      new: [{lemma: francobollo, gloss: stamp}]
+    - learner: "Ecco trenta euro."
+    - tutor: "Ecco il resto, quattro euro, e la ricevuta. Buona giornata!"
+      goals: [pay]
+
+- scenario: parrucchiere
+  level: A2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Vorrei tagliare il pelo, solo un po'."
+      errors: [false-friend]
+    - tutor: "Tagliamo i capelli, va bene. Quanto corti li vuole?"
+      recast: {text: "il pelo", fix: "i capelli", tags: [false-friend]}
+      goals: [book]
+    - learner: "Tre centimetri, non di più. Mi piacciono lunghi."
+    - tutor: "Solo tre centimetri, d'accordo. Facciamo anche la frangia?"
+      goals: [length]
+    - learner: "No, la frangia no. Però vorrei un colore più chiaro, rubio."
+      errors: [word-choice]
+    - tutor: "Un biondo chiaro le sta bene, secondo me. Però per il colore ci vogliono due ore: ha tempo?"
+      recast: {text: "rubio", fix: "biondo", tags: [word-choice]}
+      new: [{lemma: biondo, gloss: blond}]
+    - learner: "Due ore no, oggi ho fretta. Il colore lo faccio la settimana prossima."
+    - tutor: "Benissimo, allora oggi solo il taglio. Le segno un appuntamento per martedì?"
+      goals: [style]
+    - learner: "Sì, martedì va bene. Quanto pago oggi?"
+    - tutor: "Per il taglio sono venticinque euro. Grazie, e a martedì!"
+      goals: [pay]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: en-f-professional
+  history: [word-choice]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per sabato sera."
+    - tutor: "Certo. Per quante persone e a che ora?"
+      goals: [book]
+    - learner: "Per quattro persone, alle otto. Due adulti e due bambini."
+    - tutor: "Sabato alle otto, quattro persone. Vi serve qualcosa per i bambini?"
+      goals: [details]
+    - learner: "Sì, la bambina è piccola. Avete una sedia alta?"
+      errors: [word-choice]
+    - tutor: "Sì, abbiamo un seggiolone, lo preparo io. Preferite un tavolo fuori o dentro?"
+      recast: {text: "una sedia alta", fix: "un seggiolone", tags: [word-choice]}
+      new: [{lemma: seggiolone, gloss: high chair}]
+      goals: [special]
+    - learner: "Fuori, se non piove."
+    - tutor: "Va bene, fuori. A che nome prenoto?"
+    - learner: "A nome Rossi. È il cognome di mio marito."
+    - tutor: "Perfetto, signora Rossi: sabato alle otto, quattro persone, fuori. A sabato!"
+      goals: [name]
+
+- scenario: lavanderia
+  level: A2
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie. È la prima volta qui e non capisco la lavadora."
+      errors: [word-choice]
+    - tutor: "Ti aiuto io, la lavatrice è facile. Prima metti dentro i vestiti."
+      recast: {text: "la lavadora", fix: "la lavatrice", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Ok. E il sapone dove lo metto?"
+    - tutor: "Qui, in alto. Poi scegli il programma: quaranta gradi va bene."
+      goals: [ask-how]
+    - learner: "Perfetto. Quanto costa un lavaggio?"
+    - tutor: "Quattro euro, e l'asciugatrice tre. Si paga con le monete, alla macchina lì."
+    - learner: "Ho solo un biglietto da venti euro. Non ho cambio."
+      errors: [word-choice]
+    - tutor: "Gli spiccioli te li dà la macchina: prende anche i biglietti."
+      recast: {text: "cambio", fix: "spiccioli", tags: [word-choice]}
+      new: [{lemma: spiccioli, gloss: small change}]
+      goals: [payment]
+    - learner: "Che comodo! Grazie mille, sei molto gentile."
+    - tutor: "Di niente! Io resto qui ancora mezz'ora, se hai bisogno."
+      goals: [thank]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Quanto costa l'abbonamento al ginnasio?"
+      errors: [false-friend]
+    - tutor: "L'abbonamento alla palestra costa quaranta euro al mese, o cento per tre mesi."
+      recast: {text: "al ginnasio", fix: "alla palestra", tags: [false-friend]}
+      goals: [ask-membership]
+    - learner: "Tre mesi è più conveniente. Ci sono anche classi di yoga?"
+      errors: [word-choice]
+    - tutor: "Sì, ci sono corsi di yoga e di ballo, e sono già nel prezzo."
+      recast: {text: "classi di yoga", fix: "corsi di yoga", tags: [word-choice]}
+      goals: [classes]
+    - learner: "Bene! Qual è lo schedule dei corsi di yoga?"
+      errors: [word-choice]
+    - tutor: "Ecco l'orario: lunedì e giovedì alle sette di sera. Il sabato, alle dieci di mattina."
+      recast: {text: "lo schedule", fix: "l'orario", tags: [word-choice]}
+      goals: [timetable]
+    - learner: "Il sabato è perfetto per me. Mi iscrivo per tre mesi."
+    - tutor: "Ottimo! Mi dai un documento? Così compiliamo il modulo insieme."
+    - learner: "Ecco la carta d'identità."
+    - tutor: "Grazie. Ecco la tua carta: ci vediamo sabato a yoga!"
+      goals: [sign-up]
+
+- scenario: medico-base
+  level: A2
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e molta tos."
+      errors: [word-choice]
+    - tutor: "Mal di gola e tosse, capisco. Da quando?"
+      recast: {text: "tos", fix: "tosse", tags: [word-choice]}
+      goals: [symptoms]
+    - learner: "Da tre giorni. Anche ieri sera avevo un po' di calentura."
+      errors: [word-choice]
+    - tutor: "Anche un po' di febbre, allora. Vediamo la gola... Sì, è rossa. È allergica a qualche medicina?"
+      recast: {text: "calentura", fix: "febbre", tags: [word-choice]}
+      goals: [since-when]
+    - learner: "No, a nessuna. Ma sono imbarazzata di quattro mesi."
+      errors: [false-friend]
+    - tutor: "Se è incinta, niente medicine forti: le do uno sciroppo per la tosse."
+      recast: {text: "imbarazzata", fix: "incinta", tags: [false-friend]}
+      new: [{lemma: sciroppo, gloss: syrup}]
+      goals: [history]
+    - learner: "Va bene. Quante volte al giorno lo prendo?"
+    - tutor: "Due volte al giorno, dopo mangiato. E beva molta acqua."
+    - learner: "Allora due volte al giorno, dopo mangiato, e molta acqua."
+    - tutor: "Sì, proprio così. Se fra cinque giorni ha ancora la tosse, torni qui."
+      goals: [instructions]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: en-m-traveller
+  history: [word-choice]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, ho una riservazione per due notti."
+      errors: [word-choice]
+    - tutor: "Sì, vedo la prenotazione: una camera doppia per due notti. Mi dà un documento?"
+      recast: {text: "riservazione", fix: "prenotazione", tags: [word-choice]}
+      goals: [booking]
+    - learner: "Ecco il mio passaporto."
+    - tutor: "Grazie. Glielo do indietro tra un minuto."
+      goals: [document]
+    - learner: "A che ora è il breakfast?"
+      errors: [word-choice]
+    - tutor: "La colazione è dalle sette alle dieci, nella sala qui a sinistra."
+      recast: {text: "il breakfast", fix: "la colazione", tags: [word-choice]}
+      goals: [breakfast]
+    - learner: "Va bene. E dov'è l'elevatore?"
+      errors: [word-choice]
+    - tutor: "L'ascensore è in fondo, a destra. Ecco la chiave: camera 214, secondo piano."
+      recast: {text: "l'elevatore", fix: "l'ascensore", tags: [word-choice]}
+      new: [{lemma: ascensore, gloss: lift}]
+      goals: [key]
+    - learner: "Grazie mille. Buonanotte!"
+    - tutor: "Buonanotte e buon soggiorno!"
