@@ -1,0 +1,211 @@
+# A2, travel: train tickets, buses, asking the way, hotel check-in, bike rental.
+# Each reply gives one practical piece of information and leaves the next request to the learner.
+- scenario: biglietto-treno
+  level: A2
+  persona: en-f-student
+  history: [article-use]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Devo andare a Firenze domani mattina."
+    - tutor: "Per Firenze domani mattina c'è un regionale alle sette e dieci. Va bene?"
+      goals: [destination]
+    - learner: "Sì, il regionale va bene. Quanto costa?"
+    - tutor: "Costa quindici euro e cinquanta. Solo andata, o anche ritorno?"
+    - learner: "Andata e ritorno. Torno il domenica sera."
+      errors: [article-use]
+      gold: {text: "Torno il domenica", fix: "Torno domenica"}
+    - tutor: "«Il domenica»? Parla di una domenica sola, questa domenica. Serve l'articolo?"
+      prompt: {text: "Torno il domenica", tags: [article-use]}
+    - learner: "Torno domenica sera, alle sei più o meno."
+    - tutor: "Domenica c'è un regionale alle sei e venti. Andata e ritorno sono trentuno euro."
+      goals: [type]
+    - learner: "Va bene. Prima o seconda classe? Qual è la differenza?"
+    - tutor: "La prima è più tranquilla, ma costa dieci euro in più. Cosa preferisce?"
+    - learner: "La seconda, allora. Da quale binario parte il treno domani?"
+    - tutor: "Di solito dal binario sei, ma domani guardi il tabellone. Ecco i biglietti, buon viaggio!"
+      goals: [class, platform]
+      new: [{lemma: tabellone, gloss: departures board}]
+
+- scenario: biglietto-treno
+  level: A2
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei andare a Bologna oggi pomeriggio. A che ora sale il treno?"
+      errors: [word-choice]
+    - tutor: "Il prossimo regionale per Bologna parte alle tre e quaranta. Le serve anche il ritorno?"
+      goals: [destination]
+      recast: {text: "sale", fix: "parte", tags: [word-choice]}
+    - learner: "No, solo andata. Torno con un amico en macchina."
+      errors: [preposition]
+      gold: {text: "en macchina", fix: "in macchina"}
+    - tutor: "Con un amico «en» macchina? Questa è una parola spagnola. Come si dice in italiano?"
+      prompt: {text: "en macchina", tags: [preposition]}
+    - learner: "In macchina, scusi! Torno in macchina."
+    - tutor: "Solo andata, allora: sono nove euro e ottanta. Prima o seconda classe?"
+      goals: [type]
+    - learner: "Seconda. Devo timbrare il biglietto?"
+    - tutor: "Sì, lo deve timbrare prima di salire sul treno. Ecco il biglietto."
+      goals: [class]
+    - learner: "Grazie. Da quale binario parte?"
+    - tutor: "Dal binario quattro. Ha più di venti minuti, quindi non c'è fretta. Buon viaggio!"
+      goals: [platform]
+
+- scenario: autobus
+  level: A2
+  persona: en-m-retired
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Questo autobus va al museo archeologico?"
+    - tutor: "No, questo è il 12. Per il museo archeologico deve prendere il 7, a questa stessa fermata."
+      goals: [route]
+    - learner: "Grazie. E il biglietto? Posso comprarlo sul autobus?"
+      errors: [articulated-preposition]
+      gold: {text: "sul autobus", fix: "sull'autobus"}
+    - tutor: "«Sul autobus»? «Autobus» comincia con la a: cosa succede a «sul»?"
+      prompt: {text: "sul autobus", tags: [articulated-preposition]}
+    - learner: "Sull'autobus! Posso comprarlo sull'autobus?"
+    - tutor: "Sì, ma sull'autobus costa due euro. In tabaccheria costa uno e cinquanta: è lì, di fronte."
+      goals: [ticket]
+    - learner: "Allora vado in tabaccheria. Dove scendo per il museo?"
+    - tutor: "Scenda alla fermata Piazza Dante, la quinta. E si ricordi di timbrare il biglietto!"
+      goals: [stop]
+    - learner: "La quinta fermata, va bene. Grazie mille, molto gentile!"
+    - tutor: "Di niente. Guardi, il 7 sta arrivando adesso. Buona visita!"
+      goals: [thank]
+
+- scenario: autobus
+  level: A2
+  persona: es-f-erasmus
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Va all'università questo autobus?"
+    - tutor: "Sì, la linea 3 va all'università. Ha già il biglietto?"
+      goals: [route]
+    - learner: "No. Dove posso comprare uno?"
+      errors: [ci-ne]
+      gold: {text: "comprare uno", fix: "comprarne uno"}
+    - tutor: "«Comprare uno»? Quando dice «uno» senza il nome, con «comprare» ci vuole un pronome. Quale?"
+      prompt: {text: "comprare uno", tags: [ci-ne]}
+    - learner: "Dove posso comprarne uno?"
+    - tutor: "In tabaccheria, lì di fronte. Fa in tempo: parto tra cinque minuti."
+      goals: [ticket]
+    - learner: "Grazie! E a quale fermata devo scendere per la facoltà di Lettere?"
+    - tutor: "Scenda a Università Centro, subito dopo la chiesa. Sono circa dieci fermate."
+      goals: [stop]
+    - learner: "Ecco, ho il biglietto. Lo timbro qui?"
+    - tutor: "Sì, lì, vicino alla porta. Poi si sieda dove vuole."
+    - learner: "Grazie mille, lei è molto amabile."
+      errors: [false-friend]
+    - tutor: "Anche lei è molto gentile, grazie! Si tenga forte, partiamo."
+      recast: {text: "molto amabile", fix: "molto gentile", tags: [false-friend]}
+      goals: [thank]
+    - learner: "Mi può dire quando arriviamo alla mia fermata?"
+    - tutor: "Certo, la chiamo io prima della fermata. Non si preoccupi."
+
+- scenario: chiedere-strada
+  level: A2
+  persona: en-m-heritage
+  history: [noun-gender]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, scusi. Mi può dire dov'è il stazione?"
+      errors: [noun-gender]
+      gold: {text: "il stazione", fix: "la stazione"}
+    - tutor: "«Il stazione»? Attenzione: «stazione» è una parola femminile."
+      goals: [get-attention]
+      prompt: {text: "il stazione", tags: [noun-gender]}
+    - learner: "La stazione! Dov'è la stazione dei treni?"
+    - tutor: "Non è lontana, dieci minuti a piedi. Vada dritto fino al semaforo, poi giri a destra."
+      goals: [ask-place]
+    - learner: "Dritto fino al semaforo e poi a destra. E dopo?"
+    - tutor: "Dopo il semaforo c'è una piazza grande, con una chiesa. La stazione è dall'altra parte della piazza."
+    - learner: "C'è anche un autobus? Ho una valigia molto pesante."
+    - tutor: "Sì, il 4 si ferma qui davanti e va alla stazione. Passa ogni dieci minuti."
+    - learner: "Allora, ripeto: dritto, al semaforo a destra, poi la piazza. Oppure l'autobus numero 4."
+    - tutor: "Proprio così. Con quella valigia, forse è meglio l'autobus!"
+      goals: [understand]
+    - learner: "Sì, prendo l'autobus. Grazie mille, è stato molto gentile."
+    - tutor: "Di niente. Buon viaggio!"
+      goals: [thank]
+
+- scenario: hotel-checkin
+  level: A2
+  persona: en-f-professional
+  history: [question-form]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Sì, buonasera. Ho una prenotazione a nome Clarke, per due notti."
+    - tutor: "Sì, eccola: una camera doppia per due notti. Mi dà un documento, per favore?"
+      goals: [booking]
+    - learner: "Ecco il mio passaporto."
+    - tutor: "Grazie, è tutto a posto: ecco il passaporto. Ha bisogno di altre informazioni?"
+      goals: [document]
+    - learner: "Sì. A che ora la colazione è?"
+      errors: [question-form]
+      gold: {text: "A che ora la colazione è", fix: "A che ora è la colazione"}
+    - tutor: "«A che ora la colazione è»? In questa domanda il verbo non va alla fine. Dove lo mette?"
+      prompt: {text: "A che ora la colazione è", tags: [question-form]}
+    - learner: "A che ora è la colazione?"
+    - tutor: "Dalle sette alle dieci, nella sala al primo piano."
+      goals: [breakfast]
+    - learner: "Perfetto. E la nostra camera a che piano è? C'è l'ascensore?"
+    - tutor: "È la 214, al secondo piano. L'ascensore è lì a destra. Ecco la chiave."
+      goals: [key]
+    - learner: "Grazie. Domani mattina potete chiamarci alle sei e mezza? Abbiamo un treno presto."
+    - tutor: "Va bene, vi chiamiamo in camera alle sei e mezza. Buonanotte!"
+
+- scenario: hotel-checkin
+  level: A2
+  persona: es-m-worker
+  history: [demonstrative]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, ho prenotato una camera singola. Mi chiamo Javier Molina."
+    - tutor: "Buonasera, signor Molina. Sì, una singola per tre notti. Ha un documento?"
+      goals: [booking]
+    - learner: "Sì, ecco la mia carta d'identità. È spagnola, va bene?"
+    - tutor: "Va benissimo, grazie. Ecco a lei."
+      goals: [document]
+    - learner: "Grazie. Domani devo uscire molto presto, alle sei. C'è colazione a quella ora?"
+      errors: [demonstrative]
+      gold: {text: "a quella ora", fix: "a quell'ora"}
+    - tutor: "«A quella ora»? «Ora» comincia con la o: cosa succede a «quella»?"
+      prompt: {text: "a quella ora", tags: [demonstrative]}
+    - learner: "A quell'ora! C'è colazione a quell'ora?"
+    - tutor: "La colazione comincia alle sette. Ma possiamo prepararle qualcosa da portare via."
+      goals: [breakfast]
+    - learner: "Che gentili! Sì, per favore. E nella camera c'è il Wi-Fi?"
+    - tutor: "Sì, il codice è qui, insieme alla chiave. È la camera sette, al piano terra."
+      goals: [key]
+    - learner: "Perfetto, grazie. Buonanotte!"
+    - tutor: "Buonanotte, signor Molina. La colazione da portare via la trova qui alle sei."
+
+- scenario: noleggio-bici
+  level: A2
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, vorrei noleggiare due biciclette, per me e per mia figlia."
+    - tutor: "Va bene. Le volete per qualche ora o per tutta la giornata?"
+      goals: [ask]
+    - learner: "Per tutta la giornata. Ritornaremo alle sette di sera."
+      errors: [future-form]
+      gold: {text: "Ritornaremo", fix: "Ritorneremo"}
+    - tutor: "«Ritornaremo»? Pensi al futuro di «parlare»: noi... ? E con «ritornare»?"
+      prompt: {text: "Ritornaremo", tags: [future-form]}
+    - learner: "Ritorneremo alle sette!"
+    - tutor: "Alle sette va bene, chiudiamo alle sette e mezza. Quanti anni ha sua figlia?"
+      goals: [duration]
+    - learner: "Ha dodici anni. Quanto costa? Il casco è incluso?"
+    - tutor: "La giornata costa quindici euro per lei e dodici per sua figlia. Casco e lucchetto ci sono già nel prezzo."
+    - learner: "Bene, allora ventisette euro. Pago adesso?"
+    - tutor: "Sì, adesso, grazie. Avete già un'idea del giro?"
+      goals: [price]
+    - learner: "No. Qual è un bel percorso per una ragazza di dodici anni?"
+    - tutor: "Il percorso del lago è facile: un'ora e mezza, con un bar a metà. Buona giornata!"
+      goals: [route]

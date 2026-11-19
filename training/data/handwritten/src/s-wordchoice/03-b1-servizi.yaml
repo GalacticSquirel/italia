@@ -1,0 +1,237 @@
+# Round 8, set s-wordchoice: word-choice and false friends beside acceptable plain choices. B1, file 3.
+- scenario: banca-conto
+  level: B1
+  persona: en-m-retired
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Mi sono trasferito qui da poco e vorrei aprire un conto corrente."
+    - tutor: "Benissimo. Ha già la residenza in Italia?"
+      new: [{lemma: residenza, gloss: official residence}]
+      goals: [purpose]
+    - learner: "Sì, da un mese. Quali documenti devo portare?"
+    - tutor: "Le servono un documento d'identità, il codice fiscale e il certificato di residenza."
+      new: [{lemma: certificato, gloss: certificate}, {lemma: residenza, gloss: official residence}]
+      goals: [documents]
+    - learner: "Li ho tutti qui. E quanto costa il conto ogni mese?"
+    - tutor: "Il conto base costa tre euro al mese; per i giovani sotto i trent'anni è gratis."
+    - learner: "Non sono giovane, purtroppo: sono in pensione! Però vorrei salvare un po' di soldi ogni mese."
+      errors: [word-choice]
+    - tutor: "Per risparmiare un po' di soldi abbiamo anche un conto speciale, senza costi. Glielo apro insieme al conto corrente?"
+      recast: {text: "salvare un po' di soldi", fix: "risparmiare un po' di soldi", tags: [word-choice]}
+      goals: [costs]
+    - learner: "Sì, grazie. E posso controllare tutto dal telefono? Uso molto le applicazioni."
+    - tutor: "Certo, con la nostra app vede i movimenti e fa i bonifici. Le diamo anche una carta di debito."
+      goals: [card]
+    - learner: "Perfetto. E se perdo la carta, a chi devo chiamare?"
+      errors: [preposition]
+    - tutor: "«A chi devo chiamare»? Attenzione: dopo «chiamare» la persona arriva subito, senza preposizione."
+      prompt: {text: "a chi devo chiamare", tags: [preposition]}
+    - learner: "Allora: chi devo chiamare, se perdo la carta?"
+    - tutor: "Esatto. Chiami questo numero verde, giorno e notte. Ora firmi qui, per favore."
+
+- scenario: affittare-appartamento
+  level: B1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È molto luminoso! Quanto è la rendita al mese?"
+      errors: [false-friend]
+    - tutor: "Sono 650 euro al mese per l'affitto, più circa ottanta euro di spese."
+      recast: {text: "la rendita", fix: "l'affitto", tags: [false-friend]}
+    - learner: "Le spese includono anche il riscaldamento?"
+    - tutor: "Sì, il riscaldamento è compreso nelle spese."
+      goals: [rent]
+    - learner: "Bene. Per il contratto, quanto devo pagare di fianza?"
+      errors: [word-choice]
+    - tutor: "Di cauzione chiedo due mesi di affitto. Il contratto è di quattro anni più quattro."
+      recast: {text: "di fianza", fix: "di cauzione", tags: [word-choice]}
+      new: [{lemma: cauzione, gloss: deposit}]
+      goals: [contract]
+    - learner: "D'accordo. E in cucina la nevera funziona bene?"
+      errors: [word-choice]
+    - tutor: "Sì, il frigorifero e la lavatrice sono nuovi, il forno ha due anni."
+      recast: {text: "la nevera", fix: "il frigorifero", tags: [word-choice]}
+      goals: [condition]
+    - learner: "E il barrio com'è? È tranquillo la notte?"
+      errors: [word-choice]
+    - tutor: "Il quartiere è tranquillo, ci abitano soprattutto famiglie. E la fermata dell'autobus è proprio qui sotto."
+      recast: {text: "il barrio", fix: "il quartiere", tags: [word-choice]}
+      goals: [neighbourhood]
+    - learner: "Mi piace molto. Sono interessato, ma prima vorrei parlarne con mia moglie."
+    - tutor: "Certo, ne parli con calma. Mi può dare una risposta entro venerdì?"
+      goals: [decide]
+    - learner: "Sì, la chiamo giovedì sera."
+    - tutor: "Perfetto, aspetto la sua telefonata. Buona giornata!"
+
+- scenario: dal-meccanico
+  level: B1
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando freno, la macchina fa un rumore forte, come un fischio."
+    - tutor: "Un fischio quando frena... forse sono i freni da cambiare. Da quando lo sente?"
+      goals: [describe]
+    - learner: "Da lunedì. All'inizio era piano, ma adesso è molto forte."
+    - tutor: "Allora è meglio controllare subito. Ha notato anche qualcos'altro?"
+      goals: [when]
+    - learner: "Sì. Ho messo il petrolio ieri, ma la macchina consuma tantissimo."
+      errors: [false-friend]
+    - tutor: "Se ha messo la benzina ieri e consuma già così tanto, controllo anche il motore."
+      recast: {text: "il petrolio", fix: "la benzina", tags: [false-friend]}
+      new: [{lemma: benzina, gloss: petrol}]
+    - learner: "Va bene. Quanto costerà la riparazione, più o meno?"
+    - tutor: "Per i freni circa centoventi euro. Per il motore le dico domani, dopo il controllo."
+      goals: [cost]
+    - learner: "D'accordo. Quando sarà pronta? Venirò a prenderla domani?"
+      errors: [future-form]
+    - tutor: "«Venirò»? Attenzione: il futuro di «venire» si forma come quello di «tenere»."
+      prompt: {text: "Venirò", tags: [future-form]}
+    - learner: "Ah, verrò! Allora verrò a prenderla domani pomeriggio?"
+    - tutor: "Perfetto, domani verso le cinque è pronta. Se trovo altri problemi, la chiamo prima."
+      goals: [time]
+    - learner: "Grazie. Ecco le chiavi, e questo è il mio numero."
+    - tutor: "Grazie a lei. A domani!"
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita dal dermatologo, per una mancia sul braccio."
+      errors: [false-friend]
+    - tutor: "Per una macchia sul braccio, certo. La dottoressa Neri è libera giovedì alle dieci e mezza o lunedì alle tre."
+      recast: {text: "una mancia", fix: "una macchia", tags: [false-friend]}
+      new: [{lemma: macchia, gloss: spot}]
+      goals: [type]
+    - learner: "Giovedì non posso, lavoro tutto il giorno. Lunedì alle tre va bene."
+    - tutor: "Allora lunedì alle quindici con la dottoressa Neri."
+      goals: [availability]
+    - learner: "Quanto costa la visita? Devo portare qualcosa?"
+    - tutor: "La visita costa ottanta euro. Porti un documento e, se li ha, gli esami vecchi."
+      goals: [cost]
+    - learner: "Ho solo le analisi del sangue dell'anno scorso. Le porto."
+    - tutor: "Va bene. Mi lascia nome e numero di telefono?"
+    - learner: "Lucía Fernández, 333 4567 120. Mi mandate un messaggio per ricordarmi la cita?"
+      errors: [word-choice]
+    - tutor: "Sì, le mandiamo un messaggio il giorno prima per ricordarle l'appuntamento."
+      recast: {text: "la cita", fix: "l'appuntamento", tags: [word-choice]}
+    - learner: "Grazie. Allora lunedì alle tre, con la dottoressa Neri, ottanta euro."
+    - tutor: "Esattamente. A lunedì, e buona giornata!"
+      goals: [confirm]
+
+- scenario: reclamo-hotel
+  level: B1
+  persona: en-m-traveller
+  history: [false-friend]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sono nella camera 312. Il riscaldamento non funziona e la stanza è freddissima."
+    - tutor: "Mi dispiace molto. Da quando non funziona?"
+      goals: [problem]
+    - learner: "Da ieri sera. Ho chiamato la ricezione ieri, ma nessuno è venuto."
+      errors: [false-friend]
+    - tutor: "Ha chiamato la reception e nessuno è venuto? Mi scusi davvero, non doveva succedere."
+      recast: {text: "la ricezione", fix: "la reception", tags: [false-friend]}
+      new: [{lemma: reception, gloss: hotel front desk}]
+      goals: [since]
+    - learner: "Sì, e anche le tovaglie del bagno sono sporche."
+      errors: [false-friend]
+    - tutor: "Anche gli asciugamani? Li faccio cambiare subito."
+      recast: {text: "le tovaglie", fix: "gli asciugamani", tags: [false-friend]}
+      new: [{lemma: asciugamano, gloss: towel}]
+    - learner: "Grazie. Ma per il freddo cosa potete fare? Vorrei un'altra camera, se è possibile."
+    - tutor: "Al quarto piano c'è una camera libera, più grande e calda. Le va bene?"
+      goals: [request]
+    - learner: "Sì, va benissimo. Posso lasciare il luggage qui mentre preparate la camera?"
+      errors: [word-choice]
+    - tutor: "Certo, le valigie le tengo io qui dietro. Fra dieci minuti la camera 405 è pronta."
+      recast: {text: "il luggage", fix: "le valigie", tags: [word-choice]}
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  level: B1
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questo frullatore la settimana scorsa, ma non funziona più."
+    - tutor: "Mi dispiace. Che cosa succede, esattamente?"
+    - learner: "Si accende, ma dopo due secondi si spegne. E c'è un odore di bruciato."
+    - tutor: "Capisco, allora è difettoso. Può dimostrare quando l'ha comprato?"
+      goals: [problem]
+    - learner: "Sì, ecco la ricetta. L'ho comprato il 3 marzo."
+      errors: [false-friend]
+    - tutor: "Grazie: lo scontrino è del 3 marzo, quindi è ancora in garanzia."
+      recast: {text: "la ricetta", fix: "lo scontrino", tags: [false-friend]}
+      goals: [proof]
+    - learner: "Bene. Vorrei ritornare il frullatore e avere indietro i soldi."
+      errors: [word-choice]
+    - tutor: "Restituire il frullatore si può, certo. Le diamo subito un frullatore nuovo o preferisce il rimborso?"
+      recast: {text: "ritornare il frullatore", fix: "restituire il frullatore", tags: [word-choice]}
+      goals: [request]
+    - learner: "Preferisco i soldi, perché ne ho già comprato un altro."
+    - tutor: "Va bene. Il rimborso in contanti non è possibile, ma possiamo rimettere i soldi sulla sua carta."
+    - learner: "Sì, sulla carta va bene. Quanto tempo ci vuole?"
+    - tutor: "Tre o quattro giorni lavorativi. Firmi qui, per favore, e abbiamo finito."
+      goals: [agree]
+
+- scenario: vicino-rumoroso
+  level: B1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi il disturbo. Sono Javier, abito al piano di sotto."
+    - tutor: "Piacere, Javier. Mi dica pure."
+      goals: [greet]
+    - learner: "Ogni sera, verso mezzanotte, sento la musica molto forte. Il rumore molesta anche mia figlia, che ha tre anni."
+      errors: [false-friend]
+    - tutor: "Non pensavo che si sentisse così tanto, mi dispiace. Se disturba anche la bambina, dobbiamo trovare una soluzione."
+      recast: {text: "molesta", fix: "disturba", tags: [false-friend]}
+      goals: [problem]
+    - learner: "Grazie. Potrebbe abbassare il volume dopo le dieci e mezza?"
+    - tutor: "Durante la settimana sì. Il venerdì e il sabato, però, vengono degli amici: le va bene dopo le undici?"
+      goals: [request]
+    - learner: "Va bene: il venerdì e il sabato fino alle undici, gli altri giorni fino alle dieci e mezza."
+    - tutor: "D'accordo, mi sembra giusto. E se c'è ancora un problema, bussi pure."
+      goals: [compromise]
+    - learner: "Grazie mille, lei è molto amabile."
+      errors: [false-friend]
+    - tutor: "È lei che è gentile a venire di persona. Buonanotte e scusi ancora!"
+      recast: {text: "amabile", fix: "gentile", tags: [false-friend]}
+    - learner: "Buonanotte, a presto!"
+    - tutor: "A presto, Javier!"
+
+- scenario: biglietto-treno
+  level: B1
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei un biglietto per Firenze, per domani mattina presto."
+    - tutor: "C'è un Frecciarossa alle sette e quindici e un regionale alle sette e quaranta."
+      goals: [destination]
+    - learner: "Il regionale è più barato?"
+      errors: [word-choice]
+    - tutor: "Sì, è molto più economico, ma ci mette due ore e mezza."
+      recast: {text: "barato", fix: "economico", tags: [word-choice]}
+    - learner: "Va bene, non ho fretta. Andata e ritorno, torno domenica sera."
+    - tutor: "Andata e ritorno con il regionale. Prima o seconda classe?"
+      goals: [type]
+    - learner: "La seconda. Sono studentessa: c'è un descuento?"
+      errors: [word-choice]
+    - tutor: "Con la Carta Giovani c'è uno sconto, ma deve averla già. Ce l'ha?"
+      recast: {text: "un descuento", fix: "uno sconto", tags: [word-choice]}
+      new: [{lemma: sconto, gloss: discount}]
+      goals: [class]
+    - learner: "No, non ce l'ho. Pazienza! Da quale andén parte il treno?"
+      errors: [word-choice]
+    - tutor: "Di solito dal binario 5, ma controlli in stazione, perché a volte cambia. In tutto sono trentadue euro."
+      recast: {text: "andén", fix: "binario", tags: [word-choice]}
+      goals: [platform]
+    - learner: "Ecco, pago con la carta."
+    - tutor: "Perfetto. Ecco i biglietti, buon viaggio!"

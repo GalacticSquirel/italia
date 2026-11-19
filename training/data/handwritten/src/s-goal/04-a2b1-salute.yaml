@@ -1,0 +1,248 @@
+# A2-B1, health: the GP, booking a specialist visit by phone; plus a bike rental by the lake.
+# The doctor asks one thing at a time, gives instructions only once the facts are clear,
+# and has the patient repeat them; the receptionist keeps dates, times and prices consistent.
+- scenario: medico-base
+  level: A2
+  persona: en-f-student
+  history: [past-participle-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e la tosse."
+    - tutor: "Mi dispiace. Da quando ha questi problemi?"
+      goals: [symptoms]
+    - learner: "Da tre giorni. Ieri ho avuto anche la febbre, trentotto."
+    - tutor: "E stamattina? Ha preso qualche medicina?"
+      goals: [since-when]
+    - learner: "Sì, stamattina ho prenduto un'aspirina."
+      errors: [past-participle-form]
+      gold: {text: "ho prenduto", fix: "ho preso"}
+    - tutor: "«Ho prenduto»? Attenzione, «prendere» al passato è diverso. Come si dice?"
+      prompt: {text: "ho prenduto", tags: [past-participle-form]}
+    - learner: "Ho preso! Ho preso un'aspirina."
+    - tutor: "Va bene. È allergica a qualche medicina?"
+    - learner: "No, non sono allergica. Ma prendo una pillola ogni giorno per la tiroide."
+    - tutor: "Non è un problema. Le scrivo la ricetta per uno sciroppo per la tosse."
+      goals: [history]
+      new: [{lemma: sciroppo, gloss: syrup}]
+    - learner: "Quante volte al giorno devo prendere lo sciroppo?"
+    - tutor: "Tre volte al giorno, dopo mangiato, per cinque giorni. Me lo può ripetere?"
+    - learner: "Tre volte al giorno, dopo mangiato, per cinque giorno."
+      errors: [noun-number]
+      gold: {text: "cinque giorno", fix: "cinque giorni"}
+    - tutor: "Per cinque «giorno»? Sono cinque: come cambia la parola?"
+      prompt: {text: "cinque giorno", tags: [noun-number]}
+    - learner: "Per cinque giorni!"
+    - tutor: "Sì, cinque. Se poi la tosse c'è ancora, torni da me. E beva molta acqua calda!"
+      goals: [instructions]
+
+- scenario: medico-base
+  level: A2
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Mi fa male la pancia da ieri sera."
+    - tutor: "Da ieri sera. Che cosa ha mangiato ieri?"
+      goals: [symptoms, since-when]
+    - learner: "Ho mangiato pesce in un ristorante. Dopo ho vomitato due volte."
+    - tutor: "Ha anche la febbre?"
+    - learner: "No, febbre no. Ma sono molto cansado."
+      errors: [word-choice]
+    - tutor: "È molto stanco, certo: ha perso molta acqua. Prende qualche medicina di solito?"
+      recast: {text: "molto cansado", fix: "molto stanco", tags: [word-choice]}
+    - learner: "Sì, una medicina per la pressione. E sono allergico al penicillina."
+      errors: [articulated-preposition]
+      gold: {text: "al penicillina", fix: "alla penicillina"}
+    - tutor: "Allergico «al» penicillina? Penicillina è una parola femminile: come cambia «al»?"
+      prompt: {text: "al penicillina", tags: [articulated-preposition]}
+    - learner: "Alla penicillina!"
+    - tutor: "Va bene, lo scrivo qui. Per oggi beva molta acqua e mangi solo riso in bianco."
+      goals: [history]
+    - learner: "Solo riso? Per quanti giorni?"
+    - tutor: "Per due giorni: acqua, riso e pane. Se domani non sta meglio, mi chiami. Mi ripete cosa deve fare?"
+    - learner: "Per due giorni bevo molta acqua e mangio riso e pane. Se non sto meglio, la chiamo."
+    - tutor: "Tutto chiaro, allora. Vedrà che tra due giorni starà meglio."
+      goals: [instructions]
+
+- scenario: medico-base
+  level: B1
+  persona: en-m-retired
+  history: [tense-aspect, object-pronoun]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottoressa. Ho un forte dolore alla schiena, soprattutto quando mi alzo dal letto."
+    - tutor: "Mi dispiace. Da quando le fa male? È successo qualcosa di particolare?"
+      goals: [symptoms]
+    - learner: "Sabato lavoravo in giardino tutto il giorno, e domenica mattina avevo un dolore fortissimo."
+      errors: [tense-aspect]
+      gold: {text: "lavoravo in giardino tutto il giorno", fix: "ho lavorato in giardino tutto il giorno"}
+    - tutor: "«Lavoravo tutto il giorno»? Parla di un sabato preciso e di un lavoro finito. Che tempo ci vuole?"
+      prompt: {text: "lavoravo in giardino tutto il giorno", tags: [tense-aspect]}
+    - learner: "Sabato ho lavorato in giardino tutto il giorno."
+    - tutor: "Quindi il dolore è cominciato domenica mattina. Prende medicine per altri problemi?"
+      goals: [since-when]
+    - learner: "Sì, prendo una pastiglia per il colesterolo ogni sera. Non sono allergico a niente."
+    - tutor: "Bene. Le do una medicina contro il dolore: la prenda due volte al giorno, dopo mangiato, per cinque giorni."
+      goals: [history]
+    - learner: "Due volte al giorno dopo mangiato, per cinque giorni. A casa ho anche una crema per il dolore: come lo uso?"
+      errors: [object-pronoun]
+      gold: {text: "come lo uso", fix: "come la uso"}
+    - tutor: "«Come lo uso»? Stiamo parlando della crema: che pronome serve?"
+      prompt: {text: "come lo uso", tags: [object-pronoun]}
+    - learner: "Come la uso?"
+    - tutor: "La metta la sera, sulla parte che fa male. E niente giardino per una settimana!"
+    - learner: "Va bene, niente giardino! Mia moglie sarà contenta. Posso camminare, almeno?"
+    - tutor: "Sì, camminare le fa bene. Se tra cinque giorni il dolore c'è ancora, torni da me."
+      goals: [instructions]
+
+- scenario: medico-base
+  level: B1
+  persona: es-f-teacher
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Da una settimana ho sempre dolore di testa, soprattutto la sera."
+      errors: [word-choice]
+    - tutor: "Una settimana di mal di testa è lunga. Le è già successo in passato?"
+      goals: [symptoms, since-when]
+      recast: {text: "dolore di testa", fix: "mal di testa", tags: [word-choice]}
+    - learner: "Sì, l'anno scorso, quando lavoravo molto. Anche adesso sono molto stressata: sono insegnante e ho gli esami."
+    - tutor: "Il lavoro può essere la causa. Dorme bene? E per il dolore, ha preso qualcosa?"
+    - learner: "Dormo poco, cinque o sei ore. Ieri ho preso un'ibuprofene, ma non mi ha fatto niente."
+      errors: [article-form]
+      gold: {text: "un'ibuprofene", fix: "un ibuprofene"}
+    - tutor: "«Un'ibuprofene»? Attenzione: «ibuprofene» è maschile."
+      prompt: {text: "un'ibuprofene", tags: [article-form]}
+    - learner: "Un ibuprofene, scusi."
+    - tutor: "Va bene. È allergica a qualche medicina?"
+    - learner: "No, a nessuna."
+    - tutor: "Allora le consiglio un esame della vista: a volte il mal di testa viene dagli occhi. E cerchi di dormire almeno sette ore."
+      goals: [history]
+    - learner: "Un esame della vista? Devo prenotarlo io, o me lo prenota lei?"
+    - tutor: "Le scrivo la richiesta, poi lo prenota lei per telefono. Mi ripete cosa deve fare?"
+    - learner: "Prenoto l'esame della vista e dormo almeno sette ore. E se il dolore è forte, posso prendere l'ibuprofene?"
+    - tutor: "Sì, ma non più di due al giorno. Ci vediamo dopo l'esame."
+      goals: [instructions]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-f-professional
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita da un dermatologo, per una macchia sulla pelle."
+    - tutor: "Certo. La prima disponibilità con il dottor Ferri è giovedì diciotto, alle nove e mezza. Le andrebbe bene?"
+      goals: [type]
+    - learner: "Giovedì mattina non posso, lavoro. Avrebbe qualcosa nel pomeriggio, dopo le cinque?"
+    - tutor: "Nel pomeriggio c'è lunedì ventidue alle diciassette e quindici, oppure mercoledì ventiquattro alle diciotto."
+    - learner: "Lunedì alle cinque e un quarto va bene."
+    - tutor: "Lunedì ventidue alle diciassette e quindici, allora. Ha un'impegnativa del medico, o paga lei la visita?"
+      goals: [availability]
+    - learner: "Non ce l'ho. Quanto costarebbe la visita, allora?"
+      errors: [conditional-form]
+      gold: {text: "costarebbe", fix: "costerebbe"}
+    - tutor: "«Costarebbe»? Pensi a «parlare»: io parlerei. E «costare»?"
+      prompt: {text: "costarebbe", tags: [conditional-form]}
+    - learner: "Costerebbe! Quanto costerebbe?"
+    - tutor: "La visita costa novanta euro, e si paga qui il giorno dell'appuntamento."
+    - learner: "Va bene. Devo portare qualche documento?"
+    - tutor: "Solo un documento d'identità. Mi lascia il suo nome e un numero di telefono?"
+      goals: [cost]
+    - learner: "Sarah Collins, 347 5550123. Allora, ricapitolo: lunedì ventitré alle cinque e un quarto, con il dottor Ferri, novanta euro."
+    - tutor: "Quasi: lunedì è il ventidue, non il ventitré. Per il resto è tutto giusto."
+    - learner: "Ah sì, lunedì ventidue. Grazie mille!"
+    - tutor: "Grazie a lei. A lunedì, e buona giornata!"
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: es-m-worker
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Ho bisogno di una visita con un ortopedico per il ginocchio."
+    - tutor: "Ha già un'impegnativa del suo medico?"
+      goals: [type]
+    - learner: "Sì, il mio medico me l'ha data ieri. C'è scritto «urgente»."
+    - tutor: "Allora possiamo darle un appuntamento entro dieci giorni. Martedì prossimo alle undici le va bene?"
+    - learner: "Martedì alle undici lavoro. Esco del lavoro alle cinque."
+      errors: [articulated-preposition]
+      gold: {text: "Esco del lavoro", fix: "Esco dal lavoro"}
+    - tutor: "Esce «del» lavoro? Quando si esce da un posto, quale preposizione si usa?"
+      prompt: {text: "Esco del lavoro", tags: [articulated-preposition]}
+    - learner: "Esco dal lavoro alle cinque. C'è un posto più tardi?"
+    - tutor: "Martedì no, l'ultimo è alle quattordici e trenta. Venerdì, invece, c'è un posto alle diciotto."
+    - learner: "Venerdì alle sei è perfetto."
+    - tutor: "Venerdì alle diciotto, allora. Ha altre domande?"
+      goals: [availability]
+    - learner: "Sì. Quanto devo pagare? E devo portare le radiografie? Le ho fatte in Spagna l'anno scorso."
+    - tutor: "Con l'impegnativa paga trentasei euro e quindici. Le radiografie le porti, sì: al dottore servono."
+      goals: [cost]
+    - learner: "Va bene. Allora venerdì alle sei, con l'impegnativa e le radiografie. Mi chiamo Andrés Gómez."
+    - tutor: "È tutto prenotato: venerdì alle diciotto, trentasei euro e quindici. Arrivederci!"
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  level: B1
+  persona: en-m-heritage
+  history: [future-form, participle-agreement]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno, vorrei prenotare una visita cardiologica. Il mio medico mi ha detto di fare un controllo."
+    - tutor: "Certo. Ha già fatto l'elettrocardiogramma, o lo facciamo qui il giorno della visita?"
+      goals: [type]
+      new: [{lemma: elettrocardiogramma, gloss: ECG}]
+    - learner: "No, non l'ho fatto. Si può fare lo stesso giorno?"
+    - tutor: "Sì, si fa prima della visita e ci vogliono venti minuti. Che giorni le vanno bene?"
+    - learner: "La prossima settimana sono in ferie, quindi venerò quando volete."
+      errors: [future-form]
+      gold: {text: "venerò", fix: "verrò"}
+    - tutor: "«Venerò»? Attenzione, il futuro di «venire» è diverso. Come si dice?"
+      prompt: {text: "venerò", tags: [future-form]}
+    - learner: "Verrò quando volete, sono in ferie tutta la settimana."
+    - tutor: "Allora mercoledì: alle otto e mezza l'esame, e alle nove la visita. Può andare?"
+    - learner: "Mercoledì va bene. Dovrei venire a digiuno?"
+    - tutor: "No, non serve. Porti però gli ultimi esami del sangue, se li ha."
+      goals: [availability]
+    - learner: "Sì, li ho fatto il mese scorso."
+      errors: [participle-agreement]
+      gold: {text: "li ho fatto", fix: "li ho fatti"}
+    - tutor: "«Li ho fatto»? «Li» sono gli esami, maschile plurale. E «fatto»?"
+      prompt: {text: "li ho fatto", tags: [participle-agreement]}
+    - learner: "Li ho fatti il mese scorso. Quanto costa tutto?"
+    - tutor: "La visita e l'esame insieme costano centoventi euro."
+      goals: [cost]
+    - learner: "Va bene. Quindi mercoledì alle otto e mezza, con gli esami del sangue. Mi chiamo Daniel Russo."
+    - tutor: "Esatto, signor Russo: mercoledì alle otto e mezza. Arrivi dieci minuti prima per l'accettazione."
+      goals: [confirm]
+
+- scenario: noleggio-bici
+  level: A2
+  persona: es-f-teacher
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, buongiorno. Vorrei noleggiare una bicicletta elettrica. È possibile?"
+    - tutor: "Sì, ne ho ancora due. Per quanto tempo la vuole?"
+      goals: [ask]
+    - learner: "Per tre ore. Devo tornare alle due, perché ho il treno."
+    - tutor: "Tre ore, va bene: allora la riporta qui alle due."
+      goals: [duration]
+    - learner: "Quanto costa? Il casco è incluido?"
+      errors: [word-choice]
+    - tutor: "Sì, il casco è incluso. Costa otto euro all'ora: per tre ore, ventiquattro euro."
+      new: [{lemma: incluso, gloss: included}]
+      goals: [price]
+      recast: {text: "incluido", fix: "incluso", tags: [word-choice]}
+    - learner: "Va bene. Devo lasciare un documento?"
+    - tutor: "Sì, un documento: lo tengo io fino alle due."
+    - learner: "Ecco il passaporto. Che percorso mi consiglia per tre ore?"
+    - tutor: "Vada fino a Bellagio. È a un'ora da qui, e la vista sul lago è bellissima."
+      goals: [route]
+    - learner: "Perfetto! Allora andrò a Bellagio e tornarò alle due."
+      errors: [future-form]
+      gold: {text: "tornarò", fix: "tornerò"}
+    - tutor: "«Tornarò»? Al futuro, in «tornare» la a diventa un'altra lettera. Quale?"
+      prompt: {text: "tornarò", tags: [future-form]}
+    - learner: "Tornerò alle due!"
+    - tutor: "Alle due, allora. Buon giro, e attenzione alle macchine sulla strada!"

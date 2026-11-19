@@ -1,0 +1,300 @@
+# Round 8, set s-c2, file 7: interviews, promotions, meetings, pitches, suppliers, colleagues,
+# translation and office talk. Slips: «sono licenziato» (Spanish «licenciado»), «la gente... ci
+# sorprendono», a finished result in the imperfect, «compromessi con» (Spanish «comprometidos»),
+# «potressi», «valutazioni molto positivi», «il rispetto me lo sono guadagnata», «vorrei che mi
+# spiegassero... e mi diano», «sto avendo un problema», «arriverano», «un'altro», «ci sono un
+# consorzio», «se» + conditional, «un piloto», «i prezzi gli dovete rispettare», «garantirebbimo»,
+# «a patto che restasse» after a present, «non sentiva bene» for «non si sentiva bene», «gli
+# stimo», «plano», «pensasse che... è», «revisato», «un molto lungo articolo», «sui alloggi»,
+# «girare intorno alla legge». Correct turns on «attualmente» vs «in realtà» left alone.
+- scenario: colloquio-lavoro
+  level: C2
+  persona: es-m-worker
+  history: [subject-verb-agreement, false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di Lei."
+    - learner: "Buongiorno. Sono di Valencia, sono licenziato in design industriale e da quattro anni lavoro a Torino in uno studio che progetta lampade."
+      errors: [false-friend]
+    - tutor: "«Sono laureato in design industriale», dunque, e ha già quattro anni di esperienza: ottimo. Che cosa faceva, esattamente, in quello studio?"
+      goals: [intro]
+      recast: {text: "sono licenziato", fix: "sono laureato", tags: [false-friend]}
+    - learner: "Seguivo i progetti dall'idea al prototipo. La parte che preferisco sono i test con gli utenti: la gente non usa mai gli oggetti come pensiamo noi, e ogni volta ci sorprendono."
+      errors: [subject-verb-agreement]
+      gold: {text: "ci sorprendono", fix: "ci sorprende"}
+    - tutor: "Osservazione acuta. Ma «la gente... ci sorprendono»: «gente», per il verbo, è singolare o plurale?"
+      prompt: {text: "ci sorprendono", tags: [subject-verb-agreement]}
+    - learner: "Singolare: la gente ci sorprende ogni volta."
+    - tutor: "Esatto. Mi racconti un progetto di cui è particolarmente soddisfatto."
+    - learner: "Due anni fa abbiamo disegnato una lampada da comodino per un'azienda svedese. Nei test abbiamo scoperto che gli anziani non trovavano l'interruttore al buio, e l'abbiamo spostato sulla base. Quella lampada vendeva centomila pezzi in un anno."
+      errors: [tense-aspect]
+      gold: {text: "vendeva", fix: "ha venduto"}
+    - tutor: "Un'intuizione semplice e preziosa. Ma «vendeva centomila pezzi in un anno»: è un risultato concluso, in un periodo preciso. Quale tempo serve?"
+      prompt: {text: "vendeva", tags: [tense-aspect]}
+    - learner: "Aveva venduto centomila pezzi?"
+      errors: [tense-aspect]
+    - tutor: "Ha venduto centomila pezzi in un anno: un risultato che parla da sé. Quali sono, secondo Lei, i Suoi punti di forza?"
+      goals: [experience]
+      recast: {text: "Aveva venduto", fix: "Ha venduto", tags: [tense-aspect]}
+    - learner: "Sono curioso e testardo: non mi fermo finché un oggetto non funziona davvero per chi lo usa. E so lavorare con gli ingegneri senza farmi odiare, cosa non scontata per un designer."
+    - tutor: "Non scontata affatto, me lo creda. E perché proprio la nostra azienda?"
+      goals: [strengths]
+    - learner: "Perché siete piccoli e molto compromessi con l'artigianato locale: mi piacerebbe seguire un progetto dall'inizio alla fine, cosa che in uno studio grande non succede."
+      errors: [false-friend]
+    - tutor: "Siamo molto legati all'artigianato locale, è vero: lavoriamo con sei laboratori della zona. Ha qualche domanda da farmi?"
+      goals: [why]
+      recast: {text: "molto compromessi con l'artigianato locale", fix: "molto legati all'artigianato locale", tags: [false-friend]}
+    - learner: "Sì: vorrei sapere se è previsto un periodo di prova e quando potressi cominciare."
+      errors: [conditional-form]
+      gold: {text: "potressi", fix: "potrei"}
+    - tutor: "Domande concrete. Ma «potressi»: il condizionale di «potere», alla prima persona, è proprio così?"
+      prompt: {text: "potressi", tags: [conditional-form]}
+    - learner: "No: potrei. Quando potrei cominciare?"
+    - tutor: "La prova dura tre mesi, e se tutto va bene potrebbe cominciare a gennaio. Le daremo una risposta entro due settimane."
+      goals: [questions]
+
+- scenario: colloquio-promozione
+  level: C2
+  persona: en-f-professional
+  history: [adjective-agreement, participle-agreement]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Volevo fare il punto sull'ultimo anno: il mio gruppo ha chiuso tutti i progetti in tempo, e le valutazioni dei clienti sono state tutte molto positivi."
+      errors: [adjective-agreement]
+      gold: {text: "molto positivi", fix: "molto positive"}
+    - tutor: "Lo so, i numeri li ho visti. Ma «le valutazioni sono state molto positivi»: l'aggettivo con che cosa si accorda?"
+      prompt: {text: "molto positivi", tags: [adjective-agreement]}
+    - learner: "Con «valutazioni»: molto positive."
+    - tutor: "Esatto. E quindi, dove vuole arrivare?"
+      goals: [results]
+    - learner: "Vorrei applicare per il posto di responsabile dell'area, ora che Marchetti va in pensione. Credo di aver dimostrato di saperlo fare."
+      errors: [false-friend]
+    - tutor: "«Vorrei candidarmi per il posto di responsabile»: richiesta legittima, e i risultati li ha. La direzione, però, teme che Lei sia troppo giovane per guidare colleghi più anziani. Come risponde?"
+      goals: [request]
+      recast: {text: "applicare per il posto", fix: "candidarmi per il posto", tags: [false-friend]}
+    - learner: "Rispondo che nel mio gruppo ci sono già due colleghi più anziani di me, e il loro rispetto me lo sono guadagnata sul campo."
+      errors: [participle-agreement]
+      gold: {text: "me lo sono guadagnata", fix: "me lo sono guadagnato"}
+    - tutor: "Risposta convincente. Ma «il loro rispetto me lo sono guadagnata»: con «lo» davanti, il participio con che cosa si accorda?"
+      prompt: {text: "me lo sono guadagnata", tags: [participle-agreement]}
+    - learner: "Me la sono guadagnata?"
+      errors: [participle-agreement]
+    - tutor: "«Me lo sono guadagnato sul campo»: è l'argomento giusto, e la direzione lo apprezzerà. Ma se Le dicessero di no, come la prenderebbe?"
+      goals: [handle]
+      recast: {text: "Me la sono guadagnata", fix: "Me lo sono guadagnato", tags: [participle-agreement]}
+    - learner: "Ci resterei male, non lo nego. Però vorrei almeno che mi spiegassero il perché e che mi diano obiettivi chiari per riprovarci l'anno prossimo."
+      errors: [subjunctive-use]
+      gold: {text: "mi diano", fix: "mi dessero"}
+    - tutor: "Richiesta più che ragionevole. Ma nella seconda parte, «vorrei che mi diano»: stesso tempo di «spiegassero», o un altro?"
+      prompt: {text: "mi diano", tags: [subjunctive-use]}
+    - learner: "Lo stesso: che mi spiegassero il perché e che mi dessero obiettivi chiari."
+    - tutor: "Perfetto. Facciamo così: porto la Sua candidatura in direzione giovedì e Le do una risposta entro fine mese, motivata in ogni caso."
+      goals: [next-steps]
+    - learner: "La ringrazio. Quando sono entrata qui, dodici anni fa, facevo le fotocopie e dicevo sempre di sì: è stata una bella strada."
+    - tutor: "E adesso le fotocopie le fanno gli altri. Ci sentiamo dopo giovedì, allora."
+
+- scenario: riunione-lavoro
+  level: C2
+  persona: en-m-traveller
+  history: [future-form, stare-gerund]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene, i test dell'app sono quasi finiti. Però sto avendo un problema con il marketing: aspettiamo i testi definitivi da due settimane, e ancora niente."
+      errors: [stare-gerund]
+      gold: {text: "sto avendo un problema", fix: "ho un problema"}
+    - tutor: "Due settimane sono tante. Ma «sto avendo un problema»: con un verbo come «avere», la forma con «stare» suona italiana?"
+      prompt: {text: "sto avendo un problema", tags: [stare-gerund]}
+    - learner: "No, è un calco dall'inglese: ho un problema con il marketing."
+    - tutor: "Esatto. Hai già parlato con Giulia, la responsabile dei contenuti?"
+      goals: [update]
+    - learner: "Sì, ieri. Dice che i testi arriverano venerdì, ma l'aveva detto anche la settimana scorsa."
+      errors: [future-form]
+      gold: {text: "arriverano", fix: "arriveranno"}
+    - tutor: "Classico. Ma «arriverano»: il futuro di «arrivare», alla terza plurale, ha proprio quella forma?"
+      prompt: {text: "arriverano", tags: [future-form]}
+    - learner: "Arrivaranno?"
+      errors: [future-form]
+    - tutor: "Arriveranno venerdì, dice lei: speriamo che sia la volta buona. E se non arrivano, che cosa proponi?"
+      goals: [problem]
+      recast: {text: "Arrivaranno", fix: "Arriveranno", tags: [future-form]}
+    - learner: "Proporrei di pubblicare l'app con i testi provvisori, che l'ufficio legale ha già approvato, e di sostituirli con il primo aggiornamento. Così non perderemmo la finestra di dicembre."
+    - tutor: "Mi piace: meglio un'app con testi provvisori che nessuna app. Entro quando puoi preparare la versione da pubblicare?"
+      goals: [proposal]
+    - learner: "Entro mercoledì è pronta. Però mi servirebbe un'altro collega per i test sugli iPhone, perché i nostri telefoni di prova sono tutti Android."
+      errors: [spelling]
+      gold: {text: "un'altro", fix: "un altro"}
+    - tutor: "Mercoledì va benissimo. Una cosa sola, «un'altro collega»: con un nome maschile, l'apostrofo ci va?"
+      prompt: {text: "un'altro", tags: [spelling]}
+    - learner: "No, senza apostrofo: un altro collega."
+    - tutor: "Esatto. Ti presto Marco per due giorni. Allora: versione pronta mercoledì, pubblicazione lunedì prossimo e testi definitivi appena arrivano."
+      goals: [deadline]
+
+- scenario: presentazione-progetto
+  level: C2
+  persona: es-f-erasmus
+  history: [ce-ci-sono, word-choice]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "In breve: vogliamo sostituire le capsule di plastica delle nostre macchinette con capsule compostabili e raccoglierle in tutte e dodici le sedi. Costa poco e ci fa risparmiare sullo smaltimento."
+    - tutor: "Risparmiare? Le capsule compostabili costano di più. Dove sarebbe il risparmio?"
+      goals: [pitch]
+    - learner: "Costano il dieci per cento in più, è vero, ma ci sono un consorzio che le ritira gratis e le trasforma in compost. Oggi per lo smaltimento paghiamo quasi ottomila euro l'anno."
+      errors: [ce-ci-sono]
+      gold: {text: "ci sono un consorzio", fix: "c'è un consorzio"}
+    - tutor: "Ottomila euro non sono pochi. Ma «ci sono un consorzio»: il verbo è d'accordo con «un consorzio»?"
+      prompt: {text: "ci sono un consorzio", tags: [ce-ci-sono]}
+    - learner: "No, è singolare: c'è un consorzio che le ritira gratis."
+    - tutor: "Esatto. Ma se i dipendenti continuassero a buttare le capsule nell'indifferenziata, il consorzio non le ritirerebbe. Come la mettiamo?"
+      goals: [benefits]
+    - learner: "Il rischio c'è. Per questo metteremmo un contenitore accanto a ogni macchinetta e faremmo un mese di campagna interna. Se dopo tre mesi i risultati non sarebbero buoni, torneremmo indietro."
+      errors: [hypothetical]
+      gold: {text: "i risultati non sarebbero buoni", fix: "i risultati non fossero buoni"}
+    - tutor: "Un piano di uscita: mi piace. Ma «se i risultati non sarebbero buoni»: dopo «se», il condizionale?"
+      prompt: {text: "i risultati non sarebbero buoni", tags: [hypothetical]}
+    - learner: "Se i risultati non sono stati buoni?"
+      errors: [hypothetical]
+    - tutor: "Se dopo tre mesi i risultati non fossero buoni, tornereste indietro: d'accordo, è prudente. Che cosa mi chiede, esattamente?"
+      goals: [objection]
+      recast: {text: "i risultati non sono stati buoni", fix: "i risultati non fossero buoni", tags: [hypothetical]}
+    - learner: "Le chiedo di approvare un piloto di tre mesi in due sedi, Milano e Bergamo, con un budget di cinquemila euro."
+      errors: [word-choice]
+    - tutor: "Un progetto pilota di tre mesi in due sedi, per cinquemila euro: si può fare. Mi mandi entro lunedì il piano con le cifre, e lo approvo."
+      goals: [next-steps]
+      recast: {text: "un piloto di tre mesi", fix: "un progetto pilota di tre mesi", tags: [word-choice]}
+    - learner: "Glielo mando venerdì, così ha il fine settimana per leggerlo."
+    - tutor: "Venerdì va benissimo. E adesso mi scusi, ma la prossima riunione è già cominciata."
+
+- scenario: trattativa-fornitore
+  level: C2
+  persona: en-m-heritage
+  history: [conditional-form, object-pronoun]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, e Le dico subito che un aumento del quindici per cento, comunicato con due settimane di preavviso, ci mette in seria difficoltà: abbiamo già chiuso i listini di Natale."
+    - tutor: "Lo capisco, ma il cartone ci costa il venti per cento in più rispetto a sei mesi fa. Non possiamo assorbire tutto noi."
+      goals: [problem]
+    - learner: "Non ve lo chiedo. Vi chiedo però di applicare l'aumento da gennaio: gli ordini di dicembre ce li avete confermati a ottobre, e i prezzi di ottobre gli dovete rispettare."
+      errors: [object-pronoun]
+      gold: {text: "gli dovete rispettare", fix: "li dovete rispettare"}
+    - tutor: "Sugli ordini già confermati ha un punto. Ma «i prezzi gli dovete rispettare»: «rispettare qualcosa» vuole un pronome diretto o indiretto?"
+      prompt: {text: "gli dovete rispettare", tags: [object-pronoun]}
+    - learner: "Diretto: i prezzi di ottobre li dovete rispettare."
+    - tutor: "Esatto. Sugli ordini di dicembre posso venirLe incontro. Da gennaio, però, il quindici per cento resta."
+      goals: [argue]
+    - learner: "Allora Le faccio una controproposta: da gennaio accetteremmo il dieci per cento, e in cambio vi garantirebbimo un ordine minimo di cinquantamila scatole al trimestre."
+      errors: [conditional-form]
+      gold: {text: "garantirebbimo", fix: "garantiremmo"}
+    - tutor: "Ora si ragiona. Ma «garantirebbimo»: il condizionale di «garantire», con «noi», si forma così?"
+      prompt: {text: "garantirebbimo", tags: [conditional-form]}
+    - learner: "Garantiremo?"
+      errors: [conditional-form]
+    - tutor: "«Garantiremmo cinquantamila scatole al trimestre»: con un volume così, il dodici per cento potrei accettarlo."
+      goals: [counteroffer]
+      recast: {text: "Garantiremo", fix: "Garantiremmo", tags: [conditional-form]}
+    - learner: "Dodici? Facciamo undici, a patto che il prezzo restasse bloccato per tutto l'anno."
+      errors: [subjunctive-use]
+      gold: {text: "restasse", fix: "resti"}
+    - tutor: "Lei è un osso duro. Ma «facciamo undici, a patto che restasse»: con la principale al presente, quel tempo del congiuntivo torna?"
+      prompt: {text: "restasse", tags: [subjunctive-use]}
+    - learner: "No: a patto che il prezzo resti bloccato per tutto l'anno."
+    - tutor: "Va bene: undici per cento da gennaio, prezzo bloccato per dodici mesi e cinquantamila scatole garantite al trimestre. Le mando l'accordo entro domani."
+      goals: [agreement]
+
+- scenario: mediazione-colleghi
+  level: C2
+  persona: es-f-teacher
+  history: [object-pronoun, reflexive]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Si sieda, prego. Ha fatto bene a venire subito: mi racconti con calma che cosa è successo."
+    - tutor: "Alla riunione Bianchi ha presentato l'analisi dei costi come se l'avesse fatta da solo. L'abbiamo preparata insieme, in tre settimane, e il mio nome non l'ha nemmeno fatto."
+      goals: [listen]
+    - learner: "Capisco che si sia sentita scavalcata. Bianchi, però, mi ha detto che era stata Lei a chiedergli di presentare da solo, perché quel giorno non sentiva bene."
+      errors: [reflexive]
+      gold: {text: "non sentiva bene", fix: "non si sentiva bene"}
+    - tutor: "Scusi, «quel giorno non sentiva bene»: intende dire che io ci sentivo poco?"
+      prompt: {text: "non sentiva bene", tags: [reflexive]}
+    - learner: "No, mi scusi: che quel giorno non si sentiva bene. Quindi è vero che glielo aveva chiesto Lei?"
+    - tutor: "Sì, gli avevo chiesto di presentare. Non di prendersi tutto il merito."
+      goals: [clarify]
+    - learner: "Ha ragione, è una differenza importante. Conosco Bianchi da dieci anni e gli stimo molto, ma questa volta ha sbagliato."
+      errors: [object-pronoun]
+      gold: {text: "gli stimo", fix: "lo stimo"}
+    - tutor: "Lo so che siete amici. Ma «gli stimo molto»: «stimare qualcuno» regge un complemento diretto o indiretto?"
+      prompt: {text: "gli stimo", tags: [object-pronoun]}
+    - learner: "Le stimo molto?"
+      errors: [object-pronoun]
+    - tutor: "«Lo stimo molto, ma ha sbagliato»: apprezzo che lo dica. Allora, che cosa pensa di fare?"
+      goals: [perspective]
+      recast: {text: "Le stimo", fix: "Lo stimo", tags: [object-pronoun]}
+    - learner: "Domani, alla riunione di reparto, preciserò che l'analisi è frutto del lavoro di tutti e due e farò il Suo nome. Poi parlerò con Bianchi a quattr'occhi. E d'ora in poi, nelle presentazioni, ci sarà sempre una pagina con i nomi di chi ha lavorato al progetto."
+    - tutor: "Mi sembra giusto, e soprattutto pubblico: era quello che mi serviva. Grazie di avermi ascoltata."
+      goals: [solution]
+
+- scenario: traduzione-sfumature
+  level: C2
+  persona: es-m-worker
+  history: [subjunctive-use, word-choice]
+  turns:
+    - tutor: "Ho letto la tua bozza del terzo capitolo. Scorre, scorre benissimo. Peccato che non sia più l'autore a parlare."
+    - learner: "Lo so. Ma l'autore scrive in modo molto plano, e io ho cercato di renderlo un po' più vivo."
+      errors: [word-choice]
+    - tutor: "In modo molto semplice, sì, ma è una semplicità studiata. Tu l'hai riempita di aggettivi. Fammi un esempio di passaggio che ti ha messo in difficoltà."
+      recast: {text: "molto plano", fix: "molto semplice", tags: [word-choice]}
+    - learner: "La scena del funerale. Il protagonista dice soltanto che è andato tutto bene, e in italiano mi sembrava freddissimo, così ho scritto «È stata una bella cerimonia»."
+    - tutor: "Ecco: hai fatto parlare te, non lui. Lui è freddo, ed è proprio questo il punto. Che alternative vedi?"
+      goals: [problem]
+    - learner: "«È andata bene» oppure «Tutto a posto». Forse avrei dovuto lasciare la frase più secca, ma temevo che il lettore pensasse che il protagonista è insensibile."
+      errors: [subjunctive-use]
+      gold: {text: "il protagonista è insensibile", fix: "il protagonista fosse insensibile"}
+    - tutor: "Due opzioni sensate. Ma «temevo che pensasse che il protagonista è insensibile»: dopo «pensasse che», quel verbo regge?"
+      prompt: {text: "il protagonista è insensibile", tags: [subjunctive-use]}
+    - learner: "Che il protagonista sia insensibile?"
+      errors: [subjunctive-use]
+    - tutor: "Temevi che il lettore pensasse che il protagonista fosse insensibile: ma lo è, ed è voluto. Tra le due, quale scegli?"
+      goals: [options]
+      recast: {text: "il protagonista sia insensibile", fix: "il protagonista fosse insensibile", tags: [subjunctive-use]}
+    - learner: "«È andata bene». E nella stessa pagina ho corretto un altro errore mio: avevo tradotto «actually» con «attualmente», ma lì vuol dire «in realtà»."
+    - tutor: "Almeno quello l'hai trovato da solo. Allora: «È andata bene», e via tutti gli aggettivi della pagina. D'accordo?"
+      goals: [false-friend]
+    - learner: "D'accordo, ma non tutti: due li lascerei, perché sono nell'originale. Domani ti rimando il capitolo revisato."
+      errors: [word-choice]
+    - tutor: "Il capitolo rivisto lo voglio entro mezzogiorno, con i due aggettivi dell'originale e nemmeno uno di più."
+      goals: [decide]
+      recast: {text: "il capitolo revisato", fix: "il capitolo rivisto", tags: [word-choice]}
+    - learner: "Entro mezzogiorno, promesso. E senza nessuna bella cerimonia."
+    - tutor: "Vedo che impari in fretta. A domani, allora."
+
+- scenario: notizie-attualita
+  level: C2
+  persona: en-f-professional
+  history: [word-order, articulated-preposition]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatta?"
+    - learner: "Ieri sera ho letto un molto lungo articolo sul tema. Se ho capito bene, la legge vuole limitare gli affitti brevi nei centri storici, soprattutto nelle città d'arte."
+      errors: [word-order]
+      gold: {text: "un molto lungo articolo", fix: "un articolo molto lungo"}
+    - tutor: "Allora sei più informata di me. Ma «un molto lungo articolo»: in italiano, un aggettivo come «lungo», di solito, dove lo mettiamo?"
+      prompt: {text: "un molto lungo articolo", tags: [word-order]}
+    - learner: "Dopo il nome: un articolo molto lungo. Lunghissimo, anzi."
+    - tutor: "E tu che cosa ne pensi?"
+      goals: [summarise]
+    - learner: "In teoria è una buona idea. Ma ho l'impressione che il governo volesse soprattutto dare un segnale, più che risolvere il problema."
+    - tutor: "Un segnale, sì. Il mio giornale, poi, la presentava come una rivoluzione. Il tuo?"
+      goals: [opinion]
+    - learner: "Il mio era molto più critico: diceva che la misura è solo di facciata, e citava un sacco di statistiche sui alloggi vuoti."
+      errors: [articulated-preposition]
+      gold: {text: "sui alloggi", fix: "sugli alloggi"}
+    - tutor: "Le statistiche le citano tutti, poi ognuno le legge a modo suo. Ma «sui alloggi»: davanti a una vocale, la preposizione articolata resta così?"
+      prompt: {text: "sui alloggi", tags: [articulated-preposition]}
+    - learner: "Sui gli alloggi?"
+      errors: [articulated-preposition]
+    - tutor: "Sugli alloggi vuoti, appunto: in certe città sono tantissimi. E secondo te, alla fine, che cosa cambierà?"
+      goals: [sources]
+      recast: {text: "Sui gli alloggi", fix: "Sugli alloggi", tags: [articulated-preposition]}
+    - learner: "Nel lungo periodo i prezzi forse scenderanno un po', ma molti proprietari troveranno il modo di girare intorno alla legge."
+      errors: [word-choice]
+    - tutor: "Aggirare la legge, in Italia, è quasi uno sport nazionale: su questo è difficile darti torto."
+      goals: [consequences]
+      recast: {text: "girare intorno alla legge", fix: "aggirare la legge", tags: [word-choice]}
+    - learner: "Speriamo di no. Comunque ne riparliamo tra sei mesi, e vediamo chi aveva ragione."
+    - tutor: "Segnato in agenda: tra sei mesi, stessa macchinetta, stesso caffè."

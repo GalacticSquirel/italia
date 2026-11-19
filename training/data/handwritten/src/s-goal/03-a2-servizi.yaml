@@ -1,0 +1,226 @@
+# A2, everyday services: post office, hairdresser, laundrette, gym, a summer job at a beach bar.
+# The tutor answers the learner's request and then raises the next practical step.
+- scenario: ufficio-postale
+  level: A2
+  persona: en-f-student
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Vorrei spedire questo pacco in Inghilterra, a mia madre."
+    - tutor: "Va bene, lo metta qui, per favore. Lo vuole spedire normale o veloce?"
+      goals: [send]
+    - learner: "Quanto costa normale? E quanti giorni ci vuole?"
+      errors: [subject-verb-agreement]
+      gold: {text: "quanti giorni ci vuole", fix: "quanti giorni ci vogliono"}
+    - tutor: "«Quanti giorni ci vuole»? «Giorni» è plurale: e il verbo?"
+      prompt: {text: "quanti giorni ci vuole", tags: [subject-verb-agreement]}
+    - learner: "Quanti giorni ci vogliono?"
+    - tutor: "Normale costa diciotto euro e ci vogliono dieci giorni. Veloce costa trentadue euro, e arriva in tre giorni."
+    - learner: "Il compleanno di mia madre è tra una settimana. Allora veloce."
+    - tutor: "Veloce, va bene. Adesso scriva qui l'indirizzo, e che cosa c'è nel pacco."
+      goals: [speed]
+    - learner: "Ecco. Nel pacco ci sono un libro e una sciarpa. Lo scrivo in italiano o in inglese?"
+    - tutor: "In inglese va bene. Poi firmi qui sotto, per favore."
+    - learner: "Fatto. Posso pagare con la carta?"
+    - tutor: "Certo, sono trentadue euro. Ecco la ricevuta: la tenga fino all'arrivo del pacco."
+      goals: [form, pay]
+
+- scenario: ufficio-postale
+  level: A2
+  persona: es-m-worker
+  history: [spelling]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Devo spedire un pacco a mio fratello, a Valencia, in Spagna."
+    - tutor: "Per la Spagna, va bene. Lo vuole mandare normale o veloce?"
+      goals: [send]
+    - learner: "Veloce, perché è il regalo per il suo cumpleaños."
+      errors: [word-choice]
+    - tutor: "Per il compleanno, allora veloce: arriva in tre giorni e costa ventotto euro."
+      goals: [speed]
+      recast: {text: "cumpleaños", fix: "compleanno", tags: [word-choice]}
+    - learner: "Va bene. Cosa devo scrivere sul modulo?"
+    - tutor: "Qui l'indirizzo di suo fratello, e qui che cosa c'è nel pacco."
+    - learner: "Ho scrito l'indirizzo. Nel pacco ci sono due magliette e un libro."
+      errors: [spelling]
+      gold: {text: "Ho scrito", fix: "Ho scritto"}
+    - tutor: "«Ho scrito»? Questa parola ha una lettera doppia. Quale?"
+      prompt: {text: "Ho scrito", tags: [spelling]}
+    - learner: "Ho scritto, con due t! Ma il codice postale non me lo ricordo."
+    - tutor: "Senza codice postale il pacco può arrivare in ritardo. Può chiamare suo fratello?"
+    - learner: "Sì, lo chiamo subito... Ecco, è 46001."
+    - tutor: "Perfetto, adesso il modulo va bene. Sono ventotto euro."
+      goals: [form]
+    - learner: "Ecco trenta euro."
+    - tutor: "Ecco il resto, due euro, e la ricevuta. Buona giornata!"
+      goals: [pay]
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-f-professional
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Vorrei tagliare i capelli, ma non troppo."
+    - tutor: "Va bene. Quanto li vuole corti?"
+      goals: [book]
+    - learner: "Li vorrei più corti, fino alle spalle."
+    - tutor: "Fino alle spalle, d'accordo. E la frangia? Secondo me le sta bene."
+      goals: [length]
+    - learner: "La frangia? Non sono sicura. Non è più difficile per pettinare?"
+      errors: [preposition]
+      gold: {text: "difficile per pettinare", fix: "difficile da pettinare"}
+    - tutor: "«Più difficile per pettinare»? Dopo «difficile», davanti a un verbo, c'è un'altra preposizione."
+      prompt: {text: "difficile per pettinare", tags: [preposition]}
+    - learner: "Sì, è più difficile per pettinare la mattina?"
+      errors: [preposition]
+    - tutor: "No, non è difficile da pettinare: ci vogliono due minuti la mattina. Proviamo?"
+      recast: {text: "difficile per pettinare", fix: "difficile da pettinare", tags: [preposition]}
+    - learner: "Va bene, proviamo la frangia!"
+    - tutor: "Ecco fatto. Si guardi allo specchio: le piace?"
+      goals: [style]
+    - learner: "Mi piace moltissimo! Sembro più giovane. Quanto le devo?"
+    - tutor: "Sono trentacinque euro. Può pagare qui, anche con la carta."
+    - learner: "Ecco quaranta euro, tenga il resto."
+    - tutor: "Grazie mille, è molto gentile! Arrivederci."
+      goals: [pay]
+
+- scenario: parrucchiere
+  level: A2
+  persona: en-m-retired
+  history: [participle-agreement]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Vorrei un taglio corto, come sempre."
+    - tutor: "Come sempre... ma è la prima volta qui da noi, vero? Quanto corto, allora?"
+      goals: [book]
+    - learner: "Sì, è la prima volta. Corto ai lati e un po' più lungo sopra."
+    - tutor: "Va bene. Prima glieli lavo? Costa tre euro in più."
+      goals: [length]
+    - learner: "No, grazie, li ho lavato stamattina."
+      errors: [participle-agreement]
+      gold: {text: "li ho lavato", fix: "li ho lavati"}
+    - tutor: "«Li ho lavato»? Con «li» davanti, «lavato» cambia. Come?"
+      prompt: {text: "li ho lavato", tags: [participle-agreement]}
+    - learner: "Li ho lavati stamattina."
+    - tutor: "Allora cominciamo subito. Vuole anche la barba un po' più corta?"
+      new: [{lemma: barba, gloss: beard}]
+    - learner: "Non lo so... la barba mi piace così. Ma va bene, solo un po'."
+    - tutor: "Solo un po', promesso. Ecco, si guardi allo specchio: va bene così?"
+      goals: [style]
+    - learner: "Benissimo, grazie. Quanto costa, con la barba?"
+    - tutor: "Diciotto euro il taglio, più cinque la barba: ventitré euro."
+    - learner: "Ecco venticinque euro. Va bene così."
+    - tutor: "Grazie, molto gentile. A presto!"
+      goals: [pay]
+
+- scenario: lavanderia
+  level: A2
+  persona: es-f-erasmus
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! Questa lavatrice sta rotta? Non parte."
+      errors: [word-choice]
+    - tutor: "È rotta? No, di solito funziona bene. Hai chiuso bene la porta?"
+      goals: [problem]
+      recast: {text: "sta rotta", fix: "è rotta", tags: [word-choice]}
+    - learner: "Ah, no! Ecco, adesso è chiusa. E come scelgo il programma?"
+    - tutor: "Che cosa metti nella lavatrice?"
+    - learner: "Magliette e jeans di molti colori. Li posso lavare insieme?"
+    - tutor: "Sì, insieme va bene. Gira qui, sul programma a quaranta gradi: dura un'ora."
+      goals: [ask-how]
+    - learner: "E come pago? Ci sono i gettoni?"
+    - tutor: "Sì, la lavatrice funziona con i gettoni: costa quattro euro. La macchina dei gettoni è vicino alla porta."
+    - learner: "Ho solo un biglietto da dieci euro. Va bene?"
+    - tutor: "Sì, la macchina dà il resto in monete."
+      goals: [payment]
+    - learner: "Perfetto, adesso parte! Grazie mille, sei stata molto gentile."
+    - tutor: "Di niente! Io resto qui ancora un'ora, se hai bisogno."
+      goals: [thank]
+
+- scenario: palestra
+  level: A2
+  persona: en-m-heritage
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Quanto costa l'abbonamento per un mese?"
+    - tutor: "Un mese costa quaranta euro. Con tre mesi, invece, paghi cento euro."
+      goals: [ask-membership]
+    - learner: "Allora l'abbonamento di tre mesi è più economico che quello di un mese."
+      errors: [comparative]
+      gold: {text: "che quello", fix: "di quello"}
+    - tutor: "«Più economico che quello»? Prima di «quello», che parola usi?"
+      prompt: {text: "che quello", tags: [comparative]}
+    - learner: "Più economico di quello di un mese!"
+    - tutor: "Sì, così paghi venti euro in meno. Ti interessano anche i corsi?"
+    - learner: "Sì, quali corsi avete? Mi piace molto lo yoga."
+    - tutor: "Abbiamo yoga e corsi di ballo, e sono già nel prezzo dell'abbonamento."
+      goals: [classes]
+    - learner: "Quando ci sono le lezioni di yoga? Io lavoro fino alle sei."
+    - tutor: "Lo yoga c'è il martedì e il giovedì, alle sette di sera. E anche il sabato mattina."
+      goals: [timetable]
+    - learner: "Il martedì e il giovedì mi vanno bene. Posso fare l'iscrizione adesso?"
+    - tutor: "Sì, mi serve solo un documento. Prendi un mese o tre mesi?"
+    - learner: "Tre mesi. Ecco la mia carta d'identità."
+    - tutor: "Grazie. Ecco la tessera: puoi cominciare già martedì!"
+      goals: [sign-up]
+      new: [{lemma: tessera, gloss: membership card}]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: en-f-student
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì, buongiorno. Cercate una cameriera per l'estate, vero?"
+    - tutor: "Sì, cerchiamo una persona per luglio e agosto. Ha già lavorato come cameriera?"
+      goals: [ask]
+    - learner: "Sì, ho lavorato due estati in un ristorante a Londra."
+    - tutor: "Bene. Qui la sera c'è molta gente. Sa fare anche il caffè?"
+    - learner: "Sì, ho fatto il caffè al bar della università per un anno."
+      errors: [articulated-preposition]
+      gold: {text: "della università", fix: "dell'università"}
+    - tutor: "«Della università»? Pensi a «l'università»: cosa succede a «della»?"
+      prompt: {text: "della università", tags: [articulated-preposition]}
+    - learner: "Dell'università! Al bar dell'università."
+    - tutor: "Un anno al bar, ottimo. Quando può cominciare?"
+      goals: [experience]
+    - learner: "Posso cominciare il primo luglio. Ma il martedì non posso, ho un corso d'italiano."
+    - tutor: "Va bene, il martedì è il suo giorno libero. L'orario è dalle quattro alle undici di sera."
+      goals: [availability]
+    - learner: "D'accordo. E lo stipendio?"
+    - tutor: "Mille e cento euro al mese. Mi lascia un numero di telefono?"
+    - learner: "Sì, il mio numero è 340 1234567. Mi chiamo Emily Hart."
+    - tutor: "Grazie. La chiamo domani per una prova di un giorno. A presto!"
+      goals: [contact]
+
+- scenario: cercare-lavoro-a2
+  level: A2
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì. Cercate un cameriere? Io tengo molta esperienza."
+      errors: [false-friend]
+    - tutor: "Sì, cerchiamo un cameriere. «Ho molta esperienza», dice: bene! Dove ha lavorato?"
+      goals: [ask]
+      recast: {text: "tengo molta esperienza", fix: "ho molta esperienza", tags: [false-friend]}
+    - learner: "Ho lavorato cinque anni in un bar di Siviglia, e due anni in un albergo."
+    - tutor: "Qui ci sono molti clienti inglesi e tedeschi. Parla inglese?"
+      goals: [experience]
+    - learner: "Sì, parlo inglese e un po' di francese."
+    - tutor: "Bene. Il lavoro è da giugno a settembre. Quando è disponibile?"
+    - learner: "Da giugno, ma la prima settimana devo tornare a Spagna per un matrimonio."
+      errors: [preposition]
+      gold: {text: "a Spagna", fix: "in Spagna"}
+    - tutor: "Tornare «a Spagna»? Con il nome di un paese, che preposizione usiamo?"
+      prompt: {text: "a Spagna", tags: [preposition]}
+    - learner: "In Spagna! Devo tornare in Spagna la prima settimana."
+    - tutor: "Va bene, allora può cominciare il dieci giugno. Lavoriamo sei giorni su sette."
+      goals: [availability]
+    - learner: "Perfetto. Le lascio il mio numero di telefono?"
+    - tutor: "Sì, lo scriva qui, con il suo nome. La chiamo venerdì."
+      goals: [contact]
+    - learner: "Ecco. Grazie mille, aspetto la sua telefonata!"
+    - tutor: "Grazie a lei. A venerdì!"

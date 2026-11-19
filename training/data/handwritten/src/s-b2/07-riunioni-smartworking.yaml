@@ -1,0 +1,277 @@
+# s-b2: B2 team meetings and working from home.
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-f-professional
+  history: [participle-agreement, ci-ne]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Abbastanza bene. Le prime tre parti del sito le abbiamo finito venerdì, e il cliente le ha già viste."
+    errors: [participle-agreement]
+  - tutor: "Ottimo. Ma «le abbiamo finito»: «le» sono le parti del sito, quindi anche «finito» deve concordare. Come diventa?"
+    prompt: {text: "le abbiamo finito", tags: [participle-agreement]}
+  - learner: "Le abbiamo finite venerdì. Il cliente le ha già approvate."
+  - tutor: "Esatto, perfetto. E le altre parti?"
+    goals: [update]
+  - learner: "Lì c'è un problema: il grafico si è ammalato, e senza di lui non possiamo andare avanti con le immagini."
+  - tutor: "Accidenti. Per quanto tempo starà a casa?"
+    goals: [problem]
+  - learner: "Almeno due settimane, mi ha detto. E di immagini ci mancano ancora venti."
+    errors: [ci-ne]
+  - tutor: "Venti sono tante. Ma «di immagini ci mancano ancora venti»: con «di immagini» davanti, serve anche un altro pronome. Come diventa «ci mancano»?"
+    prompt: {text: "ci mancano ancora venti", tags: [ci-ne]}
+  - learner: "Sì, ci mancano ancora venti immagini, più o meno."
+    errors: [ci-ne]
+  - tutor: "Se ce ne mancano ancora venti, dobbiamo trovare una soluzione. Hai qualche idea?"
+    recast: {text: "ci mancano ancora venti", fix: "ce ne mancano ancora venti", tags: [ci-ne]}
+  - learner: "Potremmo chiedere a Marta, che lavora nel gruppo marketing e sa disegnare molto bene."
+  - tutor: "Buona idea: Marta ha appena finito una campagna, quindi dovrebbe avere tempo. Glielo chiedi tu?"
+    goals: [proposal]
+  - learner: "Sì, gli lo chiedo oggi stesso."
+    errors: [combined-pronouns]
+  - tutor: "Perfetto. Ma «gli lo chiedo»: «gli» e «lo» si uniscono in una parola sola. Quale?"
+    prompt: {text: "gli lo chiedo", tags: [combined-pronouns]}
+  - learner: "Glielo chiedo oggi stesso. Se dice di sì, finiremo tutto entro il 20."
+  - tutor: "Esatto. Allora la nuova scadenza è il 20: lo comunico io al cliente."
+    goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: es-m-worker
+  history: [future-form, preposition]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Va bene, ma siamo un po' in ritardo. Il magazzino nuovo non è ancora pronto."
+  - tutor: "Quanto in ritardo? Il cliente vuole aprire a fine mese."
+    goals: [update]
+  - learner: "Circa due settimane. Gli scaffali sono arrivati, ma il fornitore non ha mandato i carrelli. Ha promesso a mandarli lunedì."
+    errors: [preposition]
+  - tutor: "Speriamo. Ma «ha promesso a mandarli»: con «promettere», davanti all'infinito, quale preposizione usiamo?"
+    prompt: {text: "Ha promesso a mandarli", tags: [preposition]}
+  - learner: "Ha promesso di mandarli lunedì, ma non mi fido molto."
+  - tutor: "Esatto. E hai ragione a non fidarti. Che cosa facciamo se non arrivano?"
+    goals: [problem]
+  - learner: "Potremmo alquilare due carrelli per un mese. Costerà di più, ma così non perderemo tempo."
+    errors: [word-choice]
+  - tutor: "Noleggiare due carrelli per un mese? Può funzionare. Quanto costerebbe, più o meno?"
+    recast: {text: "alquilare", fix: "Noleggiare", tags: [word-choice]}
+    new: [{lemma: noleggiare, gloss: to rent (equipment)}]
+  - learner: "Circa tremila euro. Domani lo mandarò a te e al direttore, con tutti i dettagli."
+    errors: [future-form]
+  - tutor: "Bene. Ma «mandarò»: pensa a «parlare», che al futuro fa «parlerò». E «mandare»?"
+    prompt: {text: "lo mandarò", tags: [future-form]}
+  - learner: "Lo manderò domani mattina."
+  - tutor: "Perfetto. Allora prepara la proposta, e io ne parlo con il direttore."
+    goals: [proposal]
+  - learner: "D'accordo. Se tutto va bene, il magazzino starà pronto il 15 del mese prossimo. Possiamo dirlo al cliente?"
+    errors: [word-choice]
+  - tutor: "Il 15 sarà pronto? Diciamo il 18, così abbiamo tre giorni in più. Lo scrivo io al cliente oggi pomeriggio."
+    recast: {text: "starà pronto", fix: "sarà pronto", tags: [word-choice]}
+    goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-m-traveller
+  history: [subjunctive-use, relative-pronoun]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Bene, direi. Ho finito l'analisi dei dati di vendita, e i risultati sono interessanti."
+  - tutor: "Racconta. Che cosa dicono i dati?"
+  - learner: "Le vendite online sono cresciute del venti per cento, ma nei negozi sono scese. Il cliente che lavoriamo è preoccupato."
+    errors: [relative-pronoun]
+  - tutor: "Lo capisco. Ma «il cliente che lavoriamo»: lavoriamo «per» il cliente. Come diventa il «che»?"
+    prompt: {text: "Il cliente che lavoriamo", tags: [relative-pronoun]}
+  - learner: "Il cliente per cui lavoriamo è preoccupato, sì."
+  - tutor: "Esatto. E qual è il problema principale, secondo te?"
+    goals: [update]
+  - learner: "Che i negozi sono troppo vecchi. Credo che il cliente deve rinnovarli, altrimenti perderà altri clienti."
+    errors: [subjunctive-use]
+  - tutor: "Interessante. Ma «credo che il cliente deve»: dopo «credo che», quale modo ci vuole?"
+    prompt: {text: "Credo che il cliente deve", tags: [subjunctive-use]}
+  - learner: "Sì, credo che il cliente deve fare qualcosa."
+    errors: [subjunctive-use]
+  - tutor: "Credo anch'io che debba fare qualcosa, ma rifare tutti i negozi costa moltissimo. Hai una proposta più economica?"
+    recast: {text: "deve fare", fix: "debba fare", tags: [subjunctive-use]}
+    goals: [problem]
+  - learner: "Sì: potremmo cominciare da tre negozi, quelli che vendono di meno, e vedere i risultati dopo sei mesi."
+  - tutor: "Mi piace. Riusciresti a preparare una presentazione per il cliente?"
+    goals: [proposal]
+  - learner: "Sì. La facerò entro giovedì, così la possiamo vedere insieme venerdì mattina."
+    errors: [future-form]
+  - tutor: "Ottimo. Ma «facerò»: al futuro, «fare» è più corto. Come diventa?"
+    prompt: {text: "La facerò", tags: [future-form]}
+  - learner: "La farò entro giovedì."
+  - tutor: "Esatto. Allora: giovedì la presentazione, venerdì la guardiamo insieme e lunedì la mandiamo al cliente."
+    goals: [deadline]
+
+- scenario: riunione-lavoro
+  level: B2
+  persona: en-f-student
+  history: [tense-aspect, combined-pronouns]
+  turns:
+  - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+  - learner: "Bene! La settimana scorsa ho parlato con dieci clienti per il nuovo prodotto."
+  - tutor: "Ottimo. E che cosa ti hanno detto?"
+  - learner: "Quasi tutti erano contenti. Però una signora mi ha detto che l'app si chiudeva sempre quando faceva i pagamenti, e ieri succedeva di nuovo."
+    errors: [tense-aspect]
+  - tutor: "Questo è grave. Ma «ieri succedeva di nuovo»: è successo una volta, ieri. Quale tempo serve?"
+    prompt: {text: "ieri succedeva di nuovo", tags: [tense-aspect]}
+  - learner: "Ieri è successo di nuovo. L'ho provata anch'io, ed è vero."
+  - tutor: "Esatto. Allora è un problema serio. L'hai già detto al gruppo tecnico?"
+    goals: [update, problem]
+  - learner: "Non ancora. Il rapporto ce l'ho qui: ti lo mando adesso?"
+    errors: [combined-pronouns]
+  - tutor: "Sì, grazie. Ma «ti lo mando»: davanti a «lo», «ti» cambia. Come?"
+    prompt: {text: "ti lo mando", tags: [combined-pronouns]}
+  - learner: "Te lo mando subito."
+  - tutor: "Perfetto. E secondo te, che cosa dovremmo fare con i clienti?"
+  - learner: "Potremmo mandare un messaggio ai clienti e chiederci scusa. E poi offrire un mese gratis."
+    errors: [object-pronoun]
+  - tutor: "Buona idea. Ma «chiederci scusa»: la scusa la chiediamo a loro, ai clienti. Quale pronome serve?"
+    prompt: {text: "chiederci scusa", tags: [object-pronoun]}
+  - learner: "Sì, chiederci scusa a tutti."
+    errors: [object-pronoun]
+  - tutor: "Sì, chiedergli scusa è il minimo, e un mese gratis mi sembra giusto. Il messaggio lo scrivi tu?"
+    recast: {text: "chiederci scusa", fix: "chiedergli scusa", tags: [object-pronoun]}
+    goals: [proposal]
+  - learner: "Sì, certo. Se il gruppo tecnico risolve il problema entro venerdì, lunedì mando il messaggio a tutti."
+  - tutor: "Perfetto: venerdì il problema risolto, lunedì il messaggio ai clienti. Bel lavoro."
+    goals: [deadline]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-heritage
+  history: [comparative, ci-ne]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Lavoro da casa tre giorni alla settimana, e gli altri due vado in ufficio."
+  - tutor: "E come ti trovi? Io non ce la farei, mi distraggo troppo."
+    goals: [situation]
+  - learner: "Mi trovo benissimo. A casa lavoro meglio che in ufficio, perché nessuno mi interrompe."
+  - tutor: "Davvero? E che cos'altro ti piace?"
+  - learner: "Risparmio un'ora e mezza di treno al giorno. In ufficio vado solo per le riunioni, e faccio due alla settimana."
+    errors: [ci-ne]
+  - tutor: "Un'ora e mezza è tanto! Ma «faccio due alla settimana»: due riunioni, e in italiano le riprendiamo con un pronome. Quale?"
+    prompt: {text: "faccio due alla settimana", tags: [ci-ne]}
+  - learner: "Ne faccio due, il martedì e il giovedì."
+  - tutor: "Esatto. E gli svantaggi?"
+    goals: [pros]
+  - learner: "Mi mancano i colleghi. A volte mi sento solo, e la sera non riesco di smettere di lavorare."
+    errors: [preposition]
+  - tutor: "Ti capisco. Ma «non riesco di smettere»: con «riuscire», davanti all'infinito, quale preposizione va?"
+    prompt: {text: "non riesco di smettere", tags: [preposition]}
+  - learner: "Non riesco a smettere. Il computer è sempre lì, sul tavolo della cucina."
+  - tutor: "Esatto, è il problema di tutti. E se potessi scegliere, come vorresti lavorare?"
+    goals: [cons]
+  - learner: "Verrei in ufficio più spesso, perché la mia casa è più piccola che il tuo ufficio, e non ho una stanza solo per lavorare."
+    errors: [comparative]
+  - tutor: "Capisco. Ma «più piccola che il tuo ufficio»: quando confronti due cose così, dopo «più piccola» quale parola usi?"
+    prompt: {text: "più piccola che il tuo ufficio", tags: [comparative]}
+  - learner: "La mia casa è più piccola che il tuo ufficio, davvero!"
+    errors: [comparative]
+  - tutor: "«La mia casa è più piccola del tuo ufficio»: allora tre giorni in ufficio sarebbero l'ideale per te?"
+    recast: {text: "più piccola che il tuo ufficio", fix: "più piccola del tuo ufficio", tags: [comparative]}
+  - learner: "Sì, tre in ufficio e due a casa sarebbe perfetto. Ne parlerò con il mio capo la settimana prossima."
+  - tutor: "Fai bene. E se ti dice di no, puoi sempre venire a lavorare da me il venerdì!"
+    goals: [preference]
+
+- scenario: smartworking
+  level: B2
+  persona: es-f-teacher
+  history: [comparative, subjunctive-use]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Io sono tornata in ufficio da gennaio. Lavoro per una scuola di lingue online, ma adesso abbiamo una sede."
+  - tutor: "E ti piace di più o di meno?"
+    goals: [situation]
+  - learner: "Di più, sinceramente. A casa lavoravo più ore che in ufficio, e non vedevo mai i miei compagni."
+    errors: [word-choice]
+  - tutor: "Senza colleghi intorno è dura, ti capisco. Quindi per te l'ufficio ha solo vantaggi?"
+    recast: {text: "compagni", fix: "colleghi", tags: [word-choice]}
+  - learner: "No, anche lì ci sono svantaggi. L'ufficio è più rumoroso che casa mia, e i colleghi parlano sempre al telefono."
+    errors: [comparative]
+  - tutor: "Ah, il rumore! Ma «più rumoroso che casa mia»: qui confronti due luoghi come due cose. Quale parola va dopo «più rumoroso»?"
+    prompt: {text: "più rumoroso che casa mia", tags: [comparative]}
+  - learner: "Più rumoroso di casa mia, sì."
+  - tutor: "Esatto. E di buono, che cosa c'è?"
+    goals: [cons]
+  - learner: "Le pause caffè con i colleghi, e le idee che nascono parlando. Però mi sembra che il viaggio è troppo lungo: ci metto un'ora."
+    errors: [subjunctive-use]
+  - tutor: "Un'ora è tanto. Ma «mi sembra che il viaggio è»: dopo «mi sembra che», quale modo usiamo?"
+    prompt: {text: "mi sembra che il viaggio è", tags: [subjunctive-use]}
+  - learner: "Mi sembra che il viaggio è troppo lungo, davvero."
+    errors: [subjunctive-use]
+  - tutor: "Sì, anche a me sembra che il viaggio sia troppo lungo. Allora, se potessi scegliere, che cosa faresti?"
+    recast: {text: "il viaggio è", fix: "il viaggio sia", tags: [subjunctive-use]}
+    goals: [pros]
+  - learner: "Lavorerei in ufficio tre giorni e a casa due. Se il mio capo accettasse, sarebbe la soluzione migliore."
+  - tutor: "È quello che fanno in molti. Prova a chiederlo: al massimo ti dice di no!"
+    goals: [preference]
+
+- scenario: smartworking
+  level: B2
+  persona: en-m-retired
+  history: [conditional-form, passive]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Io lavoro solo da casa, ormai. Faccio il consulente due giorni alla settimana, e il resto del tempo lo passo con i nipoti."
+  - tutor: "Che bella vita! E come lavori, in pratica?"
+    goals: [situation]
+  - learner: "Ho uno studio in mansarda, e le riunioni con i clienti si fanno tutte in videochiamata."
+  - tutor: "Quindi niente treni e niente traffico. Quali sono i vantaggi, per te?"
+  - learner: "Gestisco il mio tempo come voglio, e a casa sono molto confortevole."
+    errors: [word-choice]
+  - tutor: "«A casa sto molto comodo»: ti credo! Ma ci saranno anche degli svantaggi, no?"
+    recast: {text: "sono molto confortevole", fix: "sto molto comodo", tags: [word-choice]}
+    goals: [pros]
+  - learner: "Sì, la tecnologia. L'anno scorso il mio computer è stato attaccato da un virus, e tutti i file sono stato cancellati."
+    errors: [passive]
+  - tutor: "Che disastro! Ma «tutti i file sono stato cancellati»: «stato» deve concordare con «i file». Come diventa?"
+    prompt: {text: "sono stato cancellati", tags: [passive]}
+  - learner: "Sono stato cancellati tutti: tre mesi di lavoro."
+    errors: [passive]
+  - tutor: "Tre mesi di lavoro che sono stati cancellati in un attimo: che incubo! E come hai risolto?"
+    recast: {text: "Sono stato cancellati", fix: "sono stati cancellati", tags: [passive]}
+    goals: [cons]
+  - learner: "Mio nipote mi ha aiutato. Se fossi più giovane, imparerei tutto sui computer, ma ormai lascio fare a lui."
+  - tutor: "E se un giorno dovessi scegliere, torneresti in ufficio?"
+  - learner: "No, mai! Preferirebbi smettere di lavorare."
+    errors: [conditional-form]
+  - tutor: "Addirittura! Ma «preferirebbi»: con «io», come finisce il condizionale?"
+    prompt: {text: "Preferirebbi", tags: [conditional-form]}
+  - learner: "Preferirei smettere di lavorare, piuttosto che tornare in ufficio."
+  - tutor: "Ti capisco: con uno studio tutto tuo e i nipoti vicino, chi tornerebbe in ufficio?"
+    goals: [preference]
+
+- scenario: smartworking
+  level: B2
+  persona: es-f-erasmus
+  history: [comparative, relative-pronoun]
+  turns:
+  - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+  - learner: "Dipende dai giorni. Il lunedì e il venerdì lavoro da casa, gli altri giorni vado in ufficio."
+  - tutor: "E dove ti trovi meglio?"
+    goals: [situation]
+  - learner: "In ufficio, credo. Abito in una stanza che non c'è luce, e il Wi-Fi non funziona bene."
+    errors: [relative-pronoun]
+  - tutor: "Che peccato! Ma «una stanza che non c'è luce»: la luce non c'è «nella» stanza. Come cambia il «che»?"
+    prompt: {text: "una stanza che non c'è luce", tags: [relative-pronoun]}
+  - learner: "Una stanza in cui non c'è luce. E il mio coinquilino è molto ruidoso."
+    errors: [word-choice]
+  - tutor: "Una stanza buia e un coinquilino rumoroso: capisco perché preferisci l'ufficio! Ma lavorare da casa avrà pure qualche vantaggio, no?"
+    recast: {text: "ruidoso", fix: "rumoroso", tags: [word-choice]}
+    goals: [cons]
+    new: [{lemma: rumoroso, gloss: noisy}]
+  - learner: "Sì: dormo di più e risparmio i soldi dell'autobus. E sono meno stressata di quando vado in ufficio."
+  - tutor: "Quindi a casa dormi di più e sei più tranquilla. Non è poco!"
+    goals: [pros]
+  - learner: "È vero. Però in ufficio imparo molto di più: i miei colleghi sono più esperti che me."
+    errors: [comparative]
+  - tutor: "È normale, sei appena arrivata. Ma «più esperti che me»: davanti a un pronome come «me», quale parola usiamo dopo «più esperti»?"
+    prompt: {text: "più esperti che me", tags: [comparative]}
+  - learner: "Sì, sono più esperti che me, molto."
+    errors: [comparative]
+  - tutor: "«I miei colleghi sono più esperti di me»: è normale, all'inizio. E allora, se potessi decidere tu?"
+    recast: {text: "più esperti che me", fix: "più esperti di me", tags: [comparative]}
+  - learner: "Andrei in ufficio quattro giorni, e starei a casa solo il venerdì. Sempre che il mio capo sia d'accordo!"
+  - tutor: "Chiediglielo! Con un ufficio pieno di gente esperta, quattro giorni hanno senso."
+    goals: [preference]

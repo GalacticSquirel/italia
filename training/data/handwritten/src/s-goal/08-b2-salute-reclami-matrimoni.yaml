@@ -1,0 +1,264 @@
+# B2, specialist visits, restaurant complaints, wedding planning, the registry office and a claim.
+# The tutor collects the facts before explaining, offers concrete next steps, and never decides for
+# the learner (venues, treatments and compensation are proposed, then accepted or not).
+- scenario: medico-specialista
+  level: B2
+  persona: en-f-professional
+  history: [tense-aspect, subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Buongiorno, dottore. Mi sento spesso stanca, e quando salgo le scale mi manca il fiato."
+    - tutor: "Le succede anche a riposo, o solo sotto sforzo? E da quanto tempo?"
+    - learner: "Solo sotto sforzo. È cominciato due mesi fa; prima ho fatto sempre le scale senza problemi."
+      errors: [tense-aspect]
+      gold: {text: "prima ho fatto", fix: "prima facevo"}
+    - tutor: "«Prima ho fatto sempre le scale»? Parla di un'abitudine del passato: che tempo serve?"
+      prompt: {text: "prima ho fatto", tags: [tense-aspect]}
+    - learner: "Sì, prima ho fatto le scale sempre senza problemi."
+      errors: [tense-aspect]
+    - tutor: "«Prima facevo sempre le scale senza problemi»: d'accordo, quindi è un cambiamento recente. In famiglia qualcuno ha avuto problemi di cuore o di pressione?"
+      goals: [symptoms]
+      recast: {text: "prima ho fatto", fix: "prima facevo", tags: [tense-aspect]}
+    - learner: "Sì, mia madre ha la pressione alta da quando aveva cinquant'anni, e mio nonno è morto di infarto."
+    - tutor: "Questo è importante. Gli esami mostrano che anche la sua pressione è un po' alta: 150 su 95."
+      goals: [history]
+    - learner: "È grave? Non capisco bene che cosa significano questi numeri."
+    - tutor: "Non è grave, ma va tenuta sotto controllo. Il valore normale è sotto 140 su 90."
+    - learner: "Quindi bisogna che prendo delle medicine?"
+      errors: [subjunctive-use]
+      gold: {text: "bisogna che prendo", fix: "bisogna che prenda"}
+    - tutor: "«Bisogna che prendo»? Dopo «bisogna che», il verbo vuole un altro modo."
+      goals: [understand]
+      prompt: {text: "bisogna che prendo", tags: [subjunctive-use]}
+    - learner: "Bisogna che prenda delle medicine?"
+    - tutor: "Per ora proviamo una pastiglia leggera, una volta al giorno, la mattina. E poi meno sale e più movimento."
+    - learner: "Questa pastiglia ha degli effetti collaterali?"
+    - tutor: "Nei primi giorni può dare un po' di mal di testa o di stanchezza. Se succede, mi chiami pure."
+    - learner: "Va bene. E quando devo tornare per il controllo?"
+    - tutor: "Tra un mese. Nel frattempo controlli la pressione ogni mattina e scriva i valori su un quaderno."
+      goals: [treatment]
+
+- scenario: medico-specialista
+  level: B2
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Buongiorno, dottoressa. Meglio, ma a volte sento il cuore che batte molto veloce, soprattutto di notte."
+    - tutor: "Quanto durano questi episodi? E che cosa sta facendo, di solito, quando succedono?"
+    - learner: "Durano pochi minuti. Di solito sono a letto, sto per addormentarmi."
+    - tutor: "Capisco. Beve molto caffè? E come va con il lavoro?"
+      goals: [symptoms]
+    - learner: "Bevo quattro o cinque caffè al giorno. Lavoro in una obra e comincio alle sei."
+      errors: [word-choice]
+    - tutor: "In un cantiere, alle sei: è un lavoro duro, e cinque caffè sono tanti. In famiglia ci sono stati problemi di cuore?"
+      new: [{lemma: cantiere, gloss: building site}]
+      recast: {text: "in una obra", fix: "in un cantiere", tags: [word-choice]}
+    - learner: "Mio padre aveva un'aritmia, ma non so molto: viveva in Ecuador e lo vedevo poco."
+    - tutor: "È utile saperlo. Gli esami del sangue vanno bene, e anche l'elettrocardiogramma: il battito è regolare."
+      goals: [history]
+      new: [{lemma: elettrocardiogramma, gloss: ECG}]
+    - learner: "Allora perché sento il cuore così veloce? Ho paura che è qualcosa di grave."
+      errors: [subjunctive-use]
+      gold: {text: "che è qualcosa", fix: "che sia qualcosa"}
+    - tutor: "«Ho paura che è»? Dopo «ho paura che», il verbo deve cambiare modo."
+      prompt: {text: "che è qualcosa", tags: [subjunctive-use]}
+    - learner: "Ho paura che sia qualcosa di grave."
+    - tutor: "Non credo che sia grave: probabilmente sono il caffè e la stanchezza. Per esserne sicuri, però, le farei registrare il battito per 24 ore."
+      goals: [understand]
+    - learner: "Va bene. E mentre tanto, devo prendere qualche medicina?"
+      errors: [word-choice]
+    - tutor: "Intanto nessuna medicina. Provi a scendere a due caffè al giorno e a dormire almeno sette ore."
+      goals: [treatment]
+      recast: {text: "mentre tanto", fix: "intanto", tags: [word-choice]}
+    - learner: "D'accordo, due caffè. Quando posso fare la registrazione di 24 ore?"
+    - tutor: "La prenota all'uscita: di solito c'è posto entro una settimana. Poi ne riparliamo con i risultati."
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: en-m-traveller
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, mi dispiace dirlo, ma la serata è stata piuttosto deludente."
+    - tutor: "Mi dispiace sentirlo. Mi racconti pure che cosa non è andato."
+      goals: [complain]
+    - learner: "Abbiamo aspettato cinquanta minuti per i secondi, e le bistecche sono arrivate fredde. Inoltre erano troppo cucinate."
+      errors: [word-choice]
+    - tutor: "Fredde e troppo cotte, dopo cinquanta minuti: ha perfettamente ragione. Stasera in cucina mancava una persona, ma questo non giustifica nulla."
+      goals: [detail]
+      recast: {text: "troppo cucinate", fix: "troppo cotte", tags: [word-choice]}
+    - learner: "Capisco i problemi, ma se ce l'avessero detto prima, avremmo ordinato qualcosa di più veloce."
+    - tutor: "Il cameriere avrebbe dovuto avvisarvi, è vero. Che cosa vi aspettavate, da un locale come il nostro?"
+    - learner: "Il ristorante è consigliato da tutte le guide, quindi mi aspettavo che il servizio sarebbe più attento."
+      errors: [subjunctive-use]
+      gold: {text: "sarebbe più attento", fix: "fosse più attento"}
+    - tutor: "«Mi aspettavo che il servizio sarebbe»? Dopo «mi aspettavo che» ci vuole un congiuntivo. Quale tempo?"
+      prompt: {text: "sarebbe più attento", tags: [subjunctive-use]}
+    - learner: "Sì, mi aspettavo che il servizio sarebbe più attento, ecco."
+      errors: [subjunctive-use]
+    - tutor: "Era giusto aspettarsi che il servizio fosse più attento. Vorrei offrirvi i secondi e il dolce, e togliere il venti per cento dal resto del conto."
+      goals: [expectation]
+      recast: {text: "sarebbe più attento", fix: "fosse più attento", tags: [subjunctive-use]}
+    - learner: "Grazie, è un gesto gentile. Accetto volentieri, e spero che la prossima volta vada meglio."
+    - tutor: "Glielo garantisco. Le lascio il mio biglietto: la prossima volta prenoti direttamente con me."
+      goals: [resolve]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, è successa una cosa grave. Sono allergica alla frutta secca, e l'ho detto quando abbiamo ordinato."
+    - tutor: "Mi dispiace molto. Sta bene? Che cosa è successo esattamente?"
+      goals: [complain]
+    - learner: "Sto bene, per fortuna me ne sono accorta subito. Nel dolce c'erano delle noci, ma nel menù non era scritto."
+    - tutor: "Questo non doveva succedere. A chi aveva parlato dell'allergia, al momento dell'ordine?"
+      goals: [detail]
+    - learner: "Al cameriere che ci ha atteso, quello alto con gli occhiali. Ma non l'ha scritto."
+      errors: [false-friend]
+    - tutor: "Il cameriere che vi ha servito avrebbe dovuto scriverlo e avvisare la cucina. Parlerò con lui stasera stessa."
+      recast: {text: "atteso", fix: "servito", tags: [false-friend]}
+    - learner: "Era il compleanno di mia figlia: speravo che fosse una serata tranquilla."
+    - tutor: "Mi dispiace davvero che sia andata così. Vorrei non farvi pagare la cena e invitarvi di nuovo, per festeggiare come si deve."
+      goals: [expectation]
+    - learner: "Lo apprezzo. Ma vorrei anche che aggiornate il menù con gli allergeni."
+      errors: [subjunctive-use]
+      gold: {text: "che aggiornate", fix: "che aggiornaste"}
+    - tutor: "«Vorrei che aggiornate»? Dopo «vorrei che», quale modo e quale tempo servono?"
+      prompt: {text: "che aggiornate", tags: [subjunctive-use]}
+    - learner: "Vorrei che aggiornaste il menù con gli allergeni."
+    - tutor: "Ha ragione, e lo faremo entro la settimana: avremmo dovuto farlo da tempo."
+    - learner: "Allora accetto l'invito. Torneremo il mese prossimo."
+    - tutor: "Vi aspetto. Mi lasci un numero di telefono: la chiamo io per la prenotazione."
+      goals: [resolve]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: en-m-heritage
+  history: [possessive, subjunctive-use]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Vorremmo un matrimonio all'aperto, in campagna, con circa ottanta invitati."
+    - tutor: "All'aperto si può fare anche la cerimonia, se non è in chiesa. Avete già deciso dove sposarvi?"
+      goals: [vision]
+    - learner: "Civile, sul posto. Mia fidanzata è americana, e i suoi parenti verranno dagli Stati Uniti."
+      errors: [possessive]
+      gold: {text: "Mia fidanzata", fix: "La mia fidanzata"}
+    - tutor: "«Mia fidanzata»? Con «fidanzata», a differenza di «moglie», «mia» vuole l'articolo."
+      prompt: {text: "Mia fidanzata", tags: [possessive]}
+    - learner: "La mia fidanzata è americana."
+    - tutor: "Allora la data conta molto, per i voli. E per il budget, che cifra avete in mente?"
+    - learner: "Abbiamo pensato a venticinquemila euro in tutto. È realistico?"
+    - tutor: "Con ottanta invitati è realistico, senza esagerare. Ho due posti da farvi vedere: una villa sul lago e una casa di campagna in collina."
+      goals: [budget]
+    - learner: "Qual è la differenza in prezzo?"
+      errors: [preposition]
+      gold: {text: "differenza in prezzo", fix: "differenza di prezzo"}
+    - tutor: "«La differenza in prezzo»? Dopo «differenza» si usa un'altra preposizione."
+      prompt: {text: "differenza in prezzo", tags: [preposition]}
+    - learner: "La differenza di prezzo?"
+    - tutor: "La villa costa 8.000 euro di affitto, la casa di campagna 5.000. Lì però il menù è fisso, con i loro prodotti."
+    - learner: "Preferirei la casa di campagna, ma prima vorrei che ce lo fate vedere."
+      errors: [subjunctive-use]
+      gold: {text: "ce lo fate vedere", fix: "ce lo faceste vedere"}
+    - tutor: "«Vorrei che ce lo fate vedere»? Con «vorrei che», il verbo va al congiuntivo, e al passato."
+      prompt: {text: "ce lo fate vedere", tags: [subjunctive-use]}
+    - learner: "Vorrei che ce lo faceste vedere."
+    - tutor: "Sabato mattina vi ci accompagno io, così vedete anche dove si farebbe la cerimonia."
+      goals: [choices]
+    - learner: "Perfetto. Un'ultima cosa: vorremmo scegliere noi il fotografo, e che ci mandaste tutti i preventivi per iscritto."
+    - tutor: "Va bene: vi mando tre preventivi di fotografi con cui lavoro da anni, e la scelta finale resta vostra."
+      goals: [conditions]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: es-f-erasmus
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Vorremmo una cosa semplice ma elegante, al mare, con una cinquantina di invitati."
+    - tutor: "Al mare è splendido, soprattutto a settembre. Avete già un budget?"
+      goals: [vision]
+    - learner: "Sì, ma è limitato: non più di quindicimila euro, compreso il viaggio di nozze."
+    - tutor: "Con il viaggio compreso è un budget stretto, ma si può fare. Vi propongo due posti: una spiaggia privata o un ristorante di pesce con vista sul mare."
+      goals: [budget]
+    - learner: "La spiaggia mi piace di più, ma se piove? Non voglio che gli invitati si bagnano."
+      errors: [subjunctive-use]
+      gold: {text: "si bagnano", fix: "si bagnino"}
+    - tutor: "«Non voglio che si bagnano»? Dopo «non voglio che», che modo ci vuole?"
+      prompt: {text: "si bagnano", tags: [subjunctive-use]}
+    - learner: "Non voglio che gli invitati si bagnino!"
+    - tutor: "La spiaggia ha una grande zona coperta per cento persone, quindi potete stare tranquilli anche con la pioggia."
+    - learner: "Allora scegliamo la spiaggia. Quanto costa?"
+    - tutor: "L'affitto della spiaggia è di 4.000 euro, e la cena di pesce circa 70 euro a persona."
+      goals: [choices]
+    - learner: "Va bene. Ma ho una condizione: il fotografo lo scegliamo noi. Mio cugino è fotografo profesional."
+      errors: [word-choice]
+    - tutor: "Se suo cugino è fotografo professionista, nessun problema: lo togliamo dal preventivo e vi resta qualcosa in più per il viaggio."
+      goals: [conditions]
+      recast: {text: "fotografo profesional", fix: "fotografo professionista", tags: [word-choice]}
+    - learner: "Perfetto. Ci mandi tutto per email, per favore, così ne parliamo con calma."
+    - tutor: "Ve lo mando stasera, con tutti i costi uno per uno."
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-student
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono una ricercatrice americana e vorrei iscrivermi all'anagrafe di questo comune."
+    - tutor: "Bene. Mi può mostrare il permesso di soggiorno e il contratto d'affitto?"
+      goals: [request]
+    - learner: "Ecco il permesso. Il contratto, però, non è stato ancora registrato dal proprietario."
+    - tutor: "Senza la registrazione, il contratto non basta per la residenza. Il proprietario sa che deve farlo entro trenta giorni?"
+      goals: [documents]
+    - learner: "Gliel'ho detto due volte, ma risponde sempre che lo farà presto."
+    - tutor: "Allora ha due possibilità: aspettare la registrazione, oppure portare una dichiarazione di qualcuno che la ospita. Lei che cosa preferisce?"
+    - learner: "Preferirei aspettare. Ma è necessario che ho la residenza prima di aprire un conto in banca?"
+      errors: [subjunctive-use]
+      gold: {text: "che ho la residenza", fix: "che abbia la residenza"}
+    - tutor: "«È necessario che ho»? Dopo «è necessario che», il verbo cambia modo."
+      prompt: {text: "che ho la residenza", tags: [subjunctive-use]}
+    - learner: "Sì, è necessario che ho la residenza per la banca?"
+      errors: [subjunctive-use]
+    - tutor: "No, non è necessario che abbia la residenza per aprire un conto: di solito basta il permesso di soggiorno."
+      goals: [problem]
+      recast: {text: "che ho la residenza", fix: "che abbia la residenza", tags: [subjunctive-use]}
+    - learner: "Perfetto. Quando il contratto sarà registrato, devo prendere un altro appuntamento?"
+    - tutor: "Sì, lo prenota sul sito del Comune o qui allo sportello. Poi, entro 45 giorni, i vigili verificano l'indirizzo."
+      goals: [next]
+    - learner: "Grazie mille, è stata molto chiara."
+    - tutor: "Di niente. Torni appena ha la registrazione, e porti una copia del contratto."
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-m-worker
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Stamattina ero fermo al semaforo rosso e una macchina mi ha tamponato."
+    - tutor: "Mi dispiace. Lei si è fatto male?"
+      goals: [what]
+    - learner: "No, ma mi fa un po' male il collo. L'altro conducente ha ammesso che la colpa era sua."
+    - tutor: "Meno male che l'ha ammesso. Per il collo, però, è andato al pronto soccorso? Un documento del medico potrebbe servire."
+      goals: [responsibility]
+    - learner: "Sì, ci sono andato subito dopo. Il medico mi aveva dato cinque giorni di riposo."
+      errors: [tense-aspect]
+      gold: {text: "mi aveva dato", fix: "mi ha dato"}
+    - tutor: "«Mi aveva dato»? Il medico gliel'ha detto durante la visita, non prima di un altro fatto passato. Che tempo serve?"
+      prompt: {text: "mi aveva dato", tags: [tense-aspect]}
+    - learner: "Il medico mi ha dato cinque giorni di riposo."
+    - tutor: "Ha fatto benissimo ad andarci. Avete compilato la constatazione amichevole?"
+    - learner: "Sì, l'abbiamo firmata tutti e due. Il paraurti è distrutto, e anche il baule non si chiude più."
+      errors: [false-friend]
+    - tutor: "Se anche il bagagliaio non si chiude, il perito dovrà controllare bene tutta la parte posteriore. Ha fatto delle foto?"
+      recast: {text: "il baule", fix: "il bagagliaio", tags: [false-friend]}
+      new: [{lemma: bagagliaio, gloss: car boot}, {lemma: perito, gloss: loss adjuster}]
+    - learner: "Sì, molte. Le mando anche il referto del pronto soccorso?"
+    - tutor: "Sì, ci mandi tutto: le foto, la constatazione e il referto."
+      goals: [documents]
+    - learner: "E quando potrò avere la macchina riparata? Mi serve per andare al lavoro."
+    - tutor: "Il nostro esperto vedrà la macchina entro una settimana. Se la colpa è tutta dell'altro, paga la sua assicurazione, e lei può chiedere una macchina per questi giorni."
+      goals: [next]

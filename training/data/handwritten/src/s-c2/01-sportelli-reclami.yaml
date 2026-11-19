@@ -1,0 +1,223 @@
+# Round 8, set s-c2: C2 near-native slips the model misses (auxiliaries with durare, consecutio,
+# calques, Spanish words, conditional forms) beside correct sophisticated turns left alone.
+# File 1: offices, claims, complaints and negotiations.
+- scenario: burocrazia-residenza
+  level: C2
+  persona: en-m-heritage
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Devo rinnovare la carta d'identità, ma prima vorrei capire se la mia residenza risulta ancora qui: l'anno scorso mi sono trasferito per qualche mese a Torino e poi sono rientrato."
+    - tutor: "Controllo subito. Sì, risulta ancora residente qui: il trasferimento a Torino non è mai stato registrato. Per il rinnovo mi servono la vecchia carta, una fototessera recente e la ricevuta del pagamento. Ha tutto con sé?"
+      goals: [request]
+    - learner: "La foto e la ricevuta sì. La vecchia carta, invece, me l'hanno rubata in treno; la denuncia ha durato quasi due ore, ma ce l'ho qui."
+      errors: [auxiliary-choice]
+      gold: {text: "ha durato", fix: "è durata"}
+    - tutor: "Due ore in commissariato, immagino la pazienza. Riprenda però «ha durato»: con un verbo come «durare», quale ausiliare ci vuole?"
+      prompt: {text: "ha durato", tags: [auxiliary-choice]}
+    - learner: "Giusto, la denuncia è durata quasi due ore. Gliela lascio in copia?"
+    - tutor: "Esatto. Sì, me la lasci pure: la allego alla pratica, così nessuno Le chiederà altro."
+      goals: [documents]
+    - learner: "Un'altra cosa: sul certificato rilasciato a Torino il mio cognome è stato trascritto senza l'apostrofo. Temo che lo stesso errore si ripeta sulla nuova carta."
+    - tutor: "Qui in anagrafe il cognome è registrato correttamente, e la carta viene stampata con i nostri dati, non con quelli di Torino. Per scrupolo, però, Le conviene segnalarlo anche a quel Comune."
+      goals: [problem]
+    - learner: "Lo farò. E per la consegna, quanto tempo prende di solito? Attualmente lavoro su turni e a casa passo poco."
+      errors: [word-choice]
+    - tutor: "Di solito non ci vuole molto: la carta arriva per raccomandata entro sei giorni lavorativi. Se a casa passa poco, può indicare un altro indirizzo per la consegna. Quale preferisce?"
+      recast: {text: "prende", fix: "ci vuole", tags: [word-choice]}
+    - learner: "Allora quello dell'ufficio, in via Mazzini 12: lì c'è sempre qualcuno alla reception."
+    - tutor: "Segnato: via Mazzini 12. Intanto Le rilascio una ricevuta che vale come documento fino alla consegna della carta."
+      goals: [next]
+
+- scenario: reclamo-comune
+  level: C2
+  persona: es-m-worker
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Vengo per il cantiere davanti alla scuola elementare di via Verdi: da due mesi il marciapiede è chiuso e nessuno ha pensato a un passaggio per i pedoni."
+    - tutor: "Capisco la preoccupazione. Quel cantiere è stato aperto dall'azienda del gas, non direttamente dal Comune. C'è almeno un percorso alternativo segnalato?"
+      goals: [describe]
+    - learner: "Macché: nessun cartello, nessuna transenna. I bambini devono camminare sulla calzada, e i camion passano a tutta velocità."
+      errors: [word-choice]
+    - tutor: "Camminare sulla carreggiata, con i camion che passano, è davvero pericoloso. Un passaggio protetto andrebbe garantito, ma la competenza è dell'Ufficio mobilità, che riceve il pubblico solo il giovedì."
+      recast: {text: "sulla calzada", fix: "sulla carreggiata", tags: [word-choice]}
+      new: [{lemma: carreggiata, gloss: roadway}]
+    - learner: "Mi scusi, ma per una questione di sicurezza non si può aspettare giovedì. Vorrei che qualcuno venga a vedere oggi stesso."
+      errors: [subjunctive-use]
+      gold: {text: "qualcuno venga", fix: "qualcuno venisse"}
+    - tutor: "Ha tutto il diritto di insistere. Riascolti però «vorrei che qualcuno venga»: dopo un condizionale come «vorrei», quale tempo del congiuntivo si usa?"
+      prompt: {text: "qualcuno venga", tags: [subjunctive-use]}
+    - learner: "Ha ragione: vorrei che qualcuno venisse a vedere oggi stesso, prima dell'uscita delle quattro."
+    - tutor: "Esatto. Una segnalazione di pericolo può essere trattata come urgente: in quel caso la Polizia locale deve fare un sopralluogo entro ventiquattro ore."
+      goals: [insist]
+    - learner: "E se entro ventiquattro ore non si vede nessuno? Ho diritto a una risposta scritta, o devo tornare qui a fare la coda?"
+    - tutor: "Ha diritto a una risposta scritta: la segnalazione viene protocollata e il numero di pratica Le arriva per e-mail. Se poi nessuno si fa vivo, può rivolgersi al Difensore civico."
+      goals: [rights]
+    - learner: "Va bene. Allora mi lasci il suo nome, così domani, se non è cambiato niente, so a chi rivolgermi."
+    - tutor: "Sono la dottoressa Ferri, interno 214. La pratica parte stamattina come urgente, e domani a mezzogiorno La richiamo io con l'esito del sopralluogo."
+      goals: [commitment]
+
+- scenario: assicurazione-sinistro
+  level: C2
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri sera stavo uscendo in retromarcia dal garage condominiale quando un motorino è sbucato da dietro un furgone parcheggiato in doppia fila. L'ho visto all'ultimo momento e ho frenato, ma l'ho urtato lo stesso."
+    - tutor: "Mi dispiace. Prima di tutto: il ragazzo del motorino si è fatto male? E com'era la visibilità in quel punto?"
+      goals: [what]
+    - learner: "Per fortuna no, solo un graffio al ginocchio. La visibilità era pessima: il furgone copriva tutta l'uscita, e il lampione davanti al passo carrabile era spento da giorni."
+    - tutor: "Meno male che non è niente di grave. Il furgone in doppia fila è un elemento importante: c'è qualcuno che possa confermarlo?"
+    - learner: "Sì, il portiere. Quando sono scesa dalla macchina, lui ha già chiamato i vigili, che sono arrivati dopo dieci minuti e hanno fatto le foto."
+      errors: [tense-aspect]
+      gold: {text: "ha già chiamato", fix: "aveva già chiamato"}
+    - tutor: "Prezioso, il portiere. Fermiamoci però su «lui ha già chiamato»: la telefonata viene prima che Lei scenda dalla macchina. Che tempo usa per un'azione anteriore a un'altra, nel passato?"
+      prompt: {text: "ha già chiamato", tags: [tense-aspect]}
+    - learner: "Il trapassato, certo: quando sono scesa, lui aveva già chiamato i vigili. Quindi c'è anche un verbale."
+    - tutor: "Esatto, e il verbale dei vigili è decisivo: se attesta il furgone in doppia fila, la responsabilità potrebbe essere in parte condivisa. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, l'abbiamo firmata tutti e due. Però lui ha messo una crocetta nella casella sbagliata e se n'è accorto solo dopo."
+    - tutor: "Succede più spesso di quanto si creda. Ci mandi la constatazione, il numero del verbale e le foto: la crocetta sbagliata si può correggere con una dichiarazione firmata da entrambi."
+      goals: [documents]
+    - learner: "Perfetto. E nel frattempo posso far riparare il paraurti, o devo aspettare che il perito venga a vederlo?"
+    - tutor: "Aspetti il perito, mi raccomando: senza la sua perizia la riparazione non Le verrebbe rimborsata. La contatterà entro cinque giorni lavorativi per fissare il sopralluogo."
+      goals: [next]
+
+- scenario: email-rettore
+  level: C2
+  persona: es-f-erasmus
+  history: [false-friend, subjunctive-use]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Buongiorno. Ho vinto una borsa per un dottorato in cotutela, ma la mia università di Siviglia richiede che la convenzione è firmata da entrambi i rettori entro fine mese, e qui la pratica è ferma da settimane."
+      errors: [subjunctive-use]
+      gold: {text: "che la convenzione è firmata", fix: "che la convenzione sia firmata"}
+    - tutor: "Una scadenza seria, capisco. Ma riascolti «richiede che la convenzione è firmata»: un verbo come «richiedere», nella subordinata, quale modo regge?"
+      prompt: {text: "che la convenzione è firmata", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: richiede che la convenzione sia firmata entro fine mese. E nessuno sa dirmi dove si sia arenata."
+    - tutor: "Esatto. Allora una lettera al Rettore può davvero sbloccarla, purché sia breve e molto cortese. Come pensa di aprirla?"
+      goals: [situation]
+    - learner: "Comincerei con «Magnifico Rettore», e poi andrei subito al punto: «mi permetto di scriverLe in merito alla convenzione di cotutela, tuttora in attesa di firma»."
+    - tutor: "È l'attacco giusto per una lettera del genere: diretto, ma rispettoso. Ora l'urgenza: come la spiegherebbe senza sembrare impaziente?"
+      goals: [opening-formula]
+    - learner: "Scriverei che la scadenza non dipende da me e che, se la convenzione non fosse firmata entro il 30, perderei la borsa e dovrei rinunciare alla mia investigazione."
+      errors: [false-friend]
+    - tutor: "«Dovrei rinunciare alla mia ricerca»: detto così, l'urgenza è evidente e nessuno potrà scambiarla per impazienza. Eviterei soltanto di insistere troppo sulle conseguenze personali."
+      recast: {text: "alla mia investigazione", fix: "alla mia ricerca", tags: [false-friend]}
+    - learner: "D'accordo. Allora concluderei con una richiesta più sfumata: «Le sarei grata se volesse sollecitare gli uffici competenti»."
+    - tutor: "Così va benissimo: riconoscente, ma senza toni drammatici. E per congedarsi, che formula ha in mente?"
+      goals: [tone]
+    - learner: "Pensavo a «Con i migliori saluti», seguito dal mio nome. È troppo poco per un rettore?"
+    - tutor: "Un po' asciutto, per un rettore. Meglio «Con osservanza» oppure «Voglia gradire i miei più distinti saluti», poi nome, qualifica e università di provenienza. Mi mandi la bozza: la rileggo volentieri prima che parta."
+      goals: [closing]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: en-m-retired
+  history: [conditional-form]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Sì, grazie. Non sono contrario al rifacimento dell'ascensore, ma trovo assurdo che si debba pagare in parti uguali: io abito al piano terra e l'ascensore non l'ho mai usato."
+    - tutor: "Ricevuto. La signora del quinto piano, però, ribatte che anche lei paga la pulizia del cortile, dove non mette mai piede."
+      goals: [position]
+    - learner: "Capisco l'obiezione, signora, ma il cortile lo vediamo tutti dalle finestre, l'ascensore no. Dovressimo almeno applicare le tabelle millesimali, come prevede il regolamento."
+      errors: [conditional-form]
+      gold: {text: "Dovressimo", fix: "Dovremmo"}
+    - tutor: "La battuta sul cortile strappa un sorriso anche alla signora. Ma ripeta «dovressimo»: è davvero il condizionale di «dovere» alla prima persona plurale?"
+      goals: [defuse]
+      prompt: {text: "Dovressimo", tags: [conditional-form]}
+    - learner: "Mi scusi, dovremmo. Dovremmo almeno applicare le tabelle millesimali."
+    - tutor: "Esatto. Le tabelle, però, le applichiamo già: il problema è che il regolamento esclude il piano terra solo dalle spese ordinarie. Ha una proposta alternativa?"
+    - learner: "Sì. Se l'avessimo saputo prima, avremmo chiesto un'opinione legale; adesso propongo che la quota del piano terra venga ridotta del cinquanta per cento."
+      errors: [word-choice]
+    - tutor: "Con un parere legale avremmo evitato molte discussioni, su questo concordo. L'avvocato Conti, che abita al terzo piano, osserva però che una riduzione del cinquanta per cento andrebbe approvata all'unanimità, e lui non è d'accordo."
+      goals: [alternative]
+      recast: {text: "un'opinione legale", fix: "un parere legale", tags: [word-choice]}
+    - learner: "Allora vengo incontro all'avvocato: accetterei una riduzione del trenta per cento, a patto che si metta tutto a verbale."
+    - tutor: "Vedo che anche l'avvocato alza la mano. Metto a verbale: riduzione del trenta per cento della quota per il piano terra, approvata all'unanimità. Grazie a tutti, passiamo al punto successivo."
+      goals: [compromise]
+
+- scenario: medico-specialista
+  level: C2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Buongiorno, dottore. Meglio, direi, anche se la settimana scorsa ho avuto un paio di episodi di palpitazioni, soprattutto di notte, mentre ero già a letto."
+    - tutor: "Mi descriva il primo episodio: quanto è durato, e che cosa stava facendo quando è cominciato?"
+    - learner: "Sarà durato una decina di minuti. Ero sdraiata e leggevo, quando all'improvviso il cuore si è messo a battere fortissimo e mi sono sentita un po' mareada."
+      errors: [word-choice]
+    - tutor: "Sentirsi un po' stordita durante le palpitazioni è un dettaglio da non trascurare. In passato Le era già capitato qualcosa di simile?"
+      goals: [symptoms]
+      recast: {text: "un po' mareada", fix: "un po' stordita", tags: [word-choice]}
+    - learner: "Da ragazza sì, ma i medici dicevano che era solo ansia, e infatti da quando ho cominciato a nuotare non mi era più successo."
+    - tutor: "È un'informazione utile: un disturbo del ritmo benigno può ripresentarsi anche dopo molti anni, soprattutto in un periodo di stress. In famiglia qualcuno ha avuto problemi di cuore?"
+    - learner: "Mio padre ha avuto un infarto a cinquant'anni, mentre giocava a tennis, ma si è ripreso bene. È per questo che sono venuta: ho paura che si tratta di qualcosa di ereditario."
+      errors: [subjunctive-use]
+      gold: {text: "si tratta", fix: "si tratti"}
+    - tutor: "Capisco benissimo la Sua preoccupazione. Riprenda però «ho paura che si tratta»: dopo un verbo di timore, quale modo vuole la subordinata?"
+      goals: [history]
+      prompt: {text: "si tratta", tags: [subjunctive-use]}
+    - learner: "Ho paura che si tratti di qualcosa di ereditario, ecco."
+    - tutor: "Esatto. Allora Le dico subito che dagli esami non risulta nulla che faccia pensare a un problema strutturale: il cuore è sano. Le palpitazioni sembrano extrasistoli, molto comuni e quasi sempre innocue."
+    - learner: "Quindi, se ho capito bene, non è niente di grave, ma conviene tenerle sotto controllo, soprattutto se dovessero diventare più frequenti."
+    - tutor: "Proprio così. Le prescrivo un Holter di ventiquattro ore e Le consiglio di ridurre caffè e alcol; ci rivediamo con i risultati fra un mese."
+      goals: [understand, treatment]
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: en-m-traveller
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, un problema c'è stato eccome: avevamo prenotato per le otto e ci siamo seduti alle nove meno un quarto, senza che nessuno si scusasse."
+    - tutor: "Me ne scuso io, allora, e sinceramente. Stasera avevamo due cuochi assenti, ma non è una giustificazione. Com'è andata, poi, la cena?"
+      goals: [complain]
+    - learner: "Insomma. Il risotto era sovracotto e pure freddo, e quando l'ho fatto presente al cameriere, lui ha alzato gli occhi al cielo."
+      errors: [word-choice]
+    - tutor: "Un risotto scotto e freddo, dopo quasi un'ora di attesa, e per giunta un cameriere insofferente: questo non doveva succedere. Ne parlerò con lui stasera stessa. Che cosa si sarebbe aspettato da noi?"
+      goals: [detail]
+      recast: {text: "sovracotto", fix: "scotto", tags: [word-choice]}
+    - learner: "Sinceramente, mi aspettavo che un ristorante con la vostra reputazione gestisca meglio una serata difficile."
+      errors: [subjunctive-use]
+      gold: {text: "gestisca", fix: "gestisse"}
+    - tutor: "Non posso darLe torto. Ma faccia caso a «mi aspettavo che gestisca»: con il verbo principale al passato, che tempo del congiuntivo ci vuole?"
+      prompt: {text: "gestisca", tags: [subjunctive-use]}
+    - learner: "Ah, sì: mi aspettavo che gestisse meglio la serata, e che almeno ci avvisasse del ritardo."
+    - tutor: "Esatto. E avevate tutto il diritto di essere avvisati. Mi permetta di rimediare: la cena di stasera la offre la casa, e vorrei invitarvi di nuovo, in una sera a vostra scelta."
+      goals: [expectation]
+    - learner: "La ringrazio, è un gesto che apprezzo. Però, più che la cena gratis, mi interesserebbe sapere che la prossima volta il servizio sarà all'altezza."
+    - tutor: "Ha la mia parola. Quando torna chieda di me, sono Alberto: seguirò personalmente il vostro tavolo dall'antipasto al caffè. Intanto Le lascio il mio biglietto da visita."
+      goals: [resolve]
+
+- scenario: trattativa-affitto
+  level: C2
+  persona: en-f-student
+  history: [hypothetical, participle-agreement]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Molto, soprattutto la luce del soggiorno e il fatto che sia a dieci minuti dalla facoltà. Però ottocento euro al mese, per una studentessa, sono davvero tanti."
+    - tutor: "La capisco, ma in questa zona è un prezzo in linea con il mercato, anzi leggermente sotto. Lei a quanto pensava?"
+      goals: [interest]
+    - learner: "Pensavo a seicentocinquanta. Se il proprietario accetterebbe, firmerei anche per quattro anni invece di tre."
+      errors: [hypothetical]
+      gold: {text: "il proprietario accetterebbe", fix: "il proprietario accettasse"}
+    - tutor: "Una durata più lunga è un buon argomento. Ma riprenda «se il proprietario accetterebbe»: in un'ipotesi introdotta da «se», il condizionale ci può stare?"
+      prompt: {text: "il proprietario accetterebbe", tags: [hypothetical]}
+    - learner: "No, ha ragione: se il proprietario accettasse, firmerei anche per quattro anni."
+    - tutor: "Esatto. Seicentocinquanta, però, mi sembra difficile: il proprietario ha già rifiutato settecento da un'altra coppia. Potrei proporgli settecentoventi, con le spese condominiali incluse."
+      goals: [negotiate]
+    - learner: "Con le spese incluse mi sembra più ragionevole. A una condizione, però: la lavatrice va sostituita. Perde acqua, le macchie sul pavimento le ho notato subito."
+      errors: [participle-agreement]
+      gold: {text: "le ho notato", fix: "le ho notate"}
+    - tutor: "Ha l'occhio lungo. Ma ripeta «le macchie le ho notato»: con il pronome «le» davanti, il participio può restare invariato?"
+      prompt: {text: "le ho notato", tags: [participle-agreement]}
+    - learner: "No, si accorda: le macchie le ho notate subito, appena entrata in bagno."
+    - tutor: "Esatto. Glielo riferisco, ma credo che non ci siano problemi: il proprietario preferisce un'inquilina affidabile a un mese di sfitto. Altre condizioni?"
+    - learner: "Sì, vorrei poter tenere il mio gatto. È tranquillo e ha nove anni, quindi i mobili sono ormai al sicuro dalle sue unghie."
+    - tutor: "Un gatto anziano e tranquillo non spaventerà nessuno. Riassumo: settecentoventi euro spese incluse, lavatrice nuova e gatto ammesso. Se mi conferma, preparo la proposta e domani la sottoponiamo al proprietario."
+      goals: [conditions]
+    - learner: "Confermo. Mi mandi pure la proposta per e-mail: la firmo stasera stessa."
+    - tutor: "Perfetto, la proposta Le arriva entro un'ora. Se il proprietario accetta, potrà entrare già dal primo del mese."
+      goals: [conclude]

@@ -1,0 +1,218 @@
+# A2, service scenarios: bar, restaurant, clothes shop, booking a table by phone.
+# The tutor moves each scene forward one practical step at a time and keeps prices and times consistent.
+- scenario: bar-colazione
+  level: A2
+  persona: en-f-student
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Un cappuccino, per favore. Ma con latte di soia, è possibile?"
+    - tutor: "Sì, il latte di soia ce l'abbiamo. Lo vuole caldo o tiepido?"
+      goals: [greet, order-drink]
+      new: [{lemma: tiepido, gloss: lukewarm}]
+    - learner: "Caldo, grazie. E vorrei anche qualcosa da mangiare. Avete cornetti senza zucchero?"
+    - tutor: "Senza zucchero no, mi dispiace. Abbiamo cornetti integrali, oppure cornetti vuoti."
+      new: [{lemma: integrale, gloss: wholemeal}]
+    - learner: "Allora prendo uno cornetto integrale."
+      errors: [article-form]
+      gold: {text: "uno cornetto", fix: "un cornetto"}
+    - tutor: "«Uno cornetto»? Guardi come comincia «cornetto»: con la c. Quale articolo va bene?"
+      prompt: {text: "uno cornetto", tags: [article-form]}
+    - learner: "Un cornetto integrale, scusi."
+    - tutor: "Ecco qui: il cappuccino e il cornetto integrale. Desidera altro?"
+      goals: [order-food]
+    - learner: "No, basta così. Quanto pago?"
+    - tutor: "Sono tre euro e quaranta. Paga qui al bancone, anche con la carta."
+    - learner: "Ecco cinque euro."
+    - tutor: "Grazie. Ecco il resto, un euro e sessanta, e lo scontrino. Buona giornata!"
+      goals: [pay]
+
+- scenario: bar-colazione
+  level: A2
+  persona: es-m-worker
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Un caffè macchiato e una spremuta d'arancia, per favore."
+    - tutor: "Subito. La spremuta la preparo adesso, ci vogliono due minuti. Mangia anche qualcosa?"
+      goals: [greet, order-drink]
+      new: [{lemma: spremuta, gloss: freshly squeezed juice}]
+    - learner: "Sì, ho molta fame. Vorrei un panino con prosciutto e formaggio."
+    - tutor: "Prosciutto e formaggio, va bene. Lo preferisce caldo o freddo?"
+      goals: [order-food]
+    - learner: "Freddo va bene. Quant'è in tutto?"
+    - tutor: "In tutto sono sei euro e venti."
+    - learner: "Posso pagare con la tarjeta?"
+      errors: [word-choice]
+    - tutor: "Con la carta, sì, nessun problema. Le serve lo scontrino?"
+      recast: {text: "tarjeta", fix: "carta", tags: [word-choice]}
+    - learner: "Sì, per favore, mi serve per il lavoro. Ecco la carta."
+    - tutor: "Fatto, grazie. Ecco lo scontrino. Buon lavoro!"
+      goals: [pay]
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: en-m-retired
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Siamo in tre: io, mia moglie e mio figlio. C'è un tavolo vicino alla finestra?"
+    - tutor: "Sì, quello in fondo è libero. Ecco i menù. Da bere cosa vi porto?"
+      goals: [ask-table]
+    - learner: "Una bottiglia di acqua frizzante e mezzo litro di vino rosso della casa."
+    - tutor: "Benissimo. Come primo, oggi c'è la pasta fatta in casa."
+      goals: [order-drink]
+    - learner: "Mio figlio prende la pasta. Io e mia moglie vorremmo il pesce. Che pesce avete oggi?"
+    - tutor: "Oggi c'è l'orata, freschissima: è arrivata stamattina."
+      new: [{lemma: orata, gloss: sea bream}]
+    - learner: "Allora due orate. Ma mia moglie è allergico ai pomodori: c'è pomodoro nel piatto?"
+      errors: [adjective-agreement]
+      gold: {text: "è allergico", fix: "è allergica"}
+    - tutor: "Sua moglie è «allergico»? Parliamo di una donna: come cambia l'aggettivo?"
+      prompt: {text: "è allergico", tags: [adjective-agreement]}
+    - learner: "Allergica, scusi! È allergica ai pomodori."
+    - tutor: "Nessun problema: nel suo piatto non ci sono pomodori. Porto subito tutto."
+      goals: [order-food]
+    - learner: "Era tutto buonissimo. Ci porta il conto, per favore?"
+    - tutor: "Subito. Sono quarantadue euro in tutto. Pagate in contanti o con la carta?"
+    - learner: "In contanti. Ecco cinquanta euro, il resto è per lei."
+    - tutor: "Grazie mille, molto gentile! Arrivederci, e tornate presto."
+      goals: [ask-bill]
+
+- scenario: ristorante-ordinare
+  level: A2
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Siamo in due, ma tra dieci minuti arriva un'amica."
+    - tutor: "Allora vi preparo un tavolo per tre. Va bene questo, vicino alla porta?"
+      goals: [ask-table]
+    - learner: "Sì, perfetto. Possiamo avere il menù? Avete la pasta al pesto?"
+    - tutor: "Sì, la pasta al pesto c'è. Come secondo, oggi abbiamo il pollo o il pesce."
+    - learner: "Per me la pasta al pesto, e per la mia amica il pollo. Il pollo è con verdure?"
+    - tutor: "Sì, con verdure calde o fredde, come preferisce la sua amica."
+    - learner: "Fredde, grazie. E da bere, un'acqua naturale e un succo de arancia."
+      errors: [preposition]
+      gold: {text: "succo de arancia", fix: "succo di arancia"}
+    - tutor: "Un succo «de» arancia? Questa preposizione è spagnola. In italiano?"
+      goals: [order-food]
+      prompt: {text: "succo de arancia", tags: [preposition]}
+    - learner: "Ah, sì: un succo di arancia!"
+    - tutor: "Quindi acqua naturale e succo di arancia. Arrivano subito, insieme alla pasta."
+      goals: [order-drink]
+    - learner: "Era tutto molto buono. Il conto, per favore. Possiamo pagare separatamente?"
+    - tutor: "Certo. Lei paga dieci euro, e la sua amica tredici."
+    - learner: "Va bene. Io pago con la carta, la mia amica in contanti."
+    - tutor: "Nessun problema. Ecco la ricevuta per lei e il resto per la sua amica. Buona giornata!"
+      goals: [ask-bill]
+
+- scenario: abbigliamento
+  level: A2
+  persona: en-f-professional
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Sì, grazie. Cerco una giacca leggera per la primavera."
+    - tutor: "Abbiamo queste giacche nuove in tre colori: blu, rosso e verde. Che taglia porta?"
+      goals: [ask-item]
+    - learner: "Di solito porto la quarantadue. Mi piace questa blu."
+    - tutor: "Ecco la quarantadue in blu. È l'ultima che abbiamo."
+      goals: [size-colour]
+    - learner: "Posso provarla? Dov'è il camerino?"
+    - tutor: "Il camerino è in fondo, a sinistra. Se serve un'altra taglia, mi chiami."
+      goals: [try]
+    - learner: "È bella, ma un po' stretta. Avete la quarantaquattro in blu?"
+    - tutor: "In blu la quarantaquattro è finita, mi dispiace. C'è in verde, oppure la ordiniamo: arriva in tre giorni."
+    - learner: "Preferisco il blu. La ordino, ma quanto costa? C'è un sconto?"
+      errors: [article-form]
+      gold: {text: "un sconto", fix: "uno sconto"}
+    - tutor: "«Un sconto»? Guardi come comincia «sconto»: con s e poi c. Che articolo ci vuole?"
+      prompt: {text: "un sconto", tags: [article-form]}
+    - learner: "Uno sconto! C'è uno sconto?"
+    - tutor: "Questa settimana sì, il venti per cento: costa ottanta euro invece di cento. Mi lascia nome e numero?"
+    - learner: "Mi chiamo Laura Bianchi, il mio numero è 333 4567890. Pago quando arriva?"
+    - tutor: "Sì, paga quando viene a prenderla. Le mandiamo un messaggio tra tre giorni. Arrivederci!"
+      goals: [decide]
+
+- scenario: abbigliamento
+  level: A2
+  persona: es-m-worker
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Cerco una camicia per un matrimonio, sabato prossimo."
+    - tutor: "Per sabato, allora. Che colore preferisce, e che taglia porta?"
+      goals: [ask-item]
+    - learner: "Porto la L. La camicia la voglio bianco, semplice, non troppo cara."
+      errors: [adjective-agreement]
+      gold: {text: "bianco", fix: "bianca"}
+    - tutor: "La camicia la vuole «bianco»? Pensi a «camicia»: è maschile o femminile?"
+      prompt: {text: "bianco", tags: [adjective-agreement]}
+    - learner: "Sì, sì, bianco. Una camicia semplice."
+      errors: [adjective-agreement]
+    - tutor: "Bianca e semplice, va bene: questa in L costa trentanove euro."
+      goals: [size-colour]
+      recast: {text: "bianco", fix: "bianca", tags: [adjective-agreement]}
+    - learner: "È molto bonita. Posso provarla?"
+      errors: [word-choice]
+    - tutor: "È molto bella, sì. Il camerino è qui a destra, prego."
+      goals: [try]
+      recast: {text: "molto bonita", fix: "molto bella", tags: [word-choice]}
+    - learner: "Mi sta un po' piccola. Avete la XL?"
+    - tutor: "Ecco la XL, stesso prezzo: trentanove euro. La vuole provare?"
+    - learner: "Sì... Questa va bene. La prendo. Posso pagare con il telefono?"
+    - tutor: "Sì, certo. Ecco lo scontrino, e buon matrimonio!"
+      goals: [decide]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: en-m-traveller
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per sabato sera."
+    - tutor: "Sabato sera, va bene. Per quante persone, e a che ora?"
+      goals: [book]
+    - learner: "Per sei persone, al otto e mezza."
+      errors: [articulated-preposition]
+      gold: {text: "al otto", fix: "alle otto"}
+    - tutor: "«Al otto»? Le ore sono plurali: come cambia «al»?"
+      prompt: {text: "al otto", tags: [articulated-preposition]}
+    - learner: "Alle otto e mezza!"
+    - tutor: "Alle otto e mezza ho un tavolo per sei. Ha altre richieste?"
+      goals: [details]
+    - learner: "Sì, c'è un bambino di due anni. Avete un seggiolone?"
+    - tutor: "Sì, il seggiolone c'è: lo preparo al tavolo. A che nome prenoto?"
+      goals: [special]
+      new: [{lemma: seggiolone, gloss: high chair}]
+    - learner: "A nome Turner. Devo confermare il giorno prima?"
+    - tutor: "No, non serve. Allora sabato alle otto e mezza, sei persone con il bambino. A sabato!"
+      goals: [name]
+
+- scenario: prenotare-tavolo
+  level: A2
+  persona: es-f-teacher
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare per domani a pranzo, è possibile?"
+    - tutor: "Domani a pranzo sì. Quante persone siete, e a che ora venite?"
+      goals: [book]
+    - learner: "Siamo quattro personas, all'una."
+      errors: [word-choice]
+    - tutor: "Quattro persone all'una, va bene. Ha altre richieste?"
+      goals: [details]
+      recast: {text: "quattro personas", fix: "quattro persone", tags: [word-choice]}
+    - learner: "Sì, se fa bello, preferiamo mangiare fuori. Ci sono tavoli in il giardino?"
+      errors: [articulated-preposition]
+      gold: {text: "in il giardino", fix: "nel giardino"}
+    - tutor: "«In il giardino»? Quando «in» incontra «il», diventano una parola sola. Quale?"
+      prompt: {text: "in il giardino", tags: [articulated-preposition]}
+    - learner: "Nel giardino! Ci sono tavoli nel giardino?"
+    - tutor: "Sì, quattro. Ne tengo uno per voi; se piove, vi preparo un tavolo dentro."
+      goals: [special]
+    - learner: "Grazie. Domani c'è il menù del giorno?"
+    - tutor: "A pranzo c'è sempre, a quindici euro. Mi lascia un nome per la prenotazione?"
+    - learner: "A nome Ruiz, Carmen Ruiz."
+    - tutor: "Grazie, signora. Allora domani all'una, quattro persone, fuori se fa bello. A domani!"
+      goals: [name]

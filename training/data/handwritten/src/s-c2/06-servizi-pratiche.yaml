@@ -1,0 +1,302 @@
+# Round 8, set s-c2, file 6: offices, insurance, doctors, restaurants, renting, meetings, letters.
+# Slips: «valono», «è possibile che» + indicative, Spanish words («empadronamiento», «taller»,
+# «segunda»), «mi devo rivolgermi», «hanno caduto», «un casino» at a public counter, «vederemo»,
+# «le braccie», «redigiuta», «circa» after «preoccupato», a one-off event in the imperfect,
+# «a meno che non pensa», «neanche acqua», «i paccheri non mi sono piaciute», «come mai che»,
+# «deposito» for «cauzione», «vorrei che... sostituisca», «a partire del», «ha cresciuto»,
+# «sebbene» + indicative, «se me lo avreste chiesto», «i studenti», «Caro Rettore»,
+# «evidenza». Correct «non pretendo», «ammettere che», trapassato and passives left alone.
+- scenario: burocrazia-residenza
+  level: C2
+  persona: es-f-erasmus
+  history: [verb-form, subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Numero 112? Prego, mi dica."
+    - learner: "Buongiorno. Mi sono trasferita in città a settembre e vorrei chiedere la residenza. Mi hanno detto che i documenti spagnoli non valono senza traduzione: è vero?"
+      errors: [verb-form]
+      gold: {text: "non valono", fix: "non valgono"}
+    - tutor: "Dipende dal documento. Ma «non valono»: il presente di «valere», alla terza persona plurale, è proprio così?"
+      goals: [request]
+      prompt: {text: "non valono", tags: [verb-form]}
+    - learner: "Non vagliono?"
+      errors: [verb-form]
+    - tutor: "Non valgono, no, se sono certificati: per quelli serve una traduzione giurata. Il passaporto, invece, va benissimo così. Ha con sé il contratto d'affitto?"
+      recast: {text: "Non vagliono", fix: "Non valgono", tags: [verb-form]}
+    - learner: "Sì, eccolo. Però il contratto non è ancora stato registrato: il proprietario dice che lo farà entro fine mese."
+    - tutor: "Allora c'è un problema: senza registrazione non posso accettarlo. Mi serve almeno la ricevuta dell'Agenzia delle Entrate."
+      goals: [documents]
+    - learner: "Capisco. Ma è possibile che il proprietario mi manda la ricevuta per e-mail e che io gliela inoltri?"
+      errors: [subjunctive-use]
+      gold: {text: "il proprietario mi manda", fix: "il proprietario mi mandi"}
+    - tutor: "Si può fare, sì. Ma «è possibile che il proprietario mi manda»: dopo «è possibile che», quale modo ci vuole?"
+      prompt: {text: "il proprietario mi manda", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: è possibile che il proprietario mi mandi la ricevuta per e-mail?"
+    - tutor: "Certo, e me la inoltra all'indirizzo scritto su questo foglio. Appena arriva, la pratica parte."
+      goals: [problem]
+    - learner: "Perfetto. Nel frattempo posso già iscrivermi al medico di base, o devo aspettare il certificato di empadronamiento?"
+      errors: [word-choice]
+    - tutor: "Per il certificato di residenza deve aspettare l'iscrizione, e anche per il medico di base. Dopo la domanda passerà la Polizia locale a verificare che Lei abiti davvero lì."
+      goals: [next]
+      recast: {text: "il certificato di empadronamiento", fix: "il certificato di residenza", tags: [word-choice]}
+    - learner: "Allora aspetto la visita dei vigili. Grazie mille per la pazienza."
+    - tutor: "Si figuri. Arrivederci, e benvenuta in città."
+
+- scenario: reclamo-comune
+  level: C2
+  persona: en-m-retired
+  history: [pronoun-position, register]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Sono qui per i lavori in via Garibaldi: hanno aperto la strada due mesi fa e da allora non si è più visto nessuno. Vorrei sapere a chi mi devo rivolgermi."
+      errors: [pronoun-position]
+      gold: {text: "mi devo rivolgermi", fix: "mi devo rivolgere"}
+    - tutor: "Ha fatto bene a venire. Ma «a chi mi devo rivolgermi»: quel pronome, quante volte vuole dirlo?"
+      goals: [describe]
+      prompt: {text: "mi devo rivolgermi", tags: [pronoun-position]}
+    - learner: "Una volta sola: a chi mi devo rivolgere. Oppure a chi devo rivolgermi."
+    - tutor: "Vanno bene tutte e due. Per i cantieri stradali la competenza è dei Lavori pubblici, ma la segnalazione posso aprirla io. Com'è messo il cantiere, adesso?"
+    - learner: "Un disastro. La carreggiata è ristretta a una corsia, le transenne hanno caduto con il vento e il semaforo provvisorio non funziona da una settimana."
+      errors: [auxiliary-choice]
+      gold: {text: "hanno caduto", fix: "sono cadute"}
+    - tutor: "Il semaforo spento è un pericolo serio. Ma «le transenne hanno caduto»: con «cadere», quale ausiliare si usa?"
+      prompt: {text: "hanno caduto", tags: [auxiliary-choice]}
+    - learner: "Essere: le transenne sono cadute, e nessuno le ha rimesse in piedi."
+    - tutor: "Esatto. Il semaforo lo segnalo come urgente. Sui tempi per la ripresa dei lavori, purtroppo, non posso darLe certezze."
+    - learner: "Capisco, ma sono due mesi che la via è un casino totale e nessuno ci dice niente. Avrò diritto almeno a una data."
+      errors: [register]
+      gold: {text: "un casino totale", fix: "un caos totale"}
+    - tutor: "Ha tutto il diritto di essere esasperato. Ma se vuole che la segnalazione arrivi in alto, «un casino totale» è l'espressione più adatta a un ufficio pubblico?"
+      prompt: {text: "un casino totale", tags: [register]}
+    - learner: "No, ha ragione: la via è nel caos più totale da due mesi. Ho diritto almeno a una data, o no?"
+    - tutor: "Ha diritto a una risposta scritta entro trenta giorni, con una data, se c'è. La segnalazione è protocollata come urgente: ecco il numero."
+      goals: [insist, rights]
+    - learner: "Allora torno tra una settimana. E se il semaforo non sarà riparato, scriverò anche al giornale locale: vederemo se qualcuno si muove."
+      errors: [future-form]
+      gold: {text: "vederemo", fix: "vedremo"}
+    - tutor: "Lei non si arrende, e fa bene. Ma «vederemo»: il futuro di «vedere» ha davvero tutte quelle sillabe?"
+      prompt: {text: "vederemo", tags: [future-form]}
+    - learner: "No: vedremo se qualcuno si muove."
+    - tutor: "Proprio così. Il semaforo lo faccio controllare entro domani, e Le telefono io appena ho notizie."
+      goals: [commitment]
+
+- scenario: assicurazione-sinistro
+  level: C2
+  persona: es-m-worker
+  history: [noun-number, past-participle-form]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Stamattina un furgone mi ha tamponato al semaforo di viale Europa: io ero fermo con il rosso, lui guardava il telefono."
+    - tutor: "Mi dispiace. Prima di tutto: Lei sta bene? E la macchina?"
+      goals: [what]
+    - learner: "Io sto bene, a parte un dolore al collo e alle braccie, perché ho stretto il volante. La macchina invece ha il paraurti posteriore distrutto."
+      errors: [noun-number]
+      gold: {text: "alle braccie", fix: "alle braccia"}
+    - tutor: "Per fortuna niente di grave. Ma «alle braccie»: il plurale di «braccio», quando parliamo del corpo, com'è?"
+      prompt: {text: "alle braccie", tags: [noun-number]}
+    - learner: "Come «le dita»: mi fanno male le braccia. Niente di rotto, comunque."
+    - tutor: "Esatto. E la dinamica? Vorrei capire bene le responsabilità."
+    - learner: "Ero fermo al semaforo da almeno dieci secondi quando mi ha tamponato. Appena sceso, ha ammesso che si era distratto con il telefono."
+    - tutor: "Se lo mette per iscritto, la responsabilità è tutta sua. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, l'abbiamo redigiuta insieme sul posto e l'abbiamo firmata tutti e due; nelle osservazioni lui ha scritto che stava usando il telefono."
+      errors: [past-participle-form]
+      gold: {text: "l'abbiamo redigiuta", fix: "l'abbiamo redatta"}
+    - tutor: "È la cosa più importante. Ma «l'abbiamo redigiuta»: il participio di «redigere» è regolare?"
+      prompt: {text: "l'abbiamo redigiuta", tags: [past-participle-form]}
+    - learner: "Redigita?"
+      errors: [past-participle-form]
+    - tutor: "Redatta e firmata da entrambi: allora siamo a posto. Ci mandi la constatazione e le foto del danno, e per il collo si faccia vedere da un medico."
+      goals: [documents]
+      recast: {text: "Redigita", fix: "Redatta", tags: [past-participle-form]}
+    - learner: "D'accordo. E per la riparazione posso andare dal mio meccanico di fiducia, o devo portarla in un taller convenzionato?"
+      errors: [word-choice]
+    - tutor: "Può scegliere: in un'officina convenzionata non anticipa niente, altrimenti paga Lei e poi La rimborsiamo. Il perito La chiamerà entro tre giorni."
+      goals: [next]
+      recast: {text: "in un taller convenzionato", fix: "in un'officina convenzionata", tags: [word-choice]}
+    - learner: "Allora scelgo un'officina convenzionata. Mi manda l'elenco per e-mail?"
+    - tutor: "Gliel'ho appena inviato. Buona giornata, e si riguardi."
+
+- scenario: medico-specialista
+  level: C2
+  persona: en-m-heritage
+  history: [preposition, subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Meglio, grazie. Ho ridotto il sale e cammino quaranta minuti al giorno. Però, a dire il vero, sono un po' preoccupato circa i risultati degli esami."
+      errors: [preposition]
+      gold: {text: "circa i risultati", fix: "per i risultati"}
+    - tutor: "Capisco. Ma «preoccupato circa i risultati»: dopo «preoccupato», quale preposizione introduce il motivo?"
+      prompt: {text: "circa i risultati", tags: [preposition]}
+    - learner: "«Per»: sono preoccupato per i risultati, soprattutto per il colesterolo."
+    - tutor: "Il colesterolo è sceso, e di parecchio: la dieta funziona. Ha avuto ancora quel senso di oppressione al petto?"
+    - learner: "Una volta sola, la settimana scorsa. Salivo le scale della metropolitana e all'improvviso ho sentito una fitta. Mi sono fermato, e dopo due minuti passava."
+      errors: [tense-aspect]
+      gold: {text: "passava", fix: "è passata"}
+    - tutor: "È un dettaglio importante. Ma «dopo due minuti passava»: è un episodio unico e concluso. Quale tempo lo racconta?"
+      prompt: {text: "passava", tags: [tense-aspect]}
+    - learner: "Il passato prossimo: dopo due minuti è passata."
+    - tutor: "Esatto. In famiglia ci sono stati problemi di cuore?"
+      goals: [symptoms]
+    - learner: "Mio nonno è morto d'infarto a sessant'anni, e due anni fa mio padre è stato operato al cuore: gli hanno messo due stent. Per questo sono un po' nervoso."
+    - tutor: "Con questa storia familiare fa bene a non sottovalutare niente. La fitta sulle scale va approfondita: Le prescrivo una prova da sforzo."
+      goals: [history]
+    - learner: "Va bene. Devo sospendere qualche farmaco prima, a meno che Lei non pensa che sia inutile?"
+      errors: [subjunctive-use]
+      gold: {text: "non pensa", fix: "non pensi"}
+    - tutor: "Domanda giusta. Ma «a meno che Lei non pensa»: dopo «a meno che», l'indicativo regge?"
+      prompt: {text: "non pensa", tags: [subjunctive-use]}
+    - learner: "A meno che Lei non pensava?"
+      errors: [subjunctive-use]
+    - tutor: "«A meno che Lei non pensi che sia inutile»: no, non lo è. Sospenda il betabloccante due giorni prima; gli altri farmaci li prenda come sempre."
+      recast: {text: "non pensava", fix: "non pensi", tags: [subjunctive-use]}
+    - learner: "Quindi: due giorni senza betabloccante, poi la prova da sforzo, e con i risultati torno da Lei."
+    - tutor: "Esatto. Le fisso la prova per martedì prossimo, e ci rivediamo appena ha l'esito."
+      goals: [understand, treatment]
+
+- scenario: recensione-ristorante
+  level: C2
+  persona: es-f-erasmus
+  history: [article-use, participle-agreement]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì: abbiamo aspettato quaranta minuti prima che qualcuno prendesse l'ordinazione, e nel frattempo nessuno ci ha portato neanche acqua."
+      errors: [article-use]
+      gold: {text: "neanche acqua", fix: "neanche l'acqua"}
+    - tutor: "Quaranta minuti senza niente: mi dispiace davvero. Mi permetta però una cosa: «neanche acqua», in italiano, qui il nome sta da solo?"
+      prompt: {text: "neanche acqua", tags: [article-use]}
+    - learner: "No, ci vuole l'articolo: neanche l'acqua. E quando finalmente il cameriere è arrivato, è stato piuttosto sgarbato."
+    - tutor: "Questo non doveva succedere, e me ne scuso. Che cosa avete ordinato, poi?"
+      goals: [complain]
+    - learner: "Io i paccheri allo scoglio, la mia amica il branzino. Il branzino era ottimo, ma i paccheri non mi sono piaciute per niente: pasta scotta e frutti di mare che sapevano di surgelato."
+      errors: [participle-agreement]
+      gold: {text: "non mi sono piaciute", fix: "non mi sono piaciuti"}
+    - tutor: "Pasta scotta e sapore di surgelato: due colpe gravi. Ma «i paccheri non mi sono piaciute»: il participio con che cosa si accorda?"
+      prompt: {text: "non mi sono piaciute", tags: [participle-agreement]}
+    - learner: "Con i paccheri... non mi è piaciuto?"
+      errors: [participle-agreement]
+    - tutor: "«I paccheri non mi sono piaciuti per niente»: e ha ragione, lo dirò io stesso al cuoco. Che cosa si sarebbe aspettata da noi?"
+      goals: [detail]
+      recast: {text: "non mi è piaciuto", fix: "non mi sono piaciuti", tags: [participle-agreement]}
+    - learner: "Almeno che il cameriere si scusasse e che ci avvertisse del ritardo. Non pretendevo la luna."
+    - tutor: "Non posso darLe torto. Per rimediare, la cena di stasera la offre la casa, e Le lascio un invito per due, quando vuole."
+      goals: [expectation]
+    - learner: "La ringrazio, è un gesto che apprezzo. Torneremo, anche perché il branzino merita una segunda opportunità."
+      errors: [word-choice]
+    - tutor: "Il branzino, e anche noi, meritiamo una seconda possibilità. Le prometto che la prossima volta il servizio sarà all'altezza."
+      goals: [resolve]
+      recast: {text: "una segunda opportunità", fix: "una seconda possibilità", tags: [word-choice]}
+    - learner: "Allora a presto. E tanti saluti al cuoco, nonostante i paccheri."
+    - tutor: "Glieli porto senz'altro, insieme alle Sue critiche. Buonanotte, e grazie della franchezza."
+
+- scenario: trattativa-affitto
+  level: C2
+  persona: en-m-traveller
+  history: [question-form, false-friend]
+  turns:
+    - tutor: "Allora, Le è piaciuto l'appartamento?"
+    - learner: "Molto, soprattutto il terrazzo. Però mille e cento euro per sessanta metri quadri... come mai che costa così tanto? Quello di via Verdi, più grande, costava novecento."
+      errors: [question-form]
+      gold: {text: "come mai che costa", fix: "come mai costa"}
+    - tutor: "Il terrazzo fa la differenza, glielo assicuro. Ma «come mai che costa»: dopo «come mai», quel «che» serve?"
+      prompt: {text: "come mai che costa", tags: [question-form]}
+    - learner: "No: come mai costa così tanto?"
+    - tutor: "Per la zona e per la classe energetica: qui i consumi sono la metà. Il proprietario, comunque, è disposto a trattare. Che cifra aveva in mente?"
+      goals: [interest]
+    - learner: "Novecentocinquanta. Di appartamenti così, in zona, ce ne sono almeno altri tre, e due li ho visti la settimana scorsa."
+    - tutor: "Novecentocinquanta è poco, ma posso provarci. Lui però vorrà delle garanzie: che contratto di lavoro ha?"
+    - learner: "A tempo indeterminato, da cinque anni. Posso portarLe le ultime buste paga e, se aiuta, versare tre mesi di deposito invece di due."
+      errors: [false-friend]
+    - tutor: "Tre mesi di cauzione sono un ottimo argomento: il proprietario ci tiene molto. Ci sono condizioni da parte Sua?"
+      goals: [negotiate]
+      recast: {text: "tre mesi di deposito", fix: "tre mesi di cauzione", tags: [false-friend]}
+    - learner: "Sì, il forno non funziona. Vorrei che il proprietario lo sostituisca prima del mio ingresso."
+      errors: [subjunctive-use]
+      gold: {text: "lo sostituisca", fix: "lo sostituisse"}
+    - tutor: "Richiesta legittima. Ma «vorrei che lo sostituisca»: dopo «vorrei che», quale tempo del congiuntivo serve?"
+      prompt: {text: "lo sostituisca", tags: [subjunctive-use]}
+    - learner: "L'imperfetto: vorrei che lo sostituisse prima del mio ingresso."
+    - tutor: "Perfetto. Il forno nuovo glielo faccio mettere di sicuro. E quando vorrebbe entrare?"
+      goals: [conditions]
+    - learner: "A partire del primo marzo, se possibile: il mio contratto attuale scade a fine febbraio e non vorrei ritrovarmi in mezzo a una strada."
+      errors: [articulated-preposition]
+      gold: {text: "A partire del primo marzo", fix: "A partire dal primo marzo"}
+    - tutor: "I tempi ci sono. Ma «a partire del primo marzo»: «a partire» con quale preposizione si costruisce?"
+      prompt: {text: "A partire del primo marzo", tags: [articulated-preposition]}
+    - learner: "Con «da»: a partire dal primo marzo."
+    - tutor: "Esatto. Riassumo per il proprietario: novecentocinquanta euro, tre mesi di cauzione, forno nuovo e ingresso dal primo marzo. Le faccio sapere entro venerdì."
+      goals: [conclude]
+
+- scenario: assemblea-condominio
+  level: C2
+  persona: es-f-teacher
+  history: [auxiliary-choice, subjunctive-use]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Sì, grazie. Prima di votare vorrei capire una cosa: il preventivo per la facciata ha cresciuto di trentamila euro in due mesi. Com'è possibile?"
+      errors: [auxiliary-choice]
+      gold: {text: "ha cresciuto", fix: "è cresciuto"}
+    - tutor: "Domanda legittima, e la ditta ce la deve spiegare. Ma «ha cresciuto»: «crescere», qui, quale ausiliare vuole?"
+      prompt: {text: "ha cresciuto", tags: [auxiliary-choice]}
+    - learner: "Essere: il preventivo è cresciuto di trentamila euro."
+    - tutor: "Esatto. La ditta parla di ponteggi più cari. Il signor Ferrando, però, vuole votare stasera, perché i calcinacci cadono già sul marciapiede."
+    - learner: "Non sono contraria ai lavori, anzi, sono urgenti. Ma sebbene la facciata è pericolosa, non possiamo approvare un preventivo che nessuno ha confrontato con altri."
+      errors: [subjunctive-use]
+      gold: {text: "la facciata è", fix: "la facciata sia"}
+    - tutor: "Posizione chiara. Ma «sebbene la facciata è pericolosa»: «sebbene» si accontenta dell'indicativo?"
+      prompt: {text: "la facciata è", tags: [subjunctive-use]}
+    - learner: "Sebbene la facciata era pericolosa?"
+      errors: [subjunctive-use]
+    - tutor: "«Sebbene la facciata sia pericolosa»: il concetto passa, e il signor Ferrando brontola ma annuisce. Che cosa propone, allora?"
+      goals: [position]
+      recast: {text: "la facciata era", fix: "la facciata sia", tags: [subjunctive-use]}
+    - learner: "Signor Ferrando, su una cosa ha ragione Lei: i calcinacci non possono aspettare. Propongo di approvare subito la messa in sicurezza, che costa poco, e di rinviare il resto di un mese, il tempo di avere un terzo preventivo."
+    - tutor: "La proposta mette d'accordo quasi tutti, persino il signor Ferrando. La signora Parodi, però, chiede chi si occuperà di trovare il terzo preventivo."
+      goals: [defuse, alternative]
+    - learner: "Me ne occupo io. Se me lo avreste chiesto a giugno, l'avrei già fatto."
+      errors: [hypothetical]
+      gold: {text: "me lo avreste chiesto", fix: "me lo aveste chiesto"}
+    - tutor: "Generosa, e un po' polemica. Ma «se me lo avreste chiesto»: nella frase con «se», quel condizionale ci sta?"
+      prompt: {text: "me lo avreste chiesto", tags: [hypothetical]}
+    - learner: "No: se me lo aveste chiesto a giugno. Comunque me ne occupo io, entro fine mese."
+    - tutor: "Metto a verbale: messa in sicurezza approvata, terzo preventivo a cura Sua, nuova assemblea a fine mese. Grazie a tutti, e buonanotte."
+      goals: [compromise]
+
+- scenario: email-rettore
+  level: C2
+  persona: en-m-heritage
+  history: [article-form, register]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Buongiorno. Il mio corso di dottorato ha escluso dalla borsa i studenti part-time, anche quelli che avevano già vinto il concorso. Io sono uno di loro, e la decisione mi sembra ingiusta."
+      errors: [article-form]
+      gold: {text: "i studenti", fix: "gli studenti"}
+    - tutor: "Capisco perché voglia scrivere. Ma «i studenti»: davanti a «st», quale articolo plurale si usa?"
+      prompt: {text: "i studenti", tags: [article-form]}
+    - learner: "«Gli»: gli studenti part-time. A voce mi scappa ancora, purtroppo."
+    - tutor: "Succede. Allora, come aprirebbe la lettera?"
+      goals: [situation]
+    - learner: "Pensavo a questo: «Caro Rettore, Le scrivo per lamentarmi di una decisione assurda del mio dipartimento.»"
+      errors: [register]
+      gold: {text: "Caro Rettore", fix: "Magnifico Rettore"}
+    - tutor: "Il contenuto c'è. Ma «Caro Rettore» e «decisione assurda», indirizzati al Rettore di un ateneo, Le sembrano il registro giusto?"
+      prompt: {text: "Caro Rettore", tags: [register]}
+    - learner: "Forse no. Allora: «Magnifico Rettore, mi rivolgo a Lei per sottoporLe una decisione del mio dipartimento che ritengo profondamente ingiusta.»"
+    - tutor: "Così sì: fermo, ma rispettoso. Ora la parte centrale: come argomenterebbe?"
+      goals: [opening-formula]
+    - learner: "Scriverei che il bando non prevedeva questa esclusione e che la regola è stata introdotta quando la graduatoria era già stata pubblicata: in pratica, un cambiamento retroattivo."
+    - tutor: "Argomento solido e verificabile: lo metta per primo. E nei confronti del dipartimento, che tono userebbe?"
+    - learner: "Vorrei evitare di sembrare aggressivo. Non pretendo di avere ragione su tutto: chiedo solo che la decisione viene riconsiderata."
+      errors: [subjunctive-use]
+      gold: {text: "viene riconsiderata", fix: "venga riconsiderata"}
+    - tutor: "L'equilibrio è giusto. Ma «chiedo che la decisione viene riconsiderata»: dopo «chiedo che», quale modo ci vuole?"
+      prompt: {text: "viene riconsiderata", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: chiedo solo che la decisione venga riconsiderata."
+    - tutor: "Perfetto, è la frase chiave della lettera. E per chiudere?"
+      goals: [tone]
+    - learner: "«Ringraziandola per l'attenzione, Le porgo i miei più distinti saluti.» E allego il bando e la graduatoria, così il Rettore ha tutta l'evidenza."
+      errors: [false-friend]
+    - tutor: "Con tutta la documentazione allegata, il Rettore non potrà dire di non sapere. La formula di chiusura è perfetta: la spedisca pure stasera."
+      goals: [closing]
+      recast: {text: "tutta l'evidenza", fix: "tutta la documentazione", tags: [false-friend]}
+    - learner: "La mando stasera, allora. Grazie infinite per l'aiuto."
+    - tutor: "Si figuri, e mi tenga informato sulla risposta: sono casi che mi stanno a cuore."

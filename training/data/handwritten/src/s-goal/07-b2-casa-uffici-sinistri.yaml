@@ -1,0 +1,275 @@
+# B2, renting, negotiating, the registry office and car insurance claims.
+# Offers and figures stay fixed once named; the clerk or agent explains procedures but leaves
+# decisions and missing documents to the learner.
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-m-retired
+  history: [hypothetical, relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. Che bella luce! Mia moglie e io cerchiamo un appartamento per un anno, forse di più."
+    - tutor: "Allora siete nel posto giusto: il contratto minimo è proprio di un anno. Volete prima vedere le stanze o parlare delle condizioni?"
+    - learner: "Prima vorrei sapere l'affitto. Quanto costa al mese, e che cosa comprende?"
+    - tutor: "Sono 900 euro al mese, spese di condominio comprese. Le bollette di luce e gas, invece, sono a parte."
+      goals: [rent]
+    - learner: "D'inverno le bollette possono essere care. Com'è il riscaldamento?"
+    - tutor: "La caldaia è nuova, l'abbiamo cambiata due anni fa, e le finestre hanno il doppio vetro. Il bagno, invece, è ancora quello originale."
+      goals: [condition]
+    - learner: "Capisco. Per il contratto, quanto sarebbe la caparra? E se andremmo via prima, quale preavviso servirebbe?"
+      errors: [hypothetical]
+      gold: {text: "se andremmo", fix: "se andassimo"}
+    - tutor: "«Se andremmo»? Dopo «se», in una frase come questa, il condizionale non va bene. Che forma serve?"
+      prompt: {text: "se andremmo", tags: [hypothetical]}
+    - learner: "Se andassimo via prima, quale preavviso servirebbe?"
+    - tutor: "Nel contratto mettiamo tre mesi di preavviso. La caparra è di due mesi, quindi 1800 euro."
+      goals: [contract]
+    - learner: "Va bene. Noi non abbiamo la macchina: cerchiamo un quartiere che si possa fare tutto a piedi."
+      errors: [relative-pronoun]
+      gold: {text: "che si possa fare", fix: "in cui si possa fare"}
+    - tutor: "«Un quartiere che si possa fare tutto»? Qui «che» da solo non basta: serve una preposizione per il luogo."
+      prompt: {text: "che si possa fare", tags: [relative-pronoun]}
+    - learner: "Sì, un quartiere che si può fare tutto a piedi."
+      errors: [relative-pronoun]
+    - tutor: "Questo è proprio un quartiere in cui si può fare tutto a piedi. Il mercato c'è il mercoledì e il sabato, e il medico è a due passi."
+      goals: [neighbourhood]
+      recast: {text: "che si può fare", fix: "in cui si può fare", tags: [relative-pronoun]}
+    - learner: "Perfetto. Mia moglie vuole vedere la cucina prima di decidere, ma per me l'appartamento va benissimo."
+    - tutor: "La cucina è di qua, prego. Se convince anche lei, possiamo firmare già la settimana prossima."
+      goals: [decide]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: es-f-erasmus
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È più piccolo di come sembrava nelle foto, però è molto accogliente."
+    - tutor: "Le foto ingannano un po', è vero. La camera da letto, però, è più grande di quanto sembri."
+    - learner: "Nell'annuncio c'era scritto 550 euro. Le spese sono comprese?"
+    - tutor: "No, ci sono 40 euro al mese di condominio, e le bollette sono a parte."
+      goals: [rent]
+    - learner: "Il contratto sarebbe registrato? Per il permesso di soggiorno ne ho bisogno."
+    - tutor: "Certo, lo registriamo noi entro trenta giorni. Come caparra le chiedo due mesi di affitto."
+      goals: [contract]
+    - learner: "Va bene. Il riscaldamento è centralizzato? Vorrei sapere quanto si gasta in inverno."
+      errors: [word-choice]
+    - tutor: "Sì, è centralizzato. Quanto si spende dipende dall'inverno: l'anno scorso chi abitava qui ha pagato circa 500 euro in tutto."
+      goals: [condition]
+      recast: {text: "si gasta", fix: "si spende", tags: [word-choice]}
+    - learner: "E il quartiere? Lavoro all'università: quanto ci metto ad arrivare?"
+    - tutor: "Con il tram un quarto d'ora; a piedi, circa mezz'ora. La fermata è proprio qui davanti."
+      goals: [neighbourhood]
+    - learner: "Mi piace. Vorrei bloccarlo subito: gli posso lasciare un acconto oggi?"
+      errors: [object-pronoun]
+      gold: {text: "gli posso lasciare", fix: "le posso lasciare"}
+    - tutor: "«Gli posso lasciare»? Sta parlando con me, e mi dà del Lei: quale pronome serve?"
+      prompt: {text: "gli posso lasciare", tags: [object-pronoun]}
+    - learner: "Le posso lasciare un acconto oggi?"
+    - tutor: "Sì: con 200 euro le tengo l'appartamento fino a venerdì, quando firmiamo il contratto."
+      goals: [decide]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-f-professional
+  history: [hypothetical, subjunctive-use]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, molto, soprattutto la terrazza. Però il canone mi preoccupa: 1200 euro è sopra il mio budget."
+    - tutor: "Capisco. Il proprietario è disposto a trattare, ma non molto. Lei che cifra aveva in mente?"
+      goals: [interest]
+    - learner: "Pensavo a 1050. Se il proprietario accetterebbe, firmerei anche domani."
+      errors: [hypothetical]
+      gold: {text: "Se il proprietario accetterebbe", fix: "Se il proprietario accettasse"}
+    - tutor: "«Se il proprietario accetterebbe»? Dopo «se», in una frase come questa, il condizionale non può stare."
+      prompt: {text: "Se il proprietario accetterebbe", tags: [hypothetical]}
+    - learner: "Se il proprietario accettasse, firmerei anche domani."
+    - tutor: "Glielo propongo, ma temo che 1050 sia troppo poco. Credo che arriverebbe a 1120, se lei firmasse per quattro anni."
+      goals: [negotiate]
+    - learner: "Quattro anni mi vanno bene, ma vorrei che ci sia una clausola per andare via prima, in caso di trasferimento."
+      errors: [subjunctive-use]
+      gold: {text: "ci sia", fix: "ci fosse"}
+    - tutor: "«Vorrei che ci sia»? Con «vorrei», il congiuntivo presente non va. Quale tempo serve?"
+      prompt: {text: "ci sia", tags: [subjunctive-use]}
+    - learner: "Sì, vorrei che ci sia una clausola per il trasferimento."
+      errors: [subjunctive-use]
+    - tutor: "Capisco, lei vorrebbe che ci fosse una via d'uscita. Possiamo inserire una clausola con sei mesi di preavviso, se il proprietario è d'accordo."
+      recast: {text: "ci sia", fix: "ci fosse", tags: [subjunctive-use]}
+    - learner: "Benissimo. E la provvigione dell'agenzia, quant'è?"
+    - tutor: "La nostra provvigione è pari a un mese di canone, più IVA."
+      goals: [conditions]
+    - learner: "Un mese di canone, cioè 1120 euro? È parecchio. Non potreste farmi un piccolo sconto, visto che firmo per quattro anni?"
+    - tutor: "Posso scendere a 900 euro più IVA, non di più. Procediamo così?"
+    - learner: "D'accordo: 1120 al mese, quattro anni, sei mesi di preavviso e 900 di provvigione. Mi mandi la proposta per email."
+    - tutor: "Gliela mando stasera stessa. Se il proprietario accetta, firmiamo la settimana prossima."
+      goals: [conclude]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: es-m-worker
+  history: [preposition, combined-pronouns]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, mi è piaciuto. Però ho un dubbio: ho un cane, e nell'annuncio c'era scritto «niente animali»."
+    - tutor: "È vero, il proprietario preferirebbe di no. Che cane è?"
+      goals: [interest]
+    - learner: "È un cane piccolo e tranquillo, ha otto anni. Sono disposto di pagare una garanzia più alta."
+      errors: [preposition]
+      gold: {text: "disposto di pagare", fix: "disposto a pagare"}
+    - tutor: "«Disposto di pagare»? Dopo «disposto», davanti all'infinito, la preposizione è diversa."
+      prompt: {text: "disposto di pagare", tags: [preposition]}
+    - learner: "Sono disposto a pagare una garanzia più alta."
+    - tutor: "Questo potrebbe convincerlo. Se offrisse tre mesi di garanzia invece di due, credo che accetterebbe."
+      goals: [negotiate]
+    - learner: "Tre mesi sono 2400 euro... Va bene, ma solo se il canone resta a 800."
+    - tutor: "Il canone resta a 800, su questo non ci sono problemi. Il contratto sarebbe un tre più due."
+    - learner: "Che cosa significa «tre più due»? Se dopo tre anni voglio restare, cosa succede?"
+    - tutor: "Dopo tre anni il contratto continua da solo per altri due, se nessuno dà disdetta."
+      goals: [conditions]
+    - learner: "Perfetto. Ma il permesso per il cane, il proprietario me lo può dare per scritto?"
+      errors: [word-choice]
+    - tutor: "Sì, glielo facciamo mettere per iscritto nel contratto."
+      new: [{lemma: iscritto, gloss: in writing}]
+      recast: {text: "per scritto", fix: "per iscritto", tags: [word-choice]}
+    - learner: "Allora possiamo procedere. Lei parla con il proprietario oggi e poi mi lo fa sapere?"
+      errors: [combined-pronouns]
+      gold: {text: "mi lo fa sapere", fix: "me lo fa sapere"}
+    - tutor: "«Mi lo fa sapere»? Quando «mi» si trova davanti a «lo», cambia forma."
+      prompt: {text: "mi lo fa sapere", tags: [combined-pronouns]}
+    - learner: "Me lo fa sapere domani?"
+    - tutor: "Sì, lo chiamo oggi stesso e domani mattina le telefono con la risposta."
+      goals: [conclude]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-m-traveller
+  history: [subjunctive-use, object-pronoun]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Mi sono trasferito qui da Londra a settembre e vorrei chiedere la residenza."
+    - tutor: "Bene. Essendo cittadino del Regno Unito, le serve il permesso di soggiorno. Ce l'ha con sé?"
+      goals: [request]
+    - learner: "Sì, eccolo. Ho portato anche il contratto d'affitto e il codice fiscale."
+    - tutor: "Perfetto. Mi serve anche il passaporto."
+    - learner: "Il passaporto ho lasciato a casa: pensavo che bastasse il permesso."
+      errors: [object-pronoun]
+      gold: {text: "il passaporto ho lasciato", fix: "il passaporto l'ho lasciato"}
+    - tutor: "«Il passaporto ho lasciato a casa»? Se mette «il passaporto» all'inizio, prima del verbo serve un pronome."
+      goals: [documents]
+      prompt: {text: "il passaporto ho lasciato", tags: [object-pronoun]}
+    - learner: "Il passaporto l'ho lasciato a casa, scusi."
+    - tutor: "Purtroppo il passaporto è necessario. Senza, oggi non posso chiudere la pratica: posso solo aprirla."
+    - learner: "Devo rifare la fila domani, allora?"
+    - tutor: "No, le fisso un appuntamento: domani alle dieci, allo sportello 3, senza numero."
+      goals: [problem]
+    - learner: "Grazie. E dopo, quanto tempo ci vuole perché la residenza è confermata?"
+      errors: [subjunctive-use]
+      gold: {text: "perché la residenza è confermata", fix: "perché la residenza sia confermata"}
+    - tutor: "«Perché la residenza è confermata»? Qui «perché» indica uno scopo, non una causa: che modo vuole il verbo?"
+      prompt: {text: "perché la residenza è confermata", tags: [subjunctive-use]}
+    - learner: "Quanto tempo ci vuole perché la residenza sia confermata?"
+    - tutor: "Entro 45 giorni passano i vigili a controllare che lei abiti davvero all'indirizzo indicato."
+    - learner: "E se sono al lavoro quando passano?"
+    - tutor: "Le lasciano un avviso con un numero da chiamare per fissare un secondo controllo."
+      goals: [next]
+    - learner: "Capito. Allora domani alle dieci torno con il passaporto."
+    - tutor: "Esatto, sportello 3. A quel punto la pratica viene completata e inviata."
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-f-teacher
+  history: [ci-ne, register]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Vorrei trasferire la residenza a Torino. Prima abitavo a Milano."
+    - tutor: "Per un cambio di residenza da un altro comune servono il modulo compilato e un documento d'identità. Il modulo ce l'ha?"
+      goals: [request]
+    - learner: "Sì, l'ho compilato a casa. Ecco il modulo e la mia carta d'identità spagnola."
+    - tutor: "Grazie. Qui leggo che si trasferisce da suo marito. Lui abita già a Torino?"
+    - learner: "Sì, lui abita qui da due anni. Ci siamo sposati a Siviglia l'anno scorso."
+    - tutor: "Allora, per risultare nella stessa famiglia, serve il certificato di matrimonio con una traduzione in italiano."
+      goals: [documents]
+    - learner: "Tradotto? Non lo sapevo niente. Ho solo l'originale in spagnolo."
+      errors: [ci-ne]
+      gold: {text: "Non lo sapevo niente", fix: "Non ne sapevo niente"}
+    - tutor: "«Non lo sapevo niente»? Con «sapere niente di qualcosa», quale pronome si usa?"
+      prompt: {text: "Non lo sapevo niente", tags: [ci-ne]}
+    - learner: "Non ne sapevo niente! Ho solo l'originale."
+    - tutor: "Possiamo aprire la pratica oggi lo stesso, e lei porta la traduzione in un secondo momento."
+    - learner: "Va bene. Ma chi me la fa la traduzione, scusa?"
+      errors: [register]
+      gold: {text: "scusa", fix: "scusi"}
+    - tutor: "«Scusa»? Siamo in un ufficio pubblico, e finora ci siamo dati del Lei."
+      prompt: {text: "scusa", tags: [register]}
+    - learner: "Ha ragione, mi scusi! Chi me la può fare, la traduzione?"
+    - tutor: "Deve essere una traduzione ufficiale: al consolato spagnolo possono dirle come procedere."
+      new: [{lemma: consolato, gloss: consulate}]
+      goals: [problem]
+    - learner: "Perfetto. E quando sarà conclusa la pratica?"
+    - tutor: "La registriamo entro due giorni; poi, entro 45 giorni, i vigili passano a controllare l'indirizzo."
+      goals: [next]
+    - learner: "Quindi intanto posso già usare il nuovo indirizzo?"
+    - tutor: "Sì, la residenza vale dalla data della domanda, cioè da oggi."
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-heritage
+  history: [passive]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri sera ho avuto un piccolo incidente in un parcheggio: stavo facendo retromarcia e un'altra macchina mi è venuta addosso."
+    - tutor: "Mi dispiace. Qualcuno si è fatto male? E chi si stava muovendo, in quel momento?"
+    - learner: "Nessuno si è fatto male. Ci muovevamo tutti e due: io uscivo dal posto, e lui passava troppo veloce."
+      goals: [what]
+    - tutor: "Capisco. In questi casi a volte la colpa è di tutti e due. Secondo lei, di chi è?"
+    - learner: "Secondo me è sua: andava almeno a 40 all'ora in un parcheggio, e io avevo già messo la freccia."
+    - tutor: "È un elemento importante. Avete compilato insieme la constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, e l'abbiamo firmata tutti e due. Il mio paraurti è venuto distrutto dall'urto."
+      errors: [passive]
+      gold: {text: "è venuto distrutto", fix: "è stato distrutto"}
+    - tutor: "«È venuto distrutto»? Al passato prossimo, «venire» in questa frase non va bene. Che verbo usa?"
+      prompt: {text: "è venuto distrutto", tags: [passive]}
+    - learner: "È stato distrutto dall'urto."
+    - tutor: "Il danno sarà valutato da un nostro perito. Ha delle immagini delle due macchine?"
+      new: [{lemma: perito, gloss: loss adjuster}]
+    - learner: "Sì, ho preso le foto con il cellulare, e la targa è sulla constatazione."
+      errors: [word-choice]
+    - tutor: "Se ha fatto le foto a tutte e due le macchine, è perfetto. Me le mandi per email, con una foto della constatazione."
+      goals: [documents]
+      recast: {text: "preso le foto", fix: "fatto le foto", tags: [word-choice]}
+    - learner: "D'accordo. E adesso cosa succede? Devo pagare la franchigia?"
+    - tutor: "Il nostro esperto la chiamerà entro una settimana per vedere la macchina. Se la colpa risulterà dell'altro, la franchigia non la paga."
+      goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-f-student
+  history: [combined-pronouns, adjective-agreement]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Stamattina ho trovato la mia macchina con una portiera rovinata. Era parcheggiato sotto casa."
+      errors: [adjective-agreement]
+      gold: {text: "Era parcheggiato", fix: "Era parcheggiata"}
+    - tutor: "«Era parcheggiato»? Sta parlando della macchina: come deve finire «parcheggiato»?"
+      prompt: {text: "Era parcheggiato", tags: [adjective-agreement]}
+    - learner: "Era parcheggiata sotto casa, sì."
+    - tutor: "Mi dispiace. Sa chi è stato, o il responsabile se n'è andato?"
+      goals: [what]
+    - learner: "Per fortuna sul vetro c'era un biglietto con un nome e un numero. Il signore mi ha detto che l'aveva colpita mentre parcheggiava."
+    - tutor: "Per fortuna esistono ancora persone oneste. Avete già compilato insieme la constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Non ancora. Stasera lo incontro e gli lo chiedo."
+      errors: [combined-pronouns]
+      gold: {text: "gli lo chiedo", fix: "glielo chiedo"}
+    - tutor: "«Gli lo chiedo»? Quando «gli» e «lo» si incontrano, diventano una parola sola."
+      prompt: {text: "gli lo chiedo", tags: [combined-pronouns]}
+    - learner: "Sì, gli lo chiedo stasera."
+      errors: [combined-pronouns]
+    - tutor: "Bene, glielo chieda stasera stessa. Sul modulo scrivete le targhe, le assicurazioni e un disegno di com'è successo."
+      recast: {text: "gli lo", fix: "glielo", tags: [combined-pronouns]}
+    - learner: "E se lui non volesse firmare?"
+    - tutor: "Allora servirebbero dei testimoni o una denuncia. Ma visto che le ha lasciato il biglietto, probabilmente firmerà."
+      goals: [documents]
+    - learner: "Va bene. Domani vi mando la constatazione. Quanto tempo ci vorrà per la riparazione?"
+    - tutor: "Prima un nostro esperto deve vedere il danno, poi si può riparare la macchina. Di solito ci vogliono due o tre settimane in tutto."
+      goals: [next]

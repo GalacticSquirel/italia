@@ -1,0 +1,251 @@
+# s-b2: B2 insurance claims and registry office.
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-retired
+  history: [tense-aspect, participle-agreement]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ieri mattina sono andato al supermercato in macchina. Pioveva molto e si vedeva poco."
+  - tutor: "Capisco. E poi che cosa è successo, esattamente?"
+  - learner: "Ero fermo al semaforo rosso, e una macchina blu mi veniva addosso da dietro."
+    errors: [tense-aspect]
+  - tutor: "Che paura. Ma «mi veniva addosso»: è un fatto improvviso, successo una volta sola. Quale tempo usiamo?"
+    prompt: {text: "mi veniva addosso", tags: [tense-aspect]}
+  - learner: "Mi è venuta addosso da dietro, e mi ha rotto il paraurti."
+  - tutor: "Esatto. E secondo lei, di chi è la responsabilità?"
+    goals: [what]
+  - learner: "Dell'altro autista, senza dubbio: andava troppo veloce e guardava il telefono. L'ha ammesso anche lui."
+  - tutor: "Bene, se l'ha ammesso è tutto più semplice. Avete compilato la constatazione amichevole?"
+    goals: [responsibility]
+  - learner: "Sì, l'abbiamo compilata insieme, e le foto dei danni le ho fatto con il telefono."
+    errors: [participle-agreement]
+  - tutor: "Ottimo. Solo una cosa: «le foto le ho fatto». «Le» sono le foto, quindi «fatto» deve concordare. Come diventa?"
+    prompt: {text: "le ho fatto", tags: [participle-agreement]}
+  - learner: "Sì, le ho fatto subito, prima di spostare la macchina."
+    errors: [participle-agreement]
+  - tutor: "«Le ho fatte subito»: ha fatto benissimo, così si vede bene la posizione delle due auto. Me le può mandare oggi, insieme alla constatazione?"
+    recast: {text: "le ho fatto", fix: "Le ho fatte", tags: [participle-agreement]}
+    goals: [documents]
+  - learner: "Certo, gliele mando stasera. E adesso cosa succede? Quando viene il perito?"
+  - tutor: "Il perito la chiamerà entro tre giorni per vedere la macchina. Dopo la perizia, la riparazione sarà pagata dall'assicurazione dell'altro autista."
+    goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-f-teacher
+  history: [passive, ci-ne]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Questa mattina, mentre uscivo dal parcheggio della scuola, un furgone ha colpito la mia macchina."
+  - tutor: "Mi dispiace. Lei si è fatta male?"
+  - learner: "No, per fortuna no, ma lo specchietto si è rotto e la portiera è stato graffiato."
+    errors: [passive]
+  - tutor: "Meno male che sta bene. Però «la portiera è stato graffiato»: la portiera è femminile, quindi tutto il verbo deve concordare. Come diventa?"
+    prompt: {text: "la portiera è stato graffiato", tags: [passive]}
+  - learner: "La portiera è stata graffiata."
+  - tutor: "Esatto. E chi aveva la precedenza, lei o il furgone?"
+    goals: [what]
+    new: [{lemma: precedenza, gloss: right of way}]
+  - learner: "Io ero già sulla strada. Il furgone usciva da un garage, e l'autista non mi aveva visto."
+  - tutor: "Allora la responsabilità sembra dell'autista del furgone. Ha preso i suoi dati?"
+    goals: [responsibility]
+  - learner: "Sì, ho la targa e il nome. Il numero di telefono l'ho qui, sul cellulare."
+    errors: [ci-ne]
+  - tutor: "Perfetto. Però «il numero l'ho qui»: con «avere» e «lo» davanti, nel parlato serve un altro pronome. Quale?"
+    prompt: {text: "l'ho qui", tags: [ci-ne]}
+  - learner: "Sì, l'ho qui. Glielo leggo?"
+    errors: [ci-ne]
+  - tutor: "«Ce l'ho qui»: benissimo, me lo legga pure. E la constatazione amichevole, l'autista l'ha firmata?"
+    recast: {text: "l'ho qui", fix: "Ce l'ho qui", tags: [ci-ne]}
+  - learner: "No, non voleva firmare. Però c'erano due testimoni, che hanno lasciato il loro numero. Adesso cosa devo fare?"
+  - tutor: "I testimoni sono importanti, quindi mi mandi i loro numeri e le foto. Senza firma la pratica è più lunga, ma la apriamo oggi e il perito la chiama entro una settimana."
+    goals: [documents, next]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: en-m-traveller
+  history: [tense-aspect, relative-pronoun]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Ho noleggiato una macchina per una settimana, e ieri sera ho avuto un piccolo incidente in un parcheggio."
+  - tutor: "Mi racconti con calma: com'è andata?"
+  - learner: "Il parcheggio era buio e c'era un palo vicino all'uscita. Facevo retromarcia e lo colpivo con il paraurti."
+    errors: [tense-aspect]
+  - tutor: "Capisco. Ma «lo colpivo»: è successo una volta, in un momento preciso. Quale tempo serve per un fatto così?"
+    prompt: {text: "lo colpivo", tags: [tense-aspect]}
+  - learner: "L'ho colpito con il paraurti. La colpa è mia, purtroppo: non ho guardato bene."
+  - tutor: "Esatto. E apprezzo che lo dica. Quindi nessun'altra macchina è coinvolta, giusto?"
+    goals: [what, responsibility]
+  - learner: "No, nessuna. Il paraurti è ammaccato e una luce si è rotta. L'impiegata mi ha detto che c'è una franchigia di 500 euro."
+  - tutor: "Allora la sua spesa massima sarà di 500 euro. Ha fatto delle foto?"
+  - learner: "Sì, ho fatto tre foto, e la ditta che ho noleggiato la macchina ha già visto i danni."
+    errors: [relative-pronoun]
+  - tutor: "Bene. Ma «la ditta che ho noleggiato la macchina»: ha noleggiato la macchina da qualcuno. Come cambia allora il «che»?"
+    prompt: {text: "la ditta che ho noleggiato la macchina", tags: [relative-pronoun]}
+  - learner: "Sì, la ditta che ho noleggiato la macchina ha già controllato tutto."
+    errors: [relative-pronoun]
+  - tutor: "«La ditta da cui ho noleggiato la macchina»: bene, allora hanno già visto tutto. Mi mandi le foto e il contratto entro domani."
+    recast: {text: "che ho noleggiato", fix: "da cui ho noleggiato", tags: [relative-pronoun]}
+    goals: [documents]
+  - learner: "Va bene. E dopo, quanto tempo ci vuole per sapere quanto devo pagare?"
+  - tutor: "Di solito due settimane: prima il perito valuta i danni, poi le mandiamo il conto, mai sopra i 500 euro."
+    goals: [next]
+
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-m-worker
+  history: [passive, preposition]
+  turns:
+  - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+  - learner: "Buongiorno. Sabato notte la mia macchina era parcheggiata sotto casa, e la mattina dopo l'ho trovata con tutto il lato destro distrutto."
+  - tutor: "Che brutta sorpresa. Qualcuno ha visto chi è stato?"
+  - learner: "Sì, un vicino. Mi ha detto che la macchina è stata colpita da un camion della basura che faceva manovra."
+    errors: [word-choice]
+  - tutor: "Un camion della spazzatura, quindi. Allora il danno è dell'azienda dei rifiuti. È già andato dai vigili?"
+    recast: {text: "della basura", fix: "della spazzatura", tags: [word-choice]}
+    goals: [what]
+  - learner: "Sì, e il rapporto è stato scritto lunedì. Ma l'azienda dice che non è colpa sua, perché il camion non è stato visto da nessun altro."
+  - tutor: "Capisco. La parola del vicino però vale. Pensa che sia disposto a ripetere quello che ha visto?"
+    goals: [responsibility]
+  - learner: "Sì, il vicino ha accettato a fare da testimone, se serve."
+    errors: [preposition]
+  - tutor: "Ottimo. Però «ha accettato a fare»: con «accettare», davanti all'infinito, va un'altra preposizione. Quale?"
+    prompt: {text: "ha accettato a fare", tags: [preposition]}
+  - learner: "Ha accettato di fare da testimone."
+  - tutor: "Esatto. Allora mi servono il rapporto dei vigili, il nome del vicino e le foto dei danni. Le ha?"
+  - learner: "Sì, le foto sono state fatto dal vicino con il suo telefono, la mattina presto."
+    errors: [passive]
+  - tutor: "Bene. Ma «le foto sono state fatto»: «foto» è femminile plurale, e anche «fatto» deve concordare. Come diventa?"
+    prompt: {text: "sono state fatto", tags: [passive]}
+  - learner: "Sono state fatte dal vicino. E adesso cosa succede?"
+  - tutor: "Esatto. Adesso scriviamo all'azienda dei rifiuti, e un perito verrà a vedere la macchina entro cinque giorni."
+    goals: [documents, next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-professional
+  history: [subjunctive-use, ci-ne]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Mi sono trasferita a Bologna il mese scorso per lavoro e vorrei chiedere la residenza."
+  - tutor: "Benissimo. Ha già compilato il modulo di richiesta?"
+    goals: [request]
+  - learner: "Sì, eccolo. Ho anche il contratto d'affitto e il passaporto. Credo che bastano, no?"
+    errors: [subjunctive-use]
+  - tutor: "Vediamo. Però «credo che bastano»: dopo «credo che», quale modo si usa?"
+    prompt: {text: "Credo che bastano", tags: [subjunctive-use]}
+  - learner: "Credo che bastino, giusto?"
+  - tutor: "Esatto, ma purtroppo non bastano: per chi viene da un paese fuori dall'Unione Europea serve anche il permesso di soggiorno. Ce l'ha con sé?"
+    goals: [documents]
+  - learner: "No, è in rinnovo. Ho solo la ricevuta della domanda. Va bene lo stesso?"
+  - tutor: "Sì, la ricevuta va bene, insieme a una copia del vecchio permesso. Ha anche quella?"
+  - learner: "Sì, ho una copia. Anzi, ho due."
+    errors: [ci-ne]
+  - tutor: "Ottimo. Ma «anzi, ho due»: due cosa? Riprenda «copie» con un pronome, prima del verbo."
+    prompt: {text: "ho due", tags: [ci-ne]}
+  - learner: "Anzi, ne ho due."
+  - tutor: "Perfetto, me ne basta una. Così il problema del permesso è risolto."
+    goals: [problem]
+  - learner: "Grazie. E quanto tempo ci vuole? Ho bisogno che la residenza è registrata prima di gennaio, per il medico."
+    errors: [subjunctive-use]
+  - tutor: "Capisco la fretta. Ma «ho bisogno che la residenza è registrata»: dopo «ho bisogno che», come cambia il verbo?"
+    prompt: {text: "Ho bisogno che la residenza è registrata", tags: [subjunctive-use]}
+  - learner: "Ho bisogno che sia registrata prima di gennaio."
+  - tutor: "Esatto. Entro dieci giorni i vigili passano a casa sua per il controllo, e in circa un mese è tutto registrato. Arriverà in tempo."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: es-f-erasmus
+  history: [passive, relative-pronoun]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Sono una studentessa spagnola e vorrei iscrivermi all'anagrafe, perché resterò qui almeno due anni."
+  - tutor: "D'accordo. Mi servono il certificato dell'università e un documento per l'assistenza medica. Li ha con sé?"
+    goals: [request]
+  - learner: "Sì, ho il certificato che l'università mi ha dato ieri, e la tarjeta sanitaria europea."
+    errors: [word-choice]
+  - tutor: "Perfetto, la tessera sanitaria europea va benissimo. E il contratto d'affitto della casa dove abita?"
+    recast: {text: "la tarjeta sanitaria", fix: "la tessera sanitaria", tags: [word-choice]}
+    goals: [documents]
+    new: [{lemma: tessera, gloss: card}]
+  - learner: "Il contratto non ce l'ho, perché la stanza che vivo è in subaffitto da un'amica."
+    errors: [relative-pronoun]
+  - tutor: "Capisco. Ma «la stanza che vivo»: lei vive in una stanza. Come cambia allora il «che»?"
+    prompt: {text: "la stanza che vivo", tags: [relative-pronoun]}
+  - learner: "La stanza in cui vivo è in subaffitto."
+  - tutor: "Esatto. In questo caso serve una dichiarazione firmata dalla sua amica, con la copia del suo documento."
+  - learner: "Va bene. La dichiarazione deve essere firmata anche dal proprietario?"
+  - tutor: "No, basta la firma della sua amica, se il contratto è a nome suo."
+    goals: [problem]
+  - learner: "Perfetto, la porto domani. Poi la mia domanda viene controllato da qualcuno?"
+    errors: [passive]
+  - tutor: "Sì, certo. Ma «la mia domanda viene controllato»: il soggetto è «la domanda». Come concorda il verbo?"
+    prompt: {text: "viene controllato", tags: [passive]}
+  - learner: "Viene controllata da qualcuno?"
+  - tutor: "Esatto. Entro quarantacinque giorni i vigili passano a casa per verificare che lei abiti davvero lì. Poi riceve una lettera di conferma."
+    goals: [next]
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-m-retired
+  history: [combined-pronouns, subjunctive-use]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Sono inglese, sono in pensione e mi sono trasferito qui con mia moglie. Vorremmo prendere la residenza."
+  - tutor: "Benvenuti. Lei e sua moglie avete una casa di proprietà o in affitto?"
+    goals: [request]
+  - learner: "Di proprietà: l'abbiamo comprata l'anno scorso. Ho portato l'atto di acquisto e i nostri passaporti."
+  - tutor: "Bene. Dopo la Brexit, però, vi serve anche il permesso di soggiorno. Lo avete già?"
+    goals: [documents]
+  - learner: "Io sì, mia moglie no: in questura le hanno detto che è necessario che lei va di persona."
+    errors: [subjunctive-use]
+  - tutor: "È normale. Ma «è necessario che lei va»: dopo «è necessario che», quale modo ci vuole?"
+    prompt: {text: "è necessario che lei va", tags: [subjunctive-use]}
+  - learner: "Sì, è necessario che lei va di persona. Ha un appuntamento la settimana prossima."
+    errors: [subjunctive-use]
+  - tutor: "«È necessario che lei vada di persona»: succede a tutti. Intanto apriamo la sua pratica, e quella di sua moglie appena avrà il permesso."
+    recast: {text: "lei va", fix: "lei vada", tags: [subjunctive-use]}
+    goals: [problem]
+  - learner: "Perfetto. Il modulo per mia moglie me lo può dare adesso? Così glielo faccio compilare a casa."
+  - tutor: "Certo, eccolo. Quando è pronto, me lo riporta insieme alla ricevuta del permesso."
+  - learner: "D'accordo. E per la mia pratica, quando arriva la conferma? Me la mandate a casa?"
+  - tutor: "Sì, gliela mandiamo per posta, di solito entro un mese, dopo il controllo dei vigili."
+    goals: [next]
+  - learner: "Grazie. Il numero dell'ufficio, mi lo può scrivere su questo foglio?"
+    errors: [combined-pronouns]
+  - tutor: "Volentieri. Ma «mi lo può scrivere»: quando «mi» si trova davanti a «lo», cambia una lettera. Quale?"
+    prompt: {text: "mi lo può scrivere", tags: [combined-pronouns]}
+  - learner: "Me lo può scrivere qui, per favore?"
+  - tutor: "Ecco qua: siamo aperti dal lunedì al venerdì, dalle nove all'una. E tanti auguri a lei e a sua moglie per la nuova casa."
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-student
+  history: [hypothetical, preposition]
+  turns:
+  - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+  - learner: "Buongiorno. Sono americana, studio qui da settembre, e mi hanno detto che devo prendere la residenza per avere il medico di base."
+  - tutor: "Esatto, con la residenza le assegnano anche il medico. Ha il permesso di soggiorno?"
+    goals: [request]
+  - learner: "Sì, eccolo. Però il mio contratto d'affitto è scaduto la settimana scorsa, e il proprietario non mi ha ancora dato quello nuovo."
+  - tutor: "Questo è un problema: senza un contratto valido non possiamo accettare la richiesta."
+    goals: [documents]
+  - learner: "Oh no. Se lo sapevo, avrei chiesto il contratto prima."
+    errors: [hypothetical]
+  - tutor: "Capita spesso, non si preoccupi. Ma «se lo sapevo, avrei chiesto»: con «avrei chiesto» nella seconda parte, dopo «se» quale tempo usiamo?"
+    prompt: {text: "Se lo sapevo", tags: [hypothetical]}
+  - learner: "Se l'avessi saputo, avrei chiesto il contratto prima."
+  - tutor: "Esatto. Può chiedere al proprietario una dichiarazione firmata in cui dice che lei abita lì: fino al nuovo contratto, va bene lo stesso."
+  - learner: "Va bene, lo chiamo oggi. Lui abita a Roma, ma ha promesso a mandarmi i documenti per email."
+    errors: [preposition]
+  - tutor: "Perfetto. Però «ha promesso a mandarmi»: dopo «promettere», davanti all'infinito, quale preposizione si usa?"
+    prompt: {text: "ha promesso a mandarmi", tags: [preposition]}
+  - learner: "Sì, ha promesso a mandarli entro venerdì."
+    errors: [preposition]
+  - tutor: "Se ha promesso di mandarli entro venerdì, va benissimo: basta anche una copia su carta."
+    recast: {text: "promesso a mandarli", fix: "promesso di mandarli", tags: [preposition]}
+    goals: [problem]
+  - learner: "Allora torno lunedì con la dichiarazione. Devo prendere un altro numero?"
+  - tutor: "No, venga direttamente a questo sportello, dalle nove alle dodici. Poi i vigili passeranno da lei entro un mese."
+    goals: [next]

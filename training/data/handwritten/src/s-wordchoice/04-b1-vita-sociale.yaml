@@ -1,0 +1,219 @@
+# Round 8, set s-wordchoice: word-choice and false friends beside acceptable plain choices. B1, file 4.
+- scenario: colloquio-lavoro
+  level: B1
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Hannah, ho ventiquattro anni e sono inglese. Mi sono graduata in economia l'anno scorso."
+      errors: [word-choice]
+    - tutor: "Laureata in economia, molto bene. Ha già qualche esperienza di lavoro?"
+      recast: {text: "graduata", fix: "laureata", tags: [word-choice]}
+      new: [{lemma: laureato, gloss: graduate}]
+      goals: [intro]
+    - learner: "Sì, ho fatto uno stage di sei mesi in una fattoria di automobili, a Birmingham."
+      errors: [false-friend]
+    - tutor: "In una fabbrica di automobili, interessante. E di che cosa si occupava?"
+      recast: {text: "una fattoria di automobili", fix: "una fabbrica di automobili", tags: [false-friend]}
+      new: [{lemma: fabbrica, gloss: factory}]
+    - learner: "Lavoravo nell'ufficio acquisti. Controllavo gli ordini e parlavo con i fornitori."
+    - tutor: "Un'esperienza utile anche per noi. Quali sono i suoi punti di forza?"
+      goals: [experience]
+    - learner: "Sono precisa e lavoro bene in gruppo. Un difetto? A volte sono troppo perfezionista."
+    - tutor: "Un difetto abbastanza comune! E perché vuole lavorare proprio da noi?"
+      goals: [strengths]
+    - learner: "Perché la vostra azienda lavora molto con l'estero e io parlo tre lingue."
+    - tutor: "Per noi è molto importante. Ha qualche domanda sul posto?"
+      goals: [why]
+    - learner: "Sì: com'è l'orario? E si può lavorare da casa qualche giorno?"
+    - tutor: "Si lavora dalle nove alle sei, e il venerdì si può lavorare da casa. Le faremo sapere entro una settimana."
+      goals: [questions]
+
+- scenario: consigli-viaggio
+  level: B1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto il dodici maggio e resto cinque giorni. Vado con mia sorella e vogliamo salire tutte le sere."
+      errors: [false-friend]
+    - tutor: "Uscire tutte le sere a Napoli è facile, la città non dorme mai! E di giorno cosa volete vedere?"
+      recast: {text: "salire tutte le sere", fix: "uscire tutte le sere", tags: [false-friend]}
+      goals: [plans]
+    - learner: "Il centro storico e Pompei, sicuro. E dove possiamo mangiare la pizza migliore? Sono molto goloso."
+    - tutor: "In centro ci sono tanti posti buonissimi per la pizza. E a colazione prova la sfogliatella!"
+      new: [{lemma: sfogliatella, gloss: Neapolitan pastry}]
+      goals: [advice]
+    - learner: "Perfetto! E per girare in città, è meglio il metro o l'autobus?"
+      errors: [noun-gender]
+    - tutor: "«Il metro»? Pensa alla parola intera, «metropolitana»: è femminile."
+      prompt: {text: "il metro", tags: [noun-gender]}
+      new: [{lemma: metropolitana, gloss: underground railway}]
+    - learner: "Ah, giusto: è meglio la metro o l'autobus?"
+    - tutor: "Esatto! La metro è più veloce, e per salire al Vomero c'è la funicolare."
+      new: [{lemma: funicolare, gloss: funicular railway}]
+      goals: [transport]
+    - learner: "E cosa dobbiamo evitare? Ho sentito che ci sono molti carteristi."
+      errors: [word-choice]
+    - tutor: "I borseggiatori ci sono, sì: sui mezzi tieni lo zaino davanti, e prendi solo taxi ufficiali."
+      recast: {text: "carteristi", fix: "borseggiatori", tags: [word-choice]}
+      new: [{lemma: borseggiatore, gloss: pickpocket}]
+      goals: [warnings]
+    - learner: "Va bene. E se piove, cosa facciamo?"
+    - tutor: "Andate al Museo Archeologico: è enorme, ci passate un pomeriggio intero."
+
+- scenario: cucina-ricetta
+  level: B1
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera facciamo il risotto ai funghi di mia nonna."
+    - tutor: "Buonissimo! Che cosa ti serve?"
+    - learner: "Riso, funghi, una cipolla, burro, parmigiano e un litro di stock. E un po' di vino bianco."
+      errors: [word-choice]
+    - tutor: "Il brodo l'ho preparato stamattina, e il vino bianco ce l'ho. Da dove cominciamo?"
+      recast: {text: "stock", fix: "brodo", tags: [word-choice]}
+      new: [{lemma: brodo, gloss: stock}]
+      goals: [ingredients]
+    - learner: "Prima taglio la cipolla molto fine e la faccio friggere nel burro. Poi aggiungo il riso."
+    - tutor: "E il vino quando lo aggiungi?"
+    - learner: "Dopo due minuti. Quando evapora, metto il brodo poco a poco."
+    - tutor: "Ecco la pentola con il brodo caldo. Quanto tempo ci vuole?"
+      goals: [steps]
+    - learner: "Più o meno diciotto minuti. Bisogna stirare sempre, se no il riso si attacca."
+      errors: [false-friend]
+    - tutor: "Mescolare sempre, ho capito: allora mescolo io e tu aggiungi il brodo!"
+      recast: {text: "stirare", fix: "mescolare", tags: [false-friend]}
+      new: [{lemma: mescolare, gloss: to stir}, {lemma: brodo, gloss: stock}]
+      goals: [time]
+    - learner: "Va bene! Alla fine metto il parmigiano e lo serviamo subito. Mia nonna diceva sempre: il risotto non aspetta!"
+    - tutor: "Ha ragione tua nonna. Prendo i piatti, così lo mangiamo caldo!"
+      goals: [serve]
+
+- scenario: film-libro
+  level: B1
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Comincio io. Ho letto una novella di Elena Ferrante, «L'amica geniale»."
+      errors: [false-friend]
+    - tutor: "Un romanzo della Ferrante, ottima scelta! Di che cosa parla, senza raccontare troppo?"
+      recast: {text: "una novella", fix: "un romanzo", tags: [false-friend]}
+    - learner: "Parla di due amiche a Napoli negli anni Cinquanta. Crescono in un quartiere povero e violento."
+    - tutor: "Un'amicizia lunga una vita, quindi. E chi è il personaggio principale?"
+      goals: [summary]
+    - learner: "Si chiama Lenù. È timida e studia moltissimo, ma è sempre un po' gelosa della sua amica Lila."
+    - tutor: "Il rapporto tra le due amiche è il cuore del libro. A te è piaciuto?"
+      goals: [characters]
+    - learner: "Sì, molto. Però il finale mi ha lasciata un po' delusa: è troppo abierto."
+      errors: [word-choice]
+    - tutor: "Un finale aperto, è vero, ma la storia continua nel secondo libro! A chi lo consiglieresti?"
+      recast: {text: "abierto", fix: "aperto", tags: [word-choice]}
+      goals: [opinion]
+    - learner: "A chi ama le storie lunghe e i personaggi complessi. Non a chi cerca un libro leggero per l'estate."
+    - tutor: "Ottimo consiglio. Grazie! Chi continua?"
+      goals: [recommend]
+
+- scenario: riunione-lavoro
+  level: B1
+  persona: en-f-professional
+  history: [false-friend]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Attualmente stiamo finendo la parte grafica del sito."
+    - tutor: "Bene. Ci sono problemi?"
+      goals: [update]
+    - learner: "Sì, uno. Il cliente ha cambiato idea sui colori e dobbiamo rifare tutte le pagine. Eventualmente finiremo, ma non per venerdì."
+      errors: [false-friend]
+    - tutor: "Alla fine finirete, certo, ma il cliente aspetta il sito per venerdì. Che cosa proponi?"
+      recast: {text: "Eventualmente", fix: "Alla fine", tags: [false-friend]}
+      goals: [problem]
+    - learner: "Propongo di chiedere aiuto a Marco per due giorni."
+    - tutor: "Marco è libero mercoledì e giovedì. Allora che data diamo al cliente?"
+      goals: [proposal]
+    - learner: "Possiamo dire lunedì prossimo? Così abbiamo anche il fine settimana per controllare."
+    - tutor: "Lunedì va bene. Glielo scrivo io oggi."
+      goals: [deadline]
+    - learner: "Grazie. Il cliente vuole anche una lettura sul nuovo sito, per i suoi impiegati."
+      errors: [false-friend]
+    - tutor: "Una presentazione per i suoi impiegati? Va bene. La prepari tu?"
+      recast: {text: "una lettura", fix: "una presentazione", tags: [false-friend]}
+    - learner: "Sì, la preparo io, ma mi servono i dati di vendita."
+    - tutor: "Te li mando stasera. Buon lavoro!"
+
+- scenario: salute-stile-vita
+  level: B1
+  persona: es-m-worker
+  history: [word-choice]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Lavoro in un magazzino e sto in piedi tutto il giorno. La sera sono molto cansado."
+      errors: [word-choice]
+    - tutor: "Se la sera sei stanco, è normale, con un lavoro così. E fai un po' di sport?"
+      recast: {text: "cansado", fix: "stanco", tags: [word-choice]}
+    - learner: "Poco. Ho l'abito di guardare la televisione fino a tardi."
+      errors: [false-friend]
+    - tutor: "L'abitudine della televisione fino a tardi è comune, ma il sonno è importante. Qual è il tuo obiettivo?"
+      recast: {text: "l'abito", fix: "l'abitudine", tags: [false-friend]}
+      goals: [habits]
+    - learner: "Vorrei perdere cinque chili e avere più energia."
+    - tutor: "È un buon obiettivo. Cosa ti impedisce di allenarti?"
+      goals: [goal]
+    - learner: "Il tempo, soprattutto. E poi in palestra mi annoio."
+    - tutor: "Allora niente palestra: camminate veloci al parco, tre volte a settimana, per quaranta minuti. Ce la fai?"
+      goals: [obstacles]
+    - learner: "Sì, posso il martedì, il giovedì e la domenica. Devo cambiare anche la dieta?"
+    - tutor: "Sì, con piccoli passi: meno pane la sera e più verdura. Ci vediamo tra un mese per vedere i risultati!"
+      goals: [plan]
+
+- scenario: tradizioni-feste
+  level: B1
+  persona: en-f-student
+  history: [false-friend]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+    - learner: "Anche da noi! In Inghilterra il pranzo di Natale è il momento più importante: tacchino, patate e verdure."
+    - tutor: "Il tacchino, come negli Stati Uniti! E da piccola com'era il tuo Natale?"
+      goals: [compare]
+    - learner: "Mi svegliavo alle sei per aprire i regali. Poi andavamo dai miei relativi a pranzo."
+      errors: [false-friend]
+    - tutor: "Dai parenti a pranzo, proprio come da noi!"
+      recast: {text: "relativi", fix: "parenti", tags: [false-friend]}
+      goals: [past]
+    - learner: "Sì, era bellissimo, ma molto rumoroso! E voi, cosa fate la vigilia?"
+    - tutor: "La vigilia mangiamo solo pesce, niente carne. E più tardi molti vanno alla messa di Natale."
+      goals: [ask]
+    - learner: "Interessante! Per il pranzo di domani, cosa posso portare? Un dessert o una bottiglia di vino?"
+    - tutor: "Un dolce va benissimo, ma niente di difficile!"
+      goals: [plan]
+    - learner: "Allora porto un pudding di Natale, il dolce tipico inglese. Lo preparo io."
+    - tutor: "Che bello, un dolce inglese! Mia nonna sarà curiosissima."
+
+- scenario: volontariato
+  level: B1
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Sì! Sono in Italia per l'Erasmus e vorrei fare qualcosa di utile, non solo studiare."
+    - tutor: "Bellissimo. E che cosa sai fare?"
+      goals: [motivation]
+    - learner: "Studio per diventare maestra, quindi so lavorare con i bambini. E suono la chitarra."
+    - tutor: "Perfetto! Abbiamo un gruppo che aiuta i bambini con i compiti e uno che visita gli anziani. Quanto tempo hai?"
+      goals: [skills]
+    - learner: "Ho libero il martedì e il venerdì pomeriggio."
+    - tutor: "I bambini vengono proprio il martedì e il venerdì, dalle tre alle sei."
+      goals: [time]
+    - learner: "Allora scelgo i bambini. Posso aiutare con i compiti e anche fare un taller di musica?"
+      errors: [word-choice]
+    - tutor: "Un laboratorio di musica sarebbe fantastico, i bambini lo adoreranno!"
+      recast: {text: "un taller di musica", fix: "un laboratorio di musica", tags: [word-choice]}
+      goals: [choose]
+    - learner: "Che bello! Ho molte ganas di cominciare."
+      errors: [word-choice]
+    - tutor: "Si vede che hai molta voglia! Puoi cominciare martedì prossimo, alle tre."
+      recast: {text: "molte ganas", fix: "molta voglia", tags: [word-choice]}
+    - learner: "Perfetto, allora porto anche la chitarra."
+    - tutor: "Sì, portala! A martedì."

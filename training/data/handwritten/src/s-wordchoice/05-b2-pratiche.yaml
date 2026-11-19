@@ -1,0 +1,221 @@
+# Round 8, set s-wordchoice: word-choice and false friends beside acceptable plain choices. B2, file 5.
+- scenario: assicurazione-sinistro
+  level: B2
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri mattina ho avuto un accidente con la macchina, in una rotonda vicino a casa mia."
+      errors: [false-friend]
+    - tutor: "Mi dispiace, un incidente è sempre un brutto momento. Lei sta bene? Mi racconti come è andata."
+      recast: {text: "un accidente", fix: "un incidente", tags: [false-friend]}
+    - learner: "Sto bene, ho solo un po' di dolore al collo. Ero già dentro la rotonda quando una furgoneta è entrata senza fermarsi."
+      errors: [word-choice]
+    - tutor: "Quindi un furgone è entrato nella rotonda senza fermarsi. Ha colpito la sua macchina sul lato?"
+      recast: {text: "una furgoneta", fix: "un furgone", tags: [word-choice]}
+      goals: [what]
+    - learner: "Sì, sulla portiera destra. La colpa è dell'autista del furgone: non si è fermato, e lo ha ammesso anche lui."
+    - tutor: "Bene che lo abbia ammesso. Avete compilato insieme il modulo di constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, l'abbiamo firmato tutti e due. Ho anche le foto dei danni e il numero di un testimone."
+    - tutor: "Perfetto, così la pratica sarà molto più semplice. Mi può mandare tutto per email entro domani?"
+      goals: [documents]
+    - learner: "Certo. E adesso cosa succede? Quanto ci vorrà per l'arreglo?"
+      errors: [word-choice]
+    - tutor: "Entro una settimana un perito valuterà i danni; per la riparazione potrà poi portare l'auto in una delle nostre carrozzerie."
+      recast: {text: "l'arreglo", fix: "la riparazione", tags: [word-choice]}
+      new: [{lemma: perito, gloss: loss adjuster}]
+      goals: [next]
+    - learner: "Capito. E per il collo, devo andare dal medico per la assicurazione?"
+      errors: [article-form]
+    - tutor: "«Per la assicurazione»? Guardi come comincia la parola «assicurazione»: che cosa succede a «la»?"
+      prompt: {text: "la assicurazione", tags: [article-form]}
+    - learner: "Ah, sì: per l'assicurazione. Devo andare dal medico?"
+    - tutor: "Esatto. Sì, si faccia visitare e ci mandi il documento del medico: paghiamo anche le spese per il collo."
+
+- scenario: burocrazia-residenza
+  level: B2
+  persona: en-f-professional
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Mi sono trasferita a Bologna due mesi fa e vorrei fare la residenza."
+    - tutor: "Bene. Ha con sé il passaporto e il contratto d'affitto registrato?"
+      goals: [request]
+    - learner: "Il passaporto sì, ma il contratto non ce l'ho ancora: il padrone di casa deve ancora registrarlo."
+    - tutor: "Senza un contratto registrato, purtroppo, la domanda non può essere accettata."
+      goals: [documents]
+    - learner: "Capisco. Nel frattempo il padrone di casa può firmare una declarazione?"
+      errors: [word-choice]
+    - tutor: "Sì, una dichiarazione del proprietario va bene, se c'è anche una copia del suo documento."
+      recast: {text: "una declarazione", fix: "una dichiarazione", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Perfetto, gliela chiedo oggi stesso. E dopo, quanto tempo ci vuole?"
+    - tutor: "Un vigile passerà a casa sua per verificare che lei ci abiti davvero, di solito entro quarantacinque giorni."
+    - learner: "Devo stare a casa tutto il giorno? Lavoro come editrice in una casa editrice, in ufficio."
+      errors: [false-friend]
+    - tutor: "Non si preoccupi: se lavora come redattrice e non è in casa, il vigile lascia un avviso e lei lo richiama."
+      recast: {text: "editrice", fix: "redattrice", tags: [false-friend]}
+      new: [{lemma: redattrice, gloss: editor}]
+    - learner: "Meno male. Quindi torno con la dichiarazione e la copia del documento del proprietario?"
+    - tutor: "Esatto, anche senza appuntamento, la mattina dalle nove alle dodici."
+      goals: [next]
+
+- scenario: medico-specialista
+  level: B2
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Abbastanza bene, ma ogni tanto ho delle palpitazioni, soprattutto la sera quando sono sdraiato."
+    - tutor: "Quanto durano, più o meno? Ha anche dolore al petto o fiato corto?"
+    - learner: "Pochi minuti. Dolore no, però mi sento sempre stanco. Dopo l'operazione dell'anno scorso non mi sono mai ricoverato del tutto."
+      errors: [false-friend]
+    - tutor: "Capisco: non si è mai ripreso del tutto. In famiglia qualcuno ha avuto problemi di cuore?"
+      recast: {text: "ricoverato", fix: "ripreso", tags: [false-friend]}
+      goals: [symptoms]
+    - learner: "Sì, mio padre ha avuto un infarto a sessant'anni."
+    - tutor: "È un dato importante. Gli esami mostrano una leggera aritmia, niente di grave."
+      new: [{lemma: aritmia, gloss: irregular heartbeat}]
+      goals: [history]
+    - learner: "Che cosa significa esattamente? È pericolosa?"
+    - tutor: "Significa che ogni tanto il cuore non batte in modo regolare. Non è pericolosa, ma va tenuta sotto controllo con un farmaco leggero."
+      goals: [understand]
+    - learner: "Ci sono effetti secondari? Prendo già una pastiglia per la pressione."
+      errors: [word-choice]
+    - tutor: "Gli effetti collaterali sono rari: al massimo si sentirà un po' stanco i primi giorni. E si può prendere insieme alla sua pastiglia."
+      recast: {text: "effetti secondari", fix: "effetti collaterali", tags: [word-choice]}
+    - learner: "Va bene. E posso continuare a giocare a golf due volte alla settimana?"
+    - tutor: "Certo, il golf le fa bene. Ci rivediamo fra tre mesi per un controllo."
+      goals: [treatment]
+
+- scenario: recensione-ristorante
+  level: B2
+  persona: es-f-teacher
+  history: [word-choice]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, purtroppo. Abbiamo aspettato quasi un'ora i secondi, e quando sono arrivati la carne era fredda."
+    - tutor: "Mi dispiace moltissimo. Che cosa avevate ordinato, esattamente?"
+      goals: [complain]
+    - learner: "Due tagliate e un branzino. E il dolce aveva un sapore strano: credo che la nata non fosse fresca."
+      errors: [word-choice]
+    - tutor: "Se la panna non era fresca, è una cosa grave: me ne occupo personalmente con la cucina."
+      recast: {text: "la nata", fix: "la panna", tags: [word-choice]}
+      goals: [detail]
+    - learner: "Inoltre, guardi il conto: ci avete cobrato due volte l'acqua."
+      errors: [word-choice]
+    - tutor: "Vi abbiamo fatto pagare due volte l'acqua? Ha ragione, è un errore nostro."
+      recast: {text: "cobrato", fix: "fatto pagare", tags: [word-choice]}
+    - learner: "Sinceramente mi aspettavo molto di più, visto che il vostro locale è molto raccomandato."
+    - tutor: "Ha ragione, stasera non siamo stati all'altezza. Posso offrirvi la cena, oppure un buono per tornare un'altra sera."
+      goals: [expectation]
+    - learner: "Preferisco che non ci facciate pagare la cena. Non credo che torneremo presto."
+    - tutor: "Lo capisco perfettamente. La cena è offerta, e grazie per avercelo detto così chiaramente."
+      goals: [resolve]
+
+- scenario: trattativa-affitto
+  level: B2
+  persona: en-m-heritage
+  history: [false-friend]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, molto, soprattutto la luce e la posizione. Però mi preoccupa un po' il rumore della strada."
+    - tutor: "È una via con un po' di traffico, ma le finestre sono nuove, con i doppi vetri."
+      goals: [interest]
+    - learner: "Capisco. Il prezzo però mi sembra alto. Pensa che il proprietario accetterebbe 850 euro invece di 950?"
+    - tutor: "Posso chiederglielo, ma 850 è difficile. Se lei firma per quattro anni, forse scende a 900."
+      goals: [negotiate]
+    - learner: "900 potrebbe andare. E se dovessi lasciare l'appartamento prima, quanta notizia dovrei dare?"
+      errors: [false-friend]
+    - tutor: "Quanto preavviso? Sei mesi, con una lettera raccomandata al proprietario."
+      recast: {text: "quanta notizia", fix: "quanto preavviso", tags: [false-friend]}
+      new: [{lemma: preavviso, gloss: notice}]
+    - learner: "Sei mesi va bene. E l'appartamento è fornito? Mi servono almeno un letto e una scrivania."
+      errors: [false-friend]
+    - tutor: "È arredato solo in parte: la cucina è completa e c'è un letto grande, ma la scrivania no."
+      recast: {text: "fornito", fix: "arredato", tags: [false-friend]}
+      new: [{lemma: arredato, gloss: furnished}]
+      goals: [conditions]
+    - learner: "Allora, se il proprietario accetta 900 e mi lascia portare una scrivania mia, sono pronto a firmare."
+    - tutor: "Benissimo, lo chiamo oggi stesso e le faccio sapere entro domani."
+      goals: [conclude]
+
+- scenario: organizzare-matrimonio
+  level: B2
+  persona: es-f-erasmus
+  history: [false-friend]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Vorremmo una cosa semplice, in campagna, con circa ottanta invitati. Il mio novio è italiano, quindi la famiglia è grande!"
+      errors: [word-choice]
+    - tutor: "Con un fidanzato italiano, ottanta invitati sono già pochi! Che budget avete in mente?"
+      recast: {text: "novio", fix: "fidanzato", tags: [word-choice]}
+      goals: [vision]
+    - learner: "Al massimo venticinquemila euro, tutto compreso."
+    - tutor: "Si può fare. Ho due proposte: un agriturismo vicino a Siena o una villa sul lago di Bolsena."
+      new: [{lemma: agriturismo, gloss: farm holiday estate}]
+      goals: [budget]
+    - learner: "L'agriturismo è più nel nostro stile. Lì si può fare anche la ricezione dopo la cerimonia?"
+      errors: [false-friend]
+    - tutor: "Sì, il ricevimento si fa nel giardino dell'agriturismo, e la cerimonia nella piccola chiesa accanto."
+      recast: {text: "la ricezione", fix: "il ricevimento", tags: [false-friend]}
+      new: [{lemma: ricevimento, gloss: wedding reception}]
+      goals: [choices]
+    - learner: "E se piove? Avete un piano B?"
+    - tutor: "Certo, c'è una grande sala coperta con vista sulle colline."
+    - learner: "Perfetto. Però vorremmo che il menù fosse vegetariano per metà degli ospiti e che la musica finisse entro mezzanotte."
+    - tutor: "Nessun problema: lo scrivo nel contratto, così lo chef e il gruppo musicale lo sanno fin dall'inizio."
+      goals: [conditions]
+
+- scenario: affittare-appartamento
+  level: B2
+  persona: en-f-student
+  history: [word-choice]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! È più grande di come sembrava nelle foto. Quanto è l'affitto e cosa comprende?"
+    - tutor: "Sono 720 euro al mese: le spese del condominio sono comprese, le bollette no."
+      goals: [rent]
+    - learner: "E per il contratto, quanto chiedete di deposito?"
+    - tutor: "Due mesi di affitto come deposito. Il contratto è di tre anni più due."
+      goals: [contract]
+    - learner: "Va bene. Il riscaldamento è autonomo? E posso pittare le pareti della camera?"
+      errors: [word-choice]
+    - tutor: "Sì, il riscaldamento è autonomo ed è stato rifatto l'anno scorso. Dipingere le pareti si può, ma solo con colori chiari."
+      recast: {text: "pittare le pareti", fix: "dipingere le pareti", tags: [word-choice]}
+      goals: [condition]
+    - learner: "Perfetto. E il vicinato com'è? È sicuro tornare tardi la sera?"
+    - tutor: "È una zona tranquilla, con gente in giro fino a tardi, e la fermata della metro è a due minuti."
+      goals: [neighbourhood]
+    - learner: "Mi piace molto, ma prima devo parlarne con la mia flatmate. Le posso dare una risposta lunedì?"
+      errors: [word-choice]
+    - tutor: "Certo, ne parli con la sua coinquilina e mi faccia sapere lunedì."
+      recast: {text: "flatmate", fix: "coinquilina", tags: [word-choice]}
+      new: [{lemma: coinquilina, gloss: flatmate}]
+    - learner: "Grazie mille, lunedì mattina la chiamo senz'altro."
+    - tutor: "Perfetto, allora aspetto la sua telefonata. Buona giornata!"
+      goals: [decide]
+
+- scenario: colloquio-promozione
+  level: B2
+  persona: es-f-teacher
+  history: [false-friend]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Vorrei parlare dei risultati di quest'anno: il mio gruppo ha aumentato le vendite del diciotto per cento."
+    - tutor: "Lo so, ed è un ottimo risultato. Mi dica pure."
+      goals: [results]
+    - learner: "Penso di meritare una promozione. Negli ultimi mesi ho anche assunto la gestione di due clienti nuovi."
+    - tutor: "È vero, e li ha gestiti molto bene. Il problema è che il budget è bloccato fino a dicembre."
+      goals: [request]
+    - learner: "Capisco. Ma la promozione non costerebbe molto subito: potremmo cominciare con il nuovo ruolo e rimandare l'aumento a gennaio."
+    - tutor: "È una proposta ragionevole, devo ammetterlo. Ne parlerò con la direzione."
+      goals: [handle]
+    - learner: "Grazie. Sono molto compromessa con l'azienda e vorrei restare a lungo."
+      errors: [false-friend]
+    - tutor: "So che è molto legata all'azienda, e lo apprezziamo davvero."
+      recast: {text: "compromessa con l'azienda", fix: "legata all'azienda", tags: [false-friend]}
+    - learner: "Allora possiamo fissare un incontro a gennaio per riparlarne?"
+    - tutor: "Sì, fissiamolo per metà gennaio. Intanto parlo con la direzione del nuovo ruolo."
+      goals: [next-steps]
