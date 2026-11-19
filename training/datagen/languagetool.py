@@ -86,14 +86,17 @@ REDUPLICATED = frozenset(
     }
 )
 REPEAT_RULE = "ITALIAN_WORD_REPEAT_RULE"
-# Correct phrases a LanguageTool rule misreads ("senza badare a spese", "a tratti":
-# ER_01_001 wants "ha"; "una pizza ai quattro formaggi", "vicino ai taxi": ER_01_002 wants "hai").
+# Correct phrases a LanguageTool rule misreads: ER_01_001 wants "ha" in "senza badare a spese",
+# "a tratti", "a porte chiuse"; ER_01_002 wants "hai" in "una pizza ai quattro formaggi",
+# "vicino ai taxi"; the speller rejects the elided "quattr'" of "a quattr'occhi".
 KNOWN_PHRASES = (
     "badare a spese",
     "a sorpresa",
     "a tratti",
     "ai quattro formaggi",
     "ai taxi",
+    "a porte chiuse",
+    "a quattr'occhi",
 )
 
 

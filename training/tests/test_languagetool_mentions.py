@@ -58,6 +58,8 @@ def _kept(text: str, word: str, rule: str = "MORFOLOGIK_RULE_IT_IT") -> list[str
         ("Una poesia montaliana.", "montaliana", "MORFOLOGIK_RULE_IT_IT"),
         ("Una pizza ai quattro formaggi.", "ai", "ER_01_002"),
         ("La fermata è vicino ai taxi.", "ai", "ER_01_002"),
+        ("Si gioca a porte chiuse.", "a porte", "ER_01_001"),
+        ("Parliamone a quattr'occhi.", "quattr'", "MORFOLOGIK_RULE_IT_IT"),
         ("Un accento inglesissimo.", "inglesissimo", "MORFOLOGIK_RULE_IT_IT"),
         ("Una donna saggissima.", "saggissima", "MORFOLOGIK_RULE_IT_IT"),
         ("Sono ricchissimi.", "ricchissimi", "MORFOLOGIK_RULE_IT_IT"),
