@@ -400,8 +400,11 @@ flags is the floor.
 **As shipped.** Both reports score the model's raw output. Before the app shows a turn, it drops
 corrections it cannot trust (`postValidate` in `packages/core/src/tutor/validate.ts`): a quoted span
 the learner never wrote, a recast that changes nothing or rewrites far more than its span, a turn
-with both a prompt and a recast. Add `--as-shipped` to `eval report` or `eval learner-report` to
-apply the same checks (`eval/shipped.py`) first and score what learners actually see.
+with both a prompt and a recast. A quoted span that is a near miss of the learner's words (a
+dropped accent, one letter in five wrong) is replaced by those words rather than dropped. Add
+`--as-shipped` to `eval report` or `eval learner-report` to apply the same checks
+(`eval/shipped.py`) first and score what learners actually see; `--as-shipped strict` scores the
+older rule that dropped every span not found exactly.
 
 ## How generation and filtering handle teacher slips
 

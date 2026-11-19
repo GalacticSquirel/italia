@@ -8,7 +8,13 @@ from pathlib import Path
 from datagen.filters import parse_tutor_output
 from eval.__main__ import load_any_items
 from eval.__main__ import main as eval_main
-from eval.shipped import as_shipped, normalise_italian, shipped_predictions, span_in_message
+from eval.shipped import (
+    as_shipped,
+    normalise_italian,
+    shipped_predictions,
+    snap_span,
+    span_in_message,
+)
 from tests.helpers import output
 from tests.test_learner_corpus import pair
 
@@ -33,6 +39,30 @@ def test_span_must_be_whole_words_of_the_message() -> None:
     assert not span_in_message("andat", LEARNER)
     assert not span_in_message("al cinema", LEARNER)
     assert not span_in_message("", LEARNER)
+
+
+def test_snap_span_finds_the_learners_own_words() -> None:
+    assert snap_span("al mare.", LEARNER) == "al mare"
+    assert snap_span("sono andata", LEARNER) == "sono andato"
+    assert snap_span("perche", "Non so perché, ma mi piace.") == "perché"
+    assert snap_span("al cinema", LEARNER) is None
+    assert snap_span("a", "Vado al mare") is None
+    assert snap_span("", LEARNER) is None
+
+
+def test_a_near_miss_span_is_snapped_or_dropped_when_strict() -> None:
+    raw = output("Con chi?", prompt=("sono andata", ["auxiliary-choice"])).to_json()
+    snapped = json.loads(as_shipped(raw, LEARNER))
+    assert snapped["annotations"]["prompt"]["learnerText"] == "sono andato"
+    assert move(as_shipped(raw, LEARNER, strict=True)) == "none"
+    payload = json.loads(
+        output("Ah!", recast=("al mare", "in spiaggia", ["word-choice"])).to_json()
+    )
+    # Snapped to the learner's words, the recast changes nothing, so it is dropped.
+    payload["annotations"]["recast"].update(
+        learnerText="L'amica di marco", correctedText="l'amica di Marco"
+    )
+    assert move(as_shipped(json.dumps(payload), LEARNER)) == "none"
 
 
 def test_kept_corrections_are_unchanged() -> None:
@@ -98,6 +128,12 @@ def test_learner_report_as_shipped_drops_a_flag_on_words_not_said(tmp_path: Path
     args = ["learner-report", "--items", str(items_path), "--predictions", str(preds_path)]
     raw, shipped = tmp_path / "raw.md", tmp_path / "shipped.md"
     assert eval_main([*args, "--system", "student", "--out", str(raw)]) == 0
+    strict = tmp_path / "strict.md"
     assert eval_main([*args, "--system", "student", "--out", str(shipped), "--as-shipped"]) == 0
+    assert (
+        eval_main([*args, "--system", "student", "--out", str(strict), "--as-shipped", "strict"])
+        == 0
+    )
     assert "| student | - | 100.0% (1/1) |" in raw.read_text(encoding="utf-8")
     assert "| student | - | 0.0% (0/1) |" in shipped.read_text(encoding="utf-8")
+    assert "| student | - | 0.0% (0/1) |" in strict.read_text(encoding="utf-8")

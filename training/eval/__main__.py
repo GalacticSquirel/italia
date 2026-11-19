@@ -33,7 +33,8 @@ from eval.shipped import shipped_predictions
 
 REFERENCE = "teacher-reference"
 _AS_SHIPPED = (
-    "score corrections the app would show (drops what postValidate in packages/core drops)"
+    "score corrections the app would show (what postValidate in packages/core keeps); "
+    "'strict' drops every quoted span not found exactly instead of snapping near misses"
 )
 
 
@@ -98,7 +99,10 @@ def cmd_report(args: argparse.Namespace) -> int:
         predictions[name] = load_predictions(Path(args.predictions), name)
     if args.as_shipped:
         learner_texts = {i.id: i.learner_text for i in items}
-        predictions = {n: shipped_predictions(p, learner_texts) for n, p in predictions.items()}
+        strict = args.as_shipped == "strict"
+        predictions = {
+            n: shipped_predictions(p, learner_texts, strict=strict) for n, p in predictions.items()
+        }
     checker = band_checker(config)
     grammar = grammar_checker(config, args.no_languagetool)
     scores = [
@@ -156,7 +160,11 @@ def cmd_learner_report(args: argparse.Namespace) -> int:
         score_learner(
             name,
             items,
-            shipped_predictions(load_predictions(Path(args.predictions), name), learner_texts),
+            shipped_predictions(
+                load_predictions(Path(args.predictions), name),
+                learner_texts,
+                strict=args.as_shipped == "strict",
+            ),
         )
         for name in args.system
     ]
@@ -179,7 +187,9 @@ def _learner_commands(sub: Any) -> None:
     p.add_argument("--predictions", required=True)
     p.add_argument("--system", action="append", required=True)
     p.add_argument("--title", default="Real-learner check (MERLIN)")
-    p.add_argument("--as-shipped", action="store_true", help=_AS_SHIPPED)
+    p.add_argument(
+        "--as-shipped", nargs="?", const="snap", choices=["snap", "strict"], help=_AS_SHIPPED
+    )
     p.add_argument("--out", required=True)
     p.set_defaults(fn=cmd_learner_report)
 
@@ -224,7 +234,9 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--no-languagetool", action="store_true")
     p.add_argument("--note", action="append")
     p.add_argument("--title", default="Tutor model evaluation")
-    p.add_argument("--as-shipped", action="store_true", help=_AS_SHIPPED)
+    p.add_argument(
+        "--as-shipped", nargs="?", const="snap", choices=["snap", "strict"], help=_AS_SHIPPED
+    )
     p.add_argument("--out", required=True)
     p.set_defaults(fn=cmd_report)
     _learner_commands(sub)
