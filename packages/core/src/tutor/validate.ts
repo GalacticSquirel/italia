@@ -82,6 +82,62 @@ export function spanInMessage(span: string, message: string): boolean {
   return findSpan(span, message) !== null;
 }
 
+/** {@link normaliseItalian}, then accents removed ("perché" and "perche" compare equal). */
+function foldItalian(text: string): string {
+  return normaliseItalian(text).normalize('NFD').replace(/\p{M}/gu, '');
+}
+
+function editDistance(a: string, b: string): number {
+  const y = Array.from(b);
+  let row = Array.from({ length: y.length + 1 }, (_, j) => j);
+  Array.from(a).forEach((ca, i) => {
+    const next = [i + 1];
+    y.forEach((cb, j) => {
+      next.push(
+        Math.min((row[j + 1] ?? 0) + 1, (next[j] ?? 0) + 1, (row[j] ?? 0) + (ca === cb ? 0 : 1)),
+      );
+    });
+    row = next;
+  });
+  return row[y.length] ?? 0;
+}
+
+/**
+ * The words of `message` that `span` quotes, as the learner wrote them. A
+ * small model often quotes a real error slightly wrong ("sono andato" for
+ * the learner's "sono andata", a dropped accent), so when the span is not in
+ * the message as whole words, the closest run of the message's words (one
+ * word fewer to one more than the span) is used instead, if its accent-free
+ * text is within one edit per five letters of the span. Null when nothing is
+ * that close: the learner did not write it.
+ */
+export function snapSpan(span: string, message: string): string | null {
+  const exact = findSpan(span, message);
+  if (exact !== null) return message.slice(exact.index, exact.index + exact.length);
+  const target = foldItalian(span);
+  if (target.length === 0) return null;
+  const limit = Math.floor(Array.from(target).length / 5);
+  const tokens = Array.from(message.matchAll(/\S+/gu), (m) => ({
+    start: m.index,
+    end: m.index + m[0].length,
+  }));
+  const n = target.split(' ').length;
+  let best: { text: string; distance: number } | null = null;
+  for (let size = Math.max(1, n - 1); size <= n + 1; size++) {
+    for (const [i, first] of tokens.entries()) {
+      const last = tokens[i + size - 1];
+      if (last === undefined) break;
+      const text = message.slice(first.start, last.end).replace(EDGE_PUNCTUATION, '');
+      if (text.length === 0) continue;
+      const distance = editDistance(target, foldItalian(text));
+      if (distance <= limit && (best === null || distance < best.distance)) {
+        best = { text, distance };
+      }
+    }
+  }
+  return best?.text ?? null;
+}
+
 function checkPrompt(
   prompt: TutorPrompt,
   learnerText: string | null,
@@ -96,11 +152,12 @@ function checkPrompt(
     dropped.push(`prompt: no known error tag in ${prompt.errorTags.join(', ')}`);
     return null;
   }
-  if (!spanInMessage(prompt.learnerText, learnerText)) {
+  const quoted = snapSpan(prompt.learnerText, learnerText);
+  if (quoted === null) {
     dropped.push(`prompt: "${prompt.learnerText}" is not in the learner's message`);
     return null;
   }
-  return { learnerText: prompt.learnerText, errorTags: tags };
+  return { learnerText: quoted, errorTags: tags };
 }
 
 function checkRecast(
@@ -117,11 +174,12 @@ function checkRecast(
     dropped.push(`recast: no known error tag in ${recast.errorTags.join(', ')}`);
     return null;
   }
-  if (!spanInMessage(recast.learnerText, learnerText)) {
+  const quoted = snapSpan(recast.learnerText, learnerText);
+  if (quoted === null) {
     dropped.push(`recast: "${recast.learnerText}" is not in the learner's message`);
     return null;
   }
-  const wrong = normaliseItalian(recast.learnerText);
+  const wrong = normaliseItalian(quoted);
   const right = normaliseItalian(recast.correctedText);
   if (wrong === right) {
     dropped.push('recast: the corrected text is the same as the learner text');
@@ -136,7 +194,7 @@ function checkRecast(
     dropped.push('recast: the corrected text rewrites far more than the learner text');
     return null;
   }
-  return { learnerText: recast.learnerText, correctedText: recast.correctedText, errorTags: tags };
+  return { learnerText: quoted, correctedText: recast.correctedText, errorTags: tags };
 }
 
 function checkNewWords(words: readonly NewWord[], max: number, dropped: string[]): NewWord[] {
@@ -179,7 +237,8 @@ function checkGoals(
  * - a turn carries a prompt or a recast, not both (the recast wins)
  * - no correction on the opening turn
  * - error tags must be in the taxonomy (at most 2, no repeats)
- * - the quoted learner text must occur in the learner's message
+ * - the quoted learner text must occur in the learner's message; a near
+ *   miss is replaced by the learner's own words ({@link snapSpan})
  * - a recast's corrected text must differ from the learner text, look like
  *   Italian, and not rewrite far more than the quoted span
  * - new words within the level's limit, without repeats

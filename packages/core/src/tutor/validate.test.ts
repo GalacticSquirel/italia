@@ -8,6 +8,7 @@ import {
   learnerErrorsOf,
   normaliseItalian,
   postValidate,
+  snapSpan,
   spanInMessage,
 } from './validate';
 
@@ -55,6 +56,17 @@ describe('postValidate', () => {
     const r = postValidate(recast('sono venuto', 'sono venuta'), { context, learnerText });
     expect(r.output.annotations.recast).toBeNull();
     expect(r.dropped[0]).toMatch(/not in the learner's message/);
+  });
+
+  it("quotes the learner's own words when the span is a near miss", () => {
+    const r = postValidate(recast('Ho andata', 'sono andata'), { context, learnerText });
+    expect(r.dropped).toEqual([]);
+    expect(r.output.annotations.recast?.learnerText).toBe('ho andato');
+    const prompt = tutorOutput('Ah sì?', {
+      prompt: { learnerText: 'ho andato.', errorTags: ['auxiliary-choice'] },
+    });
+    const p = postValidate(prompt, { context, learnerText });
+    expect(p.output.annotations.prompt?.learnerText).toBe('ho andato');
   });
 
   it('drops corrections on the opening turn', () => {
@@ -162,6 +174,17 @@ describe('helpers', () => {
     expect(spanInMessage('io', 'Mio fratello')).toBe(false);
     expect(spanInMessage('ho andato.', 'Ieri ho andato a Napoli')).toBe(true);
     expect(spanInMessage('a (b', 'a (b c')).toBe(true);
+  });
+
+  it("snaps a near-miss span to the learner's words", () => {
+    expect(snapSpan('ho andato.', learnerText)).toBe('ho andato');
+    expect(snapSpan('sono andato', 'Ieri sono andata al mare.')).toBe('sono andata');
+    expect(snapSpan('perche', 'Non so perché, ma mi piace.')).toBe('perché');
+    expect(snapSpan('al cinema', 'Ieri sono andata al mare.')).toBeNull();
+    expect(snapSpan('la torta', 'Mi piace il gelato.')).toBeNull();
+    // Under five letters only case and accents may differ.
+    expect(snapSpan('a', 'Vado al mare')).toBeNull();
+    expect(snapSpan('', 'Vado al mare')).toBeNull();
   });
 
   it('lists learner errors of a turn', () => {

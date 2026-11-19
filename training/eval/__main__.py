@@ -29,8 +29,13 @@ from eval.metrics import score_system
 from eval.pairwise import WinRate, compare
 from eval.predict import load_predictions, load_systems, predict, reference_predictions
 from eval.report import BenchRow, parse_llama_bench, render_report, summary_json
+from eval.shipped import shipped_predictions
 
 REFERENCE = "teacher-reference"
+_AS_SHIPPED = (
+    "score corrections the app would show (what postValidate in packages/core keeps); "
+    "'strict' drops every quoted span not found exactly instead of snapping near misses"
+)
 
 
 def load_items(path: Path) -> list[EvalItem]:
@@ -92,6 +97,12 @@ def cmd_report(args: argparse.Namespace) -> int:
     predictions: dict[str, dict[str, str]] = {REFERENCE: reference_predictions(items)}
     for name in args.system:
         predictions[name] = load_predictions(Path(args.predictions), name)
+    if args.as_shipped:
+        learner_texts = {i.id: i.learner_text for i in items}
+        strict = args.as_shipped == "strict"
+        predictions = {
+            n: shipped_predictions(p, learner_texts, strict=strict) for n, p in predictions.items()
+        }
     checker = band_checker(config)
     grammar = grammar_checker(config, args.no_languagetool)
     scores = [
@@ -144,8 +155,17 @@ def cmd_learner_items(args: argparse.Namespace) -> int:
 
 def cmd_learner_report(args: argparse.Namespace) -> int:
     items = load_learner_items(Path(args.items))
+    learner_texts = {i.id: i.learner_text for i in items} if args.as_shipped else {}
     scores = [
-        score_learner(name, items, load_predictions(Path(args.predictions), name))
+        score_learner(
+            name,
+            items,
+            shipped_predictions(
+                load_predictions(Path(args.predictions), name),
+                learner_texts,
+                strict=args.as_shipped == "strict",
+            ),
+        )
         for name in args.system
     ]
     out = Path(args.out)
@@ -167,6 +187,9 @@ def _learner_commands(sub: Any) -> None:
     p.add_argument("--predictions", required=True)
     p.add_argument("--system", action="append", required=True)
     p.add_argument("--title", default="Real-learner check (MERLIN)")
+    p.add_argument(
+        "--as-shipped", nargs="?", const="snap", choices=["snap", "strict"], help=_AS_SHIPPED
+    )
     p.add_argument("--out", required=True)
     p.set_defaults(fn=cmd_learner_report)
 
@@ -211,6 +234,9 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--no-languagetool", action="store_true")
     p.add_argument("--note", action="append")
     p.add_argument("--title", default="Tutor model evaluation")
+    p.add_argument(
+        "--as-shipped", nargs="?", const="snap", choices=["snap", "strict"], help=_AS_SHIPPED
+    )
     p.add_argument("--out", required=True)
     p.set_defaults(fn=cmd_report)
     _learner_commands(sub)
