@@ -1,5 +1,5 @@
-"""Markdown evaluation report: parity verdict, metric table, per-level view, move confusion, win
-rates, device speed."""
+"""Markdown evaluation report: parity verdict, metric table, per-level view, move confusion,
+LanguageTool rules, win rates, device speed."""
 
 from __future__ import annotations
 
@@ -204,6 +204,17 @@ def _moves_section(scores: Sequence[SystemScores]) -> list[str]:
     return lines
 
 
+def _grammar_section(scores: Sequence[SystemScores], top: int = 10) -> list[str]:
+    """The LanguageTool rules each system's replies hit most (learner echoes already dropped)."""
+    if not any(s.lt_rules for s in scores):
+        return []
+    lines = ["## LanguageTool rules in replies (top 10 per system)", ""]
+    for s in scores:
+        hits = ", ".join(f"{rule} {n}" for rule, n in s.lt_rules.most_common(top)) or "none"
+        lines.append(f"- {s.system}: {hits}")
+    return [*lines, ""]
+
+
 def _tags_section(scores: Sequence[SystemScores]) -> list[str]:
     if not scores:
         return []
@@ -271,6 +282,7 @@ def render_report(
     lines += _metrics_section(scores)
     lines += _level_section(scores)
     lines += _moves_section(scores)
+    lines += _grammar_section(scores)
     lines += _tags_section(scores)
     lines += _win_section(win_rates)
     lines += _bench_section(bench)
