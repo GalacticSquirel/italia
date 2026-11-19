@@ -1,7 +1,9 @@
 """Automatic metrics for tutor predictions against evaluation items.
 
 - JSON validity: strict parse against the output schema (what llama.rn's grammar enforces)
-- grammaticality: LanguageTool errors per 100 reply words, and share of replies with any error
+- grammaticality: LanguageTool errors per 100 reply words, share of replies with any error, and
+  the rules hit; as the dialogue filter counts them, matches on words echoed from the learner's
+  turn are dropped
 - level adherence: share of content tokens outside the band; replies over the band limit;
   sentences over the word limit
 - feedback: move accuracy (none/prompt/recast), over- and under-correction rates, and
@@ -28,7 +30,7 @@ from datagen.filters import (
     parse_tutor_output,
     reveals_correction,
 )
-from datagen.languagetool import GrammarChecker
+from datagen.languagetool import GrammarChecker, without_echoes
 from datagen.lemmas import BandChecker, tokenize
 from eval.items import EvalItem, Gold
 from spec.levels import band_for
@@ -94,6 +96,7 @@ class SystemScores:
     lt_errors: int = 0
     reply_words: int = 0
     replies_with_lt_error: int = 0
+    lt_rules: Counter[str] = field(default_factory=Counter)
     content_tokens: int = 0
     out_of_band_tokens: int = 0
     replies_over_band: int = 0
@@ -271,9 +274,10 @@ def score_system(
         scores.predicted_tags.append(set(pred.annotations.error_tags))
         _score_correction(scores, pred, item, grammar)
 
-        matches = grammar.check(pred.reply)
+        matches = without_echoes(grammar.check(pred.reply), pred.reply, item.learner_text)
         words = len(tokenize(pred.reply))
         scores.lt_errors += len(matches)
+        scores.lt_rules.update(m.rule_id for m in matches)
         scores.reply_words += words
         scores.replies_with_lt_error += bool(matches)
         check = check_tutor_turn(

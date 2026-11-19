@@ -7,7 +7,7 @@ import pytest
 
 from datagen.handwritten import compile_set
 from datagen.handwritten import main as handwritten_main
-from datagen.languagetool import NullChecker
+from datagen.languagetool import GrammarMatch, NullChecker
 from datagen.lemmas import BandChecker, SimplemmaLemmatizer, default_lemma_list
 from datagen.teacher import ScriptedClient
 from eval.__main__ import load_items
@@ -280,3 +280,32 @@ def test_lexical_tags_count_as_one_family_for_corrections() -> None:
     assert _tag_matches("preposition", ["preposition"])
     assert not _tag_matches("preposition", ["articulated-preposition"])
     assert not _tag_matches("false-friend", ["spelling"])
+
+
+class _WordChecker:
+    """Flags every occurrence of the given words."""
+
+    def __init__(self, *words: str) -> None:
+        self.words = words
+
+    def check(self, text: str) -> list[GrammarMatch]:
+        out = []
+        for w in self.words:
+            at = text.find(w)
+            if at >= 0:
+                out.append(GrammarMatch(f"RULE_{w.upper()}", "GRAMMAR", "", at, len(w)))
+        return out
+
+
+def test_lt_metric_drops_learner_echoes_and_counts_rules() -> None:
+    items = eval_items()[:1]
+    item = items[0]
+    echoed = item.learner_text.split()[0].strip(".,!?")
+    preds = {item.id: output(f"{echoed} zzerrore, bene.").to_json()}
+    scores = score_system(
+        "s", items, preds, band_checker=CHECKER, grammar=_WordChecker(echoed, "zzerrore")
+    )
+    assert scores.lt_errors == 1 and scores.replies_with_lt_error == 1
+    assert scores.lt_rules == {"RULE_ZZERRORE": 1}
+    text = render_report("Eval", [scores])
+    assert "## LanguageTool rules in replies" in text and "RULE_ZZERRORE 1" in text
