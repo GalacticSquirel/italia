@@ -1,0 +1,223 @@
+# Set r-reply-a1b1, file 2: A1 at the supermarket, in a taxi, at hotel reception and in a clothes shop.
+- scenario: supermercato
+  # facts: latte in fondo, nel reparto a destra; latte senza lattosio sullo stesso scaffale, a sinistra; uova vicino al pane, all'entrata; casse in fondo a sinistra
+  level: A1
+  persona: en-m-heritage
+  history: [ce-ci-sono]
+  turns:
+    - tutor: "Buongiorno, cerca qualcosa?"
+    - learner: "Sì, grazie. Dov'è il latte?"
+    - tutor: "Il latte è in fondo, nel reparto a destra. Le serve altro?"
+      goals: [ask-product]
+    - learner: "Sì. È il latte senza lattosio?"
+      errors: [ce-ci-sono]
+    - tutor: "«È il latte»? Lei vuole sapere se lo abbiamo: come lo chiede?"
+      prompt: {text: "È il latte", tags: [ce-ci-sono]}
+    - learner: "C'è il latte senza lattosio?"
+    - tutor: "Sì, è sullo stesso scaffale, a sinistra."
+    - learner: "Grazie. E le uova? Non le trovo."
+    - tutor: "Le uova sono vicino al pane, all'entrata. Venga, le faccio vedere."
+      goals: [ask-other]
+    - learner: "Ah, eccole! Prendo sei uova. La cassa è là?"
+    - tutor: "Sì, le casse sono in fondo a sinistra. Oggi c'è poca gente."
+    - learner: "Perfetto. Grazie mille, lei è molto gentile!"
+    - tutor: "Prego, buona giornata!"
+      goals: [thank]
+
+- scenario: supermercato
+  # facts: pasta in fondo a sinistra, quella integrale in alto; olio sotto la pasta; pomodoro in scatola lì vicino, più in basso; sacchetti alla cassa, si pagano
+  level: A1
+  persona: es-f-erasmus
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, cerca qualcosa?"
+    - learner: "Buongiorno. Cerco la pasta integrale."
+    - tutor: "La pasta è sullo scaffale in fondo a sinistra. Quella integrale è in alto."
+      goals: [ask-product]
+    - learner: "Grazie. E l'olio è vicino a la pasta?"
+      errors: [articulated-preposition]
+    - tutor: "Vicino «a la» pasta? Qui «a» e «la» fanno una sola parola."
+      prompt: {text: "a la pasta", tags: [articulated-preposition]}
+    - learner: "Vicino alla pasta?"
+    - tutor: "Esatto. È proprio lì, sotto la pasta."
+      goals: [ask-other]
+    - learner: "Perfetto. Avete anche il pomodoro in lata?"
+      errors: [word-choice]
+    - tutor: "Il pomodoro in scatola è lì vicino, più in basso."
+      recast: {text: "in lata", fix: "in scatola", tags: [word-choice]}
+      new: [{lemma: scatola, gloss: tin}]
+    - learner: "Ci sono i sacchetti alla cassa?"
+    - tutor: "Sì, alla cassa ci sono, ma si pagano."
+    - learner: "Va bene. Grazie mille per l'aiuto!"
+    - tutor: "Di niente, buona giornata!"
+      goals: [thank]
+
+- scenario: taxi
+  # facts: hotel Roma, via Garibaldi; venti minuti con poco traffico; più o meno trenta euro; arrivo: ventotto euro; paga con la carta
+  level: A1
+  persona: en-f-professional
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno! Dove la porto?"
+    - learner: "Buongiorno! All'hotel Roma, in via Garibaldi, per favore."
+    - tutor: "Metto io la valigia in macchina."
+      goals: [destination]
+    - learner: "Grazie. Quanto tempo ci vuole?"
+    - tutor: "Venti minuti, se non ci sono troppe macchine. Partiamo?"
+      goals: [ask-time]
+    - learner: "Sì. Posso pagare in carta?"
+      errors: [preposition]
+    - tutor: "Pagare «in» carta? Qui non va «in»."
+      prompt: {text: "pagare in carta", tags: [preposition]}
+    - learner: "Posso pagare con la carta?"
+    - tutor: "Sì, con la carta va bene."
+    - learner: "E quanto costa, più o meno?"
+    - tutor: "Più o meno trenta euro."
+      goals: [ask-price]
+    - learner: "Siamo arrivati? È questo l'albergo?"
+    - tutor: "Sì, questo è l'hotel Roma. Sono ventotto euro."
+    - learner: "Ecco la carta. Grazie e buona giornata!"
+    - tutor: "Grazie a lei! Ecco la valigia, arrivederci."
+      goals: [pay]
+
+- scenario: taxi
+  # facts: stazione centrale; due valigie; quindici minuti; più o meno venti euro, anche con la carta; arrivo: diciotto euro; paga 20 in contanti
+  level: A1
+  persona: es-m-worker
+  history: [negation]
+  turns:
+    - tutor: "Buongiorno! Dove la porto?"
+    - learner: "Buongiorno. Alla stazione centrale, per favore. Ho due valigie."
+    - tutor: "Nessun problema, le metto io in macchina. Prego!"
+      goals: [destination]
+    - learner: "Grazie. Quanto tempo ci vuole per la stazione?"
+    - tutor: "A quest'ora ci vogliono quindici minuti, più o meno."
+      goals: [ask-time]
+    - learner: "Va bene. E quanto costa?"
+    - tutor: "Sono più o meno venti euro. Va bene anche la carta."
+      goals: [ask-price]
+    - learner: "Scusi, io no capisco. Può ripetere piano?"
+      errors: [negation]
+    - tutor: "Certo. Ma «io no capisco»? Davanti a «capisco» va un'altra parola."
+      prompt: {text: "io no capisco", tags: [negation]}
+    - learner: "Io non capisco. Scusi!"
+    - tutor: "Esatto! Allora: venti euro, più o meno, anche con la carta."
+    - learner: "Va bene, grazie. Pago in contanti."
+    - tutor: "Ecco, siamo arrivati alla stazione. Sono diciotto euro."
+    - learner: "Ecco venti euro. Va bene così!"
+    - tutor: "Grazie! Ecco le valigie, buon viaggio!"
+      goals: [pay]
+
+- scenario: taxi
+  # facts: via Dante 12; mezz'ora, molte macchine; più o meno trentacinque euro; arrivo: trentatré euro; paga 35 in contanti; vuole la ricevuta
+  level: A1
+  persona: en-m-retired
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno! Dove la porto?"
+    - learner: "Buongiorno. In via Dante, numero dodici, per favore."
+    - tutor: "Via Dante dodici, partiamo!"
+      goals: [destination]
+    - learner: "Quanto lungo ci vuole?"
+      errors: [word-choice]
+    - tutor: "Quanto tempo ci vuole? Mezz'ora, perché a quest'ora ci sono molte macchine."
+      goals: [ask-time]
+      recast: {text: "Quanto lungo", fix: "Quanto tempo", tags: [word-choice]}
+    - learner: "Ah, va bene. Non ho fretta."
+    - tutor: "Meglio così. Vuole la ricevuta alla fine?"
+    - learner: "Sì, grazie. Quanto costa, più o meno?"
+    - tutor: "Più o meno trentacinque euro."
+      goals: [ask-price]
+    - learner: "Posso pagare con contanti?"
+      errors: [preposition]
+    - tutor: "«Con» contanti? Per i soldi in mano usiamo un'altra parola."
+      prompt: {text: "con contanti", tags: [preposition]}
+    - learner: "In contanti! Posso pagare in contanti?"
+    - tutor: "Sì, certo. Ecco, siamo arrivati: sono trentatré euro."
+    - learner: "Ecco trentacinque euro. E la ricevuta, per favore."
+    - tutor: "Ecco il resto e la ricevuta. Buona giornata!"
+      goals: [pay]
+
+- scenario: hotel-checkin
+  # facts: prenotazione a nome della cliente; due notti; camera dodici, secondo piano; ascensore a destra; colazione dalle sette alle dieci, al primo piano
+  level: A1
+  persona: en-f-student
+  history: [essere-avere]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera! Sì, sono una prenotazione a nome Clark."
+      errors: [essere-avere]
+    - tutor: "«Sono una prenotazione»? Lei è una persona, non una prenotazione! Quale verbo?"
+      prompt: {text: "sono una prenotazione", tags: [essere-avere]}
+    - learner: "Ho una prenotazione a nome Clark."
+    - tutor: "Esatto. Ecco: due notti, camera dodici. Ha un documento?"
+      goals: [booking]
+    - learner: "Sì, ecco il passaporto."
+    - tutor: "Grazie. La camera è al secondo piano."
+      goals: [document]
+    - learner: "C'è l'ascensore? Ho una valigia molto grande."
+    - tutor: "Sì, l'ascensore è qui a destra."
+    - learner: "Grazie. A che ora è la colazione?"
+    - tutor: "La colazione è dalle sette alle dieci, al primo piano."
+      goals: [breakfast]
+    - learner: "Perfetto. E la chiave?"
+    - tutor: "Ecco la chiave della camera dodici. Buonanotte!"
+      goals: [key]
+
+- scenario: hotel-checkin
+  # facts: camera singola, una notte, a nome Taylor; camera cinque, primo piano; colazione dalle sette e mezza alle dieci; macchina dietro l'albergo; password con la chiave
+  level: A1
+  persona: en-m-traveller
+  history: [question-form]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, ho prenotato una camera singola."
+    - tutor: "A che nome, prego?"
+    - learner: "A nome Taylor."
+    - tutor: "Sì, ecco: una notte, camera singola. Mi dà un documento?"
+      goals: [booking]
+    - learner: "Ecco il passaporto."
+    - tutor: "Grazie. Lei ha la camera cinque, al primo piano."
+      goals: [document]
+    - learner: "Quando è la colazione?"
+    - tutor: "La colazione è dalle sette e mezza alle dieci."
+      goals: [breakfast]
+    - learner: "Dove posso lasciare la macchina?"
+    - tutor: "Dietro l'albergo c'è un posto per le macchine."
+    - learner: "Che è la password del wifi?"
+      errors: [question-form]
+    - tutor: "«Che è la password»? Per chiedere questa cosa, la domanda comincia in un altro modo."
+      prompt: {text: "Che è la password", tags: [question-form]}
+    - learner: "Qual è la password del wifi?"
+    - tutor: "Giusto. La password è qui, con la chiave. Buonanotte!"
+      goals: [key]
+
+- scenario: abbigliamento
+  # facts: magliette per l'estate; bianca taglia M troppo piccola; bianca taglia L va bene; quindici euro; paga con la carta
+  level: A1
+  persona: es-f-erasmus
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Cerco una maglietta per l'estate."
+    - tutor: "Le magliette sono qui. Che colore preferisce?"
+      goals: [ask-item]
+    - learner: "Mi piace questa bianco."
+      errors: [adjective-agreement]
+    - tutor: "«Questa bianco»? Parliamo della maglietta: come finisce il colore?"
+      prompt: {text: "questa bianco", tags: [adjective-agreement]}
+    - learner: "Ehm... questa bianco, sì."
+      errors: [adjective-agreement]
+    - tutor: "Questa bianca, va bene. Che taglia porta?"
+      recast: {text: "questa bianco", fix: "Questa bianca", tags: [adjective-agreement]}
+    - learner: "La M, credo."
+    - tutor: "Ecco la M in bianco. Il camerino è là, a destra."
+      goals: [size-colour]
+    - learner: "È un po' piccola. C'è la L?"
+    - tutor: "Sì, ecco la L. Vuole provare anche questa?"
+      goals: [try]
+    - learner: "Sì... Questa va bene! Quanto costa?"
+    - tutor: "Costa quindici euro. La prende?"
+    - learner: "Sì, la prendo. Posso pagare con la carta?"
+    - tutor: "Paghi pure qui. Grazie e arrivederci!"
+      goals: [decide]

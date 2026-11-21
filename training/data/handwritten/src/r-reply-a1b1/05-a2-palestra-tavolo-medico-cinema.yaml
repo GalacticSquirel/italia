@@ -1,0 +1,268 @@
+# Set r-reply-a1b1, file 5: A2 at the gym, booking a table, at the doctor's and planning a film night.
+- scenario: palestra
+  # facts: un mese 40 euro, tre mesi 100 euro; iscrizione 20 euro; corsi nel prezzo; yoga lunedì e giovedì alle sette di sera; apre alle sette, il sabato alle nove; serve un documento e un certificato medico (portato domani); totale 120 euro con la carta
+  level: A2
+  persona: es-m-worker
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Quanto costa un mese?"
+    - tutor: "Un mese costa quaranta euro. Tre mesi invece costano cento euro."
+      goals: [ask-membership]
+    - learner: "Allora l'abbonamento di tre mesi è più economico che quello di un mese."
+      errors: [comparative]
+    - tutor: "«Più economico che quello»? Prima di «quello», qui «che» non va bene."
+      prompt: {text: "più economico che quello", tags: [comparative]}
+    - learner: "Più economico di quello di un mese!"
+    - tutor: "Esatto. Con l'abbonamento puoi fare anche i corsi. Ti interessa qualcosa?"
+    - learner: "Sì, mi piace lo yoga. Quando c'è?"
+    - tutor: "Lo yoga c'è il lunedì e il giovedì, alle sette di sera."
+      goals: [classes]
+    - learner: "E la mattina a che ora aprite? Io lavoro a le otto."
+      errors: [articulated-preposition]
+    - tutor: "Lavori «a le» otto? Con le ore, queste due parole diventano una."
+      prompt: {text: "a le otto", tags: [articulated-preposition]}
+    - learner: "A le otto, sì. Comincio a lavorare a le otto."
+      errors: [articulated-preposition]
+    - tutor: "Ah, alle otto. Allora va bene: apriamo alle sette, e il sabato alle nove."
+      goals: [timetable]
+      recast: {text: "a le otto", fix: "alle otto", tags: [articulated-preposition]}
+    - learner: "Perfetto. Voglio iscrivermi adesso. Cosa devo portare?"
+    - tutor: "Un documento e un certificato medico. Poi paghi i cento euro e l'iscrizione, venti euro."
+      new: [{lemma: certificato, gloss: certificate}]
+    - learner: "Il certificato ce l'ho a casa. Posso portarlo domani?"
+    - tutor: "Sì, domani va bene. Adesso ti scrivo il nome: come ti chiami?"
+    - learner: "Mi chiamo Diego Fernández. Pago con la tarjeta."
+      errors: [word-choice]
+    - tutor: "Con la carta va benissimo, Diego: sono centoventi euro in tutto. Benvenuto in palestra!"
+      goals: [sign-up]
+      recast: {text: "tarjeta", fix: "carta", tags: [word-choice]}
+
+- scenario: palestra
+  # facts: un mese 35 euro, un anno 300 euro; iscrizione gratuita se comincia oggi; pilates martedì e venerdì alle sei e mezza di sera, un'ora; spogliatoi a destra; l'asciugamano lo porta lei
+  level: A2
+  persona: en-f-professional
+  history: [reflexive]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì. Che tipo di abbonamenti avete?"
+    - tutor: "C'è l'abbonamento di un mese, a trentacinque euro. Quello di un anno costa trecento. Quante volte pensi di venire?"
+      goals: [ask-membership]
+    - learner: "Tre volte a settimana, credo. Avete corsi di pilates?"
+    - tutor: "Sì, il pilates c'è il martedì e il venerdì. I corsi sono già nel prezzo."
+      goals: [classes]
+    - learner: "A che ora è il corso il venerdì?"
+    - tutor: "Alle sei e mezza di sera, e dura un'ora."
+      goals: [timetable]
+    - learner: "Perfetto, esco dall'ufficio alle sei. Dove sono gli spogliatoi?"
+    - tutor: "Gli spogliatoi sono lì a destra. L'asciugamano però lo porti tu."
+      new: [{lemma: asciugamano, gloss: towel}]
+    - learner: "Va bene. Quanto costa all'anno, hai detto?"
+    - tutor: "Trecento euro all'anno. E se cominci oggi, l'iscrizione non la paghi."
+    - learner: "Allora io voglio iscrivere oggi."
+      errors: [reflexive]
+    - tutor: "«Voglio iscrivere»? Iscrivere chi? Qui parli di te."
+      prompt: {text: "voglio iscrivere", tags: [reflexive]}
+    - learner: "Voglio iscrivere me oggi."
+      errors: [reflexive]
+    - tutor: "«Voglio iscrivermi oggi»: benissimo! Mi dai un documento?"
+      new: [{lemma: iscrivere, gloss: to sign up}]
+      recast: {text: "iscrivere me", fix: "iscrivermi", tags: [reflexive]}
+    - learner: "Ecco la carta d'identità. Posso pagare con la carta di credito?"
+    - tutor: "Sì, certo: sono trecento euro. Ecco la tua tessera, benvenuta!"
+      goals: [sign-up]
+      new: [{lemma: tessera, gloss: membership card}]
+
+- scenario: prenotare-tavolo
+  # facts: sabato sera, quattro persone; alle otto pieno, alle otto e mezza libero; tavolo fuori, dentro se piove; un seggiolone; a nome Brown; numero 335 246 810
+  level: A2
+  persona: en-m-retired
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrebbi prenotare un tavolo per sabato sera."
+      errors: [conditional-form]
+    - tutor: "«Vorrebbi»? Ci siamo quasi: con «io», come finisce?"
+      prompt: {text: "Vorrebbi", tags: [conditional-form]}
+    - learner: "Vorrei prenotare un tavolo per sabato sera."
+    - tutor: "Certo, per sabato. Per quante persone, e a che ora?"
+      goals: [book]
+    - learner: "Per quattro persone, alle otto."
+    - tutor: "Alle otto è tutto pieno, mi dispiace. Alle otto e mezza va bene?"
+    - learner: "Sì, alle otto e mezza va bene."
+    - tutor: "Allora sabato alle otto e mezza, per quattro. Le serve altro?"
+      goals: [details]
+    - learner: "Sì. Potrei avere un tavolo fuori? Mi piacerebbe mangiare all'aperto."
+    - tutor: "Sì, fuori c'è posto. Però se piove, vi mettiamo dentro."
+      goals: [special]
+    - learner: "Va bene. I miei nipoti sono piccoli: avete una sedia per bambini?"
+    - tutor: "Sì, abbiamo il seggiolone. Ne serve uno o due?"
+      new: [{lemma: seggiolone, gloss: high chair}]
+    - learner: "Uno solo. Il più piccolo è due anni."
+      errors: [essere-avere]
+    - tutor: "«È due anni»? Per l'età, in italiano usiamo un altro verbo."
+      prompt: {text: "è due anni", tags: [essere-avere]}
+    - learner: "Il più piccolo... è due anni."
+      errors: [essere-avere]
+    - tutor: "Ha due anni, quindi un seggiolone. A che nome prenoto?"
+      new: [{lemma: seggiolone, gloss: high chair}]
+      recast: {text: "è due anni", fix: "Ha due anni", tags: [essere-avere]}
+    - learner: "A nome Brown. Il mio numero è tre tre cinque, due quattro sei, otto uno zero."
+    - tutor: "Grazie, signor Brown: sabato alle otto e mezza, quattro persone, fuori. A sabato!"
+      goals: [name]
+
+- scenario: prenotare-tavolo
+  # facts: stasera, sei persone, alle nove; tavolo grande in fondo; compleanno di un'amica; la torta la portano loro, il ristorante la tiene al fresco; candeline del ristorante; a nome García; tutto confermato
+  level: A2
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare per stasera, è possibile?"
+    - tutor: "Stasera abbiamo ancora qualche tavolo. Per quante persone?"
+      goals: [book]
+    - learner: "Siamo sei, alle nove."
+    - tutor: "Alle nove per sei va bene: vi do il tavolo grande in fondo."
+      goals: [details]
+    - learner: "Grazie. È il compleanno de una amica. Possiamo portare una torta?"
+      errors: [preposition, article-form]
+    - tutor: "Il compleanno «de» una amica? Quel «de» non è italiano. Come si dice?"
+      prompt: {text: "compleanno de una amica", tags: [preposition]}
+    - learner: "Il compleanno di un'amica. Possiamo portare la torta?"
+    - tutor: "Sì, potete portarla: la teniamo noi al fresco fino al dolce."
+      goals: [special]
+    - learner: "Che bello! Avete le candeline? Le ho dimenticato a casa."
+      errors: [participle-agreement]
+    - tutor: "«Le ho dimenticato»? Le candeline sono tante: anche la fine del verbo cambia."
+      prompt: {text: "Le ho dimenticato", tags: [participle-agreement]}
+    - learner: "Eh, le ho dimenticato a casa."
+      errors: [participle-agreement]
+    - tutor: "«Le ho dimenticate a casa»: succede! Nessun problema, le abbiamo noi. A che nome è la prenotazione?"
+      recast: {text: "le ho dimenticato", fix: "Le ho dimenticate", tags: [participle-agreement]}
+    - learner: "A nome García. Devo richiamare per confermare?"
+    - tutor: "No, non serve: è tutto confermato. Vi aspettiamo stasera alle nove!"
+      goals: [name]
+
+- scenario: medico-base
+  # facts: mal di gola e tosse; ieri sera febbre a trentotto; da tre giorni; ieri a casa dal lavoro; non allergica; ieri un'aspirina; sciroppo tre volte al giorno dopo aver mangiato per una settimana; tornare se la febbre resta altri tre giorni
+  level: A2
+  persona: en-f-student
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di gola e molta tosse."
+    - tutor: "Mi dispiace. Ha anche la febbre?"
+    - learner: "Sì, ieri sera avevo trentotto."
+    - tutor: "Capisco. E da quando ha la tosse?"
+      goals: [symptoms]
+    - learner: "Da tre giorni. Ieri ho restato a casa, non sono andata al lavoro."
+      errors: [auxiliary-choice]
+    - tutor: "«Ho restato»? Con «restare», il verbo «avere» non va."
+      prompt: {text: "ho restato", tags: [auxiliary-choice]}
+    - learner: "Sono restata a casa ieri."
+    - tutor: "Esatto, e ha fatto bene. È allergica a qualche medicina?"
+      goals: [since-when]
+    - learner: "No, non sono allergica. Ma ieri ho preso un'aspirina."
+    - tutor: "Allora le do uno sciroppo per la tosse. Lo prenda tre volte al giorno, dopo aver mangiato."
+      goals: [history]
+      new: [{lemma: sciroppo, gloss: syrup}]
+    - learner: "Tre volte al giorno, dopo i pasti. Lo devo prenderlo per quanto tempo?"
+      errors: [pronoun-position]
+    - tutor: "«Lo devo prenderlo»? In questa frase c'è un «lo» di troppo."
+      prompt: {text: "Lo devo prenderlo", tags: [pronoun-position]}
+    - learner: "Per quanto tempo lo devo prendere?"
+    - tutor: "Per una settimana. Se la febbre resta per altri tre giorni, torni da me."
+    - learner: "Allora: lo sciroppo per una settimana, e se ho ancora la febbre torno qui."
+    - tutor: "Sì, proprio così. Ecco la ricetta, e beva molta acqua!"
+      goals: [instructions]
+
+- scenario: medico-base
+  # facts: mal di schiena in basso da lunedì; ha portato molte scatole pesanti al lavoro; nessuna medicina; allergico alla penicillina; crema due volte al giorno; tre giorni a casa con certificato; una settimana senza sport
+  level: A2
+  persona: es-m-worker
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Mi fa male la schiena, qui in basso."
+    - tutor: "Da quando le fa male?"
+      goals: [symptoms]
+    - learner: "Da lunedì. Al lavoro ho portato molti scatole pesanti."
+      errors: [adjective-agreement]
+    - tutor: "«Molti scatole»? «Scatole» è femminile: guardi «molti»."
+      prompt: {text: "molti scatole", tags: [adjective-agreement]}
+    - learner: "Molti scatole, sì, molto pesanti."
+      errors: [adjective-agreement]
+    - tutor: "Molte scatole pesanti, ecco perché le fa male. Prende già qualche medicina?"
+      recast: {text: "molti scatole", fix: "Molte scatole", tags: [adjective-agreement]}
+      goals: [since-when]
+    - learner: "No, niente. Ma sono allergico alla penicillina."
+    - tutor: "Grazie, lo scrivo. Le do una crema: la metta due volte al giorno dove le fa male."
+      goals: [history]
+      new: [{lemma: crema, gloss: cream}]
+    - learner: "Due volte al giorno. Posso andare al lavoro domani? Il mio capo lo devo telefonare."
+      errors: [object-pronoun]
+    - tutor: "«Lo devo telefonare»? Si telefona «a» una persona: quale pronome serve?"
+      prompt: {text: "lo devo telefonare", tags: [object-pronoun]}
+    - learner: "Gli devo telefonare."
+    - tutor: "Giusto. Per tre giorni però deve stare a casa: le faccio un certificato."
+      new: [{lemma: certificato, gloss: medical certificate}]
+    - learner: "Tre giorni a casa e la crema due volte al giorno. Posso fare sport?"
+    - tutor: "Per una settimana niente sport. Poi può tornare a farlo piano piano."
+      goals: [instructions]
+    - learner: "Va bene, dottore. Grazie mille!"
+    - tutor: "Di niente. Se fra una settimana fa ancora male, torni da me."
+
+- scenario: serata-cinema
+  # facts: stasera; cinema Astra; commedia italiana alle otto e mezza; film d'azione alle nove; biglietti otto euro, li compra Laura; incontro alle otto davanti all'Astra
+  level: A2
+  persona: en-m-heritage
+  history: [piacere]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema?"
+    - tutor: "Bella idea! Guardo cosa danno all'Astra. Che film ti piacciono?"
+      goals: [propose]
+    - learner: "Io piaccio molto le commedie."
+      errors: [piacere]
+    - tutor: "«Io piaccio»? Così sei tu che piaci alle commedie! Prova a girare la frase."
+      prompt: {text: "Io piaccio", tags: [piacere]}
+    - learner: "Mi piace molto le commedie."
+      errors: [piacere]
+    - tutor: "Anche a me piacciono molto le commedie! All'Astra c'è una commedia italiana alle otto e mezza."
+      goals: [genre]
+      recast: {text: "piace molto le commedie", fix: "piacciono molto le commedie", tags: [piacere]}
+    - learner: "È divertente? Non voglio un film noioso."
+    - tutor: "Dicono che è molto divertente. Alle nove c'è anche un film d'azione, se preferisci."
+    - learner: "No, la commedia è meglio. Alle otto e mezza va bene."
+    - tutor: "Allora prendo io i biglietti, sono otto euro. Dove ci vediamo?"
+      goals: [choose]
+    - learner: "Davanti al cinema alle otto? Così beviamo qualcosa prima."
+    - tutor: "Alle otto davanti all'Astra, allora. A stasera!"
+      goals: [meet]
+
+- scenario: serata-cinema
+  # facts: cinema all'aperto nel parco, commedia alle nove e mezza; in centro film di paura alle otto; biglietto sei euro, si paga all'entrata; di sera fa fresco; incontro alle nove all'entrata del parco
+  level: A2
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Volentieri! Che ne dici di un film?"
+    - tutor: "Sì, dai! C'è il cinema all'aperto nel parco, oppure il cinema in centro."
+      goals: [propose]
+    - learner: "Che film danno in centro?"
+    - tutor: "In centro c'è un film di paura alle otto. Nel parco, una commedia alle nove e mezza."
+    - learner: "I film di paura sono più noiosi che le commedie, per me."
+      errors: [comparative]
+    - tutor: "«Che le commedie»? Con due nomi, qui ci vuole un'altra parola unita a «le»."
+      prompt: {text: "più noiosi che le commedie", tags: [comparative]}
+    - learner: "Più noiosi delle commedie! Allora andiamo al parco."
+    - tutor: "Esatto! Allora la commedia alle nove e mezza. Di sera nel parco fa fresco: porta qualcosa di caldo."
+      goals: [genre, choose]
+    - learner: "Sì, è vero. Porto la mia chaqueta rossa."
+      errors: [word-choice]
+    - tutor: "La giacca rossa va benissimo. Il biglietto costa sei euro e si paga all'entrata."
+      recast: {text: "chaqueta", fix: "giacca", tags: [word-choice]}
+    - learner: "Va bene. Ci vediamo all'entrata del parco alle nove? Così troviamo un buon posto."
+    - tutor: "Alle nove all'entrata, allora. A dopo!"
+      goals: [meet]

@@ -1,0 +1,265 @@
+# Set r-reply-a1b1, file 6: A2 party planning and a summer job; B1 clinic bookings, volunteering, hotel complaints and a surprise party.
+- scenario: compleanno
+  # facts: compleanno di Sara sabato; festa sabato sera a casa di Giorgio; colleghi di Sara e amici dell'università, circa quindici persone; pizza per tutti; torta al cioccolato ordinata da Giorgio in pasticceria; regalo: corso di fotografia da cento euro, dieci euro a testa, lo compra chi parla lunedì
+  level: A2
+  persona: en-m-traveller
+  history: [object-pronoun]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa! Il suo compleanno è sabato, no?"
+    - tutor: "Sì, sabato. Possiamo farla a casa mia, c'è posto. Sabato sera ti va bene?"
+    - learner: "Sì, perfetto. Sabato sera a casa tua."
+    - tutor: "Allora, chi invitiamo? Io direi i suoi colleghi."
+      goals: [date]
+    - learner: "Sì, e anche gli amici dell'università. Li telefono io domani."
+      errors: [object-pronoun]
+    - tutor: "«Li telefono»? Ricorda: si telefona a qualcuno. Quindi?"
+      prompt: {text: "Li telefono", tags: [object-pronoun]}
+    - learner: "Gli telefono io domani!"
+    - tutor: "Esatto. Allora siamo più o meno quindici. E da mangiare cosa prendiamo?"
+      goals: [guests]
+    - learner: "Pizza per tutti, è facile. E la torta? Sara ama il cioccolato."
+    - tutor: "Ottima idea. La torta al cioccolato la ordino io in pasticceria."
+      goals: [food]
+      new: [{lemma: pasticceria, gloss: cake shop}]
+    - learner: "E il regalo? Potremmo regalarle un corso di fotografia. Le piace molto."
+    - tutor: "Mi piace! Sai quanto costa, più o meno?"
+    - learner: "Ho visto un corso a cento euro. Se paghiamo in dieci, sono dieci euro a testa. Lo comprarò io lunedì."
+      errors: [future-form]
+    - tutor: "«Comprarò»? Al futuro di «comprare», quella «a» cambia."
+      prompt: {text: "comprarò", tags: [future-form]}
+    - learner: "Lo comprerò io lunedì."
+    - tutor: "Perfetto! Allora io scrivo a tutti per i dieci euro. Sara non deve sapere niente!"
+      goals: [gift]
+
+- scenario: cercare-lavoro-a2
+  # facts: cercano un cameriere per luglio e agosto; esperienza: due estati in una pizzeria a Valencia; lavoro la sera dalle sei a mezzanotte, sei giorni su sette; stipendio 1200 euro al mese; giorno libero il lunedì; risposta entro venerdì
+  level: A2
+  persona: es-m-worker
+  history: [noun-number]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì, buongiorno. Cercate un cameriere?"
+    - tutor: "Sì, per luglio e agosto. Ha già esperienza?"
+      goals: [ask]
+    - learner: "Sì, ho lavorato due estate in una pizzeria a Valencia."
+      errors: [noun-number]
+    - tutor: "«Due estate»? Guardi la fine della parola: è una o sono due?"
+      prompt: {text: "due estate", tags: [noun-number]}
+    - learner: "Ehm... due estate in una pizzeria a Valencia."
+      errors: [noun-number]
+    - tutor: "Due estati in pizzeria, molto bene. E cosa faceva lì?"
+      recast: {text: "due estate", fix: "Due estati", tags: [noun-number]}
+    - learner: "Ogni sera ho servito ai tavoli, e facevo anche i caffè."
+      errors: [tense-aspect]
+    - tutor: "«Ogni sera ho servito»? Lo faceva tutte le sere: quale passato va meglio?"
+      prompt: {text: "Ogni sera ho servito", tags: [tense-aspect]}
+    - learner: "Ogni sera servivo ai tavoli, e facevo anche i caffè."
+    - tutor: "Giusto, e qui serve proprio questo. Il lavoro è la sera, dalle sei a mezzanotte: per lei va bene?"
+      goals: [experience]
+      new: [{lemma: mezzanotte, gloss: midnight}]
+    - learner: "Sì, la sera va bene. Posso cominciare il primo luglio."
+    - tutor: "Il primo luglio va bene. Lo stipendio è di 1200 euro al mese, sei giorni su sette."
+      goals: [availability]
+    - learner: "Va bene. E quale è il giorno libero?"
+    - tutor: "Il lunedì, perché il bar è chiuso. Mi lascia un numero di telefono?"
+    - learner: "Sì, è il tre due nove, otto sette sei, cinque quattro tre."
+    - tutor: "Grazie, lo scrivo qui. La chiamo entro venerdì."
+      goals: [contact]
+    - learner: "Grazie mille! Aspetto la sua telefonata."
+    - tutor: "Grazie a lei, arrivederci!"
+
+- scenario: prenotare-visita
+  # facts: prima visita dal dermatologo per una macchia sul braccio; dottor Ferri libero martedì prossimo alle 15.30 o giovedì alle 9; sceglie giovedì alle 9; nome Emily Carter; 90 euro, si paga il giorno della visita anche con la carta; impegnativa non necessaria; portare esami recenti; messaggio di promemoria il giorno prima
+  level: B1
+  persona: en-f-student
+  history: [future-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita da un dermatologo, per favore."
+    - tutor: "Dal dermatologo, sì. È la prima visita o un controllo?"
+      goals: [type]
+    - learner: "È la prima visita. Ho una macchia sul braccio da qualche mese."
+    - tutor: "Capisco. Il dottor Ferri ha posto martedì prossimo alle tre e mezza, oppure giovedì alle nove. Quale preferisce?"
+    - learner: "Martedì non posso, lavorarò fino alle sei."
+      errors: [future-form]
+    - tutor: "«Lavorarò»? Al futuro di «lavorare», quella «a» non resta uguale."
+      prompt: {text: "lavorarò", tags: [future-form]}
+    - learner: "Lavorerò fino alle sei. Giovedì alle nove andrebbe benissimo."
+    - tutor: "Perfetto, allora giovedì alle nove con il dottor Ferri. Mi dice il suo nome?"
+      goals: [availability]
+    - learner: "Mi chiamo Emily Carter. Quanto costerebbe la visita?"
+    - tutor: "La prima visita costa novanta euro. Si paga qui il giorno della visita, anche con la carta."
+    - learner: "Devo portare un'impegnativa del mio medico?"
+    - tutor: "No, da noi non serve. Se ha degli esami recenti, però, li porti."
+      goals: [cost]
+    - learner: "Va bene. Allora: giovedì alle nove, novanta euro, e porto gli esami che ho fatto l'anno scorso."
+    - tutor: "Esatto, signora Carter. Il giorno prima le mandiamo anche un messaggio per ricordarglielo."
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  # facts: oculista; primo posto mercoledì tra tre settimane alle 10.30, prenotato; lista d'attesa se qualcuno disdice; nome Javier Ruiz, 340 112 2334; visita 100 euro; portare un documento e le lenti a contatto
+  level: B1
+  persona: es-m-worker
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Avrei bisogno di una visita dall'oculista."
+    - tutor: "Il primo posto libero è mercoledì fra tre settimane, alle dieci e mezza. Le va bene?"
+      goals: [type]
+    - learner: "Fra tre settimane? È troppo tardi. Vedo male da due settimane e per lavoro guido molto."
+    - tutor: "Capisco. Posso metterla in lista d'attesa: se qualcuno disdice, la chiamiamo noi."
+      new: [{lemma: disdire, gloss: to cancel}]
+    - learner: "Sì, per favore. Ma prenoterei anche il mercoledì, per sicurezza."
+    - tutor: "Allora mercoledì alle dieci e mezza è suo. Mi dà nome e numero di telefono?"
+      goals: [availability]
+    - learner: "Mi chiamo Javier Ruiz, il numero è 340 112 2334. Quanto costa la visita?"
+    - tutor: "La visita costa cento euro. Porti un documento e gli occhiali che usa adesso."
+    - learner: "Non ho occhiali, è la prima volta. Ma porto le lentillas."
+      errors: [word-choice]
+    - tutor: "Allora porti le lenti a contatto: il dottore le vuole vedere."
+      goals: [cost]
+      recast: {text: "lentillas", fix: "lenti a contatto", tags: [word-choice]}
+    - learner: "Va bene. Allora: mercoledì alle dieci e mezza, cento euro, le lenti e il documento. E se si libera un posto prima, voi mi chiamareste?"
+      errors: [conditional-form]
+    - tutor: "«Chiamareste»? Nel condizionale di «chiamare», quella «a» cambia."
+      prompt: {text: "chiamareste", tags: [conditional-form]}
+    - learner: "Mi chiamereste?"
+    - tutor: "Esatto, la chiamiamo noi, anche il giorno prima. A presto, signor Ruiz!"
+      goals: [confirm]
+
+- scenario: volontariato
+  # facts: ex maestra per quindici anni in Spagna; doposcuola lunedì e mercoledì dalle tre alle cinque, bambini dai sei ai dieci anni; lei è libera il pomeriggio tranne il lunedì; sabato mattina visite in una casa di riposo; sceglie il doposcuola il mercoledì, comincia mercoledì prossimo alle tre meno un quarto
+  level: B1
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Sì, molto. Sono in Italia da un anno e vorrei fare qualcosa di utile."
+    - tutor: "Che bello! Cosa ti piacerebbe fare?"
+      goals: [motivation]
+    - learner: "Mi piacerebbe lavorare con i bambini. In Spagna ero maestra per quindici anni."
+      errors: [tense-aspect]
+    - tutor: "«Ero maestra per quindici anni»? Con un periodo chiuso, come «per quindici anni», quale passato usiamo?"
+      prompt: {text: "ero maestra per quindici anni", tags: [tense-aspect]}
+    - learner: "Sono stata maestra per quindici anni."
+    - tutor: "Giusto. Allora potresti aiutarci al doposcuola, con i bambini delle elementari. Quanto tempo hai durante la settimana?"
+      goals: [skills]
+      new: [{lemma: doposcuola, gloss: after-school club}, {lemma: elementare, gloss: primary (school)}]
+    - learner: "Lavoro la mattina, quindi il pomeriggio sono libera, tranne il lunedì."
+    - tutor: "Si fa il lunedì e il mercoledì, dalle tre alle cinque. Il mercoledì ti andrebbe bene?"
+      goals: [time]
+    - learner: "Sì, il mercoledì va benissimo. Che età hanno i bambini?"
+    - tutor: "Dai sei ai dieci anni: prima fanno i compiti, poi giocano."
+    - learner: "C'è anche un'attività il sabato? Ho un'amica che la sua madre è in una casa di riposo."
+      errors: [relative-pronoun]
+    - tutor: "«Un'amica che la sua madre»? Per dire «di chi è», c'è un pronome speciale."
+      prompt: {text: "che la sua madre", tags: [relative-pronoun]}
+    - learner: "Un'amica la cui madre è in una casa di riposo."
+    - tutor: "Esatto. Il sabato mattina andiamo proprio in una casa di riposo, a fare compagnia agli anziani."
+    - learner: "Allora per ora sceglierei il doposcuola del mercoledì. Il sabato forse più avanti."
+    - tutor: "Ottima scelta! Ti segno per mercoledì prossimo: puoi arrivare alle tre meno un quarto?"
+      goals: [choose]
+    - learner: "Sì, certo. A mercoledì!"
+    - tutor: "A mercoledì, e grazie davvero!"
+
+- scenario: reclamo-hotel
+  # facts: camera 214, aria condizionata rotta da ieri sera; ieri ha chiamato e non è venuto nessuno; il tecnico arriva solo domattina; camera 305 libera al terzo piano, più tranquilla; sconto da chiedere al direttore domattina, risposta alle nove; ospite parte domani a mezzogiorno
+  level: B1
+  persona: en-m-traveller
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sono nella camera 214 e l'aria condizionata non funziona. Fa caldissimo."
+    - tutor: "Mi dispiace molto. Da quando non funziona?"
+      goals: [problem]
+    - learner: "Da ieri sera. Ieri ho chiamato la reception, ma non è venuto nessuno."
+    - tutor: "Le chiedo scusa, non doveva succedere. Il tecnico purtroppo arriva solo domani mattina: come posso aiutarla stanotte?"
+      goals: [since]
+      new: [{lemma: tecnico, gloss: technician}]
+    - learner: "Potrebbe darmi un'altra camera? E vorrei anche uno sconto, perché non sono dormito niente."
+      errors: [auxiliary-choice]
+    - tutor: "«Non sono dormito»? «Dormire» non è come «andare»: con quale verbo forma il passato?"
+      prompt: {text: "non sono dormito", tags: [auxiliary-choice]}
+    - learner: "Non ho dormito niente!"
+    - tutor: "Esatto, e mi dispiace davvero. La camera 305 è libera, al terzo piano, ed è più tranquilla. Per lo sconto, domani mattina ne parlo con il direttore."
+      goals: [request]
+      new: [{lemma: sconto, gloss: discount}]
+    - learner: "La 305 va bene. Posso spostare le valigie adesso?"
+    - tutor: "Sì, anche subito: le porto io la chiave nuova e l'aiuto con le valigie."
+      goals: [agree]
+    - learner: "Grazie. Però vorrei una risposta per lo sconto prima che parto."
+      errors: [subjunctive-use]
+    - tutor: "«Prima che parto»? Dopo «prima che», il verbo cambia modo."
+      prompt: {text: "prima che parto", tags: [subjunctive-use]}
+    - learner: "Prima che parta, vorrei una risposta. Parto domani a mezzogiorno."
+    - tutor: "Certo, alle nove le faccio sapere cosa dice il direttore. Buonanotte, e mi scusi ancora."
+
+- scenario: reclamo-hotel
+  # facts: camera 108; musica dal bar sotto l'albergo ogni notte; da tre notti; ieri musica fino alle tre; stasera albergo pieno; domani alle dieci camera libera sul cortile; stanotte musica più bassa da mezzanotte e sconto del quindici per cento su questa notte
+  level: B1
+  persona: es-f-teacher
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sono nella camera 108. Ogni notte c'è musica fortissima dal bar qui sotto."
+    - tutor: "Mi dispiace, d'estate il bar chiude tardi. Da quante notti la disturba?"
+      goals: [problem]
+    - learner: "Da tre notti. Ieri sera ho voluto dormire presto, ma c'è stata musica fino alle tre."
+      errors: [tense-aspect]
+    - tutor: "«Ho voluto dormire»? Era un desiderio, e poi non ha dormito: quale passato va meglio?"
+      goals: [since]
+      prompt: {text: "ho voluto dormire", tags: [tense-aspect]}
+    - learner: "Volevo dormire presto, ma c'era musica fino alle tre."
+    - tutor: "Esatto, e la capisco. Cosa posso fare per lei?"
+    - learner: "Vorrei una camera dall'altra parte, lontana dal bar."
+    - tutor: "Stasera purtroppo siamo pieni. Domani però si libera una camera sul cortile, molto tranquilla."
+      goals: [request]
+      new: [{lemma: cortile, gloss: courtyard}]
+    - learner: "E stanotte? Non posso dormire un'altra notte con questo ruido."
+      errors: [word-choice]
+    - tutor: "Ha ragione, con questo rumore non si dorme. Stanotte chiedo al bar di abbassare la musica a mezzanotte, e le faccio uno sconto del quindici per cento."
+      new: [{lemma: mezzanotte, gloss: midnight}, {lemma: sconto, gloss: discount}]
+      recast: {text: "questo ruido", fix: "questo rumore", tags: [word-choice]}
+    - learner: "Va bene, accetto. Ma domani mattina voglio cambiare camera subito."
+    - tutor: "Domani alle dieci la camera sul cortile sarà pronta. Le mando qualcuno per le valigie?"
+      goals: [agree]
+    - learner: "Sì, grazie. Le valigie le preparo stasera."
+    - tutor: "Perfetto. Buonanotte, e mi scusi ancora per il disturbo."
+
+- scenario: compleanno
+  # facts: Sara compie trent'anni venerdì; festa sabato sera sulla terrazza di Giorgio; venti amici più i genitori di Sara, ventidue in tutto; ognuno porta qualcosa da mangiare; la torta la ordina chi parla; Sara vuole andare a Parigi; regalo: un viaggio a Parigi, chi parla cerca i voli stasera
+  level: B1
+  persona: en-f-professional
+  history: [ci-ne]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Compie trent'anni, quindi dobbiamo fare qualcosa di speciale! Che ne dici di una festa a sorpresa?"
+    - tutor: "Sono d'accordo. Il suo compleanno è venerdì, ma il sabato sono tutti più liberi. Dove la facciamo?"
+    - learner: "Sabato sera, sulla tua terrazza? È grande e la vista è bellissima."
+    - tutor: "La terrazza è perfetta, se non piove. Quante persone pensi di invitare?"
+      goals: [date]
+    - learner: "Penso venti persone. Ma i parenti di Sara, li invitiamo? Io non ne sono sicura."
+      errors: [false-friend]
+    - tutor: "I genitori di Sara? Secondo me sì, sua madre ci tiene tantissimo. Allora siamo in ventidue: chi glielo dice?"
+      goals: [guests]
+      recast: {text: "i parenti di Sara", fix: "I genitori di Sara", tags: [false-friend]}
+    - learner: "Glielo dico io, conosco bene sua madre. Per il cibo, ognuno porta qualcosa?"
+    - tutor: "Ottima idea, così è tutto più semplice. E la torta? Sara adora il tiramisù."
+      new: [{lemma: tiramisù, gloss: tiramisu}]
+    - learner: "Allora ordino io una torta al tiramisù in pasticceria, per venticinque persone."
+    - tutor: "Così ce n'è per tutti. Rimane il regalo: hai qualche idea?"
+      goals: [food]
+    - learner: "Sara mi ha detto che vuole andare a Parigi. Potremmo regalarci un viaggio."
+      errors: [object-pronoun]
+    - tutor: "«Regalarci»? Così il viaggio lo regaliamo a noi! A chi va il regalo?"
+      prompt: {text: "regalarci", tags: [object-pronoun]}
+    - learner: "Potremmo regalarle un viaggio a Parigi!"
+    - tutor: "Sì, così va meglio! Se paghiamo in tanti, costa poco a ognuno. Chi cerca i voli?"
+    - learner: "Penso io. Stasera cerco e ti scrivo i prezzi."
+      errors: [ci-ne]
+    - tutor: "«Penso io»? Pensi «ai voli»: quale pronome usi per dire «a questo»?"
+      prompt: {text: "Penso io", tags: [ci-ne]}
+    - learner: "Ci penso io! Stasera ti scrivo i prezzi."
+    - tutor: "Grande! Allora io mando un messaggio a tutti. E ricorda: acqua in bocca con Sara!"
+      goals: [gift]

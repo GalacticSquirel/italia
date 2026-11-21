@@ -1,0 +1,274 @@
+# Round 10, set r-reply-b2c2. File 2 (B2): job interviews, a promotion talk, estate agents and
+# team meetings. The interviewer, manager or agent states only what the role owns (the role,
+# hours, the owner's terms) and leaves the learner to describe, ask and decide.
+- scenario: colloquio-lavoro
+  # facts: candidate Emma, English, in Bologna for three years; six years at a London agency (museum campaigns, team lead from 2021); then freelance for architecture studios; role: team of eight, office three days out of five; next step: second interview with the creative director next week, Thursday morning; email today with time and address
+  level: B2
+  persona: en-f-professional
+  history: [tense-aspect, preposition]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno, grazie. Mi chiamo Emma, sono inglese e vivo a Bologna da tre anni. Mi occupo di grafica e di gestione di progetti."
+    - tutor: "Grazie, Emma. Che tipo di progetti ha seguito finora, e per quali clienti?"
+      goals: [intro]
+    - learner: "Per sei anni lavoravo in un'agenzia di Londra, soprattutto per i musei."
+      errors: [tense-aspect]
+      gold: {text: "Per sei anni lavoravo", fix: "Per sei anni ho lavorato"}
+    - tutor: "«Per sei anni lavoravo»? Con un periodo chiuso e preciso come «per sei anni», quale tempo è più adatto?"
+      prompt: {text: "Per sei anni lavoravo", tags: [tense-aspect]}
+    - learner: "Per sei anni ho lavorato in un'agenzia di Londra, e dal 2021 ero responsabile di un piccolo gruppo."
+    - tutor: "Un'esperienza che ci interessa molto, perché lavoriamo spesso con i musei. E dopo Londra?"
+    - learner: "Quando mi sono trasferita in Italia, ho cominciato di lavorare come freelance."
+      errors: [preposition]
+      gold: {text: "cominciato di lavorare", fix: "cominciato a lavorare"}
+    - tutor: "«Ho cominciato di lavorare»? Con «cominciare», prima dell'infinito, la preposizione è un'altra."
+      prompt: {text: "cominciato di lavorare", tags: [preposition]}
+    - learner: "Ho cominciato a lavorare come freelance, soprattutto per studi di architettura."
+    - tutor: "Quindi conosce bene anche il lavoro da sola. Quali sono, secondo lei, i suoi punti di forza? E un punto debole?"
+      goals: [experience]
+    - learner: "Sono molto organizzata e so gestire le scadenze. Il mio difetto è che a volte voglio controllare tutto io, e delegare non mi viene facile."
+    - tutor: "È un difetto sincero, e in un gruppo ci si può lavorare. Perché vorrebbe lavorare proprio con noi?"
+      goals: [strengths]
+    - learner: "Da freelance mi manca una squadra. E ho visto il vostro progetto per il museo della città: mi è piaciuto tantissimo."
+    - tutor: "Quel progetto l'ha seguito il gruppo in cui entrerebbe lei. Ha qualche domanda sul ruolo?"
+      goals: [why]
+    - learner: "Sì: quanti giorni alla settimana si lavora in ufficio? E il gruppo da quante persone è formato?"
+    - tutor: "In ufficio si lavora tre giorni su cinque, e il gruppo è di otto persone. Il prossimo passo è un secondo colloquio con il direttore creativo, la settimana prossima: giovedì mattina le andrebbe bene?"
+      goals: [questions]
+    - learner: "Giovedì mattina va benissimo. Grazie per il suo tempo."
+    - tutor: "Grazie a lei. Oggi stesso le mando una email con l'orario e l'indirizzo."
+
+- scenario: colloquio-lavoro
+  # facts: candidate Javier, 38, from Valencia, carpenter; ten years in a carpentry workshop in Valencia (made-to-measure wardrobes and kitchens); in Italy two years, works in a kitchen factory; role: prototype workshop, Monday-Friday 8:00-17:00, three months' trial; practical test next Tuesday at 15:00, entrance at the back
+  level: B2
+  persona: es-m-worker
+  history: [false-friend, conditional-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Javier, ho trentotto anni e sono di Valencia. Sono falegname."
+    - tutor: "Piacere, Javier. Noi cerchiamo una persona per il laboratorio dove costruiamo i prototipi dei mobili. Dove ha lavorato finora?"
+      goals: [intro]
+    - learner: "Per dieci anni ho lavorato in una falegnameria a Valencia. Facevamo mobili su misura, soprattutto armadi e cucine."
+    - tutor: "Mobili su misura: proprio il lavoro preciso che serve a noi. E da quando è in Italia, di che cosa si occupa?"
+    - learner: "Sono arrivato due anni fa. Adesso lavoro in una fabbrica di cucine, ma il lavoro è sempre uguale e un po' noioso."
+    - tutor: "In fabbrica si ripetono sempre gli stessi gesti, lo capisco. Quali sono i suoi punti di forza, secondo lei? E un punto debole?"
+      goals: [experience]
+    - learner: "Sono molto preciso e uso bene le ferramenta, anche le macchine moderne. Il mio punto debole è l'italiano tecnico: certe parole non le conosco ancora."
+      errors: [false-friend]
+    - tutor: "Saper usare bene gli attrezzi, qui in laboratorio, è importantissimo, e le parole tecniche si imparano in fretta. Perché le interesserebbe lavorare con noi?"
+      goals: [strengths]
+      recast: {text: "le ferramenta", fix: "gli attrezzi", tags: [false-friend]}
+      new: [{lemma: attrezzo, gloss: tool}]
+    - learner: "Mi piacerebbe fare ogni volta mobili diversi. E vorrei imparare a lavorare con i designer, non sempre da solo."
+    - tutor: "Qui ogni prototipo è diverso, e si lavora sempre accanto ai designer. Ha domande sul ruolo o sugli orari?"
+      goals: [why]
+    - learner: "Sì. Quali sono gli orari? E c'è un periodo di prova?"
+    - tutor: "Si lavora dal lunedì al venerdì, dalle otto alle cinque, con tre mesi di prova. Prima, però, vorremmo vederla al lavoro: martedì prossimo potrebbe venire per una prova pratica?"
+      goals: [questions]
+    - learner: "Martedì lavoro fino alle due. Io preferirebbe venire nel pomeriggio, verso le tre."
+      errors: [conditional-form]
+      gold: {text: "Io preferirebbe", fix: "Io preferirei"}
+    - tutor: "«Io preferirebbe»? Il soggetto è «io», ma il verbo è alla terza persona."
+      prompt: {text: "Io preferirebbe", tags: [conditional-form]}
+    - learner: "Io preferirei venire alle tre, se è possibile."
+    - tutor: "Alle tre va benissimo: l'aspettiamo martedì in laboratorio, con l'ingresso sul retro. Se ha dei guanti da lavoro suoi, li porti pure."
+
+- scenario: colloquio-lavoro
+  # facts: candidate Tom, Australian, 32; taught English abroad until two years ago (Japan); one-year web design course; six months as an intern in a Milan studio (sites for shops); company works a lot for schools; contract six months, renewable; a senior designer as guide; test project sent this afternoon, seven days to deliver
+  level: B2
+  persona: en-m-traveller
+  history: [auxiliary-choice, false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Tom, sono australiano e ho trentadue anni. Fino a due anni fa insegnavo inglese all'estero."
+    - tutor: "Non è la strada più comune. Come è arrivato a questo lavoro, dopo l'esperienza da insegnante?"
+      goals: [intro]
+    - learner: "Ho sempre disegnato per piacere. In Giappone mi sono appassionato al design e ho fatto un corso di un anno sul web design."
+    - tutor: "E dopo il corso ha già lavorato in un'azienda, o solo su progetti suoi?"
+    - learner: "Dopo il corso ho rimasto sei mesi a Milano, come stagista in uno studio."
+      errors: [auxiliary-choice]
+      gold: {text: "ho rimasto", fix: "sono rimasto"}
+    - tutor: "«Ho rimasto»? Con «rimanere», al passato prossimo, «avere» non va bene."
+      prompt: {text: "ho rimasto", tags: [auxiliary-choice]}
+    - learner: "Sono rimasto sei mesi a Milano, in uno studio che faceva siti per negozi."
+    - tutor: "Quindi qualche progetto vero l'ha già fatto. Qual è il suo punto di forza più grande, secondo lei? E un punto debole?"
+      goals: [experience]
+    - learner: "Grazie all'insegnamento so spiegare bene le idee ai clienti. Il mio difetto è che sono ancora lento con alcuni programmi."
+    - tutor: "Spiegare bene le idee ai clienti è una cosa rara, tra i giovani del nostro settore. Perché ha mandato il curriculum proprio a noi?"
+      goals: [strengths]
+    - learner: "Sul vostro sito ho letto che fate molti progetti per le scuole. Da ex insegnante, credo di poter capire che cosa serve davvero agli studenti."
+    - tutor: "È proprio lo sguardo che cerchiamo. Il contratto, le dico subito, è di sei mesi, rinnovabile. Ha qualche domanda sul ruolo?"
+      goals: [why]
+    - learner: "Sì: all'inizio avrei qualcuno che mi segue? Sarebbe il mio primo lavoro in un'azienda vera e propria, e sono un po' eccitato."
+      errors: [false-friend]
+    - tutor: "È normale sentirsi emozionato all'inizio: nei primi mesi avrebbe accanto, come guida, una collega con molta esperienza. Come prossimo passo le chiediamo un piccolo progetto di prova. Le va bene?"
+      goals: [questions]
+      recast: {text: "eccitato", fix: "emozionato", tags: [false-friend]}
+    - learner: "Sì, certo. Mi mandate le istruzioni per email?"
+    - tutor: "Sì, gliele mando oggi pomeriggio. Da quel momento ha sette giorni di tempo per consegnare il progetto."
+
+- scenario: colloquio-promozione
+  # facts: learner teaches Spanish at the language school for four years; her courses +30% students vs last year, nearly all re-enrolled; asks to become course coordinator with a raise; budget frozen until January; she coordinates the Saturday courses from now; meeting 15 January at 10:00 in the manager's office
+  level: B2
+  persona: es-f-teacher
+  history: [subjunctive-use, article-use]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Lavoro qui da quattro anni e vorrei parlarle dei risultati di quest'anno e del mio futuro nella scuola."
+    - tutor: "Volentieri. Da quali risultati vuole partire?"
+    - learner: "I miei corsi di spagnolo hanno trenta per cento di studenti in più rispetto all'anno scorso."
+      errors: [article-use]
+      gold: {text: "hanno trenta per cento", fix: "hanno il trenta per cento"}
+    - tutor: "«Hanno trenta per cento»? In italiano, davanti a un numero con «per cento», che cosa mettiamo?"
+      prompt: {text: "hanno trenta per cento", tags: [article-use]}
+    - learner: "Hanno il trenta per cento di studenti in più, e quasi tutti si sono iscritti al livello successivo."
+    - tutor: "Sono dati che conosco, e le fanno onore. Che cosa vorrebbe proporre, quindi?"
+      goals: [results]
+    - learner: "Vorrei diventare coordinatrice dei corsi di lingue, con un aumento. È importante che qualcuno segue tutti i corsi insieme."
+      errors: [subjunctive-use]
+      gold: {text: "qualcuno segue", fix: "qualcuno segua"}
+    - tutor: "«È importante che qualcuno segue»? Dopo «è importante che», il verbo cambia modo."
+      prompt: {text: "qualcuno segue", tags: [subjunctive-use]}
+    - learner: "È importante che qualcuno segua tutti i corsi insieme."
+    - tutor: "Su questo sono d'accordo con lei. Il problema è il budget: fino a gennaio non posso cambiare nessuno stipendio. Come potremmo fare, secondo lei?"
+      goals: [request]
+    - learner: "Capisco. Allora potrei cominciare a coordinare qualche corso già adesso, e parlare dell'aumento a gennaio, con il nuovo budget."
+    - tutor: "Mi sembra una proposta ragionevole. Le affido da subito la gestione dei corsi del sabato, così a gennaio avremo già qualche risultato. Fissiamo già una data?"
+      goals: [handle]
+    - learner: "Sì, volentieri. Andrebbe bene la metà di gennaio, dopo le vacanze?"
+    - tutor: "Facciamo il quindici gennaio alle dieci, qui nel mio ufficio. Per quella data mi porti i numeri dei corsi del sabato."
+      goals: [next-steps]
+
+- scenario: trattativa-affitto
+  # facts: retired couple; flat third floor, no lift, big terrace, in the centre; rent 950 euro; owner to repaint walls before move-in (agent to ask); contract 4+4, six months' notice, agent to ask three months for serious health reasons; commission one month of rent = 950 euro + IVA; flat held until tomorrow 12:00; learner calls tomorrow morning
+  level: B2
+  persona: en-m-retired
+  history: [hypothetical, ci-ne]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Molto. Mia moglie è rimasta incantata dal terrazzo. Però c'è un problema: un terzo piano senza ascensore, per due pensionati come noi..."
+    - tutor: "Le scale sono un punto delicato, lo capisco. Il canone tiene conto anche di questo: 950 euro, in centro e con quel terrazzo, è un buon prezzo. C'è qualcosa su cui vorrebbe trattare?"
+      goals: [interest]
+    - learner: "Le pareti sono molto sporche. Se il proprietario le ridipingerebbe prima del trasloco, accetteremmo il canone senza discutere."
+      errors: [hypothetical]
+      gold: {text: "le ridipingerebbe", fix: "le ridipingesse"}
+    - tutor: "«Se il proprietario le ridipingerebbe»? Dopo «se», in una frase come questa, il condizionale non va."
+      prompt: {text: "le ridipingerebbe", tags: [hypothetical]}
+    - learner: "Se il proprietario le ridipingesse prima del trasloco, accetteremmo il canone."
+    - tutor: "Glielo chiedo oggi stesso, e credo che dirà di sì. Il contratto sarebbe un quattro più quattro, con sei mesi di preavviso per la disdetta: le va bene?"
+      goals: [negotiate]
+    - learner: "Sei mesi sono tanti. Alla nostra età non si sa mai: potremmo dover cercare una casa più piccola, magari con l'ascensore."
+    - tutor: "Ha ragione a pensarci. Posso chiedere al proprietario solo tre mesi, per gravi motivi di salute: vuole che lo proponga?"
+    - learner: "Sì, la ringrazio. E la provvigione quant'è? Ne avevamo parlato al telefono, ma non ricordo la cifra."
+    - tutor: "La provvigione è di un mese di canone, quindi 950 euro, più IVA. Se le condizioni vanno bene, preparo la proposta per il proprietario."
+      goals: [conditions]
+    - learner: "Prima di firmare vorrei parlare con mia moglie. Posso pensarlo fino a domani?"
+      errors: [ci-ne]
+      gold: {text: "pensarlo", fix: "pensarci"}
+    - tutor: "«Posso pensarlo»? Con «pensare» nel senso di riflettere su una cosa, il pronome non è «lo»."
+      prompt: {text: "pensarlo", tags: [ci-ne]}
+    - learner: "Posso pensarci fino a domani?"
+    - tutor: "Certo, ci pensi con calma. Le tengo l'appartamento fino a domani alle dodici: mi chiama lei?"
+    - learner: "Sì, la chiamo domattina, prima delle dodici. Grazie per la pazienza."
+    - tutor: "Si figuri. Intanto parlo con il proprietario delle pareti e del preavviso, così domani le do anche la sua risposta."
+      goals: [conclude]
+
+- scenario: trattativa-affitto
+  # facts: learner stays in Italy eighteen months; normal contract four years; transitorio of eighteen months proposed; listed rent 700, owner asks 750 for the short contract; learner offers 720 and three months' guarantee; agent thinks the owner won't go below 730; notice for serious reasons three months; learner accepts 730 if the washing machine is repaired before he moves in; agent calls tomorrow morning on 347 218 5590; signing next week at the agency
+  level: B2
+  persona: en-m-traveller
+  history: [future-form, subjunctive-use]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, è molto carino, e la vista sui tetti è fantastica. Però io resterò in Italia solo un anno e mezzo."
+    - tutor: "In quel caso il contratto normale, di quattro anni, non fa per lei. Possiamo proporre al proprietario un contratto transitorio di diciotto mesi: le interesserebbe?"
+      goals: [interest]
+    - learner: "Sì, sarebbe perfetto. Il canone resterebbe di 700 euro?"
+    - tutor: "Qui viene la parte meno piacevole: per un contratto breve il proprietario chiede 750 euro. Lei che cifra avrebbe in mente?"
+    - learner: "750 è troppo per me. Potrei arrivare a 720, e pagarò tre mesi di garanzia invece di due."
+      errors: [future-form]
+      gold: {text: "pagarò", fix: "pagherò"}
+    - tutor: "«Pagarò»? Attenzione al futuro di «pagare»: una lettera cambia, e se ne aggiunge un'altra."
+      prompt: {text: "pagarò", tags: [future-form]}
+    - learner: "Potrei arrivare a 720, e pagherò tre mesi di garanzia."
+    - tutor: "Una garanzia più alta è un buon argomento. Ne parlo con il proprietario, ma credo che non scenderà sotto i 730 euro. Pensa di restare tutti i diciotto mesi?"
+      goals: [negotiate]
+    - learner: "Sì, il mio contratto di lavoro dura proprio diciotto mesi. Ma se dovessi partire prima, quanto preavviso dovrei dare?"
+    - tutor: "Nel contratto mettiamo tre mesi di preavviso, per gravi motivi. Se il proprietario accetta 730 euro, procediamo?"
+      goals: [conditions]
+    - learner: "730 va bene, ma solo se la lavatrice viene riparata prima che entro."
+      errors: [subjunctive-use]
+      gold: {text: "prima che entro", fix: "prima che entri"}
+    - tutor: "«Prima che entro»? Dopo «prima che», il verbo cambia modo."
+      prompt: {text: "prima che entro", tags: [subjunctive-use]}
+    - learner: "Sì, prima che entri nell'appartamento."
+    - tutor: "Lo chiedo al proprietario insieme al canone. Domani mattina le telefono con la sua risposta: a che numero la trovo?"
+    - learner: "Al 347 218 5590. Se dice di sì, possiamo firmare già la settimana prossima?"
+    - tutor: "Sì: se accetta, firmiamo la settimana prossima qui in agenzia. La chiamo domani mattina al 347 218 5590."
+      goals: [conclude]
+
+- scenario: riunione-lavoro
+  # facts: learner translating the client's website into Spanish; twelve product pages left; client promised new descriptions last Monday, two emails unanswered; call with the client Thursday at 11, learner brings the list; photos too small, Luca will fix them; deadline Wednesday of the following week
+  level: B2
+  persona: es-f-erasmus
+  history: [future-form, ce-ci-sono]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Ho tradotto quasi tutto il sito del cliente in spagnolo: mancano solo le pagine dei prodotti."
+    - tutor: "Quindi sei a buon punto. Quante pagine ti restano, più o meno?"
+      goals: [update]
+    - learner: "Ne restano dodici. Il problema è che il cliente non ci ha ancora mandato le descrizioni nuove."
+    - tutor: "Senza le descrizioni, certo, non puoi andare avanti. Quando le avevano promesse?"
+      goals: [problem]
+    - learner: "Dovevano mandarle lunedì scorso. Ho scritto due volte, ma nessuno mi ha risposto."
+    - tutor: "Allora scrivere non basta più. Tu che cosa proporresti?"
+    - learner: "Potremmo fare una chiamata con il cliente giovedì. Io prepararò una lista con tutto quello che ci serve."
+      errors: [future-form]
+      gold: {text: "prepararò", fix: "preparerò"}
+    - tutor: "«Prepararò»? Attenzione al futuro di «preparare»: una lettera non è giusta."
+      prompt: {text: "prepararò", tags: [future-form]}
+    - learner: "Preparerò una lista con tutto quello che ci serve."
+    - tutor: "Mi piace. Organizzo io la chiamata per giovedì alle undici, e la lista la porti tu. Se giovedì ci mandano i testi, per quando riesci a finire?"
+      goals: [proposal]
+    - learner: "Se arrivano giovedì, finisco per mercoledì della settimana dopo. Però è anche il problema delle foto."
+      errors: [ce-ci-sono]
+      gold: {text: "è anche il problema", fix: "c'è anche il problema"}
+    - tutor: "«È anche il problema delle foto»? Vuoi dire che il problema esiste, che si trova lì: quale espressione serve?"
+      prompt: {text: "è anche il problema", tags: [ce-ci-sono]}
+    - learner: "C'è anche il problema delle foto: alcune sono troppo piccole."
+    - tutor: "Le foto le può sistemare Luca, che questa settimana ha meno lavoro. Allora siamo d'accordo per mercoledì?"
+    - learner: "Sì, mercoledì va bene. Se ci sono altri ritardi del cliente, te lo dico subito."
+    - tutor: "Segno mercoledì come data di consegna. Grazie, passiamo al prossimo punto."
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  # facts: app for a gym chain; login finished and working; payment provider changed its system two weeks ago; proposal: launch with bookings only, payments later; client wants payments by January; plan: bookings at the end of November, payments by 15 December; learner emails the client this afternoon, team leader in copy; learner wrote to the provider's technician yesterday
+  level: B2
+  persona: en-m-heritage
+  history: [conditional-form, object-pronoun]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Insomma. La parte del login è finita e funziona, però siamo indietro con i pagamenti."
+    - tutor: "Il login era la parte più delicata, quindi è una buona notizia. Che cosa vi blocca sui pagamenti?"
+      goals: [update]
+    - learner: "Il fornitore dei pagamenti ha cambiato sistema due settimane fa, e dobbiamo rifare quasi tutto."
+    - tutor: "Due settimane di lavoro in più non sono poche. Hai già un'idea per non perdere la data di lancio?"
+      goals: [problem]
+    - learner: "Sì. Noi potrebbimo lanciare l'app senza pagamenti, solo con le prenotazioni, e aggiungere i pagamenti dopo."
+      errors: [conditional-form]
+      gold: {text: "potrebbimo", fix: "potremmo"}
+    - tutor: "«Potrebbimo»? Controlla bene la forma del condizionale per «noi»."
+      prompt: {text: "potrebbimo", tags: [conditional-form]}
+    - learner: "Potremmo lanciare l'app solo con le prenotazioni."
+    - tutor: "È un'idea sensata. Il cliente, però, vuole i pagamenti per gennaio: secondo te, entro quando li potete aggiungere?"
+      goals: [proposal]
+    - learner: "Se il fornitore ci aiuta, penso entro metà dicembre. Ho chiesto al loro tecnico, lo ho scritto ieri."
+      errors: [object-pronoun]
+      gold: {text: "lo ho scritto", fix: "gli ho scritto"}
+    - tutor: "«Lo ho scritto»? Si scrive a qualcuno: il pronome che hai usato non è quello giusto."
+      prompt: {text: "lo ho scritto", tags: [object-pronoun]}
+    - learner: "Gli ho scritto ieri, e aspetto la sua risposta."
+    - tutor: "Allora fissiamo così: prenotazioni a fine novembre e pagamenti entro il 15 dicembre. Lo scrivi tu al cliente, o preferisci che lo faccia io?"
+    - learner: "Lo scrivo io oggi pomeriggio, e ti metto in copia."
+    - tutor: "Grazie. Se il tecnico non risponde entro venerdì, avvisami e lo chiamo io."
+      goals: [deadline]

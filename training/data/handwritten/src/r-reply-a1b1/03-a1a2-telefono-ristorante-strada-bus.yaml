@@ -1,0 +1,219 @@
+# Set r-reply-a1b1, file 3: A1 phone calls, a cooking-class friend and a trattoria; A2 directions and buses.
+- scenario: orari-negozio
+  # facts: pomeriggio aperto dalle quattro alle sette e mezza; mattina chiude all'una; domenica chiuso; domani apre alle nove
+  level: A1
+  persona: en-m-heritage
+  history: [verb-form]
+  turns:
+    - tutor: "Pronto, negozio Bianchi, buongiorno!"
+    - learner: "Buongiorno! Chiamo per sapere gli orari."
+    - tutor: "Mi dica pure: per quale giorno?"
+      goals: [greet]
+    - learner: "Per oggi. A che ora aprite il pomeriggio?"
+    - tutor: "Il pomeriggio apriamo alle quattro e chiudiamo alle sette e mezza."
+      goals: [ask-hours]
+    - learner: "E a che ora chiudete la mattina?"
+    - tutor: "La mattina chiudiamo all'una."
+    - learner: "Va bene. E domenica aprete?"
+      errors: [verb-form]
+    - tutor: "«Aprete»? «Aprire» non è come «chiudere»: come fa con «voi»?"
+      prompt: {text: "aprete", tags: [verb-form]}
+    - learner: "Aprite la domenica?"
+    - tutor: "Bravo, così. No, la domenica siamo chiusi."
+      goals: [ask-day]
+    - learner: "Peccato. Allora vengo domani mattina."
+    - tutor: "Domani apriamo alle nove."
+    - learner: "Grazie mille. Arrivederci!"
+    - tutor: "Grazie a lei, a domani!"
+      goals: [goodbye]
+
+- scenario: orari-negozio
+  # facts: negozio di scarpe, anche per bambini; oggi aperto dalle nove e mezza alle sette, senza chiudere a pranzo; domenica chiuso; sabato apre alle dieci
+  level: A1
+  persona: es-f-teacher
+  history: [subject-verb-agreement]
+  turns:
+    - tutor: "Pronto, negozio Bianchi, buongiorno!"
+    - learner: "Buongiorno. Vendete scarpe per bambini?"
+    - tutor: "Sì, abbiamo anche scarpe per bambini. Vuole passare in negozio?"
+      goals: [greet]
+    - learner: "Sì. Quando aprite oggi?"
+    - tutor: "Oggi siamo aperti dalle nove e mezza alle sette. Non chiudiamo a pranzo."
+      goals: [ask-hours]
+    - learner: "Io e mio marito lavora fino alle sei."
+      errors: [subject-verb-agreement]
+    - tutor: "«Io e mio marito lavora»? Sono due persone: come cambia il verbo?"
+      prompt: {text: "Io e mio marito lavora", tags: [subject-verb-agreement]}
+    - learner: "Io e mio marito lavoriamo fino alle sei."
+    - tutor: "Esatto. Allora potete venire alle sei e mezza: c'è tempo."
+    - learner: "Bene. E la domenica è aperto il negozio?"
+    - tutor: "No, la domenica è chiuso. Il sabato apriamo alle dieci."
+      goals: [ask-day]
+    - learner: "Perfetto, veniamo sabato. Grazie, arrivederci!"
+    - tutor: "Benissimo, a sabato! Arrivederci."
+      goals: [goodbye]
+
+- scenario: numero-telefono
+  # facts: lezione di pasta fresca; numero della studentessa 347 123 4567; incontro sabato alle quattro a casa di Paolo; lei manda un messaggio
+  level: A1
+  persona: es-f-erasmus
+  history: [modal-infinitive]
+  turns:
+    - tutor: "È stata una bella lezione, vero?"
+    - learner: "Sì, bellissima! La pasta fresca è facile."
+    - tutor: "Sì, ed è anche molto buona! Tu cucini a casa?"
+    - learner: "Sì, ogni giorno. Vuoi cucinare insieme un giorno?"
+    - tutor: "Sì, certo! Possiamo fare la pasta a casa mia. Mi dai il tuo numero?"
+      goals: [propose]
+    - learner: "Certo. È tre quattro sette, uno due tre, quattro cinque sei sette."
+    - tutor: "Aspetta, lo scrivo... fatto. Quando sei libera?"
+      goals: [number]
+    - learner: "Posso di venire sabato?"
+      errors: [modal-infinitive]
+    - tutor: "«Posso di venire»? Dopo «posso» c'è una parola in più."
+      prompt: {text: "Posso di venire", tags: [modal-infinitive]}
+    - learner: "Posso venire sabato?"
+    - tutor: "Certo, sabato sono libero. Alle quattro va bene?"
+      goals: [when]
+    - learner: "Sì, alle quattro va bene. Ti mando un messaggio!"
+    - tutor: "Allora a sabato, alle quattro!"
+
+- scenario: numero-telefono
+  # facts: tiramisù non bello ma buono; caffè insieme dopo la prossima lezione; numero dello studente 333 987 654; Paolo libero lunedì e sabato; lunedì alle otto
+  level: A1
+  persona: en-m-traveller
+  history: [question-form]
+  turns:
+    - tutor: "È stata una bella lezione, vero?"
+    - learner: "Sì, molto. Ma il mio tiramisù non è bello!"
+    - tutor: "È buono lo stesso! La prossima volta è più bello, vedrai."
+    - learner: "Facciamo un caffè insieme dopo la prossima lezione?"
+    - tutor: "Sì, mi fa piacere! Mi lasci il tuo numero?"
+      goals: [propose]
+    - learner: "Certo. È tre tre tre, nove otto sette, sei cinque quattro."
+    - tutor: "Grazie, ti mando subito un messaggio. È arrivato?"
+      goals: [number]
+    - learner: "Sì, è arrivato! Cosa giorno sei libero?"
+      errors: [question-form]
+    - tutor: "«Cosa giorno»? Prima di «giorno», la domanda comincia in un altro modo."
+      prompt: {text: "Cosa giorno", tags: [question-form]}
+    - learner: "Scusa: cosa giorno sei libero?"
+      errors: [question-form]
+    - tutor: "Che giorno sono libero? Il lunedì e il sabato. E tu?"
+      recast: {text: "cosa giorno", fix: "Che giorno", tags: [question-form]}
+    - learner: "Lunedì va bene. Dopo la lezione, alle otto?"
+    - tutor: "Lunedì alle otto, allora. Ci vediamo!"
+      goals: [when]
+
+- scenario: ristorante-ordinare
+  # facts: due persone; fuori tutto pieno, tavolo vicino alla finestra; oggi lasagne e pasta al pomodoro, pesce finito; acqua frizzante; conto ventotto euro; paga con la carta
+  level: A1
+  persona: en-f-professional
+  history: [possessive]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Siamo in due. Avete un tavolo fuori?"
+    - tutor: "Fuori è tutto pieno, mi dispiace. C'è un tavolo vicino alla finestra."
+      goals: [ask-table]
+    - learner: "Va bene, grazie. Cosa c'è oggi?"
+    - tutor: "Oggi ci sono le lasagne e la pasta al pomodoro. Il pesce è finito."
+      new: [{lemma: lasagne, gloss: lasagna}]
+    - learner: "Per me le lasagne. Il mio marito prende la pasta."
+      errors: [possessive]
+    - tutor: "«Il mio marito»? Con le persone della famiglia, guardi bene l'articolo."
+      prompt: {text: "Il mio marito", tags: [possessive]}
+    - learner: "Mio marito prende la pasta."
+    - tutor: "Giusto. E da bere cosa vi porto?"
+      goals: [order-food]
+    - learner: "Una bottiglia di acqua frizzante, per favore."
+    - tutor: "Arriva subito, con il pane."
+      goals: [order-drink]
+    - learner: "Era tutto buonissimo! Il conto, per favore."
+    - tutor: "Grazie! Sono ventotto euro in tutto."
+      goals: [ask-bill]
+    - learner: "Pago con la carta."
+    - tutor: "Grazie mille! Arrivederci e buona giornata."
+
+- scenario: chiedere-strada
+  # facts: stazione a dieci minuti a piedi; dritto fino al semaforo, poi a sinistra; piazza Garibaldi; stazione in fondo alla piazza; taxi davanti alla stazione
+  level: A2
+  persona: es-m-worker
+  history: [register]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, scusa, puoi aiutarmi? Cerco la stazione."
+      errors: [register]
+    - tutor: "Certo! Però noi non ci conosciamo: «scusa, puoi» va bene con un amico. Con me?"
+      prompt: {text: "scusa, puoi", tags: [register]}
+    - learner: "Ah, sì. Scusi, può aiutarmi? Cerco la stazione."
+    - tutor: "Certo, è a dieci minuti a piedi. Vada dritto fino al semaforo, poi giri a sinistra."
+      goals: [get-attention, ask-place]
+    - learner: "Dritto fino al semaforo e poi a sinistra. E dopo?"
+    - tutor: "Dopo arriva in piazza Garibaldi. La stazione è in fondo alla piazza."
+    - learner: "Ci sono i taxi in piazza? Ho una maleta pesante."
+      errors: [word-choice]
+    - tutor: "Sì, davanti alla stazione ci sono sempre i taxi. Ma è vicina: anche con la valigia può andare a piedi."
+      recast: {text: "maleta", fix: "valigia", tags: [word-choice]}
+    - learner: "Allora: dritto, al semaforo a sinistra, poi la piazza. Giusto?"
+    - tutor: "Sì, è proprio così. Non può sbagliare!"
+      goals: [understand]
+    - learner: "Grazie mille, lei è molto gentile!"
+    - tutor: "Di niente, buon viaggio!"
+      goals: [thank]
+
+- scenario: autobus
+  # facts: linea otto va al museo; biglietto un euro e cinquanta in tabaccheria, due euro sull'autobus; tabaccheria all'angolo; timbrare nella macchinetta gialla; cinque fermate, scendere in piazza Dante
+  level: A2
+  persona: en-f-student
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Questo autobus va a il museo?"
+      errors: [articulated-preposition]
+    - tutor: "«A il museo»? Pensi ad «a» più «il» insieme: che parola diventa?"
+      prompt: {text: "a il museo", tags: [articulated-preposition]}
+    - learner: "Ehm... va a il museo?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, va al museo: è la linea otto. Ha già il biglietto?"
+      recast: {text: "a il museo", fix: "al museo", tags: [articulated-preposition]}
+      goals: [route]
+    - learner: "No. Dove posso comprare il biglietto?"
+    - tutor: "In tabaccheria costa un euro e cinquanta, qui da me due euro. La tabaccheria è lì, all'angolo."
+      goals: [ticket]
+      new: [{lemma: angolo, gloss: corner}]
+    - learner: "Allora lo compro da lei. Ecco due euro."
+    - tutor: "Ecco il biglietto. Lo deve timbrare subito, nella macchina gialla."
+    - learner: "Va bene. A quale fermata devo scendere?"
+    - tutor: "Il museo è a cinque fermate: deve scendere in piazza Dante. Glielo dico io."
+      goals: [stop]
+    - learner: "Grazie, è molto gentile."
+    - tutor: "Prego! Si sieda pure, partiamo."
+      goals: [thank]
+
+- scenario: autobus
+  # facts: questo autobus non va all'ospedale; linea dodici dalla fermata di fronte, ogni quindici minuti; sull'autobus non si vendono biglietti; tabaccheria vicino al bar; scendere alla fermata Ospedale, dopo sei fermate; ritorno dalla fermata di fronte all'ospedale
+  level: A2
+  persona: es-f-teacher
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Devo andare all'ospedale. Questo autobus ci va?"
+    - tutor: "No, questo no. Per l'ospedale c'è il dodici, dalla fermata di fronte."
+      goals: [route]
+    - learner: "Il dodici passa spesso?"
+    - tutor: "Sì, ogni quindici minuti. Il biglietto ce l'ha?"
+    - learner: "No. Posso comprarlo da lei?"
+    - tutor: "Mi dispiace, sull'autobus non vendiamo biglietti. C'è una tabaccheria lì, vicino al bar."
+      goals: [ticket]
+    - learner: "Va bene. E per l'ospedale, a quale fermata devo scendere?"
+    - tutor: "Alla fermata «Ospedale», dopo sei fermate."
+      goals: [stop]
+    - learner: "E per tornare, prendo il dodici dall'altra parte?"
+    - tutor: "Sì, la fermata per tornare è proprio di fronte all'ospedale."
+    - learner: "Grazie mille per la informazione!"
+      errors: [article-form]
+    - tutor: "Prego! Ma «la informazione»? Davanti alla «i», l'articolo cambia un po'."
+      prompt: {text: "la informazione", tags: [article-form]}
+    - learner: "Grazie per l'informazione!"
+    - tutor: "Esatto, così. Buona giornata!"
+      goals: [thank]

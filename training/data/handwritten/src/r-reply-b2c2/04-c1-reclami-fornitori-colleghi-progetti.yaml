@@ -1,0 +1,251 @@
+# Round 10, set r-reply-b2c2. File 4 (C1): complaints at the town council, supplier price
+# negotiations, mediating between colleagues and pitching a project. The clerk, supplier,
+# colleague or director keeps to what the role knows and leaves the learner to insist, propose
+# and decide; every commitment, figure and name stays as first stated.
+- scenario: reclamo-comune
+  # facts: via dei Mille 14; abandoned roadworks for two months, promised finished by October; learner's wife walks with a stick; at least three fences fallen by the door; complaint answered within 30 days (office rules); protocol number 4471; urgent report to the technical office today; if fences not put back by Friday, call and ask for signora Bruni
+  level: C1
+  persona: en-m-retired
+  history: [passive, ci-ne]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Abito in via dei Mille, dove da due mesi c'è un cantiere abbandonato: buche, transenne cadute e nessun operaio. Mia moglie, che cammina col bastone, non riesce più a uscire di casa da sola."
+    - tutor: "Mi dispiace molto per sua moglie. Posso dirle che l'ufficio tecnico è già informato della situazione di via dei Mille, e che la questione è in fase di valutazione."
+      goals: [describe]
+    - learner: "Con tutto il rispetto, «informato» non mi basta. Due mesi fa ci avevano promesso che i lavori sarebbero finiti entro ottobre, e da allora nessuno ci ha più detto niente."
+    - tutor: "Ha ragione a insistere: una scadenza era stata comunicata e non è stata rispettata. Vuole presentare un reclamo formale?"
+      goals: [insist]
+    - learner: "Sì. Ma prima vorrei sapere entro quanto tempo il mio reclamo deve essere risposto."
+      errors: [passive]
+      gold: {text: "deve essere risposto", fix: "deve ricevere una risposta"}
+    - tutor: "«Il reclamo deve essere risposto»? In italiano si risponde «a» qualcosa: un verbo così può davvero andare al passivo?"
+      prompt: {text: "deve essere risposto", tags: [passive]}
+    - learner: "Giusto. Entro quanto tempo il mio reclamo deve ricevere una risposta?"
+    - tutor: "Il reclamo si presenta per iscritto, qui allo sportello o per posta certificata, e viene protocollato subito. Il nostro regolamento prevede una risposta entro trenta giorni. Vuole compilarlo adesso?"
+      goals: [rights]
+    - learner: "Lo compilo subito. Ma trenta giorni sono tanti: nel frattempo qualcuno può almeno rimettere a posto le transenne? Sono cadute almeno tre davanti al mio portone."
+      errors: [ci-ne]
+      gold: {text: "Sono cadute almeno tre", fix: "Ne sono cadute almeno tre"}
+    - tutor: "«Sono cadute almeno tre»? Tre... transenne: davanti al verbo serve un pronome che le riprenda."
+      prompt: {text: "Sono cadute almeno tre", tags: [ci-ne]}
+    - learner: "Ne sono cadute almeno tre davanti al mio portone."
+    - tutor: "Questa richiesta posso girarla oggi stesso come segnalazione urgente, separata dal reclamo. Mi conferma il numero civico?"
+    - learner: "Il numero 14. Mi può dare anche un numero di protocollo, così, se non succede niente, so che cosa citare quando richiamo?"
+    - tutor: "Il reclamo ha il protocollo numero 4471, e la segnalazione urgente parte adesso per l'ufficio tecnico. Se entro venerdì le transenne non sono state rimesse, chiami questo numero e chieda della signora Bruni, cioè di me."
+      goals: [commitment]
+
+- scenario: reclamo-comune
+  # facts: learner speaks for the residents of via Leopardi 8; open trench in front of their driveway for two months, nobody can take cars out; works by a private firm working for the water company, permit issued by the council; two emails sent in September and October, unanswered; complaint protocolled today, answer within 30 days; stagnant water and mosquitoes; urgent report to the environment office, technician by Thursday; protocol 5318; clerk's extension 226
+  level: C1
+  persona: es-f-teacher
+  history: [register, word-choice]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Le parlo a nome dei condomini di via Leopardi 8: da due mesi davanti al nostro passo carrabile c'è uno scavo aperto, e nessuno di noi può tirare fuori la macchina dal garage."
+    - tutor: "Capisco il disagio. Da quello che vedo, però, quel cantiere è di un'impresa privata che lavora per l'azienda dell'acqua, quindi non dipende direttamente da noi."
+      goals: [describe]
+    - learner: "Mi scusi, ma la strada è comunale, e il permesso di scavare l'avete dato voi. Non mi dica che il Comune non ci può fare niente."
+    - tutor: "Su questo ha ragione: l'autorizzazione l'abbiamo rilasciata noi, e possiamo sollecitare l'impresa. Prima, però, mi serve sapere se avete già fatto una segnalazione scritta."
+      goals: [insist]
+    - learner: "Due, per email, a settembre e a ottobre, e non ci ha risposto nessuno. Ma tu mi stai dicendo che devo ricominciare da capo?"
+      errors: [register]
+      gold: {text: "tu mi stai dicendo", fix: "lei mi sta dicendo"}
+    - tutor: "«Tu mi stai dicendo»? Fino a un momento fa mi parlava con la forma di cortesia: allo sportello, con un funzionario, quale usiamo?"
+      prompt: {text: "tu mi stai dicendo", tags: [register]}
+    - learner: "Mi scusi: lei mi sta dicendo che devo ricominciare da capo? E in un caso come questo, quali sono i nostri diritti?"
+    - tutor: "No, le due email valgono: le cerco nel sistema e le allego al reclamo formale, che oggi stesso viene protocollato. Da quella data, l'ufficio ha trenta giorni per rispondervi per iscritto. Lo presentiamo adesso, a nome del condominio?"
+      goals: [rights]
+    - learner: "Sì, ma trenta giorni sono troppi: nello scavo c'è anche dell'acqua estancada, e la sera ci sono zanzare dappertutto."
+      errors: [word-choice]
+    - tutor: "L'acqua stagnante cambia le cose, perché diventa un problema di igiene. Posso mandare oggi stesso una segnalazione urgente all'ufficio ambiente, insieme al reclamo."
+      recast: {text: "estancada", fix: "stagnante", tags: [word-choice]}
+    - learner: "Allora mi dia, per favore, un numero di protocollo e una data in cui qualcuno verrà a vedere."
+    - tutor: "Il reclamo ha il protocollo 5318, e la segnalazione sull'acqua parte adesso: un tecnico dell'ufficio ambiente passerà entro giovedì. Le lascio anche il mio interno, il 226, se nel frattempo qualcosa non va."
+      goals: [commitment]
+
+- scenario: trattativa-fornitore
+  # facts: +15% announced with one week's notice; supplier's paper and glue costs up almost 20% since January; client for six years, always paid on time, about 40,000 boxes a month; learner offers +7% for 12 months; supplier: +10% for 12 months or +8% for 18 months with payment at 30 days instead of 60; learner's administration approves 30 days before 17:00; agreed +8%, 18 months, 30 days, new price from the next order
+  level: C1
+  persona: en-m-heritage
+  history: [hypothetical, conditional-form]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, la chiamo proprio per quello. Un aumento del quindici per cento, comunicato con una settimana di preavviso, per noi è molto difficile da assorbire."
+    - tutor: "Il preavviso è stato breve, lo riconosco. Purtroppo la carta e la colla ci costano quasi il venti per cento in più rispetto a gennaio. Su che cosa vorrebbe discutere?"
+      goals: [problem]
+    - learner: "Lavoriamo con voi da sei anni, abbiamo sempre pagato puntualmente e ordiniamo circa quarantamila scatole al mese. Mi aspetterei che un cliente così venisse trattato diversamente da chi ordina una volta all'anno."
+    - tutor: "Non lo metto in dubbio: siete tra i nostri clienti più affidabili, ed è per questo che sono disposto a parlarne. Che proposta ha in mente?"
+      goals: [argue]
+    - learner: "Se firmeremmo un contratto di dodici mesi, accettereste un aumento del sette per cento?"
+      errors: [hypothetical]
+      gold: {text: "Se firmeremmo", fix: "Se firmassimo"}
+    - tutor: "«Se firmeremmo»? Dopo «se», in un'ipotesi come questa, il condizionale non va: quale forma serve?"
+      prompt: {text: "Se firmeremmo", tags: [hypothetical]}
+    - learner: "Se firmassimo un contratto di dodici mesi, accettereste un aumento del sette per cento?"
+    - tutor: "Il sette per cento non mi copre i costi. Potrei arrivare al dieci per dodici mesi, oppure all'otto, se il contratto fosse di diciotto mesi e ci pagaste a trenta giorni invece che a sessanta."
+      goals: [counteroffer]
+    - learner: "L'otto per cento mi interessa. Diciotto mesi vanno bene subito; per i trenta giorni, invece, devo sentire l'amministrazione."
+    - tutor: "Se l'amministrazione le dà il via libera, possiamo chiudere oggi. Entro quando pensa di avere una risposta?"
+    - learner: "Entro le cinque. Appena so qualcosa la richiamo: le dispiacerebbe poi mandarmi la conferma per email?"
+    - tutor: "Nessun problema. Intanto le mando una bozza, così l'amministrazione vede le condizioni nero su bianco."
+    - learner: "Eccomi: l'amministrazione ha dato l'ok per i trenta giorni. Allora siamo d'accordo: otto per cento, diciotto mesi e pagamento a trenta giorni."
+    - tutor: "Siamo d'accordo, allora. Le mando la conferma definitiva entro stasera, e il nuovo prezzo varrà dal prossimo ordine."
+      goals: [agreement]
+
+- scenario: trattativa-fornitore
+  # facts: +15% in one go; learner has offers from two cheaper suppliers, satisfied with this one for years; supplier never left them without boxes; learner proposes +5% now and +5% in six months; approval needed by Friday (order on Monday); free delivery above 500 euro kept; second increase applies in six months unless costs fall by more than 10%; written proposal sent today
+  level: C1
+  persona: es-m-worker
+  history: [subjunctive-use, word-choice]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, la chiamo per il listino. Capisco che i costi sono saliti per tutti, ma il quindici per cento in un colpo solo ci mette in seria difficoltà."
+    - tutor: "Lo immaginavo, e la ringrazio di avermi chiamato subito. Mi dica come la vedete voi."
+      goals: [problem]
+    - learner: "Abbiamo già ricevuto offerte da altri due fornitori, più economici. Non vorrei cambiare, perché con voi ci troviamo bene da anni, ma i nostri clienti non accetterebbero un altro aumento dei biscotti."
+    - tutor: "Offerte più basse se ne trovano sempre, ma le chiederei di guardare anche le consegne: in tutti questi anni non vi abbiamo mai lasciati senza scatole. Che cosa mi propone?"
+      goals: [argue]
+    - learner: "Un aumento graduale: il cinque per cento adesso e un altro cinque fra sei mesi, se le materie prime non scendono. Sarebbe necessario che lei lo approva entro venerdì."
+      errors: [subjunctive-use]
+      gold: {text: "lei lo approva", fix: "lei lo approvasse"}
+    - tutor: "«Sarebbe necessario che lei lo approva»? Dopo un condizionale come «sarebbe necessario che», il verbo deve cambiare modo, e anche tempo."
+      prompt: {text: "lei lo approva", tags: [subjunctive-use]}
+    - learner: "Sarebbe necessario che lei lo approvasse entro venerdì, perché lunedì facciamo l'ordine."
+    - tutor: "Venerdì è stretto, ma si può fare. Il cinque più cinque posso accettarlo a una condizione: che il secondo aumento scatti in ogni caso, anche se i costi scendono un po'."
+      goals: [counteroffer]
+    - learner: "In ogni caso no. Accetto, però, se mantenete la consegna gratuita sopra i cinquecento euro di ordine. Senza quella, i conti non tornano."
+    - tutor: "La consegna gratuita resta, glielo garantisco. E sul secondo aumento facciamo così: scatta fra sei mesi, salvo un calo dei costi superiore al dieci per cento. Le va bene?"
+    - learner: "Sì, mi sembra giusto. Mi può mandare tutto per iscritto? Così lo preparo per la direzione, ed evitiamo malentendidi."
+      errors: [word-choice]
+    - tutor: "Gliela mando oggi, così evitiamo malintesi: cinque per cento subito, cinque fra sei mesi salvo forti cali dei costi, e consegna gratuita confermata."
+      goals: [agreement]
+      recast: {text: "malentendidi", fix: "malintesi", tags: [word-choice]}
+
+- scenario: mediazione-colleghi
+  # facts: yesterday's meeting; Marco presented the client analysis to the director; tutor and Marco worked on it for three weeks, tutor wrote almost all the tables and sent them to Marco on Friday; Marco did not name her; nobody agreed who would present; learner's plan: email the director today with both in copy, joint presentation next time; learner talks to Marco this morning first
+  level: C1
+  persona: en-f-professional
+  history: [tense-aspect, combined-pronouns]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Non mi disturba affatto, si sieda pure. Alla fine della riunione ho avuto l'impressione che fosse nervosa: mi racconti con calma."
+    - tutor: "Grazie. L'analisi sui clienti che Marco ha presentato al direttore l'abbiamo fatta insieme: tre settimane di lavoro, e quasi tutte le tabelle le ho scritte io. Lui non mi ha nemmeno nominata."
+    - learner: "Capisco che si senta ferita. Tre settimane non sono poche, e vedere il proprio lavoro attribuito a un altro è frustrante."
+    - tutor: "Frustrante è proprio la parola giusta. E adesso il direttore crede che il merito sia tutto suo."
+      goals: [listen]
+    - learner: "Prima di parlarne con Marco, vorrei capire bene: lui sapeva che le tabelle le aveva preparate lei? E vi eravate accordati su chi dovesse presentare?"
+    - tutor: "Lo sapeva benissimo: le tabelle gliele ho mandate io venerdì. Su chi dovesse presentare, invece, non ci siamo mai accordati."
+      goals: [clarify]
+    - learner: "Allora è possibile che Marco abbia deciso di presentare lui perché è il più anziano del gruppo, non per prendersi il merito. Ieri sera mi ha detto che è stato molto contento del vostro lavoro."
+      errors: [tense-aspect]
+      gold: {text: "è stato molto contento", fix: "era molto contento"}
+    - tutor: "«Mi ha detto che è stato molto contento»? Qui riferisce uno stato d'animo di Marco in quel momento: quale tempo del passato serve?"
+      prompt: {text: "è stato molto contento", tags: [tense-aspect]}
+    - learner: "Mi ha detto che era molto contento del vostro lavoro, e che il merito era di tutti e due."
+    - tutor: "Se è così, perché non l'ha detto davanti al direttore? Mi scusi, ma faccio fatica a crederci. Lei che cosa pensa di fare?"
+      goals: [perspective]
+    - learner: "Le propongo due cose. Oggi scrivo io al direttore e gli spiego chi ha preparato le tabelle, mettendo in copia lei e Marco. E alla prossima riunione l'analisi la presentate insieme."
+    - tutor: "Una mail del genere mi farebbe sentire molto più tranquilla. Vorrei però che anche Marco sapesse perché la manda: ne parla prima con lui?"
+      goals: [solution]
+    - learner: "Sì, gli lo dico stamattina, prima di mandare la mail."
+      errors: [combined-pronouns]
+      gold: {text: "gli lo dico", fix: "glielo dico"}
+    - tutor: "«Gli lo dico»? Quando «gli» e «lo» si incontrano, si fondono in una sola parola, con una piccola modifica."
+      prompt: {text: "gli lo dico", tags: [combined-pronouns]}
+    - learner: "Glielo dico stamattina, prima di mandare la mail: non voglio che si senta accusato."
+    - tutor: "Grazie, mi fido di lei. Allora aspetto la mail in copia, e la prossima volta preparo con Marco anche la parte da presentare."
+
+- scenario: mediazione-colleghi
+  # facts: tutor prepared the new warehouse shift plan at home in the evenings; yesterday Sara presented it ("ho pensato a una nuova organizzazione") and was complimented; Sara joined a month ago; learner forwarded the plan to Sara without saying who wrote it; plan: tomorrow at the morning meeting learner credits the tutor, then ten minutes for the tutor to explain the shifts; learner talks to Sara today
+  level: C1
+  persona: es-m-worker
+  history: [subjunctive-use, preposition]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Si accomodi. Mi dica tutto: se c'è un problema, preferisco saperlo subito."
+    - tutor: "Il nuovo piano dei turni del magazzino l'ho preparato io, la sera, a casa mia. Ieri Sara l'ha presentato come se fosse un'idea sua, e tutti si sono complimentati con lei."
+    - learner: "Capisco perfettamente perché è arrabbiato. Al suo posto, anch'io mi sarei sentito messo da parte."
+    - tutor: "Messo da parte, sì, proprio così. E non è la prima volta che il mio lavoro finisce sotto il nome di un altro."
+      goals: [listen]
+    - learner: "Mi aiuti a capire: Sara ha detto esplicitamente che il piano era suo, o ha parlato in generale del gruppo? Vorrei escludere che ci sia stato un malinteso."
+    - tutor: "Ha detto «ho pensato a una nuova organizzazione». Mi sembra abbastanza chiaro, no?"
+      goals: [clarify]
+    - learner: "Chiarissimo. Però tenga presente che Sara è arrivata da un mese, e dubito che sapeva chi aveva scritto il piano."
+      errors: [subjunctive-use]
+      gold: {text: "dubito che sapeva", fix: "dubito che sapesse"}
+    - tutor: "«Dubito che sapeva»? Dopo «dubito che», il verbo non può restare in questo modo: come cambia?"
+      prompt: {text: "dubito che sapeva", tags: [subjunctive-use]}
+    - learner: "Dubito che sapesse chi l'aveva scritto: il piano gliel'ho girato io, senza dirle niente, ed è stata una mia leggerezza."
+    - tutor: "Questo non lo sapevo. Allora non è del tutto colpa sua... ma intanto, davanti a tutti, ci ho rimesso la faccia io. Come pensa di sistemare le cose?"
+      goals: [perspective]
+    - learner: "Domani, alla riunione del mattino, dirò davanti a tutti che il piano l'ha preparato lei. E d'ora in poi, quando giro un documento, mi ricorderò a metterci il nome dell'autore."
+      errors: [preposition]
+      gold: {text: "mi ricorderò a metterci", fix: "mi ricorderò di metterci"}
+    - tutor: "«Mi ricorderò a metterci»? Con «ricordarsi», davanti all'infinito, la preposizione è un'altra."
+      prompt: {text: "mi ricorderò a metterci", tags: [preposition]}
+    - learner: "Mi ricorderò di metterci sempre il nome dell'autore."
+    - tutor: "Mi basta questo, davvero. Se vuole, domani posso spiegare io ai colleghi come funzionano i nuovi turni."
+      goals: [solution]
+    - learner: "Ottima idea: dopo il mio annuncio, le lascio dieci minuti. E con Sara ci parlo io oggi, così domani non si trova in imbarazzo."
+    - tutor: "Allora a domani mattina. Preparo due schemi semplici dei turni, così in dieci minuti si capisce tutto."
+
+- scenario: presentazione-progetto
+  # facts: online platform for customers to book repairs without the call centre; estimates: calls -40% in year one, about +8% revenue from annual maintenance; full cost 120,000 euro; IT team overloaded (director); pilot three months, Lombardy only, 35,000 euro, two external developers; learner asks budget approval by month end; written plan with times and risks: learner sends it Friday; meeting with the finance director arranged through the director's secretary
+  level: C1
+  persona: en-m-heritage
+  history: [hypothetical, subjunctive-use]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Grazie del tempo. In breve: proponiamo una piattaforma online con cui i clienti possono prenotare da soli le riparazioni, senza passare dal call center."
+    - tutor: "L'idea è chiara. Ma che cosa ci guadagniamo, numeri alla mano?"
+      goals: [pitch]
+    - learner: "Secondo le nostre stime, le telefonate al call center calerebbero del quaranta per cento già nel primo anno. E se i clienti prenoterebbero online, potremmo offrire loro anche la manutenzione annuale."
+      errors: [hypothetical]
+      gold: {text: "se i clienti prenoterebbero", fix: "se i clienti prenotassero"}
+    - tutor: "«Se i clienti prenoterebbero»? Dopo «se», il condizionale non va: quale forma richiede questa ipotesi?"
+      prompt: {text: "se i clienti prenoterebbero", tags: [hypothetical]}
+    - learner: "Se i clienti prenotassero online, potremmo offrire loro anche la manutenzione annuale, con circa l'otto per cento di fatturato in più."
+    - tutor: "Interessante, ma l'otto per cento è una stima, mentre il costo è certo. Quanto chiede, esattamente? E con quale squadra, visto che l'informatica è già sommersa di lavoro?"
+      goals: [benefits]
+    - learner: "Centoventimila euro in tutto. Ma capisco il rischio: per questo proponiamo di partire con una fase pilota di tre mesi, solo in Lombardia, che costerebbe trentacinquemila euro e richiederebbe due sviluppatori esterni."
+    - tutor: "Un pilota limitato mi preoccupa molto meno. Che cosa le serve da me, per partire?"
+      goals: [objection]
+    - learner: "Mi servirebbe che lei approvi il budget del pilota entro fine mese, così a gennaio i fornitori possono cominciare."
+      errors: [subjunctive-use]
+      gold: {text: "lei approvi", fix: "lei approvasse"}
+    - tutor: "«Mi servirebbe che lei approvi»? Con un condizionale nella principale, quale tempo del congiuntivo ci vuole?"
+      prompt: {text: "lei approvi", tags: [subjunctive-use]}
+    - learner: "Mi servirebbe che lei approvasse il budget del pilota entro fine mese."
+    - tutor: "Prima di approvare voglio vedere un piano scritto, con i tempi e i rischi principali. Me lo può mandare entro lunedì?"
+    - learner: "Glielo mando venerdì, così ha il fine settimana per leggerlo. Se per lei va bene, fisserei anche un incontro con il direttore finanziario per la settimana successiva."
+    - tutor: "Venerdì va benissimo. L'incontro con il direttore finanziario lo chieda pure alla mia segretaria, quando mi manda il piano."
+      goals: [next-steps]
+
+- scenario: presentazione-progetto
+  # facts: solar panels on the roofs of the company's three warehouses; investment about 400,000 euro; electricity bill -30%, payback in six years; roof survey proposed first; three quotes requested, two received, cheapest 5,000 euro; third quote by the end of next week; technical department to receive the quotes too, director approves a single proposal; board presentation in March; updates every two weeks
+  level: C1
+  persona: en-f-student
+  history: [ci-ne, false-friend]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Grazie. Il progetto è semplice: installare pannelli solari sui tetti dei nostri tre magazzini, per produrre da soli una parte dell'energia che consumiamo."
+    - tutor: "Che cosa siano i pannelli solari, lo so. Mi dica piuttosto quanto costano e quanto ci fanno risparmiare."
+      goals: [pitch]
+    - learner: "L'investimento è di circa quattrocentomila euro. La bolletta elettrica scenderebbe del trenta per cento, e con i risparmi recupereremmo la spesa in sei anni."
+    - tutor: "Sei anni sono lunghi, per un'azienda come la nostra. E se i tetti dovessero essere rifatti prima, chi paga?"
+      goals: [benefits]
+    - learner: "È una domanda giusta. Prima di decidere, proporrei un sopralluogo tecnico sullo stato dei tetti. Ho chiesto tre preventivi, ma finora ho ricevuto solo due."
+      errors: [ci-ne]
+      gold: {text: "ho ricevuto solo due", fix: "ne ho ricevuti solo due"}
+    - tutor: "«Ho ricevuto solo due»? Due preventivi: davanti al verbo serve un pronome che li riprenda."
+      prompt: {text: "ho ricevuto solo due", tags: [ci-ne]}
+    - learner: "Finora ne ho ricevuti solo due, e il più basso è di cinquemila euro."
+    - tutor: "Cinquemila euro per evitare una sorpresa da centinaia di migliaia mi sembrano ben spesi. Quando arriva il terzo preventivo?"
+      goals: [objection]
+    - learner: "Entro la fine della settimana prossima. Il mio unico timore è la direzione tecnica: non vorrei che nascesse un argomento con loro, perché il sopralluogo tocca il loro lavoro."
+      errors: [false-friend]
+    - tutor: "Una discussione con la direzione tecnica si evita coinvolgendola subito. Mandi i preventivi anche a loro, e poi mi porti una proposta unica: la approvo io."
+      recast: {text: "un argomento", fix: "una discussione", tags: [false-friend]}
+    - learner: "D'accordo. Con il loro parere, poi, preparerei la presentazione per il consiglio di amministrazione di marzo."
+    - tutor: "Marzo va bene, ma prima voglio i risultati del sopralluogo sulla mia scrivania. Mi tenga aggiornata ogni due settimane."
+      goals: [next-steps]
