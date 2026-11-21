@@ -7,11 +7,28 @@ import { initLlama, type LlamaContext } from 'llama.rn';
 
 import type { LlamaCompletionResult, LlamaInitParams, LlamaRuntime, LlamaSession } from './runtime';
 
+/**
+ * Chat formatting for Gemma 4. With a response format, llama.cpp's Gemma 4
+ * grammar also allows a `<|channel>thought` block before the JSON, and
+ * `enable_thinking: false` does not stop the model opening one: it then thinks
+ * until the token limit and the reply comes back empty. A zero thinking budget
+ * closes the block as soon as it opens (llama-server's `--reasoning-budget 0`),
+ * and `reasoning_format: 'auto'` keeps that empty block out of the content, so
+ * the content is just the JSON (the grammar's json code fence is not content
+ * either).
+ */
+const TUTOR_CHAT_FORMAT = {
+  jinja: true,
+  enable_thinking: false,
+  thinking_budget_tokens: 0,
+  reasoning_format: 'auto',
+} as const;
+
 function session(context: LlamaContext): LlamaSession {
   return {
     gpu: context.gpu,
     reasonNoGpu: context.reasonNoGPU,
-    async completion(params, onText): Promise<LlamaCompletionResult> {
+    async completion(params, onContent): Promise<LlamaCompletionResult> {
       const result = await context.completion(
         {
           messages: params.messages,
@@ -19,9 +36,7 @@ function session(context: LlamaContext): LlamaSession {
             type: 'json_schema',
             json_schema: { strict: true, schema: params.jsonSchema },
           },
-          jinja: true,
-          enable_thinking: false,
-          reasoning_format: 'none',
+          ...TUTOR_CHAT_FORMAT,
           n_predict: params.n_predict,
           temperature: params.temperature,
           top_k: params.top_k,
@@ -30,12 +45,14 @@ function session(context: LlamaContext): LlamaSession {
           penalty_repeat: params.penalty_repeat,
           ...(params.seed === undefined ? {} : { seed: params.seed }),
         },
+        // Stream the parsed content, not raw tokens: the raw text also holds
+        // the thought block and the code fence around the JSON.
         (data) => {
-          if (data.token) onText(data.token);
+          if (data.content) onContent(data.content);
         },
       );
       return {
-        text: result.content || result.text,
+        text: result.content,
         stoppedLimit: result.stopped_limit > 0,
         interrupted: result.interrupted,
         contextFull: result.context_full,

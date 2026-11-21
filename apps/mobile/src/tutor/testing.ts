@@ -32,7 +32,7 @@ export function createFakeTutorPartner(
   return fake;
 }
 
-/** A scripted completion: raw model output, streamed in pieces. */
+/** A scripted completion: the model's content, streamed in growing prefixes. */
 export interface FakeCompletion {
   text: string;
   stoppedLimit?: boolean;
@@ -74,7 +74,7 @@ export class FakeLlamaRuntime implements LlamaRuntime {
     const session: LlamaSession = {
       gpu: params.n_gpu_layers > 0 && runtime.gpu,
       reasonNoGpu: params.n_gpu_layers > 0 ? '' : 'CPU only',
-      async completion(request, onText): Promise<LlamaCompletionResult> {
+      async completion(request, onContent): Promise<LlamaCompletionResult> {
         runtime.completions.push(request);
         runtime.stopped = false;
         const next = runtime.script.shift() ?? { text: '' };
@@ -86,7 +86,7 @@ export class FakeLlamaRuntime implements LlamaRuntime {
           runtime.onPiece?.(i);
           if (runtime.isStopped()) break;
           text += piece;
-          onText(piece);
+          onContent(text);
         }
         return {
           text,
