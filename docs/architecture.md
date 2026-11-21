@@ -42,7 +42,7 @@ It works offline and signed out. Signing in only adds sync between devices.
 | Italian voice         | Piper `it_IT-paola-medium` through sherpa-onnx; the phone's Italian voice as a fallback                                                                          |
 | Pronunciation scoring | Our own: wav2vec2 Italian phonemizer (ONNX, `onnxruntime-react-native`), CTC decoding, then G2P, alignment and per-phoneme scores in `@italia/speech`             |
 | Accounts and sync     | Self-hosted Supabase (Auth and Postgres with row-level security), tables in the `italia` schema                                                                  |
-| Builds                | GitHub Actions builds a release APK and publishes it as the `android-latest` release; EAS profiles remain for development builds                                |
+| Builds                | GitHub Actions builds release APKs for arm64 phones and x86_64 emulators and publishes both as the `android-latest` release; EAS profiles remain for development builds |
 | Tests                 | Vitest in `packages/*` and `supabase/`, jest-expo with React Native Testing Library in the app, pytest for `training/`                                           |
 
 Model files are not bundled in the app. They are listed in `models/manifest.json` with SHA-256

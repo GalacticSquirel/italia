@@ -2,8 +2,12 @@ name: Android APK
 
 # Builds an installable release APK on GitHub's runners, with no Expo account:
 # `expo prebuild` generates the native project, then Gradle builds it.
-# The APK is attached to the run as an artifact and published to the
-# `android-latest` pre-release, so it can be downloaded straight from a phone.
+# Two APKs are built in parallel, one per CPU type: `italia-<sha>.apk` for
+# arm64 phones and `italia-<sha>-emulator-x86_64.apk` for x86_64 Android
+# emulators on a PC (an arm64 APK runs there only under translation, far too
+# slowly for the on-device tutor). Both are attached to the run as artifacts
+# and published together to the `android-latest` pre-release, so they can be
+# downloaded straight from a phone or the PC.
 #
 # The APK is signed with the React Native template's debug keystore, which is
 # the same on every runner, so a new build installs over the old one and keeps
@@ -30,9 +34,20 @@ permissions:
 
 jobs:
   apk:
-    name: Build release APK
+    name: Build release APK (${{ matrix.abi }})
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Phones from the last several years are all arm64; one ABI per APK
+          # halves the build time and the APK size.
+          - abi: arm64-v8a
+            suffix: ''
+          # x86_64 Android emulators (Android Studio's default system images).
+          - abi: x86_64
+            suffix: '-emulator-x86_64'
     env:
       # Optional sync. Without these the app runs fully local and signed out.
       EXPO_PUBLIC_SUPABASE_URL: ${{ vars.EXPO_PUBLIC_SUPABASE_URL }}
@@ -68,39 +83,54 @@ jobs:
 
       - name: Build the APK
         working-directory: apps/mobile/android
-        # Phones from the last several years are all arm64; one ABI halves the
-        # build time and the APK size.
         run: >-
           ./gradlew assembleRelease
-          -PreactNativeArchitectures=arm64-v8a
+          -PreactNativeArchitectures=${{ matrix.abi }}
           -Dorg.gradle.jvmargs="-Xmx6g -XX:MaxMetaspaceSize=1g"
           --no-daemon
 
       - name: Name the APK
         id: apk
         run: |
-          short=$(git rev-parse --short HEAD)
-          name="italia-${short}.apk"
+          short=${GITHUB_SHA::7}
+          name="italia-${short}${{ matrix.suffix }}.apk"
           cp apps/mobile/android/app/build/outputs/apk/release/app-release.apk "$name"
           ls -lh "$name"
           echo "name=$name" >> "$GITHUB_OUTPUT"
-          echo "short=$short" >> "$GITHUB_OUTPUT"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: italia-apk-${{ steps.apk.outputs.short }}
+          name: ${{ steps.apk.outputs.name }}
           path: ${{ steps.apk.outputs.name }}
           retention-days: 30
           # An APK is already a zip.
           compression-level: 0
 
-      - name: Publish to the android-latest pre-release
+  publish:
+    name: Publish to the android-latest pre-release
+    needs: apk
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: italia-*.apk
+          path: apks
+          merge-multiple: true
+
+      - name: Replace the android-latest pre-release
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
+          ls -lh apks
+          short=${GITHUB_SHA::7}
           gh release delete android-latest --cleanup-tag --yes || true
-          gh release create android-latest "${{ steps.apk.outputs.name }}" \
+          gh release create android-latest apks/*.apk \
             --prerelease \
             --target "${{ github.sha }}" \
-            --title "Android build ${{ steps.apk.outputs.short }} (${{ github.ref_name }})" \
-            --notes "Release APK built from \`${{ github.ref_name }}\` at ${{ github.sha }} by run ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}. Download the .apk on your Android phone and open it to install."
+            --title "Android build ${short} (${{ github.ref_name }})" \
+            --notes "Release APKs built from \`${{ github.ref_name }}\` at ${{ github.sha }} by run ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}.
+
+          - \`italia-${short}.apk\`: Android phones (arm64). Download it on the phone and open it to install.
+          - \`italia-${short}-emulator-x86_64.apk\`: x86_64 Android emulators on a PC. Drag it onto the emulator window, or run \`adb install\` with it."
