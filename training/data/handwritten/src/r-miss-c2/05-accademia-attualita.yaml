@@ -1,0 +1,331 @@
+# Set r-miss-c2, file 5: a philosophy seminar, letters to a rector, news at the coffee machine,
+# regional speech on a train, technology and work over dinner, satire at the bar. Errors sit late
+# in long turns: «negare che», «per quanto», «prima che», «nel caso in cui» with the indicative,
+# «a differenza dal», «di un modo», «ne si occupi», «quella che mia madre si vergognava».
+- scenario: seminario-etica
+  # facts: seminario a Padova; esempio del professore: un'auto senza conducente che investe un pedone; tesi: la macchina è causa ma non responsabile, il programmatore avrebbe potuto agire diversamente; distinzione tra selezione e scelta, scegliere implica poter dire di no; obiezione del soldato; concessione: la responsabilità giuridica delle aziende; prossima settimana il professore metterà alla prova la conclusione
+  level: C2
+  persona: en-f-professional
+  history: [preposition, subjunctive-use]
+  turns:
+    - tutor: "Bene, dottoressa, la sua tesi è che una macchina non possa mai essere ritenuta responsabile. Mi permetta di dubitarne fin da subito."
+    - learner: "Ne ha tutto il diritto, professore. Ma prima di difendermi, mi permette di chiederle che cosa intende lei per «responsabile»? Credo che gran parte del disaccordo nasca proprio da lì."
+    - tutor: "Intendo una cosa semplice: un soggetto a cui si possa attribuire un danno e chiedere di risponderne. Un'auto senza conducente investe un pedone, per esempio: chi ne risponde?"
+    - learner: "Ne risponde chi l'ha progettata o messa in strada. La mia tesi è che l'auto sia causa del danno, ma non responsabile, a differenza dal programmatore, che avrebbe potuto agire diversamente e non l'ha fatto."
+      errors: [preposition]
+      gold: {text: "a differenza dal programmatore", fix: "a differenza del programmatore"}
+    - tutor: "Causa ma non responsabile: la tesi è chiara. Però riprenda «a differenza dal programmatore»: in questa locuzione, «a differenza» regge davvero «da»?"
+      prompt: {text: "a differenza dal programmatore", tags: [preposition]}
+    - learner: "Mi scusi: a differenza per il programmatore, che avrebbe potuto agire diversamente."
+      errors: [preposition]
+    - tutor: "A differenza del programmatore, che avrebbe potuto agire diversamente: ecco la sua distinzione. Ma anche l'auto «sceglie» tra due traiettorie, in una frazione di secondo. Non è una scelta anche questa?"
+      goals: [thesis]
+      recast: {text: "a differenza per il programmatore", fix: "a differenza del programmatore", tags: [preposition]}
+    - learner: "È una selezione, non una scelta. L'auto ordina le opzioni secondo criteri che qualcuno le ha dato; non può chiedersi se quei criteri siano giusti, né rifiutarsi di applicarli. Scegliere, in senso morale, implica poter dire di no."
+    - tutor: "Poter dire di no: elegante. Ma allora un soldato che esegue un ordine, senza poter rifiutare, non è responsabile?"
+      goals: [distinguish]
+    # decoy: «ammetterei che sia» is a correct subjunctive in a mixed hypothetical
+    - learner: "Il soldato potrebbe rifiutare, anche se a caro prezzo, ed è per questo che lo processiamo. Se l'auto avesse potuto rifiutarsi di investire il pedone, ammetterei che sia responsabile; ma nessun programma ha mai disobbedito a sé stesso."
+    - tutor: "Ottima risposta, lo riconosco. Mi conceda però che diciamo comunque «l'algoritmo ha sbagliato», e che le aziende vengono condannate come persone giuridiche. Non c'è una responsabilità anche lì?"
+      goals: [objection]
+    - learner: "Glielo concedo volentieri, e mi permetta di darle un esempio: un'azienda può essere condannata, ma nessuno pensa che provi rimorso. La responsabilità giuridica è una costruzione utile, non una prova di coscienza."
+      errors: [word-choice]
+    - tutor: "«Mi permetta di farle un esempio»: l'esempio è persuasivo, la condanna di un'azienda non presuppone il rimorso. Ma così lei ha concesso qualcosa: come lo tiene fuori dalla sua tesi?"
+      goals: [concede]
+      recast: {text: "darle un esempio", fix: "farle un esempio", tags: [word-choice]}
+    # decoy: «possa trattare» after «non ho mai negato che» is correct
+    - learner: "Distinguendo due piani. Non ho mai negato che il diritto possa trattare la macchina come un centro di imputazione, alla stregua di un'azienda; quello che nego è che la macchina è un agente morale."
+      errors: [subjunctive-use]
+      gold: {text: "nego è che la macchina è un agente", fix: "nego è che la macchina sia un agente"}
+    - tutor: "I due piani sono chiari. Ma l'ultima frase, «quello che nego è che la macchina è un agente morale»: dopo «negare che», quale modo ci vuole? Poco prima lo usa bene."
+      prompt: {text: "nego è che la macchina è un agente", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: quello che nego è che la macchina sia un agente morale. Il diritto può imputarle un danno; la morale no."
+    - tutor: "Così è difficile attaccarla. Ci dia la conclusione, in una frase sola."
+    - learner: "In conclusione: una macchina può essere causa di un danno e, per convenzione giuridica, centro di imputazione, ma non è responsabile in senso morale, perché non può mai dire di no ai propri criteri."
+    - tutor: "Una conclusione rigorosa, che metterò alla prova la prossima settimana. Grazie, dottoressa."
+      goals: [conclude]
+
+- scenario: email-rettore
+  # facts: il learner è ricercatore ospite al dipartimento di storia fino a giugno; il 3 marzo gli è stata revocata la tessera per la sala manoscritti, per un nuovo regolamento che la riserva al personale strutturato; chiede una deroga fino a giugno; formula: «Magnifico Rettore»; chiusura: «Con osservanza», poi nome, qualifica e nome del professore che lo ospita; bozza domani, spedizione entro venerdì
+  level: C2
+  persona: en-m-retired
+  history: [passive, register]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Buongiorno, e grazie di ricevermi. Sono ricercatore ospite al dipartimento di storia fino a giugno. Il mese scorso mi hanno revocato la tessera per la sala manoscritti, in base a un nuovo regolamento che la riserva al personale strutturato, e vorrei ottenere una deroga fino alla fine del mio soggiorno."
+    - tutor: "Una richiesta legittima, se ben argomentata. Cominciamo dall'inizio: come pensava di rivolgersi al Rettore?"
+      goals: [situation]
+    - learner: "Avevo pensato di cominciare con «Caro Rettore», come si farebbe in Inghilterra, e poi di presentarmi brevemente: nome, università di provenienza e progetto di ricerca."
+    - tutor: "«Caro Rettore» qui suonerebbe troppo confidenziale: la formula è «Magnifico Rettore». La presentazione breve, invece, va benissimo. Come prosegue?"
+      goals: [opening-formula]
+    - learner: "Poi spiegherei il problema: «La mia tessera è venuta revocata il 3 marzo senza alcun preavviso, e da allora non ho potuto consultare i fondi su cui si basa il mio progetto»."
+      errors: [passive]
+      gold: {text: "è venuta revocata", fix: "è stata revocata"}
+    - tutor: "Il contenuto è chiaro. Ma la forma, «la mia tessera è venuta revocata»: in un tempo composto, il passivo con «venire» si può fare?"
+      prompt: {text: "è venuta revocata", tags: [passive]}
+    - learner: "Allora: la mia tessera veniva revocata il 3 marzo senza alcun preavviso."
+      errors: [passive]
+    - tutor: "«La mia tessera è stata revocata il 3 marzo senza alcun preavviso»: così è corretto, e anche più netto. Ora la frase più delicata: come chiede la deroga?"
+      recast: {text: "veniva revocata", fix: "è stata revocata", tags: [passive]}
+    # decoy: «volesse» is a correct subjunctive after «se» in the polite conditional
+    - learner: "Avevo pensato a questa: «Ti sarei grato se volesse valutare la possibilità di concedermi una deroga fino a giugno, data la natura temporanea del mio incarico»."
+      errors: [register]
+      gold: {text: "Ti sarei grato", fix: "Le sarei grato"}
+    - tutor: "La struttura è giusta, cortese e ferma. Ma l'inizio, «ti sarei grato»: al Rettore si dà del tu? Il verbo che segue, «volesse», dice già il contrario."
+      prompt: {text: "Ti sarei grato", tags: [register]}
+    - learner: "Che svista, mi scusi: «Le sarei grato se volesse valutare la possibilità di concedermi una deroga fino a giugno». E per chiudere, «Cordialmente» va bene, o è troppo informale per un rettore?"
+    - tutor: "Così va benissimo; aggiungerei solo «in via eccezionale». «Cordialmente», invece, è troppo asciutto: meglio «Con osservanza» o «Voglia gradire i miei più distinti saluti». Quale preferisce?"
+      goals: [tone]
+    - learner: "«Con osservanza», direi, perché è più breve. Poi nome, qualifica e il nome del professore che mi ospita, in modo da dare più peso alla mia applicazione."
+      errors: [false-friend]
+    - tutor: "Il nome del professore dà peso alla sua domanda: ottima idea. Vada per «Con osservanza». Mi mandi la bozza completa domani: la rileggo e la spediamo entro venerdì."
+      goals: [closing]
+      recast: {text: "applicazione", fix: "domanda", tags: [false-friend]}
+    - learner: "Gliela mando domani mattina. La ringrazio molto: senza il suo aiuto avrei scritto una lettera da tribunale."
+    - tutor: "Da tribunale no, ma da avvocato sì. A domani, allora."
+
+- scenario: notizie-attualita
+  # facts: la nuova legge obbliga chi affitta per brevi periodi a registrare l'appartamento con un codice nazionale e fissa un limite di centoventi notti l'anno nei centri storici delle grandi città; il quotidiano economico titola «colpo al turismo», quello locale «vittoria dei residenti»; il collega ha la riunione delle dieci; appuntamento fra un anno alla macchinetta
+  level: C2
+  persona: es-f-teacher
+  history: [subjunctive-use, preposition]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatta?"
+    - learner: "Sì, ne parlavano anche alla radio. In sostanza, la nuova legge obbliga chi affitta per brevi periodi a registrare il piso con un codice nazionale e, nei centri storici delle grandi città, fissa un limite di centoventi notti l'anno."
+      errors: [word-choice]
+    - tutor: "Riassunto perfetto: registrare l'appartamento con un codice e il tetto delle centoventi notti. E tu che ne pensi? A me sembra l'ennesima legge che nessuno farà rispettare."
+      recast: {text: "registrare il piso", fix: "registrare l'appartamento", tags: [word-choice]}
+      goals: [summarise]
+    - learner: "Io la trovo giusta nelle intenzioni, anche se capisco il tuo scetticismo. Il problema è che senza controlli seri i proprietari continueranno come prima, e temo che il limite delle centoventi notti resta solo sulla carta."
+      errors: [subjunctive-use]
+      gold: {text: "temo che il limite delle centoventi notti resta", fix: "temo che il limite delle centoventi notti resti"}
+    - tutor: "Vedi che alla fine la pensi come me? Però riascolta «temo che il limite resta solo sulla carta»: dopo «temere che», l'indicativo ci sta?"
+      prompt: {text: "temo che il limite delle centoventi notti resta", tags: [subjunctive-use]}
+    - learner: "Giusto: temo che resti solo sulla carta. Ma tu le hai lette, le reazioni sui giornali? Io ho visto titoli molto diversi."
+    - tutor: "Le ho lette, sì: il quotidiano economico parla di «colpo al turismo», quello locale di «vittoria dei residenti». A te quale ha convinto di più?"
+      goals: [opinion]
+    - learner: "Nessuno dei due fino in fondo. Quello economico citava solo le associazioni dei proprietari, e quello locale non dava neanche un dato: sembrava un panfleto più che un articolo."
+      errors: [word-choice]
+    - tutor: "Più un volantino che un articolo, sì, l'ho pensato anch'io. E quindi, secondo te, dove sta la verità?"
+      goals: [sources]
+      recast: {text: "un panfleto", fix: "un volantino", tags: [word-choice]}
+    # decoy: «se ne sono già andati» and the mixed hypothetical are correct
+    - learner: "Nel mezzo, come sempre. Se la legge fosse stata fatta dieci anni fa, oggi i centri storici sarebbero ancora abitati; adesso rischia di arrivare quando i residenti se ne sono già andati."
+    - tutor: "Arrivare tardi è la nostra specialità. E le conseguenze, secondo te? Gli affitti per chi ci vive scenderanno?"
+    # decoy: «piuttosto che affittare» is «piuttosto che» in its correct sense
+    - learner: "Un po', forse, ma non quanto si spera. Molti proprietari, piuttosto che affittare a lungo termine, preferiranno vendere, e i prezzi caleranno di un modo così lento che nessuno se ne accorgerà."
+      errors: [preposition]
+      gold: {text: "di un modo così lento", fix: "in modo così lento"}
+    - tutor: "Vendere piuttosto che affittare: ci scommetterei anch'io. Ma riprendi «di un modo così lento»: in questa espressione, «modo» vuole quella preposizione, e vuole l'articolo?"
+      prompt: {text: "di un modo così lento", tags: [preposition]}
+    - learner: "Hai ragione: caleranno a un modo così lento."
+      errors: [preposition]
+    - tutor: "Caleranno in modo così lento che nessuno se ne accorgerà: questo è il vero rischio. Ne riparliamo fra un anno, con i numeri in mano?"
+      goals: [consequences]
+      recast: {text: "a un modo così lento", fix: "in modo così lento", tags: [preposition]}
+    - learner: "Affare fatto: fra un anno, stessa macchinetta, stesso caffè. E se avrai avuto ragione tu, il caffè lo offro io."
+    - tutor: "Segnato. Adesso scappo, che ho la riunione delle dieci."
+
+- scenario: dialetti-regionali
+  # facts: il nonno del learner era calabrese; parole capite: «guaglione», «jamme»; il passeggero ha detto «sto a casa» per «sono a casa», italiano regionale del Sud; il nonno insegnava una parola nuova ogni estate, il learner ne ricorda una decina; il treno arriva a Napoli
+  level: C2
+  persona: en-m-heritage
+  history: [relative-pronoun, subjunctive-use]
+  turns:
+    - tutor: "Scusa se mi intrometto, ma ti ho visto ridere: hai capito cosa si dicevano quei due signori? Perché non è mica facile."
+    - learner: "Qualcosa sì, ma non tutto. Ho capito «guaglione» e «jamme», perché mio nonno era calabrese e certe parole a casa le usava anche lui. Per il resto parlavano così veloce che mi sembrava un'altra lingua."
+    - tutor: "In un certo senso lo è: il napoletano ha una storia, una letteratura, perfino un teatro tutto suo. Che cosa ti ha colpito di più, nel modo in cui parlavano?"
+      goals: [notice]
+    - learner: "La musica, soprattutto. Le vocali finali quasi spariscono, e le frasi salgono e scendono come in una canzone. Mio nonno aveva la stessa cadenza, quella che mia madre si vergognava da bambina."
+      errors: [relative-pronoun]
+      gold: {text: "quella che mia madre si vergognava", fix: "quella di cui mia madre si vergognava"}
+    - tutor: "Che bella immagine, la frase come canzone. Ma riprendi «quella che mia madre si vergognava»: ci si vergogna «di» qualcosa, quindi quale relativo serve?"
+      prompt: {text: "quella che mia madre si vergognava", tags: [relative-pronoun]}
+    - learner: "Quella a cui mia madre si vergognava da bambina, allora."
+      errors: [relative-pronoun]
+    - tutor: "«Quella di cui mia madre si vergognava»: succede in tante famiglie, purtroppo. E un'espressione di quei signori che ti ha incuriosito, ce l'hai?"
+      recast: {text: "Quella a cui mia madre si vergognava", fix: "quella di cui mia madre si vergognava", tags: [relative-pronoun]}
+    - learner: "Sì: uno dei due ha detto «sto a casa» per dire «sono a casa». È napoletano, o si dice anche in italiano?"
+    - tutor: "È italiano regionale del Sud: «stare» al posto di «essere» lo senti da Roma in giù, anche da chi il dialetto non lo parla. In un tema te lo segnerebbero, al bar nessuno ci fa caso."
+      goals: [example]
+    # decoy: «di quanto pensassi» is a correct subjunctive
+    - learner: "Quindi il confine tra dialetto e italiano è più sfumato di quanto pensassi: c'è il dialetto vero, l'italiano standard, e in mezzo tutta questa zona grigia che la gente usa senza realizzarlo."
+      errors: [false-friend]
+    - tutor: "Senza rendersene conto, esatto: è l'italiano regionale, la lingua che parla davvero la maggior parte degli italiani. Secondo te i dialetti andrebbero protetti, o è una battaglia persa?"
+      goals: [standard]
+      recast: {text: "senza realizzarlo", fix: "senza rendersene conto", tags: [false-friend]}
+    # decoy: «bisognerebbe che i ragazzi li sentissero» is a correct subjunctive
+    - learner: "Andrebbero protetti, ma senza imbalsamarli. Non credo che basta insegnarli a scuola come una materia; bisognerebbe che i ragazzi li sentissero parlare in famiglia, nelle canzoni, a teatro."
+      errors: [subjunctive-use]
+      gold: {text: "Non credo che basta", fix: "Non credo che basti"}
+    - tutor: "Senza imbalsamarli, mi piace. Ma riascolta «non credo che basta insegnarli a scuola»: dopo «non credo che», quale modo si usa? Nella frase dopo lo usi benissimo."
+      prompt: {text: "Non credo che basta", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: non credo che basti insegnarli a scuola. Ci vogliono le canzoni, il teatro, le nonne."
+    - tutor: "Le nonne soprattutto. Tu, per esempio, qualche parola di calabrese la sai ancora?"
+      goals: [opinion]
+    # decoy: «me ne insegnava», «me ne ricordo» and «ne uso» are correct
+    - learner: "Qualcuna sì, ma pochissime. Mio nonno me ne insegnava una nuova ogni estate, e io la ripetevo per giorni; adesso me ne ricordo forse una decina, e ne uso ancora meno."
+    - tutor: "Una decina è già un piccolo tesoro: tienilo stretto. Ecco, siamo arrivati a Napoli: buon viaggio!"
+
+- scenario: intelligenza-artificiale
+  # facts: la sorella dell'amico fa la traduttrice e quest'anno ha perso metà dei clienti; il cugino del learner lavorava in un call center e ora controlla le risposte di un assistente automatico per una compagnia telefonica, guadagna di più; nel suo reparto erano quaranta, ora dodici; corso di riqualificazione per tutti; l'amico ha cinquant'anni e tre figli
+  level: C2
+  persona: es-m-worker
+  history: [subjunctive-use, combined-pronouns]
+  turns:
+    - tutor: "Ti dico la verità, a me questa intelligenza artificiale fa un po' paura. Tra dieci anni metà di noi sarà a casa, vedrai."
+    - learner: "Vedremo. Però, scusa, questa frase la sento da quando ero bambino: prima i robot nelle fabbriche, poi i computer negli uffici. E alla fine il lavoro c'è ancora, anche se è diverso."
+    - tutor: "Stavolta è diverso: le macchine non sostituiscono le braccia, sostituiscono la testa. Mia sorella fa la traduttrice e quest'anno ha perso metà dei clienti."
+      goals: [position]
+    # decoy: «che capisca» and «se ne assuma» are correct
+    - learner: "Mi dispiace per tua sorella, davvero. Ma per quanto la traduzione automatica è migliorata, un contratto o un romanzo richiedono ancora una persona che capisca il contesto e se ne assuma la responsabilità."
+      errors: [subjunctive-use]
+      gold: {text: "per quanto la traduzione automatica è migliorata", fix: "per quanto la traduzione automatica sia migliorata"}
+    - tutor: "Gliel'ho detto anch'io, ma intanto i clienti se ne vanno. E poi riascolta «per quanto la traduzione automatica è migliorata»: «per quanto», con questo valore, quale modo vuole?"
+      prompt: {text: "per quanto la traduzione automatica è migliorata", tags: [subjunctive-use]}
+    - learner: "Per quanto la traduzione automatica fosse migliorata, un contratto richiede sempre una persona."
+      errors: [subjunctive-use]
+    - tutor: "Per quanto la traduzione automatica sia migliorata, un contratto richiede una persona: sarà, ma i clienti piccoli si accontentano. Hai un esempio, uno solo, di un lavoro che queste macchine hanno creato?"
+      recast: {text: "Per quanto la traduzione automatica fosse migliorata", fix: "per quanto la traduzione automatica sia migliorata", tags: [subjunctive-use]}
+    - learner: "Ce l'ho in casa: mio cugino lavorava in un call center, e adesso controlla le risposte di un assistente automatico per una compagnia telefonica. Guadagna di più e, soprattutto, nessuno gli urla più al telefono."
+    - tutor: "Un esempio, d'accordo. Ma per un cugino promosso, quanti colleghi sono rimasti a casa?"
+      goals: [evidence]
+    - learner: "Su questo hai ragione, non te lo nego: nel suo reparto erano quaranta e ora sono dodici. L'azienda ha offerto a tutti un corso di riqualificazione, ma secondo lui è stato poco esitoso."
+      errors: [word-choice]
+    - tutor: "Un corso poco riuscito: allora vedi che ho ragione io! Quaranta persone, dodici rimaste, e un corso che non serve a niente."
+      goals: [concede]
+      recast: {text: "poco esitoso", fix: "poco riuscito", tags: [word-choice]}
+    # decoy: «Sappi» is the correct irregular imperative of «sapere»
+    - learner: "Calma, non ho detto che non serve a niente. Sappi però una cosa: chi l'ha seguito con impegno ha trovato un posto, e chi l'ha snobbato no. Dimmi la verità: tu un corso del genere l'avresti fatto?"
+    - tutor: "Io? A cinquant'anni, con tre figli? Forse sì, ma con la morte nel cuore. Allora, alla fine, dove ci incontriamo noi due?"
+    - learner: "Sul fatto che il cambiamento è inevitabile, ma il modo in cui lo gestiamo no. Bisogna che lo Stato ne si occupi seriamente, invece di lasciare tutto alle aziende."
+      errors: [combined-pronouns]
+      gold: {text: "ne si occupi", fix: "se ne occupi"}
+    - tutor: "Lo Stato, figurati. Ma riprendi «bisogna che lo Stato ne si occupi»: quando «si» e «ne» stanno insieme, in che ordine e in che forma vanno?"
+      prompt: {text: "ne si occupi", tags: [combined-pronouns]}
+    - learner: "Se ne occupi: bisogna che lo Stato se ne occupi seriamente. Su questo almeno siamo d'accordo?"
+    - tutor: "Su questo sì. Brindiamo allo Stato che se ne occupa, anche se ci credo poco: passami il vino."
+      goals: [conclude]
+
+- scenario: politica-lavoro
+  # facts: la madre della learner faceva la cassiera e con le casse automatiche è stata spostata al banco del pesce; il vicino di Riccardo faceva il bigliettaio alla stazione, ora ci sono solo macchinette; tassa sui robot per finanziare la formazione, con un vincolo preciso; appuntamento fra dieci anni, chi perde offre la cena
+  level: C2
+  persona: en-f-student
+  history: [hypothetical, subjunctive-use]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Dico che le profezie sui lavori che spariscono sono vecchie quanto la rivoluzione industriale. Però stavolta qualcosa di vero c'è: la velocità. Prima un mestiere scompariva in una generazione, adesso in cinque anni."
+    - tutor: "Almeno sulla velocità mi dai ragione. E se domani chiudessero tutti i call center, che cosa succederebbe, secondo te?"
+      goals: [opinion]
+    - learner: "Migliaia di persone resterebbero senza lavoro dall'oggi al domani. E il bello è che lo sapevamo: se dieci anni fa il governo avrebbe investito nella formazione, oggi quelle persone sarebbero pronte per qualcos'altro."
+      errors: [hypothetical]
+      gold: {text: "il governo avrebbe investito", fix: "il governo avesse investito"}
+    - tutor: "Lo sapevamo, appunto. Ma la tua ipotesi, «se dieci anni fa il governo avrebbe investito»: dopo «se», il condizionale va bene?"
+      prompt: {text: "il governo avrebbe investito", tags: [hypothetical]}
+    - learner: "Se dieci anni fa il governo investiva nella formazione, oggi sarebbero pronte."
+      errors: [hypothetical]
+    - tutor: "Se dieci anni fa il governo avesse investito nella formazione, oggi sarebbero pronte: d'accordo, ma non l'ha fatto. Mi fai un esempio concreto di qualcuno che si è salvato?"
+      goals: [hypothesis]
+      recast: {text: "il governo investiva", fix: "il governo avesse investito", tags: [hypothetical]}
+    - learner: "Mia madre: faceva la cassiera in un supermercato, e quando hanno messo le casse automatiche l'hanno spostata al banco del pesce, dove nessuna macchina può consigliarti come cucinare l'orata. Tu ne conosci, di storie così?"
+    - tutor: "Ne conosco, sì, ma ne conosco di più di gente rimasta a casa. Il mio vicino faceva il bigliettaio alla stazione: adesso ci sono solo macchinette."
+      goals: [example]
+    - learner: "Il tuo vicino è un caso triste, lo ammetto. Proprio per questo molti economisti sopportano l'idea di una tassa sui robot, da usare per formare chi perde il lavoro."
+      errors: [false-friend]
+    - tutor: "Molti economisti la sostengono, è vero; che i politici la approvino, ne dubito. Tu la voteresti?"
+      recast: {text: "sopportano", fix: "sostengono", tags: [false-friend]}
+    # decoy: «a patto che i soldi vadano» is a correct subjunctive, «ne vedrebbero» a correct «ne»
+    - learner: "La voterei domani, a patto che i soldi vadano davvero alla formazione e non a coprire altri buchi. Senza un vincolo preciso, la tassa diventerebbe l'ennesimo modo per fare cassa, e i lavoratori non ne vedrebbero un euro."
+    - tutor: "Un vincolo preciso, da noi? Mi fai ridere. Allora, per chiudere: tra dieci anni, quei lavori ci saranno o no?"
+    - learner: "Ci saranno, ma diversi. Il punto è prepararsi prima che i cambiamenti arrivano, non dopo, e su questo né il governo né le aziende stanno facendo abbastanza."
+      errors: [subjunctive-use]
+      gold: {text: "prima che i cambiamenti arrivano", fix: "prima che i cambiamenti arrivino"}
+    - tutor: "Prepararsi prima: facile a dirsi. Ma riprendi «prima che i cambiamenti arrivano»: dopo «prima che», quale modo ci vuole?"
+      prompt: {text: "prima che i cambiamenti arrivano", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: prima che i cambiamenti arrivino. E tu, Riccardo, alla fine cosa ne pensi?"
+    - tutor: "Penso che tu sia un'ottimista inguaribile e io un pessimista che spera di sbagliarsi. Fra dieci anni vediamo chi offre la cena."
+      goals: [conclude]
+
+- scenario: umorismo-satira
+  # facts: la learner ha riso per solidarietà con la signora accanto; battuta: il ministro difende i prodotti italiani e poi nella carbonara mette la pancetta affumicata e la cipolla; battuta del treno regionale, la barba e il biglietto per il secolo scorso; gioco di parole: «salire al Colle», il Quirinale; parte sulle persone obese giudicata gratuita; prossima serata la settimana prossima, l'amico manda i biglietti stasera
+  level: C2
+  persona: es-f-erasmus
+  history: [subjunctive-use, past-participle-form]
+  turns:
+    - tutor: "Dai, ammettilo, alla battuta sul ministro e la carbonara non hai riso perché non l'avevi capita."
+    - learner: "Lo ammetto, non l'avevo capita per niente: ho riso per solidarietà con la signora accanto a me. Che c'entrava la carbonara con il ministro? Me la spieghi?"
+    - tutor: "Il comico raccontava che il ministro difende i prodotti italiani e poi nella carbonara ci mette la pancetta affumicata e la cipolla. Per un romano è un sacrilegio. Adesso fa ridere?"
+      goals: [missed]
+    # decoy: «se avesse il biglietto» is a correct subjunctive
+    - learner: "Adesso sì. Ma a me è piaciuta di più quella del treno regionale: il comico diceva di averlo aspettato così tanto che gli era crescita la barba, e che il capotreno gli ha chiesto se avesse il biglietto per il secolo scorso."
+      errors: [past-participle-form]
+      gold: {text: "gli era crescita la barba", fix: "gli era cresciuta la barba"}
+    - tutor: "Quella era fortissima, e funziona perché è vera. Ma riprendi «gli era crescita la barba»: il participio passato di «crescere» è proprio quello?"
+      prompt: {text: "gli era crescita la barba", tags: [past-participle-form]}
+    - learner: "No: gli era cresciuta la barba. Mi ha fatto ridere perché il mio primo mese a Roma è successo anche a me, più o meno."
+    - tutor: "Benvenuta nel club dei pendolari barbuti. E il gioco di parole sul ministro che sale al Colle, quello l'avevi capito?"
+      goals: [favourite]
+    - learner: "Credo di sì: «salire al Colle» vuol dire andare dal Presidente della Repubblica, e lui diceva che il ministro ci saliva a piedi per dimagrire. Ho capito bene, o mi è sfuggito qualcosa?"
+    - tutor: "Hai capito tutto: il doppio senso è tra il Quirinale, che sta su un colle, e la salita vera, quella che fa sudare. E c'è qualcosa che invece non ti è piaciuto?"
+      goals: [wordplay]
+    - learner: "Sì, la parte sulle persone obese: mi è sembrata una burla gratuita, senza nessuna idea dietro, e infatti in sala ridevano in pochi."
+      errors: [false-friend]
+    - tutor: "Una presa in giro gratuita, sì, anche a me ha dato fastidio. Secondo te un comico dovrebbe evitare certi argomenti, o il problema è come li tratta?"
+      recast: {text: "una burla gratuita", fix: "una presa in giro gratuita", tags: [false-friend]}
+    - learner: "Il problema è come li tratta. Non credo che esiste un argomento proibito in assoluto, ma bisogna saper ridere con le persone, non delle persone."
+      errors: [subjunctive-use]
+      gold: {text: "Non credo che esiste", fix: "Non credo che esista"}
+    - tutor: "Ridere con, non ridere di: bella formula. Ma riascolta «non credo che esiste un argomento proibito»: dopo «non credo che», quale modo si usa?"
+      prompt: {text: "Non credo che esiste", tags: [subjunctive-use]}
+    - learner: "Non credo che esisterebbe un argomento proibito, voglio dire."
+      errors: [subjunctive-use]
+    - tutor: "Non credo che esista un argomento proibito, dici, ma il modo conta: sottoscrivo. Allora, la settimana prossima torniamo a vedere un altro spettacolo?"
+      goals: [limits]
+      recast: {text: "Non credo che esisterebbe", fix: "Non credo che esista", tags: [subjunctive-use]}
+    # decoy: «mandameli» and «te li do» are correct combined pronouns
+    - learner: "Volentieri! Se trovi i biglietti, mandameli su WhatsApp, e i soldi te li do in contanti appena ci vediamo."
+    - tutor: "Te li mando stasera, e i soldi me li dai al bar, con una birra di interessi."
+
+- scenario: email-rettore
+  # facts: domanda per il fondo per professori ospiti respinta per il presunto mancato certificato di servizio; il certificato è stato consegnato in segreteria il 3 febbraio, il learner ha la ricevuta; obiettivo: riesame prima della scadenza del bando, il quindici; formula «Magnifico Rettore»; chiusura «Con osservanza»; niente poscritto, la scadenza va nel testo; bozza stasera, la lettera parte prima di venerdì
+  level: C2
+  persona: es-m-worker
+  history: [subjunctive-use, conditional-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Buongiorno. Ho presentato domanda per il fondo per i professori ospiti, e la commissione l'ha respinta perché mancherebbe il certificato di servizio della mia università. Il problema è che quel certificato l'ho consegnato di persona, e ho anche la ricevuta."
+    - tutor: "Con la ricevuta in mano, la sua posizione è solida. Che cosa vorrebbe ottenere, esattamente?"
+    # decoy: «come sia potuto succedere» is a correct subjunctive in an indirect question
+    - learner: "Vorrei che la domanda venisse riesaminata prima della scadenza del bando, cioè entro il quindici. E vorrei capire come sia potuto succedere, anche se non voglio accusare nessuno."
+    - tutor: "Due obiettivi chiari. Per l'apertura la formula giusta è «Magnifico Rettore». Lei come pensava di continuare?"
+      goals: [situation]
+    - learner: "«Magnifico Rettore», d'accordo. Poi esporrei i fatti: «Il 3 febbraio ho consegnato in segreteria il certificato richiesto, come dimostra la ricevuta che adjunto, e ciononostante la mia domanda è stata esclusa»."
+      errors: [word-choice]
+    - tutor: "«Come dimostra la ricevuta che allego»: chiaro e documentato. Ora la frase più delicata, quella in cui chiede il riesame: come la scriverebbe?"
+      goals: [opening-formula]
+      recast: {text: "adjunto", fix: "allego", tags: [word-choice]}
+    - learner: "Avevo scritto: «Esigo che la mia domanda sia riesaminata entro il quindici, visto che l'errore è della vostra segreteria». È troppo diretta, secondo lei?"
+    - tutor: "Troppo, sì: «esigo» e «l'errore è della vostra segreteria» suonano come un'accusa. Provi a trasformarla in una richiesta, lasciando parlare i fatti."
+    # decoy: «se fosse possibile» is a correct polite subjunctive, «speravo che bastasse» correct consecutio
+    - learner: "Allora: «Mi permetto di chiederLe se fosse possibile riesaminare la mia domanda entro il quindici, dal momento che la documentazione risulta completa». Speravo che bastasse, ma forse è ancora troppo secca."
+    - tutor: "Non è secca, è perfetta: «risulta» fa tutto il lavoro senza accusare nessuno. E per chiudere?"
+      goals: [tone]
+    - learner: "Pensavo a «Distinti saluti», ma per un rettore forse serve qualcosa di più solenne. Lei quale formula mi consiglieria, fra quelle che si usano in questi casi?"
+      errors: [conditional-form]
+      gold: {text: "mi consiglieria", fix: "mi consiglierebbe"}
+    - tutor: "«Con osservanza», oppure «Voglia gradire i miei più distinti saluti»: il primo è più sobrio, il secondo più cerimonioso. Ma riprenda «mi consiglieria»: è questa la terza persona del condizionale?"
+      prompt: {text: "mi consiglieria", tags: [conditional-form]}
+    - learner: "No, è spagnolo: mi consiglierebbe. Allora prendo il primo, che mi sembra più adatto."
+    - tutor: "Ottima scelta: «Con osservanza», poi nome, qualifica e università. C'è altro che vorrebbe aggiungere?"
+      goals: [closing]
+    - learner: "Sì: aggiungerei un poscritto per ricordare che la scadenza del bando è il quindici, nel caso in cui il Rettore non lo sa."
+      errors: [subjunctive-use]
+      gold: {text: "nel caso in cui il Rettore non lo sa", fix: "nel caso in cui il Rettore non lo sappia"}
+    - tutor: "In una lettera al Rettore il poscritto lo eviterei: la scadenza la metta nel testo. E riprenda «nel caso in cui il Rettore non lo sa»: dopo «nel caso in cui», quale modo si usa?"
+      prompt: {text: "nel caso in cui il Rettore non lo sa", tags: [subjunctive-use]}
+    - learner: "Nel caso in cui il Rettore non lo saprebbe, allora la metto nel testo."
+      errors: [subjunctive-use]
+    - tutor: "Nel caso in cui il Rettore non lo sappia, sì: la scadenza nel testo è più elegante. Mi mandi la bozza entro domani, così la lettera parte prima di venerdì."
+      recast: {text: "nel caso in cui il Rettore non lo saprebbe", fix: "nel caso in cui il Rettore non lo sappia", tags: [subjunctive-use]}
+    - learner: "Gliela mando stasera stessa. La ringrazio davvero: con il suo aiuto la lettera è diventata una richiesta, non una protesta."
+    - tutor: "È proprio questo il segreto. Buona serata, e mi faccia sapere che cosa le rispondono."

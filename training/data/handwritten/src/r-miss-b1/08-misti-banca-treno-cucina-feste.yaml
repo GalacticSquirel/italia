@@ -1,0 +1,324 @@
+# Set r-miss-b1, file 8 (B1): a mixed file — a student bank account, a family train trip,
+# working remotely, a real paella, a running plan, an overheating car, Spanish Christmas
+# traditions and a ninetieth birthday lunch.
+- scenario: banca-conto
+  # facts: studentessa per tutto l'anno accademico, borsa di studio ogni mese; 22 anni; conto per studenti sotto i 26 anni, gratis, anche la carta di debito; servono passaporto, codice fiscale e certificato di iscrizione, il certificato si può portare dopo; segreteria aperta solo la mattina, lei ha lezione dalle nove all'una, il venerdì è libera; bonifico in arrivo gratis, la banca dei genitori può chiedere qualcosa; carta per posta in cinque giorni; sportello qui fuori gratis; app per controllare il conto e fare bonifici
+  level: B1
+  persona: en-f-student
+  history: [articulated-preposition, object-pronoun, ci-ne]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire un conto, perché resto in Italia per tutto l'anno accademico e la mia università mi paga una borsa di studio ogni mese."
+    - tutor: "Certo. Ha meno di ventisei anni? Per gli studenti abbiamo un conto gratis."
+      goals: [purpose]
+    # decoy: «non ce l'ho ancora» is correct
+    - learner: "Sì, ho ventidue anni. Quali documenti servono? Ho il passaporto e il codice fiscale, ma il certificato dell'università non ce l'ho ancora."
+    - tutor: "Servono il passaporto, il codice fiscale e il certificato di iscrizione, ma quello può portarlo anche dopo."
+      goals: [documents]
+      new: [{lemma: iscrizione, gloss: enrolment}]
+    - learner: "Perfetto, lo porto la settimana prossima. Il problema è che la segreteria apre solo la mattina, e io ho lezione da le nove a l'una tutti i giorni."
+      errors: [articulated-preposition]
+    - tutor: "Capisco. Ma «da le nove a l'una»? In tutti e due i casi, la parola e l'articolo si uniscono."
+      prompt: {text: "da le nove a l'una", tags: [articulated-preposition]}
+    - learner: "Dalle nove all'una, sì. Forse posso andarci il venerdì, perché il venerdì non ho lezione. E il conto costa qualcosa?"
+    - tutor: "Così va bene. No, per gli studenti il conto è gratis, e anche la carta di debito."
+      goals: [costs]
+    - learner: "Che bello! I miei genitori vogliono mandarmi dei soldi dall'Inghilterra ogni tanto, ma mio padre dice che la sua banca li chiede sempre tanto per i bonifici."
+      errors: [object-pronoun]
+    - tutor: "Da noi il bonifico in arrivo è gratis; la banca dei suoi genitori, invece, può chiedere qualcosa. Ma «la banca li chiede»? Si chiede qualcosa «a» qualcuno, ai suoi genitori: quel «li» non va."
+      prompt: {text: "li chiede", tags: [object-pronoun]}
+    - learner: "Gli chiede sempre tanto, sì. Allora è meglio mandare tanti soldi una volta sola, invece di poco ogni mese."
+    - tutor: "Esatto, così pagano una volta sola. Altre domande?"
+    - learner: "Sì, la carta quando arriva? Ho speso quasi tutto in contanti questo mese, ho solo cinquanta euro nel portafoglio, e domani devo prelevare altri."
+      errors: [ci-ne]
+    - tutor: "La carta arriva per posta in cinque giorni. Ma «devo prelevare altri»: altri che cosa? Per non ripetere «soldi», a «prelevare» va attaccata una parola."
+      prompt: {text: "prelevare altri", tags: [ci-ne]}
+    - learner: "Sì, devo prelevare altri domani, perché l'affitto lo pago in contanti alla padrona di casa."
+      errors: [ci-ne]
+    - tutor: "Se deve prelevarne altri domani, per ora usi pure lo sportello qui fuori: è gratis."
+      recast: {text: "prelevare altri", fix: "prelevarne altri", tags: [ci-ne]}
+      new: [{lemma: prelevare, gloss: withdraw}, {lemma: sportello, gloss: cash machine}]
+    - learner: "Perfetto, grazie. Ultima domanda: con l'app posso controllare il conto e fare i bonifici? Ogni mese devo pagare le bills alla mia coinquilina."
+      errors: [word-choice]
+    - tutor: "Sì, con l'app fa tutto, anche pagare le bollette alla sua coinquilina con un bonifico. Allora, apriamo il conto oggi?"
+      recast: {text: "le bills", fix: "le bollette", tags: [word-choice]}
+      goals: [card]
+    - learner: "Sì, apriamolo oggi. Venerdì mattina le porto il certificato, e intanto aspetto la carta."
+    - tutor: "Perfetto. Firmi qui e qui, e a venerdì con il certificato!"
+
+- scenario: biglietto-treno
+  # facts: Roma domenica mattina, quattro persone: lui, la moglie, due figli di otto e cinque anni; Frecciarossa alle 9.05, arrivo alle 11.20; ritorno lunedì alle 19.10; i bambini non sono mai stati a Roma; sconto del cinquanta per cento per i bambini; totale andata e ritorno 294 euro; quattro posti con il tavolino nella carrozza sei, vicino alla porta e al bagno; di solito binario cinque; paga con la carta
+  level: B1
+  persona: es-m-worker
+  history: [subjunctive-use, comparative, articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei quattro biglietti per Roma, per domenica mattina: io, mia moglie e i nostri due figli, che hanno otto e cinque anni."
+    - tutor: "Domenica c'è un Frecciarossa alle nove e cinque, che arriva a Roma alle undici e venti. Solo andata?"
+      goals: [destination]
+    - learner: "No, andata e ritorno. Torniamo lunedì sera, perché i bambini non sono mai stati a Roma e mia moglie vuole che vedono il Colosseo. C'è un treno dopo le sette?"
+      errors: [subjunctive-use]
+    - tutor: "Sì, lunedì c'è un treno alle sette e dieci di sera. Ma «vuole che vedono»? Dopo «vuole che», il verbo prende un'altra forma."
+      prompt: {text: "vedono il Colosseo", tags: [subjunctive-use]}
+    - learner: "Vuole che vedano il Colosseo, sì, e anche Piazza Navona. Il treno delle sette e dieci va bene."
+    - tutor: "Esatto. Per i bambini, poi, c'è lo sconto del cinquanta per cento."
+      goals: [type]
+      new: [{lemma: sconto, gloss: discount}]
+    - learner: "Meno male, perché a volte il treno costa già più che l'aereo! Quanto pago in tutto, con lo sconto per i bambini?"
+      errors: [comparative]
+    - tutor: "In tutto, andata e ritorno, sono duecentonovantaquattro euro. Ma «più che l'aereo»? Confronti due mezzi, il treno e l'aereo: davanti a «l'aereo», «che» non va."
+      prompt: {text: "più che l'aereo", tags: [comparative]}
+    - learner: "Sì, a volte costa più che l'aereo, ma con i bambini il treno è molto più comodo."
+      errors: [comparative]
+    - tutor: "A volte costa più dell'aereo, è vero, ma con i bambini è tutta un'altra cosa. Vuole quattro posti vicini?"
+      recast: {text: "più che l'aereo", fix: "più dell'aereo", tags: [comparative]}
+    - learner: "Sì, quattro posti vicini, con un tavolino se c'è, così i bambini possono disegnare. Se è possibile, vorrei i posti vicino a la porta, per il bagno."
+      errors: [articulated-preposition]
+    - tutor: "Ci sono quattro posti con il tavolino nella carrozza sei, con il bagno a due passi. Ma «vicino a la porta»? In italiano «a» e «la» qui non restano separati."
+      prompt: {text: "a la porta", tags: [articulated-preposition]}
+      goals: [class]
+      new: [{lemma: carrozza, gloss: carriage}]
+    - learner: "Vicino alla porta, perfetto. E da quale binario parte il treno di domenica? Con i bambini voglio arrivare presto."
+    - tutor: "Giusto. Di solito parte dal binario cinque, ma domenica guardi il tabellone."
+      goals: [platform]
+      new: [{lemma: tabellone, gloss: departures board}]
+    # decoys: «ne ha già tre» and «ne vuole uno» are correct partitive ne
+    - learner: "Va bene. Arriveremo mezz'ora prima, perché mio figlio piccolo vuole vedere tutti i treni. Ne ha già tre di plastica, e adesso ne vuole uno vero!"
+    - tutor: "Allora domenica sarà felicissimo! Paga con la carta?"
+    - learner: "Sì, con la carta. Grazie mille, e buona giornata!"
+    - tutor: "Ecco i biglietti. Buon viaggio a Roma!"
+
+- scenario: smartworking
+  # facts: lavora sempre da casa per un'azienda irlandese, assistenza clienti al telefono; da un anno vive in Italia; niente traffico, pranzo a casa, caffè a meno di un euro; orario irlandese, un'ora indietro, finisce tardi; la settimana scorsa non è uscito per tre giorni; vorrebbe un posto con altre persone due giorni a settimana; c'è un coworking vicino alla stazione, centoventi euro al mese; sabato alle undici lo vanno a vedere, poi aperitivo; ha un gatto
+  level: B1
+  persona: en-m-traveller
+  history: [subjunctive-use, comparative, auxiliary-choice, articulated-preposition]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Lavoro sempre da casa, per un'azienda irlandese. Faccio assistenza ai clienti al telefono, e per loro non è importante dove sono, basta che il Wi-Fi funziona."
+      errors: [subjunctive-use]
+    - tutor: "Che libertà! Ma «basta che il Wi-Fi funziona»? Dopo «basta che», il verbo prende un'altra forma."
+      prompt: {text: "il Wi-Fi funziona", tags: [subjunctive-use]}
+    - learner: "Basta che funzioni, sì! Così da un anno vivo in Italia e lavoro per Dublino, ed è fantastico."
+    - tutor: "Esatto. Il sogno di tanti! E quali sono i vantaggi più grandi?"
+      goals: [situation]
+    # «più bella che in Irlanda» is correct; only «meno che un euro» is wrong
+    - learner: "Niente traffico, e il pranzo lo faccio a casa. E poi qui la vita è molto più bella che in Irlanda: c'è il sole, e il caffè costa meno che un euro."
+      errors: [comparative]
+    - tutor: "Il caffè, certo! Ma «meno che un euro»? Prima, con «che in Irlanda», era giusto, ma davanti a un numero serve un'altra parola."
+      prompt: {text: "meno che un euro", tags: [comparative]}
+    - learner: "Costa meno di un euro, sì, è incredibile. Però ci sono anche degli svantaggi."
+    - tutor: "Proprio così. Per esempio?"
+      goals: [pros]
+    - learner: "Lavoro con l'orario irlandese, un'ora indietro, quindi finisco tardi. E sono solo tutto il giorno: la settimana scorsa non ho uscito di casa per tre giorni!"
+      errors: [auxiliary-choice]
+    - tutor: "Tre giorni, mamma mia! Ma «non ho uscito»? Con «uscire», il passato non si fa con «avere»."
+      prompt: {text: "non ho uscito", tags: [auxiliary-choice]}
+    - learner: "Sì, non ho uscito per tre giorni, solo per buttare la spazzatura la sera, quando non c'era nessuno."
+      errors: [auxiliary-choice]
+    - tutor: "«Non sono uscito per tre giorni», solo per la spazzatura? Così non va bene! Cosa preferiresti, allora?"
+      recast: {text: "non ho uscito", fix: "non sono uscito", tags: [auxiliary-choice]}
+      goals: [cons]
+    # decoy: «ce n'è uno» is a correct ce + ne
+    - learner: "Preferirei lavorare in un posto con altre persone, almeno due giorni a settimana. Ho pensato a un coworking, ma non so se ce n'è uno qui vicino."
+    - tutor: "Sì, ce n'è uno vicino alla stazione, e costa centoventi euro al mese. Vuoi andare a vederlo insieme?"
+      goals: [preference]
+    - learner: "Sì, volentieri! Possiamo andare sabato? Così dopo andiamo a l'aperitivo come al solito, e io smetto di parlare solo con il mio gatto."
+      errors: [articulated-preposition]
+    - tutor: "Povero gatto! Ma «a l'aperitivo»? Qui la «a» e l'articolo si uniscono."
+      prompt: {text: "a l'aperitivo", tags: [articulated-preposition]}
+    - learner: "All'aperitivo, sì! Allora sabato alle undici al coworking?"
+    - tutor: "Esatto. Sabato alle undici, e poi aperitivo. Il tuo gatto sarà geloso!"
+
+- scenario: cucina-ricetta
+  # facts: paella valenciana vera, senza pesce: riso, pollo, fagiolini, pomodoro, zafferano; il riso l'ha comprato Francesca, è nell'armadio; pollo e zafferano dalla Spagna, la padella grande e bassa portata da casa; pollo a pezzi nell'olio dieci minuti, poi fagiolini e pomodoro cinque minuti; il riso a pioggia; la prima volta a diciotto anni troppo riso e poca acqua; venti minuti senza girare, cinque minuti di riposo con un panno; si mangia dalla padella al centro della tavola
+  level: B1
+  persona: es-f-teacher
+  history: [participle-agreement, imperative-form, tense-aspect]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera cuciniamo una paella, ma quella vera, di Valencia! Si fa con il riso, il pollo, i fagiolini e lo zafferano, senza pesce."
+    - tutor: "Senza pesce? Pensavo che la paella si facesse sempre con il pesce! Il riso lo prendo io?"
+    - learner: "Tutti lo pensano, ma a Valencia la facciamo così. Il riso l'hai comprato tu? Io ho portato il pollo e lo zafferano, e anche la padella l'ho portato da casa."
+      errors: [participle-agreement]
+    - tutor: "Sì, il riso è nell'armadio. Ma «la padella l'ho portato»? Quel «l'» sta per «la padella»: la fine del verbo deve andare d'accordo."
+      prompt: {text: "l'ho portato da casa", tags: [participle-agreement]}
+    - learner: "L'ho portata da casa, sì, perché per la paella serve una padella molto grande e bassa."
+    - tutor: "Sì, così va bene. Allora, da dove cominciamo?"
+      goals: [ingredients]
+    - learner: "Prima taglia il pollo a pezzi e metti un po' d'olio nella padella. Quando l'olio è caldo, lo mette dentro e lo cuoci per dieci minuti."
+      errors: [imperative-form]
+    - tutor: "Va bene, capo! Ma «lo mette dentro»? Parli a me, con «tu», come in «taglia» e «metti»: guarda la persona di «mette»."
+      prompt: {text: "lo mette dentro", tags: [imperative-form]}
+    - learner: "Mettilo dentro, sì. Poi aggiungi i fagiolini e il pomodoro, e lasciali cuocere ancora cinque minuti."
+    - tutor: "Esatto, ecco fatto. E il riso, quando lo mettiamo?"
+      goals: [steps]
+    - learner: "Adesso. Mia nonna diceva che il riso si mette a pioggia. La prima volta che ho fatto la paella da sola, avevo diciotto anni e mettevo troppo riso: era un disastro!"
+      errors: [tense-aspect]
+    - tutor: "Succede a tutti! Ma «la prima volta... mettevo troppo riso»? È successo quella volta, una volta sola: che tempo serve?"
+      prompt: {text: "mettevo troppo riso", tags: [tense-aspect]}
+    - learner: "Sì, mettevo troppo riso e poca acqua, e alla fine era duro come una pietra: mia nonna rideva come una matta."
+      errors: [tense-aspect]
+    - tutor: "«Ho messo troppo riso e poca acqua», e la nonna rideva: me la immagino! Quanto deve cuocere?"
+      recast: {text: "mettevo troppo riso", fix: "ho messo troppo riso", tags: [tense-aspect]}
+    # decoy: «la lasci riposare» is a correct present used for instructions
+    - learner: "Venti minuti, senza girare il riso, mai! Poi spegni il fuoco e la lasci riposare cinque minuti con un panno sopra."
+    - tutor: "Venti minuti senza girare, d'accordo. E come la serviamo?"
+      goals: [time]
+    - learner: "Si mette la padella al centro della tavola e tutti mangiano dalla padella, con il cucchiaio. Il riso più buono è quello in fondo, e tutti ne vogliono un po'."
+    - tutor: "Che bello mangiare tutti dalla stessa padella! Allora preparo la tavola con i cucchiai."
+      goals: [serve]
+
+- scenario: salute-stile-vita
+  # facts: lavora dieci ore al giorno, pranzo davanti al computer, la sera troppo stanca per cucinare; ogni tanto yoga con un video; in Australia correva in spiaggia ogni mattina; obiettivo: una gara di cinque chilometri per beneficenza a marzo con una collega; ostacolo: riunioni con i clienti la sera; le riunioni cominciano alle nove; piano: martedì e giovedì alle sette al parco, sabato alle quattro in palestra con il trainer; scarpe nuove domani, al massimo due caffè al giorno
+  level: B1
+  persona: en-f-professional
+  history: [future-form, preposition]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Ciao! Le mie abitudini sono un disastro: lavoro dieci ore al giorno, pranzo davanti al computer e la sera sono troppo stanca per cucinare."
+    - tutor: "Succede a tanti, purtroppo. Fai un po' di movimento?"
+    # decoy: «più in forma che adesso» is a correct use of che with an adverb
+    - learner: "Ogni tanto faccio yoga con un video, ma poco. In Australia andavo a correre in spiaggia ogni mattina, ed ero molto più in forma che adesso."
+    - tutor: "La spiaggia aiuta! E adesso qual è il tuo obiettivo?"
+      goals: [habits]
+    - learner: "Voglio ricominciare a correre. A marzo c'è una gara di cinque chilometri per beneficenza, e io e una collega la correremo insieme: così non poterò dire di no."
+      errors: [future-form]
+    - tutor: "Ottima idea, correre in due. Ma «non poterò»? Nel futuro di «potere», la «e» dell'infinito non c'è più."
+      prompt: {text: "poterò", tags: [future-form]}
+    - learner: "Non potrò dire di no, esatto! Il problema è che ho paura a non avere abbastanza tempo per allenarmi."
+      errors: [preposition]
+    - tutor: "Esatto, «potrò». Ma «ho paura a non avere»? Dopo «avere paura», davanti a un verbo, quella «a» non va."
+      prompt: {text: "paura a non avere", tags: [preposition]}
+      goals: [goal]
+    - learner: "Sì, ho paura a non avere tempo, perché la sera ho spesso riunioni con i clienti."
+      errors: [preposition]
+    - tutor: "«Ho paura di non avere tempo»: capisco, con le riunioni la sera è difficile. E la mattina presto?"
+      recast: {text: "paura a non avere", fix: "paura di non avere", tags: [preposition]}
+      goals: [obstacles]
+    # decoy: «meglio correre alle sette che non correre» is a correct use of che
+    - learner: "La mattina presto è possibile, perché le riunioni cominciano alle nove. Per me è meglio correre alle sette che non correre per niente!"
+    - tutor: "Proprio così! Allora martedì e giovedì alle sette al parco, e il sabato pomeriggio in palestra con me?"
+    - learner: "Perfetto! Martedì e giovedì alle sette, e il sabato alle quattro. Domani comprerò delle scarpe nuove, e beverò meno caffè, promesso."
+      errors: [future-form]
+    - tutor: "Brava! Ma «beverò»? Il futuro di «bere» non si forma da «beve»: è più corto."
+      prompt: {text: "beverò", tags: [future-form]}
+      goals: [plan]
+    - learner: "Berrò meno caffè, sì, al massimo due al giorno!"
+    - tutor: "Esatto. Allora martedì alle sette al parco, e sabato alle quattro qui!"
+
+- scenario: dal-meccanico
+  # facts: ieri sulla strada per Siena spia rossa della temperatura e fumo bianco; si è fermato in un parcheggio; la moglie era in albergo e ha chiamato un taxi, arrivata in mezz'ora; un signore ha messo acqua nel motore e non ha voluto soldi, gli hanno regalato una bottiglia di vino; tubo del radiatore rotto; 85 euro tra pezzo e lavoro; il pezzo arriva domani, macchina pronta dopodomani alle dieci; in vacanza fino a domenica
+  level: B1
+  persona: en-m-retired
+  history: [tense-aspect, object-pronoun, future-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Ieri, sulla strada per Siena, si è accesa una luce rossa con un termometro, e dopo un po' usciva del fumo bianco dal motore."
+    - tutor: "Quella è la spia della temperatura: il motore era troppo caldo. Si è fermato subito?"
+      goals: [describe]
+    - learner: "Sì, mi sono fermato in un parcheggio. Mentre aspettavo, ho telefonato a mia moglie, che era in albergo, e lei chiamava un taxi per venire da me."
+      errors: [tense-aspect]
+    - tutor: "Ha fatto bene. Ma «e lei chiamava un taxi»? Dopo la sua telefonata, è una cosa fatta una volta e finita: che tempo serve?"
+      prompt: {text: "lei chiamava un taxi", tags: [tense-aspect]}
+    # decoy: «aspettato che il motore diventasse freddo» is a correct congiuntivo
+    - learner: "Lei ha chiamato un taxi, sì, ed è arrivata in mezz'ora. Poi abbiamo aspettato insieme che il motore diventasse freddo."
+    - tutor: "Giusto. Che giornata, in vacanza! Adesso guardo il motore."
+      goals: [when]
+    - learner: "Grazie. Un signore che passava ci ha aiutato e ha messo un po' d'acqua nel motore. Volevo pagargli, ma non ha voluto niente, così gli abbiamo regalato una bottiglia di vino."
+      errors: [object-pronoun]
+    - tutor: "Che persona gentile! Ma «volevo pagargli»? Con «pagare», la persona si paga direttamente, senza «a»: quel «gli» non va."
+      prompt: {text: "pagargli", tags: [object-pronoun]}
+    - learner: "Sì, volevo pagargli, ma lui ha detto che anche a lui è successa la stessa cosa una volta."
+      errors: [object-pronoun]
+    - tutor: "«Volevo pagarlo», ma non ha voluto: una brava persona! Ecco, ho trovato il problema: un tubo del radiatore è rotto."
+      recast: {text: "pagargli", fix: "pagarlo", tags: [object-pronoun]}
+      new: [{lemma: radiatore, gloss: radiator}, {lemma: tubo, gloss: pipe}]
+    - learner: "Meno male che non è il motore! Quanto costa cambiare il tubo, e quanto tempo ci vuole? Siamo in vacanza fino a domenica."
+    - tutor: "Tra pezzo e lavoro sono ottantacinque euro. Il pezzo arriva domani, quindi la macchina sarà pronta dopodomani alle dieci."
+      goals: [cost, time]
+      new: [{lemma: dopodomani, gloss: the day after tomorrow}]
+    - learner: "Dopodomani alle dieci va bene. Domani rimanerò in albergo con mia moglie, o forse prenderemo l'autobus per visitare qualche paese qui vicino."
+      errors: [future-form]
+    - tutor: "Buona idea. Ma «rimanerò»? Il futuro di «rimanere» è più corto di così."
+      prompt: {text: "rimanerò", tags: [future-form]}
+    - learner: "Rimarrò in albergo, allora, perché mia moglie è ancora stanca. Grazie mille, ci vediamo dopodomani."
+    - tutor: "Esatto. A dopodomani alle dieci, e buon riposo!"
+
+- scenario: tradizioni-feste
+  # facts: a Siviglia il giorno più importante per i bambini è il sei gennaio, con i Re Magi; da bambina scriveva la lettera ai Re e lasciava acqua per i cammelli; un anno si è svegliata alle due e ha visto il padre vestito da Re; a Capodanno dodici chicchi d'uva a mezzanotte, lei ne mangia solo otto; la nonna di Silvia fa gli struffoli ogni anno; la learner porta il turrón che la madre manda da Siviglia; pranzo del venticinque all'una
+  level: B1
+  persona: es-f-erasmus
+  history: [word-order, tense-aspect, ci-ne, relative-pronoun]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+    - learner: "Da noi a Natale si mangia tantissimo anche! Ma per i bambini la festa più importante è il sei gennaio, quando arrivano i Re Magi con i regali."
+      errors: [word-order]
+    - tutor: "I Re Magi, che bello! Ma «si mangia tantissimo anche»? In questa frase «anche» alla fine suona strano: dove lo metteresti?"
+      prompt: {text: "si mangia tantissimo anche", tags: [word-order]}
+    - learner: "Anche da noi si mangia tantissimo! Ma per i bambini il giorno più importante è il sei gennaio."
+    - tutor: "Proprio così. E da bambina, come lo festeggiavi?"
+      goals: [compare]
+    - learner: "Ogni anno scrivevo una lettera ai Re, e la sera del cinque lasciavo dell'acqua per i cammelli. Un anno, però, mi svegliavo alle due e vedevo mio padre vestito da Re!"
+      errors: [tense-aspect]
+    - tutor: "Che sorpresa! Ma «un anno mi svegliavo alle due»? Quella notte è successa una volta sola: che tempo serve?"
+      prompt: {text: "mi svegliavo alle due", tags: [tense-aspect]}
+    - learner: "Sì, mi svegliavo alle due e lui era lì, con la corona in testa e i regali in mano."
+      errors: [tense-aspect]
+    - tutor: "«Mi sono svegliata alle due» e c'era lui con la corona? Che ricordo! E a Capodanno, cosa fate?"
+      recast: {text: "mi svegliavo alle due", fix: "mi sono svegliata alle due", tags: [tense-aspect]}
+      goals: [past]
+    - learner: "A mezzanotte mangiamo dodici chicchi d'uva, uno per ogni colpo dell'orologio. È difficile, perché i colpi sono veloci, e io di solito riesco a mangiare solo otto."
+      errors: [ci-ne]
+    - tutor: "Solo otto, povera! Ma «riesco a mangiare solo otto»: otto di che cosa? Per non ripetere «chicchi», serve una parola."
+      prompt: {text: "riesco a mangiare solo otto", tags: [ci-ne]}
+    - learner: "Riesco a mangiarne solo otto, sì! E voi, cosa mangiate a Natale? Mi hanno parlato degli struffoli, ma non so cosa sono."
+    - tutor: "Esatto. Gli struffoli sono piccole palle di pasta fritta con il miele: mia nonna li fa ogni anno."
+      goals: [ask]
+      new: [{lemma: fritto, gloss: fried}, {lemma: miele, gloss: honey}]
+    - learner: "Che buoni! Allora vorrei portare un dolce spagnolo, il turrón, che mia madre mi manda da Siviglia ogni Natale. È un dolce di che tutti i miei amici sono innamorati."
+      errors: [relative-pronoun]
+    - tutor: "Che bello! Ma «un dolce di che»? Dopo «di», quel «che» non va: serve un'altra parola."
+      prompt: {text: "di che", tags: [relative-pronoun]}
+    - learner: "Un dolce di cui tutti sono innamorati, sì. A che ora devo venire il venticinque?"
+    - tutor: "Sì, così va bene. Vieni all'una, e porta pure il tuo dolce!"
+      goals: [plan]
+
+- scenario: prenotare-tavolo
+  # facts: domenica a pranzo, mezzogiorno e mezzo, otto persone; la madre del cliente compie novant'anni e usa la sedia a rotelle; entrata senza scalini, tavolo vicino all'ingresso; torta di mele fatta in casa, trenta euro per otto persone; la madre gli ha insegnato a cucinare; nome Wilson, 333 445 667
+  level: B1
+  persona: en-m-retired
+  history: [articulated-preposition, relative-pronoun, conditional-form]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per domenica a pranzo. Mia madre compie novant'anni, e vorremmo festeggiare con tutta la famiglia."
+    - tutor: "Novant'anni, che bella festa! Per quante persone e a che ora?"
+      goals: [book]
+    # decoy: «ci servirebbero» is a correct conditional
+    - learner: "Saremo in otto, verso mezzogiorno e mezzo. Mia madre usa la sedia a rotelle, quindi ci servirebbero un'entrata senza scalini e un tavolo non troppo lontano da la porta."
+      errors: [articulated-preposition]
+    - tutor: "L'entrata non ha scalini, e vi preparo un tavolo vicino all'ingresso. Ma «lontano da la porta»? Qui «da» e «la» diventano una parola sola."
+      prompt: {text: "lontano da la porta", tags: [articulated-preposition]}
+      goals: [details, special]
+      new: [{lemma: mezzogiorno, gloss: noon}]
+    - learner: "Sì, non lontano da la porta, perché per lei è difficile passare tra i tavoli."
+      errors: [articulated-preposition]
+    - tutor: "Non lontano dalla porta, certo: così passa senza problemi."
+      recast: {text: "lontano da la porta", fix: "lontano dalla porta", tags: [articulated-preposition]}
+    # decoys: «preparereste» and «non saprei» are correct conditionals
+    - learner: "Grazie, è molto gentile. Vorrei chiederle anche un'altra cosa: preparereste una torta per lei? Le piace molto la torta di mele, e io non saprei dove comprarla."
+    - tutor: "Certo, la nostra torta di mele è fatta in casa: per otto persone sono trenta euro."
+    - learner: "Perfetto. Mia madre è la persona da che ho imparato a cucinare, quindi è molto difficile con il cibo: se le piace, per voi sarà un bel complimento!"
+      errors: [relative-pronoun]
+    - tutor: "Allora la torta deve essere perfetta! Ma «la persona da che»? Dopo «da», per una persona già nominata, «che» non va."
+      prompt: {text: "da che", tags: [relative-pronoun]}
+    - learner: "La persona da cui ho imparato a cucinare, sì. Le dico sempre che è più brava di tutti i ristoranti!"
+    - tutor: "Esatto. Allora faremo del nostro meglio! A che nome prenoto?"
+    # decoy: «se ci fosse» is a correct congiuntivo
+    - learner: "A nome Wilson, W-I-L-S-O-N. Il numero è tre tre tre, quattro quattro cinque, sei sei sette. Se ci fosse un problema, mi potrebbi chiamare?"
+      errors: [conditional-form]
+    - tutor: "Certo, se c'è qualche problema la chiamo io. Ma «mi potrebbi»? Parla con me, con «Lei»: il condizionale di «potere» qui finisce in un altro modo."
+      prompt: {text: "potrebbi", tags: [conditional-form]}
+      goals: [name]
+    - learner: "Mi potrebbe chiamare, scusi. Allora domenica a mezzogiorno e mezzo, otto persone e la torta di mele."
+    - tutor: "Esatto: domenica a mezzogiorno e mezzo, otto persone, a nome Wilson. E tanti auguri alla signora!"

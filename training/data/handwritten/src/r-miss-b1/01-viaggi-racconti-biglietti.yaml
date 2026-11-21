@@ -1,0 +1,284 @@
+# Set r-miss-b1, file 1 (B1): holiday stories, travel advice for Naples and two ticket offices.
+# Each error sits inside a long, fluent learner turn; the tutor answers any question first,
+# then gives a true clue (or a recast woven into the reply) and moves the scene on.
+- scenario: vacanze-passate
+  # facts: Sicilia per dieci giorni con due amiche dell'università; ostello a Siracusa vicino al mare; caldissimo quasi sempre, un pomeriggio un temporale; il giorno dopo bagno a Ortigia; gita in barca; Etna con una guida fino a tremila metri; ultima sera pesce in una trattoria sul porto; cerca voli per ottobre, le amiche vogliono vedere Palermo; Elena è stata a Palermo due anni fa
+  level: B1
+  persona: en-f-student
+  history: [tense-aspect, auxiliary-choice, preposition]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Sono stata in Sicilia per dieci giorni con due amiche dell'università. Abbiamo dormito in un ostello a Siracusa, vicino al mare, ed era molto economico."
+    - tutor: "Dieci giorni in Sicilia, che bello! E il tempo com'era? Avete sofferto il caldo?"
+      goals: [where]
+    - learner: "Sì, faceva caldissimo quasi tutti i giorni, ma un pomeriggio arrivava un temporale fortissimo e siamo rimaste chiuse in ostello per ore."
+      errors: [tense-aspect]
+    - tutor: "Chiuse in ostello per ore, povere voi! Ma «un pomeriggio arrivava»? È successo una volta, in un momento preciso: che tempo serve per un fatto concluso?"
+      prompt: {text: "arrivava un temporale", tags: [tense-aspect]}
+    - learner: "È arrivato un temporale, sì! Per fortuna il giorno dopo c'era di nuovo il sole e siamo andate a fare il bagno a Ortigia."
+    - tutor: "Esatto. Che bello fare il bagno lì! E oltre al mare, cosa avete fatto?"
+      goals: [weather]
+    - learner: "Abbiamo fatto una gita in barca e un giorno abbiamo salito sull'Etna con una guida, ma io avevo un po' paura perché c'era tanto vento."
+      errors: [auxiliary-choice]
+    - tutor: "Con il vento fa davvero impressione. Ma «abbiamo salito sull'Etna»? Quando «salire» indica il movimento verso un posto, il passato non si fa con «avere»."
+      prompt: {text: "abbiamo salito", tags: [auxiliary-choice]}
+    - learner: "Abbiamo salito fino a tremila metri, con le scarpe da ginnastica! Era freddissimo e non vedevamo quasi niente."
+      errors: [auxiliary-choice]
+    - tutor: "«Siamo salite fino a tremila metri» con le scarpe da ginnastica? Che coraggio! E qual è stato il momento più bello della vacanza?"
+      recast: {text: "Abbiamo salito", fix: "Siamo salite", tags: [auxiliary-choice]}
+      goals: [activities]
+    - learner: "Il momento più bello è stato l'ultima sera: abbiamo avuto il pesce in una piccola trattoria sul porto e abbiamo guardato il tramonto insieme."
+      errors: [word-choice]
+    - tutor: "Il pesce mangiato sul porto, con il tramonto: una fine perfetta. Pensate di tornarci?"
+      recast: {text: "avuto", fix: "mangiato", tags: [word-choice]}
+      goals: [best]
+    - learner: "Assolutamente sì! Ho già cominciato di cercare i voli per ottobre, perché le mie amiche vogliono vedere anche Palermo e la costa del nord."
+      errors: [preposition]
+    - tutor: "Ottobre è un mese ideale, fa meno caldo. Ma «ho cominciato di cercare»? Dopo «cominciare», davanti a un altro verbo, la parola che lega i due verbi è diversa."
+      prompt: {text: "cominciato di cercare", tags: [preposition]}
+    - learner: "Ho già cominciato a cercare i voli, sì. Tu sei mai stata a Palermo? Cosa ci consigli?"
+    - tutor: "Giusto, sì: ci sono stata due anni fa e mi è piaciuta moltissimo. Quando avete le date, ti scrivo una lista di posti!"
+
+- scenario: vacanze-passate
+  # facts: due settimane in Trentino con la moglie e i bambini; casetta di legno in affitto; quasi sempre sole, la sera più fresco che a Bologna; passeggiate nel bosco ogni mattina; i bambini svegli alle sei, due cervi vicino alla casa; il lago di Tovel, acqua freddissima; a dicembre un mese in Argentina dai nonni, che non vedono i bambini da tre anni
+  level: B1
+  persona: es-m-worker
+  history: [auxiliary-choice, comparative, future-form]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    - learner: "Ciao Elena! Sono andato in montagna, in Trentino, con mia moglie e i bambini. Abbiamo affittato una casetta di legno per due settimane."
+    - tutor: "La montagna con i bambini, bellissimo. E il tempo? Lassù d'estate cambia in fretta."
+      goals: [where]
+    # decoy: «più fresco che a Bologna» is correct (che before a prepositional phrase)
+    - learner: "Il tempo era bellissimo, quasi sempre sole, e la sera faceva più fresco che a Bologna, per fortuna. Così i bambini dormivano benissimo."
+    - tutor: "Che fortuna, qui in città si moriva di caldo. E durante il giorno cosa facevate?"
+      goals: [weather]
+    - learner: "Ogni mattina facevamo una passeggiata nel bosco, e un giorno i bambini si hanno svegliati alle sei per vedere gli animali prima di colazione."
+      errors: [auxiliary-choice]
+    - tutor: "Così presto, bravi! Ma «si hanno svegliati»? Con i verbi con «si», il passato non si fa con «avere»."
+      prompt: {text: "si hanno svegliati", tags: [auxiliary-choice]}
+    - learner: "Si sono svegliati alle sei, sì, e abbiamo visto due cervi vicino alla casa! Erano bellissimi e non avevano paura di noi."
+    - tutor: "Esatto. Due cervi così vicini, i bambini se lo ricorderanno per sempre! Qual è stata la cosa più bella per te?"
+      goals: [activities]
+    - learner: "Per me il lago di Tovel. L'acqua era chiarissima, e i bambini l'hanno trovata più fredda che il mare, ma hanno fatto il bagno lo stesso."
+      errors: [comparative]
+    - tutor: "Che coraggiosi! Ma «più fredda che il mare»? Qui confronti due nomi, l'acqua e il mare: in questo caso «che» non va."
+      prompt: {text: "più fredda che il mare", tags: [comparative]}
+      goals: [best]
+    - learner: "Sì, era più fredda che il mare, molto! Io sono entrato solo fino alle ginocchia e sono uscito subito."
+      errors: [comparative]
+    - tutor: "Più fredda del mare, ci credo: è acqua di montagna! E la prossima vacanza, l'avete già decisa?"
+      recast: {text: "più fredda che il mare", fix: "più fredda del mare", tags: [comparative]}
+    - learner: "Sì, a dicembre porteremo i bambini in Argentina dai nonni, che non li vedono da tre anni. Ci rimaneremo un mese intero, fino a gennaio."
+      errors: [future-form]
+    - tutor: "Tre anni sono tanti, i nonni saranno felicissimi. Ma «rimaneremo»? Il futuro di «rimanere» è più corto di così."
+      prompt: {text: "rimaneremo", tags: [future-form]}
+    - learner: "Rimarremo un mese intero, sì. Mia moglie dice che è troppo, ma io voglio stare tanto con la mia famiglia."
+    - tutor: "Proprio così. Un mese con la famiglia non è mai troppo! Buon viaggio, allora."
+
+- scenario: consigli-viaggio
+  # facts: parte venerdì prossimo per cinque giorni; prima volta al Sud; dorme in centro vicino a piazza Dante; Valentina consiglia almeno tre pizzerie, il centro antico e il lungomare la sera; Pompei sabato con la Circumvesuviana dalla stazione Garibaldi; treno vecchio e pieno, zaino davanti; di notte la macchina fotografica in albergo
+  level: B1
+  persona: en-m-traveller
+  history: [ci-ne, preposition]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì prossimo e resto cinque giorni. È la prima volta che vado al Sud, quindi sono un po' emozionato e non so da dove cominciare."
+    - tutor: "Cinque giorni sono perfetti per cominciare. Dormi in centro o fuori?"
+      goals: [plans]
+    - learner: "In centro, vicino a piazza Dante. Tutti mi dicono che la pizza a Napoli è fantastica: quante pizzerie devo provare, secondo te? Io voglio provare almeno cinque!"
+      errors: [ci-ne]
+    - tutor: "Secondo me almeno tre, una al giorno. Ma «voglio provare almeno cinque»: cinque di che cosa? Con un numero, «pizzerie» va ripresa da una parola prima del verbo."
+      prompt: {text: "voglio provare almeno cinque", tags: [ci-ne]}
+    - learner: "Ne voglio provare almeno cinque! E poi cosa devo assolutamente vedere, oltre alle pizzerie?"
+    - tutor: "Così si fa! Devi vedere il centro antico e il lungomare, meglio la sera."
+      goals: [advice]
+      new: [{lemma: lungomare, gloss: seafront}]
+    # decoy: «come ci arrivo» is a correct locative ci; only «riesco di capire» is wrong
+    - learner: "Perfetto. Sabato voglio visitare Pompei: come ci arrivo dal centro? Ho letto che c'è un treno, ma non riesco di capire gli orari sul sito."
+      errors: [preposition]
+    - tutor: "C'è la Circumvesuviana, che parte dalla stazione Garibaldi. Ma «non riesco di capire»? Dopo «riuscire», davanti a un altro verbo, la parola che li lega è diversa."
+      prompt: {text: "riesco di capire", tags: [preposition]}
+    - learner: "Non riesco a capire gli orari, ecco. Ma il treno è sicuro? Un amico mi ha detto che è un po' vecchio e sempre pieno di gente."
+    - tutor: "Esatto. È vecchio e spesso pieno, sì, ma funziona bene: tieni solo lo zaino davanti a te."
+      goals: [transport]
+    - learner: "Va bene. E cosa devo evitare la sera? Un amico mi ha detto di non portare la mia camera in giro di notte, perché qualcuno potrebbe rubarla."
+      errors: [false-friend]
+    - tutor: "Ha ragione il tuo amico: di notte la macchina fotografica lasciala in albergo, e il telefono tienilo in tasca. Per il resto, goditi la città!"
+      recast: {text: "camera", fix: "macchina fotografica", tags: [false-friend]}
+      goals: [warnings]
+      new: [{lemma: macchina fotografica, gloss: camera}]
+    - learner: "Grazie mille, Valentina! Quando torno ti racconto tutto e ti faccio vedere le foto del telefono."
+    - tutor: "Sì, voglio sapere quante pizze hai mangiato! Buon viaggio."
+
+- scenario: consigli-viaggio
+  # facts: parte il dieci marzo con il ragazzo per quattro giorni; poi lui torna a Siviglia e lei a Padova; lui ama l'arte, lei il cibo di strada; Museo Archeologico, pizza fritta e sfogliatella; compleanno del ragazzo il dodici marzo; ristorante dello zio di Valentina vicino al porto, si spende poco; niente motorino, metro e piedi; Quartieri Spagnoli belli di giorno, la sera attenzione
+  level: B1
+  persona: es-f-erasmus
+  history: [subjunctive-use, object-pronoun, comparative, ci-ne]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto il dieci marzo con il mio ragazzo, che non conosce l'Italia. Restiamo quattro giorni, poi lui torna a Siviglia e io a Padova."
+    - tutor: "Quattro giorni insieme, che bello. Cosa vi piacerebbe fare: musei, cibo, quartieri?"
+      goals: [plans]
+    - learner: "Lui ama l'arte, quindi per lui è importante che vede il Museo Archeologico, ma io preferisco camminare e mangiare per strada."
+      errors: [subjunctive-use]
+    - tutor: "Il Museo Archeologico gli piacerà di sicuro. Ma «è importante che vede»? Dopo «è importante che», il verbo prende un'altra forma."
+      prompt: {text: "vede il Museo Archeologico", tags: [subjunctive-use]}
+    - learner: "È importante che veda il museo, sì. E per mangiare per strada, cosa mi consigli di provare?"
+    - tutor: "Sì, così va bene. Devi provare la pizza fritta e la sfogliatella, ce ne sono di buonissime in centro."
+      goals: [advice]
+      new: [{lemma: fritto, gloss: fried}, {lemma: sfogliatella, gloss: Neapolitan pastry}]
+    - learner: "Che fame! Il dodici marzo è il compleanno del mio ragazzo, e le ho promesso un pranzo napoletano. Conosci un posto non troppo caro?"
+      errors: [object-pronoun]
+    - tutor: "Vicino al porto c'è il ristorante di mio zio: si mangia bene e si spende poco. Ma «le ho promesso»? Parli del tuo ragazzo, e «le» si usa per una donna."
+      prompt: {text: "le ho promesso", tags: [object-pronoun]}
+    - learner: "Gli ho promesso un pranzo, giusto. Per muoverci, lui vuole noleggiare un motorino perché dice che è più veloce che la metro. Secondo te è una buona idea?"
+      errors: [comparative]
+    - tutor: "Sinceramente no: con questo traffico è pericoloso. Ma «più veloce che la metro»? Confronti due mezzi, il motorino e la metro: qui «che» non va."
+      prompt: {text: "più veloce che la metro", tags: [comparative]}
+    - learner: "Più veloce della metro, va bene. Allora niente motorino: prenderemo la metro e cammineremo tanto, così vediamo di più."
+    - tutor: "Esatto, a piedi si scopre la città vera. C'è altro che ti preoccupa?"
+      goals: [transport]
+    - learner: "Sì, una cosa. Ho sentito parlare tanto dei Quartieri Spagnoli, ma il mio amico di Siviglia non è mai andato perché dice che sono pericolosi."
+      errors: [ci-ne]
+    - tutor: "Di giorno sono bellissimi e pieni di vita; la sera bisogna stare attenti, come in ogni grande città. Ma il tuo amico «non è mai andato»: dove? Con «andare», il posto va ripreso prima del verbo."
+      prompt: {text: "non è mai andato", tags: [ci-ne]}
+      goals: [warnings]
+    - learner: "Non ci è mai andato, ma adesso lo convinco io! Grazie mille, Valentina, sei un tesoro."
+    - tutor: "Esatto! Di niente, e scrivimi quando arrivate."
+
+- scenario: biglietto-treno
+  # facts: Verona sabato mattina con la moglie; Frecciarossa alle 8.15, arrivo alle 10.20; ritorno domenica alle 20.30, arrivo alle 22.35; seconda classe 78 euro a persona andata e ritorno, prima classe 110; posti 15 e 16 al finestrino, carrozza 4; di solito binario 6; non serve convalidare; taxi davanti all'uscita a Verona
+  level: B1
+  persona: en-m-retired
+  history: [articulated-preposition, conditional-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei andare a Verona sabato mattina con mia moglie. Nostra figlia ci ha regalato due biglietti per un concerto all'Arena."
+    - tutor: "Che bel regalo! Sabato c'è un Frecciarossa alle otto e un quarto, arriva a Verona alle dieci e venti. Solo andata o anche ritorno?"
+      goals: [destination]
+    - learner: "Va bene alle otto e un quarto. Prendiamo andata e ritorno: c'è un treno domenica sera che arriva qui prima di le undici?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, domenica c'è un treno alle otto e mezza di sera, arriva alle dieci e trentacinque. Ma «prima di le undici»? Qui «di» e «le» si uniscono in una parola sola."
+      prompt: {text: "di le undici", tags: [articulated-preposition]}
+    - learner: "Prima delle undici, certo. Allora va bene quello delle otto e mezza. Quanto costa tutto, per due persone?"
+    - tutor: "Esatto. In seconda classe sono settantotto euro a persona, andata e ritorno; in prima sono centodieci."
+      goals: [type]
+    - learner: "È un po' caro per due pensionati, quindi vorressimo la seconda classe. Ci sono ancora due posti vicini? Mia moglie non sente bene."
+      errors: [conditional-form]
+    - tutor: "Sì, ci sono ancora due posti vicini, anche al finestrino. Ma «vorressimo»? Per una richiesta gentile con «noi», questa non è la forma giusta."
+      prompt: {text: "vorressimo", tags: [conditional-form]}
+    - learner: "Allora vorressimo i posti al finestrino, se è possibile, così mia moglie può guardare il paesaggio."
+      errors: [conditional-form]
+    - tutor: "«Vorremmo i posti al finestrino»: benissimo, sono il quindici e il sedici, carrozza quattro. Paga con la carta o in contanti?"
+      recast: {text: "vorressimo", fix: "vorremmo", tags: [conditional-form]}
+      goals: [class]
+      new: [{lemma: carrozza, gloss: carriage}]
+    - learner: "Con la carta, grazie. Mi scusi, da quale binario parte il treno di sabato? E devo convalidare il biglietto prima di salire?"
+    - tutor: "Di solito parte dal binario sei, ma sabato controlli il tabellone. No, con questo biglietto non deve convalidare niente."
+      goals: [platform]
+      new: [{lemma: tabellone, gloss: departures board}]
+    - learner: "Perfetto, grazie mille. Ecco la carta. Lei sa se alla stazione di Verona ci sono i taxi per andare in centro?"
+    - tutor: "Sì, i taxi sono proprio davanti all'uscita. Ecco i biglietti, e buon concerto!"
+
+- scenario: biglietto-treno
+  # facts: Ancona domani per un corso per insegnanti alle undici; regionale veloce alle 7.40, arrivo alle 10.05; solo andata, 14,50 euro; ritorno da comprare dopo, anche online; sul regionale niente posti assegnati, seconda classe; ascensore in fondo alla sala; di solito binario 3; nel pomeriggio un regionale ogni ora
+  level: B1
+  persona: es-f-teacher
+  history: [preposition, future-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Devo andare ad Ancona domani per un corso di formazione per insegnanti, che comincia alle undici. A che ora c'è un treno?"
+    - tutor: "Domani c'è un regionale veloce alle sette e quaranta, arriva alle dieci e cinque. Le va bene?"
+      goals: [destination]
+    # decoy: «lo comprerò» and «finirà» are correct futures
+    - learner: "Sì, va bene, così avrò tempo per un caffè. Il ritorno ancora non lo so, perché non so a che ora finirà il corso: forse lo comprerò dopo."
+    - tutor: "Allora le faccio solo l'andata: sono quattordici euro e cinquanta. Il ritorno può comprarlo anche su Internet."
+      goals: [type]
+    - learner: "Perfetto. Ma se domani il treno arriva in ritardo, posso chiedere un rimborso? L'ultima volta ho aspettato un'ora in Bologna e nessuno mi ha dato niente."
+      errors: [preposition]
+    - tutor: "Con un ritardo lungo sì, può chiederlo qui o sul sito. Ma «ho aspettato in Bologna»? Davanti al nome di una città, la parola giusta è un'altra."
+      prompt: {text: "in Bologna", tags: [preposition]}
+    - learner: "Ho aspettato un'ora a Bologna, sì, ed ero furiosa! Speriamo che domani vada meglio. Devo scegliere il posto?"
+    - tutor: "Giusto. Sul regionale il posto non si sceglie: le va bene la seconda classe?"
+    - learner: "Sì, la seconda va benissimo. Però ho una valigia pesante, piena di libri: c'è un ascensore per il binario? Ho male alla schiena e non posso caricare molto peso."
+      errors: [word-choice]
+    - tutor: "Sì, c'è un ascensore in fondo alla sala, così non deve portare molto peso sulle scale."
+      recast: {text: "caricare molto peso", fix: "portare molto peso", tags: [word-choice]}
+      goals: [class]
+    - learner: "Grazie, è molto gentile. E il treno delle sette e quaranta da quale binario parte, di solito? Lo scrivo sul biglietto, così domani non lo dimentico."
+    - tutor: "Di solito dal binario tre, ma domani mattina guardi il tabellone, perché a volte cambia."
+      goals: [platform]
+      new: [{lemma: tabellone, gloss: departures board}]
+    - learner: "Va bene, guarderò il tabellone. E se il corso finisce presto, poterò prendere un treno nel pomeriggio, verso le quattro?"
+      errors: [future-form]
+    - tutor: "Sì, nel pomeriggio c'è un regionale ogni ora. Ma «poterò»? Il futuro di «potere» è più corto: perde una lettera."
+      prompt: {text: "poterò", tags: [future-form]}
+    - learner: "Potrò prendere quello delle quattro, allora. Pago con la carta, grazie."
+    - tutor: "Esatto. Ecco il biglietto per domani, e buon corso!"
+
+- scenario: vacanze-passate
+  # facts: in Calabria nel paese dei nonni, prima volta; paura del dialetto; una cugina della madre lo ha aiutato e portato al mare ogni giorno; trentotto gradi; la sera cena in piazza con la famiglia; più di venti fichi d'India in una settimana; festa del santo patrono ad agosto con fuochi e banda; il nonno ha novant'anni e ha ballato con lui; il nonno gli insegnerà a fare il vino
+  level: B1
+  persona: en-m-heritage
+  history: [relative-pronoun, ci-ne]
+  turns:
+    - tutor: "Ciao! Raccontami tutto: dove hai passato le vacanze?"
+    # decoy: «non ci ero mai stato» is a correct locative ci with the trapassato
+    - learner: "Ciao Elena! Quest'estate sono finalmente andato in Calabria, nel paese dei miei nonni. Non ci ero mai stato e avevo un po' paura del dialetto."
+    - tutor: "Finalmente! E com'è andata con il dialetto, capivi qualcosa?"
+      goals: [where]
+    - learner: "All'inizio era difficile, ma c'era una cugina di mia madre che mi ha aiutato tanto. È la persona con che ho passato più tempo in tutta la vacanza."
+      errors: [relative-pronoun]
+    - tutor: "Che fortuna avere una cugina così! Ma «la persona con che»? Dopo «con», quel «che» non può stare."
+      prompt: {text: "con che", tags: [relative-pronoun]}
+    - learner: "La persona con cui ho passato più tempo, sì. Mi portava ogni giorno al mare, perché faceva un caldo terribile, sempre trentotto gradi."
+    - tutor: "Proprio così. Trentotto gradi, mamma mia, il mare era l'unica soluzione! E la sera cosa facevate?"
+      goals: [weather]
+    - learner: "La sera mangiavamo sempre in piazza con tutta la famiglia. Mia zia mi preparava i fichi d'India e dice che ho mangiato più di venti in una settimana!"
+      errors: [ci-ne]
+    - tutor: "Venti fichi d'India, che appetito! Ma «ho mangiato più di venti»: con un numero, «fichi» va ripreso da una parola prima del verbo."
+      prompt: {text: "ho mangiato più di venti", tags: [ci-ne]}
+      goals: [activities]
+    - learner: "Sì, ho mangiato più di venti, forse anche trenta! Erano dolcissimi e freschi, li prendevamo dall'albero."
+      errors: [ci-ne]
+    - tutor: "«Ne ho mangiati più di venti», forse trenta, e direttamente dall'albero: altro che supermercato! Qual è stato il momento più bello?"
+      recast: {text: "ho mangiato più di venti", fix: "ne ho mangiati più di venti", tags: [ci-ne]}
+    - learner: "Il momento più bello è stato la festa del santo patrono, ad agosto. C'erano i fuochi d'artificio e la banda, e mio nonno, che ha novant'anni, ha ballato con me."
+    - tutor: "A novant'anni, che forza! Ci tornerai l'anno prossimo?"
+      goals: [best]
+    - learner: "Spero di sì. Mio nonno mi ha detto che se torno a settembre, mi insegnerà a fare il vino, come faceva suo padre quando era giovane."
+    - tutor: "Allora devi proprio tornare, e portami una bottiglia!"
+
+- scenario: consigli-viaggio
+  # facts: parte il primo maggio per un fine settimana lungo con due colleghe di Milano; interessa il cibo, una collega vuole un museo; Valentina comincerebbe da Spaccanapoli e poi il Museo Archeologico; dall'aeroporto un autobus diretto economico o il taxi, in tre il taxi non costa molto di più; albergo vicino alla stazione, la sera meglio il taxi; evitare i ristoranti con il menù turistico; la pizza di solito non si prenota, meglio andare verso le sette e mezza
+  level: B1
+  persona: en-f-professional
+  history: [conditional-form, articulated-preposition, relative-pronoun]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto il primo maggio, ma solo per un fine settimana lungo. Vado con due colleghe dell'ufficio di Milano, e nessuna di noi conosce la città."
+    - tutor: "Un fine settimana basta per innamorarsi di Napoli. Cosa vi interessa di più?"
+      goals: [plans]
+    - learner: "Ci interessa soprattutto il cibo, ma una mia collega vuole vedere anche qualche museo. Tu, al nostro posto, cosa vederesti per primo?"
+      errors: [conditional-form]
+    - tutor: "Io comincerei da Spaccanapoli e poi andrei al Museo Archeologico. Ma «vederesti»? Il condizionale di «vedere» è più corto, proprio come il suo futuro."
+      prompt: {text: "vederesti", tags: [conditional-form]}
+      goals: [advice]
+    - learner: "Cosa vedresti per primo, giusto. E per arrivare dall'aeroporto al centro, c'è un autobus o è meglio prendere il taxi?"
+    - tutor: "Esatto. C'è un autobus diretto ed economico, ma in tre il taxi non costa molto di più. Dove avete l'albergo?"
+      goals: [transport]
+    - learner: "Allora prendiamo il taxi e dividiamo il prezzo. Il nostro albergo è vicino a la stazione centrale: è una zona tranquilla la sera?"
+      errors: [articulated-preposition]
+    - tutor: "La sera non è la zona più tranquilla, quindi per tornare prendete un taxi. Ma «vicino a la stazione»? Qui «a» e «la» diventano una parola sola."
+      prompt: {text: "a la stazione", tags: [articulated-preposition]}
+      goals: [warnings]
+    - learner: "Vicino alla stazione, sì. Va bene, niente passeggiate la sera. E c'è una trattoria nel centro storico che un collega mi ha parlato tanto: secondo te è buona?"
+      errors: [relative-pronoun]
+    - tutor: "Esatto, alla stazione. Ma «una trattoria che un collega mi ha parlato»? Si dice «parlare di qualcosa», e quel «di» deve restare anche qui."
+      prompt: {text: "che un collega mi ha parlato", tags: [relative-pronoun]}
+    - learner: "Una trattoria di cui un collega mi ha parlato, ecco. Non ricordo il nome, ma so che è vicino al Duomo. E per la pizza bisogna prenotare?"
+    - tutor: "Sì, così va bene. Per la pizza di solito non si prenota: si fa la fila, ma va veloce. Andate verso le sette e mezza, prima che arrivi tanta gente."
+    - learner: "Ottimo consiglio! Però evitiamo i ristoranti con il menù in sei lingue, vero? Le mie colleghe dicono che sono sempre trappole per turisti."
+    - tutor: "Hanno ragione: lì si mangia male e si paga tanto. Mandami una foto della prima pizza!"
