@@ -1,0 +1,305 @@
+# Set r-miss-b1, file 3 (B1): viewing flats to rent, talking to upstairs neighbours about noise
+# and cooking a family recipe with a friend. Errors sit inside long, practical turns.
+- scenario: affittare-appartamento
+  # facts: appartamento arredato con due camere sul cortile; affitto 750 euro al mese più 60 di spese del condominio; le spese comprendono acqua e pulizia delle scale, luce e gas a parte; riscaldamento autonomo, caldaia nuova; caparra di due mesi, 1500 euro; contratto di un anno; fermata del tram a cinque minuti, supermercato sotto casa; l'amica si chiama Lucía; tornano domani alle cinque
+  level: B1
+  persona: es-f-erasmus
+  history: [ci-ne, preposition, relative-pronoun, subjunctive-use]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno, grazie. Che luminoso! Io e la mia amica cerchiamo un appartamento per tutto l'anno, perché studiamo qui all'università. Quanto costa l'affitto al mese?"
+    - tutor: "L'affitto è di settecentocinquanta euro al mese, più sessanta di spese del condominio, con l'acqua compresa. Luce e gas, invece, li pagate voi."
+      goals: [rent]
+    - learner: "Va bene, è più o meno il prezzo che pensavamo. Adesso dividiamo una stanza sola, e per quest'anno vorremmo due, una per ciascuna."
+      errors: [ci-ne]
+    - tutor: "Capisco. Ma «vorremmo due»: due di che cosa? Per non ripetere «stanze», serve una parola prima del verbo."
+      prompt: {text: "vorremmo due", tags: [ci-ne]}
+    - learner: "Ne vorremmo due, sì, una per ciascuna. Qui quante camere ci sono?"
+    - tutor: "Proprio così. Ci sono due camere, tutte e due sul cortile. Venga, gliele faccio vedere."
+    - learner: "Che belle! E il riscaldamento come funziona? L'inverno scorso avevamo sempre freddo, perché il padrone di casa non riusciva mai di accendere la caldaia vecchia."
+      errors: [preposition]
+    - tutor: "Qui la caldaia è nuova ed è solo vostra: la accendete voi quando volete. Ma «non riusciva mai di accendere»? Con «riuscire», quel «di» non va."
+      prompt: {text: "riusciva mai di accendere", tags: [preposition]}
+    - learner: "Sì, non riusciva mai di accendere la caldaia, e diceva sempre che era colpa nostra!"
+      errors: [preposition]
+    - tutor: "Non riusciva mai ad accendere la caldaia e dava la colpa a voi? Che brutta storia. Qui, almeno, questo problema non ci sarà."
+      recast: {text: "riusciva mai di accendere", fix: "riusciva mai ad accendere", tags: [preposition]}
+      goals: [condition]
+    - learner: "Meno male! E per il contratto, quant'è la caparra? La signora da che abbiamo preso la casa l'anno scorso voleva tre mesi, e per noi era tantissimo."
+      errors: [relative-pronoun]
+    - tutor: "Io chiedo due mesi, cioè 1500 euro, e il contratto è di un anno. Ma «la signora da che»? Dopo «da», quel «che» non può stare."
+      prompt: {text: "da che", tags: [relative-pronoun]}
+      goals: [contract]
+    - learner: "La signora da cui abbiamo preso la casa, sì. Due mesi va bene. E il quartiere com'è? Lucía lavora in un bar e torna tardi, quindi deve essere un posto sicuro."
+    - tutor: "Esatto. È un quartiere tranquillo, e la fermata del tram è a cinque minuti. Sotto casa c'è anche un supermercato."
+      goals: [neighbourhood]
+      new: [{lemma: tram, gloss: tram}]
+    - learner: "Mi piace molto, ma per me è importante che anche Lucía la vede prima di firmare. Possiamo tornare insieme domani pomeriggio?"
+      errors: [subjunctive-use]
+    - tutor: "Certo, domani alle cinque va bene? Ma «è importante che anche Lucía la vede»? Dopo «è importante che», il verbo prende un'altra forma."
+      prompt: {text: "la vede", tags: [subjunctive-use]}
+    - learner: "È importante che la veda, sì. Alle cinque va benissimo, grazie mille. Siamo molto interessate!"
+    - tutor: "Sì, così va bene. Allora a domani alle cinque, con la sua amica."
+      goals: [decide]
+
+- scenario: affittare-appartamento
+  # facts: coppia di pensionati appena arrivati dall'America; appartamento arredato con tre stanze, al terzo piano con ascensore; 900 euro al mese spese comprese; riscaldamento del condominio da ottobre ad aprile, una stufa elettrica nell'armadio; lavastoviglie nuova, dell'anno scorso; contratto di quattro anni, si può lasciare prima avvisando sei mesi prima; caparra: di solito tre mesi, per loro due; mercato in piazza il martedì e il venerdì, supermercato vicino; firma lunedì alle dieci
+  level: B1
+  persona: en-m-retired
+  history: [preposition, auxiliary-choice, conditional-form]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. Che bel soggiorno, è molto più grande di quello che abbiamo visto ieri. Mia moglie e io siamo appena arrivati dall'America e cerchiamo una casa per almeno due anni."
+    - tutor: "Benvenuti in Italia! L'appartamento ha tre stanze ed è arredato. L'affitto è di novecento euro al mese, spese comprese."
+      goals: [rent]
+    # decoys: «costa più che qui» and «più difficili per noi che per i giovani» are correct uses of che
+    - learner: "Novecento è un buon prezzo: a Ohio una casa così costa più che qui. Ma non siamo giovani, c'è un ascensore? Le scale sono più difficili per noi che per i giovani."
+      errors: [preposition]
+    - tutor: "Sì, c'è l'ascensore, e l'appartamento è al terzo piano. Ma «a Ohio»? Ohio non è una città: con il nome di uno stato, la parola giusta è un'altra."
+      prompt: {text: "a Ohio", tags: [preposition]}
+    - learner: "In Ohio, certo. E il riscaldamento come funziona? Mia moglie ha sempre freddo, anche a maggio."
+    - tutor: "Esatto. Il riscaldamento è del condominio ed è acceso da ottobre ad aprile. Per maggio c'è una stufa elettrica nell'armadio."
+      goals: [condition]
+      new: [{lemma: stufa, gloss: heater}]
+    - learner: "Va bene, la stufa basta. La cucina mi piace molto: mia moglie ha già entrata a guardare e dice che la lavastoviglie sembra nuova."
+      errors: [auxiliary-choice]
+    - tutor: "Ha ragione, è dell'anno scorso. Ma «mia moglie ha già entrata»? Con «entrare», il passato non si fa con «avere»."
+      prompt: {text: "ha già entrata", tags: [auxiliary-choice]}
+    - learner: "È già entrata, sì, perché lei decide sempre tutto prima di me! E per il contratto, quanto tempo dura?"
+    - tutor: "Esatto! Il contratto è di quattro anni, ma potete lasciare la casa prima, se mi avvisate sei mesi prima."
+      goals: [contract]
+    - learner: "Quattro anni sono tanti, ma va bene se possiamo uscire prima. E la caparra? In America di solito si paga un mese, e noi preferiremo pagare un mese anche qui."
+      errors: [conditional-form]
+    - tutor: "Qui di solito sono tre mesi, ma per voi posso fare due. Ma «noi preferiremo»? Così è un futuro: per una richiesta gentile serve un'altra forma."
+      prompt: {text: "preferiremo", tags: [conditional-form]}
+    - learner: "Sì, preferiremo due mesi, grazie, è molto gentile da parte sua. Così ci restano soldi per i mobili."
+      errors: [conditional-form]
+    - tutor: "«Preferiremmo due mesi»: d'accordo, allora sono due mesi. Il quartiere lo conoscete già?"
+      recast: {text: "preferiremo", fix: "preferiremmo", tags: [conditional-form]}
+    - learner: "No, non lo conosciamo per niente. Ci sono negozi qui vicino? Non abbiamo la macchina, e mia moglie vorrebbe fare la spesa a piedi."
+    - tutor: "Sì, in piazza c'è il mercato il martedì e il venerdì, e il supermercato è a due passi. Allora, vi interessa?"
+      goals: [neighbourhood]
+    - learner: "Sì, ci interessa molto. Possiamo firmare lunedì mattina? Prima vorrei far leggere il contratto a nostro figlio, che parla italiano meglio di noi."
+    - tutor: "Certo, lunedì mattina va benissimo. Vi aspetto qui alle dieci con il contratto."
+      goals: [decide]
+
+- scenario: affittare-appartamento
+  # facts: monolocale arredato; 550 euro più 40 di spese; lavora in un ostello vicino da tre mesi; le chiavi le ha solo la padrona; lavatrice in bagno, solo per lui; riscaldamento controllato a settembre; all'inizio due mesi di caparra più il primo affitto, caparra pagabile in due volte; contratto di un anno; quartiere tranquillo la sera, il sabato un po' di rumore dai bar; firma giovedì alle sei
+  level: B1
+  persona: en-m-traveller
+  history: [tense-aspect, ci-ne, articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! È piccolo, ma molto carino. Lavoro in un ostello qui vicino da tre mesi e sto cercando qualcosa solo per me, finalmente senza coinquilini."
+    - tutor: "È un monolocale, ma c'è tutto. L'affitto è di cinquecentocinquanta euro, più quaranta di spese."
+      goals: [rent]
+      new: [{lemma: monolocale, gloss: studio flat}]
+    - learner: "Non è male. L'anno scorso a Dublino pagavo quasi il doppio per una stanza, e una volta il padrone di casa entrava senza bussare mentre facevo la doccia!"
+      errors: [tense-aspect]
+    - tutor: "Che brutta sorpresa! Ma «una volta il padrone entrava»? Qui «una volta» è un fatto unico, non una cosa di tutti i giorni: pensa al tempo del verbo."
+      prompt: {text: "entrava senza bussare", tags: [tense-aspect]}
+    - learner: "Una volta è entrato senza bussare, sì, che vergogna! Qui le chiavi le ha solo lei, giusto?"
+    - tutor: "Giusto, sì: le chiavi le ho solo io, e non entro mai senza avvisare. Vuole vedere il bagno?"
+    # decoy: «ce n'era una sola» is a correct ce + ne
+    - learner: "Sì, grazie. E la lavatrice? Nella mia vecchia casa ce n'era una sola per sei persone, e la domenica c'era sempre la fila."
+    - tutor: "Qui la lavatrice è in bagno, ed è tutta per lei. Anche il riscaldamento è suo: l'ho fatto controllare a settembre."
+      goals: [condition]
+    - learner: "Ottimo. Per il contratto, quanto devo pagare all'inizio? Ho dei soldi da parte, ma non ho molti, perché ho appena comprato una bici."
+      errors: [ci-ne]
+    - tutor: "All'inizio paga due mesi di caparra più il primo affitto, e il contratto è di un anno. Ma «non ho molti»: molti di che cosa? Per riprendere «soldi», serve una parola prima del verbo."
+      prompt: {text: "non ho molti", tags: [ci-ne]}
+      goals: [contract]
+    - learner: "Sì, non ho molti adesso, ma il mese prossimo ricevo il primo stipendio intero e allora va meglio."
+      errors: [ci-ne]
+    - tutor: "«Non ne ho molti adesso»: capisco. Se vuole, la caparra può pagarla in due volte."
+      recast: {text: "non ho molti", fix: "non ne ho molti", tags: [ci-ne]}
+    - learner: "Grazie, è molto gentile. E com'è il quartiere la sera? Io lavoro fino a tardi e torno spesso a l'una o alle due di notte."
+      errors: [articulated-preposition]
+    - tutor: "La sera è tranquillo, solo il sabato c'è un po' di rumore per i bar. Ma «a l'una»? Qui la «a» e l'articolo si uniscono, come nel suo «alle due»."
+      prompt: {text: "a l'una", tags: [articulated-preposition]}
+      goals: [neighbourhood]
+    - learner: "All'una, sì. Il rumore del sabato non mi preoccupa, sono abituato agli ostelli! Anzi, mi piace molto e lo prendo. Quando possiamo firmare?"
+    - tutor: "Esatto. Benissimo! Possiamo firmare giovedì alle sei, qui. Le va bene?"
+      goals: [decide]
+    - learner: "Giovedì alle sei va benissimo. Porto il passaporto e il contratto di lavoro, così vede che ho uno stipendio fisso."
+    - tutor: "Perfetto, allora a giovedì alle sei."
+
+- scenario: vicino-rumoroso
+  # facts: Diego, cuoco, abita al secondo piano, sotto; si è trasferito il mese scorso; torna a casa tardi e dorme fino alle nove; la lavatrice della signora Ferri parte verso le sette quasi ogni mattina; Diego ha parlato al marito sulle scale; la sera è difficile per i bambini; la lavatrice ha il timer: partirà alle dieci; Diego porterà una torta argentina; è responsabile della pasticceria nel ristorante
+  level: B1
+  persona: es-m-worker
+  history: [tense-aspect, object-pronoun, preposition]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi il disturbo. Sono Diego, abito qui sotto, al secondo piano. Mi sono trasferito il mese scorso e non ci siamo ancora presentati."
+    - tutor: "Piacere, Diego. Io sono la signora Ferri. Mi dica, c'è qualche problema?"
+      goals: [greet]
+    - learner: "Sì, purtroppo. Io faccio il cuoco e torno a casa molto tardi. Stamattina dormivo ancora quando la sua lavatrice cominciava a fare un rumore fortissimo, verso le sette."
+      errors: [tense-aspect]
+    - tutor: "Oh, mi dispiace. Ma «quando la lavatrice cominciava»? Lei dormiva, e a un certo punto è successa una cosa precisa: che tempo serve per quella?"
+      prompt: {text: "cominciava a fare", tags: [tense-aspect]}
+    - learner: "Quando la lavatrice ha cominciato, sì. Il problema è che succede quasi ogni mattina, e per me le sette sono come le tre di notte."
+    - tutor: "Proprio così. Mi dispiace tanto, non lo sapevo: la metto presto perché poi vado al lavoro."
+      goals: [problem]
+    - learner: "Lo capisco, anche lei lavora. Ieri ho incontrato suo marito sulle scale e lo ho parlato del problema, ma forse non le ha detto niente."
+      errors: [object-pronoun]
+    - tutor: "Mio marito dimentica tutto! Ma «lo ho parlato»? Si parla «a» qualcuno, a mio marito: quel «lo» non va."
+      prompt: {text: "lo ho parlato", tags: [object-pronoun]}
+    - learner: "Gli ho parlato, sì, ma forse ha dimenticato. Allora le chiedo un favore: potrebbe mettere la lavatrice dopo le nove, oppure la sera?"
+    - tutor: "Esatto. La sera è difficile per i bambini, ma la lavatrice ha il timer: se parte alle dieci, per lei va bene?"
+      goals: [request]
+      new: [{lemma: timer, gloss: timer}]
+    - learner: "Alle dieci sarebbe perfetto, grazie, così posso dormire fino alle nove. Per ringraziarla, penso a portarle una torta, se le piacciono i dolci."
+      errors: [preposition]
+    - tutor: "I dolci mi piacciono tantissimo! Ma «penso a portarle una torta»? Quando «pensare» vuol dire avere l'idea di fare qualcosa, la parola dopo è un'altra."
+      prompt: {text: "penso a portarle", tags: [preposition]}
+    - learner: "Penso di portarle una torta, sì. Io sono bravo con i dolci, è il mio lavoro: nel ristorante sono il responsabile della pastelería."
+      errors: [word-choice]
+    - tutor: "Il responsabile della pasticceria? Allora la torta sarà buonissima! Quindi siamo d'accordo per le dieci?"
+      recast: {text: "pastelería", fix: "pasticceria", tags: [word-choice]}
+      new: [{lemma: pasticceria, gloss: pastry section}]
+    - learner: "D'accordo, la lavatrice dalle dieci in poi. Grazie mille per la comprensione, signora, e buona serata."
+    - tutor: "Grazie a lei, Diego. Buona serata e buon lavoro!"
+      goals: [compromise]
+
+- scenario: vicino-rumoroso
+  # facts: Hannah, studentessa inglese, abita nell'appartamento sotto; giovedì e venerdì chitarra e voci fino all'una; tre esami a giugno; il giovedì vengono gli amici del vicino a suonare; compromesso: il giovedì fino alle undici, il venerdì fino a mezzanotte; numero del vicino 347 221 890; il venerdì Hannah esce spesso; invito per il prossimo giovedì alle otto
+  level: B1
+  persona: en-f-student
+  history: [subjunctive-use, conditional-form, comparative]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera. Mi scusi se la disturbo così tardi. Sono Hannah, la ragazza inglese che abita nell'appartamento sotto il suo."
+    - tutor: "Piacere, Hannah. Nessun disturbo, mi dica pure."
+      goals: [greet]
+    - learner: "È un po' imbarazzante. Il giovedì e il venerdì sento la chitarra e le voci fino all'una di notte, ed è possibile che lei non lo sa."
+      errors: [subjunctive-use]
+    - tutor: "Davvero, fino all'una? Ma «è possibile che lei non lo sa»? Dopo «è possibile che», il verbo va in un'altra forma."
+      prompt: {text: "non lo sa", tags: [subjunctive-use]}
+    - learner: "È possibile che non lo sappia, sì, perché è sempre molto gentile sulle scale. Ma a giugno ho tre esami e la notte non riesco a dormire."
+    - tutor: "Sì, così va bene. Ha ragione, non me ne rendevo conto: il giovedì vengono i miei amici a suonare. Mi dispiace molto."
+      goals: [problem]
+    # «smettete» is also wrong, but the policy picks the conditional, the scenario's focus
+    - learner: "Non voglio che smettete di suonare, è bello! Però potrebbe finire un po' prima, almeno fino alla fine di giugno? Io vorrebbi dormire verso le undici."
+      errors: [subjunctive-use, conditional-form]
+    - tutor: "Certo, capisco. Ma «io vorrebbi»? Guardi il suo «potrebbe»: con «io», la fine del condizionale è diversa."
+      prompt: {text: "vorrebbi", tags: [conditional-form]}
+    - learner: "Io vorrei dormire verso le undici, scusi. Almeno nei giorni prima di un esame, perché la mattina mi sveglio alle sei."
+    - tutor: "Esatto. Allora il giovedì finiamo alle undici. Il venerdì, però, i miei amici vengono da lontano: va bene mezzanotte?"
+      goals: [request]
+      new: [{lemma: mezzanotte, gloss: midnight}]
+    - learner: "Mezzanotte il venerdì va bene, anche perché il venerdì sera esco spesso con le mie amiche e rientro più tardi che lei!"
+      errors: [comparative]
+    - tutor: "Ah sì? Ma «più tardi che lei»? Qui ci sono due persone, lei e io: in questo caso «che» non va."
+      prompt: {text: "più tardi che lei", tags: [comparative]}
+    - learner: "Rientro più tardi di lei, sì! E se c'è un problema, posso scriverle un messaggio? Così non devo salire ogni volta."
+    - tutor: "Esatto! Certo, le do il mio numero: tre quattro sette, due due uno, otto nove zero. Mi scriva quando vuole."
+    # decoy: «ci verrei volentieri» is a correct locative ci with a conditional
+    - learner: "Grazie mille, le scrivo subito, così ha anche il mio. E se un giorno organizzate un piccolo concerto, ci verrei volentieri!"
+    - tutor: "Allora l'aspettiamo giovedì prossimo alle otto, così finiamo presto!"
+      goals: [compromise]
+
+- scenario: vicino-rumoroso
+  # facts: Carmen, vicina del primo piano; il cane del vicino, Rocky, abbaia dalle due alle sei, quando il vicino va al lavoro; Carmen insegna la mattina e corregge i compiti a casa il pomeriggio; ieri è andata in biblioteca; martedì e giovedì Rocky dalla madre del vicino; gli altri giorni Carmen lo porta a passeggio alle tre; le figlie di Carmen lo hanno conosciuto ieri; si comincia mercoledì alle tre
+  level: B1
+  persona: es-f-teacher
+  history: [relative-pronoun, auxiliary-choice, participle-agreement]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, mi scusi. Sono Carmen, la vicina del primo piano. Ci siamo già visti qualche volta davanti al portone."
+    - tutor: "Sì, certo, buonasera! Come posso aiutarla?"
+      goals: [greet]
+    - learner: "Volevo parlarle del suo cane, che è molto simpatico. Il problema è il pomeriggio, cioè il momento in che lei esce: lui abbaia per ore."
+      errors: [relative-pronoun]
+    - tutor: "Per ore? Ma «il momento in che»? Dopo «in», per riprendere «il momento» serve un'altra parola, non «che»."
+      prompt: {text: "in che", tags: [relative-pronoun]}
+    - learner: "Sì, il momento in che lei va al lavoro. Lui comincia alle due e continua fino alle sei, quasi senza fermarsi."
+      errors: [relative-pronoun]
+    - tutor: "Dalle due alle sei, proprio il momento in cui vado al lavoro! Non lo sapevo, mi dispiace molto."
+      recast: {text: "in che", fix: "in cui", tags: [relative-pronoun]}
+      goals: [problem]
+    - learner: "Lo immaginavo. Io insegno la mattina e il pomeriggio correggo i compiti a casa. Ieri non riuscivo a lavorare e ho andata in biblioteca."
+      errors: [auxiliary-choice]
+    - tutor: "Che peccato. Ma «ho andata in biblioteca»? Con «andare», il passato si fa con un altro verbo."
+      prompt: {text: "ho andata", tags: [auxiliary-choice]}
+    - learner: "Sono andata in biblioteca, sì. Le chiedo solo di trovare una soluzione insieme, non voglio creare problemi a nessuno."
+    - tutor: "Giusto. Ha ragione, una soluzione la troviamo. Il martedì e il giovedì posso lasciarlo da mia madre: le basterebbe?"
+      goals: [request]
+    - learner: "Sarebbe già molto, grazie. Gli altri giorni potrei portarlo io a passeggio: le mie figlie l'hanno conosciuto ieri sulle scale e sono rimasti felici."
+      errors: [participle-agreement]
+    - tutor: "Che gentile! Ma «le mie figlie sono rimasti»? Con «essere», la fine del verbo va d'accordo con «figlie»."
+      prompt: {text: "sono rimasti", tags: [participle-agreement]}
+    - learner: "Sono rimaste felici, sì, perché vogliono un cane da anni! Allora gli altri giorni lo porto io, verso le tre?"
+    - tutor: "Esatto. Sarebbe meraviglioso, Rocky ne sarà felicissimo. Allora martedì e giovedì da mia madre, e gli altri giorni alle tre con lei?"
+    - learner: "Perfetto, mi sembra un ottimo accordo per tutti. Allora mercoledì alle tre passo a prenderlo qui, davanti alla sua porta."
+    - tutor: "D'accordo, mercoledì alle tre. Grazie davvero, Carmen, è molto gentile."
+      goals: [compromise]
+
+- scenario: cucina-ricetta
+  # facts: empanadas di carne come a Buenos Aires; lui ha portato carne macinata, cipolle, due uova e farina; Francesca ha comprato le olive stamattina e ha sei uova in frigo; per il ripieno servono quattro uova; pasta con farina, burro, sale e acqua tiepida, mezz'ora in frigo; cipolla e carne cotte piano, poi uova e olive; ripieno freddo; forno a duecento gradi per venti minuti; vino rosso argentino portato da lui
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne, participle-agreement, comparative]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera facciamo le empanadas, come a Buenos Aires! Ti ho portato quasi tutto: la carne macinata, le cipolle, le uova e la farina. Hai comprato le olive?"
+    - tutor: "Sì, le ho prese stamattina, eccole. Ci serve altro?"
+    - learner: "Sì, il burro per la pasta. Ma quante uova hai in frigo? Per il ripieno ne servono quattro, e io ho portato solo due."
+      errors: [ci-ne]
+    - tutor: "In frigo ci sono sei uova, quindi siamo tranquilli. Ma «ho portato solo due»: due che cosa? Per non ripetere «uova», serve una parola prima del verbo."
+      prompt: {text: "ho portato solo due", tags: [ci-ne]}
+      goals: [ingredients]
+    - learner: "Ne ho portate solo due, sì. Allora prima facciamo la pasta: farina, burro, un po' di sale e acqua tiepida, e la lasciamo in frigo per mezz'ora."
+    - tutor: "Proprio così. Faccio io la pasta? E tu cosa prepari?"
+    - learner: "Sì, falla tu, così io taglio la cipolla. La cipolla va cotta piano con la carne, e quando la carne è diventato scura, aggiungo le uova e le olive."
+      errors: [participle-agreement]
+    - tutor: "Che fame! Ma «la carne è diventato»? Con «essere», la fine del verbo va d'accordo con «carne»."
+      prompt: {text: "è diventato", tags: [participle-agreement]}
+    - learner: "Quando la carne è diventata scura, sì. Poi il ripieno deve diventare freddo, altrimenti la pasta si rompe."
+    - tutor: "Esatto. E dopo, come le chiudi? Me lo fai vedere?"
+      goals: [steps]
+    - learner: "Certo, guarda: le chiudi così, con le dita. Mia nonna era più veloce che me, faceva cento empanadas in un'ora! Poi vanno in forno a duecento gradi."
+      errors: [comparative]
+    - tutor: "Cento in un'ora, incredibile! Ma «più veloce che me»? Confronti due persone, la nonna e te: qui «che» non va."
+      prompt: {text: "più veloce che me", tags: [comparative]}
+    - learner: "Sì, era più veloce che me, e anche di mia madre! Nessuno in famiglia era come lei."
+      errors: [comparative]
+    - tutor: "«Più veloce di me» e anche di tua madre: che nonna! E quanto tempo stanno in forno?"
+      recast: {text: "più veloce che me", fix: "più veloce di me", tags: [comparative]}
+    - learner: "Venti minuti, finché sono dorate. Si mangiano calde, con le mani, e con un bicchiere del vino rosso argentino che ho portato io."
+    - tutor: "Venti minuti e poi con le mani, perfetto! Apro subito il vino."
+      goals: [time, serve]
+
+- scenario: cucina-ricetta
+  # facts: crumble di mele, il dolce della domenica della mamma; sei mele, farina, zucchero di canna, burro freddo, già in frigo; la cannella l'ha dimenticata, Francesca ce l'ha vicino al sale; mele a pezzi piccoli nella teglia con un po' di zucchero; burro e farina come sabbia sopra le mele; forno a 180 gradi per quaranta minuti; in Inghilterra con la crema calda; Francesca ha gelato alla vaniglia
+  level: B1
+  persona: en-f-student
+  history: [preposition, object-pronoun, future-form]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera preparo un dolce inglese, il crumble di mele. Lo faceva sempre mia mamma la domenica, e il profumo che senti è il burro."
+    - tutor: "Un dolce della tua mamma, che bello! Cosa ci serve?"
+    - learner: "Servono sei mele, la farina, lo zucchero di canna e il burro molto freddo. Il burro l'ho già messo in frigo, ma ho dimenticato a comprare la cannella!"
+      errors: [preposition]
+    - tutor: "Niente paura! Ma «ho dimenticato a comprare»? Dopo «dimenticare», davanti a un altro verbo, la parola che li lega è un'altra."
+      prompt: {text: "dimenticato a comprare", tags: [preposition]}
+    - learner: "Ho dimenticato di comprare la cannella, sì. Ma forse tu ce l'hai? Ne basta un cucchiaino."
+    - tutor: "Così va bene. Sì, ce l'ho, è lì vicino al sale: prendila pure. Cosa facciamo per primo?"
+      goals: [ingredients]
+    - learner: "Prima tagliamo le mele a pezzi piccoli e mettiamo nella teglia con un po' di zucchero. Poi tu mescoli la farina con il burro, usando le dita."
+      errors: [object-pronoun]
+    - tutor: "Va bene, con le dita. Ma «mettiamo nella teglia»: che cosa? Per riprendere «le mele», serve una parola prima del verbo."
+      prompt: {text: "mettiamo nella teglia", tags: [object-pronoun]}
+    - learner: "Le mettiamo nella teglia, sì. Il burro e la farina devono diventare come sabbia, e poi li metti sopra le mele."
+    - tutor: "Esatto, ecco fatto: sembra davvero sabbia. Quanto tempo deve cuocere?"
+      goals: [steps]
+    - learner: "In forno a centottanta gradi, per quaranta minuti più o meno. Quando sarà dorato lo tirerò fuori, e la casa averà un profumo fantastico."
+      errors: [future-form]
+    - tutor: "Non vedo l'ora! Ma «la casa averà»? Il futuro di «avere» è più corto: perde una lettera."
+      prompt: {text: "averà", tags: [future-form]}
+      goals: [time]
+    - learner: "La casa avrà un profumo fantastico, sì! Hai del gelato alla vaniglia? In Inghilterra lo mangiamo con la crema calda, ma il gelato va bene uguale."
+    - tutor: "Esatto. Sì, ho un gelato alla vaniglia. Allora lo serviamo caldo, con il gelato?"
+    - learner: "Sì, caldo con il gelato sopra. Mia mamma diceva sempre che il crumble è più buono quando il gelato si scioglie un po' e diventa una crema."
+    - tutor: "Tua mamma aveva ragione! Allora tra quaranta minuti lo mangiamo."
+      goals: [serve]

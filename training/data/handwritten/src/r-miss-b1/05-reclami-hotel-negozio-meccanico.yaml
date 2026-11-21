@@ -1,0 +1,304 @@
+# Set r-miss-b1, file 5 (B1): complaints at a hotel reception at night, returns at an
+# electronics shop and two visits to the mechanic. Long, polite complaints hide one error each.
+- scenario: reclamo-hotel
+  # facts: camera 118; niente acqua calda nella doccia da stasera verso le sette; la moglie è entrata nella doccia ed è uscita subito; il tecnico arriva domattina alle sette; domani partono presto per Firenze, treno alle sette e mezza; camera 120 qui accanto libera, stessa vista; il ragazzo della notte porta le valigie tra dieci minuti; sconto del venti per cento; colazione in camera alle sei e mezza
+  level: B1
+  persona: en-m-retired
+  history: [auxiliary-choice, conditional-form, object-pronoun]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sono nella camera centodiciotto. Mi dispiace disturbarla a quest'ora, ma nella doccia non c'è acqua calda, solo fredda."
+    - tutor: "Mi dispiace molto. Da quando non c'è acqua calda?"
+      goals: [problem]
+    - learner: "Da stasera, verso le sette. Prima funzionava tutto, ma quando mia moglie ha entrata nella doccia, l'acqua era gelata."
+      errors: [auxiliary-choice]
+    - tutor: "Povera signora! Ma «quando mia moglie ha entrata»? «Entrare» indica un movimento: al passato usa «avere» o l'altro verbo?"
+      prompt: {text: "ha entrata", tags: [auxiliary-choice]}
+    - learner: "Sì, mia moglie ha entrata e poi è uscita subito, gridando! Adesso è a letto con due coperte."
+      errors: [auxiliary-choice]
+    - tutor: "È entrata ed è uscita subito, la capisco! Chiamo subito il tecnico."
+      recast: {text: "ha entrata", fix: "è entrata", tags: [auxiliary-choice]}
+      goals: [since]
+      new: [{lemma: tecnico, gloss: technician}]
+    - learner: "Grazie. Ma il tecnico può venire stasera? Io vorrebbi fare la doccia prima di dormire, perché domani partiamo molto presto per Firenze."
+      errors: [conditional-form]
+    - tutor: "Purtroppo il tecnico arriva solo domani mattina alle sette. Ma «io vorrebbi»? Con «io», il condizionale di «volere» è più corto."
+      prompt: {text: "vorrebbi", tags: [conditional-form]}
+      goals: [request]
+    - learner: "Io vorrei fare la doccia, sì. Allora potrebbe darci un'altra camera? Mia moglie è stanca, e lo ho promesso una notte tranquilla."
+      errors: [object-pronoun]
+    - tutor: "La camera centoventi, qui accanto, è libera e ha la stessa vista. Ma «lo ho promesso» a sua moglie? Per una donna, quel «lo» non va."
+      prompt: {text: "lo ho promesso", tags: [object-pronoun]}
+    - learner: "Le ho promesso una notte tranquilla, esatto. La camera centoventi va benissimo. Dobbiamo portare noi le valigie?"
+    - tutor: "Esatto. No, le porta il ragazzo della notte tra dieci minuti. E per il disturbo vi facciamo uno sconto del venti per cento."
+      new: [{lemma: sconto, gloss: discount}]
+    - learner: "È molto gentile, grazie. E domani mattina la colazione comincia alle sei e mezza? Il nostro treno parte alle sette e mezza e non vogliamo perderlo."
+    - tutor: "Di solito comincia alle sette, ma per voi alle sei e mezza ve la portiamo in camera."
+    - learner: "Perfetto, allora accettiamo: la camera centoventi, lo sconto e la colazione in camera alle sei e mezza. Grazie mille."
+    - tutor: "Grazie a lei, e mi scusi ancora. Buonanotte!"
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  # facts: camera 27 al primo piano sulla strada, con un'amica; la finestra non si chiude bene; dalla prima sera, cioè da ieri; motorini fino alle tre, alle due qualcuno ha rotto una bottiglia; hanno pagato per tutta la settimana, fino a domenica, con la carta; domani dalle dodici camera 41 al quarto piano sul cortile; stanotte solo una singola libera; tappi per le orecchie e una coperta in più; escono alle nove, le valigie restano alla reception e le portano nella 41
+  level: B1
+  persona: es-f-erasmus
+  history: [tense-aspect, preposition]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Io e la mia amica siamo nella camera ventisette, al primo piano. La finestra non si chiude bene e il rumore della strada è terribile."
+    - tutor: "Mi dispiace. Da quando avete questo problema?"
+      goals: [problem]
+    - learner: "Da ieri, la prima sera. Ieri notte non abbiamo dormito niente: fino alle tre passavano i motorini, e alle due qualcuno rompeva una bottiglia sotto la finestra."
+      errors: [tense-aspect]
+    - tutor: "Che notte! Ma «alle due qualcuno rompeva una bottiglia»? È un fatto di un momento, successo una volta: che tempo serve?"
+      prompt: {text: "rompeva una bottiglia", tags: [tense-aspect]}
+    - learner: "Alle due qualcuno ha rotto una bottiglia, sì, e la mia amica si è svegliata spaventata. Non possiamo passare un'altra notte così."
+    - tutor: "Proprio così. Avete ragione, così non si può dormire. Cosa posso fare per voi?"
+      goals: [since]
+    - learner: "Vorremmo cambiare camera, se è possibile, una camera che dà sul cortile. Abbiamo pensato a un altro albergo, ma abbiamo già pagato in tutta la settimana."
+      errors: [preposition]
+    - tutor: "Capisco. Ma «abbiamo pagato in tutta la settimana»? Con «pagare», per dire che cosa copre il prezzo, si usa un'altra parola."
+      prompt: {text: "in tutta la settimana", tags: [preposition]}
+      goals: [request]
+    - learner: "Sì, abbiamo pagato in tutta la settimana, fino a domenica, con la carta di credito."
+      errors: [preposition]
+    - tutor: "Avete pagato per tutta la settimana, certo, e non dovete andare via. Domani dalle dodici si libera la quarantuno, al quarto piano sul cortile."
+      recast: {text: "pagato in tutta la settimana", fix: "pagato per tutta la settimana", tags: [preposition]}
+    # decoy: «ce ne serve solo una» is a correct ce + ne
+    - learner: "Domani va bene, ma stanotte? Avete un'altra camera libera, anche piccola? Ce ne serve solo una, per una notte."
+    - tutor: "Stanotte c'è solo una singola, purtroppo. Posso darvi dei tappi per le orecchie e una coperta in più."
+      new: [{lemma: tappo, gloss: earplug}, {lemma: coperta, gloss: blanket}]
+    - learner: "Va bene, prendiamo i tappi. Domani vogliamo salire dall'albergo verso le nove per visitare i musei: possiamo lasciare le valigie qui?"
+      errors: [false-friend]
+    - tutor: "Certo, potete uscire dall'albergo alle nove e lasciare qui le valigie: le portiamo noi nella quarantuno."
+      recast: {text: "salire dall'albergo", fix: "uscire dall'albergo", tags: [false-friend]}
+    - learner: "Perfetto, allora stanotte i tappi e domani la camera quarantuno. Grazie, è stato molto gentile, e scusi per l'ora."
+    - tutor: "Grazie a voi. Buonanotte, e speriamo che stanotte dormiate un po'!"
+      goals: [agree]
+
+- scenario: reclamo-hotel
+  # facts: arrivati alle otto, camera 409 senza balcone, dà sul parcheggio; prenotazione per email con «camera con balcone e vista mare»; dieci anni di matrimonio; stanotte camere con balcone tutte occupate; domani alle dieci camera 502 con balcone e vista mare; stanotte una bottiglia di prosecco e trenta euro di sconto
+  level: B1
+  persona: en-m-heritage
+  history: [relative-pronoun, comparative, subjunctive-use]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    # decoy: «questa non ce l'ha» is correct
+    - learner: "Buonasera. Siamo arrivati alle otto e siamo nella camera quattrocentonove, ma c'è un problema: avevo prenotato una camera con il balcone, e questa non ce l'ha."
+    - tutor: "Mi dispiace. Ha con sé la conferma della prenotazione?"
+      goals: [problem, since]
+    - learner: "Sì, eccola sul telefono: è l'email in cui avete scritto «camera con balcone e vista mare». È per il nostro anniversario, ed è il motivo per che abbiamo scelto questo albergo."
+      errors: [relative-pronoun]
+    - tutor: "Sì, vedo. Ma «il motivo per che»? Lei ha appena usato «in cui» benissimo: dopo «per» vale la stessa regola."
+      prompt: {text: "per che", tags: [relative-pronoun]}
+    - learner: "Il motivo per cui abbiamo scelto questo albergo, sì. Sono dieci anni di matrimonio, e mia moglie è molto delusa."
+    - tutor: "Esatto. Dieci anni, auguri! Purtroppo stanotte le camere con balcone sono tutte occupate."
+    - learner: "Capisco, ma non è giusto. Questa camera è molto più piccola che quella delle foto, e dalla finestra si vede solo il parcheggio. Cosa potete fare per noi?"
+      errors: [comparative]
+    - tutor: "Domani si libera la cinquecentodue, con balcone e vista mare: posso spostarvi alle dieci. Ma «più piccola che quella»? Qui ci sono due camere: davanti a «quella», «che» non va."
+      prompt: {text: "più piccola che quella", tags: [comparative]}
+      goals: [request]
+    - learner: "Sì, è più piccola che quella, ma per domani la cinquecentodue va bene. E stanotte cosa facciamo?"
+      errors: [comparative]
+    - tutor: "È più piccola di quella delle foto, ha ragione. Per stanotte vi offriamo una bottiglia di prosecco e trenta euro di sconto."
+      recast: {text: "più piccola che quella", fix: "più piccola di quella", tags: [comparative]}
+      new: [{lemma: prosecco, gloss: sparkling wine}, {lemma: sconto, gloss: discount}]
+    - learner: "Il prosecco è una bella idea. Però è importante che domani la camera è pronta alle dieci, perché vogliamo passare tutta la giornata sul balcone."
+      errors: [subjunctive-use]
+    - tutor: "Lo capisco. Ma «è importante che la camera è pronta»? Dopo «è importante che», «essere» prende un'altra forma."
+      prompt: {text: "è pronta", tags: [subjunctive-use]}
+    - learner: "È importante che sia pronta alle dieci, ecco. Allora accetto: il prosecco stasera, lo sconto e la camera nuova domani."
+    - tutor: "Sì, così va bene. Alle dieci la camera sarà pronta, promesso. Vi porto subito il prosecco in camera."
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  # facts: tablet comprato il due maggio, tre settimane fa, per la figlia; lo schermo diventa nero dopo dieci minuti; caricato tutta la notte, niente da fare; scontrino portato; ne hanno uno uguale in magazzino; la figlia ha un esame di inglese domani; il nuovo tablet ha di nuovo due anni di garanzia; si può tornare senza telefonare; lascia il vecchio con scatola e caricatore
+  level: B1
+  persona: es-f-teacher
+  history: [participle-agreement, future-form]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Tre settimane fa ho comprato questo tablet qui da voi, ma non funziona bene: dopo dieci minuti lo schermo diventa nero e non si accende più."
+    - tutor: "Mi dispiace. Ha portato lo scontrino?"
+      goals: [problem]
+    - learner: "Sì, eccolo. L'ho comprato il due maggio per mia figlia, e prima l'ha usata lei: anche a lei lo schermo diventava nero dopo pochi minuti."
+      errors: [participle-agreement]
+    - tutor: "Vedo, il due maggio. Ma «prima l'ha usata lei»? Quel «l'» sta per «il tablet»: la fine del verbo deve andare d'accordo."
+      prompt: {text: "l'ha usata", tags: [participle-agreement]}
+      goals: [proof]
+      new: [{lemma: tablet, gloss: tablet}]
+    - learner: "L'ha usato lei, sì, per la scuola. All'inizio abbiamo pensato alla batteria, ma l'abbiamo caricato tutta la notte e non è cambiato niente."
+    - tutor: "Esatto. Allora il problema non è la batteria. Cosa preferisce: uno nuovo o il rimborso?"
+    - learner: "Preferirei un tablet nuovo, perché mia figlia ne ha bisogno per la scuola. Se me lo cambiate oggi, domani lo poterà portare in classe."
+      errors: [future-form]
+    - tutor: "Ne abbiamo uno uguale in magazzino. Ma «lo poterà portare»? Il futuro di «potere» non tiene la «e» dell'infinito."
+      prompt: {text: "lo poterà portare", tags: [future-form]}
+      goals: [request]
+    - learner: "Sì, domani lo poterà portare, perché ha un esame di inglese proprio con il tablet."
+      errors: [future-form]
+    - tutor: "Allora domani lo potrà portare all'esame: glielo prendo subito."
+      recast: {text: "lo poterà portare", fix: "lo potrà portare", tags: [future-form]}
+    # decoy: «telefonarle» is a correct indirect pronoun for the formal «Lei»
+    - learner: "Grazie mille. E se il nuovo ha lo stesso problema, posso tornare? Se telefono prima, c'è sempre qualcuno che contesta il telefono?"
+      errors: [false-friend]
+    - tutor: "Non sempre c'è qualcuno che risponde al telefono, quindi venga pure direttamente. Quello nuovo, comunque, ha di nuovo due anni di garanzia."
+      recast: {text: "contesta il telefono", fix: "risponde al telefono", tags: [false-friend]}
+    - learner: "Perfetto. Allora le lascio il vecchio tablet con la scatola e il cargador, perché mia figlia non l'ha mai usato."
+      errors: [word-choice]
+    - tutor: "Grazie, prendo tutto: il vecchio, la scatola e il caricatore. Ecco quello nuovo: vuole controllare che ci sia tutto?"
+      recast: {text: "il cargador", fix: "il caricatore", tags: [word-choice]}
+      new: [{lemma: caricatore, gloss: charger}]
+    - learner: "Sì, c'è tutto. Allora accetto il tablet nuovo, e grazie per la pazienza: mia figlia sarà felicissima."
+    - tutor: "Di niente, e buona fortuna a sua figlia per l'esame!"
+      goals: [agree]
+
+- scenario: restituire-prodotto
+  # facts: cassa per la musica comprata sabato scorso; si collega al telefono per pochi secondi e si spegne; scontrino perso sull'autobus; pagato con la carta, 39 euro, prova sul telefono; domenica al parco si è spenta dopo due minuti; rimborso sulla carta entro quattordici giorni, arriva in cinque giorni; cambia con una cassa più grande da 55 euro, differenza 16 euro; nuova ricevuta
+  level: B1
+  persona: en-m-traveller
+  history: [articulated-preposition, tense-aspect, comparative]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Sabato scorso ho comprato questa cassa per la musica, ma ha un problema: si collega al telefono solo per pochi secondi e poi si spegne."
+    - tutor: "Capisco. Ha lo scontrino?"
+      goals: [problem]
+    - learner: "Purtroppo no. Ho cercato dappertutto, in casa e nello zaino, e alla fine ho capito che l'ho perso su l'autobus, tornando dal centro."
+      errors: [articulated-preposition]
+    - tutor: "Che peccato. Ma «su l'autobus»? Qui «su» e l'articolo si uniscono in una parola sola."
+      prompt: {text: "su l'autobus", tags: [articulated-preposition]}
+    - learner: "Sull'autobus, sì, che stupido. Però ho pagato con la carta, e sul telefono c'è la prova del pagamento: guardi, è qui."
+    - tutor: "Giusto. Questa va bene come prova: sabato, trentanove euro."
+      goals: [proof]
+    - learner: "Perfetto. Già la prima sera non funzionava bene, e domenica l'ho portata al parco, ma dopo due minuti si spegneva e non si è più accesa."
+      errors: [tense-aspect]
+    - tutor: "Che rabbia! Ma «dopo due minuti si spegneva»? È successo una volta, in un momento preciso: che tempo serve?"
+      prompt: {text: "si spegneva", tags: [tense-aspect]}
+    - learner: "Dopo due minuti si è spenta, sì. Non voglio un'altra cassa uguale: vorrei i soldi indietro, se è possibile."
+    - tutor: "Esatto. Sì, entro quattordici giorni possiamo fare il rimborso sulla carta, e arriva in cinque giorni."
+      goals: [request]
+    - learner: "Cinque giorni va bene. Ma posso usare i soldi per un'altra cassa qui? Ne ho vista una più grande, e il commesso mi ha detto che è migliore che questa."
+      errors: [comparative]
+    - tutor: "Certo, può cambiarla: quella costa cinquantacinque euro. Ma «migliore che questa»? Davanti a «questa», qui «che» non va."
+      prompt: {text: "migliore che questa", tags: [comparative]}
+    - learner: "Migliore di questa, sì. Allora preferisco cambiarla con quella grande e pago la differenza. Posso provarla prima?"
+    - tutor: "Proprio così. Certo, la provi con il suo telefono. La differenza è di sedici euro."
+    - learner: "Funziona benissimo, e il suono è molto più forte! Va bene, pago i sedici euro con la carta. Posso avere un ricevuto, questa volta?"
+      errors: [word-choice]
+    - tutor: "Certo, ecco una ricevuta per lei, e questa volta non la perda sull'autobus!"
+      recast: {text: "un ricevuto", fix: "una ricevuta", tags: [word-choice]}
+      goals: [agree]
+    - learner: "Non la perdo, promesso! La metto subito nel portafoglio. Grazie, e buona giornata."
+    - tutor: "Grazie a lei, e buona musica!"
+
+- scenario: restituire-prodotto
+  # facts: asciugacapelli comprato il dodici, dieci giorni fa; ieri rumore strano e odore di bruciato; scontrino portato; la coinquilina ha paura del fuoco; rimborso solo entro sette giorni, poi cambio o buono; cambia con il modello rosa, dieci euro in più, paga in contanti; garanzia di due anni; parte per l'Inghilterra per Natale tra una settimana; presa qui vicino
+  level: B1
+  persona: en-f-student
+  history: [subjunctive-use, object-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato questo asciugacapelli dieci giorni fa, ma ieri ha cominciato a fare un rumore strano e c'era un odore di bruciato."
+    - tutor: "Ha fatto bene a non usarlo più. Ha lo scontrino?"
+      goals: [problem]
+    # decoy: «la penso come lei» is a correct idiom
+    - learner: "Sì, eccolo, l'ho comprato il dodici. La mia coinquilina non vuole più vederlo in casa: ha paura che la casa prende fuoco, e io la penso come lei."
+      errors: [subjunctive-use]
+    - tutor: "Ha ragione a non fidarsi. Ma «ha paura che la casa prende fuoco»? Dopo «avere paura che», il verbo cambia forma."
+      prompt: {text: "prende fuoco", tags: [subjunctive-use]}
+      goals: [proof]
+    - learner: "Ha paura che la casa prenda fuoco, sì! Vorrei restituirlo e avere i soldi indietro, perché non mi fido più di questa marca."
+    - tutor: "Esatto. Purtroppo il rimborso si può fare solo entro sette giorni; dopo, possiamo cambiarlo o darle un buono."
+      goals: [request]
+    - learner: "Che peccato. Allora vorrei cambiarlo con quello rosa vicino alla cassa: anche la mia amica l'ha comprato, e gli piace molto."
+      errors: [object-pronoun]
+    - tutor: "Buona scelta. Ma «la mia amica... gli piace»? Parli di una donna: quel «gli» non va."
+      prompt: {text: "gli piace", tags: [object-pronoun]}
+    - learner: "Sì, gli piace tantissimo, lo usa tutti i giorni e dice che è molto silenzioso."
+      errors: [object-pronoun]
+    - tutor: "Le piace tantissimo, allora è un buon segno! Quello rosa costa dieci euro in più."
+      recast: {text: "gli piace", fix: "le piace", tags: [object-pronoun]}
+    - learner: "Dieci euro in più va bene, ma non ho la carta con me: posso pagare in contanti? E se ho un problema anche con questo?"
+    - tutor: "Sì, in contanti va benissimo. Per il rimborso valgono sempre i sette giorni, ma la garanzia dura due anni."
+    - learner: "Perfetto, lo prendo. Ma prima posso provarlo qui? Voglio essere sicura, perché tra una settimana parto per Inghilterra e torno solo a gennaio."
+      errors: [article-use]
+    - tutor: "Certo, lo provi pure, c'è una presa qui vicino. Ma «parto per Inghilterra»? Davanti al nome di un paese, qui serve l'articolo."
+      prompt: {text: "per Inghilterra", tags: [article-use]}
+    - learner: "Parto per l'Inghilterra, sì, per Natale. Funziona benissimo e non fa rumore. Pago i dieci euro in contanti."
+    - tutor: "Sì, così va bene. Ecco il resto e il nuovo scontrino. Buon viaggio e buon Natale!"
+      goals: [agree]
+
+- scenario: dal-meccanico
+  # facts: vecchia Panda comprata usata a settembre, quasi quindici anni; da una settimana la mattina non parte, soprattutto con il freddo; lunedì l'ha spinta con i coinquilini; batteria da cambiare; 110 euro tra batteria e lavoro; pronta oggi alle sei; l'officina chiude alle sette e mezza; domani esame alle nove; lei finisce lezione alle sei e mezza e arriva in autobus verso le sette
+  level: B1
+  persona: en-f-student
+  history: [tense-aspect, preposition, future-form]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Ho una vecchia Panda che ho comprato usata a settembre. Da una settimana, la mattina, la macchina non parte, soprattutto quando fa freddo."
+    - tutor: "Capisco. Quando gira la chiave, cosa succede?"
+      goals: [describe, when]
+    - learner: "Fa un rumore debole, poi niente. Lunedì, per esempio, dovevo andare all'università, e alla fine io e i miei coinquilini spingevamo la macchina per tutta la strada."
+      errors: [tense-aspect]
+    - tutor: "Che mattina! Ma «alla fine spingevamo la macchina»? «Alla fine» indica un fatto concluso, non una cosa in corso: che tempo serve?"
+      prompt: {text: "spingevamo la macchina", tags: [tense-aspect]}
+    - learner: "Alla fine abbiamo spinto la macchina, sì, e per fortuna è partita. Ma non posso farlo ogni mattina!"
+    - tutor: "Esatto. Probabilmente è la batteria: la controllo subito."
+      new: [{lemma: batteria, gloss: battery}]
+    - learner: "Grazie. La macchina ha quasi quindici anni, quindi forse la batteria è vecchia come lei. Quanto costa cambiarla? Non ho tanti soldi, e dipende anche di quanto mi chiede."
+      errors: [preposition]
+    - tutor: "Tra batteria e lavoro sono centodieci euro. Ma «dipende di»? Con «dipendere», quel «di» non va."
+      prompt: {text: "dipende anche di", tags: [preposition]}
+      goals: [cost]
+    - learner: "Sì, dipende anche di quanto costa la batteria, ma centodieci va bene per me, se è una batteria buona."
+      errors: [preposition]
+    - tutor: "Dipende anche da quanto costa la batteria, è vero: questa è una delle più economiche. La cambio oggi stesso?"
+      recast: {text: "dipende anche di", fix: "dipende anche da", tags: [preposition]}
+    # decoy: «perderò» and «saranno» are correct futures
+    - learner: "Sì, per favore. Quando sarà pronta? Domani mattina ho un esame alle nove, e se la macchina non parte, perderò l'esame e i miei genitori saranno furiosi."
+    - tutor: "Non si preoccupi: la cambio oggi, e la macchina sarà pronta alle sei."
+      goals: [time]
+    - learner: "Alle sei, perfetto, ma io finisco lezione alle sei e mezza. Prenderò l'autobus e ci metterò almeno mezz'ora: se arrivarò alle sette, siete ancora aperti?"
+      errors: [future-form]
+    - tutor: "Sì, chiudiamo alle sette e mezza. Ma «arrivarò»? Nel futuro di «arrivare», quella «a» diventa un'altra lettera."
+      prompt: {text: "arrivarò", tags: [future-form]}
+    - learner: "Arriverò verso le sette, allora. Grazie mille, mi ha salvato la vita!"
+    - tutor: "Giusto. A stasera, e in bocca al lupo per l'esame!"
+
+- scenario: dal-meccanico
+  # facts: ieri sera una buca grande; da allora la macchina va a destra e fa un rumore davanti, soprattutto in curva; il volante gli è scappato per un secondo; gomma davanti a destra con un taglio; con la ruota di scorta pochi chilometri, piano; gomma nuova 90 euro più 40 per la convergenza, totale 130; pronta domani a mezzogiorno; domani va dai nonni a Bari
+  level: B1
+  persona: en-m-heritage
+  history: [auxiliary-choice, object-pronoun, comparative]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Ieri sera ho preso una buca molto grande, e da quel momento la macchina va un po' a destra e fa un rumore strano davanti."
+    - tutor: "Purtroppo succede spesso. Il rumore lo sente sempre o solo quando gira?"
+      goals: [describe, when]
+    - learner: "Lo sento soprattutto in curva. Quando ho preso la buca, il volante mi ha scappato dalle mani per un secondo, e ho avuto molta paura."
+      errors: [auxiliary-choice]
+    - tutor: "Ci credo, che spavento! Ma «il volante mi ha scappato»? Con «scappare», il passato non si fa con «avere»."
+      prompt: {text: "mi ha scappato", tags: [auxiliary-choice]}
+    - learner: "Sì, mi ha scappato per un secondo, ma per fortuna dietro di me non c'era nessuno."
+      errors: [auxiliary-choice]
+    - tutor: "«Mi è scappato per un secondo»: meno male che non c'era nessuno! Guardiamo subito la gomma."
+      recast: {text: "mi ha scappato", fix: "mi è scappato", tags: [auxiliary-choice]}
+    - learner: "Grazie. Secondo me la gomma davanti a destra ha un taglio. Ho una gomma di scorta nel bagagliaio, ma è piccola e non so se posso usare per tanti chilometri."
+      errors: [object-pronoun]
+    - tutor: "Sì, c'è un taglio, va cambiata, e con quella di scorta può fare pochi chilometri, piano. Ma «se posso usare»: usare che cosa? Per riprendere la gomma, serve una parola attaccata al verbo."
+      prompt: {text: "posso usare", tags: [object-pronoun]}
+    - learner: "Se posso usarla, sì. Allora è meglio cambiare la gomma qui. Quanto mi costerà tutto, anche con il rumore davanti?"
+    - tutor: "Esatto. Una gomma nuova costa novanta euro, e poi devo sistemare la convergenza: altri quaranta, quindi centotrenta."
+      goals: [cost]
+      new: [{lemma: convergenza, gloss: wheel alignment}]
+    - learner: "Centotrenta euro? In Canada una gomma come questa costa meno che novanta dollari, ma va bene, la sicurezza è più importante."
+      errors: [comparative]
+    - tutor: "La sicurezza prima di tutto, sì. Ma «meno che novanta dollari»? Con un numero dopo «meno», quel «che» non va."
+      prompt: {text: "meno che novanta dollari", tags: [comparative]}
+    - learner: "Costa meno di novanta dollari, sì. Quando sarà pronta la macchina? Domani devo andare a trovare i miei nonni a Bari."
+    - tutor: "Proprio così. Sarà pronta domani a mezzogiorno. Va bene per il viaggio?"
+      goals: [time]
+      new: [{lemma: mezzogiorno, gloss: noon}]
+    # decoys: «ci vogliono» and «ci arriverò» are correct uses of ci
+    - learner: "Sì, a mezzogiorno va bene, perché i miei nonni mi aspettano per cena. Ci vogliono quattro ore, quindi ci arriverò verso le sei."
+    - tutor: "Perfetto, allora a domani a mezzogiorno. Buon viaggio dai nonni!"
+      new: [{lemma: mezzogiorno, gloss: noon}]

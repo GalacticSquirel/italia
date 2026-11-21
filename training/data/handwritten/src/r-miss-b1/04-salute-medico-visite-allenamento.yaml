@@ -1,0 +1,305 @@
+# Set r-miss-b1, file 4 (B1): at the GP, booking specialist visits by phone and planning
+# training with a personal trainer. Patients ask questions; the tutor answers before correcting.
+- scenario: medico-base
+  # facts: mal di pancia e debolezza da due giorni; sabato sera cena di pesce crudo e frutti di mare con amici; domenica nausea e raffreddore; ieri sera febbre a 37,8, è passata con un paracetamolo e stamattina è tornata; gli amici stanno bene; il padre è farmacista a Siviglia; nessuna allergia; fermenti lattici due volte al giorno per cinque giorni; riso in bianco, patate, tanta acqua; tornare se la febbre supera 38,5 o se fra tre giorni non sta meglio
+  level: B1
+  persona: es-f-erasmus
+  history: [auxiliary-choice, object-pronoun]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Da due giorni ho mal di pancia e mi sento molto debole. Sabato sera sono andata a cena con degli amici in un ristorante di pesce."
+    - tutor: "Mi dispiace. Cosa ha mangiato, sabato sera?"
+      goals: [symptoms, since-when]
+    - learner: "Ho mangiato pesce crudo e frutti di mare. Domenica mattina avevo la nausea, e in più ero anche costipata, con il naso chiuso."
+    - tutor: "Quindi anche il naso chiuso, oltre alla nausea. Ha avuto la febbre?"
+    - learner: "Sì, ieri sera avevo trentasette e otto. Ho preso un paracetamolo e dopo un'ora la febbre ha passato, ma stamattina è tornata."
+      errors: [auxiliary-choice]
+    - tutor: "Capisco. Ma «la febbre ha passato»? Con «passare» nel senso di andare via, il passato non si fa con «avere»."
+      prompt: {text: "ha passato", tags: [auxiliary-choice]}
+    - learner: "La febbre è passata, sì, ma stamattina è tornata. I miei amici invece stanno benissimo, e hanno mangiato le stesse cose."
+    - tutor: "Giusto. Allora forse è solo un virus, non il pesce. È allergica a qualche medicina?"
+    - learner: "No, non sono allergica a niente. Ieri ho telefonato a mio padre, che fa il farmacista a Siviglia, e le ho raccontato tutto."
+      errors: [object-pronoun]
+    - tutor: "Bene, nessuna allergia. Ma «a mio padre... le ho raccontato»? Per un uomo, quel «le» non va."
+      prompt: {text: "le ho raccontato", tags: [object-pronoun]}
+      goals: [history]
+    - learner: "Sì, le ho raccontato tutto, e lui dice che devo prendere dei fermenti lattici. È vero? Funzionano?"
+      errors: [object-pronoun]
+    - tutor: "«Gli ho raccontato tutto», e suo padre ha ragione: i fermenti aiutano. Li prenda due volte al giorno per cinque giorni."
+      recast: {text: "le ho raccontato", fix: "gli ho raccontato", tags: [object-pronoun]}
+      new: [{lemma: fermento, gloss: probiotic}]
+    - learner: "Va bene, due volte al giorno per cinque giorni. Devo guardare i fermenti in frigo? E cosa posso mangiare? Oggi ho mangiato solo un po' di pane."
+      errors: [false-friend]
+    - tutor: "Sì, deve tenere i fermenti in frigo. Da mangiare, riso in bianco, patate e tanta acqua. Se la febbre supera trentotto e mezzo, o se fra tre giorni non sta meglio, torni da me."
+      recast: {text: "guardare i fermenti in frigo", fix: "tenere i fermenti in frigo", tags: [false-friend]}
+    - learner: "Allora ripeto: fermenti due volte al giorno, riso in bianco e tanta acqua, e se la febbre sale o non passa, torno qui."
+    - tutor: "Esatto, proprio così. Guarisca presto!"
+      goals: [instructions]
+
+- scenario: medico-base
+  # facts: mal di schiena in basso a destra da sabato; lavorava in giardino e sollevava un vaso pesante; prende una pastiglia per la pressione ogni mattina; il figlio ha consigliato l'ibuprofene; con la pressione meglio il paracetamolo, fino a tre volte al giorno; niente giardino e niente pesi per due settimane; mezz'ora di passeggiata al giorno; caldo sulla schiena la sera; a vent'anni si è rotto una gamba giocando a football; tornare se fra due settimane il dolore non passa
+  level: B1
+  persona: en-m-retired
+  history: [tense-aspect, object-pronoun]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottoressa. Ho un forte mal di schiena, qui in basso a destra. Mi fa male soprattutto quando mi alzo dal letto la mattina."
+    - tutor: "Capisco. Da quando le fa male?"
+      goals: [symptoms]
+    # decoy: «mentre sollevavo... ho sentito» is a correct interrupted action
+    - learner: "Da sabato. Lavoravo in giardino, e mentre sollevavo un vaso molto pesante ho sentito un dolore fortissimo, come una scossa."
+    - tutor: "Un movimento sbagliato, allora. Prende qualche medicina di solito?"
+      goals: [since-when]
+    - learner: "Sì, prendo una pastiglia per la pressione ogni mattina. Mio figlio mi ha detto di prendere l'ibuprofene, ma prima di cominciare preferisco chiedere a lei."
+    - tutor: "Ha fatto bene: con la pressione è meglio il paracetamolo, fino a tre volte al giorno."
+      goals: [history]
+      new: [{lemma: paracetamolo, gloss: paracetamol}]
+    - learner: "Va bene, il paracetamolo. Ma posso lavorare in giardino? Devo piantare i fiori, e i miei vicini mi hanno offerto aiuto, ma non voglio chiederli niente."
+      errors: [object-pronoun]
+    - tutor: "Per due settimane niente giardino e niente pesi, mi dispiace. Ma «non voglio chiederli»? Si chiede qualcosa «a» qualcuno, ai vicini: quel «li» non va."
+      prompt: {text: "chiederli", tags: [object-pronoun]}
+    - learner: "Non voglio chiedergli niente, perché sono già molto gentili con noi. Due settimane senza giardino sono tante, ma va bene. Posso almeno camminare?"
+    - tutor: "Esatto. Sì, camminare le fa bene, mezz'ora al giorno, piano. E la sera metta qualcosa di caldo sulla schiena."
+    - learner: "Mezz'ora al giorno va bene. Da giovane facevo molto sport, e una volta mi rompevo una gamba giocando a football, ma la schiena non mi ha mai fatto male."
+      errors: [tense-aspect]
+    - tutor: "Lo sport aiuta, anche dopo tanti anni. Ma «una volta mi rompevo una gamba»? È successo una volta sola: quale tempo serve?"
+      prompt: {text: "mi rompevo una gamba", tags: [tense-aspect]}
+    - learner: "Sì, mi rompevo la gamba a vent'anni, durante una partita molto importante contro un'altra università."
+      errors: [tense-aspect]
+    - tutor: "«Mi sono rotto la gamba a vent'anni», e la schiena invece è stata bene fino a oggi! Mi ripete cosa deve fare?"
+      recast: {text: "mi rompevo la gamba", fix: "mi sono rotto la gamba", tags: [tense-aspect]}
+    - learner: "Paracetamolo fino a tre volte al giorno, niente pesi e niente giardino per due settimane, mezz'ora di passeggiata e il caldo sulla schiena la sera."
+    - tutor: "Perfetto, proprio così. Se fra due settimane il dolore non passa, torni da me."
+      goals: [instructions]
+
+- scenario: medico-base
+  # facts: dorme malissimo da un mese, si sveglia alle tre; nuovo lavoro in un'azienda grande, il capo lavora fino alle nove di sera e vuole risposte subito; quattro o cinque caffè al giorno; prima dormiva otto ore, adesso meno di quattro; allergica alla penicillina; al massimo due caffè, niente caffè dopo le due; niente telefono a letto, spegnerlo alle dieci; tornare fra un mese
+  level: B1
+  persona: en-f-professional
+  history: [ci-ne, comparative, subjunctive-use, future-form]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno. Da circa un mese dormo malissimo: mi addormento verso mezzanotte, ma mi sveglio sempre alle tre e non riesco più a dormire."
+    - tutor: "Un mese è lungo. È cambiato qualcosa, nella sua vita?"
+      goals: [symptoms, since-when]
+    # decoys: «di cui sono contenta» and «a cui piace» are correct relatives
+    - learner: "Sì, ho cominciato un nuovo lavoro in un'azienda molto grande. È un lavoro di cui sono contenta, ma il mio capo è una persona a cui piace lavorare fino alle nove di sera."
+    - tutor: "Capisco, orari difficili. Quanti caffè beve al giorno?"
+    - learner: "Quattro o cinque, ma per me è normale. In Australia il caffè è anche più grande, e un mio collega beveva sei al giorno!"
+      errors: [ci-ne]
+    - tutor: "Sei al giorno, mamma mia! Ma «beveva sei»: sei di che cosa? Per non ripetere «caffè», serve una parola prima del verbo."
+      prompt: {text: "beveva sei", tags: [ci-ne]}
+    - learner: "Ne beveva sei, sì, e dormiva come un bambino! Forse il caffè è il mio problema?"
+    - tutor: "Proprio così. Può darsi, sì: il caffè resta nel corpo per molte ore. È allergica a qualche medicina?"
+    - learner: "Sì, sono allergica alla penicillina. E prima del nuovo lavoro dormivo otto ore, ma adesso dormo meno che quattro ore per notte."
+      errors: [comparative]
+    - tutor: "Lo segno, penicillina. Ma «meno che quattro ore»? Davanti a un numero, dopo «meno», non si usa «che»."
+      prompt: {text: "meno che quattro ore", tags: [comparative]}
+      goals: [history]
+    - learner: "Dormo meno di quattro ore, sì, ed è terribile. Cosa posso fare? Non voglio prendere medicine forti."
+    - tutor: "Esatto. Prima di tutto, al massimo due caffè, e niente caffè dopo le due del pomeriggio. E la sera niente telefono a letto."
+    - learner: "Due caffè sono pochi, ma ci provo. Il telefono è più difficile, perché il mio capo mi scrive spesso la sera e vuole che rispondo subito."
+      errors: [subjunctive-use]
+    - tutor: "La sera il lavoro può aspettare. Ma «vuole che rispondo»? Dopo «vuole che», il verbo prende un'altra forma."
+      prompt: {text: "rispondo subito", tags: [subjunctive-use]}
+    - learner: "Vuole che risponda subito, sì. Ma ha ragione lei, può aspettare: spegnerò il telefono alle dieci."
+    - tutor: "Sì, così va bene. E se fra un mese dorme ancora male, torni da me."
+    - learner: "Va bene. Allora ripeto: due caffè, mai dopo le due, e alle dieci spengo il telefono. Fra un mese venirò a dirle se funziona."
+      errors: [future-form]
+    - tutor: "Proprio così. Ma «venirò»? Il futuro di «venire» è più corto, e cambia anche una lettera."
+      prompt: {text: "venirò", tags: [future-form]}
+      goals: [instructions]
+    - learner: "Verrò a dirle se funziona, certo. Grazie mille, dottoressa."
+    - tutor: "Esatto. A fra un mese, e dorma bene!"
+
+- scenario: prenotare-visita
+  # facts: visita ortopedica per il ginocchio, dolore da qualche settimana stando in piedi in cucina; posti: lunedì 9 alle 18.30 o mercoledì 11 alle 8; sceglie mercoledì 11 alle 8; portare le radiografie vecchie dell'Argentina; visita 120 euro, l'assicurazione forse ne paga una parte; radiografia lo stesso giorno al piano terra, 40 euro in più; nome Martín Rossi, 349 556 123; messaggio il giorno prima; arrivare dieci minuti prima
+  level: B1
+  persona: es-m-worker
+  history: [relative-pronoun, future-form, articulated-preposition]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita da un ortopedico, perché da qualche settimana mi fa male il ginocchio quando sto in piedi in cucina."
+    - tutor: "Certo, dall'ortopedico. Il primo posto è lunedì nove alle sei e mezza di sera, oppure mercoledì undici alle otto di mattina."
+      goals: [type]
+    - learner: "Lunedì sera lavoro, sono cuoco. Mercoledì alle otto è meglio, ma devo portare anche le radiografie, che le ho fatte l'anno scorso in Argentina?"
+      errors: [relative-pronoun]
+    - tutor: "Sì, le porti, anche se sono vecchie. Ma «le radiografie, che le ho fatte»? Dopo quel «che», il «le» è di troppo: le riprende già «che»."
+      prompt: {text: "che le ho fatte", tags: [relative-pronoun]}
+    - learner: "Le radiografie che ho fatto l'anno scorso, sì. Allora mercoledì undici alle otto, per favore."
+    - tutor: "Giusto. Mercoledì undici alle otto, perfetto."
+      goals: [availability]
+    - learner: "Così dopo la visita andrò direttamente al ristorante, e il mio capo non saperà niente, perché comincio alle undici."
+      errors: [future-form]
+    - tutor: "Ottimo piano. Ma «non saperà»? Il futuro di «sapere» è più corto: perde una lettera."
+      prompt: {text: "saperà", tags: [future-form]}
+    - learner: "Il mio capo non saprà niente, ecco! Quanto costa la visita? Ho anche un'assicurazione con il lavoro."
+    - tutor: "Esatto. La visita costa centoventi euro, e l'assicurazione forse ne paga una parte. Se serve una radiografia, sono altri quaranta euro."
+      goals: [cost]
+      new: [{lemma: radiografia, gloss: X-ray}]
+    - learner: "Va bene, allora porto anche la carta de l'assicurazione. E la radiografia, se serve, la posso fare lo stesso giorno o devo tornare un'altra volta?"
+      errors: [articulated-preposition]
+    - tutor: "Di solito si fa lo stesso giorno, qui al piano terra. Ma «la carta de l'assicurazione»? Qui serve la parola che unisce «di» e l'articolo."
+      prompt: {text: "de l'assicurazione", tags: [articulated-preposition]}
+    - learner: "La carta dell'assicurazione, sì. Perfetto, così non perdo un altro giorno di lavoro. Le do il mio nome?"
+    - tutor: "Proprio così. Mi dà nome e numero di telefono?"
+    # decoy: «ricordarmelo» is a correct combined pronoun
+    - learner: "Mi chiamo Martín Rossi. Il numero è tre quattro nove, cinque cinque sei, uno due tre. Mi mandate un messaggio per ricordarmelo? Altrimenti lo dimenticarò sicuramente."
+      errors: [future-form]
+    - tutor: "Certo, le mandiamo un messaggio il giorno prima. Ma «lo dimenticarò»? Pensi a «parlerò»: anche «dimenticare» fa allo stesso modo."
+      prompt: {text: "dimenticarò", tags: [future-form]}
+    - learner: "Lo dimenticherò sicuramente, sì! Allora mercoledì undici alle otto, con le radiografie e la carta dell'assicurazione."
+    - tutor: "Esatto, proprio così. Arrivi dieci minuti prima, per i documenti. Buona giornata, signor Rossi!"
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  # facts: prima visita dal dentista per un dente del giudizio, dolore da tre giorni; in Italia da settembre; l'amica è stata contenta della sua visita; lezione tutte le mattine fino alle undici; posti: domani alle 12.15 o venerdì alle 16; sceglie domani alle 12.15; prima visita 60 euro, con la tessera dell'università venti per cento di sconto, 48 euro; il dentista dà qualcosa per il dolore domani; nome Lucy Walker
+  level: B1
+  persona: en-f-student
+  history: [participle-agreement, preposition, object-pronoun]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita dal dentista, il prima possibile. Da tre giorni mi fa male un dente in fondo, credo il dente del giudizio."
+    - tutor: "Mi dispiace. È la prima volta che viene da noi?"
+      goals: [type]
+    - learner: "Sì, è la prima volta. Sono arrivata in Italia a settembre, e una mia amica mi ha detto che la sua visita qui è andato benissimo."
+      errors: [participle-agreement]
+    - tutor: "Che piacere sentirlo! Ma «la sua visita è andato»? Con «essere», la fine del verbo va d'accordo con «visita»."
+      prompt: {text: "è andato", tags: [participle-agreement]}
+    - learner: "È andata benissimo, sì. Quando c'è un posto libero? Ho lezione tutte le mattine fino alle undici."
+    - tutor: "Esatto. Domani c'è un posto alle dodici e un quarto, oppure venerdì alle quattro."
+    - learner: "Domani alle dodici e un quarto è perfetto, perché non riesco più a mangiare. Ieri sera ho provato di mangiare una pizza, ma era impossibile."
+      errors: [preposition]
+    - tutor: "Allora meglio domani, certo. Ma «ho provato di mangiare»? Dopo «provare», davanti a un altro verbo, la parola giusta è un'altra."
+      prompt: {text: "provato di mangiare", tags: [preposition]}
+      goals: [availability]
+    - learner: "Sì, ho provato di mangiare, ma alla fine ho bevuto solo un succo di frutta. Quanto costa la prima visita?"
+      errors: [preposition]
+    - tutor: "Ha provato a mangiare e non ci è riuscita, povera! La prima visita costa sessanta euro."
+      recast: {text: "provato di mangiare", fix: "provato a mangiare", tags: [preposition]}
+    # decoy: «ne hanno avuto uno» is a correct partitive ne
+    - learner: "Sessanta euro è un po' caro per me. Ho la tessera dell'università: fate lo sconto agli studenti? Alcuni miei amici ne hanno avuto uno in un'altra clinica."
+    - tutor: "Sì, con la tessera dell'università c'è il venti per cento di sconto, quindi sono quarantotto euro."
+      goals: [cost]
+    - learner: "Perfetto, la porto domani. Ma per il dolore, il dentista potrebbe darmi qualcosa, o devo chiamare il mio medico e telefonarlo stasera?"
+      errors: [object-pronoun]
+    - tutor: "Il dentista le dà tutto domani, non si preoccupi. Ma «telefonarlo»? Si telefona «a» qualcuno: quel «lo» non va."
+      prompt: {text: "telefonarlo", tags: [object-pronoun]}
+    - learner: "Telefonargli, giusto, ma allora non serve. Mi chiamo Lucy Walker. Quindi domani alle dodici e un quarto, con la tessera."
+    - tutor: "Esatto: domani alle dodici e un quarto, con la tessera dell'università. A domani!"
+      goals: [confirm]
+
+- scenario: prenotare-visita
+  # facts: prenota per la nonna, 84 anni, che sente poco; il suo medico le ha detto di fare una visita dal cardiologo; prima volta al centro; posti: giovedì 20 alle 10 o lunedì 24 alle 15.30; sceglie giovedì 20 alle 10; portare la lettera del medico e gli esami; visita 140 euro con elettrocardiogramma compreso; nome Maria Esposito; numero del nipote 333 123 456; arrivare dieci minuti prima
+  level: B1
+  persona: en-m-heritage
+  history: [subjunctive-use, comparative]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Chiamo per mia nonna, che ha ottantaquattro anni. Il suo medico le ha detto di fare una visita dal cardiologo, e vorrei prenotarla per lei."
+    - tutor: "Certo. La signora è già venuta da noi altre volte?"
+      goals: [type]
+    - learner: "No, è la prima volta. Lei al telefono non sente bene, quindi chiamo io, e poi l'accompagno anche alla visita, perché mia madre lavora."
+    - tutor: "È molto gentile da parte sua. Il primo posto è giovedì venti alle dieci, oppure lunedì ventiquattro alle tre e mezza."
+    # decoy: «sta meglio la mattina che il pomeriggio» is a correct use of che
+    - learner: "Giovedì alle dieci, perché mia nonna sta meglio la mattina che il pomeriggio. Ma è necessario che lei porta i documenti del suo medico?"
+      errors: [subjunctive-use]
+    - tutor: "Sì, la signora deve avere con sé la lettera del medico e gli esami. Ma «è necessario che lei porta»? Dopo «è necessario che», il verbo cambia forma."
+      prompt: {text: "lei porta", tags: [subjunctive-use]}
+      goals: [availability]
+    - learner: "È necessario che porti la lettera, va bene. E quanto costa la visita? Mia nonna è pensionata, e vorrei saperlo prima."
+    - tutor: "Sì, così va bene. La visita costa centoquaranta euro, con l'elettrocardiogramma compreso."
+      goals: [cost]
+      new: [{lemma: elettrocardiogramma, gloss: ECG}]
+    - learner: "Centoquaranta è più che pensavamo, ma va bene. Un mio cugino ha pagato meno in un'altra clinica, ma ha aspettato tre mesi."
+      errors: [comparative]
+    - tutor: "Tre mesi sono tanti. Ma «è più che pensavamo»? Quando il confronto è con un verbo, dopo «più» non basta «che»."
+      prompt: {text: "più che pensavamo", tags: [comparative]}
+    - learner: "Sì, è più che pensavamo, ma per la salute della nonna non è un problema, e lei è d'accordo."
+      errors: [comparative]
+    - tutor: "«Più di quanto pensavamo», capisco, ma è una visita completa. Mi dà il nome della signora e un numero di telefono?"
+      recast: {text: "più che pensavamo", fix: "più di quanto pensavamo", tags: [comparative]}
+    - learner: "Si chiama Maria Esposito. Il numero è il mio, perché lei non risponde quasi mai: tre tre tre, uno due tre, quattro cinque sei."
+    - tutor: "Grazie. Allora: giovedì venti alle dieci, visita dal cardiologo per la signora Maria Esposito."
+      new: [{lemma: cardiologo, gloss: heart specialist}]
+    # decoys: «la porterò» and «le ricorderò» are correct pronouns with the future
+    - learner: "Perfetto, giovedì venti alle dieci. La porterò io in macchina, e la mattina le ricorderò di prendere le sue medicine, come sempre."
+    - tutor: "Benissimo. Arrivate dieci minuti prima, e buona giornata!"
+      goals: [confirm]
+
+- scenario: salute-stile-vita
+  # facts: lavora in un ostello, spesso di notte; mangia panini, pizza, patatine; dorme cinque o sei ore; in Irlanda giocava a rugby tre volte a settimana e la domenica la partita; obiettivo: perdere cinque chili e correre una gara di dieci chilometri a ottobre, più veloce dell'amico Liam; ostacolo: turni di giorno e di notte; piano: lunedì, mercoledì e sabato alle undici; se è stanco cambia giorno, mai saltare due volte di seguito; comincia lunedì alle undici
+  level: B1
+  persona: en-m-traveller
+  history: [tense-aspect, comparative, future-form]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Ciao! Le mie abitudini non sono bellissime. Lavoro in un ostello, spesso di notte, e mangio quello che trovo: panini, pizza, patatine."
+    - tutor: "Almeno sei sincero! E quanto dormi, di solito?"
+    - learner: "Cinque o sei ore, quando va bene. In Irlanda era diverso: giocavo a rugby tre volte a settimana, e ogni domenica ho fatto una partita con la mia squadra."
+      errors: [tense-aspect]
+    - tutor: "Il rugby, che sport duro! Ma «ogni domenica ho fatto»? «Ogni domenica» è una cosa che si ripeteva: che tempo serve?"
+      prompt: {text: "ho fatto una partita", tags: [tense-aspect]}
+    - learner: "Ogni domenica facevo una partita, sì. Ero molto più in forma, e mangiavo meglio perché cucinava mia madre."
+    - tutor: "Esatto. E adesso qual è il tuo obiettivo?"
+      goals: [habits]
+    - learner: "Voglio perdere cinque chili e correre una gara di dieci chilometri a ottobre. Il mio amico Liam l'ha fatta l'anno scorso, e io voglio essere più veloce che lui."
+      errors: [comparative]
+    - tutor: "Bell'obiettivo! Ma «più veloce che lui»? Confronti due persone, te e Liam: davanti a «lui», «che» non va."
+      prompt: {text: "più veloce che lui", tags: [comparative]}
+    # decoy: «ce la farò» is a correct fixed expression
+    - learner: "Più veloce di lui, sì, così finalmente smette di ridere di me! Ma non so se ce la farò, con il mio lavoro."
+    - tutor: "Esatto, è un buon motivo. Cosa ti rende difficile allenarti?"
+      goals: [goal]
+    - learner: "Il problema sono i turni: una settimana lavoro di giorno e una di notte. Quando torno alle sette di mattina guardo un po' di TV, ed eventualmente mi addormento sul divano."
+      errors: [false-friend]
+    - tutor: "Dopo la notte, alla fine il divano vince sempre! Facciamo un piano semplice: tre allenamenti a settimana, a metà giornata. Lunedì, mercoledì e sabato alle undici?"
+      recast: {text: "eventualmente", fix: "alla fine", tags: [false-friend]}
+      goals: [obstacles]
+    - learner: "Alle undici va bene, anche dopo la notte. Ma se un giorno sono troppo stanco, cosa faccio? Forse doverò cambiare il giorno."
+      errors: [future-form]
+    - tutor: "Se sei stanco cambi giorno, ma non saltare mai due volte di seguito. Ma «doverò»? Il futuro di «dovere» è più corto: perde una lettera."
+      prompt: {text: "doverò", tags: [future-form]}
+    - learner: "Va bene, doverò essere più organizzato, lo so. Ma con te è più facile, perché da solo non mi alleno mai."
+      errors: [future-form]
+    - tutor: "«Dovrò essere più organizzato»: sì, e io ti aiuto. Allora cominciamo lunedì alle undici?"
+      recast: {text: "doverò", fix: "dovrò", tags: [future-form]}
+    - learner: "Sì, lunedì alle undici. E smetto con le patatine, almeno durante la settimana."
+    - tutor: "Ottimo. Allora ci vediamo lunedì alle undici, con le scarpe da corsa!"
+      goals: [plan]
+
+- scenario: salute-stile-vita
+  # facts: mangia bene, verdura e pesce; seduta tutto il giorno, a scuola e a casa con i compiti; da giovane andava in piscina, il mese scorso solo due volte perché c'era troppa gente; obiettivo: meno mal di schiena e meno stress; due figli; ostacolo: il tempo e la stanchezza della sera; piano: martedì alle sette e giovedì alle otto, quaranta minuti; il giovedì riunione con i genitori fino alle sette; il marito va in palestra quattro volte a settimana; domenica passeggiata lunga con i bambini
+  level: B1
+  persona: es-f-teacher
+  history: [auxiliary-choice, ci-ne]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Ciao! Mangio abbastanza bene, molta verdura e pesce, come in Spagna. Il problema è che sto seduta tutto il giorno, a scuola e poi a casa con i compiti dei miei studenti."
+    - tutor: "Quindi il cibo va bene, ma ti muovi poco. Fai un po' di sport?"
+      goals: [habits]
+    # decoy: «tornarci» is a correct locative ci
+    - learner: "Adesso no, ma da giovane andavo sempre in piscina. Ho provato a tornarci il mese scorso, ma c'era troppa gente e sono andata solo due volte."
+    - tutor: "Peccato. E qual è il tuo obiettivo, adesso?"
+    - learner: "Vorrei avere meno mal di schiena e meno stress. Il mio medico mi ha detto tante volte di fare sport, ma io non mi ho mai iscritta a una palestra."
+      errors: [auxiliary-choice]
+    - tutor: "Il tuo medico ha ragione. Ma «non mi ho mai iscritta»? Con un verbo con «mi», il passato non si fa con «avere»."
+      prompt: {text: "non mi ho mai iscritta", tags: [auxiliary-choice]}
+      goals: [goal]
+    - learner: "Non mi sono mai iscritta, sì, perché ho sempre poco tempo. Con due figli e la scuola, le mie giornate sembrano più corte!"
+    - tutor: "Giusto. Allora il tempo è il problema principale?"
+    # decoy: «più facile che andare» is a correct che before an infinitive
+    - learner: "Sì, il tempo è il problema più grande. E poi la sera sono stanca, e stare sul divano è molto più facile che andare ad allenarmi."
+    - tutor: "Lo capisco benissimo. Facciamo così: due allenamenti brevi, di quaranta minuti, martedì e giovedì alle sette di sera. Ce la fai?"
+      goals: [obstacles]
+    - learner: "Martedì sì, ma giovedì ho la riunione con i genitori fino alle sette. Posso venire alle otto? Mio marito dice che è meglio fare tre, ma per me due bastano."
+      errors: [ci-ne]
+    - tutor: "Alle otto va benissimo. Ma «è meglio fare tre»: tre di che cosa? Per non ripetere «allenamenti», a «fare» va attaccata una parola."
+      prompt: {text: "fare tre", tags: [ci-ne]}
+    - learner: "Sì, mio marito dice che è meglio fare tre, perché lui va in palestra quattro volte a settimana."
+      errors: [ci-ne]
+    - tutor: "Tuo marito ha ragione, è meglio farne tre, ma cominciamo con due. Allora martedì alle sette e giovedì alle otto?"
+      recast: {text: "fare tre", fix: "farne tre", tags: [ci-ne]}
+    - learner: "Perfetto, martedì alle sette e giovedì alle otto. E la domenica faccio una passeggiata lunga con i bambini, così si muovono anche loro."
+    - tutor: "Ottima idea, così vi allenate tutti insieme. Ci vediamo martedì alle sette!"
+      goals: [plan]
