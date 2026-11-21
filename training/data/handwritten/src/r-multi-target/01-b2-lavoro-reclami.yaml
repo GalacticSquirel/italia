@@ -1,0 +1,301 @@
+# Set r-multi-target, file 1 (B2): a team meeting about a gym website, a promotion talk, an
+# anniversary dinner gone wrong, a car-park accident, a job interview, working from home, a
+# delayed catalogue and a hotel restaurant. Two-error turns put a trivial slip (gender, article,
+# spelling) first and the target later; the tutor corrects only the target.
+- scenario: riunione-lavoro
+  # facts: sito per una catena di palestre; home page e orari dei corsi finiti; prenotazioni online indietro; il pagamento funziona; Marco, il grafico, è stato malato cinque giorni la settimana scorsa; codice e test sui telefoni a posto, mancano immagini e bottoni; proposta: consegnare prima le prenotazioni; resto del sito il ventidue; giovedì riunione con il cliente, la presentazione la prepara la learner
+  level: B2
+  persona: en-f-professional
+  history: [tense-aspect, subjunctive-use]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene, direi. Il sito per la catena di palestre è quasi pronto: abbiamo finito la home page e anche la parte con gli orari dei corsi."
+    - tutor: "Ottimo, la home page era la parte più delicata. E le prenotazioni online, a che punto siete?"
+      goals: [update]
+    - learner: "Lì siamo un po' indietro. La sistema di pagamento funziona già, ma la settimana scorsa Marco era malato per cinque giorni e nessuno ha potuto lavorare sulla grafica."
+      errors: [noun-gender, tense-aspect]
+      gold: {text: "era malato per cinque giorni", fix: "è stato malato per cinque giorni"}
+    - tutor: "Cinque giorni senza grafica sono tanti, lo capisco. Ma ripeti «era malato per cinque giorni»: è un periodo chiuso, con un inizio e una fine. Quale passato lo racconta?"
+      prompt: {text: "era malato per cinque giorni", tags: [tense-aspect]}
+    - learner: "Il passato prossimo: Marco è stato malato per cinque giorni, quindi la grafica delle prenotazioni non è ancora pronta."
+    - tutor: "Giusto. Quindi manca solo la grafica, o c'è dell'altro?"
+      goals: [problem]
+    # decoy: «il problema» is masculine and correct
+    - learner: "Il problema è soprattutto la grafica. Il codice è pronto e i test sui telefoni sono andati bene, quindi mancano solo le immagini e i bottoni."
+    - tutor: "Allora non è grave. Hai già pensato a come recuperare i giorni persi?"
+    # agree: the tutor accepts the idea and corrects the form
+    - learner: "Sì, ho un'idea. Penso che è meglio consegnare al cliente prima la parte delle prenotazioni, che gli interessa di più, e il resto una settimana dopo."
+      errors: [subjunctive-use]
+      gold: {text: "Penso che è meglio", fix: "Penso che sia meglio"}
+    - tutor: "Sull'idea di partire dalle prenotazioni sono d'accordo con te. Però ripeti «penso che è meglio»: dopo «penso che», per un'opinione, quale modo usiamo?"
+      prompt: {text: "Penso che è meglio", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: penso che sia meglio cominciare dalle prenotazioni."
+    - tutor: "Esatto. E per il resto del sito, che data proponi?"
+      goals: [proposal]
+    - learner: "Il ventidue. Le prime immagini di Marco sono propio belle: ieri, mentre il cliente ci ha spiegato le ultime modifiche, lui le stava già finendo."
+      errors: [spelling, tense-aspect]
+      gold: {text: "mentre il cliente ci ha spiegato", fix: "mentre il cliente ci spiegava"}
+    - tutor: "Se le immagini sono a buon punto, il ventidue regge. Però in «mentre il cliente ci ha spiegato» c'è un'azione ancora in corso mentre succede altro: con quale tempo la raccontiamo?"
+      prompt: {text: "mentre il cliente ci ha spiegato", tags: [tense-aspect]}
+    - learner: "Mentre il cliente ci spiegò le modifiche, volevo dire."
+      errors: [tense-aspect]
+    - tutor: "Mentre il cliente ci spiegava le modifiche, Marco lavorava: bel lavoro di squadra. Allora il ventidue per il resto del sito. Giovedì lo diciamo al cliente insieme?"
+      recast: {text: "Mentre il cliente ci spiegò", fix: "Mentre il cliente ci spiegava", tags: [tense-aspect]}
+      goals: [deadline]
+    - learner: "Sì, giovedì va benissimo. Preparo io una breve presentazione con le date, così il cliente vede subito cosa riceve e quando."
+    - tutor: "Grazie, così la riunione sarà più veloce. A giovedì, allora, e salutami Marco."
+
+- scenario: colloquio-promozione
+  # facts: il dipendente lavora nell'ufficio vendite da tre anni; vendite del gruppo aumentate del diciotto per cento quest'anno; ha seguito da solo il cliente tedesco; chiede di diventare responsabile del gruppo; obiezione: non ha mai gestito un budget; proposta: sei mesi di prova con un piccolo budget, corso di gestione pagato dall'azienda in orario di lavoro; valutazione sui dati a giugno; se va bene, aumento del dieci per cento; incontro nella prima settimana di giugno; lui manda una mail di riepilogo
+  level: B2
+  persona: es-m-worker
+  history: [auxiliary-choice, subjunctive-use, word-choice]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    # agree: the tutor values the result and corrects the auxiliary
+    - learner: "Sì, grazie. Volevo parlarle dei risultati: per il mio gruppo è stato un'anno ottimo, e le vendite hanno aumentato del diciotto per cento."
+      errors: [article-form, auxiliary-choice]
+      gold: {text: "le vendite hanno aumentato", fix: "le vendite sono aumentate"}
+    - tutor: "Il diciotto per cento è un risultato che conosco bene, e lo apprezzo. Ma ripeta «le vendite hanno aumentato»: qui le vendite crescono da sole, non aumentano qualcosa. Quale ausiliare vuole allora il verbo?"
+      prompt: {text: "le vendite hanno aumentato", tags: [auxiliary-choice]}
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+    - learner: "Con essere: le vendite sono aumentate del diciotto per cento."
+    - tutor: "Giusto. Immagino però che non sia venuto solo per dirmi questo: che cosa mi chiede?"
+      goals: [results]
+    - learner: "Vorrei diventare responsabile del gruppo. In questi tre anni ho seguito da solo il cliente tedesco, e credo di aver dimostrato che so organizzare anche il lavoro degli altri."
+    - tutor: "Con il cliente tedesco ha lavorato molto bene, glielo riconosco. Un responsabile, però, gestisce anche un budget, e lei non l'ha mai fatto. Come risponde?"
+      goals: [request]
+    - learner: "È vero, con i budget non ho esperienza. Però imparo in fretta e, se l'azienda mi paga un corso di gestione, sono disposto a realizzarlo anche il sabato."
+      errors: [word-choice]
+    - tutor: "Seguirlo il sabato non sarà necessario: il corso lo organizziamo noi, in orario di lavoro. Le propongo sei mesi di prova come responsabile, con un piccolo budget. Che ne dice?"
+      recast: {text: "realizzarlo", fix: "seguirlo", tags: [word-choice]}
+      goals: [handle]
+    # agree: the tutor shares the idea of measurable criteria
+    - learner: "Mi sembra una proposta giusta, e la acetto volentieri. Però vorrei che, alla fine dei sei mesi, la valutazione si fa su dati precisi, come le vendite del gruppo."
+      errors: [spelling, subjunctive-use]
+      gold: {text: "la valutazione si fa", fix: "la valutazione si facesse"}
+    - tutor: "Dati precisi li voglio anch'io: su questo siamo d'accordo. Ma in «la valutazione si fa» il verbo dipende da «vorrei che», un desiderio: quale modo serve, e a quale tempo?"
+      prompt: {text: "la valutazione si fa", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo, allora: vorrei che la valutazione si faccia sui dati."
+      errors: [subjunctive-use]
+    - tutor: "Che la valutazione si facesse sui dati era già nei miei piani: vendite del gruppo e soddisfazione dei clienti. Ne parliamo a giugno, alla fine della prova?"
+      recast: {text: "la valutazione si faccia", fix: "la valutazione si facesse", tags: [subjunctive-use]}
+    - learner: "A giugno va bene. E se i risultati sono buoni, potrei avere anche un aumento?"
+    - tutor: "Se la prova va bene, a giugno le propongo un aumento del dieci per cento. Fissiamo l'incontro per la prima settimana di giugno?"
+    - learner: "D'accordo, grazie. Le mando una mail con quello che ci siamo detti, così abbiamo tutto per scritto."
+    - tutor: "Ottima idea, la aspetto. Buon lavoro, allora, e in bocca al lupo per questi sei mesi."
+      goals: [next-steps]
+
+- scenario: recensione-ristorante
+  # facts: tavolo per due, anniversario di matrimonio; attesa di cinquanta minuti per i primi; il cameriere non sapeva niente; risotto ai funghi troppo salato; la carne della moglie quasi cruda, chiesta ben cotta; erano venuti a giugno con un amico e il servizio era più veloce; offerta: dolci e caffè offerti e sconto del venti per cento; la moglie vuole il tiramisù; due candeline
+  level: B2
+  persona: en-m-retired
+  history: [relative-pronoun, comparative, participle-agreement]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Mi dispiace disturbarla, ma stasera festeggiamo il nostro anniversario e purtroppo la cena, finora, è stata piuttosto deludente."
+    - tutor: "Mi dispiace molto, soprattutto in una serata così. Mi dica pure che cosa non è andato."
+    # agree: the tutor agrees the wait was too long
+    - learner: "Prima di tutto l'attesa: abbiamo aspettato i primi per cinquanta minuti senza una spiegazzione, e il cameriere a chi abbiamo chiesto informazioni non sapeva niente."
+      errors: [spelling, relative-pronoun]
+      gold: {text: "a chi abbiamo chiesto", fix: "a cui abbiamo chiesto"}
+    - tutor: "Cinquanta minuti sono davvero troppi, ha ragione. Ma ripeta «il cameriere a chi abbiamo chiesto»: dopo «a», per una persona già nominata, quale forma usiamo al posto di «chi»?"
+      prompt: {text: "a chi abbiamo chiesto", tags: [relative-pronoun]}
+      goals: [complain]
+    - learner: "A cui: il cameriere a cui abbiamo chiesto informazioni."
+    - tutor: "Sì, a cui. Con lui parlerò io. E i piatti, com'erano?"
+    - learner: "Il risotto ai funghi era troppo salato, e la carne di mia moglie era quasi cruda, anche se lei l'aveva chiesto ben cotta."
+      errors: [participle-agreement]
+      gold: {text: "l'aveva chiesto", fix: "l'aveva chiesta"}
+    - tutor: "La cottura la controlliamo sempre, quindi questo non doveva succedere. Ma ripeta «l'aveva chiesto»: quel «l'» sta per «la carne», e allora come finisce «chiesto»?"
+      prompt: {text: "l'aveva chiesto", tags: [participle-agreement]}
+    - learner: "Al femminile: l'aveva chiesta ben cotta."
+    - tutor: "Ecco. Lo dirò subito alla cucina. Che cosa vi aspettavate, stasera?"
+      goals: [detail]
+    - learner: "Ci aspettavamo una serata come l'ultima volta: eravamo venuti a giugno con un'amico, e il servizio era molto più veloce che quello di stasera."
+      errors: [article-form, comparative]
+      gold: {text: "più veloce che quello di stasera", fix: "più veloce di quello di stasera"}
+    - tutor: "Mi fa piacere che a giugno vi siate trovati bene. Però in «più veloce che quello di stasera» il secondo termine è un pronome, «quello»: quale parola lo introduce?"
+      prompt: {text: "più veloce che quello di stasera", tags: [comparative]}
+    - learner: "Di: il servizio era molto più veloce di quello di stasera."
+    - tutor: "Esatto. Per scusarmi vorrei offrirvi i dolci e il caffè, e farvi uno sconto del venti per cento sul conto. Le sembra giusto?"
+      goals: [expectation]
+    - learner: "È molto gentile, grazie. Accettiamo volentieri: mia moglie aspettava proprio il vostro tiramisù."
+    - tutor: "Allora glielo porto subito, con gli auguri della casa per l'anniversario. E grazie della pazienza."
+      goals: [resolve]
+
+- scenario: assicurazione-sinistro
+  # facts: ieri mattina, parcheggio del supermercato; lei era ferma con il motore spento; un'auto in retromarcia le ha colpito la portiera; sta bene; l'altra conducente si è fermata e ha riconosciuto la colpa; constatazione amichevole firmata da entrambe, con la penna dell'altra signora; foto del modulo, della portiera e dello specchietto rotto mandate stamattina per email, con una lettera scritta a mano; la franchigia non si applica; il perito chiama entro una settimana
+  level: B2
+  persona: es-f-teacher
+  history: [combined-pronouns, past-participle-form, false-friend]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri mattina ero nel parcheggio del supermercato, ferma con il motore spento, quando un'auto che usciva in retromarcia mi ha colpito la portiera."
+    - tutor: "Capisco. Lei si è fatta male?"
+      goals: [what]
+    # decoy: «educata» means polite here, which is correct
+    - learner: "No, sto bene, grazie. La signora si è fermata subito, è stata molto educata e ha riconosciuto che la colpa era sua."
+    - tutor: "Meno male, così è tutto più semplice. Avete compilato insieme la constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, l'abbiamo firmata tutte e due: lei aveva il modulo nella machina e, siccome io non avevo una penna, mi la ha prestata."
+      errors: [spelling, combined-pronouns]
+      gold: {text: "mi la ha prestata", fix: "me l'ha prestata"}
+    - tutor: "Con la firma di tutte e due siamo a posto. Ma ripeta «mi la ha prestata»: quando «mi» si unisce a «la», resta uguale?"
+      prompt: {text: "mi la ha prestata", tags: [combined-pronouns]}
+    - learner: "No, diventa «me»: me l'ha prestata."
+    - tutor: "Esatto. Ci ha già mandato una copia del modulo?"
+    - learner: "Sì, stamattina vi ho mandato per email le foto del modulo e della portiera. Ho fotografato anche lo specchietto, che si è rompito."
+      errors: [past-participle-form]
+      gold: {text: "si è rompito", fix: "si è rotto"}
+    - tutor: "Le foto sono arrivate, le sto guardando adesso. Però «si è rompito»: al passato, «rompere» è un verbo regolare?"
+      prompt: {text: "si è rompito", tags: [past-participle-form]}
+    - learner: "No, è irregolare: lo specchietto si è rotto."
+    - tutor: "Giusto. Mi conferma dove si trova, sul modulo, la targa dell'altra macchina?"
+    - learner: "La targa è scritta nel sezione B del modulo. Insieme alle foto vi ho mandato anche una carta con la mia versione dei fatti, scritta a mano."
+      errors: [noun-gender, false-friend]
+      gold: {text: "una carta", fix: "una lettera"}
+    - tutor: "Sì, c'è anche una lettera con la sua versione dei fatti: la aggiungo alla pratica. Ha altre domande?"
+      recast: {text: "una carta", fix: "una lettera", tags: [false-friend]}
+      goals: [documents]
+    - learner: "Sì, due. Devo pagare la franchigia anche se la colpa è stata della signora? E quando passerà il perito a vedere la macchina?"
+    - tutor: "No, la franchigia non la paga, perché lei non ha colpa. Il perito la chiamerà entro una settimana per fissare l'appuntamento."
+      goals: [next]
+
+- scenario: colloquio-lavoro
+  # facts: studio di design piccolo, dodici persone; la candidata è grafica, cinque anni in un'agenzia di Manchester, lavorava su imballaggi per prodotti alimentari; punto di forza: lavora bene con i clienti difficili; debolezza: è troppo perfezionista; vuole il posto perché le piacciono i progetti sostenibili dello studio; domanda: due giorni a settimana da casa sono possibili dopo il periodo di prova di tre mesi; risposta entro dieci giorni
+  level: B2
+  persona: en-f-student
+  history: [tense-aspect, false-friend, relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Sono inglese, ho trentadue anni e faccio la grafica. Vivo a Torino da un anno e mezzo e adesso cerco un lavoro stabile qui."
+    - tutor: "Benvenuta. Che esperienza ha avuto prima di trasferirsi?"
+      goals: [intro]
+    - learner: "Ho lavorato cinque anni in un'agenzia di Manchester. Lì di solito ho disegnato gli imballaggi per prodotti alimentari, soprattutto biscotti e tè."
+      errors: [tense-aspect]
+      gold: {text: "di solito ho disegnato", fix: "di solito disegnavo"}
+    - tutor: "Gli imballaggi alimentari ci interessano molto. Ma in «di solito ho disegnato» lei descrive un'abitudine di quegli anni: quale passato usiamo per le abitudini?"
+      prompt: {text: "di solito ho disegnato", tags: [tense-aspect]}
+    - learner: "L'imperfetto: di solito disegnavo gli imballaggi."
+    - tutor: "Giusto. E quali sono i suoi punti di forza?"
+      goals: [experience]
+    - learner: "Lavoro bene con i clienti difficili: li ascolto con calma e trovo una soluzione. Il mio difetto è che sono troppo perfezionista e a volte perdo tempo sui dettagli."
+    - tutor: "Con i clienti difficili è una qualità preziosa. Perché ha scelto proprio il nostro studio?"
+      goals: [strengths]
+    - learner: "Perché ho visto i vostri progetti sostenibili, che mi sono piaciuti molto. Sono una persona molto sensibile all'ambiente, e vorrei usare il mio lavoro per qualcosa di utile."
+    - tutor: "I progetti sostenibili sono proprio il nostro futuro. Ha qualche domanda sul ruolo?"
+      goals: [why]
+    - learner: "Sì. Ho letto che lo studio è piccolo, dodici persone. La squadra in quale lavorerei è quella degli imballaggi, o cambia a seconda del progetto?"
+      errors: [relative-pronoun]
+      gold: {text: "La squadra in quale lavorerei", fix: "La squadra in cui lavorerei"}
+    - tutor: "Soprattutto quella degli imballaggi, ma a volte anche altre. Però ripeta «la squadra in quale lavorerei»: dopo «in», senza articolo, «quale» può stare da solo?"
+      prompt: {text: "La squadra in quale lavorerei", tags: [relative-pronoun]}
+    - learner: "In cui: la squadra in cui lavorerei. E un'altra domanda: è possibile lavorare da casa qualche giorno?"
+    - tutor: "Sì, così. Per il lavoro da casa: dopo i tre mesi di prova, due giorni a settimana sono possibili."
+      goals: [questions]
+    - learner: "Perfetto, per me è una soluzione ideale. Allora aspetto una vostra risposta?"
+    - tutor: "Sì, le scriviamo entro dieci giorni. Grazie di essere venuta."
+
+- scenario: smartworking
+  # facts: Andrea lavora in ufficio tutti i giorni; la learner lavora da casa tre giorni su cinque, in una casa editrice; a casa si concentra meglio e risparmia un'ora e mezza di treno; svantaggio: si sente sola e lavora fino a tardi; preferirebbe due giorni a casa e tre in ufficio; Andrea propone un caffè il mercoledì a pranzo vicino al suo ufficio
+  level: B2
+  persona: es-f-erasmus
+  history: [conditional-form, comparative, ci-ne]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Un po' e un po'. Adesso lavoro da casa tre giorni su cinque, e gli altri due vado in ufficio, alla casa editrice in centro. E tu?"
+    - tutor: "Io in ufficio tutti i giorni, purtroppo. Ma com'è lavorare per una casa editrice da casa?"
+      goals: [situation]
+    - learner: "A casa mi concentro molto di più. In ufficio c'è sempre la radio accesa e qualcuno che parla al telefono, e i testi lunghi li leggo meglio in silenzio."
+    - tutor: "Ti capisco, anche da noi c'è sempre rumore. E c'è qualche altro vantaggio?"
+    - learner: "Sì, il viaggio! Prima prendevo il treno ogni mattina: un'ora e mezza tra andata e ritorno. Adesso quel tempo lo uso per andare in palestra, e ci vado tre volte a settimana."
+    - tutor: "Un'ora e mezza al giorno è tantissimo. Ci sono anche degli svantaggi, però, o è tutto perfetto?"
+      goals: [pros]
+    - learner: "Qualche svantaggio c'è. A volte mi sento sola, e soprattutto lavoro più tardi che prima, perché non c'è nessuno che mi dice che è ora di andare a casa."
+      errors: [comparative]
+      gold: {text: "più tardi che prima", fix: "più tardi di prima"}
+    - tutor: "Succede a molti, chi lavora da casa non stacca mai. Ma ripeti «più tardi che prima»: confronti con «prima», un solo termine. Quale parola ci mettiamo davanti?"
+      prompt: {text: "più tardi che prima", tags: [comparative]}
+    - learner: "Di: lavoro più tardi di prima."
+    - tutor: "Esatto. E quando ti senti sola, come fai?"
+      goals: [cons]
+    - learner: "Non molto bene. Di colleghi simpatici ce ne sono, ma li vedo solo due giorni. Mi manca la pausa caffè, sono una persona molto sociale e ho bisogno di parlare con la gente."
+    - tutor: "Quindi, se potessi scegliere, cosa preferiresti?"
+    # agree: the tutor finds the balance sensible and corrects the conditional stem
+    - learner: "Preferirei un equilibrio diverso. Tre giorni a casa sono troppi per me, me ne bastarebbero due: così avrei più tempo con i colleghi senza perdere il silenzio."
+      errors: [conditional-form]
+      gold: {text: "me ne bastarebbero due", fix: "me ne basterebbero due"}
+    - tutor: "Due giorni a casa e tre in ufficio mi sembra un buon equilibrio. Però ripeti «bastarebbero»: nel condizionale di «bastare», resta la «a» dell'infinito?"
+      prompt: {text: "me ne bastarebbero due", tags: [conditional-form]}
+    - learner: "No, diventa «e»: me ne basterebbero due."
+    - tutor: "Esatto. E nei giorni in ufficio, se ti va, il mercoledì possiamo prendere un caffè a pranzo: il mio ufficio è a due passi dal tuo."
+      goals: [preference]
+
+- scenario: riunione-lavoro
+  # facts: catalogo di primavera per un negozio di arredamento; trenta pagine su quaranta pronte; la tipografia ha cambiato la carta e ha chiesto tre giorni in più; il cliente vuole il catalogo il dieci marzo; proposta: mandare prima la versione digitale il dieci e quella stampata il tredici; Federica telefona lei al cliente oggi pomeriggio; la learner manda il riassunto per email
+  level: B2
+  persona: en-m-heritage
+  history: [object-pronoun, future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Il catalogo di primavera va avanti bene: trenta pagine su quaranta sono pronte, e le foto dei divani sono venute benissimo."
+    - tutor: "Trenta su quaranta è un buon risultato. Ci sono problemi con le ultime dieci?"
+      goals: [update]
+    - learner: "Con le pagine no, con la tipografia sì. Hanno cambiato la carta e hanno chiesto tre giorni in più, ma il cliente vuole il catalogo il dieci marzo."
+    - tutor: "Tre giorni sono tanti, con quella scadenza. Hai già parlato con il cliente?"
+      goals: [problem]
+    - learner: "Non ancora. Ho pensato di scriverli una mail oggi, ma prima volevo sentire la tua opinione, perché è un cliente molto importante."
+      errors: [object-pronoun]
+      gold: {text: "scriverli una mail", fix: "scrivergli una mail"}
+    - tutor: "Hai fatto bene ad aspettare, è un cliente delicato. Ma ripeti «scriverli una mail»: si scrive a qualcuno, quindi «li» va bene?"
+      prompt: {text: "scriverli una mail", tags: [object-pronoun]}
+    - learner: "Indiretto: scrivergli una mail."
+    - tutor: "Esatto. E che cosa gli proponi?"
+    # agree: the tutor likes the plan and corrects the future stem
+    - learner: "Una soluzione in due tempi. Il dieci gli mandiamo la versione digitale, così può già metterla sul sito, e la versione stampata la averà tre giorni dopo, il tredici."
+      errors: [future-form]
+      gold: {text: "la averà", fix: "l'avrà"}
+    - tutor: "Due tempi mi sembra un'ottima idea: il sito è la cosa che gli interessa di più. Però «averà»: il futuro di «avere» conserva tutte le lettere dell'infinito?"
+      prompt: {text: "la averà", tags: [future-form]}
+    - learner: "No, è più corto: l'avrà il tredici."
+    - tutor: "Giusto. Allora il dieci la versione sul sito e il tredici quella di carta. Vuoi che telefoni io al cliente?"
+      goals: [proposal]
+    - learner: "Sì, grazie, se lo chiami tu è meglio. Tu lo conosci da anni e lui si fida di te più che di me."
+    - tutor: "D'accordo, lo chiamo oggi pomeriggio. Tu intanto mi scrivi le date per email?"
+    - learner: "Certo, te le mando entro un'ora, insieme alle pagine che mancano."
+    - tutor: "Perfetto. Allora le date sono fissate: il dieci il sito, il tredici la carta."
+      goals: [deadline]
+
+- scenario: recensione-ristorante
+  # facts: pranzo di lavoro per sei persone, prenotato da due settimane; tavolo vicino alla porta della cucina, molto rumoroso; il cliente aveva chiesto un tavolo tranquillo; pesce del giorno finito alle dodici e mezza; il secondo arrivato freddo; l'offerta del responsabile: il caffè e un amaro offerti e il quindici per cento di sconto; il cliente accetta lo sconto ma chiede un tavolo nella sala interna per la prossima volta, il ventotto
+  level: B2
+  persona: en-m-traveller
+  history: [hypothetical, ci-ne, register]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, più di uno, purtroppo. Avevo prenotato un pranzo di lavoro per sei persone due settimane fa, e avevo chiesto un tavolo tranquillo."
+    - tutor: "E invece vi abbiamo messi vicino alla porta della cucina, lo vedo. Che cos'altro non è andato?"
+      goals: [complain]
+    - learner: "Il pesce del giorno era già finito a mezzogiorno e mezzo, e il mio secondo è arrivato freddo. Con dei clienti a tavola, per me è stato davvero imbarazzante."
+    - tutor: "Capisco benissimo, in un pranzo di lavoro è la cosa peggiore. Che cosa si aspettava da noi?"
+      goals: [detail]
+    # agree: the tutor accepts the point about the warning
+    - learner: "Mi aspettavo almeno un avviso. Se il cameriere ci avvertiva subito del pesce, avremmo scelto un altro piatto senza perdere tempo e senza fare brutta figura."
+      errors: [hypothetical]
+      gold: {text: "Se il cameriere ci avvertiva", fix: "Se il cameriere ci avesse avvertiti"}
+    - tutor: "Sull'avviso ha perfettamente ragione: andava dato all'inizio. Però in «se il cameriere ci avvertiva» parla di un'ipotesi nel passato, non realizzata: quale tempo serve dopo «se»?"
+      prompt: {text: "Se il cameriere ci avvertiva", tags: [hypothetical]}
+    - learner: "Il congiuntivo trapassato: se il cameriere ci avesse avvertiti, avremmo scelto un altro piatto."
+    - tutor: "Proprio così. Per scusarmi le offro il caffè e un amaro per tutti, e il quindici per cento di sconto sul conto. Le va bene?"
+      goals: [expectation]
+    - learner: "Lo sconto lo accetto volentieri, grazie. Il caffè no, perché i miei clienti devono già andare, ma ne prendo uno io con piacere."
+    - tutor: "Glielo porto subito. Le preparo il conto con lo sconto?"
+    - learner: "Sì, grazie. Un'ultima cosa: il ventotto tornerò con lo stesso gruppo. Ci puoi tenere un tavolo nella sala interna, lontano dalla cucina?"
+      errors: [register]
+      gold: {text: "Ci puoi tenere", fix: "Ci può tenere"}
+    - tutor: "Per il ventotto la sala interna è libera. Ma ripeta «ci puoi tenere»: finora ci siamo dati del Lei, giusto?"
+      prompt: {text: "Ci puoi tenere", tags: [register]}
+    - learner: "Ha ragione, scusi: ci può tenere un tavolo nella sala interna?"
+    - tutor: "Certo, glielo tengo io: il ventotto, sala interna, sei persone. E questa volta il pesce lo mettiamo da parte per voi."
+      goals: [resolve]

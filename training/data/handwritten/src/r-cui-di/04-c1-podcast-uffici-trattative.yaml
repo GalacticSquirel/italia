@@ -1,0 +1,324 @@
+# Set r-cui-di, file 4 (C1): a podcast interview, a mediation between colleagues, news at the
+# coffee machine, a project pitch, a supplier negotiation, a bad day told over an aperitivo, a book
+# club and a radio phone-in on overtourism. Relatives: «a chi», «che il contratto», «le cui
+# contratto», «su che», «nel quale» for an email, «il motivo che», «nei quali» for «promesse»,
+# «il cui batteria», «di chi» for a city. Comparatives with «che» before «un politico», «chiunque
+# altro», numbers, «quello», «me», and «più aperti che noi pensiamo». Correct «più di quattro
+# ore», «più del previsto», «più che mai», «il che», «da cui», «a cui», «per il quale» are left alone.
+- scenario: intervista-podcast
+  # facts: la learner è un'insegnante spagnola; dieci anni fa una scuola di lingue di Lecce cercava un'insegnante per sei mesi, la direttrice l'ha chiamata il giorno dopo il curriculum; è rimasta, il marito è leccese; sorpresa: il pranzo della domenica di oltre quattro ore, la suocera parla di ricette a tavola; critica: il precariato nella scuola, colleghe con contratto che scade a giugno; consiglio: non aspettarsi che tutto funzioni come a casa, avere pazienza
+  level: C1
+  persona: es-f-teacher
+  history: [relative-pronoun, comparative]
+  turns:
+    - tutor: "Ciao e grazie di essere qui! Partiamo dall'inizio. Com'è che sei arrivata proprio in Italia?"
+    - learner: "Per caso, come succede spesso. Dieci anni fa una scuola di lingue di Lecce cercava un'insegnante di spagnolo per sei mesi, e la direttrice, a chi avevo mandato il curriculum quasi per scherzo, mi ha chiamata il giorno dopo."
+      errors: [relative-pronoun]
+      gold: {text: "la direttrice, a chi", fix: "la direttrice, a cui"}
+    - tutor: "Sei mesi che sono diventati dieci anni, immagino. Ma torna su «la direttrice, a chi avevo mandato il curriculum»: «chi» non può riferirsi a un nome già espresso. Dopo «a», quale relativo ci vuole?"
+      prompt: {text: "la direttrice, a chi", tags: [relative-pronoun]}
+    - learner: "La direttrice, a cui avevo mandato il curriculum. E sì, i sei mesi sono diventati dieci anni, anche perché nel frattempo ho conosciuto mio marito, che è di Lecce."
+    - tutor: "Ecco, il classico colpo di fulmine salentino! E all'inizio, che cosa ti ha sorpresa di più?"
+      goals: [story]
+    # decoy: «più di quattro ore» is a correct «di» before a number; «più stanco che sazio» rightly takes «che»
+    - learner: "Il pranzo della domenica, senza dubbio. Durava più di quattro ore, e chi non conosceva la famiglia rischiava di uscirne più stanco che sazio."
+    - tutor: "Quattro ore è la versione breve, credimi. E la cosa più strana, durante quei pranzi?"
+    - learner: "Che si parlasse di cibo mentre si mangiava! Mia suocera discuteva della ricetta della cena con più passione che un politico in campagna elettorale."
+      errors: [comparative]
+      gold: {text: "con più passione che un politico", fix: "con più passione di un politico"}
+    # agree: content
+    - tutor: "Questa scena la conosco benissimo, a casa mia è uguale. Però guarda «con più passione che un politico»: qui confronti tua suocera con un politico, due persone. Che cosa introduce il secondo termine?"
+      goals: [culture-shock]
+      prompt: {text: "con più passione che un politico", tags: [comparative]}
+    - learner: "Con più passione di un politico, appunto. Ma non è tutto poesia: c'è anche qualcosa che critico, se posso."
+    - tutor: "Così va benissimo. Certo che puoi, qui si dice tutto. Che cosa ti fa arrabbiare?"
+    - learner: "Il precariato nella scuola. Conosco colleghe bravissime, che il contratto scade ogni giugno, e che a settembre non sanno ancora in quale scuola andranno a insegnare."
+      errors: [relative-pronoun]
+      gold: {text: "che il contratto", fix: "il cui contratto"}
+    # agree: content
+    - tutor: "Hai ragione, è una piaga vera, e se ne parla troppo poco. Ma riprendi «colleghe bravissime, che il contratto scade»: il contratto è loro. Quale relativo esprime il possesso, e con che cosa si accorda il suo articolo?"
+      goals: [critique]
+      prompt: {text: "che il contratto", tags: [relative-pronoun]}
+    - learner: "Colleghe bravissime, le cui contratto scade ogni giugno."
+      errors: [relative-pronoun]
+    - tutor: "Colleghe il cui contratto scade ogni giugno, insomma: una vita sempre in sospeso. Ultima domanda: che consiglio daresti a chi sta pensando di trasferirsi?"
+      recast: {text: "le cui contratto", fix: "il cui contratto", tags: [relative-pronoun]}
+    # decoy: «più tempo del previsto» is correct
+    - learner: "Di non aspettarsi che le cose funzionino come a casa sua, e di avere pazienza: qui tutto richiede più tempo del previsto, ma alla fine si risolve."
+    - tutor: "Più tempo del previsto, ma alla fine si risolve: mi sembra il motto perfetto per chiudere. Grazie di essere stata con noi!"
+      goals: [advice]
+
+- scenario: mediazione-colleghi
+  # facts: ieri, alla riunione con il direttore, Davide ha presentato come sua l'analisi dei dati dei clienti; il collega (tutor) ci ha lavorato tre settimane e ha fatto le tabelle; Davide ha detto «abbiamo» una volta all'inizio, poi solo «io» per venti minuti; le conclusioni le ha scritte Davide; Davide era sotto forte pressione del direttore; soluzione: incontro a tre domani alle dieci ed email al direttore firmata da tutti e due; d'ora in poi i nomi di chi ha lavorato su ogni presentazione
+  level: C1
+  persona: en-m-heritage
+  history: [relative-pronoun, comparative]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Non si preoccupi, ha fatto bene a venire. Si sieda pure, e mi racconti con calma che cosa è successo, dal suo punto di vista."
+    - tutor: "Ieri Davide ha presentato al direttore l'analisi dei clienti come se fosse tutta sua. Io ci ho lavorato tre settimane, e le tabelle le ho fatte io."
+    - learner: "Capisco perfettamente quanto possa essere frustrante. Quell'analisi è un lavoro su che lei ha passato intere serate, lo so bene, perché l'ho vista in ufficio fino a tardi."
+      errors: [relative-pronoun]
+      gold: {text: "un lavoro su che", fix: "un lavoro su cui"}
+    # agree: content
+    - tutor: "Ecco, almeno lei se n'è accorto. Ma, se mi permette, «un lavoro su che lei ha passato intere serate»: dopo «su», il relativo non può essere «che». Quale va?"
+      goals: [listen]
+      prompt: {text: "un lavoro su che", tags: [relative-pronoun]}
+    - learner: "Un lavoro su cui ha passato intere serate, appunto. Mi aiuti a capire una cosa: durante la riunione Davide ha mai nominato il suo contributo, anche solo di sfuggita?"
+    - tutor: "Ecco, così. Una volta ha detto «abbiamo», all'inizio. Poi solo «io», per venti minuti."
+      goals: [clarify]
+    # decoy: «di cui si è occupato lui» is correct
+    - learner: "Quindi il suo nome, in qualche modo, è uscito. Le chiedo anche questo: la parte finale, di cui si è occupato lui, era già pronta quando gli ha passato le tabelle?"
+    - tutor: "No, le conclusioni le ha scritte lui dopo. Ma senza le mie tabelle non avrebbe avuto niente da concludere."
+    - learner: "Su questo non si discute. Provo però a vedere anche il suo lato: in queste settimane Davide è stato sotto più pressione che chiunque altro, perché il direttore gli chiedeva risultati ogni giorno."
+      errors: [comparative]
+      gold: {text: "più pressione che chiunque altro", fix: "più pressione di chiunque altro"}
+    # agree: content
+    - tutor: "Che fosse sotto pressione lo so, non lo nego. Ma «più pressione che chiunque altro»: qui confronta Davide con «chiunque altro», un pronome. Quale preposizione lo introduce?"
+      goals: [perspective]
+      prompt: {text: "più pressione che chiunque altro", tags: [comparative]}
+    - learner: "Più pressione di chiunque altro. Questo non lo giustifica, naturalmente, ma forse spiega perché ha parlato in quel modo."
+    - tutor: "Va bene, ammettiamo pure che non l'abbia fatto apposta. E adesso che cosa propone?"
+    - learner: "Propongo un incontro a tre domani alle dieci, e poi un'email al direttore firmata da tutti e due, nel quale si spieghi con chiarezza chi ha fatto che cosa."
+      errors: [relative-pronoun]
+      gold: {text: "nel quale si spieghi", fix: "nella quale si spieghi"}
+    - tutor: "Un'email firmata da tutti e due mi andrebbe bene. Però guardi «nel quale si spieghi»: a che cosa si riferisce il relativo, e di che genere è?"
+      prompt: {text: "nel quale si spieghi", tags: [relative-pronoun]}
+    # decoy: headless «chi ci ha lavorato» is correct
+    - learner: "Si riferisce all'email, che è femminile: nella quale si spieghi chi ha fatto che cosa. E d'ora in poi ogni presentazione riporterà i nomi di chi ci ha lavorato."
+    - tutor: "Così sì. Domani alle dieci, allora: speriamo che Davide sia della stessa idea."
+      goals: [solution]
+
+- scenario: notizie-attualita
+  # facts: secondo i giornali, nei centri storici delle grandi città gli appartamenti si potranno affittare ai turisti al massimo centoventi notti all'anno; nel quartiere della learner più case per turisti che per residenti, un bilocale costa più di uno stipendio; un quotidiano economico è più duro del giornale locale, che applaude; il collega ha letto anche il giornale locale; previsione della learner: affitti lunghi e prezzi in calo; obiezione del collega: case vuote d'inverno
+  level: C1
+  persona: en-f-student
+  history: [comparative]
+  turns:
+    - tutor: "Hai visto la storia degli affitti brevi? Stamattina non si parlava d'altro. Tu che idea ti sei fatta?"
+    - learner: "Sì, ho letto tutto ieri sera. In sostanza, nei centri storici delle grandi città gli appartamenti si potranno affittare ai turisti al massimo per centoventi notti all'anno."
+    - tutor: "Sì, anche nei giornali che ho letto io si parla di centoventi notti. E tu che ne pensi? Io resto scettico."
+      goals: [summarise]
+    # decoy: «più case per turisti che per residenti», two prepositional phrases, rightly takes «che»
+    - learner: "Secondo me è un passo nella direzione giusta. Nel mio quartiere ormai ci sono più case per turisti che per residenti, e un bilocale costa più che uno stipendio intero."
+      errors: [comparative]
+      gold: {text: "più che uno stipendio intero", fix: "più di uno stipendio intero"}
+    # agree: content
+    - tutor: "Che i residenti stiano scappando è vero, lo vedo anch'io. Ma «più che uno stipendio intero»: il secondo termine è un nome, «uno stipendio». Quale preposizione lo introduce?"
+      prompt: {text: "più che uno stipendio intero", tags: [comparative]}
+    - learner: "Un bilocale costa più di uno stipendio intero, appunto. Detto questo, centoventi notti mi sembrano poche per chi affitta l'unica casa che ha."
+    - tutor: "Ecco, ed è proprio il punto su cui i giornali non sono d'accordo. Tu che cosa hai letto?"
+      goals: [opinion]
+    - learner: "Il quotidiano economico che leggo io era molto più duro che quello locale: parlava addirittura di un attacco alla proprietà privata."
+      errors: [comparative]
+      gold: {text: "più duro che quello locale", fix: "più duro di quello locale"}
+    - tutor: "Il giornale locale l'ho letto anch'io, e applaudiva. Però «più duro che quello locale»: «quello» è un pronome. Che cosa lo introduce, in un paragone?"
+      prompt: {text: "più duro che quello locale", tags: [comparative]}
+    - learner: "Era molto più duro che il giornale locale, intendo."
+      errors: [comparative]
+    - tutor: "Più duro del giornale locale, quindi: ognuno scrive per i suoi lettori. E secondo te, adesso, che cosa succederà?"
+      goals: [sources]
+      recast: {text: "più duro che il giornale locale", fix: "più duro del giornale locale", tags: [comparative]}
+    # decoy: «il che» and «meno di quanto sperano» are correct
+    - learner: "Credo che molti proprietari torneranno agli affitti lunghi, il che farebbe scendere i prezzi, anche se forse meno di quanto sperano i residenti."
+    - tutor: "Oppure gli appartamenti resteranno vuoti tutto l'inverno, e ci avremo guadagnato poco. Non ti viene il dubbio?"
+    # decoy: «in cui» and «più giusto che restare», two infinitives, are correct
+    - learner: "È un rischio, certo. Ma per una città in cui ormai i giovani non possono più vivere, provare era più giusto che restare a guardare."
+    - tutor: "Su questo, lo ammetto, mi hai quasi convinto. Ne riparliamo fra un anno, con i numeri in mano."
+      goals: [consequences]
+
+- scenario: presentazione-progetto
+  # facts: proposta: piattaforma online per gli ordini dei negozi clienti, che oggi ordinano per telefono o email; più di quarantamila ordini all'anno gestiti a mano, circa il tre per cento con errori; due colleghe al telefono potrebbero seguire i clienti grandi; costo centottantamila euro, rientro in due anni; a gennaio i fornitori aumentano i prezzi; dubbio del direttore: negozi piccoli gestiti da anziani; fase pilota con venti negozi per tre mesi da febbraio; piano della fase pilota entro il dieci del mese prossimo, il direttore lo porta al comitato
+  level: C1
+  persona: en-f-professional
+  history: [comparative, relative-pronoun]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Grazie del tempo. In breve: proponiamo una piattaforma online per gli ordini dei nostri negozi clienti, che oggi ordinano ancora quasi tutto per telefono o via email."
+    - tutor: "Questo lo so. E che cosa ci guadagniamo, in concreto?"
+      goals: [pitch]
+    - learner: "Ogni anno gestiamo a mano più che quarantamila ordini, e circa il tre per cento contiene un errore: con la piattaforma, gli errori scenderebbero quasi a zero."
+      errors: [comparative]
+      gold: {text: "più che quarantamila ordini", fix: "più di quarantamila ordini"}
+    - tutor: "Il tre per cento non è poco, lo riconosco. Ma «più che quarantamila ordini»: davanti a un numero, quale preposizione introduce il secondo termine del confronto?"
+      prompt: {text: "più che quarantamila ordini", tags: [comparative]}
+    - learner: "Più di quarantamila ordini, sì. E due colleghe che oggi passano la giornata al telefono potrebbero occuparsi dei clienti più grandi."
+    - tutor: "Sì, così. E il costo?"
+      goals: [benefits]
+    # decoy: «il che» is correct
+    - learner: "Il costo è di centottantamila euro, ma l'investimento rientra in due anni, il che è anche la ragione principale che le chiedo di approvarlo adesso."
+      errors: [relative-pronoun]
+      gold: {text: "la ragione principale che", fix: "la ragione principale per cui"}
+    - tutor: "Due anni è un orizzonte accettabile, se i conti tornano. Però riprenda «la ragione principale che le chiedo di approvarlo»: lei me lo chiede a causa di quella ragione. Quale preposizione ci vuole davanti al relativo?"
+      prompt: {text: "la ragione principale che", tags: [relative-pronoun]}
+    - learner: "La ragione principale per cui le chiedo di approvarlo adesso, sì: a gennaio i fornitori aumentano i prezzi."
+    - tutor: "Capisco. Ma il mio dubbio è un altro: molti nostri clienti sono negozi piccoli, gestiti da persone anziane. E se la piattaforma non la usasse nessuno?"
+    # decoy: «con i quali» is correct
+    - learner: "È un rischio reale, per questo propongo una fase pilota con venti negozi per tre mesi. I clienti con i quali lavoriamo da più tempo sono spesso più aperti che noi pensiamo."
+      errors: [comparative]
+      gold: {text: "più aperti che noi pensiamo", fix: "più aperti di quanto pensiamo"}
+    # agree: content
+    - tutor: "Una fase pilota mi rassicura, lo ammetto. Ma «più aperti che noi pensiamo»: quando il secondo termine è una frase con un verbo, come si introduce?"
+      goals: [objection]
+      prompt: {text: "più aperti che noi pensiamo", tags: [comparative]}
+    - learner: "Più aperti di quanto pensiamo, ecco. Quindi le propongo di partire con i venti negozi a febbraio."
+    - tutor: "Esatto, così. Va bene: mi prepari il piano della fase pilota entro il dieci del mese prossimo, e lo porto io al comitato."
+    - learner: "Perfetto, entro il dieci avrà il piano completo, con i costi della fase pilota separati da quelli del progetto intero."
+    - tutor: "Bene. Allora ci rivediamo il dieci."
+      goals: [next-steps]
+
+- scenario: trattativa-fornitore
+  # facts: aumento del listino del quindici per cento; le materie prime sono salite del venti per cento; cliente da otto anni, più di duecentomila vaschette all'anno, pagamenti sempre puntuali; un concorrente ha offerto un prezzo più basso del listino attuale; controfferta del learner sette per cento; proposta del fornitore nove per cento con contratto di due anni e pagamento a trenta giorni; accordo: otto per cento, contratto di due anni, pagamento a trenta giorni; offerta scritta entro venerdì con le quantità minime
+  level: C1
+  persona: es-m-worker
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    # decoy: «più che mai difficile» is a correct fixed expression
+    - learner: "Buongiorno. Sì, la chiamo per il listino. Capisco che i costi siano saliti, ma un aumento del quindici per cento, per un'azienda piccola come la nostra, è più che mai difficile da sostenere."
+    - tutor: "La capisco, ma quest'anno le materie prime sono aumentate del venti per cento. Che cosa mi propone?"
+      goals: [problem]
+    - learner: "Prima di proporle una cifra, le ricordo che lavoriamo con voi da otto anni e che ordiniamo più che duecentomila vaschette all'anno, sempre pagate in tempo."
+      errors: [comparative]
+      gold: {text: "più che duecentomila vaschette", fix: "più di duecentomila vaschette"}
+    # agree: content
+    - tutor: "È vero, siete tra i clienti più puntuali che abbiamo, su questo nessun dubbio. Però «più che duecentomila vaschette»: davanti a un numero, quale preposizione introduce il confronto?"
+      prompt: {text: "più che duecentomila vaschette", tags: [comparative]}
+    # decoy: «più basso del vostro listino» is correct
+    - learner: "Più di duecentomila vaschette, sì. E sinceramente, un vostro concorrente ci ha già offerto un prezzo più basso del vostro listino attuale."
+    - tutor: "Non ne dubito. Ma la qualità non è la stessa, e lo sa anche lei. Allora, che cifra ha in mente?"
+      goals: [argue]
+    - learner: "Lo so, per questo preferirei restare con voi. Potremmo accettare un aumento del sette per cento, che per noi è già molto più che quello che avevamo messo in bilancio."
+      errors: [comparative]
+      gold: {text: "molto più che quello", fix: "molto più di quello"}
+    - tutor: "Il sette per noi è troppo poco. Ma prima riprenda «molto più che quello che avevamo messo in bilancio»: «quello» è un pronome. Quale preposizione gli va davanti?"
+      goals: [counteroffer]
+      prompt: {text: "molto più che quello", tags: [comparative]}
+    - learner: "Molto più che quanto avevamo messo in bilancio, scusi."
+      errors: [comparative]
+    - tutor: "Se è più di quanto avevate messo in bilancio, cerchiamo una via di mezzo: il nove per cento, con un contratto di due anni e pagamento a trenta giorni."
+      recast: {text: "più che quanto", fix: "più di quanto", tags: [comparative]}
+    - learner: "Il nove è ancora alto. Arriviamo all'otto, con le stesse condizioni, e firmiamo il contratto di due anni questa settimana."
+    - tutor: "D'accordo: otto per cento, contratto di due anni e pagamento a trenta giorni. Le mando l'offerta scritta entro venerdì."
+    # decoy: «di cui abbiamo parlato» is correct
+    - learner: "Perfetto. Nell'offerta, per favore, indichi anche le quantità minime di cui abbiamo parlato, così evitiamo malintesi."
+    - tutor: "Certo, le metto nero su bianco. È stato un piacere trattare con lei, come sempre."
+      goals: [agreement]
+
+- scenario: modi-di-dire
+  # facts: stamattina la sveglia del telefono non ha suonato; colloquio di lavoro alle nove dall'altra parte della città; la prima persona in stazione l'ha mandato al binario sbagliato; ombrello lasciato sul treno; arrivato bagnato fradicio, con quaranta minuti di ritardo, il colloquio è durato venti minuti; la sveglia l'aveva puntata lui sul telefono con la batteria scarica; morale: comprare una sveglia vera
+  level: C1
+  persona: en-m-traveller
+  history: [relative-pronoun, comparative]
+  turns:
+    - tutor: "Hai una faccia... Dai, siediti e racconta. Cos'è successo stavolta?"
+    - learner: "Lascia stare, una giornata da dimenticare. Stamattina la sveglia non ha suonato, e alle nove avevo un colloquio di lavoro dall'altra parte della città."
+    - tutor: "Iniziamo bene! E poi?"
+    - learner: "Sono corso alla stazione, e la prima persona a chi ho chiesto informazioni mi ha mandato al binario sbagliato, con una sicurezza incredibile."
+      errors: [relative-pronoun]
+      gold: {text: "la prima persona a chi", fix: "la prima persona a cui"}
+    - tutor: "Classico: piove sul bagnato! Ma «la prima persona a chi ho chiesto informazioni»: dopo «a», con un nome come «persona», quale relativo ci vuole?"
+      prompt: {text: "la prima persona a chi", tags: [relative-pronoun]}
+    - learner: "La prima persona a cui ho chiesto informazioni, sì. «Piove sul bagnato» è perfetto: noi in inglese diciamo che quando piove, diluvia."
+    - tutor: "Ecco, così. E il colloquio? Almeno sei arrivato in tempo?"
+      goals: [react]
+    - learner: "Macché. Sono arrivato bagnato fradicio, perché avevo lasciato l'ombrello sul treno, e con un ritardo più lungo che il colloquio stesso!"
+      errors: [comparative]
+      gold: {text: "più lungo che il colloquio stesso", fix: "più lungo del colloquio stesso"}
+    # agree: content
+    - tutor: "Dalla padella nella brace, insomma! Però «più lungo che il colloquio stesso»: confronti il ritardo con un nome, «il colloquio». Quale preposizione, con l'articolo, ci va davanti?"
+      goals: [tell]
+      prompt: {text: "più lungo che il colloquio stesso", tags: [comparative]}
+    - learner: "Più lungo del colloquio stesso, sì: il colloquio è durato venti minuti, il ritardo quaranta. Comunque la colpa è un po' mia e un po' dei treni."
+    - tutor: "Un colpo al cerchio e uno alla botte! Perché un po' tua?"
+    - learner: "Perché la sveglia l'avevo puntata io, e sul telefono, il cui batteria era quasi scarica. Quindi i treni hanno colpa solo a metà."
+      errors: [relative-pronoun]
+      gold: {text: "il cui batteria", fix: "la cui batteria"}
+    - tutor: "Allora la colpa è un po' tua davvero. Ma guarda «il telefono, il cui batteria»: l'articolo davanti a «cui» si accorda con il possessore o con la cosa posseduta?"
+      goals: [blame]
+      prompt: {text: "il cui batteria", tags: [relative-pronoun]}
+    # decoy: headless «chi dorme» in the proverb is correct
+    - learner: "Con la cosa posseduta: il telefono, la cui batteria era scarica. Morale: la prossima volta compro una sveglia vera, perché chi dorme non piglia pesci!"
+    - tutor: "Ben detto! E chissà, magari ti richiamano lo stesso: tutto è bene quel che finisce bene."
+      goals: [moral]
+
+- scenario: club-lettura
+  # facts: il tutor ha letto il romanzo in tre sere, la learner in tre settimane; per la learner la seconda metà è più lenta; per il tutor lì il romanzo decolla; Ada, la madre, decide di restare in campagna dopo la guerra; ha promesso la terra del nonno al figlio Tommaso, per il quale la città è la libertà; stile ricco di aggettivi; consigliato a chi ama le storie di famiglia; la sorella della learner legge più gialli che romanzi; il prossimo libro si decide a fine serata
+  level: C1
+  persona: es-f-erasmus
+  history: [relative-pronoun, comparative]
+  turns:
+    - tutor: "Allora, ce l'hai fatta a finirlo? Io l'ho letto in tre sere, ma so che non è piaciuto a tutti."
+    # decoy: «più lenta della prima» is correct
+    - learner: "Sì, ce l'ho fatta, anche se mi ci sono volute tre settimane, non tre sere! Nel complesso mi è piaciuto, ma la seconda metà mi è sembrata più lenta della prima."
+    - tutor: "Più lenta? Per me è lì che il romanzo decolla. Qual è il personaggio che ti ha colpita di più?"
+      goals: [impression]
+    # decoy: «il momento in cui» is correct
+    - learner: "Ada, la madre. Il momento in cui decide di restare in campagna dopo la guerra è quello che ho capito meglio, ed è il motivo che la considero il vero centro del libro."
+      errors: [relative-pronoun]
+      gold: {text: "il motivo che la considero", fix: "il motivo per cui la considero"}
+    - tutor: "Anche per me Ada è il cuore della storia. Però riprendi «il motivo che la considero il vero centro»: la consideri così a causa di quel motivo. Quale preposizione serve davanti al relativo?"
+      prompt: {text: "il motivo che la considero", tags: [relative-pronoun]}
+    # decoy: «a cui ha promesso» is correct
+    - learner: "Il motivo per cui la considero il centro, sì. Resta perché sa che il figlio, a cui ha promesso la terra del nonno, altrimenti se ne andrebbe subito in città."
+    - tutor: "Così. E secondo te fa bene a tenerlo legato alla terra?"
+      goals: [character]
+    # decoy: «per il quale» agrees correctly with «ragazzo»
+    - learner: "Non del tutto. Tommaso è un ragazzo per il quale la città rappresenta la libertà, e le promesse della madre, nei quali lui non crede, finiscono per soffocarlo."
+      errors: [relative-pronoun]
+      gold: {text: "nei quali", fix: "nelle quali"}
+    # agree: content
+    - tutor: "Su Tommaso hai ragione, quelle promesse sono una gabbia. Ma «le promesse della madre, nei quali lui non crede»: il relativo si riferisce a «promesse». Che forma deve avere?"
+      prompt: {text: "nei quali", tags: [relative-pronoun]}
+    - learner: "Nelle quali lui non crede, certo. E lo stile? A me è sembrato bello, ma a volte un po' troppo pieno di aggettivi."
+    - tutor: "Esatto. Pieno di aggettivi, sì, ma per me è una scrittura generosa, non pesante. A chi lo consiglieresti?"
+      goals: [style]
+    # decoy: «più gialli che romanzi», two nouns, rightly takes «che»
+    - learner: "A chi ama le storie di famiglia e ha pazienza. Lo sconsiglierei invece a mia sorella, che legge più gialli che romanzi ed è molto meno paziente che il resto della famiglia."
+      errors: [comparative]
+      gold: {text: "meno paziente che il resto", fix: "meno paziente del resto"}
+    - tutor: "Allora a tua sorella non lo regalo! Ma «meno paziente che il resto della famiglia»: il secondo termine è un nome, «il resto». Quale preposizione, con l'articolo, gli va davanti?"
+      goals: [recommend]
+      prompt: {text: "meno paziente che il resto", tags: [comparative]}
+    - learner: "Meno paziente che tutto il resto della famiglia, volevo dire."
+      errors: [comparative]
+    - tutor: "Se è meno paziente di tutto il resto della famiglia, per lei meglio un giallo breve. E il prossimo mese, che cosa proporresti di leggere?"
+      recast: {text: "meno paziente che tutto il resto", fix: "meno paziente di tutto il resto", tags: [comparative]}
+    - learner: "Qualcosa di più leggero, magari un romanzo breve. Dopo seicento pagine di guerra e di terra, abbiamo tutti bisogno di respirare."
+    - tutor: "Lo decidiamo tutti insieme a fine serata. Intanto grazie: la tua lettura di Ada mi ha fatto venire voglia di riaprire il libro."
+
+- scenario: turismo-di-massa
+  # facts: il learner è nipote di due veneziani e vive a Venezia da cinque anni; contrario al ticket; in agosto sul vaporetto che prende per il lavoro spesso più di duecento turisti, residenti a terra; proposta: numero chiuso con prenotazione gratuita obbligatoria nei giorni di punta, tassa sulle grandi navi, corsie riservate ai residenti sui vaporetti
+  level: C1
+  persona: en-m-heritage
+  history: [comparative, relative-pronoun]
+  turns:
+    - tutor: "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore del ticket d'ingresso o contro?"
+    # decoy: headless «chi paga» is correct
+    - learner: "Buongiorno. Sono nipote di due veneziani e vivo a Venezia da cinque anni. Sono contrario al ticket: chi paga cinque euro non si sente un ospite, si sente un cliente."
+    - tutor: "Una bella frase, ma i soldi servono. Se non il ticket, allora che cosa?"
+      goals: [introduce]
+    - learner: "Lo spiego con un esempio. In agosto, sul vaporetto che prendo per andare al lavoro, ci sono spesso più che duecento turisti, e noi residenti restiamo a terra."
+      errors: [comparative]
+      gold: {text: "più che duecento turisti", fix: "più di duecento turisti"}
+    # agree: content
+    - tutor: "I residenti lasciati a terra sono un'immagine che i nostri ascoltatori conoscono bene. Ma «più che duecento turisti»: davanti a un numero, come si introduce il confronto?"
+      goals: [example]
+      prompt: {text: "più che duecento turisti", tags: [comparative]}
+    - learner: "Più di duecento turisti, appunto. Per questo propongo un numero chiuso, con una prenotazione gratuita."
+    - tutor: "Così va bene. Ma faccio l'avvocato del diavolo: il numero chiuso non trasforma Venezia in un museo con i tornelli, ancora più di un ticket?"
+    # decoy: «in cui quasi nessuno vive» is correct
+    - learner: "Venezia è già un museo, purtroppo: è una città di chi tutti parlano, ma in cui quasi nessuno vive più."
+      errors: [relative-pronoun]
+      gold: {text: "una città di chi", fix: "una città di cui"}
+    - tutor: "Un'immagine forte. Però «una città di chi tutti parlano»: si parla della città, che è una cosa. Quale relativo va dopo «di»?"
+      prompt: {text: "una città di chi", tags: [relative-pronoun]}
+    - learner: "Una città di che tutti parlano, volevo dire."
+      errors: [relative-pronoun]
+    - tutor: "Una città di cui tutti parlano e in cui pochi vivono: il paradosso è tutto qui. E dunque, la sua proposta concreta?"
+      goals: [rebut]
+      recast: {text: "di che", fix: "di cui", tags: [relative-pronoun]}
+    # decoy: «meglio pochi turisti contenti che troppi turisti scontenti» rightly takes «che»
+    - learner: "Prenotazione gratuita obbligatoria nei giorni di punta, una tassa sulle grandi navi e corsie riservate ai residenti sui vaporetti: meglio pochi turisti contenti che troppi turisti scontenti."
+    - tutor: "Tre misure precise, gliene do atto. Grazie per la telefonata, e buona giornata a Venezia!"
+      goals: [proposal]

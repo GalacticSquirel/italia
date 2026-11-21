@@ -1,0 +1,299 @@
+# Set r-multi-target, file 2 (B2): renting flats and negotiating rent, two cardiology visits,
+# two registry-office errands and a radio interview about studying abroad. The trivial slip
+# (gender, article, spelling) comes first; the target (ci/ne, relatives, auxiliaries,
+# hypotheticals, combined pronouns, register...) comes later and is the only one corrected.
+- scenario: affittare-appartamento
+  # facts: bilocale arredato con piatti e pentole; affitto seicentocinquanta euro più settanta di spese, riscaldamento compreso nelle spese, settecentoventi in tutto; contratto per studenti di dieci mesi, da settembre a giugno; caparra di due mesi di affitto; cortile chiuso per la bicicletta; frigorifero vecchio ma funziona, lavatrice nuova; quartiere tranquillo, supermercato aperto fino alle nove; l'autobus venti ferma davanti al portone e va all'università; la learner manda i documenti domani, risposta entro venerdì
+  level: B2
+  persona: es-f-erasmus
+  history: [ci-ne, false-friend, relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno, grazie. È molto luminoso, e mi piace che sia già arredato: arrivo dalla Spagna con due valigie e nient'altro."
+    - tutor: "È tutto arredato, ci sono anche i piatti e le pentole. Vuole sapere qualcosa sull'affitto?"
+    - learner: "Sì. Nell'annuncio la prezzo era seicentocinquanta euro: le spese sono comprese o devo pagarle a parte? Ne ho bisogno di saperlo per i miei conti."
+      errors: [noun-gender, ci-ne]
+      gold: {text: "Ne ho bisogno di saperlo", fix: "Ho bisogno di saperlo"}
+    - tutor: "Le spese sono a parte: settanta euro al mese, con il riscaldamento compreso. Però ripeta «ne ho bisogno di saperlo»: «ne» e «di saperlo» dicono la stessa cosa, servono tutti e due?"
+      prompt: {text: "Ne ho bisogno di saperlo", tags: [ci-ne]}
+      goals: [rent]
+    - learner: "No, basta uno: ho bisogno di saperlo. Quindi in tutto sono settecentoventi euro."
+    - tutor: "Esatto, settecentoventi in tutto. Per quanto tempo pensa di restare?"
+    - learner: "Dieci mesi, da settembre a giugno: faccio un anno di scambio all'università. È possibile fare un contratto per studenti?"
+    - tutor: "Sì, faccio contratti per studenti proprio di dieci mesi. La caparra è di due mesi di affitto."
+      goals: [contract]
+    - learner: "Va bene. Il frigorifero e la lavatrice mi sembrano a posto, ma vorrei sapere se c'è un posto dove guardare la bicicletta di notte."
+      errors: [false-friend]
+      gold: {text: "guardare la bicicletta", fix: "tenere la bicicletta"}
+    - tutor: "Per tenere la bicicletta di notte c'è un cortile chiuso, qui sotto. Il frigorifero è vecchio ma funziona bene, e la lavatrice è nuova."
+      recast: {text: "guardare la bicicletta", fix: "tenere la bicicletta", tags: [false-friend]}
+      goals: [condition]
+    - learner: "Perfetto. Com'è il quartiere? Ho visto un supermercato all'angolo, e un'autobus, il quale numero non ricordo, che va all'università."
+      errors: [article-form, relative-pronoun]
+      gold: {text: "il quale numero", fix: "il cui numero"}
+    - tutor: "Il quartiere è tranquillo, e il supermercato è aperto fino alle nove. Ma ripeta «il quale numero non ricordo»: il numero è dell'autobus, quindi quale forma usiamo per dire di chi è?"
+      prompt: {text: "il quale numero", tags: [relative-pronoun]}
+    - learner: "Il cui: l'autobus il cui numero non ricordo."
+    - tutor: "Giusto. È il venti, e ferma proprio davanti al portone. Allora, l'appartamento le interessa?"
+      goals: [neighbourhood]
+    - learner: "Sì, mi interessa molto. Posso mandarle domani i documenti per email? Così ci pensa con calma e mi dice se va bene."
+    - tutor: "Certo, me li mandi pure domani: le rispondo entro venerdì."
+      goals: [decide]
+
+- scenario: trattativa-affitto
+  # facts: trilocale a Torino con cucina grande e terrazzo; finestre della camera vecchie, strada rumorosa la mattina; canone millecento euro; il proprietario cambia le finestre della camera e chiede mille euro al mese; contratto quattro più quattro; preavviso di sei mesi con lettera raccomandata; garanzia della banca pronta questa settimana, mandata per email; provvigione dell'agenzia: un mese di canone; firma lunedì alle quattro in agenzia
+  level: B2
+  persona: en-m-heritage
+  history: [hypothetical, combined-pronouns]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Molto, soprattutto la cucina e il terrazzo. Però le finestre della camera sono vecchie, e dalla strada si sente parecchio rumore, anche con le finestre chiuse."
+    - tutor: "È vero, la mattina sulla strada c'è un po' di traffico. Il canone è di 1.100 euro: che ne pensa?"
+      goals: [interest]
+    # agree: the tutor finds the request reasonable and corrects the hypothetical
+    - learner: "Mi sembra un po' alto, per un'appartamento con quelle finestre. Se il proprietario le cambierebbe, potrei accettare il prezzo; altrimenti chiedo uno sconto."
+      errors: [article-form, hypothetical]
+      gold: {text: "Se il proprietario le cambierebbe", fix: "Se il proprietario le cambiasse"}
+    - tutor: "La sua richiesta è ragionevole, e la riferisco al proprietario. Ma ripeta «se il proprietario le cambierebbe»: dopo «se», il condizionale va bene?"
+      prompt: {text: "Se il proprietario le cambierebbe", tags: [hypothetical]}
+    - learner: "Se il proprietario le cambia... no, le cambiava, potrei accettare."
+      errors: [hypothetical]
+    - tutor: "Se il proprietario le cambiasse, lei accetterebbe il prezzo pieno: chiaro, glielo scrivo subito. Intanto, le va bene un contratto quattro più quattro?"
+      recast: {text: "le cambiava", fix: "le cambiasse", tags: [hypothetical]}
+      goals: [negotiate]
+    - learner: "Quattro più quattro va bene, ho un lavoro stabile qui a Torino. Quanti mesi di preavviso servono, se un giorno dovessi andarmene?"
+    - tutor: "Sei mesi, con una lettera raccomandata. E il proprietario mi ha appena risposto: cambia le finestre della camera e chiede mille euro al mese."
+      goals: [conditions]
+    - learner: "Mille euro mi sembra un cifra giusta. Per la garanzia, la banca prepara il documento questa settimana: appena me lo dà, le lo mando per email."
+      errors: [noun-gender, combined-pronouns]
+      gold: {text: "le lo mando", fix: "glielo mando"}
+    - tutor: "Per il proprietario mille euro vanno bene. Ma ripeta «le lo mando»: quando «le» incontra «lo», i due pronomi restano così?"
+      prompt: {text: "le lo mando", tags: [combined-pronouns]}
+    - learner: "No, si uniscono: glielo mando per email."
+    - tutor: "Esatto. Le ricordo solo che la provvigione dell'agenzia è di un mese di canone. Fissiamo la firma per lunedì?"
+    - learner: "Lunedì va benissimo, nel pomeriggio se possibile. Allora siamo d'accordo: mille euro, quattro più quattro e le finestre della camera nuove."
+    - tutor: "Siamo d'accordo. Lunedì alle quattro, qui in agenzia."
+      goals: [conclude]
+
+- scenario: medico-specialista
+  # facts: si stanca salendo le scale; tre settimane fa un giramento di testa mentre faceva la spesa, durato pochi minuti, poi è tornato a casa a piedi; il padre ha avuto un infarto a sessantacinque anni, lo zio aveva la pressione alta; esami: battito regolare, pressione centocinquanta su novanta; terapia: una compressa dopo colazione; i primi giorni un po' di stanchezza; se la dimentica non ne prende due; controllo tra due mesi
+  level: B2
+  persona: en-m-retired
+  history: [tense-aspect, subjunctive-use, register]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Non molto bene. Mi stanco subito quando salgo le scalle, e tre settimane fa, mentre facevo la spesa, avevo un forte giramento di testa e mi sono dovuto sedere."
+      errors: [spelling, tense-aspect]
+      gold: {text: "avevo un forte giramento di testa", fix: "ho avuto un forte giramento di testa"}
+    - tutor: "Questo è importante, ha fatto bene a dirmelo. Ma ripeta «avevo un forte giramento di testa»: è successo una volta, in un momento preciso. Quale passato usiamo?"
+      prompt: {text: "avevo un forte giramento di testa", tags: [tense-aspect]}
+    - learner: "Il passato prossimo: ho avuto un forte giramento di testa, e mi sono seduto su una sedia del negozio."
+    - tutor: "Giusto. È durato molto?"
+    - learner: "Pochi minuti. Poi sono tornato a casa a piedi, piano piano, e il giorno dopo stavo di nuovo bene."
+    - tutor: "Capisco. In famiglia qualcuno ha avuto problemi di cuore?"
+      goals: [symptoms]
+    - learner: "Sì, mio padre ha avuto un infarto a sessantacinque anni, e anche suo fratello soffriva di pressione alta."
+    - tutor: "Questo conta, sì. Vuole sapere che cosa dicono gli esami?"
+      goals: [history]
+    - learner: "Sì, per favore. Ho letto i risultati della analisi del sangue, ma non ho capito quasi niente: spero che non è niente di grave."
+      errors: [article-form, subjunctive-use]
+      gold: {text: "spero che non è niente di grave", fix: "spero che non sia niente di grave"}
+    - tutor: "Può stare tranquillo: il battito è regolare, ma la pressione è un po' alta, centocinquanta su novanta. Però ripeta «spero che non è»: dopo «spero che», quale modo ci vuole?"
+      prompt: {text: "spero che non è niente di grave", tags: [subjunctive-use]}
+      goals: [understand]
+    - learner: "Il congiuntivo: spero che non sia niente di grave. E per la pressione, cosa devo fare?"
+    - tutor: "Esatto. Le do una terapia leggera, una compressa al giorno. I primi giorni può sentirsi un po' stanco, ma poi passa."
+    - learner: "Va bene. La devo prendere prima o dopo colazione? E se mi dimentico, cosa mi consigli di fare?"
+      errors: [register]
+      gold: {text: "cosa mi consigli", fix: "cosa mi consiglia"}
+    - tutor: "Dopo colazione, con un po' d'acqua. Ma ripeta «cosa mi consigli»: finora con me ha usato il Lei, vero?"
+      prompt: {text: "cosa mi consigli", tags: [register]}
+    - learner: "Ha ragione, mi scusi: cosa mi consiglia di fare, se mi dimentico?"
+    - tutor: "Se la dimentica, non ne prenda due: continui normalmente il giorno dopo. Ci rivediamo tra due mesi per un controllo."
+      goals: [treatment]
+
+- scenario: burocrazia-residenza
+  # facts: il richiedente si è trasferito in un altro appartamento a Parma, cambio di indirizzo nello stesso comune; modulo compilato; permesso di soggiorno scaduto a gennaio, domanda di rinnovo spedita per posta a febbraio, ha la ricevuta; ricevuta più vecchio permesso bastano; contratto firmato ma non ancora registrato; soluzione: dichiarazione del proprietario con copia del documento; il proprietario abita nello stesso palazzo, al secondo piano; domani mattina allo sportello tre senza nuovo numero; vigili entro quarantacinque giorni, non serve essere a casa, basta il nome sul citofono; conferma per email dopo il controllo
+  level: B2
+  persona: es-m-worker
+  history: [passive, preposition, articulated-preposition]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Mi sono trasferito in un altro appartamento qui a Parma, e vorrei cambiare l'indirizzo della mia residenza."
+    - tutor: "Bene, è un cambio di indirizzo nello stesso comune. Ha compilato il modulo?"
+      goals: [request]
+    - learner: "Sì, eccolo. Però c'è una problema: il mio permesso di soggiorno è scaduto a gennaio, e la domanda di rinnovo è stata spedito per posta solo a febbraio."
+      errors: [noun-gender, passive]
+      gold: {text: "è stata spedito", fix: "è stata spedita"}
+    - tutor: "Non si preoccupi, con la ricevuta della domanda la pratica si può fare lo stesso. Ma ripeta «la domanda di rinnovo è stata spedito»: il soggetto è «la domanda», quindi come finisce «spedito»?"
+      prompt: {text: "è stata spedito", tags: [passive]}
+    - learner: "Al femminile: la domanda è stata spedita a febbraio. Ho qui la ricevuta della posta."
+    - tutor: "Giusto, la ricevuta con il vecchio permesso basta. Ha anche il contratto d'affitto della nuova casa?"
+      goals: [documents]
+    - learner: "Il contratto no, purtroppo. Il proprietario l'ha firmato, ma lo tiene lui finché non viene registrato, e mi ha detto che ci vorrà una settimana."
+    - tutor: "Senza il contratto, può portare una dichiarazione firmata dal proprietario, con la copia di un suo documento. Riesce ad averla?"
+    - learner: "Sì, il proprietario abita nel stesso palazzo, al secondo piano: posso chiederla stasera e portarla qui domani mattina."
+      errors: [articulated-preposition]
+      gold: {text: "nel stesso palazzo", fix: "nello stesso palazzo"}
+    - tutor: "La dichiarazione domani mattina va benissimo. Però ripeta «nel stesso palazzo»: davanti a una parola che comincia per «s» più consonante, che forma prende «in» con l'articolo?"
+      prompt: {text: "nel stesso palazzo", tags: [articulated-preposition]}
+    - learner: "Nello stesso palazzo, al secondo piano."
+    - tutor: "Esatto. Allora domani mattina porti la dichiarazione allo sportello tre, senza prendere un nuovo numero."
+      goals: [problem]
+    - learner: "D'accordo. E dopo, quanto tempo ci vuole? Ho letto in internet che i vigili vengono a controllare a casa, ma io lavoro tutto il giorno: ci deve essere qualcuno?"
+      errors: [preposition]
+      gold: {text: "Ho letto in internet", fix: "Ho letto su internet"}
+    - tutor: "I vigili passano entro quarantacinque giorni, e non serve che lei sia a casa: basta il suo nome sul citofono. Però ripeta «ho letto in internet»: con «internet», quale preposizione usiamo?"
+      prompt: {text: "Ho letto in internet", tags: [preposition]}
+    - learner: "Su internet, giusto. Allora stasera metto il mio nome sul citofono."
+    - tutor: "Perfetto. Dopo il controllo dei vigili le arriva una conferma per email."
+      goals: [next]
+
+- scenario: vita-in-italia
+  # facts: studentessa di Valencia, a Pisa da otto mesi con l'Erasmus; doveva restare un semestre, è rimasta per la laurea magistrale; difficoltà: tre volte allo stesso ufficio per il codice fiscale, la seconda volta ufficio chiuso per sciopero, codice avuto dopo un mese; cambiamenti: più paziente, cena alle otto, primo esame superato con successo; consigli: imparare un po' la lingua, portare il passaporto e le copie dei documenti, avere pazienza
+  level: B2
+  persona: es-f-erasmus
+  history: [tense-aspect, false-friend, subjunctive-use]
+  turns:
+    - tutor: "Benvenuta, e un saluto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche tempo. Perché ha scelto l'Italia?"
+    - learner: "Grazie dell'invito. Sono qui da otto mesi: sono arrivata a Pisa con l'Erasmus. Dovevo restare solo un semestre, ma mi sono innamorata della città e ho deciso di restare per la magistrale."
+    - tutor: "Una bella storia, e non è la prima che sentiamo su Pisa. Che cosa è stato più difficile, all'inizio?"
+      goals: [story]
+    - learner: "Sicuramente la burocrazia. La prima volta che sono andata all'ufficio per il codice fiscale, la impiegata mi ha detto che mancava un documento, e quando sono tornata il giorno dopo, l'ufficio è stato chiuso per sciopero."
+      errors: [article-form, tense-aspect]
+      gold: {text: "l'ufficio è stato chiuso per sciopero", fix: "l'ufficio era chiuso per sciopero"}
+    - tutor: "La burocrazia è un classico, anche per molti ascoltatori italiani. Ma ripeta «l'ufficio è stato chiuso per sciopero»: lei descrive come ha trovato l'ufficio quando è arrivata. Quale passato usiamo per descrivere?"
+      prompt: {text: "l'ufficio è stato chiuso per sciopero", tags: [tense-aspect]}
+    - learner: "L'imperfetto: quando sono tornata, l'ufficio era chiuso per sciopero."
+    - tutor: "Esatto. E alla fine quel codice l'ha avuto?"
+    # decoy: «la radio» is feminine and correct
+    - learner: "Sì, alla terza volta, dopo un mese. Adesso ci rido sopra, e quando mia madre ha saputo che parlavo alla radio, mi ha detto di raccontarlo anche qui."
+    - tutor: "E ha fatto bene. In questi otto mesi, lei come è cambiata?"
+      goals: [difficulties]
+    - learner: "Sono diventata più paziente, e ora ceno alle otto come gli italiani, che per una spagnola è prestissimo! E all'università ho superato il primo esame con molto esito."
+      errors: [false-friend]
+      gold: {text: "con molto esito", fix: "con molto successo"}
+    - tutor: "Superare il primo esame con molto successo, in un'altra lingua, non è poco: brava. Che consiglio darebbe a chi vuole trasferirsi qui?"
+      recast: {text: "con molto esito", fix: "con molto successo", tags: [false-friend]}
+      goals: [change]
+    # agree: the tutor shares the advice and corrects the mood
+    - learner: "Direi di imparare un po' la lingua prima di partire, e di portare sempre con sé il pasaporto e una copia dei documenti. E poi è importante che uno ha molta pazienza, soprattutto i primi mesi."
+      errors: [spelling, subjunctive-use]
+      gold: {text: "è importante che uno ha molta pazienza", fix: "è importante che uno abbia molta pazienza"}
+    - tutor: "Sulla pazienza le do ragione al cento per cento. Ma ripeta «è importante che uno ha»: dopo «è importante che», quale modo usiamo?"
+      prompt: {text: "è importante che uno ha molta pazienza", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: è importante che uno abbia molta pazienza."
+    - tutor: "Un consiglio prezioso per i nostri ascoltatori. Grazie di essere stata con noi, e buona fortuna con gli studi!"
+      goals: [advice]
+
+- scenario: medico-specialista
+  # facts: controllo dopo sei mesi; da un mese, la sera, battito forte e veloce per pochi minuti, soprattutto quando è stanca; tre caffè al giorno; la madre ha un'aritmia da quando aveva cinquant'anni e prende una medicina; il medico di base le ha detto di far vedere gli esami a un cardiologo; esami: battito ogni tanto irregolare, niente di grave; holter di ventiquattro ore martedì prossimo alle nove, può lavorare normalmente; per ora niente medicine, un solo caffè al giorno
+  level: B2
+  persona: es-f-teacher
+  history: [ci-ne, object-pronoun]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Abbastanza bene, ma da circa un mese, la sera, sento il cuore che batte forte e veloce, soprattutto quando sono stanca dopo il lavoro."
+    - tutor: "Capisco. Quanto dura, di solito?"
+    - learner: "Dura pochi minuti, e arriva sopratutto quando sono sul divano, dopo cena. Di caffè prendo tre al giorno: forse è troppo?"
+      errors: [spelling, ci-ne]
+      gold: {text: "Di caffè prendo tre", fix: "Di caffè ne prendo tre"}
+    - tutor: "Tre caffè possono bastare a dare quel battito, sì. Ma ripeta «di caffè prendo tre»: con un numero, «caffè» va ripreso davanti al verbo. Con quale pronome?"
+      prompt: {text: "Di caffè prendo tre", tags: [ci-ne]}
+    - learner: "Con «ne»: di caffè ne prendo tre al giorno."
+    - tutor: "Esatto. In famiglia qualcuno ha problemi simili?"
+      goals: [symptoms]
+    - learner: "Sì, mia madre ha un'aritmia da quando aveva cinquant'anni, e prende una medicina tutti i giorni. Per questo mi sono un po' spaventata."
+    - tutor: "Ha fatto bene a dirmelo, è un dato importante. Gli esami di oggi, però, sono abbastanza tranquilli."
+      goals: [history]
+    - learner: "Meno male! Ma cosa vuol dire esatamente «abbastanza»? Il mio medico, quando ha visto gli esami, mi ha detto di farle vedere subito a un cardiologo."
+      errors: [spelling, object-pronoun]
+      gold: {text: "farle vedere", fix: "farli vedere"}
+    - tutor: "Vuol dire che il battito ogni tanto è irregolare, ma non è grave. Per essere sicuri le faccio fare un holter di ventiquattro ore. Però ripeta «farle vedere»: il pronome sta per «gli esami», e allora va bene «le»?"
+      prompt: {text: "farle vedere", tags: [object-pronoun]}
+      new: [{lemma: holter, gloss: 24-hour heart monitor}]
+      goals: [understand]
+    - learner: "No, è maschile plurale: mi ha detto di farli vedere a un cardiologo."
+    - tutor: "Giusto. Per ora niente medicine: provi a prendere un solo caffè al giorno."
+    - learner: "Un solo caffè sarà dura, ma ci provo! E l'holter, quando lo faccio? Devo restare a casa dal lavoro, o posso andarci normalmente?"
+    - tutor: "Lo facciamo martedì prossimo alle nove, e può andare a lavorare normalmente: lo porta per ventiquattro ore e poi ce lo riporta."
+      goals: [treatment]
+
+- scenario: affittare-appartamento
+  # facts: bilocale arredato al quarto piano senza ascensore, si vede un pezzo di mare; inverno mite ma umido; affitto settecentottanta euro più cinquanta di spese condominiali per la pulizia delle scale; riscaldamento autonomo a gas, caldaia nuova dell'anno scorso; contratto quattro più quattro, caparra di tre mesi; mercato sotto casa solo il sabato mattina, gli altri giorni la via è tranquilla; il learner lavora da casa; la compagna arriva dal Canada il mese prossimo; risposta lunedì
+  level: B2
+  persona: en-m-traveller
+  history: [auxiliary-choice, relative-pronoun, hypothetical]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    # decoy: «il clima» is masculine and correct
+    - learner: "Buongiorno. Che bella luce! Si vede anche un pezzo di mare dalla finestra. Con il clima di qui, immagino che d'inverno non faccia troppo freddo."
+    - tutor: "D'inverno non fa molto freddo, è vero. L'appartamento è al quarto piano, senza ascensore: per lei va bene?"
+    - learner: "Nessun problema, salire le scale mi fa bene. Quanto è l'affitto, e cosa comprende?"
+    - tutor: "Sono 780 euro al mese, più 50 di spese per la pulizia delle scale."
+      goals: [rent]
+    - learner: "D'accordo. Il riscaldamento è a parte, immagino. L'ultimo inverno, nel mio vecchio appartamento, le bollete del gas sono state altissime, perché la caldaia era vecchia e i prezzi hanno salito molto."
+      errors: [spelling, auxiliary-choice]
+      gold: {text: "i prezzi hanno salito", fix: "i prezzi sono saliti"}
+    - tutor: "Sì, il riscaldamento è autonomo, a gas, ma la caldaia è nuova, dell'anno scorso. Però ripeta «i prezzi hanno salito»: qui «salire» non ha un oggetto, quindi quale ausiliare prende?"
+      prompt: {text: "i prezzi hanno salito", tags: [auxiliary-choice]}
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+      goals: [condition]
+    - learner: "Con essere: i prezzi sono saliti molto."
+    - tutor: "Esatto. E con un riscaldamento nuovo si spende molto meno. Vuole sapere del contratto?"
+    - learner: "Sì. L'agenzia con quale ho parlato al telefono mi ha detto che il contratto è quattro più quattro: è giusto? E quanto è la caparra?"
+      errors: [relative-pronoun]
+      gold: {text: "con quale ho parlato", fix: "con cui ho parlato"}
+    - tutor: "Sì, quattro più quattro, e la caparra è di tre mesi. Ma ripeta «l'agenzia con quale ho parlato»: dopo «con», «quale» può stare senza articolo?"
+      prompt: {text: "con quale ho parlato", tags: [relative-pronoun]}
+      goals: [contract]
+    - learner: "No: l'agenzia con cui ho parlato."
+    - tutor: "Proprio così. Conosce già il quartiere?"
+    - learner: "Non molto. Ho visto che sotto casa c'è un mercato: è aperto tutti i giorni? Lavoro da casa con la computer, e se ci sarebbe rumore ogni mattina, per me sarebbe difficile."
+      errors: [noun-gender, hypothetical]
+      gold: {text: "se ci sarebbe rumore", fix: "se ci fosse rumore"}
+    - tutor: "Il mercato c'è solo il sabato mattina; gli altri giorni la via è tranquilla. Però ripeta «se ci sarebbe rumore»: dopo «se», il condizionale va bene?"
+      prompt: {text: "se ci sarebbe rumore", tags: [hypothetical]}
+      goals: [neighbourhood]
+    - learner: "No, ci vuole il congiuntivo: se ci fosse rumore ogni mattina, per me sarebbe difficile."
+    - tutor: "Esatto. E il sabato, il mercato è anche comodo per fare la spesa."
+    - learner: "Questo è vero. L'appartamento mi piace molto, ma prima di decidere vorrei parlarne con la mia compagna, che arriva dal Canada il mese prossimo. Le posso rispondere lunedì?"
+    - tutor: "Certo, aspetto una sua risposta lunedì. Se volete, potete anche tornare a vederlo insieme."
+      goals: [decide]
+
+- scenario: burocrazia-residenza
+  # facts: studentessa inglese, un anno all'università di Padova; abita in una residenza universitaria vicino all'ospedale, stanza singola fino a luglio dell'anno prossimo; servono passaporto, permesso di soggiorno e dichiarazione della residenza; la segretaria della residenza la prepara oggi, la learner la porta domani; il passaporto scade tra due mesi, il nuovo arriva a dicembre: basta mandarne una copia per email; vigili entro quarantacinque giorni, in una residenza basta la conferma della segreteria; poi il certificato si scarica online
+  level: B2
+  persona: en-f-student
+  history: [combined-pronouns, register, preposition]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono una studentessa inglese, sto facendo un anno all'università qui a Padova e vorrei chiedere la residenza."
+    - tutor: "Va bene. Dove abita, in un appartamento o in una residenza per studenti?"
+      goals: [request]
+    - learner: "In una residenza universitaria, vicino all'ospedale. Ho una stanza singola fino a luglio dell'anno prossimo."
+    - tutor: "Allora mi servono il passaporto, il permesso di soggiorno e una dichiarazione della residenza. Li ha portati?"
+    - learner: "Il passaporto e il permesso sì, ecoli. La dichiarazione, invece, la segretaria della residenza la prepara oggi: gli la chiedo stasera e ve la porto domani."
+      errors: [spelling, combined-pronouns]
+      gold: {text: "gli la chiedo", fix: "gliela chiedo"}
+    - tutor: "Domani va benissimo, intanto apriamo la pratica. Però ripeta «gli la chiedo»: quando «gli» incontra «la», restano due parole separate?"
+      prompt: {text: "gli la chiedo", tags: [combined-pronouns]}
+    - learner: "No, diventano una: gliela chiedo stasera e ve la porto domani."
+    - tutor: "Esatto. Vedo però che il suo passaporto scade tra due mesi."
+      goals: [documents]
+    - learner: "Sì, lo so. L'ho già rinnovato online e il nuovo arriva a dicembre. Quando arriva, devo tornare qui, o puoi aggiornarlo tu?"
+      errors: [register]
+      gold: {text: "puoi aggiornarlo tu", fix: "può aggiornarlo lei"}
+    - tutor: "Quando arriva, basta mandarci una copia per email. Però ripeta «puoi aggiornarlo tu»: allo sportello, finora, ci siamo dati del Lei, giusto?"
+      prompt: {text: "puoi aggiornarlo tu", tags: [register]}
+    - learner: "Ha ragione, scusi: può aggiornarlo lei, quando le mando la copia?"
+    - tutor: "Sì, ci penso io, nessun problema. Ha altre domande?"
+      goals: [problem]
+    - learner: "Sì. Una mia amica dice che i vigili passano sensa avvisare: se vengono mentre sono in lezione, devo ripetere tutto?"
+      errors: [spelling, preposition]
+      gold: {text: "sono in lezione", fix: "sono a lezione"}
+    - tutor: "No, non deve ripetere niente: in una residenza basta che la segreteria confermi che lei abita lì. Però ripeta «mentre sono in lezione»: con «lezione», quale preposizione usiamo?"
+      prompt: {text: "sono in lezione", tags: [preposition]}
+    - learner: "A lezione: mentre sono a lezione. E dopo quanto tempo è tutto finito?"
+    - tutor: "Giusto. I vigili passano entro quarantacinque giorni; poi il certificato lo può scaricare online."
+      goals: [next]
