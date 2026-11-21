@@ -1,0 +1,333 @@
+# Set r-cui-di, file 2 (B2): job interviews, asking for a promotion, team meetings and remote work
+# over an aperitivo. Relatives with «di chi», «in che», «a chi», «con chi», «per che», «in quale»,
+# and comparatives with «che» before persons, pronouns, nouns and numbers («più pacchi che gli altri
+# turni»), beside correct «tra cui», «il cui», headless «chi» and «che» between infinitives, places
+# and two nouns.
+- scenario: colloquio-lavoro
+  # facts: candidata inglese di ventisei anni, laureata in design grafico, in Italia da due anni; da sei mesi stage in uno studio di Milano; progetto principale: catalogo per un'azienda di mobili, stampato in tremila copie, seguito con un fotografo; forza: precisione, consegna sempre in tempo; difetto: fatica a dire di no; l'azienda lavora con musei e biblioteche; due giorni alla settimana da casa, tre in studio; secondo colloquio con il direttore entro la settimana prossima
+  level: B2
+  persona: en-f-student
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Ho ventisei anni, sono inglese e mi sono laureata in design grafico. Vivo in Italia da due anni, e da sei mesi faccio uno stage in uno studio di Milano."
+    - tutor: "Molto bene. E che cosa fa, in questo studio?"
+      goals: [intro]
+    - learner: "Lavoro soprattutto sui cataloghi. Il progetto di chi sono più orgogliosa è un catalogo per un'azienda di mobili, che è stato stampato in tremila copie."
+      errors: [relative-pronoun]
+      gold: {text: "Il progetto di chi", fix: "Il progetto di cui"}
+    - tutor: "Tremila copie, non male per un primo lavoro. Ma riprenda «il progetto di chi sono più orgogliosa»: si è orgogliosi di una cosa, e qui la cosa è «il progetto». Quale relativo va dopo «di»?"
+      prompt: {text: "Il progetto di chi", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "Il progetto di cui sono più orgogliosa, sì. L'ho seguito dall'inizio alla fine, insieme a un fotografo."
+    - tutor: "Ecco, così. Secondo lei, qual è il suo punto di forza? E il suo punto debole?"
+      goals: [experience]
+    # decoy: headless «chi lavora con me» is correct
+    - learner: "Sono molto precisa: chi lavora con me sa che non consegno mai in ritardo. Il mio difetto è che faccio fatica a dire di no, e a volte accetto troppi lavori."
+    - tutor: "Un difetto sincero, almeno. E perché vorrebbe lavorare proprio da noi?"
+      goals: [strengths]
+    - learner: "Perché lavorate con musei e biblioteche, e la cultura è il settore in che vorrei crescere. Ho visto alcuni vostri lavori per due musei, e mi sono piaciuti moltissimo."
+      errors: [relative-pronoun]
+      gold: {text: "il settore in che", fix: "il settore in cui"}
+    # agree: content
+    - tutor: "I musei sono una parte importante del nostro lavoro, ha ragione. Però torni su «il settore in che vorrei crescere»: dopo la preposizione «in», quale pronome relativo si usa?"
+      prompt: {text: "il settore in che", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "Il settore in quale vorrei crescere, volevo dire."
+      errors: [relative-pronoun]
+    - tutor: "La cultura, quindi, è il settore in cui vorrebbe crescere: con noi avrebbe modo di farlo. Ha qualche domanda sul ruolo?"
+      goals: [why]
+      recast: {text: "in quale", fix: "in cui", tags: [relative-pronoun]}
+    - learner: "Sì, una: nel vostro studio si può lavorare anche da casa, qualche giorno alla settimana?"
+    - tutor: "Sì, due giorni alla settimana si lavora da casa, gli altri tre si sta in studio con la squadra."
+      goals: [questions]
+    - learner: "Perfetto, mi sembra un buon equilibrio. Grazie per il tempo che mi ha dedicato."
+    - tutor: "Grazie a lei. La chiamiamo entro la settimana prossima per un secondo colloquio con il nostro direttore."
+
+- scenario: colloquio-lavoro
+  # facts: candidato spagnolo, falegname da dodici anni, in Italia da un anno; prima in una fabbrica di mobili a Valencia, mobili in serie e poi prototipi; il capo gli dava i lavori urgenti; difetto: italiano scritto, corso serale due volte alla settimana; nel laboratorio dell'azienda si fanno i prototipi; orario dalle otto alle cinque con un'ora di pausa; contratto di un anno, poi stabile; prova pratica giovedì alle nove
+  level: B2
+  persona: es-m-worker
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Sono spagnolo, faccio il falegname da dodici anni e vivo in Italia da un anno. Prima lavoravo a Valencia, in una fabbrica di mobili."
+    - tutor: "Molto bene. Che cosa faceva, esattamente, in quella fabbrica?"
+      goals: [intro]
+    - learner: "All'inizio montavo mobili in serie, poi sono passato ai prototipi. Lì ero più veloce che i miei colleghi, perciò il capo mi dava sempre i lavori più urgenti."
+      errors: [comparative]
+      gold: {text: "più veloce che i miei colleghi", fix: "più veloce dei miei colleghi"}
+    - tutor: "Bene, da noi i prototipi sono proprio il cuore del laboratorio. Ma riprenda «più veloce che i miei colleghi»: il secondo termine sono delle persone. Quale preposizione, con l'articolo, ci va davanti?"
+      prompt: {text: "più veloce che i miei colleghi", tags: [comparative]}
+    - learner: "Più veloce dei miei colleghi, ecco. Ma non solo veloce: anche preciso, perché un prototipo sbagliato costa caro."
+    - tutor: "Così è giusto. E un suo punto debole?"
+      goals: [experience]
+    # decoy: «più facile parlare che scrivere», two infinitives, rightly takes «che»
+    - learner: "Il mio italiano scritto. Per me è più facile parlare che scrivere, ma sto facendo un corso serale due volte alla settimana."
+    - tutor: "Il corso le servirà di sicuro. Perché ha scelto proprio la nostra azienda?"
+      goals: [strengths]
+    - learner: "Perché i vostri progetti sono molto più creativi che quelli della fabbrica dove lavoravo: là facevamo sempre le stesse sedie, tutto l'anno."
+      errors: [comparative]
+      gold: {text: "più creativi che quelli", fix: "più creativi di quelli"}
+    # agree: content
+    - tutor: "Qui le sedie cambiano ogni volta, questo glielo posso garantire. Riprenda però «più creativi che quelli della fabbrica»: il secondo termine è il pronome «quelli». Quale preposizione serve qui?"
+      prompt: {text: "più creativi che quelli", tags: [comparative]}
+    - learner: "Più creativi di quelli della fabbrica. Posso fare una domanda? Che orario si fa nel laboratorio?"
+    - tutor: "Sì, così. Si lavora dalle otto alle cinque, con un'ora di pausa. All'inizio il contratto è di un anno, poi diventa stabile."
+      goals: [why, questions]
+    - learner: "Va benissimo. Nella fabbrica di Valencia lavoravo più che nove ore al giorno, quindi per me otto ore sono quasi una vacanza!"
+      errors: [comparative]
+      gold: {text: "più che nove ore", fix: "più di nove ore"}
+    # agree: content
+    - tutor: "Allora qui si riposerà un po'! Però guardi «più che nove ore»: con un numero, quale preposizione ci vuole nel confronto?"
+      prompt: {text: "più che nove ore", tags: [comparative]}
+    # decoy: «meglio cominciare presto che finire tardi», two infinitives
+    - learner: "Più di nove ore, sì. E comunque meglio cominciare presto che finire tardi. Quando possiamo rivederci?"
+    - tutor: "Le proponiamo una prova pratica in laboratorio giovedì alle nove. Porti le scarpe da lavoro, e a giovedì!"
+
+- scenario: colloquio-promozione
+  # facts: la learner segue i clienti esteri; fatturato estero +18%, sopra l'obiettivo di gennaio; cinque clienti nuovi, tra cui un'azienda tedesca, contratto visto dal manager; da due anni i clienti chiamano lei per i problemi; chiede di diventare responsabile dell'ufficio estero e un aumento; budget bloccato fino a gennaio; l'ufficio estero è l'unico reparto cresciuto; il nuovo cliente olandese le viene affidato da lunedì; valutazione il 15 gennaio
+  level: B2
+  persona: en-f-professional
+  history: [relative-pronoun, comparative]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Vorrei parlarle dei risultati di quest'anno e anche del mio futuro in azienda, se ha qualche minuto."
+    - tutor: "Certo, ho mezz'ora. Mi dica pure dei risultati."
+    - learner: "Quest'anno il fatturato con i clienti esteri è cresciuto del diciotto per cento, cioè molto più che l'obiettivo che avevamo fissato a gennaio."
+      errors: [comparative]
+      gold: {text: "molto più che l'obiettivo", fix: "molto più dell'obiettivo"}
+    # agree: content
+    - tutor: "Il diciotto per cento è un risultato notevole, su questo non c'è dubbio. Ma riprenda «molto più che l'obiettivo»: il secondo termine è un nome. Quale preposizione, unita all'articolo, ci va davanti?"
+      prompt: {text: "molto più che l'obiettivo", tags: [comparative]}
+    # decoy: «tra cui» is correct
+    - learner: "Molto più dell'obiettivo, sì. E abbiamo anche cinque clienti nuovi, tra cui un'azienda tedesca molto importante."
+    - tutor: "Lo so, ho visto il contratto con i tedeschi. Che cosa vorrebbe chiedermi, quindi?"
+      goals: [results]
+    - learner: "Vorrei diventare responsabile dell'ufficio estero. Da due anni sono io la persona a chi i clienti telefonano quando c'è un problema, e mi sembra giusto avere anche il ruolo."
+      errors: [relative-pronoun]
+      gold: {text: "la persona a chi", fix: "la persona a cui"}
+    # agree: content
+    - tutor: "Che i clienti chiamino lei, lo so bene. Però guardi «la persona a chi i clienti telefonano»: dopo un nome come «persona», con «a», quale relativo si usa?"
+      prompt: {text: "la persona a chi", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "La persona a cui telefonano i clienti, volevo dire. Naturalmente, con il ruolo, vorrei anche un aumento."
+    - tutor: "Capisco. Il problema è il budget: fino a gennaio è bloccato, e non posso promettere aumenti."
+      goals: [request]
+    # decoy: «il cui fatturato» is correct
+    - learner: "Lo capisco. Però l'ufficio estero è l'unico reparto il cui fatturato è cresciuto quest'anno, e non vorrei aspettare un altro anno senza una risposta."
+    - tutor: "È un argomento serio, lo riconosco. Che cosa le servirebbe, intanto, per aspettare gennaio?"
+      goals: [handle]
+    - learner: "Mi servirebbe una data precisa. E vorrei seguire già adesso il nuovo cliente olandese, con chi ho parlato la settimana scorsa."
+      errors: [relative-pronoun]
+      gold: {text: "cliente olandese, con chi", fix: "cliente olandese, con cui"}
+    - tutor: "Il cliente olandese posso affidarglielo senza problemi. Ma riprenda «il nuovo cliente olandese, con chi ho parlato»: dopo «con», riferito a un nome, quale relativo ci vuole?"
+      prompt: {text: "cliente olandese, con chi", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "Il cliente olandese, con quale ho parlato."
+      errors: [relative-pronoun]
+    - tutor: "Il cliente olandese, con il quale ha già parlato, da lunedì è suo. Per la promozione, fissiamo la valutazione per il quindici gennaio?"
+      recast: {text: "con quale", fix: "con il quale", tags: [relative-pronoun]}
+    - learner: "Sì, il quindici gennaio va bene. Grazie per avermi ascoltata."
+    - tutor: "Grazie a lei. Il quindici gennaio ne parliamo di nuovo, con i numeri dell'anno."
+      goals: [next-steps]
+
+- scenario: colloquio-promozione
+  # facts: il learner è capoturno in magazzino; errori di spedizione scesi da oltre quaranta a dodici al mese; i camion partono mezz'ora prima; chiede un aumento di duecento euro al mese; gli altri capiturno hanno lo stesso stipendio; il suo turno spedisce più pacchi degli altri due insieme, con meno persone; proposta: centoventi euro subito, rivedere la cifra a giugno; lettera pronta entro venerdì, firma venerdì
+  level: B2
+  persona: es-m-worker
+  history: [comparative, relative-pronoun]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie per il tempo. Volevo parlarle del mio lavoro in magazzino, perché quest'anno i risultati del mio turno sono stati molto buoni."
+    - tutor: "Mi dica pure: che cosa è cambiato, nel suo turno?"
+    # the «ne» in «ne facciamo dodici» is correct
+    - learner: "Abbiamo cambiato il sistema dei controlli. Prima facevamo più che quaranta errori di spedizione al mese, adesso ne facciamo dodici."
+      errors: [comparative]
+      gold: {text: "più che quaranta errori", fix: "più di quaranta errori"}
+    # agree: content
+    - tutor: "Da quaranta a dodici è un salto enorme, l'ho visto nei rapporti. Ma riprenda «più che quaranta errori»: davanti a un numero, che cosa usiamo per il confronto?"
+      prompt: {text: "più che quaranta errori", tags: [comparative]}
+    - learner: "Più di quaranta errori, sì. E il carico dei camion è più rapido: ogni mattina partiamo mezz'ora prima."
+    - tutor: "Benissimo. E che cosa vorrebbe chiedermi?"
+      goals: [results]
+    # decoy: «conta più che lavorare tanto», two infinitives, and the subjunctive «dimostrino» are correct
+    - learner: "Vorrei un aumento di duecento euro al mese. Per me lavorare bene conta più che lavorare tanto, e credo che i risultati lo dimostrino."
+    - tutor: "Duecento euro sono molti. Gli altri responsabili di turno hanno il suo stesso stipendio: come lo spiego a loro?"
+      goals: [request]
+    - learner: "Con i numeri. Il mio turno spedisce più pacchi che gli altri due turni insieme, e lo fa con meno persone."
+      errors: [comparative]
+      gold: {text: "più pacchi che gli altri due turni", fix: "più pacchi degli altri due turni"}
+    - tutor: "Qui confronta il suo gruppo di lavoro con gli altri due, non i pacchi con un'altra cosa. Allora, quale preposizione va davanti a «gli altri due turni»?"
+      prompt: {text: "più pacchi che gli altri due turni", tags: [comparative]}
+    - learner: "Il mio turno spedisce più pacchi degli altri due turni insieme. Questo è un fatto, non un'opinione."
+    - tutor: "Esatto, ed è un fatto che conta. Allora le propongo centoventi euro da subito, e a giugno rivediamo la cifra."
+      goals: [handle]
+    - learner: "Centoventi da subito va bene. Però vorrei una lettera in che c'è scritto anche che a giugno ne parliamo di nuovo."
+      errors: [relative-pronoun]
+      gold: {text: "una lettera in che", fix: "una lettera in cui"}
+    - tutor: "La lettera gliela preparo volentieri, entro venerdì. Ma «una lettera in che c'è scritto»: dopo «in», quale relativo si usa?"
+      prompt: {text: "una lettera in che", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "Una lettera in cui c'è scritto anche giugno, sì. Grazie, sono contento che ne abbiamo parlato."
+    - tutor: "Anch'io. Venerdì la lettera è pronta, e la firmiamo insieme."
+      goals: [next-steps]
+
+- scenario: riunione-lavoro
+  # facts: progetto: nuovo sito per una catena di palestre; grafica finita e approvata ieri dal cliente; la responsabile del cliente risponde alle email dopo una settimana; testi provvisori già pronti nella cartella del progetto, di cui il learner ha parlato lunedì; cambiare i testi richiede un giorno; pagine pronte per giovedì; testi del cliente entro venerdì, sito online a fine mese; il learner scrive al cliente oggi pomeriggio, Federica in copia; aggiornamento lunedì prossimo
+  level: B2
+  persona: en-m-heritage
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Ho finito la grafica del sito per la catena di palestre, e il cliente l'ha approvata ieri senza cambiare quasi niente."
+    - tutor: "Ottimo. E adesso a che punto siete?"
+      goals: [update]
+    - learner: "Adesso aspettiamo i testi. Il problema è che la responsabile per che lavoriamo risponde alle email dopo una settimana, quando va bene."
+      errors: [relative-pronoun]
+      gold: {text: "la responsabile per che", fix: "la responsabile per cui"}
+    # agree: content
+    - tutor: "Una settimana per un'email è davvero troppo, hai ragione. Ma riprendi «la responsabile per che lavoriamo»: dopo «per», il relativo «che» non va. Quale ci vuole?"
+      goals: [problem]
+      prompt: {text: "la responsabile per che", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "La responsabile per cui lavoriamo, sì. Quindi siamo fermi, e rischiamo di non finire in tempo."
+    - tutor: "Così va bene. Hai già un'idea per uscire da questa situazione?"
+    - learner: "Sì. Potremmo usare dei testi provvisori, quelli di chi ti ho parlato lunedì, e intanto preparare tutte le pagine del sito."
+      errors: [relative-pronoun]
+      gold: {text: "quelli di chi", fix: "quelli di cui"}
+    - tutor: "L'idea mi piace. Però «quelli di chi ti ho parlato»: mi hai parlato di quei testi, non di una persona. Quale relativo si usa?"
+      prompt: {text: "quelli di chi", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "Quelli di che ti ho parlato lunedì, sì: sono già pronti nella cartella del progetto."
+      errors: [relative-pronoun]
+    - tutor: "Quelli di cui mi hai parlato vanno benissimo come base. Quando arrivano i testi veri, quanto tempo ti serve per cambiarli?"
+      goals: [proposal]
+      recast: {text: "Quelli di che", fix: "Quelli di cui", tags: [relative-pronoun]}
+    - learner: "Un giorno, non di più. Le pagine invece le finisco per giovedì."
+    - tutor: "Bene. Allora: testi dal cliente entro venerdì e sito online alla fine del mese?"
+    # decoy: headless «chi deve approvare» is correct
+    - learner: "Sì. Chi deve approvare i testi riceverà oggi pomeriggio una mail con questa data, e ti metto in copia."
+    - tutor: "Perfetto, allora ci aggiorniamo lunedì prossimo."
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  # facts: progetto: sondaggio tra i clienti; 340 risposte, più della metà di quelle che servono; molti non finiscono il questionario, dura venti minuti; quello dell'anno scorso durava meno di dieci minuti; proposta: versione breve di dieci domande in due giorni, con l'aiuto di una collega già d'accordo; Federica presenta al cliente il ventidue, rapporto entro il venti; prima versione il diciotto
+  level: B2
+  persona: en-f-student
+  history: [comparative, relative-pronoun]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Va abbastanza bene. Finora abbiamo raccolto trecentoquaranta risposte al questionario, cioè più che la metà di quelle che ci servono."
+      errors: [comparative]
+      gold: {text: "più che la metà", fix: "più della metà"}
+    - tutor: "Trecentoquaranta, bene. Però riprendi «più che la metà»: «la metà» è un nome. Quale preposizione, unita all'articolo, ci va davanti?"
+      goals: [update]
+      prompt: {text: "più che la metà", tags: [comparative]}
+    - learner: "Più della metà, sì. Il problema è che molte persone non arrivano alla fine del questionario."
+    - tutor: "Ecco, così. E secondo te perché?"
+      goals: [problem]
+    - learner: "Perché è troppo lungo: per finirlo ci vogliono venti minuti, mentre quello dell'anno scorso durava meno che dieci minuti, e quasi tutti lo finivano."
+      errors: [comparative]
+      gold: {text: "meno che dieci minuti", fix: "meno di dieci minuti"}
+    # agree: content
+    - tutor: "Venti minuti sono tanti, hai ragione: io avrei già chiuso la pagina. Ma «meno che dieci minuti»: davanti a un numero, come introduci il confronto?"
+      prompt: {text: "meno che dieci minuti", tags: [comparative]}
+    - learner: "Durava meno che dieci minuti, sì, per questo la gente lo finiva."
+      errors: [comparative]
+    - tutor: "Se durava meno di dieci minuti, la differenza si spiega da sola. Che cosa proponi?"
+      recast: {text: "meno che dieci minuti", fix: "meno di dieci minuti", tags: [comparative]}
+    # decoy: «meglio avere ... che non averne» and «più rapido che completo» rightly take «che»
+    - learner: "Una versione breve, con dieci domande. Meglio avere risposte brevi che non averne affatto, e adesso ci serve un questionario più rapido che completo."
+    - tutor: "Sono d'accordo. Quanto tempo ti serve per prepararla?"
+      goals: [proposal]
+    - learner: "Due giorni. Ne ho già parlato con una collega, e la collega a chi ho chiesto aiuto per le domande è già d'accordo."
+      errors: [relative-pronoun]
+      gold: {text: "la collega a chi", fix: "la collega a cui"}
+    - tutor: "Bene, se è d'accordo anche lei partite subito. Ma «la collega a chi ho chiesto aiuto»: dopo «a», riferito a «collega», quale relativo ci vuole?"
+      prompt: {text: "la collega a chi", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "La collega a cui ho chiesto aiuto, sì. Allora il rapporto finale per quando deve essere pronto?"
+    - tutor: "Così è giusto. Il ventidue lo presento al cliente, quindi mi serve entro il venti. Ce la fai?"
+    - learner: "Sì, entro il venti ce la faccio. Ti mando una prima versione già il diciotto, così la controlli."
+    - tutor: "Perfetto, il diciotto la guardiamo insieme."
+      goals: [deadline]
+
+- scenario: smartworking
+  # facts: il learner lavora tre giorni a casa e due in ufficio; per arrivare in ufficio più di quaranta minuti di treno; risparmia biglietto e pranzo fuori; Andrea va in ufficio tutti i giorni, a dieci minuti a piedi; svantaggi: solitudine, più ore dei colleghi, non spegne il computer; preferenza: due giorni a casa e tre in ufficio; il capo torna dalle ferie lunedì
+  level: B2
+  persona: es-m-worker
+  history: [comparative, relative-pronoun]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    # decoy: «meglio a casa che in ufficio» compares two places, rightly with «che»
+    - learner: "Tutti e due: tre giorni a casa e due in ufficio. Sinceramente lavoro meglio a casa che in ufficio, perché nessuno mi interrompe."
+    - tutor: "Che fortuna! Io in ufficio ci vado tutti i giorni, anche se è a dieci minuti a piedi. E che vantaggi vedi, oltre alla calma?"
+      goals: [situation]
+    - learner: "Risparmio tanto tempo: per arrivare in ufficio ci metto più che quaranta minuti di treno, quindi a casa guadagno quasi un'ora e mezza al giorno."
+      errors: [comparative]
+      gold: {text: "più che quaranta minuti", fix: "più di quaranta minuti"}
+    # agree: content
+    - tutor: "Un'ora e mezza al giorno è tantissimo, hai ragione. Ma «più che quaranta minuti»: davanti a un numero, quale preposizione ci vuole?"
+      prompt: {text: "più che quaranta minuti", tags: [comparative]}
+    - learner: "Più di quaranta minuti, sì. E risparmio anche i soldi del biglietto e del pranzo fuori."
+    - tutor: "Così. E gli svantaggi? Qualcosa ci sarà."
+      goals: [pros]
+    - learner: "Sì: a casa mi sento più solo, e lavoro più ore che i miei colleghi in ufficio, perché la sera non spengo mai il computer."
+      errors: [comparative]
+      gold: {text: "più ore che i miei colleghi", fix: "più ore dei miei colleghi"}
+    - tutor: "Qui confronti te con i colleghi, non le ore con un'altra cosa. Che cosa va davanti a «i miei colleghi»?"
+      prompt: {text: "più ore che i miei colleghi", tags: [comparative]}
+    # decoy: «più stanco che soddisfatto», two adjectives, rightly takes «che»
+    - learner: "Lavoro più ore dei miei colleghi, ecco. E alla fine della giornata sono più stanco che soddisfatto."
+    - tutor: "Bravo. Stanco e poco soddisfatto, insomma: così non va. Se potessi scegliere, cosa faresti?"
+      goals: [cons]
+    - learner: "Farei il contrario: due giorni a casa e tre in ufficio. Vedrei di più i colleghi, e la sera spegnerei il computer a un'ora normale."
+    - tutor: "Mi sembra una buona soluzione. Ne hai già parlato con il tuo capo?"
+      goals: [preference]
+    - learner: "Non ancora. Il capo con chi devo parlarne torna dalle ferie lunedì, e prima non vuole sentire niente."
+      errors: [relative-pronoun]
+      gold: {text: "Il capo con chi", fix: "Il capo con cui"}
+    - tutor: "Allora lunedì è il giorno giusto. Ma «il capo con chi devo parlarne»: dopo «con», riferito a «il capo», quale relativo si usa?"
+      prompt: {text: "Il capo con chi", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "Il capo con cui devo parlarne, sì. Lunedì gli chiedo un appuntamento."
+    - tutor: "Così va bene. Poi mi racconti com'è andata, magari davanti a un altro aperitivo."
+
+- scenario: smartworking
+  # facts: la learner va in ufficio tutti i giorni, studio di avvocati a cinque minuti in bici; Andrea lavora da casa quattro giorni su cinque e a casa si distrae; vantaggi dell'ufficio: colleghi, separare casa e lavoro; svantaggio: open space più rumoroso di un bar, difficile scrivere contratti lunghi; preferenza: un giorno alla settimana a casa per i documenti lunghi; due colleghe lo fanno già
+  level: B2
+  persona: en-f-professional
+  history: [comparative]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Io vado in ufficio tutti i giorni, e mi piace. Lo studio è a cinque minuti in bici, quindi non perdo tempo."
+    - tutor: "Io invece ormai lavoro da casa quattro giorni su cinque. Che cosa ti piace tanto dell'ufficio?"
+      goals: [situation]
+    # decoy: «di più con loro che da sola» compares two phrases, rightly with «che»
+    - learner: "I colleghi, soprattutto: imparo di più con loro che da sola. E poi separo meglio la casa e il lavoro, perché a casa mi distraggo più facilmente che te, credo."
+      errors: [comparative]
+      gold: {text: "più facilmente che te", fix: "più facilmente di te"}
+    - tutor: "Su questo non giurerei, perché anch'io a casa mi distraggo molto! Ma «più facilmente che te»: il secondo termine è un pronome, «te». Quale preposizione gli va davanti?"
+      prompt: {text: "più facilmente che te", tags: [comparative]}
+    - learner: "Più facilmente di te, volevo dire. Comunque per me l'ufficio ha molti vantaggi."
+    - tutor: "Sì, così. E qualche svantaggio non c'è?"
+      goals: [pros]
+    - learner: "Uno grande: lavoriamo in un open space, e il rumore è più forte che quello di un bar. Quando devo scrivere un contratto lungo, è un disastro."
+      errors: [comparative]
+      gold: {text: "più forte che quello", fix: "più forte di quello"}
+    # agree: content
+    - tutor: "Ti capisco, io in un posto così non ce la farei. Però «più forte che quello di un bar»: «quello» è un pronome. Che cosa ci va davanti?"
+      prompt: {text: "più forte che quello", tags: [comparative]}
+    - learner: "È più forte che il rumore di un bar, dico."
+      errors: [comparative]
+    - tutor: "Se è più forte del rumore di un bar, scrivere un contratto lì è un'impresa. Hai mai pensato di lavorare da casa almeno un giorno?"
+      goals: [cons]
+      recast: {text: "più forte che il rumore", fix: "più forte del rumore", tags: [comparative]}
+    # decoy: «più silenzio che compagnia», two nouns, rightly takes «che»
+    - learner: "Sì, ci ho pensato. Vorrei un giorno alla settimana a casa, solo per i documenti lunghi: per quel lavoro serve più silenzio che compagnia."
+    - tutor: "Mi sembra un'ottima idea. Pensi che il tuo studio sia d'accordo?"
+      goals: [preference]
+    # decoy: «il che» is correct
+    - learner: "Credo di sì: due colleghe lo fanno già, il che mi rende abbastanza ottimista."
+    - tutor: "Allora chiedi subito. E se ti dicono di sì, ti spiego io come restare concentrata a casa!"

@@ -1,0 +1,347 @@
+# Set r-cui-di, file 6 (three C1, five C2): a cardiology follow-up, a coworking over an aperitivo,
+# the registry office, a building meeting, dinner with the partner's parents, Sunday lunch in
+# Bologna, regional speech on a train and a radio interview with an author. Relatives: «a chi»,
+# «con chi», «con le quale», «a chi vedo» for «che vedo», «che il nome», «per che», «per le
+# quale», «di chi», «su che», «nella cucina che», «in che», «la quale nessuno vuole rinunciare»,
+# «la ragione che», «i quali consigli». Comparatives with «che» before numbers, «la mia
+# immaginazione», «me», «quello», «qualsiasi artista», «il milanese», «le mie studentesse».
+# Correct «di cui», «il cui», «il che», «più di quanto», «meglio ... che» and «più per curiosità che
+# per obbligo» are left alone.
+- scenario: medico-specialista
+  # facts: palpitazioni di cui la paziente aveva già parlato, la sera, pochi secondi, sensazione di un battito saltato; il medico di base pensa all'ansia; la nonna aveva un'aritmia e ha vissuto più di novant'anni; la paziente beve fino a cinque caffè al giorno durante gli esami; holter: qualche extrasistole innocua, elettrocardiogramma normale; nessun farmaco, al massimo due caffè al giorno, sport leggero, controllo tra sei mesi
+  level: C1
+  persona: en-f-student
+  history: [relative-pronoun, comparative]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    # decoy: «di cui le avevo parlato» is correct
+    - learner: "Meglio, grazie, ma le palpitazioni di cui le avevo parlato non sono sparite del tutto. Il medico di base, a chi le ho descritte la settimana scorsa, pensa che sia solo ansia."
+      errors: [relative-pronoun]
+      gold: {text: "Il medico di base, a chi", fix: "Il medico di base, a cui"}
+    - tutor: "Vedremo se ha ragione, per questo abbiamo fatto gli esami. Ma riprenda «il medico di base, a chi le ho descritte»: dopo «a», riferito a «medico», quale relativo si usa?"
+      prompt: {text: "Il medico di base, a chi", tags: [relative-pronoun]}
+    - learner: "Il medico di base, a cui le ho descritte. Succedono soprattutto la sera, durano pochi secondi, e mi sembra che il cuore salti un battito."
+    - tutor: "Così va bene, ed è una descrizione molto precisa. In famiglia qualcuno ha avuto problemi di cuore?"
+      goals: [symptoms]
+    # decoy: «molto più caffè di lei» is correct
+    - learner: "Mia nonna aveva un'aritmia, ma ha vissuto più che novant'anni. Io però bevo molto più caffè di lei: anche cinque al giorno, quando sono sotto esame."
+      errors: [comparative]
+      gold: {text: "più che novant'anni", fix: "più di novant'anni"}
+    - tutor: "Cinque caffè sono tanti, e ne riparliamo subito. Prima però riprenda «più che novant'anni»: davanti a un numero, quale preposizione ci vuole?"
+      goals: [history]
+      prompt: {text: "più che novant'anni", tags: [comparative]}
+    - learner: "Ha vissuto più che novant'anni, sì, quasi novantadue."
+      errors: [comparative]
+    - tutor: "Una nonna che ha vissuto più di novant'anni, con un'aritmia, è già una notizia rassicurante. Vuole sapere che cosa dicono i suoi esami?"
+      recast: {text: "più che novant'anni", fix: "più di novant'anni", tags: [comparative]}
+    - learner: "Sì, per favore. L'holter ha trovato qualcosa di preoccupante?"
+    - tutor: "Ha registrato qualche extrasistole, cioè qualche battito in anticipo, ma sono innocue. L'elettrocardiogramma è normale."
+      goals: [understand]
+    - learner: "Quindi, in pratica, il mio cuore è molto meno malato che la mia immaginazione!"
+      errors: [comparative]
+      gold: {text: "meno malato che la mia immaginazione", fix: "meno malato della mia immaginazione"}
+    # agree: content
+    - tutor: "In un certo senso sì, e mi fa piacere vederla sorridere. Però «meno malato che la mia immaginazione»: il secondo termine è un nome. Quale preposizione, con l'articolo, ci va davanti?"
+      prompt: {text: "meno malato che la mia immaginazione", tags: [comparative]}
+    - learner: "Meno malato della mia immaginazione. E allora che cosa devo fare? Devo prendere dei farmaci?"
+    - tutor: "Ecco. Nessun farmaco: due caffè al giorno al massimo, un po' di sport leggero e un controllo tra sei mesi."
+      goals: [treatment]
+    # decoy: «più tranquilla di quando sono entrata» is correct
+    - learner: "Due caffè sono pochi, ma ci provo. Grazie, dottore, mi sento molto più tranquilla di quando sono entrata."
+    - tutor: "È il risultato migliore. Ci vediamo tra sei mesi, e in bocca al lupo per gli esami."
+
+- scenario: smartworking
+  # facts: il learner lavora per una startup di Dublino da un coworking di Bologna, a dieci minuti da casa; scrivania a duecento euro al mese; Andrea lavora in banca, in ufficio; vantaggi: comunità di freelance, un grafico gli ha trovato un cliente, progetto con un programmatore diventato amico; svantaggi: costo, colleghi della startup visti solo in videochiamata; preferenza: tre giorni al coworking e due a casa, pacchetto da tre giorni a centodieci euro
+  level: C1
+  persona: en-m-traveller
+  history: [relative-pronoun, comparative]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Né l'uno né l'altro, in realtà: lavoro per una startup di Dublino, ma da un coworking qui a Bologna, a dieci minuti da casa mia."
+    - tutor: "Un coworking? Io in banca non saprei neanche com'è fatto. Com'è una tua giornata tipo?"
+      goals: [situation]
+    - learner: "Arrivo verso le nove, prendo un caffè con gli altri freelance e lavoro a una scrivania che pago duecento euro al mese. Le persone con chi divido lo spazio fanno i mestieri più diversi."
+      errors: [relative-pronoun]
+      gold: {text: "Le persone con chi", fix: "Le persone con cui"}
+    - tutor: "Duecento euro per una scrivania, però! Ma «le persone con chi divido lo spazio»: dopo «con», riferito a «persone», quale relativo si usa?"
+      prompt: {text: "Le persone con chi", tags: [relative-pronoun]}
+    - learner: "Le persone con le quale divido lo spazio, scusa."
+      errors: [relative-pronoun]
+    - tutor: "Quindi il vero vantaggio sono le persone con le quali dividi lo spazio, se capisco bene?"
+      recast: {text: "con le quale", fix: "con le quali", tags: [relative-pronoun]}
+    # decoy: «più una comunità che un ufficio», two nouns, rightly takes «che»; «di cui» is correct
+    - learner: "Esatto, è più una comunità che un ufficio. Un grafico mi ha trovato un cliente, e con un programmatore, di cui adesso sono amico, abbiamo fatto un progetto insieme."
+    - tutor: "In banca questo non succede di sicuro. E gli svantaggi?"
+      goals: [pros]
+    - learner: "Il costo, e poi i colleghi veri, cioè quelli della startup, a chi vedo solo in videochiamata. Il capo, per esempio, non l'ho mai incontrato di persona."
+      errors: [relative-pronoun]
+      gold: {text: "a chi vedo", fix: "che vedo"}
+    - tutor: "Lavorare per un capo mai visto è curioso. Ma «quelli della startup, a chi vedo»: «vedere» regge un complemento diretto. Quale relativo ci vuole, senza preposizione?"
+      prompt: {text: "a chi vedo", tags: [relative-pronoun]}
+    # decoy: «più solo in mezzo a venti persone che a casa», two phrases, rightly takes «che»
+    - learner: "Quelli della startup, che vedo solo in videochiamata. A volte mi sento più solo in mezzo a venti persone che a casa da solo."
+    - tutor: "Ecco, così. Strano, ma ci credo. Allora, se potessi scegliere, che cosa faresti?"
+      goals: [cons]
+    # decoy: «con cui» is correct
+    - learner: "Farei tre giorni al coworking e due a casa: spenderei meno che centoventi euro al mese, e avrei comunque qualcuno con cui bere un caffè."
+      errors: [comparative]
+      gold: {text: "meno che centoventi euro", fix: "meno di centoventi euro"}
+    - tutor: "Mi sembra un buon equilibrio. Ma «meno che centoventi euro»: davanti a un numero, quale preposizione introduce il secondo termine?"
+      goals: [preference]
+      prompt: {text: "meno che centoventi euro", tags: [comparative]}
+    - learner: "Meno di centoventi euro, sì: con il pacchetto da tre giorni la scrivania costa centodieci. E tu, in banca, non cambieresti mai?"
+    - tutor: "Io? Mai dire mai. Magari un giorno vengo a trovarti nel tuo coworking, e il caffè me lo offri tu."
+
+- scenario: burocrazia-residenza
+  # facts: numero 47; il learner è argentino, cuoco in un ristorante del centro, vive nell'appartamento da marzo; servono passaporto, permesso di soggiorno e contratto d'affitto; il contratto è a nome del collega; soluzione: dichiarazione di ospitalità firmata dal collega con copia del suo documento, la porta il collega domattina; buste paga non necessarie; vigili entro quarantacinque giorni, poi la carta d'identità
+  level: C1
+  persona: es-m-worker
+  history: [relative-pronoun, comparative]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono argentino, faccio il cuoco in un ristorante del centro e vorrei chiedere la residenza nell'appartamento dove vivo da marzo."
+    - tutor: "Bene. Mi servono il passaporto, il permesso di soggiorno e il contratto d'affitto. Ha tutto con sé?"
+      goals: [request]
+    - learner: "Ho il passaporto e il permesso, ma il contratto è a nome del mio collega, che il nome è l'unico scritto sul contratto, perché io sono arrivato dopo."
+      errors: [relative-pronoun]
+      gold: {text: "che il nome", fix: "il cui nome"}
+    - tutor: "Allora c'è una soluzione. Ma prima riprenda «il mio collega, che il nome è l'unico scritto»: il nome è del collega. Quale relativo esprime il possesso?"
+      goals: [documents]
+      prompt: {text: "che il nome", tags: [relative-pronoun]}
+    - learner: "Il mio collega, il cui nome è l'unico sul contratto. Quindi che cosa devo portare?"
+    - tutor: "Esatto. Basta una dichiarazione di ospitalità firmata da lui, con la copia del suo documento. Può portarla anche lui di persona."
+    - learner: "Perfetto, lui lavora meno ore che me, quindi può venire domattina. Ma servono anche le sue buste paga?"
+      errors: [comparative]
+      gold: {text: "meno ore che me", fix: "meno ore di me"}
+    - tutor: "No, le buste paga non servono: solo la dichiarazione e il documento. Ma «lavora meno ore che me»: il secondo termine è un pronome, «me». Quale preposizione gli va davanti?"
+      prompt: {text: "meno ore che me", tags: [comparative]}
+    - learner: "Lavora meno ore di me, sì. Allora domani mattina viene lui con la dichiarazione."
+    - tutor: "Così va bene. Quando arriva tutto, la pratica parte subito."
+      goals: [problem]
+    - learner: "E dopo quanto tempo arriva la conferma? Glielo chiedo perché devo fare la carta d'identità, ed è proprio il documento per che mi serve la residenza."
+      errors: [relative-pronoun]
+      gold: {text: "il documento per che", fix: "il documento per cui"}
+    - tutor: "I vigili passano entro quarantacinque giorni, e dopo il controllo può chiedere la carta d'identità. Ma «il documento per che mi serve la residenza»: dopo «per», quale relativo si usa?"
+      goals: [next]
+      prompt: {text: "il documento per che", tags: [relative-pronoun]}
+    - learner: "Il documento per quale mi serve la residenza, scusi."
+      errors: [relative-pronoun]
+    - tutor: "Il documento per il quale le serve la residenza lo potrà chiedere subito dopo il controllo. Ha altre domande?"
+      recast: {text: "per quale", fix: "per il quale", tags: [relative-pronoun]}
+    # decoy: «più veloce di quanto pensassi» is correct
+    - learner: "No, è tutto chiaro. Grazie mille, è stata molto gentile, e anche più veloce di quanto pensassi."
+    - tutor: "Si figuri. Arrivederci, e domani aspettiamo il suo collega."
+
+- scenario: assemblea-condominio
+  # facts: lavori alla facciata, ultimo preventivo molto più caro di quello dell'anno scorso; rata di tremila euro a dicembre, molte famiglie in difficoltà; proposta della learner: rinviare l'inizio di un anno; il signore del terzo piano è sarcastico; cornicioni da mettere in sicurezza, circa dodicimila euro secondo il tecnico del sopralluogo, che può tornare la settimana prossima; a verbale: cornicioni entro un mese, tre preventivi entro marzo, delibera ad aprile
+  level: C2
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Allora, signori, se riusciamo a parlare uno alla volta forse finiamo prima di mezzanotte. Lei voleva intervenire?"
+    - learner: "Grazie. Non sono contraria ai lavori, sia chiaro: sono contraria ai tempi. Molte famiglie, per le quale una rata di tremila euro a dicembre è un problema serio, mi hanno chiesto di parlare anche a nome loro."
+      errors: [relative-pronoun]
+      gold: {text: "per le quale", fix: "per le quali"}
+    - tutor: "Ne prendo atto, signora. Ma riprenda «molte famiglie, per le quale»: il relativo deve accordarsi con «famiglie» anche nel numero. Come diventa?"
+      prompt: {text: "per le quale", tags: [relative-pronoun]}
+    # decoy: «il che» is correct
+    - learner: "Per le quali, certo. Propongo quindi di rinviare l'inizio dei lavori di un anno, il che darebbe a tutti il tempo di organizzarsi."
+    - tutor: "Chiaro. Il signore del terzo piano, però, mi fa notare con un certo sarcasmo che un anno fa si diceva la stessa cosa. Come gli risponde?"
+      goals: [position]
+    # decoy: headless «chi aspetta» and «è meglio un rinvio ... che una delibera» are correct
+    - learner: "Rispondo che ha ragione a essere stanco, e lo capisco: chi aspetta da anni ha il diritto di spazientirsi. Ma è meglio un rinvio deciso insieme che una delibera che metà del palazzo non riesce a pagare."
+    - tutor: "Detto con garbo, e il signore sembra essersi calmato. Ma i cornicioni intanto si sbriciolano: ha un'alternativa concreta?"
+      goals: [defuse]
+    # decoy: «il cui costo» is correct
+    - learner: "Sì. Si potrebbero mettere in sicurezza subito i cornicioni, il cui costo, secondo il tecnico di chi mi ha parlato lei stesso, è di circa dodicimila euro."
+      errors: [relative-pronoun]
+      gold: {text: "il tecnico di chi", fix: "il tecnico di cui"}
+    - tutor: "Dodicimila euro, sì, è la cifra del sopralluogo. Però riprenda «il tecnico di chi mi ha parlato»: «chi» non può avere un nome davanti, e qui c'è «il tecnico». Dopo «di», quale relativo serve?"
+      prompt: {text: "il tecnico di chi", tags: [relative-pronoun]}
+    - learner: "Il tecnico di che mi ha parlato, mi scusi."
+      errors: [relative-pronoun]
+    - tutor: "Il tecnico di cui le ho parlato può tornare già la settimana prossima. E i lavori grandi, quando li farebbe?"
+      goals: [alternative]
+      recast: {text: "di che", fix: "di cui", tags: [relative-pronoun]}
+    - learner: "In primavera, dopo aver raccolto almeno tre preventivi: l'ultimo che abbiamo ricevuto era molto più caro che quello dell'anno scorso, e nessuno ci ha spiegato perché."
+      errors: [comparative]
+      gold: {text: "molto più caro che quello", fix: "molto più caro di quello"}
+    # agree: content
+    - tutor: "Su questo ha ragione, quel preventivo sembrava gonfiato anche a me. Ma «molto più caro che quello dell'anno scorso»: davanti al pronome «quello», quale preposizione introduce il secondo termine?"
+      prompt: {text: "molto più caro che quello", tags: [comparative]}
+    - learner: "Molto più caro di quello dell'anno scorso. Propongo allora di mettere a verbale tre punti: cornicioni entro un mese, tre preventivi entro marzo e la delibera ad aprile."
+    - tutor: "Mi sembra un compromesso che l'assemblea può votare. Lo metto a verbale così, e passiamo al voto."
+      goals: [compromise]
+
+- scenario: cena-suoceri
+  # facts: il learner fa il cuoco a Bologna; la madre della compagna ha preparato un arrosto con una salsa; fra due anni il learner vorrebbe aprire un locale suo, con un menù di piatti argentini rivisitati con prodotti emiliani, a cui lavora da mesi; il padre temeva un artista squattrinato; il padre propone il tu; il learner viene a pranzo domani con la compagna
+  level: C2
+  persona: es-m-worker
+  history: [comparative, relative-pronoun]
+  turns:
+    - tutor: "Prego, si sieda pure. Mia figlia ci ha parlato tanto di Lei che ormai temevamo fosse un personaggio immaginario."
+    - learner: "Spero di essere all'altezza della mia fama, allora. Intanto complimenti per la casa: ha una luce e un'eleganza che si trovano di rado."
+    - tutor: "Lei è gentile. Mia moglie ha preparato un arrosto, e confesso che siamo un po' in ansia: non capita tutti i giorni di cucinare per un cuoco."
+    - learner: "Non dovete esserlo affatto: questo arrosto è più tenero che quello che servo io al ristorante, e glielo dico da professionista, non da ospite."
+      errors: [comparative]
+      gold: {text: "più tenero che quello", fix: "più tenero di quello"}
+    - tutor: "Detto da un professionista vale doppio, e mia moglie ne sarà lusingata. Però, visto che Lei ama la precisione: in «più tenero che quello che servo io», davanti al pronome «quello», quale preposizione si aspetterebbe?"
+      goals: [compliment]
+      prompt: {text: "più tenero che quello", tags: [comparative]}
+    - learner: "Più tenero di quello che servo io, ha ragione. E la salsa ha un equilibrio che le invidio sinceramente."
+    - tutor: "Mia moglie gongola. E i suoi progetti? Mia figlia dice che vorrebbe un locale tutto suo."
+    - learner: "È vero, fra due anni, se tutto va bene. Ho già in mente il quartiere, e anche un piccolo menù su che lavoro da mesi, con piatti argentini rivisitati con prodotti emiliani."
+      errors: [relative-pronoun]
+      gold: {text: "un piccolo menù su che", fix: "un piccolo menù su cui"}
+    - tutor: "Un progetto ambizioso, e mi piace che sia già concreto. Però «un piccolo menù su che lavoro da mesi»: dopo «su», il relativo non può essere «che». Quale va?"
+      goals: [background]
+      prompt: {text: "un piccolo menù su che", tags: [relative-pronoun]}
+    - learner: "Un menù su cui lavoro da mesi, appunto. Naturalmente sua figlia sarà la prima ad assaggiarlo, e la più severa."
+    - tutor: "Sulla severità di mia figlia non ho dubbi. Le confesso che temevo di vedermi arrivare in casa un artista squattrinato, e invece mi trovo davanti un imprenditore. Devo preoccuparmi?"
+    - learner: "Si preoccupi solo per la bilancia: un cuoco in famiglia è più pericoloso che qualsiasi artista, almeno per la linea."
+      errors: [comparative]
+      gold: {text: "più pericoloso che qualsiasi artista", fix: "più pericoloso di qualsiasi artista"}
+    - tutor: "Ben detto, e con garbo. Ma «più pericoloso che qualsiasi artista»: Lei confronta un cuoco con «qualsiasi artista». Quale preposizione introduce il secondo termine?"
+      goals: [irony]
+      prompt: {text: "più pericoloso che qualsiasi artista", tags: [comparative]}
+    - learner: "Più pericoloso che un qualsiasi artista, dicevo."
+      errors: [comparative]
+    - tutor: "Un cuoco più pericoloso di un qualsiasi artista, almeno per la linea: me lo segno. A questo punto, però, mi pare ridicolo continuare a darci del Lei. Che ne dice di passare al tu?"
+      recast: {text: "più pericoloso che un qualsiasi artista", fix: "più pericoloso di un qualsiasi artista", tags: [comparative]}
+    # decoy: «più buono di quanto meriti» is correct
+    - learner: "Ne sarei onorato. Allora, se permetti, ti verso un altro bicchiere di questo vino, che è davvero più buono di quanto meriti un ospite come me."
+    - tutor: "Versa pure, e dammi del tu anche domani, quando verrai a pranzo con mia figlia."
+      goals: [tu-lei]
+
+- scenario: pranzo-domenicale
+  # facts: il learner ha portato un dolce fatto dalla zia; il nonno, emigrato da ragazzo a Toronto, usava «vuotare il sacco»; in inglese «spill the beans»; il nonno preparava i tortellini per tutta la famiglia e una sera gli ha raccontato del primo inverno in Canada; arrivato con una valigia di cartone, primo lavoro grazie a un paesano il cui fratello aveva una pasticceria; dopo dieci anni aveva una pasticceria sua, più grande; motto del nonno: chi la dura la vince; l'ultima fetta di lasagna va al learner
+  level: C2
+  persona: en-m-heritage
+  history: [relative-pronoun, comparative]
+  turns:
+    - tutor: "Ah, sei arrivato giusto in tempo, qui si stanno già scannando per l'ultima lasagna. Siediti, che non mordiamo!"
+    - learner: "Meno male! Avevo paura di arrivare a lasagna finita. Ho portato un dolce, ma te lo dico subito: l'ha fatto mia zia, io non c'entro niente."
+    - tutor: "Bravo, hai vuotato il sacco subito! Mettiti comodo, che qui si mangia e si parla, non per forza in quest'ordine."
+    - learner: "«Vuotare il sacco» vuol dire confessare, giusto? È un'espressione di chi mi parlava sempre mio nonno, che era emigrato a Toronto da ragazzo."
+      errors: [relative-pronoun]
+      gold: {text: "un'espressione di chi", fix: "un'espressione di cui"}
+    - tutor: "Vuol dire confessare tutto, sì. Ma «un'espressione di chi mi parlava sempre mio nonno»: tuo nonno ti parlava dell'espressione, non di una persona. Quale relativo si usa dopo «di»?"
+      goals: [react]
+      prompt: {text: "un'espressione di chi", tags: [relative-pronoun]}
+    # decoy: «molto meno elegante di un sacco» is correct
+    - learner: "Un'espressione di cui mi parlava sempre mio nonno. In inglese diciamo «spill the beans», cioè rovesciare i fagioli, che è molto meno elegante di un sacco."
+    - tutor: "Ecco, così. I fagioli rovesciati: da noi sarebbe un'immagine da osteria! E il nonno, con questi modi di dire, ti ha lasciato qualche storia?"
+      goals: [compare]
+    - learner: "Tantissime. Una sera, nella cucina che preparava i tortellini per tutta la famiglia, mi ha raccontato del suo primo inverno in Canada."
+      errors: [relative-pronoun]
+      gold: {text: "nella cucina che", fix: "nella cucina in cui"}
+    - tutor: "Comincia bene, con i tortellini di mezzo. Ma «nella cucina che preparava i tortellini»: così sembra che sia la cucina a prepararli! Che cosa serve davanti al relativo, perché sia lui?"
+      prompt: {text: "nella cucina che", tags: [relative-pronoun]}
+    - learner: "Nella cucina in che preparava i tortellini, volevo dire."
+      errors: [relative-pronoun]
+    - tutor: "Nella cucina in cui preparava i tortellini, allora: il posto perfetto per le confidenze. E che cosa ti ha raccontato?"
+      recast: {text: "in che", fix: "in cui", tags: [relative-pronoun]}
+    # decoy: «il cui fratello» is correct
+    - learner: "Era arrivato con una valigia di cartone e senza una parola d'inglese; il primo lavoro l'ha trovato grazie a un paesano il cui fratello aveva una pasticceria."
+    - tutor: "La classica catena dei paesani. E poi, come finisce la storia?"
+    # decoy: the proverb «chi la dura la vince» is correct
+    - learner: "Finisce bene: dopo dieci anni aveva una pasticceria sua, più grande che quella del fratello del paesano! Mio nonno diceva sempre: chi la dura la vince."
+      errors: [comparative]
+      gold: {text: "più grande che quella", fix: "più grande di quella"}
+    # agree: content
+    - tutor: "Chi la dura la vince, e tuo nonno ne è la prova. Però «più grande che quella del fratello»: «quella» è un pronome. Quale preposizione gli va davanti?"
+      goals: [use-idiom, anecdote]
+      prompt: {text: "più grande che quella", tags: [comparative]}
+    - learner: "Più grande di quella del fratello del paesano, ecco. Adesso però passami la lasagna, prima che finisca davvero!"
+    - tutor: "Tieni, l'ultima fetta è tua: te la sei guadagnata."
+
+- scenario: dialetti-regionali
+  # facts: la learner è di Siviglia; ha notato «tengo» per «ho» e «sto stanco», come in spagnolo; per lei il napoletano è più facile da capire del milanese; il sociolinguista è napoletano e studia da vent'anni il passaggio tra dialetto e italiano; quei due signori parlavano un italiano regionale pieno di dialetto; opinione della learner: dialetti protetti ma non imbalsamati, a scuola come la storia locale
+  level: C2
+  persona: es-f-erasmus
+  history: [comparative, relative-pronoun]
+  turns:
+    - tutor: "Scusa se mi intrometto, ma ti ho visto ridere: hai capito cosa si dicevano quei due signori? Perché non è mica facile."
+    # decoy: the subjunctive «usassero» after «mi ha colpito che» is correct
+    - learner: "Non tutto, ma qualcosa sì. Mi ha colpito che usassero «tengo» al posto di «ho», esattamente come facciamo noi in spagnolo con «tener»."
+    - tutor: "Ottimo orecchio! E non è un caso: il napoletano e lo spagnolo hanno avuto secoli per conoscersi. Che altro hai notato?"
+      goals: [notice]
+    - learner: "Anche «stare» per «essere»: «sto stanco». Per me, da sivigliana, il napoletano è più facile da capire che il milanese, che invece mi sembra quasi tedesco."
+      errors: [comparative]
+      gold: {text: "più facile da capire che il milanese", fix: "più facile da capire del milanese"}
+    # agree: content
+    - tutor: "Non sei la prima spagnola che me lo dice, e ha senso. Però «più facile da capire che il milanese»: confronti due nomi, il napoletano e il milanese. Quale preposizione, con l'articolo, introduce il secondo?"
+      prompt: {text: "più facile da capire che il milanese", tags: [comparative]}
+    - learner: "Più facile da capire del milanese, sì. Ma allora quello che parlavano quei signori era dialetto o italiano?"
+    - tutor: "Ecco, così. Era un italiano regionale con dentro molto dialetto: un continuum, più che due lingue separate."
+      goals: [example]
+    - learner: "Capisco. Quindi c'è una zona grigia in che le persone passano dall'uno all'altro senza accorgersene, come succede in Andalusia."
+      errors: [relative-pronoun]
+      gold: {text: "una zona grigia in che", fix: "una zona grigia in cui"}
+    # agree: content
+    - tutor: "È il mio campo di studio da vent'anni, e hai colto il punto. Ma «una zona grigia in che le persone passano»: dopo «in», quale relativo ci vuole?"
+      goals: [standard]
+      prompt: {text: "una zona grigia in che", tags: [relative-pronoun]}
+    - learner: "Una zona grigia in quale le persone passano dall'uno all'altro."
+      errors: [relative-pronoun]
+    - tutor: "Una zona grigia nella quale si passa dall'uno all'altro senza pensarci. E secondo te i dialetti vanno protetti, o lasciati al loro destino?"
+      recast: {text: "in quale", fix: "nella quale", tags: [relative-pronoun]}
+    # decoy: headless «chi parla», «vergognarsene» and «più per curiosità che per obbligo» are correct
+    - learner: "Vanno protetti, ma non imbalsamati. Chi parla dialetto a casa non dovrebbe vergognarsene, e a scuola si potrebbe studiarlo come la storia locale, più per curiosità che per obbligo."
+    - tutor: "Protetti ma non imbalsamati: questa me la rubo per la mia prossima lezione. E l'italiano standard, in tutto questo?"
+    - learner: "Resta la lingua comune, la quale nessuno vuole rinunciare, ma che può convivere benissimo con tutto il resto."
+      errors: [relative-pronoun]
+      gold: {text: "la quale nessuno vuole rinunciare", fix: "alla quale nessuno vuole rinunciare"}
+    - tutor: "Sono d'accordo, la lingua comune non la tocca nessuno. Ma «la lingua comune, la quale nessuno vuole rinunciare»: quale preposizione regge «rinunciare», e dove va?"
+      goals: [opinion]
+      prompt: {text: "la quale nessuno vuole rinunciare", tags: [relative-pronoun]}
+    # decoy: «più in fretta di quanto pensassi» is correct
+    - learner: "Alla quale nessuno vuole rinunciare, giusto: si rinuncia a qualcosa. Comunque grazie, questo viaggio è passato più in fretta di quanto pensassi."
+    - tutor: "Anche per me. E la prossima volta che senti due napoletani, ridi pure: vorrà dire che hai capito."
+
+- scenario: intervista-radio
+  # facts: l'autrice vive a Torino da dodici anni; il libro è una raccolta di ritratti dei vicini di casa, nato da appunti sul telefono; l'idea del coraggio va attribuita all'editore; il vicino del quarto piano ha quarantadue anni, telefona alla madre più spesso delle studentesse dell'autrice, porta la spesa a tre vedove ogni domenica; la portinaia le ha corretto il congiuntivo davanti al condominio
+  level: C2
+  persona: es-f-teacher
+  history: [relative-pronoun, comparative]
+  turns:
+    - tutor: "Bentornati, cari ascoltatori. In studio con noi c'è un'autrice che ha avuto il coraggio, o l'incoscienza, di scrivere un libro su di noi italiani. Benvenuta!"
+    - learner: "Grazie, e grazie del coraggio che mi attribuisce: in realtà l'incoscienza è stata tutta del mio editore. Il libro è una raccolta di ritratti dei miei vicini di casa a Torino, dove vivo da dodici anni."
+    - tutor: "Ritratti dei vicini: spero che nessuno l'abbia ancora denunciata! Perché ha deciso di scriverlo?"
+    # decoy: «a cui dobbiamo di più» and «di cui sappiamo di meno» are correct
+    - learner: "Perché i vicini sono le persone a cui dobbiamo di più e di cui sappiamo di meno, e questo paradosso è la ragione che ho cominciato a prendere appunti."
+      errors: [relative-pronoun]
+      gold: {text: "la ragione che", fix: "la ragione per cui"}
+    - tutor: "Un paradosso elegante. Però «la ragione che ho cominciato a prendere appunti»: lei ha cominciato a causa di quella ragione. Quale preposizione serve davanti al relativo?"
+      goals: [present-book]
+      prompt: {text: "la ragione che", tags: [relative-pronoun]}
+    - learner: "La ragione per cui ho cominciato a prendere appunti, sì. All'inizio erano solo note sul telefono, scritte in ascensore."
+    - tutor: "Così è corretto. Ora la provoco: nel libro conferma che gli italiani sono tutti mammoni?"
+    # decoy: «l'uomo più indipendente che conosca» is correct
+    - learner: "Lo confermo solo in parte. Il mio vicino del quarto piano, che ha quarantadue anni, telefona alla madre più spesso che le mie studentesse di vent'anni, ma è anche l'uomo più indipendente che conosca."
+      errors: [comparative]
+      gold: {text: "più spesso che le mie studentesse", fix: "più spesso delle mie studentesse"}
+    # agree: content
+    - tutor: "Quindi lo stereotipo regge, ma con le dovute sfumature: mi pare un'osservazione onesta. Però «più spesso che le mie studentesse»: confronta il vicino con le studentesse. Quale preposizione, con l'articolo, introduce il secondo termine?"
+      goals: [stereotype]
+      prompt: {text: "più spesso che le mie studentesse", tags: [comparative]}
+    - learner: "Più spesso delle mie studentesse, ecco. Ma il mammone, nel libro, è anche quello che ogni domenica porta la spesa a tre vedove del palazzo."
+    - tutor: "Un mammone altruista, dunque. Ci racconti un aneddoto che dica qualcosa di lei, oltre che dei suoi vicini."
+    - learner: "La portinaia, una signora i quali consigli non ho mai chiesto ma ho sempre ricevuto, un giorno mi ha corretto il congiuntivo davanti a tutto il condominio."
+      errors: [relative-pronoun]
+      gold: {text: "una signora i quali consigli", fix: "una signora i cui consigli"}
+    - tutor: "Una scena impagabile. Ma, visto che parliamo di grammatica, «una signora i quali consigli»: i consigli sono della signora. Quale relativo esprime il possesso?"
+      goals: [anecdote]
+      prompt: {text: "una signora i quali consigli", tags: [relative-pronoun]}
+    - learner: "Una signora le cui consigli non ho mai chiesto."
+      errors: [relative-pronoun]
+    - tutor: "Una portinaia i cui consigli arrivano senza essere chiesti: ogni condominio ne ha una. E l'italiano, che cosa ha cambiato in lei?"
+      recast: {text: "le cui consigli", fix: "i cui consigli", tags: [relative-pronoun]}
+    # decoy: «vale più di un ordine» and «più diretta che diplomatica» are correct
+    - learner: "Mi ha insegnato a chiedere con il condizionale anche quando pretendo, e che una frase gentile vale più di un ordine. In spagnolo sono più diretta che diplomatica; in italiano, il contrario."
+    - tutor: "Una lezione che molti italiani dovrebbero imparare dalla sua portinaia. Ci lascia con una frase da ricordare?"
+      goals: [language]
+    # decoy: «più vicina di quanto sembri» is correct
+    - learner: "Dirò questo: in Italia ho imparato che la porta di un vicino è sempre più vicina di quanto sembri, soprattutto quando hai finito lo zucchero."
+    - tutor: "Bellissima. Grazie di essere stata con noi, e in bocca al lupo per il libro!"
+      goals: [farewell]

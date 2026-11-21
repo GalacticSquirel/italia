@@ -1,0 +1,318 @@
+# Set r-multi-target, file 4 (C1): a pharmacy app test, a colleague who took the credit, a chat
+# support pitch, a packaging supplier, a promotion after a viral campaign, abandoned roadworks,
+# a misspelt surname at the registry office and a young patient with high cholesterol. The
+# trivial slip comes first and is never mentioned; the target is consecutio, congiuntivo,
+# combined pronouns, relatives, false friends, auxiliaries or register.
+- scenario: riunione-lavoro
+  # facts: app per una catena di farmacie; test con cinquanta utenti la settimana scorsa, risultati migliori del previsto sulla velocità; quasi metà degli anziani non trova il pulsante delle ricette, alla fine lo trovano dopo parecchi minuti; Giulia, la designer, ha mandato ieri sera una schermata più semplice; nuovi test con una ventina di anziani entro il 20 marzo; lancio confermato il 3 aprile se va bene; il cliente non sa ancora nulla, glielo dicono insieme venerdì alle dieci
+  level: C1
+  persona: es-m-worker
+  history: [false-friend, combined-pronouns, subjunctive-use]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Direi bene, nel complesso. La settimana scorsa abbiamo fatto i test dell'app con cinquanta utenti, e i risultati sono stati migliori di quanto ci aspettassimo, soprattutto sulla velocità."
+    - tutor: "Ottima notizia, il cliente ci teneva parecchio. C'è qualcosa che non ha funzionato?"
+      goals: [update]
+    # decoy: «gli abbiamo spiegato» for «a loro» is fine in speech
+    - learner: "Sì, con gli utenti più anziani. Quasi la metà non trovava il pulsante per le ricete: gli abbiamo spiegato dove fosse, ed eventualmente l'hanno trovato tutti, ma dopo parecchi minuti."
+      errors: [spelling, false-friend]
+      gold: {text: "eventualmente", fix: "alla fine"}
+    - tutor: "Alla fine l'hanno trovato, d'accordo, ma dopo parecchi minuti: per un'app da farmacia è decisamente troppo. Hai già in mente una soluzione?"
+      recast: {text: "eventualmente", fix: "alla fine", tags: [false-friend]}
+      goals: [problem]
+    - learner: "Sì. Giulia, la designer, ha già preparato una schermata più semplice, con la pulsante grande in alto. Ieri sera mi l'ha mandata, e mi sembra molto più chiara."
+      errors: [noun-gender, combined-pronouns]
+      gold: {text: "mi l'ha mandata", fix: "me l'ha mandata"}
+    - tutor: "Giulia è velocissima, come sempre. Ma riascolta «mi l'ha mandata»: davanti a «la», il pronome «mi» resta uguale?"
+      prompt: {text: "mi l'ha mandata", tags: [combined-pronouns]}
+    - learner: "No, diventa «me»: me l'ha mandata ieri sera."
+    - tutor: "Esatto. E come pensi di verificare che funzioni davvero, prima del lancio?"
+    - learner: "Propongo di rifare i test solo con gli utenti anziani, una ventina, entro il 20 marzo. Se il nuovo pulsante funziona, il lancio del 3 aprile resta confermato; altrimenti ne parliamo con il cliente."
+    - tutor: "Mi convince, venti persone bastano. Ma il cliente sa già del problema?"
+      goals: [proposal]
+    # agree: the tutor agrees to tell the client together and corrects the sequence of tenses
+    - learner: "Non ancora, e sinceramente non vorrei alarmarlo per niente. Preferirei che glielo diciamo insieme venerdì, quando avremo i primi risultati: così non arriviamo con un problema e basta."
+      errors: [spelling, subjunctive-use]
+      gold: {text: "Preferirei che glielo diciamo", fix: "Preferirei che glielo dicessimo"}
+    - tutor: "Presentarsi con una soluzione in mano è più furbo, hai ragione. Ma riascolta «preferirei che glielo diciamo»: con «preferirei», che tempo del congiuntivo ci vuole?"
+      prompt: {text: "Preferirei che glielo diciamo", tags: [subjunctive-use]}
+    - learner: "Sì, scusa: preferirei che glielo diremo insieme."
+      errors: [subjunctive-use]
+    - tutor: "Volevo proprio proporti che glielo dicessimo insieme: venerdì alle dieci, allora?"
+      recast: {text: "che glielo diremo insieme", fix: "che glielo dicessimo insieme", tags: [subjunctive-use]}
+    - learner: "Venerdì alle dieci va benissimo. Quindi i test con gli anziani entro il 20 marzo e, se va tutto bene, il lancio resta il 3 aprile."
+    - tutor: "Così. Ci aggiorniamo venerdì, e grazie per come hai gestito la cosa."
+      goals: [deadline]
+
+- scenario: mediazione-colleghi
+  # facts: ieri, alla riunione, Paolo ha presentato l'analisi delle vendite parlando sempre al singolare; i dati li ha raccolti la collega per tre settimane; Paolo non l'ha nominata ma non ha detto che erano suoi; prima della riunione le aveva detto che avrebbe presentato lui; il direttore gli faceva domande a raffica; soluzione: oggi la team leader scrive al direttore chi ha fatto cosa, giovedì alle undici incontro a tre nel suo ufficio, da ora in poi una prima diapositiva con i nomi di tutti
+  level: C1
+  persona: en-f-professional
+  history: [conditional-form, subjunctive-use, word-choice]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Non mi disturba affatto, anzi, ho notato anch'io che durante la riunione era molto tesa. Si sieda pure e mi racconti con calma come l'ha vissuta lei."
+    - tutor: "Paolo ha presentato l'analisi delle vendite come se fosse tutta sua. I dati li ho raccolti io, per tre settimane, e lui non mi ha nemmeno nominata."
+    - learner: "Capisco perfettamente che si senta ferita: tre settimane di lavoro non sono poche, e so bene quanto tempo ha dedicato a quei dati."
+    - tutor: "Grazie, già sentirmelo dire mi aiuta. Ma ieri nessuno se n'è accorto."
+      goals: [listen]
+    - learner: "Vorrei capire bene una cosa, prima di parlarne con lui. Durante la presentazzione, Paolo ha detto che i dati erano suoi, o semplicemente non l'ha nominata? E prima della riunione, le aveva detto che presenterà lui l'analisi?"
+      errors: [spelling, conditional-form]
+      gold: {text: "le aveva detto che presenterà lui l'analisi", fix: "le aveva detto che avrebbe presentato lui l'analisi"}
+    - tutor: "Non ha detto che erano suoi, ma ha parlato sempre al singolare: «ho analizzato, ho scoperto». Però riascolti «le aveva detto che presenterà lui»: un futuro visto dal passato, quale forma prende?"
+      prompt: {text: "le aveva detto che presenterà lui l'analisi", tags: [conditional-form]}
+      goals: [clarify]
+    - learner: "Il condizionale passato: le aveva detto che avrebbe presentato lui l'analisi?"
+    - tutor: "Sì, me l'aveva detto, e io davo per scontato che almeno mi citasse. Lei come la vede?"
+    # agree: the tutor grants the pressure on Paolo and corrects the mood
+    - learner: "Non voglio giustificarlo, ma conosco Paolo: quando è nervoso parla al singolare senza rendersene conto, e ieri il direttore gli faceva domande a raffica. Può darsi che non l'ha fatto apposta."
+      errors: [subjunctive-use]
+      gold: {text: "Può darsi che non l'ha fatto apposta", fix: "Può darsi che non l'abbia fatto apposta"}
+    - tutor: "Che ieri fosse sotto pressione, glielo concedo. Ma riascolti «può darsi che non l'ha fatto apposta»: dopo «può darsi che», quale modo serve?"
+      prompt: {text: "Può darsi che non l'ha fatto apposta", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: può darsi che non l'abbia fatto apposta."
+    - tutor: "Può darsi, ma il risultato non cambia: il direttore crede che il lavoro sia suo."
+      goals: [perspective]
+    # agree: the tutor welcomes the meeting and recasts the calque
+    - learner: "Ha ragione, e voglio rimediare imediatamente. Oggi stesso scrivo al direttore chi ha fatto cosa, e giovedì ci vediamo noi tre per discutere la materia con calma."
+      errors: [spelling, word-choice]
+      gold: {text: "la materia", fix: "la questione"}
+    - tutor: "Discutere la questione tutti e tre, con calma, mi sembra giusto: almeno Paolo dovrà spiegarsi davanti a me. Giovedì a che ora?"
+      recast: {text: "la materia", fix: "la questione", tags: [word-choice]}
+    - learner: "Alle undici, nel mio ufficio. E da ora in poi chiederò che ogni presentazione abbia una prima diapositiva con i nomi di tutti quelli che ci hanno lavorato."
+    - tutor: "Questo mi fa sentire meglio, davvero. Grazie, giovedì alle undici ci sarò."
+      goals: [solution]
+
+- scenario: presentazione-progetto
+  # facts: azienda di elettrodomestici a Milano; progetto: chat di assistenza in tempo reale; oggi attesa media di venti minuti al telefono; investimento 180.000 euro in nove mesi, formazione compresa; si collega al magazzino ricambi; riduzione delle chiamate del trenta per cento, risparmio di circa 120.000 euro l'anno, ripagato in poco più di un anno e mezzo; l'ultimo progetto informatico è arrivato con quattro mesi di ritardo; pilota di tre mesi su un solo prodotto a 50.000 euro dal budget del reparto; piano del pilota al comitato di lunedì, partenza a marzo se approvato
+  level: C1
+  persona: en-m-traveller
+  history: [ci-ne, hypothetical, register]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Le rubo solo cinque minuti. Il progetto è una chat di assistenza in tempo reale per i nostri clienti: oggi chi ha un problema con una lavatrice aspetta in media venti minuti al telefono."
+    - tutor: "Venti minuti sono tanti, lo so dai reclami. Quanto costa, e che cosa ci distingue dalla concorrenza?"
+      goals: [pitch]
+    - learner: "L'investimento è di 180.000 euro in nove mesi, compresa la formazzione. Di soluzioni simili sul mercato ci sono molte, ma la nostra si collega direttamente al magazzino ricambi."
+      errors: [spelling, ci-ne]
+      gold: {text: "ci sono molte", fix: "ce ne sono molte"}
+    - tutor: "Il collegamento con il magazzino è un argomento forte. Ma riascolti «di soluzioni simili ci sono molte»: con «molte», le soluzioni vanno riprese da un pronome. Come diventa «ci sono»?"
+      prompt: {text: "ci sono molte", tags: [ci-ne]}
+    - learner: "Ce ne sono molte: di soluzioni simili ce ne sono molte sul mercato."
+    - tutor: "Esatto. E in soldi, quanto risparmieremmo?"
+    - learner: "Circa 120.000 euro all'anno, tra personale del call center e straordinari, perché le chiamate calerebbero del trenta per cento. L'investimento si ripagherebbe in poco più di un anno e mezzo."
+    - tutor: "Sulla carta funziona. Ma nove mesi sono lunghi, e l'ultimo progetto informatico è arrivato con quattro mesi di ritardo. Perché questa volta dovrebbe andare diversamente?"
+      goals: [benefits]
+    # agree: the tutor accepts the point about a trial phase and corrects the hypothetical
+    - learner: "È un rischio reale, lo ametto. Se l'anno scorso avremmo fatto una fase di prova, quel sistema oggi funzionerebbe già: per questo propongo di partire con un pilota di tre mesi su un solo prodotto."
+      errors: [spelling, hypothetical]
+      gold: {text: "Se l'anno scorso avremmo fatto", fix: "Se l'anno scorso avessimo fatto"}
+    - tutor: "Sul fatto che una fase di prova ci avrebbe aiutati, ha ragione. Ma riascolti «se l'anno scorso avremmo fatto»: nella parte con «se», il condizionale passato va bene?"
+      prompt: {text: "Se l'anno scorso avremmo fatto", tags: [hypothetical]}
+    - learner: "No, il congiuntivo trapassato: se l'anno scorso avessimo fatto una fase di prova, quel sistema oggi funzionerebbe già."
+    - tutor: "Giusto. E quanto costerebbe questo pilota?"
+    - learner: "Circa 50.000 euro, già compresi nel budget del mio reparto. Se va bene, estendiamo la chat a tutti i prodotti; se no, ci fermiamo e abbiamo perso poco. Che ne dici?"
+      errors: [register]
+      gold: {text: "Che ne dici", fix: "Che ne dice"}
+    - tutor: "Cinquantamila euro li posso autorizzare. Ma riascolti «che ne dici»: finora ci siamo dati del Lei, o sbaglio?"
+      prompt: {text: "Che ne dici", tags: [register]}
+      goals: [objection]
+    - learner: "Non sbaglia, mi scusi: che ne dice?"
+    - tutor: "Dico di sì. Presenti il piano del pilota al comitato di lunedì: se lo approvano, partite a marzo."
+      goals: [next-steps]
+
+- scenario: trattativa-fornitore
+  # facts: azienda di salse e conserve, cliente da cinque anni, mai un problema; email della learner della settimana scorsa senza risposta (finita a un collega in ferie); aumento del quindici per cento con un mese di preavviso; prezzi con i supermercati bloccati fino a dicembre; plastica riciclata aumentata del venti per cento in sei mesi; pagamenti sempre a trenta giorni; proposta: otto per cento con ordine annuale garantito di 200.000 vaschette; la fornitrice arriva all'undici, al dieci con pagamento a quindici giorni; accordo: dieci per cento, quindici giorni, prezzo bloccato dodici mesi; conferma scritta entro mercoledì
+  level: C1
+  persona: es-f-teacher
+  history: [false-friend, combined-pronouns, subjunctive-use]
+  turns:
+    - tutor: "Buongiorno, immagino che mi chiami per il nuovo listino. Purtroppo i costi delle materie prime sono saliti per tutti."
+    - learner: "Buongiorno. Sì, la chiamo proprio per quello. Siamo vostri clienti da cinque anni e non abbiamo mai avuto un problema; la settimana scorsa le ho scrito per chiedere spiegazioni, ma nessuno mi ha contestato."
+      errors: [spelling, false-friend]
+      gold: {text: "contestato", fix: "risposto"}
+    - tutor: "Ha ragione, nessuno le ha risposto, e me ne scuso: la sua email era finita a un collega in ferie. Adesso però sono qui io. Che cosa la preoccupa di più?"
+      recast: {text: "contestato", fix: "risposto", tags: [false-friend]}
+    - learner: "Soprattutto i tempi. Un aumento del quindici per cento comunicato con un mese di preavviso non ci lascia il tempo di rinegoziare con i supermercati, i cui prezzi sono bloccati fino a dicembre."
+    - tutor: "Lo capisco. Purtroppo la plastica riciclata è aumentata del venti per cento in sei mesi, e una parte l'abbiamo già assorbita noi."
+      goals: [problem]
+    # decoy: «che un cliente così venga trattato» is a correct subjunctive
+    - learner: "Non lo metto in dubbio. Però in cinque anni abbiamo sempre pagato a trenta giorni, senza un solo ritardo, e mi pare giusto che un cliente così venga trattato diversamente da chi ordina una volta sola."
+    - tutor: "Su questo non ha torto: i vostri pagamenti sono puntualissimi. Che cosa mi propone?"
+      goals: [argue]
+    - learner: "Un aumento dell'otto per cento, con un'ordine annuale garantito di 200.000 vaschette. Se vuole, il contratto vi lo mandiamo già oggi, così lo fa vedere al suo direttore."
+      errors: [article-form, combined-pronouns]
+      gold: {text: "vi lo mandiamo", fix: "ve lo mandiamo"}
+    - tutor: "Un ordine garantito mi interessa. Ma riascolti «vi lo mandiamo»: davanti a «lo», il pronome «vi» resta così?"
+      prompt: {text: "vi lo mandiamo", tags: [combined-pronouns]}
+    - learner: "No, diventa «ve»: il contratto ve lo mandiamo oggi."
+    - tutor: "Esatto. L'otto, però, non copre i miei costi: posso arrivare all'undici."
+      goals: [counteroffer]
+    - learner: "L'undici è ancora troppo. E se pagassimo a quindici giorni invece che a trenta, sarebbe disposta a scendere ancora? Immagino che un incasso più rapido vi convenga, visti i costi che mi ha descritto."
+    - tutor: "Un incasso a quindici giorni mi aiuta, sì: con quello arrivo al dieci, ma non oltre."
+    # agree: the tutor accepts the price freeze and corrects the mood
+    - learner: "Il dieci per tutta la gamma di vaschete potrebbe andare, a condizione che il prezzo resta bloccato per dodici mesi: non posso ritrovarmi con un altro aumento in primavera."
+      errors: [spelling, subjunctive-use]
+      gold: {text: "a condizione che il prezzo resta bloccato", fix: "a condizione che il prezzo resti bloccato"}
+    - tutor: "Dodici mesi di prezzo bloccato mi sembrano una richiesta corretta. Ma riascolti «a condizione che il prezzo resta»: dopo «a condizione che», quale modo serve?"
+      prompt: {text: "a condizione che il prezzo resta bloccato", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: a condizione che il prezzo resti bloccato per dodici mesi."
+    - tutor: "Allora siamo d'accordo: dieci per cento, pagamento a quindici giorni, prezzo bloccato per dodici mesi. Le mando la conferma scritta entro mercoledì."
+      goals: [agreement]
+
+- scenario: colloquio-promozione
+  # facts: dipendente nel marketing da due anni; campagna per il nuovo gelato, vendite online raddoppiate in tre mesi con i video brevi; il direttore commerciale diceva che era una perdita di tempo, budget minimo; chiede il ruolo di senior per le campagne digitali e un aumento; budget del personale congelato fino a gennaio; accordo: ruolo subito, aumento da gennaio, lettera firmata anche dal direttore entro fine mese; la learner e il compagno chiedono un mutuo
+  level: C1
+  persona: en-f-student
+  history: [tense-aspect, word-choice, combined-pronouns]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie del tempo. Volevo fare il punto sui miei primi due anni qui, e in particolare sulla campagna per il nuovo gelato, che credo abbia dato risultati di cui vale la pena parlare."
+    - tutor: "La campagna del gelato l'abbiamo notata tutti. Mi dica pure."
+    - learner: "In tre mesi le vendite online sono radoppiate. All'inizio nessuno ci credeva: quando ho proposto di puntare sui video brevi, il direttore commerciale diceva che è una perdita di tempo, e il budget era minimo."
+      errors: [spelling, tense-aspect]
+      gold: {text: "diceva che è una perdita di tempo", fix: "diceva che era una perdita di tempo"}
+    - tutor: "Me lo ricordo, quel dubbio. Ma riascolti «diceva che è una perdita di tempo»: con «diceva» al passato, il verbo che ne dipende può restare al presente?"
+      prompt: {text: "diceva che è una perdita di tempo", tags: [tense-aspect]}
+    - learner: "No: diceva che era una perdita di tempo."
+    - tutor: "Esatto. E oggi che cosa mi chiede?"
+      goals: [results]
+    - learner: "Vorrei passare al ruolo di senior, con la responsabilità delle campagne digitali e un aumento adeguato. Credo che i numeri parlino da soli."
+    - tutor: "I numeri parlano, sì. Il problema è che il budget del personale è congelato fino a gennaio, per tutti."
+      goals: [request]
+    # agree: the tutor accepts the compromise and recasts the collocation
+    - learner: "Lo capisco. Allora le propongo un compromesso: il ruolo e le responsabilita da subito, l'aumento da gennaio, ma con una lettera firmata adesso. Se fa la decisione oggi, a gennaio non dobbiamo ricominciare da capo."
+      errors: [spelling, word-choice]
+      gold: {text: "fa la decisione", fix: "prende la decisione"}
+    - tutor: "«Se prende la decisione oggi»: d'accordo, la prendo. Ruolo da subito e aumento da gennaio, con una lettera firmata anche dal direttore."
+      recast: {text: "fa la decisione", fix: "prende la decisione", tags: [word-choice]}
+      goals: [handle]
+    - learner: "Grazie davvero. Quando pensa di potermi dare la lettera? Vorrei mostrarla al mio compagno, perché stiamo per chedere un mutuo e la banca ci la chiederà sicuramente."
+      errors: [spelling, combined-pronouns]
+      gold: {text: "ci la chiederà", fix: "ce la chiederà"}
+    - tutor: "Entro la fine del mese, glielo prometto. Ma riascolti «la banca ci la chiederà»: davanti a «la», il pronome «ci» resta uguale?"
+      prompt: {text: "ci la chiederà", tags: [combined-pronouns]}
+    - learner: "No, diventa «ce»: la banca ce la chiederà."
+    - tutor: "Giusto. Allora: lettera entro fine mese, ruolo da subito, aumento da gennaio. E in bocca al lupo per il mutuo."
+      goals: [next-steps]
+
+- scenario: reclamo-comune
+  # facts: cantiere abbandonato da due mesi davanti al palazzo del learner, via dei Mille 14; transenne ancora lì, nessun operaio; marciapiede rotto per metà; una vicina in sedia a rotelle non esce più da sola e ha dovuto rinunciare a due visite in ospedale; segnalazione per email tre settimane fa; l'impresa ha sospeso i lavori, pratica all'ufficio tecnico; nessuna data; con reclamo protocollato risposta scritta entro trenta giorni; sopralluogo urgente entro dieci giorni chiesto nel reclamo; numero di protocollo 4127
+  level: C1
+  persona: es-m-worker
+  history: [passive, preposition, auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Sono qui per presentare un reclamo formale. Da due mesi, davanti al mio palazzo, c'è un cantiere abbandonato: le transenne sono ancora lì, ma degli operai non si vede traccia."
+    - tutor: "Capisco. Mi dà l'indirizzo esatto, così controllo la pratica?"
+    # agree: the tutor agrees the case is serious and corrects the passive
+    - learner: "Via dei Mille, 14. Il problema più grave è il marciapiede, rotto per metà: una mia vecina in sedia a rotelle non può più uscire da sola. La situazione è stata segnalato tre settimane fa, per email."
+      errors: [spelling, passive]
+      gold: {text: "è stata segnalato", fix: "è stata segnalata"}
+    - tutor: "Una persona in sedia a rotelle bloccata in casa è una cosa grave, ha ragione a insistere. Ma ripeta «la situazione è stata segnalato»: «segnalato» si accorda con «la situazione»?"
+      prompt: {text: "è stata segnalato", tags: [passive]}
+    - learner: "Sì, certo: la situazione è stata segnalata tre settimane fa."
+    - tutor: "Vedo la sua segnalazione. Risulta che l'impresa ha sospeso i lavori, e la pratica è all'ufficio tecnico."
+      goals: [describe]
+    - learner: "Mi scusi, ma «la pratica è all'ufficio tecnico» non mi dice niente. Vorrei sapere quando riprenderanno i lavori, o almeno quando qualcuno verrà a mettere in sicurezza il marciapiede."
+    - tutor: "Una data, purtroppo, io non gliela posso dare. Posso però mandare un sollecito all'ufficio tecnico."
+      goals: [insist]
+    - learner: "Un solecito non mi basta, dopo due mesi di disagi. Se presento un reclamo scritto, il Comune è obbligato di rispondermi entro un termine preciso, o posso aspettare per mesi?"
+      errors: [spelling, preposition]
+      gold: {text: "è obbligato di rispondermi", fix: "è obbligato a rispondermi"}
+    - tutor: "Con il reclamo protocollato, l'amministrazione deve rispondere per iscritto entro trenta giorni. Però riascolti «è obbligato di rispondermi»: dopo «obbligato», quale preposizione regge l'infinito?"
+      prompt: {text: "è obbligato di rispondermi", tags: [preposition]}
+      goals: [rights]
+    - learner: "La «a»: il Comune è obbligato a rispondermi entro trenta giorni."
+    - tutor: "Esatto. Se vuole, compiliamo subito il modulo del reclamo."
+    - learner: "Sì, grazie. Le chiedo solo di scrivere che la mia vicina, per colpa del marciapiede, è dovuta rinunciare a due visite in ospedale: mi sembra un dettaglio importante."
+      errors: [auxiliary-choice]
+      gold: {text: "è dovuta rinunciare", fix: "ha dovuto rinunciare"}
+    - tutor: "Lo scriviamo, è un dettaglio che pesa. Ma ripeta «è dovuta rinunciare»: con «dovere» davanti a «rinunciare», si usa l'ausiliare di «rinunciare». Quale?"
+      prompt: {text: "è dovuta rinunciare", tags: [auxiliary-choice]}
+      new: [{lemma: ausiliare, gloss: auxiliary verb}]
+    - learner: "Avere: la mia vicina ha dovuto rinunciare a due visite in ospedale."
+    - tutor: "Così. Nel reclamo chiedo anche un sopralluogo urgente entro dieci giorni. Ecco il suo numero di protocollo: 4127."
+      goals: [commitment]
+    - learner: "Grazie, è già qualcosa. Se tra dieci giorni non avrò visto nessuno, torno qui con questo numero."
+    - tutor: "Ottima idea: con il protocollo, la sua richiesta non può più perdersi per strada."
+
+- scenario: burocrazia-residenza
+  # facts: il learner chiede un certificato di stato di famiglia; la compagna rinnova il permesso di soggiorno e la questura lo chiede come prova della convivenza; nel sistema il cognome della compagna è scritto con una «i» invece della «y»; con l'errore il certificato non corrisponde al passaporto; serve una richiesta di rettifica con copia del passaporto; il permesso serve solo alla questura; la firma della compagna è necessaria, può venire domani dalle otto e mezza; la rettifica richiede circa dieci giorni, poi il certificato subito; il permesso scade fra tre settimane
+  level: C1
+  persona: en-m-traveller
+  history: [relative-pronoun, subjunctive-use, false-friend]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Avrei bisogno di un certificato di stato di famiglia: la mia compagna sta rinnovando il permesso di soggiorno, e in questura glielo hanno chiesto come prova che viviamo insieme."
+    - tutor: "Certo. Mi dà il suo codice fiscale, così controllo la vostra posizione?"
+      goals: [request]
+    # decoy: the indicative in «Mi può dire se ... c'è» is fine in speech
+    - learner: "Eccolo. Però prima vorrei chiederle una cosa: l'anno scorso ho notato che il cognome della mia compagna era scritto male, con una «i» al posto della «y». Mi può dire se nel sistema c'è ancora quell'errore?"
+    - tutor: "Purtroppo sì, vedo ancora il cognome con la «i». Così il certificato non corrisponderebbe al passaporto."
+    - learner: "Era proprio quello che temevo. In questura sono molto riggidi: lo sportello a che mi hanno mandato la settimana scorsa ha già rifiutato una pratica per una sola lettera sbagliata."
+      errors: [spelling, relative-pronoun]
+      gold: {text: "lo sportello a che mi hanno mandato", fix: "lo sportello a cui mi hanno mandato"}
+    - tutor: "Non mi stupisce, purtroppo. Ma riascolti «lo sportello a che mi hanno mandato»: dopo la preposizione «a», il relativo può essere «che»?"
+      prompt: {text: "lo sportello a che mi hanno mandato", tags: [relative-pronoun]}
+    - learner: "No, ci vuole «cui»: lo sportello a cui mi hanno mandato."
+    - tutor: "Esatto. Per correggere il cognome serve una richiesta di rettifica, con una copia del passaporto della sua compagna."
+      goals: [problem]
+    - learner: "Ho una copia del passaporto con me. Bisogna che porto anche il suo permesso di soggiorno, o il passaporto è sufficiente?"
+      errors: [subjunctive-use]
+      gold: {text: "Bisogna che porto", fix: "Bisogna che porti"}
+    - tutor: "Il passaporto è sufficiente: per questa pratica il permesso non serve. Ma ripeta «bisogna che porto»: dopo «bisogna che», quale modo usiamo?"
+      prompt: {text: "Bisogna che porto", tags: [subjunctive-use]}
+      goals: [documents]
+    - learner: "Il congiuntivo: bisogna che porti anche il permesso. Ma ho capito che non serve."
+    - tutor: "Esatto, non serve. Serve però la firma della sua compagna sulla richiesta."
+    # decoy: «eventualmente» meaning «if need be» is correct Italian
+    - learner: "Lei lavora fino alle sei, ma eventualmente potrebbe venire domani mattina, prima di andare in ufficio. A che ora aprite?"
+    - tutor: "Apriamo alle otto e mezza: se viene a quell'ora, non trova coda."
+    - learner: "Perfetto. E quanto tempo ci vuole per la rettifica? Glielo chiedo perché, controllando i documenti stamatina, ho realizzato che il suo permesso scade fra tre settimane."
+      errors: [spelling, false-friend]
+      gold: {text: "ho realizzato", fix: "mi sono reso conto"}
+    - tutor: "«Mi sono reso conto che scade fra tre settimane»: allora conviene fare in fretta. La rettifica richiede circa dieci giorni, e il certificato lo può avere subito dopo."
+      recast: {text: "ho realizzato", fix: "mi sono reso conto", tags: [false-friend]}
+      goals: [next]
+    - learner: "Allora domani alle otto e mezza siamo qui tutti e due. Grazie per la pazienza: so che questo tipo di errori fa perdere tempo anche a voi."
+    - tutor: "Si figuri, è il nostro lavoro. A domani, allora, e porti il modulo già compilato."
+
+- scenario: medico-specialista
+  # facts: paziente di ventotto anni, sportiva; da un mese dolore al centro del petto e fiato corto correndo in salita, dura qualche minuto dopo che si ferma; pensava al raffreddore; il nonno materno morto di infarto a cinquant'anni, fumava e già da giovane aveva il colesterolo alto; elettrocardiogramma sotto sforzo normale; colesterolo 260, probabilmente ereditario; il colesterolo da solo non dà dolore; per tre mesi dieta e sport moderato, poi forse una statina, che può dare dolori muscolari; nuove analisi a febbraio; se il dolore torna, chiamare subito
+  level: C1
+  persona: es-f-erasmus
+  history: [false-friend, tense-aspect, subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentita nelle ultime settimane?"
+    - learner: "Non molto bene. Da un mese, quando corro in salita, sento un dolore al petto e mi manca il fiato. All'inizio pensavo che dipendesse dal fato che ero molto constipata, ma il dolore continua."
+      errors: [spelling, false-friend]
+      gold: {text: "constipata", fix: "raffreddata"}
+    - tutor: "Se era raffreddata, con il naso chiuso si respira peggio, è vero; ma un dolore al petto è un'altra cosa. Dove lo sente, esattamente?"
+      recast: {text: "constipata", fix: "raffreddata", tags: [false-friend]}
+    - learner: "Soprattutto qui, al centro, e dura qualche minuto anche dopo che mi sono fermata. Non mi era mai successo, e sono sempre stata una persona sportiva."
+    - tutor: "Capisco. In famiglia ci sono stati problemi di cuore?"
+      goals: [symptoms]
+    - learner: "Sì, mio nonno materno è morto di infarto a cinquantanni, ma io ero piccola e non lo ricordo. Mia madre dice che fumava molto e che già da giovane ha avuto il colesterolo alto."
+      errors: [spelling, tense-aspect]
+      gold: {text: "già da giovane ha avuto il colesterolo alto", fix: "già da giovane aveva il colesterolo alto"}
+    - tutor: "È un dato importante, grazie. Ma riascolti «già da giovane ha avuto il colesterolo alto»: è una condizione che durava nel tempo, non un evento. Quale tempo la descrive?"
+      prompt: {text: "già da giovane ha avuto il colesterolo alto", tags: [tense-aspect]}
+    - learner: "L'imperfetto: già da giovane aveva il colesterolo alto."
+    - tutor: "Esatto. Vuole sapere che cosa dicono i suoi esami?"
+      goals: [history]
+    - learner: "Sì, per favore, e me lo dica con franchezza: preferisco sapere tutto, anche se è una brutta notizia."
+    - tutor: "Nessuna brutta notizia: l'elettrocardiogramma sotto sforzo è normale. Il colesterolo, però, è alto, 260, ed è probabile che sia di famiglia."
+      new: [{lemma: elettrocardiogramma, gloss: electrocardiogram}, {lemma: colesterolo, gloss: cholesterol}]
+      goals: [understand]
+    - learner: "Una mia amica ha il colesterolo alto, prende medicine da anni e si lamenta sempre dei dolori muscholari. È possibile che anche il mio dolore al petto dipende dal colesterolo?"
+      errors: [spelling, subjunctive-use]
+      gold: {text: "È possibile che anche il mio dolore al petto dipende", fix: "È possibile che anche il mio dolore al petto dipenda"}
+    - tutor: "Il colesterolo da solo non dà dolore, ma va tenuto sotto controllo. Però riascolti «è possibile che anche il mio dolore dipende»: dopo «è possibile che», quale modo serve?"
+      prompt: {text: "È possibile che anche il mio dolore al petto dipende", tags: [subjunctive-use]}
+    - learner: "Il congiuntivo: è possibile che dipenda dal colesterolo? E le medicine, dovrò prenderle anch'io?"
+    - tutor: "Per ora no: proviamo per tre mesi con la dieta e uno sport moderato. Se il colesterolo non scende, valuteremo una statina, che può dare proprio quei dolori muscolari."
+      new: [{lemma: statina, gloss: statin}]
+      goals: [treatment]
+    - learner: "Va bene, ci provo con impegno. Allora rifaccio le analisi del sangue a febbraio e torno da lei con i risultati?"
+    - tutor: "Esatto, a febbraio. E nel frattempo, se il dolore al petto torna, mi chiami subito, senza aspettare il controllo."

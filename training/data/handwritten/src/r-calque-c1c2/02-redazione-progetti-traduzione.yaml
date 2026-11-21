@@ -1,0 +1,260 @@
+# Set r-calque-c1c2, file 2: editorial meetings at a magazine and a publisher, project pitches,
+# two translators arguing over false friends and a letter to the rector. One calque or false
+# friend per error turn, recast inside a reply that answers and moves the scene on.
+- scenario: riunione-lavoro
+  # facts: inchiesta sui mercati rionali di Milano, dodici interviste fatte e due da fare; un'altra rivista ha pubblicato ieri un servizio simile con due degli stessi intervistati; dati inediti sugli affitti dei banchi degli ultimi dieci anni; litigio sui colori con Marco della grafica, Federica gli parla stamattina; grafico entro mercoledì, testo definitivo giovedì a mezzogiorno; presentazione dei dati giovedì alle tre in sala riunioni; il numero va in tipografia venerdì alle sei
+  level: C1
+  persona: en-f-student
+  history: [false-friend, word-choice]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    # decoy: «l'inchiesta» means «investigation», its correct sense
+    - learner: "Bene, direi. Sto finendo l'inchiesta sui mercati rionali di Milano: ho già fatto dodici interviste a commercianti e clienti, e ne mancano solo due."
+    - tutor: "Dodici interviste in tre settimane, non male. Quando pensi di consegnare il pezzo?"
+      goals: [update]
+    - learner: "Il testo è quasi pronto, ma c'è un problema: un altro magazzino ha pubblicato ieri un servizio molto simile, con due dei miei stessi intervistati."
+      errors: [false-friend]
+    - tutor: "Un'altra rivista con gli stessi intervistati? Che seccatura. Hai già pensato a come distinguerti?"
+      recast: {text: "un altro magazzino", fix: "un'altra rivista", tags: [false-friend]}
+      goals: [problem]
+    - learner: "Sì, potremmo puntare sui numeri: ho raccolto i dati sugli affitti dei banchi negli ultimi dieci anni, e nessuno li ha mai pubblicati. Secondo te bastano per cambiare taglio?"
+    - tutor: "Secondo me sì, i dati inediti sono la carta migliore che hai. Riesci a trasformarli in un grafico per l'apertura?"
+      goals: [proposal]
+    - learner: "Posso provarci, ma devo chiedere aiuto a Marco della grafica. L'ultima volta abbiamo avuto un argomento sui colori e da allora mi risponde a monosillabi."
+      errors: [false-friend]
+    - tutor: "Un litigio sui colori con Marco capita a tutti, tranquilla: stamattina gli parlo io. Per quando ti serve il grafico?"
+      recast: {text: "un argomento", fix: "un litigio", tags: [false-friend]}
+    # decoy: «L'editore» means «publisher», its correct sense
+    - learner: "Mi servirebbe entro mercoledì, così giovedì rileggiamo tutto insieme. L'editore vuole il numero chiuso venerdì sera, giusto?"
+    - tutor: "Sì, venerdì alle sei va in tipografia. Allora grafico mercoledì e testo definitivo giovedì a mezzogiorno?"
+    - learner: "D'accordo. Giovedì pomeriggio, se vuoi, posso anche dare una breve presentazione dei dati a tutta la redazione, così chi scrive i titoli sa dove guardare."
+      errors: [word-choice]
+    # agree: content
+    - tutor: "Buona idea: fare una breve presentazione dei dati aiuterà proprio chi scrive i titoli. Giovedì alle tre, in sala riunioni."
+      recast: {text: "dare una breve presentazione", fix: "fare una breve presentazione", tags: [word-choice]}
+      goals: [deadline]
+
+- scenario: riunione-lavoro
+  # facts: revisione del romanzo catalano finita, bozze mandate alla casa editrice di Barcellona per la copertina, risposta in una settimana; il traduttore ha consegnato con un mese di ritardo; rischio di slittare a dopo la fiera di Torino; Giulia è in ferie fino a lunedì; Stefano questo mese ha solo un saggio da chiudere; email del traduttore stampate, vanno all'ufficio contratti; fine bozze entro il 20 marzo, la tipografia ha dieci giorni prima della fiera
+  level: C1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Ho finito la revisione del romanzo catalano e ho mandato le bozze all'editoriale di Barcellona, che deve ancora approvare la copertina."
+      errors: [false-friend]
+    - tutor: "Bene, allora la palla passa alla casa editrice di Barcellona. Hanno detto quanto tempo ci vuole?"
+      recast: {text: "all'editoriale di Barcellona", fix: "alla casa editrice di Barcellona", tags: [false-friend]}
+      goals: [update]
+    - learner: "Mi hanno detto una settimana, ma il problema è un altro: il traduttore ha consegnato con un mese di ritardo e adesso la stampa rischia di slittare a dopo la fiera di Torino."
+    - tutor: "Slittare dopo la fiera sarebbe un peccato, è lì che vendiamo di più. Hai un'idea per recuperare?"
+      goals: [problem]
+    - learner: "Potremmo dividere la correzione delle bozze tra due persone. Ho già scritto a Giulia due giorni fa, ma finora non mi ha contestato."
+      errors: [false-friend]
+    - tutor: "Giulia non ha risposto perché è in ferie fino a lunedì. Con chi altro potresti dividere le bozze?"
+      recast: {text: "contestato", fix: "risposto", tags: [false-friend]}
+    - learner: "Allora potrei chiedere a Stefano, che ha già lavorato su un libro dello stesso autore. Secondo te ha tempo questo mese, o è pieno con la collana di saggistica?"
+    - tutor: "Stefano questo mese ha solo un saggio da chiudere, quindi qualche giorno lo trova. Gli parli tu oggi?"
+      goals: [proposal]
+    - learner: "Sì, lo chiamo dopo la riunione. Intanto ho impresso tutte le email del traduttore, con le date di consegna che aveva promesso, nel caso servissero per il contratto."
+      errors: [false-friend]
+    - tutor: "Meno male che hai stampato tutto: le giriamo all'ufficio contratti. E con Stefano, entro quando pensate di finire?"
+      recast: {text: "impresso", fix: "stampato", tags: [false-friend]}
+    # decoy: «Attualmente» means «al momento», its correct sense
+    - learner: "Attualmente siamo a metà del secondo giro di bozze. Con Stefano dovremmo finire entro il 20 marzo, così la tipografia ha dieci giorni prima della fiera."
+    - tutor: "Il 20 marzo va benissimo: lo segno nel calendario e avviso io la tipografia."
+      goals: [deadline]
+
+- scenario: presentazione-progetto
+  # facts: app per la manutenzione degli impianti, il guasto si segnala con una foto e il sistema assegna la squadra più vicina; un intervento su tre arriva in ritardo; circa trecentomila euro l'anno di penali, riduzione stimata della metà in diciotto mesi; sviluppo centoventimila euro, rientro in meno di un anno; app compatibile con le versioni di Android degli ultimi otto anni; prova con due squadre volontarie; fase di prova trentamila euro; incontro con i responsabili di zona il 28 in videoconferenza; ordine del giorno entro venerdì
+  level: C1
+  persona: en-m-heritage
+  history: [false-friend, word-choice]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Glielo spiego in due minuti. Proponiamo un'app per la manutenzione dei nostri impianti: i tecnici segnalano un guasto con una foto e il sistema assegna l'intervento alla squadra più vicina."
+    - tutor: "L'idea è chiara. Ma oggi i tecnici telefonano alla centrale, e funziona. Che cosa ci guadagniamo, in numeri?"
+      goals: [pitch]
+    - learner: "Guardando i dati dell'anno scorso, il nostro ufficio qualità ha trovato fuori che un intervento su tre arriva in ritardo, perché la squadra più vicina non viene avvisata in tempo."
+      errors: [word-choice]
+    - tutor: "Se l'ufficio qualità ha scoperto che un intervento su tre è in ritardo, il problema è serio. Quanto ci costano quei ritardi?"
+      recast: {text: "ha trovato fuori", fix: "ha scoperto", tags: [word-choice]}
+    - learner: "Circa trecentomila euro all'anno in penali. Con l'app stimiamo di ridurle della metà entro diciotto mesi. Vuole vedere la tabella con il calcolo?"
+    - tutor: "Sì, me la lasci, la guardo stasera. Ma quanto costa svilupparla?"
+      goals: [benefits]
+    - learner: "Lo sviluppo costa centoventimila euro. Lo so, sembra costare un braccio e una gamba, ma con quelle penali rientriamo nella spesa in meno di un anno."
+      errors: [word-choice]
+    # agree: content
+    - tutor: "Lo sviluppo sembra davvero costare un occhio della testa, ma se rientriamo in un anno il discorso cambia. E se poi i tecnici non la usano?"
+      recast: {text: "costare un braccio e una gamba", fix: "costare un occhio della testa", tags: [word-choice]}
+    # decoy: «supporta» is used in its technical sense, which is correct
+    - learner: "Ci abbiamo pensato: l'app funziona anche sui vecchi telefoni aziendali, perché supporta le versioni di Android degli ultimi otto anni, e la prova la facciamo con due squadre volontarie."
+    - tutor: "Due squadre volontarie mi sembrano un buon inizio. Che cosa le serve da me, per partire?"
+      goals: [objection]
+    - learner: "Mi serve la sua firma sul budget della fase di prova, trentamila euro, e un incontro con i responsabili di zona: è importante che attendano tutti, anche quelli di Brescia."
+      errors: [false-friend]
+    - tutor: "Firmo i trentamila euro. Perché partecipino tutti, anche quelli di Brescia, facciamo l'incontro il 28 in videoconferenza. Mi mandi l'ordine del giorno entro venerdì."
+      recast: {text: "attendano", fix: "partecipino", tags: [false-friend]}
+      goals: [next-steps]
+
+- scenario: presentazione-progetto
+  # facts: servizio di ritiro degli imballaggi usati presso i clienti; i furgoni ritirano le casse vuote alla consegna; casse riutilizzabili fino a dieci volte; risparmio di circa un euro e venti a cassa, novantamila euro l'anno; investimento di sessantamila euro; sondaggio: trentadue clienti su quaranta d'accordo con uno spazio dedicato; scaffale pieghevole da venti euro, compreso nei sessantamila; circa quattro minuti in più per consegna; prova di tre mesi con i due furgoni della zona est ai primi di aprile; calendario della prova entro lunedì
+  level: C1
+  persona: es-f-erasmus
+  history: [false-friend, word-choice]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    - learner: "Le rubo solo cinque minuti. Il progetto è un servizio di ritiro degli imballaggi usati presso i nostri clienti; in Spagna un modello simile ha avuto un grande esito."
+      errors: [false-friend]
+    - tutor: "Un grande successo in Spagna non garantisce niente qui, ma la ascolto. Come funzionerebbe, in pratica?"
+      recast: {text: "un grande esito", fix: "un grande successo", tags: [false-friend]}
+    # decoy: «in magazzino» means «in the warehouse», its correct sense
+    - learner: "I nostri furgoni, quando consegnano la merce, ritirano le casse vuote e le riportano in magazzino. Le casse si lavano e si possono riutilizzare fino a dieci volte."
+    - tutor: "Quindi i furgoni non tornano mai vuoti, capisco. E i benefici, in cifre?"
+      goals: [pitch]
+    # decoy: «conveniente» means «vantaggioso», its correct sense
+    - learner: "Ogni cassa riutilizzata ci fa risparmiare circa un euro e venti: con i volumi attuali sono novantamila euro all'anno. Le sembra un'operazione conveniente, per un investimento di sessantamila?"
+    - tutor: "Sulla carta è conveniente, sì. Ma i clienti accetteranno di tenere le casse vuote nei loro negozi?"
+      goals: [benefits]
+    - learner: "L'abbiamo verificato: il mese scorso abbiamo fatto un sondaggio tra quaranta clienti, e trentadue si sono detti conformi, a patto di avere uno spazio dedicato."
+      errors: [false-friend]
+    - tutor: "Trentadue clienti su quaranta d'accordo è un dato che conta. Ma lo spazio dedicato chi lo paga?"
+      recast: {text: "conformi", fix: "d'accordo", tags: [false-friend]}
+    - learner: "Lo forniamo noi: uno scaffale pieghevole costa venti euro, ed è già compreso nei sessantamila. Il rischio vero è un altro, cioè che i furgoni perdano tempo nel ritiro."
+    - tutor: "Vedo che ci ha pensato bene. Quanto tempo in più per ogni consegna?"
+      goals: [objection]
+    - learner: "Circa quattro minuti. Per questo propongo una prova di tre mesi con due furgoni: se i tempi si allungano troppo, fermiamo tutto senza perdite. Potremmo cominciare a principi di aprile?"
+      errors: [word-choice]
+    - tutor: "Ai primi di aprile si può fare: le assegno i due furgoni della zona est. Mi prepari il calendario della prova entro lunedì."
+      recast: {text: "a principi di aprile", fix: "ai primi di aprile", tags: [word-choice]}
+      goals: [next-steps]
+
+- scenario: traduzione-sfumature
+  # facts: romanzo inglese, la narratrice usa frasi brevissime; la junior le ha allungate; esempio della prima pagina: non le dispiace, si sente sollevata; versioni: «Non le dispiaceva. Era sollevata.» e «Altro che dispiacere: sollievo.»; nel paragrafo dopo «sensible» era stato reso con «sensibile»; scelta finale: la prima versione, con una nota del traduttore
+  level: C2
+  persona: en-f-student
+  history: [word-choice, false-friend]
+  turns:
+    - tutor: "Ho letto la tua bozza del terzo capitolo. Scorre, scorre benissimo. Peccato che non sia più l'autore a parlare."
+    - learner: "Me lo aspettavo. La narratrice in inglese usa frasi brevissime, quasi telegrafiche, e io le ho allungate perché in italiano mi sembravano secche; però hai ragione, non fa senso tradirla così."
+      errors: [word-choice]
+    # agree: content
+    - tutor: "Appunto, non ha senso tradirla solo per renderla più gradevole. Fammi un esempio concreto, una frase sola."
+      recast: {text: "non fa senso", fix: "non ha senso", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Prendi la prima pagina: lei dice che non le dispiace, che si sente solo sollevata. Io ho unito le due frasi perché così corte suonavano rigide: pensavo di migliorarle, e attualmente le ho solo appiattite."
+      errors: [false-friend]
+    - tutor: "Le hai solo appiattite, in realtà, ma si rimedia: l'autrice le voleva proprio così. Quali alternative vedi, tenendo le frasi corte?"
+      recast: {text: "attualmente", fix: "in realtà", tags: [false-friend]}
+    - learner: "Potrei scrivere «Non le dispiaceva. Era sollevata.», asciutto come l'originale, oppure «Altro che dispiacere: sollievo.», che conserva il ritmo ma aggiunge un tono ironico che forse nell'inglese non c'è."
+    - tutor: "La seconda è brillante, ma è tua, non sua. La prima è più fedele, e la secchezza è proprio il punto. Nel resto del capitolo hai trovato altre trappole?"
+      goals: [options]
+    - learner: "Una sì, e ci sono cascata in pieno: nel paragrafo dopo avevo reso «sensible» con «sensibile», mentre in quel contesto vuol dire ragionevole, assennato."
+    - tutor: "Il più classico dei falsi amici: non sei la prima e non sarai l'ultima. Però, se tieni tutte le frasi corte, il capitolo intero regge?"
+      goals: [false-friend]
+    - learner: "Credo di sì, ma bisogna pagare attenzione al ritmo complessivo: se tutte le frasi restano corte, alla lunga il lettore italiano rischia di stancarsi."
+      errors: [word-choice]
+    - tutor: "Bisogna fare attenzione al ritmo, certo, ma stancare il lettore è un rischio che l'autrice ha scelto. Allora, quale versione teniamo per la prima pagina?"
+      recast: {text: "pagare attenzione", fix: "fare attenzione", tags: [word-choice]}
+    # decoy: «un romanzo mio» uses «romanzo» in its correct sense
+    - learner: "Teniamo la prima, «Non le dispiaceva. Era sollevata.», e nella nota del traduttore spiego che la secchezza è voluta. La seconda me la conservo per un romanzo mio."
+    - tutor: "Affare fatto: la prima, con la nota. E la tua battuta tienila davvero, prima o poi ti servirà."
+      goals: [decide]
+
+- scenario: traduzione-sfumature
+  # facts: il titolo del capitolo è un gioco di parole su «bound»; la protagonista restaura volumi antichi in una biblioteca universitaria; proposte: «Rilegata» e «Legami»; la parola torna tre volte nel capitolo; «eventually» reso all'inizio con «eventualmente»; scelta finale: «Rilegata», senza nota; la junior lo propone domani alla redattrice con la pagina delle tre occorrenze
+  level: C2
+  persona: es-f-erasmus
+  history: [false-friend, word-choice]
+  turns:
+    - tutor: "Ho letto la tua bozza del terzo capitolo. Scorre benissimo, ma l'autore dov'è finito?"
+    # decoy: «eventualmente» means «se proprio serve», its correct sense
+    - learner: "Lo so, ci ho pensato tutta la notte. Il nodo è il titolo del capitolo, un gioco di parole intraducibile: eventualmente potrei lasciarlo in inglese con una nota, ma non mi convince."
+    - tutor: "Una nota sul titolo di un capitolo? Il lettore la salterebbe. Spiegami prima il gioco di parole."
+      goals: [problem]
+    - learner: "La protagonista restaura volumi antichi in una libreria universitaria, e il titolo gioca su «bound», che vuol dire sia rilegato sia legato a qualcuno: lei è legata a quei libri."
+      errors: [false-friend]
+    - tutor: "In una biblioteca universitaria, tra volumi rilegati: ora capisco il doppio senso. Che soluzioni hai pensato?"
+      recast: {text: "una libreria universitaria", fix: "una biblioteca universitaria", tags: [false-friend]}
+    - learner: "Ne ho due: «Rilegata», che richiama i libri ma anche una persona legata di nuovo a qualcosa, oppure «Legami», più semplice ma, dalla mia parte, un po' troppo piatto."
+      errors: [word-choice]
+    # agree: content
+    - tutor: "Anche secondo me «Legami» è piatto, mentre «Rilegata» è ambigua come l'originale. Sei sicura che il lettore colga il secondo senso?"
+      recast: {text: "dalla mia parte", fix: "secondo me", tags: [word-choice]}
+      goals: [options]
+    - learner: "Credo di sì, perché nel capitolo la parola torna tre volte. Poi c'è stato un falso amico che mi ha fatto sudare: «eventually», che all'inizio avevo reso con «eventualmente», mentre vuol dire «alla fine»."
+    - tutor: "Il grande classico: spero che nella bozza adesso ci sia «alla fine». Ne hai trovati altri?"
+      goals: [false-friend]
+    - learner: "Uno solo, e mi ha dato un bel disgusto: avevo tradotto un'intera pagina con il tempo sbagliato, e me ne sono accorta soltanto rileggendo ad alta voce."
+      errors: [false-friend]
+    - tutor: "Un bel dispiacere, ma rileggere ad alta voce serve proprio a questo. Allora decidiamo: «Rilegata» o «Legami»?"
+      recast: {text: "un bel disgusto", fix: "un bel dispiacere", tags: [false-friend]}
+    - learner: "«Rilegata», senza nota: se il lettore coglie il doppio senso, bene; se non lo coglie, il titolo funziona comunque. Lo propongo io alla redattrice domani?"
+    - tutor: "Sì, proponilo tu, e porta anche la pagina con le tre occorrenze: così la convinci subito."
+      goals: [decide]
+
+- scenario: email-rettore
+  # facts: richiesta di rinnovo come ricercatore ospite approvata dal dipartimento a giugno, respinta dal Senato accademico senza motivazione; obiettivo: riesame o comunicazione delle ragioni, per poter fare ricorso; formula d'apertura: «Magnifico Rettore» e «mi permetto di sottoporre alla Sua cortese attenzione»; chiusura: «In attesa di un Suo riscontro, Le porgo i miei distinti saluti»; la lettera si protocolla oggi
+  level: C2
+  persona: en-m-retired
+  history: [false-friend, word-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi diceva al telefono che deve scrivere direttamente al Rettore. Di che cosa si tratta, esattamente?"
+    - learner: "Si tratta del rinnovo del mio incarico di ricercatore ospite: il dipartimento l'aveva approvato a giugno, ma il Senato accademico l'ha respinto senza motivazione, benché la mia applicazione fosse completa in ogni parte."
+      errors: [false-friend]
+    - tutor: "Se la domanda era completa e il dipartimento l'aveva approvata, un rifiuto senza motivazione è quantomeno anomalo. Che cosa vorrebbe ottenere, con questa lettera?"
+      recast: {text: "applicazione", fix: "domanda", tags: [false-friend]}
+    - learner: "Vorrei che la decisione fosse riesaminata, o almeno che mi venissero comunicate le ragioni del rifiuto, perché senza di esse non posso nemmeno presentare ricorso."
+    - tutor: "Richiesta legittima. Cominciamo dall'intestazione: come pensava di rivolgersi al Rettore?"
+      goals: [situation]
+    - learner: "Avevo pensato a «Caro Rettore», come si usa da noi, ma un collega mi ha detto che suona troppo familiare, e non vorrei fare un errore così basico già nella prima riga."
+      errors: [word-choice]
+    - tutor: "Un errore così elementare è meglio evitarlo, e il suo collega ha ragione: si scrive «Magnifico Rettore», seguito da una formula come «mi permetto di sottoporre alla Sua cortese attenzione». Le suona bene?"
+      recast: {text: "un errore così basico", fix: "un errore così elementare", tags: [word-choice]}
+    - learner: "Mi suona bene, anche se a un inglese pare un po' barocco. Allora comincerei così: «Magnifico Rettore, mi permetto di sottoporre alla Sua cortese attenzione la mia istanza di riesame»."
+    - tutor: "Un inizio impeccabile. Ora la parte delicata: mi legga la frase in cui contesta la decisione."
+      goals: [opening-formula]
+    - learner: "Avevo scritto che la delibera non è consistente con il regolamento del dipartimento e che deve essere annullata immediatamente, senza ulteriori ritardi."
+      errors: [false-friend]
+    - tutor: "Che la delibera non sia coerente con il regolamento si può dire, ma «deve essere annullata immediatamente» suona come un ordine. Come potrebbe ammorbidirlo, restando fermo?"
+      recast: {text: "consistente", fix: "coerente", tags: [false-friend]}
+    - learner: "Potrei scrivere: «Confido che la Magnificenza Vostra vorrà disporre un riesame della delibera, o quantomeno rendermene note le motivazioni». È abbastanza fermo?"
+    - tutor: "È fermo e cortese insieme, come deve essere. Resta la chiusura: che formula vorrebbe usare?"
+      goals: [tone]
+    # decoy: «la firma» means «signature», its correct sense
+    - learner: "Pensavo di chiudere con «In attesa di un Suo riscontro, Le porgo i miei distinti saluti», e poi la firma. In inglese avrei messo «sinceramente suo», ma ho capito che qui non si usa."
+    - tutor: "La formula va benissimo, e «sinceramente suo» in italiano suonerebbe davvero strano. La lettera è pronta: la protocolliamo oggi stesso."
+      goals: [closing]
+
+- scenario: presentazione-progetto
+  # facts: trasformare il vecchio magazzino di via Tortona in un centro di formazione per i tecnici, oggi mandati a Monaco; stima quattrocentomila euro; i corsi a Monaco costano centotrentamila euro l'anno; cantiere di otto mesi, nel frattempo si continua con Monaco; dal secondo anno affitto delle aule ad altre aziende del distretto; due lettere d'intenti attese entro marzo; il magazzino è già edificio produttivo, basta una comunicazione di inizio lavori; documenti entro il dieci marzo, poi la tabella con tre opzioni di finanziamento; il consiglio si riunisce il diciotto
+  level: C2
+  persona: en-m-traveller
+  history: [word-choice, false-friend]
+  turns:
+    - tutor: "Ho dieci minuti prima della prossima riunione. Mi spieghi in breve perché dovremmo investire in questo progetto."
+    # decoy: «magazzino» means «warehouse», its correct sense
+    - learner: "Gliene basteranno cinque. Proponiamo di trasformare il vecchio magazzino di via Tortona in un centro di formazione per i nostri tecnici, che oggi mandiamo a fare i corsi a Monaco."
+    - tutor: "Monaco ci costa, lo so. Ma ristrutturare un magazzino non è uno scherzo: quanto pensa di spendere?"
+      goals: [pitch]
+    - learner: "La stima è di quattrocentomila euro, ma i corsi a Monaco ci costano centotrentamila euro l'anno tra viaggi e alberghi: in tre anni l'investimento si ripaga, e sulla carta fa perfettamente senso."
+      errors: [word-choice]
+    # agree: content
+    - tutor: "Sulla carta ha perfettamente senso, glielo concedo. Ma durante il cantiere i tecnici dove li formiamo?"
+      recast: {text: "fa perfettamente senso", fix: "ha perfettamente senso", tags: [word-choice]}
+      goals: [benefits]
+    - learner: "Il cantiere durerebbe otto mesi, e nel frattempo continueremmo con Monaco. Dal secondo anno, poi, potremmo affittare le aule ad altre aziende del distretto, che hanno il nostro stesso problema."
+    - tutor: "L'affitto delle aule è un'idea che non avevo considerato. Ma chi garantisce che le altre aziende vengano davvero?"
+    - learner: "Ho già parlato con tre di loro, e sono abbastanza confidente che almeno due firmeranno una lettera d'intenti entro marzo, prima di chiudere i loro bilanci."
+      errors: [false-friend]
+    - tutor: "Se è abbastanza sicuro di due lettere entro marzo, me le porti: con quelle in mano il consiglio ascolta. Resta però il nodo dei permessi del Comune."
+      recast: {text: "abbastanza confidente", fix: "abbastanza sicuro", tags: [false-friend]}
+    # decoy: «il magazzino» means «warehouse», its correct sense
+    - learner: "I permessi li abbiamo verificati con lo studio tecnico: il magazzino è già classificato come edificio produttivo, quindi basta una comunicazione di inizio lavori. Le serve il loro parere scritto?"
+    - tutor: "Sì, il parere scritto mi serve, insieme alle lettere d'intenti: con questi due documenti posso portare il progetto al consiglio."
+      goals: [objection]
+    - learner: "Glieli mando entro il dieci marzo: prima il parere, poi le lettere e finalmente una tabella con le tre opzioni di finanziamento, così il consiglio può scegliere con calma."
+      errors: [false-friend]
+    - tutor: "Documenti entro il dieci marzo e, infine, la tabella con le tre opzioni: il consiglio si riunisce il diciotto, quindi ce la facciamo."
+      recast: {text: "finalmente", fix: "infine", tags: [false-friend]}
+      goals: [next-steps]

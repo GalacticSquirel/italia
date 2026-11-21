@@ -1,0 +1,255 @@
+# Set r-calque-c1c2, file 7: mediating between colleagues, a cardiology visit, the registry
+# office, a car insurance claim, a radio interview, a complaint about a school building site and
+# a condolence visit. Calques such as «ardore», «consulta», «nomine», «costanza», «accordarsi».
+- scenario: mediazione-colleghi
+  # facts: ieri la team leader era collegata da Roma; Marco ha presentato al direttore l'analisi dei dati sui clienti come sua; la collega ci ha lavorato tre settimane, la sera, raccogliendo e pulendo i dati e scrivendo le conclusioni; Marco aveva preparato i grafici e ci ha passato anche lui molte serate; soluzione: incontro a tre domani alle nove, email della team leader al direttore, la collega farà la presentazione dei dati alla prossima riunione
+  level: C1
+  persona: en-f-professional
+  history: [false-friend, word-choice]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    # decoy: «è successo» means «happened», its correct sense
+    - learner: "Si accomodi, ha fatto bene a venire. Mi racconti con calma che cosa è successo, dal suo punto di vista: ieri ero collegata da Roma e ho seguito solo una parte della riunione."
+    - tutor: "Marco ha presentato al direttore l'analisi dei dati sui clienti come se l'avesse fatta da solo. Io ci ho lavorato tre settimane, la sera, e non mi ha nemmeno nominata."
+    - learner: "Capisco perfettamente come si sente, e le esprimo tutta la mia simpatia: lavorare tre settimane la sera e poi non essere nominata è davvero frustrante."
+      errors: [false-friend]
+    - tutor: "La ringrazio della comprensione, davvero. Ma non mi basta: voglio che il direttore sappia chi ha fatto il lavoro."
+      recast: {text: "simpatia", fix: "comprensione", tags: [false-friend]}
+      goals: [listen]
+    - learner: "È giusto che lo sappia. Prima, però, vorrei capire una cosa: Marco aveva partecipato in qualche modo all'analisi, o il lavoro era interamente suo?"
+    - tutor: "Aveva preparato i grafici, lo ammetto, ma i dati li ho raccolti e puliti io, e le conclusioni le ho scritte io. Lui ha messo il suo nome sulla prima pagina."
+      goals: [clarify]
+    - learner: "Non voglio sminuire il suo lavoro. Conosco però Marco da anni, e so che anche lui ha messo dentro molte serate su quel progetto, anche se su una parte diversa dalla sua."
+      errors: [word-choice]
+    # agree: content
+    - tutor: "Se anche lui ha passato molte serate sui grafici, non lo sapevo, e glielo riconosco. Ma questo non gli dà il diritto di prendersi tutto il merito."
+      recast: {text: "ha messo dentro molte serate", fix: "ha passato molte serate", tags: [word-choice]}
+      goals: [perspective]
+    - learner: "Su questo ha perfettamente ragione. Le propongo di parlarne tutti e tre insieme domani mattina, e poi di scrivere io al direttore per precisare chi ha fatto che cosa."
+    - tutor: "Una sua email al direttore sarebbe già molto. Ma Marco accetterà di sedersi con me?"
+    - learner: "Gli parlo io oggi pomeriggio. E alla prossima riunione con il direttore, vorrei che fosse lei a dare la presentazione dei dati, visto che li conosce meglio di chiunque."
+      errors: [word-choice]
+    - tutor: "Fare la presentazione dei dati davanti al direttore: non me l'aspettavo, e mi fa piacere. Allora domani alle nove, tutti e tre."
+      recast: {text: "dare la presentazione dei dati", fix: "fare la presentazione dei dati", tags: [word-choice]}
+      goals: [solution]
+
+- scenario: medico-specialista
+  # facts: il paziente si stanca salendo le scale da circa un mese, si ferma al terzo piano; bruciore sotto lo sterno dopo cena, niente dolore; il padre ha avuto un infarto a sessant'anni, due parenti da parte di madre con la pressione alta; il paziente ha cinquantadue anni, fa il camionista, dieci ore al giorno alla guida; pressione centoquarantacinque su novanta, colesterolo sopra i limiti; tre mesi di dieta e mezz'ora di camminata veloce, poi eventuale farmaco; controllo in studio fra tre mesi
+  level: C1
+  persona: es-m-worker
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Buongiorno, dottore. Abbastanza bene, ma mi stanco molto quando salgo le scale: al terzo piano devo fermarmi a riprendere fiato, cosa che prima non mi succedeva."
+    - tutor: "È un dato importante. Da quanto tempo le succede, e ha notato anche palpitazioni o dolore al petto?"
+    - learner: "Da circa un mese. Dolore vero e proprio no, ma ogni tanto sento un ardore qui, sotto lo sterno, soprattutto dopo cena o quando mi sdraio."
+      errors: [false-friend]
+    - tutor: "Un bruciore sotto lo sterno dopo cena può venire anche dallo stomaco, ma lo teniamo presente. In famiglia ci sono stati problemi di cuore?"
+      recast: {text: "un ardore", fix: "un bruciore", tags: [false-friend]}
+      goals: [symptoms]
+    # decoy: «parenti» means «relatives», its correct sense
+    - learner: "Sì, mio padre ha avuto un infarto a sessant'anni, e anche due parenti da parte di madre hanno la pressione alta. Io ne ho cinquantadue."
+    - tutor: "La familiarità conta. Gli esami mostrano una pressione un po' alta, centoquarantacinque su novanta, e il colesterolo sopra i limiti."
+      goals: [history]
+      new: [{lemma: familiarità, gloss: family history}, {lemma: colesterolo, gloss: cholesterol}]
+    - learner: "Che cosa significano questi valori, in pratica? Devo preoccuparmi, o posso aspettare il prossimo controllo e tornare nella sua consulta fra sei mesi?"
+      errors: [false-friend]
+    - tutor: "Preoccuparsi no, ma prenderli sul serio sì: con la sua familiarità il rischio aumenta. Non aspetterei sei mesi: la rivedo in studio fra tre."
+      recast: {text: "consulta", fix: "studio", tags: [false-friend]}
+      goals: [understand]
+    - learner: "D'accordo. Mi dovrà dare dei farmaci, o possiamo provare prima con la dieta e un po' di movimento?"
+    - tutor: "Proviamo per tre mesi con la dieta e mezz'ora di camminata veloce al giorno. Se i valori non scendono, le prescrivo un farmaco per la pressione."
+    - learner: "E se dovessi prendere il farmaco, potrebbe affettare il mio lavoro? Faccio il camionista e passo dieci ore al giorno alla guida."
+      errors: [false-friend]
+    - tutor: "All'inizio alcuni farmaci danno un po' di stanchezza, quindi potrebbero condizionare la guida: in quel caso sceglieremmo il più adatto a chi guida molte ore. Ci vediamo fra tre mesi."
+      recast: {text: "affettare", fix: "condizionare", tags: [false-friend]}
+      goals: [treatment]
+
+- scenario: burocrazia-residenza
+  # facts: la learner è spagnola, a Torino da sei mesi; per i cittadini dell'Unione servono documento d'identità, codice fiscale e prova di risorse sufficienti; porta le ultime tre buste paga, lavora in una scuola di lingue da gennaio; vive in una stanza in subaffitto, contratto non registrato, solo una dichiarazione del proprietario; la polizia municipale verifica entro quarantacinque giorni senza avvisare; residenza valida dalla data della dichiarazione, poi silenzio-assenso; certificato allo sportello o online con l'identità digitale
+  level: C1
+  persona: es-f-erasmus
+  history: [false-friend, word-choice]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono spagnola, vivo a Torino da sei mesi e vorrei registrarmi come residente. Mi hanno detto che devo fare tutto qui, all'anagrafe, giusto?"
+    - tutor: "Sì, è il posto giusto. Per i cittadini dell'Unione servono un documento d'identità, il codice fiscale e una prova che ha risorse sufficienti, per esempio un contratto di lavoro."
+      goals: [request]
+    - learner: "Ho la carta d'identità e il codice fiscale. Come prova delle risorse ho portato le mie ultime tre nomine, perché lavoro in una scuola di lingue da gennaio."
+      errors: [false-friend]
+    - tutor: "Le buste paga vanno benissimo, insieme al contratto di lavoro. Ha anche un contratto d'affitto, o un'altra prova di dove abita?"
+      recast: {text: "nomine", fix: "buste paga", tags: [false-friend]}
+    # decoy: «attualmente» means «al momento», its correct sense
+    - learner: "Qui c'è il problema: attualmente vivo in una stanza in subaffitto, e il proprietario non ha registrato il contratto. Ho solo una dichiarazione firmata da lui."
+    - tutor: "La residenza dipende da dove vive davvero, non dal contratto: la polizia municipale verrà a verificarlo. La dichiarazione la alleghiamo comunque."
+      goals: [documents]
+    - learner: "E quanto tempo ci vuole per il controllo? Lavoro bastante lontano da casa e non posso certo aspettare i vigili tutti i giorni."
+      errors: [word-choice]
+    - tutor: "Di solito passano entro quarantacinque giorni, ma non avvisano. Se lavora abbastanza lontano, metta il suo nome sul campanello e lasci il suo numero a un vicino."
+      recast: {text: "bastante lontano", fix: "abbastanza lontano", tags: [word-choice]}
+      goals: [problem]
+    - learner: "Va bene, chiedo alla mia vicina, che è sempre a casa. E dopo il controllo devo tornare qui, o mi arriva qualcosa per posta?"
+    - tutor: "Non deve tornare: se il controllo va bene, la residenza vale dalla data di oggi. Se dopo quarantacinque giorni nessuno l'ha contattata, vale il silenzio-assenso."
+      goals: [next]
+    - learner: "Perfetto. E quando potrò chiedere il certificato di residenza? Me lo potete spedire voi qui, direttamente allo sportello?"
+      errors: [false-friend]
+    - tutor: "Il certificato glielo possiamo rilasciare allo sportello, oppure lo scarica online con la sua identità digitale. Arrivederci, e benvenuta a Torino."
+      recast: {text: "spedire", fix: "rilasciare", tags: [false-friend]}
+
+- scenario: assicurazione-sinistro
+  # facts: ieri pomeriggio in un parcheggio di Bergamo l'altra macchina, in retromarcia, ha urtato la portiera posteriore; il learner era fermo a motore spento, caricava la spesa; il conducente ha ammesso di non averlo visto; constatazione amichevole firmata da entrambi, numero di polizza scritto male; foto della targa e della patente dell'altro; il perito chiama entro tre giorni lavorativi; risarcimento di solito entro trenta giorni dalla perizia; auto sostitutiva prevista dalla polizza fino a sette giorni
+  level: C1
+  persona: en-m-retired
+  history: [false-friend]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri pomeriggio sono stato involto in un piccolo incidente in un parcheggio di Bergamo: facendo retromarcia, un'altra macchina mi ha urtato la portiera posteriore."
+      errors: [false-friend]
+    - tutor: "Mi dispiace. Essere coinvolto in un piccolo incidente in parcheggio capita spesso, purtroppo. Mi scusi, chi faceva retromarcia, lei o l'altra macchina?"
+      recast: {text: "involto", fix: "coinvolto", tags: [false-friend]}
+      goals: [what]
+    - learner: "L'altra macchina. Io ero fermo, con il motore spento, e stavo caricando la spesa nel bagagliaio. Il conducente ha ammesso subito di non avermi visto."
+    - tutor: "Allora la responsabilità sembra chiara. Avete compilato insieme il modulo di constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, l'abbiamo firmato tutti e due. Però il conducente ha scritto male il numero di polizza; per fortuna ho fotografato la targa e anche la sua licenza di guida."
+      errors: [false-friend]
+    - tutor: "Con la targa e la sua patente fotografate risaliamo facilmente alla polizza giusta. Mi manda le foto per email, insieme al modulo?"
+      recast: {text: "la sua licenza di guida", fix: "la sua patente", tags: [false-friend]}
+      goals: [documents]
+    - learner: "Certo, gliele mando oggi stesso. Mi può dire se devo far vedere la macchina a un vostro perito, o se posso portarla direttamente dal mio carrozziere?"
+    - tutor: "Prima deve vederla il perito: la chiameremo entro tre giorni lavorativi per fissare l'appuntamento. Dopo la perizia può andare dal carrozziere che preferisce."
+      goals: [next]
+    - learner: "E la compensazione? Quanto tempo ci vuole, di solito, perché mi rimborsiate la riparazione?"
+      errors: [false-friend]
+    - tutor: "Il risarcimento arriva di solito entro trenta giorni dalla perizia, se non ci sono contestazioni. Ha altre domande?"
+      recast: {text: "la compensazione", fix: "il risarcimento", tags: [false-friend]}
+    # decoy: «eventualmente» means «se è possibile», its correct sense
+    - learner: "Una sola: eventualmente, posso avere un'auto sostitutiva durante la riparazione? Senza macchina non riesco ad accompagnare mia moglie alle visite in ospedale."
+    - tutor: "Ho controllato la sua polizza: l'auto sostitutiva è prevista, fino a sette giorni. Le mando adesso il riepilogo per email."
+
+- scenario: vita-in-italia
+  # facts: la learner è inglese, arrivata a Bologna otto anni fa per un semestre di studio; il ragazzo di Modena ora è suo marito, hanno una bambina di due anni; abitano a Modena, lei fa la traduttrice per un'azienda di macchine agricole; i parenti vivono a Leeds, la bambina vede i nonni due volte l'anno; la conduttrice si è innamorata di Bologna da studentessa
+  level: C1
+  persona: en-f-student
+  history: [word-choice, false-friend]
+  turns:
+    - tutor: "Benvenuta, e un saluto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Ci racconta perché si è trasferita?"
+    - learner: "Grazie dell'invito. Sono arrivata a Bologna otto anni fa per un semestre di studio, e quasi subito sono caduta innamorata della città, e anche di un ragazzo di Modena."
+      errors: [word-choice]
+    - tutor: "Mi sono innamorata anch'io di Bologna, da studentessa: capita a molti. E il ragazzo di Modena che fine ha fatto?"
+      recast: {text: "sono caduta innamorata", fix: "mi sono innamorata", tags: [word-choice]}
+    # decoy: «i suoi parenti» means «relatives», its correct sense
+    - learner: "Adesso è mio marito, e abbiamo una bambina di due anni, che i suoi parenti viziano moltissimo. Abitiamo a Modena, e io lavoro come traduttrice per un'azienda di macchine agricole."
+    - tutor: "Una storia a lieto fine, allora. Qual è stata la cosa più difficile, all'inizio?"
+      goals: [story]
+    - learner: "La lontananza dalla famiglia, senza dubbio: i miei relativi vivono tutti a Leeds, e la bambina vede i nonni soltanto due volte l'anno."
+      errors: [false-friend]
+    - tutor: "I parenti lontani sono il prezzo più alto, ce lo dicono in tanti. E lei, in questi otto anni, com'è cambiata?"
+      recast: {text: "relativi", fix: "parenti", tags: [false-friend]}
+      goals: [difficulties]
+    - learner: "Sono diventata più paziente e meno puntuale, il che non so se sia un bene. Ho imparato anche a dare importanza ai pranzi lunghi e alle chiacchiere senza scopo."
+    - tutor: "Meno puntuale, ce lo confessa in diretta! Ma i pranzi lunghi li approviamo tutti. Che cosa le manca di più dell'Inghilterra?"
+      goals: [change]
+    - learner: "Mi mancano le librerie dell'usato, l'umorismo un po' asciutto e il tè fatto propriamente: qui i bar lo servono come se fosse una medicina."
+      errors: [false-friend]
+    # agree: content
+    - tutor: "Un tè fatto come si deve, in un bar italiano, è un'impresa, lo ammetto. Ultima domanda: che consiglio darebbe a chi vuole trasferirsi qui?"
+      recast: {text: "fatto propriamente", fix: "fatto come si deve", tags: [false-friend]}
+    # decoy: «confrontare» means «paragonare», its correct sense
+    - learner: "Gli direi di imparare la lingua sul serio, anche il dialetto della zona, e di non confrontare continuamente l'Italia con il proprio paese: si vive meglio quando si smette di fare paragoni."
+    - tutor: "Un consiglio saggio, che vale anche per noi italiani all'estero. Grazie, e buona vita a Modena!"
+      goals: [advice]
+
+- scenario: reclamo-comune
+  # facts: cantiere comunale in via Mazzini davanti alla scuola dove la learner insegna, fermo da due mesi; due pannelli della recinzione staccati, dietro un buco profondo e materiale accatastato; ieri un bambino ci è quasi entrato; fine lavori prevista il 30 settembre; segnalazione urgente alla polizia municipale e ai lavori pubblici in giornata; nessuna data per la ripresa; risposta scritta entro trenta giorni, poi difensore civico regionale; protocollo 31185
+  level: C2
+  persona: es-f-teacher
+  history: [false-friend, word-choice]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Sono qui per presentare un reclamo formale: in via Mazzini, davanti alla scuola dove insegno, c'è un cantiere fermo da due mesi, recintato male, a due passi dall'ingresso dei bambini."
+    - tutor: "Capisco la preoccupazione, soprattutto con i bambini. Mi può dire con precisione che cosa non va nella recinzione?"
+    - learner: "Due pannelli della recinzione sono flosci e si muovono con il vento, e dietro ci sono un buco profondo e del materiale accatastato. Ieri un bambino ci è quasi entrato."
+      errors: [false-friend]
+    - tutor: "Se due pannelli sono staccati davanti a una scuola, la situazione è pericolosa, e la segnalo come urgente. Il cantiere è comunale o privato?"
+      recast: {text: "sono flosci", fix: "sono staccati", tags: [false-friend]}
+      goals: [describe]
+    - learner: "È comunale: c'è il cartello con lo stemma del Comune e la data di fine lavori, che era il 30 settembre. Che cosa succede, adesso, con una segnalazione urgente?"
+    - tutor: "Una segnalazione urgente va alla polizia municipale e all'ufficio lavori pubblici in giornata. Per la ripresa del cantiere, però, non sono in grado di darle una data."
+    - learner: "Capisco che la data non dipenda da lei. Ma se entro una settimana il cantiere resta in queste condizioni, sono pronta a mettere una denuncia ai carabinieri, a nome di tutti i genitori."
+      errors: [word-choice]
+    # agree: content
+    - tutor: "Fare una denuncia è un suo diritto, naturalmente, e non sarò io a scoraggiarla. Prima, però, le conviene protocollare il reclamo: così resta traccia ufficiale della data."
+      recast: {text: "mettere una denuncia", fix: "fare una denuncia", tags: [word-choice]}
+      goals: [insist]
+    # decoy: «eventualmente» means «nel caso», its correct sense
+    - learner: "D'accordo, lo protocolliamo subito. Mi spiega anche quali sono i tempi di risposta previsti, ed eventualmente a chi posso rivolgermi se il Comune non risponde?"
+    - tutor: "Il Comune deve rispondere per iscritto entro trenta giorni. Se la risposta non arriva, può rivolgersi al difensore civico regionale, gratuitamente."
+      goals: [rights]
+    - learner: "Benissimo. Allora mi può dare una costanza del reclamo, con il numero di protocollo e la data di oggi, da mostrare agli altri genitori?"
+      errors: [false-friend]
+    - tutor: "Ecco una ricevuta del reclamo: protocollo numero 31185, con la data di oggi. La segnalazione urgente parte adesso."
+      recast: {text: "una costanza del reclamo", fix: "una ricevuta del reclamo", tags: [false-friend]}
+      goals: [commitment]
+
+- scenario: condoglianze
+  # facts: in ufficio hanno saputo lunedì; la madre del collega faceva i taralli ogni dicembre, alla festa di Natale dell'ufficio ne aveva incartati due sacchetti per la figlia del learner; si è spenta in pace nel suo letto, con la famiglia intorno; relazione per la Regione in scadenza venerdì, la segue il learner
+  level: C2
+  persona: en-m-heritage
+  history: [false-friend, word-choice]
+  turns:
+    - tutor: "Grazie di essere venuto, davvero. Non doveva disturbarsi, con tutto il lavoro che ha."
+    - learner: "Per carità, non è un disturbo. Volevo esprimerle di persona tutta la mia simpatia: in ufficio l'abbiamo saputo lunedì, e siamo rimasti tutti molto colpiti."
+      errors: [false-friend]
+    - tutor: "Grazie, il cordoglio dei colleghi mi ha commosso: ho ricevuto tanti messaggi. A mia madre avrebbe fatto piacere, le piaceva sapersi ricordata."
+      recast: {text: "simpatia", fix: "cordoglio", tags: [false-friend]}
+      goals: [condolences]
+    - learner: "La ricordo bene, sa? L'anno scorso, alla festa di Natale dell'ufficio, ci aveva portato i suoi taralli fatti in casa, e alla fine me ne aveva incartati due sacchetti per mia figlia."
+    - tutor: "I suoi taralli, sì: li faceva ogni dicembre, per mezzo paese. Mi fa piacere che se ne ricordi."
+      goals: [memory]
+    - learner: "Come si fa a dimenticarli? Mi hanno detto che è passata via in pace, a casa sua, circondata da tutti voi."
+      errors: [word-choice]
+    - tutor: "Sì, si è spenta in pace, nel suo letto, con tutti noi intorno: è l'unica consolazione."
+      recast: {text: "è passata via", fix: "si è spenta", tags: [word-choice]}
+    # decoy: «assistere alle riunioni» means «be present», its correct sense
+    - learner: "Se c'è qualcosa che posso fare, anche di pratico, me lo dica senza problemi: in ufficio posso occuparmi io delle sue pratiche, e assistere al posto suo alle riunioni, finché non se la sente di tornare."
+    - tutor: "È molto gentile. In effetti c'è la relazione per la Regione, che scade venerdì: se potesse seguirla lei, mi toglierebbe un peso."
+      goals: [offer-help]
+    - learner: "Ci penso io, non si preoccupi: ho già tutti i dati, e preparo un documento molto comprensivo, così dalla Regione non avranno niente da chiedere."
+      errors: [false-friend]
+    - tutor: "Un documento esauriente è proprio quello che serve, con quelli della Regione. Grazie, davvero."
+      recast: {text: "comprensivo", fix: "esauriente", tags: [false-friend]}
+    - learner: "Allora tolgo il disturbo, immagino che sia stanchissimo. Se ha bisogno, mi chiami a qualsiasi ora; e quando se la sentirà, la aspettiamo in ufficio, senza nessuna fretta."
+    - tutor: "Grazie di cuore, per la visita e per la relazione. Saluti tutti in ufficio da parte mia."
+      goals: [leave]
+
+- scenario: mediazione-colleghi
+  # facts: Giulia ha presentato al cliente la nuova campagna come un'idea sua; la collega l'aveva proposta a voce due mesi fa, durante una pausa caffè, davanti a Giulia, con Paolo e Chiara presenti; nessuna email né verbale; soluzione: incontro a tre domani mattina, lettera del team leader al cliente che cita la collega come autrice dell'idea iniziale
+  level: C2
+  persona: es-m-worker
+  history: [false-friend, word-choice]
+  turns:
+    - tutor: "Scusi se la disturbo, ma devo parlarle di quello che è successo ieri alla riunione. Non mi è andato giù."
+    - learner: "Non mi disturba affatto, anzi, preferisco che queste cose si dicano subito. Si sieda e mi racconti tutto, senza fretta: ieri ho notato che era tesa, ma non ho capito il motivo."
+    - tutor: "Giulia ha presentato al cliente la nuova campagna come un'idea sua. Quell'idea l'avevo proposta io, a voce, due mesi fa, davanti a lei."
+    - learner: "La ringrazio di essere venuta da me invece di sfogarsi nei corridoi, e capisco che sia molesta: immagino che non sia stato facile restare zitta davanti al cliente."
+      errors: [false-friend]
+    - tutor: "Più che infastidita, sono arrabbiata: mi sono sentita invisibile. E non è la prima volta."
+      recast: {text: "molesta", fix: "infastidita", tags: [false-friend]}
+      goals: [listen]
+    - learner: "Mi aiuti a ricostruire i fatti: la proposta di due mesi fa l'aveva messa per iscritto da qualche parte, in una mail o in un verbale, o era stata solo una conversazione?"
+    - tutor: "Solo una conversazione, purtroppo, durante una pausa caffè. Ma c'erano anche Paolo e Chiara, possono confermarlo."
+      goals: [clarify]
+    - learner: "Le credo. Le chiedo però di considerare un'altra possibilità: è possibile che Giulia, dopo due mesi, non si sia accordata da dove veniva l'idea e l'abbia sviluppata in buona fede."
+      errors: [false-friend]
+    # agree: content
+    - tutor: "Che non si sia ricordata da dove veniva l'idea mi sembra difficile, ma ammetto che è possibile. Questo però non cambia la sostanza: il cliente adesso pensa che sia sua."
+      recast: {text: "non si sia accordata", fix: "non si sia ricordata", tags: [false-friend]}
+      goals: [perspective]
+    - learner: "È vero, e non voglio liquidare la cosa come un malinteso. Propongo di parlarne domani noi tre, e di chiarire con Giulia come si attribuiscono le idee in questo gruppo, da qui in avanti."
+    - tutor: "E con il cliente? Resta convinto che l'idea sia di Giulia."
+    - learner: "Al cliente scriverò io una carta, spiegando che la campagna è frutto del lavoro di squadra e che l'idea iniziale è sua. Le sembra sufficiente?"
+      errors: [false-friend]
+    - tutor: "Una lettera firmata da lei, che citi il mio nome: per me basterebbe questo. Allora domani mattina, tutti e tre."
+      recast: {text: "una carta", fix: "una lettera", tags: [false-friend]}
+      goals: [solution]

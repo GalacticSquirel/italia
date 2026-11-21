@@ -2362,7 +2362,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
       "conditional",
       "formal-imperative"
     ],
-    "opening": "Grazie di essere venuto, davvero. Non se lo doveva disturbare, con tutto il lavoro che ha.",
+    "opening": "Grazie di essere venuto, davvero. Non doveva disturbarsi, con tutto il lavoro che ha.",
     "tags": [
       "register",
       "life-events"
@@ -5644,7 +5644,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
       "congiuntivo-presente",
       "passive-voice"
     ],
-    "opening": "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore o contro il ticket d'ingresso?",
+    "opening": "Abbiamo in linea un'altra persona. Buongiorno, è in diretta! Lei è a favore del ticket d'ingresso o contro?",
     "tags": [
       "society",
       "debate"
@@ -5900,7 +5900,7 @@ export const SCENARIOS: readonly TutorScenario[] = [
       "trapassato-prossimo",
       "periodo-ipotetico"
     ],
-    "opening": "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?",
+    "opening": "Benvenuta, e un saluto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?",
     "tags": [
       "culture",
       "society"

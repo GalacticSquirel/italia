@@ -1,0 +1,323 @@
+# Set r-cui-di, file 3 (six B2, two C1): a disappointing anniversary dinner, a wedding planner, a
+# cardiologist, a radio interview, a book club, a car-park scrape, a neighbourhood debate and a
+# complaint at the town hall. Relatives with «a chi», «su che», «che» for «in cui», «per il quale»
+# with «ragione», «che il marito», «la quale aria», «per i quali» with «persone»; comparatives
+# with «che» before numbers, «il doppio», «quella», «il resto». Correct «più di tutti», «da cui»,
+# «più che altro» and «più ... che» between phrases and adjectives are left alone.
+- scenario: recensione-ristorante
+  # facts: cena per l'anniversario del learner e della moglie; attesa dei secondi più di cinquanta minuti, senza spiegazioni; bistecca della moglie troppo cotta, chiesta al sangue due volte al cameriere; porzione più piccola della foto sul menù, ventotto euro; stasera cuoco nuovo e sala piena; il cameriere si chiama Luca, al primo mese; offerta: secondi non pagati e dolce offerto; accettata
+  level: B2
+  persona: en-m-retired
+  history: [comparative, relative-pronoun]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Mi dispiace disturbarla, ma stasera io e mia moglie festeggiamo il nostro anniversario, e la cena finora è stata piuttosto deludente."
+    - tutor: "Mi dispiace molto, soprattutto in una serata così. Che cosa non è andato?"
+      goals: [complain]
+    - learner: "Prima di tutto l'attesa: abbiamo aspettato i secondi per più che cinquanta minuti, e nessuno ci ha spiegato niente."
+      errors: [comparative]
+      gold: {text: "più che cinquanta minuti", fix: "più di cinquanta minuti"}
+    # agree: content
+    - tutor: "Cinquanta minuti senza una spiegazione sono troppi, ha ragione. Ma riprenda «più che cinquanta minuti»: davanti a un numero, quale preposizione va nel confronto?"
+      prompt: {text: "più che cinquanta minuti", tags: [comparative]}
+    - learner: "Più di cinquanta minuti, sì. E quando è arrivata, la bistecca di mia moglie era troppo cotta: lei l'aveva chiesta al sangue."
+    - tutor: "Ecco, così. Mi dispiace, stasera abbiamo un cuoco nuovo e la sala è piena. C'è stato altro?"
+      goals: [detail]
+    - learner: "Sì, anche la porzione: era molto più piccola che quella della foto sul menù, e per ventotto euro mi aspettavo qualcosa di più."
+      errors: [comparative]
+      gold: {text: "più piccola che quella", fix: "più piccola di quella"}
+    - tutor: "Capisco. Però «più piccola che quella della foto»: «quella» è un pronome. Quale preposizione gli va davanti?"
+      prompt: {text: "più piccola che quella", tags: [comparative]}
+    # decoy: «meglio aspettare ... che ricevere», two infinitives, rightly takes «che»
+    - learner: "Più piccola di quella della foto. Sinceramente mi aspettavo un servizio più attento: meglio aspettare un po' di più che ricevere un piatto sbagliato."
+    - tutor: "Ha perfettamente ragione. Per scusarci, non vi facciamo pagare i secondi e vi offriamo il dolce. Le va bene?"
+      goals: [expectation]
+    - learner: "È gentile, grazie. Accettiamo il dolce, ma vorrei sapere il nome del cameriere a chi ho chiesto due volte la bistecca al sangue."
+      errors: [relative-pronoun]
+      gold: {text: "cameriere a chi", fix: "cameriere a cui"}
+    - tutor: "Si chiama Luca ed è con noi da un mese. Ma riprenda «il cameriere a chi ho chiesto»: dopo «a», riferito a «cameriere», quale relativo si usa?"
+      prompt: {text: "cameriere a chi", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "Il cameriere a che ho chiesto, scusi."
+      errors: [relative-pronoun]
+    - tutor: "Con Luca, il cameriere a cui l'ha chiesta, parlerò io stasera stessa. Intanto vi porto il menù dei dolci?"
+      recast: {text: "a che", fix: "a cui", tags: [relative-pronoun]}
+    - learner: "Sì, grazie. Così almeno la serata finisce bene."
+    - tutor: "È il minimo. Arrivo subito con il menù, e buon anniversario a tutti e due."
+      goals: [resolve]
+
+- scenario: organizzare-matrimonio
+  # facts: matrimonio a settembre in campagna, circa ottanta invitati; budget venticinquemila euro; due posti: villa sul lago a cento euro a persona, con sala interna, e agriturismo in collina a settantacinque, solo tendone; la sorella della learner si è sposata nell'agriturismo; scelta: la villa, ottomila euro per ottanta persone; fotografo di cui la learner ha parlato al telefono incluso; preventivo scritto entro dieci giorni; nessuna spesa senza approvazione, per iscritto nel contratto
+  level: B2
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Lo immaginiamo semplice ed elegante, in campagna, a settembre. Saremo circa ottanta invitati, tra amici e parenti."
+    - tutor: "Settembre in campagna è perfetto. Avete già pensato al budget?"
+      goals: [vision]
+    - learner: "Sì, abbiamo venticinquemila euro in tutto. È la cifra su che ci siamo messi d'accordo dopo molte discussioni con le nostre famiglie."
+      errors: [relative-pronoun]
+      gold: {text: "la cifra su che", fix: "la cifra su cui"}
+    - tutor: "Con venticinquemila euro per ottanta persone si lavora bene. Ma riprenda «la cifra su che ci siamo messi d'accordo»: dopo «su», quale relativo si usa?"
+      goals: [budget]
+      prompt: {text: "la cifra su che", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "La cifra su cui ci siamo messi d'accordo, sì. Quali posti ci consiglia?"
+    - tutor: "Sì, così. Ne ho due: una villa sul lago, a cento euro a persona, e un agriturismo in collina, a settantacinque. Quale vi piace di più?"
+      new: [{lemma: agriturismo, gloss: farm stay}]
+    - learner: "La villa mi piace di più, ma l'agriturismo è il posto che si è sposata mia sorella, e ne ho un ricordo bellissimo."
+      errors: [relative-pronoun]
+      gold: {text: "il posto che si è sposata", fix: "il posto in cui si è sposata"}
+    - tutor: "Un bel ricordo conta molto. Però guardi «il posto che si è sposata mia sorella»: sua sorella si è sposata dentro quel posto. Che cosa serve prima del relativo?"
+      prompt: {text: "il posto che si è sposata", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "Il posto in cui si è sposata mia sorella. Però l'agriturismo ha solo un tendone: se piove, che cosa succede?"
+    - tutor: "Sotto il tendone si sta bene anche con la pioggia, ma la villa ha una sala interna. Quale scegliete?"
+    # decoy: «meglio spendere ... che rischiare» and headless «chi viene» are correct
+    - learner: "Allora scegliamo la villa: meglio spendere un po' di più che rischiare con il tempo. E chi viene da lontano potrà dormire sul lago."
+    - tutor: "Ottima scelta. Con ottanta invitati la villa costa ottomila euro, quindi restano molti soldi per il resto."
+      goals: [choices]
+    - learner: "Bene. Ma il fotografo di chi le ho parlato al telefono deve essere nel budget, e vogliamo un preventivo scritto entro dieci giorni."
+      errors: [relative-pronoun]
+      gold: {text: "il fotografo di chi", fix: "il fotografo di cui"}
+    - tutor: "Il preventivo scritto ve lo mando entro dieci giorni, fotografo compreso. Ma riprenda «il fotografo di chi le ho parlato»: dopo «di», riferito a «fotografo», quale relativo si usa?"
+      prompt: {text: "il fotografo di chi", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "Il fotografo di cui le ho parlato, sì. E un'ultima condizione: nessuna spesa in più senza la nostra approvazione."
+    - tutor: "Così va bene. Nessuna spesa senza il vostro sì: lo scrivo anche nel contratto."
+      goals: [conditions]
+
+- scenario: medico-specialista
+  # facts: esami: pressione 150 su 95, un po' alta; il learner si stanca sulle scale da circa due mesi, abita al quarto piano e ci mette più del doppio del tempo; la sera sente il cuore battere forte; il padre ha avuto un infarto a sessant'anni; terapia: una compressa al mattino; effetti collaterali rari: tosse secca o caviglie gonfie; controllo tra tre mesi con nuovi esami del sangue; una passeggiata al giorno
+  level: B2
+  persona: en-m-traveller
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Abbastanza bene, grazie. Però quando salgo le scale mi stanco più di prima, e la sera a volte sento il cuore che batte forte."
+    - tutor: "Capisco. Da quanto tempo succede, più o meno?"
+    - learner: "Da circa due mesi. Abito al quarto piano, e adesso mi fermo almeno due volte: ci metto più che il doppio del tempo di una volta."
+      errors: [comparative]
+      gold: {text: "più che il doppio", fix: "più del doppio"}
+    - tutor: "È un dettaglio importante. Riprenda però «più che il doppio»: «il doppio» è un nome. Quale preposizione, unita all'articolo, ci va davanti?"
+      goals: [symptoms]
+      prompt: {text: "più che il doppio", tags: [comparative]}
+    - learner: "Più del doppio del tempo, sì. Mio padre, tra l'altro, ha avuto un infarto a sessant'anni."
+    - tutor: "Ecco, così. Grazie, è un'informazione utile. Ha qualche domanda sugli esami?"
+      goals: [history]
+    - learner: "Sì: la mia pressione è più alta che quella normale per la mia età? E questo spiega la stanchezza?"
+      errors: [comparative]
+      gold: {text: "più alta che quella", fix: "più alta di quella"}
+    - tutor: "Sì, centocinquanta su novantacinque è un po' alta, e può spiegare la stanchezza. Ma riprenda «più alta che quella normale»: «quella» è un pronome. Che cosa ci va davanti?"
+      prompt: {text: "più alta che quella", tags: [comparative]}
+    - learner: "È più alta che la pressione normale, quindi."
+      errors: [comparative]
+    - tutor: "In effetti è più alta della pressione normale per la sua età, ma con una terapia leggera si controlla bene. Le propongo una compressa al mattino."
+      new: [{lemma: compressa, gloss: tablet}]
+      goals: [understand]
+      recast: {text: "più alta che la pressione", fix: "più alta della pressione", tags: [comparative]}
+    # decoy: «è meglio sapere che non sapere», two infinitives, rightly takes «che»
+    - learner: "Va bene. Ci sono effetti collaterali? Preferisco saperlo prima: per me è meglio sapere che non sapere."
+    - tutor: "Raramente può dare una tosse secca, o le caviglie un po' gonfie. In quel caso mi chiami subito."
+      new: [{lemma: caviglia, gloss: ankle}, {lemma: gonfio, gloss: swollen}]
+    - learner: "D'accordo. E quando devo tornare per il controllo?"
+    - tutor: "Tra tre mesi, con nuovi esami del sangue. Intanto, se può, faccia una passeggiata ogni giorno."
+      goals: [treatment]
+
+- scenario: vita-in-italia
+  # facts: la learner è spagnola, arrivata a Bologna sei anni fa con l'Erasmus per dieci mesi; rimasta per amore, lavora in una scuola di lingue; difficoltà: burocrazia, il primo anno senza contratto e quindi senza residenza; cambiamento: più paziente, cena alle otto, a Madrid alle dieci; consiglio: imparare la lingua prima di partire e conoscere i vicini; la vicina con cui prende il caffè ogni mattina l'ha aiutata molto
+  level: B2
+  persona: es-f-erasmus
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuta, e un saluto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da sei anni. Come è arrivata qui?"
+    - learner: "Sono arrivata a Bologna sei anni fa con l'Erasmus. Nella residenza che vivevo il primo anno eravamo tutti convinti di restare solo dieci mesi, e invece eccomi ancora qui."
+      errors: [relative-pronoun]
+      gold: {text: "residenza che vivevo", fix: "residenza in cui vivevo"}
+    - tutor: "Dieci mesi diventati sei anni: succede spesso! Però riprenda «la residenza che vivevo»: si vive in un posto. Quale preposizione serve prima del relativo?"
+      prompt: {text: "residenza che vivevo", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "La residenza in cui vivevo, sì. Sono rimasta per amore, e poi ho trovato lavoro in una scuola di lingue."
+    - tutor: "Esatto. Una storia classica, e bellissima. Qual è stata la cosa più difficile?"
+      goals: [story]
+    - learner: "La burocrazia, senza dubbio. Il primo anno ho lavorato senza contratto, e questa è la ragione per il quale non potevo avere la residenza."
+      errors: [relative-pronoun]
+      gold: {text: "la ragione per il quale", fix: "la ragione per la quale"}
+    # agree: content
+    - tutor: "La burocrazia la citano quasi tutti i nostri ospiti, ha ragione. Ma guardi «la ragione per il quale»: «ragione» è femminile. Come deve essere il relativo?"
+      prompt: {text: "la ragione per il quale", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "La ragione per la quale non potevo avere la residenza, sì. Per fortuna dopo è cambiato tutto."
+    - tutor: "Bene. E lei, in questi sei anni, come è cambiata?"
+      goals: [difficulties]
+    # decoy: «più italiana che spagnola», two adjectives, rightly takes «che»
+    - learner: "Sono diventata più paziente, e a tavola ormai sono più italiana che spagnola: ceno alle otto, mentre a Madrid si cena alle dieci!"
+    - tutor: "Per uno spagnolo le otto sono quasi l'ora della merenda! Che consiglio darebbe a chi vuole trasferirsi qui?"
+      goals: [change]
+    # decoy: «più di tutti» is correct
+    - learner: "Di imparare la lingua prima di partire, e di conoscere i vicini. La vicina con chi prendo il caffè ogni mattina mi ha aiutata più di tutti."
+      errors: [relative-pronoun]
+      gold: {text: "La vicina con chi", fix: "La vicina con cui"}
+    # agree: content
+    - tutor: "Che bel consiglio. Ma «la vicina con chi prendo il caffè»: dopo «con», riferito a «vicina», quale relativo ci vuole?"
+      prompt: {text: "La vicina con chi", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "La vicina con cui prendo il caffè, scusi. È lei la mia vera famiglia italiana."
+    - tutor: "Così va bene. Grazie per essere stata con noi, e un saluto alla sua vicina!"
+      goals: [advice]
+
+- scenario: film-libro
+  # facts: libro letto: un giallo ambientato a Trieste; un vecchio pescatore scompare una mattina d'inverno, nessuno in paese parla con la polizia; indaga una commissaria di cinquant'anni il cui marito è morto da poco; la learner ha capito il colpevole a metà; consigliato a chi ama i gialli lenti e psicologici; Roberto lo prende in biblioteca la settimana prossima
+  level: B2
+  persona: en-f-student
+  history: [comparative, relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Comincio io. Ho letto un giallo ambientato a Trieste: un vecchio pescatore scompare una mattina d'inverno, e nessuno in paese vuole parlare con la polizia."
+    - tutor: "Promette bene. E chi indaga?"
+      goals: [summary]
+    - learner: "Una commissaria di cinquant'anni, che il marito è morto da poco, e che lavora tantissimo per non pensarci."
+      errors: [relative-pronoun]
+      gold: {text: "che il marito", fix: "il cui marito"}
+    - tutor: "Un personaggio forte, mi pare. Ma riprendi «una commissaria di cinquant'anni, che il marito è morto»: il marito è suo. Quale relativo esprime questo legame?"
+      prompt: {text: "che il marito", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    # decoy: the superlative «il personaggio più umano del libro» is correct
+    - learner: "Una commissaria il cui marito è morto da poco, sì. È dura con tutti, ma alla fine è il personaggio più umano del libro."
+    - tutor: "Così è giusto. E il libro ti è piaciuto, alla fine?"
+      goals: [characters]
+    - learner: "Abbastanza. I personaggi sono ottimi, ma il finale è molto meno interessante che il resto del libro: il colpevole l'ho capito a metà."
+      errors: [comparative]
+      gold: {text: "meno interessante che il resto", fix: "meno interessante del resto"}
+    # agree: content
+    - tutor: "Capire il colpevole a metà, in un giallo, è un peccato. Ma «meno interessante che il resto del libro»: «il resto» è un nome. Quale preposizione, con l'articolo, gli va davanti?"
+      prompt: {text: "meno interessante che il resto", tags: [comparative]}
+    - learner: "Meno interessante che tutto il resto, voglio dire."
+      errors: [comparative]
+    - tutor: "Un finale meno interessante di tutto il resto, quindi: peccato. A chi lo consiglieresti, comunque?"
+      goals: [opinion]
+      recast: {text: "meno interessante che tutto il resto", fix: "meno interessante di tutto il resto", tags: [comparative]}
+    # decoy: «più psicologici che pieni d'azione» and headless «chi cerca» are correct
+    - learner: "A chi ama i gialli lenti, più psicologici che pieni d'azione. Chi cerca colpi di scena, invece, rimarrà deluso."
+    - tutor: "Mi hai convinto: la settimana prossima lo prendo in biblioteca. Chi vuole continuare?"
+      goals: [recommend]
+
+- scenario: assicurazione-sinistro
+  # facts: ieri mattina, parcheggio del supermercato; il learner era fermo, un'auto in retromarcia gli ha preso la portiera; danni: portiera e specchietto dal lato del guidatore; il learner sta bene; l'altro conducente ha ammesso la colpa; constatazione amichevole firmata, targa scritta; testimone: una signora che ha il numero del learner; niente franchigia se la colpa è dell'altro; il perito chiama entro una settimana
+  level: B2
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri mattina ero fermo nel parcheggio del supermercato, e un'auto che usciva in retromarcia mi ha preso la portiera."
+    - tutor: "Mi dispiace. Lei sta bene? E che danni ha la macchina?"
+    - learner: "Io sto bene, grazie. La portiera è rovinata, e anche lo specchietto, proprio dal lato in che ero seduto io."
+      errors: [relative-pronoun]
+      gold: {text: "dal lato in che", fix: "dal lato in cui"}
+    - tutor: "Meno male che sta bene. Però riprenda «dal lato in che ero seduto»: dopo la preposizione «in», quale pronome relativo si usa?"
+      goals: [what]
+      prompt: {text: "dal lato in che", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "Dal lato in cui ero seduto, sì. L'altro conducente ha ammesso subito che era colpa sua."
+    - tutor: "Così va bene. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+    # decoy: «il che» is correct
+    - learner: "Sì, l'abbiamo firmata tutti e due, e ho scritto anche la sua targa, il che mi sembra importante."
+    - tutor: "Lo è. C'erano dei testimoni?"
+      goals: [documents]
+    - learner: "Sì, una signora a chi ho lasciato il mio numero ha visto tutto, e ha detto che può confermare quello che è successo."
+      errors: [relative-pronoun]
+      gold: {text: "una signora a chi", fix: "una signora a cui"}
+    - tutor: "Una testimone è sempre utile. Ma «una signora a chi ho lasciato il mio numero»: dopo «a», riferito a «signora», quale relativo serve?"
+      prompt: {text: "una signora a chi", tags: [relative-pronoun]}
+      new: [{lemma: relativo, gloss: relative pronoun}]
+    - learner: "Una signora a quale ho lasciato il numero, scusi."
+      errors: [relative-pronoun]
+    - tutor: "La signora alla quale ha lasciato il numero potrà confermare tutto. Ha altre domande?"
+      recast: {text: "a quale", fix: "alla quale", tags: [relative-pronoun]}
+    - learner: "Sì: adesso che cosa succede? Devo pagare la franchigia?"
+    - tutor: "No, se la colpa è dell'altro, la franchigia non c'è. Il perito la chiama entro una settimana per vedere la macchina."
+      goals: [next]
+      new: [{lemma: perito, gloss: insurance assessor}]
+    - learner: "Perfetto, grazie. Allora aspetto la chiamata del perito."
+    - tutor: "Sì, e tenga pronta una copia della constatazione. Buona giornata."
+
+- scenario: dibattito-ambiente
+  # facts: il residente (tutor) ha un bar in piazza da quindici anni, metà dei clienti arriva in macchina; la learner vive in centro con due figli, in una via con aria irrespirabile nelle ore di punta, i figli vanno a scuola lì; navetta gratuita dal parcheggio della stazione; condizione del residente: carico e scarico la mattina presto; accordo: fascia dalle sei alle dieci, prova di almeno sei mesi, da votare insieme
+  level: C1
+  persona: en-f-professional
+  history: [relative-pronoun, comparative]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    # decoy: the subjunctive «possa» after «credo che» is correct
+    - learner: "Capisco il timore, ma credo che una zona pedonale, se progettata bene, possa rendere il centro più vivibile e, alla lunga, anche più frequentato."
+    - tutor: "Più frequentato? Io ho un bar in piazza da quindici anni, e metà dei miei clienti arriva in macchina. Su che cosa si basa?"
+      goals: [position]
+    - learner: "Su due cose. La prima è l'aria: abito in una via la quale aria, nelle ore di punta, è davvero irrespirabile, e i miei figli vanno a scuola proprio lì."
+      errors: [relative-pronoun]
+      gold: {text: "una via la quale aria", fix: "una via la cui aria"}
+    # agree: content
+    - tutor: "Sull'aria non le do torto: in certe ore si respira male anche in piazza. Ma riprenda «una via la quale aria»: qui l'aria appartiene alla via. Quale relativo esprime il possesso?"
+      prompt: {text: "una via la quale aria", tags: [relative-pronoun]}
+    - learner: "Una via la cui aria è irrespirabile, appunto. La seconda è la sicurezza: senza auto, i bambini potrebbero andare a scuola da soli, senza rischiare a ogni incrocio."
+    - tutor: "Ecco. Due argomenti seri, lo ammetto. Ma i commercianti come me, nel frattempo, come sopravvivono ai primi mesi?"
+      goals: [argue]
+    - learner: "I primi mesi saranno difficili, non lo nego. Ma in molte città le strade che la gente ora passeggia la sera sono proprio quelle dove i negozi incassano di più."
+      errors: [relative-pronoun]
+      gold: {text: "le strade che la gente ora passeggia", fix: "le strade in cui la gente ora passeggia"}
+    - tutor: "Le altre città hanno parcheggi che noi non abbiamo. Comunque si fermi su «le strade che la gente ora passeggia»: si passeggia per le strade, non si passeggiano le strade. Che cosa serve davanti al relativo?"
+      goals: [counter]
+      prompt: {text: "le strade che la gente ora passeggia", tags: [relative-pronoun]}
+    # decoy: «da cui partirebbe» is correct
+    - learner: "Una preposizione: le strade in cui la gente ora passeggia la sera sono quelle dove i negozi incassano di più. Quanto ai parcheggi, si potrebbe usare quello della stazione, da cui partirebbe una navetta gratuita."
+    - tutor: "Sì, così. Una navetta potrebbe convincermi, a una condizione: carico e scarico per noi negozianti la mattina presto. Lei sarebbe d'accordo?"
+    - learner: "Sarei d'accordo: chi lavora in centro deve poter rifornire il negozio. Proporrei una fascia dalle sei alle dieci, e una prova di non meno che sei mesi, per avere dati seri."
+      errors: [comparative]
+      gold: {text: "non meno che sei mesi", fix: "non meno di sei mesi"}
+    # agree: content
+    - tutor: "La fascia del mattino mi va bene, e i dati servono anche a me. Però guardi «non meno che sei mesi»: davanti a un numero, quale preposizione introduce il secondo termine?"
+      prompt: {text: "non meno che sei mesi", tags: [comparative]}
+    - learner: "Una prova di non meno di sei mesi, sì: in meno tempo non si capisce niente."
+    - tutor: "D'accordo: carico e scarico dalle sei alle dieci, navetta dalla stazione e sei mesi di prova. Su questo possiamo votare insieme."
+      goals: [concede]
+
+- scenario: reclamo-comune
+  # facts: cantiere comunale abbandonato da due mesi nella via del learner, buca davanti al portone; operai al lavoro meno di una settimana; segnalazione via email un mese fa, senza risposta; lavori sospesi per un problema con la ditta; nel palazzo sei persone anziane; il learner ha più di settant'anni; reclamo scritto protocollato, risposta entro trenta giorni; protocollo 2417; sopralluogo dell'ufficio tecnico entro dieci giorni, con telefonata prima
+  level: C1
+  persona: en-m-retired
+  history: [comparative, relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica pure. Di che cosa si tratta?"
+    - learner: "Buongiorno. Da due mesi, davanti al portone del mio palazzo, c'è un cantiere abbandonato: transenne, una buca enorme e nemmeno un operaio."
+    - tutor: "Mi dispiace per il disagio. Si tratta di lavori del Comune o di un'azienda privata?"
+    - learner: "Del Comune, c'è il cartello. Gli operai hanno lavorato meno che una settimana, poi sono spariti, e io ho già mandato una segnalazione via email un mese fa."
+      errors: [comparative]
+      gold: {text: "meno che una settimana", fix: "meno di una settimana"}
+    - tutor: "Vedo la sua segnalazione, sì. Prima però riprenda «meno che una settimana»: con una quantità di tempo come «una settimana», quale preposizione introduce il secondo termine?"
+      goals: [describe]
+      prompt: {text: "meno che una settimana", tags: [comparative]}
+    - learner: "Meno di una settimana, ecco. E alla mia email non ha mai risposto nessuno."
+    - tutor: "Così è corretto. I lavori risultano sospesi per un problema con la ditta; per ora non ho altre informazioni."
+    - learner: "Mi scusi, ma «sospesi» non mi basta. Nel palazzo vivono sei persone anziane, per i quali quella buca è un pericolo vero ogni volta che escono di casa."
+      errors: [relative-pronoun]
+      gold: {text: "per i quali", fix: "per le quali"}
+    # agree: content
+    - tutor: "Ha ragione, la sicurezza viene prima di tutto. Ma riprenda «sei persone anziane, per i quali»: il relativo deve accordarsi con «persone». Come diventa?"
+      goals: [insist]
+      prompt: {text: "per i quali", tags: [relative-pronoun]}
+    - learner: "Per le quali, certo. Allora vorrei sapere come si presenta un reclamo formale, e quali sono i miei diritti se nessuno interviene."
+    - tutor: "Può presentare un reclamo scritto qui, adesso: lo protocolliamo, e il Comune è tenuto a risponderle entro trenta giorni."
+      goals: [rights]
+    # decoy: «più che una risposta scritta, ... mi interessa» is correct
+    - learner: "Lo faccio subito. Più che una risposta scritta, però, mi interessa che qualcuno venga a vedere: preferirei un sopralluogo a una lettera."
+    - tutor: "Posso chiedere all'ufficio tecnico un sopralluogo urgente. Mi lascia un recapito telefonico?"
+    # decoy: «più preoccupato per i miei vicini che per me», two phrases, rightly takes «che»
+    - learner: "Certo, ecco il numero. E sono più preoccupato per i miei vicini che per me, anche se ormai ho più che settant'anni anch'io."
+      errors: [comparative]
+      gold: {text: "più che settant'anni", fix: "più di settant'anni"}
+    - tutor: "Lo segnalo nel modulo, così l'ufficio tecnico ne tiene conto. Ma «più che settant'anni»: davanti a un numero, come si introduce il confronto?"
+      prompt: {text: "più che settant'anni", tags: [comparative]}
+    - learner: "Ho più di settant'anni, volevo dire. Mi dà il numero di protocollo, per favore?"
+    - tutor: "Ecco: protocollo 2417. L'ufficio tecnico farà il sopralluogo entro dieci giorni e la chiamerà prima di venire."
+      goals: [commitment]
