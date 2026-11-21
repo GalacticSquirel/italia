@@ -18,6 +18,8 @@ import {
   type TutorTurn,
 } from '@italia/core';
 
+import { tutorLog } from '@/tutor';
+
 /** A checked tutor turn and the learner message it answered. */
 export interface TutorTurnEvent {
   output: TutorOutput;
@@ -100,6 +102,7 @@ export function useConversation({
       if (!mounted.current) return;
       switch (outcome.kind) {
         case 'reply': {
+          for (const reason of outcome.dropped) tutorLog(`dropped ${reason}`);
           const last = turns.at(-1);
           callbacks.current.onTutorTurn?.({
             output: outcome.output,
@@ -115,6 +118,7 @@ export function useConversation({
           break;
         }
         case 'failed':
+          tutorLog(`turn failed: ${outcome.error}`);
           dispatch({ type: 'failed', error: outcome.error });
           break;
       }

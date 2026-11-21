@@ -12,6 +12,7 @@ import { uriToPath, useModelManager, useModels, type ModelManager } from '@/mode
 
 import { readBattery } from './battery';
 import { createLlamaConversationPartner, type TutorPartner } from './llamaPartner';
+import { tutorLog } from './log';
 import { chooseTutorModel, type TutorModelChoice } from './modelChoice';
 import { nativeLlamaRuntime } from './nativeLlama';
 
@@ -50,6 +51,7 @@ export function createNativeTutorPartner(models: ModelManager): TutorPartner {
     },
     stateDir: stateDir(),
     battery: readBattery,
+    log: tutorLog,
   });
 }
 

@@ -10,6 +10,7 @@ export {
   type TutorModelFile,
   type TutorPartner,
 } from './llamaPartner';
+export { tutorLog } from './log';
 export { chooseTutorModel, type TutorModelChoice } from './modelChoice';
 export { powerAdvice, type BatteryState, type PowerAdvice } from './power';
 export {

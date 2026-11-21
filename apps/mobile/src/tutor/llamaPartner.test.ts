@@ -62,6 +62,13 @@ describe('llama tutor partner', () => {
     expect(JSON.stringify(goals)).toContain('order-drink');
   });
 
+  it("logs each turn's raw output, so a missing correction can be traced on the device", async () => {
+    const json = tutorOutputToJson(opening);
+    const { partner, logs } = setup([{ text: json }]);
+    await drain(partner, []);
+    expect(logs).toContain(`raw output: ${json}`);
+  });
+
   it('loads the model once with per-platform GPU settings and replays history as JSON', async () => {
     const { runtime, partner } = setup([
       { text: tutorOutputToJson(opening) },

@@ -58,7 +58,7 @@ export interface LlamaPartnerDeps {
   /** Folder (filesystem path) for saved prompt caches. */
   stateDir: string;
   battery(): Promise<BatteryState>;
-  /** Diagnostics (GPU fallback, cache misses). */
+  /** Diagnostics: GPU fallback, cache misses and each turn's raw output. */
   log?: (message: string) => void;
 }
 
@@ -235,7 +235,9 @@ export function createLlamaConversationPartner(deps: LlamaPartnerDeps): TutorPar
             log(`could not save the prompt cache: ${String(e)}`);
           });
       }
-      const parsed = parseTutorOutput(result.text || content);
+      const raw = result.text || content;
+      log(`raw output: ${raw}`);
+      const parsed = parseTutorOutput(raw);
       if (!parsed.ok) {
         if (result.stoppedLimit || result.contextFull) {
           return { text: emitted, recast: null, errors: [], finishReason: 'length' };
