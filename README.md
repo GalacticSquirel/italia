@@ -31,7 +31,9 @@ docs/                   Architecture, subsystem notes and ADRs
 
 GitHub Actions builds a release APK on every push to `main` (or on demand from the Actions tab
 for any branch) and publishes the newest as the `android-latest` pre-release. Open that release on the phone and
-install the APK. Models (tutor, speech recognition, voice, pronunciation) are downloaded later
+install `italia-<commit>.apk` (arm64). For an x86_64 Android emulator on a PC, install
+`italia-<commit>-emulator-x86_64.apk` from the same release instead (drag it onto the emulator or
+`adb install` it); the phone APK runs there only under translation, too slowly for the tutor. Models (tutor, speech recognition, voice, pronunciation) are downloaded later
 from Settings, On-device models.
 
 ## Tutor model training
