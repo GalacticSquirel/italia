@@ -8,35 +8,40 @@ import { initLlama, type LlamaContext } from 'llama.rn';
 import type { LlamaCompletionResult, LlamaInitParams, LlamaRuntime, LlamaSession } from './runtime';
 
 /**
- * Chat formatting for Gemma 4. With a response format, llama.cpp's Gemma 4
- * grammar also allows a `<|channel>thought` block before the JSON, and
- * `enable_thinking: false` does not stop the model opening one: it then thinks
- * until the token limit and the reply comes back empty. A zero thinking budget
- * closes the block as soon as it opens (llama-server's `--reasoning-budget 0`),
- * and `reasoning_format: 'auto'` keeps that empty block out of the content, so
- * the content is just the JSON (the grammar's json code fence is not content
- * either).
+ * Chat template options for the tutor prompt. Thinking is off, so the
+ * generation prompt ends with the model's turn and the model writes its
+ * answer straight away.
  */
-const TUTOR_CHAT_FORMAT = {
-  jinja: true,
-  enable_thinking: false,
-  thinking_budget_tokens: 0,
-  reasoning_format: 'auto',
-} as const;
+const TUTOR_TEMPLATE = { jinja: true, enable_thinking: false } as const;
 
+/**
+ * Each turn renders the messages with the model's chat template, then decodes
+ * from that prompt under a plain grammar built from the JSON schema, so the
+ * first token is the JSON's `{`. The output is exactly what the tutor model
+ * was trained to write after its turn opens.
+ *
+ * The prompt is rendered separately because passing the messages with a
+ * response format selects llama.cpp's Gemma 4 chat grammar instead. That
+ * grammar lets the model open a `<|channel>thought` block before the JSON
+ * and wraps the JSON in a code fence. A zero thinking budget does not close
+ * every such block, because the budget only spots the tag's usual tokens.
+ * The model then thinks until the token limit and the reply comes back
+ * empty, or it writes the JSON inside the thought.
+ */
 function session(context: LlamaContext): LlamaSession {
   return {
     gpu: context.gpu,
     reasonNoGpu: context.reasonNoGPU,
     async completion(params, onContent): Promise<LlamaCompletionResult> {
+      const chat = await context.getFormattedChat(params.messages, null, TUTOR_TEMPLATE);
+      let text = '';
       const result = await context.completion(
         {
-          messages: params.messages,
+          prompt: chat.prompt,
           response_format: {
             type: 'json_schema',
             json_schema: { strict: true, schema: params.jsonSchema },
           },
-          ...TUTOR_CHAT_FORMAT,
           n_predict: params.n_predict,
           temperature: params.temperature,
           top_k: params.top_k,
@@ -45,14 +50,13 @@ function session(context: LlamaContext): LlamaSession {
           penalty_repeat: params.penalty_repeat,
           ...(params.seed === undefined ? {} : { seed: params.seed }),
         },
-        // Stream the parsed content, not raw tokens: the raw text also holds
-        // the thought block and the code fence around the JSON.
         (data) => {
-          if (data.content) onContent(data.content);
+          text += data.token;
+          onContent(text);
         },
       );
       return {
-        text: result.content,
+        text: result.text || text,
         stoppedLimit: result.stopped_limit > 0,
         interrupted: result.interrupted,
         contextFull: result.context_full,
