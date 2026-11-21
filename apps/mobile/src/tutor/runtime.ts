@@ -22,7 +22,7 @@ export interface LlamaInitParams {
   swa_full: boolean;
   use_mmap: boolean;
   use_mlock: boolean;
-  /** Gemma 4 runs without a thinking phase. */
+  /** Drop old tokens when the context fills; off, because `fitTurns` keeps the dialogue within it. */
   ctx_shift: boolean;
 }
 
@@ -42,7 +42,7 @@ export interface LlamaCompletionParams {
 
 /** How a completion ended. */
 export interface LlamaCompletionResult {
-  /** The raw generated text (JSON for the tutor). */
+  /** The generated content (JSON for the tutor), without thinking or code fence. */
   text: string;
   /** Stopped by the token limit. */
   stoppedLimit: boolean;
@@ -64,10 +64,13 @@ export interface LlamaSession {
   /** Whether any layer runs on the GPU, and why not when it does not. */
   readonly gpu: boolean;
   readonly reasonNoGpu: string;
-  /** Run one completion; `onText` gets each generated piece of text. */
+  /**
+   * Run one completion. `onContent` gets the content decoded so far each time
+   * it grows: the model's answer without any thinking or code fence around it.
+   */
   completion(
     params: LlamaCompletionParams,
-    onText: (piece: string) => void,
+    onContent: (content: string) => void,
   ): Promise<LlamaCompletionResult>;
   /** Stop the running completion (it then resolves with `interrupted`). */
   stop(): Promise<void>;

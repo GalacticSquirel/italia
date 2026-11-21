@@ -204,7 +204,7 @@ export function createLlamaConversationPartner(deps: LlamaPartnerDeps): TutorPar
       void session.stop().catch(() => undefined);
     };
     call.signal?.addEventListener('abort', onAbort, { once: true });
-    let raw = '';
+    let content = '';
     let emitted = '';
     try {
       const result = await session.completion(
@@ -213,9 +213,9 @@ export function createLlamaConversationPartner(deps: LlamaPartnerDeps): TutorPar
           jsonSchema: runtimeOutputSchema(context.scenario),
           ...samplingFor(replyTokens),
         },
-        (piece) => {
-          raw += piece;
-          const partial = partialReply(raw);
+        (sofar) => {
+          content = sofar;
+          const partial = partialReply(content);
           if (partial && partial.text.length > emitted.length) {
             emit(partial.text.slice(emitted.length));
             emitted = partial.text;
@@ -235,7 +235,7 @@ export function createLlamaConversationPartner(deps: LlamaPartnerDeps): TutorPar
             log(`could not save the prompt cache: ${String(e)}`);
           });
       }
-      const parsed = parseTutorOutput(result.text || raw);
+      const parsed = parseTutorOutput(result.text || content);
       if (!parsed.ok) {
         if (result.stoppedLimit || result.contextFull) {
           return { text: emitted, recast: null, errors: [], finishReason: 'length' };
