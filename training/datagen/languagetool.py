@@ -61,6 +61,10 @@ KNOWN_WORDS = frozenset(
         "videochiamate",
         "business",
         "plan",
+        "catering",
+        "brunch",
+        "turnover",
+        "centottantamila",
     }
 )
 # Words Italian doubles on purpose ("quasi quasi", "ciao ciao", "pian piano").
