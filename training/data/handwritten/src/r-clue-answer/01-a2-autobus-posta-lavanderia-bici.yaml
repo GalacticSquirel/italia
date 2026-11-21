@@ -1,0 +1,266 @@
+# Set r-clue-answer, file 1 (A2): the bus, the post office, the laundrette, the bike rental, the
+# hairdresser, a hotel check-in, asking the way and a clothes shop. Clues name the real problem
+# (the vowel after the article, the country, the plural ending, the verb that needs essere);
+# odd-looking but correct words next to the error are left alone; questions are answered first.
+- scenario: autobus
+  # facts: linea 4 va all'ospedale; biglietto sull'autobus 2 euro, in tabaccheria 1,50; scendere alla quinta fermata, «Ospedale»; circa quindici minuti; l'autobus passa ogni mezz'ora fino alle undici di sera; per tornare, fermata dall'altra parte della strada
+  level: A2
+  persona: en-m-retired
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno! Dove deve andare?"
+    - learner: "Buongiorno. Questo autobus va all'ospedale?"
+    - tutor: "Sì, la linea quattro va proprio all'ospedale. Ha già il biglietto?"
+      goals: [route]
+    - learner: "No, non ce l'ho. Dove posso comprarlo?"
+    - tutor: "Lo può comprare da me: costa due euro. In tabaccheria costa un euro e cinquanta."
+      goals: [ticket]
+    - learner: "Allora lo compro da lei, ecco due euro. Devo timbrarlo?"
+    - tutor: "No, questo biglietto non si timbra. Sa già dove deve scendere?"
+    # decoy: «in ospedale» is correct; only «in quale fermata» is wrong
+    - learner: "No. Mio zio è in ospedale da ieri. In quale fermata devo scendere?"
+      errors: [preposition]
+    - tutor: "È la quinta fermata, si chiama «Ospedale». Ma «in quale fermata»? Con «scendere», davanti alla fermata usiamo un'altra preposizione."
+      goals: [stop]
+      prompt: {text: "In quale fermata", tags: [preposition]}
+    - learner: "A quale fermata devo scendere... la quinta, giusto?"
+    - tutor: "Esatto, la quinta: ci vogliono circa quindici minuti. Le serve sapere altro?"
+    - learner: "Sì. Per tornare stasera, il autobus passa ancora?"
+      errors: [article-form]
+    - tutor: "«Il autobus»? La parola «autobus» comincia con la lettera «a»: l'articolo cambia."
+      prompt: {text: "il autobus", tags: [article-form]}
+    - learner: "Il autobus passa ancora stasera?"
+      errors: [article-form]
+    - tutor: "Sì, l'autobus passa ogni mezz'ora fino alle undici di sera. Per tornare, la fermata è dall'altra parte della strada."
+      recast: {text: "Il autobus", fix: "l'autobus", tags: [article-form]}
+    - learner: "Perfetto. Grazie mille, lei è molto gentile!"
+    - tutor: "Prego, di niente. Le dico io quando scendere. Saluti a suo zio!"
+      goals: [thank]
+
+- scenario: ufficio-postale
+  # facts: pacco per Siviglia, Spagna; normale 12 euro in cinque giorni, veloce 20 euro in due giorni; sceglie la veloce; modulo con indirizzo, cosa c'è nel pacco e quanto costa; dentro due libri e una sciarpa; paga 20 euro con la carta; ricevuta con il numero per seguire il pacco
+  level: A2
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    # decoy: «a Siviglia» is correct; only «a Spagna» is wrong
+    - learner: "Buongiorno. Vorrei spedire questo pacco a Spagna, a Siviglia."
+      errors: [preposition]
+    - tutor: "«A Spagna»? Siviglia è una città, ma la Spagna è un paese. Allora la preposizione non è la stessa."
+      prompt: {text: "a Spagna", tags: [preposition]}
+    - learner: "Per Spagna, a Siviglia."
+      errors: [preposition]
+    - tutor: "In Spagna, a Siviglia, benissimo. Per la Spagna c'è la spedizione normale o quella veloce."
+      recast: {text: "Per Spagna", fix: "In Spagna", tags: [preposition]}
+      goals: [send]
+    - learner: "Quanto costa la normale? E quanti giorni ci vogliono?"
+    - tutor: "La normale costa dodici euro e arriva in cinque giorni. La veloce costa venti euro e arriva in due."
+    - learner: "È un regalo per il compleanno di mia sorella, che è sabato. Prendo la veloce."
+    - tutor: "Va bene, la veloce. Adesso scriva su questo modulo l'indirizzo e cosa c'è nel pacco."
+      goals: [speed]
+    - learner: "Cosa devo scrivere qui? Nel pacco ci sono due libro e una sciarpa."
+      errors: [noun-number]
+    - tutor: "Scriva quello che c'è dentro e quanto costa, più o meno. Però «due libro»? Sono due: guardi la fine della parola."
+      prompt: {text: "due libro", tags: [noun-number]}
+    - learner: "Due libri, scusi. Costano più o meno trenta euro."
+    - tutor: "Perfetto, scriva trenta euro. Poi firmi qui sotto, per favore."
+      goals: [form]
+    - learner: "Fatto. Posso pagare con la carta?"
+    - tutor: "Certo, sono venti euro. Ecco la ricevuta: con questo numero può seguire il pacco."
+      goals: [pay]
+
+- scenario: lavanderia
+  # facts: la lavatrice 3 non parte; si paga alla macchina in fondo, vicino alla porta; 4 euro lavaggio, 3 euro asciugatrice per mezz'ora; accetta monete e carta, non banconote; detersivo già dentro la macchina; programma 40 gradi per i colori, dura 45 minuti
+  level: A2
+  persona: es-f-erasmus
+  history: [question-form]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! Ho messo i vestiti nella lavatrice, ma non parte. Perché?"
+    - tutor: "Prima devi pagare, lì in fondo, vicino alla porta. L'hai già fatto?"
+      goals: [problem]
+    - learner: "No, ancora no. Quanto costa?"
+    - tutor: "Per la lavatrice sono quattro euro. L'asciugatrice costa tre euro per mezz'ora."
+    - learner: "Ho solo una banconota di dieci euro. Si può pagare con quello?"
+      errors: [demonstrative]
+    - tutor: "«Con quello»? Pensi alla parola «banconota»: è femminile."
+      prompt: {text: "con quello", tags: [demonstrative]}
+    - learner: "Si può pagare con quella?"
+    - tutor: "No, lì si paga solo con le monete o con la carta. Hai una carta?"
+      goals: [payment]
+    - learner: "Sì, ce l'ho. Pago con la carta. E dopo, che devo fare?"
+    - tutor: "Dopo scegli il programma qui sopra. Che vestiti hai dentro?"
+    # near-miss: «un sacco di» is colloquial and correct
+    - learner: "Un sacco di magliette colorate. Che programma è migliore per i colori?"
+    - tutor: "Per i colori va bene il quaranta gradi, dura quarantacinque minuti. Il detersivo è già dentro la macchina."
+      goals: [ask-how]
+      new: [{lemma: detersivo, gloss: detergent}]
+    # decoy: «Mica male» is colloquial and correct; only «vengi» is wrong
+    - learner: "Mica male, grazie! Tu vengi spesso in questa lavanderia?"
+      errors: [verb-form]
+    - tutor: "Ogni sabato, sì. Ma «vengi»? Con «tu», il presente di «venire» non è regolare."
+      prompt: {text: "vengi", tags: [verb-form]}
+    - learner: "Scusa: tu vieni spesso qui?"
+    - tutor: "Esatto. Vengo il sabato, perché a casa non ho la lavatrice. Tu abiti qui vicino?"
+    - learner: "Sì, abito qui vicino da due mesi. Sono studentessa Erasmus. Grazie per l'aiuto, sei molto gentile!"
+    - tutor: "Prego! Se poi l'asciugatrice non parte, chiamami."
+      goals: [thank]
+
+- scenario: noleggio-bici
+  # facts: una bicicletta per tre ore; 5 euro all'ora, 15 euro; casco e lucchetto inclusi; giro del lago 12 km, tutto in piano; il negozio chiude alle sette; documento lasciato al negozio
+  level: A2
+  persona: en-m-traveller
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, buongiorno. Vorrei noleggiare una bicicletta per oggi pomeriggio."
+    - tutor: "Certo. Per quante ore la vuole?"
+      goals: [ask]
+    - learner: "Per tre ore, credo. Quanto costa all'ora?"
+    - tutor: "Costa cinque euro all'ora, quindi quindici euro per tre ore."
+      goals: [duration]
+    - learner: "Il casco e il lucchetto sono compresi nel prezzo?"
+    - tutor: "Sì, il casco e il lucchetto sono compresi. Mi lascia un documento, per favore?"
+      goals: [price]
+    - learner: "Ecco il passaporto. Domani posso tornare con mia moglie e prendere due bici?"
+    - tutor: "Certo, domani vi preparo due bici. Oggi dove vuole andare?"
+    - learner: "Non lo so. C'è un percorso facile intorno al lago?"
+    - tutor: "Sì, il giro del lago è di dodici chilometri, tutto in piano. È molto bello."
+      goals: [route]
+      new: [{lemma: chilometro, gloss: kilometre}]
+    - learner: "Perfetto. Io poi venirò qui alle sei."
+      errors: [future-form]
+    - tutor: "«Venirò»? Il futuro di «venire» non è regolare, come quello di «tenere»."
+      prompt: {text: "venirò", tags: [future-form]}
+    - learner: "Io venirò alle sei, sì."
+      errors: [future-form]
+    - tutor: "«Verrò alle sei»: va benissimo, chiudiamo alle sette. Buon giro!"
+      recast: {text: "venirò", fix: "verrò", tags: [future-form]}
+    - learner: "Grazie, a dopo!"
+    - tutor: "A dopo, e buona giornata al lago!"
+
+- scenario: parrucchiere
+  # facts: taglio e piega, niente colore; capelli lunghi fino alle spalle, vuole quattro o cinque centimetri in meno; il parrucchiere propone una frangia, la cliente dice di no; taglio e piega 35 euro; paga con la carta
+  level: A2
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Vorrei tagliare i capelli, solo un po'."
+    - tutor: "Va bene. Facciamo anche la piega, o solo il taglio?"
+      goals: [book]
+      new: [{lemma: piega, gloss: blow-dry}]
+    - learner: "Taglio e piega, per favore. Quanto costa?"
+    - tutor: "Taglio e piega costano trentacinque euro. Quanto li vuole più corti?"
+    - learner: "Li voglio parecchio più corti che adesso, come l'anno scorso."
+    - tutor: "Come l'anno scorso, allora. Quanto più corti, più o meno?"
+    - learner: "Quattro o cinque centimetri."
+    - tutor: "Quattro o cinque centimetri, va bene. Le starebbe bene anche la frangia: le piace l'idea?"
+      goals: [length]
+    - learner: "No, la frangia no, grazie. A scuola ho sempre i capelli sugli occhi."
+    - tutor: "Allora niente frangia. Prima le lavo i capelli: venga qui, per favore."
+      goals: [style]
+    - learner: "Va bene. Lei lavora qui da molto tempo?"
+    - tutor: "Da dieci anni, è il mio negozio. Ecco fatto: si guardi allo specchio. Le piace?"
+    - learner: "Sì, mi piace molto! Posso pagare con la carta?"
+    - tutor: "Certo: sono trentacinque euro. Grazie e buona giornata!"
+      goals: [pay]
+
+- scenario: hotel-checkin
+  # facts: prenotazione a nome Taylor, due notti, camera doppia; carta d'identità; colazione dalle sette alle dieci, al piano terra; camera 214, secondo piano; ascensore a destra; Wi-Fi gratis, la password è sulla chiave
+  level: A2
+  persona: en-f-professional
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buonasera e benvenuti! Ha una prenotazione?"
+    - learner: "Buonasera. Sì, ho prenotato una camera doppia per due notti, a nome Taylor."
+    - tutor: "Sì, eccola: Taylor, due notti. Mi dà un documento, per favore?"
+      goals: [booking]
+    - learner: "Ecco la carta d'identità. Scusi, ho arrivato tardi, il treno era in ritardo."
+      errors: [auxiliary-choice]
+    - tutor: "Nessun problema. Ma «ho arrivato»? Con il verbo «arrivare» non usiamo «avere»."
+      goals: [document]
+      prompt: {text: "ho arrivato", tags: [auxiliary-choice]}
+    - learner: "Sono arrivata tardi, scusi."
+    - tutor: "Esatto. Non si preoccupi, noi siamo aperti tutta la notte."
+    - learner: "Meno male. A che ora è la colazione?"
+    - tutor: "La colazione è dalle sette alle dieci, al piano terra."
+      goals: [breakfast]
+    # decoy: «stasera» and the loanword «Wi-Fi» are correct; only «in la camera» is wrong
+    - learner: "Perfetto. Stasera devo lavorare: c'è il Wi-Fi in la camera?"
+      errors: [articulated-preposition]
+    - tutor: "Sì, c'è e non si paga. Ma «in la camera»? Qui «in» e «la» diventano una parola sola."
+      prompt: {text: "in la camera", tags: [articulated-preposition]}
+    - learner: "In la camera, scusi. Qual è la password?"
+      errors: [articulated-preposition]
+    - tutor: "Nella camera c'è, certo. La password è qui, vicino alla chiave."
+      recast: {text: "In la camera", fix: "Nella camera", tags: [articulated-preposition]}
+      new: [{lemma: password, gloss: password}]
+    - learner: "Grazie. Qual è il numero della camera?"
+    - tutor: "È la duecentoquattordici, al secondo piano. L'ascensore è qui a destra. Buona notte!"
+      goals: [key]
+      new: [{lemma: ascensore, gloss: lift}]
+
+- scenario: chiedere-strada
+  # facts: la stazione è a dieci minuti a piedi; dritto fino al semaforo, poi a sinistra, poi la seconda a destra; dopo il semaforo c'è una farmacia; l'autobus 12 va anche alla stazione ma passa poco
+  level: A2
+  persona: es-m-worker
+  history: [question-form]
+  turns:
+    - tutor: "Sì, mi dica. Ha bisogno di aiuto?"
+    - learner: "Sì, scusi. Sa dove è la stazione?"
+    - tutor: "Certo. È qui vicino, a dieci minuti a piedi."
+      goals: [get-attention, ask-place]
+    - learner: "Ah, bene. Come ci arrivo?"
+    - tutor: "Vada dritto fino al semaforo, poi giri a sinistra. Dopo prenda la seconda strada a destra."
+    - learner: "Allora: dritto fino al semaforo, poi a sinistro, e poi la seconda a destra?"
+      errors: [adjective-agreement]
+    - tutor: "Quasi tutto giusto. Ma «a sinistro»? Guardi come finisce «destra» nella sua frase."
+      prompt: {text: "a sinistro", tags: [adjective-agreement]}
+    - learner: "A sinistra! Dritto, a sinistra e la seconda a destra."
+    - tutor: "Perfetto. Dopo il semaforo c'è una farmacia, così non si sbaglia."
+      goals: [understand]
+    - learner: "È anche un autobus per la stazione?"
+      errors: [ce-ci-sono]
+    - tutor: "«È anche un autobus»? Per dire che una cosa esiste, usiamo «essere» con «ci» davanti."
+      prompt: {text: "È anche un autobus", tags: [ce-ci-sono]}
+    - learner: "C'è anche un autobus per la stazione?"
+    - tutor: "Sì, il dodici, ma passa poco. A piedi fa prima."
+    - learner: "Allora vado a piedi. Grazie mille, è stato molto gentile!"
+    - tutor: "Di niente, buon viaggio!"
+      goals: [thank]
+
+- scenario: abbigliamento
+  # facts: cerca un maglione per il padre; maglione blu in taglia L, anche grigio; quello azzurro vicino alla porta è da donna; prezzo 60 euro, con lo sconto del 20% costa 48 euro; camerino in fondo; cambio entro trenta giorni con lo scontrino
+  level: A2
+  persona: en-m-heritage
+  history: [demonstrative]
+  turns:
+    - tutor: "Buongiorno! Posso aiutarla?"
+    - learner: "Buongiorno. Cerco un maglione per mio padre. È per il suo compleanno."
+    - tutor: "Che bel regalo. Che taglia porta suo padre?"
+      goals: [ask-item]
+    - learner: "Porta la L, credo. Avete quel maglione blu in vetrina?"
+    - tutor: "Sì, il blu c'è in taglia L. C'è anche in grigio."
+    # decoy: «Il blu mi piace di più» and «lì» are correct; only «quel azzurro» is wrong
+    - learner: "Il blu mi piace di più. Ma quanto costa? E quel azzurro lì?"
+      errors: [demonstrative]
+    - tutor: "Il blu costa sessanta euro, ma oggi c'è il venti per cento di sconto. Però «quel azzurro»? «Azzurro» comincia con la lettera «a»: «quel» cambia forma."
+      goals: [size-colour]
+      prompt: {text: "quel azzurro", tags: [demonstrative]}
+    - learner: "Quell'azzurro lì, vicino alla porta."
+    - tutor: "Ah, quello è da donna, mi dispiace. Vuole provare il blu? Siete della stessa taglia, lei e suo padre?"
+    - learner: "Sì, più o meno. Dov'è il camerino?"
+    - tutor: "Il camerino è in fondo, a destra. Prego."
+      goals: [try]
+    # decoy: the clitics in «lo prendo» and «cambiarlo» are correct; only «non lo piace» is wrong
+    - learner: "Mi sta bene, lo prendo. Ma se a mio padre non lo piace, posso cambiarlo?"
+      errors: [piacere]
+    - tutor: "Sì, entro trenta giorni, con lo scontrino. Ma «a mio padre non lo piace»? Con «piacere», la persona è già «a mio padre»: quel «lo» è di troppo."
+      prompt: {text: "a mio padre non lo piace", tags: [piacere]}
+    - learner: "Se a mio padre non piace, lo cambio."
+    - tutor: "Esatto. Con lo sconto sono quarantotto euro."
+    - learner: "Perfetto. Pago con la carta, grazie."
+    - tutor: "Ecco lo scontrino. Buon compleanno a suo padre!"
+      goals: [decide]

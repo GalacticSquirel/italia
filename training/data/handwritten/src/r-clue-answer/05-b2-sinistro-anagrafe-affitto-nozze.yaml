@@ -1,0 +1,323 @@
+# Set r-clue-answer, file 5 (B2): a rear-end collision claim, a residence application without a
+# registered contract, negotiating rent, a wedding planner, a promotion talk, a slow restaurant, a
+# cardiologist and a family flat. Correct subjunctives, relatives and dislocations sit beside the
+# one real error; failed repairs are recast inside the answer.
+- scenario: assicurazione-sinistro
+  # facts: ieri sera, ferma al semaforo rosso, tamponata da un furgone; sta bene; paraurti posteriore distrutto, portellone danneggiato; il conducente del furgone ha ammesso che guardava il telefono; constatazione amichevole firmata da tutti e due, foto del modulo arrivata stamattina, orario sette e tre quarti; polizza base senza auto sostitutiva, si può chiedere all'assicurazione del furgone; perito entro cinque giorni lavorativi; nelle carrozzerie convenzionate non anticipa nulla; lista delle carrozzerie per email
+  level: B2
+  persona: en-f-professional
+  history: [hypothetical]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri sera ero ferma al semaforo rosso, quando un furgone mi ha tamponata."
+    - tutor: "Mi dispiace. Lei si è fatta male, o ci sono solo danni alla macchina?"
+      goals: [what]
+    # decoy: «è stato distrutto» is a correct passive; only «è stato danneggiata» is wrong
+    - learner: "Per fortuna sto bene. Il paraurti posteriore è stato distrutto, e anche il portellone è stato danneggiata."
+      errors: [passive]
+    - tutor: "«Il portellone è stato danneggiata»? Guardi il soggetto, «portellone»: la fine del verbo deve andare d'accordo."
+      prompt: {text: "è stato danneggiata", tags: [passive]}
+    - learner: "Il portellone è stato danneggiato, sì."
+    - tutor: "Esatto. E chi ha causato l'incidente, secondo lei?"
+    - learner: "Il conducente del furgone: ha ammesso subito che stava guardando il telefono."
+    - tutor: "Il fatto che l'abbia ammesso è importante. Avete compilato la constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, l'abbiamo firmata tutti e due. Il modulo, di cui le ho mandato una foto stamattina, vi è arrivato?"
+    - tutor: "Sì, la foto è arrivata e il modulo è completo. Mi conferma l'orario dell'incidente?"
+    - learner: "Alle otto meno un quarto. Se la macchina restasse in carrozzeria per molti giorni, avrei diritto a un'auto sostitutiva?"
+    - tutor: "Con la sua polizza base, purtroppo, l'auto sostitutiva non è prevista. Può però chiederla all'assicurazione del furgone."
+      goals: [documents]
+      new: [{lemma: polizza, gloss: insurance policy}]
+    - learner: "Capisco. E se il conducente del furgone cambierebbe versione, cosa succederebbe?"
+      errors: [hypothetical]
+    - tutor: "Non potrebbe farlo facilmente: la constatazione l'ha firmata anche lui. Ma «se cambierebbe versione»? Dopo «se», in un'ipotesi così, il condizionale non va."
+      prompt: {text: "se il conducente del furgone cambierebbe versione", tags: [hypothetical]}
+    - learner: "E se il conducente cambierebbe idea, dopo?"
+      errors: [hypothetical]
+    - tutor: "Anche se cambiasse idea, la sua firma resterebbe valida. Intanto il perito la chiamerà entro cinque giorni lavorativi, e se ripara la macchina in una nostra carrozzeria convenzionata non anticipa nulla."
+      goals: [next]
+      recast: {text: "cambierebbe idea", fix: "cambiasse idea", tags: [hypothetical]}
+      new: [{lemma: convenzionato, gloss: approved partner}, {lemma: carrozzeria, gloss: body shop}]
+    - learner: "Perfetto. Mi può mandare la lista delle carrozzerie per email? Sarebbe molto conveniente."
+      errors: [false-friend]
+    - tutor: "Certo, gliela mando subito: così è più comodo per lei."
+      recast: {text: "conveniente", fix: "comodo", tags: [false-friend]}
+    - learner: "Grazie mille, è stata molto chiara."
+    - tutor: "Grazie a lei, e buona giornata."
+
+- scenario: burocrazia-residenza
+  # facts: richiedente spagnolo, a Bologna da quattro mesi; servono documento, codice fiscale e contratto d'affitto registrato; il contratto non è ancora registrato; altra soluzione: dichiarazione firmata dal proprietario con copia del suo documento, anche per email e stampata; il proprietario vive a Madrid; con tutto, sportello tre senza nuovo numero; i vigili passano entro quarantacinque giorni; lavora in un'officina dalle otto alle sei; non è necessario essere a casa, ma il nome deve essere sul citofono
+  level: B2
+  persona: es-m-worker
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono spagnolo, vivo a Bologna da quattro mesi e vorrei chiedere la residenza."
+    - tutor: "Bene. Ha portato il documento d'identità, il codice fiscale e il contratto d'affitto registrato?"
+      goals: [request]
+      new: [{lemma: fiscale, gloss: tax}]
+    - learner: "Ho portato il documento e il codice fiscale. Il contratto, però, il proprietario non l'ha ancora registrato."
+    - tutor: "Senza contratto registrato la pratica non si può chiudere. C'è però un'altra soluzione."
+      goals: [documents]
+    - learner: "Quale soluzione? Il proprietario, che il nome è sul contratto, vive a Madrid."
+      errors: [relative-pronoun]
+    - tutor: "Basta una dichiarazione firmata da lui, con una copia del suo documento. Ma «il proprietario, che il nome è sul contratto»? Il nome appartiene al proprietario: qui serve un altro pronome."
+      prompt: {text: "che il nome", tags: [relative-pronoun]}
+    - learner: "Il proprietario, di cui il nome è sul contratto, vive a Madrid."
+      errors: [relative-pronoun]
+    - tutor: "Il proprietario, il cui nome è sul contratto, può mandarle la dichiarazione anche per email, firmata."
+      recast: {text: "di cui il nome", fix: "il cui nome", tags: [relative-pronoun]}
+    # near-miss: «la posso stampare e portarla» places the two clitics correctly
+    - learner: "Va bene, gli scrivo oggi stesso. Se me la manda per email, la posso stampare e portarla qui?"
+    - tutor: "Sì, va benissimo. Quando ha tutto, venga allo sportello tre: non serve un nuovo numero."
+      goals: [problem]
+    - learner: "Perfetto. E dopo, quanto tempo ci vuole perché la residenza sia registrata?"
+    - tutor: "Dopo la domanda, i vigili passano a casa sua entro quarantacinque giorni per il controllo."
+    - learner: "Devo essere a casa quando passeranno? Lavoro tutto il giorno in un taller, dalle otto alle sei."
+      errors: [word-choice]
+    - tutor: "Non è necessario, anche se lavora tutto il giorno in officina: basta che il suo nome sia sul citofono."
+      recast: {text: "in un taller", fix: "in officina", tags: [word-choice]}
+      goals: [next]
+      new: [{lemma: citofono, gloss: entry phone}, {lemma: officina, gloss: workshop}]
+    - learner: "D'accordo, metterò il mio nome nel citofono stasera."
+      errors: [preposition]
+    - tutor: "«Nel citofono»? Il nome non va dentro: pensi alla preposizione giusta."
+      prompt: {text: "nel citofono", tags: [preposition]}
+    - learner: "Sul citofono, certo. Grazie mille!"
+    - tutor: "Esatto. Allora l'aspetto con la dichiarazione. Buona giornata!"
+
+- scenario: trattativa-affitto
+  # facts: canone richiesto 950 euro; con contratto quattro più quattro il proprietario accetterebbe probabilmente 900; il cliente sperava in 880; di solito due mensilità di garanzia, con canone più basso il proprietario ne vorrebbe tre; proposta del cliente: 900 euro e due mensilità; disdetta con sei mesi di preavviso, per raccomandata; provvigione dell'agenzia una mensilità più IVA, alla firma; l'agente richiama entro domani sera
+  level: B2
+  persona: en-m-retired
+  history: [pronoun-position]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Molto, soprattutto il terrazzo. Però il canone mi sembra un po' alto per la zona."
+    - tutor: "Capisco. Il proprietario chiede novecentocinquanta euro al mese: quanto è lontano da quello che pensava?"
+      goals: [interest]
+    - learner: "Abbastanza. Ho visto appartamenti simili che costano meno. Sarebbe disposto ad abbassarlo, se firmassi per quattro anni?"
+    - tutor: "Con un contratto di quattro anni più quattro, credo che accetterebbe novecento euro."
+    - learner: "Novecento va meglio, anche se io pensavo più a ottocentottanta."
+    - tutor: "Posso chiederglielo, ma non le prometto nulla. In cambio, però, potrebbe chiederle una garanzia più alta."
+      goals: [negotiate]
+    # decoy: the elliptical question «E di garanzia, quanto?» is correct; only «si chiede due mensilità» is wrong
+    - learner: "E di garanzia, quanto? Normalmente si chiede due mensilità, no?"
+      errors: [subject-verb-agreement]
+    - tutor: "Di solito due, sì; con un canone più basso il proprietario ne vorrebbe tre. Ma «si chiede due mensilità»? Il soggetto è «due mensilità»: guardi il verbo."
+      prompt: {text: "si chiede due mensilità", tags: [subject-verb-agreement]}
+    - learner: "Normalmente si chiedono due mensilità, giusto. Tre sono tante: io preferirei novecento euro e due mesi."
+    - tutor: "Esatto. Mi sembra un compromesso ragionevole: lo propongo al proprietario oggi stesso. Ha domande sulla durata e sulla disdetta?"
+    # decoy: «Se dovessi» is a correct subjunctive; only «lo dovrei dirlo» is wrong
+    - learner: "Sì. Se dovessi lasciare l'appartamento prima, con quanto preavviso lo dovrei dirlo?"
+      errors: [pronoun-position]
+    - tutor: "Con sei mesi di preavviso, per raccomandata. Ma «lo dovrei dirlo»? Il pronome c'è due volte: ne basta uno."
+      prompt: {text: "lo dovrei dirlo", tags: [pronoun-position]}
+    - learner: "Con sei mesi, va bene. Ma con quale lettera lo dovrei dirlo?"
+      errors: [pronoun-position]
+    - tutor: "«Lo dovrei dire»: con una raccomandata, al proprietario e a noi per conoscenza."
+      goals: [conditions]
+      recast: {text: "lo dovrei dirlo", fix: "lo dovrei dire", tags: [pronoun-position]}
+      new: [{lemma: raccomandata, gloss: registered letter}]
+    - learner: "Chiaro. E la provvigione dell'agenzia quanto è? Spero non sia troppo alta."
+    - tutor: "È un mese di canone più IVA, e si paga una volta sola, alla firma."
+    - learner: "Va bene. Se il proprietario accetta novecento e due mesi di garanzia, sono pronto a firmare."
+    - tutor: "Perfetto, allora le faccio sapere entro domani sera."
+      goals: [conclude]
+
+- scenario: organizzare-matrimonio
+  # facts: settembre, all'aperto, festa elegante ma non troppo formale; circa ottanta invitati; budget 25.000 euro; villa sul lago 110 euro a persona con sala interna; agriturismo in collina 85 euro a persona, con tendone in caso di pioggia; scelgono la villa: 8.800 euro, restano circa 16.000; fotografo di fiducia 3.000 euro per la giornata; menù senza glutine per due invitati; nella villa la musica finisce all'una; cena anticipata alle sette e mezza; preventivo completo entro venerdì
+  level: B2
+  persona: es-f-teacher
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Congratulazioni! Allora, come immaginate il grande giorno?"
+    - learner: "Grazie! Immaginiamo una festa elegante ma non troppo formale, all'aperto, a settembre. Saremo circa ottanta."
+    - tutor: "Settembre è un mese perfetto. Avete già pensato a un budget?"
+      goals: [vision]
+    - learner: "Sì, pensavamo a venticinquemila euro in tutto, ma non vorremmo spendere quasi tutto il budget per la location."
+    - tutor: "Per ottanta persone è un budget giusto. Vi propongo due location: una villa sul lago e un agriturismo in collina."
+      goals: [budget]
+      new: [{lemma: agriturismo, gloss: farm stay venue}]
+    - learner: "Che differenza c'è di prezzo? E se piove, cosa succede?"
+    - tutor: "La villa costa centodieci euro a persona e ha una sala interna. L'agriturismo ne costa ottantacinque, ma in caso di pioggia c'è solo un tendone."
+      new: [{lemma: tendone, gloss: marquee}]
+    # decoy: «mi piace di più» is correct; only «Benché la villa è» is wrong
+    - learner: "Benché la villa è più cara, mi piace di più."
+      errors: [subjunctive-use]
+    - tutor: "«Benché la villa è più cara»? Dopo «benché», il verbo cambia modo."
+      prompt: {text: "Benché la villa è", tags: [subjunctive-use]}
+    - learner: "Benché la villa sia più cara, mi piace di più. Scegliamo la villa."
+    - tutor: "Esatto. Con la sala interna, la pioggia non vi preoccupa più."
+      goals: [choices]
+    - learner: "Ma con centodieci euro a persona, quanto ci resta per il resto?"
+    - tutor: "Per ottanta invitati la villa costa quasi novemila euro: vi restano più di sedicimila euro per tutto il resto."
+    - learner: "Bene. Per il fotografo, ne avete uno da consigliarci? Lo vorremmo bravo, ma non carissimo."
+    - tutor: "Sì, lavoriamo spesso con un fotografo che chiede tremila euro per tutta la giornata. Avete altre richieste?"
+    - learner: "Due condizioni: un menù senza glutine per due invitati, e vogliamo che la festa dura fino alle due."
+      errors: [subjunctive-use]
+    - tutor: "«Vogliamo che la festa dura»? Dopo «vogliamo che», il verbo cambia modo."
+      prompt: {text: "la festa dura", tags: [subjunctive-use]}
+    - learner: "Vogliamo che la festa dura fino alle due, sì."
+      errors: [subjunctive-use]
+    - tutor: "Il menù senza glutine non è un problema. Che la festa duri fino alle due, invece, la villa non lo permette: la musica deve finire all'una."
+      goals: [conditions]
+      recast: {text: "la festa dura", fix: "la festa duri", tags: [subjunctive-use]}
+    - learner: "All'una? Peccato. Allora accettiamo, ma vorremmo cominciare la cena un po' prima."
+    - tutor: "Ottima idea: spostiamo la cena alle sette e mezza. Vi preparo il preventivo completo entro venerdì."
+
+- scenario: colloquio-promozione
+  # facts: il dipendente ha portato tre nuovi clienti, fatturato della sua area più quindici per cento; chiede la promozione a responsabile di area e un aumento; budget bloccato fino a gennaio; il collega promosso a marzo con un budget diverso; proposta: subito il nuovo progetto con il cliente di Torino, aumento a gennaio se raggiunge gli obiettivi; obiettivi scritti entro venerdì; verifica il 15 dicembre alle dieci, durante la valutazione annuale
+  level: B2
+  persona: en-m-heritage
+  history: [past-participle-form]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie. Volevo parlarle dei risultati di quest'anno e del mio futuro in azienda."
+    - tutor: "Certo, mi dica pure."
+    - learner: "Quest'anno ho portato tre nuovi clienti, e il fatturato della mia area è cresciuto del quindici per cento."
+    - tutor: "Sono risultati ottimi, li ho visti anch'io. Che cosa mi sta chiedendo, esattamente?"
+      goals: [results]
+    - learner: "Penso di meritare una promozione a responsabile di area, e anche un aumento."
+    - tutor: "Capisco. Il problema è che il budget di quest'anno è bloccato fino a gennaio."
+      goals: [request]
+    # decoy: «Lo capisco» is correct; only «promuovuto» is wrong
+    - learner: "Lo capisco, ma il mio collega è stato promuovuto a marzo, con risultati simili."
+      errors: [past-participle-form]
+    - tutor: "«Promuovuto»? Questa forma non è regolare, come il passato di «muovere»."
+      prompt: {text: "promuovuto", tags: [past-participle-form]}
+    - learner: "Sì, il mio collega è stato promuoveto a marzo."
+      errors: [past-participle-form]
+    - tutor: "È stato promosso a marzo, è vero, ma con il budget dell'anno scorso. Per lei ho un'altra proposta."
+      recast: {text: "è stato promuoveto", fix: "è stato promosso", tags: [past-participle-form]}
+      new: [{lemma: promuovere, gloss: to promote}]
+    - learner: "Allora, che cosa mi propone? Non vorrei aspettare un altro anno senza nessuna garanzia."
+    - tutor: "Le affido subito il nuovo progetto con il cliente di Torino. A gennaio, se raggiunge gli obiettivi, arriva l'aumento."
+    - learner: "È una proposta interessante. Ma vorrei che gli obiettivi fossero scritti, così non ci sono malintesi."
+    - tutor: "Giusto: glieli preparo entro venerdì."
+      goals: [handle]
+    - learner: "Perfetto. E quando ci vediamo per verificare se gli ho raggiunti?"
+      errors: [object-pronoun]
+    - tutor: "A metà dicembre, durante la valutazione annuale. Ma «se gli ho raggiunti»? Parla degli obiettivi, che qui sono l'oggetto diretto."
+      prompt: {text: "se gli ho raggiunti", tags: [object-pronoun]}
+    - learner: "Se le ho raggiunti, giusto."
+      errors: [object-pronoun]
+    - tutor: "«Se li ho raggiunti»: lo vediamo insieme il quindici dicembre, alle dieci."
+      recast: {text: "Se le ho raggiunti", fix: "Se li ho raggiunti", tags: [object-pronoun]}
+      goals: [next-steps]
+    - learner: "Grazie per la disponibilità. Ci tenevo molto a questa conversazione."
+    - tutor: "Grazie a lei: ha fatto bene a parlarmene."
+
+- scenario: recensione-ristorante
+  # facts: tavolo per quattro prenotato alle otto; più di un'ora di attesa per i primi, arrivati freddi; due risotti ai funghi troppo cotti e due carbonare; stasera la cucina è in difficoltà; offerta iniziale: dolci e sconto del venti per cento; i clienti rifiutano i dolci; accordo: tolti i due risotti, trentadue euro, e caffè offerti; il cameriere avrebbe dovuto avvisare; conto corretto 78 euro, con la carta
+  level: B2
+  persona: en-f-student
+  history: [reflexive]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, purtroppo. Abbiamo aspettato più di un'ora per i primi, e quando sono arrivati erano freddi."
+    - tutor: "Mi dispiace davvero. Che piatti avevate ordinato?"
+      goals: [complain]
+    - learner: "Due risotti ai funghi e due carbonare. Il risotto era anche troppo cotto: sembrava una pappa."
+    - tutor: "Ha ragione a lamentarsi. Stasera la cucina è in difficoltà, ma non è una scusa."
+      goals: [detail]
+    - learner: "Ci aspettavamo che, con una prenotazione alle otto, il servizio era più veloce."
+      errors: [subjunctive-use]
+    - tutor: "«Ci aspettavamo che il servizio era»? Dopo «aspettarsi che», il verbo vuole un altro modo."
+      prompt: {text: "il servizio era", tags: [subjunctive-use]}
+    - learner: "Ci aspettavamo che il servizio fosse più veloce."
+    - tutor: "Ed era giusto aspettarselo. Vorrei offrirvi i dolci e uno sconto del venti per cento sul conto."
+      goals: [expectation]
+    - learner: "È gentile, ma i dolci non li vogliamo: siamo pieni. Non sarebbe più giusto togliere dal conto i risotti?"
+    - tutor: "Ha ragione. Tolgo i due risotti, trentadue euro, e vi offro anche i caffè."
+    # decoy: «ci ha avvisato» and «Ci avrebbe evitato» are correct; only «arrabbiarsi» is wrong
+    - learner: "Va bene, accettiamo. Ma perché il cameriere non ci ha avvisato del ritardo? Ci avrebbe evitato di arrabbiarsi."
+      errors: [reflexive]
+    - tutor: "Avrebbe dovuto farlo, e stasera ne parlerò con lui. Ma «ci avrebbe evitato di arrabbiarsi»? Parla di voi: il pronome attaccato al verbo deve essere quello di «noi»."
+      goals: [resolve]
+      prompt: {text: "di arrabbiarsi", tags: [reflexive]}
+    - learner: "Sì, ci avrebbe evitato di arrabbiarsi, appunto."
+      errors: [reflexive]
+    - tutor: "«Ci avrebbe evitato di arrabbiarci»: è proprio così, e me ne scuso ancora."
+      recast: {text: "di arrabbiarsi", fix: "di arrabbiarci", tags: [reflexive]}
+    - learner: "Grazie. Possiamo pagare con la carta?"
+    - tutor: "Certo. Ecco il conto corretto: sono settantotto euro, con i caffè offerti."
+
+- scenario: medico-specialista
+  # facts: si stanca salendo le scale, la sera sente il cuore che batte forte, da un mese; prima non gli succedeva; il padre ha avuto un infarto a sessant'anni e si è ripreso; il cuore funziona bene, la pressione è un po' alta, 150 su 95; una pastiglia al giorno la mattina, farmaco leggero; possibili caviglie gonfie o tosse secca; misurare la pressione a casa due volte al giorno e scrivere i valori; controllo fra tre mesi
+  level: B2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Buongiorno. Ho visto gli esami. Come si è sentito nelle ultime settimane?"
+    - learner: "Abbastanza bene, ma quando salgo le scale mi stanco subito, e la sera a volte sento il cuore che batte forte."
+    - tutor: "Da quanto tempo le succede?"
+    - learner: "Da un mese, più o meno. Prima non mi succedeva mai, anche se facevo le scale tutti i giorni."
+    - tutor: "Capisco. In famiglia qualcuno ha avuto problemi di cuore?"
+      goals: [symptoms]
+    # decoy: «si è ripreso» is correct; only «quando ha avuto sessant'anni» is wrong
+    - learner: "Sì, mio padre ha avuto un infarto quando ha avuto sessant'anni. Per fortuna si è ripreso bene."
+      errors: [tense-aspect]
+    - tutor: "«Quando ha avuto sessant'anni»? L'età qui descrive una situazione, non un'azione: pensi al tempo del verbo."
+      prompt: {text: "quando ha avuto sessant'anni", tags: [tense-aspect]}
+    - learner: "Quando aveva sessant'anni, sì."
+    - tutor: "Esatto: è un dato importante, grazie."
+      goals: [history]
+    - learner: "Che cosa dicono gli esami? È una cosa grave?"
+    - tutor: "Non è grave: il cuore funziona bene, ma la pressione è un po' alta, centocinquanta su novantacinque."
+      goals: [understand]
+    - learner: "Allora devo prendere delle medicine? Preferirei che non sono troppo forti."
+      errors: [subjunctive-use]
+    - tutor: "Sì, una pastiglia al giorno, la mattina. Ma «preferirei che non sono»? Dopo un condizionale come «preferirei che», il verbo cambia modo e tempo."
+      prompt: {text: "che non sono troppo forti", tags: [subjunctive-use]}
+      new: [{lemma: pastiglia, gloss: tablet}]
+    - learner: "Preferirei che non siano troppo forti."
+      errors: [subjunctive-use]
+    - tutor: "«Preferirei che non fossero troppo forti»: la capisco, ed è proprio un farmaco leggero."
+      recast: {text: "che non siano troppo forti", fix: "che non fossero troppo forti", tags: [subjunctive-use]}
+    - learner: "Ci sono effetti collaterali? Ne ho letto qualcosa su internet."
+    - tutor: "A volte le caviglie si gonfiano un po', o viene una tosse secca. Se succede, me lo dica subito."
+      new: [{lemma: caviglia, gloss: ankle}]
+    - learner: "D'accordo. Devo controllare la pressione anche a casa? Ho un apparecchio che mi ha regalato mia figlia."
+    - tutor: "Sì, la controlli due volte al giorno e scriva i valori. Ci rivediamo fra tre mesi, con i risultati."
+      goals: [treatment]
+    - learner: "Perfetto. Porto i valori scritti su un quaderno alla prossima visita, va bene?"
+    - tutor: "Va benissimo, il quaderno è perfetto. Arrivederci, e non si preoccupi troppo."
+
+- scenario: affittare-appartamento
+  # facts: trilocale non arredato; soggiorno sul cortile, camere sulla strada, doppi vetri; affitto 1.000 euro più 120 euro di spese di condominio (pulizia scale e ascensore); riscaldamento a parte, caldaia propria, caldaia di due anni; scuola a duecento metri; mercato il martedì mattina, un po' rumoroso; contratto quattro più quattro; caparra chiesta tre mensilità, accettate due; visita con il marito sabato mattina
+  level: B2
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. Che bella luce! Le finestre danno sul cortile o sulla strada?"
+    - tutor: "Il soggiorno dà sul cortile, le camere sulla strada. Ci sono i doppi vetri dappertutto."
+    - learner: "Ottimo. L'affitto quanto è, e che cosa comprende?"
+    - tutor: "Sono mille euro al mese, più centoventi di spese per il condominio: pulizia delle scale e ascensore."
+      goals: [rent]
+    - learner: "E il riscaldamento? Viene pagato con le spese o a parte?"
+    - tutor: "Il riscaldamento lo paga a parte, perché ogni appartamento ha la sua caldaia. La sua ha solo due anni."
+      goals: [condition]
+      new: [{lemma: caldaia, gloss: boiler}]
+    - learner: "Bene. Mio marito lavora da casa: la stanza che lavorerebbe è abbastanza silenziosa?"
+      errors: [relative-pronoun]
+    - tutor: "La camera piccola dà sulla strada, ma con i doppi vetri si sente poco. Ma «la stanza che lavorerebbe»? Lui lavora dentro quella stanza: il relativo deve dirlo."
+      prompt: {text: "la stanza che lavorerebbe", tags: [relative-pronoun]}
+    - learner: "La stanza in cui lavorerebbe, sì. Allora va bene."
+    - tutor: "Esatto. Vuole sapere qualcosa sul quartiere?"
+    - learner: "Sì: abbiamo due bambini e cerchiamo una scuola vicina. Ce n'è una?"
+    - tutor: "C'è una scuola a duecento metri. L'unico problema è il mercato del martedì mattina, che fa un po' di rumore."
+      goals: [neighbourhood]
+    - learner: "Il mercato non ci disturba, anzi! E per il contratto, quante mensilità di caparra chiede?"
+    - tutor: "Il contratto è di quattro anni più quattro, e chiedo tre mensilità di caparra."
+      goals: [contract]
+    - learner: "Tre mesi sono tanti. Se la caparra sarebbe di due mesi, firmerei anche subito."
+      errors: [hypothetical]
+    - tutor: "«Se la caparra sarebbe»? Il condizionale «firmerei» va bene, ma nella parte con «se» serve un altro modo."
+      prompt: {text: "Se la caparra sarebbe", tags: [hypothetical]}
+    - learner: "Allora così: se la caparra sarà di due mesi, firmo subito."
+    - tutor: "Due mesi, va bene: posso accettare. Volete rivedere l'appartamento insieme, prima di firmare?"
+    - learner: "Sì, grazie. Posso tornare sabato con mio marito, per fargliela vedere?"
+    - tutor: "Certo, sabato mattina sono qui. Vi preparo una copia del contratto con la caparra di due mesi."
+      goals: [decide]

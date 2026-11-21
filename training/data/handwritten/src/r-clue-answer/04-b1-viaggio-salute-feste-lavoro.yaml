@@ -1,0 +1,305 @@
+# Set r-clue-answer, file 4 (B1): tips for Naples, a personal trainer, Christmas traditions,
+# volunteering, a headache at the doctor's, a family dinner booking, a job interview and a team
+# meeting. Clues name the verb that governs the preposition, the noun that sets the gender, the
+# finished period that needs the passato prossimo.
+- scenario: consigli-viaggio
+  # facts: la learner parte venerdì prossimo per cinque giorni, prima volta a Napoli; B&B nel centro storico; Valentina consiglia il centro storico a piedi, il lungomare al tramonto e il traghetto per Procida; la pizza fritta da mangiare per strada; metro comoda, centro a piedi; d'estate meglio prendere il biglietto del traghetto online qualche giorno prima; evitare la macchina in centro, attenzione al portafoglio in metro
+  level: B1
+  persona: en-f-student
+  history: [preposition]
+  turns:
+    - tutor: "Allora, quando parti per Napoli?"
+    - learner: "Parto venerdì prossimo e resto cinque giorni. È la prima volta che ci vado!"
+    - tutor: "Che bello, cinque giorni sono perfetti. Dove dormi?"
+      goals: [plans]
+    - learner: "Ho prenotato un B&B nel centro storico. Cosa mi consigli a vedere?"
+      errors: [preposition]
+    - tutor: "Il centro storico a piedi, e il lungomare al tramonto. Ma «mi consigli a vedere»? Dopo «consigliare», davanti all'infinito, la preposizione è un'altra."
+      prompt: {text: "consigli a vedere", tags: [preposition]}
+      new: [{lemma: lungomare, gloss: seafront}, {lemma: tramonto, gloss: sunset}]
+    - learner: "Cosa mi consigli di vedere, allora, oltre al centro?"
+    - tutor: "Esatto. Se hai un giorno libero, prendi il traghetto per Procida: è un'isola bellissima."
+    - learner: "Che bello! E da mangiare? Una mia amica mi ha parlato della pizza fritta, ma non so che cos'è."
+    - tutor: "È una pizza chiusa e fritta, buonissima: devi mangiarla per strada, calda."
+      goals: [advice]
+    - learner: "Come mi muovo in città? Ci sono molti autobus, o è meglio la metro?"
+    - tutor: "La metro è comoda, e il centro si gira bene a piedi. In macchina invece è difficile."
+      goals: [transport]
+    # decoy: «il biglietto lo devo comprare» repeats the object correctly; only «lo posso comprarlo» is wrong
+    - learner: "E per Procida, il biglietto lo devo comprare prima o lo posso comprarlo al porto?"
+      errors: [pronoun-position]
+    - tutor: "D'estate è meglio prenderlo online, qualche giorno prima. Ma «lo posso comprarlo»? Il pronome può stare prima di «posso» o attaccato all'altro verbo, non in due posti."
+      prompt: {text: "lo posso comprarlo", tags: [pronoun-position]}
+      new: [{lemma: online, gloss: online}]
+    - learner: "Lo posso comprare online, allora. E cosa devo evitare a Napoli?"
+    - tutor: "Brava. Evita la macchina in centro, e in metro tieni d'occhio il portafoglio, come in tutte le grandi città."
+      goals: [warnings]
+      new: [{lemma: portafoglio, gloss: wallet}]
+    - learner: "Grazie mille! Sono molto eccitata per il viaggio."
+      errors: [false-friend]
+    - tutor: "Emozionata, ci credo! Quando torni, raccontami tutto."
+      recast: {text: "eccitata", fix: "emozionata", tags: [false-friend]}
+      new: [{lemma: emozionato, gloss: excited}]
+    - learner: "Certo, ti mando anche qualche foto da Procida!"
+    - tutor: "Sì, aspetto le foto! Buon viaggio, e mangia una pizza anche per me."
+
+- scenario: salute-stile-vita
+  # facts: il learner lavora in un magazzino con i turni, mangia tardi, dorme sei ore; obiettivo: cinque chili in meno prima dell'estate, tre mesi; possibile allenandosi spesso e dormendo di più; quando lavora la sera non ha voglia di allenarsi; allenamenti di 45 minuti lunedì, mercoledì e sabato; mangia molta pasta e poca verdura; niente dieta dura, meno la sera; almeno un litro e mezzo d'acqua; il trainer è in palestra lunedì dalle sette alle due; primo allenamento lunedì alle otto
+  level: B1
+  persona: es-m-worker
+  history: [reflexive]
+  turns:
+    - tutor: "Ciao! Allora, raccontami: come sono le tue abitudini?"
+    - learner: "Lavoro in un magazzino e faccio i turni. Mangio spesso tardi e dormo solo sei ore."
+    - tutor: "Sei ore sono poche, soprattutto con un lavoro fisico. Qual è il tuo obiettivo?"
+      goals: [habits]
+    - learner: "Voglio perdere cinque chili prima dell'estate. È possibile in tre mesi?"
+    - tutor: "Sì, è possibile, se ti alleni spesso e dormi di più."
+      goals: [goal]
+    # decoy: «Il problema» is correctly masculine; only «allenare» without the reflexive is wrong
+    - learner: "Il problema è il tempo. Quando lavoro la sera, mi sveglio tardi e dopo non ho voglia di allenare."
+      errors: [reflexive]
+    - tutor: "«Non ho voglia di allenare»? Allenare chi? Qui parli di te stesso."
+      prompt: {text: "non ho voglia di allenare", tags: [reflexive]}
+    - learner: "Non ho voglia di allenarmi, ecco."
+    - tutor: "Esatto, succede a tanti. Allora facciamo allenamenti brevi, di quarantacinque minuti: quante volte a settimana puoi venire?"
+      goals: [obstacles]
+    - learner: "Potrò venire tre volte: il lunedì, il mercoledì e il sabato."
+    - tutor: "Perfetto. E a tavola come va? Cosa mangi la sera?"
+    # decoy: «poca verdura» is correct; only «molto pasta» is wrong
+    - learner: "Mangio molto pasta e poca verdura. Devo fare una dieta?"
+      errors: [adjective-agreement]
+    - tutor: "Non serve una dieta dura: basta mangiare un po' meno la sera. Ma «molto pasta»? Qui «molto» va d'accordo con «pasta»."
+      prompt: {text: "molto pasta", tags: [adjective-agreement]}
+    - learner: "Sì, molto pasta. Allora più verdura e meno pasta?"
+      errors: [adjective-agreement]
+    - tutor: "Esatto: molta pasta la sera non fa bene, quindi più verdura. E di acqua bevi almeno un litro e mezzo al giorno."
+      recast: {text: "molto pasta", fix: "molta pasta", tags: [adjective-agreement]}
+      new: [{lemma: litro, gloss: litre}]
+    - learner: "D'accordo. Quando cominciamo? Sei qui lunedì mattina?"
+    - tutor: "Lunedì sono qui dalle sette alle due. Ti va bene alle otto?"
+    - learner: "Alle otto è perfetto, prima del turno. Allora lunedì, mercoledì e sabato!"
+    - tutor: "Ottimo, il piano è fatto. A lunedì alle otto!"
+      goals: [plan]
+
+- scenario: tradizioni-feste
+  # facts: in Inghilterra tacchino a pranzo e il discorso del re in televisione; da noi la sera del 24 si mangia il pesce; la learner da piccola apriva i regali la mattina presto con il fratello; Silvia e la sorella si svegliavano prestissimo; dopo il pranzo di Natale si gioca a tombola; ogni anno due o tre panettoni; pranzo il 25 dalla nonna di Silvia, arrivare verso le dodici e mezza; la learner porta un dolce inglese; la nonna adora i fiori
+  level: B1
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+    - tutor: "Da noi a Natale si mangia tantissimo! E da voi come si festeggia?"
+    - learner: "In Inghilterra mangiamo il tacchino a pranzo, e dopo guardiamo il discorso del re in televisione."
+    - tutor: "Il tacchino! Da noi invece la sera del ventiquattro si mangia il pesce. E quando eri piccola, come festeggiavi?"
+      goals: [compare]
+    # decoy: «la mattina presto» is correct; only «ho aperto sempre» is wrong
+    - learner: "Da piccola ho aperto sempre i regali la mattina presto, con mio fratello."
+      errors: [tense-aspect]
+    - tutor: "«Ho aperto sempre»? Parli di una cosa che facevi ogni anno: pensa al tempo del verbo."
+      prompt: {text: "ho aperto sempre", tags: [tense-aspect]}
+    - learner: "Aprivo sempre i regali la mattina presto, con mio fratello."
+    - tutor: "Che bel ricordo! Anche io e mia sorella ci svegliavamo prestissimo."
+      goals: [past]
+    - learner: "E voi, cosa fate dopo il pranzo di Natale? Avete qualche gioco tradizionale?"
+    - tutor: "Sì, giochiamo a tombola: è un gioco con i numeri, molto divertente."
+      goals: [ask]
+      new: [{lemma: tombola, gloss: bingo-like game}]
+    - learner: "Non la conosco, ma mi piacerebbe provare. È vero che a Natale si mangia il panettone?"
+    - tutor: "Verissimo: ne compriamo sempre due o tre! Tu vieni al pranzo del venticinque, vero?"
+    - learner: "Sì, vengo volentieri. Cosa posso portare? Pensavo a un dolce inglese, il Christmas pudding."
+    - tutor: "Un dolce inglese è perfetto. Il pranzo è dalla nonna: vieni verso le dodici e mezza."
+      goals: [plan]
+    # decoy: «tua nonna» without the article is correct; only «gli» for the grandmother is wrong
+    - learner: "Porterò anche un piccolo regalo per tua nonna. Cosa gli piace?"
+      errors: [object-pronoun]
+    - tutor: "La nonna adora i fiori. Ma «cosa gli piace»? Parli della nonna: il pronome è un altro."
+      prompt: {text: "Cosa gli piace", tags: [object-pronoun]}
+    - learner: "Cosa le piace... i fiori, allora. Grazie, Silvia!"
+    - tutor: "Esatto. Allora a Natale, con il dolce e i fiori!"
+
+- scenario: volontariato
+  # facts: attività: lettura agli anziani, compiti con i bambini (lunedì e mercoledì dalle quattro alle sei), pasti per chi ha bisogno il sabato; la learner è un'insegnante in pensione, ha insegnato spagnolo per trent'anni; due pomeriggi a settimana; corso obbligatorio di quattro ore sabato alle dieci; di solito quindici bambini, dai sei ai dieci anni; sceglie i compiti; libri e quaderni li ha l'associazione; l'indirizzo per sabato arriva per messaggio stasera
+  level: B1
+  persona: es-f-teacher
+  history: [word-order]
+  turns:
+    - tutor: "Ciao! Ti interessa fare volontariato con noi?"
+    - learner: "Sì, molto! Sono un'insegnante in pensione e ho tanto tempo libero. Che attività avete?"
+    - tutor: "Leggiamo agli anziani, aiutiamo i bambini con i compiti e il sabato prepariamo i pasti per chi ha bisogno. Perché vuoi fare volontariato?"
+    - learner: "Mi piace stare con la gente e voglio essere utile. Da quando sono in pensione, mi sento un po' sola."
+    - tutor: "Ti capisco, e qui troverai tante persone gentili. Che cosa sai fare bene?"
+      goals: [motivation]
+    # decoy: «per trent'anni» is correct; only «Anche so cucinare» is wrong
+    - learner: "Ho insegnato spagnolo per trent'anni, quindi so lavorare con i bambini. Anche so cucinare abbastanza bene."
+      errors: [word-order]
+    - tutor: "«Anche so cucinare»? «Anche» deve stare vicino alla cosa che aggiungi, non prima di «so»."
+      prompt: {text: "Anche so cucinare", tags: [word-order]}
+    - learner: "So anche cucinare abbastanza bene."
+    - tutor: "Perfetto: allora i compiti con i bambini sono adatti a te. Quanto tempo hai a settimana?"
+      goals: [skills]
+    - learner: "Posso venire due pomeriggi a settimana. In quali giorni ci sono i compiti?"
+    - tutor: "Il lunedì e il mercoledì, dalle quattro alle sei."
+      goals: [time]
+    - learner: "Il lunedì e il mercoledì va benissimo. Devo fare qualche corso prima di cominciare?"
+    - tutor: "Sì, c'è un corso di quattro ore sabato alle dieci: tutti i volontari devono farlo."
+    - learner: "Va bene, sabato ci sono. E quanti bambini vengono di solito?"
+    - tutor: "Di solito quindici, dai sei ai dieci anni. Allora scegli i compiti?"
+    - learner: "Sì, scelgo i compiti con i bambini. Ho sempre amato lavorare con loro. Devo portare qualcosa il primo giorno?"
+    - tutor: "Benissimo, ti segno per il lunedì e il mercoledì. Il primo giorno non serve niente: libri e quaderni li abbiamo noi."
+      goals: [choose]
+    # decoy: «me lo puoi mandare» is a correct combined pronoun; only «a un messaggio» is wrong
+    - learner: "Grazie! Non so ancora l'indirizzo per sabato: me lo puoi mandare a un messaggio?"
+      errors: [preposition]
+    - tutor: "Certo, te lo mando stasera. Ma «mandare a un messaggio»? Con «mandare», per dire il mezzo, la preposizione è un'altra."
+      prompt: {text: "a un messaggio", tags: [preposition]}
+    - learner: "Me lo puoi mandare per messaggio, grazie."
+    - tutor: "Esatto. A sabato, allora!"
+
+- scenario: medico-base
+  # facts: mal di testa forte da quattro giorni, soprattutto la sera; programmatore, al computer dalle nove alle sei; paracetamolo ieri e l'altro ieri, non ha aiutato molto; allergico all'aspirina; paracetamolo al massimo tre volte al giorno; pausa di cinque minuti ogni ora, guardare lontano; prenotare una visita dall'oculista, di solito due o tre settimane di attesa; tornare se fra una settimana non passa
+  level: B1
+  persona: en-m-heritage
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottoressa. Da quattro giorni ho un mal di testa molto forte, soprattutto la sera."
+    - tutor: "Mi dispiace. Che lavoro fa? Passa molte ore al computer?"
+      goals: [symptoms, since-when]
+    # decoy: «dalle nove» is correct; only «fino a le sei» is wrong
+    - learner: "Sì, sono programmatore. Sto al computer dalle nove fino a le sei."
+      errors: [articulated-preposition]
+    - tutor: "«Fino a le sei»? Lei ha appena detto «dalle nove»: anche qui «a» e «le» si uniscono."
+      prompt: {text: "fino a le sei", tags: [articulated-preposition]}
+    - learner: "Fino alle sei, sì. Tutto il giorno."
+    - tutor: "Allora gli occhi lavorano troppo. Ha preso qualche medicina?"
+    # decoy: «l'altro ieri» is correct; only «non mi è aiutato» is wrong
+    - learner: "Ho preso un paracetamolo ieri e l'altro ieri, ma non mi è aiutato molto."
+      errors: [auxiliary-choice]
+    - tutor: "«Non mi è aiutato»? Al passato, «aiutare» non usa «essere»."
+      prompt: {text: "non mi è aiutato", tags: [auxiliary-choice]}
+    - learner: "Non mi ha aiutato molto, purtroppo."
+    - tutor: "Capisco. È allergico a qualche medicina?"
+    - learner: "Sì, all'aspirina. Il paracetamolo invece lo posso prendere, vero?"
+    - tutor: "Sì, il paracetamolo va bene, al massimo tre volte al giorno. Ma prima di tutto deve riposare gli occhi."
+      goals: [history]
+    - learner: "Come posso riposare gli occhi, se devo lavorare?"
+    - tutor: "Faccia una pausa di cinque minuti ogni ora e guardi lontano. Poi prenoti una visita dall'oculista: forse le servono gli occhiali."
+      new: [{lemma: oculista, gloss: eye doctor}]
+    - learner: "Gli occhiali? Non ne ho mai avuti. Quanto tempo ci vuole per una visita dall'oculista?"
+    - tutor: "Di solito due o tre settimane. Le scrivo l'impegnativa adesso."
+      new: [{lemma: impegnativa, gloss: referral}]
+    - learner: "Allora ripeto: una pausa ogni ora, paracetamolo al massimo tre volte al giorno e la visita dall'oculista."
+    - tutor: "Esatto. Se fra una settimana il dolore non passa, torni da me."
+      goals: [instructions]
+
+- scenario: prenotare-tavolo
+  # facts: venerdì sera, otto persone, alle otto e mezza; quarant'anni di matrimonio dei genitori; saletta privata, nessun costo in più; tre o quattro piatti vegetariani; la torta la porta la cliente venerdì pomeriggio, la tengono al fresco; la cliente chiama giovedì per confermare il numero; a nome Morales, 349 221 558
+  level: B1
+  persona: es-f-teacher
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare un tavolo per venerdì sera. Siamo otto persone."
+    - tutor: "Venerdì sera per otto, certo. A che ora preferite?"
+      goals: [book]
+    - learner: "Verso le otto e mezza, se è possibile. È per i quarant'anni di matrimonio dei miei genitori."
+    - tutor: "Che bella occasione, auguri! Alle otto e mezza c'è posto. Per un gruppo così abbiamo anche una saletta: vi interessa?"
+      goals: [details]
+      new: [{lemma: saletta, gloss: small private room}]
+    - learner: "Sì, la saletta sarebbe perfetta! Costa qualcosa in più?"
+    - tutor: "No, la saletta non costa niente in più."
+    - learner: "Che bene. Due persone sono vegetariane: avete piatti senza carne?"
+      errors: [word-choice]
+    - tutor: "Che bello, sì: abbiamo sempre tre o quattro piatti vegetariani."
+      goals: [special]
+      recast: {text: "Che bene", fix: "Che bello", tags: [word-choice]}
+      new: [{lemma: vegetariano, gloss: vegetarian}]
+    - learner: "Perfetto. Possiamo portare noi la torta, o la dovete fare voi?"
+    - tutor: "Potete portarla voi, nessun problema: la teniamo al fresco fino al dolce."
+    # decoy: «la porterò io» is correct; only «de le persone» is wrong
+    - learner: "Benissimo, la porterò io venerdì pomeriggio. Giovedì vi telefono per confermare il numero de le persone."
+      errors: [articulated-preposition]
+    - tutor: "«De le persone»? In italiano quella preposizione è un'altra, e si unisce a «le»."
+      prompt: {text: "de le persone", tags: [articulated-preposition]}
+    - learner: "Il numero delle persone, scusi."
+    - tutor: "Esatto. Va bene, ci chiami pure giovedì. A che nome prenoto?"
+    - learner: "A nome Morales, M-O-R-A-L-E-S. Il mio numero è tre quattro nove, due due uno, cinque cinque otto."
+    - tutor: "Grazie, signora Morales: venerdì alle otto e mezza, otto persone, nella saletta. A venerdì!"
+      goals: [name]
+      new: [{lemma: saletta, gloss: small private room}]
+
+- scenario: colloquio-lavoro
+  # facts: posto di receptionist in un albergo; Daniel, 28 anni, inglese, a Firenze da tre anni; due anni alla reception di un albergo a Londra; adesso lavora in un bar; parla inglese, italiano e francese, organizzato, troppo esigente con se stesso; tre turni, anche nel fine settimana, niente notte; contratto di sei mesi, poi forse a tempo indeterminato; risposta entro venerdì per email o telefono; referenze per email
+  level: B1
+  persona: en-m-traveller
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Daniel, ho ventotto anni e sono inglese. Vivo a Firenze da tre anni."
+    - tutor: "Piacere, Daniel. Che esperienza ha negli alberghi?"
+      goals: [intro]
+    # decoy: «mi sono trasferito» is correct; only «per due anni lavoravo» is wrong
+    - learner: "Per due anni lavoravo alla reception di un albergo a Londra, poi mi sono trasferito qui."
+      errors: [tense-aspect]
+    - tutor: "«Per due anni lavoravo»? «Per due anni» indica un periodo chiuso: pensi al tempo del verbo."
+      prompt: {text: "Per due anni lavoravo", tags: [tense-aspect]}
+    - learner: "Lavoravo per due anni alla reception, sì, a Londra."
+      errors: [tense-aspect]
+    - tutor: "«Ho lavorato per due anni alla reception»: ottimo. E qui a Firenze cosa fa adesso?"
+      recast: {text: "Lavoravo per due anni", fix: "Ho lavorato per due anni", tags: [tense-aspect]}
+      goals: [experience]
+    - learner: "Adesso lavoro in un bar, ma vorrei tornare in un albergo. Mi manca il contatto con i turisti."
+    - tutor: "Capisco. Quali sono i suoi punti di forza? E un difetto?"
+      goals: [why]
+      new: [{lemma: difetto, gloss: weakness}]
+    - learner: "Parlo inglese, italiano e francese, e sono molto organizzato. Un difetto? A volte sono troppo esigente con me stesso."
+    - tutor: "Un difetto utile, a volte. Ha qualche domanda sul lavoro?"
+      goals: [strengths]
+    - learner: "Sì: come sono i turni? Devo lavorare anche di notte?"
+    - tutor: "Ci sono tre turni, anche nel fine settimana, ma di notte no. Il contratto è di sei mesi, poi può diventare a tempo indeterminato."
+      goals: [questions]
+      new: [{lemma: indeterminato, gloss: permanent}]
+    - learner: "Il fine settimana non è un problema. Quando mi farete sapere?"
+    - tutor: "Le diamo una risposta entro venerdì, per email o per telefono."
+      new: [{lemma: email, gloss: email}]
+    # decoy: «mandarle», the Lei form, is correct; only «del albergo» is wrong
+    - learner: "Perfetto. Se ha bisogno, posso mandarle le referenze del albergo di Londra."
+      errors: [articulated-preposition]
+    - tutor: "«Del albergo»? «Albergo» comincia con la lettera «a»: preposizione e articolo cambiano forma."
+      prompt: {text: "del albergo", tags: [articulated-preposition]}
+    - learner: "Le referenze dell'albergo di Londra, sì."
+    - tutor: "Esatto, grazie: me le mandi pure. Arrivederci, Daniel!"
+
+- scenario: riunione-lavoro
+  # facts: sito web per un cliente; parte grafica finita; il cliente non ha mandato le foto, la learner gli ha scritto due volte la settimana scorsa; proposta: foto provvisorie da sostituire; consegna spostata dal 10 al 17; la learner lo dice al cliente; se le foto non arrivano entro venerdì, provvisorie anche alla consegna; messaggio dopo la telefonata; ferie ad agosto, se ne parla dopo la riunione
+  level: B1
+  persona: en-f-professional
+  history: [future-form]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Abbastanza bene. Abbiamo finito la parte grafica del sito, ma non è ancora pronto."
+    - tutor: "Bene la grafica. Che cosa vi blocca?"
+      goals: [update]
+    - learner: "Il cliente non ci ha ancora mandato le foto. Gli ho scritto due volte la settimana scorsa."
+    - tutor: "Capisco, non è colpa vostra. Avete un'idea per non perdere tempo?"
+      goals: [problem]
+    - learner: "Potremmo usare delle foto provvisorie, e poi cambiarle quando arriveranno quelle vere."
+    - tutor: "Mi sembra una buona soluzione. Ma la consegna del dieci la teniamo?"
+      goals: [proposal]
+      new: [{lemma: provvisorio, gloss: temporary}]
+    # decoy: «sarà pronto» is a correct future; only «poterò» is wrong
+    - learner: "Secondo me no. Con le foto vere il sito sarà pronto il diciassette: lo poterò finire in una settimana."
+      errors: [future-form]
+    - tutor: "«Poterò»? Il futuro di «potere» non tiene la «e» dell'infinito."
+      prompt: {text: "lo poterò finire", tags: [future-form]}
+    - learner: "Lo potrò finire in una settimana, sì."
+    - tutor: "Va bene, allora il diciassette. Chi lo dice al cliente, tu o io?"
+      goals: [deadline]
+    - learner: "Glielo dico io, lo conosco bene. Ma se le foto non arrivano entro venerdì, cosa facciamo?"
+    - tutor: "Allora usiamo quelle foto anche per la consegna. Mi scrivi dopo la telefonata?"
+    - learner: "Certo, ti scrivo oggi pomeriggio. Ah, possiamo parlare anche del mio ferie?"
+      errors: [noun-gender]
+    - tutor: "«Del mio ferie»? «Ferie» è una parola femminile e plurale."
+      prompt: {text: "del mio ferie", tags: [noun-gender]}
+    - learner: "Delle mie ferie, ad agosto."
+    - tutor: "Sì, ma dopo la riunione, nel mio ufficio. Grazie a tutti!"
