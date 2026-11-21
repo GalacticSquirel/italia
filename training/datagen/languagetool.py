@@ -65,6 +65,13 @@ KNOWN_WORDS = frozenset(
         "brunch",
         "turnover",
         "centottantamila",
+        "call",
+        "center",
+        "caravaggesco",
+        "caravaggesca",
+        "caravaggeschi",
+        "caravaggesche",
+        "caravaggismo",
     }
 )
 # Words Italian doubles on purpose ("quasi quasi", "ciao ciao", "pian piano").
