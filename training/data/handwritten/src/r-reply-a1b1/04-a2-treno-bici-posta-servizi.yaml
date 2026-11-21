@@ -1,0 +1,238 @@
+# Set r-reply-a1b1, file 4: A2 at the station, the bike rental, the post office, the laundrette and the hairdresser.
+- scenario: biglietto-treno
+  # facts: Firenze; domani regionale alle 9.10 (16 euro) o veloce alle 9.30 (35 euro, un'ora e mezza); sceglie il veloce, andata e ritorno; ritorno venerdì alle 18.15; seconda classe, posto 14 al finestrino; totale 70 euro; di solito binario 4
+  level: A2
+  persona: en-m-retired
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Vorrei andare a Firenze domani mattina."
+    - tutor: "Domani mattina c'è un regionale alle nove e dieci. C'è anche un treno veloce alle nove e mezza."
+      goals: [destination]
+    - learner: "Quanto costa il treno veloce?"
+    - tutor: "Il veloce costa trentacinque euro, il regionale sedici. Ma il veloce ci mette solo un'ora e mezza."
+    - learner: "Allora prendo il veloce. Andata e ritorno, per favore. Torno venerdì sera."
+    - tutor: "Allora andata domani alle nove e mezza, ritorno venerdì. Prima o seconda classe?"
+      goals: [type]
+    - learner: "Seconda classe. Vorrebbe un posto vicino al finestrino."
+      errors: [conditional-form]
+    - tutor: "«Vorrebbe»? Così parla di un'altra persona. E per lei?"
+      prompt: {text: "Vorrebbe", tags: [conditional-form]}
+    - learner: "Vorrei un posto vicino al finestrino."
+    - tutor: "Giusto. Posto quattordici, vicino al finestrino. Per il ritorno, a che ora vuole partire?"
+      goals: [class]
+    - learner: "Verso le sei di sera, se possibile."
+    - tutor: "C'è un veloce alle sei e un quarto. In tutto sono settanta euro."
+    - learner: "Va bene, pago con la carta. Da quale binario parte il treno domani?"
+    - tutor: "Di solito parte dal binario quattro, ma domani lo controlli sullo schermo."
+      goals: [platform]
+      new: [{lemma: schermo, gloss: screen}]
+    - learner: "Grazie mille. Buona giornata!"
+    - tutor: "Grazie a lei, buon viaggio!"
+
+- scenario: noleggio-bici
+  # facts: due biciclette per la giornata; ritorno verso le sei; 20 euro a bicicletta, 40 in tutto; casco e lucchetto inclusi; giro del lago 25 km in piano; giro corto 10 km fino al porto
+  level: A2
+  persona: es-m-worker
+  history: [future-form]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, vorrei noleggiare due biciclette, per me e mia moglie."
+    - tutor: "Due biciclette, nessun problema. Per quanto tempo le volete?"
+      goals: [ask]
+    - learner: "Le prenderemo per tutta la giornata."
+    - tutor: "Per tutta la giornata, allora. A che ora pensate di tornare?"
+      goals: [duration]
+    - learner: "Torneremo verso le sei. Quanto costa?"
+    - tutor: "Venti euro a bicicletta per la giornata, quindi quaranta. Il casco e il lucchetto sono inclusi."
+      goals: [price]
+      new: [{lemma: incluso, gloss: included}]
+    - learner: "Benissimo. Che percorso ci consiglia?"
+    - tutor: "Il giro del lago è molto bello: sono venticinque chilometri, tutti in piano."
+      new: [{lemma: chilometro, gloss: kilometre}]
+    - learner: "Venticinque chilometri? Mia moglie non poterà fare tanti chilometri."
+      errors: [future-form]
+    - tutor: "«Poterà»? Il futuro di «potere» è un po' diverso. Ci prova ancora?"
+      prompt: {text: "poterà", tags: [future-form]}
+    - learner: "Non potrà! Mia moglie non potrà fare venticinque chilometri."
+    - tutor: "Esatto. Allora c'è un giro più corto, di dieci chilometri, fino al porto."
+      goals: [route]
+    - learner: "Sì, quello è perfetto. Pago adesso?"
+    - tutor: "Sì, sono quaranta euro. Buona giornata e buon giro!"
+
+- scenario: noleggio-bici
+  # facts: bicicletta per tre ore; 5 euro all'ora, 15 in tutto; casco e lucchetto inclusi; casco taglia M; strada del bosco, facile, un'ora e mezza; la bicicletta torna qui entro le sei
+  level: A2
+  persona: en-f-student
+  history: [pronoun-position]
+  turns:
+    - tutor: "Buongiorno! Vuole una bicicletta?"
+    - learner: "Sì, grazie. Ma solo per tre ore. È possibile?"
+    - tutor: "Si può, anche a ore. Sono cinque euro all'ora."
+      goals: [ask, duration]
+    - learner: "Quindi quindici euro. Il casco è incluso?"
+    - tutor: "Sì, casco e lucchetto sono inclusi. Che taglia di casco porta?"
+      goals: [price]
+      new: [{lemma: incluso, gloss: included}]
+    - learner: "Non lo so, la M credo."
+    - tutor: "Ecco la M, la provi. Le va bene?"
+    - learner: "Sì, va bene. Vorrei fare un giro nel bosco. C'è un percorso facile?"
+    - tutor: "Sì, la strada del bosco è facile e molto bella. Ci vuole un'ora e mezza."
+      goals: [route]
+    - learner: "Perfetto. E se sono stanca, posso la lasciare al bar del paese?"
+      errors: [pronoun-position]
+    - tutor: "«Posso la lasciare»? «La» non può stare in mezzo ai due verbi."
+      prompt: {text: "posso la lasciare", tags: [pronoun-position]}
+    - learner: "Posso lasciarla al bar del paese?"
+    - tutor: "Esatto. Ma no, mi dispiace: la deve portare qui entro le sei."
+    - learner: "D'accordo. Ecco quindici euro."
+    - tutor: "Grazie! Ecco la bicicletta, buon giro!"
+
+- scenario: ufficio-postale
+  # facts: pacco per Madrid; normale da cinque a sette giorni, 18 euro; veloce tre giorni, 30 euro; sceglie la veloce; contenuto libri e una sciarpa; paga 30 euro con la carta
+  level: A2
+  persona: es-f-erasmus
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Vorrei spedire questo pacco a Spagna."
+      errors: [preposition]
+    - tutor: "«A» Spagna? Con i paesi, come Italia o Francia, usiamo un'altra parola."
+      prompt: {text: "a Spagna", tags: [preposition]}
+    - learner: "Ehm... a Spagna, a Madrid."
+      errors: [preposition]
+    - tutor: "In Spagna, a Madrid: va bene. Lo vuole spedire normale o veloce?"
+      recast: {text: "a Spagna", fix: "In Spagna", tags: [preposition]}
+      goals: [send]
+    - learner: "Quanti giorni ci vogliono con la spedizione normale?"
+    - tutor: "Con la normale da cinque a sette giorni, e costa diciotto euro. La veloce arriva in tre giorni e costa trenta euro."
+    - learner: "La settimana prossima è il compleanno di mia madre. Prendo la veloce."
+    - tutor: "Va bene. Su questo modulo scriva l'indirizzo e cosa c'è nel pacco."
+      goals: [speed]
+    - learner: "Ecco. Nel pacco ci sono libri e una sciarpa. Lo scrivo qui?"
+    - tutor: "Sì, lo scriva lì, sotto l'indirizzo."
+    - learner: "Fatto. Pago con la carta, ecco."
+    - tutor: "Sono trenta euro, grazie. Ecco la ricevuta."
+      goals: [form, pay]
+    - learner: "Grazie, arrivederci!"
+    - tutor: "Arrivederci, buona giornata!"
+
+- scenario: ufficio-postale
+  # facts: lettera importante per Milano; raccomandata, arriva in due giorni, 6,50 euro; ricevuta di ritorno un euro in più; totale 7,50; paga 10, resto 2,50
+  level: A2
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Buongiorno, mi dica."
+    - learner: "Buongiorno. Devo mandare questa lettera a Milano. È importante."
+    - tutor: "Se è importante, le consiglio una raccomandata. Arriva in due giorni."
+      goals: [send]
+    - learner: "Va bene, la raccomandata. Quanto costa?"
+    - tutor: "Costa sei euro e cinquanta. Ecco il modulo per la raccomandata."
+      goals: [speed]
+    - learner: "Grazie. Lo devo compilare adesso?"
+    - tutor: "Sì, lo può fare qui. Ecco una penna, se le serve."
+      new: [{lemma: penna, gloss: pen}]
+    - learner: "Ho scritto l'indirizzo, ma non so il codice postale. Posso cercarlo sul telefono?"
+    - tutor: "Certo, faccia pure con calma."
+    - learner: "Ecco, l'ho trovato. Ho finito il modulo. Io la do il modulo?"
+      errors: [object-pronoun]
+    - tutor: "«Io la do»? «La» è per una cosa; qui lei dà il modulo a una persona."
+      goals: [form]
+      prompt: {text: "Io la do", tags: [object-pronoun]}
+    - learner: "Io le do il modulo?"
+    - tutor: "Sì, grazie. Vuole anche la ricevuta di ritorno? Costa un euro in più."
+    - learner: "Sì, così so quando arriva. Ecco dieci euro."
+    - tutor: "Sono sette euro e cinquanta: ecco il resto e la ricevuta. Buona giornata!"
+      goals: [pay]
+
+- scenario: lavanderia
+  # facts: lavatrici solo con gettoni, non monete; gettoni alla macchinetta vicino alla porta, 4 euro; programma a quaranta gradi per i colori, 45 minuti; detersivo automatico; asciugatrice 2 euro per venti minuti, con il gettone
+  level: A2
+  persona: en-f-student
+  history: [article-form]
+  turns:
+    - tutor: "Tutto bene? Hai bisogno di una mano?"
+    - learner: "Sì, grazie! Ho messo i vestiti dentro, ma la lavatrice non parte."
+    - tutor: "Hai messo il gettone? Qui le lavatrici non prendono le monete."
+      goals: [problem]
+    - learner: "Il gettone? Dove lo compro?"
+    - tutor: "Lì, alla macchina vicino alla porta. Un gettone costa quattro euro."
+      goals: [payment]
+    - learner: "Ok, ho il gettone. E adesso, come funziona?"
+    - tutor: "Metti il gettone qui e scegli il programma. Per i colori va bene quaranta gradi."
+      goals: [ask-how]
+    - learner: "E il detersivo? Devo comprarlo?"
+    - tutor: "No, il detersivo lo mette la macchina da sola. Ci vogliono quarantacinque minuti."
+    - learner: "Perfetto. Dopo uso l'asciugatrice. Quanto costa la asciugatrice?"
+      errors: [article-form]
+    - tutor: "«La asciugatrice»? Senti come suona: dopo l'articolo c'è un'altra «a»."
+      prompt: {text: "la asciugatrice", tags: [article-form]}
+    - learner: "L'asciugatrice! Quanto costa?"
+    - tutor: "Due euro per venti minuti, sempre con il gettone."
+    - learner: "Grazie mille, sei molto gentile!"
+    - tutor: "Di niente! Se hai un altro problema, io sono qui."
+      goals: [thank]
+
+- scenario: parrucchiere
+  # facts: parrucchiera donna; taglio di cinque centimetri, fino alle spalle; frangia corta; trentacinque euro; paga con la carta
+  level: A2
+  persona: es-f-teacher
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Vorrei tagliare i capelli. Sono troppo lunghi."
+    - tutor: "Prima li laviamo, poi li tagliamo. Quanto li vuole corti?"
+      goals: [book]
+    - learner: "Non troppo. Cinque centimetri, così arrivano alle spalle."
+    - tutor: "Cinque centimetri, va bene. Le starebbe bene anche una frangia: che ne dice?"
+      goals: [length]
+    - learner: "Una frangia? Non so... non sono sicura."
+    - tutor: "Possiamo farla corta. Se non le piace, cresce presto."
+    - learner: "Va bene, proviamo!"
+    - tutor: "Ecco fatto. Si guardi allo specchio: le piace?"
+      goals: [style]
+    - learner: "Sì, con la frangia è più meglio!"
+      errors: [comparative]
+    - tutor: "«Più meglio»? In «meglio» c'è già un «più» nascosto."
+      prompt: {text: "più meglio", tags: [comparative]}
+    - learner: "È meglio! Con la frangia è meglio."
+    - tutor: "Sono contenta! Allora sono trentacinque euro."
+    - learner: "Ecco la carta. Grazie, a presto!"
+    - tutor: "Grazie a lei, arrivederci!"
+      goals: [pay]
+
+- scenario: parrucchiere
+  # facts: taglio uomo; ultimo taglio due mesi fa a Londra; corti ai lati, tre centimetri sopra; venti euro; paga in contanti
+  level: A2
+  persona: en-m-traveller
+  history: [participle-agreement]
+  turns:
+    - tutor: "Buongiorno! Si accomodi. Cosa facciamo oggi?"
+    - learner: "Buongiorno. Solo un taglio, per favore."
+    - tutor: "Un taglio, d'accordo: prima li lavo, poi li taglio."
+      goals: [book]
+    - learner: "Sì, grazie. Li ho tagliato due mesi fa, a Londra."
+      errors: [participle-agreement]
+    - tutor: "«Li ho tagliato»? Con «li» davanti, guardi la fine di «tagliato»."
+      prompt: {text: "Li ho tagliato", tags: [participle-agreement]}
+    - learner: "Li ho tagliati due mesi fa."
+    - tutor: "Esatto, e si vede: sono cresciuti. Quanto li vuole corti?"
+    - learner: "Corti ai lati, ma sopra un po' più lunghi."
+    - tutor: "Ai lati corti, allora. Sopra lascio tre centimetri?"
+      new: [{lemma: centimetro, gloss: centimetre}]
+      goals: [length]
+    - learner: "Tre centimetri? Mmm, sì, va bene. Lei è il esperto!"
+      errors: [article-form]
+    - tutor: "«Il esperto»? Senta l'inizio di «esperto»: con quella lettera, l'articolo cambia."
+      prompt: {text: "il esperto", tags: [article-form]}
+    - learner: "Comunque lei è il esperto!"
+      errors: [article-form]
+    - tutor: "L'esperto, diciamo così! Ecco fatto: si guardi allo specchio."
+      recast: {text: "il esperto", fix: "L'esperto", tags: [article-form]}
+      goals: [style]
+    - learner: "Perfetto, mi piace molto. Quanto le devo?"
+    - tutor: "Sono venti euro. Paga in contanti o con la carta?"
+    - learner: "In contanti. Ecco venti euro."
+    - tutor: "Grazie mille, buona giornata!"
+      goals: [pay]

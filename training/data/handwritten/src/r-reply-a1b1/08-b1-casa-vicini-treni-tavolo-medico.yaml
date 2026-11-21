@@ -1,0 +1,289 @@
+# Set r-reply-a1b1, file 8: B1 flat viewings, neighbours, train tickets, a group booking and a GP visit.
+- scenario: affittare-appartamento
+  # facts: appartamento arredato e pieno di luce; affitto 750 euro al mese più 60 di condominio (acqua e pulizia delle scale); riscaldamento autonomo, luce e gas a parte; caldaia cambiata l'anno scorso; lavatrice sì, lavastoviglie no; contratto quattro anni più quattro; caparra due mesi (1500 euro), metà alla firma e metà il mese dopo; palestra a due strade, metro a cinque minuti, centro in un quarto d'ora; risposta entro venerdì
+  level: B1
+  persona: en-f-professional
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! C'è molta luce. Quanto costa l'affitto al mese?"
+    - tutor: "L'affitto è di 750 euro al mese, più 60 euro di spese di condominio."
+    - learner: "Le spese di condominio cosa includono? Anche il riscaldamento?"
+    - tutor: "Includono l'acqua e la pulizia delle scale. Il riscaldamento invece è autonomo: lo paga a parte, come la luce e il gas."
+      goals: [rent]
+      new: [{lemma: pulizia, gloss: cleaning}, {lemma: autonomo, gloss: independent}]
+    - learner: "Capisco. La caldaia, la quale ho visto in cucina, è nuova?"
+      errors: [relative-pronoun]
+    - tutor: "«La quale ho visto»? Qui la caldaia è l'oggetto di «ho visto»: quale pronome usiamo?"
+      prompt: {text: "la quale ho visto", tags: [relative-pronoun]}
+    - learner: "La caldaia che ho visto in cucina è nuova?"
+    - tutor: "Esatto. Sì, l'abbiamo cambiata l'anno scorso. In cucina c'è anche la lavatrice, ma non la lavastoviglie."
+      goals: [condition]
+      new: [{lemma: lavastoviglie, gloss: dishwasher}]
+    - learner: "Va bene. E per il contratto? Quanto dovrei lasciare di caparra?"
+    - tutor: "Il contratto è di quattro anni più quattro, e la caparra è di due mesi d'affitto."
+      goals: [contract]
+    - learner: "Due mesi... sono 1500 euro. Sarebbe possibile pagarla in due volte?"
+    - tutor: "Si può fare: metà alla firma e metà il mese dopo. Vuole sapere qualcosa sulla zona?"
+    - learner: "Sì. C'è una palestra qui vicino? Io vado ogni giorno."
+      errors: [ci-ne]
+    - tutor: "«Io vado ogni giorno»: in palestra, giusto? Quale pronome mette prima di «vado» per non ripeterlo?"
+      prompt: {text: "Io vado ogni giorno", tags: [ci-ne]}
+    - learner: "Ci vado ogni giorno."
+    - tutor: "Esatto. C'è una palestra a due strade da qui. La metro è a cinque minuti, e in un quarto d'ora è in centro."
+      goals: [neighbourhood]
+    - learner: "Perfetto, sono molto interessata. Potrei darle una risposta entro venerdì?"
+    - tutor: "Entro venerdì va bene. Le lascio il mio numero."
+      goals: [decide]
+
+- scenario: affittare-appartamento
+  # facts: monolocale arredato con cucina, bagno e balcone; 600 euro al mese con condominio e riscaldamento, luce a parte; riscaldamento centrale, finestre vecchie; contratto di un anno, caparra un mese; per due anni 580 euro; zona dell'università, un po' di rumore il venerdì sera; contratto da firmare lunedì
+  level: B1
+  persona: es-m-worker
+  history: [comparative]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È più piccolo che pensavo, ma è carino."
+      errors: [comparative]
+    - tutor: "«Più piccolo che pensavo»? Davanti a un verbo come «pensavo», il confronto si fa in un altro modo: «più piccolo di...»?"
+      prompt: {text: "più piccolo che pensavo", tags: [comparative]}
+    - learner: "Più piccolo di quanto pensavo! Ma è carino."
+    - tutor: "Esatto. È piccolo, ma c'è tutto: la cucina, il bagno e anche un balcone."
+    - learner: "Quanto sarebbe l'affitto? E cosa è incluso?"
+    - tutor: "Seicento euro al mese, con le spese di condominio e il riscaldamento. La luce la paga lei."
+      goals: [rent]
+    - learner: "Va bene. Il riscaldamento funziona bene? Le finestre mi sembrano vecchie."
+    - tutor: "Il riscaldamento è centrale e funziona bene. Le finestre sono vecchie, è vero: d'inverno entra un po' d'aria."
+      goals: [condition]
+    - learner: "E il contratto quanto dura? Devo lasciare una caparra?"
+    - tutor: "Il contratto è di un anno, e la caparra è di un mese."
+      goals: [contract]
+    - learner: "Se firmerei per due anni, mi farebbe uno sconto?"
+      errors: [hypothetical]
+    - tutor: "«Se firmerei»? Dopo «se», il condizionale non va: quale forma usiamo?"
+      prompt: {text: "Se firmerei", tags: [hypothetical]}
+    - learner: "Scusi: se io firmerei per due anni, c'è uno sconto?"
+      errors: [hypothetical]
+    - tutor: "«Se firmassi per due anni»: in quel caso sì, potrei chiederle 580 euro al mese."
+      recast: {text: "se io firmerei", fix: "Se firmassi", tags: [hypothetical]}
+      new: [{lemma: sconto, gloss: discount}]
+    - learner: "E il barrio com'è? Di sera è tranquillo?"
+      errors: [word-choice]
+    - tutor: "È il quartiere dell'università, quindi è pieno di vita: il venerdì sera c'è un po' di rumore."
+      goals: [neighbourhood]
+      recast: {text: "il barrio", fix: "il quartiere", tags: [word-choice]}
+    - learner: "Il rumore non mi disturba. Allora sono interessato: firmerei per due anni."
+    - tutor: "Benissimo! Preparo il contratto per due anni, a 580 euro: lo firmiamo lunedì?"
+      goals: [decide]
+    - learner: "Lunedì va benissimo. Grazie!"
+    - tutor: "Grazie a lei, a lunedì!"
+
+- scenario: vicino-rumoroso
+  # facts: Tom abita al secondo piano; musica forte di notte fino all'una da qualche settimana; Tom si alza alle cinque e mezza; sabato festa di compleanno del vicino, fino a mezzanotte; in settimana volume basso dopo le undici; Tom invitato alla festa
+  level: B1
+  persona: en-m-heritage
+  history: [object-pronoun]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi il disturbo. Sono Tom, abito al secondo piano."
+    - tutor: "Piacere, Tom. Mi dica, c'è qualche problema?"
+      goals: [greet]
+    - learner: "Sì, purtroppo. Da qualche settimana sento la musica molto forte fino all'una. Volevo parlarla prima, ma non volevo disturbare."
+      errors: [object-pronoun]
+    - tutor: "«Parlarla»? Si parla «a» una persona: con «Lei», quale pronome serve?"
+      prompt: {text: "parlarla", tags: [object-pronoun]}
+    - learner: "Volevo parlarle prima, ma non volevo disturbare."
+    - tutor: "Esatto. Ma ha fatto bene a venire: non pensavo che la musica si sentisse così tanto."
+      goals: [problem]
+    - learner: "Io mi alzo alle cinque e mezza per il lavoro. Sarebbe possibile abbassare la musica dopo le undici?"
+    - tutor: "Certo, ha ragione. Però sabato faccio una festa per il mio compleanno: per quella sera sarebbe un problema?"
+      goals: [request]
+    - learner: "Per sabato va bene, se la festa finisce a mezzanotte."
+    - tutor: "D'accordo: sabato la festa finisce a mezzanotte, e durante la settimana abbasso il volume dopo le undici."
+      goals: [compromise]
+    - learner: "Perfetto, grazie. Così io dormo e lei può fare la sua festa."
+    - tutor: "Proprio così. Sabato, se le va, passi anche lei alla festa!"
+    - learner: "Grazie, sono eccitato! Porterò un buon vino."
+      errors: [false-friend]
+    - tutor: "Sono contento anch'io! Allora l'aspetto sabato. Buonanotte!"
+      recast: {text: "sono eccitato", fix: "sono contento", tags: [false-friend]}
+
+- scenario: vicino-rumoroso
+  # facts: Lucía abita di fronte e lavora da casa; il cane del vicino abbaia dalle nove alle sei quando lui non c'è; a pranzo il vicino non può tornare; la sorella abita vicino e terrà il cane lunedì, mercoledì e venerdì; gli altri giorni Lucía può mandare un messaggio; numero del vicino 338 456 777
+  level: B1
+  persona: es-f-teacher
+  history: [conditional-form]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera. Sono Lucía, abito qui di fronte. Scusi se la disturbo a quest'ora."
+    - tutor: "Nessun disturbo. Mi dica pure."
+      goals: [greet]
+    - learner: "Ecco, il suo cane abbaia tutto il giorno quando lei non c'è. Io lavoro da casa e non posso concentrarme."
+      errors: [reflexive]
+    - tutor: "«Concentrarme»? La fine del verbo è spagnola: con «mi», come diventa?"
+      prompt: {text: "concentrarme", tags: [reflexive]}
+    - learner: "Non posso concentrarmi."
+    - tutor: "Esatto. Non lo sapevo, mi dispiace davvero! Succede tutto il giorno?"
+      goals: [problem]
+    - learner: "Sì, dalle nove fino alle sei. Sarìa possibile trovare una soluzione?"
+      errors: [conditional-form]
+    - tutor: "«Sarìa»? Questa forma è spagnola: il condizionale di «essere» in italiano?"
+      prompt: {text: "Sarìa", tags: [conditional-form]}
+    - learner: "Sarebbe possibile trovare una soluzione?"
+    - tutor: "Certo, troviamola insieme. Lei cosa mi suggerisce?"
+      goals: [request]
+    - learner: "Forse potrebbe lasciarlo da qualcuno qualche giorno? O portarlo fuori a pranzo?"
+    - tutor: "A pranzo non posso, lavoro lontano. Però mia sorella abita qui vicino: potrei lasciarlo da lei il lunedì, il mercoledì e il venerdì."
+    - learner: "Mi sembra un'ottima idea. E gli altri giorni, se abbaia molto, le potrei mandare un messaggio?"
+    - tutor: "Sì, certo. Le do il mio numero: tre tre otto, quattro cinque sei, sette sette sette."
+      goals: [compromise]
+    - learner: "Grazie, lei è molto amabile."
+      errors: [word-choice]
+    - tutor: "Gentile lei, che è venuta a parlarmene con calma! Buonanotte."
+      recast: {text: "amabile", fix: "gentile", tags: [word-choice]}
+
+- scenario: biglietto-treno
+  # facts: due amiche a Napoli sabato mattina; veloce alle 8.15 (un'ora e dieci, 45 euro a persona) o regionale alle 7.40 (tre ore, 13 euro); prendono il veloce andata e ritorno, ritorno domenica alle 19.30; due posti vicini in carrozza cinque, seconda classe; totale 180 euro; binario sullo schermo venti minuti prima, di solito il dieci
+  level: B1
+  persona: es-f-erasmus
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Io e la mia amica vorremmo andare a Napoli sabato mattina."
+    - tutor: "Sabato mattina c'è un veloce alle otto e un quarto, che arriva in un'ora e dieci. Alle sette e quaranta c'è anche un regionale, più economico ma molto più lento."
+      goals: [destination]
+    - learner: "Quanto costano tutti e due?"
+    - tutor: "Il veloce costa 45 euro a persona, il regionale 13 euro, ma ci mette tre ore."
+    - learner: "Allora prendiamo il veloce. Andata e ritorno: ritorniamo il domenica sera."
+      errors: [noun-gender]
+    - tutor: "«Il domenica»? Attenzione: «domenica» è l'unico giorno femminile."
+      prompt: {text: "il domenica", tags: [noun-gender]}
+    - learner: "Ritorniamo il domenica, la sera."
+      errors: [noun-gender]
+    - tutor: "Domenica sera, allora: c'è un veloce alle sette e mezza. Va bene?"
+      recast: {text: "il domenica", fix: "Domenica", tags: [noun-gender]}
+      goals: [type]
+    - learner: "Sì, perfetto. Ci sono posti vicini? Vorremmo sedere insieme."
+      errors: [reflexive]
+    - tutor: "«Vorremmo sedere»? Qui «sedere» vuole il pronome: chi si siede?"
+      prompt: {text: "Vorremmo sedere", tags: [reflexive]}
+    - learner: "Vorremmo sederci insieme."
+    - tutor: "Giusto. Ci sono ancora due posti vicini nella carrozza cinque, in seconda classe. Vi vanno bene?"
+      new: [{lemma: carrozza, gloss: train carriage}]
+    - learner: "Sì, li prendiamo. Quanto è in totale?"
+    - tutor: "Due persone, andata e ritorno: sono 180 euro."
+      goals: [class]
+    - learner: "Ecco la carta. Da quale binario parte il treno a le otto e un quarto?"
+      errors: [articulated-preposition]
+    - tutor: "«A le otto»? Con l'ora, queste due parole si uniscono."
+      prompt: {text: "a le otto", tags: [articulated-preposition]}
+    - learner: "Alle otto e un quarto, da quale binario parte?"
+    - tutor: "Esatto. Il binario esce sullo schermo venti minuti prima: di solito è il dieci."
+      goals: [platform]
+      new: [{lemma: schermo, gloss: screen}]
+    - learner: "Grazie mille, buona giornata!"
+    - tutor: "Buon viaggio a tutte e due!"
+
+- scenario: biglietto-treno
+  # facts: Venezia oggi pomeriggio; regionale alle 14.05 (due ore e mezza, 22 euro) o veloce alle 14.35 (un'ora e venticinque, 39 euro); valigia molto grande; veloce solo andata, ritorno in aereo; prima classe dieci euro in più, 49 euro, posto accanto libero; binario sei, parte tra venti minuti; bar davanti al binario
+  level: B1
+  persona: en-m-traveller
+  history: [conditional-form]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Devo andare a Venezia oggi pomeriggio. Qual è il prossimo treno?"
+    - tutor: "Il prossimo è un regionale alle due e cinque, che arriva in due ore e mezza. Alle due e trentacinque c'è un veloce, che ci mette un'ora e venticinque."
+      goals: [destination]
+    - learner: "Ho una valigia molto grande. Quale treno sarebbe più comodo per me?"
+    - tutor: "Il veloce, perché ha più spazio per le valigie. Costa 39 euro, il regionale 22."
+    - learner: "Prendo il veloce. Solo andata, perché torno in aereo."
+    - tutor: "Solo andata, allora. In seconda classe c'è posto, oppure in prima con dieci euro in più."
+      goals: [type]
+    - learner: "Prenderei la prima, se c'è più spazio. Ieri ho viaggiato in seconda e non c'era posto per mia valigia."
+      errors: [possessive]
+    - tutor: "«Per mia valigia»? Senza articolo va bene solo con la famiglia, come «mia madre»."
+      prompt: {text: "per mia valigia", tags: [possessive]}
+    - learner: "Ehm... non c'era posto per mia valigia grande."
+      errors: [possessive]
+    - tutor: "«Per la mia valigia», certo. In prima c'è più spazio, e il posto accanto al suo è libero: sono 49 euro."
+      goals: [class]
+      recast: {text: "per mia valigia", fix: "Per la mia valigia", tags: [possessive]}
+    - learner: "Va bene, pago con la carta. Mi poterebbe dire da quale binario parte?"
+      errors: [conditional-form]
+    - tutor: "«Poterebbe»? Il condizionale di «potere» è un po' più corto."
+      prompt: {text: "poterebbe", tags: [conditional-form]}
+    - learner: "Mi potrebbe dire da quale binario parte?"
+    - tutor: "Certo: dal binario sei, fra venti minuti. Con questo biglietto non deve fare altro."
+      goals: [platform]
+    - learner: "Perfetto. C'è un bar vicino al binario? Vorrei comprare qualcosa da mangiare per il viaggio."
+    - tutor: "Sì, proprio davanti al binario sei. Buon viaggio!"
+
+- scenario: prenotare-tavolo
+  # facts: cena di laurea venerdì prossimo; dieci persone verso le otto e mezza; saletta in fondo; menù fisso 35 euro (antipasto, primo, secondo, dolce, acqua e vino della casa), 30 euro senza dolce perché portano la torta; pasta senza glutine per un'amica celiaca; a nome Grace Miller; avvisare entro giovedì se cambia il numero
+  level: B1
+  persona: en-f-student
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Pronto, Trattoria da Mario, buonasera!"
+    - learner: "Buonasera. Vorrei prenotare per venerdì prossimo. Festeggiamo la mia graduazione!"
+      errors: [false-friend]
+    - tutor: "Congratulazioni per la laurea! Per quante persone, e a che ora?"
+      goals: [book]
+      recast: {text: "graduazione", fix: "laurea", tags: [false-friend]}
+      new: [{lemma: laurea, gloss: degree}]
+    - learner: "Saremo in dieci, verso le otto e mezza."
+    - tutor: "Per dieci persone vi posso dare la saletta in fondo, così siete tranquilli. Preferite scegliere dal menù o un menù fisso?"
+      goals: [details]
+      new: [{lemma: saletta, gloss: small private room}]
+    - learner: "Quanto costerebbe il menù fisso?"
+    - tutor: "Trentacinque euro a persona: antipasto, primo, secondo e dolce, con acqua e vino della casa."
+      new: [{lemma: antipasto, gloss: starter}]
+    - learner: "Perfetto, prendiamo il menù fisso. Ma una mia amica è celiaca: è possibile che cucinate la pasta senza glutine?"
+      errors: [subjunctive-use]
+    - tutor: "«Che cucinate»? Con «è possibile che», il verbo cambia modo: provi con un'altra forma."
+      prompt: {text: "che cucinate", tags: [subjunctive-use]}
+    - learner: "È possibile che cuciniate la pasta senza glutine?"
+    - tutor: "Esatto. Sì, la pasta senza glutine ce l'abbiamo, e in cucina stiamo molto attenti."
+      goals: [special]
+    - learner: "Ottimo! Un'altra cosa: potremmo portare noi la torta? La fa mia madre."
+    - tutor: "Sì, certo. Allora tolgo il dolce dal menù, e il prezzo scende a trenta euro."
+    - learner: "Grazie, è molto gentile. La prenotazione è a nome di Grace Miller."
+    - tutor: "Perfetto, signora Miller: venerdì alle otto e mezza, dieci persone, menù a trenta euro. Mi lascia un numero?"
+      goals: [name]
+    - learner: "Sì: tre quattro sette, due due due, uno uno uno. Se cambia il numero di persone, glielo dico giovedì."
+    - tutor: "Entro giovedì, d'accordo. A venerdì, e ancora congratulazioni!"
+
+- scenario: medico-base
+  # facts: forte mal di testa da cinque giorni, soprattutto la sera; niente febbre, un po' di nausea ieri sera; lavoro in ufficio al computer nove ore al giorno, il mese scorso anche il sabato; non allergico; l'aspirina non aiuta molto; paracetamolo al massimo tre volte al giorno; pausa di cinque minuti ogni ora; visita dall'oculista; tornare tra una settimana se non passa
+  level: B1
+  persona: es-m-worker
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Da cinque giorni ho un forte mal di testa, soprattutto la sera."
+    - tutor: "Mi dispiace. Ha anche altri problemi, per esempio la febbre?"
+      goals: [symptoms, since-when]
+    - learner: "Niente febbre, ma ieri sera avevo un po' di nausea. Ho pensato che è per lo stress."
+      errors: [subjunctive-use]
+    - tutor: "«Ho pensato che è»? Dopo «pensare che», qui il verbo vuole un altro modo, e al passato."
+      prompt: {text: "Ho pensato che è", tags: [subjunctive-use]}
+    - learner: "Ho pensato che fosse per lo stress."
+    - tutor: "Esatto, ed è possibile. Che lavoro fa?"
+    - learner: "Lavoro in ufficio, davanti al computer, nove ore al giorno. Il mese scorso sono dovuto lavorare anche il sabato."
+      errors: [auxiliary-choice]
+    - tutor: "«Sono dovuto lavorare»? Con «dovere», conta il verbo che segue: e «lavorare» al passato?"
+      prompt: {text: "sono dovuto lavorare", tags: [auxiliary-choice]}
+    - learner: "Ho dovuto lavorare anche il sabato."
+    - tutor: "Giusto. Davanti al computer per tante ore, gli occhi fanno fatica. Prende qualche medicina, o è allergico a qualcosa?"
+    - learner: "Non sono allergico. Quando mi fa male la testa prendo un'aspirina, ma non mi serve molto."
+      errors: [word-choice]
+    - tutor: "Se l'aspirina non aiuta molto, provi con il paracetamolo, al massimo tre volte al giorno. E ogni ora faccia una pausa di cinque minuti."
+      goals: [history]
+      recast: {text: "serve", fix: "aiuta", tags: [word-choice]}
+      new: [{lemma: paracetamolo, gloss: paracetamol}]
+    - learner: "Va bene. Devo fare anche degli esami?"
+    - tutor: "Le consiglio una visita dall'oculista: forse le servono gli occhiali."
+      new: [{lemma: oculista, gloss: eye doctor}]
+    - learner: "Quindi: paracetamolo al massimo tre volte al giorno, una pausa ogni ora e la visita dall'oculista."
+    - tutor: "Ha capito tutto. Se il mal di testa non passa, torni da me fra una settimana."
+      goals: [instructions]

@@ -1,0 +1,221 @@
+# Set r-reply-a1b1, file 1: A1 at the café, the bakery and the market.
+# Each tutor reply answers the content, then moves the scene one practical step on.
+- scenario: bar-colazione
+  # facts: tè senza latte 1,50 euro; cornetto alla crema 1,30 euro; totale 2,80; paga con la carta
+  level: A1
+  persona: en-f-student
+  history: [article-form]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno! Un tè caldo, per favore."
+    - tutor: "Un tè caldo, va bene. Lo vuole con il latte?"
+      goals: [greet, order-drink]
+    - learner: "No, senza latte, grazie. Ho un po' di fretta."
+    - tutor: "Nessun problema, è pronto in un minuto. Mangia anche qualcosa?"
+    - learner: "Sì. Vorrei uno cornetto alla crema."
+      errors: [article-form]
+    - tutor: "«Uno cornetto»? Con la c, quale articolo usiamo?"
+      prompt: {text: "uno cornetto", tags: [article-form]}
+    - learner: "Un cornetto alla crema, scusi."
+    - tutor: "Esatto. Ecco il tè e il cornetto: paga adesso?"
+      goals: [order-food]
+    - learner: "Sì, adesso. Quant'è?"
+    - tutor: "Sono due euro e ottanta. Contanti o carta?"
+    - learner: "Carta. Ecco."
+    - tutor: "Fatto, grazie. Ecco lo scontrino, buona giornata!"
+      goals: [pay]
+
+- scenario: bar-colazione
+  # facts: caffè lungo 1,20 euro; panini finiti; pizzetta al pomodoro 3 euro, calda; totale 4,20; paga 5 euro, lascia il resto
+  level: A1
+  persona: es-m-worker
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buongiorno! Cosa prende?"
+    - learner: "Buongiorno. Un caffè, per favore. Ma lungo."
+    - tutor: "Un caffè lungo, subito. Vuole anche qualcosa da mangiare?"
+      goals: [greet, order-drink]
+    - learner: "Sì, ma non dolce. Avete panini?"
+    - tutor: "I panini sono finiti, mi dispiace. Ci sono le pizzette al pomodoro."
+      new: [{lemma: pizzetta, gloss: small pizza}]
+    - learner: "Va bene, una pizzetta. Posso mangiare qui?"
+    - tutor: "Qui al bancone, sì. La vuole calda?"
+      goals: [order-food]
+    - learner: "Sì, calda. Quanto devo di pagare?"
+      errors: [modal-infinitive]
+    - tutor: "«Devo di pagare»? Guardi la parola tra «devo» e «pagare»."
+      prompt: {text: "devo di pagare", tags: [modal-infinitive]}
+    - learner: "Quanto devo pagare?"
+    - tutor: "Giusto. Sono quattro euro e venti in tutto."
+    - learner: "Ecco cinque euro. Va bene così."
+    - tutor: "Grazie mille, molto gentile! Buona giornata."
+      goals: [pay]
+
+- scenario: panetteria
+  # facts: pane bianco e integrale; mezzo chilo di pane bianco 2 euro; due focacce alle olive 1,50 l'una; totale 5 euro; paga 10, resto 5
+  level: A1
+  persona: en-m-retired
+  history: [noun-number]
+  turns:
+    - tutor: "Buongiorno! Mi dica."
+    - learner: "Buongiorno! Vorrei del pane, per favore."
+    - tutor: "Abbiamo pane bianco e pane integrale. Quale preferisce?"
+      goals: [greet]
+      new: [{lemma: integrale, gloss: wholemeal}]
+    - learner: "Pane bianco. Mezzo chilo, per favore."
+    - tutor: "Ecco mezzo chilo di pane bianco. Vuole altro?"
+      goals: [order-bread]
+    - learner: "Sì, due focaccia con le olive."
+      errors: [noun-number]
+    - tutor: "Due «focaccia»? Sono due: come cambia la parola?"
+      prompt: {text: "due focaccia", tags: [noun-number]}
+    - learner: "Ehm... due focaccia, con le olive."
+      errors: [noun-number]
+    - tutor: "Due focacce con le olive, ecco qui. Le metto nel sacchetto con il pane?"
+      recast: {text: "due focaccia", fix: "Due focacce", tags: [noun-number]}
+      goals: [order-extra]
+    - learner: "Sì, grazie. Quanto pago?"
+    - tutor: "Il pane due euro, le focacce tre. Sono cinque euro."
+    - learner: "Ecco dieci euro. Grazie, arrivederci!"
+    - tutor: "Grazie a lei! Ecco il resto, cinque euro. Arrivederci!"
+      goals: [pay]
+
+- scenario: panetteria
+  # facts: fornaia donna; mezzo chilo di pane; pacco di grissini; totale 4 euro; la cliente ha la sua borsa
+  level: A1
+  persona: es-f-teacher
+  history: [preposition]
+  turns:
+    - tutor: "Buongiorno! Mi dica."
+    - learner: "Buongiorno, signora. Come sta?"
+    - tutor: "Bene, grazie! Cosa le do oggi?"
+      goals: [greet]
+    - learner: "Vorrei mezzo chilo de pane."
+      errors: [preposition]
+    - tutor: "Mezzo chilo «de» pane? In italiano è un'altra parola."
+      prompt: {text: "chilo de pane", tags: [preposition]}
+    - learner: "Mezzo chilo di pane, per favore."
+    - tutor: "Sì, così. Ecco il pane, è ancora caldo. Altro?"
+      goals: [order-bread]
+    - learner: "Sì, anche un pacco di grissini."
+    - tutor: "Ecco i grissini. Le metto tutto in un sacchetto?"
+      goals: [order-extra]
+    - learner: "No, grazie, ho la mia bolsa."
+      errors: [word-choice]
+    - tutor: "Va bene, c'è la sua borsa. Allora sono quattro euro in tutto."
+      recast: {text: "bolsa", fix: "borsa", tags: [word-choice]}
+      new: [{lemma: borsa, gloss: bag}]
+    - learner: "Ecco quattro euro. Buona giornata!"
+    - tutor: "Grazie, anche a lei! Arrivederci."
+      goals: [pay]
+
+- scenario: panetteria
+  # facts: pane senza sale, fresco di oggi; un chilo; torta di mele fatta dalla fornaia; due pezzi; totale 6 euro; paga con la carta
+  level: A1
+  persona: en-f-professional
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Buongiorno! Mi dica."
+    - learner: "Buongiorno! Avete pane senza sale?"
+    - tutor: "Sì, questo pane è senza sale. Quanto ne vuole?"
+      goals: [greet]
+    - learner: "Un chilo, per favore. È fresco?"
+    - tutor: "Sì, è fresco di oggi. Ecco un chilo: vuole altro?"
+      goals: [order-bread]
+    - learner: "Sì. Quella torta è molto bello."
+      errors: [adjective-agreement]
+    - tutor: "La torta è «bello»? «Torta» è una parola femminile."
+      prompt: {text: "molto bello", tags: [adjective-agreement]}
+    - learner: "Ah, è molto bella! Cos'è?"
+    - tutor: "È di mele, fatta da me. Ne vuole un pezzo?"
+    - learner: "Sì, due pezzi, per favore."
+    - tutor: "Ecco due pezzi. Con il pane sono sei euro."
+      goals: [order-extra]
+    - learner: "Posso pagare con la carta?"
+    - tutor: "Sì, la macchina è qui davanti a lei."
+    - learner: "Fatto. Grazie e arrivederci!"
+    - tutor: "Grazie a lei, arrivederci!"
+      goals: [pay]
+
+- scenario: mercato-frutta
+  # facts: mele rosse 2 euro al chilo; pomodori 2 euro al chilo; un chilo di mele, mezzo chilo di pomodori; due limoni in regalo; totale 3 euro
+  level: A1
+  persona: es-m-worker
+  history: [noun-number]
+  turns:
+    - tutor: "Ciao! Cosa ti do oggi?"
+    - learner: "Ciao! Quanto costano le mele?"
+    - tutor: "Due euro al chilo, e sono molto buone. Quante ne vuoi?"
+      goals: [ask-price]
+    - learner: "Un chilo, per favore."
+    - tutor: "Ecco un chilo di mele. Ti serve altro?"
+      goals: [buy-quantity]
+    - learner: "Sì. Avete pomodori per l'insalata?"
+    - tutor: "Sì, questi sono perfetti, due euro al chilo. Quanti ne vuoi?"
+      goals: [ask-other]
+    - learner: "Mezzo chilo. E due limone."
+      errors: [noun-number]
+    - tutor: "Due «limone»? Con due, la parola finisce in un altro modo."
+      prompt: {text: "due limone", tags: [noun-number]}
+    - learner: "Ehm... due limone, per favore."
+      errors: [noun-number]
+    - tutor: "Ecco due limoni: questi non li paghi! In tutto sono tre euro."
+      recast: {text: "due limone", fix: "due limoni", tags: [noun-number]}
+      new: [{lemma: limone, gloss: lemon}]
+    - learner: "Grazie! Ecco tre euro."
+    - tutor: "Grazie a te! Buona giornata."
+      goals: [pay]
+
+- scenario: mercato-frutta
+  # facts: arance di Sicilia 2 euro al chilo; due chili = 4 euro; fragole 3 euro la scatola; totale 7 euro; paga con 20, resto 13
+  level: A1
+  persona: en-m-traveller
+  history: [question-form]
+  turns:
+    - tutor: "Ciao! Cosa ti do oggi?"
+    - learner: "Ciao! Le arance, quanto costano?"
+    - tutor: "Due euro al chilo, sono arance di Sicilia. Quante ne vuoi?"
+      goals: [ask-price]
+    - learner: "Due chili, per favore. Sono per una spremuta."
+    - tutor: "Ecco due chili, sono perfette per la spremuta. Vuoi anche altro?"
+      goals: [buy-quantity]
+    - learner: "Sì. Cosa costano le fragole?"
+      errors: [question-form]
+    - tutor: "«Cosa» costano? Vuoi sapere il prezzo: quale parola usi?"
+      prompt: {text: "Cosa costano", tags: [question-form]}
+    - learner: "Quanto costano le fragole?"
+    - tutor: "Tre euro la scatola. Ne prendi una?"
+      new: [{lemma: scatola, gloss: box}]
+    - learner: "Sì, una scatola. Quanto pago in tutto?"
+    - tutor: "Quattro euro le arance e tre la scatola: sono sette euro."
+      goals: [ask-other]
+    - learner: "Ho solo venti euro, va bene?"
+    - tutor: "Sì, nessun problema. Ecco il resto: tredici euro. Ciao!"
+      goals: [pay]
+
+- scenario: mercato-frutta
+  # facts: ciliegie 4 euro al chilo; mezzo chilo = 2 euro; anguria piccola 3 euro; totale 5 euro; solo contanti
+  level: A1
+  persona: es-f-erasmus
+  history: [word-choice]
+  turns:
+    - tutor: "Ciao! Cosa ti do oggi?"
+    - learner: "Ciao! Quanto costano le ciliegie?"
+    - tutor: "Quattro euro al chilo. Sono arrivate oggi!"
+      goals: [ask-price]
+    - learner: "Mezzo chilo, per favore."
+    - tutor: "Ecco mezzo chilo. Ti do anche altro?"
+      goals: [buy-quantity]
+    - learner: "Sì, vorrei una sandía piccola."
+      errors: [word-choice]
+    - tutor: "Un'anguria piccola, certo: questa costa tre euro."
+      goals: [ask-other]
+      recast: {text: "una sandía piccola", fix: "un'anguria piccola", tags: [word-choice]}
+      new: [{lemma: anguria, gloss: watermelon}]
+    - learner: "Perfetto. Quanto pago?"
+    - tutor: "Sono cinque euro in tutto."
+    - learner: "Posso pagare con la carta?"
+    - tutor: "Mi dispiace, qui solo contanti."
+    - learner: "Va bene, ecco cinque euro. Hai una busta?"
+    - tutor: "Sì, eccola. Grazie e buona giornata!"
+      goals: [pay]

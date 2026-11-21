@@ -1,0 +1,251 @@
+# Round 10, set r-reply-b2c2. File 5 (C1): a chain collision claim, a restaurant mistake with a
+# coeliac guest, EU residence registration, two promotion talks, an interview, a flat with
+# mould and a trade-fair team meeting. Some prompts fail and are followed by a recast inside
+# a reply that still moves the scene on.
+- scenario: assicurazione-sinistro
+  # facts: this morning, ring road, stopped in a queue; car behind hit the learner and pushed him into the car in front; last driver admitted he was distracted by the satnav and did not brake; constatazione signed only with the driver behind; the front car left, its plate written down by the learner's wife; rear bumper crushed, bonnet dented; learner not responsible, no franchigia; perito calls within three working days; claim number sent by email
+  level: C1
+  persona: en-m-traveller
+  history: [preposition, passive]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Stamattina, in tangenziale, eravamo tutti fermi in coda, quando la macchina dietro di me mi ha tamponato e mi ha spinto contro quella davanti."
+    - tutor: "Un tamponamento a catena, quindi. Secondo lei, chi ha causato l'incidente?"
+      goals: [what]
+    - learner: "Senza dubbio l'ultima macchina: il conducente ha ammesso che si era distratto un attimo con il navigatore e non aveva frenato in tempo."
+    - tutor: "In un caso del genere la responsabilità ricade di solito sull'ultimo veicolo, e la sua ammissione aiuta molto. Avete compilato la constatazione amichevole tutti e tre?"
+      goals: [responsibility]
+    - learner: "Purtroppo no. L'ho firmata solo con il signore che era dietro di me; quello davanti era in ritardo e se n'è andato, ma la sua targa è stata scritta da mia moglie su un foglio."
+    - tutor: "Ci basta la targa: il terzo veicolo lo rintracciamo noi. Sul modulo, il danno davanti e quello dietro sono descritti tutti e due?"
+    - learner: "Sì, li abbiamo segnati entrambi: il paraurti posteriore è stato schiacciato, e il cofano si è ammaccato perché ho sbattuto in la macchina davanti."
+      errors: [preposition]
+      gold: {text: "in la macchina", fix: "contro la macchina"}
+    - tutor: "«Ho sbattuto in la macchina»? Quando si colpisce qualcosa, con «sbattere», la preposizione è un'altra."
+      prompt: {text: "in la macchina", tags: [preposition]}
+    - learner: "Ho sbattuto nella macchina davanti, per la spinta."
+      errors: [preposition]
+    - tutor: "Contro la macchina davanti, quindi: con una spinta del genere è inevitabile. Il quadro è completo: ha domande su come procediamo?"
+      goals: [documents]
+      recast: {text: "nella macchina", fix: "contro la macchina", tags: [preposition]}
+    - learner: "Sì: dovrò pagare la franchigia? E i danni al cofano chi li paga, visto che sono io ad aver urtato la macchina davanti?"
+    - tutor: "Non essendo lei responsabile, la franchigia non si applica, e i danni davanti e dietro restano a carico della compagnia dell'ultimo veicolo. Il perito la chiamerà entro tre giorni lavorativi."
+      goals: [next]
+    - learner: "Nel frattempo posso usare la macchina? Il paraurti si muove un po', ma le luci funzionano."
+    - tutor: "Se il paraurti si muove, prima di usarla lo faccia fissare in modo provvisorio. Intanto le mando per email il numero del sinistro."
+
+- scenario: recensione-ristorante
+  # facts: table for ten, booked with a note that a friend is coeliac; the friend got aubergine parmigiana with breadcrumbs, noticed after two forkfuls, now not feeling great; a new cook tonight; offer: friend's dinner free, dessert for the table; learner accepts the free dinner, declines dessert; note added to their booking card; chef sent to the table; manager's number if the friend feels unwell
+  level: C1
+  persona: en-f-student
+  history: [subjunctive-use, word-choice]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Mi dispiace doverlo dire, ma è successa una cosa piuttosto grave. Avevo prenotato per dieci persone e avevo specificato che una mia amica è celiaca."
+    - tutor: "La ringrazio di avermelo detto subito. Che cosa è successo, esattamente?"
+      goals: [complain]
+    - learner: "Le hanno portato le melanzane alla parmigiana con il pangrattato sopra. Se n'è accorta dopo due forchettate, per fortuna, ma adesso non si sente benissimo."
+    - tutor: "È un errore che non sarebbe mai dovuto succedere, e me ne assumo la responsabilità. La sua amica ha bisogno di qualcosa, in questo momento?"
+      goals: [detail]
+    - learner: "Dice che le passerà, ma è molto nervosa. Mi aspettavo che, con una prenotazione così precisa, la cucina stia più attenta."
+      errors: [subjunctive-use]
+      gold: {text: "la cucina stia", fix: "la cucina stesse"}
+    - tutor: "«Mi aspettavo che la cucina stia»? Il verbo principale è al passato: il congiuntivo deve seguirlo."
+      prompt: {text: "la cucina stia", tags: [subjunctive-use]}
+    - learner: "Sì, mi aspettavo che la cucina stia più attenta, ecco."
+      errors: [subjunctive-use]
+    - tutor: "Si aspettava che la cucina stesse più attenta, ed era il minimo. Stasera c'era un cuoco nuovo, ma non è una scusa. Per la sua amica la cena è offerta, e a tutto il tavolo vorrei offrire il dolce: le sembra un modo giusto di rimediare?"
+      goals: [expectation]
+      recast: {text: "la cucina stia", fix: "la cucina stesse", tags: [subjunctive-use]}
+    - learner: "La cena offerta alla mia amica sì, grazie. Il dolce, invece, preferiremmo di no: lei non può mangiarne quasi nessuno, e non ci sembrerebbe giusto."
+    - tutor: "Capisco perfettamente. Tolgo la sua cena dal conto e lascio una nota sulla vostra prenotazione, così la prossima volta la cucina ne è avvisata fin dall'inizio."
+      goals: [resolve]
+    - learner: "Grazie. Le chiederei anche di dire allo chef di venire a scusarsi con lei: credo che le farebbe piacere."
+    - tutor: "Glielo mando subito al tavolo. E se più tardi la sua amica non dovesse sentirsi bene, mi chiami pure a questo numero."
+
+- scenario: burocrazia-residenza
+  # facts: ticket 47; Spanish citizen, university student since September, rental contract over three months; documents: identity card, enrolment certificate issued last week, European health card expired in October; new card possibly sent to her mother's address; provisional certificate online accepted by email; file opened today; local police check within 45 days; doorbell still shows the previous tenant's name
+  level: C1
+  persona: es-f-erasmus
+  history: [hypothetical, word-choice]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Sono una cittadina spagnola, studio qui all'università da settembre e vorrei iscrivermi all'anagrafe: il mio contratto d'affitto dura ormai da più di tre mesi."
+    - tutor: "Per i cittadini dell'Unione la pratica è abbastanza semplice. Oltre al documento d'identità, le servono l'iscrizione all'università e una copertura sanitaria: le ha con sé?"
+      goals: [request]
+    - learner: "Ho la carta d'identità e il certificato d'iscrizione, che mi hanno rilasciato la settimana scorsa. Per la sanità ho la tarjeta europea."
+      errors: [word-choice]
+    - tutor: "La tessera europea va bene, me la fa vedere? Ecco, purtroppo è scaduta a ottobre. Ne ha una nuova?"
+      goals: [documents]
+      recast: {text: "la tarjeta europea", fix: "la tessera europea", tags: [word-choice]}
+    - learner: "Non me n'ero accorta! In Spagna la rinnovano in automatico, ma forse l'hanno spedita all'indirizzo di mia madre."
+    - tutor: "Succede spesso. Posso aprire la pratica oggi, ma senza una copertura valida non posso chiuderla: entro quando pensa di avere la tessera nuova?"
+    - learner: "Se mia madre me la spedirebbe domani, arriverebbe in una settimana."
+      errors: [hypothetical]
+      gold: {text: "me la spedirebbe", fix: "me la spedisse"}
+    - tutor: "«Se mia madre me la spedirebbe»? Dopo «se», in un'ipotesi come questa, il condizionale non va."
+      prompt: {text: "me la spedirebbe", tags: [hypothetical]}
+    - learner: "Se mia madre me la spedisse domani, arriverebbe in una settimana. Oppure potrei chiedere online un certificato provvisorio?"
+    - tutor: "Il certificato provvisorio va benissimo, ed è più rapido: me lo mandi per email appena lo riceve. Intanto le apro la pratica."
+      goals: [problem]
+    - learner: "Perfetto. E dopo cosa si deve fare? Mi hanno detto che bisogna aspettare un controllo a casa."
+    - tutor: "Entro quarantacinque giorni passa la Polizia locale, per verificare che lei abiti all'indirizzo indicato. Se tutto è in regola, l'iscrizione vale da oggi."
+      goals: [next]
+    - learner: "Va bene. Sul campanello, però, c'è ancora il nome della vecchia inquilina: può essere un problema?"
+    - tutor: "Potrebbe esserlo: se non trovano il suo nome, il controllo rischia di non andare a buon fine. Le consiglio di metterlo sul campanello e sulla cassetta delle lettere già oggi."
+
+- scenario: colloquio-promozione
+  # facts: learner led the data migration project, closed two months early and about 80,000 euro under budget; asks to become head of unit with +12%; a colleague is also a candidate; raise budget this year max 6%; agreement: 6% now, in writing a review in June based on first-half results, spring leadership course (places still free); formal proposal to HR reviewed together first; meeting Thursday next week at 9:00 with a first-half objectives plan
+  level: C1
+  persona: en-f-professional
+  history: [subjunctive-use, conditional-form]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì, grazie per il tempo. Vorrei fare il punto su quest'anno: il progetto di migrazione dei dati, che ho guidato io, si è chiuso con due mesi di anticipo e circa ottantamila euro sotto budget."
+    - tutor: "Lo so, e il comitato di direzione l'ha notato. Immagino, però, che non sia venuta solo per ricordarmelo."
+      goals: [results]
+    - learner: "Infatti. Credo di essermi meritata la promozione a responsabile dell'unità, con un aumento del dodici per cento. Avrei voluto parlarne già a giugno, ma il progetto non era ancora chiuso."
+    - tutor: "Le sue ragioni sono solide. Devo però essere franca: per quel ruolo è candidato anche un suo collega, e quest'anno il budget per gli aumenti non supera il sei per cento."
+      goals: [request]
+    - learner: "Capisco. Non voglio che la scelta dipende solo dal budget, però: le chiederei di valutare prima di tutto i risultati."
+      errors: [subjunctive-use]
+      gold: {text: "la scelta dipende", fix: "la scelta dipenda"}
+    - tutor: "«Non voglio che la scelta dipende»? Dopo «non voglio che», il verbo deve cambiare modo."
+      prompt: {text: "la scelta dipende", tags: [subjunctive-use]}
+    - learner: "Non voglio che la scelta dipendesse solo dal budget."
+      errors: [subjunctive-use]
+    - tutor: "Neanch'io voglio che la scelta dipenda solo dal budget: conteranno i risultati, glielo assicuro. Sull'aumento, però, il margine resta quello. Come vorrebbe procedere?"
+      recast: {text: "la scelta dipendesse", fix: "la scelta dipenda", tags: [subjunctive-use]}
+    - learner: "Accetterei il sei per cento adesso, se venisse messo per iscritto che a giugno ne riparliamo, alla luce dei risultati del primo semestre. Mi piacerebbe anche frequentare il corso di leadership che l'azienda organizza in primavera."
+    - tutor: "Mi sembra una proposta equilibrata, e il corso di primavera ha ancora posti liberi. Preparo una proposta formale per le risorse umane: le va bene se la vediamo insieme prima di mandarla?"
+      goals: [handle]
+    - learner: "Certo. Quando potremmo rivederci? Prima di fine mese sarebbe ideale, così la decisione verrebbe presa prima delle ferie di Natale."
+    - tutor: "Facciamo giovedì della prossima settimana, alle nove, qui da me. Porti anche un breve piano di obiettivi per il primo semestre."
+      goals: [next-steps]
+
+- scenario: colloquio-promozione
+  # facts: learner is a sales rep; sales in his area +22% this year, three new major clients including a large furniture factory in Treviso; asks to be area manager for the north-east; objection: he has never managed people; plan: from January he coaches two junior colleagues in his area for six months, one day a week (Friday) free from client visits; criteria: the juniors' sales and their anonymous feedback; evaluation in July; manager sends a letter with the agreement
+  level: C1
+  persona: en-m-traveller
+  history: [false-friend, article-use]
+  turns:
+    - tutor: "Prego, si sieda. Voleva parlarmi di qualcosa?"
+    - learner: "Sì. Volevo parlarle dei miei numeri: quest'anno nella mia zona le vendite sono cresciute del ventidue per cento, e abbiamo acquisito tre clienti importanti, tra cui una grande fattoria di mobili a Treviso."
+      errors: [false-friend]
+    - tutor: "La fabbrica di mobili di Treviso l'ho vista anch'io nei rapporti, ed è un cliente prezioso. Mi sta preparando a una richiesta, vero?"
+      goals: [results]
+      recast: {text: "fattoria", fix: "fabbrica", tags: [false-friend]}
+    - learner: "Lei mi conosce bene. Vorrei candidarmi come responsabile dell'area nord-est: credo di avere ormai l'esperienza per guidare una squadra."
+    - tutor: "Sul piano commerciale non ho dubbi. Il punto debole, glielo dico apertamente, è che non ha mai gestito delle persone."
+      goals: [request]
+    - learner: "È vero, e ci ho pensato molto. Potrei cominciare seguendo due colleghi giovani per sei mesi: così lei vedrebbe come me la cavo, prima di decidere."
+    - tutor: "È una proposta intelligente, che riduce il rischio per tutti e due, e proprio nella sua zona abbiamo due colleghi giovani. Da quando potrebbe cominciare?"
+      goals: [handle]
+    - learner: "Da gennaio. Però avrei bisogno di un giorno alla settimana senza visite ai clienti, altrimenti non riesco a fare tutte e due cose."
+      errors: [article-use]
+      gold: {text: "tutte e due cose", fix: "tutte e due le cose"}
+    - tutor: "«Tutte e due cose»? Dopo «tutte e due», davanti al nome, l'articolo non si può togliere."
+      prompt: {text: "tutte e due cose", tags: [article-use]}
+    - learner: "Altrimenti non riesco a fare tutte e due le cose."
+    - tutor: "Un giorno alla settimana mi sembra giusto. E alla fine dei sei mesi, come vorrebbe che misurassimo il risultato?"
+    - learner: "Proporrei due criteri: le vendite dei due colleghi e un loro giudizio anonimo su di me. Se tutti e due i risultati sono buoni, a luglio vorrei che lei mi considerasse per il ruolo."
+    - tutor: "Mi sembrano criteri seri. Quale giorno preferirebbe tenere libero dalle visite?"
+    - learner: "Il venerdì, se possibile: è il giorno in cui i clienti chiamano di meno."
+    - tutor: "Allora il venerdì. Le preparo una lettera con l'accordo: da gennaio segue i due colleghi, e a luglio facciamo insieme la valutazione."
+      goals: [next-steps]
+
+- scenario: colloquio-lavoro
+  # facts: candidate Carmen, 42, Spanish teacher for fifteen years, last five at a high school in Turin, for two years mainly the school's online courses; company's new online-training area; she is slow with video editing, doing an evening course; team of four, start in March; next step: design the first lesson of a course, present it in ten days; her school contract ends in June, she has asked to leave earlier; task and contact name sent today
+  level: C1
+  persona: es-f-teacher
+  history: [tense-aspect, false-friend]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Sono Carmen, ho quarantadue anni e insegno spagnolo da quindici anni, gli ultimi cinque in un liceo di Torino. Da due anni, però, mi occupo soprattutto dei corsi online della scuola."
+    - tutor: "Un profilo interessante per il nostro nuovo settore dedicato alla formazione online. Che cosa ha fatto, concretamente, per i corsi della sua scuola?"
+      goals: [intro]
+    - learner: "Durante la pandemia ho dovuto trasformare tutte le lezioni in materiali digitali, e da lì cominciavo a progettare corsi interi."
+      errors: [tense-aspect]
+      gold: {text: "da lì cominciavo", fix: "da lì ho cominciato"}
+    - tutor: "«Da lì cominciavo»? È un punto di partenza preciso, un passaggio avvenuto una volta: quale tempo lo esprime meglio?"
+      prompt: {text: "da lì cominciavo", tags: [tense-aspect]}
+    - learner: "Da lì ho cominciato a progettare corsi interi, con video, esercizi e test."
+    - tutor: "Quindi ha già esperienza sul lato pratico. Quali sono, secondo lei, i suoi punti di forza? E un aspetto su cui deve ancora lavorare?"
+      goals: [experience]
+    - learner: "So mettermi nei panni di chi impara, e nei corsi online è fondamentale. Il mio punto debole è la parte tecnica: con il montaggio video sono ancora lenta, anche se sto seguendo un corso serale."
+    - tutor: "Saper pensare come chi impara è proprio ciò che manca a molti tecnici. Perché vorrebbe lasciare la scuola per un'azienda come la nostra?"
+      goals: [strengths]
+    - learner: "Amo insegnare, ma a scuola i progetti nuovi vanno molto piano. Vorrei lavorare dove si sperimenta di più, e il vostro portafoglio di progetti mi ha colpito molto."
+      errors: [false-friend]
+    - tutor: "Il nostro portfolio è cresciuto parecchio negli ultimi anni, e la formazione è il settore più giovane. Ha qualche domanda sul ruolo?"
+      goals: [why]
+      recast: {text: "portafoglio", fix: "portfolio", tags: [false-friend]}
+    - learner: "Sì: quante persone lavorerebbero con me, e da quando cominciereste?"
+    - tutor: "Il gruppo è di quattro persone, e vorremmo cominciare a marzo. Il prossimo passo sarebbe una piccola prova: progettare la prima lezione di un corso, da presentarci fra dieci giorni. Se la sente?"
+      goals: [questions]
+    - learner: "Sì, molto volentieri. Il mio contratto al liceo finisce a giugno, ma ho già chiesto se posso andarmene prima, e mi hanno detto di sì."
+    - tutor: "È un'informazione utile, visto che marzo è vicino. Oggi stesso le mando il tema della prova e il nome della persona a cui presentarla."
+
+- scenario: trattativa-affitto
+  # facts: good location, new kitchen; mould on the bathroom ceiling from a leak from the flat above last winter; rent 1,100 euro, owner agrees to 1,050; owner wants to fix the mould only in spring with the roof works; contract 3+2, cedolare secca, three months' notice; learner walks away; a two-room flat in via Cavour frees up next week, photos sent, viewing possible on Saturday
+  level: C1
+  persona: en-f-student
+  history: [conditional-form, combined-pronouns]
+  turns:
+    - tutor: "Allora, le è piaciuto l'appartamento?"
+    - learner: "Sì, la posizione è perfetta e la cucina è nuova. Però in bagno ho notato delle macchie di muffa sul soffitto, e questo mi preoccupa parecchio."
+    - tutor: "Le ha viste bene: l'inverno scorso c'è stata un'infiltrazione dal piano di sopra. Il canone, comunque, è di 1100 euro: è in linea con quello che cercava?"
+      goals: [interest]
+    - learner: "Un po' alto, sinceramente. Proponerei 1050, a patto che la muffa venga eliminata prima che io mi trasferisca."
+      errors: [conditional-form]
+      gold: {text: "Proponerei", fix: "Proporrei"}
+    - tutor: "«Proponerei»? Il condizionale di «proporre» non segue la regola: pensi a come diventa il futuro."
+      prompt: {text: "Proponerei", tags: [conditional-form]}
+    - learner: "Proporrei 1050, a patto che la muffa venga eliminata prima che io mi trasferisca."
+    - tutor: "Sul canone credo che il proprietario possa scendere a 1050. Sulla muffa, invece, mi ha detto che preferirebbe intervenire in primavera, quando si faranno i lavori sul tetto."
+      goals: [negotiate]
+    - learner: "In primavera? Dovrei vivere sei mesi con la muffa in bagno: per la mia salute non me lo posso permettere."
+    - tutor: "La capisco. Posso provare a insistere, ma non le garantisco niente. Intanto le dico le condizioni: contratto tre più due, cedolare secca e tre mesi di preavviso per la disdetta."
+    - learner: "Tre più due va bene, e anche il preavviso. Ma se la muffa non viene sistemata prima, non firmerei: gli lo può dire chiaramente?"
+      errors: [combined-pronouns]
+      gold: {text: "gli lo può dire", fix: "glielo può dire"}
+    - tutor: "«Gli lo può dire»? «Gli» e «lo», quando stanno insieme, diventano una parola sola."
+      prompt: {text: "gli lo può dire", tags: [combined-pronouns]}
+    - learner: "Glielo può dire chiaramente, per favore?"
+    - tutor: "Glielo dico oggi stesso, senza giri di parole, e la richiamo appena ho una risposta."
+      goals: [conditions]
+    - learner: "Allora? Che cosa ha risposto il proprietario?"
+    - tutor: "Accetta 1050 euro, ma per la muffa non vuole anticipare i lavori prima della primavera. Mi dispiace."
+    - learner: "Allora, purtroppo, devo rinunciare. La ringrazio comunque per il tempo e per l'onestà: se avesse altri appartamenti in zona, mi farebbe piacere vederli."
+    - tutor: "Grazie a lei per la chiarezza. La settimana prossima si libera un bilocale in via Cavour: le mando le foto e, se le piace, sabato glielo faccio vedere."
+      goals: [conclude]
+
+- scenario: riunione-lavoro
+  # facts: stand for the March trade fair booked, graphic design approved by the client last week; usual print shop cannot print catalogues before mid-March (machine breakdown); plan: digital catalogue with a QR code on the stand plus 300 copies from a nearby print shop, 800 euro including delivery, within the budget; new prices from the sales office tomorrow; files to the print shop by Wednesday, catalogues in the office by Friday of the following week
+  level: C1
+  persona: en-m-heritage
+  history: [future-form, false-friend]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Direi bene, nel complesso. Lo stand per la fiera di marzo è prenotato, e il progetto grafico è stato approvato dal cliente la settimana scorsa."
+    - tutor: "Quindi la parte più lunga è fatta. C'è qualcosa che ti preoccupa?"
+      goals: [update]
+    - learner: "Sì, la tipografia. Ci hanno detto che, per un guasto alle macchine, non riusciranno a stampare i cataloghi prima di metà marzo, cioè a ridosso della fiera."
+    - tutor: "A ridosso della fiera è troppo tardi: basta un altro intoppo e restiamo senza niente. Tu come la risolveresti?"
+      goals: [problem]
+    - learner: "Avrei due idee: un catalogo digitale, con un codice QR sullo stand, e trecento copie stampate da una tipografia qui vicino. Costa un po' di più, ma il titolare mi sembra molto confidente."
+      errors: [false-friend]
+    - tutor: "Se il titolare è molto affidabile, la seconda strada mi convince, e il codice QR lo mettiamo comunque. Quanto chiede per le trecento copie?"
+      goals: [proposal]
+      recast: {text: "molto confidente", fix: "molto affidabile", tags: [false-friend]}
+    - learner: "Ottocento euro, consegna compresa. Se mi dai l'ok oggi, gli mando i file entro mercoledì."
+    - tutor: "L'ok te lo do, rientriamo nel budget. I file definitivi sono pronti, o c'è ancora da sistemare?"
+    - learner: "Devo aggiungere i nuovi prezzi, che l'ufficio commerciale mi manda domani. Poi ti saperò dire con certezza quando consegnano."
+      errors: [future-form]
+      gold: {text: "saperò", fix: "saprò"}
+    - tutor: "«Ti saperò dire»? Il futuro di «sapere» è irregolare: una vocale cade."
+      prompt: {text: "saperò", tags: [future-form]}
+    - learner: "Poi ti saprò dire con certezza quando consegnano."
+    - tutor: "Allora fissiamo così: file alla tipografia entro mercoledì, cataloghi in ufficio entro venerdì della settimana dopo. Ti va bene?"
+    - learner: "Mi va bene. Se domani i prezzi non arrivano, chiamo io il commerciale e lo sollecito."
+    - tutor: "Lo scrivo nel verbale, così tutti sanno chi fa che cosa."
+      goals: [deadline]

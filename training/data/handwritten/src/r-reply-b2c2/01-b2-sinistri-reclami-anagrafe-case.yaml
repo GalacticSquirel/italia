@@ -1,0 +1,269 @@
+# Round 10, set r-reply-b2c2. File 1 (B2): car claims, restaurant complaints, the registry
+# office and flat viewings. Every tutor reply answers the content and then takes one concrete
+# step towards the next goal; facts stay fixed once stated.
+- scenario: assicurazione-sinistro
+  # facts: yesterday about 18:30, roundabout in via Garibaldi; hit from behind, other driver on the phone and at fault; constatazione signed by both; other plate FG 482 TR (last letter unsure); rear bumper broken, left light out; perito calls within 5 working days
+  level: B2
+  persona: en-f-professional
+  history: [tense-aspect, passive]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Ieri sera sono stata ferma a una rotonda, in via Garibaldi, e una macchina mi è venuta addosso da dietro."
+      errors: [tense-aspect]
+      gold: {text: "sono stata ferma", fix: "ero ferma"}
+    - tutor: "Mi dispiace. «Sono stata ferma»: qui lei descrive la situazione in cui si trovava quando è arrivata l'altra macchina. Quale tempo usiamo per descrivere una situazione?"
+      prompt: {text: "sono stata ferma", tags: [tense-aspect]}
+    - learner: "Ero ferma a una rotonda, e lui mi è venuto addosso."
+    - tutor: "Esatto. A che ora è successo, più o meno, e l'altra persona ha ammesso la sua responsabilità?"
+      goals: [what]
+    - learner: "Erano circa le sei e mezza. Sì, ha detto subito che era colpa sua: stava guardando il telefono."
+    - tutor: "Quindi la responsabilità è chiara, e lo ha ammesso lui stesso. Avete compilato insieme la constatazione amichevole?"
+      goals: [responsibility]
+    - learner: "Sì, la constatazione è stato firmata da tutti e due, ma l'ha scritta lui perché io ero troppo agitata."
+      errors: [passive]
+      gold: {text: "è stato firmata", fix: "è stata firmata"}
+    - tutor: "Capisco l'agitazione. Riguardi però «è stato firmata»: «constatazione» è femminile, e anche il verbo deve esserlo, in tutte e due le parti."
+      prompt: {text: "è stato firmata", tags: [passive]}
+    - learner: "È stata firmata da tutti e due."
+    - tutor: "Proprio così. Mi legge la targa dell'altra macchina, come risulta dal modulo?"
+    - learner: "È FG 482 TR. Però non sono sicura dell'ultima lettera, lui scriveva molto male."
+    - tutor: "Nessun problema, la controlliamo noi con la sua compagnia. Il danno, sulla sua macchina, dove si trova esattamente?"
+    - learner: "Il paraurti posteriore è rotto, e il fanale sinistro non si accende più."
+    - tutor: "È un danno che il perito vedrà subito. Ha qualche domanda, prima che io apra la pratica?"
+      goals: [documents]
+      new: [{lemma: perito, gloss: loss adjuster}]
+    - learner: "Sì: adesso cosa devo fare? Porto la macchina da un carrozziere o aspetto il perito?"
+    - tutor: "Aspetti il perito, per favore: la chiamerà entro cinque giorni lavorativi per fissare la perizia. Dopo, potrà portare la macchina dal carrozziere che preferisce."
+      goals: [next]
+
+- scenario: assicurazione-sinistro
+  # facts: Saturday morning, supermarket car park; learner reversing, hit a parked car's door; owner absent, note left, she called that evening; learner at fault; constatazione signed this morning; other plate DK 205 LM; learner's policy franchigia 300 euro; perito contacts the lady within a week
+  level: B2
+  persona: es-m-worker
+  history: [tense-aspect, word-choice]
+  turns:
+    - tutor: "Buongiorno, ufficio sinistri. Mi racconti cosa è successo."
+    - learner: "Buongiorno. Sabato mattina, nel parcheggio del supermercato, facevo retromarcia e ho toccato una macchina parcheggiata."
+    - tutor: "Capisco. Il proprietario dell'altra macchina era presente quando è successo?"
+      goals: [what]
+    - learner: "No, non c'era nessuno. Ho lasciato un biglietto con il mio numero sul parabrezza, e la signora mi ha chiamato la sera."
+    - tutor: "Ha fatto bene a lasciarle il numero. Da quello che mi racconta, la responsabilità sarebbe sua: è così?"
+    - learner: "Sì, la colpa è mia, non guardavo bene dietro. Il danno non è grande: la porta della signora ha una abolladura."
+      errors: [word-choice]
+    - tutor: "Un'ammaccatura sulla porta, quindi, niente di più. Avete già compilato la constatazione amichevole?"
+      goals: [responsibility]
+      recast: {text: "una abolladura", fix: "un'ammaccatura", tags: [word-choice]}
+      new: [{lemma: ammaccatura, gloss: dent}]
+    - learner: "Sì, l'abbiamo compilata stamattina, in un bar vicino a casa sua. L'abbiamo firmata tutti e due."
+    - tutor: "Allora mi serve una copia del modulo: me la può mandare per email entro oggi? Intanto mi detta la targa della signora?"
+    - learner: "Gliela mando stasera. La targa è DK 205 LM."
+    - tutor: "La registro subito. Le ricordo che la sua polizza ha una franchigia di 300 euro: sa già come funziona?"
+      goals: [documents]
+      new: [{lemma: polizza, gloss: insurance policy}]
+    - learner: "Non molto. L'anno scorso ho avuto un altro incidente e non pagavo niente."
+      errors: [tense-aspect]
+      gold: {text: "non pagavo niente", fix: "non ho pagato niente"}
+    - tutor: "«Non pagavo niente»? Parla di una volta sola, di un fatto concluso l'anno scorso: quale tempo ci vuole?"
+      prompt: {text: "non pagavo niente", tags: [tense-aspect]}
+    - learner: "L'anno scorso non ho pagato niente, ma la colpa era dell'altro."
+    - tutor: "Ecco la differenza: quella volta pagava l'altra compagnia. Questa volta, sui danni della signora, i primi 300 euro sono a suo carico e il resto lo copriamo noi."
+    - learner: "Va bene, ho capito. E adesso devo aspettare una vostra chiamata?"
+    - tutor: "Un nostro perito contatterà la signora entro una settimana per vedere la porta. Lei, per ora, deve solo mandarmi il modulo stasera."
+      goals: [next]
+
+- scenario: recensione-ristorante
+  # facts: learner and wife, anniversary dinner; ordered at 20:15, mains came almost 21:30, no explanation; steak ordered rare, came overcooked; offer: dessert and coffee for both, or 20% off the bill; learner chooses the discount
+  level: B2
+  persona: en-m-retired
+  history: [subjunctive-use, word-choice]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Mi dispiace disturbarla, ma stasera io e mia moglie festeggiamo l'anniversario, e la cena è stata deludente."
+    - tutor: "Mi dispiace davvero, soprattutto in una serata come questa. Mi dice che cosa non è andato?"
+      goals: [complain]
+    - learner: "Prima di tutto l'attesa: abbiamo ordinato alle otto e un quarto, e i secondi sono arrivati quasi alle nove e mezza. Nessuno ci ha dato un'esplicazione."
+      errors: [word-choice]
+    - tutor: "Più di un'ora per i secondi, e senza una spiegazione: ha ragione, è troppo. C'è stato anche un problema con i piatti?"
+      recast: {text: "un'esplicazione", fix: "una spiegazione", tags: [word-choice]}
+    - learner: "Sì. Avevo chiesto la bistecca al sangue, ma era troppo cotta, quasi secca."
+    - tutor: "Dopo tanta attesa, anche la cottura sbagliata. Che cosa si aspettava da noi, stasera?"
+      goals: [detail]
+    - learner: "Speravo che il cameriere ci avvertirebbe del ritardo. Se ce l'avesse detto, avremmo ordinato qualcos'altro."
+      errors: [subjunctive-use]
+      gold: {text: "ci avvertirebbe", fix: "ci avvertisse"}
+    - tutor: "«Speravo che il cameriere ci avvertirebbe»: dopo «speravo che», il condizionale non va. Quale modo serve?"
+      prompt: {text: "ci avvertirebbe", tags: [subjunctive-use]}
+    - learner: "Speravo che il cameriere ci avvertisse del ritardo."
+    - tutor: "Aveva tutto il diritto di saperlo, e me ne scuso. Per rimediare posso offrirle il dolce e il caffè per tutti e due, oppure uno sconto del venti per cento sul conto: che cosa preferisce?"
+      goals: [expectation]
+    - learner: "Il dolce l'abbiamo già mangiato, purtroppo. Preferiamo lo sconto, grazie."
+    - tutor: "D'accordo, faccio togliere il venti per cento dal conto e glielo porto io al tavolo. Auguri ancora a lei e a sua moglie."
+      goals: [resolve]
+
+- scenario: recensione-ristorante
+  # facts: business lunch with colleagues (learner is a teacher, came back with her school colleagues); bill shows 3 bottles of water, they had 2; risotto ai funghi 18 euro, tiny portion; learner ate here last month; offer: coffees for the table or a 20-euro voucher; learner takes the voucher, coffee declined
+  level: B2
+  persona: es-f-teacher
+  history: [ci-ne, preposition]
+  turns:
+    - tutor: "Buonasera, sono il responsabile di sala. Mi hanno detto che c'è stato un problema."
+    - learner: "Buonasera. Sì, guardi, non è niente di grave, però il conto non mi sembra giusto."
+    - tutor: "Vediamolo insieme, allora. Che cosa non le torna?"
+    - learner: "Ci avete messo tre bottiglie d'acqua, ma noi abbiamo preso solo due."
+      errors: [ci-ne]
+      gold: {text: "abbiamo preso solo due", fix: "ne abbiamo prese solo due"}
+    - tutor: "«Abbiamo preso solo due»: due... di che cosa? Quando il numero resta da solo, davanti al verbo serve un pronome che riprenda le bottiglie."
+      prompt: {text: "abbiamo preso solo due", tags: [ci-ne]}
+    - learner: "Ah, sì: ne abbiamo prese solo due."
+    - tutor: "Ha ragione, la terza bottiglia è un errore nostro: la tolgo subito. C'è stato anche qualcos'altro che non andava?"
+      goals: [complain]
+    - learner: "Il risotto. Costava diciotto euro e la porzione era davvero piccola: saranno state tre cucchiaiate."
+    - tutor: "Di solito le nostre porzioni di risotto sono più abbondanti, quindi oggi in cucina qualcosa non ha funzionato. Che cosa si aspettava, per quel prezzo?"
+      goals: [detail]
+    - learner: "Un piatto normale, come quello che ho mangiato qui il mese scorso. Per questo ho insistito di venire qui con i miei colleghi."
+      errors: [preposition]
+      gold: {text: "insistito di venire", fix: "insistito per venire"}
+    - tutor: "«Ho insistito di venire»? Con «insistere», davanti all'infinito, la preposizione non è «di»."
+      prompt: {text: "insistito di venire", tags: [preposition]}
+    - learner: "Ho insistito per venire qui con i miei colleghi."
+    - tutor: "Mi dispiace che sia andata così proprio oggi. Oltre a togliere l'acqua, posso offrire i caffè a tutto il tavolo, oppure un buono di venti euro per la prossima volta: che cosa preferisce?"
+      goals: [expectation]
+    - learner: "Grazie, ma il caffè non lo prendiamo, dobbiamo tornare a scuola. Accetto volentieri il buono."
+    - tutor: "Allora le preparo il conto con due bottiglie d'acqua e il buono da venti euro. La prossima volta il risotto lo controllo io prima che esca dalla cucina."
+      goals: [resolve]
+
+- scenario: burocrazia-residenza
+  # facts: ticket 47; learner moved here in September, asks for residence; passport + permesso (renewed last month, valid until 2028); rental contract brought but no registration number; landlord away until Monday; file opened today, receipt within 10 days by email; vigili within 45 days; if nobody home, a notice with a number
+  level: B2
+  persona: en-f-student
+  history: [subjunctive-use, articulated-preposition]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno, sì, sono il 47. Mi sono trasferita qui a settembre e vorrei chiedere la residenza."
+    - tutor: "È una pratica che facciamo proprio a questo sportello. Ha con sé un documento d'identità e il permesso di soggiorno?"
+      goals: [request]
+    - learner: "Sì, ho il passaporto e il permesso di soggiorno. Il permesso è stato rinnovato il mese scorso, quindi è valido fino a 2028."
+      errors: [articulated-preposition]
+      gold: {text: "fino a 2028", fix: "fino al 2028"}
+    - tutor: "«Fino a 2028»? Davanti a un anno, in italiano, la preposizione si unisce all'articolo."
+      prompt: {text: "fino a 2028", tags: [articulated-preposition]}
+    - learner: "Fino al 2028."
+    - tutor: "Va benissimo. Mi serve anche il contratto d'affitto, oppure una dichiarazione del proprietario: quale dei due ha portato?"
+    - learner: "Ho portato il contratto, eccolo. Però non so se è stato registrato: il proprietario mi ha detto che ci pensava lui."
+    - tutor: "Lo guardo subito. Qui non c'è il numero di registrazione, quindi per ora il contratto risulta non registrato. Può chiedere la ricevuta al proprietario?"
+      goals: [documents]
+    - learner: "Lo chiamo oggi, ma lui è in vacanza fino a lunedì. È possibile che la pratica viene aperta oggi lo stesso?"
+      errors: [subjunctive-use]
+      gold: {text: "viene aperta", fix: "venga aperta"}
+    - tutor: "«È possibile che la pratica viene aperta»: dopo «è possibile che», il verbo cambia modo. Come diventa?"
+      prompt: {text: "viene aperta", tags: [subjunctive-use]}
+    - learner: "È possibile che la pratica venga aperta oggi lo stesso?"
+    - tutor: "Sì, la apro oggi e la tengo in sospeso: lei mi manda la ricevuta entro dieci giorni, anche per email. Le scrivo qui l'indirizzo?"
+      goals: [problem]
+    - learner: "Sì, grazie. E dopo cosa succede? Devo tornare qui un'altra volta?"
+    - tutor: "Non serve tornare: entro quarantacinque giorni passano i vigili a casa sua, per controllare che lei abiti davvero lì. Se è tutto in ordine, la residenza vale da oggi."
+      goals: [next]
+    - learner: "Devo essere a casa quando passano? Lavoro quasi tutti i giorni in biblioteca."
+    - tutor: "Non è obbligatorio: se non la trovano, le lasciano un avviso con un numero da chiamare. Ecco l'indirizzo email per la ricevuta."
+
+- scenario: burocrazia-residenza
+  # facts: ticket 47; moved two weeks ago within the same town; change of address; family of four (wife, two children) on the form; renting, contract in learner's name, signed in August; wife's document missing (photo on phone not accepted); copy made at the stationer's opposite; clerk keeps his place; application valid from today; vigili within 45 days, notice in the letterbox if nobody home
+  level: B2
+  persona: es-m-worker
+  history: [articulated-preposition, word-choice]
+  turns:
+    - tutor: "Buongiorno. Numero 47? Prego, mi dica."
+    - learner: "Buongiorno. Ho cambiato casa due settimane fa, sempre in questa città, e devo cambiare l'indirizzo della residenza."
+    - tutor: "Si tratta quindi di un cambio di indirizzo all'interno del comune. Nella nuova casa vive da solo o con altre persone?"
+      goals: [request]
+    - learner: "Con mia moglie e i miei due figli. Ho scritto tutti e quattro i nomi sul modulo."
+    - tutor: "Vedo i quattro nomi, grazie. Per la nuova casa ha un contratto d'affitto, o è ospite di qualcuno?"
+    - learner: "Siamo in affitto. Il contratto è a nome mio, l'ho firmato ad agosto."
+    - tutor: "Allora mi dia il contratto, per favore, insieme ai documenti di tutti e quattro."
+    - learner: "Ecco il contratto e i passaporti. Il documento di mia moglie non l'ho portato, ma ho una foto nel mio móvil."
+      errors: [word-choice]
+    - tutor: "Una foto sul cellulare, purtroppo, non basta: serve una copia del documento. Può farla nella cartoleria qui di fronte, oppure mandarla per email entro stasera."
+      goals: [documents]
+      recast: {text: "móvil", fix: "cellulare", tags: [word-choice]}
+    - learner: "Preferisco andare in la cartoleria adesso, sono cinque minuti a piedi."
+      errors: [articulated-preposition]
+      gold: {text: "in la cartoleria", fix: "nella cartoleria"}
+    - tutor: "«In la cartoleria»? Qui «in» e «la» non restano separati."
+      prompt: {text: "in la cartoleria", tags: [articulated-preposition]}
+    - learner: "Vado nella cartoleria qui di fronte e torno subito."
+    - tutor: "D'accordo, le tengo il posto: quando torna, venga direttamente a questo sportello, senza prendere un altro numero."
+      goals: [problem]
+    - learner: "Eccomi, ho fatto la copia. Quanto tempo ci vuole per avere il nuovo indirizzo?"
+    - tutor: "La domanda vale da oggi. Nei prossimi quarantacinque giorni passano i vigili per un controllo, e dopo potrà chiedere il certificato con il nuovo indirizzo."
+    - learner: "E se quel giorno non c'è nessuno a casa? Io e mia moglie lavoriamo tutti e due."
+    - tutor: "In quel caso i vigili lasciano un avviso nella cassetta della posta, con un numero da chiamare per fissare un'altra visita."
+      goals: [next]
+
+- scenario: affittare-appartamento
+  # facts: rent 750 euro/month + 60 euro condominium, bills separate; each flat has its own gas heating; washing machine new (bought in March), no dishwasher; contract 4+4, deposit 2 months = 1500 euro, returned at the end if the flat is in order; metro 5 min on foot, supermarket open until 22, market on Tuesday mornings; second visit Saturday at 10 with the learner's girlfriend
+  level: B2
+  persona: en-m-heritage
+  history: [relative-pronoun, word-choice]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno. È più luminoso di quanto pensassi! Quanto costa l'affitto al mese?"
+    - tutor: "Sono 750 euro al mese, più 60 euro di spese di condominio. Le bollette, invece, sono a parte."
+      goals: [rent]
+    - learner: "Nelle spese di condominio c'è anche il riscaldamento, o lo devo pagare a parte?"
+    - tutor: "Ogni appartamento ha il suo riscaldamento a gas, quindi lo paga con la bolletta del gas. Vuole vedere la cucina?"
+    - learner: "Sì, grazie. È questa la lavatrice di che mi ha parlato al telefono?"
+      errors: [relative-pronoun]
+      gold: {text: "di che mi ha parlato", fix: "di cui mi ha parlato"}
+    - tutor: "«La lavatrice di che mi ha parlato»? Dopo una preposizione, «che» non va bene: il pronome prende un'altra forma."
+      prompt: {text: "di che mi ha parlato", tags: [relative-pronoun]}
+    - learner: "È questa la lavatrice di cui mi ha parlato al telefono?"
+    - tutor: "Sì, è nuova, l'ho comprata a marzo. La lavastoviglie, invece, purtroppo non c'è."
+      goals: [condition]
+    - learner: "Non importa, lavo i piatti a mano. Il contratto quanto dura? E la caparra viene ritornata alla fine?"
+      errors: [word-choice]
+    - tutor: "Il contratto è di quattro anni più quattro. La caparra è di due mesi di affitto, cioè 1500 euro, e viene restituita alla fine, se la casa è in ordine. Conosce già il quartiere?"
+      goals: [contract]
+      recast: {text: "viene ritornata", fix: "viene restituita", tags: [word-choice]}
+    - learner: "No, non ci sono mai stato. Ci sono negozi e una fermata della metro qui vicino?"
+    - tutor: "La metro è a cinque minuti a piedi, e qui sotto c'è un supermercato aperto fino alle dieci. Il martedì mattina c'è anche il mercato in piazza."
+      goals: [neighbourhood]
+    - learner: "Mi piace molto. Però vorrei tornare sabato con la mia ragazza, così decidiamo insieme."
+    - tutor: "Le andrebbe bene sabato alle dieci? Fino ad allora non faccio vedere l'appartamento ad altri."
+      goals: [decide]
+    - learner: "Sì, sabato alle dieci va benissimo. Grazie mille, arrivederci."
+    - tutor: "Arrivederci, allora. Ci vediamo sabato alle dieci, qui davanti al portone."
+
+- scenario: affittare-appartamento
+  # facts: furnished flat; sofa old, landlord can replace it; rent 600 euro/month incl. water, condominium and internet, electricity separate; central heating included, 6:00-23:00; 12-month contract for students, deposit 2 months = 1200 euro; bars busy on Friday and Saturday nights, quiet in the week; bedroom faces the street; flat free until the end of the month
+  level: B2
+  persona: en-f-student
+  history: [noun-gender, hypothetical]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! Il soggiorno è carino, ma il divano è un po' vecchio. È tutto arredato così?"
+    - tutor: "Sì, è tutto arredato: letto, armadio e una cucina completa. Il divano, se vuole, lo posso cambiare. Le dico subito le condizioni?"
+    - learner: "Sì, grazie. Quanto è l'affitto, e che cosa comprende?"
+    - tutor: "Sono 600 euro al mese, con acqua, condominio e internet compresi. La luce, invece, la paga a parte."
+      goals: [rent]
+    - learner: "E il riscaldamento? A dicembre la mia ultima casa era freddissima."
+    - tutor: "Qui il riscaldamento è centralizzato ed è compreso nel condominio, quindi non paga niente in più. Funziona dalle sei di mattina alle undici di sera."
+      goals: [condition]
+    - learner: "Perfetto. Io resto solo un anno, per il master. Si può fare un contratto di dodici mesi?"
+    - tutor: "Sì, per gli studenti facciamo un contratto di dodici mesi. La caparra è di due mesi di affitto, cioè 1200 euro."
+      goals: [contract]
+    - learner: "Va bene. E com'è il quartiere la sera? Quest'anno devo scrivere il tesi e ho bisogno di silenzio."
+      errors: [noun-gender]
+      gold: {text: "il tesi", fix: "la tesi"}
+    - tutor: "«Il tesi»? «Tesi» finisce in -i, ma il suo genere non è quello che ha usato."
+      prompt: {text: "il tesi", tags: [noun-gender]}
+    - learner: "Devo scrivere la tesi, quindi studio molto a casa."
+    - tutor: "Allora le dico la verità: il venerdì e il sabato sera, qui sotto, i bar sono pieni fino a tardi. Durante la settimana, invece, è abbastanza tranquillo."
+      goals: [neighbourhood]
+    - learner: "Grazie per l'onestà. Se la camera da letto darebbe sul cortile, lo prenderei, ma dà sulla strada."
+      errors: [hypothetical]
+      gold: {text: "darebbe", fix: "desse"}
+    - tutor: "«Se la camera darebbe sul cortile»? Dopo «se», quando si immagina una cosa non vera, il condizionale non può stare."
+      prompt: {text: "darebbe", tags: [hypothetical]}
+    - learner: "Se la camera desse sul cortile, lo prenderei. Così, invece, per me è troppo rumoroso."
+    - tutor: "La capisco: per chi studia, il silenzio conta. Se cambia idea, l'appartamento resta libero fino alla fine del mese."
+      goals: [decide]
