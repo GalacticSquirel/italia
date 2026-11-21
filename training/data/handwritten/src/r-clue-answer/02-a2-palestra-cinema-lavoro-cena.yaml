@@ -1,0 +1,292 @@
+# Set r-clue-answer, file 2 (A2): the gym, a film night, last weekend, a summer job, a restaurant,
+# a surprise party, cooking together and the doctor. Correct look-alikes («più la zumba che il
+# pilates», «abbiamo camminato», «prima tagli le patate») sit next to the one real error.
+- scenario: palestra
+  # facts: un mese 45 euro, tre mesi 120 euro; iscrizione 10 euro; corsi nel prezzo: yoga e ballo; ballo martedì e giovedì alle sette di sera; apre alle sette, chiude alle dieci di sera, domenica chiuso; serve una foto per la tessera
+  level: A2
+  persona: en-f-student
+  history: [comparative]
+  turns:
+    - tutor: "Ciao! Vuoi informazioni sull'abbonamento?"
+    - learner: "Sì, grazie. Quanto costano un mese?"
+      errors: [subject-verb-agreement]
+    - tutor: "«Quanto costano un mese»? Parli di un mese solo: guarda il verbo."
+      prompt: {text: "Quanto costano un mese", tags: [subject-verb-agreement]}
+    - learner: "Quanto costa un mese?"
+    - tutor: "Un mese costa quarantacinque euro. Tre mesi costano centoventi euro."
+      goals: [ask-membership]
+    - learner: "Allora tre mesi è più conveniente. Ci sono anche corsi?"
+    - tutor: "Sì, e sono già nel prezzo. C'è lo yoga e c'è il ballo: quale ti interessa?"
+      goals: [classes]
+    # decoy: «mi piace più il ballo che lo yoga» is correct; only «più lento che il ballo» is wrong
+    - learner: "Mi piace più il ballo che lo yoga: per me lo yoga è più lento che il ballo."
+      errors: [comparative]
+    - tutor: "«Più lento che il ballo»? Con un aggettivo come «lento», prima di «il ballo» non usiamo «che»."
+      prompt: {text: "più lento che il ballo", tags: [comparative]}
+    - learner: "Lo yoga è più lento del ballo. Quando c'è il ballo?"
+    - tutor: "Esatto. Il ballo c'è il martedì e il giovedì, alle sette di sera."
+    - learner: "Bene. E la palestra a che ora apre? Vorrei venire anche la mattina, prima dell'università."
+    - tutor: "Apriamo alle sette e chiudiamo alle dieci di sera. La domenica siamo chiusi."
+      goals: [timetable]
+    - learner: "Perfetto. Mi iscrivo per tre mesi. Devo pagare tutto oggi?"
+    - tutor: "Sì, oggi: centoventi euro, più dieci euro di iscrizione. Hai una foto per la tessera?"
+      new: [{lemma: tessera, gloss: membership card}]
+    - learner: "Sì, ne ho una nella borsa. Ecco qui."
+    - tutor: "Grazie, ecco fatto. Benvenuta in palestra!"
+      goals: [sign-up]
+
+- scenario: serata-cinema
+  # facts: Laura è libera stasera; al cinema Odeon danno una commedia nuova e un film d'azione; la commedia alle otto e alle dieci e un quarto; biglietto 9 euro; i biglietti li compra il learner sul telefono; appuntamento davanti al cinema alle otto meno un quarto
+  level: A2
+  persona: es-m-worker
+  history: [preposition]
+  turns:
+    - tutor: "Stasera sono libera. Facciamo qualcosa?"
+    - learner: "Sì! Andiamo al cinema? È da tanto che non ci vado."
+    - tutor: "Buona idea! All'Odeon danno una commedia nuova e un film d'azione. Che film ti piacciono?"
+      goals: [propose]
+    # decoy: «A me piacciono» is correct; only «le commedie mi piace» is wrong
+    - learner: "A me piacciono molto i film d'azione, ma anche le commedie mi piace."
+      errors: [piacere]
+    - tutor: "«Le commedie mi piace»? «Commedie» è plurale: il verbo deve andare d'accordo."
+      prompt: {text: "le commedie mi piace", tags: [piacere]}
+    - learner: "Anche le commedie mi piacciono, sì."
+    - tutor: "Benissimo, a me pure. Allora scegli tu: la commedia o il film d'azione?"
+      goals: [genre]
+    - learner: "La commedia, perché stasera voglio ridere. A che ora comincia?"
+    - tutor: "La commedia c'è alle otto e alle dieci e un quarto. Quale preferisci?"
+    - learner: "Alle otto, perché domani mi alzo presto. Quanto costa il biglietto?"
+    - tutor: "Costa nove euro. Vuoi comprare tu i biglietti sul telefono, o li prendiamo lì?"
+      goals: [choose]
+    # decoy: «Li compro io» is correct; only «davanti del cinema» is wrong
+    - learner: "Li compro io adesso. Dove ci vediamo? Davanti del cinema?"
+      errors: [preposition]
+    - tutor: "Sì, va bene. Ma «davanti del cinema»? Con «davanti», la preposizione giusta è un'altra."
+      prompt: {text: "Davanti del cinema", tags: [preposition]}
+    - learner: "Davanti di cinema, alle otto meno un quarto?"
+      errors: [preposition]
+    - tutor: "Davanti al cinema alle otto meno un quarto, perfetto. A stasera!"
+      goals: [meet]
+      recast: {text: "Davanti di cinema", fix: "Davanti al cinema", tags: [preposition]}
+    - learner: "Va bene. Ti mando un messaggio quando ho i biglietti."
+    - tutor: "Perfetto, aspetto il tuo messaggio. Ciao, a stasera!"
+
+- scenario: weekend-scorso
+  # facts: il learner sabato è andato a Bologna con il cugino; hanno camminato in centro e mangiato i tortellini; il pomeriggio pioveva, sono andati in un museo; il cugino ha rotto il telefono in treno; Chiara è stata a Bologna una volta, tanti anni fa; Chiara è rimasta a casa e ha pulito tutta la casa
+  level: A2
+  persona: en-m-heritage
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Ciao! Com'è andato il fine settimana?"
+    - learner: "Benissimo, grazie! Sabato sono andato a Bologna con mio cugino."
+    - tutor: "A Bologna, che bello! Che cosa avete fatto?"
+      goals: [where, with-who]
+    # decoy: «abbiamo camminato» is correct with avere; only «hai mai stato» is wrong
+    - learner: "Abbiamo camminato molto in centro e abbiamo mangiato i tortellini. Tu hai mai stato a Bologna?"
+      errors: [auxiliary-choice]
+    - tutor: "Sì, una volta, tanti anni fa. Ma «hai mai stato»? Con «stare» il passato non si fa con «avere»."
+      goals: [what]
+      prompt: {text: "hai mai stato", tags: [auxiliary-choice]}
+    - learner: "Sei mai stata a Bologna, scusa. Allora conosci i tortellini!"
+    - tutor: "Certo, sono buonissimi. Avete visto anche qualche museo?"
+    - learner: "Sì, il pomeriggio pioveva, così siamo andati in un museo. Ma mio cugino ha rompito il telefono in treno."
+      errors: [past-participle-form]
+    - tutor: "Oh no! Però «ha rompito»? «Rompere» al passato non è regolare."
+      prompt: {text: "ha rompito", tags: [past-participle-form]}
+    - learner: "Ha romputo il telefono, poverino. È caduto per terra."
+      errors: [past-participle-form]
+    - tutor: "Ha rotto il telefono? Che peccato! A parte il telefono, ti è piaciuto il weekend?"
+      recast: {text: "Ha romputo", fix: "Ha rotto", tags: [past-participle-form]}
+    - learner: "Sì, è stato un weekend bellissimo. E tu, cosa hai fatto?"
+    - tutor: "Io sono rimasta a casa e ho pulito tutta la casa. Non molto divertente!"
+      goals: [opinion]
+    - learner: "Tutta la casa? Brava! Io la mia la pulisco domenica prossima, forse. La prossima volta vieni a Bologna con noi?"
+    - tutor: "Sì, certo! La prossima volta a Bologna vengo anch'io."
+
+- scenario: cercare-lavoro-a2
+  # facts: cercano un cameriere da giugno a settembre; dalle sei alle undici di sera, cinque sere a settimana; sabato sì, domenica il bar è chiuso; 1100 euro al mese; si comincia il primo giugno; la learner ha lavorato due estati in Spagna come cameriera; prova venerdì alle cinque; portare il curriculum
+  level: A2
+  persona: es-f-erasmus
+  history: [modal-infinitive]
+  turns:
+    - tutor: "Buongiorno! Ha visto il cartello?"
+    - learner: "Sì, buongiorno. Cercate un cameriere per l'estate? Che orario è?"
+    - tutor: "Sì, da giugno a settembre. Si lavora dalle sei alle undici di sera, cinque sere a settimana."
+      goals: [ask]
+    - learner: "Quanto è lo stipendio?"
+    - tutor: "Sono mille e cento euro al mese. Ha già lavorato in un bar?"
+    # decoy: «due estati» without «per» is correct; only «camarera» is wrong
+    - learner: "In Spagna ho lavorato due estati come camarera in un ristorante."
+      errors: [word-choice]
+    - tutor: "Come cameriera in un ristorante, bene: allora conosce già il lavoro."
+      goals: [experience]
+      recast: {text: "camarera", fix: "cameriera", tags: [word-choice]}
+    - learner: "Sì, mi piace molto. Quando dovrei cominciare? Posso di lavorare da subito."
+      errors: [modal-infinitive]
+    - tutor: "Si comincia il primo giugno. Ma «posso di lavorare»? Dopo «posso», l'altro verbo viene subito, senza niente in mezzo."
+      prompt: {text: "Posso di lavorare", tags: [modal-infinitive]}
+    - learner: "Posso lavorare da subito, e anche da giugno, certo."
+    - tutor: "Esatto. E il sabato sera può lavorare?"
+    - learner: "Sì, il sabato va bene. La domenica vorrei descansare, se è possibile."
+      errors: [word-choice]
+    - tutor: "La domenica può riposare: siamo chiusi. Mi lascia un numero di telefono?"
+      recast: {text: "descansare", fix: "riposare", tags: [word-choice]}
+      new: [{lemma: riposare, gloss: to rest}]
+      goals: [availability]
+    - learner: "Certo: tre quattro sette, uno due tre, quattro cinque sei sette. Mi chiamo Lucía Ortega."
+    - tutor: "Grazie, Lucía. Può venire venerdì alle cinque, per una prova?"
+      goals: [contact]
+    - learner: "Sì, venerdì alle cinque. Devo portare qualcosa?"
+    - tutor: "Solo il curriculum, se ce l'ha. A venerdì!"
+      new: [{lemma: curriculum, gloss: CV}]
+
+- scenario: ristorante-ordinare
+  # facts: due persone, tavolo vicino alla finestra libero; consiglio del giorno: pasta fatta in casa 12 euro; secondo: pesce del giorno, orata 15 euro; vino rosso della casa mezzo litro 7 euro; acqua frizzante 2 euro; coperto 2 euro a persona; totale 40 euro; si può pagare con la carta
+  level: A2
+  persona: en-m-retired
+  history: [article-use]
+  turns:
+    - tutor: "Buongiorno, benvenuti! Quanti siete?"
+    - learner: "Buongiorno. Siamo in due. Possiamo sedere vicino alla finestra?"
+      errors: [reflexive]
+    - tutor: "Sì, quel tavolo è libero. Ma «possiamo sedere»? Con «sedere», qui serve un pronome per voi due."
+      goals: [ask-table]
+      prompt: {text: "Possiamo sedere", tags: [reflexive]}
+    - learner: "Possiamo sederci lì, grazie. Che cosa ci consiglia oggi?"
+    - tutor: "Oggi consiglio la pasta fatta in casa, a dodici euro. Di secondo abbiamo il pesce del giorno."
+    # decoy: «Per me la pasta» without a verb is correct; only «preferisce pesce» is wrong
+    - learner: "Per me la pasta. Mia moglie preferisce pesce: com'è il pesce del giorno?"
+      errors: [article-use]
+    - tutor: "Oggi è un'orata, a quindici euro. Ma «preferisce pesce»? Quando parla di una cosa in generale, con «preferire» il nome vuole l'articolo."
+      prompt: {text: "preferisce pesce", tags: [article-use]}
+      new: [{lemma: orata, gloss: sea bream}]
+    - learner: "Mia moglie preferisce il pesce. Allora per lei il pesce del giorno."
+    - tutor: "Perfetto: una pasta e il pesce del giorno. E da bere?"
+      goals: [order-food]
+    - learner: "Mezzo litro di vino rosso della casa e una acqua frizzante, per favore."
+      errors: [article-form]
+    - tutor: "Il vino della casa è buono. Ma «una acqua»? Davanti alla «a» di «acqua», «una» non resta così."
+      prompt: {text: "una acqua", tags: [article-form]}
+    - learner: "Una acqua frizzante, sì."
+      errors: [article-form]
+    - tutor: "Un'acqua frizzante e il vino rosso, arrivano subito."
+      goals: [order-drink]
+      recast: {text: "Una acqua frizzante", fix: "Un'acqua frizzante", tags: [article-form]}
+    - learner: "Era tutto buonissimo. Il conto, per favore. Possiamo pagare con la carta?"
+    - tutor: "Certo, con la carta va bene. Sono quaranta euro in tutto."
+      goals: [ask-bill]
+
+- scenario: compleanno
+  # facts: festa a sorpresa per Sara sabato sera a casa di Giorgio; Sara è libera sabato (lo sa la sorella); invitati: colleghi e amici dell'università, circa quindici; Giorgio fa la pizza; la learner porta le bibite e compra la torta al cioccolato; regalo: un corso di cucina, pagato da tutti insieme
+  level: A2
+  persona: en-f-professional
+  history: [object-pronoun]
+  turns:
+    - tutor: "Allora, cosa facciamo per il compleanno di Sara?"
+    - learner: "Facciamo una festa a sorpresa? Sabato è libera, l'ho chiesto a sua sorella."
+    - tutor: "Ottima idea! Possiamo farla a casa mia, che è grande. Ti va bene sabato sera?"
+    - learner: "Sì, perfetto, sabato sera da te. Chi invitiamo? Io penso ai colleghi di Sara."
+    - tutor: "Sì, i colleghi e gli amici dell'università: siamo circa quindici. I colleghi li conosci tu?"
+      goals: [date]
+    - learner: "Sì, li conosco. Gli mando un messaggio io stasera."
+    - tutor: "Perfetto. E da mangiare? Io posso fare la pizza."
+      goals: [guests]
+    # decoy: «la torta, la...» repeating the object is correct; only «comprarò» is wrong
+    - learner: "Io porto le bibite. E la torta, la comprarò io in pasticceria."
+      errors: [future-form]
+    - tutor: "«Comprarò»? Al futuro, «comprare» non tiene la «a»."
+      prompt: {text: "comprarò", tags: [future-form]}
+    - learner: "La comprerò io, al cioccolato."
+    - tutor: "Brava, Sara adora il cioccolato. E il regalo? Hai qualche idea?"
+      goals: [food]
+    # decoy: «regalarle» is correct; only «Gli piace» for Sara is wrong
+    - learner: "Possiamo regalarle un corso di cucina. Gli piace molto cucinare."
+      errors: [object-pronoun]
+    - tutor: "«Gli piace»? Parliamo di Sara, una donna: il pronome è un altro."
+      prompt: {text: "Gli piace", tags: [object-pronoun]}
+    - learner: "Gli piace tanto cucinare, sì."
+      errors: [object-pronoun]
+    - tutor: "Sì, le piace tantissimo, è vero. Il corso lo paghiamo tutti insieme?"
+      recast: {text: "Gli piace", fix: "le piace", tags: [object-pronoun]}
+    - learner: "Sì, tutti insieme. Lo dico io agli altri. A sabato!"
+    - tutor: "A sabato! E non dire niente a Sara!"
+      goals: [gift]
+
+- scenario: cucina-ricetta
+  # facts: la learner spiega la tortilla spagnola: sei uova, quattro patate, una cipolla, olio, sale; patate a fette sottili; fuoco basso per circa venti minuti; poi patate nelle uova; cinque minuti in padella, poi si gira con un piatto; buona calda o fredda, con il pane; la padella grande di Francesca è lì sotto
+  level: A2
+  persona: es-f-teacher
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Che profumo! Cosa cuciniamo stasera?"
+    - learner: "Stasera facciamo la tortilla spagnola, con patate, uova e cipolla. Hai una padella grande?"
+    - tutor: "Sì, è qui sotto. Quante uova ci vogliono?"
+    - learner: "Sei uova e quattro patate, poi olio e sale. Prima tagli le patate a fette sottili."
+    - tutor: "Va bene, le taglio io. E poi?"
+      goals: [ingredients]
+    - learner: "Anche la cipolla, tagliala piccola. Poi metti l'olio nella padella e cuoci le patate a fuoco basso."
+    - tutor: "Ecco, le patate sono nella padella. Per quanto tempo le lasciamo?"
+      goals: [steps]
+    # decoy: «più o meno» is correct; only «morbidi» is wrong
+    - learner: "Più o meno venti minuti. Devono diventare morbidi, non dure."
+      errors: [adjective-agreement]
+    - tutor: "«Morbidi»? Parli delle patate: guarda se la parola è maschile o femminile."
+      new: [{lemma: patata, gloss: potato}]
+      prompt: {text: "morbidi", tags: [adjective-agreement]}
+    - learner: "Morbidi, sì. Venti minuti."
+      errors: [adjective-agreement]
+    - tutor: "Morbide, va bene: venti minuti. Adesso preparo le uova?"
+      recast: {text: "Morbidi", fix: "Morbide", tags: [adjective-agreement]}
+      new: [{lemma: morbido, gloss: soft}]
+      goals: [time]
+    - learner: "Sì, con un po' di sale. Poi mettiamo le patate nelle uova e giriamo con la cuchara."
+      errors: [word-choice]
+    - tutor: "Con il cucchiaio, ecco fatto. E adesso, come la cuociamo?"
+      recast: {text: "la cuchara", fix: "il cucchiaio", tags: [word-choice]}
+      new: [{lemma: cucchiaio, gloss: spoon}]
+    # decoy: «La cuociamo» is correct; only «la gira», spoken to a friend, is wrong
+    - learner: "La cuociamo cinque minuti, poi la gira con un piatto."
+      errors: [subject-verb-agreement]
+    - tutor: "«La gira»? Stai parlando con me: guarda la persona del verbo."
+      prompt: {text: "la gira", tags: [subject-verb-agreement]}
+    - learner: "Poi la giri con un piatto, così."
+    - tutor: "Perfetto! E come la serviamo?"
+    - learner: "Calda o fredda, è buona sempre. In Spagna la mangiamo con il pane."
+    - tutor: "Allora prendo il pane. Non vedo l'ora di mangiarla!"
+      goals: [serve]
+
+- scenario: medico-base
+  # facts: mal di pancia da ieri sera, non ha dormito; niente febbre; ieri sera pesce crudo al ristorante con la moglie, che sta bene; non prende medicine, non allergico; compresse una prima di colazione e una prima di cena per tre giorni; mangiare poco, riso in bianco e molta acqua; niente caffè per tre giorni; se non sta meglio fra tre giorni torna
+  level: A2
+  persona: en-m-traveller
+  history: [possessive]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Che cosa si sente?"
+    - learner: "Buongiorno, dottore. Ho mal di pancia da ieri sera e non ho dormito."
+    - tutor: "Mi dispiace. Ha anche la febbre?"
+      goals: [symptoms, since-when]
+    # decoy: the short answer «la febbre no» is correct; only «la mia moglie» is wrong
+    - learner: "No, la febbre no. Ieri sera la mia moglie e io abbiamo mangiato pesce crudo al ristorante."
+      errors: [possessive]
+    - tutor: "«La mia moglie»? Con un nome di famiglia al singolare, come «moglie», l'articolo non si usa."
+      prompt: {text: "la mia moglie", tags: [possessive]}
+    - learner: "Mia moglie e io abbiamo mangiato pesce crudo."
+    - tutor: "Esatto. E sua moglie come sta?"
+    - learner: "Lei sta bene. È grave? Che cosa devo fare?"
+    - tutor: "No, non sembra grave. Prima però mi dica: prende altre medicine, o è allergico a qualcosa?"
+    - learner: "No, non prendo niente e non sono allergico."
+    - tutor: "Bene. Le do queste compresse: ne prenda una due volte al giorno, prima di mangiare."
+      goals: [history]
+      new: [{lemma: compressa, gloss: tablet}]
+    - learner: "Una prima di colazione e una prima di cena? Per quanti giorni?"
+    - tutor: "Sì, esatto, per tre giorni. E mangi poco: riso in bianco e molta acqua."
+    # decoy: «Posso bere il caffè?» is correct; only «per giorno» is wrong
+    - learner: "Posso bere il caffè? Io bevo tre caffè per giorno."
+      errors: [preposition]
+    - tutor: "Per ora è meglio di no. Ma «tre caffè per giorno»? Per dire quante volte, con «giorno» si usa un'altra preposizione."
+      prompt: {text: "per giorno", tags: [preposition]}
+    - learner: "Tre caffè al giorno, sì. Allora niente caffè per tre giorni."
+    - tutor: "Esatto. Se fra tre giorni non sta meglio, torni da me."
+    - learner: "Va bene: una compressa prima di colazione e una prima di cena, e riso in bianco. Grazie, dottore."
+    - tutor: "Proprio così. Arrivederci, e buona giornata!"
+      goals: [instructions]

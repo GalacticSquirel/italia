@@ -1,0 +1,281 @@
+# Set r-clue-answer, file 3 (B1): opening a bank account, the mechanic, booking a dermatologist,
+# a night complaint at a hotel, returning headphones, a noisy neighbour, viewing a flat and a
+# train ticket. Questions about prices, times and documents are answered before any correction.
+- scenario: banca-conto
+  # facts: conto per lo stipendio; servono documento d'identità e codice fiscale; il learner porta il codice fiscale domani; il conto costa 4 euro al mese, carta di debito compresa; prelievi gratis ai nostri bancomat, 2 euro da un'altra banca; carta per posta in una settimana; app con bonifici; due carte sullo stesso conto, per la seconda la moglie deve venire a firmare
+  level: B1
+  persona: es-m-worker
+  history: [ci-ne]
+  turns:
+    - tutor: "Buongiorno, come posso esserle utile?"
+    - learner: "Buongiorno. Vorrei aprire un conto corrente. Ho cominciato a lavorare qui a Torino il mese scorso."
+    - tutor: "Benvenuto a Torino, allora. È un conto per ricevere lo stipendio?"
+      goals: [purpose]
+      new: [{lemma: stipendio, gloss: salary}]
+    - learner: "Sì, per lo stipendio. Quali documenti devo apportare?"
+      errors: [false-friend]
+    - tutor: "Deve portare un documento d'identità e il codice fiscale. Li ha con sé?"
+      recast: {text: "apportare", fix: "portare", tags: [false-friend]}
+      goals: [documents]
+    - learner: "Ho la carta d'identità, ma il codice fiscale l'ho lasciato a casa. Posso portarlo domani?"
+    - tutor: "Sì, può portarlo domani, e oggi cominciamo con il resto. Ha già un numero di telefono italiano?"
+    - learner: "Sì, ce l'ho. E quanto costa il conto al mese? In Spagna il mio conto era gratis."
+    - tutor: "Il conto costa quattro euro al mese, e la carta di debito è compresa."
+      goals: [costs]
+    # decoy: «bancomat» is correct everyday Italian; only «de» is wrong
+    - learner: "E se prendo i soldi a un bancomat de un'altra banca, devo pagare qualcosa?"
+      errors: [preposition]
+    - tutor: "Sì, due euro ogni volta; ai nostri bancomat invece è gratis. Ma «de un'altra banca»? Quel «de» non è italiano."
+      prompt: {text: "de un'altra banca", tags: [preposition]}
+    - learner: "Di un'altra banca, scusi. La carta quando arriva? E posso usare il conto dal telefono?"
+    - tutor: "Esatto. La carta arriva per posta in una settimana, e con la nostra app può fare anche i bonifici."
+      goals: [card]
+    - learner: "Perfetto. Quante carte posso avere? Vorrei due, una per me e una per mia moglie."
+      errors: [ci-ne]
+    - tutor: "Sullo stesso conto si possono avere due carte. Ma «vorrei due»? Due di che cosa? Con un numero, «carte» va ripresa con un pronome."
+      prompt: {text: "Vorrei due", tags: [ci-ne]}
+    - learner: "Ne vorrei due, una per me e una per mia moglie."
+    - tutor: "Esatto. Per la seconda, però, sua moglie deve venire qui a firmare. Per il conto, firmiamo oggi i documenti?"
+    - learner: "Sì, firmiamo oggi. Domani porto il codice fiscale."
+    - tutor: "Perfetto. Firmi qui e qui, e a domani!"
+
+- scenario: dal-meccanico
+  # facts: fischio quando frena; sentito per la prima volta lunedì tornando dal lavoro; pastiglie dei freni davanti da cambiare; per qualche giorno non è pericoloso; 200 euro tra pezzi e lavoro; preventivo per email oggi; macchina pronta domani alle cinque; l'officina chiude alle sette; fermata dell'autobus qui davanti
+  level: B1
+  persona: en-f-professional
+  history: [tense-aspect]
+  turns:
+    - tutor: "Buongiorno! Che problema ha la macchina?"
+    - learner: "Buongiorno. Quando freno, la macchina fa un rumore strano, come un fischio."
+    - tutor: "Un fischio quando frena... Da quando lo sente?"
+      goals: [describe]
+    # decoy: «quando tornavo dal lavoro» is a correct imperfetto; only «lo sentivo per la prima volta» is wrong
+    - learner: "Lo sentivo per la prima volta lunedì, quando tornavo dal lavoro."
+      errors: [tense-aspect]
+    - tutor: "«Lo sentivo per la prima volta»? «La prima volta» è un momento preciso e finito: pensi al tempo del verbo."
+      prompt: {text: "Lo sentivo per la prima volta", tags: [tense-aspect]}
+    - learner: "L'ho sentito per la prima volta lunedì, sì. Da allora lo sento sempre."
+    - tutor: "Allora da lunedì. Probabilmente sono i freni davanti: li guardo subito."
+      goals: [when]
+    - learner: "Grazie. È pericoloso guidare così?"
+    - tutor: "Per qualche giorno no, ma è meglio non aspettare. Ecco, le pastiglie dei freni sono da cambiare."
+      new: [{lemma: pastiglia, gloss: brake pad}]
+    - learner: "Capisco. Quanto mi costerà la riparazione?"
+    - tutor: "Tra pezzi e lavoro sono duecento euro. Vuole prima un preventivo?"
+      goals: [cost]
+    - learner: "Sì, grazie. Me lo può mandare per email? E quando sarà pronta la macchina?"
+    - tutor: "Certo, glielo mando oggi. La macchina sarà pronta domani alle cinque."
+      goals: [time]
+    # decoy: «passerò a prenderla» is a correct future with a clitic; only «anderò» is wrong
+    - learner: "Va bene, passerò a prenderla alle cinque. Ma domani mattina come anderò al lavoro?"
+      errors: [future-form]
+    - tutor: "Qui davanti c'è la fermata dell'autobus, se le serve. Ma «anderò»? Il futuro di «andare» è più corto: perde una lettera."
+      prompt: {text: "anderò", tags: [future-form]}
+    - learner: "Andrò in autobus, allora. A che ora chiudete domani?"
+    - tutor: "Esatto. Domani chiudiamo alle sette. Allora, procedo con la riparazione?"
+    - learner: "Sì, proceda pure. Grazie mille!"
+    - tutor: "Grazie a lei. A domani alle cinque!"
+
+- scenario: prenotare-visita
+  # facts: prima visita dermatologica per una macchia sulla schiena cambiata; posti: martedì 14 alle 9.30 o giovedì alle 15; sceglie martedì 14 alle 9.30; senza impegnativa 110 euro, con impegnativa 40 euro; nome Peter Hughes, numero 338 456 789; portare tessera sanitaria e documento; arrivare dieci minuti prima
+  level: B1
+  persona: en-m-retired
+  history: [conditional-form]
+  turns:
+    - tutor: "Pronto, Centro Medico San Luca, buongiorno."
+    - learner: "Buongiorno. Vorrei prenotare una visita da un dermatologo, se è possibile."
+    - tutor: "Certo, dal dermatologo. È la prima visita?"
+      goals: [type]
+    - learner: "Sì, è la prima. Ho una macchia sulla schiena che è cambiato. Quando c'è posto?"
+      errors: [participle-agreement]
+    - tutor: "Il primo posto è martedì quattordici alle nove e mezza, oppure giovedì alle tre. Ma «una macchia che è cambiato»? Con «essere», la fine del verbo va d'accordo con «macchia»."
+      prompt: {text: "che è cambiato", tags: [participle-agreement]}
+    - learner: "Che è cambiata, sì. Martedì alle nove e mezza va bene."
+    - tutor: "Perfetto, martedì quattordici alle nove e mezza."
+      goals: [availability]
+    - learner: "Quanto costa la visita? Ho bisogno dell'impegnativa del mio medico?"
+    - tutor: "Senza impegnativa costa centodieci euro. Con l'impegnativa paga solo quaranta euro."
+      goals: [cost]
+    # decoy: «me la dà» is a correct combined pronoun; only «potrebbi» is wrong
+    - learner: "Allora la chiedo al mio medico. Se non me la dà in tempo, potrebbi pagare la visita intera?"
+      errors: [conditional-form]
+    - tutor: "Sì, in quel caso paga centodieci euro. Ma «potrebbi»? Con «io», il condizionale di «potere» finisce in un altro modo."
+      prompt: {text: "potrebbi", tags: [conditional-form]}
+    - learner: "Potrei pagare tutto, va bene."
+    - tutor: "Esatto. Mi dà il suo nome e un numero di telefono?"
+    - learner: "Mi chiamo Peter Hughes, H-U-G-H-E-S. Il numero è tre tre otto, quattro cinque sei, sette otto nove."
+    - tutor: "Grazie, signor Hughes. Porti anche la tessera sanitaria e un documento."
+      new: [{lemma: tessera, gloss: card}, {lemma: sanitario, gloss: health}]
+    - learner: "D'accordo: martedì quattordici alle nove e mezza, con la tessera e il documento. Devo arrivare prima?"
+    - tutor: "Sì, dieci minuti prima, per i documenti. A martedì, signor Hughes!"
+      goals: [confirm]
+
+- scenario: reclamo-hotel
+  # facts: camera 305; l'aria condizionata non funziona da ieri sera; ieri la cliente l'ha detto alla collega, nessuno è venuto; il tecnico arriva domattina alle otto; camera 212 al secondo piano, sul cortile, tranquilla, aria condizionata provata; per il disturbo colazione offerta domani; qualcuno porta le valigie
+  level: B1
+  persona: es-f-teacher
+  history: [auxiliary-choice]
+  turns:
+    - tutor: "Buonasera. Mi dica, c'è qualche problema?"
+    - learner: "Buonasera. Sono nella camera trecentocinque e l'aria condizionata non funziona. Fa un caldo terribile."
+    - tutor: "Mi dispiace molto. Da quando non funziona?"
+      goals: [problem]
+    # decoy: «l'ho detto» is correct with avere; only «nessuno ha venuto» is wrong
+    - learner: "Da ieri sera. L'ho detto alla sua collega, ma nessuno ha venuto."
+      errors: [auxiliary-choice]
+    - tutor: "«Nessuno ha venuto»? Con «venire» il passato non si fa con «avere»."
+      prompt: {text: "nessuno ha venuto", tags: [auxiliary-choice]}
+    - learner: "Nessuno ha venuto, no."
+      errors: [auxiliary-choice]
+    - tutor: "Nessuno è venuto, ha ragione, e mi scusi. Il tecnico purtroppo arriva solo domani mattina alle otto."
+      recast: {text: "Nessuno ha venuto", fix: "Nessuno è venuto", tags: [auxiliary-choice]}
+      goals: [since]
+      new: [{lemma: tecnico, gloss: technician}]
+    - learner: "Alle otto? E stanotte cosa faccio? Non posso dormire con questo caldo."
+    - tutor: "Posso darle un'altra camera per stanotte: la duecentododici, al secondo piano. È sul cortile, molto tranquilla."
+    - learner: "E l'aria condizionata lì funziona? Non voglio cambiare per niente."
+    - tutor: "Sì, funziona: l'ho provata io un'ora fa."
+    - learner: "Va bene, allora cambio camera. Ma per la molestia, potete fare qualcosa?"
+      errors: [false-friend]
+    - tutor: "Per il disturbo, certo: domani la colazione gliela offriamo noi."
+      goals: [request, agree]
+      recast: {text: "la molestia", fix: "il disturbo", tags: [false-friend]}
+    - learner: "Grazie, è gentile. Devo portare le valigie da sola?"
+    - tutor: "No, le mando subito qualcuno per le valigie. Ecco la chiave della duecentododici."
+    - learner: "Perfetto. Buonanotte, e grazie ancora."
+    - tutor: "Buonanotte a lei, e mi scusi ancora per il disturbo."
+
+- scenario: restituire-prodotto
+  # facts: cuffie comprate qui dieci giorni fa, 89 euro; la parte sinistra non funziona più; scontrino presente; entro questo tempo rimborso o cambio; lo stesso modello è in negozio; il learner sceglie il cambio; garanzia di due anni da oggi; le nuove cuffie provate in negozio funzionano
+  level: B1
+  persona: en-m-heritage
+  history: [demonstrative]
+  turns:
+    - tutor: "Buongiorno, mi dica pure."
+    - learner: "Buongiorno. Ho comprato queste cuffie qui dieci giorni fa, ma la parte sinistra non funziona più."
+    - tutor: "Mi dispiace. Ha ancora lo scontrino?"
+      goals: [problem]
+    - learner: "Sì, eccolo. Le ho pagate ottantanove euro."
+    - tutor: "Grazie. Sono passati solo dieci giorni, quindi può scegliere: il rimborso o un paio nuovo."
+      goals: [proof]
+    # decoy: «un paio nuovo» is correct (paio is masculine); only «questi» for the headphones is wrong
+    - learner: "Se prendo un paio nuovo, è lo stesso modello? Perché questi mi piacciono tanto."
+      errors: [demonstrative]
+    - tutor: "Sì, lo stesso modello: ce l'abbiamo in negozio. Ma «questi»? Parla delle cuffie, che sono femminili."
+      prompt: {text: "questi", tags: [demonstrative]}
+    - learner: "Queste mi piacciono tanto, allora prendo un paio nuovo."
+    - tutor: "Esatto. Gliele cambio subito: vuole provarle qui, prima di andare?"
+      goals: [request]
+    - learner: "Sì, grazie. E la garanzia vale anche per le cuffie nuove?"
+    - tutor: "Sì, la garanzia è di due anni e parte da oggi. Ecco, provi pure."
+    - learner: "Adesso si sente bene da tutte e due le parti: va benissimo così. Mi dà anche uno scontrino nuovo?"
+    - tutor: "Certo: glielo metto nella scatola, insieme alle cuffie."
+      goals: [agree]
+    - learner: "Grazie mille, lei è stato molto amabile."
+      errors: [false-friend]
+    - tutor: "Grazie a lei, è gentile! Buona giornata, e buon ascolto."
+      recast: {text: "amabile", fix: "gentile", tags: [false-friend]}
+    - learner: "Buona giornata anche a lei. Arrivederci!"
+    - tutor: "Arrivederci, e torni quando vuole!"
+
+- scenario: vicino-rumoroso
+  # facts: Emily abita al piano di sotto, appartamento 4; musica la sera spesso fino all'una; si alza alle sei per l'università; è il figlio del vicino che suona la chitarra; sabato una festa con dieci amici, fino a mezzanotte; negli altri giorni chitarra fino alle dieci; si scambiano i numeri
+  level: B1
+  persona: en-f-student
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Sì? Buonasera, posso aiutarla?"
+    - learner: "Buonasera, scusi il disturbo. Sono Emily, abito al piano di sotto, nell'appartamento quattro."
+    - tutor: "Piacere, Emily. Mi dica pure."
+      goals: [greet]
+    - learner: "Ecco, la sera sento molta musica dal suo appartamento, spesso fino all'una. Io mi alzo alle sei per andare all'università."
+    - tutor: "Mi dispiace, non lo sapevo. È mio figlio: la sera suona la chitarra."
+      goals: [problem]
+      new: [{lemma: chitarra, gloss: guitar}]
+    # decoy: «più piano» is correct; only «Gli può dire?» without the object is wrong
+    - learner: "Capisco, è giovane. Ma potrebbe suonare più piano dopo le dieci? Gli può dire?"
+      errors: [combined-pronouns]
+    - tutor: "«Gli può dire?» Dire che cosa? Qui «gli» e la cosa da dire si uniscono in un pronome solo."
+      prompt: {text: "Gli può dire", tags: [combined-pronouns]}
+    - learner: "Glielo può dire, per favore?"
+    - tutor: "Certo, glielo dico stasera stessa. Sabato però abbiamo una piccola festa: le darebbe fastidio?"
+      goals: [request]
+    - learner: "Il sabato non è un problema, se finite a mezzanotte. Ci sarà molta gente?"
+    - tutor: "Saranno dieci amici, non di più. A mezzanotte finiamo, glielo prometto."
+    - learner: "Grazie. E nei altri giorni, fino a che ora può suonare?"
+      errors: [articulated-preposition]
+    - tutor: "Fino alle dieci, come ha chiesto lei. Ma «nei altri giorni»? «Altri» comincia con la lettera «a»: la preposizione cambia forma."
+      prompt: {text: "nei altri giorni", tags: [articulated-preposition]}
+    - learner: "Negli altri giorni fino alle dieci: perfetto, grazie."
+    - tutor: "Benissimo, allora siamo d'accordo."
+      goals: [compromise]
+    - learner: "Le lascio il mio numero: se c'è qualche problema, mi può scrivere."
+    - tutor: "Ottima idea, le do anche il mio. Grazie mille, Emily, e buonanotte."
+
+- scenario: affittare-appartamento
+  # facts: bilocale arredato e luminoso; affitto 650 euro al mese più 60 euro di spese; riscaldamento compreso nelle spese; contratto di un anno per studenti; caparra di due mesi; la lavatrice ha due anni e funziona; supermercato sotto casa, metro a cinque minuti a piedi; seconda visita sabato mattina con un'amica; il proprietario prepara una copia del contratto
+  level: B1
+  persona: es-f-erasmus
+  history: [adjective-agreement]
+  turns:
+    - tutor: "Buongiorno, prego, entri pure. Questo è il soggiorno."
+    - learner: "Buongiorno! È molto luminoso. Quanto costa l'affitto al mese?"
+    - tutor: "L'affitto è di seicentocinquanta euro al mese, più sessanta euro di spese."
+    - learner: "Nelle spese è compreso anche il riscaldamento?"
+    - tutor: "Sì, il riscaldamento è compreso nelle spese."
+      goals: [rent]
+    - learner: "Bene. E il contratto, quanto dura? Resterò in Italia solo un anno, per l'Erasmus."
+    - tutor: "Per gli studenti facciamo un contratto di un anno. La caparra è di due mesi."
+      goals: [contract]
+    # decoy: «Gli elettrodomestici» is the correct article; only «vecchio» for the washing machine is wrong
+    - learner: "Va bene. Gli elettrodomestici funzionano tutti? La lavatrice sembra molto vecchio."
+      errors: [adjective-agreement]
+    - tutor: "Funzionano tutti, e la lavatrice ha solo due anni. Ma «la lavatrice sembra vecchio»? Guardi bene il genere di «lavatrice»."
+      prompt: {text: "sembra molto vecchio", tags: [adjective-agreement]}
+      new: [{lemma: elettrodomestico, gloss: household appliance}]
+    - learner: "Sembra vecchia, ma funziona: meglio così."
+    - tutor: "Esatto. Le serve sapere altro sulla casa?"
+      goals: [condition]
+    - learner: "Sì: il quartiere com'è? C'è un supermercato vicino?"
+    - tutor: "C'è un supermercato proprio sotto casa, e la metro è a cinque minuti a piedi."
+      goals: [neighbourhood]
+    - learner: "Perfetto. Posso tornare con mia amica sabato, per vederlo di nuovo?"
+      errors: [possessive]
+    - tutor: "Sì, sabato mattina sono qui. Ma «con mia amica»? Senza articolo, «mia» va solo con i parenti, come «mia madre»."
+      prompt: {text: "con mia amica", tags: [possessive]}
+    - learner: "Con una mia amica, sabato mattina."
+    - tutor: "Benissimo. E lei, cosa ne pensa dell'appartamento?"
+    - learner: "Mi piace molto, sono davvero interessata. Sabato le do una risposta definitiva."
+    - tutor: "Perfetto, a sabato. Le preparo una copia del contratto da leggere."
+      goals: [decide]
+
+- scenario: biglietto-treno
+  # facts: Roma-Napoli sabato mattina; Frecciarossa alle 8.10, arrivo 9.20, 45 euro; regionale alle 8.30, arrivo alle 11, 13 euro; sceglie il Frecciarossa, andata e ritorno; ritorno domenica alle 19.05, 45 euro; finestrino esaurito, posto sul corridoio in seconda; prima classe 20 euro in più a viaggio; totale 90 euro; binario sul tabellone venti minuti prima
+  level: B1
+  persona: en-m-traveller
+  history: [article-use]
+  turns:
+    - tutor: "Buongiorno, dove deve andare?"
+    - learner: "Buongiorno. Devo andare a Napoli sabato mattina. Che treni ci sono?"
+    - tutor: "C'è un Frecciarossa alle otto e dieci, che arriva alle nove e venti e costa quarantacinque euro. Oppure un regionale alle otto e mezza: arriva alle undici e costa tredici euro."
+      goals: [destination]
+    - learner: "Il regionale costa meno, ma ci mette troppo tempo. Prendo il Frecciarossa."
+    - tutor: "Va bene, il Frecciarossa delle otto e dieci. Solo andata, o anche ritorno?"
+    - learner: "Andata e ritorno. Ritorno la domenica sera: c'è un treno verso le sette?"
+    - tutor: "Sì, c'è un Frecciarossa domenica alle diciannove e cinque. Le va bene?"
+    - learner: "Sì, il treno delle diciannove e cinque va bene."
+    - tutor: "Perfetto, anche il ritorno costa quarantacinque euro. Preferisce un posto al finestrino?"
+      goals: [type]
+    - learner: "Sì. Posti al finestrino ne avete ancora?"
+    - tutor: "Al finestrino non ce ne sono più, mi dispiace. Le va bene il corridoio, in seconda classe?"
+    - learner: "Va bene il corridoio. Ma in prima, quanto costarebbe?"
+      errors: [conditional-form]
+    - tutor: "Venti euro in più a viaggio. Ma «costarebbe»? Nel condizionale, come nel futuro, «costare» cambia la «a»."
+      prompt: {text: "costarebbe", tags: [conditional-form]}
+    - learner: "Costerebbe venti euro in più? Allora resto in seconda."
+    - tutor: "Esatto. Allora seconda classe, corridoio, andata e ritorno: sono novanta euro."
+      goals: [class]
+    - learner: "Pago con la carta. Ultima domanda: sa già il binario da cui parte il treno?"
+    - tutor: "Non ancora: il binario si vede sul tabellone venti minuti prima della partenza. Buon viaggio!"
+      goals: [platform]
+      new: [{lemma: tabellone, gloss: departure board}]

@@ -1,0 +1,311 @@
+# Set r-clue-answer, file 6 (B2): a logistics job interview, a team meeting about an app, working
+# from home, automation over dinner, a radio interview, a debate on a pedestrian zone, an
+# exhibition and a book club. The tutor answers opinion questions as its role, names the real
+# trigger of each error («bisogna che», «affezionarsi a», «sfondo» with s + consonant) and leaves
+# correct look-alikes alone.
+- scenario: colloquio-lavoro
+  # facts: Javier, spagnolo, a Parma da sei anni, nella logistica da quasi dieci; ha coordinato otto persone in un magazzino alimentare negli ultimi tre anni; nuovo sistema per le scorte, ritardi diminuiti della metà; punto di forza la calma, difetto delega poco; nell'azienda attuale non può crescere; il ruolo offerto ha una squadra di dodici persone; niente turni, dalle otto alle cinque, dal lunedì al venerdì; stipendio discusso nel secondo colloquio con il direttore; secondo colloquio martedì alle dieci
+  level: B2
+  persona: es-m-worker
+  history: [participle-agreement]
+  turns:
+    - tutor: "Buongiorno, si accomodi. Mi parli un po' di lei."
+    - learner: "Buongiorno. Mi chiamo Javier, sono spagnolo e vivo a Parma da sei anni. Lavoro nella logistica da quasi dieci anni."
+    - tutor: "Molto bene. Mi racconti la sua esperienza più recente."
+      goals: [intro]
+    - learner: "Negli ultimi tre anni ho coordinato una squadra di otto persone in un magazzino alimentare. Prima che arrivassi, gli ordini partivano spesso in ritardo."
+    - tutor: "E dopo il suo arrivo, che cosa è cambiato?"
+      goals: [experience]
+    # decoy: «Abbiamo introdotto» is correct with avere; only «sono diminuito» is wrong
+    - learner: "Abbiamo introdotto un nuovo sistema per controllare le scorte, e i ritardi sono diminuito della metà."
+      errors: [participle-agreement]
+    - tutor: "«I ritardi sono diminuito»? Con «essere», la fine del verbo si accorda con il soggetto, «i ritardi»."
+      prompt: {text: "sono diminuito", tags: [participle-agreement]}
+    - learner: "Sì, i ritardi sono diminuito molto, quasi della metà."
+      errors: [participle-agreement]
+    - tutor: "I ritardi sono diminuiti della metà: è un risultato notevole. Quali sono i suoi punti di forza?"
+      recast: {text: "sono diminuito", fix: "sono diminuiti", tags: [participle-agreement]}
+      new: [{lemma: diminuire, gloss: to decrease}]
+    - learner: "Credo che il mio punto di forza sia la calma: anche quando c'è un problema, riesco a tenere la squadra concentrata. Il mio difetto è che a volte delego poco."
+    - tutor: "Mi fa piacere che parli anche di un difetto. Perché vuole lasciare il suo lavoro attuale?"
+      goals: [strengths]
+    - learner: "Nella mia azienda non posso più crescere, e cerco più responsabilità. Il vostro magazzino è molto più grande: per me è un reto interessante."
+      errors: [word-choice]
+    - tutor: "Una sfida interessante, certo: qui la squadra è di dodici persone."
+      goals: [why]
+      recast: {text: "un reto", fix: "Una sfida", tags: [word-choice]}
+    - learner: "Posso farle una domanda? Come è organizzato l'orario? Ci sono turni di notte?"
+    - tutor: "Niente turni: l'orario è dalle otto alle cinque, dal lunedì al venerdì."
+      goals: [questions]
+    - learner: "Perfetto. E per lo stipendio, potrebbe darmi un'idea? Non vorrei che ci siano malintesi più avanti."
+      errors: [subjunctive-use]
+    - tutor: "Ne parleremo nel secondo colloquio, con il direttore. Ma «non vorrei che ci siano»? Dopo un condizionale come «vorrei», il congiuntivo presente non va: serve un altro tempo."
+      prompt: {text: "che ci siano", tags: [subjunctive-use]}
+    - learner: "Non vorrei che ci fossero malintesi, ecco."
+    - tutor: "Esatto, e la capisco. Il secondo colloquio sarà la settimana prossima: le va bene martedì alle dieci?"
+    - learner: "Martedì alle dieci va benissimo. La ringrazio del suo tempo."
+    - tutor: "Grazie a lei, Javier. A martedì."
+
+- scenario: riunione-lavoro
+  # facts: app per una catena di palestre; login finito, prenotazione dei corsi in test; errori nei pagamenti, ci lavorano da due settimane, il problema è nel sistema della banca; la banca risponderà entro dieci giorni; proposta: lanciare solo con le prenotazioni, pagamenti nella seconda versione; il cliente aveva chiesto i pagamenti dal primo giorno; il learner lo spiega giovedì al responsabile del cliente; il 15 è impossibile, Federica propone il 30; un messaggio dopo la riunione con il cliente
+  level: B2
+  persona: en-m-heritage
+  history: [combined-pronouns]
+  turns:
+    - tutor: "Bene, iniziamo. Come va il tuo progetto?"
+    - learner: "Bene, direi. Abbiamo finito il login, e la prenotazione dei corsi è in fase di test."
+    - tutor: "Ottimo. E i pagamenti a che punto sono?"
+      goals: [update]
+    - learner: "Lì c'è il problema: ci sono ancora degli errori, e non riusciamo a capire da dove vengano."
+    - tutor: "Da quanto tempo ci state lavorando?"
+      goals: [problem]
+    # decoy: «ci siamo accorti» is correct; only «Ne lavoriamo» is wrong
+    - learner: "Ne lavoriamo da due settimane, ma ieri ci siamo accorti che il problema è nel sistema della banca."
+      errors: [ci-ne]
+    - tutor: "«Ne lavoriamo»? Si lavora «a» qualcosa, e il pronome per «a qualcosa» non è «ne»."
+      prompt: {text: "Ne lavoriamo", tags: [ci-ne]}
+    - learner: "Ci lavoriamo da due settimane, scusa."
+    - tutor: "Esatto. E con la banca avete già parlato?"
+    # near-miss: «gli abbiamo scritto» with «gli» for the bank staff is correct in speech
+    - learner: "Sì, gli abbiamo scritto, ma ci hanno detto che risponderanno entro dieci giorni."
+    - tutor: "Dieci giorni sono troppi. Hai una proposta?"
+    - learner: "Se lanciassimo l'app solo con le prenotazioni, i pagamenti potremmo aggiungerli nella seconda versione."
+    - tutor: "Non è una cattiva idea. Ma il cliente aveva chiesto i pagamenti dal primo giorno: come gli spieghiamo il cambiamento?"
+      goals: [proposal]
+    - learner: "Gli lo potrei spiegare io giovedì, alla riunione: conosco bene il loro responsabile."
+      errors: [combined-pronouns]
+    - tutor: "«Gli lo»? Quando «gli» e «lo» stanno insieme, diventano una parola sola, con una piccola modifica."
+      prompt: {text: "Gli lo potrei spiegare io", tags: [combined-pronouns]}
+    - learner: "Gli e lo potrei spiegare io, allora."
+      errors: [combined-pronouns]
+    - tutor: "«Glielo potrei spiegare io»: perfetto, allora giovedì parli tu con il loro responsabile."
+      recast: {text: "Gli e lo potrei spiegare io", fix: "Glielo potrei spiegare io", tags: [combined-pronouns]}
+    - learner: "Va bene. E la data del lancio? Il quindici mi sembra impossibile, ormai. Tu cosa ne pensi?"
+    - tutor: "Anche secondo me il quindici è impossibile. Io proporrei il trenta, se il cliente è d'accordo."
+    - learner: "Il trenta va bene per noi. Allora giovedì propongo al cliente tutte e due le cose: il lancio il trenta e i pagamenti dopo."
+    - tutor: "Perfetto. Scrivimi com'è andata, dopo la riunione con il cliente."
+      goals: [deadline]
+
+- scenario: smartworking
+  # facts: la learner lavora da casa tre giorni e va in ufficio il martedì e il giovedì; Andrea va in ufficio quattro giorni su cinque; a casa è più concentrata; le mancano i colleghi, lavora al tavolo della cucina; preferirebbe quattro giorni a casa e il lunedì in ufficio; il capo di Andrea preferisce vederli in ufficio; pranzo insieme giovedì all'una sotto l'ufficio della learner
+  level: B2
+  persona: es-f-erasmus
+  history: [hypothetical]
+  turns:
+    - tutor: "Tu lavori ancora da casa o vai in ufficio?"
+    - learner: "Lavoro da casa tre giorni a settimana, e gli altri due vado in ufficio."
+    - tutor: "Fortunata! Io vado in ufficio quattro giorni su cinque. Come ti trovi?"
+      goals: [situation]
+    - learner: "Mi trovo bene. A casa sono più concentrata che in ufficio, perché nessuno mi interrompe."
+    - tutor: "Questo lo capisco benissimo. E non ti manca niente?"
+      goals: [pros]
+    # decoy: «Mi mancano i colleghi» agrees correctly; only «nel tavolo» is wrong
+    - learner: "Mi mancano i colleghi, a volte. E poi il mio appartamento è piccolo: lavoro nel tavolo della cucina."
+      errors: [preposition]
+    - tutor: "«Lavoro nel tavolo»? Non lavori dentro il tavolo: pensa alla preposizione."
+      prompt: {text: "nel tavolo", tags: [preposition]}
+    - learner: "Lavoro al tavolo della cucina, tutto il giorno."
+    - tutor: "Non è il massimo per la schiena. Potendo scegliere, tu cosa preferiresti?"
+      goals: [cons]
+    - learner: "Se potrei scegliere, lavorerei da casa quattro giorni e andrei in ufficio solo il lunedì."
+      errors: [hypothetical]
+    - tutor: "«Se potrei»? Il condizionale lo usi già, e bene, in «lavorerei»: nella parte con «se» non va."
+      prompt: {text: "Se potrei scegliere", tags: [hypothetical]}
+    - learner: "Se potrò scegliere, lavorerei da casa quattro giorni."
+      errors: [hypothetical]
+    - tutor: "Se potessi scegliere anch'io, farei come te! Ma tu sei contenta del lunedì in ufficio?"
+      goals: [preference]
+      recast: {text: "Se potrò scegliere", fix: "Se potessi scegliere", tags: [hypothetical]}
+    - learner: "Sì, il lunedì vedo il mio jefe e organizziamo la settimana. E tu, perché non chiedi di lavorare di più da casa?"
+      errors: [word-choice]
+    - tutor: "Con il capo, certo, serve. Io l'ho chiesto, ma il mio preferisce vederci in ufficio: dice che le idee nascono davanti alla macchinetta del caffè!"
+      recast: {text: "il mio jefe", fix: "il capo", tags: [word-choice]}
+    - learner: "Non ha tutti i torti. Le idee migliori mi sono venute parlando con i colleghi."
+    - tutor: "Vedi che l'ufficio serve? Allora pranziamo insieme, in uno dei tuoi giorni in ufficio?"
+    # decoy: «il martedì e il giovedì» with the article for a habit is correct; only «a l'una» is wrong
+    - learner: "Volentieri! Sono in ufficio il martedì e il giovedì. Ci vediamo giovedì a l'una?"
+      errors: [articulated-preposition]
+    - tutor: "«A l'una»? Con le ore, «a» e l'articolo diventano una parola sola."
+      prompt: {text: "a l'una", tags: [articulated-preposition]}
+    - learner: "All'una, giovedì?"
+    - tutor: "Perfetto, giovedì all'una. Ti aspetto sotto il tuo ufficio."
+
+- scenario: politica-lavoro
+  # facts: Riccardo pensa che tra dieci anni metà dei lavori sparirà; esempio delle macchine alle casse del supermercato; il learner: i lavori cambieranno, ne nascono di nuovi; serve formazione pagata dallo Stato; il nipote del learner ripara droni per l'agricoltura e ha studiato in una scuola professionale; scommessa: una cena tra dieci anni
+  level: B2
+  persona: en-m-retired
+  history: [subjunctive-use]
+  turns:
+    - tutor: "Io dico che tra dieci anni metà dei lavori non esisterà più. Tu che dici?"
+    - learner: "Secondo me esageri un po'. Molti lavori cambieranno, ma non spariranno così velocemente."
+    - tutor: "Dici? Guarda il supermercato: alle casse ci sono già le macchine al posto delle persone."
+      goals: [opinion]
+    - learner: "È vero, ma qualcuno deve comunque controllare le macchine e aiutare i clienti. E poi nascono lavori nuovi, di cui prima nessuno parlava."
+    - tutor: "D'accordo, ma chi perde il lavoro a cinquant'anni cosa fa? Ricomincia da zero?"
+    # decoy: «chi ha cinquant'anni può» is a correct indicative; only «Bisogna che lo Stato investe» is wrong
+    - learner: "Bisogna che lo Stato investe di più nella formazione, così anche chi ha cinquant'anni può imparare un mestiere nuovo."
+      errors: [subjunctive-use]
+    - tutor: "«Bisogna che lo Stato investe»? Dopo «bisogna che», il verbo cambia modo."
+      prompt: {text: "Bisogna che lo Stato investe", tags: [subjunctive-use]}
+    - learner: "Bisogna che lo Stato investa di più. Se nessuno facesse niente, avremmo milioni di disoccupati, questo sì."
+    - tutor: "Vedi che alla fine mi dai ragione? Però fammi un esempio vero di lavoro nuovo."
+      goals: [hypothesis]
+    # decoy: «dieci anni fa questo lavoro non esisteva» is a correct imperfetto; only «nell'università» is wrong
+    - learner: "Mio nipote ripara droni per l'agricoltura: dieci anni fa questo lavoro non esisteva. Ha studiato in una scuola professionale, non nell'università."
+      errors: [preposition]
+    - tutor: "«Nell'università»? Con «studiare», per l'università si usa un'altra preposizione."
+      prompt: {text: "nell'università", tags: [preposition]}
+    - learner: "Ha studiato nella scuola professionale, non nell'università."
+      errors: [preposition]
+    - tutor: "All'università no, ma ha imparato un lavoro vero: non ci avrei mai pensato! Allora, per concludere, tu vedi il futuro in modo positivo?"
+      goals: [example]
+      recast: {text: "nell'università", fix: "All'università", tags: [preposition]}
+    - learner: "Diciamo che sono ottimista, ma con prudenza. Il lavoro non sparirà, però ognuno dovrà adattarsi. E tu, hai cambiato idea almeno un po'?"
+    - tutor: "Un pochino, lo ammetto. Ma tra dieci anni ne parliamo di nuovo, e vediamo chi aveva ragione!"
+      goals: [conclude]
+    - learner: "D'accordo, scommettiamo una cena! Se avrò ragione io, la pagherai tu."
+    - tutor: "Affare fatto: una cena, fra dieci anni!"
+
+- scenario: vita-in-italia
+  # facts: l'ospite è arrivato a Bologna otto anni fa per un master, si è innamorato della città e di una bolognese; difficoltà: la burocrazia, ore in fila per la residenza e il codice fiscale, nessuno gli aveva detto che serviva un appuntamento; un'amica che lavorava in Comune gli ha spiegato i documenti; è diventato meno rigido con gli orari; consiglio: imparare la lingua prima di partire
+  level: B2
+  persona: en-m-traveller
+  history: [participle-agreement]
+  turns:
+    - tutor: "Benvenuta e benvenuto ai nostri ascoltatori. Oggi parliamo con una persona che vive in Italia da qualche anno. Perché ha scelto l'Italia?"
+    - learner: "Grazie dell'invito. Sono arrivato otto anni fa per un master a Bologna, e poi mi sono innamorato della città... e di una bolognese."
+    - tutor: "Una storia classica, ma sempre bella! Qual è stata la cosa più difficile, all'inizio?"
+      goals: [story]
+    - learner: "Senza dubbio la burocrazia. Il primo anno ho passato ore in fila per la residenza, perché nessuno mi aveva detto che serviva un appuntamento."
+    - tutor: "Molti ascoltatori la capiranno benissimo. E tutti quei documenti, come ha fatto a capirli?"
+      goals: [difficulties]
+    # decoy: «che lavorava in Comune» is a correct imperfetto; only «Me li ha spiegato» is wrong
+    - learner: "Me li ha spiegato un'amica che lavorava in Comune."
+      errors: [participle-agreement]
+    - tutor: "«Me li ha spiegato»? Con «li» prima del verbo, la fine di «spiegato» cambia."
+      prompt: {text: "Me li ha spiegato", tags: [participle-agreement]}
+    - learner: "Me li ha spiegato lei, sì, uno per uno."
+      errors: [participle-agreement]
+    - tutor: "«Me li ha spiegati lei, uno per uno»: un'amica preziosa! E lei, in che cosa è cambiato in questi otto anni?"
+      recast: {text: "Me li ha spiegato", fix: "Me li ha spiegati", tags: [participle-agreement]}
+    - learner: "Sono diventato meno rigido con gli orari. In Inghilterra arrivavo sempre in anticipo; adesso, se un amico mi dice alle otto, so che vuol dire le otto e un quarto."
+    - tutor: "Il famoso quarto d'ora di ritardo! Secondo lei, sono cambiati anche gli italiani, nel frattempo?"
+      goals: [change]
+    - learner: "Forse un po'. Ma lei, che intervista tanti stranieri, che cosa sente dire più spesso?"
+    - tutor: "Che gli italiani sono accoglienti, ma che la burocrazia mette alla prova anche i più pazienti. Lei che consiglio darebbe a chi vuole trasferirsi?"
+    - learner: "Consiglierei di imparare la lingua prima di partire, perché senza la lingua non si può integrare davvero."
+      errors: [reflexive]
+    - tutor: "«Non si può integrare»? Con «integrarsi», due «si» insieme non vanno: la forma cambia."
+      prompt: {text: "non si può integrare", tags: [reflexive]}
+    - learner: "Senza la lingua non ci si può integrare davvero."
+    - tutor: "Esatto, parole sante. Grazie di essere stato con noi, e buona continuazione a Bologna!"
+      goals: [advice]
+
+- scenario: dibattito-ambiente
+  # facts: il learner è favorevole alla zona pedonale; due grandi parcheggi vicino alle mura, navette gratuite pagate in parte dai parcheggi; aria più pulita; ha parlato con alcuni commercianti; nelle vie già pedonali i negozi lavorano meglio, secondo lui; compromesso: prova il sabato e la domenica per sei mesi, con un controllo delle vendite dei negozi; il learner lo proporrà alla riunione dei residenti
+  level: B2
+  persona: es-m-worker
+  history: [comparative]
+  turns:
+    - tutor: "Secondo me chiudere il centro alle auto sarebbe un disastro per i negozi. Lei cosa ne pensa?"
+    - learner: "Io la penso diversamente: credo che una zona pedonale possa portare più clienti ai negozi, non meno."
+    - tutor: "Più clienti? E dove parcheggia chi arriva da fuori città?"
+      goals: [position]
+    # decoy: «Ci sono due parcheggi» is correct; only «si potrebbe aggiungere delle navette» is wrong
+    - learner: "Ci sono due parcheggi grandi vicino alle mura, e si potrebbe aggiungere delle navette gratuite."
+      errors: [subject-verb-agreement]
+    - tutor: "«Si potrebbe aggiungere delle navette»? Il soggetto vero è «delle navette»: guardi il verbo."
+      prompt: {text: "si potrebbe aggiungere delle navette", tags: [subject-verb-agreement]}
+      new: [{lemma: navetta, gloss: shuttle bus}]
+    - learner: "Si potrebbero aggiungere delle navette gratuite, sì."
+    - tutor: "Le navette costano, però. E chi le paga? I residenti, con le tasse."
+    - learner: "Non per forza: in parte le pagherebbero i parcheggi. Inoltre, con meno traffico l'aria sarebbe più pulita, e questo interessa a tutti."
+    - tutor: "L'aria pulita è un bel discorso, ma i commercianti rischiano di chiudere. Ha mai parlato con loro?"
+      goals: [argue]
+    - learner: "Sì, con alcuni. Hanno paura, lo capisco, ma nelle vie già pedonali i negozi lavorano più bene."
+      errors: [comparative]
+    - tutor: "«Più bene»? Con «bene», per dire «più bene» si usa una parola sola."
+      prompt: {text: "più bene", tags: [comparative]}
+    - learner: "I negozi lavorano più meglio, voglio dire."
+      errors: [comparative]
+    - tutor: "Lavorano meglio, può darsi, ma quelle vie sono poche e piene di stranieri in vacanza."
+      goals: [counter]
+      recast: {text: "lavorano più meglio", fix: "lavorano meglio", tags: [comparative]}
+    - learner: "Lei ha ragione su una cosa: non si può chiudere tutto da un giorno all'altro. Che ne direbbe di cominciare con il sabato e la domenica, per sei mesi?"
+    - tutor: "Un periodo di prova potrei accettarlo, se ci fosse un controllo serio di quanto vendono i negozi."
+      goals: [concede]
+    - learner: "Mi sembra giusto. Proporrò che il Comune controlli gli incassi alla fine della prova."
+    - tutor: "Allora su questo siamo d'accordo. Lo proponga pure alla riunione dei residenti: io la sosterrò."
+
+- scenario: arte-mostra
+  # facts: olio del 1923 dalla mostra; donna seduta vicino alla finestra in primo piano, nello sfondo un paese sotto la neve; la luce è la cosa più forte; la guerra era finita da poco; la learner pensa a Hopper; Giovanni non sa perché il pittore non è famoso, propone di guardare il catalogo; qui le foto sono permesse senza flash; dopo, un caffè al bar all'uscita
+  level: B2
+  persona: en-f-student
+  history: [articulated-preposition]
+  turns:
+    - tutor: "Guarda questo quadro. Che impressione ti fa?"
+    - learner: "Mi colpisce molto. È un po' triste, ma la luce è bellissima."
+    - tutor: "Sono d'accordo, la luce è la cosa più forte. Che cosa vedi, esattamente?"
+      goals: [react]
+    # decoy: «In primo piano» is correct; only «nel sfondo» is wrong
+    - learner: "In primo piano c'è una donna seduta vicino alla finestra, e nel sfondo si vede un paese sotto la neve."
+      errors: [articulated-preposition]
+    - tutor: "«Nel sfondo»? «Sfondo» comincia con «s» più consonante: preposizione e articolo cambiano forma."
+      prompt: {text: "nel sfondo", tags: [articulated-preposition]}
+      new: [{lemma: consonante, gloss: consonant}]
+    - learner: "Nello sfondo si vede un paese sotto la neve."
+    - tutor: "Esatto. E secondo te, a che cosa pensa quella donna?"
+      goals: [describe]
+    - learner: "Ho l'impressione che stia aspettando qualcuno che è partito per la guerra, e il cui ritorno non è sicuro."
+    - tutor: "Interessante: il cartellino dice che è del 1923, quindi la guerra era finita da poco. Ti ricorda qualche altro pittore?"
+      goals: [interpret]
+      new: [{lemma: cartellino, gloss: label}]
+    - learner: "Mi ricorda un po' Hopper, per le donne sole vicino alle finestre, anche se qui i colori sono più caldi che nei suoi quadri."
+    - tutor: "Ci avevo pensato anch'io, sai? Ma tu quale preferisci, di quei due mondi?"
+      goals: [compare]
+    - learner: "Preferisco questo, perché è meno freddo. Ma dimmi, tu che sei storico dell'arte: perché questo pittore non è famoso?"
+    - tutor: "Sinceramente non lo so: è la prima volta che vedo i suoi quadri. Il catalogo forse lo spiega: andiamo a guardarlo?"
+    # decoy: «fare una foto a questo quadro» is correct; only «vietati» for «le foto» is wrong
+    - learner: "Sì, ma prima vorrei fare una foto a questo quadro. Al museo di ieri le foto erano vietati."
+      errors: [adjective-agreement]
+    - tutor: "«Le foto erano vietati»? «Foto» è femminile, anche se finisce in «o»."
+      prompt: {text: "erano vietati", tags: [adjective-agreement]}
+    - learner: "Sì, erano vietati, anche con il telefono."
+      errors: [adjective-agreement]
+    - tutor: "Erano vietate anche con il telefono? Qui invece si possono fare, basta non usare il flash."
+      new: [{lemma: flash, gloss: flash}]
+      recast: {text: "erano vietati", fix: "Erano vietate", tags: [adjective-agreement]}
+    - learner: "Perfetto, allora la faccio subito. E dopo il catalogo, un caffè?"
+    - tutor: "Volentieri: c'è un bar proprio all'uscita della mostra."
+
+- scenario: film-libro
+  # facts: romanzo spagnolo non ancora tradotto in italiano; una famiglia gestisce un piccolo hotel in Galizia; il nonno muore e lascia l'hotel ai tre nipoti, che non si parlano da anni; devono decidere se venderlo; protagonista Lucía, la nipote più giovane, tornata da Londra dopo aver perso il lavoro; seconda parte un po' lenta, stile semplice; consigliato a chi legge lo spagnolo; Roberto ha letto solo qualche racconto in spagnolo; il libro va nella lista per quando esce in italiano
+  level: B2
+  persona: es-f-teacher
+  history: [relative-pronoun]
+  turns:
+    - tutor: "Benvenuti! Chi vuole iniziare? Cosa hai letto questo mese?"
+    - learner: "Comincio io! Ho letto un romanzo spagnolo che non è ancora stato tradotto in italiano. Parla di una famiglia che ha un piccolo hotel in Galizia."
+    - tutor: "Una novità per tutti noi, allora. Raccontaci la trama, ma senza rovinarci il finale!"
+    - learner: "Tutto comincia quando il nonno muore e lascia l'hotel ai tre nipoti, che non si parlano da anni. Devono decidere se venderlo o tenerlo."
+    - tutor: "Una famiglia che litiga per una casa, un classico! Chi è il personaggio principale?"
+      goals: [summary]
+    # decoy: «dopo che aveva perso» is a correct trapassato; only «di cui mi sono affezionata» is wrong
+    - learner: "È Lucía, la nipote più giovane, tornata da Londra dopo che aveva perso il lavoro. È il personaggio di cui mi sono più affezionata."
+      errors: [relative-pronoun]
+    - tutor: "«Di cui mi sono affezionata»? Si dice «affezionarsi a qualcuno»: il pronome deve seguire questa preposizione."
+      prompt: {text: "di cui mi sono più affezionata", tags: [relative-pronoun]}
+      new: [{lemma: affezionarsi, gloss: to grow fond of}]
+    - learner: "È il personaggio da cui mi sono più affezionata."
+      errors: [relative-pronoun]
+    - tutor: "«Il personaggio a cui mi sono più affezionata»: si sente, ne parli con tanto affetto! E il libro, nel complesso, ti è piaciuto?"
+      goals: [characters]
+      recast: {text: "da cui mi sono più affezionata", fix: "a cui mi sono più affezionata", tags: [relative-pronoun]}
+    - learner: "Sì, anche se la seconda parte è un po' lenta. L'autrice ha un estilo molto semplice, ma descrive benissimo i silenzi tra i fratelli."
+      errors: [word-choice]
+    - tutor: "Uno stile semplice per raccontare silenzi complicati: mi piace l'idea. Lo consiglieresti al gruppo, anche se non c'è in italiano?"
+      goals: [opinion]
+      recast: {text: "un estilo", fix: "Uno stile", tags: [word-choice]}
+    - learner: "A chi legge lo spagnolo, sì, assolutamente. Agli altri lo consiglierei appena sarà uscito in italiano. Tu hai mai letto qualcosa in spagnolo?"
+    - tutor: "Solo qualche racconto, con il dizionario accanto! Allora lo mettiamo nella lista per quando esce in italiano."
+      goals: [recommend]
