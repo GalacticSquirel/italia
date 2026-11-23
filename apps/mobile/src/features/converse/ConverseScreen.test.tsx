@@ -48,8 +48,14 @@ describe('ConverseScreen', () => {
     expect(screen.getByText('Conversation partner (larger)')).toBeOnTheScreen();
   });
 
+  it('offers the larger model on a 12 GB phone that reports under 11 GiB', async () => {
+    // A Galaxy S25+ reports about 10.6 GiB of its 12 GB.
+    await renderWith(managerFor(10.6 * GIB));
+    expect(screen.getByText('Conversation partner (larger)')).toBeOnTheScreen();
+  });
+
   it('offers the smaller model on a mid-range phone', async () => {
-    await renderWith(managerFor(8 * GIB));
+    await renderWith(managerFor(7.3 * GIB));
     expect(screen.getByText('Conversation partner (smaller)')).toBeOnTheScreen();
     expect(screen.getByText(/downloaded once \(2\.\d GB\)/)).toBeOnTheScreen();
   });
@@ -58,6 +64,7 @@ describe('ConverseScreen', () => {
     await renderWith(managerFor(4 * GIB));
     expect(screen.getByTestId('tutor-unsupported')).toBeOnTheScreen();
     expect(screen.getByText('Conversations need more memory')).toBeOnTheScreen();
+    expect(screen.getByText(/needs at least 8 GB of memory/)).toBeOnTheScreen();
   });
 
   it('lists scenarios at the learner level once a model is installed', async () => {

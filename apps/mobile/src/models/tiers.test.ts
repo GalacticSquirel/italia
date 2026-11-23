@@ -5,6 +5,7 @@ import { MANIFEST } from './manifest';
 const PROMISED: readonly { kind: string; tier: DeviceTier }[] = [
   { kind: 'stt', tier: 'low' },
   { kind: 'phonemes', tier: 'low' },
+  { kind: 'llm', tier: 'high' },
 ];
 
 describe('device tiers and the model manifest', () => {

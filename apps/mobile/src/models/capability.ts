@@ -1,6 +1,16 @@
 /**
- * Device capability tiers, from total RAM (plan section 2b). The model
- * manager offers a model only when the device meets its `minRamBytes`.
+ * Device capability tiers, from the phone's RAM size (plan section 2b). The
+ * model manager offers a model only when the phone's RAM size meets its
+ * `minRamBytes`.
+ *
+ * Phones report less RAM than they were sold with, because firmware, the
+ * modem and the GPU reserve some of it: an "8 GB" phone reports about
+ * 7.3 GiB and a 12 GB Galaxy S25+ under 11 GiB. Comparing the reported
+ * figure with a floor just under the nominal size therefore wrongly turns
+ * phones away whenever a vendor reserves more than usual. Instead the app
+ * works out the nominal size the phone was sold with ({@link nominalRamBytes})
+ * and compares that with nominal floors, the same "for phones with 12 GB"
+ * that the model descriptions state.
  */
 import * as Device from 'expo-device';
 import { File } from 'expo-file-system';
@@ -10,19 +20,34 @@ import type { CpuFeature } from './manifest';
 
 const GIB = 1024 ** 3;
 
-/** Device tier by total RAM. */
-export type DeviceTier = 'minimal' | 'low' | 'mid' | 'high';
+/**
+ * RAM sizes that phones and tablets ship with, in GiB, ascending. Memory chips
+ * come in these sizes, so the reported total sits a little under one of them.
+ */
+export const NOMINAL_RAM_GIB: readonly number[] = [
+  1, 1.5, 2, 3, 4, 6, 8, 10, 12, 16, 18, 20, 24, 32, 48, 64,
+];
 
 /**
- * Lower RAM bound of each tier. Phones report a little less than their
- * marketing size (for example 7.4 GiB for an "8 GB" phone), so the bounds
- * sit just under the nominal sizes.
+ * The RAM size a device was sold with, from the total the OS reports: the
+ * smallest nominal size not below it. Null when the OS does not say. A report
+ * above every listed size is returned as it is.
  */
+export function nominalRamBytes(totalMemoryBytes: number | null): number | null {
+  if (totalMemoryBytes === null || totalMemoryBytes <= 0) return null;
+  const size = NOMINAL_RAM_GIB.find((gib) => gib * GIB >= totalMemoryBytes);
+  return size === undefined ? totalMemoryBytes : size * GIB;
+}
+
+/** Device tier by nominal RAM size. */
+export type DeviceTier = 'minimal' | 'low' | 'mid' | 'high';
+
+/** Least nominal RAM size of each tier. */
 export const TIER_MIN_RAM_BYTES: Readonly<Record<DeviceTier, number>> = {
   minimal: 0,
-  low: 3.5 * GIB,
-  mid: 7 * GIB,
-  high: 11 * GIB,
+  low: 4 * GIB,
+  mid: 8 * GIB,
+  high: 12 * GIB,
 };
 
 /** What each tier can run, for display. */
@@ -33,9 +58,9 @@ export const TIER_DESCRIPTIONS: Readonly<Record<DeviceTier, string>> = {
   high: 'Runs everything, including the larger conversation model.',
 };
 
-/** The tier for a RAM size; unknown RAM counts as `minimal`. */
-export function tierFor(totalMemoryBytes: number | null): DeviceTier {
-  const ram = totalMemoryBytes ?? 0;
+/** The tier for a nominal RAM size; unknown RAM counts as `minimal`. */
+export function tierFor(nominalMemoryBytes: number | null): DeviceTier {
+  const ram = nominalMemoryBytes ?? 0;
   if (ram >= TIER_MIN_RAM_BYTES.high) return 'high';
   if (ram >= TIER_MIN_RAM_BYTES.mid) return 'mid';
   if (ram >= TIER_MIN_RAM_BYTES.low) return 'low';
@@ -44,14 +69,16 @@ export function tierFor(totalMemoryBytes: number | null): DeviceTier {
 
 /** What the device offers. */
 export interface DeviceCapability {
-  /** Total RAM in bytes, or null when the OS does not say. */
+  /** Total RAM the OS reports, in bytes, or null when it does not say. */
   totalMemoryBytes: number | null;
+  /** The RAM size the phone was sold with ({@link nominalRamBytes}). */
+  nominalMemoryBytes: number | null;
   tier: DeviceTier;
   /** The primary CPU ABI (Android), or null when unknown or not Android. */
   abi: string | null;
   /** CPU features that native engine builds may need. */
   cpuFeatures: ReadonlySet<CpuFeature>;
-  /** Whether a model with this RAM floor may be offered. */
+  /** Whether a model needing this nominal RAM size may be offered. */
   canRun(minRamBytes: number): boolean;
 }
 
@@ -79,18 +106,23 @@ export function parseCpuFeatures(cpuinfo: string): Set<CpuFeature> {
   return features;
 }
 
-/** Capability for a RAM size and CPU (pure; see {@link deviceCapability}). */
+/**
+ * Capability for the RAM total the OS reports and the CPU (pure; see
+ * {@link deviceCapability}).
+ */
 export function capabilityFor(
   totalMemoryBytes: number | null,
   cpu: { abi?: string | null; features?: Iterable<CpuFeature> } = {},
 ): DeviceCapability {
+  const nominal = nominalRamBytes(totalMemoryBytes);
   return {
     totalMemoryBytes,
-    tier: tierFor(totalMemoryBytes),
+    nominalMemoryBytes: nominal,
+    tier: tierFor(nominal),
     abi: cpu.abi ?? null,
     cpuFeatures: new Set(cpu.features ?? []),
     // Unknown RAM: let the learner try; the OS will say if it cannot load.
-    canRun: (min) => totalMemoryBytes === null || totalMemoryBytes >= min,
+    canRun: (min) => nominal === null || nominal >= min,
   };
 }
 

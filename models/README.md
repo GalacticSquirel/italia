@@ -17,7 +17,7 @@ A model is one or more files downloaded into one install folder named after the 
 | `description` | One sentence shown under the title                                                    |
 | `licence`     | SPDX expression covering the weights and data files                                   |
 | `source`      | Upstream model page                                                                   |
-| `minRamBytes` | Least total device RAM to offer the model (see the device tiers in the app)           |
+| `minRamBytes` | Least nominal RAM size, as sold, to offer the model (see the device tiers in the app) |
 | `rootDir`     | For archives: the folder inside the install folder that holds the model               |
 | `files[]`     | `name`, `url`, `sha256`, `sizeBytes`, `verification`, optional `extract`, `available` |
 
@@ -69,8 +69,8 @@ the next build knows which clips exist.
 | Parakeet TDT 0.6B v3 int8 (STT)  | sherpa-onnx encoder, decoder, joiner, tokens (Hugging Face, pinned revision) | 670.6 MB | downloaded and verified                         |
 | wav2vec2 Italian phonemizer int8 | one ONNX file, exported by `scripts/export_phonemizer.py`                    | 122.0 MB | built (byte-reproducible); **not uploaded yet** |
 | Piper it_IT paola medium (TTS)   | sherpa-onnx `tar.bz2` archive (model, tokens, espeak-ng data)                | 67.2 MB  | downloaded and verified                         |
-| Gemma 4 E4B instruct Q4_0 (LLM)  | one GGUF (ggml-org, pinned revision); phones with 11 GiB of RAM or more      | 4.59 GB  | published (Hugging Face LFS)                    |
-| Gemma 4 E2B instruct Q4_0 (LLM)  | one GGUF (ggml-org, pinned revision); phones with 7 GiB of RAM or more       | 2.84 GB  | published (Hugging Face LFS)                    |
+| Gemma 4 E4B instruct Q4_0 (LLM)  | one GGUF (ggml-org, pinned revision); phones sold with 12 GB of RAM or more  | 4.59 GB  | published (Hugging Face LFS)                    |
+| Gemma 4 E2B instruct Q4_0 (LLM)  | one GGUF (ggml-org, pinned revision); phones sold with 8 GB of RAM or more   | 2.84 GB  | published (Hugging Face LFS)                    |
 
 The phonemizer has no published ONNX export. `scripts/export_phonemizer.py` exports the pinned
 checkpoint with normalisation built into the graph and int8 weights; with the pinned package

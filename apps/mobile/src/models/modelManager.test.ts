@@ -1,7 +1,7 @@
 import { createModelFileRepo, type ModelFileRepo } from '@/data';
 import { createTestDatabase, type TestDatabase } from '@/db/testing/createTestDatabase';
 
-import { capabilityFor, parseCpuFeatures, tierFor } from './capability';
+import { capabilityFor, nominalRamBytes, parseCpuFeatures, tierFor } from './capability';
 import { MANIFEST, parseManifest, type Manifest } from './manifest';
 import {
   InsufficientStorageError,
@@ -248,14 +248,45 @@ describe('ModelManager', () => {
 });
 
 describe('capability tiers', () => {
-  it('maps RAM to tiers', () => {
+  it('maps the reported RAM total to the size the phone was sold with', () => {
+    expect(nominalRamBytes(null)).toBeNull();
+    expect(nominalRamBytes(0)).toBeNull();
+    // Firmware, modem and GPU reservations take a varying share.
+    expect(nominalRamBytes(3.6 * GIB)).toBe(4 * GIB);
+    expect(nominalRamBytes(5.5 * GIB)).toBe(6 * GIB);
+    expect(nominalRamBytes(7.3 * GIB)).toBe(8 * GIB);
+    expect(nominalRamBytes(8 * GIB)).toBe(8 * GIB); // iOS reports the full size
+    expect(nominalRamBytes(10.6 * GIB)).toBe(12 * GIB); // 12 GB Samsung flagship
+    expect(nominalRamBytes(11.2 * GIB)).toBe(12 * GIB);
+    expect(nominalRamBytes(15 * GIB)).toBe(16 * GIB);
+    expect(nominalRamBytes(80 * GIB)).toBe(80 * GIB);
+  });
+
+  it('maps RAM to tiers by nominal size', () => {
     expect(tierFor(null)).toBe('minimal');
     expect(tierFor(3 * GIB)).toBe('minimal');
-    expect(tierFor(3.7 * GIB)).toBe('low');
-    expect(tierFor(7.4 * GIB)).toBe('mid');
-    expect(tierFor(11.5 * GIB)).toBe('high');
+    expect(tierFor(4 * GIB)).toBe('low');
+    expect(tierFor(8 * GIB)).toBe('mid');
+    expect(tierFor(12 * GIB)).toBe('high');
+    expect(capabilityFor(3.6 * GIB).tier).toBe('low');
+    expect(capabilityFor(7.3 * GIB).tier).toBe('mid');
+    expect(capabilityFor(10.6 * GIB).tier).toBe('high');
     expect(capabilityFor(null).canRun(GIB)).toBe(true);
     expect(capabilityFor(2 * GIB).canRun(4 * GIB)).toBe(false);
+  });
+
+  it('offers each tutor model on phones sold with enough memory, not fewer', () => {
+    const minFor = (id: string) => MANIFEST.models.find((m) => m.id === id)?.minRamBytes ?? 0;
+    const larger = minFor('gemma-4-e4b-it-q4_0');
+    const smaller = minFor('gemma-4-e2b-it-q4_0');
+    // A 12 GB Galaxy S25+ reports under 11 GiB.
+    expect(capabilityFor(10.6 * GIB).canRun(larger)).toBe(true);
+    expect(capabilityFor(11.2 * GIB).canRun(larger)).toBe(true);
+    // An 8 or 10 GB phone keeps to the smaller model.
+    expect(capabilityFor(7.3 * GIB).canRun(larger)).toBe(false);
+    expect(capabilityFor(9.3 * GIB).canRun(larger)).toBe(false);
+    expect(capabilityFor(7.3 * GIB).canRun(smaller)).toBe(true);
+    expect(capabilityFor(5.5 * GIB).canRun(smaller)).toBe(false);
   });
 });
 
