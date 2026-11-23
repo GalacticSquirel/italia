@@ -38,9 +38,9 @@ export function TutorModelGate({ children }: { children: ReactNode }) {
         <Card testID="tutor-unsupported" accessibilityRole="summary">
           <Text variant="heading">Conversations need more memory</Text>
           <Text color="textMuted">
-            {`The conversation partner runs on the phone and needs about ${String(
-              Math.round((choice.minRamBytes ?? 8 * GIB) / GIB) + 1,
-            )} GB of memory, which this phone does not have. Speaking drills, shadowing, ear training, reading and reviews all still work.`}
+            {`The conversation partner runs on the phone and needs at least ${String(
+              (choice.minRamBytes ?? 8 * GIB) / GIB,
+            )} GB of memory, and this phone has less. Speaking drills, shadowing, ear training, reading and reviews all still work.`}
           </Text>
         </Card>
       );

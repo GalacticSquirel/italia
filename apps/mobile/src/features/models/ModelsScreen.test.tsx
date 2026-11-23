@@ -90,7 +90,7 @@ async function renderScreen(ram: number) {
 describe('ModelsScreen', () => {
   it('shows the device tier, models and their states', async () => {
     await renderScreen(8 * GIB);
-    expect(screen.getByText(/Plus tier · 8\.6 GB memory/)).toBeOnTheScreen();
+    expect(screen.getByText(/Plus tier · 8 GB memory/)).toBeOnTheScreen();
     expect(screen.getByText('Not downloaded')).toBeOnTheScreen();
     expect(screen.getByText('Not available yet')).toBeOnTheScreen();
     expect(screen.queryByLabelText('Download Pronunciation scoring')).toBeNull();

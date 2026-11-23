@@ -14,6 +14,8 @@ import { Button, Card, ProgressBar, Screen, Text, useTheme } from '@/ui';
 
 import { formatBytes } from './format';
 
+const GIB = 1024 ** 3;
+
 const TIER_NAMES = { minimal: 'Basic', low: 'Standard', mid: 'Plus', high: 'Full' } as const;
 
 const STATUS_TEXT: Record<ModelView['status'], string> = {
@@ -175,7 +177,8 @@ export interface ModelsScreenProps {
 export function ModelsScreen({ capability = deviceCapability() }: ModelsScreenProps) {
   const models = useModels();
   const manager = useModelManager();
-  const ram = capability.totalMemoryBytes;
+  // The size the phone was sold with, as on its box, not the slightly lower total the OS reports.
+  const ram = capability.nominalMemoryBytes;
   const audio = models.filter((model) => model.spec.kind === 'audio-pack');
   // Engine builds download with the model that needs them.
   const speech = models.filter((m) => m.spec.kind !== 'engine' && m.spec.kind !== 'audio-pack');
@@ -185,7 +188,7 @@ export function ModelsScreen({ capability = deviceCapability() }: ModelsScreenPr
         <Text variant="heading">This phone</Text>
         <Text>
           {`${TIER_NAMES[capability.tier]} tier${
-            ram === null ? '' : ` · ${formatBytes(ram)} memory`
+            ram === null ? '' : ` · ${String(ram / GIB)} GB memory`
           }`}
         </Text>
         <Text color="textMuted">{TIER_DESCRIPTIONS[capability.tier]}</Text>
