@@ -3,7 +3,7 @@
  * streak), and finishing a story marks it read with its words and exposures.
  * Pure of React; the reader screen drives it.
  */
-import type { StreakEvent } from '@italia/core';
+import { ACTIVITIES, type StreakEvent } from '@italia/core';
 
 import type { Repositories } from '@/data';
 import { createActiveTimer } from '@/features/session/activeTimer';
@@ -11,9 +11,6 @@ import { recordStreakStudy } from '@/features/study/streakService';
 import { msToMinutes } from '@/features/study/time';
 
 import { lemmaOccurrences, type ReaderStory } from './storyModel';
-
-/** Activity recorded on the study session when a story is finished. */
-export const STORY_ACTIVITY = 'story';
 
 /** One reading of a story. */
 export interface ReadingSession {
@@ -101,7 +98,8 @@ export function startReadingSession(
       );
       finished = true;
       const events = flush(true);
-      if (studySessionId !== null) repos.studySessions.addActivity(studySessionId, STORY_ACTIVITY);
+      if (studySessionId !== null)
+        repos.studySessions.addActivity(studySessionId, ACTIVITIES.story);
       return events;
     },
     close() {

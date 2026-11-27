@@ -13,7 +13,7 @@ function openWord(lemmaId: number) {
   router.push({ pathname: '/word/[id]', params: { id: String(lemmaId) } });
 }
 
-/** The Review tab: browse cards by state, search words, suspend cards. */
+/** My words: browse cards by state, search words, suspend cards. */
 export function ReviewScreen() {
   const { spacing } = useTheme();
   const [filter, setFilter] = useState<BrowseFilter>('review');
@@ -22,7 +22,7 @@ export function ReviewScreen() {
   const searching = query.trim() !== '';
 
   return (
-    <Screen title="Review">
+    <Screen edges={['bottom', 'left', 'right']}>
       <TextField
         label="Search words"
         placeholder="Search Italian or English"

@@ -1,9 +1,6 @@
 import { render, screen, userEvent, waitFor } from '@testing-library/react-native';
 import { AccessibilityInfo } from 'react-native';
 
-import { createScheduler } from '@italia/core';
-
-import { getContentIndex } from '@/features/study/content';
 import { SpeechProvider } from '@/speech';
 import { createFakeSpeechServices } from '@/speech/testing';
 import { createTestApp, type TestApp } from '@/testing/testApp';
@@ -34,6 +31,7 @@ async function renderSession(): Promise<SessionStore> {
   speech = createFakeSpeechServices({ mic: 'denied' });
   const store = createSessionStore({
     repos: app.repos,
+    part: 'learn',
     now: () => {
       clock += 5_000;
       return new Date(clock);
@@ -42,7 +40,7 @@ async function renderSession(): Promise<SessionStore> {
   await render(
     app.wrap(
       <SpeechProvider services={speech}>
-        <SessionProvider store={store}>
+        <SessionProvider part="learn" store={store}>
           <SessionScreen />
         </SessionProvider>
       </SpeechProvider>,
@@ -96,6 +94,9 @@ describe('SessionScreen', () => {
     expect(app.repos.reviewLogs.count()).toBe(4);
     expect(store.getState().summary?.answers).toBe(4);
     expect(app.repos.streak.get().currentDays).toBe(1);
+    // The summary hands over to the next step of today's path.
+    expect(screen.getByText('Next · step 2 of 3')).toBeOnTheScreen();
+    expect(screen.getByRole('button', { name: 'Continue: Ear training' })).toBeOnTheScreen();
   });
 
   it('shows the diff and lets the learner override a wrong grade', async () => {
@@ -119,32 +120,6 @@ describe('SessionScreen', () => {
     const [log] = app.repos.reviewLogs.listForCard(cardId);
     expect(log?.rating).toBe('good');
     expect(log?.answer).toContain('"override"');
-  });
-
-  it('lets the learner type a spoken prompt instead', async () => {
-    app.repos.settings.set('dailyNewLimit', 0);
-    const scheduler = createScheduler();
-    const past = new Date(clock - 30 * 86_400_000);
-    const sentence = getContentIndex(app.repos).sentencesByLength[0];
-    if (!sentence) throw new Error('fixture has no sentences');
-    app.repos.cards.createMany([
-      {
-        kind: 'spoken_prompt',
-        targetId: sentence.id,
-        promptMode: 'spoken',
-        schedule: scheduler.review(scheduler.newCard(past), 'good', past).card,
-      },
-    ]);
-    const user = userEvent.setup();
-    await renderSession();
-    const intro = screen.queryByRole('button', { name: 'Start practising' });
-    if (intro) await user.press(intro);
-    expect(await screen.findByText('Allow the microphone')).toBeOnTheScreen();
-    await user.press(screen.getByRole('button', { name: 'Type instead' }));
-    expect(screen.getByText(sentence.en)).toBeOnTheScreen();
-    await user.type(screen.getByLabelText('Italian sentence'), sentence.it);
-    await user.press(screen.getByRole('button', { name: 'Check' }));
-    expect(screen.getByText('Correct!')).toBeOnTheScreen();
   });
 
   it('shows an empty state when nothing is due', async () => {

@@ -56,6 +56,8 @@ function RootNavigator() {
                     gestureEnabled: false,
                   }}
                 />
+                <Stack.Screen name="read" options={{ title: 'Stories' }} />
+                <Stack.Screen name="words" options={{ title: 'My words' }} />
                 <Stack.Screen name="word/[id]" options={{ title: 'Word' }} />
                 <Stack.Screen name="grammar/index" options={{ title: 'Grammar guide' }} />
                 <Stack.Screen name="grammar/[id]" options={{ title: 'Grammar' }} />

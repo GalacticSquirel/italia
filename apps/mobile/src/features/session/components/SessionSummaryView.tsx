@@ -3,8 +3,9 @@ import { View } from 'react-native';
 import type { StreakEvent } from '@italia/core';
 
 import type { SessionSummary } from '@/features/session/sessionStore';
+import { NextStepHandoff } from '@/features/today/components/NextStepHandoff';
 import { days, streakMessage } from '@/features/today/streakCopy';
-import { Button, Card, Stat, Text, useTheme } from '@/ui';
+import { Card, Stat, Text, useTheme } from '@/ui';
 
 /** One line about a streak event, or null for events not worth a line. */
 export function streakEventText(event: StreakEvent): string | null {
@@ -30,7 +31,7 @@ export interface SessionSummaryViewProps {
   onDone: () => void;
 }
 
-/** End of a session: accuracy, words learned, minutes and the streak. */
+/** End of a session: accuracy, words learned, minutes, the streak and the next step of the day. */
 export function SessionSummaryView({ summary, onDone }: SessionSummaryViewProps) {
   const { spacing } = useTheme();
   const lines = [...new Set(summary.streakEvents.map(streakEventText).filter((l) => l !== null))];
@@ -60,7 +61,7 @@ export function SessionSummaryView({ summary, onDone }: SessionSummaryViewProps)
         ))}
         <Text color="textMuted">{streakMessage(summary.streak)}</Text>
       </Card>
-      <Button label="Done" onPress={onDone} />
+      <NextStepHandoff onDone={onDone} at={summary.finishedAt} />
     </View>
   );
 }

@@ -4,6 +4,7 @@ import {
   type NewItemLimitReason,
   type Scheduler,
   type SessionCard,
+  type SessionItem,
   type SessionPlan,
 } from '@italia/core';
 
@@ -33,6 +34,18 @@ import { startOfLocalDay, startOfNextLocalDay } from './time';
 const RECENT_REVIEWS = 50;
 /** Fewer recent reviews than this give no accuracy signal. */
 const MIN_REVIEWS_FOR_ACCURACY = 10;
+
+/**
+ * The parts of a day's study, each run as its own session: due reviews first,
+ * then new words and grammar. Spoken prompts are left to the speaking drill.
+ */
+export type SessionPart = 'reviews' | 'learn';
+
+/** The planned items a session part runs, in plan order. */
+export function itemsForPart(plan: SessionPlan, part: SessionPart): SessionItem[] {
+  const source = part === 'reviews' ? 'review' : 'new';
+  return plan.items.filter((i) => i.source === source && i.kind !== 'spoken_prompt');
+}
 
 /** Today's study plan and what went into it. */
 export interface StudyPlan {
@@ -134,8 +147,7 @@ export function planToday(repos: Repositories, now: Date): StudyPlan {
       alreadyIntroducedToday: itemsToday,
     },
     seed: Math.floor(now.getTime() / 86_400_000),
-    // One speaking block at the end of the session (plan section 5).
-    tuning: { scheduler, blockKinds: ['spoken_prompt'] },
+    tuning: { scheduler },
   });
 
   const byId = new Map<string, CurriculumCandidate>(curriculum.candidates.map((c) => [c.id, c]));

@@ -12,20 +12,23 @@ and [`../models/README.md`](../models/README.md).
 The research (see the project's research reports) points to a small set of methods that work:
 spaced retrieval practice, production over recognition, a large volume of comprehensible input,
 frequency-ordered vocabulary, grammar taught in acquisition order with explicit explanation, and
-early, frequent speaking with feedback. The app turns that into one daily session of 15 to 25
-minutes (Owen studies about an hour a day, so several sessions or extra reading fit too):
+early, frequent speaking with feedback. The app turns that into one guided path through each day,
+so the learner never has to choose what to do next (Owen studies about an hour a day):
 
-- **Today**: due reviews first, then new words in frequency order (about 20 a day by default),
-  grammar points as they unlock, sentence practice, corrections from conversations, and a block of
-  spoken prompts at the end.
-- **Review**: browse and filter every card; word detail with examples.
-- **Read**: graded stories in series at eight vocabulary bands (150 to 3,000 words), chosen by known-word coverage, with
-  synced audio, tap-to-translate, add-to-reviews and comprehension questions.
-- **Speak**: cue-pause-answer drills, ear training (high-variability phonetic training on minimal
-  pairs), shadowing with a pronunciation score, and scenario conversations with the on-device
-  tutor, whose corrections become review cards.
+- **Today**: the day's path, with one "Up next" step at the top and one button to start it. The
+  steps come in a fixed order (`buildDailyPath` in `packages/core`): due reviews; new words in
+  frequency order (about 20 a day by default) with grammar points as they unlock; a story that
+  reuses them (ear training until the first story fits); speaking (the cue-pause-answer drill, or
+  shadowing before there are spoken prompts); and a scenario conversation with the on-device tutor
+  once about 150 words are known and the model is downloaded. Finishing a step hands over to the
+  next one; a step can be skipped for the day; reviews that come due later are offered as extra
+  practice once the path is done.
+- **Practice**: everything for extra time or a particular need: the story library (graded stories
+  in series at eight vocabulary bands, with synced audio, tap-to-translate, add-to-reviews and
+  comprehension questions), every speaking exercise (conversation, drill, hands-free drill, ear
+  training on minimal pairs, shadowing with a pronunciation score), My words (browse and search
+  every card) and the grammar guide (114 points from A1 to C2, each with an explanation and drills).
 - **Progress**: known words, hours, CEFR estimate, review load forecast and a calendar.
-- **Grammar guide**: 114 points from A1 to C2, each with an explanation and drills.
 
 It works offline and signed out. Signing in only adds sync between devices.
 
@@ -53,10 +56,10 @@ a minimum RAM tier, so phones that cannot run the tutor still get everything els
 
 ```
 apps/mobile/            The Expo app
-  src/app/              Routes (Expo Router): tabs Today, Review, Read, Speak, Progress; session,
-                        story, word, grammar, converse, models, settings, auth callback
-  src/features/         One folder per screen area (study, session, review, read, speak, converse,
-                        grammar, progress, settings, account, models, today, navigation)
+  src/app/              Routes (Expo Router): tabs Today, Practice, Progress; session, read,
+                        words, story, word, grammar, speak, models, settings, auth callback
+  src/features/         One folder per screen area (today, practice, study, session, review, read,
+                        speak, converse, grammar, progress, settings, account, models, navigation)
   src/data/             Repositories over the database, seed and story import, backup and restore
   src/db/               Drizzle schema, client, DatabaseProvider (runs migrations)
   src/speech/           Recording, speech to text, Italian voice, pronunciation analysis
@@ -66,8 +69,9 @@ apps/mobile/            The Expo app
   src/ui/               Design system: tokens, ThemeProvider and components
   drizzle/              Generated SQL migrations (committed)
   plugins/              Expo config plugins for native build settings
-packages/core/          Learning logic in pure TypeScript: scheduler, grading, sessions, streaks,
-                        progress, CEFR, story selection, comprehension checks, the tutor contract
+packages/core/          Learning logic in pure TypeScript: scheduler, grading, sessions, the daily
+                        path, streaks, progress, CEFR, story selection, comprehension checks, the
+                        tutor contract
 packages/content/       Build-time content pipeline and the bundled seed and stories
 packages/speech/        Italian pronunciation rules, phoneme inventory, alignment and scoring
 packages/api-contract/  zod schemas for every row that syncs
@@ -112,7 +116,10 @@ prompt mode, so two devices create the same card for the same item.
   never changes a rating.
 - **Session builder**: due reviews first, interleaved by kind and grammar point, then new items up
   to the daily limit, throttled when the projected review load exceeds the time budget or recent
-  accuracy drops. The curriculum (which new items are eligible, in which order) is built in
+  accuracy drops. The day's study runs as two sessions, reviews and then new items; spoken
+  prompts are left to the speaking drill.
+- **Daily path**: today's steps from what is due, ready and already done (activities recorded on
+  study sessions), with the first unfinished step as the one to do now. See section 1. The curriculum (which new items are eligible, in which order) is built in
   `apps/mobile/src/features/study` from the imported content.
 - **Known words and coverage**: a lemma is known when its card's retrievability is at least 0.9
   and its stability at least 7 days. Story coverage is known tokens over content tokens,

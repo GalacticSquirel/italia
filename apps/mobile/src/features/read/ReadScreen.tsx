@@ -91,7 +91,7 @@ function SeriesCard({
 }
 
 /**
- * The Read tab: what to read next (chosen by known-word coverage) and the
+ * The story library: what to read next (chosen by known-word coverage) and the
  * library of graded series, with episodes unlocking in order.
  */
 export function ReadScreen({ onOpenStory }: ReadScreenProps) {
@@ -107,7 +107,7 @@ export function ReadScreen({ onOpenStory }: ReadScreenProps) {
 
   if (library.series.length === 0) {
     return (
-      <Screen title="Read">
+      <Screen edges={['bottom', 'left', 'right']}>
         <EmptyState
           title="No stories yet"
           message="The graded stories have not been installed on this device."
@@ -117,7 +117,7 @@ export function ReadScreen({ onOpenStory }: ReadScreenProps) {
   }
 
   return (
-    <Screen title="Read">
+    <Screen edges={['bottom', 'left', 'right']}>
       {library.upNext ? (
         <UpNext
           episode={library.upNext}

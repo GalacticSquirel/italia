@@ -1,9 +1,9 @@
-import { router } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ActivityIndicator, AppState, View } from 'react-native';
 
 import { useSettingsStore } from '@/features/settings/settingsStore';
 import type { Prompt, TypedPrompt } from '@/features/study/prompts';
+import { closeStep } from '@/features/today/navigation';
 import { Button, EmptyState, ProgressBar, Screen, Text, useTheme } from '@/ui';
 
 import { AnswerInput } from './components/AnswerInput';
@@ -11,7 +11,6 @@ import { FeedbackPanel } from './components/FeedbackPanel';
 import { GrammarIntroCard } from './components/GrammarIntroCard';
 import { RecognitionCard } from './components/RecognitionCard';
 import { SessionSummaryView } from './components/SessionSummaryView';
-import { SpokenPromptCard } from './components/SpokenPromptCard';
 import { TypedPromptCard } from './components/TypedPromptCard';
 import { useSession, useSessionStore } from './SessionContext';
 
@@ -24,16 +23,11 @@ const ANSWER_LABELS = {
   dictation: 'What you heard',
 } as const;
 
-/** A spoken prompt answered by typing is a sentence production. */
+/** Sessions leave spoken prompts to the speaking drill; one that turns up is typed. */
 function typedPrompt(prompt: Exclude<Prompt, { kind: 'recognition' }>): TypedPrompt {
   return prompt.kind === 'spoken_prompt'
     ? { kind: 'sentence_production', sentence: prompt.sentence, accepted: prompt.accepted }
     : prompt;
-}
-
-function close() {
-  if (router.canGoBack()) router.back();
-  else router.replace('/');
 }
 
 /** Starts the session on mount, pauses study time in the background, saves it on leave. */
@@ -72,8 +66,6 @@ export function SessionScreen() {
   const done = queue?.completed.length ?? 0;
   const left = queue?.pending.length ?? 0;
   const itemKey = entry ? `${entry.item.cardId}:${String(entry.attempt)}` : 'none';
-  // The learner chose to type this spoken prompt (or has no microphone).
-  const [typedKey, setTypedKey] = useState<string | null>(null);
 
   let body;
   switch (phase) {
@@ -91,7 +83,7 @@ export function SessionScreen() {
         <EmptyState
           title="Something went wrong"
           message={error ?? 'The session could not continue. Your answers so far are saved.'}
-          action={<Button label="Close" onPress={close} />}
+          action={<Button label="Close" onPress={closeStep} />}
         />
       );
       break;
@@ -100,12 +92,12 @@ export function SessionScreen() {
         <EmptyState
           title="Nothing to study right now"
           message="No reviews are due and today's new words are done. Come back later."
-          action={<Button label="Close" onPress={close} />}
+          action={<Button label="Close" onPress={closeStep} />}
         />
       );
       break;
     case 'summary':
-      body = summary ? <SessionSummaryView summary={summary} onDone={close} /> : null;
+      body = summary ? <SessionSummaryView summary={summary} onDone={closeStep} /> : null;
       break;
     case 'grammar_intro':
       body = grammarIntro ? (
@@ -123,21 +115,6 @@ export function SessionScreen() {
             speechRate={speechRate}
             autoPlay={autoPlay}
             onGotIt={actions.acknowledgeRecognition}
-          />
-        );
-        break;
-      }
-      if (prompt.kind === 'spoken_prompt' && phase === 'prompt' && typedKey !== itemKey && entry) {
-        body = (
-          <SpokenPromptCard
-            key={itemKey}
-            cardId={entry.item.cardId}
-            prompt={prompt}
-            speechRate={speechRate}
-            onAnswered={actions.answerSpoken}
-            onTypeInstead={() => {
-              setTypedKey(itemKey);
-            }}
           />
         );
         break;
@@ -192,7 +169,7 @@ export function SessionScreen() {
             variant="secondary"
             accessibilityLabel="End session"
             accessibilityHint="Saves your progress and closes the session"
-            onPress={close}
+            onPress={closeStep}
           />
         </View>
       ) : null}

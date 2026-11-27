@@ -1,13 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { View } from 'react-native';
 
-import type { AudioClip } from '@italia/core';
+import { ACTIVITIES, type AudioClip } from '@italia/core';
 
 import { useRepositories } from '@/db';
 import { useSettingsStore } from '@/features/settings/settingsStore';
 import { getContentIndex } from '@/features/study/content';
 import { SPOKEN_PROMPT_MAX_WORDS, wordCount } from '@/features/study/prompts';
 import { usePracticeSession } from '@/features/study/usePracticeSession';
+import { NextStepHandoff } from '@/features/today/components/NextStepHandoff';
+import { SHADOWING_ROUND } from '@/features/today/dailyPath';
+import { closeStep } from '@/features/today/navigation';
 import {
   recordingClip,
   sayItalian,
@@ -54,7 +57,11 @@ export function ShadowingScreen() {
   const sentence = sentences[index];
   // Bumped on "Next": playback, recording and scoring that finish after it are stale.
   const turn = useRef(0);
-  const practice = usePracticeSession('shadowing');
+  const practice = usePracticeSession(ACTIVITIES.shadowing);
+  // Sentences recorded on this visit; a round of them finishes the path's step.
+  const [recorded, setRecorded] = useState<ReadonlySet<number>>(() => new Set());
+  // The sentence that finished the round, under which the hand-off shows.
+  const [roundEnd, setRoundEnd] = useState<number | null>(null);
 
   useEffect(() => {
     void services.scorer.availability().then((a) => {
@@ -104,6 +111,14 @@ export function ShadowingScreen() {
       const r = await services.recorder.stop();
       if (mine !== turn.current) return;
       setRecording(r);
+      if (!recorded.has(index)) {
+        const next = new Set(recorded).add(index);
+        if (next.size === SHADOWING_ROUND) {
+          practice.complete();
+          setRoundEnd(index);
+        }
+        setRecorded(next);
+      }
       setStep(scorerReady ? 'scoring' : 'done');
       if (scorerReady) {
         const result = await services.scorer
@@ -196,6 +211,12 @@ export function ShadowingScreen() {
           ) : null}
         </View>
       </MicGate>
+      {roundEnd === index ? (
+        <View style={{ gap: spacing.sm }} testID="shadow-round-done">
+          <Text variant="heading">{`Round complete: ${String(recorded.size)} sentences`}</Text>
+          <NextStepHandoff onDone={closeStep} />
+        </View>
+      ) : null}
       <Button label="Next sentence" variant="secondary" onPress={next} />
     </Screen>
   );

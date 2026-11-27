@@ -221,7 +221,8 @@ describe('reader', () => {
     const user = userEvent.setup();
     const { onOpenStory } = await renderStory();
     await user.press(screen.getByRole('button', { name: 'Mark as read' }));
-    await user.press(screen.getByRole('button', { name: 'Next episode' }));
+    expect(screen.getByTestId('handoff')).toBeOnTheScreen();
+    await user.press(screen.getByRole('button', { name: 'Read the next episode' }));
     expect(onOpenStory).toHaveBeenCalledWith('casa-di-marco-02');
     expect(app.repos.reading.get('casa-di-marco-01')?.comprehensionTotal).toBeNull();
   });

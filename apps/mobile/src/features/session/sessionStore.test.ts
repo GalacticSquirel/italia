@@ -1,4 +1,4 @@
-import { createScheduler } from '@italia/core';
+import { ACTIVITIES, createScheduler } from '@italia/core';
 
 import { createRepositories, importSeedContent, type Repositories } from '@/data';
 import {
@@ -11,7 +11,7 @@ import { planToday } from '@/features/study/planning';
 import { FIXTURE_SEED } from '@/testing/fixtureSeed';
 
 import { decodeAnswer } from './answerLog';
-import { createSessionStore, REVIEW_SESSION_ACTIVITY, type SessionStore } from './sessionStore';
+import { createSessionStore, type SessionStore } from './sessionStore';
 
 let t: TestDatabase;
 let repos: Repositories;
@@ -51,7 +51,7 @@ function step(store: SessionStore, correct = true) {
 }
 
 describe('session store', () => {
-  it('ends with the speaking block and records a spoken answer with its transcript', () => {
+  it('leaves spoken prompts to the speaking drill', () => {
     repos.settings.set('dailyNewLimit', 1);
     const scheduler = createScheduler();
     const past = new Date(clock - 30 * 86_400_000);
@@ -60,32 +60,52 @@ describe('session store', () => {
     repos.cards.createMany([
       { kind: 'spoken_prompt', targetId: sentenceId, promptMode: 'spoken', schedule: reviewed },
     ]);
-    const store = createSessionStore({ repos, now });
-    store.getState().start();
-    let guard = 0;
-    const atSpoken = () => {
-      const { phase, prompt } = store.getState();
-      return phase === 'prompt' && prompt?.kind === 'spoken_prompt';
-    };
-    while (!atSpoken() && guard++ < 100) step(store);
-    const s = store.getState();
-    expect(s.prompt?.kind).toBe('spoken_prompt');
-    // The speaking block comes after the rest of the plan.
-    expect(s.queue?.completed.length).toBeGreaterThan(0);
-    expect(s.queue?.completed.every((c) => c.item.kind !== 'spoken_prompt')).toBe(true);
+    // The due spoken prompt is the only review, so the review part has nothing to do.
+    const reviews = createSessionStore({ repos, part: 'reviews', now });
+    reviews.getState().start();
+    expect(reviews.getState().phase).toBe('empty');
 
-    tick(10_000);
-    s.answerSpoken({ rating: 'hard', transcript: 'detto così', latencyMs: 4200 });
-    const log = repos.reviewLogs.listRecent(1)[0];
-    expect(log?.cardId).toBe(`spoken_prompt:${String(sentenceId)}:spoken`);
-    expect(log?.rating).toBe('hard');
-    expect(log?.answer).toBe('detto così');
-    expect(log?.latencyMs).toBe(4200);
+    const learn = createSessionStore({ repos, part: 'learn', now });
+    learn.getState().start();
+    let guard = 0;
+    const kinds: string[] = [];
+    while (learn.getState().phase !== 'summary' && guard++ < 100) {
+      const kind = learn.getState().entry?.item.kind;
+      if (kind) kinds.push(kind);
+      step(learn);
+    }
+    expect(kinds.length).toBeGreaterThan(0);
+    expect(kinds).not.toContain('spoken_prompt');
+    expect(repos.cards.listAll().filter((c) => c.kind === 'spoken_prompt')).toHaveLength(1);
+  });
+
+  it('runs due reviews as their own part, with no new items', () => {
+    repos.settings.set('dailyNewLimit', 3);
+    const learn = createSessionStore({ repos, part: 'learn', now });
+    learn.getState().start();
+    let guard = 0;
+    while (learn.getState().phase !== 'summary' && guard++ < 100) step(learn);
+    const cardsAfterLearning = repos.cards.listAll().length;
+
+    tick(3 * 86_400_000);
+    const reviews = createSessionStore({ repos, part: 'reviews', now });
+    reviews.getState().start();
+    expect(reviews.getState().phase).toBe('prompt');
+    guard = 0;
+    while (reviews.getState().phase !== 'summary' && guard++ < 100) {
+      expect(reviews.getState().entry?.item.source).toBe('review');
+      step(reviews);
+    }
+    expect(reviews.getState().summary?.newWords).toBe(0);
+    expect(reviews.getState().summary?.reviews).toBeGreaterThan(0);
+    expect(repos.cards.listAll()).toHaveLength(cardsAfterLearning);
+    const [latest] = repos.studySessions.listBetween(new Date(0), new Date(clock + 1));
+    expect(latest?.activities).toEqual([ACTIVITIES.reviews]);
   });
 
   it('runs a first session end to end and persists every review', () => {
     repos.settings.set('dailyNewLimit', 4);
-    const store = createSessionStore({ repos, now });
+    const store = createSessionStore({ repos, part: 'learn', now });
     store.getState().start();
     const first = store.getState();
     expect(first.phase).toBe('prompt');
@@ -110,7 +130,7 @@ describe('session store', () => {
     const sessions = repos.studySessions.listBetween(new Date(0), new Date(clock + 1));
     expect(sessions).toHaveLength(1);
     expect(sessions[0]?.endedAt).not.toBeNull();
-    expect(sessions[0]?.activities).toEqual([REVIEW_SESSION_ACTIVITY]);
+    expect(sessions[0]?.activities).toEqual([ACTIVITIES.learn]);
     expect(sessions[0]?.minutesActive).toBeCloseTo(summary?.minutes ?? 0, 5);
 
     // The day's new words are used up: the next plan has nothing new.
@@ -119,7 +139,7 @@ describe('session store', () => {
 
   it('brings a failed item back later in the session and records overrides', () => {
     repos.settings.set('dailyNewLimit', 3);
-    const store = createSessionStore({ repos, now });
+    const store = createSessionStore({ repos, part: 'learn', now });
     store.getState().start();
     // Skip to the first typed prompt.
     while (store.getState().prompt?.kind === 'recognition') step(store);
@@ -155,7 +175,7 @@ describe('session store', () => {
 
   it('pauses study time while the app is in the background', () => {
     repos.settings.set('dailyNewLimit', 1);
-    const store = createSessionStore({ repos, now });
+    const store = createSessionStore({ repos, part: 'learn', now });
     store.getState().start();
     tick(60_000);
     store.getState().pause();
@@ -172,7 +192,7 @@ describe('session store', () => {
   it('reports each ended session once, so sync can push it', () => {
     repos.settings.set('dailyNewLimit', 1);
     const onSessionEnded = jest.fn();
-    const store = createSessionStore({ repos, now, onSessionEnded });
+    const store = createSessionStore({ repos, part: 'learn', now, onSessionEnded });
     store.getState().start();
     tick(60_000);
     store.getState().quit();
@@ -183,13 +203,13 @@ describe('session store', () => {
   it('introduces a grammar point before its first item', () => {
     // Introduce every word so grammar practice becomes available.
     repos.settings.set('dailyNewLimit', 40);
-    const first = createSessionStore({ repos, now });
+    const first = createSessionStore({ repos, part: 'learn', now });
     first.getState().start();
     let guard = 0;
     while (first.getState().phase !== 'summary' && guard++ < 300) step(first);
 
     tick(24 * 3_600_000);
-    const second = createSessionStore({ repos, now });
+    const second = createSessionStore({ repos, part: 'learn', now });
     second.getState().start();
     const intros: string[] = [];
     guard = 0;
@@ -203,7 +223,7 @@ describe('session store', () => {
 
   it('shows an empty state when there is nothing to study', () => {
     repos.settings.set('dailyNewLimit', 0);
-    const store = createSessionStore({ repos, now });
+    const store = createSessionStore({ repos, part: 'learn', now });
     store.getState().start();
     expect(store.getState().phase).toBe('empty');
     expect(repos.studySessions.getActive()).toBeNull();

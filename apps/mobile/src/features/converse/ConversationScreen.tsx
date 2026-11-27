@@ -3,6 +3,7 @@ import { ScrollView, View, type ScrollViewInstance } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import {
+  ACTIVITIES,
   SCENARIOS,
   summariseConversation,
   canSend,
@@ -36,9 +37,6 @@ export interface ConversationScreenProps {
   now?: () => Date;
 }
 
-/** Activity recorded on the study session when a conversation is ended. */
-export const CONVERSATION_ACTIVITY = 'conversation';
-
 function Chat({
   context,
   onClose,
@@ -66,7 +64,7 @@ function Chat({
     voiceOn.current = voice;
   }, [voice]);
   const [scheduler] = useState(() => schedulerFor(repos.settings.getAll()));
-  const practice = usePracticeSession(CONVERSATION_ACTIVITY, now);
+  const practice = usePracticeSession(ACTIVITIES.conversation, now);
 
   const conversation = useConversation({
     partner,
@@ -100,9 +98,11 @@ function Chat({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (state.phase === 'ended') practice.complete();
-  }, [state.phase, practice]);
+  // Recorded before the summary renders, so its hand-off sees the step as done.
+  const end = () => {
+    practice.complete();
+    conversation.end();
+  };
 
   const newWords = useMemo<NewWord[]>(
     () => state.turns.flatMap((t) => (t.role === 'tutor' ? t.output.annotations.newWords : [])),
@@ -116,6 +116,7 @@ function Chat({
         summary={summariseConversation(state, context)}
         cardsAdded={cardsAdded}
         onDone={onClose}
+        at={now()}
       />
     );
   }
@@ -160,7 +161,7 @@ function Chat({
           }}
           accessibilityLabel="Read replies aloud"
         />
-        <Button label="End" variant="secondary" onPress={conversation.end} />
+        <Button label="End" variant="secondary" onPress={end} />
       </View>
       <ScrollView
         ref={scroll}

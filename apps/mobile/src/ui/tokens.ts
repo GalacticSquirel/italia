@@ -22,6 +22,8 @@ export interface ColorTokens {
   onPrimary: string;
   /** Pressed state of `primary`. */
   primaryPressed: string;
+  /** Background that highlights the current item (the step to do now). */
+  primarySurface: string;
   /** Track behind progress bars, disabled fills. */
   track: string;
   /** Correct answers, positive states. */
@@ -52,6 +54,7 @@ export const palettes: Record<ColorSchemeName, ColorTokens> = {
     primary: '#0B6B4F',
     onPrimary: '#FFFFFF',
     primaryPressed: '#08553F',
+    primarySurface: '#E3F1EB',
     track: '#E4DFD8',
     success: '#1E7A3C',
     danger: '#B3261E',
@@ -69,6 +72,7 @@ export const palettes: Record<ColorSchemeName, ColorTokens> = {
     primary: '#5CC39A',
     onPrimary: '#0B1F17',
     primaryPressed: '#7FD3B0',
+    primarySurface: '#16302A',
     track: '#3A3834',
     success: '#6FCF8E',
     danger: '#F2B8B5',

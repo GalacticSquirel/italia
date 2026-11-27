@@ -91,7 +91,11 @@ describe('ConversationScreen', () => {
     await user.press(screen.getByText('End'));
     expect(await screen.findByText('Conversation summary')).toBeOnTheScreen();
     expect(screen.getByText('piaciuta · liked')).toBeOnTheScreen();
-    await user.press(screen.getByText('Done'));
+    // The summary hands over to the day's next step (learning comes first on day one).
+    expect(
+      screen.getByRole('button', { name: 'Continue: New words and grammar' }),
+    ).toBeOnTheScreen();
+    await user.press(screen.getByText('Take a break'));
     expect(onClose).toHaveBeenCalled();
   });
 

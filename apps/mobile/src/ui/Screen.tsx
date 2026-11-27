@@ -9,6 +9,8 @@ import { useKeyboardHeight } from './useKeyboardHeight';
 export interface ScreenProps {
   /** Screen title, shown as the top heading. */
   title?: string;
+  /** Shown at the trailing edge of the title row (for example a settings button). */
+  headerAction?: ReactNode;
   /** Safe-area edges to pad. Defaults to top, left and right (tabs own the bottom). */
   edges?: readonly Edge[];
   /** Wrap content in a ScrollView. Defaults to true. */
@@ -22,6 +24,7 @@ const DEFAULT_EDGES: readonly Edge[] = ['top', 'left', 'right'];
 /** Page container: safe-area padding, themed background and scrolling. */
 export function Screen({
   title,
+  headerAction,
   edges = DEFAULT_EDGES,
   scroll = true,
   children,
@@ -31,7 +34,14 @@ export function Screen({
   const keyboard = useKeyboardHeight();
   const content = (
     <View style={[styles.content, { padding: spacing.lg, gap: spacing.lg }]}>
-      {title ? <Text variant="title">{title}</Text> : null}
+      {title ? (
+        <View style={styles.header}>
+          <Text variant="title" style={styles.title}>
+            {title}
+          </Text>
+          {headerAction}
+        </View>
+      ) : null}
       {children}
     </View>
   );
@@ -66,4 +76,6 @@ const styles = StyleSheet.create({
   root: { flex: 1 },
   scrollContent: { flexGrow: 1 },
   content: { flexGrow: 1, width: '100%', maxWidth: 720, alignSelf: 'center' },
+  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  title: { flexShrink: 1 },
 });

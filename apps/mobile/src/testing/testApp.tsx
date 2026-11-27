@@ -4,7 +4,12 @@
  */
 import type { ReactElement, ReactNode } from 'react';
 
-import { createRepositories, importSeedContent, type Repositories } from '@/data';
+import {
+  createModelFileRepo,
+  createRepositories,
+  importSeedContent,
+  type Repositories,
+} from '@/data';
 import { RepositoryProvider } from '@/db';
 import {
   createTestDatabase,
@@ -12,6 +17,8 @@ import {
   type TestDatabase,
 } from '@/db/testing/createTestDatabase';
 import { useSettingsStore } from '@/features/settings/settingsStore';
+import { capabilityFor, MANIFEST, ModelManager, ModelsProvider } from '@/models';
+import { FakeStorage } from '@/models/testing';
 import { SpeechProvider } from '@/speech';
 import { createFakeSpeechServices } from '@/speech/testing';
 import { FIXTURE_SEED } from '@/testing/fixtureSeed';
@@ -23,7 +30,9 @@ export interface TestApp {
   repos: Repositories;
   /** Fake speech services the wrapped tree uses (record what was said and played). */
   speech: ReturnType<typeof createFakeSpeechServices>;
-  /** Wraps a tree in the theme, database and (fake) speech providers. */
+  /** Model downloads the wrapped tree sees: an 8 GB phone with nothing installed. */
+  models: ModelManager;
+  /** Wraps a tree in the theme, database, models and (fake) speech providers. */
   wrap: (children: ReactNode) => ReactElement;
 }
 
@@ -34,14 +43,24 @@ export async function createTestApp(): Promise<TestApp> {
   await importSeedContent(t.db, FIXTURE_SEED, { yieldBetweenBatches: () => Promise.resolve() });
   useSettingsStore.getState().hydrate(repos);
   const speech = createFakeSpeechServices();
+  const models = new ModelManager({
+    manifest: MANIFEST,
+    repo: createModelFileRepo(t.db),
+    storage: new FakeStorage(),
+    network: { connection: () => Promise.resolve('wifi') },
+    capability: capabilityFor(8 * 1024 ** 3),
+  });
   return {
     t,
     repos,
     speech,
+    models,
     wrap: (children) => (
       <ThemeProvider scheme="light">
         <RepositoryProvider db={t.db} repos={repos}>
-          <SpeechProvider services={speech}>{children}</SpeechProvider>
+          <ModelsProvider manager={models}>
+            <SpeechProvider services={speech}>{children}</SpeechProvider>
+          </ModelsProvider>
         </RepositoryProvider>
       </ThemeProvider>
     ),
