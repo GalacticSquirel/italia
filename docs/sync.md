@@ -40,20 +40,34 @@ For the official `supabase/docker` stack. Everything the app creates is in the `
 4. **Email sign-in.** Self-hosted auth only sends mail through your own SMTP server: set
    `SMTP_ADMIN_EMAIL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` and `SMTP_SENDER_NAME`,
    and keep `ENABLE_EMAIL_SIGNUP=true` (the first sign-in creates the account). The app signs in
-   with a six-digit code, and the default emails only carry a link. Save this template somewhere
-   the `auth` container can fetch over HTTP (a public Storage bucket works):
-
-   ```html
-   <p>Your Italia code: {{ .Token }}</p>
-   <p><a href="{{ .ConfirmationURL }}">Or open this link on your phone</a></p>
-   ```
-
-   Then add `GOTRUE_MAILER_TEMPLATES_MAGIC_LINK: <its URL>` and
+   with a six-digit code, and the default emails only carry a link. Upload
+   [`supabase/templates/sign-in-code.html`](../supabase/templates/sign-in-code.html) somewhere the
+   `auth` container can fetch over HTTP (a public Storage bucket works). Then add `GOTRUE_MAILER_TEMPLATES_MAGIC_LINK: <its URL>` and
    `GOTRUE_MAILER_TEMPLATES_CONFIRMATION: <its URL>` (first sign-ins get the confirmation email)
    under the `auth` service's `environment` in `docker-compose.yml`, and restart `auth`.
 
 5. **Keys.** The app needs the public URL (`API_EXTERNAL_URL` / `SUPABASE_PUBLIC_URL`) and
    `ANON_KEY` from `docker/.env`. Never use `SERVICE_ROLE_KEY` in the app.
+
+### Italia's own server
+
+How the project's self-hosted Supabase is set up. Check this before building on any other part of
+Supabase.
+
+- **API:** `https://supabase.owengardiner.dev` (the `EXPO_PUBLIC_SUPABASE_URL` Actions variable).
+  It is API-only. A Cloudflare rule allows just the three paths the app uses: `/rest/v1/`,
+  `/auth/v1/` and `/storage/v1/object/public/`, and everything else returns 403. Realtime
+  (`/realtime/v1/`), Edge Functions (`/functions/v1/`), GraphQL (`/graphql/v1/`) and signed-in
+  Storage uploads are blocked. Ask the owner to allow a path before building on it. The app
+  today uses only `/auth/v1/` and `/rest/v1/`.
+- **Dashboard (Studio):** `https://supabase-studio.owengardiner.dev`, behind a Cloudflare Access
+  login. The API host's root returns 403.
+- **Sign-in email:** sent as "Italia" <italia@notify.owengardiner.dev> through the project's own
+  mail server, which relays to Resend for delivery. The code template is served to the auth
+  container from the public Storage bucket `italia-email-templates` over the internal network.
+- **Auth:** email sign-in only (plus Google and Apple when they are wired up). Phone sign-up is off.
+- **Data:** every `italia` table lets a signed-in user read and write only their own rows. The anon
+  key alone can't read or write any of them.
 
 ## Set up a hosted Supabase project
 
