@@ -2,6 +2,7 @@ import { createContext, useContext, useState, type ReactNode } from 'react';
 import { useStore } from 'zustand';
 
 import { useRepositories } from '@/db';
+import type { SessionPart } from '@/features/study/planning';
 import { useSync } from '@/sync';
 
 import {
@@ -16,16 +17,18 @@ const SessionContext = createContext<SessionStore | null>(null);
 /** Props for {@link SessionProvider}. */
 export interface SessionProviderProps {
   children: ReactNode;
+  /** Which part of today's study to run. */
+  part: SessionPart;
   /** A ready-made store (tests); by default one is created for this session. */
   store?: SessionStore;
 }
 
 /** Holds the store of one study session for the screens inside it. */
-export function SessionProvider({ children, store }: SessionProviderProps) {
+export function SessionProvider({ children, part, store }: SessionProviderProps) {
   const repos = useRepositories();
   const { notifySessionEnded } = useSync();
   const [own] = useState(
-    () => store ?? createSessionStore({ repos, onSessionEnded: notifySessionEnded }),
+    () => store ?? createSessionStore({ repos, part, onSessionEnded: notifySessionEnded }),
   );
   return <SessionContext value={own}>{children}</SessionContext>;
 }

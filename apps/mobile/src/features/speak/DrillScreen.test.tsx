@@ -41,20 +41,14 @@ function seedDueSpokenPrompt() {
 async function renderDrill(options: FakeSpeechOptions, handsFree = false) {
   const services = createFakeSpeechServices(options);
   const onClose = jest.fn();
-  const onStartSession = jest.fn();
   await render(
     app.wrap(
       <SpeechProvider services={services}>
-        <DrillScreen
-          handsFree={handsFree}
-          onClose={onClose}
-          onStartSession={onStartSession}
-          now={() => at}
-        />
+        <DrillScreen handsFree={handsFree} onClose={onClose} now={() => at} />
       </SpeechProvider>,
     ),
   );
-  return { services, onClose, onStartSession };
+  return { services, onClose };
 }
 
 describe('DrillScreen', () => {
@@ -82,7 +76,11 @@ describe('DrillScreen', () => {
 
     await user.press(screen.getByRole('button', { name: 'Finish' }));
     expect(screen.getByText('Drill complete')).toBeOnTheScreen();
-    await user.press(screen.getByRole('button', { name: 'Done' }));
+    // The day's next step is offered straight away.
+    expect(
+      screen.getByRole('button', { name: 'Continue: New words and grammar' }),
+    ).toBeOnTheScreen();
+    await user.press(screen.getByRole('button', { name: 'Take a break' }));
     expect(onClose).toHaveBeenCalled();
   });
 
@@ -127,10 +125,10 @@ describe('DrillScreen', () => {
     expect(services.audio.background).toBe(true);
   });
 
-  it("says when there is nothing to practise yet and offers today's session", async () => {
-    const { onStartSession } = await renderDrill({});
+  it('says when there is nothing to practise yet', async () => {
+    const { onClose } = await renderDrill({});
     expect(await screen.findByText('Nothing to say yet')).toBeOnTheScreen();
-    await userEvent.setup().press(screen.getByRole('button', { name: "Start today's session" }));
-    expect(onStartSession).toHaveBeenCalled();
+    await userEvent.setup().press(screen.getByRole('button', { name: 'Close' }));
+    expect(onClose).toHaveBeenCalled();
   });
 });

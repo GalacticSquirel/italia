@@ -47,7 +47,7 @@ afterEach(() => {
   app.t.close();
 });
 
-describe('Review tab', () => {
+describe('My words', () => {
   it('browses cards by state and suspends them', async () => {
     const user = userEvent.setup();
     await render(app.wrap(<ReviewScreen />));

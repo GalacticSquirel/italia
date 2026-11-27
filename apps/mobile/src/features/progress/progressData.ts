@@ -9,15 +9,15 @@ import {
   type CefrLevel,
   type DayLoad,
   type HoursProjection,
-  type LemmaCard,
   type LocalDate,
   type ReplayLog,
 } from '@italia/core';
 
-import { toSchedule, type CardRow, type ReadingTotals, type Repositories } from '@/data';
+import { toSchedule, type ReadingTotals, type Repositories } from '@/data';
 import { grammarCefr } from '@/features/grammar/grammarGuide';
 import { getContentIndex, type ContentIndex } from '@/features/study/content';
 import { unlockedGrammar } from '@/features/study/curriculum';
+import { KNOWN_WORD_KIND, lemmaCard } from '@/features/study/knownWords';
 import { schedulerFor } from '@/features/study/planning';
 import { isShownKind } from '@/features/study/prompts';
 import { deviceLocalDate, startOfLocalDate } from '@/features/study/time';
@@ -28,9 +28,6 @@ export const OBSERVATION_DAYS = 30;
 export const CALENDAR_DAYS = 30;
 /** Days of review load forecast. */
 export const FORECAST_DAYS = 7;
-
-/** The card kind that measures whether a word is known: recall of the word in context. */
-const KNOWN_WORD_KIND = 'cloze_production';
 
 /** One day in the study calendar. */
 export interface CalendarDay {
@@ -56,11 +53,6 @@ export interface ProgressData {
   grammar: { learnt: number; total: number };
   now: Date;
 }
-
-const lemmaCard = (row: CardRow): LemmaCard => ({
-  lemmaIds: [row.targetId],
-  schedule: toSchedule(row),
-});
 
 /** The seeded grammar points of each CEFR level, which the level estimate needs. */
 function grammarRequirements(content: ContentIndex): Partial<Record<CefrLevel, number[]>> {

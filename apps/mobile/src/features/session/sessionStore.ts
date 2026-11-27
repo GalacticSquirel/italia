@@ -7,6 +7,7 @@
 import { createStore, type StoreApi } from 'zustand/vanilla';
 
 import {
+  ACTIVITIES,
   currentEntry,
   gradeTyped,
   recordAnswer,
@@ -21,7 +22,12 @@ import {
 
 import { type CardRow, type GrammarPointRow, type Repositories } from '@/data';
 import { NEW_WORD_KIND } from '@/features/study/curriculum';
-import { planToday, type StudyPlan } from '@/features/study/planning';
+import {
+  itemsForPart,
+  planToday,
+  type SessionPart,
+  type StudyPlan,
+} from '@/features/study/planning';
 import { resolvePrompt, type Prompt } from '@/features/study/prompts';
 import { currentStreak, recordStreakStudy } from '@/features/study/streakService';
 import { msToMinutes } from '@/features/study/time';
@@ -29,8 +35,11 @@ import { msToMinutes } from '@/features/study/time';
 import { createActiveTimer } from './activeTimer';
 import { encodeAnswer } from './answerLog';
 
-/** Activity recorded on a study session when a review session completes. */
-export const REVIEW_SESSION_ACTIVITY = 'review_session';
+/** Activity recorded on the study session when each part of the day's study completes. */
+const PART_ACTIVITY = {
+  reviews: ACTIVITIES.reviews,
+  learn: ACTIVITIES.learn,
+} as const satisfies Record<SessionPart, string>;
 
 /** Where the session is. */
 export type SessionPhase =
@@ -59,6 +68,8 @@ export interface SessionSummary {
   reviews: number;
   /** Active minutes in this session. */
   minutes: number;
+  /** When the session finished. */
+  finishedAt: Date;
   streak: StreakView;
   streakEvents: StreakEvent[];
 }
@@ -90,8 +101,6 @@ export interface SessionActions {
   submitTyped: (answer: string) => void;
   /** "Got it" on a first exposure: record it and move on. */
   acknowledgeRecognition: () => void;
-  /** Record a spoken prompt graded by the speaking drill (rating from its first attempt). */
-  answerSpoken: (outcome: SpokenAnswer) => void;
   /** "I was right": record the answer as Good instead of the wrong grade. */
   overrideCorrect: () => void;
   /** Record the graded answer and move to the next item. */
@@ -104,18 +113,13 @@ export interface SessionActions {
   quit: () => void;
 }
 
-/** A spoken answer, graded from its transcript. */
-export interface SpokenAnswer {
-  rating: Rating;
-  transcript: string;
-  latencyMs: number;
-}
-
 export type SessionStore = StoreApi<SessionState & SessionActions>;
 
 /** Dependencies of {@link createSessionStore}. */
 export interface SessionDeps {
   repos: Repositories;
+  /** Which part of today's study this session runs: due reviews, or new words and grammar. */
+  part: SessionPart;
   /** Clock; defaults to the system clock. */
   now?: () => Date;
   /** Called after a study session ends (finished or quit), for example to start a sync. */
@@ -138,6 +142,7 @@ const INITIAL: SessionState = {
 /** Create the store for one study session. */
 export function createSessionStore({
   repos,
+  part,
   now = () => new Date(),
   onSessionEnded,
 }: SessionDeps): SessionStore {
@@ -187,6 +192,7 @@ export function createSessionStore({
         newWords: queue.completed.filter((c) => c.item.kind === NEW_WORD_KIND).length,
         reviews: firsts.filter((c) => c.item.source === 'review').length,
         minutes: msToMinutes(timer.totalMs(at.getTime())),
+        finishedAt: at,
         streak: currentStreak(repos, at),
         streakEvents: [...events],
       };
@@ -196,7 +202,7 @@ export function createSessionStore({
       timer.pause(now().getTime());
       flushTime(true);
       if (studySessionId !== null) {
-        repos.studySessions.addActivity(studySessionId, REVIEW_SESSION_ACTIVITY);
+        repos.studySessions.addActivity(studySessionId, PART_ACTIVITY[part]);
         repos.studySessions.end(studySessionId, now());
         studySessionId = null;
         onSessionEnded?.();
@@ -259,10 +265,13 @@ export function createSessionStore({
           plan = today;
           deviceId = repos.meta.getOrCreateDeviceId();
           for (const id of today.curriculum.unlockedGrammarIds) introducedGrammar.add(id);
-          const created = repos.cards.createMany([...today.newCards.values()]);
+          const planned = itemsForPart(today.plan, part);
+          const created = repos.cards.createMany(
+            planned.flatMap((item) => today.newCards.get(item.cardId) ?? []),
+          );
           cards = new Map(today.cards);
           for (const c of created) cards.set(c.id, c);
-          const items = today.plan.items.filter((item) => {
+          const items = planned.filter((item) => {
             const c = cards.get(item.cardId);
             return c !== undefined && resolvePrompt(c, today.content) !== null;
           });
@@ -324,21 +333,6 @@ export function createSessionStore({
           // A first exposure is not a recall test: it is logged as easy so
           // the queue moves on, and recognition cards are never reviewed.
           answer('easy', null, at.getTime() - promptShownAt, at);
-        } catch (e) {
-          fail(e);
-        }
-      },
-
-      answerSpoken(outcome) {
-        const { prompt, phase } = get();
-        if (phase !== 'prompt' || prompt?.kind !== 'spoken_prompt') return;
-        try {
-          answer(
-            outcome.rating,
-            encodeAnswer({ text: outcome.transcript }),
-            outcome.latencyMs,
-            now(),
-          );
         } catch (e) {
           fail(e);
         }

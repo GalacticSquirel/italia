@@ -1,5 +1,8 @@
 import { render, screen, userEvent } from '@testing-library/react-native';
 
+import { ACTIVITIES } from '@italia/core';
+
+import { SHADOWING_ROUND } from '@/features/today/dailyPath';
 import { SpeechProvider } from '@/speech';
 import { createFakeSpeechServices } from '@/speech/testing';
 import { createTestApp, type TestApp } from '@/testing/testApp';
@@ -56,5 +59,33 @@ describe('ShadowingScreen', () => {
     );
     await user.press(await screen.findByRole('button', { name: 'Listen' }));
     expect(await screen.findByText(/model waveform needs the downloaded/)).toBeOnTheScreen();
+  });
+
+  it('finishes a round after recording five sentences and offers the next step', async () => {
+    const services = createFakeSpeechServices();
+    const user = userEvent.setup();
+    await render(
+      app.wrap(
+        <SpeechProvider services={services}>
+          <ShadowingScreen />
+        </SpeechProvider>,
+      ),
+    );
+    for (let i = 0; i < SHADOWING_ROUND; i++) {
+      await user.press(await screen.findByRole('button', { name: 'Record yourself' }));
+      await user.press(screen.getByRole('button', { name: 'Stop' }));
+      await screen.findByLabelText('You waveform');
+      if (i < SHADOWING_ROUND - 1) {
+        expect(screen.queryByTestId('shadow-round-done')).toBeNull();
+        await user.press(screen.getByRole('button', { name: 'Next sentence' }));
+      }
+    }
+    expect(screen.getByTestId('shadow-round-done')).toBeOnTheScreen();
+    const activities = app.repos.studySessions
+      .listBetween(new Date(0), new Date(Date.now() + 60_000))
+      .flatMap((s) => s.activities);
+    expect(activities).toEqual([ACTIVITIES.shadowing]);
+    await user.press(screen.getByRole('button', { name: 'Next sentence' }));
+    expect(screen.queryByTestId('shadow-round-done')).toBeNull();
   });
 });

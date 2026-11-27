@@ -1,9 +1,9 @@
 /**
- * Spoken prompts for the Speak tab's drill: today's due spoken reviews, then
- * today's new spoken prompts (the same ones the study session's speaking
- * block would introduce), and recording their reviews.
+ * Spoken prompts for the speaking drill, the speaking step of the daily path:
+ * today's due spoken reviews, then today's new spoken prompts, and recording
+ * their reviews. Study sessions leave spoken prompts to the drill.
  */
-import { type CardRow, type Repositories } from '@/data';
+import { type CardRow, type NewCardInput, type Repositories } from '@/data';
 import { encodeAnswer } from '@/features/session/answerLog';
 import { planToday, type StudyPlan } from '@/features/study/planning';
 import { resolvePrompt } from '@/features/study/prompts';
@@ -20,14 +20,8 @@ export interface SpeakingDrill {
   record(outcome: DrillOutcome, at: Date): void;
 }
 
-/** Load due and new spoken prompts, creating today's new spoken cards. */
-export function loadSpeakingDrill(
-  repos: Repositories,
-  at: Date,
-  limit = DRILL_LENGTH,
-): SpeakingDrill {
-  const plan: StudyPlan = planToday(repos, at);
-  const cards = new Map<string, CardRow>();
+/** Due spoken reviews (most overdue first) and today's new spoken prompts in `plan`. */
+function spokenPrompts(plan: StudyPlan, at: Date): { due: CardRow[]; fresh: NewCardInput[] } {
   const due = [...plan.cards.values()]
     .filter(
       (c) =>
@@ -37,8 +31,26 @@ export function loadSpeakingDrill(
         c.due.getTime() <= at.getTime(),
     )
     .sort((a, b) => a.due.getTime() - b.due.getTime());
-  for (const c of due) cards.set(c.id, c);
   const fresh = [...plan.newCards.values()].filter((c) => c.kind === 'spoken_prompt');
+  return { due, fresh };
+}
+
+/** How many items a drill started now would have, without creating any cards. */
+export function countSpeakingDrill(plan: StudyPlan, at: Date, limit = DRILL_LENGTH): number {
+  const { due, fresh } = spokenPrompts(plan, at);
+  return Math.min(limit, due.length + fresh.length);
+}
+
+/** Load due and new spoken prompts, creating today's new spoken cards. */
+export function loadSpeakingDrill(
+  repos: Repositories,
+  at: Date,
+  limit = DRILL_LENGTH,
+): SpeakingDrill {
+  const plan: StudyPlan = planToday(repos, at);
+  const cards = new Map<string, CardRow>();
+  const { due, fresh } = spokenPrompts(plan, at);
+  for (const c of due) cards.set(c.id, c);
   const room = Math.max(0, limit - due.length);
   for (const c of repos.cards.createMany(fresh.slice(0, room))) cards.set(c.id, c);
 

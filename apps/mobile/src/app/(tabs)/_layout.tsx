@@ -8,8 +8,8 @@ export default function TabsLayout() {
     <NativeTabs
       backgroundColor={colors.surface}
       indicatorColor={colors.track}
-      // Label every tab, not only the selected one: five icons alone are
-      // hard to tell apart for a new learner.
+      // Label every tab, not only the selected one: icons alone are hard to
+      // tell apart for a new learner.
       labelVisibilityMode="labeled"
       labelStyle={{ default: { color: colors.textMuted }, selected: { color: colors.primary } }}
       iconColor={{ default: colors.textMuted, selected: colors.primary }}
@@ -18,17 +18,9 @@ export default function TabsLayout() {
         <NativeTabs.Trigger.Label>Today</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf="sun.max" md="today" />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="review">
-        <NativeTabs.Trigger.Label>Review</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="rectangle.stack" md="style" />
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="read">
-        <NativeTabs.Trigger.Label>Read</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="book" md="menu_book" />
-      </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="speak">
-        <NativeTabs.Trigger.Label>Speak</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="mic" md="mic" />
+      <NativeTabs.Trigger name="practice">
+        <NativeTabs.Trigger.Label>Practice</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf="square.grid.2x2" md="apps" />
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="progress">
         <NativeTabs.Trigger.Label>Progress</NativeTabs.Trigger.Label>

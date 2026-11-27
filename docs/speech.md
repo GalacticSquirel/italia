@@ -1,6 +1,6 @@
 # Speech on the device
 
-How the Speak tab hears, scores and speaks, all on the phone (ADR 0004). Models are listed in
+How the app hears, scores and speaks, all on the phone (ADR 0004). Models are listed in
 `models/manifest.json` and downloaded from Settings, On-device models; nothing is uploaded.
 
 ## Pieces

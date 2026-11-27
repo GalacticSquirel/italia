@@ -199,3 +199,18 @@ export type {
 
 // The on-device tutor contract and conversation logic (see `./tutor`).
 export * from './tutor';
+export {
+  ACTIVITIES,
+  buildDailyPath,
+  CONVERSATION_MIN_WORDS,
+  DAILY_STEP_IDS,
+  rotateDaily,
+  type Activity,
+  type DailyExtra,
+  type DailyPath,
+  type DailyPathInput,
+  type DailyStep,
+  type DailyStepId,
+  type DailyStepStatus,
+  type DailyUnlock,
+} from './daily-path';

@@ -303,32 +303,6 @@ describe('buildSession', () => {
     expect(adjacentClashes(plan.items, 'lemmaIds')).toBe(0);
   });
 
-  it('gathers block kinds into one block at the end, reviews first', () => {
-    const cards = [
-      card('speak-r', { kind: 'spoken_prompt', lemmaIds: [1] }),
-      card('cloze-r1', { lemmaIds: [2] }),
-      card('cloze-r2', { lemmaIds: [3] }),
-    ];
-    const newCandidates: NewCandidate[] = [
-      { id: 'speak-n', kind: 'spoken_prompt', grammarIds: [], lemmaIds: [4] },
-      { id: 'cloze-n', kind: 'cloze_production', grammarIds: [], lemmaIds: [5] },
-    ];
-    const plan = buildSession({
-      now: NOW,
-      cards,
-      newCandidates,
-      tuning: { blockKinds: ['spoken_prompt'] },
-    });
-    const ids = plan.items.map((i) => i.cardId);
-    expect(ids.slice(-2)).toEqual(['speak-r', 'speak-n']);
-    expect(ids.indexOf('cloze-n')).toBeLessThan(ids.indexOf('speak-r'));
-    expect(plan.reviewCount).toBe(3);
-    expect(plan.newCount).toBe(2);
-    // Without blocks the speaking review is interleaved with the other reviews.
-    const plain = buildSession({ now: NOW, cards, newCandidates });
-    expect(plain.items.map((i) => i.cardId).at(-1)).not.toBe('speak-n');
-  });
-
   it('is deterministic for a seed', () => {
     const cards = Array.from({ length: 40 }, (_, i) =>
       card(`r${i}`, { lemmaIds: [i % 5], grammarIds: [i % 4] }),

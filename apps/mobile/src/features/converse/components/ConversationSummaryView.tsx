@@ -3,18 +3,22 @@ import { ScrollView, View } from 'react-native';
 import { diffStrings, ERROR_TAG_BY_ID, type ConversationSummary } from '@italia/core';
 
 import { DiffText } from '@/features/session/components/DiffText';
-import { Button, Card, Stat, Text, useTheme } from '@/ui';
+import { NextStepHandoff } from '@/features/today/components/NextStepHandoff';
+import { Card, Stat, Text, useTheme } from '@/ui';
 
 /** The end-of-conversation summary. */
 export function ConversationSummaryView({
   summary,
   cardsAdded,
   onDone,
+  at,
 }: {
   summary: ConversationSummary;
   /** Review cards made from this conversation's corrections. */
   cardsAdded: number;
   onDone: () => void;
+  /** When the conversation ended. */
+  at?: Date;
 }) {
   const { spacing } = useTheme();
   return (
@@ -71,7 +75,7 @@ export function ConversationSummaryView({
           ))}
         </Card>
       ) : null}
-      <Button label="Done" onPress={onDone} />
+      <NextStepHandoff onDone={onDone} at={at} />
     </ScrollView>
   );
 }

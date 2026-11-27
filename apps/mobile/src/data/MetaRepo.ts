@@ -36,6 +36,8 @@ export const META_KEYS = {
   readerListenFirst: 'read.listenFirst',
   /** Ear-training (minimal pair) level and accuracy, as JSON. */
   hvptStats: 'speak.hvptStats',
+  /** Daily path steps skipped today, as JSON `{ date, steps }`. */
+  dailyPathSkips: 'today.skipped',
 } as const;
 
 /** A metadata key. */

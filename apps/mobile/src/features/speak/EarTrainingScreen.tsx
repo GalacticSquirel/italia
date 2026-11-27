@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 
-import type { Rng, Voice } from '@italia/core';
+import { ACTIVITIES, type Rng, type Voice } from '@italia/core';
 import type { MinimalPairContrast, MinimalPairItem } from '@italia/speech';
 
 import { META_KEYS } from '@/data';
 import { useRepositories } from '@/db';
 import { usePracticeSession } from '@/features/study/usePracticeSession';
+import { NextStepHandoff } from '@/features/today/components/NextStepHandoff';
+import { EAR_TRAINING_ROUND } from '@/features/today/dailyPath';
+import { closeStep } from '@/features/today/navigation';
 import { ITALIAN, useSpeech } from '@/speech';
 import { Button, Card, Screen, Text, useTheme } from '@/ui';
 
@@ -41,7 +44,6 @@ function spokenForm(contrast: MinimalPairContrast, item: MinimalPairItem): strin
 }
 
 /** Activity recorded on the study session (ear training has no end, so only its time counts). */
-const EAR_TRAINING_ACTIVITY = 'ear_training';
 
 export interface EarTrainingScreenProps {
   /** Random numbers (tests). */
@@ -66,7 +68,7 @@ export function EarTrainingScreen({ rng = Math.random }: EarTrainingScreenProps)
   const [answer, setAnswer] = useState<Answer>(null);
   const [count, setCount] = useState({ right: 0, total: 0 });
   const rngRef = useRef(rng);
-  const practice = usePracticeSession(EAR_TRAINING_ACTIVITY);
+  const practice = usePracticeSession(ACTIVITIES.earTraining);
 
   useEffect(() => {
     let live = true;
@@ -124,6 +126,8 @@ export function EarTrainingScreen({ rng = Math.random }: EarTrainingScreenProps)
     setStats(result.stats);
     repos.meta.set(META_KEYS.hvptStats, JSON.stringify(result.stats));
     setCount((c) => ({ right: c.right + (result.correct ? 1 : 0), total: c.total + 1 }));
+    // A round of the daily path's listening step counts as finished practice.
+    if (count.total + 1 === EAR_TRAINING_ROUND) practice.complete();
     setAnswer({ chosen: item, correct: result.correct, levelChange: result.levelChange });
   };
 
@@ -186,13 +190,28 @@ export function EarTrainingScreen({ rng = Math.random }: EarTrainingScreenProps)
           </Text>
           {answer.levelChange === 1 ? <Text>Level up: faster speech and harder pairs.</Text> : null}
           {answer.levelChange === -1 ? <Text>Back a level to steady things.</Text> : null}
+          {count.total === EAR_TRAINING_ROUND ? null : (
+            <Button
+              label="Next"
+              onPress={() => {
+                advance(stats, trial);
+              }}
+            />
+          )}
+        </Card>
+      ) : null}
+      {answer && count.total === EAR_TRAINING_ROUND ? (
+        <View style={{ gap: spacing.sm }} testID="ear-round-done">
+          <Text variant="heading">{`Round complete: ${String(count.right)} of ${String(count.total)} right`}</Text>
+          <NextStepHandoff onDone={closeStep} />
           <Button
-            label="Next"
+            label="Keep training"
+            variant="secondary"
             onPress={() => {
               advance(stats, trial);
             }}
           />
-        </Card>
+        </View>
       ) : null}
     </Screen>
   );

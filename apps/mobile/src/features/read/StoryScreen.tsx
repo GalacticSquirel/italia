@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { ScrollView, StyleSheet, View, type ScrollViewInstance } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { NextStepHandoff } from '@/features/today/components/NextStepHandoff';
 import { Button, Card, Chip, EmptyState, Screen, Text, useTheme } from '@/ui';
 
 import { ComprehensionCheck } from './components/ComprehensionCheck';
@@ -201,19 +202,16 @@ export function StoryScreen({ storyId, onOpenStory, onOpenWord, onClose }: Story
               </Text>
               {data.nextEpisodeId ? (
                 <Button
-                  label="Next episode"
+                  label="Read the next episode"
+                  variant="secondary"
                   onPress={() => {
                     if (data.nextEpisodeId) onOpenStory(data.nextEpisodeId);
                   }}
                 />
               ) : null}
-              <Button
-                label="Back to stories"
-                variant={data.nextEpisodeId ? 'secondary' : 'primary'}
-                onPress={onClose}
-              />
             </Card>
           ) : null}
+          {reader.phase === 'done' ? <NextStepHandoff onDone={onClose} /> : null}
         </View>
       </ScrollView>
 
